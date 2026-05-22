@@ -67,6 +67,7 @@ def test_nurse_task_assignment_fixture_matches_python_contract() -> None:
         "nurse-task-assignment-unknown-task.json",
         "nurse-task-assignment-task-assigned-twice.json",
         "nurse-task-assignment-minute-mismatch.json",
+        "nurse-task-assignment-mismatched-scenario.json",
     ],
 )
 def test_invalid_nurse_task_assignment_fixtures_are_rejected(fixture_name: str) -> None:

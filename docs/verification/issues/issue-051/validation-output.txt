@@ -4,3 +4,4 @@ nurse-task-assignment-unknown-nurse.json: rejected (taskAssignments[0].nurseId r
 nurse-task-assignment-unknown-task.json: rejected (taskAssignments[0].taskId references an unknown generated task)
 nurse-task-assignment-task-assigned-twice.json: rejected (duplicate nurse task assignment task ids are not allowed)
 nurse-task-assignment-minute-mismatch.json: rejected (taskAssignments[0].minute must match the generated task scheduledMinute)
+nurse-task-assignment-mismatched-scenario.json: rejected (nurseTaskAssignment.scenarioId must match the referenced generated task set scenarioId)

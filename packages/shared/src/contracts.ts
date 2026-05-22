@@ -1002,6 +1002,11 @@ export function validateNurseTaskAssignmentContract(
       "nurseTaskAssignment.generatedTaskSetId must match the referenced generated task set"
     );
   }
+  if (generatedTaskSet != null && scenarioId !== generatedTaskSet.scenarioId) {
+    throw new Error(
+      "nurseTaskAssignment.scenarioId must match the referenced generated task set scenarioId"
+    );
+  }
 
   const taskAssignments = requireArray(contract.taskAssignments, "taskAssignments").map(
     validateNurseTaskAssignment

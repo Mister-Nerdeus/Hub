@@ -1,0 +1,20 @@
+git status --short
+git log --oneline -5
+npm --workspace packages/shared test
+cd apps/api && python -m pytest tests/contracts
+cd apps/api && python -m pytest
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git diff -- .github
+git diff --check
+docker compose down
+node scripts/verify-local.mjs
+npm run evidence:local -- --tracked
+node scripts/check-docs-contracts.mjs
+git diff --name-only
+git diff --stat
+git status --short
+git commit -m "Harden Phase 5 assignment scenario validation"
+git push

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+  "scenarioId": "other-scenario",
+  "assignmentSetId": "manual-assignment-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "name": "Invalid Mismatched Scenario",
+  "description": "Synthetic invalid nurse-task assignment fixture.",
+  "taskAssignments": [
+    {
+      "id": "nurse-task-task-basic-room-01-medication-001",
+      "taskId": "task-basic-room-01-medication-001",
+      "nurseId": "nurse-alpha",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 0
+    }
+  ]
+}

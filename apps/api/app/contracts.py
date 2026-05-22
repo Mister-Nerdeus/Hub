@@ -843,6 +843,13 @@ def validate_nurse_task_assignment_contract(
         raise ValueError(
             "nurse task assignment generatedTaskSetId must match the referenced generated task set"
         )
+    if (
+        generated_task_set is not None
+        and nurse_task_assignment.scenarioId != generated_task_set.scenarioId
+    ):
+        raise ValueError(
+            "nurse task assignment scenarioId must match the referenced generated task set scenarioId"
+        )
 
     nurse_ids = {nurse.id for nurse in assignment_set.nurses} if assignment_set else set()
     tasks_by_id = (

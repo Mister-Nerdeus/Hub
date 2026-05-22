@@ -362,7 +362,8 @@ const invalidNurseTaskAssignmentFixtures = [
   "nurse-task-assignment-unknown-nurse.json",
   "nurse-task-assignment-unknown-task.json",
   "nurse-task-assignment-task-assigned-twice.json",
-  "nurse-task-assignment-minute-mismatch.json"
+  "nurse-task-assignment-minute-mismatch.json",
+  "nurse-task-assignment-mismatched-scenario.json"
 ];
 
 for (const fixtureName of invalidNurseTaskAssignmentFixtures) {
