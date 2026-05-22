@@ -1,0 +1,3 @@
+git status --short --branch
+$required = @('Depends On','Non-Goals','Commands Codex Must Run','Required Evidence','Closeout Response Format','Do Not Close Unless'); foreach ($item in $required) { if (-not (Select-String -Path 'docs/codex/codex-issue-template-v2.md' -Pattern ([regex]::Escape($item)) -Quiet)) { throw "Missing $item" } }; 'template fields present'
+git diff --check

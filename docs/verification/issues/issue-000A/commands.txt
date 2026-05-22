@@ -1,0 +1,6 @@
+git status --short --branch
+git clone https://github.com/Mister-Nerdeus/Hub.git .
+bash -lc "test -f AGENTS.md && test -f docs/codex/codex-operating-rules.md && test -f docs/codex/issue-closeout-format.md"
+$paths = @('AGENTS.md','docs/codex/codex-operating-rules.md','docs/codex/issue-closeout-format.md','docs/codex/drift-traps.md','docs/codex/forbidden-implementation-patterns.md','docs/codex/codex-issue-template-v2.md','.github/ISSUE_TEMPLATE/codex_issue.yml','docs/contracts/codex-global-invariants.md','docs/compliance/non-phi-policy.md','docs/architecture/dependency-decision-matrix.md','docs/contracts/reproducibility-contract.md'); foreach ($path in $paths) { if (-not (Test-Path -Path $path -PathType Leaf)) { throw "Missing $path" } }; 'required and linked files present'
+$links = Select-String -Path AGENTS.md -Pattern '\]\(([^)]+)\)' | ForEach-Object { [regex]::Match($_.Line, '\]\(([^)]+)\)').Groups[1].Value }; foreach ($link in $links) { if (-not (Test-Path -Path $link -PathType Leaf)) { throw "Broken AGENTS.md link: $link" } }; 'AGENTS.md links resolve'
+git diff --check

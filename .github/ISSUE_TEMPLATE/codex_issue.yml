@@ -1,0 +1,122 @@
+name: Codex Issue
+description: Executable issue format for Codex implementation work.
+title: "Issue XXX — Title"
+labels:
+  - codex
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What failure or missing capability this issue fixes.
+    validations:
+      required: true
+  - type: textarea
+    id: depends_on
+    attributes:
+      label: Depends On
+      description: Issue IDs that must be completed first.
+    validations:
+      required: true
+  - type: textarea
+    id: source_contract
+    attributes:
+      label: Source Contract
+      description: Exact source-plan rule this issue implements.
+    validations:
+      required: true
+  - type: textarea
+    id: non_goals
+    attributes:
+      label: Non-Goals
+      description: What Codex must not build in this issue.
+    validations:
+      required: true
+  - type: textarea
+    id: files_to_create
+    attributes:
+      label: Files to Create
+      description: Exact paths.
+    validations:
+      required: true
+  - type: textarea
+    id: files_to_modify
+    attributes:
+      label: Files to Modify
+      description: Exact paths, if known.
+    validations:
+      required: false
+  - type: textarea
+    id: invariants
+    attributes:
+      label: Invariants
+      description: Rules that must remain true after the issue.
+    validations:
+      required: true
+  - type: textarea
+    id: failure_reproduction_first
+    attributes:
+      label: Failure Reproduction First
+      description: For fixes or behavior validation, describe the failing test to add before implementation.
+    validations:
+      required: false
+  - type: textarea
+    id: implementation_plan
+    attributes:
+      label: Implementation Plan
+      description: Step-by-step implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: required_tests
+    attributes:
+      label: Required Tests
+      description: Specific unit, integration, UI, or proof tests.
+    validations:
+      required: true
+  - type: textarea
+    id: commands_codex_must_run
+    attributes:
+      label: Commands Codex Must Run
+      description: Exact commands.
+      value: |
+        docker compose config
+        docker compose up --build -d
+        docker compose ps
+        curl -f http://localhost:8000/health
+        cd apps/api && pytest
+        cd apps/web && npm run build
+        cd packages/shared && npm test
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance_gates
+    attributes:
+      label: Acceptance Gates
+      description: Binary pass/fail gates.
+    validations:
+      required: true
+  - type: textarea
+    id: required_evidence
+    attributes:
+      label: Required Evidence
+      description: Screenshots, JSON samples, API responses, test output, generated reports, or verification artifacts.
+      value: |
+        docs/verification/issues/issue-XXX/closeout.md
+    validations:
+      required: true
+  - type: textarea
+    id: closeout_response_format
+    attributes:
+      label: Closeout Response Format
+      description: Required final response sections.
+      value: |
+        - Summary
+        - Files changed
+        - Commands run
+        - Tests passed
+        - Evidence paths
+        - Known limitations
+        - Next recommended issue
+    validations:
+      required: true
