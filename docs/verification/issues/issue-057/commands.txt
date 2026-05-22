@@ -1,0 +1,10 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm --workspace packages/shared test
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose down
+node scripts/verify-local.mjs
+chrome --headless=new --disable-gpu --window-size=1440,1800 --screenshot=docs/verification/issues/issue-057/screenshots/report-proof.png http://127.0.0.1:5181
+git diff --name-only

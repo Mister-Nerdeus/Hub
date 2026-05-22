@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "report-operational-basic",
+  "reportType": "operational_summary",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "title": "Operational Summary Report",
+  "nurseSummaries": [],
+  "timelineSummary": {
+    "bucketCount": 0,
+    "busiestMinute": null,
+    "busiestMinuteTaskCount": 0,
+    "totalInterruptiveTasks": 0
+  },
+  "warningSummary": {
+    "infoCount": 0,
+    "warningCount": 0,
+    "criticalCount": 0,
+    "warningCodes": {}
+  },
+  "unassignedTaskSummary": {
+    "unassignedTaskCount": 0,
+    "taskIds": [],
+    "roomIds": []
+  },
+  "limitations": [
+    "Operational-only inspection summary based on synthetic Phase 5 task workload outputs.",
+    "No optimizer or workload rebalancing is applied.",
+    "No task-completion simulation is performed.",
+    "No walking route calculation is performed."
+  ]
+}

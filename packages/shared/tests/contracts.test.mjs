@@ -12,6 +12,7 @@ import {
   validateGeneratedOperationalTaskSet,
   validateManualAssignmentContract,
   validateNurseTaskAssignmentContract,
+  validateOperationalReportContract,
   validatePlanContract,
   validateRoomLoads,
   validateScenarioContract,
@@ -23,6 +24,7 @@ const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const invalidFixturesDir = join(fixturesDir, "invalid");
 const taskFixturesDir = join(fixturesDir, "tasks");
 const invalidTaskFixturesDir = join(taskFixturesDir, "invalid");
+const reportFixturesDir = join(fixturesDir, "reports");
 
 function readFixture(name) {
   return JSON.parse(readFileSync(join(fixturesDir, name), "utf8"));
@@ -34,6 +36,10 @@ function readInvalidFixture(name) {
 
 function readTaskFixture(name) {
   return JSON.parse(readFileSync(join(taskFixturesDir, name), "utf8"));
+}
+
+function readReportFixture(name) {
+  return JSON.parse(readFileSync(join(reportFixturesDir, name), "utf8"));
 }
 
 function readInvalidTaskFixture(name) {
@@ -205,6 +211,90 @@ test("nurse task assignment fixture validates against TypeScript contract", () =
 
   assert.equal(nurseTaskAssignment.schemaVersion, "1.0.0");
   assert.equal(nurseTaskAssignment.taskAssignments.length, taskSet.generatedTasks.length);
+});
+
+test("operational report fixture validates against TypeScript contract with Phase 5 context", () => {
+  const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+  const generatedTaskSet = validateGeneratedOperationalTaskSet(
+    readTaskFixture("generated-task-set-basic.json"),
+    scenario
+  );
+  const assignmentResult = readTaskFixture("nurse-task-assignments-basic.json");
+  const nurseTaskAssignmentSet = validateNurseTaskAssignmentContract(
+    assignmentResult.assignmentSet,
+    scenario,
+    assignmentSet,
+    generatedTaskSet
+  );
+  const report = validateOperationalReportContract(
+    readReportFixture("operational-report-basic.json"),
+    {
+      scenario,
+      generatedTaskSet,
+      nurseTaskAssignmentSet,
+      manualAssignmentSet: assignmentSet,
+      warnings: assignmentResult.warnings
+    }
+  );
+
+  assert.equal(report.reportType, "operational_summary");
+  assert.equal(report.summary.totalGeneratedTasks, generatedTaskSet.generatedTasks.length);
+  assert.equal(report.unassignedTaskSummary.taskIds.length, 1);
+});
+
+test("operational report builder outputs validate against TypeScript contract", () => {
+  const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+  const generatedTaskSet = validateGeneratedOperationalTaskSet(
+    readTaskFixture("generated-task-set-basic.json"),
+    scenario
+  );
+  const assignmentResult = readTaskFixture("nurse-task-assignments-basic.json");
+  const nurseTaskAssignmentSet = validateNurseTaskAssignmentContract(
+    assignmentResult.assignmentSet,
+    scenario,
+    assignmentSet,
+    generatedTaskSet
+  );
+  const context = {
+    scenario,
+    generatedTaskSet,
+    nurseTaskAssignmentSet,
+    manualAssignmentSet: assignmentSet,
+    warnings: assignmentResult.warnings
+  };
+
+  assert.equal(
+    validateOperationalReportContract(
+      readReportFixture("operational-summary-report-output.json"),
+      context
+    ).reportType,
+    "operational_summary"
+  );
+  assert.equal(
+    validateOperationalReportContract(readReportFixture("nurse-workload-report-output.json"), context)
+      .reportType,
+    "nurse_workload"
+  );
+  assert.equal(
+    validateOperationalReportContract(readReportFixture("unassigned-task-report-output.json"), context)
+      .reportType,
+    "unassigned_tasks"
+  );
+  assert.equal(
+    validateOperationalReportContract(readReportFixture("warning-report-output.json"), context)
+      .reportType,
+    "warnings"
+  );
 });
 
 const invalidPlanFixtures = [
@@ -381,6 +471,46 @@ for (const fixtureName of invalidNurseTaskAssignmentFixtures) {
         assignmentSet,
         taskSet
       )
+    );
+  });
+}
+
+const invalidOperationalReportFixtures = [
+  "report-missing-summary.json",
+  "report-clinical-safety-claim.json",
+  "report-unknown-nurse.json",
+  "report-unknown-task.json",
+  "report-count-mismatch.json"
+];
+
+for (const fixtureName of invalidOperationalReportFixtures) {
+  test(`${fixtureName} is rejected by TypeScript operational report contract`, () => {
+    const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
+    const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+    const assignmentSet = validateManualAssignmentContract(
+      readFixture("manual-assignment-basic.json"),
+      plan
+    );
+    const generatedTaskSet = validateGeneratedOperationalTaskSet(
+      readTaskFixture("generated-task-set-basic.json"),
+      scenario
+    );
+    const assignmentResult = readTaskFixture("nurse-task-assignments-basic.json");
+    const nurseTaskAssignmentSet = validateNurseTaskAssignmentContract(
+      assignmentResult.assignmentSet,
+      scenario,
+      assignmentSet,
+      generatedTaskSet
+    );
+
+    assert.throws(() =>
+      validateOperationalReportContract(readInvalidFixture(fixtureName), {
+        scenario,
+        generatedTaskSet,
+        nurseTaskAssignmentSet,
+        manualAssignmentSet: assignmentSet,
+        warnings: assignmentResult.warnings
+      })
     );
   });
 }

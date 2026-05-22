@@ -10,9 +10,11 @@ from app.contracts import (
     PlanContract,
     ScenarioContract,
     TaskTemplateContract,
+    Warning,
     validate_generated_operational_task_set,
     validate_manual_assignment_contract,
     validate_nurse_task_assignment_contract,
+    validate_operational_report_contract,
     validate_room_loads,
     validate_shift_scenario_contract,
 )
@@ -22,6 +24,7 @@ FIXTURES = ROOT / "packages" / "shared" / "fixtures"
 INVALID_FIXTURES = FIXTURES / "invalid"
 TASK_FIXTURES = FIXTURES / "tasks"
 INVALID_TASK_FIXTURES = TASK_FIXTURES / "invalid"
+REPORT_FIXTURES = FIXTURES / "reports"
 
 
 def load_fixture(name: str) -> dict:
@@ -36,6 +39,11 @@ def load_invalid_fixture(name: str) -> dict:
 
 def load_task_fixture(name: str) -> dict:
     with (TASK_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
+def load_report_fixture(name: str) -> dict:
+    with (REPORT_FIXTURES / name).open(encoding="utf-8") as fixture:
         return json.load(fixture)
 
 
@@ -145,6 +153,36 @@ def test_phase5_nurse_task_assignment_fixture_matches_python_contract() -> None:
     )
 
     assert len(nurse_task_assignment.taskAssignments) == task_set.taskCount
+
+
+def test_phase6_operational_report_fixture_matches_python_contract() -> None:
+    scenario = validate_shift_scenario_contract(load_fixture("shift-scenario-basic.json"))
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    assignment_set = validate_manual_assignment_contract(
+        load_fixture("manual-assignment-basic.json"),
+        plan,
+    )
+    task_set = validate_generated_operational_task_set(
+        load_task_fixture("generated-task-set-basic.json"),
+        scenario=scenario,
+    )
+    assignment_result = load_task_fixture("nurse-task-assignments-basic.json")
+    nurse_task_assignment = validate_nurse_task_assignment_contract(
+        assignment_result["assignmentSet"],
+        scenario=scenario,
+        assignment_set=assignment_set,
+        generated_task_set=task_set,
+    )
+    report = validate_operational_report_contract(
+        load_report_fixture("operational-report-basic.json"),
+        scenario=scenario,
+        generated_task_set=task_set,
+        nurse_task_assignment_set=nurse_task_assignment,
+        manual_assignment_set=assignment_set,
+        warnings=[Warning.model_validate(warning) for warning in assignment_result["warnings"]],
+    )
+
+    assert report.summary.totalGeneratedTasks == task_set.taskCount
 
 
 @pytest.mark.parametrize(

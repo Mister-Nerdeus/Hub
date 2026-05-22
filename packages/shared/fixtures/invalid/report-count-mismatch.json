@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "report-operational-basic",
+  "reportType": "operational_summary",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "title": "Operational Summary Report",
+  "summary": {
+    "totalGeneratedTasks": 6,
+    "assignedTaskCount": 4,
+    "unassignedTaskCount": 1,
+    "totalEstimatedTaskMinutes": 73,
+    "nurseCount": 3,
+    "warningCount": 1
+  },
+  "nurseSummaries": [
+    {
+      "nurseId": "nurse-alpha",
+      "assignedTaskCount": 2,
+      "estimatedTaskMinutes": 18,
+      "warningCount": 0
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "assignedTaskCount": 1,
+      "estimatedTaskMinutes": 15,
+      "warningCount": 0
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "assignedTaskCount": 2,
+      "estimatedTaskMinutes": 25,
+      "warningCount": 0
+    }
+  ],
+  "timelineSummary": {
+    "bucketCount": 4,
+    "busiestMinute": 0,
+    "busiestMinuteTaskCount": 2,
+    "totalInterruptiveTasks": 2
+  },
+  "warningSummary": {
+    "infoCount": 0,
+    "warningCount": 1,
+    "criticalCount": 0,
+    "warningCodes": {
+      "ROOM_WITHOUT_COVERAGE": 1
+    }
+  },
+  "unassignedTaskSummary": {
+    "unassignedTaskCount": 1,
+    "taskIds": [
+      "task-basic-hall-bed-01-turnover-001"
+    ],
+    "roomIds": [
+      "hall-bed-01"
+    ]
+  },
+  "limitations": [
+    "Operational-only inspection summary based on synthetic Phase 5 task workload outputs.",
+    "No optimizer or workload rebalancing is applied.",
+    "No task-completion simulation is performed.",
+    "No walking route calculation is performed."
+  ]
+}

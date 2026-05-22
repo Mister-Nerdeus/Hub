@@ -108,6 +108,13 @@ export const NURSE_TASK_ASSIGNMENT_REASONS = [
   "unassigned"
 ] as const;
 
+export const REPORT_TYPES = [
+  "operational_summary",
+  "nurse_workload",
+  "unassigned_tasks",
+  "warnings"
+] as const;
+
 export const PLAN_ID_MAX_LENGTH = 64;
 export const PLAN_NAME_MAX_LENGTH = 160;
 export const PLAN_DESCRIPTION_MAX_LENGTH = 500;
@@ -128,6 +135,7 @@ export type AssignmentType = (typeof ASSIGNMENT_TYPES)[number];
 export type WarningSeverity = (typeof WARNING_SEVERITIES)[number];
 export type WarningCode = (typeof WARNING_CODES)[number];
 export type NurseTaskAssignmentReason = (typeof NURSE_TASK_ASSIGNMENT_REASONS)[number];
+export type ReportType = (typeof REPORT_TYPES)[number];
 
 export type ScaleSettings = {
   unit: "feet";
@@ -545,6 +553,67 @@ export type BasicNurseTaskAssignmentResult = {
   unassignedTaskCount: number;
   perNurseTaskCounts: Record<string, number>;
   perNurseEstimatedMinutes: Record<string, number>;
+};
+
+export type OperationalReportSummary = {
+  totalGeneratedTasks: number;
+  assignedTaskCount: number;
+  unassignedTaskCount: number;
+  totalEstimatedTaskMinutes: number;
+  nurseCount: number;
+  warningCount: number;
+};
+
+export type NurseOperationalSummary = {
+  nurseId: string;
+  assignedTaskCount: number;
+  estimatedTaskMinutes: number;
+  warningCount: number;
+};
+
+export type ReportTimelineSummary = {
+  bucketCount: number;
+  busiestMinute: number | null;
+  busiestMinuteTaskCount: number;
+  totalInterruptiveTasks: number;
+};
+
+export type ReportWarningSummary = {
+  infoCount: number;
+  warningCount: number;
+  criticalCount: number;
+  warningCodes: Record<string, number>;
+};
+
+export type ReportUnassignedTaskSummary = {
+  unassignedTaskCount: number;
+  taskIds: string[];
+  roomIds: string[];
+};
+
+export type OperationalReportContract = {
+  schemaVersion: "1.0.0";
+  reportId: string;
+  reportType: ReportType;
+  scenarioId: string;
+  generatedTaskSetId: string;
+  nurseTaskAssignmentSetId: string;
+  createdAt: string;
+  title: string;
+  summary: OperationalReportSummary;
+  nurseSummaries: NurseOperationalSummary[];
+  timelineSummary: ReportTimelineSummary;
+  warningSummary: ReportWarningSummary;
+  unassignedTaskSummary: ReportUnassignedTaskSummary;
+  limitations: string[];
+};
+
+export type OperationalReportValidationContext = {
+  scenario?: ShiftScenarioContract;
+  generatedTaskSet?: GeneratedOperationalTaskSetContract;
+  nurseTaskAssignmentSet?: NurseTaskAssignmentContract;
+  manualAssignmentSet?: ManualAssignmentContract;
+  warnings?: Warning[];
 };
 
 type IdSets = {
@@ -1053,6 +1122,546 @@ export function validateNurseTaskAssignmentContract(
   });
 
   return contract as NurseTaskAssignmentContract;
+}
+
+export function validateOperationalReportContract(
+  value: unknown,
+  context: OperationalReportValidationContext = {}
+): OperationalReportContract {
+  const report = requireRecord(value, "operationalReport");
+  requireExactKeys(report, "operationalReport", [
+    "schemaVersion",
+    "reportId",
+    "reportType",
+    "scenarioId",
+    "generatedTaskSetId",
+    "nurseTaskAssignmentSetId",
+    "createdAt",
+    "title",
+    "summary",
+    "nurseSummaries",
+    "timelineSummary",
+    "warningSummary",
+    "unassignedTaskSummary",
+    "limitations"
+  ]);
+
+  requireLiteral(report.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(report.reportId, "reportId");
+  requireEnum(report.reportType, REPORT_TYPES, "reportType");
+  requireString(report.scenarioId, "scenarioId");
+  requireString(report.generatedTaskSetId, "generatedTaskSetId");
+  requireString(report.nurseTaskAssignmentSetId, "nurseTaskAssignmentSetId");
+  requireIsoDateTime(report.createdAt, "createdAt");
+  validateReportText(report.title, "title");
+
+  const summary = validateOperationalReportSummary(report.summary);
+  const nurseSummaries = requireArray(report.nurseSummaries, "nurseSummaries").map(
+    validateNurseOperationalSummary
+  );
+  requireUnique(
+    "report nurse summary ids",
+    nurseSummaries.map((nurseSummary) => nurseSummary.nurseId)
+  );
+  const timelineSummary = validateReportTimelineSummary(report.timelineSummary);
+  const warningSummary = validateReportWarningSummary(report.warningSummary);
+  const unassignedTaskSummary = validateReportUnassignedTaskSummary(
+    report.unassignedTaskSummary
+  );
+  const limitations = requireArray(report.limitations, "limitations").map((limitation, index) =>
+    validateReportText(limitation, `limitations[${index}]`)
+  );
+  validateRequiredReportLimitations(limitations);
+
+  if (summary.assignedTaskCount + summary.unassignedTaskCount !== summary.totalGeneratedTasks) {
+    throw new Error(
+      "summary.assignedTaskCount plus summary.unassignedTaskCount must equal totalGeneratedTasks"
+    );
+  }
+  if (summary.nurseCount !== nurseSummaries.length) {
+    throw new Error("summary.nurseCount must equal nurseSummaries.length");
+  }
+  if (summary.warningCount !== warningSummary.infoCount + warningSummary.warningCount + warningSummary.criticalCount) {
+    throw new Error("summary.warningCount must equal warning severity counts");
+  }
+  if (summary.unassignedTaskCount !== unassignedTaskSummary.unassignedTaskCount) {
+    throw new Error("summary.unassignedTaskCount must equal unassignedTaskSummary.unassignedTaskCount");
+  }
+  if (timelineSummary.busiestMinute == null && timelineSummary.busiestMinuteTaskCount !== 0) {
+    throw new Error("timelineSummary.busiestMinuteTaskCount must be 0 when busiestMinute is null");
+  }
+
+  validateOperationalReportReferences(
+    report as OperationalReportContract,
+    {
+      summary,
+      nurseSummaries,
+      timelineSummary,
+      warningSummary,
+      unassignedTaskSummary
+    },
+    context
+  );
+
+  return report as OperationalReportContract;
+}
+
+function validateOperationalReportSummary(value: unknown): OperationalReportSummary {
+  const summary = requireRecord(value, "summary");
+  requireExactKeys(summary, "summary", [
+    "totalGeneratedTasks",
+    "assignedTaskCount",
+    "unassignedTaskCount",
+    "totalEstimatedTaskMinutes",
+    "nurseCount",
+    "warningCount"
+  ]);
+  requireInteger(summary.totalGeneratedTasks, "summary.totalGeneratedTasks", 0);
+  requireInteger(summary.assignedTaskCount, "summary.assignedTaskCount", 0);
+  requireInteger(summary.unassignedTaskCount, "summary.unassignedTaskCount", 0);
+  requireNonNegativeNumber(summary.totalEstimatedTaskMinutes, "summary.totalEstimatedTaskMinutes");
+  requireInteger(summary.nurseCount, "summary.nurseCount", 0);
+  requireInteger(summary.warningCount, "summary.warningCount", 0);
+  return summary as OperationalReportSummary;
+}
+
+function validateNurseOperationalSummary(value: unknown, index: number): NurseOperationalSummary {
+  const summary = requireRecord(value, `nurseSummaries[${index}]`);
+  requireExactKeys(summary, `nurseSummaries[${index}]`, [
+    "nurseId",
+    "assignedTaskCount",
+    "estimatedTaskMinutes",
+    "warningCount"
+  ]);
+  requireString(summary.nurseId, `nurseSummaries[${index}].nurseId`);
+  requireInteger(summary.assignedTaskCount, `nurseSummaries[${index}].assignedTaskCount`, 0);
+  requireNonNegativeNumber(
+    summary.estimatedTaskMinutes,
+    `nurseSummaries[${index}].estimatedTaskMinutes`
+  );
+  requireInteger(summary.warningCount, `nurseSummaries[${index}].warningCount`, 0);
+  return summary as NurseOperationalSummary;
+}
+
+function validateReportTimelineSummary(value: unknown): ReportTimelineSummary {
+  const summary = requireRecord(value, "timelineSummary");
+  requireExactKeys(summary, "timelineSummary", [
+    "bucketCount",
+    "busiestMinute",
+    "busiestMinuteTaskCount",
+    "totalInterruptiveTasks"
+  ]);
+  requireInteger(summary.bucketCount, "timelineSummary.bucketCount", 0);
+  if (summary.busiestMinute != null) {
+    requireInteger(summary.busiestMinute, "timelineSummary.busiestMinute", 0);
+  }
+  requireInteger(summary.busiestMinuteTaskCount, "timelineSummary.busiestMinuteTaskCount", 0);
+  requireInteger(summary.totalInterruptiveTasks, "timelineSummary.totalInterruptiveTasks", 0);
+  return summary as ReportTimelineSummary;
+}
+
+function validateReportWarningSummary(value: unknown): ReportWarningSummary {
+  const summary = requireRecord(value, "warningSummary");
+  requireExactKeys(summary, "warningSummary", [
+    "infoCount",
+    "warningCount",
+    "criticalCount",
+    "warningCodes"
+  ]);
+  requireInteger(summary.infoCount, "warningSummary.infoCount", 0);
+  requireInteger(summary.warningCount, "warningSummary.warningCount", 0);
+  requireInteger(summary.criticalCount, "warningSummary.criticalCount", 0);
+  const warningCodes = requireRecord(summary.warningCodes, "warningSummary.warningCodes");
+  for (const [code, count] of Object.entries(warningCodes)) {
+    requireString(code, "warningSummary.warningCodes key");
+    requireInteger(count, `warningSummary.warningCodes.${code}`, 0);
+  }
+  return summary as ReportWarningSummary;
+}
+
+function validateReportUnassignedTaskSummary(value: unknown): ReportUnassignedTaskSummary {
+  const summary = requireRecord(value, "unassignedTaskSummary");
+  requireExactKeys(summary, "unassignedTaskSummary", [
+    "unassignedTaskCount",
+    "taskIds",
+    "roomIds"
+  ]);
+  requireInteger(summary.unassignedTaskCount, "unassignedTaskSummary.unassignedTaskCount", 0);
+  const taskIds = requireArray(summary.taskIds, "unassignedTaskSummary.taskIds").map(
+    (taskId, index) => requireString(taskId, `unassignedTaskSummary.taskIds[${index}]`)
+  );
+  const roomIds = requireArray(summary.roomIds, "unassignedTaskSummary.roomIds").map(
+    (roomId, index) => requireString(roomId, `unassignedTaskSummary.roomIds[${index}]`)
+  );
+  requireUnique("unassigned report task ids", taskIds);
+  requireUnique("unassigned report room ids", roomIds);
+  if (summary.unassignedTaskCount !== taskIds.length) {
+    throw new Error("unassignedTaskSummary.unassignedTaskCount must equal taskIds.length");
+  }
+  return summary as ReportUnassignedTaskSummary;
+}
+
+function validateRequiredReportLimitations(limitations: string[]): void {
+  if (limitations.length === 0) {
+    throw new Error("limitations requires at least one entry");
+  }
+  const text = limitations.join(" ").toLowerCase();
+  const requiredPhrases: Array<[string, RegExp]> = [
+    ["operational-only", /\boperational[- ]only\b|\boperational inspection summary\b/],
+    ["no optimizer", /\bno optimizer\b/],
+    ["no task-completion simulation", /\bno task[- ]completion simulation\b/],
+    ["no walking route calculation", /\bno walking route calculation\b/]
+  ];
+  for (const [label, pattern] of requiredPhrases) {
+    if (!pattern.test(text)) {
+      throw new Error(`limitations must include ${label} language`);
+    }
+  }
+}
+
+function validateReportText(value: unknown, label: string): string {
+  const text = requireString(value, label);
+  const lowerText = text.toLowerCase();
+  const forbiddenPhrases = [
+    "safe staffing",
+    "safe-staffing",
+    "clinical adequacy",
+    "staffing certification",
+    "certifies staffing",
+    "safety certification",
+    "patient outcome",
+    "optimized assignment",
+    "completed work",
+    "walking route accuracy",
+    "delay prediction",
+    "diagnosis",
+    "treatment",
+    "clinical note",
+    "patient name",
+    "ehr"
+  ];
+  if (forbiddenPhrases.some((phrase) => lowerText.includes(phrase))) {
+    throw new Error(`${label} must remain an operational inspection summary only`);
+  }
+  return text;
+}
+
+function validateOperationalReportReferences(
+  report: OperationalReportContract,
+  validated: {
+    summary: OperationalReportSummary;
+    nurseSummaries: NurseOperationalSummary[];
+    timelineSummary: ReportTimelineSummary;
+    warningSummary: ReportWarningSummary;
+    unassignedTaskSummary: ReportUnassignedTaskSummary;
+  },
+  context: OperationalReportValidationContext
+): void {
+  if (context.scenario != null && report.scenarioId !== context.scenario.scenarioId) {
+    throw new Error("operationalReport.scenarioId must match the referenced scenario");
+  }
+
+  if (
+    context.generatedTaskSet != null &&
+    report.generatedTaskSetId !== context.generatedTaskSet.generatedTaskSetId
+  ) {
+    throw new Error(
+      "operationalReport.generatedTaskSetId must match the referenced generated task set"
+    );
+  }
+
+  if (
+    context.nurseTaskAssignmentSet != null &&
+    report.nurseTaskAssignmentSetId !== context.nurseTaskAssignmentSet.nurseTaskAssignmentSetId
+  ) {
+    throw new Error(
+      "operationalReport.nurseTaskAssignmentSetId must match the referenced nurse task assignment set"
+    );
+  }
+
+  if (context.generatedTaskSet != null) {
+    validateReportAgainstGeneratedTaskSet(report, validated, context.generatedTaskSet);
+  }
+  if (context.nurseTaskAssignmentSet != null) {
+    validateReportAgainstNurseTaskAssignmentSet(report, validated, context);
+  }
+  if (context.manualAssignmentSet != null) {
+    validateReportAgainstManualAssignmentSet(validated.nurseSummaries, context.manualAssignmentSet);
+  }
+  if (context.warnings != null) {
+    validateReportAgainstWarnings(report, validated, context.warnings);
+  }
+}
+
+function validateReportAgainstGeneratedTaskSet(
+  report: OperationalReportContract,
+  validated: {
+    summary: OperationalReportSummary;
+    timelineSummary: ReportTimelineSummary;
+    unassignedTaskSummary: ReportUnassignedTaskSummary;
+  },
+  generatedTaskSet: GeneratedOperationalTaskSetContract
+): void {
+  if (report.scenarioId !== generatedTaskSet.scenarioId) {
+    throw new Error("operationalReport.scenarioId must match the generated task set scenarioId");
+  }
+  const generatedTaskById = new Map(generatedTaskSet.generatedTasks.map((task) => [task.id, task]));
+  const totalEstimatedTaskMinutes = generatedTaskSet.generatedTasks.reduce(
+    (total, task) => total + task.estimatedDurationMinutes,
+    0
+  );
+  if (validated.summary.totalGeneratedTasks !== generatedTaskSet.generatedTasks.length) {
+    throw new Error("summary.totalGeneratedTasks must match the generated task set");
+  }
+  if (validated.summary.totalEstimatedTaskMinutes !== totalEstimatedTaskMinutes) {
+    throw new Error("summary.totalEstimatedTaskMinutes must match generated task durations");
+  }
+
+  const expectedTimelineSummary = summarizeGeneratedTaskTimeline(generatedTaskSet);
+  if (validated.timelineSummary.bucketCount !== expectedTimelineSummary.bucketCount) {
+    throw new Error("timelineSummary.bucketCount must match generated task scheduled minutes");
+  }
+  if (validated.timelineSummary.busiestMinute !== expectedTimelineSummary.busiestMinute) {
+    throw new Error("timelineSummary.busiestMinute must match generated task scheduled minutes");
+  }
+  if (
+    validated.timelineSummary.busiestMinuteTaskCount !==
+    expectedTimelineSummary.busiestMinuteTaskCount
+  ) {
+    throw new Error(
+      "timelineSummary.busiestMinuteTaskCount must match generated task scheduled minutes"
+    );
+  }
+  if (validated.timelineSummary.totalInterruptiveTasks !== expectedTimelineSummary.totalInterruptiveTasks) {
+    throw new Error("timelineSummary.totalInterruptiveTasks must match generated tasks");
+  }
+
+  for (const taskId of validated.unassignedTaskSummary.taskIds) {
+    if (!generatedTaskById.has(taskId)) {
+      throw new Error("unassignedTaskSummary.taskIds references an unknown generated task");
+    }
+  }
+}
+
+function validateReportAgainstNurseTaskAssignmentSet(
+  report: OperationalReportContract,
+  validated: {
+    summary: OperationalReportSummary;
+    nurseSummaries: NurseOperationalSummary[];
+    unassignedTaskSummary: ReportUnassignedTaskSummary;
+  },
+  context: OperationalReportValidationContext
+): void {
+  const assignmentSet = validateNurseTaskAssignmentContract(
+    context.nurseTaskAssignmentSet,
+    context.scenario,
+    context.manualAssignmentSet,
+    context.generatedTaskSet
+  );
+  if (report.scenarioId !== assignmentSet.scenarioId) {
+    throw new Error("operationalReport.scenarioId must match the nurse task assignment set");
+  }
+  if (report.generatedTaskSetId !== assignmentSet.generatedTaskSetId) {
+    throw new Error("operationalReport.generatedTaskSetId must match the nurse task assignment set");
+  }
+
+  const assignedAssignments = assignmentSet.taskAssignments.filter(
+    (assignment) => assignment.assignmentReason !== "unassigned"
+  );
+  const unassignedAssignments = assignmentSet.taskAssignments.filter(
+    (assignment) => assignment.assignmentReason === "unassigned"
+  );
+  if (validated.summary.assignedTaskCount !== assignedAssignments.length) {
+    throw new Error("summary.assignedTaskCount must match assigned task assignments");
+  }
+  if (validated.summary.unassignedTaskCount !== unassignedAssignments.length) {
+    throw new Error("summary.unassignedTaskCount must match unassigned task assignments");
+  }
+
+  const generatedTaskById = new Map(
+    context.generatedTaskSet?.generatedTasks.map((task) => [task.id, task]) ?? []
+  );
+  const expectedUnassignedTaskIds = unassignedAssignments.map((assignment) => assignment.taskId).sort();
+  const expectedUnassignedRoomIds = [
+    ...new Set(
+      expectedUnassignedTaskIds.map((taskId) => generatedTaskById.get(taskId)?.roomId).filter(isString)
+    )
+  ].sort();
+  if (!sameStringArray(validated.unassignedTaskSummary.taskIds, expectedUnassignedTaskIds)) {
+    throw new Error("unassignedTaskSummary.taskIds must match unassigned task assignments");
+  }
+  if (
+    context.generatedTaskSet != null &&
+    !sameStringArray(validated.unassignedTaskSummary.roomIds, expectedUnassignedRoomIds)
+  ) {
+    throw new Error("unassignedTaskSummary.roomIds must match unassigned generated task rooms");
+  }
+
+  if (context.generatedTaskSet != null) {
+    const expectedByNurse = summarizeNurseAssignments(
+      assignmentSet,
+      context.generatedTaskSet,
+      context.manualAssignmentSet
+    );
+    for (const nurseSummary of validated.nurseSummaries) {
+      const expected = expectedByNurse.get(nurseSummary.nurseId);
+      if (expected == null) {
+        continue;
+      }
+      if (nurseSummary.assignedTaskCount !== expected.assignedTaskCount) {
+        throw new Error(`nurseSummaries.${nurseSummary.nurseId}.assignedTaskCount must match task assignments`);
+      }
+      if (nurseSummary.estimatedTaskMinutes !== expected.estimatedTaskMinutes) {
+        throw new Error(`nurseSummaries.${nurseSummary.nurseId}.estimatedTaskMinutes must match generated tasks`);
+      }
+    }
+  }
+}
+
+function validateReportAgainstManualAssignmentSet(
+  nurseSummaries: NurseOperationalSummary[],
+  manualAssignmentSet: ManualAssignmentContract
+): void {
+  const nurseIds = new Set(manualAssignmentSet.nurses.map((nurse) => nurse.id));
+  for (const nurseSummary of nurseSummaries) {
+    if (!nurseIds.has(nurseSummary.nurseId)) {
+      throw new Error("nurseSummaries.nurseId references an unknown nurse");
+    }
+  }
+}
+
+function validateReportAgainstWarnings(
+  report: OperationalReportContract,
+  validated: {
+    summary: OperationalReportSummary;
+    nurseSummaries: NurseOperationalSummary[];
+    warningSummary: ReportWarningSummary;
+  },
+  warnings: Warning[]
+): void {
+  const warningSummary = summarizeWarnings(warnings);
+  if (report.summary.warningCount !== warnings.length) {
+    throw new Error("summary.warningCount must match supplied warnings");
+  }
+  if (validated.warningSummary.infoCount !== warningSummary.infoCount) {
+    throw new Error("warningSummary.infoCount must match supplied warnings");
+  }
+  if (validated.warningSummary.warningCount !== warningSummary.warningCount) {
+    throw new Error("warningSummary.warningCount must match supplied warnings");
+  }
+  if (validated.warningSummary.criticalCount !== warningSummary.criticalCount) {
+    throw new Error("warningSummary.criticalCount must match supplied warnings");
+  }
+  if (!sameRecord(validated.warningSummary.warningCodes, warningSummary.warningCodes)) {
+    throw new Error("warningSummary.warningCodes must match supplied warnings");
+  }
+  for (const nurseSummary of validated.nurseSummaries) {
+    const expectedWarningCount = warnings.filter((warning) =>
+      warning.nurseIds?.includes(nurseSummary.nurseId)
+    ).length;
+    if (nurseSummary.warningCount !== expectedWarningCount) {
+      throw new Error(`nurseSummaries.${nurseSummary.nurseId}.warningCount must match supplied warnings`);
+    }
+  }
+}
+
+function summarizeGeneratedTaskTimeline(
+  generatedTaskSet: GeneratedOperationalTaskSetContract
+): ReportTimelineSummary {
+  const countsByMinute = new Map<number, number>();
+  let totalInterruptiveTasks = 0;
+  for (const task of generatedTaskSet.generatedTasks) {
+    countsByMinute.set(task.scheduledMinute, (countsByMinute.get(task.scheduledMinute) ?? 0) + 1);
+    if (task.interruptive) {
+      totalInterruptiveTasks += 1;
+    }
+  }
+
+  let busiestMinute: number | null = null;
+  let busiestMinuteTaskCount = 0;
+  for (const [minute, count] of [...countsByMinute.entries()].sort(
+    ([leftMinute], [rightMinute]) => leftMinute - rightMinute
+  )) {
+    if (count > busiestMinuteTaskCount) {
+      busiestMinute = minute;
+      busiestMinuteTaskCount = count;
+    }
+  }
+
+  return {
+    bucketCount: countsByMinute.size,
+    busiestMinute,
+    busiestMinuteTaskCount,
+    totalInterruptiveTasks
+  };
+}
+
+function summarizeNurseAssignments(
+  assignmentSet: NurseTaskAssignmentContract,
+  generatedTaskSet: GeneratedOperationalTaskSetContract,
+  manualAssignmentSet?: ManualAssignmentContract
+): Map<string, { assignedTaskCount: number; estimatedTaskMinutes: number }> {
+  const taskById = new Map(generatedTaskSet.generatedTasks.map((task) => [task.id, task]));
+  const nurseIds = manualAssignmentSet?.nurses.map((nurse) => nurse.id) ?? [
+    ...new Set(assignmentSet.taskAssignments.map((assignment) => assignment.nurseId).filter(isString))
+  ];
+  const summaries = new Map(
+    nurseIds.map((nurseId) => [nurseId, { assignedTaskCount: 0, estimatedTaskMinutes: 0 }])
+  );
+
+  for (const assignment of assignmentSet.taskAssignments) {
+    if (assignment.nurseId == null) {
+      continue;
+    }
+    const summary = summaries.get(assignment.nurseId) ?? {
+      assignedTaskCount: 0,
+      estimatedTaskMinutes: 0
+    };
+    summary.assignedTaskCount += 1;
+    summary.estimatedTaskMinutes += taskById.get(assignment.taskId)?.estimatedDurationMinutes ?? 0;
+    summaries.set(assignment.nurseId, summary);
+  }
+  return summaries;
+}
+
+function summarizeWarnings(warnings: Warning[]): ReportWarningSummary {
+  const warningCodes: Record<string, number> = {};
+  const summary: ReportWarningSummary = {
+    infoCount: 0,
+    warningCount: 0,
+    criticalCount: 0,
+    warningCodes
+  };
+  for (const warning of [...warnings].sort((left, right) => left.id.localeCompare(right.id))) {
+    if (warning.severity === "info") {
+      summary.infoCount += 1;
+    }
+    if (warning.severity === "warning") {
+      summary.warningCount += 1;
+    }
+    if (warning.severity === "critical") {
+      summary.criticalCount += 1;
+    }
+    warningCodes[warning.code] = (warningCodes[warning.code] ?? 0) + 1;
+  }
+  return summary;
+}
+
+function sameStringArray(left: string[], right: string[]): boolean {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+
+function sameRecord(left: Record<string, number>, right: Record<string, number>): boolean {
+  const leftKeys = Object.keys(left).sort();
+  const rightKeys = Object.keys(right).sort();
+  if (!sameStringArray(leftKeys, rightKeys)) {
+    return false;
+  }
+  return leftKeys.every((key) => left[key] === right[key]);
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
 }
 
 function validateRoomWorkloadWeights(value: unknown): RoomWorkloadWeights {

@@ -39,4 +39,8 @@ Phase 4 adds visible assumptions, operational task templates, typical and slamme
 
 Phase 5 adds assumptions-driven scoring parity, generated task-set validation, deterministic task timeline aggregation, nurse task assignment contracts, and a basic rule-based proof that generated operational tasks can be assigned through existing manual room coverage. Phase 5 remains local-first and uses synthetic operational data only.
 
+## Phase 6 Reporting Foundation
+
+Phase 6 adds operational report contracts, deterministic report builders, unassigned task and warning reports, and an API-free web proof surface for inspecting generated operational task workload. Phase 6 remains local-first, reports are operational inspection summaries only, and the proof uses synthetic operational data only.
+
 Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, workload balancing, and optimization remain out of scope until later accepted contracts.

@@ -7,3 +7,7 @@ export * from "./random/seededRandom.js";
 export * from "./tasks/aggregateTaskTimeline.js";
 export * from "./tasks/assignTasksByManualCoverage.js";
 export * from "./tasks/generateOperationalTasks.js";
+export * from "./reports/buildOperationalSummaryReport.js";
+export * from "./reports/buildNurseWorkloadReport.js";
+export * from "./reports/buildUnassignedTaskReport.js";
+export * from "./reports/buildWarningReport.js";

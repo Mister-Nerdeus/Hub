@@ -8,6 +8,8 @@ import { planDraftReducer } from "./features/plan-builder/planDraftReducer";
 import { PlanRenderer } from "./features/plan-renderer/PlanRenderer";
 import { PlanImportExportPanel } from "./features/plans/PlanImportExportPanel";
 import { PlanSaveLoadPanel } from "./features/plans/PlanSaveLoadPanel";
+import { OperationalReportsProof } from "./features/reports/OperationalReportsProof";
+import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
 import {
   manualAssignmentBasic,
   manualAssignmentRoomLoads
@@ -21,6 +23,7 @@ export function App() {
     manualAssignmentRoomLoads,
     manualAssignmentBasic
   );
+  const reportProofViewModel = createReportProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -40,6 +43,7 @@ export function App() {
       </section>
 
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
+      <OperationalReportsProof viewModel={reportProofViewModel} />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

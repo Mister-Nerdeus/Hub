@@ -37,6 +37,7 @@ Issue folders from Issue 015 forward are checked by `node scripts/check-docs-con
 When an issue creates a phase-level evidence gate, wire the required phase evidence files into `node scripts/check-docs-contracts.mjs` before closing the issue so the documentation claim and local checker behavior stay aligned.
 Phase 3 manual assignment evidence is docs-gated by `node scripts/check-docs-contracts.mjs`; the gate requires the Phase 3 evidence doc, checklist, Issue 038 scoring output, warning output, screenshot, commands, and closeout artifacts to exist and remain non-empty.
 Phase 5 task-assignment evidence is docs-gated by `node scripts/check-docs-contracts.mjs`; the gate requires the Phase 5 evidence doc, checklist, Issue 053 parity output, timeline output, assignment output, validation output, commands, and closeout artifacts to exist and remain non-empty.
+Phase 6 reporting evidence is docs-gated by `node scripts/check-docs-contracts.mjs`; the gate requires the Phase 6 evidence doc, checklist, Issue 058 report output, screenshot, validation output, commands, and closeout artifacts to exist and remain non-empty.
 Command evidence must come from local commands. The full local verifier must be run from a stopped Docker state when an issue changes runtime, API, web, shared contracts, or local verification behavior.
 Use `npm run evidence:local` when a task needs a consolidated local evidence pack for the current repository state.
 

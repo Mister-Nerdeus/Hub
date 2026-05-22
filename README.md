@@ -100,4 +100,6 @@ Phase 4 deterministic task-generation proof covers the assumptions register, ope
 
 Phase 5 task-assignment proof covers assumptions-driven scoring parity, public generated task-set validation, deterministic task timeline aggregation, nurse task assignment contracts, and basic manual room coverage assignment proof. It does not add optimization, workload balancing, task completion simulation, delay calculation, walking route calculation, reports, persistence, or UI.
 
-The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024, the Phase 3 gate evidence for Issue 038, the Phase 4 task-generation evidence for Issue 047, and the Phase 5 task-assignment evidence for Issue 053.
+Phase 6 reporting proof covers operational report contracts, deterministic report builders, unassigned task and warning reports, and an API-free web proof surface using local synthetic fixtures. It does not add PDF export, API endpoints, report persistence, optimization, task completion simulation, walking route calculation, delay calculation, reassignment suggestions, or clinical safety claims.
+
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024, the Phase 3 gate evidence for Issue 038, the Phase 4 task-generation evidence for Issue 047, the Phase 5 task-assignment evidence for Issue 053, and the Phase 6 reporting evidence for Issue 058.

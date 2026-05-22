@@ -170,6 +170,54 @@ const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 058 Phase 6 evidence",
+    paths: [
+      "docs/verification/phase-6-reporting-evidence.md",
+      "docs/verification/phase-6-reporting-checklist.md",
+      "docs/verification/issues/issue-058/report-output.json",
+      "docs/verification/issues/issue-058/screenshots/report-proof.png",
+      "docs/verification/issues/issue-058/validation-output.txt",
+      "docs/verification/issues/issue-058/commands.txt",
+      "docs/verification/issues/issue-058/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-6-reporting-evidence.md",
+        checks: [
+          ["Operational report contract", /\boperational report contract\b/i],
+          ["Operational summary report", /\boperational summary report\b/i],
+          ["Nurse workload report", /\bnurse workload report\b/i],
+          ["Unassigned task report", /\bunassigned task report\b/i],
+          ["Warning report", /\bwarning report\b/i],
+          ["API-free web proof", /\bapi-free web proof\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No task completion simulation", /\bno\b[\s\S]{0,80}\btask completion simulation\b/i],
+          ["No walking route calculation", /\bno\b[\s\S]{0,80}\bwalking route calculation\b/i],
+          ["No delay calculation", /\bno\b[\s\S]{0,80}\bdelay calculation\b/i],
+          ["No clinical safety claims", /\bno\b[\s\S]{0,80}\bclinical safety claims\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-6-reporting-checklist.md",
+        checks: [
+          ["Operational report contract", /\boperational report contract\b/i],
+          ["Operational summary report", /\boperational summary report\b/i],
+          ["Nurse workload report", /\bnurse workload report\b/i],
+          ["Unassigned task report", /\bunassigned task report\b/i],
+          ["Warning report", /\bwarning report\b/i],
+          ["API-free web proof", /\bapi-free web proof\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No task completion simulation", /\bno\b[\s\S]{0,80}\btask completion simulation\b/i],
+          ["No walking route calculation", /\bno\b[\s\S]{0,80}\bwalking route calculation\b/i],
+          ["No delay calculation", /\bno\b[\s\S]{0,80}\bdelay calculation\b/i],
+          ["No clinical safety claims", /\bno\b[\s\S]{0,80}\bclinical safety claims\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      }
+    ]
   }
 ];
 

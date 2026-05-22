@@ -7,6 +7,7 @@ The following patterns are not allowed unless a later issue explicitly changes t
 - PHI, real patient identity, names, MRNs, dates of birth, contact details, or free-text clinical notes.
 - EHR integration, imports, exports, or mapping workflows.
 - Clinical safety certification language.
+- Safe-staffing or clinical-adequacy report language.
 - Patient outcome prediction.
 - Hidden scoring models or optimizer-only objective functions.
 
@@ -20,6 +21,7 @@ The following patterns are not allowed unless a later issue explicitly changes t
 - Ambiguous unit conversion outside `pixelsPerUnit`.
 - Saved plan JSON that includes transient UI state.
 - Major dependencies without dependency matrix review.
+- Report builders that add UI, API endpoints, PDF export, persistence, optimizer behavior, task-completion simulation, walking route calculation, delay calculation, auto-fix behavior, or reassignment suggestions before those scopes are explicitly accepted.
 
 ## Evidence Violations
 

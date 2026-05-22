@@ -1,0 +1,10 @@
+npm --workspace packages/shared run build
+node --input-type=module -e "import('./packages/shared/dist/index.js').then((m) => { if (typeof m.validateOperationalReportContract !== 'function') { console.error('validateOperationalReportContract missing'); process.exit(1); } })"
+npm --workspace packages/shared test
+cd apps/api && python -m pytest tests/contracts
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose down
+node scripts/verify-local.mjs

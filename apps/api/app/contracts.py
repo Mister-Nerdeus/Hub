@@ -85,6 +85,12 @@ NurseTaskAssignmentReason = Literal[
     "float_coverage",
     "unassigned",
 ]
+ReportType = Literal[
+    "operational_summary",
+    "nurse_workload",
+    "unassigned_tasks",
+    "warnings",
+]
 
 PLAN_ID_MAX_LENGTH = 64
 PLAN_NAME_MAX_LENGTH = 160
@@ -697,6 +703,130 @@ class NurseTaskAssignmentContract(StrictModel):
         return self
 
 
+class OperationalReportSummary(StrictModel):
+    totalGeneratedTasks: int = Field(ge=0)
+    assignedTaskCount: int = Field(ge=0)
+    unassignedTaskCount: int = Field(ge=0)
+    totalEstimatedTaskMinutes: float = Field(ge=0)
+    nurseCount: int = Field(ge=0)
+    warningCount: int = Field(ge=0)
+
+
+class NurseOperationalSummary(StrictModel):
+    nurseId: str = Field(min_length=1)
+    assignedTaskCount: int = Field(ge=0)
+    estimatedTaskMinutes: float = Field(ge=0)
+    warningCount: int = Field(ge=0)
+
+
+class ReportTimelineSummary(StrictModel):
+    bucketCount: int = Field(ge=0)
+    busiestMinute: int | None = Field(default=None, ge=0)
+    busiestMinuteTaskCount: int = Field(ge=0)
+    totalInterruptiveTasks: int = Field(ge=0)
+
+
+class ReportWarningSummary(StrictModel):
+    infoCount: int = Field(ge=0)
+    warningCount: int = Field(ge=0)
+    criticalCount: int = Field(ge=0)
+    warningCodes: dict[str, int]
+
+    @field_validator("warningCodes")
+    @classmethod
+    def validate_warning_codes(cls, value: dict[str, int]) -> dict[str, int]:
+        for code, count in value.items():
+            if code == "":
+                raise ValueError("warning code keys must be non-empty")
+            if count < 0:
+                raise ValueError("warning code counts must be non-negative")
+        return value
+
+
+class ReportUnassignedTaskSummary(StrictModel):
+    unassignedTaskCount: int = Field(ge=0)
+    taskIds: list[str]
+    roomIds: list[str]
+
+    @field_validator("taskIds", "roomIds")
+    @classmethod
+    def validate_ids(cls, value: list[str]) -> list[str]:
+        if any(item == "" for item in value):
+            raise ValueError("report IDs must be non-empty")
+        require_unique("report IDs", value)
+        return value
+
+    @model_validator(mode="after")
+    def validate_count(self) -> "ReportUnassignedTaskSummary":
+        if self.unassignedTaskCount != len(self.taskIds):
+            raise ValueError("unassignedTaskCount must equal taskIds length")
+        return self
+
+
+class OperationalReportContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    reportId: str = Field(min_length=1)
+    reportType: ReportType
+    scenarioId: str = Field(min_length=1)
+    generatedTaskSetId: str = Field(min_length=1)
+    nurseTaskAssignmentSetId: str = Field(min_length=1)
+    createdAt: str = Field(min_length=1)
+    title: str = Field(min_length=1)
+    summary: OperationalReportSummary
+    nurseSummaries: list[NurseOperationalSummary]
+    timelineSummary: ReportTimelineSummary
+    warningSummary: ReportWarningSummary
+    unassignedTaskSummary: ReportUnassignedTaskSummary
+    limitations: list[str] = Field(min_length=1)
+
+    @field_validator("createdAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @field_validator("title")
+    @classmethod
+    def validate_title(cls, value: str) -> str:
+        return validate_report_text(value, "title")
+
+    @field_validator("limitations")
+    @classmethod
+    def validate_limitations(cls, value: list[str]) -> list[str]:
+        for index, limitation in enumerate(value):
+            validate_report_text(limitation, f"limitations[{index}]")
+        validate_required_report_limitations(value)
+        return value
+
+    @model_validator(mode="after")
+    def validate_counts(self) -> "OperationalReportContract":
+        if (
+            self.summary.assignedTaskCount + self.summary.unassignedTaskCount
+            != self.summary.totalGeneratedTasks
+        ):
+            raise ValueError("assignedTaskCount plus unassignedTaskCount must equal totalGeneratedTasks")
+        if self.summary.nurseCount != len(self.nurseSummaries):
+            raise ValueError("nurseCount must equal nurseSummaries length")
+        if (
+            self.summary.warningCount
+            != self.warningSummary.infoCount
+            + self.warningSummary.warningCount
+            + self.warningSummary.criticalCount
+        ):
+            raise ValueError("warningCount must equal warning severity counts")
+        if self.summary.unassignedTaskCount != self.unassignedTaskSummary.unassignedTaskCount:
+            raise ValueError("summary unassignedTaskCount must equal unassigned summary")
+        if self.timelineSummary.busiestMinute is None and self.timelineSummary.busiestMinuteTaskCount != 0:
+            raise ValueError("busiestMinuteTaskCount must be 0 when busiestMinute is null")
+        require_unique("report nurse summary ids", [summary.nurseId for summary in self.nurseSummaries])
+        return self
+
+
 def validate_room_loads(value: Any, plan: PlanContract | None = None) -> list[RoomLoad]:
     room_loads = TypeAdapter(list[RoomLoad]).validate_python(value)
     require_unique("room load ids", [load.roomId for load in room_loads])
@@ -873,6 +1003,281 @@ def validate_nurse_task_assignment_contract(
                 )
 
     return nurse_task_assignment
+
+
+def validate_operational_report_contract(
+    value: Any,
+    scenario: ScenarioContract | None = None,
+    generated_task_set: GeneratedOperationalTaskSetContract | None = None,
+    nurse_task_assignment_set: NurseTaskAssignmentContract | None = None,
+    manual_assignment_set: ManualAssignmentContract | None = None,
+    warnings: list[Warning] | None = None,
+) -> OperationalReportContract:
+    report = OperationalReportContract.model_validate(value)
+
+    if scenario is not None and report.scenarioId != scenario.scenarioId:
+        raise ValueError("operational report scenarioId must match the referenced scenario")
+    if (
+        generated_task_set is not None
+        and report.generatedTaskSetId != generated_task_set.generatedTaskSetId
+    ):
+        raise ValueError(
+            "operational report generatedTaskSetId must match the referenced generated task set"
+        )
+    if (
+        nurse_task_assignment_set is not None
+        and report.nurseTaskAssignmentSetId
+        != nurse_task_assignment_set.nurseTaskAssignmentSetId
+    ):
+        raise ValueError(
+            "operational report nurseTaskAssignmentSetId must match the referenced assignment set"
+        )
+
+    if generated_task_set is not None:
+        validate_report_against_generated_task_set(report, generated_task_set)
+    if nurse_task_assignment_set is not None:
+        validate_report_against_nurse_task_assignment_set(
+            report,
+            nurse_task_assignment_set,
+            scenario,
+            generated_task_set,
+            manual_assignment_set,
+        )
+    if manual_assignment_set is not None:
+        nurse_ids = {nurse.id for nurse in manual_assignment_set.nurses}
+        for nurse_summary in report.nurseSummaries:
+            if nurse_summary.nurseId not in nurse_ids:
+                raise ValueError("report nurse summary references unknown nurse")
+    if warnings is not None:
+        validate_report_against_warnings(report, warnings)
+
+    return report
+
+
+def validate_report_against_generated_task_set(
+    report: OperationalReportContract,
+    generated_task_set: GeneratedOperationalTaskSetContract,
+) -> None:
+    if report.scenarioId != generated_task_set.scenarioId:
+        raise ValueError("report scenarioId must match generated task set scenarioId")
+    task_by_id = {task.id: task for task in generated_task_set.generatedTasks}
+    total_estimated_minutes = sum(task.estimatedDurationMinutes for task in generated_task_set.generatedTasks)
+    if report.summary.totalGeneratedTasks != len(generated_task_set.generatedTasks):
+        raise ValueError("report totalGeneratedTasks must match generated task set")
+    if report.summary.totalEstimatedTaskMinutes != total_estimated_minutes:
+        raise ValueError("report totalEstimatedTaskMinutes must match generated task durations")
+
+    timeline_summary = summarize_generated_task_timeline(generated_task_set)
+    if report.timelineSummary != timeline_summary:
+        raise ValueError("report timeline summary must match generated tasks")
+
+    for task_id in report.unassignedTaskSummary.taskIds:
+        if task_id not in task_by_id:
+            raise ValueError("unassigned task summary references unknown generated task")
+
+
+def validate_report_against_nurse_task_assignment_set(
+    report: OperationalReportContract,
+    nurse_task_assignment_set: NurseTaskAssignmentContract,
+    scenario: ScenarioContract | None,
+    generated_task_set: GeneratedOperationalTaskSetContract | None,
+    manual_assignment_set: ManualAssignmentContract | None,
+) -> None:
+    assignment_set = validate_nurse_task_assignment_contract(
+        nurse_task_assignment_set.model_dump(),
+        scenario=scenario,
+        assignment_set=manual_assignment_set,
+        generated_task_set=generated_task_set,
+    )
+    if report.scenarioId != assignment_set.scenarioId:
+        raise ValueError("report scenarioId must match nurse task assignment set")
+    if report.generatedTaskSetId != assignment_set.generatedTaskSetId:
+        raise ValueError("report generatedTaskSetId must match nurse task assignment set")
+
+    assigned_assignments = [
+        assignment
+        for assignment in assignment_set.taskAssignments
+        if assignment.assignmentReason != "unassigned"
+    ]
+    unassigned_assignments = [
+        assignment
+        for assignment in assignment_set.taskAssignments
+        if assignment.assignmentReason == "unassigned"
+    ]
+    if report.summary.assignedTaskCount != len(assigned_assignments):
+        raise ValueError("report assignedTaskCount must match task assignments")
+    if report.summary.unassignedTaskCount != len(unassigned_assignments):
+        raise ValueError("report unassignedTaskCount must match task assignments")
+
+    expected_unassigned_task_ids = sorted(assignment.taskId for assignment in unassigned_assignments)
+    if report.unassignedTaskSummary.taskIds != expected_unassigned_task_ids:
+        raise ValueError("report unassigned task IDs must match task assignments")
+
+    if generated_task_set is not None:
+        task_by_id = {task.id: task for task in generated_task_set.generatedTasks}
+        expected_unassigned_room_ids = sorted(
+            {
+                task_by_id[task_id].roomId
+                for task_id in expected_unassigned_task_ids
+                if task_id in task_by_id
+            }
+        )
+        if report.unassignedTaskSummary.roomIds != expected_unassigned_room_ids:
+            raise ValueError("report unassigned room IDs must match generated tasks")
+
+        expected_nurse_summaries = summarize_nurse_assignments(
+            assignment_set,
+            generated_task_set,
+            manual_assignment_set,
+        )
+        for nurse_summary in report.nurseSummaries:
+            expected = expected_nurse_summaries.get(nurse_summary.nurseId)
+            if expected is None:
+                continue
+            if nurse_summary.assignedTaskCount != expected["assignedTaskCount"]:
+                raise ValueError("report nurse assigned task count must match task assignments")
+            if nurse_summary.estimatedTaskMinutes != expected["estimatedTaskMinutes"]:
+                raise ValueError("report nurse estimated minutes must match generated tasks")
+
+
+def validate_report_against_warnings(
+    report: OperationalReportContract,
+    warnings: list[Warning],
+) -> None:
+    warning_summary = summarize_warnings(warnings)
+    if report.summary.warningCount != len(warnings):
+        raise ValueError("report warningCount must match supplied warnings")
+    if report.warningSummary != warning_summary:
+        raise ValueError("report warning summary must match supplied warnings")
+    for nurse_summary in report.nurseSummaries:
+        expected_warning_count = len(
+            [
+                warning
+                for warning in warnings
+                if warning.nurseIds is not None and nurse_summary.nurseId in warning.nurseIds
+            ]
+        )
+        if nurse_summary.warningCount != expected_warning_count:
+            raise ValueError("report nurse warning count must match supplied warnings")
+
+
+def validate_report_text(value: str, label: str) -> str:
+    lower_value = value.lower()
+    forbidden_phrases = [
+        "safe staffing",
+        "safe-staffing",
+        "clinical adequacy",
+        "staffing certification",
+        "certifies staffing",
+        "safety certification",
+        "patient outcome",
+        "optimized assignment",
+        "completed work",
+        "walking route accuracy",
+        "delay prediction",
+        "diagnosis",
+        "treatment",
+        "clinical note",
+        "patient name",
+        "ehr",
+    ]
+    if any(phrase in lower_value for phrase in forbidden_phrases):
+        raise ValueError(f"{label} must remain an operational inspection summary only")
+    return value
+
+
+def validate_required_report_limitations(limitations: list[str]) -> None:
+    text = " ".join(limitations).lower()
+    required = [
+        ("operational-only", ("operational-only", "operational only", "operational inspection summary")),
+        ("no optimizer", ("no optimizer",)),
+        ("no task-completion simulation", ("no task-completion simulation", "no task completion simulation")),
+        ("no walking route calculation", ("no walking route calculation",)),
+    ]
+    for label, accepted_phrases in required:
+        if not any(phrase in text for phrase in accepted_phrases):
+            raise ValueError(f"limitations must include {label} language")
+
+
+def summarize_generated_task_timeline(
+    generated_task_set: GeneratedOperationalTaskSetContract,
+) -> ReportTimelineSummary:
+    counts_by_minute: dict[int, int] = {}
+    total_interruptive_tasks = 0
+    for task in generated_task_set.generatedTasks:
+        counts_by_minute[task.scheduledMinute] = counts_by_minute.get(task.scheduledMinute, 0) + 1
+        if task.interruptive:
+            total_interruptive_tasks += 1
+
+    busiest_minute = None
+    busiest_minute_task_count = 0
+    for minute in sorted(counts_by_minute):
+        count = counts_by_minute[minute]
+        if count > busiest_minute_task_count:
+            busiest_minute = minute
+            busiest_minute_task_count = count
+
+    return ReportTimelineSummary(
+        bucketCount=len(counts_by_minute),
+        busiestMinute=busiest_minute,
+        busiestMinuteTaskCount=busiest_minute_task_count,
+        totalInterruptiveTasks=total_interruptive_tasks,
+    )
+
+
+def summarize_nurse_assignments(
+    assignment_set: NurseTaskAssignmentContract,
+    generated_task_set: GeneratedOperationalTaskSetContract,
+    manual_assignment_set: ManualAssignmentContract | None,
+) -> dict[str, dict[str, float]]:
+    task_by_id = {task.id: task for task in generated_task_set.generatedTasks}
+    nurse_ids = (
+        [nurse.id for nurse in manual_assignment_set.nurses]
+        if manual_assignment_set is not None
+        else sorted(
+            {
+                assignment.nurseId
+                for assignment in assignment_set.taskAssignments
+                if assignment.nurseId is not None
+            }
+        )
+    )
+    summaries = {
+        nurse_id: {"assignedTaskCount": 0, "estimatedTaskMinutes": 0.0}
+        for nurse_id in nurse_ids
+    }
+    for assignment in assignment_set.taskAssignments:
+        if assignment.nurseId is None:
+            continue
+        summary = summaries.setdefault(
+            assignment.nurseId,
+            {"assignedTaskCount": 0, "estimatedTaskMinutes": 0.0},
+        )
+        summary["assignedTaskCount"] += 1
+        task = task_by_id.get(assignment.taskId)
+        summary["estimatedTaskMinutes"] += task.estimatedDurationMinutes if task is not None else 0
+    return summaries
+
+
+def summarize_warnings(warnings: list[Warning]) -> ReportWarningSummary:
+    warning_codes: dict[str, int] = {}
+    info_count = 0
+    warning_count = 0
+    critical_count = 0
+    for warning in sorted(warnings, key=lambda item: item.id):
+        if warning.severity == "info":
+            info_count += 1
+        if warning.severity == "warning":
+            warning_count += 1
+        if warning.severity == "critical":
+            critical_count += 1
+        warning_codes[warning.code] = warning_codes.get(warning.code, 0) + 1
+    return ReportWarningSummary(
+        infoCount=info_count,
+        warningCount=warning_count,
+        criticalCount=critical_count,
+        warningCodes=warning_codes,
+    )
 
 
 def expected_frequency_source_for_trigger(trigger: TaskTrigger) -> TaskFrequencySource:
