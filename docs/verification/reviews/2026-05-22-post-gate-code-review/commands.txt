@@ -1,0 +1,18 @@
+# 2026-05-22 Post-Gate Code Review Commands
+
+git status --short
+rg -n "TODO|FIXME|throw new Error|Math\.random|Date\.now|new Date|patient|diagnosis|EHR|optimizer|safety|local-runs/latest|outputMode|outputDir" scripts packages apps docs --glob "!docs/verification/local-runs/latest/**"
+Ran direct PHI-like field pattern scan across docs/verification before removing the scanner skip; no matches were found.
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+npm --workspace packages/shared test
+npm --workspace apps/web test
+cd apps/api && python -m pytest
+npm --workspace apps/web run build
+npm run evidence:local -- --out DOCS/verification/local-runs/latest
+Get-Content -Raw docs\verification\local-runs\latest\manifest.json
+docker compose down
+node scripts/verify-local.mjs
+npm run evidence:local -- --tracked
+Get-Content -Raw docs\verification\local-runs\latest\manifest.json
+docker compose ps

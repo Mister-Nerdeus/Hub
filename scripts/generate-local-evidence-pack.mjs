@@ -260,7 +260,7 @@ function parseOutputTarget(args) {
     const resolvedOut = isAbsolute(explicitOut) ? explicitOut : resolve(root, explicitOut);
     return {
       latestDir: resolvedOut,
-      outputMode: resolvedOut === trackedLatestDir ? "tracked" : "custom"
+      outputMode: isSamePath(resolvedOut, trackedLatestDir) ? "tracked" : "custom"
     };
   }
 

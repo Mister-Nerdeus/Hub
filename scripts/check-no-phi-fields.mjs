@@ -15,7 +15,6 @@ const ignoredDirectories = new Set([
 const ignoredPrefixes = [
   "docs/codex/",
   "docs/compliance/",
-  "docs/verification/",
   "scripts/check-no-phi-fields.mjs"
 ];
 
