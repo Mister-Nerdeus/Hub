@@ -1,0 +1,70 @@
+Search terms:
+- GitHub Actions
+- CI
+- workflow
+- remote checks
+- Actions
+
+Command:
+rg -n "GitHub Actions|CI|workflow|remote checks|Actions" docs AGENTS.md README.md
+
+Classified results:
+
+- docs/verification/contract-parity.md:13 "CI Workflow"
+  Classification: allowed existing reference.
+  Reason: documents an existing contract parity workflow; it does not define current closeout authority.
+
+- docs/verification/contract-parity.md:17 "workflow runs on pull requests and pushes to main"
+  Classification: allowed existing reference.
+  Reason: describes historical remote automation, not a required closeout gate.
+
+- docs/codex/drift-traps.md:16 "clinical documentation workflows"
+  Classification: allowed existing reference.
+  Reason: not a GitHub Actions or CI reference.
+
+- docs/codex/forbidden-implementation-patterns.md:8 "clinical documentation workflows"
+  Classification: allowed existing reference.
+  Reason: not a GitHub Actions or CI reference.
+
+- docs/contracts/codex-global-invariants.md:7 "clinical note workflow"
+  Classification: allowed existing reference.
+  Reason: not a GitHub Actions or CI reference.
+
+- docs/contracts/codex-global-invariants.md:10 local verification/GitHub Actions rule
+  Classification: local-first clarification.
+  Reason: makes local artifacts authoritative and forbids relying on GitHub Actions unless requested.
+
+- docs/compliance/non-phi-policy.md:16 "EHR import, export, mapping, or sync workflows"
+  Classification: allowed existing reference.
+  Reason: not a GitHub Actions or CI reference.
+
+- docs/verification/issues/issue-014B/closeout.md references Contract Parity CI workflow and GitHub Actions not yet run
+  Classification: allowed historical reference.
+  Reason: issue-specific closeout from an earlier stage; must not be used as a current closeout gate.
+
+- docs/verification/issues/issue-009/closeout.md references baseline CI and GitHub CI not yet run
+  Classification: allowed historical reference.
+  Reason: issue-specific closeout from an earlier stage; must not be used as a current closeout gate.
+
+- docs/verification/issues/issue-011/closeout.md references scanning workflow files
+  Classification: allowed historical reference.
+  Reason: describes scanner scope, not a closeout gate.
+
+- docs/verification/issues/issue-025A/closeout.md references .github/workflows/ci.yml
+  Classification: allowed historical reference.
+  Reason: issue-specific closeout from an earlier stage; must not be used as a current closeout gate.
+
+- docs/project/project-charter.md:7 "operational ER pod workflows"
+  Classification: allowed existing reference.
+  Reason: not a GitHub Actions or CI reference.
+
+- docs/project/project-charter.md:24 "CI" and "contract parity workflow"
+  Classification: allowed existing reference.
+  Reason: summarizes historical repo foundation, not current closeout authority.
+
+- README.md local-first verification text
+  Classification: local-first clarification.
+  Reason: states GitHub Actions may exist but local artifacts are the closeout gate for now.
+
+Conclusion:
+No current project instruction may use GitHub Actions, CI, workflows, remote checks, or Actions as the closeout authority for this batch. Local command evidence is required.

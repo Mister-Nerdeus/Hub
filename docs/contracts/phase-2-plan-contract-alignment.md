@@ -18,6 +18,8 @@ Generic `type` fields are not accepted in plan JSON.
 - `createdAt`: ISO-compatible timestamp.
 - `updatedAt`: ISO-compatible timestamp.
 
+`layout.description` is the canonical persisted and API response description. Top-level API request descriptions, when present, must match `layout.description`.
+
 ## Required Room Fields
 
 - `roomType`
@@ -43,6 +45,10 @@ These fields are operational layout attributes only. They are not patient identi
 - `travelPenalty`
 
 Travel fields are layout graph hints for future operational walking-distance logic. They are not scoring, simulation, or optimization.
+
+## Walking Graph Semantics
+
+Walking graph node/object links must satisfy `docs/contracts/walking-graph-contract.md`. Door path nodes must be `room_door` nodes that link back to the same door, station path nodes must be `station` nodes that link back to the same nurse station, and room path nodes must point to a room-door node for a door belonging to that room.
 
 ## Length Limits
 

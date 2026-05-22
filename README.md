@@ -16,9 +16,10 @@ This project is not a clinical safety system, EHR integration, patient record sy
 
 ```text
 docker compose config
+docker compose down
 docker compose up --build -d
-docker compose --profile tools run --rm migrate
 docker compose ps
+docker compose --profile tools run --rm migrate
 curl -f http://localhost:${API_HOST_PORT:-8010}/health
 node scripts/verify-docker-plan-api.mjs
 cd apps/api && pytest
@@ -28,6 +29,32 @@ cd packages/shared && npm test
 node scripts/check-no-phi-fields.mjs
 node scripts/check-docs-contracts.mjs
 npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+```
+
+## Local-First Verification
+
+For this project stage, local verification artifacts are the required closeout proof. GitHub Actions may exist, but they are not the closeout gate unless explicitly requested.
+
+Run local verification from a stopped Docker state:
+
+```text
+docker compose down
+node scripts/verify-local.mjs
+```
+
+On Windows, the preferred wrapper is:
+
+```text
+docker compose down
+./scripts/verify-local.ps1
+```
+
+The verifier starts the Docker stack, runs migrations, performs local contract and no-PHI checks, runs shared/web/API tests, builds the web app, and performs Docker-backed API and web smoke checks.
+
+To generate a consolidated local evidence pack:
+
+```text
+npm run evidence:local
 ```
 
 ## Local Docker Ports
@@ -49,6 +76,7 @@ docker compose --profile tools run --rm migrate
 ```
 
 The web app can save/load plans through `VITE_API_BASE_URL` and import/export validated plan JSON through the shared contract validator.
+`layout.description` is the canonical description; API responses must keep the record description equal to the layout description.
 The Phase 2 plan contract alignment is documented in `docs/contracts/phase-2-plan-contract-alignment.md`.
 
 ## Phase Status

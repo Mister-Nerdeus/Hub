@@ -1,0 +1,8 @@
+docker compose down
+node scripts/verify-local.mjs
+docker compose ps
+$env:EVIDENCE_DIR = "docs/verification/issues/issue-027"; node scripts/verify-docker-plan-api.mjs
+docker compose down
+./scripts/verify-local.ps1
+git diff --name-only
+git status --short .github/workflows

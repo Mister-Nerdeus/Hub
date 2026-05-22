@@ -31,7 +31,7 @@ Step-by-step implementation.
 ## Required Tests
 Specific unit, integration, UI, or proof tests.
 
-## Commands Codex Must Run
+## Commands Codex Must Run Locally
 ```text
 docker compose config
 docker compose up --build -d

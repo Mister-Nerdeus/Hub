@@ -65,6 +65,8 @@ assertComposePortsAreEnvDriven();
 
 const commands = [
   "docker compose config",
+  "docker compose up --build -d",
+  "docker compose ps",
   "docker compose --profile tools run --rm migrate",
   "node scripts/check-no-phi-fields.mjs",
   "node scripts/check-docs-contracts.mjs",

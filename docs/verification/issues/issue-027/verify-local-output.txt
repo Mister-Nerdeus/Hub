@@ -1,0 +1,834 @@
+ Container hub-web-1 Stopping 
+ Container hub-web-1 Stopped 
+ Container hub-web-1 Removing 
+ Container hub-web-1 Removed 
+ Container hub-api-1 Stopping 
+ Container hub-api-1 Stopped 
+ Container hub-api-1 Removing 
+ Container hub-api-1 Removed 
+ Container hub-db-1 Stopping 
+ Container hub-db-1 Stopped 
+ Container hub-db-1 Removing 
+ Container hub-db-1 Removed 
+ Network hub_default Removing 
+ Network hub_default Removed 
+
+> docker compose config
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+
+> docker compose up --build -d
+ Image hub-web Building 
+ Image hub-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 869B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 416B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 299B done
+#3 DONE 0.0s
+
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 DONE 0.3s
+
+#5 [web internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 0.4s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 127B done
+#6 DONE 0.0s
+
+#7 [api internal] load build context
+#7 transferring context: 11.66kB done
+#7 DONE 0.0s
+
+#8 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#8 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#8 DONE 0.1s
+
+#9 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#9 CACHED
+
+#10 [api 2/5] WORKDIR /app
+#10 CACHED
+
+#11 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#11 CACHED
+
+#12 [api 5/5] COPY apps/api/ ./
+#12 CACHED
+
+#13 [web internal] load build context
+#13 DONE 0.0s
+
+#14 [api] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:0d8b5cea71d5d729328f0ed312c6fe13ad12ed313f45421bdcd0abc8fd1b2478
+#14 ...
+
+#15 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#15 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#15 DONE 0.1s
+
+#14 [api] exporting to image
+#14 exporting manifest sha256:0d8b5cea71d5d729328f0ed312c6fe13ad12ed313f45421bdcd0abc8fd1b2478 done
+#14 exporting config sha256:ab0dfcda9dedb5117534122280bf59895565cfeb9b9fb22bbc5ffc0ba474253c done
+#14 exporting attestation manifest sha256:7da2d236fd2341c0671c100d7c4c1fd60f9073ead8ed3417a0f523e4d8d1b58f 0.1s done
+#14 exporting manifest list sha256:41e403ba6fc4dcb4a6fdc16215ceead5a244406935be093a98aee5875d53daef
+#14 exporting manifest list sha256:41e403ba6fc4dcb4a6fdc16215ceead5a244406935be093a98aee5875d53daef 0.0s done
+#14 naming to docker.io/library/hub-api:latest done
+#14 unpacking to docker.io/library/hub-api:latest 0.0s done
+#14 DONE 0.2s
+
+#13 [web internal] load build context
+#13 transferring context: 281.11kB 0.2s done
+#13 DONE 0.2s
+
+#16 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#16 CACHED
+
+#17 [web  6/10] RUN npm ci
+#17 CACHED
+
+#18 [web  7/10] COPY tsconfig.base.json ./
+#18 CACHED
+
+#19 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#19 CACHED
+
+#20 [web  2/10] WORKDIR /repo
+#20 CACHED
+
+#21 [web  3/10] COPY package.json package-lock.json ./
+#21 CACHED
+
+#22 [web  8/10] COPY apps/web apps/web
+#22 CACHED
+
+#23 [api] resolving provenance for metadata file
+#23 DONE 0.0s
+
+#24 [web  9/10] COPY packages/shared packages/shared
+#24 DONE 0.2s
+
+#25 [web 10/10] WORKDIR /repo/apps/web
+#25 DONE 0.1s
+
+#26 [web] exporting to image
+#26 exporting layers 0.2s done
+#26 exporting manifest sha256:685c657395c6630c20ac48e2477b509b6d56846130669c296c31e5a50c6eab76 0.0s done
+#26 exporting config sha256:0f3607b4c47ecb5e93a852a5dda455f6f7d5ff4025baeded4094d934ace1b707 0.0s done
+#26 exporting attestation manifest sha256:b4174effd88eaf10afbaca058d7c7ed74b63dfeffdc3ad259bdad00867d8f25a
+#26 exporting attestation manifest sha256:b4174effd88eaf10afbaca058d7c7ed74b63dfeffdc3ad259bdad00867d8f25a 0.1s done
+#26 exporting manifest list sha256:458f76742a8f20b4511882a3b2c07f5143450b2434c0919d5e274443b73fbb2f 0.0s done
+#26 naming to docker.io/library/hub-web:latest done
+#26 unpacking to docker.io/library/hub-web:latest 0.1s done
+#26 DONE 0.4s
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Network hub_default Creating 
+ Network hub_default Created 
+ Container hub-db-1 Creating 
+ Container hub-db-1 Created 
+ Container hub-api-1 Creating 
+ Container hub-api-1 Created 
+ Container hub-web-1 Creating 
+ Container hub-web-1 Created 
+ Container hub-db-1 Starting 
+ Container hub-db-1 Started 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 
+
+> docker compose ps
+NAME        IMAGE                COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       7 seconds ago   Up Less than a second    0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        7 seconds ago   Up 6 seconds (healthy)   5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       7 seconds ago   Up Less than a second    0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
+
+> docker compose --profile tools run --rm migrate
+ Container hub-db-1 Running 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-b044be897910 Creating 
+ Container hub-migrate-run-b044be897910 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+> node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+
+> npm --workspace packages/shared test
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: plan fixture validates against TypeScript contract
+ok 1 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.0043
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.7391
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 3 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.9624
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 4 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4463
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 5 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3638
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 6 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2374
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 7 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2435
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 8 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3135
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 9 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3939
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 10 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5294
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 11 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3301
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 12 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3178
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 13 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2375
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 14 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2005
+  type: 'test'
+  ...
+# Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+ok 15 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2598
+  type: 'test'
+  ...
+# Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+ok 16 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.225
+  type: 'test'
+  ...
+# Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+ok 17 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2943
+  type: 'test'
+  ...
+# Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+ok 18 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2153
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 83.5489
+
+> npm --workspace apps/web test
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 4 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+Executed 4 web test file(s).
+
+> cd apps/api && python -m pytest
+.............................................................            [100%]
+61 passed in 1.00s
+
+> npm --workspace apps/web run build
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 31 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-yo8FgZbY.css    5.74 kB │ gzip:  1.56 kB
+dist/assets/index-Dmw7GyE2.js   221.42 kB │ gzip: 67.41 kB
+
+[32m✓ built in 142ms[39m
+> node scripts/verify-docker-plan-api.mjs
+> GET http://localhost:8010/health
+> DELETE http://localhost:8010/v1/plans/plan-docker-smoke
+> POST http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans/plan-docker-smoke
+Docker plan API smoke test passed.
+
+> GET http://localhost:8010/health
+{"status":"ok","service":"nerdeus-api"}
+
+> GET http://localhost:5180
+Web runtime reachable at http://localhost:5180
+Exit code: 0
+
+PowerShell verifier from stopped Docker state
+ Container hub-web-1 Stopping 
+ Container hub-web-1 Stopped 
+ Container hub-web-1 Removing 
+ Container hub-web-1 Removed 
+ Container hub-api-1 Stopping 
+ Container hub-api-1 Stopped 
+ Container hub-api-1 Removing 
+ Container hub-api-1 Removed 
+ Container hub-db-1 Stopping 
+ Container hub-db-1 Stopped 
+ Container hub-db-1 Removing 
+ Container hub-db-1 Removed 
+ Network hub_default Removing 
+ Network hub_default Removed 
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 869B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 416B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 299B done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 DONE 0.2s
+
+#5 [web internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 0.3s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 127B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 11.66kB done
+#8 DONE 0.0s
+
+#9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.0s done
+#9 DONE 0.1s
+
+#10 [api 2/5] WORKDIR /app
+#10 CACHED
+
+#11 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#11 CACHED
+
+#12 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#12 CACHED
+
+#13 [api 5/5] COPY apps/api/ ./
+#13 CACHED
+
+#14 [api] exporting to image
+#14 exporting layers done
+#14 exporting manifest sha256:0d8b5cea71d5d729328f0ed312c6fe13ad12ed313f45421bdcd0abc8fd1b2478 done
+#14 exporting config sha256:ab0dfcda9dedb5117534122280bf59895565cfeb9b9fb22bbc5ffc0ba474253c
+#14 ...
+
+#15 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#15 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#15 DONE 0.1s
+
+#14 [api] exporting to image
+#14 exporting config sha256:ab0dfcda9dedb5117534122280bf59895565cfeb9b9fb22bbc5ffc0ba474253c done
+#14 exporting attestation manifest sha256:bf617757a7970a72a06008233dc479b5a82829994e7a0c9e060de1847fe1eb70 0.1s done
+#14 exporting manifest list sha256:852a1140209e2d84c6ffc1348bfb741afac870c74b0b3fb9478a87226b156483 0.0s done
+#14 naming to docker.io/library/hub-api:latest
+#14 naming to docker.io/library/hub-api:latest done
+#14 unpacking to docker.io/library/hub-api:latest 0.0s done
+#14 DONE 0.2s
+
+#7 [web internal] load build context
+#7 transferring context: 256.77kB 0.2s done
+#7 DONE 0.2s
+
+#16 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#16 CACHED
+
+#17 [web  2/10] WORKDIR /repo
+#17 CACHED
+
+#18 [web  3/10] COPY package.json package-lock.json ./
+#18 CACHED
+
+#19 [web  6/10] RUN npm ci
+#19 CACHED
+
+#20 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#20 CACHED
+
+#21 [web  7/10] COPY tsconfig.base.json ./
+#21 CACHED
+
+#22 [web  8/10] COPY apps/web apps/web
+#22 DONE 0.1s
+
+#23 [api] resolving provenance for metadata file
+#23 DONE 0.0s
+
+#24 [web  9/10] COPY packages/shared packages/shared
+#24 DONE 0.1s
+
+#25 [web 10/10] WORKDIR /repo/apps/web
+#25 DONE 0.1s
+
+#26 [web] exporting to image
+#26 exporting layers 0.3s done
+#26 exporting manifest sha256:4940c7064e9ec6f21f8d2cd0c4a0006bfdaf0ae794981ef19f4e05189859dbd8 0.0s done
+#26 exporting config sha256:d87c7102bc3deff37416d3d37cfc8752f6a534137d51ed9051e9d57e04cd23bd 0.0s done
+#26 exporting attestation manifest sha256:55f0ec95d69f245942fba1899c030303aab154fc7e72780d67940dca59f65675 0.0s done
+#26 exporting manifest list sha256:27f6469765b965048462916ba89fc4173eedc2b223388ec34f85d5a21bd5cb27
+#26 exporting manifest list sha256:27f6469765b965048462916ba89fc4173eedc2b223388ec34f85d5a21bd5cb27 0.0s done
+#26 naming to docker.io/library/hub-web:latest done
+#26 unpacking to docker.io/library/hub-web:latest 0.1s done
+#26 DONE 0.5s
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Network hub_default Creating 
+ Network hub_default Created 
+ Container hub-db-1 Creating 
+ Container hub-db-1 Created 
+ Container hub-api-1 Creating 
+ Container hub-api-1 Created 
+ Container hub-web-1 Creating 
+ Container hub-web-1 Created 
+ Container hub-db-1 Starting 
+ Container hub-db-1 Started 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 
+NAME        IMAGE                COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       7 seconds ago   Up Less than a second    0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        7 seconds ago   Up 6 seconds (healthy)   5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       7 seconds ago   Up Less than a second    0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
+ Container hub-db-1 Running 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-16da9ac1a782 Creating 
+ Container hub-migrate-run-16da9ac1a782 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+No PHI-like fields found.
+Docs and contract guardrails pass.
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: plan fixture validates against TypeScript contract
+ok 1 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.4247
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.905
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 3 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.4801
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 4 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 1.1605
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 5 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3807
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 6 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2773
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 7 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.283
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 8 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3244
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 9 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4368
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 10 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5553
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 11 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3619
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 12 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3466
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 13 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2296
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 14 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2112
+  type: 'test'
+  ...
+# Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+ok 15 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2686
+  type: 'test'
+  ...
+# Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+ok 16 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2535
+  type: 'test'
+  ...
+# Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+ok 17 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3296
+  type: 'test'
+  ...
+# Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+ok 18 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2364
+  type: 'test'
+  ...
+1..18
+# tests 18
+# suites 0
+# pass 18
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97.1095
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 4 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+Executed 4 web test file(s).
+.............................................................            [100%]
+61 passed in 1.05s
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 31 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-yo8FgZbY.css    5.74 kB │ gzip:  1.56 kB
+dist/assets/index-Dmw7GyE2.js   221.42 kB │ gzip: 67.41 kB
+
+[32m✓ built in 136ms[39m
+> GET http://localhost:8010/health
+> DELETE http://localhost:8010/v1/plans/plan-docker-smoke
+> POST http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans/plan-docker-smoke
+Docker plan API smoke test passed.
+{
+  "status": "ok",
+  "service": "nerdeus-api"
+}
+200
+Exit code: 0

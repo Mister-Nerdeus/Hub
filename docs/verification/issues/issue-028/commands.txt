@@ -1,0 +1,6 @@
+node scripts/generate-local-evidence-pack.mjs
+npm run evidence:local
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git diff --name-only
+git status --short .github/workflows

@@ -10,6 +10,7 @@
   "scripts": {
     "check:docs": "node scripts/check-docs-contracts.mjs",
     "check:no-phi": "node scripts/check-no-phi-fields.mjs",
+    "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "validate:plan": "npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs",
     "verify": "node scripts/verify-local.mjs"
   },

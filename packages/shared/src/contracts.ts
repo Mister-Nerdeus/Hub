@@ -185,6 +185,11 @@ type IdSets = {
   pathNodeIds: Set<string>;
 };
 
+type ReferenceIndex = IdSets & {
+  doorsById: Map<string, Door>;
+  pathNodesById: Map<string, PathNode>;
+};
+
 export function validatePlanContract(value: unknown): PlanContract {
   const plan = requireRecord(value, "plan");
   requireExactKeys(plan, "plan", [
@@ -222,7 +227,7 @@ export function validatePlanContract(value: unknown): PlanContract {
   const pathNodes = requireArray(plan.pathNodes, "pathNodes").map(validatePathNode);
   const pathEdges = requireArray(plan.pathEdges, "pathEdges").map(validatePathEdge);
 
-  const idSets = {
+  const references: ReferenceIndex = {
     roomIds: requireUnique("room ids", rooms.map((room) => room.id)),
     hallwayIds: requireUnique("hallway ids", hallways.map((hallway) => hallway.id)),
     doorIds: requireUnique("door ids", doors.map((door) => door.id)),
@@ -231,15 +236,19 @@ export function validatePlanContract(value: unknown): PlanContract {
       nurseStations.map((station) => station.id)
     ),
     zoneIds: requireUnique("zone ids", zones.map((zone) => zone.id)),
-    pathNodeIds: requireUnique("path node ids", pathNodes.map((node) => node.id))
+    pathNodeIds: requireUnique("path node ids", pathNodes.map((node) => node.id)),
+    doorsById: new Map(doors.map((door) => [door.id, door])),
+    pathNodesById: new Map(pathNodes.map((node) => [node.id, node]))
   };
   requireUnique("path edge ids", pathEdges.map((edge) => edge.id));
 
-  rooms.forEach((room, index) => validateRoomReferences(room, index, idSets));
-  doors.forEach((door, index) => validateDoorReferences(door, index, idSets));
-  nurseStations.forEach((station, index) => validateNurseStationReferences(station, index, idSets));
-  pathNodes.forEach((node, index) => validatePathNodeReferences(node, index, idSets));
-  pathEdges.forEach((edge, index) => validatePathEdgeReferences(edge, index, idSets));
+  rooms.forEach((room, index) => validateRoomReferences(room, index, references));
+  doors.forEach((door, index) => validateDoorReferences(door, index, references));
+  nurseStations.forEach((station, index) =>
+    validateNurseStationReferences(station, index, references)
+  );
+  pathNodes.forEach((node, index) => validatePathNodeReferences(node, index, references));
+  pathEdges.forEach((edge, index) => validatePathEdgeReferences(edge, index, references));
 
   return plan as PlanContract;
 }
@@ -467,34 +476,60 @@ function validatePathEdge(value: unknown, index: number): PathEdge {
   return edge as PathEdge;
 }
 
-function validateRoomReferences(room: Room, index: number, idSets: IdSets): void {
-  if (room.zoneId != null && !idSets.zoneIds.has(room.zoneId)) {
+function validateRoomReferences(room: Room, index: number, references: ReferenceIndex): void {
+  if (room.zoneId != null && !references.zoneIds.has(room.zoneId)) {
     throw new Error(`rooms[${index}].zoneId references an unknown zone`);
   }
-  if (room.nearestStationId != null && !idSets.nurseStationIds.has(room.nearestStationId)) {
+  if (room.nearestStationId != null && !references.nurseStationIds.has(room.nearestStationId)) {
     throw new Error(`rooms[${index}].nearestStationId references an unknown nurse station`);
   }
-  if (room.pathNodeId != null && !idSets.pathNodeIds.has(room.pathNodeId)) {
-    throw new Error(`rooms[${index}].pathNodeId references an unknown path node`);
+  if (room.pathNodeId != null) {
+    const pathNode = references.pathNodesById.get(room.pathNodeId);
+    if (pathNode == null) {
+      throw new Error(`rooms[${index}].pathNodeId references an unknown path node`);
+    }
+    if (pathNode.nodeType !== "room_door") {
+      throw new Error(`rooms[${index}].pathNodeId must reference a room_door path node`);
+    }
+    const linkedDoor = references.doorsById.get(pathNode.linkedObjectId ?? "");
+    if (linkedDoor == null || linkedDoor.roomId !== room.id) {
+      throw new Error(`rooms[${index}].pathNodeId must reference a door for the same room`);
+    }
   }
 }
 
-function validateDoorReferences(door: Door, index: number, idSets: IdSets): void {
-  if (!idSets.roomIds.has(door.roomId)) {
+function validateDoorReferences(door: Door, index: number, references: ReferenceIndex): void {
+  if (!references.roomIds.has(door.roomId)) {
     throw new Error(`doors[${index}].roomId references an unknown room`);
   }
-  if (door.pathNodeId != null && !idSets.pathNodeIds.has(door.pathNodeId)) {
-    throw new Error(`doors[${index}].pathNodeId references an unknown path node`);
+  if (door.pathNodeId != null) {
+    const pathNode = references.pathNodesById.get(door.pathNodeId);
+    if (pathNode == null) {
+      throw new Error(`doors[${index}].pathNodeId references an unknown path node`);
+    }
+    if (pathNode.nodeType !== "room_door") {
+      throw new Error(`doors[${index}].pathNodeId must reference a room_door path node`);
+    }
+    if (pathNode.linkedObjectId !== door.id) {
+      throw new Error(`doors[${index}].pathNodeId must link back to the same door`);
+    }
   }
 }
 
 function validateNurseStationReferences(
   station: NurseStation,
   index: number,
-  idSets: IdSets
+  references: ReferenceIndex
 ): void {
-  if (!idSets.pathNodeIds.has(station.pathNodeId)) {
+  const pathNode = references.pathNodesById.get(station.pathNodeId);
+  if (pathNode == null) {
     throw new Error(`nurseStations[${index}].pathNodeId references an unknown path node`);
+  }
+  if (pathNode.nodeType !== "station") {
+    throw new Error(`nurseStations[${index}].pathNodeId must reference a station path node`);
+  }
+  if (pathNode.linkedObjectId !== station.id) {
+    throw new Error(`nurseStations[${index}].pathNodeId must link back to the same station`);
   }
 }
 

@@ -1,0 +1,14 @@
+# Docker plan API smoke proof
+Command: node scripts/verify-docker-plan-api.mjs
+
+## stdout
+> GET http://localhost:8010/health
+> DELETE http://localhost:8010/v1/plans/plan-docker-smoke
+> POST http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans/plan-docker-smoke
+Docker plan API smoke test passed.
+
+## stderr
+
+Exit code: 0

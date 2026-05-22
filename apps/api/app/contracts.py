@@ -167,6 +167,9 @@ class PlanContract(StrictModel):
         require_unique("path node ids", [node.id for node in self.pathNodes])
         require_unique("path edge ids", [edge.id for edge in self.pathEdges])
 
+        doors_by_id = {door.id: door for door in self.doors}
+        path_nodes_by_id = {node.id: node for node in self.pathNodes}
+
         for room in self.rooms:
             if room.zoneId is not None and room.zoneId not in zone_ids:
                 raise ValueError(f"room {room.id} references unknown zone {room.zoneId}")
@@ -176,17 +179,37 @@ class PlanContract(StrictModel):
                 )
             if room.pathNodeId is not None and room.pathNodeId not in path_node_ids:
                 raise ValueError(f"room {room.id} references unknown path node {room.pathNodeId}")
+            if room.pathNodeId is not None:
+                path_node = path_nodes_by_id[room.pathNodeId]
+                if path_node.nodeType != "room_door":
+                    raise ValueError(f"room {room.id} path node must be a room_door node")
+                linked_door = doors_by_id.get(path_node.linkedObjectId or "")
+                if linked_door is None or linked_door.roomId != room.id:
+                    raise ValueError(f"room {room.id} path node must link to a door for the room")
 
         for door in self.doors:
             if door.roomId not in room_ids:
                 raise ValueError(f"door {door.id} references unknown room {door.roomId}")
             if door.pathNodeId is not None and door.pathNodeId not in path_node_ids:
                 raise ValueError(f"door {door.id} references unknown path node {door.pathNodeId}")
+            if door.pathNodeId is not None:
+                path_node = path_nodes_by_id[door.pathNodeId]
+                if path_node.nodeType != "room_door":
+                    raise ValueError(f"door {door.id} path node must be a room_door node")
+                if path_node.linkedObjectId != door.id:
+                    raise ValueError(f"door {door.id} path node must link back to the same door")
 
         for station in self.nurseStations:
             if station.pathNodeId not in path_node_ids:
                 raise ValueError(
                     f"nurse station {station.id} references unknown path node {station.pathNodeId}"
+                )
+            path_node = path_nodes_by_id[station.pathNodeId]
+            if path_node.nodeType != "station":
+                raise ValueError(f"nurse station {station.id} path node must be a station node")
+            if path_node.linkedObjectId != station.id:
+                raise ValueError(
+                    f"nurse station {station.id} path node must link back to the same station"
                 )
 
         for node in self.pathNodes:

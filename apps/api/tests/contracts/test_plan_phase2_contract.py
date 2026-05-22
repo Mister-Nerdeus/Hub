@@ -38,6 +38,10 @@ def test_phase2_plan_contract_accepts_valid_layout() -> None:
         "invalid/plan-bad-zone-travel-penalty.json",
         "invalid/plan-id-too-long.json",
         "invalid/plan-name-too-long.json",
+        "invalid/plan-door-path-node-wrong-type.json",
+        "invalid/plan-station-path-node-wrong-type.json",
+        "invalid/plan-room-path-node-unrelated-door.json",
+        "invalid/plan-path-node-linked-object-mismatch.json",
     ],
 )
 def test_phase2_plan_contract_rejects_invalid_layouts(fixture_name: str) -> None:

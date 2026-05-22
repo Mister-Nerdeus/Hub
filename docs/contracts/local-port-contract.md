@@ -22,7 +22,10 @@ Postgres is internal to Docker Compose by default. Do not publish host port `543
 Run database migrations inside the Docker network:
 
 ```text
+docker compose up --build -d
+docker compose ps
 docker compose --profile tools run --rm migrate
 ```
 
 Docker-backed plan API proof uses the configured API host port and does not require publishing Postgres to the host.
+The local verifier must start the Docker stack itself before migrations and API smoke checks so verification passes from a stopped Docker state.

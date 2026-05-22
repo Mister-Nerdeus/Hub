@@ -1,0 +1,130 @@
+# Docker stack startup
+Command: docker compose up --build -d
+
+## stdout
+#1 [internal] load local bake definitions
+#1 reading from stdin 869B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 416B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 299B done
+#3 DONE 0.0s
+
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 DONE 0.2s
+
+#5 [web internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 0.2s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 127B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 11.66kB 0.0s done
+#8 DONE 0.0s
+
+#9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#9 DONE 0.1s
+
+#10 [api 2/5] WORKDIR /app
+#10 CACHED
+
+#11 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#11 CACHED
+
+#12 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#12 CACHED
+
+#13 [api 5/5] COPY apps/api/ ./
+#13 CACHED
+
+#14 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#14 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#14 DONE 0.1s
+
+#15 [api] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:0d8b5cea71d5d729328f0ed312c6fe13ad12ed313f45421bdcd0abc8fd1b2478 done
+#15 exporting config sha256:ab0dfcda9dedb5117534122280bf59895565cfeb9b9fb22bbc5ffc0ba474253c done
+#15 exporting attestation manifest sha256:70fc2e65589cfdc4e1f514b04292ff81a63b82be642a1e51a7218ca6c6afb489 0.1s done
+#15 exporting manifest list sha256:78b39c63a7238bbbc703b96a4cfa811d07dae59345b5046f40a8345c2f8b739e 0.0s done
+#15 naming to docker.io/library/hub-api:latest
+#15 naming to docker.io/library/hub-api:latest done
+#15 unpacking to docker.io/library/hub-api:latest 0.0s done
+#15 DONE 0.2s
+
+#7 [web internal] load build context
+#7 transferring context: 256.77kB 0.2s done
+#7 DONE 0.2s
+
+#16 [web  6/10] RUN npm ci
+#16 CACHED
+
+#17 [web  7/10] COPY tsconfig.base.json ./
+#17 CACHED
+
+#18 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#18 CACHED
+
+#19 [web  8/10] COPY apps/web apps/web
+#19 CACHED
+
+#20 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#20 CACHED
+
+#21 [web  9/10] COPY packages/shared packages/shared
+#21 CACHED
+
+#22 [web  2/10] WORKDIR /repo
+#22 CACHED
+
+#23 [web  3/10] COPY package.json package-lock.json ./
+#23 CACHED
+
+#24 [web 10/10] WORKDIR /repo/apps/web
+#24 CACHED
+
+#25 [web] exporting to image
+#25 exporting layers done
+#25 exporting manifest sha256:4940c7064e9ec6f21f8d2cd0c4a0006bfdaf0ae794981ef19f4e05189859dbd8 0.0s done
+#25 exporting config sha256:d87c7102bc3deff37416d3d37cfc8752f6a534137d51ed9051e9d57e04cd23bd done
+#25 exporting attestation manifest sha256:9b73442f522cc6b989b36890c9a68787b804ca422aebfdc841f9e07cfe6b89f1 0.1s done
+#25 exporting manifest list sha256:d3580da830a0e07e1adff902f1552fd7ef236f181bd54a1468d1b1dea05c37c9
+#25 exporting manifest list sha256:d3580da830a0e07e1adff902f1552fd7ef236f181bd54a1468d1b1dea05c37c9 0.0s done
+#25 naming to docker.io/library/hub-web:latest done
+#25 unpacking to docker.io/library/hub-web:latest 0.0s done
+#25 DONE 0.3s
+
+#26 [api] resolving provenance for metadata file
+#26 DONE 0.0s
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+
+## stderr
+ Image hub-api Building 
+ Image hub-web Building 
+ Image hub-api Built 
+ Image hub-web Built 
+ Container hub-db-1 Running 
+ Container hub-api-1 Recreate 
+ Container hub-api-1 Recreated 
+ Container hub-web-1 Recreate 
+ Container hub-web-1 Recreated 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 
+
+Exit code: 0

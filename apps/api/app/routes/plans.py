@@ -44,10 +44,19 @@ def serialize_plan_summary(record: PlanRecord) -> dict[str, Any]:
     }
 
 
+def canonical_description(request: PlanWriteRequest) -> str | None:
+    if "description" in request.model_fields_set and request.description != request.layout.description:
+        raise HTTPException(
+            status_code=400,
+            detail="description must match layout.description when provided",
+        )
+    return request.layout.description
+
+
 @router.post("", status_code=status.HTTP_201_CREATED)
 def create_plan(request: PlanWriteRequest, db: Session = Depends(get_db)) -> dict[str, Any]:
     layout_json = request.layout.model_dump(mode="json")
-    description = request.description if request.description is not None else request.layout.description
+    description = canonical_description(request)
     try:
         record = plan_repository.create_plan(
             db,
@@ -93,7 +102,7 @@ def update_plan(
         db,
         record,
         name=request.layout.name,
-        description=request.description if request.description is not None else request.layout.description,
+        description=canonical_description(request),
         layout_json=request.layout.model_dump(mode="json"),
     )
     return serialize_plan(updated)

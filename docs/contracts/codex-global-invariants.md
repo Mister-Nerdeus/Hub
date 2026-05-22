@@ -9,3 +9,4 @@ These invariants apply to every issue until a later accepted contract changes th
 - Optimization must not exist before scoring is implemented and verified.
 - Simulation randomness must be seeded and reproducible.
 - Evidence must be written before an issue is considered complete.
+- Local verification artifacts are the source of truth for this project stage; do not add, expand, or rely on GitHub Actions unless explicitly requested.

@@ -31,7 +31,7 @@ const created = await requestJson(`${apiUrl}/v1/plans`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    description: "Docker smoke synthetic layout",
+    description: smokePlan.description,
     layout: smokePlan
   })
 });

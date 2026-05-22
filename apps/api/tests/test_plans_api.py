@@ -38,8 +38,12 @@ def client() -> Iterator[TestClient]:
         Base.metadata.drop_all(bind=engine)
 
 
-def plan_request(description: str | None = "Synthetic operational layout") -> dict:
-    return {"description": description, "layout": load_phase2_plan()}
+def plan_request(description: str | None = None) -> dict:
+    layout = load_phase2_plan()
+    return {
+        "description": layout["description"] if description is None else description,
+        "layout": layout,
+    }
 
 
 def create_plan(client: TestClient) -> dict:
@@ -53,10 +57,53 @@ def test_create_plan_validates_and_persists_layout(client: TestClient) -> None:
 
     assert body["id"] == "plan-er-pod-phase2"
     assert body["name"] == "Phase 2 ER Pod Layout"
-    assert body["description"] == "Synthetic operational layout"
+    assert body["description"] == body["layout"]["description"]
     assert body["layout"]["rooms"][0]["id"] == "room-01"
     assert "createdAt" in body
     assert "updatedAt" in body
+
+
+def test_create_plan_accepts_omitted_top_level_description(client: TestClient) -> None:
+    layout = load_phase2_plan()
+
+    response = client.post("/v1/plans", json={"layout": layout})
+
+    assert response.status_code == 201
+    assert response.json()["description"] == layout["description"]
+
+
+def test_create_plan_accepts_matching_description(client: TestClient) -> None:
+    layout = load_phase2_plan()
+
+    response = client.post(
+        "/v1/plans",
+        json={"description": layout["description"], "layout": layout},
+    )
+
+    assert response.status_code == 201
+    body = response.json()
+    assert body["description"] == body["layout"]["description"]
+
+
+def test_create_plan_rejects_mismatched_description(client: TestClient) -> None:
+    layout = load_phase2_plan()
+
+    response = client.post(
+        "/v1/plans",
+        json={"description": "Top-level A", "layout": {**layout, "description": "Layout B"}},
+    )
+
+    assert response.status_code == 400
+
+
+def test_create_plan_rejects_null_top_level_description_when_layout_has_description(
+    client: TestClient,
+) -> None:
+    layout = load_phase2_plan()
+
+    response = client.post("/v1/plans", json={"description": None, "layout": layout})
+
+    assert response.status_code == 400
 
 
 def test_list_and_get_plan(client: TestClient) -> None:
@@ -75,6 +122,7 @@ def test_update_plan_replaces_valid_layout(client: TestClient) -> None:
     create_plan(client)
     updated = deepcopy(load_phase2_plan())
     updated["name"] = "Updated Phase 2 ER Pod Layout"
+    updated["description"] = "Updated operational layout"
     updated["rooms"][0]["widthFeet"] = 13
 
     response = client.put(
@@ -85,7 +133,7 @@ def test_update_plan_replaces_valid_layout(client: TestClient) -> None:
     assert response.status_code == 200
     body = response.json()
     assert body["name"] == "Updated Phase 2 ER Pod Layout"
-    assert body["description"] == "Updated operational layout"
+    assert body["description"] == body["layout"]["description"]
     assert body["layout"]["rooms"][0]["widthFeet"] == 13
 
 
@@ -144,6 +192,18 @@ def test_update_requires_route_id_to_match_layout_id(client: TestClient) -> None
     response = client.put(
         "/v1/plans/plan-er-pod-phase2",
         json={"description": None, "layout": updated},
+    )
+
+    assert response.status_code == 400
+
+
+def test_update_rejects_mismatched_description(client: TestClient) -> None:
+    create_plan(client)
+    updated = deepcopy(load_phase2_plan())
+
+    response = client.put(
+        "/v1/plans/plan-er-pod-phase2",
+        json={"description": "Top-level A", "layout": {**updated, "description": "Layout B"}},
     )
 
     assert response.status_code == 400

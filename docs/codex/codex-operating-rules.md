@@ -19,6 +19,8 @@ Codex work in this repository must preserve the project as an operational ER pod
 - Use seeded randomness only. The same plan, scenario, assumption set, and seed must reproduce the same simulation output.
 - Use operational terms such as `occupied room`, `room load`, `abstract patient load`, and `operational burden`.
 - Do not introduce PHI fields, real patient identity, diagnoses, clinical notes, EHR imports, or safety certification claims.
+- Treat local verification artifacts as the closeout authority for this project stage.
+- Do not add, expand, or rely on GitHub Actions unless the user explicitly requests it.
 
 ## Evidence Rules
 
@@ -31,6 +33,8 @@ docs/verification/issues/issue-XXX/commands.txt
 
 Use `commands.txt`, `test-output.txt`, `screenshots/`, `api-responses/`, and `sample-json/` under the same issue folder when they are relevant.
 Issue folders from Issue 015 forward are checked by `node scripts/check-docs-contracts.mjs`; missing closeouts, missing command logs, and missing issue-specific required evidence must fail the docs gate.
+Command evidence must come from local commands. The full local verifier must be run from a stopped Docker state when an issue changes runtime, API, web, shared contracts, or local verification behavior.
+Use `npm run evidence:local` when a task needs a consolidated local evidence pack for the current repository state.
 
 ## Do Not Close Unless
 
@@ -42,6 +46,7 @@ The issue may not be marked complete unless:
 4. Non-PHI scanner passes when present.
 5. Dependency matrix is unchanged or intentionally updated.
 6. Closeout evidence is written to `docs/verification/issues/issue-XXX/closeout.md`.
+7. Local command evidence is written to `docs/verification/issues/issue-XXX/commands.txt`.
 
 ## Guardrail Maintenance
 

@@ -1,0 +1,11 @@
+rg -n "GitHub Actions|CI|workflow|remote checks|Actions" docs AGENTS.md README.md
+git diff --name-only
+git status --short .github/workflows
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+docker compose down
+node scripts/verify-local.mjs
+docker compose down
+./scripts/verify-local.ps1
+npm run evidence:local

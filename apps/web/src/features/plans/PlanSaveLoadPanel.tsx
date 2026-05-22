@@ -34,12 +34,12 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
     try {
       const validDraft = validatePlanContract(draftPlan);
       try {
-        await createPlan(apiBaseUrl, validDraft, "Saved operational layout");
+        await createPlan(apiBaseUrl, validDraft, validDraft.description ?? null);
       } catch (error) {
         if (!(error instanceof Error) || !error.message.includes("409")) {
           throw error;
         }
-        await updatePlan(apiBaseUrl, validDraft.planId, validDraft, "Saved operational layout");
+        await updatePlan(apiBaseUrl, validDraft.planId, validDraft, validDraft.description ?? null);
       }
       await refreshPlans(validDraft.planId);
       setStatus(`Saved ${validDraft.planId}`);
@@ -56,7 +56,7 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
         planId: `${draftPlan.planId}-copy-${copyIndex}`,
         name: `${draftPlan.name} Copy ${copyIndex}`
       });
-      await createPlan(apiBaseUrl, copy, "Saved operational layout copy");
+      await createPlan(apiBaseUrl, copy, copy.description ?? null);
       await refreshPlans(copy.planId);
       setStatus(`Saved ${copy.planId}`);
     } catch (error) {

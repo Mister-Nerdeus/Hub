@@ -13,6 +13,9 @@ Build the Nerdeus ER Pod Shift Simulator as an operational simulation tool only.
 - No unseeded simulation randomness.
 - No major dependency without updating the dependency matrix.
 
+## Local-First Verification
+For this project stage, local verification artifacts are the source of truth. Do not add, expand, or rely on GitHub Actions unless the user explicitly requests it.
+
 ## Required Closeout
 Every task must end with:
 1. Files changed
@@ -29,6 +32,7 @@ If the user corrects recurring Codex drift, update the relevant guardrail doc un
 - [Codex global invariants](docs/contracts/codex-global-invariants.md)
 - [Non-PHI policy](docs/compliance/non-phi-policy.md)
 - [Dependency decision matrix](docs/architecture/dependency-decision-matrix.md)
+- [Local-first verification contract](docs/contracts/local-first-verification-contract.md)
 - [Reproducibility contract](docs/contracts/reproducibility-contract.md)
 - [Drift traps](docs/codex/drift-traps.md)
 - [Codex operating rules](docs/codex/codex-operating-rules.md)

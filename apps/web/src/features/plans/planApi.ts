@@ -18,9 +18,10 @@ export type PlanListResponse = {
 export async function createPlan(
   apiBaseUrl: string,
   layout: PlanContract,
-  description: string | null
+  description: string | null = layout.description ?? null
 ): Promise<PlanRecordResponse> {
   const validLayout = validatePlanContract(layout);
+  assertDescriptionMatchesLayout(description, validLayout);
   const response = await fetch(`${apiBaseUrl}/v1/plans`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -50,9 +51,10 @@ export async function updatePlan(
   apiBaseUrl: string,
   planId: string,
   layout: PlanContract,
-  description: string | null
+  description: string | null = layout.description ?? null
 ): Promise<PlanRecordResponse> {
   const validLayout = validatePlanContract(layout);
+  assertDescriptionMatchesLayout(description, validLayout);
   const response = await fetch(`${apiBaseUrl}/v1/plans/${encodeURIComponent(planId)}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -93,14 +95,24 @@ async function parsePlanResponse(response: Response): Promise<PlanRecordResponse
   if (record.name !== layout.name) {
     throw new Error("Plan response name must match layout.name");
   }
+  const description = record.description ?? null;
+  if (description !== (layout.description ?? null)) {
+    throw new Error("Plan response description must match layout.description");
+  }
   return {
     id: record.id,
     name: record.name,
-    description: record.description ?? null,
+    description,
     layout,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt
   };
+}
+
+function assertDescriptionMatchesLayout(description: string | null, layout: PlanContract): void {
+  if (description !== (layout.description ?? null)) {
+    throw new Error("Plan request description must match layout.description");
+  }
 }
 
 function validatePlanSummary(value: unknown): PlanSummaryResponse {

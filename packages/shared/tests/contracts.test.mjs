@@ -62,7 +62,11 @@ const invalidPlanFixtures = [
   "plan-bad-station-type.json",
   "plan-bad-zone-travel-penalty.json",
   "plan-id-too-long.json",
-  "plan-name-too-long.json"
+  "plan-name-too-long.json",
+  "plan-door-path-node-wrong-type.json",
+  "plan-station-path-node-wrong-type.json",
+  "plan-room-path-node-unrelated-door.json",
+  "plan-path-node-linked-object-mismatch.json"
 ];
 
 for (const fixtureName of invalidPlanFixtures) {

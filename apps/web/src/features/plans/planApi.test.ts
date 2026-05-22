@@ -4,7 +4,7 @@ import { createPlan, getPlan } from "./planApi";
 const validResponse = {
   id: planErPodPhase2.planId,
   name: planErPodPhase2.name,
-  description: "Synthetic operational layout",
+  description: planErPodPhase2.description,
   layout: planErPodPhase2,
   createdAt: "2026-05-22T00:00:00+00:00",
   updatedAt: "2026-05-22T00:00:00+00:00"
@@ -23,7 +23,7 @@ const invalidFetch: typeof fetch = async () =>
   });
 
 const createResult = await withFetch(okFetch, () =>
-  createPlan("http://localhost:8010", planErPodPhase2, "Synthetic operational layout")
+  createPlan("http://localhost:8010", planErPodPhase2, planErPodPhase2.description)
 );
 if (createResult.id !== planErPodPhase2.planId) {
   throw new Error("createPlan must return the validated plan response");
@@ -56,6 +56,32 @@ await withFetch(mismatchedIdFetch, async () => {
     }
   }
 });
+
+const mismatchedDescriptionFetch: typeof fetch = async () =>
+  new Response(JSON.stringify({ ...validResponse, description: "Response drift" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" }
+  });
+
+await withFetch(mismatchedDescriptionFetch, async () => {
+  try {
+    await getPlan("http://localhost:8010", planErPodPhase2.planId);
+    throw new Error("Mismatched response description must be rejected");
+  } catch (error) {
+    if (!(error instanceof Error) || !error.message.includes("layout.description")) {
+      throw error;
+    }
+  }
+});
+
+try {
+  await createPlan("http://localhost:8010", planErPodPhase2, "Different description");
+  throw new Error("Mismatched request description must be rejected");
+} catch (error) {
+  if (!(error instanceof Error) || !error.message.includes("layout.description")) {
+    throw error;
+  }
+}
 
 async function withFetch<T>(fetchImpl: typeof fetch, callback: () => Promise<T>): Promise<T> {
   const originalFetch = globalThis.fetch;

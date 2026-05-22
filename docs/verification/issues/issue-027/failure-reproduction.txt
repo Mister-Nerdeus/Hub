@@ -1,0 +1,295 @@
+ Container hub-web-1 Stopping 
+ Container hub-web-1 Stopped 
+ Container hub-web-1 Removing 
+ Container hub-web-1 Removed 
+ Container hub-api-1 Stopping 
+ Container hub-api-1 Stopped 
+ Container hub-api-1 Removing 
+ Container hub-api-1 Removed 
+ Container hub-db-1 Stopping 
+ Container hub-db-1 Stopped 
+ Container hub-db-1 Removing 
+ Container hub-db-1 Removed 
+ Network hub_default Removing 
+ Network hub_default Removed 
+
+> docker compose config
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+
+> docker compose --profile tools run --rm migrate
+ Network hub_default Creating 
+ Network hub_default Created 
+ Container hub-db-1 Creating 
+ Container hub-db-1 Created 
+ Container hub-db-1 Starting 
+ Container hub-db-1 Started 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-7e8996bebdd2 Creating 
+ Container hub-migrate-run-7e8996bebdd2 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+> node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+
+> npm --workspace packages/shared test
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: plan fixture validates against TypeScript contract
+ok 1 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.8261
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.6879
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 3 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.3538
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 4 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 1.0013
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 5 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3223
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 6 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2074
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 7 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2906
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 8 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2526
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 9 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.353
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 10 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4318
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 11 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3011
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 12 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2839
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 13 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.1871
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 14 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.1599
+  type: 'test'
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 14
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 77.1765
+
+> npm --workspace apps/web test
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 4 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+Executed 4 web test file(s).
+
+> cd apps/api && python -m pytest
+............................................                             [100%]
+44 passed in 0.90s
+
+> npm --workspace apps/web run build
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 31 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-yo8FgZbY.css    5.74 kB │ gzip:  1.56 kB
+dist/assets/index-DRt_xoG6.js   220.36 kB │ gzip: 67.22 kB
+
+[32m✓ built in 127ms[39m
+> node scripts/verify-docker-plan-api.mjs
+> GET http://localhost:8010/health
+node:internal/deps/undici/undici:13510
+      Error.captureStackTrace(err);
+            ^
+System.Management.Automation.RemoteException
+TypeError: fetch failed
+    at node:internal/deps/undici/undici:13510:13
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async requestJson (file:///C:/Projects/Hub/scripts/verify-docker-plan-api.mjs:80:20)
+    at async file:///C:/Projects/Hub/scripts/verify-docker-plan-api.mjs:23:16 {
+  [cause]: AggregateError [ECONNREFUSED]: 
+      at internalConnectMultiple (node:net:1139:18)
+      at afterConnectMultiple (node:net:1714:7) {
+    code: 'ECONNREFUSED',
+    [errors]: [
+      Error: connect ECONNREFUSED ::1:8010
+          at createConnectionError (node:net:1677:14)
+          at afterConnectMultiple (node:net:1707:16) {
+        errno: -4078,
+        code: 'ECONNREFUSED',
+        syscall: 'connect',
+        address: '::1',
+        port: 8010
+      },
+      Error: connect ECONNREFUSED 127.0.0.1:8010
+          at createConnectionError (node:net:1677:14)
+          at afterConnectMultiple (node:net:1707:16) {
+        errno: -4078,
+        code: 'ECONNREFUSED',
+        syscall: 'connect',
+        address: '127.0.0.1',
+        port: 8010
+      }
+    ]
+  }
+}
+System.Management.Automation.RemoteException
+Node.js v22.16.0
+Exit code: 1
