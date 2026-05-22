@@ -1,0 +1,17 @@
+# Issue 040 Commands
+
+node scripts/check-docs-contracts.mjs
+Run temporary-copy negative proof for missing docs/verification/phase-3-manual-assignment-evidence.md
+Run temporary-copy negative proof for missing docs/verification/phase-3-manual-assignment-checklist.md
+Run temporary-copy negative proof for missing docs/verification/issues/issue-038/scoring-output.json
+Run temporary-copy negative proof for missing docs/verification/issues/issue-038/warning-output.json
+Run temporary-copy negative proof for missing docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+node scripts/check-no-phi-fields.mjs
+npm --workspace packages/shared test
+npm --workspace apps/web test
+cd apps/api && python -m pytest
+npm --workspace apps/web run build
+npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+docker compose down
+node scripts/verify-local.mjs
+docker compose ps

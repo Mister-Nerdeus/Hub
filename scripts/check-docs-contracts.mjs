@@ -38,13 +38,28 @@ const strictCloseoutConcepts = [
   ["Next Recommended Issue", /\bnext\s+recommended\s+issue\b/i]
 ];
 
-const issue024Evidence = [
-  "docs/verification/phase-2-plan-builder-evidence.md",
-  "docs/verification/phase-2-plan-builder-checklist.md",
-  "docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png",
-  "docs/verification/issues/issue-024/screenshots/reload-proof.png",
-  "docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json",
-  "docs/verification/issues/issue-024/validation-output.txt"
+const requiredEvidenceGates = [
+  {
+    label: "Issue 024 Phase 2 evidence",
+    paths: [
+      "docs/verification/phase-2-plan-builder-evidence.md",
+      "docs/verification/phase-2-plan-builder-checklist.md",
+      "docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png",
+      "docs/verification/issues/issue-024/screenshots/reload-proof.png",
+      "docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json",
+      "docs/verification/issues/issue-024/validation-output.txt"
+    ]
+  },
+  {
+    label: "Issue 038 Phase 3 evidence",
+    paths: [
+      "docs/verification/phase-3-manual-assignment-evidence.md",
+      "docs/verification/phase-3-manual-assignment-checklist.md",
+      "docs/verification/issues/issue-038/scoring-output.json",
+      "docs/verification/issues/issue-038/warning-output.json",
+      "docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png"
+    ]
+  }
 ];
 
 const failures = [];
@@ -94,8 +109,10 @@ for (const issueName of readdirSync(closeoutRoot)) {
   requireIssueEvidence(issueName, issuePath);
 }
 
-for (const evidencePath of issue024Evidence) {
-  requireExistingFile(evidencePath, `Missing Issue 024 Phase 2 evidence: ${evidencePath}`);
+for (const gate of requiredEvidenceGates) {
+  for (const evidencePath of gate.paths) {
+    requireExistingFile(evidencePath, `Missing ${gate.label}: ${evidencePath}`);
+  }
 }
 
 if (failures.length > 0) {

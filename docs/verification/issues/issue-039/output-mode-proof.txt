@@ -1,0 +1,63 @@
+# Issue 039 Output Mode Proof
+
+Default command:
+
+```text
+npm run evidence:local
+```
+
+Result:
+
+```json
+{
+  "outputMode": "transient",
+  "outputDir": "C:\\Users\\MISTER~1\\AppData\\Local\\Temp\\nerdeus-er-pod-shift-simulator\\local-evidence\\latest",
+  "status": "passed",
+  "artifactCount": 17
+}
+```
+
+The final default run was executed after the explicit tracked run. `git status --short` was unchanged before and after the default run; the tracked `docs/verification/local-runs/latest` modifications were produced only by the explicit `--tracked` command.
+
+Explicit tracked command:
+
+```text
+npm run evidence:local -- --tracked
+```
+
+Result:
+
+```json
+{
+  "outputMode": "tracked",
+  "outputDir": "C:\\Projects\\Hub\\docs\\verification\\local-runs\\latest",
+  "status": "passed",
+  "artifactCount": 17
+}
+```
+
+Explicit custom output command:
+
+```text
+npm run evidence:local -- --out C:\Users\Mister Nerdeus\AppData\Local\Temp\nerdeus-evidence-custom-issue039
+```
+
+Result:
+
+```json
+{
+  "outputMode": "custom",
+  "outputDir": "C:\\Users\\Mister Nerdeus\\AppData\\Local\\Temp\\nerdeus-evidence-custom-issue039",
+  "status": "passed",
+  "artifactCount": 17
+}
+```
+
+Manifest field proof:
+
+- `manifest.json` includes `outputMode`.
+- `manifest.json` includes `outputDir`.
+- Default mode uses the OS temp evidence directory.
+- Tracked mode requires explicit opt-in.
+- Custom mode writes to the selected path.
+- Default mode did not add to or alter the tracked working-tree diff.

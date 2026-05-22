@@ -94,4 +94,4 @@ Phase 2 Plan Builder foundation is implemented through the evidence gate in `doc
 
 Phase 3 manual assignment proof covers shared nurse and room-load contracts, deterministic room workload scoring, deterministic manual assignment warnings, deterministic nurse burden scoring, and an API-free web proof surface. Seeded full-shift simulation and optimization are still not implemented.
 
-The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024.
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024 and Phase 3 gate evidence for Issue 038.

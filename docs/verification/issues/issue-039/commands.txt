@@ -1,0 +1,19 @@
+# Issue 039 Commands
+
+git status --short
+npm run evidence:local
+git status --short
+node -e "const fs=require('node:fs'); const os=require('node:os'); const path=require('node:path'); const manifest=JSON.parse(fs.readFileSync(path.resolve(os.tmpdir(),'nerdeus-er-pod-shift-simulator','local-evidence','latest','manifest.json'),'utf8')); console.log(JSON.stringify({outputMode: manifest.outputMode, outputDir: manifest.outputDir, status: manifest.status, artifactCount: manifest.artifacts.length}, null, 2));"
+npm run evidence:local -- --tracked
+Get-Content -Raw docs\verification\local-runs\latest\manifest.json
+npm run evidence:local -- --out <os-temp>\nerdeus-evidence-custom-issue039
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+npm --workspace packages/shared test
+npm --workspace apps/web test
+cd apps/api && python -m pytest
+npm --workspace apps/web run build
+npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+docker compose down
+node scripts/verify-local.mjs
+docker compose ps

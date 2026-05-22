@@ -1,0 +1,36 @@
+# Issue 040 Phase 3 Docs Checker Negative Proof
+
+Positive baseline:
+
+```text
+node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+Exit code: 0
+```
+
+Negative cases were run in a temporary copy of `AGENTS.md`, `docs/`, and `scripts/check-docs-contracts.mjs` so the repository evidence files were not removed.
+
+```text
+CASE: missing docs/verification/phase-3-manual-assignment-evidence.md
+EXIT: 1
+Missing Issue 038 Phase 3 evidence: docs/verification/phase-3-manual-assignment-evidence.md
+
+CASE: missing docs/verification/phase-3-manual-assignment-checklist.md
+EXIT: 1
+Missing Issue 038 Phase 3 evidence: docs/verification/phase-3-manual-assignment-checklist.md
+
+CASE: missing docs/verification/issues/issue-038/scoring-output.json
+EXIT: 1
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/scoring-output.json
+
+CASE: missing docs/verification/issues/issue-038/warning-output.json
+EXIT: 1
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/warning-output.json
+
+CASE: missing docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+EXIT: 1
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+
+Phase 3 docs checker negative cases passed.
+```
+
