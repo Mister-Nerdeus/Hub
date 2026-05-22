@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateSetId": "task-template-duplicate-id",
+  "name": "Duplicate Template ID",
+  "description": "Invalid template fixture with duplicate template IDs.",
+  "taskTemplates": [
+    {
+      "id": "template-duplicate",
+      "taskType": "medication_round",
+      "label": "Medication workload",
+      "description": "Invalid operational workload template.",
+      "defaultDurationMinutes": 10,
+      "frequencySource": "room_load_frequency",
+      "trigger": "medicationFrequency",
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-duplicate",
+      "taskType": "monitoring_check",
+      "label": "Monitoring workload",
+      "description": "Invalid operational workload template.",
+      "defaultDurationMinutes": 5,
+      "frequencySource": "room_load_frequency",
+      "trigger": "monitoringFrequency",
+      "burdenCategory": "monitoring",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "dayProfileId": "day-profile-slammed",
+  "name": "Slammed Day",
+  "description": "Synthetic operational pressure profile with elevated workload and interruptions.",
+  "shiftLengthMinutes": 720,
+  "segments": [
+    {
+      "id": "slammed-early",
+      "label": "Early shift",
+      "startMinute": 0,
+      "endMinute": 180,
+      "taskVolumeMultiplier": 1.2,
+      "turnoverMultiplier": 1.3,
+      "interruptionMultiplier": 1.3,
+      "walkingCongestionMultiplier": 1.2
+    },
+    {
+      "id": "slammed-mid",
+      "label": "Mid shift",
+      "startMinute": 180,
+      "endMinute": 540,
+      "taskVolumeMultiplier": 1.7,
+      "turnoverMultiplier": 1.8,
+      "interruptionMultiplier": 1.9,
+      "walkingCongestionMultiplier": 1.5
+    },
+    {
+      "id": "slammed-late",
+      "label": "Late shift",
+      "startMinute": 540,
+      "endMinute": 720,
+      "taskVolumeMultiplier": 1.4,
+      "turnoverMultiplier": 1.6,
+      "interruptionMultiplier": 1.5,
+      "walkingCongestionMultiplier": 1.3
+    }
+  ]
+}

@@ -5,10 +5,14 @@ import pytest
 from pydantic import ValidationError
 
 from app.contracts import (
+    AssumptionsRegisterContract,
+    DayProfileContract,
     PlanContract,
     ScenarioContract,
+    TaskTemplateContract,
     validate_manual_assignment_contract,
     validate_room_loads,
+    validate_shift_scenario_contract,
 )
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -46,8 +50,9 @@ def test_scenario_fixture_matches_python_contract() -> None:
     scenario = ScenarioContract.model_validate(load_fixture("scenario-basic.json"))
 
     assert scenario.schemaVersion == "1.0.0"
-    assert scenario.shiftLengthMinutes == 480
-    assert scenario.timestepMinutes == 5
+    assert scenario.shiftLengthMinutes == 720
+    assert scenario.timestepMinutes == 15
+    assert scenario.assumptionsId == "assumptions-basic"
     assert scenario.roomLoads[0].acuity == 3
     assert scenario.roomLoads[0].monitoringFrequency == "high"
 
@@ -68,6 +73,27 @@ def test_manual_assignment_fixture_matches_python_contract() -> None:
 
     assert assignment_set.schemaVersion == "1.0.0"
     assert len(assignment_set.nurses) == 3
+
+
+def test_phase4_fixture_set_matches_python_contracts() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    assignment_set = validate_manual_assignment_contract(
+        load_fixture("manual-assignment-basic.json"), plan
+    )
+    assumptions = AssumptionsRegisterContract.model_validate(load_fixture("assumptions-basic.json"))
+    task_templates = TaskTemplateContract.model_validate(load_fixture("task-templates-basic.json"))
+    day_profile = DayProfileContract.model_validate(load_fixture("day-profile-typical.json"))
+    scenario = validate_shift_scenario_contract(
+        load_fixture("shift-scenario-basic.json"),
+        plan=plan,
+        assignment_set=assignment_set,
+        assumptions=assumptions,
+        task_templates=task_templates,
+        day_profile=day_profile,
+    )
+
+    assert scenario.scenarioId == "shift-scenario-basic"
+    assert len(scenario.roomLoads) == len(plan.rooms)
 
 
 @pytest.mark.parametrize(

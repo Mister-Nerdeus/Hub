@@ -87,6 +87,46 @@ const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 047 Phase 4 evidence",
+    paths: [
+      "docs/verification/phase-4-task-generation-evidence.md",
+      "docs/verification/phase-4-task-generation-checklist.md",
+      "docs/verification/issues/issue-047/generated-tasks-output.json",
+      "docs/verification/issues/issue-047/random-output.json",
+      "docs/verification/issues/issue-047/validation-output.txt",
+      "docs/verification/issues/issue-047/commands.txt",
+      "docs/verification/issues/issue-047/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-4-task-generation-evidence.md",
+        checks: [
+          ["Assumptions register", /\bassumptions register\b/i],
+          ["Task templates", /\btask templates\b/i],
+          ["Day profiles", /\bday profiles\b/i],
+          ["Shift scenario", /\bshift scenario\b/i],
+          ["Seeded randomness", /\bseeded randomness\b/i],
+          ["Generated operational tasks", /\bgenerated operational tasks\b/i],
+          ["No PHI", /\bno\s+phi\b/i],
+          ["No full-shift simulation", /\bno\b[\s\S]{0,80}\bfull-shift simulation\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-4-task-generation-checklist.md",
+        checks: [
+          ["assumptions", /\bassumptions register\b/i],
+          ["templates", /\btask templates\b/i],
+          ["day profiles", /\bday profiles\b/i],
+          ["shift scenario", /\bshift scenario\b/i],
+          ["seeded randomness", /\bseeded randomness\b/i],
+          ["generated tasks", /\bgenerated operational tasks\b/i],
+          ["local verifier", /\blocal verifier\b|\blocal verification\b/i]
+        ]
+      }
+    ]
   }
 ];
 

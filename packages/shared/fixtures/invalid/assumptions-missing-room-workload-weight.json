@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "assumptionsId": "assumptions-missing-room-workload-weight",
+  "name": "Missing Room Workload Weight",
+  "description": "Invalid assumptions fixture with one required workload weight removed.",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "updatedAt": "2026-05-22T00:00:00Z",
+  "roomWorkloadWeights": {
+    "acuity": {
+      "1": 1,
+      "2": 2,
+      "3": 4,
+      "4": 7,
+      "5": 10
+    },
+    "traumaActive": 8,
+    "isolationActive": 3,
+    "behavioralRisk": 4,
+    "fallRisk": 2,
+    "sitterRequired": 5,
+    "highMedicationFrequency": 3,
+    "highMonitoringFrequency": 3
+  },
+  "nurseBurdenWeights": {
+    "roomSpreadPerAdditionalOccupiedRoom": 2,
+    "overTargetPerRoom": 5,
+    "overMaxPerRoom": 10,
+    "traumaMismatchPerRoom": 8,
+    "activeTaskMinutesPlaceholder": 0,
+    "walkingMinutesPlaceholder": 0,
+    "breakCoveragePenaltyPlaceholder": 0,
+    "interruptionPenaltyPlaceholder": 0
+  },
+  "taskDurationDefaults": {
+    "medicationTaskMinutes": 10,
+    "monitoringTaskMinutes": 5,
+    "procedureTaskMinutes": 20,
+    "turnoverTaskMinutes": 15,
+    "isolationTaskMinutes": 8,
+    "behavioralRiskTaskMinutes": 15,
+    "sitterTaskMinutes": 30
+  },
+  "taskFrequencyMappings": {
+    "none": 0,
+    "low": 1,
+    "medium": 2,
+    "high": 4,
+    "continuous": 8
+  },
+  "simulationDefaults": {
+    "defaultShiftLengthMinutes": 720,
+    "defaultTimestepMinutes": 15,
+    "defaultSeed": 20260522
+  }
+}

@@ -25,6 +25,39 @@ StationType = Literal["primary", "secondary", "charge", "temporary"]
 TaskFrequency = Literal["none", "low", "medium", "high", "continuous"]
 BurdenLevel = Literal["none", "low", "medium", "high", "very_high"]
 TurnoverLevel = Literal["low", "normal", "high", "surge"]
+TaskType = Literal[
+    "medication_round",
+    "monitoring_check",
+    "procedure_support",
+    "room_turnover",
+    "isolation_prep",
+    "behavioral_observation",
+    "sitter_observation",
+]
+TaskFrequencySource = Literal[
+    "room_load_frequency",
+    "room_load_burden",
+    "room_load_turnover",
+    "boolean_trigger",
+]
+TaskTrigger = Literal[
+    "medicationFrequency",
+    "monitoringFrequency",
+    "procedureBurden",
+    "expectedTurnover",
+    "isolationActive",
+    "behavioralRisk",
+    "sitterRequired",
+]
+TaskBurdenCategory = Literal[
+    "medication",
+    "monitoring",
+    "procedure",
+    "turnover",
+    "isolation",
+    "behavioral",
+    "sitter",
+]
 NurseRole = Literal[
     "primary",
     "charge",
@@ -50,10 +83,11 @@ WarningCode = Literal[
 PLAN_ID_MAX_LENGTH = 64
 PLAN_NAME_MAX_LENGTH = 160
 PLAN_DESCRIPTION_MAX_LENGTH = 500
+SAFE_INTEGER_MAX = 9007199254740991
 
 
 class StrictModel(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
 
 
 class ScaleSettings(StrictModel):
@@ -276,14 +310,206 @@ class RoomLoad(StrictModel):
     expectedTurnover: TurnoverLevel
 
 
+class RoomWorkloadWeights(StrictModel):
+    acuity: dict[Literal["1", "2", "3", "4", "5"], float]
+    traumaActive: float = Field(ge=0)
+    isolationActive: float = Field(ge=0)
+    behavioralRisk: float = Field(ge=0)
+    fallRisk: float = Field(ge=0)
+    sitterRequired: float = Field(ge=0)
+    highMedicationFrequency: float = Field(ge=0)
+    highMonitoringFrequency: float = Field(ge=0)
+    highProcedureBurden: float = Field(ge=0)
+
+    @field_validator("acuity")
+    @classmethod
+    def validate_acuity(cls, value: dict[str, float]) -> dict[str, float]:
+        expected = {"1", "2", "3", "4", "5"}
+        if set(value) != expected:
+            raise ValueError("acuity weights must include levels 1 through 5")
+        if any(weight < 0 for weight in value.values()):
+            raise ValueError("acuity weights must be non-negative")
+        return value
+
+
+class NurseBurdenWeights(StrictModel):
+    roomSpreadPerAdditionalOccupiedRoom: float = Field(ge=0)
+    overTargetPerRoom: float = Field(ge=0)
+    overMaxPerRoom: float = Field(ge=0)
+    traumaMismatchPerRoom: float = Field(ge=0)
+    activeTaskMinutesPlaceholder: float = Field(ge=0)
+    walkingMinutesPlaceholder: float = Field(ge=0)
+    breakCoveragePenaltyPlaceholder: float = Field(ge=0)
+    interruptionPenaltyPlaceholder: float = Field(ge=0)
+
+
+class TaskDurationDefaults(StrictModel):
+    medicationTaskMinutes: float = Field(gt=0)
+    monitoringTaskMinutes: float = Field(gt=0)
+    procedureTaskMinutes: float = Field(gt=0)
+    turnoverTaskMinutes: float = Field(gt=0)
+    isolationTaskMinutes: float = Field(gt=0)
+    behavioralRiskTaskMinutes: float = Field(gt=0)
+    sitterTaskMinutes: float = Field(gt=0)
+
+
+class TaskFrequencyMappings(StrictModel):
+    none: int = Field(ge=0)
+    low: int = Field(ge=0)
+    medium: int = Field(ge=0)
+    high: int = Field(ge=0)
+    continuous: int = Field(ge=0)
+
+
+class SimulationDefaults(StrictModel):
+    defaultShiftLengthMinutes: int = Field(gt=0)
+    defaultTimestepMinutes: int = Field(gt=0)
+    defaultSeed: int = Field(ge=0, le=SAFE_INTEGER_MAX)
+
+    @model_validator(mode="after")
+    def validate_defaults(self) -> "SimulationDefaults":
+        if self.defaultShiftLengthMinutes % self.defaultTimestepMinutes != 0:
+            raise ValueError("defaultShiftLengthMinutes must divide evenly by defaultTimestepMinutes")
+        return self
+
+
+class AssumptionsRegisterContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    assumptionsId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    createdAt: str = Field(min_length=1)
+    updatedAt: str = Field(min_length=1)
+    roomWorkloadWeights: RoomWorkloadWeights
+    nurseBurdenWeights: NurseBurdenWeights
+    taskDurationDefaults: TaskDurationDefaults
+    taskFrequencyMappings: TaskFrequencyMappings
+    simulationDefaults: SimulationDefaults
+
+    @field_validator("createdAt", "updatedAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+
+class CareTaskTemplate(StrictModel):
+    id: str = Field(min_length=1)
+    taskType: TaskType
+    label: str = Field(min_length=1)
+    description: str | None = None
+    defaultDurationMinutes: float = Field(gt=0)
+    frequencySource: TaskFrequencySource
+    trigger: TaskTrigger
+    burdenCategory: TaskBurdenCategory
+    interruptive: bool
+    requiresRoomPresence: bool
+
+    @field_validator("label", "description")
+    @classmethod
+    def validate_operational_text(cls, value: str | None) -> str | None:
+        if value is None:
+            return value
+        forbidden_phrases = [
+            "diagnosis",
+            "clinical note",
+            "clinical order",
+            "treatment plan",
+            "real identity",
+        ]
+        if any(phrase in value.lower() for phrase in forbidden_phrases):
+            raise ValueError("task template text must remain operational-only")
+        return value
+
+    @model_validator(mode="after")
+    def validate_frequency_source(self) -> "CareTaskTemplate":
+        expected = expected_frequency_source_for_trigger(self.trigger)
+        if self.frequencySource != expected:
+            raise ValueError(
+                f"frequencySource must be {expected} for trigger {self.trigger}"
+            )
+        return self
+
+
+class TaskTemplateContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    templateSetId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    taskTemplates: list[CareTaskTemplate]
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return CareTaskTemplate.validate_operational_text(value)
+
+    @model_validator(mode="after")
+    def validate_template_ids(self) -> "TaskTemplateContract":
+        require_unique("task template ids", [template.id for template in self.taskTemplates])
+        return self
+
+
+class DayProfileSegment(StrictModel):
+    id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    startMinute: int = Field(ge=0)
+    endMinute: int = Field(gt=0)
+    taskVolumeMultiplier: float = Field(gt=0)
+    turnoverMultiplier: float = Field(gt=0)
+    interruptionMultiplier: float = Field(gt=0)
+    walkingCongestionMultiplier: float = Field(gt=0)
+
+    @model_validator(mode="after")
+    def validate_range(self) -> "DayProfileSegment":
+        if self.endMinute <= self.startMinute:
+            raise ValueError("segment endMinute must be greater than startMinute")
+        return self
+
+
+class DayProfileContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    dayProfileId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    shiftLengthMinutes: int = Field(gt=0)
+    segments: list[DayProfileSegment] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def validate_segments(self) -> "DayProfileContract":
+        require_unique("day profile segment ids", [segment.id for segment in self.segments])
+        sorted_segments = sorted(self.segments, key=lambda segment: segment.startMinute)
+        expected_start = 0
+        for segment in sorted_segments:
+            if segment.endMinute > self.shiftLengthMinutes:
+                raise ValueError("day profile segments must stay within shift bounds")
+            if segment.startMinute != expected_start:
+                raise ValueError(
+                    "day profile segments must cover the full shift without gaps or overlaps"
+                )
+            expected_start = segment.endMinute
+        if expected_start != self.shiftLengthMinutes:
+            raise ValueError("day profile segments must cover the full shift")
+        return self
+
+
 class ScenarioContract(StrictModel):
     schemaVersion: Literal["1.0.0"]
     scenarioId: str = Field(min_length=1)
     planId: str = Field(min_length=1)
+    assignmentSetId: str = Field(min_length=1)
+    assumptionsId: str = Field(min_length=1)
+    taskTemplateSetId: str = Field(min_length=1)
+    dayProfileId: str = Field(min_length=1)
     name: str = Field(min_length=1)
+    description: str | None = None
     shiftLengthMinutes: int = Field(gt=0)
     timestepMinutes: int = Field(gt=0)
-    seed: int = Field(ge=0)
+    seed: int = Field(ge=0, le=SAFE_INTEGER_MAX)
     roomLoads: list[RoomLoad]
 
     @model_validator(mode="after")
@@ -429,6 +655,44 @@ def validate_manual_assignment_contract(
                     raise ValueError(f"assignment {assignment.id} references unknown room {room_id}")
 
     return assignment_set
+
+
+def validate_shift_scenario_contract(
+    value: Any,
+    plan: PlanContract | None = None,
+    assignment_set: ManualAssignmentContract | None = None,
+    assumptions: AssumptionsRegisterContract | None = None,
+    task_templates: TaskTemplateContract | None = None,
+    day_profile: DayProfileContract | None = None,
+) -> ScenarioContract:
+    scenario = ScenarioContract.model_validate(value)
+
+    if plan is not None and scenario.planId != plan.planId:
+        raise ValueError("scenario planId must match the referenced plan")
+    if assignment_set is not None and scenario.assignmentSetId != assignment_set.assignmentSetId:
+        raise ValueError("scenario assignmentSetId must match the referenced assignment set")
+    if assumptions is not None and scenario.assumptionsId != assumptions.assumptionsId:
+        raise ValueError("scenario assumptionsId must match the referenced assumptions register")
+    if task_templates is not None and scenario.taskTemplateSetId != task_templates.templateSetId:
+        raise ValueError("scenario taskTemplateSetId must match the referenced task template set")
+    if day_profile is not None:
+        if scenario.dayProfileId != day_profile.dayProfileId:
+            raise ValueError("scenario dayProfileId must match the referenced day profile")
+        if scenario.shiftLengthMinutes != day_profile.shiftLengthMinutes:
+            raise ValueError("scenario shiftLengthMinutes must match the referenced day profile")
+    validate_room_loads([load.model_dump() for load in scenario.roomLoads], plan)
+
+    return scenario
+
+
+def expected_frequency_source_for_trigger(trigger: TaskTrigger) -> TaskFrequencySource:
+    if trigger in {"medicationFrequency", "monitoringFrequency"}:
+        return "room_load_frequency"
+    if trigger == "procedureBurden":
+        return "room_load_burden"
+    if trigger == "expectedTurnover":
+        return "room_load_turnover"
+    return "boolean_trigger"
 
 
 def require_unique(label: str, values: list[str]) -> None:

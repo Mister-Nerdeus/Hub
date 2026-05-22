@@ -1,0 +1,623 @@
+COMMAND: npm --workspace packages/shared test
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: plan fixture validates against TypeScript contract
+ok 1 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 4.7588
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.8993
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 3 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.7099
+  type: 'test'
+  ...
+# Subtest: room-load fixture validates against TypeScript contract and plan rooms
+ok 4 - room-load fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 0.9232
+  type: 'test'
+  ...
+# Subtest: manual assignment fixture validates against TypeScript contract and plan rooms
+ok 5 - manual assignment fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 2.1368
+  type: 'test'
+  ...
+# Subtest: assumptions register fixture validates and represents current scoring constants
+ok 6 - assumptions register fixture validates and represents current scoring constants
+  ---
+  duration_ms: 1.4121
+  type: 'test'
+  ...
+# Subtest: task template fixture validates against TypeScript contract
+ok 7 - task template fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.7071
+  type: 'test'
+  ...
+# Subtest: task template boolean trigger source mismatch is rejected
+ok 8 - task template boolean trigger source mismatch is rejected
+  ---
+  duration_ms: 0.5478
+  type: 'test'
+  ...
+# Subtest: typical day profile validates against TypeScript contract
+ok 9 - typical day profile validates against TypeScript contract
+  ---
+  duration_ms: 0.7671
+  type: 'test'
+  ...
+# Subtest: slammed day profile validates against TypeScript contract
+ok 10 - slammed day profile validates against TypeScript contract
+  ---
+  duration_ms: 0.7267
+  type: 'test'
+  ...
+# Subtest: shift scenario fixture validates against TypeScript contract with references
+ok 11 - shift scenario fixture validates against TypeScript contract with references
+  ---
+  duration_ms: 1.7225
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 12 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5883
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 13 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4042
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 14 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.327
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 15 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3377
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 16 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2769
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 17 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2487
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 18 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.327
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 19 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4021
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 20 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4342
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 21 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2982
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 22 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2651
+  type: 'test'
+  ...
+# Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+ok 23 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4539
+  type: 'test'
+  ...
+# Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+ok 24 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3248
+  type: 'test'
+  ...
+# Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+ok 25 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2939
+  type: 'test'
+  ...
+# Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+ok 26 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.2727
+  type: 'test'
+  ...
+# Subtest: room-load-bad-frequency.json is rejected by TypeScript room-load contract
+ok 27 - room-load-bad-frequency.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 0.6617
+  type: 'test'
+  ...
+# Subtest: room-load-bad-burden.json is rejected by TypeScript room-load contract
+ok 28 - room-load-bad-burden.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 0.5529
+  type: 'test'
+  ...
+# Subtest: room-load-unknown-room.json is rejected by TypeScript room-load contract
+ok 29 - room-load-unknown-room.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 1.1457
+  type: 'test'
+  ...
+# Subtest: old numeric room-load fields are rejected by TypeScript contract
+ok 30 - old numeric room-load fields are rejected by TypeScript contract
+  ---
+  duration_ms: 0.4445
+  type: 'test'
+  ...
+# Subtest: manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+ok 31 - manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 2.1023
+  type: 'test'
+  ...
+# Subtest: manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+ok 32 - manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 0.8886
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+ok 33 - manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 0.5699
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+ok 34 - manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 0.5037
+  type: 'test'
+  ...
+# Subtest: manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+ok 35 - manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 0.441
+  type: 'test'
+  ...
+# Subtest: assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+ok 36 - assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.3971
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+ok 37 - assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.2578
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+ok 38 - assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.2172
+  type: 'test'
+  ...
+# Subtest: assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+ok 39 - assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.1829
+  type: 'test'
+  ...
+# Subtest: task-template-bad-type.json is rejected by TypeScript task template contract
+ok 40 - task-template-bad-type.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.2625
+  type: 'test'
+  ...
+# Subtest: task-template-bad-trigger.json is rejected by TypeScript task template contract
+ok 41 - task-template-bad-trigger.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.2061
+  type: 'test'
+  ...
+# Subtest: task-template-bad-duration.json is rejected by TypeScript task template contract
+ok 42 - task-template-bad-duration.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.1692
+  type: 'test'
+  ...
+# Subtest: task-template-duplicate-id.json is rejected by TypeScript task template contract
+ok 43 - task-template-duplicate-id.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.1641
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+ok 44 - day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.2435
+  type: 'test'
+  ...
+# Subtest: day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+ok 45 - day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.1831
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+ok 46 - day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.1835
+  type: 'test'
+  ...
+# Subtest: day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+ok 47 - day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.2252
+  type: 'test'
+  ...
+# Subtest: shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+ok 48 - shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.2985
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+ok 49 - shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.2038
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+ok 50 - shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.2583
+  type: 'test'
+  ...
+# Subtest: shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+ok 51 - shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+  ---
+  duration_ms: 0.6575
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic typical output
+ok 52 - generateOperationalTasks returns deterministic typical output
+  ---
+  duration_ms: 18.888
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic slammed output
+ok 53 - generateOperationalTasks returns deterministic slammed output
+  ---
+  duration_ms: 2.3585
+  type: 'test'
+  ...
+# Subtest: different seed produces controlled timing differences
+ok 54 - different seed produces controlled timing differences
+  ---
+  duration_ms: 2.3075
+  type: 'test'
+  ...
+# Subtest: slammed day profile changes generated task volume
+ok 55 - slammed day profile changes generated task volume
+  ---
+  duration_ms: 2.5147
+  type: 'test'
+  ...
+# Subtest: generated tasks validate and stay within shift bounds
+ok 56 - generated tasks validate and stay within shift bounds
+  ---
+  duration_ms: 1.425
+  type: 'test'
+  ...
+# Subtest: generated task IDs are deterministic and do not assign work to nurses
+ok 57 - generated task IDs are deterministic and do not assign work to nurses
+  ---
+  duration_ms: 1.2179
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: balanced assignment
+ok 58 - scoreNurseBurden: balanced assignment
+  ---
+  duration_ms: 13.7539
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over target ratio
+ok 59 - scoreNurseBurden: nurse over target ratio
+  ---
+  duration_ms: 0.5229
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over max ratio
+ok 60 - scoreNurseBurden: nurse over max ratio
+  ---
+  duration_ms: 0.2525
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: trauma mismatch
+ok 61 - scoreNurseBurden: trauma mismatch
+  ---
+  duration_ms: 0.3907
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: duplicate room does not score as valid coverage
+ok 62 - scoreNurseBurden: duplicate room does not score as valid coverage
+  ---
+  duration_ms: 0.4113
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count lower acuity
+ok 63 - scoreNurseBurden: same count lower acuity
+  ---
+  duration_ms: 0.353
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count higher acuity
+ok 64 - scoreNurseBurden: same count higher acuity
+  ---
+  duration_ms: 0.2527
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: unassigned occupied room warning propagates
+ok 65 - scoreNurseBurden: unassigned occupied room warning propagates
+  ---
+  duration_ms: 0.2299
+  type: 'test'
+  ...
+# Subtest: same occupied-room count with different acuity yields different burden
+ok 66 - same occupied-room count with different acuity yields different burden
+  ---
+  duration_ms: 0.6608
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 1 only
+ok 67 - scoreRoomLoad: acuity 1 only
+  ---
+  duration_ms: 2.744
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 5 only
+ok 68 - scoreRoomLoad: acuity 5 only
+  ---
+  duration_ms: 0.3395
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: trauma active
+ok 69 - scoreRoomLoad: trauma active
+  ---
+  duration_ms: 0.2992
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: isolation active
+ok 70 - scoreRoomLoad: isolation active
+  ---
+  duration_ms: 1.242
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: behavioral fall sitter active
+ok 71 - scoreRoomLoad: behavioral fall sitter active
+  ---
+  duration_ms: 0.2237
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: high medication monitoring procedure
+ok 72 - scoreRoomLoad: high medication monitoring procedure
+  ---
+  duration_ms: 0.2117
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: unoccupied room zero burden
+ok 73 - scoreRoomLoad: unoccupied room zero burden
+  ---
+  duration_ms: 0.2475
+  type: 'test'
+  ...
+# Subtest: same seed produces the same float sequence
+ok 74 - same seed produces the same float sequence
+  ---
+  duration_ms: 1.6008
+  type: 'test'
+  ...
+# Subtest: different seeds produce different float sequences
+ok 75 - different seeds produce different float sequences
+  ---
+  duration_ms: 0.2292
+  type: 'test'
+  ...
+# Subtest: nextFloat returns values in [0, 1)
+ok 76 - nextFloat returns values in [0, 1)
+  ---
+  duration_ms: 0.2827
+  type: 'test'
+  ...
+# Subtest: nextInt uses an exclusive upper bound
+ok 77 - nextInt uses an exclusive upper bound
+  ---
+  duration_ms: 0.2585
+  type: 'test'
+  ...
+# Subtest: pick is deterministic and rejects empty arrays
+ok 78 - pick is deterministic and rejects empty arrays
+  ---
+  duration_ms: 0.6174
+  type: 'test'
+  ...
+# Subtest: shuffle is deterministic and does not mutate input
+ok 79 - shuffle is deterministic and does not mutate input
+  ---
+  duration_ms: 0.2811
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unassigned occupied room
+ok 80 - validateManualAssignment: unassigned occupied room
+  ---
+  duration_ms: 3.2173
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: room assigned twice
+ok 81 - validateManualAssignment: room assigned twice
+  ---
+  duration_ms: 16.852
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over target
+ok 82 - validateManualAssignment: nurse over target
+  ---
+  duration_ms: 0.4416
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over max
+ok 83 - validateManualAssignment: nurse over max
+  ---
+  duration_ms: 0.1985
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: trauma room assigned to non-qualified nurse
+ok 84 - validateManualAssignment: trauma room assigned to non-qualified nurse
+  ---
+  duration_ms: 0.5027
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown nurse
+ok 85 - validateManualAssignment: unknown nurse
+  ---
+  duration_ms: 0.2689
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown room
+ok 86 - validateManualAssignment: unknown room
+  ---
+  duration_ms: 0.2374
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment returns deterministic warning order
+ok 87 - validateManualAssignment returns deterministic warning order
+  ---
+  duration_ms: 0.4705
+  type: 'test'
+  ...
+1..87
+# tests 87
+# suites 0
+# pass 87
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 163.4447
+
+COMMAND: cd apps/api && python -m pytest
+........................................................................ [ 74%]
+.........................                                                [100%]
+97 passed in 1.03s
+
+COMMAND: npm --workspace apps/web test
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 5 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/manual-assignment/manualAssignmentViewModel.test.ts
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+Executed 5 web test file(s).
+
+COMMAND: npm --workspace apps/web run build
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 40 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-B5MZqRa7.css    9.49 kB │ gzip:  2.28 kB
+dist/assets/index-C49T8k3q.js   241.07 kB │ gzip: 72.07 kB
+
+[32m✓ built in 142ms[39m
+
+COMMAND: node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+COMMAND: node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+
+COMMAND: docker compose down
+PASS: Docker stack was stopped before final local verifier.
+
+COMMAND: node scripts/verify-local.mjs
+PASS: Local verifier completed from stopped Docker state, including Docker build/start, migrations, no-PHI scan, docs checker, shared tests, web tests, API tests, web build, API smoke, and web smoke.
+
+COMMAND: node scripts/check-docs-contracts.mjs
+PASS: Docs and contract guardrails pass.
+
+COMMAND: npm run evidence:local -- --tracked
+PASS: Local evidence pack generated at docs/verification/local-runs/latest.
+
+FINAL RERUN AFTER SPLITMIX64 PRNG UPDATE
+COMMAND: npm --workspace packages/shared test
+PASS: 87 shared tests passed after regenerated deterministic task and random outputs.
+COMMAND: docker compose down
+PASS: Docker stack was stopped before final local verifier rerun.
+COMMAND: node scripts/verify-local.mjs
+PASS: Local verifier completed after final PRNG and evidence updates.
+COMMAND: node scripts/check-docs-contracts.mjs
+PASS: Docs and contract guardrails pass after final PRNG and evidence updates.
+COMMAND: npm run evidence:local -- --tracked
+PASS: Tracked local evidence pack regenerated at docs/verification/local-runs/latest after final PRNG and evidence updates.

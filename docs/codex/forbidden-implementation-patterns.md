@@ -15,6 +15,8 @@ The following patterns are not allowed unless a later issue explicitly changes t
 - Optimizer implementation before scoring is complete.
 - Separate scoring logic for manual and optimized assignments.
 - Unseeded randomness in simulation logic.
+- `Math.random()` in deterministic task generation or simulation logic.
+- Hidden task timing assumptions outside the assumptions register and contract docs.
 - Ambiguous unit conversion outside `pixelsPerUnit`.
 - Saved plan JSON that includes transient UI state.
 - Major dependencies without dependency matrix review.

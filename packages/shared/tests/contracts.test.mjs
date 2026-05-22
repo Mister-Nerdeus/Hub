@@ -5,10 +5,16 @@ import { join } from "node:path";
 import test from "node:test";
 
 import {
+  NURSE_BURDEN_PENALTIES,
+  ROOM_WORKLOAD_WEIGHTS,
+  validateAssumptionsRegisterContract,
+  validateDayProfileContract,
   validateManualAssignmentContract,
   validatePlanContract,
   validateRoomLoads,
-  validateScenarioContract
+  validateScenarioContract,
+  validateShiftScenarioContract,
+  validateTaskTemplateContract
 } from "../dist/index.js";
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
@@ -51,9 +57,10 @@ test("scenario fixture validates against TypeScript contract", () => {
   const scenario = validateScenarioContract(readFixture("scenario-basic.json"));
 
   assert.equal(scenario.schemaVersion, "1.0.0");
-  assert.equal(scenario.shiftLengthMinutes, 480);
-  assert.equal(scenario.timestepMinutes, 5);
-  assert.equal(scenario.seed, 20260521);
+  assert.equal(scenario.shiftLengthMinutes, 720);
+  assert.equal(scenario.timestepMinutes, 15);
+  assert.equal(scenario.seed, 20260522);
+  assert.equal(scenario.assumptionsId, "assumptions-basic");
   assert.equal(scenario.roomLoads[0].acuity, 3);
   assert.equal(scenario.roomLoads[0].monitoringFrequency, "high");
 });
@@ -77,6 +84,78 @@ test("manual assignment fixture validates against TypeScript contract and plan r
   assert.equal(assignmentSet.schemaVersion, "1.0.0");
   assert.equal(assignmentSet.nurses.length, 3);
   assert.equal(assignmentSet.assignments[0].assignmentType, "manual");
+});
+
+test("assumptions register fixture validates and represents current scoring constants", () => {
+  const assumptions = validateAssumptionsRegisterContract(readFixture("assumptions-basic.json"));
+
+  assert.equal(assumptions.schemaVersion, "1.0.0");
+  assert.deepEqual(assumptions.roomWorkloadWeights.acuity, {
+    "1": ROOM_WORKLOAD_WEIGHTS.acuity[1],
+    "2": ROOM_WORKLOAD_WEIGHTS.acuity[2],
+    "3": ROOM_WORKLOAD_WEIGHTS.acuity[3],
+    "4": ROOM_WORKLOAD_WEIGHTS.acuity[4],
+    "5": ROOM_WORKLOAD_WEIGHTS.acuity[5]
+  });
+  assert.equal(
+    assumptions.nurseBurdenWeights.roomSpreadPerAdditionalOccupiedRoom,
+    NURSE_BURDEN_PENALTIES.roomSpreadPerAdditionalOccupiedRoom
+  );
+  assert.equal(
+    assumptions.nurseBurdenWeights.breakCoveragePenaltyPlaceholder,
+    NURSE_BURDEN_PENALTIES.breakCoveragePenaltyPlaceholder
+  );
+});
+
+test("task template fixture validates against TypeScript contract", () => {
+  const taskTemplates = validateTaskTemplateContract(readFixture("task-templates-basic.json"));
+
+  assert.equal(taskTemplates.schemaVersion, "1.0.0");
+  assert.equal(taskTemplates.taskTemplates.length, 7);
+  assert.equal(taskTemplates.taskTemplates[0].trigger, "medicationFrequency");
+});
+
+test("task template boolean trigger source mismatch is rejected", () => {
+  const taskTemplates = readFixture("task-templates-basic.json");
+  taskTemplates.taskTemplates[4].frequencySource = "room_load_frequency";
+
+  assert.throws(() => validateTaskTemplateContract(taskTemplates));
+});
+
+test("typical day profile validates against TypeScript contract", () => {
+  const dayProfile = validateDayProfileContract(readFixture("day-profile-typical.json"));
+
+  assert.equal(dayProfile.schemaVersion, "1.0.0");
+  assert.equal(dayProfile.shiftLengthMinutes, 720);
+  assert.equal(dayProfile.segments.at(-1).endMinute, 720);
+});
+
+test("slammed day profile validates against TypeScript contract", () => {
+  const dayProfile = validateDayProfileContract(readFixture("day-profile-slammed.json"));
+
+  assert.equal(dayProfile.schemaVersion, "1.0.0");
+  assert.equal(dayProfile.segments[1].taskVolumeMultiplier, 1.7);
+});
+
+test("shift scenario fixture validates against TypeScript contract with references", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+  const assumptions = validateAssumptionsRegisterContract(readFixture("assumptions-basic.json"));
+  const taskTemplates = validateTaskTemplateContract(readFixture("task-templates-basic.json"));
+  const dayProfile = validateDayProfileContract(readFixture("day-profile-typical.json"));
+  const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"), {
+    plan,
+    assignmentSet,
+    assumptions,
+    taskTemplates,
+    dayProfile
+  });
+
+  assert.equal(scenario.scenarioId, "shift-scenario-basic");
+  assert.equal(scenario.roomLoads.length, plan.rooms.length);
 });
 
 const invalidPlanFixtures = [
@@ -151,3 +230,64 @@ for (const fixtureName of invalidManualAssignmentFixtures) {
     assert.throws(() => validateManualAssignmentContract(readInvalidFixture(fixtureName), plan));
   });
 }
+
+const invalidAssumptionsFixtures = [
+  "assumptions-missing-room-workload-weight.json",
+  "assumptions-bad-duration.json",
+  "assumptions-bad-frequency-mapping.json",
+  "assumptions-negative-placeholder.json"
+];
+
+for (const fixtureName of invalidAssumptionsFixtures) {
+  test(`${fixtureName} is rejected by TypeScript assumptions contract`, () => {
+    assert.throws(() => validateAssumptionsRegisterContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+const invalidTaskTemplateFixtures = [
+  "task-template-bad-type.json",
+  "task-template-bad-trigger.json",
+  "task-template-bad-duration.json",
+  "task-template-duplicate-id.json"
+];
+
+for (const fixtureName of invalidTaskTemplateFixtures) {
+  test(`${fixtureName} is rejected by TypeScript task template contract`, () => {
+    assert.throws(() => validateTaskTemplateContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+const invalidDayProfileFixtures = [
+  "day-profile-bad-multiplier.json",
+  "day-profile-overlapping-segments.json",
+  "day-profile-bad-minute-range.json",
+  "day-profile-gap-in-coverage.json"
+];
+
+for (const fixtureName of invalidDayProfileFixtures) {
+  test(`${fixtureName} is rejected by TypeScript day profile contract`, () => {
+    assert.throws(() => validateDayProfileContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+const invalidShiftScenarioFixtures = [
+  "shift-scenario-missing-assumptions.json",
+  "shift-scenario-bad-seed.json",
+  "shift-scenario-bad-timestep.json"
+];
+
+for (const fixtureName of invalidShiftScenarioFixtures) {
+  test(`${fixtureName} is rejected by TypeScript shift scenario contract`, () => {
+    assert.throws(() => validateShiftScenarioContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+test("shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+
+  assert.throws(() =>
+    validateShiftScenarioContract(readInvalidFixture("shift-scenario-mismatched-plan-id.json"), {
+      plan
+    })
+  );
+});

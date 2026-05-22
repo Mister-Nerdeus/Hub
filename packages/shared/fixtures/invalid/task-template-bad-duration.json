@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateSetId": "task-template-bad-duration",
+  "name": "Bad Duration Template",
+  "description": "Invalid template fixture with a zero duration.",
+  "taskTemplates": [
+    {
+      "id": "template-bad-duration",
+      "taskType": "medication_round",
+      "label": "Bad duration workload",
+      "description": "Invalid operational workload template.",
+      "defaultDurationMinutes": 0,
+      "frequencySource": "room_load_frequency",
+      "trigger": "medicationFrequency",
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

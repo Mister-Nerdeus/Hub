@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "dayProfileId": "day-profile-bad-minute-range",
+  "name": "Bad Minute Range Day",
+  "description": "Invalid day profile with an end minute before the start minute.",
+  "shiftLengthMinutes": 720,
+  "segments": [
+    {
+      "id": "bad-minute-range",
+      "label": "Bad range",
+      "startMinute": 300,
+      "endMinute": 240,
+      "taskVolumeMultiplier": 1,
+      "turnoverMultiplier": 1,
+      "interruptionMultiplier": 1,
+      "walkingCongestionMultiplier": 1
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "scenarioId": "shift-scenario-bad-timestep",
+  "planId": "plan-er-pod-phase2",
+  "assignmentSetId": "manual-assignment-basic",
+  "assumptionsId": "assumptions-basic",
+  "taskTemplateSetId": "task-templates-basic",
+  "dayProfileId": "day-profile-typical",
+  "name": "Bad Timestep Scenario",
+  "description": "Invalid scenario fixture with timestep that does not divide the shift.",
+  "shiftLengthMinutes": 720,
+  "timestepMinutes": 14,
+  "seed": 20260522,
+  "roomLoads": []
+}

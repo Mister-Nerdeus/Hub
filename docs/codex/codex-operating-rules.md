@@ -16,7 +16,8 @@ Codex work in this repository must preserve the project as an operational ER pod
 - Keep contracts explicit across TypeScript, Python, API payloads, fixtures, and persisted JSON.
 - Validate exported or imported plan JSON with `node scripts/validate-plan-contract.mjs <path>` before using it as evidence.
 - Use deterministic ordering for exported plans, fixtures, reports, and proof artifacts.
-- Use seeded randomness only. The same plan, scenario, assumption set, and seed must reproduce the same simulation output.
+- Use seeded randomness only. The same plan, scenario, assumption set, task templates, day profile, and seed must reproduce the same generated operational task output.
+- Keep assumptions visible in the assumptions register instead of hard-coding hidden task timing or scoring constants.
 - Use operational terms such as `occupied room`, `room load`, `abstract patient load`, and `operational burden`.
 - Do not introduce PHI fields, real patient identity, diagnoses, clinical notes, EHR imports, or safety certification claims.
 - Treat local verification artifacts as the closeout authority for this project stage.

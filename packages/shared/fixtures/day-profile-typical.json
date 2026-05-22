@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "dayProfileId": "day-profile-typical",
+  "name": "Typical Day",
+  "description": "Synthetic operational pressure profile with moderate workload variation.",
+  "shiftLengthMinutes": 720,
+  "segments": [
+    {
+      "id": "typical-early",
+      "label": "Early shift",
+      "startMinute": 0,
+      "endMinute": 180,
+      "taskVolumeMultiplier": 0.8,
+      "turnoverMultiplier": 0.7,
+      "interruptionMultiplier": 0.8,
+      "walkingCongestionMultiplier": 0.9
+    },
+    {
+      "id": "typical-mid",
+      "label": "Mid shift",
+      "startMinute": 180,
+      "endMinute": 480,
+      "taskVolumeMultiplier": 1,
+      "turnoverMultiplier": 1,
+      "interruptionMultiplier": 1,
+      "walkingCongestionMultiplier": 1
+    },
+    {
+      "id": "typical-late",
+      "label": "Late shift",
+      "startMinute": 480,
+      "endMinute": 720,
+      "taskVolumeMultiplier": 0.9,
+      "turnoverMultiplier": 1.1,
+      "interruptionMultiplier": 0.9,
+      "walkingCongestionMultiplier": 1
+    }
+  ]
+}

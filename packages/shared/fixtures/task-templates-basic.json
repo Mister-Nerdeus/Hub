@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateSetId": "task-templates-basic",
+  "name": "Basic Operational Task Templates",
+  "description": "Abstract operational workload templates for deterministic generation proof.",
+  "taskTemplates": [
+    {
+      "id": "template-medication-round",
+      "taskType": "medication_round",
+      "label": "Medication round workload",
+      "description": "Abstract medication-related operational workload.",
+      "defaultDurationMinutes": 10,
+      "frequencySource": "room_load_frequency",
+      "trigger": "medicationFrequency",
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-monitoring-check",
+      "taskType": "monitoring_check",
+      "label": "Monitoring check workload",
+      "description": "Abstract monitoring-related operational workload.",
+      "defaultDurationMinutes": 5,
+      "frequencySource": "room_load_frequency",
+      "trigger": "monitoringFrequency",
+      "burdenCategory": "monitoring",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-procedure-support",
+      "taskType": "procedure_support",
+      "label": "Procedure support workload",
+      "description": "Abstract procedure-support operational workload.",
+      "defaultDurationMinutes": 20,
+      "frequencySource": "room_load_burden",
+      "trigger": "procedureBurden",
+      "burdenCategory": "procedure",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-room-turnover",
+      "taskType": "room_turnover",
+      "label": "Room turnover workload",
+      "description": "Abstract turnover operational workload.",
+      "defaultDurationMinutes": 15,
+      "frequencySource": "room_load_turnover",
+      "trigger": "expectedTurnover",
+      "burdenCategory": "turnover",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-isolation-prep",
+      "taskType": "isolation_prep",
+      "label": "Isolation prep workload",
+      "description": "Abstract isolation setup operational workload.",
+      "defaultDurationMinutes": 8,
+      "frequencySource": "boolean_trigger",
+      "trigger": "isolationActive",
+      "burdenCategory": "isolation",
+      "interruptive": true,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-behavioral-observation",
+      "taskType": "behavioral_observation",
+      "label": "Behavioral observation workload",
+      "description": "Abstract behavioral observation operational workload.",
+      "defaultDurationMinutes": 15,
+      "frequencySource": "boolean_trigger",
+      "trigger": "behavioralRisk",
+      "burdenCategory": "behavioral",
+      "interruptive": true,
+      "requiresRoomPresence": true
+    },
+    {
+      "id": "template-sitter-observation",
+      "taskType": "sitter_observation",
+      "label": "Sitter observation workload",
+      "description": "Abstract sitter observation operational workload.",
+      "defaultDurationMinutes": 30,
+      "frequencySource": "boolean_trigger",
+      "trigger": "sitterRequired",
+      "burdenCategory": "sitter",
+      "interruptive": true,
+      "requiresRoomPresence": true
+    }
+  ]
+}

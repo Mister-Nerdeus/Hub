@@ -39,6 +39,43 @@ export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as c
 
 export const TURNOVER_LEVELS = ["low", "normal", "high", "surge"] as const;
 
+export const TASK_TYPES = [
+  "medication_round",
+  "monitoring_check",
+  "procedure_support",
+  "room_turnover",
+  "isolation_prep",
+  "behavioral_observation",
+  "sitter_observation"
+] as const;
+
+export const TASK_FREQUENCY_SOURCES = [
+  "room_load_frequency",
+  "room_load_burden",
+  "room_load_turnover",
+  "boolean_trigger"
+] as const;
+
+export const TASK_TRIGGERS = [
+  "medicationFrequency",
+  "monitoringFrequency",
+  "procedureBurden",
+  "expectedTurnover",
+  "isolationActive",
+  "behavioralRisk",
+  "sitterRequired"
+] as const;
+
+export const TASK_BURDEN_CATEGORIES = [
+  "medication",
+  "monitoring",
+  "procedure",
+  "turnover",
+  "isolation",
+  "behavioral",
+  "sitter"
+] as const;
+
 export const NURSE_ROLES = [
   "primary",
   "charge",
@@ -75,6 +112,10 @@ export type StationType = (typeof STATION_TYPES)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
+export type TaskType = (typeof TASK_TYPES)[number];
+export type TaskFrequencySource = (typeof TASK_FREQUENCY_SOURCES)[number];
+export type TaskTrigger = (typeof TASK_TRIGGERS)[number];
+export type TaskBurdenCategory = (typeof TASK_BURDEN_CATEGORIES)[number];
 export type NurseRole = (typeof NURSE_ROLES)[number];
 export type AssignmentType = (typeof ASSIGNMENT_TYPES)[number];
 export type WarningSeverity = (typeof WARNING_SEVERITIES)[number];
@@ -203,16 +244,131 @@ export type RoomLoad = {
   expectedTurnover: TurnoverLevel;
 };
 
-export type ScenarioContract = {
+export type RoomWorkloadWeights = {
+  acuity: {
+    "1": number;
+    "2": number;
+    "3": number;
+    "4": number;
+    "5": number;
+  };
+  traumaActive: number;
+  isolationActive: number;
+  behavioralRisk: number;
+  fallRisk: number;
+  sitterRequired: number;
+  highMedicationFrequency: number;
+  highMonitoringFrequency: number;
+  highProcedureBurden: number;
+};
+
+export type NurseBurdenWeights = {
+  roomSpreadPerAdditionalOccupiedRoom: number;
+  overTargetPerRoom: number;
+  overMaxPerRoom: number;
+  traumaMismatchPerRoom: number;
+  activeTaskMinutesPlaceholder: number;
+  walkingMinutesPlaceholder: number;
+  breakCoveragePenaltyPlaceholder: number;
+  interruptionPenaltyPlaceholder: number;
+};
+
+export type TaskDurationDefaults = {
+  medicationTaskMinutes: number;
+  monitoringTaskMinutes: number;
+  procedureTaskMinutes: number;
+  turnoverTaskMinutes: number;
+  isolationTaskMinutes: number;
+  behavioralRiskTaskMinutes: number;
+  sitterTaskMinutes: number;
+};
+
+export type TaskFrequencyMappings = {
+  none: number;
+  low: number;
+  medium: number;
+  high: number;
+  continuous: number;
+};
+
+export type SimulationDefaults = {
+  defaultShiftLengthMinutes: number;
+  defaultTimestepMinutes: number;
+  defaultSeed: number;
+};
+
+export type AssumptionsRegisterContract = {
+  schemaVersion: "1.0.0";
+  assumptionsId: string;
+  name: string;
+  description?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  roomWorkloadWeights: RoomWorkloadWeights;
+  nurseBurdenWeights: NurseBurdenWeights;
+  taskDurationDefaults: TaskDurationDefaults;
+  taskFrequencyMappings: TaskFrequencyMappings;
+  simulationDefaults: SimulationDefaults;
+};
+
+export type CareTaskTemplate = {
+  id: string;
+  taskType: TaskType;
+  label: string;
+  description?: string | null;
+  defaultDurationMinutes: number;
+  frequencySource: TaskFrequencySource;
+  trigger: TaskTrigger;
+  burdenCategory: TaskBurdenCategory;
+  interruptive: boolean;
+  requiresRoomPresence: boolean;
+};
+
+export type TaskTemplateContract = {
+  schemaVersion: "1.0.0";
+  templateSetId: string;
+  name: string;
+  description?: string | null;
+  taskTemplates: CareTaskTemplate[];
+};
+
+export type DayProfileSegment = {
+  id: string;
+  label: string;
+  startMinute: number;
+  endMinute: number;
+  taskVolumeMultiplier: number;
+  turnoverMultiplier: number;
+  interruptionMultiplier: number;
+  walkingCongestionMultiplier: number;
+};
+
+export type DayProfileContract = {
+  schemaVersion: "1.0.0";
+  dayProfileId: string;
+  name: string;
+  description?: string | null;
+  shiftLengthMinutes: number;
+  segments: DayProfileSegment[];
+};
+
+export type ShiftScenarioContract = {
   schemaVersion: "1.0.0";
   scenarioId: string;
   planId: string;
+  assignmentSetId: string;
+  assumptionsId: string;
+  taskTemplateSetId: string;
+  dayProfileId: string;
   name: string;
+  description?: string | null;
   shiftLengthMinutes: number;
   timestepMinutes: number;
   seed: number;
   roomLoads: RoomLoad[];
 };
+
+export type ScenarioContract = ShiftScenarioContract;
 
 export type BreakWindow = {
   id: string;
@@ -314,6 +470,18 @@ export type NurseBurdenResult = {
   validation: ManualAssignmentValidationResult;
 };
 
+export type GeneratedOperationalTask = {
+  id: string;
+  taskType: TaskType;
+  roomId: string;
+  sourceTemplateId: string;
+  scheduledMinute: number;
+  estimatedDurationMinutes: number;
+  burdenCategory: TaskBurdenCategory;
+  interruptive: boolean;
+  requiresRoomPresence: boolean;
+};
+
 type IdSets = {
   roomIds: Set<string>;
   hallwayIds: Set<string>;
@@ -392,12 +560,124 @@ export function validatePlanContract(value: unknown): PlanContract {
 }
 
 export function validateScenarioContract(value: unknown): ScenarioContract {
+  return validateShiftScenarioContract(value);
+}
+
+export function validateAssumptionsRegisterContract(
+  value: unknown
+): AssumptionsRegisterContract {
+  const assumptions = requireRecord(value, "assumptions");
+  requireExactKeys(assumptions, "assumptions", [
+    "schemaVersion",
+    "assumptionsId",
+    "name",
+    "description",
+    "createdAt",
+    "updatedAt",
+    "roomWorkloadWeights",
+    "nurseBurdenWeights",
+    "taskDurationDefaults",
+    "taskFrequencyMappings",
+    "simulationDefaults"
+  ]);
+
+  requireLiteral(assumptions.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(assumptions.assumptionsId, "assumptionsId");
+  requireString(assumptions.name, "name");
+  requireOptionalString(assumptions.description, "description");
+  requireIsoDateTime(assumptions.createdAt, "createdAt");
+  requireIsoDateTime(assumptions.updatedAt, "updatedAt");
+  validateRoomWorkloadWeights(assumptions.roomWorkloadWeights);
+  validateNurseBurdenWeights(assumptions.nurseBurdenWeights);
+  validateTaskDurationDefaults(assumptions.taskDurationDefaults);
+  validateTaskFrequencyMappings(assumptions.taskFrequencyMappings);
+  validateSimulationDefaults(assumptions.simulationDefaults);
+
+  return assumptions as AssumptionsRegisterContract;
+}
+
+export function validateTaskTemplateContract(value: unknown): TaskTemplateContract {
+  const templateSet = requireRecord(value, "taskTemplateContract");
+  requireExactKeys(templateSet, "taskTemplateContract", [
+    "schemaVersion",
+    "templateSetId",
+    "name",
+    "description",
+    "taskTemplates"
+  ]);
+
+  requireLiteral(templateSet.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(templateSet.templateSetId, "templateSetId");
+  requireString(templateSet.name, "name");
+  validateOperationalText(templateSet.description, "description");
+  const taskTemplates = requireArray(templateSet.taskTemplates, "taskTemplates").map(
+    validateCareTaskTemplate
+  );
+  requireUnique(
+    "task template ids",
+    taskTemplates.map((template) => template.id)
+  );
+
+  return templateSet as TaskTemplateContract;
+}
+
+export function validateDayProfileContract(value: unknown): DayProfileContract {
+  const dayProfile = requireRecord(value, "dayProfile");
+  requireExactKeys(dayProfile, "dayProfile", [
+    "schemaVersion",
+    "dayProfileId",
+    "name",
+    "description",
+    "shiftLengthMinutes",
+    "segments"
+  ]);
+
+  requireLiteral(dayProfile.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(dayProfile.dayProfileId, "dayProfileId");
+  requireString(dayProfile.name, "name");
+  requireOptionalString(dayProfile.description, "description");
+  const shiftLengthMinutes = requirePositiveInteger(
+    dayProfile.shiftLengthMinutes,
+    "shiftLengthMinutes"
+  );
+  const segments = requireArray(dayProfile.segments, "segments").map((segment, index) =>
+    validateDayProfileSegment(segment, index, shiftLengthMinutes)
+  );
+  if (segments.length === 0) {
+    throw new Error("segments requires at least one segment");
+  }
+  requireUnique(
+    "day profile segment ids",
+    segments.map((segment) => segment.id)
+  );
+  validateFullShiftSegmentCoverage(segments, shiftLengthMinutes);
+
+  return dayProfile as DayProfileContract;
+}
+
+export type ShiftScenarioReferences = {
+  plan?: PlanContract;
+  assignmentSet?: ManualAssignmentContract;
+  assumptions?: AssumptionsRegisterContract;
+  taskTemplates?: TaskTemplateContract;
+  dayProfile?: DayProfileContract;
+};
+
+export function validateShiftScenarioContract(
+  value: unknown,
+  references: ShiftScenarioReferences = {}
+): ShiftScenarioContract {
   const scenario = requireRecord(value, "scenario");
   requireExactKeys(scenario, "scenario", [
     "schemaVersion",
     "scenarioId",
     "planId",
+    "assignmentSetId",
+    "assumptionsId",
+    "taskTemplateSetId",
+    "dayProfileId",
     "name",
+    "description",
     "shiftLengthMinutes",
     "timestepMinutes",
     "seed",
@@ -407,21 +687,74 @@ export function validateScenarioContract(value: unknown): ScenarioContract {
   requireLiteral(scenario.schemaVersion, "1.0.0", "schemaVersion");
   requireString(scenario.scenarioId, "scenarioId");
   requireString(scenario.planId, "planId");
+  requireString(scenario.assignmentSetId, "assignmentSetId");
+  requireString(scenario.assumptionsId, "assumptionsId");
+  requireString(scenario.taskTemplateSetId, "taskTemplateSetId");
+  requireString(scenario.dayProfileId, "dayProfileId");
   requireString(scenario.name, "name");
+  requireOptionalString(scenario.description, "description");
   const shiftLengthMinutes = requirePositiveInteger(
     scenario.shiftLengthMinutes,
     "shiftLengthMinutes"
   );
   const timestepMinutes = requirePositiveInteger(scenario.timestepMinutes, "timestepMinutes");
-  requireInteger(scenario.seed, "seed", 0);
+  requireSafeInteger(scenario.seed, "seed", 0);
 
   if (shiftLengthMinutes % timestepMinutes !== 0) {
     throw new Error("shiftLengthMinutes must divide evenly by timestepMinutes");
   }
 
-  validateRoomLoads(scenario.roomLoads);
+  if (references.plan != null && scenario.planId !== references.plan.planId) {
+    throw new Error("scenario.planId must match the referenced plan");
+  }
+  if (
+    references.assignmentSet != null &&
+    scenario.assignmentSetId !== references.assignmentSet.assignmentSetId
+  ) {
+    throw new Error("scenario.assignmentSetId must match the referenced assignment set");
+  }
+  if (
+    references.assumptions != null &&
+    scenario.assumptionsId !== references.assumptions.assumptionsId
+  ) {
+    throw new Error("scenario.assumptionsId must match the referenced assumptions register");
+  }
+  if (
+    references.taskTemplates != null &&
+    scenario.taskTemplateSetId !== references.taskTemplates.templateSetId
+  ) {
+    throw new Error("scenario.taskTemplateSetId must match the referenced task template set");
+  }
+  if (
+    references.dayProfile != null &&
+    scenario.dayProfileId !== references.dayProfile.dayProfileId
+  ) {
+    throw new Error("scenario.dayProfileId must match the referenced day profile");
+  }
+  if (
+    references.dayProfile != null &&
+    scenario.shiftLengthMinutes !== references.dayProfile.shiftLengthMinutes
+  ) {
+    throw new Error("scenario.shiftLengthMinutes must match the referenced day profile");
+  }
 
-  return scenario as ScenarioContract;
+  validateRoomLoads(scenario.roomLoads, references.plan);
+
+  return scenario as ShiftScenarioContract;
+}
+
+export function validateGeneratedOperationalTasks(
+  value: unknown,
+  scenario?: ShiftScenarioContract
+): GeneratedOperationalTask[] {
+  const tasks = requireArray(value, "generatedOperationalTasks").map((task, index) =>
+    validateGeneratedOperationalTask(task, index, scenario)
+  );
+  requireUnique(
+    "generated operational task ids",
+    tasks.map((task) => task.id)
+  );
+  return tasks;
 }
 
 export function validateRoomLoads(value: unknown, plan?: PlanContract): RoomLoad[] {
@@ -510,6 +843,315 @@ export function validateManualAssignmentContract(
   }
 
   return assignmentSet as ManualAssignmentContract;
+}
+
+function validateRoomWorkloadWeights(value: unknown): RoomWorkloadWeights {
+  const weights = requireRecord(value, "roomWorkloadWeights");
+  requireExactKeys(weights, "roomWorkloadWeights", [
+    "acuity",
+    "traumaActive",
+    "isolationActive",
+    "behavioralRisk",
+    "fallRisk",
+    "sitterRequired",
+    "highMedicationFrequency",
+    "highMonitoringFrequency",
+    "highProcedureBurden"
+  ]);
+  const acuity = requireRecord(weights.acuity, "roomWorkloadWeights.acuity");
+  requireExactKeys(acuity, "roomWorkloadWeights.acuity", ["1", "2", "3", "4", "5"]);
+  for (const key of ["1", "2", "3", "4", "5"] as const) {
+    requireNonNegativeNumber(acuity[key], `roomWorkloadWeights.acuity.${key}`);
+  }
+  for (const key of [
+    "traumaActive",
+    "isolationActive",
+    "behavioralRisk",
+    "fallRisk",
+    "sitterRequired",
+    "highMedicationFrequency",
+    "highMonitoringFrequency",
+    "highProcedureBurden"
+  ] as const) {
+    requireNonNegativeNumber(weights[key], `roomWorkloadWeights.${key}`);
+  }
+  return weights as RoomWorkloadWeights;
+}
+
+function validateNurseBurdenWeights(value: unknown): NurseBurdenWeights {
+  const weights = requireRecord(value, "nurseBurdenWeights");
+  requireExactKeys(weights, "nurseBurdenWeights", [
+    "roomSpreadPerAdditionalOccupiedRoom",
+    "overTargetPerRoom",
+    "overMaxPerRoom",
+    "traumaMismatchPerRoom",
+    "activeTaskMinutesPlaceholder",
+    "walkingMinutesPlaceholder",
+    "breakCoveragePenaltyPlaceholder",
+    "interruptionPenaltyPlaceholder"
+  ]);
+  for (const key of [
+    "roomSpreadPerAdditionalOccupiedRoom",
+    "overTargetPerRoom",
+    "overMaxPerRoom",
+    "traumaMismatchPerRoom",
+    "activeTaskMinutesPlaceholder",
+    "walkingMinutesPlaceholder",
+    "breakCoveragePenaltyPlaceholder",
+    "interruptionPenaltyPlaceholder"
+  ] as const) {
+    requireNonNegativeNumber(weights[key], `nurseBurdenWeights.${key}`);
+  }
+  return weights as NurseBurdenWeights;
+}
+
+function validateTaskDurationDefaults(value: unknown): TaskDurationDefaults {
+  const durations = requireRecord(value, "taskDurationDefaults");
+  requireExactKeys(durations, "taskDurationDefaults", [
+    "medicationTaskMinutes",
+    "monitoringTaskMinutes",
+    "procedureTaskMinutes",
+    "turnoverTaskMinutes",
+    "isolationTaskMinutes",
+    "behavioralRiskTaskMinutes",
+    "sitterTaskMinutes"
+  ]);
+  for (const key of [
+    "medicationTaskMinutes",
+    "monitoringTaskMinutes",
+    "procedureTaskMinutes",
+    "turnoverTaskMinutes",
+    "isolationTaskMinutes",
+    "behavioralRiskTaskMinutes",
+    "sitterTaskMinutes"
+  ] as const) {
+    requirePositiveNumber(durations[key], `taskDurationDefaults.${key}`);
+  }
+  return durations as TaskDurationDefaults;
+}
+
+function validateTaskFrequencyMappings(value: unknown): TaskFrequencyMappings {
+  const mappings = requireRecord(value, "taskFrequencyMappings");
+  requireExactKeys(mappings, "taskFrequencyMappings", [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "continuous"
+  ]);
+  for (const key of TASK_FREQUENCIES) {
+    requireInteger(mappings[key], `taskFrequencyMappings.${key}`, 0);
+  }
+  return mappings as TaskFrequencyMappings;
+}
+
+function validateSimulationDefaults(value: unknown): SimulationDefaults {
+  const defaults = requireRecord(value, "simulationDefaults");
+  requireExactKeys(defaults, "simulationDefaults", [
+    "defaultShiftLengthMinutes",
+    "defaultTimestepMinutes",
+    "defaultSeed"
+  ]);
+  const defaultShiftLengthMinutes = requirePositiveInteger(
+    defaults.defaultShiftLengthMinutes,
+    "simulationDefaults.defaultShiftLengthMinutes"
+  );
+  const defaultTimestepMinutes = requirePositiveInteger(
+    defaults.defaultTimestepMinutes,
+    "simulationDefaults.defaultTimestepMinutes"
+  );
+  if (defaultShiftLengthMinutes % defaultTimestepMinutes !== 0) {
+    throw new Error("simulationDefaults.defaultShiftLengthMinutes must divide evenly by defaultTimestepMinutes");
+  }
+  requireSafeInteger(defaults.defaultSeed, "simulationDefaults.defaultSeed", 0);
+  return defaults as SimulationDefaults;
+}
+
+function validateCareTaskTemplate(value: unknown, index: number): CareTaskTemplate {
+  const template = requireRecord(value, `taskTemplates[${index}]`);
+  requireExactKeys(template, `taskTemplates[${index}]`, [
+    "id",
+    "taskType",
+    "label",
+    "description",
+    "defaultDurationMinutes",
+    "frequencySource",
+    "trigger",
+    "burdenCategory",
+    "interruptive",
+    "requiresRoomPresence"
+  ]);
+  requireString(template.id, `taskTemplates[${index}].id`);
+  requireEnum(template.taskType, TASK_TYPES, `taskTemplates[${index}].taskType`);
+  validateOperationalText(template.label, `taskTemplates[${index}].label`);
+  validateOperationalText(template.description, `taskTemplates[${index}].description`);
+  requirePositiveNumber(
+    template.defaultDurationMinutes,
+    `taskTemplates[${index}].defaultDurationMinutes`
+  );
+  const frequencySource = requireEnum(
+    template.frequencySource,
+    TASK_FREQUENCY_SOURCES,
+    `taskTemplates[${index}].frequencySource`
+  );
+  const trigger = requireEnum(template.trigger, TASK_TRIGGERS, `taskTemplates[${index}].trigger`);
+  requireEnum(
+    template.burdenCategory,
+    TASK_BURDEN_CATEGORIES,
+    `taskTemplates[${index}].burdenCategory`
+  );
+  requireBoolean(template.interruptive, `taskTemplates[${index}].interruptive`);
+  requireBoolean(template.requiresRoomPresence, `taskTemplates[${index}].requiresRoomPresence`);
+
+  const expectedFrequencySource = expectedFrequencySourceForTrigger(trigger);
+  if (frequencySource !== expectedFrequencySource) {
+    throw new Error(
+      `taskTemplates[${index}].frequencySource must be ${expectedFrequencySource} for trigger ${trigger}`
+    );
+  }
+
+  return template as CareTaskTemplate;
+}
+
+function validateOperationalText(value: unknown, label: string): string | null | undefined {
+  const text = requireOptionalString(value, label);
+  if (text == null) {
+    return text;
+  }
+  const lowerText = text.toLowerCase();
+  const forbiddenPhrases = [
+    "diagnosis",
+    "clinical note",
+    "clinical order",
+    "treatment plan",
+    "real identity"
+  ];
+  if (forbiddenPhrases.some((phrase) => lowerText.includes(phrase))) {
+    throw new Error(`${label} must remain operational-only`);
+  }
+  return text;
+}
+
+function expectedFrequencySourceForTrigger(trigger: TaskTrigger): TaskFrequencySource {
+  if (trigger === "medicationFrequency" || trigger === "monitoringFrequency") {
+    return "room_load_frequency";
+  }
+  if (trigger === "procedureBurden") {
+    return "room_load_burden";
+  }
+  if (trigger === "expectedTurnover") {
+    return "room_load_turnover";
+  }
+  return "boolean_trigger";
+}
+
+function validateDayProfileSegment(
+  value: unknown,
+  index: number,
+  shiftLengthMinutes: number
+): DayProfileSegment {
+  const segment = requireRecord(value, `segments[${index}]`);
+  requireExactKeys(segment, `segments[${index}]`, [
+    "id",
+    "label",
+    "startMinute",
+    "endMinute",
+    "taskVolumeMultiplier",
+    "turnoverMultiplier",
+    "interruptionMultiplier",
+    "walkingCongestionMultiplier"
+  ]);
+  requireString(segment.id, `segments[${index}].id`);
+  requireString(segment.label, `segments[${index}].label`);
+  const startMinute = requireInteger(segment.startMinute, `segments[${index}].startMinute`, 0);
+  const endMinute = requireInteger(segment.endMinute, `segments[${index}].endMinute`, 0);
+  if (endMinute <= startMinute) {
+    throw new Error(`segments[${index}].endMinute must be greater than startMinute`);
+  }
+  if (endMinute > shiftLengthMinutes) {
+    throw new Error(`segments[${index}] must stay within shift bounds`);
+  }
+  requirePositiveNumber(segment.taskVolumeMultiplier, `segments[${index}].taskVolumeMultiplier`);
+  requirePositiveNumber(segment.turnoverMultiplier, `segments[${index}].turnoverMultiplier`);
+  requirePositiveNumber(
+    segment.interruptionMultiplier,
+    `segments[${index}].interruptionMultiplier`
+  );
+  requirePositiveNumber(
+    segment.walkingCongestionMultiplier,
+    `segments[${index}].walkingCongestionMultiplier`
+  );
+  return segment as DayProfileSegment;
+}
+
+function validateFullShiftSegmentCoverage(
+  segments: DayProfileSegment[],
+  shiftLengthMinutes: number
+): void {
+  const sortedSegments = [...segments].sort((left, right) => left.startMinute - right.startMinute);
+  let expectedStartMinute = 0;
+  for (const segment of sortedSegments) {
+    if (segment.startMinute !== expectedStartMinute) {
+      throw new Error("day profile segments must cover the full shift without gaps or overlaps");
+    }
+    expectedStartMinute = segment.endMinute;
+  }
+  if (expectedStartMinute !== shiftLengthMinutes) {
+    throw new Error("day profile segments must cover the full shift");
+  }
+}
+
+function validateGeneratedOperationalTask(
+  value: unknown,
+  index: number,
+  scenario?: ShiftScenarioContract
+): GeneratedOperationalTask {
+  const task = requireRecord(value, `generatedOperationalTasks[${index}]`);
+  requireExactKeys(task, `generatedOperationalTasks[${index}]`, [
+    "id",
+    "taskType",
+    "roomId",
+    "sourceTemplateId",
+    "scheduledMinute",
+    "estimatedDurationMinutes",
+    "burdenCategory",
+    "interruptive",
+    "requiresRoomPresence"
+  ]);
+  requireString(task.id, `generatedOperationalTasks[${index}].id`);
+  requireEnum(task.taskType, TASK_TYPES, `generatedOperationalTasks[${index}].taskType`);
+  const roomId = requireString(task.roomId, `generatedOperationalTasks[${index}].roomId`);
+  requireString(task.sourceTemplateId, `generatedOperationalTasks[${index}].sourceTemplateId`);
+  const scheduledMinute = requireInteger(
+    task.scheduledMinute,
+    `generatedOperationalTasks[${index}].scheduledMinute`,
+    0
+  );
+  requirePositiveNumber(
+    task.estimatedDurationMinutes,
+    `generatedOperationalTasks[${index}].estimatedDurationMinutes`
+  );
+  requireEnum(
+    task.burdenCategory,
+    TASK_BURDEN_CATEGORIES,
+    `generatedOperationalTasks[${index}].burdenCategory`
+  );
+  requireBoolean(task.interruptive, `generatedOperationalTasks[${index}].interruptive`);
+  requireBoolean(
+    task.requiresRoomPresence,
+    `generatedOperationalTasks[${index}].requiresRoomPresence`
+  );
+
+  if (scenario != null) {
+    if (scheduledMinute >= scenario.shiftLengthMinutes) {
+      throw new Error(`generatedOperationalTasks[${index}].scheduledMinute must be within shift bounds`);
+    }
+    if (!scenario.roomLoads.some((roomLoad) => roomLoad.roomId === roomId)) {
+      throw new Error(`generatedOperationalTasks[${index}].roomId references an unknown scenario room`);
+    }
+  }
+
+  return task as GeneratedOperationalTask;
 }
 
 function validateScale(value: unknown): ScaleSettings {
@@ -1047,6 +1689,14 @@ function requireInteger(value: unknown, label: string, min?: number, max?: numbe
     throw new Error(`${label} must be less than or equal to ${max}`);
   }
   return value;
+}
+
+function requireSafeInteger(value: unknown, label: string, min?: number, max?: number): number {
+  const integerValue = requireInteger(value, label, min, max);
+  if (!Number.isSafeInteger(integerValue)) {
+    throw new Error(`${label} must be a safe integer`);
+  }
+  return integerValue;
 }
 
 function requirePositiveInteger(value: unknown, label: string): number {

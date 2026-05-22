@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "dayProfileId": "day-profile-bad-multiplier",
+  "name": "Bad Multiplier Day",
+  "description": "Invalid day profile with a zero multiplier.",
+  "shiftLengthMinutes": 720,
+  "segments": [
+    {
+      "id": "bad-multiplier-full",
+      "label": "Full shift",
+      "startMinute": 0,
+      "endMinute": 720,
+      "taskVolumeMultiplier": 0,
+      "turnoverMultiplier": 1,
+      "interruptionMultiplier": 1,
+      "walkingCongestionMultiplier": 1
+    }
+  ]
+}

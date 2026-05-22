@@ -11,6 +11,9 @@ This repository must not store, generate, import, or display PHI.
 - Synthetic nurse roles, qualifications, colors, break windows, and room assignments.
 - Synthetic fixtures that cannot identify real people.
 - Seeded simulation events and generated evidence artifacts.
+- Visible assumptions registers for operational scoring and task timing.
+- Abstract operational task templates and generated operational task sets.
+- Synthetic day profiles and shift scenarios.
 
 ## Forbidden
 
@@ -19,5 +22,6 @@ This repository must not store, generate, import, or display PHI.
 - Diagnosis, chief complaint, or treatment text tied to a real or simulated identity.
 - Claims that the simulator certifies safe staffing or predicts patient outcomes.
 - Assignment warnings or burden scores presented as clinical safety certification.
+- Generated operational tasks presented as clinical orders or care instructions.
 
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

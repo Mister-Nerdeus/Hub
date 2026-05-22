@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateSetId": "task-template-bad-trigger",
+  "name": "Bad Trigger Template",
+  "description": "Invalid template fixture with an unsupported trigger.",
+  "taskTemplates": [
+    {
+      "id": "template-bad-trigger",
+      "taskType": "medication_round",
+      "label": "Unsupported trigger workload",
+      "description": "Invalid operational workload template.",
+      "defaultDurationMinutes": 10,
+      "frequencySource": "room_load_frequency",
+      "trigger": "unsupportedTrigger",
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

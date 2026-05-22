@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "scenarioId": "shift-scenario-bad-seed",
+  "planId": "plan-er-pod-phase2",
+  "assignmentSetId": "manual-assignment-basic",
+  "assumptionsId": "assumptions-basic",
+  "taskTemplateSetId": "task-templates-basic",
+  "dayProfileId": "day-profile-typical",
+  "name": "Bad Seed Scenario",
+  "description": "Invalid scenario fixture with a negative seed.",
+  "shiftLengthMinutes": 720,
+  "timestepMinutes": 15,
+  "seed": -1,
+  "roomLoads": []
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateSetId": "task-template-bad-type",
+  "name": "Bad Task Type Template",
+  "description": "Invalid template fixture with an unsupported task type.",
+  "taskTemplates": [
+    {
+      "id": "template-bad-type",
+      "taskType": "unsupported_task_type",
+      "label": "Unsupported workload",
+      "description": "Invalid operational workload template.",
+      "defaultDurationMinutes": 10,
+      "frequencySource": "room_load_frequency",
+      "trigger": "medicationFrequency",
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

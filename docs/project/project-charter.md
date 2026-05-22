@@ -31,4 +31,8 @@ Issues `015` through `024` establish configurable Docker host ports, the expande
 
 Phase 3 adds manual nurse assignment contracts, abstract room-load enum contracts, deterministic room workload scoring, deterministic warning generation, deterministic nurse burden scoring, and an API-free web proof surface. Phase 3 remains local-first and uses synthetic operational data only.
 
-Seeded full-shift simulation, assignment persistence, and optimization remain out of scope until later accepted contracts.
+## Phase 4 Deterministic Task Generation Foundation
+
+Phase 4 adds visible assumptions, operational task templates, typical and slammed day profiles, expanded shift scenario inputs, deterministic seeded randomness, and a basic reproducible generated operational task proof. Phase 4 remains local-first and uses synthetic operational data only.
+
+Generated task assignment to nurses, task completion simulation, walking route calculation, seeded full-shift simulation, assignment persistence, and optimization remain out of scope until later accepted contracts.
