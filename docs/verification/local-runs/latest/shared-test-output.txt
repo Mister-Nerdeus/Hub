@@ -14,109 +14,109 @@ TAP version 13
 # Subtest: plan fixture validates against TypeScript contract
 ok 1 - plan fixture validates against TypeScript contract
   ---
-  duration_ms: 4.6437
+  duration_ms: 3.7307
   type: 'test'
   ...
 # Subtest: Phase 2 ER pod fixture validates against TypeScript contract
 ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
   ---
-  duration_ms: 0.9148
+  duration_ms: 0.8918
   type: 'test'
   ...
 # Subtest: scenario fixture validates against TypeScript contract
 ok 3 - scenario fixture validates against TypeScript contract
   ---
-  duration_ms: 0.6541
+  duration_ms: 0.6093
   type: 'test'
   ...
 # Subtest: room-load fixture validates against TypeScript contract and plan rooms
 ok 4 - room-load fixture validates against TypeScript contract and plan rooms
   ---
-  duration_ms: 1.0788
+  duration_ms: 0.9018
   type: 'test'
   ...
 # Subtest: manual assignment fixture validates against TypeScript contract and plan rooms
 ok 5 - manual assignment fixture validates against TypeScript contract and plan rooms
   ---
-  duration_ms: 1.1826
+  duration_ms: 1.1409
   type: 'test'
   ...
 # Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
 ok 6 - plan-duplicate-door-id.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.8439
+  duration_ms: 0.7074
   type: 'test'
   ...
 # Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
 ok 7 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.4481
+  duration_ms: 0.4452
   type: 'test'
   ...
 # Subtest: plan-bad-room-type.json is rejected by TypeScript contract
 ok 8 - plan-bad-room-type.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.4784
+  duration_ms: 0.294
   type: 'test'
   ...
 # Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
 ok 9 - plan-path-edge-missing-node.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.5999
+  duration_ms: 0.6068
   type: 'test'
   ...
 # Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
 ok 10 - plan-extra-unknown-field.json is rejected by TypeScript contract
   ---
-  duration_ms: 1.1506
+  duration_ms: 1.1261
   type: 'test'
   ...
 # Subtest: plan-missing-hallways.json is rejected by TypeScript contract
 ok 11 - plan-missing-hallways.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.4035
+  duration_ms: 0.4072
   type: 'test'
   ...
 # Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
 ok 12 - plan-missing-room-capability.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.3956
+  duration_ms: 0.4343
   type: 'test'
   ...
 # Subtest: plan-bad-station-type.json is rejected by TypeScript contract
 ok 13 - plan-bad-station-type.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.3227
+  duration_ms: 0.3213
   type: 'test'
   ...
 # Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
 ok 14 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.314
+  duration_ms: 0.3065
   type: 'test'
   ...
 # Subtest: plan-id-too-long.json is rejected by TypeScript contract
 ok 15 - plan-id-too-long.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.2754
+  duration_ms: 0.28
   type: 'test'
   ...
 # Subtest: plan-name-too-long.json is rejected by TypeScript contract
 ok 16 - plan-name-too-long.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.2555
+  duration_ms: 0.2462
   type: 'test'
   ...
 # Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
 ok 17 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.6411
+  duration_ms: 0.6803
   type: 'test'
   ...
 # Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
 ok 18 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.285
+  duration_ms: 0.2955
   type: 'test'
   ...
 # Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
@@ -128,205 +128,205 @@ ok 19 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contra
 # Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
 ok 20 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
   ---
-  duration_ms: 0.2519
+  duration_ms: 0.2587
   type: 'test'
   ...
 # Subtest: room-load-bad-frequency.json is rejected by TypeScript room-load contract
 ok 21 - room-load-bad-frequency.json is rejected by TypeScript room-load contract
   ---
-  duration_ms: 0.7929
+  duration_ms: 0.6406
   type: 'test'
   ...
 # Subtest: room-load-bad-burden.json is rejected by TypeScript room-load contract
 ok 22 - room-load-bad-burden.json is rejected by TypeScript room-load contract
   ---
-  duration_ms: 0.5657
+  duration_ms: 0.5323
   type: 'test'
   ...
 # Subtest: room-load-unknown-room.json is rejected by TypeScript room-load contract
 ok 23 - room-load-unknown-room.json is rejected by TypeScript room-load contract
   ---
-  duration_ms: 0.527
+  duration_ms: 0.5201
   type: 'test'
   ...
 # Subtest: old numeric room-load fields are rejected by TypeScript contract
 ok 24 - old numeric room-load fields are rejected by TypeScript contract
   ---
-  duration_ms: 0.1708
+  duration_ms: 0.1682
   type: 'test'
   ...
 # Subtest: manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
 ok 25 - manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
   ---
-  duration_ms: 0.6343
+  duration_ms: 0.8272
   type: 'test'
   ...
 # Subtest: manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
 ok 26 - manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
   ---
-  duration_ms: 0.7056
+  duration_ms: 0.7417
   type: 'test'
   ...
 # Subtest: manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
 ok 27 - manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
   ---
-  duration_ms: 0.6416
+  duration_ms: 0.6671
   type: 'test'
   ...
 # Subtest: manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
 ok 28 - manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
   ---
-  duration_ms: 0.5706
+  duration_ms: 0.5867
   type: 'test'
   ...
 # Subtest: manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
 ok 29 - manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
   ---
-  duration_ms: 0.5059
+  duration_ms: 0.501
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: balanced assignment
 ok 30 - scoreNurseBurden: balanced assignment
   ---
-  duration_ms: 14.8377
+  duration_ms: 14.4283
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: nurse over target ratio
 ok 31 - scoreNurseBurden: nurse over target ratio
   ---
-  duration_ms: 0.491
+  duration_ms: 0.4899
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: nurse over max ratio
 ok 32 - scoreNurseBurden: nurse over max ratio
   ---
-  duration_ms: 0.2562
+  duration_ms: 0.2353
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: trauma mismatch
 ok 33 - scoreNurseBurden: trauma mismatch
   ---
-  duration_ms: 0.3948
+  duration_ms: 0.3888
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: duplicate room does not score as valid coverage
 ok 34 - scoreNurseBurden: duplicate room does not score as valid coverage
   ---
-  duration_ms: 0.362
+  duration_ms: 0.3728
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: same count lower acuity
 ok 35 - scoreNurseBurden: same count lower acuity
   ---
-  duration_ms: 0.3135
+  duration_ms: 0.3195
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: same count higher acuity
 ok 36 - scoreNurseBurden: same count higher acuity
   ---
-  duration_ms: 0.2286
+  duration_ms: 0.2477
   type: 'test'
   ...
 # Subtest: scoreNurseBurden: unassigned occupied room warning propagates
 ok 37 - scoreNurseBurden: unassigned occupied room warning propagates
   ---
-  duration_ms: 0.225
+  duration_ms: 0.2191
   type: 'test'
   ...
 # Subtest: same occupied-room count with different acuity yields different burden
 ok 38 - same occupied-room count with different acuity yields different burden
   ---
-  duration_ms: 0.6196
+  duration_ms: 0.8326
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: acuity 1 only
 ok 39 - scoreRoomLoad: acuity 1 only
   ---
-  duration_ms: 1.8356
+  duration_ms: 1.8445
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: acuity 5 only
 ok 40 - scoreRoomLoad: acuity 5 only
   ---
-  duration_ms: 0.163
+  duration_ms: 0.2339
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: trauma active
 ok 41 - scoreRoomLoad: trauma active
   ---
-  duration_ms: 0.1846
+  duration_ms: 0.1893
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: isolation active
 ok 42 - scoreRoomLoad: isolation active
   ---
-  duration_ms: 0.1636
+  duration_ms: 0.1254
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: behavioral fall sitter active
 ok 43 - scoreRoomLoad: behavioral fall sitter active
   ---
-  duration_ms: 0.267
+  duration_ms: 0.1075
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: high medication monitoring procedure
 ok 44 - scoreRoomLoad: high medication monitoring procedure
   ---
-  duration_ms: 0.1922
+  duration_ms: 0.1087
   type: 'test'
   ...
 # Subtest: scoreRoomLoad: unoccupied room zero burden
 ok 45 - scoreRoomLoad: unoccupied room zero burden
   ---
-  duration_ms: 1.2938
+  duration_ms: 0.126
   type: 'test'
   ...
 # Subtest: validateManualAssignment: unassigned occupied room
 ok 46 - validateManualAssignment: unassigned occupied room
   ---
-  duration_ms: 2.7903
+  duration_ms: 1.7092
   type: 'test'
   ...
 # Subtest: validateManualAssignment: room assigned twice
 ok 47 - validateManualAssignment: room assigned twice
   ---
-  duration_ms: 13.738
+  duration_ms: 13.522
   type: 'test'
   ...
 # Subtest: validateManualAssignment: nurse over target
 ok 48 - validateManualAssignment: nurse over target
   ---
-  duration_ms: 0.3153
+  duration_ms: 0.2827
   type: 'test'
   ...
 # Subtest: validateManualAssignment: nurse over max
 ok 49 - validateManualAssignment: nurse over max
   ---
-  duration_ms: 0.1791
+  duration_ms: 0.203
   type: 'test'
   ...
 # Subtest: validateManualAssignment: trauma room assigned to non-qualified nurse
 ok 50 - validateManualAssignment: trauma room assigned to non-qualified nurse
   ---
-  duration_ms: 0.3557
+  duration_ms: 0.379
   type: 'test'
   ...
 # Subtest: validateManualAssignment: unknown nurse
 ok 51 - validateManualAssignment: unknown nurse
   ---
-  duration_ms: 0.2317
+  duration_ms: 0.2498
   type: 'test'
   ...
 # Subtest: validateManualAssignment: unknown room
 ok 52 - validateManualAssignment: unknown room
   ---
-  duration_ms: 0.1931
+  duration_ms: 0.1977
   type: 'test'
   ...
 # Subtest: validateManualAssignment returns deterministic warning order
 ok 53 - validateManualAssignment returns deterministic warning order
   ---
-  duration_ms: 0.4035
+  duration_ms: 0.371
   type: 'test'
   ...
 1..53
@@ -337,7 +337,7 @@ ok 53 - validateManualAssignment returns deterministic warning order
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 128.853
+# duration_ms 134.3131
 
 ## stderr
 

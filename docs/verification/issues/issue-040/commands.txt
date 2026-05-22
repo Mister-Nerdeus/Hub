@@ -2,13 +2,13 @@
 
 node scripts/check-docs-contracts.mjs
 node scripts/check-no-phi-fields.mjs
-Temporarily rename docs/verification/phase-3-manual-assignment-evidence.md; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/phase-3-manual-assignment-checklist.md; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/issues/issue-038/scoring-output.json; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/issues/issue-038/warning-output.json; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/issues/issue-038/commands.txt; node scripts/check-docs-contracts.mjs; restore file
-Temporarily rename docs/verification/issues/issue-038/closeout.md; node scripts/check-docs-contracts.mjs; restore file
+Move-Item -LiteralPath docs/verification/phase-3-manual-assignment-evidence.md -Destination docs/verification/phase-3-manual-assignment-evidence.md.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/phase-3-manual-assignment-evidence.md.issue-040-temp -Destination docs/verification/phase-3-manual-assignment-evidence.md
+Move-Item -LiteralPath docs/verification/phase-3-manual-assignment-checklist.md -Destination docs/verification/phase-3-manual-assignment-checklist.md.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/phase-3-manual-assignment-checklist.md.issue-040-temp -Destination docs/verification/phase-3-manual-assignment-checklist.md
+Move-Item -LiteralPath docs/verification/issues/issue-038/scoring-output.json -Destination docs/verification/issues/issue-038/scoring-output.json.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/issues/issue-038/scoring-output.json.issue-040-temp -Destination docs/verification/issues/issue-038/scoring-output.json
+Move-Item -LiteralPath docs/verification/issues/issue-038/warning-output.json -Destination docs/verification/issues/issue-038/warning-output.json.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/issues/issue-038/warning-output.json.issue-040-temp -Destination docs/verification/issues/issue-038/warning-output.json
+Move-Item -LiteralPath docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png -Destination docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png.issue-040-temp -Destination docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+Move-Item -LiteralPath docs/verification/issues/issue-038/commands.txt -Destination docs/verification/issues/issue-038/commands.txt.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/issues/issue-038/commands.txt.issue-040-temp -Destination docs/verification/issues/issue-038/commands.txt
+Move-Item -LiteralPath docs/verification/issues/issue-038/closeout.md -Destination docs/verification/issues/issue-038/closeout.md.issue-040-temp; node scripts/check-docs-contracts.mjs; Move-Item -LiteralPath docs/verification/issues/issue-038/closeout.md.issue-040-temp -Destination docs/verification/issues/issue-038/closeout.md
 node scripts/check-docs-contracts.mjs
 docker compose down
 node scripts/verify-local.mjs

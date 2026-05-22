@@ -8,7 +8,7 @@ git status --short > docs/verification/issues/issue-039/git-status-after-transie
 npm run evidence:local -- --tracked
 git status --short > docs/verification/issues/issue-039/git-status-after-tracked.txt
 npm run evidence:local -- --out docs/verification/local-runs/latest
-LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
+$env:LOCAL_EVIDENCE_DIR = 'docs/verification/local-runs/latest'; npm run evidence:local; Remove-Item Env:\LOCAL_EVIDENCE_DIR
 node scripts/check-no-phi-fields.mjs
 node scripts/check-docs-contracts.mjs
 docker compose down
