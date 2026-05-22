@@ -30,3 +30,6 @@ See `docs/verification/issues/issue-019/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; sample JSON is synthetic operational layout data only.
+
+## Next Recommended Issue
+Issue 020 - Read-Only Phase 2 Plan Renderer.

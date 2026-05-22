@@ -1,0 +1,20 @@
+Issue 025B negative proof
+
+Before implementation:
+Temporarily renamed docs/verification/issues/issue-024/closeout.md; old checker passed incorrectly with exit code 0.
+
+After implementation: missing closeout fails
+Missing closeout artifact: C:\Projects\Hub\docs\verification\issues\issue-024\closeout.md
+Exit code: 1
+
+After implementation: missing Issue 024 screenshot fails
+Missing Issue 024 Phase 2 evidence: docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png
+Exit code: 1
+
+After implementation: missing exported JSON fails
+Missing Issue 024 Phase 2 evidence: docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json
+Exit code: 1
+
+After implementation: missing Issue 024 commands.txt fails
+Missing commands artifact: C:\Projects\Hub\docs\verification\issues\issue-024\commands.txt
+Exit code: 1

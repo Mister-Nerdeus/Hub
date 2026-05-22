@@ -13,98 +13,154 @@
     {
       "id": "room-01",
       "label": "Room 01",
-      "type": "standard",
       "x": 4,
       "y": 4,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-01"
+      "pathNodeId": "node-door-room-01",
+      "roomType": "standard",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 10,
+        "y": 14
+      }
     },
     {
       "id": "room-02",
       "label": "Room 02",
-      "type": "trauma",
       "x": 20,
       "y": 4,
       "widthFeet": 14,
       "lengthFeet": 12,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-02"
+      "pathNodeId": "node-door-room-02",
+      "roomType": "trauma",
+      "maxPatients": 1,
+      "traumaCapable": true,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 27,
+        "y": 16
+      }
     },
     {
       "id": "room-03",
       "label": "Room 03",
-      "type": "isolation",
       "x": 38,
       "y": 4,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-03"
+      "pathNodeId": "node-door-room-03",
+      "roomType": "isolation",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": true,
+      "doorPoint": {
+        "x": 44,
+        "y": 14
+      }
     },
     {
       "id": "room-04",
       "label": "Room 04",
-      "type": "psych",
       "x": 54,
       "y": 4,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-04"
+      "pathNodeId": "node-door-room-04",
+      "roomType": "psych",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 60,
+        "y": 14
+      }
     },
     {
       "id": "room-05",
       "label": "Room 05",
-      "type": "procedure",
       "x": 4,
       "y": 34,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-05"
+      "pathNodeId": "node-door-room-05",
+      "roomType": "procedure",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 10,
+        "y": 34
+      }
     },
     {
       "id": "room-06",
       "label": "Room 06",
-      "type": "overflow",
       "x": 20,
       "y": 34,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-06"
+      "pathNodeId": "node-door-room-06",
+      "roomType": "overflow",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 26,
+        "y": 34
+      }
     },
     {
       "id": "hall-bed-01",
       "label": "Hall Bed 01",
-      "type": "hall_bed",
       "x": 52,
       "y": 23,
       "widthFeet": 10,
       "lengthFeet": 6,
       "zoneId": "zone-hallway",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-hall-bed-01"
+      "pathNodeId": "node-door-hall-bed-01",
+      "roomType": "hall_bed",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 52,
+        "y": 26
+      }
     },
     {
       "id": "room-07",
       "label": "Room 07",
-      "type": "standard",
       "x": 36,
       "y": 34,
       "widthFeet": 14,
       "lengthFeet": 11,
       "zoneId": "zone-pod-a",
       "nearestStationId": "station-primary",
-      "pathNodeId": "node-door-room-07"
+      "pathNodeId": "node-door-room-07",
+      "roomType": "standard",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 42,
+        "y": 34
+      }
     }
   ],
   "hallways": [
@@ -221,149 +277,158 @@
       "y": 18,
       "widthFeet": 14,
       "lengthFeet": 10,
-      "pathNodeId": "node-station-primary"
+      "pathNodeId": "node-station-primary",
+      "stationType": "primary"
     }
   ],
   "zones": [
     {
       "id": "zone-pod-a",
       "label": "Pod A",
-      "type": "provider_area",
       "color": "#4f8a67",
       "x": 0,
       "y": 0,
       "widthFeet": 86,
-      "lengthFeet": 48
+      "lengthFeet": 48,
+      "zoneType": "provider_area",
+      "travelBlocked": false,
+      "travelPenalty": 1.2
     },
     {
       "id": "zone-hallway",
       "label": "Hallway Zone",
-      "type": "hallway",
       "color": "#8aa0ad",
       "x": 0,
       "y": 18,
       "widthFeet": 86,
-      "lengthFeet": 12
+      "lengthFeet": 12,
+      "zoneType": "hallway",
+      "travelBlocked": false,
+      "travelPenalty": 1
     },
     {
       "id": "zone-ems",
       "label": "EMS Entry",
-      "type": "ems_entry",
       "color": "#b46b33",
       "x": 0,
       "y": 50,
       "widthFeet": 20,
-      "lengthFeet": 12
+      "lengthFeet": 12,
+      "zoneType": "ems_entry",
+      "travelBlocked": false,
+      "travelPenalty": 1.2
     },
     {
       "id": "zone-storage",
       "label": "Supply Storage",
-      "type": "storage",
       "color": "#6e7c91",
       "x": 68,
       "y": 34,
       "widthFeet": 12,
-      "lengthFeet": 10
+      "lengthFeet": 10,
+      "zoneType": "storage",
+      "travelBlocked": true,
+      "travelPenalty": 1.2
     }
   ],
   "pathNodes": [
     {
       "id": "node-door-room-01",
-      "type": "room_door",
       "x": 10,
       "y": 16,
-      "linkedObjectId": "door-room-01"
+      "linkedObjectId": "door-room-01",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-room-02",
-      "type": "room_door",
       "x": 27,
       "y": 18,
-      "linkedObjectId": "door-room-02"
+      "linkedObjectId": "door-room-02",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-room-03",
-      "type": "room_door",
       "x": 44,
       "y": 16,
-      "linkedObjectId": "door-room-03"
+      "linkedObjectId": "door-room-03",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-room-04",
-      "type": "room_door",
       "x": 60,
       "y": 16,
-      "linkedObjectId": "door-room-04"
+      "linkedObjectId": "door-room-04",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-room-05",
-      "type": "room_door",
       "x": 10,
       "y": 32,
-      "linkedObjectId": "door-room-05"
+      "linkedObjectId": "door-room-05",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-room-06",
-      "type": "room_door",
       "x": 26,
       "y": 32,
-      "linkedObjectId": "door-room-06"
+      "linkedObjectId": "door-room-06",
+      "nodeType": "room_door"
     },
     {
       "id": "node-door-hall-bed-01",
-      "type": "room_door",
       "x": 52,
       "y": 26,
-      "linkedObjectId": "door-hall-bed-01"
+      "linkedObjectId": "door-hall-bed-01",
+      "nodeType": "room_door"
     },
     {
       "id": "node-hall-west",
-      "type": "hallway",
       "x": 8,
       "y": 24,
-      "linkedObjectId": "hallway-main"
+      "linkedObjectId": "hallway-main",
+      "nodeType": "hallway"
     },
     {
       "id": "node-hall-mid",
-      "type": "hallway",
       "x": 36,
       "y": 24,
-      "linkedObjectId": "hallway-main"
+      "linkedObjectId": "hallway-main",
+      "nodeType": "hallway"
     },
     {
       "id": "node-hall-east",
-      "type": "hallway",
       "x": 64,
       "y": 24,
-      "linkedObjectId": "hallway-main"
+      "linkedObjectId": "hallway-main",
+      "nodeType": "hallway"
     },
     {
       "id": "node-station-primary",
-      "type": "station",
       "x": 68,
       "y": 24,
-      "linkedObjectId": "station-primary"
+      "linkedObjectId": "station-primary",
+      "nodeType": "station"
     },
     {
       "id": "node-ems-entry",
-      "type": "entry",
       "x": 8,
       "y": 50,
-      "linkedObjectId": null
+      "linkedObjectId": null,
+      "nodeType": "entry"
     },
     {
       "id": "node-zone-storage",
-      "type": "zone",
       "x": 68,
       "y": 34,
-      "linkedObjectId": "zone-storage"
+      "linkedObjectId": "zone-storage",
+      "nodeType": "zone"
     },
     {
       "id": "node-door-room-07",
-      "type": "room_door",
       "x": 42,
       "y": 32,
-      "linkedObjectId": "door-room-07"
+      "linkedObjectId": "door-room-07",
+      "nodeType": "room_door"
     }
   ],
   "pathEdges": [
@@ -499,5 +564,8 @@
       "turnPenaltySeconds": 2,
       "blocked": false
     }
-  ]
+  ],
+  "description": "Synthetic Phase 2 ER pod layout for operational simulation.",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "updatedAt": "2026-05-22T00:00:00Z"
 }

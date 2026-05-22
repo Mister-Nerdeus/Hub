@@ -63,6 +63,7 @@ Every issue must produce:
 
 ```text
 docs/verification/issues/issue-XXX/closeout.md
+docs/verification/issues/issue-XXX/commands.txt
 ```
 
 Add screenshots, JSON samples, API responses, test output, generated reports, or verification artifacts under the same issue folder when relevant:
@@ -85,6 +86,8 @@ The issue may not be marked complete unless:
 4. Non-PHI scanner passes.
 5. Dependency matrix is unchanged or intentionally updated.
 6. Closeout evidence is written to `docs/verification/issues/issue-XXX/closeout.md`.
+7. Command evidence is written to `docs/verification/issues/issue-XXX/commands.txt`.
+8. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
 
 ## Closeout Response Format
 Codex must answer with:

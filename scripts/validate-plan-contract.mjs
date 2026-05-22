@@ -1,7 +1,16 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
-import { validatePlanContract } from "../packages/shared/dist/index.js";
+const sharedBuildPath = resolve("packages/shared/dist/index.js");
+
+if (!existsSync(sharedBuildPath)) {
+  console.error("Shared package build output missing. Run:");
+  console.error("npm --workspace @nerdeus/shared run build");
+  process.exit(1);
+}
+
+const { validatePlanContract } = await import(pathToFileURL(sharedBuildPath).href);
 
 const filePath = process.argv[2];
 

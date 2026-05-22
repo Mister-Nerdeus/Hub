@@ -17,14 +17,17 @@ This project is not a clinical safety system, EHR integration, patient record sy
 ```text
 docker compose config
 docker compose up --build -d
+docker compose --profile tools run --rm migrate
 docker compose ps
 curl -f http://localhost:${API_HOST_PORT:-8010}/health
+node scripts/verify-docker-plan-api.mjs
 cd apps/api && pytest
+npm --workspace apps/web test
 cd apps/web && npm run build
 cd packages/shared && npm test
 node scripts/check-no-phi-fields.mjs
 node scripts/check-docs-contracts.mjs
-node scripts/validate-plan-contract.mjs packages/shared/fixtures/plan-er-pod-phase2.json
+npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
 ```
 
 ## Local Docker Ports
@@ -42,11 +45,14 @@ Keep `VITE_API_BASE_URL` aligned with `API_HOST_PORT`. With defaults, the API he
 Saved plans use the `plans` table with `id`, `name`, optional `description`, `layout_json`, `created_at`, and `updated_at`. PostgreSQL stores `layout_json` as JSONB. Run migrations from the API environment:
 
 ```text
-cd apps/api && alembic upgrade head
+docker compose --profile tools run --rm migrate
 ```
 
 The web app can save/load plans through `VITE_API_BASE_URL` and import/export validated plan JSON through the shared contract validator.
+The Phase 2 plan contract alignment is documented in `docs/contracts/phase-2-plan-contract-alignment.md`.
 
 ## Phase Status
 
 Phase 2 Plan Builder foundation is implemented through the evidence gate in `docs/verification/phase-2-plan-builder-evidence.md`. Phase 3 nurse assignment, scoring, simulation, and optimization have not started.
+
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024.

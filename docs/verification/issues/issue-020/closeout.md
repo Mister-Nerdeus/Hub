@@ -29,3 +29,6 @@ See `docs/verification/issues/issue-020/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; renderer displays synthetic room and operational layout labels only.
+
+## Next Recommended Issue
+Issue 021 - Plan Draft Reducer and Local Editing Operations.

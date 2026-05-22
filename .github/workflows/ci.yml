@@ -20,6 +20,7 @@ jobs:
       - run: node scripts/check-no-phi-fields.mjs
       - run: node scripts/check-docs-contracts.mjs
       - run: npm --workspace packages/shared test
+      - run: npm --workspace apps/web test
       - run: npm --workspace apps/web run build
 
   api:

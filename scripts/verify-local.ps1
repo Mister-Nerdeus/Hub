@@ -42,12 +42,15 @@ if ($compose -match '(?m)^\s*-\s*["'']?\d+:8000["'']?\s*$' -or $compose -match '
 }
 
 docker compose config
+docker compose --profile tools run --rm migrate
 node scripts/check-no-phi-fields.mjs
 node scripts/check-docs-contracts.mjs
 npm --workspace packages/shared test
+npm --workspace apps/web test
 Push-Location apps/api
 python -m pytest
 Pop-Location
 npm --workspace apps/web run build
+node scripts/verify-docker-plan-api.mjs
 Invoke-RestMethod -Uri "$apiUrl/health" | ConvertTo-Json
 Invoke-WebRequest -Uri $webUrl -UseBasicParsing | Select-Object -ExpandProperty StatusCode

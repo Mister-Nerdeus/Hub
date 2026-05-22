@@ -13,26 +13,40 @@
     {
       "id": "room-01",
       "label": "Room 01",
-      "type": "standard",
       "x": 0,
       "y": 0,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-a",
       "nearestStationId": "station-team",
-      "pathNodeId": "node-room-01"
+      "pathNodeId": "node-room-01",
+      "roomType": "standard",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 6,
+        "y": 10
+      }
     },
     {
       "id": "room-02",
       "label": "Room 02",
-      "type": "standard",
       "x": 14,
       "y": 0,
       "widthFeet": 12,
       "lengthFeet": 10,
       "zoneId": "zone-a",
       "nearestStationId": "station-team",
-      "pathNodeId": "node-room-02"
+      "pathNodeId": "node-room-02",
+      "roomType": "standard",
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 20,
+        "y": 10
+      }
     }
   ],
   "hallways": [
@@ -80,42 +94,45 @@
       "y": 18,
       "widthFeet": 8,
       "lengthFeet": 6,
-      "pathNodeId": "node-station"
+      "pathNodeId": "node-station",
+      "stationType": "primary"
     }
   ],
   "zones": [
     {
       "id": "zone-a",
       "label": "Zone A",
-      "type": "provider_area",
       "color": "#4f8a67",
       "x": 0,
       "y": 0,
       "widthFeet": 28,
-      "lengthFeet": 24
+      "lengthFeet": 24,
+      "zoneType": "provider_area",
+      "travelBlocked": false,
+      "travelPenalty": 1.2
     }
   ],
   "pathNodes": [
     {
       "id": "node-room-01",
-      "type": "room_door",
       "x": 6,
       "y": 12,
-      "linkedObjectId": "door-room-01"
+      "linkedObjectId": "door-room-01",
+      "nodeType": "room_door"
     },
     {
       "id": "node-room-02",
-      "type": "room_door",
       "x": 20,
       "y": 12,
-      "linkedObjectId": "door-room-02"
+      "linkedObjectId": "door-room-02",
+      "nodeType": "room_door"
     },
     {
       "id": "node-station",
-      "type": "station",
       "x": 14,
       "y": 18,
-      "linkedObjectId": "station-team"
+      "linkedObjectId": "station-team",
+      "nodeType": "station"
     }
   ],
   "pathEdges": [
@@ -141,5 +158,8 @@
       "turnPenaltySeconds": 2,
       "blocked": false
     }
-  ]
+  ],
+  "description": "Synthetic operational layout fixture.",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "updatedAt": "2026-05-22T00:00:00Z"
 }

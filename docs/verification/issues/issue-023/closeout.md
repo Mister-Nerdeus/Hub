@@ -28,3 +28,6 @@ See `docs/verification/issues/issue-023/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; exported JSON contains contract fields only and no UI-only state.
+
+## Next Recommended Issue
+Issue 024 - Phase 2 Evidence Bundle and Gate.

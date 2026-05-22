@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+cd apps/api && python -m pytest
+npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+npm run validate:plan -- docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/verify-local.mjs

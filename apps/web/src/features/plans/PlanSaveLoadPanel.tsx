@@ -15,11 +15,13 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
   const [selectedPlanId, setSelectedPlanId] = useState(draftPlan.planId);
   const [status, setStatus] = useState("Ready");
 
-  async function refreshPlans() {
+  async function refreshPlans(preferredPlanId = selectedPlanId) {
     try {
       const response = await listPlans(apiBaseUrl);
       setPlans(response.plans);
-      if (response.plans[0] && !response.plans.some((plan) => plan.id === selectedPlanId)) {
+      if (response.plans.some((plan) => plan.id === preferredPlanId)) {
+        setSelectedPlanId(preferredPlanId);
+      } else if (response.plans[0]) {
         setSelectedPlanId(response.plans[0].id);
       }
       setStatus(`Loaded ${response.plans.length} saved plan records`);
@@ -39,8 +41,7 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
         }
         await updatePlan(apiBaseUrl, validDraft.planId, validDraft, "Saved operational layout");
       }
-      setSelectedPlanId(validDraft.planId);
-      await refreshPlans();
+      await refreshPlans(validDraft.planId);
       setStatus(`Saved ${validDraft.planId}`);
     } catch (error) {
       setStatus(errorMessage(error));
@@ -56,8 +57,7 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
         name: `${draftPlan.name} Copy ${copyIndex}`
       });
       await createPlan(apiBaseUrl, copy, "Saved operational layout copy");
-      setSelectedPlanId(copy.planId);
-      await refreshPlans();
+      await refreshPlans(copy.planId);
       setStatus(`Saved ${copy.planId}`);
     } catch (error) {
       setStatus(errorMessage(error));
@@ -84,14 +84,14 @@ export function PlanSaveLoadPanel({ apiBaseUrl, draftPlan, onLoadPlan }: PlanSav
         <button type="button" onClick={saveCopy}>
           Save Copy
         </button>
-        <button type="button" onClick={refreshPlans}>
+        <button type="button" onClick={() => void refreshPlans()}>
           Refresh
         </button>
       </div>
       <label className="plan-save-load-panel__select">
         Saved plans
         <select value={selectedPlanId} onChange={(event) => setSelectedPlanId(event.target.value)}>
-          <option value={draftPlan.planId}>{draftPlan.planId}</option>
+          {plans.length === 0 ? <option value={draftPlan.planId}>{draftPlan.planId}</option> : null}
           {plans.map((plan) => (
             <option key={plan.id} value={plan.id}>
               {plan.name}

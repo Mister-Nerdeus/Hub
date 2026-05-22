@@ -27,3 +27,6 @@ See `docs/verification/issues/issue-021/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; local draft JSON contains operational layout fields only.
+
+## Next Recommended Issue
+Issue 022 - Plan Save/Load Web Integration.

@@ -65,11 +65,14 @@ assertComposePortsAreEnvDriven();
 
 const commands = [
   "docker compose config",
+  "docker compose --profile tools run --rm migrate",
   "node scripts/check-no-phi-fields.mjs",
   "node scripts/check-docs-contracts.mjs",
   "npm --workspace packages/shared test",
+  "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",
-  "npm --workspace apps/web run build"
+  "npm --workspace apps/web run build",
+  "node scripts/verify-docker-plan-api.mjs"
 ];
 
 for (const command of commands) {

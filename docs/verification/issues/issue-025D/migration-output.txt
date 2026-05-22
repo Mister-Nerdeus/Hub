@@ -1,0 +1,58 @@
+ Container hub-db-1 Running 
+ Image hub-migrate Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 494B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 299B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.13-slim
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 127B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 4.16kB done
+#5 DONE 0.0s
+
+#6 [1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#6 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.0s done
+#6 DONE 0.0s
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#8 CACHED
+
+#9 [4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#9 CACHED
+
+#10 [5/5] COPY apps/api/ ./
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:ba63863235d15ef693559aa86ab8555c60f076070c0e54a235359a5d4f21d218 0.0s done
+#11 exporting config sha256:17eb75d40384b38d9d1192bd786df3173b977a4339bfafaead4e41c35d84c08b
+#11 exporting config sha256:17eb75d40384b38d9d1192bd786df3173b977a4339bfafaead4e41c35d84c08b 0.0s done
+#11 exporting attestation manifest sha256:542ea359d6bcbedd0b051f148d3c73d58489b5d56971bdc0ca48dbc93e5f4bd4 0.1s done
+#11 exporting manifest list sha256:8ebe906e500c06b13b696cf07bbab2455f112786fa3e36b20b60a80f7cff9a42
+#11 exporting manifest list sha256:8ebe906e500c06b13b696cf07bbab2455f112786fa3e36b20b60a80f7cff9a42 0.0s done
+#11 naming to docker.io/library/hub-migrate:latest done
+#11 unpacking to docker.io/library/hub-migrate:latest 0.0s done
+#11 DONE 0.2s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+ Image hub-migrate Built 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-7a8b93e00ad3 Creating 
+ Container hub-migrate-run-7a8b93e00ad3 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.

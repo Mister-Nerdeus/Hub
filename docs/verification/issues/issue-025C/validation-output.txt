@@ -1,0 +1,30 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 validate:plan
+> npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs packages/shared/fixtures/plan-er-pod-phase2.json
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+Plan contract validation: PASS
+plan ID: plan-er-pod-phase2
+plan name: Phase 2 ER Pod Layout
+room count: 7
+hallway count: 2
+path node count: 13
+path edge count: 11
+
+> nerdeus-er-pod-shift-simulator@0.1.0 validate:plan
+> npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+Plan contract validation: PASS
+plan ID: plan-er-pod-phase2
+plan name: Phase 2 ER Pod Layout
+room count: 8
+hallway count: 2
+path node count: 14
+path edge count: 12

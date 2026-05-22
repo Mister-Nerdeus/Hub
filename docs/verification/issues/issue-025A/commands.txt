@@ -1,0 +1,11 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm --workspace packages/shared test
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/verify-local.mjs
+
+Failure reproduction:
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm --workspace apps/web test

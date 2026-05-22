@@ -126,6 +126,16 @@ def test_unknown_layout_field_is_rejected(client: TestClient) -> None:
     assert response.status_code == 422
 
 
+def test_overlong_description_is_rejected_before_db_write(client: TestClient) -> None:
+    response = client.post(
+        "/v1/plans",
+        json={"description": "D" * 501, "layout": load_phase2_plan()},
+    )
+
+    assert response.status_code == 422
+    assert client.get("/v1/plans").json()["plans"] == []
+
+
 def test_update_requires_route_id_to_match_layout_id(client: TestClient) -> None:
     create_plan(client)
     updated = deepcopy(load_phase2_plan())

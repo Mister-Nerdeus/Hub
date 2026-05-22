@@ -1,0 +1,10 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 validate:plan
+> npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs packages/shared/fixtures/invalid/plan-bad-room-type.json
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+Plan contract validation: FAIL
+rooms[0].roomType must be one of standard, trauma, isolation, psych, hall_bed, procedure, overflow

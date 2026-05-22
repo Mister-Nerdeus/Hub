@@ -8,11 +8,15 @@ const basePlan: PlanContract = validatePlanContract(planErPodPhase2);
 const addedRoom = {
   id: "room-07",
   label: "Room 07",
-  type: "standard",
+  roomType: "standard",
   x: 36,
   y: 34,
   widthFeet: 12,
   lengthFeet: 10,
+  maxPatients: 1,
+  traumaCapable: false,
+  isolationCapable: false,
+  doorPoint: null,
   zoneId: "zone-pod-a",
   nearestStationId: "station-primary",
   pathNodeId: null

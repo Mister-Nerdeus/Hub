@@ -6,7 +6,7 @@ from pydantic import Field
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app.contracts import PlanContract, StrictModel
+from app.contracts import PLAN_DESCRIPTION_MAX_LENGTH, PlanContract, StrictModel
 from app.db import get_db
 from app.models import PlanRecord
 from app.repositories import plans as plan_repository
@@ -15,7 +15,7 @@ router = APIRouter(prefix="/v1/plans", tags=["plans"])
 
 
 class PlanWriteRequest(StrictModel):
-    description: str | None = Field(default=None, max_length=500)
+    description: str | None = Field(default=None, max_length=PLAN_DESCRIPTION_MAX_LENGTH)
     layout: PlanContract
 
 
@@ -47,12 +47,13 @@ def serialize_plan_summary(record: PlanRecord) -> dict[str, Any]:
 @router.post("", status_code=status.HTTP_201_CREATED)
 def create_plan(request: PlanWriteRequest, db: Session = Depends(get_db)) -> dict[str, Any]:
     layout_json = request.layout.model_dump(mode="json")
+    description = request.description if request.description is not None else request.layout.description
     try:
         record = plan_repository.create_plan(
             db,
             plan_id=request.layout.planId,
             name=request.layout.name,
-            description=request.description,
+            description=description,
             layout_json=layout_json,
         )
     except IntegrityError as exc:
@@ -92,7 +93,7 @@ def update_plan(
         db,
         record,
         name=request.layout.name,
-        description=request.description,
+        description=request.description if request.description is not None else request.layout.description,
         layout_json=request.layout.model_dump(mode="json"),
     )
     return serialize_plan(updated)

@@ -18,3 +18,11 @@ Host ports are configurable:
 `CORS_ORIGINS` must include the configured web host origin. With defaults, it includes `http://localhost:5180`.
 
 Postgres is internal to Docker Compose by default. Do not publish host port `5432` unless a later issue explicitly documents an intentional local debugging exception.
+
+Run database migrations inside the Docker network:
+
+```text
+docker compose --profile tools run --rm migrate
+```
+
+Docker-backed plan API proof uses the configured API host port and does not require publishing Postgres to the host.

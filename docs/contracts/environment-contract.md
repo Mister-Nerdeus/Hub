@@ -17,5 +17,6 @@ The local stack is configured by `.env` values with `.env.example` as the public
 | `CORS_ORIGINS` | Yes | `http://localhost:5180,http://localhost:5173,http://localhost:5174` | Allowed browser origins. Must include the configured `WEB_HOST_PORT` origin. |
 
 See [local-port-contract.md](local-port-contract.md) for Docker host port rules. Postgres is not published on the host by default.
+Run migrations with `docker compose --profile tools run --rm migrate`; do not publish Postgres just to apply local migrations.
 
 Do not store secrets, PHI, or real operational data in `.env.example`.

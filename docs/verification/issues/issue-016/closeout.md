@@ -33,3 +33,6 @@ See `docs/verification/issues/issue-016/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; labels remain operational and no PHI-like fields were introduced.
+
+## Next Recommended Issue
+Issue 017 - Plan Persistence Schema Alignment and Migration.

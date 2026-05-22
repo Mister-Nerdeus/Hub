@@ -1,0 +1,12 @@
+node scripts/check-docs-contracts.mjs
+node scripts/check-no-phi-fields.mjs
+node scripts/verify-local.mjs
+
+Negative proof:
+temporarily rename docs/verification/issues/issue-024/closeout.md
+node scripts/check-docs-contracts.mjs
+restore docs/verification/issues/issue-024/closeout.md
+temporarily rename docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png
+node scripts/check-docs-contracts.mjs
+restore docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png
+node scripts/check-docs-contracts.mjs

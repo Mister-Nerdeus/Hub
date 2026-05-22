@@ -53,6 +53,12 @@ def test_scenario_fixture_matches_python_contract() -> None:
         "plan-bad-room-type.json",
         "plan-path-edge-missing-node.json",
         "plan-extra-unknown-field.json",
+        "plan-missing-hallways.json",
+        "plan-missing-room-capability.json",
+        "plan-bad-station-type.json",
+        "plan-bad-zone-travel-penalty.json",
+        "plan-id-too-long.json",
+        "plan-name-too-long.json",
     ],
 )
 def test_invalid_plan_fixtures_are_rejected_by_python_contract(fixture_name: str) -> None:

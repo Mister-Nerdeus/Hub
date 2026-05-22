@@ -75,11 +75,15 @@ export function PlanDraftPanel({ plan, dispatch }: PlanDraftPanelProps) {
 const room07 = {
   id: "room-07",
   label: "Room 07",
-  type: "standard",
+  roomType: "standard",
   x: 36,
   y: 34,
   widthFeet: 12,
   lengthFeet: 10,
+  maxPatients: 1,
+  traumaCapable: false,
+  isolationCapable: false,
+  doorPoint: { x: 42, y: 34 },
   zoneId: "zone-pod-a",
   nearestStationId: "station-primary",
   pathNodeId: null
@@ -97,7 +101,7 @@ const door07 = {
 
 const nodeDoor07 = {
   id: "node-door-room-07",
-  type: "room_door",
+  nodeType: "room_door",
   x: 42,
   y: 32,
   linkedObjectId: "door-room-07"

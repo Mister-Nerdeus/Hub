@@ -32,6 +32,12 @@ def test_phase2_plan_contract_accepts_valid_layout() -> None:
         "invalid/plan-bad-room-type.json",
         "invalid/plan-path-edge-missing-node.json",
         "invalid/plan-extra-unknown-field.json",
+        "invalid/plan-missing-hallways.json",
+        "invalid/plan-missing-room-capability.json",
+        "invalid/plan-bad-station-type.json",
+        "invalid/plan-bad-zone-travel-penalty.json",
+        "invalid/plan-id-too-long.json",
+        "invalid/plan-name-too-long.json",
     ],
 )
 def test_phase2_plan_contract_rejects_invalid_layouts(fixture_name: str) -> None:

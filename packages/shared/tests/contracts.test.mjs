@@ -32,6 +32,13 @@ test("Phase 2 ER pod fixture validates against TypeScript contract", () => {
   assert.equal(plan.rooms.length, 7);
   assert.equal(plan.nurseStations.length, 1);
   assert.equal(plan.scale.snapToGrid, true);
+  assert.equal(plan.createdAt, "2026-05-22T00:00:00Z");
+  assert.equal(plan.rooms[0].roomType, "standard");
+  assert.equal(plan.rooms[0].maxPatients, 1);
+  assert.equal(plan.rooms[0].traumaCapable, false);
+  assert.equal(plan.rooms[0].isolationCapable, false);
+  assert.equal(plan.nurseStations[0].stationType, "primary");
+  assert.equal(plan.zones[0].travelBlocked, false);
   assert.equal(plan.pathEdges.some((edge) => edge.blocked), false);
 });
 
@@ -49,7 +56,13 @@ const invalidPlanFixtures = [
   "plan-duplicate-path-edge-id.json",
   "plan-bad-room-type.json",
   "plan-path-edge-missing-node.json",
-  "plan-extra-unknown-field.json"
+  "plan-extra-unknown-field.json",
+  "plan-missing-hallways.json",
+  "plan-missing-room-capability.json",
+  "plan-bad-station-type.json",
+  "plan-bad-zone-travel-penalty.json",
+  "plan-id-too-long.json",
+  "plan-name-too-long.json"
 ];
 
 for (const fixtureName of invalidPlanFixtures) {

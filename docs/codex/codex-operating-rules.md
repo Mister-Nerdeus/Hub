@@ -26,9 +26,11 @@ Every issue must write:
 
 ```text
 docs/verification/issues/issue-XXX/closeout.md
+docs/verification/issues/issue-XXX/commands.txt
 ```
 
 Use `commands.txt`, `test-output.txt`, `screenshots/`, `api-responses/`, and `sample-json/` under the same issue folder when they are relevant.
+Issue folders from Issue 015 forward are checked by `node scripts/check-docs-contracts.mjs`; missing closeouts, missing command logs, and missing issue-specific required evidence must fail the docs gate.
 
 ## Do Not Close Unless
 

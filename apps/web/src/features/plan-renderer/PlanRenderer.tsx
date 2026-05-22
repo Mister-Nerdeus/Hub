@@ -15,7 +15,7 @@ type PlanRendererProps = {
   plan: PlanContract;
 };
 
-const roomTypeLabels: Record<Room["type"], string> = {
+const roomTypeLabels: Record<Room["roomType"], string> = {
   standard: "Standard",
   trauma: "Trauma",
   isolation: "Isolation",
@@ -171,7 +171,7 @@ function RoomShape({
   const rect = roomToRect(room, plan.scale);
 
   return (
-    <g className={`plan-room plan-room--${room.type}`}>
+    <g className={`plan-room plan-room--${room.roomType}`}>
       <rect x={rect.x} y={rect.y} width={rect.width} height={rect.height} rx={2} />
       {showLabels ? (
         <>
@@ -231,7 +231,7 @@ function PathNodeShape({
 }) {
   const point = pointToPixels(node, plan.scale);
   return (
-    <g className={`plan-path-node plan-path-node--${node.type}`}>
+    <g className={`plan-path-node plan-path-node--${node.nodeType}`}>
       <circle cx={point.x} cy={point.y} r={5} />
       {showLabels ? <text x={point.x + 7} y={point.y - 7}>{node.id}</text> : null}
     </g>

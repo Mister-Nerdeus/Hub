@@ -13,24 +13,28 @@ const scale: ScaleSettings = {
 const room: Room = {
   id: "room-test",
   label: "Room Test",
-  type: "standard",
+  roomType: "standard",
   x: 2,
   y: 3,
   widthFeet: 12,
-  lengthFeet: 10
+  lengthFeet: 10,
+  maxPatients: 1,
+  traumaCapable: false,
+  isolationCapable: false,
+  doorPoint: null
 };
 
 const nodes: PathNode[] = [
   {
     id: "node-a",
-    type: "entry",
+    nodeType: "entry",
     x: 1,
     y: 1,
     linkedObjectId: null
   },
   {
     id: "node-b",
-    type: "entry",
+    nodeType: "entry",
     x: 5,
     y: 1,
     linkedObjectId: null

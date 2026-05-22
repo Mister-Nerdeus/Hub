@@ -33,3 +33,6 @@ See `docs/verification/issues/issue-018/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; API payload examples use synthetic operational layouts only.
+
+## Next Recommended Issue
+Issue 019 - Plan JSON Validation CLI.

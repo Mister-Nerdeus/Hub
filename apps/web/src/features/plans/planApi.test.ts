@@ -40,6 +40,23 @@ await withFetch(invalidFetch, async () => {
   }
 });
 
+const mismatchedIdFetch: typeof fetch = async () =>
+  new Response(JSON.stringify({ ...validResponse, id: "different-plan-id" }), {
+    status: 200,
+    headers: { "Content-Type": "application/json" }
+  });
+
+await withFetch(mismatchedIdFetch, async () => {
+  try {
+    await getPlan("http://localhost:8010", planErPodPhase2.planId);
+    throw new Error("Mismatched response id must be rejected");
+  } catch (error) {
+    if (!(error instanceof Error) || !error.message.includes("layout.planId")) {
+      throw error;
+    }
+  }
+});
+
 async function withFetch<T>(fetchImpl: typeof fetch, callback: () => Promise<T>): Promise<T> {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = fetchImpl;

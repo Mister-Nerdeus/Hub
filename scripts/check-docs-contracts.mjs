@@ -1,5 +1,5 @@
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, normalize } from "node:path";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { join, normalize } from "node:path";
 
 const root = process.cwd();
 
@@ -27,12 +27,30 @@ const requiredTemplateFields = [
   "Do Not Close Unless"
 ];
 
+const strictCloseoutConcepts = [
+  ["Summary", /\bsummary\b/i],
+  ["Files Changed", /\bfiles\s+changed\b/i],
+  ["Commands Run", /\bcommands\s+run\b/i],
+  ["Tests Passed", /\btests\s+passed(?:\/failed)?\b|\btests\s+passed\s+failed\b/i],
+  ["Evidence", /\bevidence\b/i],
+  ["Known Limitations", /\bknown\s+limitations\b/i],
+  ["Non-PHI Confirmation", /\bnon-phi\s+confirmation\b/i],
+  ["Next Recommended Issue", /\bnext\s+recommended\s+issue\b/i]
+];
+
+const issue024Evidence = [
+  "docs/verification/phase-2-plan-builder-evidence.md",
+  "docs/verification/phase-2-plan-builder-checklist.md",
+  "docs/verification/issues/issue-024/screenshots/recreated-er-pod-plan.png",
+  "docs/verification/issues/issue-024/screenshots/reload-proof.png",
+  "docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json",
+  "docs/verification/issues/issue-024/validation-output.txt"
+];
+
 const failures = [];
 
 for (const file of requiredFiles) {
-  if (!existsSync(join(root, file))) {
-    failures.push(`Missing required doc: ${file}`);
-  }
+  requireExistingFile(file, `Missing required doc: ${file}`);
 }
 
 const agentsPath = join(root, "AGENTS.md");
@@ -58,29 +76,26 @@ if (existsSync(templatePath)) {
 }
 
 const closeoutRoot = join(root, "docs/verification/issues");
-for (const issue of [
-  "000A",
-  "000B",
-  "001",
-  "002",
-  "003",
-  "004",
-  "005",
-  "006",
-  "007",
-  "008",
-  "009",
-  "010",
-  "011",
-  "012",
-  "013",
-  "014",
-  "014B"
-]) {
-  const issuePath = join(closeoutRoot, `issue-${issue}`, "closeout.md");
-  if (!existsSync(issuePath)) {
-    failures.push(`Missing closeout artifact: ${issuePath}`);
+for (const issueName of readdirSync(closeoutRoot)) {
+  const issuePath = join(closeoutRoot, issueName);
+  if (!statSync(issuePath).isDirectory() || !/^issue-/.test(issueName)) {
+    continue;
   }
+
+  const issueNumber = Number(issueName.match(/^issue-(\d+)/)?.[1]);
+  if (!Number.isFinite(issueNumber) || issueNumber < 15) {
+    const closeoutPath = join(issuePath, "closeout.md");
+    if (!existsSync(closeoutPath)) {
+      failures.push(`Missing closeout artifact: ${closeoutPath}`);
+    }
+    continue;
+  }
+
+  requireIssueEvidence(issueName, issuePath);
+}
+
+for (const evidencePath of issue024Evidence) {
+  requireExistingFile(evidencePath, `Missing Issue 024 Phase 2 evidence: ${evidencePath}`);
 }
 
 if (failures.length > 0) {
@@ -89,3 +104,36 @@ if (failures.length > 0) {
 }
 
 console.log("Docs and contract guardrails pass.");
+
+function requireIssueEvidence(issueName, issuePath) {
+  const closeoutPath = join(issuePath, "closeout.md");
+  const commandsPath = join(issuePath, "commands.txt");
+
+  if (!existsSync(closeoutPath)) {
+    failures.push(`Missing closeout artifact: ${closeoutPath}`);
+  }
+  if (!existsSync(commandsPath)) {
+    failures.push(`Missing commands artifact: ${commandsPath}`);
+  }
+  if (!existsSync(closeoutPath)) {
+    return;
+  }
+
+  const closeout = readFileSync(closeoutPath, "utf8");
+  for (const [concept, pattern] of strictCloseoutConcepts) {
+    if (!pattern.test(closeout)) {
+      failures.push(`${issueName}/closeout.md missing closeout concept: ${concept}`);
+    }
+  }
+}
+
+function requireExistingFile(path, message) {
+  const absolutePath = join(root, path);
+  if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
+    failures.push(message);
+    return;
+  }
+  if (statSync(absolutePath).size === 0) {
+    failures.push(`Required evidence is empty: ${path}`);
+  }
+}

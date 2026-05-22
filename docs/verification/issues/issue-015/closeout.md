@@ -39,3 +39,6 @@ See `docs/verification/issues/issue-015/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; no PHI, real patient identity, EHR integration, or clinical safety certification language was added.
+
+## Next Recommended Issue
+Issue 016 - Phase 2 Plan Contract Expansion and Parity.

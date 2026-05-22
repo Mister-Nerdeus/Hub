@@ -33,10 +33,13 @@ if grep -Eq '^[[:space:]]*-[[:space:]]*["'\'']?[0-9]+:8000["'\'']?[[:space:]]*$|
 fi
 
 docker compose config
+docker compose --profile tools run --rm migrate
 node scripts/check-no-phi-fields.mjs
 node scripts/check-docs-contracts.mjs
 npm --workspace packages/shared test
+npm --workspace apps/web test
 (cd apps/api && python -m pytest)
 npm --workspace apps/web run build
+node scripts/verify-docker-plan-api.mjs
 curl -f "$API_URL/health"
 curl -f "$WEB_URL"

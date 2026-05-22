@@ -1,0 +1,20 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 validate:plan
+> npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs packages/shared/fixtures/invalid/plan-id-too-long.json
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+Plan contract validation: FAIL
+planId must be 64 characters or fewer
+
+> nerdeus-er-pod-shift-simulator@0.1.0 validate:plan
+> npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs packages/shared/fixtures/invalid/plan-name-too-long.json
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+Plan contract validation: FAIL
+name must be 160 characters or fewer

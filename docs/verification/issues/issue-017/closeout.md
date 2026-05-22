@@ -29,3 +29,6 @@ See `docs/verification/issues/issue-017/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; the schema stores synthetic operational plan JSON only.
+
+## Next Recommended Issue
+Issue 018 - Plan Persistence API.

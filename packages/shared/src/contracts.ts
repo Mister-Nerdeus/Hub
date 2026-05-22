@@ -26,9 +26,21 @@ export const PATH_NODE_TYPES = [
   "zone"
 ] as const;
 
+export const STATION_TYPES = [
+  "primary",
+  "secondary",
+  "charge",
+  "temporary"
+] as const;
+
+export const PLAN_ID_MAX_LENGTH = 64;
+export const PLAN_NAME_MAX_LENGTH = 160;
+export const PLAN_DESCRIPTION_MAX_LENGTH = 500;
+
 export type RoomType = (typeof ROOM_TYPES)[number];
 export type ZoneType = (typeof ZONE_TYPES)[number];
 export type PathNodeType = (typeof PATH_NODE_TYPES)[number];
+export type StationType = (typeof STATION_TYPES)[number];
 
 export type ScaleSettings = {
   unit: "feet";
@@ -46,11 +58,15 @@ export type Point = {
 export type Room = {
   id: string;
   label: string;
-  type: RoomType;
+  roomType: RoomType;
   x: number;
   y: number;
   widthFeet: number;
   lengthFeet: number;
+  maxPatients: number;
+  traumaCapable: boolean;
+  isolationCapable: boolean;
+  doorPoint?: Point | null;
   zoneId?: string | null;
   nearestStationId?: string | null;
   pathNodeId?: string | null;
@@ -76,6 +92,7 @@ export type Door = {
 export type NurseStation = {
   id: string;
   label: string;
+  stationType: StationType;
   x: number;
   y: number;
   widthFeet: number;
@@ -86,17 +103,19 @@ export type NurseStation = {
 export type Zone = {
   id: string;
   label: string;
-  type: ZoneType;
+  zoneType: ZoneType;
   color: string;
   x: number;
   y: number;
   widthFeet: number;
   lengthFeet: number;
+  travelBlocked: boolean;
+  travelPenalty?: number | null;
 };
 
 export type PathNode = {
   id: string;
-  type: PathNodeType;
+  nodeType: PathNodeType;
   x: number;
   y: number;
   linkedObjectId?: string | null;
@@ -118,6 +137,9 @@ export type PlanContract = {
   schemaVersion: "1.0.0";
   planId: string;
   name: string;
+  description?: string | null;
+  createdAt: string;
+  updatedAt: string;
   scale: ScaleSettings;
   rooms: Room[];
   hallways: Hallway[];
@@ -169,6 +191,9 @@ export function validatePlanContract(value: unknown): PlanContract {
     "schemaVersion",
     "planId",
     "name",
+    "description",
+    "createdAt",
+    "updatedAt",
     "scale",
     "rooms",
     "hallways",
@@ -180,8 +205,11 @@ export function validatePlanContract(value: unknown): PlanContract {
   ]);
 
   requireLiteral(plan.schemaVersion, "1.0.0", "schemaVersion");
-  requireString(plan.planId, "planId");
-  requireString(plan.name, "name");
+  requireStringMax(plan.planId, "planId", PLAN_ID_MAX_LENGTH);
+  requireStringMax(plan.name, "name", PLAN_NAME_MAX_LENGTH);
+  requireOptionalStringMax(plan.description, "description", PLAN_DESCRIPTION_MAX_LENGTH);
+  requireIsoDateTime(plan.createdAt, "createdAt");
+  requireIsoDateTime(plan.updatedAt, "updatedAt");
   validateScale(plan.scale);
 
   const rooms = requireArray(plan.rooms, "rooms").map(validateRoom);
@@ -273,22 +301,32 @@ function validateRoom(value: unknown, index: number): Room {
   requireExactKeys(room, `rooms[${index}]`, [
     "id",
     "label",
-    "type",
+    "roomType",
     "x",
     "y",
     "widthFeet",
     "lengthFeet",
+    "maxPatients",
+    "traumaCapable",
+    "isolationCapable",
+    "doorPoint",
     "zoneId",
     "nearestStationId",
     "pathNodeId"
   ]);
   requireString(room.id, `rooms[${index}].id`);
   requireString(room.label, `rooms[${index}].label`);
-  requireEnum(room.type, ROOM_TYPES, `rooms[${index}].type`);
+  requireEnum(room.roomType, ROOM_TYPES, `rooms[${index}].roomType`);
   requireNumber(room.x, `rooms[${index}].x`);
   requireNumber(room.y, `rooms[${index}].y`);
   requirePositiveNumber(room.widthFeet, `rooms[${index}].widthFeet`);
   requirePositiveNumber(room.lengthFeet, `rooms[${index}].lengthFeet`);
+  requirePositiveInteger(room.maxPatients, `rooms[${index}].maxPatients`);
+  requireBoolean(room.traumaCapable, `rooms[${index}].traumaCapable`);
+  requireBoolean(room.isolationCapable, `rooms[${index}].isolationCapable`);
+  if (room.doorPoint != null) {
+    validatePoint(room.doorPoint, `rooms[${index}].doorPoint`);
+  }
   requireOptionalString(room.zoneId, `rooms[${index}].zoneId`);
   requireOptionalString(room.nearestStationId, `rooms[${index}].nearestStationId`);
   requireOptionalString(room.pathNodeId, `rooms[${index}].pathNodeId`);
@@ -337,6 +375,7 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
   requireExactKeys(station, `nurseStations[${index}]`, [
     "id",
     "label",
+    "stationType",
     "x",
     "y",
     "widthFeet",
@@ -345,6 +384,7 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
   ]);
   requireString(station.id, `nurseStations[${index}].id`);
   requireString(station.label, `nurseStations[${index}].label`);
+  requireEnum(station.stationType, STATION_TYPES, `nurseStations[${index}].stationType`);
   requireNumber(station.x, `nurseStations[${index}].x`);
   requireNumber(station.y, `nurseStations[${index}].y`);
   requirePositiveNumber(station.widthFeet, `nurseStations[${index}].widthFeet`);
@@ -358,16 +398,18 @@ function validateZone(value: unknown, index: number): Zone {
   requireExactKeys(zone, `zones[${index}]`, [
     "id",
     "label",
-    "type",
+    "zoneType",
     "color",
     "x",
     "y",
     "widthFeet",
-    "lengthFeet"
+    "lengthFeet",
+    "travelBlocked",
+    "travelPenalty"
   ]);
   requireString(zone.id, `zones[${index}].id`);
   requireString(zone.label, `zones[${index}].label`);
-  requireEnum(zone.type, ZONE_TYPES, `zones[${index}].type`);
+  requireEnum(zone.zoneType, ZONE_TYPES, `zones[${index}].zoneType`);
   const color = requireString(zone.color, `zones[${index}].color`);
   if (!/^#[0-9a-fA-F]{6}$/.test(color)) {
     throw new Error(`zones[${index}].color must be a hex color`);
@@ -376,6 +418,10 @@ function validateZone(value: unknown, index: number): Zone {
   requireNumber(zone.y, `zones[${index}].y`);
   requirePositiveNumber(zone.widthFeet, `zones[${index}].widthFeet`);
   requirePositiveNumber(zone.lengthFeet, `zones[${index}].lengthFeet`);
+  requireBoolean(zone.travelBlocked, `zones[${index}].travelBlocked`);
+  if (zone.travelPenalty != null) {
+    requireNonNegativeNumber(zone.travelPenalty, `zones[${index}].travelPenalty`);
+  }
   return zone as Zone;
 }
 
@@ -383,13 +429,13 @@ function validatePathNode(value: unknown, index: number): PathNode {
   const node = requireRecord(value, `pathNodes[${index}]`);
   requireExactKeys(node, `pathNodes[${index}]`, [
     "id",
-    "type",
+    "nodeType",
     "x",
     "y",
     "linkedObjectId"
   ]);
   requireString(node.id, `pathNodes[${index}].id`);
-  requireEnum(node.type, PATH_NODE_TYPES, `pathNodes[${index}].type`);
+  requireEnum(node.nodeType, PATH_NODE_TYPES, `pathNodes[${index}].nodeType`);
   requireNumber(node.x, `pathNodes[${index}].x`);
   requireNumber(node.y, `pathNodes[${index}].y`);
   requireOptionalString(node.linkedObjectId, `pathNodes[${index}].linkedObjectId`);
@@ -453,7 +499,7 @@ function validateNurseStationReferences(
 }
 
 function validatePathNodeReferences(node: PathNode, index: number, idSets: IdSets): void {
-  if (node.type === "entry") {
+  if (node.nodeType === "entry") {
     if (node.linkedObjectId != null) {
       throw new Error(`pathNodes[${index}].linkedObjectId is not allowed for entry nodes`);
     }
@@ -465,16 +511,16 @@ function validatePathNodeReferences(node: PathNode, index: number, idSets: IdSet
     `pathNodes[${index}].linkedObjectId`
   );
 
-  if (node.type === "room_door" && !idSets.doorIds.has(linkedObjectId)) {
+  if (node.nodeType === "room_door" && !idSets.doorIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown door`);
   }
-  if (node.type === "hallway" && !idSets.hallwayIds.has(linkedObjectId)) {
+  if (node.nodeType === "hallway" && !idSets.hallwayIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown hallway`);
   }
-  if (node.type === "station" && !idSets.nurseStationIds.has(linkedObjectId)) {
+  if (node.nodeType === "station" && !idSets.nurseStationIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown nurse station`);
   }
-  if (node.type === "zone" && !idSets.zoneIds.has(linkedObjectId)) {
+  if (node.nodeType === "zone" && !idSets.zoneIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown zone`);
   }
 }
@@ -557,11 +603,30 @@ function requireString(value: unknown, label: string): string {
   return value;
 }
 
+function requireStringMax(value: unknown, label: string, maxLength: number): string {
+  const stringValue = requireString(value, label);
+  if (stringValue.length > maxLength) {
+    throw new Error(`${label} must be ${maxLength} characters or fewer`);
+  }
+  return stringValue;
+}
+
 function requireOptionalString(value: unknown, label: string): string | null | undefined {
   if (value == null) {
     return value;
   }
   return requireString(value, label);
+}
+
+function requireOptionalStringMax(
+  value: unknown,
+  label: string,
+  maxLength: number
+): string | null | undefined {
+  if (value == null) {
+    return value;
+  }
+  return requireStringMax(value, label, maxLength);
 }
 
 function requireNumber(value: unknown, label: string): number {
@@ -620,6 +685,14 @@ function requireLiteral<T extends string>(value: unknown, expected: T, label: st
     throw new Error(`${label} must be ${expected}`);
   }
   return expected;
+}
+
+function requireIsoDateTime(value: unknown, label: string): string {
+  const stringValue = requireString(value, label);
+  if (Number.isNaN(Date.parse(stringValue))) {
+    throw new Error(`${label} must be an ISO-compatible timestamp`);
+  }
+  return stringValue;
 }
 
 function requireEnum<T extends string>(

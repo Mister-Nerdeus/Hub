@@ -38,7 +38,7 @@ export async function listPlans(apiBaseUrl: string): Promise<PlanListResponse> {
   if (!body || !Array.isArray(body.plans)) {
     throw new Error("List plans response must include plans array");
   }
-  return body as PlanListResponse;
+  return { plans: body.plans.map(validatePlanSummary) };
 }
 
 export async function getPlan(apiBaseUrl: string, planId: string): Promise<PlanRecordResponse> {
@@ -86,12 +86,48 @@ async function parsePlanResponse(response: Response): Promise<PlanRecordResponse
   ) {
     throw new Error("Plan response description must be a string or null");
   }
+  const layout = validatePlanContract(record.layout);
+  if (record.id !== layout.planId) {
+    throw new Error("Plan response id must match layout.planId");
+  }
+  if (record.name !== layout.name) {
+    throw new Error("Plan response name must match layout.name");
+  }
   return {
     id: record.id,
     name: record.name,
     description: record.description ?? null,
-    layout: validatePlanContract(record.layout),
+    layout,
     createdAt: record.createdAt,
     updatedAt: record.updatedAt
+  };
+}
+
+function validatePlanSummary(value: unknown): PlanSummaryResponse {
+  if (!value || typeof value !== "object") {
+    throw new Error("Plan summary must be an object");
+  }
+  const summary = value as Partial<PlanSummaryResponse>;
+  if (
+    typeof summary.id !== "string" ||
+    typeof summary.name !== "string" ||
+    typeof summary.createdAt !== "string" ||
+    typeof summary.updatedAt !== "string"
+  ) {
+    throw new Error("Plan summary is missing required fields");
+  }
+  if (
+    summary.description !== null &&
+    summary.description !== undefined &&
+    typeof summary.description !== "string"
+  ) {
+    throw new Error("Plan summary description must be a string or null");
+  }
+  return {
+    id: summary.id,
+    name: summary.name,
+    description: summary.description ?? null,
+    createdAt: summary.createdAt,
+    updatedAt: summary.updatedAt
   };
 }

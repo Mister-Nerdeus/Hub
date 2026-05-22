@@ -33,3 +33,6 @@ See `docs/verification/issues/issue-022/commands.txt`.
 
 ## Non-PHI Confirmation
 Non-PHI scanner passes; saved and loaded plans are synthetic operational layouts only.
+
+## Next Recommended Issue
+Issue 023 - Plan JSON Import/Export Web UI.
