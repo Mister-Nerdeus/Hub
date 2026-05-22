@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "plan-basic",
+  "name": "Basic ER Pod",
+  "units": {
+    "unit": "feet",
+    "pixelsPerUnit": 10,
+    "gridSizeUnits": 1,
+    "origin": "top-left"
+  },
+  "rooms": [
+    {
+      "id": "room-01",
+      "label": "Room 01",
+      "x": 0,
+      "y": 0,
+      "width": 12,
+      "height": 10,
+      "zoneId": "zone-a"
+    },
+    {
+      "id": "room-02",
+      "label": "Room 02",
+      "x": 14,
+      "y": 0,
+      "width": 12,
+      "height": 10,
+      "zoneId": "zone-a"
+    }
+  ],
+  "hallways": [
+    {
+      "id": "hallway-main",
+      "points": [
+        {
+          "x": 0,
+          "y": 14
+        },
+        {
+          "x": 28,
+          "y": 14
+        }
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "door-room-01",
+      "roomId": "room-01",
+      "x": 6,
+      "y": 10
+    },
+    {
+      "id": "door-room-02",
+      "roomId": "room-02",
+      "x": 20,
+      "y": 10
+    }
+  ],
+  "stations": [
+    {
+      "id": "station-team",
+      "label": "Team Station",
+      "x": 14,
+      "y": 18
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-a",
+      "label": "Zone A",
+      "color": "#4f8a67"
+    }
+  ],
+  "pathNodes": [
+    {
+      "id": "node-room-01",
+      "x": 6,
+      "y": 12
+    },
+    {
+      "id": "node-room-02",
+      "x": 20,
+      "y": 12
+    },
+    {
+      "id": "node-station",
+      "x": 14,
+      "y": 18
+    }
+  ],
+  "pathEdges": [
+    {
+      "id": "edge-room-01-station",
+      "fromNodeId": "node-room-01",
+      "toNodeId": "node-station",
+      "lengthUnits": 10
+    },
+    {
+      "id": "edge-room-02-station",
+      "fromNodeId": "node-room-02",
+      "toNodeId": "node-station",
+      "lengthUnits": 10
+    }
+  ]
+}

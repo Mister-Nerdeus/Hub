@@ -1,0 +1,28 @@
+name: Contract Parity
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  contract-parity:
+    name: Shared fixture parity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: npm ci
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -r apps/api/requirements-dev.txt
+      - run: npm --workspace packages/shared test
+      - run: python -m pytest tests/contracts
+        working-directory: apps/api
+      - run: node scripts/check-no-phi-fields.mjs
