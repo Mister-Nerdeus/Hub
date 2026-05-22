@@ -18,7 +18,7 @@ export function validateManualAssignment(
   const nurseById = new Map(assignmentSet.nurses.map((nurse) => [nurse.id, nurse]));
   const roomLoadById = new Map(roomLoads.map((roomLoad) => [roomLoad.roomId, roomLoad]));
   const assignedRoomMap = new Map<string, string[]>();
-  const validCoverageByRoomId = new Map<string, string>();
+  const manualCoverageCandidatesByRoomId = new Map<string, string[]>();
 
   for (const assignment of assignmentSet.assignments) {
     const nurse = nurseById.get(assignment.nurseId);
@@ -52,7 +52,9 @@ export function validateManualAssignment(
       }
 
       if (nurse != null && assignment.assignmentType === "manual") {
-        validCoverageByRoomId.set(roomId, assignment.nurseId);
+        const coverageCandidates = manualCoverageCandidatesByRoomId.get(roomId) ?? [];
+        coverageCandidates.push(assignment.nurseId);
+        manualCoverageCandidatesByRoomId.set(roomId, coverageCandidates);
       }
     }
   }
@@ -68,6 +70,18 @@ export function validateManualAssignment(
           roomIds: [roomId]
         })
       );
+    }
+  }
+
+  const validCoverageByRoomId = new Map<string, string>();
+  for (const [roomId, candidateNurseIds] of manualCoverageCandidatesByRoomId.entries()) {
+    const candidateNurseId = candidateNurseIds[0];
+    if (
+      candidateNurseId != null &&
+      candidateNurseIds.length === 1 &&
+      (assignedRoomMap.get(roomId) ?? []).length === 1
+    ) {
+      validCoverageByRoomId.set(roomId, candidateNurseId);
     }
   }
 

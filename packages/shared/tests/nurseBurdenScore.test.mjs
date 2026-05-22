@@ -45,6 +45,15 @@ for (const scoringCase of cases) {
         `${scoringCase.expected.warningCode} must be reported`
       );
     }
+    if (scoringCase.expected.nurseScores != null) {
+      for (const expectedScore of scoringCase.expected.nurseScores) {
+        const nurseScore = result.nurseScores.find(
+          (candidate) => candidate.nurseId === expectedScore.nurseId
+        );
+        assert.equal(nurseScore?.occupiedRoomCount, expectedScore.occupiedRoomCount);
+        assert.equal(nurseScore?.totalBurden, expectedScore.totalBurden);
+      }
+    }
     for (const nurseScore of result.nurseScores) {
       assert.equal(nurseScore.activeTaskMinutes, 0);
       assert.equal(nurseScore.walkingMinutes, 0);

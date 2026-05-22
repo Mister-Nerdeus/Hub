@@ -57,6 +57,25 @@
     }
   },
   {
+    "name": "duplicate room does not score as valid coverage",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true },
+      { "id": "nurse-bravo", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01"] },
+      { "id": "assignment-bravo", "nurseId": "nurse-bravo", "roomIds": ["room-01"] }
+    ],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 5, "traumaActive": false }],
+    "expected": {
+      "warningCode": "ROOM_ASSIGNED_MULTIPLE_TIMES",
+      "nurseScores": [
+        { "nurseId": "nurse-alpha", "occupiedRoomCount": 0, "totalBurden": 0 },
+        { "nurseId": "nurse-bravo", "occupiedRoomCount": 0, "totalBurden": 0 }
+      ]
+    }
+  },
+  {
     "name": "same count lower acuity",
     "nurses": [
       { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }

@@ -29,3 +29,5 @@ Manual assignment validation is deterministic warning generation for synthetic o
 | `TRAUMA_WITH_NON_QUALIFIED_NURSE` | warning | A trauma-active room is assigned to a nurse without trauma qualification. |
 
 Unoccupied rooms do not require assignment. Unknown references and duplicate assignment coverage are surfaced as warnings by the validation engine even when strict contract validation would reject the fixture.
+
+Duplicate assignment coverage does not count as valid primary manual coverage for per-nurse occupied-room counts or downstream nurse burden scoring.

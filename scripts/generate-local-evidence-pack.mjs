@@ -19,6 +19,7 @@ const envFile = loadLocalEnv();
 const apiHostPort = valueFor(envFile, "API_HOST_PORT", "8010");
 const webHostPort = valueFor(envFile, "WEB_HOST_PORT", "5180");
 
+assertSafeOutputDir(latestDir);
 if (existsSync(latestDir)) {
   rmSync(latestDir, { recursive: true, force: true });
 }
@@ -130,6 +131,7 @@ function runStep(step) {
   const result = spawnSync(step.command, {
     cwd: step.cwd ? resolve(root, step.cwd) : root,
     env: { ...process.env, ...(step.env ?? {}) },
+    maxBuffer: 50 * 1024 * 1024,
     shell: true,
     encoding: "utf8"
   });
@@ -138,9 +140,9 @@ function runStep(step) {
     `Command: ${displayCommand}`,
     "",
     "## stdout",
-    result.stdout ?? "",
+    normalizeCommandOutput(result.stdout ?? ""),
     "## stderr",
-    result.stderr ?? "",
+    normalizeCommandOutput(result.stderr ?? ""),
     `Exit code: ${result.status ?? 1}`,
     ""
   ].join("\n");
@@ -278,4 +280,48 @@ function displayPath(path) {
 
 function isTruthyNpmConfig(value) {
   return value === "true" || value === "1" || value === "";
+}
+
+function assertSafeOutputDir(outputDir) {
+  const repoLocalRunsDir = resolve(root, "docs/verification/local-runs");
+  const transientRoot = resolve(tmpdir(), "nerdeus-er-pod-shift-simulator", "local-evidence");
+  const disallowedDirs = [
+    root,
+    resolve(root, "docs"),
+    resolve(root, "docs/verification"),
+    repoLocalRunsDir,
+    tmpdir(),
+    resolve(tmpdir(), "nerdeus-er-pod-shift-simulator"),
+    transientRoot
+  ];
+
+  if (disallowedDirs.some((dir) => isSamePath(outputDir, dir))) {
+    throw new Error(`Refusing to use broad evidence output directory: ${outputDir}`);
+  }
+
+  if (isInsidePath(root, outputDir) && !isInsidePath(repoLocalRunsDir, outputDir)) {
+    throw new Error(
+      `Repository-local evidence output must be under ${displayPath(repoLocalRunsDir)}`
+    );
+  }
+}
+
+function isSamePath(left, right) {
+  return normalizeForCompare(resolve(left)) === normalizeForCompare(resolve(right));
+}
+
+function isInsidePath(parent, child) {
+  const relativePath = relative(resolve(parent), resolve(child));
+  return relativePath !== "" && !relativePath.startsWith("..") && !isAbsolute(relativePath);
+}
+
+function normalizeForCompare(path) {
+  return process.platform === "win32" ? path.toLowerCase() : path;
+}
+
+function normalizeCommandOutput(output) {
+  return output
+    .split(/\r?\n/)
+    .map((line) => line.trimEnd())
+    .join("\n");
 }

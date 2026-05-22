@@ -17,7 +17,12 @@
       { "id": "assignment-bravo", "nurseId": "nurse-bravo", "roomIds": ["room-01"] }
     ],
     "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
-    "expectedCodes": ["ROOM_ASSIGNED_MULTIPLE_TIMES"]
+    "expectedCodes": ["ROOM_ASSIGNED_MULTIPLE_TIMES", "ROOM_WITHOUT_COVERAGE"],
+    "expectedPerNurseAssignedOccupiedCounts": {
+      "nurse-alpha": 0,
+      "nurse-bravo": 0
+    },
+    "expectedUnassignedOccupiedRoomIds": ["room-01"]
   },
   {
     "name": "nurse over target",

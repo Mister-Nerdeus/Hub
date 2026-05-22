@@ -39,11 +39,18 @@ export function scoreNurseBurden(
   }
 
   const nurseScores: NurseBurdenScore[] = assignmentSet.nurses.map((nurse) => {
-    const assignedRoomIds = assignmentSet.assignments
-      .filter((assignment) => assignment.nurseId === nurse.id && assignment.assignmentType === "manual")
-      .flatMap((assignment) => assignment.roomIds);
+    const assignedRoomIds = [
+      ...new Set(
+        assignmentSet.assignments
+          .filter((assignment) => assignment.nurseId === nurse.id && assignment.assignmentType === "manual")
+          .flatMap((assignment) => assignment.roomIds)
+      )
+    ].sort();
     const occupiedAssignedRoomIds = assignedRoomIds.filter(
-      (roomId) => roomLoadById.get(roomId)?.occupied === true
+      (roomId) =>
+        roomLoadById.get(roomId)?.occupied === true &&
+        validation.assignedRoomMap[roomId]?.length === 1 &&
+        validation.assignedRoomMap[roomId]?.[0] === nurse.id
     );
     const roomScores = occupiedAssignedRoomIds
       .map((roomId) => roomScoreById.get(roomId))

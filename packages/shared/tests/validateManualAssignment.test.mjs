@@ -31,6 +31,18 @@ for (const validationCase of cases) {
     for (const expectedCode of validationCase.expectedCodes) {
       assert.ok(codes.includes(expectedCode), `${expectedCode} must be reported`);
     }
+    if (validationCase.expectedPerNurseAssignedOccupiedCounts != null) {
+      assert.deepEqual(
+        result.perNurseAssignedOccupiedCounts,
+        validationCase.expectedPerNurseAssignedOccupiedCounts
+      );
+    }
+    if (validationCase.expectedUnassignedOccupiedRoomIds != null) {
+      assert.deepEqual(
+        result.unassignedOccupiedRoomIds,
+        validationCase.expectedUnassignedOccupiedRoomIds
+      );
+    }
   });
 }
 
