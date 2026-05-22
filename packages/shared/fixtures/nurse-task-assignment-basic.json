@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+  "scenarioId": "shift-scenario-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "name": "Manual Coverage Task Assignment for generated-task-set-basic",
+  "description": "Deterministic operational proof using existing manual room coverage only.",
+  "taskAssignments": [
+    {
+      "id": "nurse-task-task-basic-room-01-medication-001",
+      "taskId": "task-basic-room-01-medication-001",
+      "nurseId": "nurse-alpha",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 0
+    },
+    {
+      "id": "nurse-task-task-basic-room-02-monitoring-001",
+      "taskId": "task-basic-room-02-monitoring-001",
+      "nurseId": "nurse-charlie",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 0
+    },
+    {
+      "id": "nurse-task-task-basic-hall-bed-01-turnover-001",
+      "taskId": "task-basic-hall-bed-01-turnover-001",
+      "nurseId": null,
+      "assignmentReason": "unassigned",
+      "minute": 15
+    },
+    {
+      "id": "nurse-task-task-basic-room-03-isolation-001",
+      "taskId": "task-basic-room-03-isolation-001",
+      "nurseId": "nurse-alpha",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 30
+    },
+    {
+      "id": "nurse-task-task-basic-room-04-behavioral-001",
+      "taskId": "task-basic-room-04-behavioral-001",
+      "nurseId": "nurse-bravo",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 30
+    },
+    {
+      "id": "nurse-task-task-basic-room-05-procedure-001",
+      "taskId": "task-basic-room-05-procedure-001",
+      "nurseId": "nurse-charlie",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 45
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedTaskSetId": "generated-task-set-mismatched-scenario",
+  "scenarioId": "other-scenario",
+  "seed": 20260522,
+  "taskCount": 1,
+  "generatedTasks": [
+    {
+      "id": "task-mismatched-scenario",
+      "taskType": "medication_round",
+      "roomId": "room-01",
+      "sourceTemplateId": "template-medication-round",
+      "scheduledMinute": 0,
+      "estimatedDurationMinutes": 10,
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

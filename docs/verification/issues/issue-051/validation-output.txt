@@ -1,0 +1,6 @@
+Nurse task assignment contract validation evidence
+valid fixture: nurse-task-assignment-basic.json -> 6 task assignments
+nurse-task-assignment-unknown-nurse.json: rejected (taskAssignments[0].nurseId references an unknown nurse)
+nurse-task-assignment-unknown-task.json: rejected (taskAssignments[0].taskId references an unknown generated task)
+nurse-task-assignment-task-assigned-twice.json: rejected (duplicate nurse task assignment task ids are not allowed)
+nurse-task-assignment-minute-mismatch.json: rejected (taskAssignments[0].minute must match the generated task scheduledMinute)

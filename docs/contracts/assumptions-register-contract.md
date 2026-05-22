@@ -40,6 +40,8 @@ simulationDefaults
 - Trauma mismatch per room: 8.
 - Active task, walking, break coverage, and interruption placeholders: 0.
 
+Phase 5 adds `assertDefaultScoringAssumptionParity(assumptions)` to hard-check these visible assumptions against the exported default scoring constants. Default scoring remains available for legacy Phase 3 tests, while Phase 5 and later code should prefer assumptions-driven scoring when an assumptions register is available.
+
 ## Validation
 
 - IDs must be non-empty.

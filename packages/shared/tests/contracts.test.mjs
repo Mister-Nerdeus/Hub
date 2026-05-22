@@ -9,7 +9,9 @@ import {
   ROOM_WORKLOAD_WEIGHTS,
   validateAssumptionsRegisterContract,
   validateDayProfileContract,
+  validateGeneratedOperationalTaskSet,
   validateManualAssignmentContract,
+  validateNurseTaskAssignmentContract,
   validatePlanContract,
   validateRoomLoads,
   validateScenarioContract,
@@ -19,6 +21,8 @@ import {
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const invalidFixturesDir = join(fixturesDir, "invalid");
+const taskFixturesDir = join(fixturesDir, "tasks");
+const invalidTaskFixturesDir = join(taskFixturesDir, "invalid");
 
 function readFixture(name) {
   return JSON.parse(readFileSync(join(fixturesDir, name), "utf8"));
@@ -26,6 +30,14 @@ function readFixture(name) {
 
 function readInvalidFixture(name) {
   return JSON.parse(readFileSync(join(invalidFixturesDir, name), "utf8"));
+}
+
+function readTaskFixture(name) {
+  return JSON.parse(readFileSync(join(taskFixturesDir, name), "utf8"));
+}
+
+function readInvalidTaskFixture(name) {
+  return JSON.parse(readFileSync(join(invalidTaskFixturesDir, name), "utf8"));
 }
 
 test("plan fixture validates against TypeScript contract", () => {
@@ -156,6 +168,43 @@ test("shift scenario fixture validates against TypeScript contract with referenc
 
   assert.equal(scenario.scenarioId, "shift-scenario-basic");
   assert.equal(scenario.roomLoads.length, plan.rooms.length);
+});
+
+test("generated operational task set fixture validates against TypeScript contract", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const taskTemplates = validateTaskTemplateContract(readFixture("task-templates-basic.json"));
+  const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"), {
+    plan,
+    taskTemplates
+  });
+  const taskSet = validateGeneratedOperationalTaskSet(
+    readTaskFixture("generated-task-set-basic.json"),
+    scenario,
+    taskTemplates,
+    plan
+  );
+
+  assert.equal(taskSet.schemaVersion, "1.0.0");
+  assert.equal(taskSet.generatedTaskSetId, "generated-task-set-basic");
+  assert.equal(taskSet.taskCount, taskSet.generatedTasks.length);
+});
+
+test("nurse task assignment fixture validates against TypeScript contract", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+  const taskSet = validateGeneratedOperationalTaskSet(readTaskFixture("generated-task-set-basic.json"));
+  const nurseTaskAssignment = validateNurseTaskAssignmentContract(
+    readFixture("nurse-task-assignment-basic.json"),
+    undefined,
+    assignmentSet,
+    taskSet
+  );
+
+  assert.equal(nurseTaskAssignment.schemaVersion, "1.0.0");
+  assert.equal(nurseTaskAssignment.taskAssignments.length, taskSet.generatedTasks.length);
 });
 
 const invalidPlanFixtures = [
@@ -291,3 +340,46 @@ test("shift-scenario-mismatched-plan-id.json is rejected when a plan reference i
     })
   );
 });
+
+const invalidGeneratedTaskFixtures = [
+  "generated-task-bad-minute.json",
+  "generated-task-bad-duration.json",
+  "generated-task-unknown-room.json",
+  "generated-task-duplicate-id.json",
+  "generated-task-set-mismatched-scenario.json"
+];
+
+for (const fixtureName of invalidGeneratedTaskFixtures) {
+  test(`${fixtureName} is rejected by TypeScript generated task set contract`, () => {
+    const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
+    assert.throws(() =>
+      validateGeneratedOperationalTaskSet(readInvalidTaskFixture(fixtureName), scenario)
+    );
+  });
+}
+
+const invalidNurseTaskAssignmentFixtures = [
+  "nurse-task-assignment-unknown-nurse.json",
+  "nurse-task-assignment-unknown-task.json",
+  "nurse-task-assignment-task-assigned-twice.json",
+  "nurse-task-assignment-minute-mismatch.json"
+];
+
+for (const fixtureName of invalidNurseTaskAssignmentFixtures) {
+  test(`${fixtureName} is rejected by TypeScript nurse task assignment contract`, () => {
+    const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+    const assignmentSet = validateManualAssignmentContract(
+      readFixture("manual-assignment-basic.json"),
+      plan
+    );
+    const taskSet = validateGeneratedOperationalTaskSet(readTaskFixture("generated-task-set-basic.json"));
+    assert.throws(() =>
+      validateNurseTaskAssignmentContract(
+        readInvalidFixture(fixtureName),
+        undefined,
+        assignmentSet,
+        taskSet
+      )
+    );
+  });
+}

@@ -101,6 +101,13 @@ export const WARNING_CODES = [
   "ROOM_ASSIGNED_MULTIPLE_TIMES"
 ] as const;
 
+export const NURSE_TASK_ASSIGNMENT_REASONS = [
+  "manual_room_coverage",
+  "charge_coverage",
+  "float_coverage",
+  "unassigned"
+] as const;
+
 export const PLAN_ID_MAX_LENGTH = 64;
 export const PLAN_NAME_MAX_LENGTH = 160;
 export const PLAN_DESCRIPTION_MAX_LENGTH = 500;
@@ -120,6 +127,7 @@ export type NurseRole = (typeof NURSE_ROLES)[number];
 export type AssignmentType = (typeof ASSIGNMENT_TYPES)[number];
 export type WarningSeverity = (typeof WARNING_SEVERITIES)[number];
 export type WarningCode = (typeof WARNING_CODES)[number];
+export type NurseTaskAssignmentReason = (typeof NURSE_TASK_ASSIGNMENT_REASONS)[number];
 
 export type ScaleSettings = {
   unit: "feet";
@@ -482,6 +490,63 @@ export type GeneratedOperationalTask = {
   requiresRoomPresence: boolean;
 };
 
+export type GeneratedOperationalTaskSetContract = {
+  schemaVersion: "1.0.0";
+  generatedTaskSetId: string;
+  scenarioId: string;
+  seed: number;
+  taskCount: number;
+  generatedTasks: GeneratedOperationalTask[];
+};
+
+export type TaskTimelineBucket = {
+  minute: number;
+  taskIds: string[];
+  taskCount: number;
+  totalEstimatedDurationMinutes: number;
+  interruptiveTaskCount: number;
+  roomIds: string[];
+  burdenCategories: Record<TaskBurdenCategory, number>;
+};
+
+export type TaskTimelineSummary = {
+  scenarioId: string;
+  generatedTaskSetId: string;
+  timestepMinutes: number;
+  shiftLengthMinutes: number;
+  buckets: TaskTimelineBucket[];
+  totalTaskCount: number;
+  totalEstimatedDurationMinutes: number;
+};
+
+export type NurseTaskAssignment = {
+  id: string;
+  taskId: string;
+  nurseId?: string | null;
+  assignmentReason: NurseTaskAssignmentReason;
+  minute: number;
+};
+
+export type NurseTaskAssignmentContract = {
+  schemaVersion: "1.0.0";
+  nurseTaskAssignmentSetId: string;
+  scenarioId: string;
+  assignmentSetId: string;
+  generatedTaskSetId: string;
+  name: string;
+  description?: string | null;
+  taskAssignments: NurseTaskAssignment[];
+};
+
+export type BasicNurseTaskAssignmentResult = {
+  assignmentSet: NurseTaskAssignmentContract;
+  warnings: Warning[];
+  assignedTaskCount: number;
+  unassignedTaskCount: number;
+  perNurseTaskCounts: Record<string, number>;
+  perNurseEstimatedMinutes: Record<string, number>;
+};
+
 type IdSets = {
   roomIds: Set<string>;
   hallwayIds: Set<string>;
@@ -743,18 +808,73 @@ export function validateShiftScenarioContract(
   return scenario as ShiftScenarioContract;
 }
 
+export function validateGeneratedOperationalTask(
+  value: unknown,
+  scenario?: ShiftScenarioContract,
+  taskTemplates?: TaskTemplateContract,
+  plan?: PlanContract
+): GeneratedOperationalTask {
+  return validateGeneratedOperationalTaskAt(value, 0, scenario, taskTemplates, plan);
+}
+
 export function validateGeneratedOperationalTasks(
   value: unknown,
-  scenario?: ShiftScenarioContract
+  scenario?: ShiftScenarioContract,
+  taskTemplates?: TaskTemplateContract,
+  plan?: PlanContract
 ): GeneratedOperationalTask[] {
   const tasks = requireArray(value, "generatedOperationalTasks").map((task, index) =>
-    validateGeneratedOperationalTask(task, index, scenario)
+    validateGeneratedOperationalTaskAt(task, index, scenario, taskTemplates, plan)
   );
   requireUnique(
     "generated operational task ids",
     tasks.map((task) => task.id)
   );
   return tasks;
+}
+
+export function validateGeneratedOperationalTaskSet(
+  value: unknown,
+  scenario?: ShiftScenarioContract,
+  taskTemplates?: TaskTemplateContract,
+  plan?: PlanContract
+): GeneratedOperationalTaskSetContract {
+  const taskSet = requireRecord(value, "generatedOperationalTaskSet");
+  requireExactKeys(taskSet, "generatedOperationalTaskSet", [
+    "schemaVersion",
+    "generatedTaskSetId",
+    "scenarioId",
+    "seed",
+    "taskCount",
+    "generatedTasks"
+  ]);
+
+  requireLiteral(taskSet.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(taskSet.generatedTaskSetId, "generatedTaskSetId");
+  const scenarioId = requireString(taskSet.scenarioId, "scenarioId");
+  const seed = requireSafeInteger(taskSet.seed, "seed", 0);
+  const taskCount = requireInteger(taskSet.taskCount, "taskCount", 0);
+
+  if (scenario != null) {
+    if (scenarioId !== scenario.scenarioId) {
+      throw new Error("generatedOperationalTaskSet.scenarioId must match the referenced scenario");
+    }
+    if (seed !== scenario.seed) {
+      throw new Error("generatedOperationalTaskSet.seed must match the referenced scenario seed");
+    }
+  }
+
+  const generatedTasks = validateGeneratedOperationalTasks(
+    taskSet.generatedTasks,
+    scenario,
+    taskTemplates,
+    plan
+  );
+  if (taskCount !== generatedTasks.length) {
+    throw new Error("generatedOperationalTaskSet.taskCount must equal generatedTasks.length");
+  }
+
+  return taskSet as GeneratedOperationalTaskSetContract;
 }
 
 export function validateRoomLoads(value: unknown, plan?: PlanContract): RoomLoad[] {
@@ -843,6 +963,91 @@ export function validateManualAssignmentContract(
   }
 
   return assignmentSet as ManualAssignmentContract;
+}
+
+export function validateNurseTaskAssignmentContract(
+  value: unknown,
+  scenario?: ShiftScenarioContract,
+  assignmentSet?: ManualAssignmentContract,
+  generatedTaskSet?: GeneratedOperationalTaskSetContract
+): NurseTaskAssignmentContract {
+  const contract = requireRecord(value, "nurseTaskAssignment");
+  requireExactKeys(contract, "nurseTaskAssignment", [
+    "schemaVersion",
+    "nurseTaskAssignmentSetId",
+    "scenarioId",
+    "assignmentSetId",
+    "generatedTaskSetId",
+    "name",
+    "description",
+    "taskAssignments"
+  ]);
+
+  requireLiteral(contract.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(contract.nurseTaskAssignmentSetId, "nurseTaskAssignmentSetId");
+  const scenarioId = requireString(contract.scenarioId, "scenarioId");
+  const assignmentSetId = requireString(contract.assignmentSetId, "assignmentSetId");
+  const generatedTaskSetId = requireString(contract.generatedTaskSetId, "generatedTaskSetId");
+  requireString(contract.name, "name");
+  requireOptionalString(contract.description, "description");
+
+  if (scenario != null && scenarioId !== scenario.scenarioId) {
+    throw new Error("nurseTaskAssignment.scenarioId must match the referenced scenario");
+  }
+  if (assignmentSet != null && assignmentSetId !== assignmentSet.assignmentSetId) {
+    throw new Error("nurseTaskAssignment.assignmentSetId must match the referenced assignment set");
+  }
+  if (generatedTaskSet != null && generatedTaskSetId !== generatedTaskSet.generatedTaskSetId) {
+    throw new Error(
+      "nurseTaskAssignment.generatedTaskSetId must match the referenced generated task set"
+    );
+  }
+
+  const taskAssignments = requireArray(contract.taskAssignments, "taskAssignments").map(
+    validateNurseTaskAssignment
+  );
+  requireUnique(
+    "nurse task assignment ids",
+    taskAssignments.map((assignment) => assignment.id)
+  );
+  requireUnique(
+    "nurse task assignment task ids",
+    taskAssignments.map((assignment) => assignment.taskId)
+  );
+
+  const nurseIds = new Set(assignmentSet?.nurses.map((nurse) => nurse.id) ?? []);
+  const generatedTaskById = new Map(
+    generatedTaskSet?.generatedTasks.map((task) => [task.id, task]) ?? []
+  );
+
+  taskAssignments.forEach((assignment, index) => {
+    if (assignment.assignmentReason === "unassigned") {
+      if (assignment.nurseId != null) {
+        throw new Error(`taskAssignments[${index}].nurseId must be null or absent when unassigned`);
+      }
+    } else {
+      if (assignment.nurseId == null) {
+        throw new Error(`taskAssignments[${index}].nurseId is required unless unassigned`);
+      }
+      if (assignmentSet != null && !nurseIds.has(assignment.nurseId)) {
+        throw new Error(`taskAssignments[${index}].nurseId references an unknown nurse`);
+      }
+    }
+
+    if (generatedTaskSet != null) {
+      const generatedTask = generatedTaskById.get(assignment.taskId);
+      if (generatedTask == null) {
+        throw new Error(`taskAssignments[${index}].taskId references an unknown generated task`);
+      }
+      if (assignment.minute !== generatedTask.scheduledMinute) {
+        throw new Error(
+          `taskAssignments[${index}].minute must match the generated task scheduledMinute`
+        );
+      }
+    }
+  });
+
+  return contract as NurseTaskAssignmentContract;
 }
 
 function validateRoomWorkloadWeights(value: unknown): RoomWorkloadWeights {
@@ -1101,10 +1306,12 @@ function validateFullShiftSegmentCoverage(
   }
 }
 
-function validateGeneratedOperationalTask(
+function validateGeneratedOperationalTaskAt(
   value: unknown,
   index: number,
-  scenario?: ShiftScenarioContract
+  scenario?: ShiftScenarioContract,
+  taskTemplates?: TaskTemplateContract,
+  plan?: PlanContract
 ): GeneratedOperationalTask {
   const task = requireRecord(value, `generatedOperationalTasks[${index}]`);
   requireExactKeys(task, `generatedOperationalTasks[${index}]`, [
@@ -1121,7 +1328,10 @@ function validateGeneratedOperationalTask(
   requireString(task.id, `generatedOperationalTasks[${index}].id`);
   requireEnum(task.taskType, TASK_TYPES, `generatedOperationalTasks[${index}].taskType`);
   const roomId = requireString(task.roomId, `generatedOperationalTasks[${index}].roomId`);
-  requireString(task.sourceTemplateId, `generatedOperationalTasks[${index}].sourceTemplateId`);
+  const sourceTemplateId = requireString(
+    task.sourceTemplateId,
+    `generatedOperationalTasks[${index}].sourceTemplateId`
+  );
   const scheduledMinute = requireInteger(
     task.scheduledMinute,
     `generatedOperationalTasks[${index}].scheduledMinute`,
@@ -1146,8 +1356,34 @@ function validateGeneratedOperationalTask(
     if (scheduledMinute >= scenario.shiftLengthMinutes) {
       throw new Error(`generatedOperationalTasks[${index}].scheduledMinute must be within shift bounds`);
     }
+    if (scheduledMinute % scenario.timestepMinutes !== 0) {
+      throw new Error(
+        `generatedOperationalTasks[${index}].scheduledMinute must align to scenario.timestepMinutes`
+      );
+    }
     if (!scenario.roomLoads.some((roomLoad) => roomLoad.roomId === roomId)) {
       throw new Error(`generatedOperationalTasks[${index}].roomId references an unknown scenario room`);
+    }
+  }
+  if (plan != null && !plan.rooms.some((room) => room.id === roomId)) {
+    throw new Error(`generatedOperationalTasks[${index}].roomId references an unknown plan room`);
+  }
+  if (taskTemplates != null) {
+    const template = taskTemplates.taskTemplates.find((candidate) => candidate.id === sourceTemplateId);
+    if (template == null) {
+      throw new Error(
+        `generatedOperationalTasks[${index}].sourceTemplateId references an unknown task template`
+      );
+    }
+    if (template.taskType !== task.taskType) {
+      throw new Error(
+        `generatedOperationalTasks[${index}].taskType must match the referenced task template`
+      );
+    }
+    if (template.burdenCategory !== task.burdenCategory) {
+      throw new Error(
+        `generatedOperationalTasks[${index}].burdenCategory must match the referenced task template`
+      );
     }
   }
 
@@ -1589,6 +1825,27 @@ function validateAssignment(value: unknown, index: number): Assignment {
     }
   }
   return assignment as Assignment;
+}
+
+function validateNurseTaskAssignment(value: unknown, index: number): NurseTaskAssignment {
+  const assignment = requireRecord(value, `taskAssignments[${index}]`);
+  requireExactKeys(assignment, `taskAssignments[${index}]`, [
+    "id",
+    "taskId",
+    "nurseId",
+    "assignmentReason",
+    "minute"
+  ]);
+  requireString(assignment.id, `taskAssignments[${index}].id`);
+  requireString(assignment.taskId, `taskAssignments[${index}].taskId`);
+  requireOptionalString(assignment.nurseId, `taskAssignments[${index}].nurseId`);
+  requireEnum(
+    assignment.assignmentReason,
+    NURSE_TASK_ASSIGNMENT_REASONS,
+    `taskAssignments[${index}].assignmentReason`
+  );
+  requireInteger(assignment.minute, `taskAssignments[${index}].minute`, 0);
+  return assignment as NurseTaskAssignment;
 }
 
 function validatePoint(value: unknown, label: string): Point {

@@ -98,4 +98,6 @@ Phase 3 manual assignment proof covers shared nurse and room-load contracts, det
 
 Phase 4 deterministic task-generation proof covers the assumptions register, operational task templates, typical and slammed day profiles, expanded shift scenario inputs, a seeded random utility, and reproducible generated operational task fixtures. Generated tasks are not assigned to nurses, task completion is not simulated, walking routes are not calculated, and no optimizer exists.
 
-The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024, the Phase 3 gate evidence for Issue 038, and the Phase 4 task-generation evidence for Issue 047.
+Phase 5 task-assignment proof covers assumptions-driven scoring parity, public generated task-set validation, deterministic task timeline aggregation, nurse task assignment contracts, and basic manual room coverage assignment proof. It does not add optimization, workload balancing, task completion simulation, delay calculation, walking route calculation, reports, persistence, or UI.
+
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024, the Phase 3 gate evidence for Issue 038, the Phase 4 task-generation evidence for Issue 047, and the Phase 5 task-assignment evidence for Issue 053.

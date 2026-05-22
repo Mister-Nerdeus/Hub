@@ -79,6 +79,12 @@ WarningCode = Literal[
     "UNKNOWN_ROOM",
     "ROOM_ASSIGNED_MULTIPLE_TIMES",
 ]
+NurseTaskAssignmentReason = Literal[
+    "manual_room_coverage",
+    "charge_coverage",
+    "float_coverage",
+    "unassigned",
+]
 
 PLAN_ID_MAX_LENGTH = 64
 PLAN_NAME_MAX_LENGTH = 160
@@ -627,6 +633,70 @@ class Warning(StrictModel):
     minute: int | None = None
 
 
+class GeneratedOperationalTask(StrictModel):
+    id: str = Field(min_length=1)
+    taskType: TaskType
+    roomId: str = Field(min_length=1)
+    sourceTemplateId: str = Field(min_length=1)
+    scheduledMinute: int = Field(ge=0)
+    estimatedDurationMinutes: float = Field(gt=0)
+    burdenCategory: TaskBurdenCategory
+    interruptive: bool
+    requiresRoomPresence: bool
+
+
+class GeneratedOperationalTaskSetContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    generatedTaskSetId: str = Field(min_length=1)
+    scenarioId: str = Field(min_length=1)
+    seed: int = Field(ge=0, le=SAFE_INTEGER_MAX)
+    taskCount: int = Field(ge=0)
+    generatedTasks: list[GeneratedOperationalTask]
+
+    @model_validator(mode="after")
+    def validate_task_set(self) -> "GeneratedOperationalTaskSetContract":
+        require_unique("generated operational task ids", [task.id for task in self.generatedTasks])
+        if self.taskCount != len(self.generatedTasks):
+            raise ValueError("generated task set taskCount must equal generatedTasks length")
+        return self
+
+
+class NurseTaskAssignment(StrictModel):
+    id: str = Field(min_length=1)
+    taskId: str = Field(min_length=1)
+    nurseId: str | None = None
+    assignmentReason: NurseTaskAssignmentReason
+    minute: int = Field(ge=0)
+
+
+class NurseTaskAssignmentContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    nurseTaskAssignmentSetId: str = Field(min_length=1)
+    scenarioId: str = Field(min_length=1)
+    assignmentSetId: str = Field(min_length=1)
+    generatedTaskSetId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    taskAssignments: list[NurseTaskAssignment]
+
+    @model_validator(mode="after")
+    def validate_assignment_set(self) -> "NurseTaskAssignmentContract":
+        require_unique(
+            "nurse task assignment ids",
+            [assignment.id for assignment in self.taskAssignments],
+        )
+        require_unique(
+            "nurse task assignment task ids",
+            [assignment.taskId for assignment in self.taskAssignments],
+        )
+        for assignment in self.taskAssignments:
+            if assignment.assignmentReason == "unassigned" and assignment.nurseId is not None:
+                raise ValueError("unassigned nurse task assignments must not include nurseId")
+            if assignment.assignmentReason != "unassigned" and assignment.nurseId is None:
+                raise ValueError("assigned nurse task assignments require nurseId")
+        return self
+
+
 def validate_room_loads(value: Any, plan: PlanContract | None = None) -> list[RoomLoad]:
     room_loads = TypeAdapter(list[RoomLoad]).validate_python(value)
     require_unique("room load ids", [load.roomId for load in room_loads])
@@ -683,6 +753,119 @@ def validate_shift_scenario_contract(
     validate_room_loads([load.model_dump() for load in scenario.roomLoads], plan)
 
     return scenario
+
+
+def validate_generated_operational_tasks(
+    value: Any,
+    scenario: ScenarioContract | None = None,
+    task_templates: TaskTemplateContract | None = None,
+    plan: PlanContract | None = None,
+) -> list[GeneratedOperationalTask]:
+    tasks = TypeAdapter(list[GeneratedOperationalTask]).validate_python(value)
+    require_unique("generated operational task ids", [task.id for task in tasks])
+
+    room_ids = {room.id for room in plan.rooms} if plan is not None else set()
+    scenario_room_ids = {room_load.roomId for room_load in scenario.roomLoads} if scenario else set()
+    templates_by_id = (
+        {template.id: template for template in task_templates.taskTemplates}
+        if task_templates is not None
+        else {}
+    )
+
+    for task in tasks:
+        if scenario is not None:
+            if task.scheduledMinute >= scenario.shiftLengthMinutes:
+                raise ValueError("generated task scheduledMinute must be within shift bounds")
+            if task.scheduledMinute % scenario.timestepMinutes != 0:
+                raise ValueError("generated task scheduledMinute must align to timestepMinutes")
+            if task.roomId not in scenario_room_ids:
+                raise ValueError(f"generated task {task.id} references unknown scenario room")
+        if plan is not None and task.roomId not in room_ids:
+            raise ValueError(f"generated task {task.id} references unknown plan room")
+        if task_templates is not None:
+            template = templates_by_id.get(task.sourceTemplateId)
+            if template is None:
+                raise ValueError(f"generated task {task.id} references unknown task template")
+            if template.taskType != task.taskType:
+                raise ValueError(f"generated task {task.id} taskType must match task template")
+            if template.burdenCategory != task.burdenCategory:
+                raise ValueError(
+                    f"generated task {task.id} burdenCategory must match task template"
+                )
+
+    return tasks
+
+
+def validate_generated_operational_task_set(
+    value: Any,
+    scenario: ScenarioContract | None = None,
+    task_templates: TaskTemplateContract | None = None,
+    plan: PlanContract | None = None,
+) -> GeneratedOperationalTaskSetContract:
+    task_set = GeneratedOperationalTaskSetContract.model_validate(value)
+
+    if scenario is not None:
+        if task_set.scenarioId != scenario.scenarioId:
+            raise ValueError("generated task set scenarioId must match the referenced scenario")
+        if task_set.seed != scenario.seed:
+            raise ValueError("generated task set seed must match the referenced scenario")
+    validate_generated_operational_tasks(
+        [task.model_dump() for task in task_set.generatedTasks],
+        scenario=scenario,
+        task_templates=task_templates,
+        plan=plan,
+    )
+
+    return task_set
+
+
+def validate_nurse_task_assignment_contract(
+    value: Any,
+    scenario: ScenarioContract | None = None,
+    assignment_set: ManualAssignmentContract | None = None,
+    generated_task_set: GeneratedOperationalTaskSetContract | None = None,
+) -> NurseTaskAssignmentContract:
+    nurse_task_assignment = NurseTaskAssignmentContract.model_validate(value)
+
+    if scenario is not None and nurse_task_assignment.scenarioId != scenario.scenarioId:
+        raise ValueError("nurse task assignment scenarioId must match the referenced scenario")
+    if (
+        assignment_set is not None
+        and nurse_task_assignment.assignmentSetId != assignment_set.assignmentSetId
+    ):
+        raise ValueError(
+            "nurse task assignment assignmentSetId must match the referenced assignment set"
+        )
+    if (
+        generated_task_set is not None
+        and nurse_task_assignment.generatedTaskSetId != generated_task_set.generatedTaskSetId
+    ):
+        raise ValueError(
+            "nurse task assignment generatedTaskSetId must match the referenced generated task set"
+        )
+
+    nurse_ids = {nurse.id for nurse in assignment_set.nurses} if assignment_set else set()
+    tasks_by_id = (
+        {task.id: task for task in generated_task_set.generatedTasks}
+        if generated_task_set is not None
+        else {}
+    )
+    for assignment in nurse_task_assignment.taskAssignments:
+        if assignment.nurseId is not None and assignment_set is not None:
+            if assignment.nurseId not in nurse_ids:
+                raise ValueError(f"nurse task assignment {assignment.id} references unknown nurse")
+        if generated_task_set is not None:
+            generated_task = tasks_by_id.get(assignment.taskId)
+            if generated_task is None:
+                raise ValueError(
+                    f"nurse task assignment {assignment.id} references unknown generated task"
+                )
+            if assignment.minute != generated_task.scheduledMinute:
+                raise ValueError(
+                    f"nurse task assignment {assignment.id} minute must match generated task"
+                )
+
+    return nurse_task_assignment
 
 
 def expected_frequency_source_for_trigger(trigger: TaskTrigger) -> TaskFrequencySource:

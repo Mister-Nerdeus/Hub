@@ -1,0 +1,98 @@
+{
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "timestepMinutes": 15,
+  "shiftLengthMinutes": 720,
+  "buckets": [
+    {
+      "minute": 0,
+      "taskIds": [
+        "task-basic-room-01-medication-001",
+        "task-basic-room-02-monitoring-001"
+      ],
+      "taskCount": 2,
+      "totalEstimatedDurationMinutes": 15,
+      "interruptiveTaskCount": 0,
+      "roomIds": [
+        "room-01",
+        "room-02"
+      ],
+      "burdenCategories": {
+        "medication": 1,
+        "monitoring": 1,
+        "procedure": 0,
+        "turnover": 0,
+        "isolation": 0,
+        "behavioral": 0,
+        "sitter": 0
+      }
+    },
+    {
+      "minute": 15,
+      "taskIds": [
+        "task-basic-hall-bed-01-turnover-001"
+      ],
+      "taskCount": 1,
+      "totalEstimatedDurationMinutes": 15,
+      "interruptiveTaskCount": 0,
+      "roomIds": [
+        "hall-bed-01"
+      ],
+      "burdenCategories": {
+        "medication": 0,
+        "monitoring": 0,
+        "procedure": 0,
+        "turnover": 1,
+        "isolation": 0,
+        "behavioral": 0,
+        "sitter": 0
+      }
+    },
+    {
+      "minute": 30,
+      "taskIds": [
+        "task-basic-room-03-isolation-001",
+        "task-basic-room-04-behavioral-001"
+      ],
+      "taskCount": 2,
+      "totalEstimatedDurationMinutes": 23,
+      "interruptiveTaskCount": 2,
+      "roomIds": [
+        "room-03",
+        "room-04"
+      ],
+      "burdenCategories": {
+        "medication": 0,
+        "monitoring": 0,
+        "procedure": 0,
+        "turnover": 0,
+        "isolation": 1,
+        "behavioral": 1,
+        "sitter": 0
+      }
+    },
+    {
+      "minute": 45,
+      "taskIds": [
+        "task-basic-room-05-procedure-001"
+      ],
+      "taskCount": 1,
+      "totalEstimatedDurationMinutes": 20,
+      "interruptiveTaskCount": 0,
+      "roomIds": [
+        "room-05"
+      ],
+      "burdenCategories": {
+        "medication": 0,
+        "monitoring": 0,
+        "procedure": 1,
+        "turnover": 0,
+        "isolation": 0,
+        "behavioral": 0,
+        "sitter": 0
+      }
+    }
+  ],
+  "totalTaskCount": 6,
+  "totalEstimatedDurationMinutes": 73
+}

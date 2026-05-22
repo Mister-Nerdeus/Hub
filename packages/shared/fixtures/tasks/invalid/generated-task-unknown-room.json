@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedTaskSetId": "generated-task-set-unknown-room",
+  "scenarioId": "shift-scenario-basic",
+  "seed": 20260522,
+  "taskCount": 1,
+  "generatedTasks": [
+    {
+      "id": "task-unknown-room",
+      "taskType": "medication_round",
+      "roomId": "room-unknown",
+      "sourceTemplateId": "template-medication-round",
+      "scheduledMinute": 0,
+      "estimatedDurationMinutes": 10,
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

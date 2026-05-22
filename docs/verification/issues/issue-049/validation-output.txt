@@ -1,0 +1,7 @@
+Generated task set validation evidence
+valid fixture: generated-task-set-basic.json -> 6 tasks
+generated-task-bad-minute.json: rejected (generatedOperationalTasks[0].scheduledMinute must align to scenario.timestepMinutes)
+generated-task-bad-duration.json: rejected (generatedOperationalTasks[0].estimatedDurationMinutes must be positive)
+generated-task-unknown-room.json: rejected (generatedOperationalTasks[0].roomId references an unknown scenario room)
+generated-task-duplicate-id.json: rejected (duplicate generated operational task ids are not allowed)
+generated-task-set-mismatched-scenario.json: rejected (generatedOperationalTaskSet.scenarioId must match the referenced scenario)

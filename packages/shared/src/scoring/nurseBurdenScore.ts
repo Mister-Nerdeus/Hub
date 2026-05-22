@@ -1,9 +1,11 @@
 import type {
   ManualAssignmentContract,
+  NurseBurdenWeights,
   NurseBurdenResult,
   NurseBurdenScore,
   PlanContract,
   RoomLoad,
+  RoomWorkloadScore,
   Warning
 } from "../contracts.js";
 import { validateManualAssignment } from "../assignment/validateManualAssignment.js";
@@ -25,9 +27,25 @@ export function scoreNurseBurden(
   roomLoads: RoomLoad[],
   assignmentSet: ManualAssignmentContract
 ): NurseBurdenResult {
+  return scoreNurseBurdenWithWeights(
+    plan,
+    roomLoads,
+    assignmentSet,
+    NURSE_BURDEN_PENALTIES,
+    scoreRoomLoad
+  );
+}
+
+export function scoreNurseBurdenWithWeights(
+  plan: PlanContract,
+  roomLoads: RoomLoad[],
+  assignmentSet: ManualAssignmentContract,
+  weights: NurseBurdenWeights,
+  roomScorer: (roomLoad: RoomLoad) => RoomWorkloadScore = scoreRoomLoad
+): NurseBurdenResult {
   const validation = validateManualAssignment(plan, roomLoads, assignmentSet);
   const roomLoadById = new Map(roomLoads.map((roomLoad) => [roomLoad.roomId, roomLoad]));
-  const roomScoreById = new Map(roomLoads.map((roomLoad) => [roomLoad.roomId, scoreRoomLoad(roomLoad)]));
+  const roomScoreById = new Map(roomLoads.map((roomLoad) => [roomLoad.roomId, roomScorer(roomLoad)]));
   const warningsByNurseId = new Map<string, Warning[]>();
 
   for (const warning of validation.warnings) {
@@ -67,25 +85,24 @@ export function scoreNurseBurden(
     const occupiedRoomCount = occupiedAssignedRoomIds.length;
     const roomSpreadPenalty =
       occupiedRoomCount > 1
-        ? (occupiedRoomCount - 1) * NURSE_BURDEN_PENALTIES.roomSpreadPerAdditionalOccupiedRoom
+        ? (occupiedRoomCount - 1) * weights.roomSpreadPerAdditionalOccupiedRoom
         : 0;
     const overTargetPenalty =
-      Math.max(0, occupiedRoomCount - nurse.targetPatients) *
-      NURSE_BURDEN_PENALTIES.overTargetPerRoom;
+      Math.max(0, occupiedRoomCount - nurse.targetPatients) * weights.overTargetPerRoom;
     const overMaxPenalty =
-      Math.max(0, occupiedRoomCount - nurse.maxPatients) * NURSE_BURDEN_PENALTIES.overMaxPerRoom;
+      Math.max(0, occupiedRoomCount - nurse.maxPatients) * weights.overMaxPerRoom;
     const traumaMismatchPenalty = occupiedAssignedRoomIds.reduce((total, roomId) => {
       const roomLoad = roomLoadById.get(roomId);
       if (roomLoad?.traumaActive === true && !nurse.traumaQualified) {
-        return total + NURSE_BURDEN_PENALTIES.traumaMismatchPerRoom;
+        return total + weights.traumaMismatchPerRoom;
       }
       return total;
     }, 0);
 
-    const activeTaskMinutes = NURSE_BURDEN_PENALTIES.activeTaskMinutesPlaceholder;
-    const walkingMinutes = NURSE_BURDEN_PENALTIES.walkingMinutesPlaceholder;
-    const breakCoveragePenalty = NURSE_BURDEN_PENALTIES.breakCoveragePenaltyPlaceholder;
-    const interruptionPenalty = NURSE_BURDEN_PENALTIES.interruptionPenaltyPlaceholder;
+    const activeTaskMinutes = weights.activeTaskMinutesPlaceholder;
+    const walkingMinutes = weights.walkingMinutesPlaceholder;
+    const breakCoveragePenalty = weights.breakCoveragePenaltyPlaceholder;
+    const interruptionPenalty = weights.interruptionPenaltyPlaceholder;
     const overRatioPenalty = overTargetPenalty + overMaxPenalty;
 
     return {

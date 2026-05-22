@@ -26,6 +26,18 @@ interruptive
 requiresRoomPresence
 ```
 
+Phase 5 wraps generated task arrays in `GeneratedOperationalTaskSetContract` for downstream references:
+
+```text
+GeneratedOperationalTaskSetContract
+schemaVersion: "1.0.0"
+generatedTaskSetId
+scenarioId
+seed
+taskCount
+generatedTasks
+```
+
 ## Current Generation Rules
 
 - Only occupied rooms generate tasks.
@@ -45,6 +57,9 @@ requiresRoomPresence
 - Scheduled minutes must remain inside shift bounds.
 - Duration minutes must be positive.
 - Generated task IDs must be unique and deterministic.
+- Generated task set IDs must be non-empty.
+- Task-set `scenarioId`, `seed`, and `taskCount` are validated when referenced.
+- Public validators are exported for single generated tasks, generated task arrays, and generated task sets.
 
 ## Boundaries
 

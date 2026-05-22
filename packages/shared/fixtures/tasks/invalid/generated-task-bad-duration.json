@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedTaskSetId": "generated-task-set-bad-duration",
+  "scenarioId": "shift-scenario-basic",
+  "seed": 20260522,
+  "taskCount": 1,
+  "generatedTasks": [
+    {
+      "id": "task-bad-duration",
+      "taskType": "medication_round",
+      "roomId": "room-01",
+      "sourceTemplateId": "template-medication-round",
+      "scheduledMinute": 0,
+      "estimatedDurationMinutes": 0,
+      "burdenCategory": "medication",
+      "interruptive": false,
+      "requiresRoomPresence": true
+    }
+  ]
+}

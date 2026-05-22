@@ -13,6 +13,8 @@ This repository must not store, generate, import, or display PHI.
 - Seeded simulation events and generated evidence artifacts.
 - Visible assumptions registers for operational scoring and task timing.
 - Abstract operational task templates and generated operational task sets.
+- Generated operational task-set IDs, task IDs, scheduled minutes, durations, task burden categories, and nurse-task assignment IDs.
+- Deterministic timeline aggregation summaries and manual-coverage task assignment proof artifacts.
 - Synthetic day profiles and shift scenarios.
 
 ## Forbidden
@@ -23,5 +25,6 @@ This repository must not store, generate, import, or display PHI.
 - Claims that the simulator certifies safe staffing or predicts patient outcomes.
 - Assignment warnings or burden scores presented as clinical safety certification.
 - Generated operational tasks presented as clinical orders or care instructions.
+- Nurse-task assignment output presented as clinical staffing safety certification.
 
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

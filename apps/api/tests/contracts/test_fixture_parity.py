@@ -10,7 +10,9 @@ from app.contracts import (
     PlanContract,
     ScenarioContract,
     TaskTemplateContract,
+    validate_generated_operational_task_set,
     validate_manual_assignment_contract,
+    validate_nurse_task_assignment_contract,
     validate_room_loads,
     validate_shift_scenario_contract,
 )
@@ -18,6 +20,8 @@ from app.contracts import (
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURES = ROOT / "packages" / "shared" / "fixtures"
 INVALID_FIXTURES = FIXTURES / "invalid"
+TASK_FIXTURES = FIXTURES / "tasks"
+INVALID_TASK_FIXTURES = TASK_FIXTURES / "invalid"
 
 
 def load_fixture(name: str) -> dict:
@@ -27,6 +31,16 @@ def load_fixture(name: str) -> dict:
 
 def load_invalid_fixture(name: str) -> dict:
     with (INVALID_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
+def load_task_fixture(name: str) -> dict:
+    with (TASK_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
+def load_invalid_task_fixture(name: str) -> dict:
+    with (INVALID_TASK_FIXTURES / name).open(encoding="utf-8") as fixture:
         return json.load(fixture)
 
 
@@ -94,6 +108,43 @@ def test_phase4_fixture_set_matches_python_contracts() -> None:
 
     assert scenario.scenarioId == "shift-scenario-basic"
     assert len(scenario.roomLoads) == len(plan.rooms)
+
+
+def test_phase5_generated_task_set_fixture_matches_python_contract() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    task_templates = TaskTemplateContract.model_validate(load_fixture("task-templates-basic.json"))
+    scenario = validate_shift_scenario_contract(
+        load_fixture("shift-scenario-basic.json"),
+        plan=plan,
+        task_templates=task_templates,
+    )
+    task_set = validate_generated_operational_task_set(
+        load_task_fixture("generated-task-set-basic.json"),
+        scenario=scenario,
+        task_templates=task_templates,
+        plan=plan,
+    )
+
+    assert task_set.generatedTaskSetId == "generated-task-set-basic"
+    assert task_set.taskCount == len(task_set.generatedTasks)
+
+
+def test_phase5_nurse_task_assignment_fixture_matches_python_contract() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    assignment_set = validate_manual_assignment_contract(
+        load_fixture("manual-assignment-basic.json"),
+        plan,
+    )
+    task_set = validate_generated_operational_task_set(
+        load_task_fixture("generated-task-set-basic.json")
+    )
+    nurse_task_assignment = validate_nurse_task_assignment_contract(
+        load_fixture("nurse-task-assignment-basic.json"),
+        assignment_set=assignment_set,
+        generated_task_set=task_set,
+    )
+
+    assert len(nurse_task_assignment.taskAssignments) == task_set.taskCount
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+  "scenarioId": "shift-scenario-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "name": "Invalid Unknown Task",
+  "description": "Synthetic invalid nurse-task assignment fixture.",
+  "taskAssignments": [
+    {
+      "id": "nurse-task-unknown",
+      "taskId": "task-unknown",
+      "nurseId": "nurse-alpha",
+      "assignmentReason": "manual_room_coverage",
+      "minute": 0
+    }
+  ]
+}

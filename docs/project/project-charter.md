@@ -35,4 +35,8 @@ Phase 3 adds manual nurse assignment contracts, abstract room-load enum contract
 
 Phase 4 adds visible assumptions, operational task templates, typical and slammed day profiles, expanded shift scenario inputs, deterministic seeded randomness, and a basic reproducible generated operational task proof. Phase 4 remains local-first and uses synthetic operational data only.
 
-Generated task assignment to nurses, task completion simulation, walking route calculation, seeded full-shift simulation, assignment persistence, and optimization remain out of scope until later accepted contracts.
+## Phase 5 Task Assignment Foundation
+
+Phase 5 adds assumptions-driven scoring parity, generated task-set validation, deterministic task timeline aggregation, nurse task assignment contracts, and a basic rule-based proof that generated operational tasks can be assigned through existing manual room coverage. Phase 5 remains local-first and uses synthetic operational data only.
+
+Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, workload balancing, and optimization remain out of scope until later accepted contracts.

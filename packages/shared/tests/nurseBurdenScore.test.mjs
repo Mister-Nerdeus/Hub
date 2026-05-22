@@ -4,7 +4,13 @@ import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import test from "node:test";
 
-import { scoreNurseBurden, validatePlanContract, validateRoomLoads } from "../dist/index.js";
+import {
+  scoreNurseBurden,
+  scoreNurseBurdenWithAssumptions,
+  validateAssumptionsRegisterContract,
+  validatePlanContract,
+  validateRoomLoads
+} from "../dist/index.js";
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 
@@ -14,12 +20,17 @@ function readFixture(name) {
 
 const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
 const cases = readFixture("scoring/nurse-burden-cases.json");
+const assumptions = validateAssumptionsRegisterContract(readFixture("assumptions-basic.json"));
 
 for (const scoringCase of cases) {
   test(`scoreNurseBurden: ${scoringCase.name}`, () => {
     const assignmentSet = buildAssignmentSet(scoringCase);
     const roomLoads = validateRoomLoads(scoringCase.roomLoads.map((roomLoad) => buildRoomLoad(roomLoad)));
     const result = scoreNurseBurden(plan, roomLoads, assignmentSet);
+    assert.deepEqual(
+      scoreNurseBurdenWithAssumptions(plan, roomLoads, assignmentSet, assumptions),
+      result
+    );
     const score = scoringCase.expected.nurseId
       ? result.nurseScores.find((nurseScore) => nurseScore.nurseId === scoringCase.expected.nurseId)
       : undefined;

@@ -4,7 +4,12 @@ import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import test from "node:test";
 
-import { scoreRoomLoad, validateRoomLoads } from "../dist/index.js";
+import {
+  scoreRoomLoad,
+  scoreRoomLoadWithAssumptions,
+  validateAssumptionsRegisterContract,
+  validateRoomLoads
+} from "../dist/index.js";
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 
@@ -13,6 +18,7 @@ function readFixture(name) {
 }
 
 const cases = readFixture("scoring/room-workload-cases.json");
+const assumptions = validateAssumptionsRegisterContract(readFixture("assumptions-basic.json"));
 
 for (const scoringCase of cases) {
   test(`scoreRoomLoad: ${scoringCase.name}`, () => {
@@ -34,5 +40,6 @@ for (const scoringCase of cases) {
       },
       scoringCase.expected
     );
+    assert.deepEqual(scoreRoomLoadWithAssumptions(roomLoad, assumptions), score);
   });
 }

@@ -1,4 +1,10 @@
-import type { BurdenLevel, RoomLoad, RoomWorkloadScore, TaskFrequency } from "../contracts.js";
+import type {
+  BurdenLevel,
+  RoomLoad,
+  RoomWorkloadScore,
+  RoomWorkloadWeights,
+  TaskFrequency
+} from "../contracts.js";
 
 export const ROOM_WORKLOAD_WEIGHTS = {
   acuity: {
@@ -19,24 +25,31 @@ export const ROOM_WORKLOAD_WEIGHTS = {
 } as const;
 
 export function scoreRoomLoad(roomLoad: RoomLoad): RoomWorkloadScore {
+  return scoreRoomLoadWithWeights(roomLoad, ROOM_WORKLOAD_WEIGHTS);
+}
+
+export function scoreRoomLoadWithWeights(
+  roomLoad: RoomLoad,
+  weights: RoomWorkloadWeights
+): RoomWorkloadScore {
   if (!roomLoad.occupied) {
     return zeroRoomWorkloadScore(roomLoad.roomId);
   }
 
-  const acuityPoints = ROOM_WORKLOAD_WEIGHTS.acuity[roomLoad.acuity];
-  const traumaPoints = roomLoad.traumaActive ? ROOM_WORKLOAD_WEIGHTS.traumaActive : 0;
-  const isolationPoints = roomLoad.isolationActive ? ROOM_WORKLOAD_WEIGHTS.isolationActive : 0;
-  const behavioralPoints = roomLoad.behavioralRisk ? ROOM_WORKLOAD_WEIGHTS.behavioralRisk : 0;
-  const fallRiskPoints = roomLoad.fallRisk ? ROOM_WORKLOAD_WEIGHTS.fallRisk : 0;
-  const sitterPoints = roomLoad.sitterRequired ? ROOM_WORKLOAD_WEIGHTS.sitterRequired : 0;
+  const acuityPoints = weights.acuity[String(roomLoad.acuity) as keyof RoomWorkloadWeights["acuity"]];
+  const traumaPoints = roomLoad.traumaActive ? weights.traumaActive : 0;
+  const isolationPoints = roomLoad.isolationActive ? weights.isolationActive : 0;
+  const behavioralPoints = roomLoad.behavioralRisk ? weights.behavioralRisk : 0;
+  const fallRiskPoints = roomLoad.fallRisk ? weights.fallRisk : 0;
+  const sitterPoints = roomLoad.sitterRequired ? weights.sitterRequired : 0;
   const medicationPoints = isHighFrequency(roomLoad.medicationFrequency)
-    ? ROOM_WORKLOAD_WEIGHTS.highMedicationFrequency
+    ? weights.highMedicationFrequency
     : 0;
   const monitoringPoints = isHighFrequency(roomLoad.monitoringFrequency)
-    ? ROOM_WORKLOAD_WEIGHTS.highMonitoringFrequency
+    ? weights.highMonitoringFrequency
     : 0;
   const procedurePoints = isHighBurden(roomLoad.procedureBurden)
-    ? ROOM_WORKLOAD_WEIGHTS.highProcedureBurden
+    ? weights.highProcedureBurden
     : 0;
 
   return {

@@ -1,0 +1,22 @@
+{
+  "parityInput": "packages/shared/fixtures/assumptions-basic.json",
+  "roomId": "room-02",
+  "expectedDefaultRoomBurden": 24,
+  "changedAssumptionWeight": "roomWorkloadWeights.highMedicationFrequency",
+  "expectedChangedRoomBurden": 28,
+  "expectedParityMismatchPattern": "roomWorkloadWeights.highMedicationFrequency",
+  "expectedNurseBurdenTotals": [
+    {
+      "nurseId": "nurse-alpha",
+      "totalBurden": 21
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "totalBurden": 13
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "totalBurden": 31
+    }
+  ]
+}

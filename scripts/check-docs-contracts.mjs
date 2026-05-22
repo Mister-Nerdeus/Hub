@@ -127,6 +127,49 @@ const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 053 Phase 5 evidence",
+    paths: [
+      "docs/verification/phase-5-task-assignment-evidence.md",
+      "docs/verification/phase-5-task-assignment-checklist.md",
+      "docs/verification/issues/issue-053/parity-output.json",
+      "docs/verification/issues/issue-053/timeline-output.json",
+      "docs/verification/issues/issue-053/assignment-output.json",
+      "docs/verification/issues/issue-053/validation-output.txt",
+      "docs/verification/issues/issue-053/commands.txt",
+      "docs/verification/issues/issue-053/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-5-task-assignment-evidence.md",
+        checks: [
+          ["Assumptions-driven scoring", /\bassumptions-driven scoring\b/i],
+          ["Generated task validation", /\bgenerated task validation\b/i],
+          ["Task timeline aggregation", /\btask timeline aggregation\b/i],
+          ["Nurse task assignment contract", /\bnurse task assignment contract\b/i],
+          ["Manual room coverage assignment", /\bmanual room coverage assignment\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No task completion simulation", /\bno\b[\s\S]{0,80}\btask completion simulation\b/i],
+          ["No walking route calculation", /\bno\b[\s\S]{0,80}\bwalking route calculation\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-5-task-assignment-checklist.md",
+        checks: [
+          ["Assumptions-driven scoring", /\bassumptions-driven scoring\b/i],
+          ["Generated task validation", /\bgenerated task validation\b/i],
+          ["Task timeline aggregation", /\btask timeline aggregation\b/i],
+          ["Nurse task assignment contract", /\bnurse task assignment contract\b/i],
+          ["Manual room coverage assignment", /\bmanual room coverage assignment\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No task completion simulation", /\bno\b[\s\S]{0,80}\btask completion simulation\b/i],
+          ["No walking route calculation", /\bno\b[\s\S]{0,80}\bwalking route calculation\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      }
+    ]
   }
 ];
 
