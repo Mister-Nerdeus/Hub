@@ -1,0 +1,15 @@
+# Issue 015 command log
+
+Failure reproduction before implementation:
+- Inspected docker-compose.yml and found fixed host mappings: api `8000:8000`, web `5174:5173`.
+- Inspected apps/api/app/settings.py and found default CORS_ORIGINS `http://localhost:5173`.
+- Inspected .env.example and found VITE_API_BASE_URL `http://localhost:8000`.
+
+Hard-coded host mapping check before implementation:
+
+Final verification commands:
+- docker compose config
+- docker compose up --build -d
+- docker compose ps
+- curl -f http://localhost:8010/health
+- Get-NetTCPConnection -State Listen | Sort-Object LocalPort | Select-Object LocalAddress,LocalPort,OwningProcess

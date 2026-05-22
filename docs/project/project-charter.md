@@ -22,3 +22,9 @@ The Nerdeus ER Pod Shift Simulator models operational workload in an ER pod usin
 ## First Foundation Scope
 
 Issues `001` through `014B` establish the repo structure, local runtime, API shell, web shell, database migration base, CI, non-PHI scanner, shared contracts, Python contracts, fixture parity, and contract parity workflow.
+
+## Phase 2 Plan Builder Foundation
+
+Issues `015` through `024` establish configurable Docker host ports, the expanded physical layout plan contract, JSONB plan persistence, plan API save/load endpoints, plan JSON validation, a read-only SVG renderer, deterministic local draft editing, browser save/load, browser JSON import/export, and the Phase 2 evidence gate.
+
+Phase 3 nurse assignment and scoring must not begin until the Phase 2 evidence gate passes.

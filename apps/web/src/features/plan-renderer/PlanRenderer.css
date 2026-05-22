@@ -1,0 +1,218 @@
+.plan-renderer {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 1180px;
+}
+
+.plan-renderer__header {
+  align-items: flex-end;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.plan-renderer__header h2 {
+  color: #111827;
+  font-size: 1.45rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.plan-renderer__controls {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.plan-renderer__controls label {
+  align-items: center;
+  color: #263340;
+  display: inline-flex;
+  font-size: 0.9rem;
+  font-weight: 650;
+  gap: 8px;
+}
+
+.plan-renderer__canvas-wrap {
+  background: #f8fafc;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.plan-renderer__canvas {
+  display: block;
+  min-height: 520px;
+  min-width: 920px;
+  width: 100%;
+}
+
+.plan-grid {
+  stroke: #dfe6ee;
+  stroke-width: 1;
+}
+
+.plan-zone rect {
+  opacity: 0.12;
+  stroke: #4b5d70;
+  stroke-dasharray: 8 6;
+  stroke-width: 1;
+}
+
+.plan-zone text,
+.plan-hallway text,
+.plan-path-node text {
+  fill: #324353;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.plan-hallway polyline {
+  fill: none;
+  opacity: 0.22;
+  stroke: #5b7284;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.plan-path-edge {
+  stroke: #c56b3f;
+  stroke-linecap: round;
+  stroke-opacity: 0.86;
+}
+
+.plan-path-edge--blocked {
+  stroke: #b42318;
+  stroke-dasharray: 7 5;
+}
+
+.plan-room rect {
+  stroke: #1f2933;
+  stroke-width: 1.5;
+}
+
+.plan-room text,
+.plan-station text {
+  fill: #111827;
+  font-size: 13px;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.plan-room__meta {
+  fill: #3f4f5f;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.plan-room--standard rect {
+  fill: #dbeafe;
+}
+
+.plan-room--trauma rect {
+  fill: #fee2e2;
+}
+
+.plan-room--isolation rect {
+  fill: #dcfce7;
+}
+
+.plan-room--psych rect {
+  fill: #ede9fe;
+}
+
+.plan-room--hall_bed rect {
+  fill: #fef3c7;
+}
+
+.plan-room--procedure rect {
+  fill: #e0f2fe;
+}
+
+.plan-room--overflow rect {
+  fill: #f5f5f4;
+}
+
+.plan-door {
+  fill: #111827;
+}
+
+.plan-station rect {
+  fill: #fde68a;
+  stroke: #8a5a00;
+  stroke-width: 1.5;
+}
+
+.plan-path-node circle {
+  fill: #ffffff;
+  stroke: #a34f2f;
+  stroke-width: 2;
+}
+
+.plan-path-node--station circle {
+  stroke: #8a5a00;
+}
+
+.plan-path-node--entry circle {
+  stroke: #2563eb;
+}
+
+.plan-renderer__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.legend-swatch {
+  align-items: center;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #263340;
+  display: inline-flex;
+  font-size: 0.8rem;
+  font-weight: 700;
+  min-height: 30px;
+  padding: 6px 10px;
+}
+
+.legend-swatch--standard {
+  background: #dbeafe;
+}
+
+.legend-swatch--trauma {
+  background: #fee2e2;
+}
+
+.legend-swatch--isolation {
+  background: #dcfce7;
+}
+
+.legend-swatch--psych {
+  background: #ede9fe;
+}
+
+.legend-swatch--hall_bed {
+  background: #fef3c7;
+}
+
+.legend-swatch--procedure {
+  background: #e0f2fe;
+}
+
+.legend-swatch--overflow {
+  background: #f5f5f4;
+}
+
+@media (max-width: 760px) {
+  .plan-renderer__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .plan-renderer__canvas {
+    min-height: 420px;
+    min-width: 760px;
+  }
+}

@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.routes.plans import router as plans_router
 from app.settings import get_settings
 
 settings = get_settings()
@@ -23,3 +24,6 @@ app.add_middleware(
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok", "service": "nerdeus-api"}
+
+
+app.include_router(plans_router)

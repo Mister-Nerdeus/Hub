@@ -1,0 +1,12 @@
+# Issue 017 command log
+
+Commands run:
+- cd apps/api && python -m pytest
+- docker compose exec -T api sh -lc "cd /app && alembic upgrade head"
+- docker compose config
+- docker compose up --build -d
+- curl -f http://localhost:8010/health
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+
+Note: Alembic was run inside the API container because the port contract keeps Postgres internal and does not publish host 5432 by default.

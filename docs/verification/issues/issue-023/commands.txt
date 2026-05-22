@@ -1,0 +1,14 @@
+# Issue 023 command log
+
+Failure reproduction before implementation:
+- planImportExport.ts did not exist.
+- Export and import functions were unavailable.
+- Invalid JSON and unknown fields could not be rejected in browser import flow because the utility was missing.
+
+Commands run:
+- cd apps/web && npm run build
+- cd packages/shared && npm test
+- node scripts/validate-plan-contract.mjs docs/verification/issues/issue-023/sample-json/exported-plan.json
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- Edge headless screenshot against http://localhost:5180

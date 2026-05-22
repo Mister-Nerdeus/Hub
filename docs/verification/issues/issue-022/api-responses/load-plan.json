@@ -1,0 +1,471 @@
+{
+  "id": "plan-er-pod-phase2",
+  "name": "Phase 2 ER Pod Layout",
+  "description": "Synthetic operational layout",
+  "layout": {
+    "name": "Phase 2 ER Pod Layout",
+    "doors": [
+      {
+        "x": 10.0,
+        "y": 14.0,
+        "id": "door-room-01",
+        "label": "Door Room 01",
+        "roomId": "room-01",
+        "widthFeet": 3.0,
+        "pathNodeId": "node-door-room-01"
+      },
+      {
+        "x": 27.0,
+        "y": 16.0,
+        "id": "door-room-02",
+        "label": "Door Room 02",
+        "roomId": "room-02",
+        "widthFeet": 4.0,
+        "pathNodeId": "node-door-room-02"
+      },
+      {
+        "x": 44.0,
+        "y": 14.0,
+        "id": "door-room-03",
+        "label": "Door Room 03",
+        "roomId": "room-03",
+        "widthFeet": 3.0,
+        "pathNodeId": "node-door-room-03"
+      },
+      {
+        "x": 60.0,
+        "y": 14.0,
+        "id": "door-room-04",
+        "label": "Door Room 04",
+        "roomId": "room-04",
+        "widthFeet": 3.0,
+        "pathNodeId": "node-door-room-04"
+      },
+      {
+        "x": 10.0,
+        "y": 34.0,
+        "id": "door-room-05",
+        "label": "Door Room 05",
+        "roomId": "room-05",
+        "widthFeet": 3.0,
+        "pathNodeId": "node-door-room-05"
+      },
+      {
+        "x": 26.0,
+        "y": 34.0,
+        "id": "door-room-06",
+        "label": "Door Room 06",
+        "roomId": "room-06",
+        "widthFeet": 3.0,
+        "pathNodeId": "node-door-room-06"
+      },
+      {
+        "x": 52.0,
+        "y": 26.0,
+        "id": "door-hall-bed-01",
+        "label": "Hall Bed Entry",
+        "roomId": "hall-bed-01",
+        "widthFeet": 4.0,
+        "pathNodeId": "node-door-hall-bed-01"
+      }
+    ],
+    "rooms": [
+      {
+        "x": 4.0,
+        "y": 4.0,
+        "id": "room-01",
+        "type": "standard",
+        "label": "Room 01",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-door-room-01",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 20.0,
+        "y": 4.0,
+        "id": "room-02",
+        "type": "trauma",
+        "label": "Room 02",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 14.0,
+        "lengthFeet": 12.0,
+        "pathNodeId": "node-door-room-02",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 38.0,
+        "y": 4.0,
+        "id": "room-03",
+        "type": "isolation",
+        "label": "Room 03",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-door-room-03",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 54.0,
+        "y": 4.0,
+        "id": "room-04",
+        "type": "psych",
+        "label": "Room 04",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-door-room-04",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 4.0,
+        "y": 34.0,
+        "id": "room-05",
+        "type": "procedure",
+        "label": "Room 05",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-door-room-05",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 20.0,
+        "y": 34.0,
+        "id": "room-06",
+        "type": "overflow",
+        "label": "Room 06",
+        "zoneId": "zone-pod-a",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-door-room-06",
+        "nearestStationId": "station-primary"
+      },
+      {
+        "x": 52.0,
+        "y": 23.0,
+        "id": "hall-bed-01",
+        "type": "hall_bed",
+        "label": "Hall Bed 01",
+        "zoneId": "zone-hallway",
+        "widthFeet": 10.0,
+        "lengthFeet": 6.0,
+        "pathNodeId": "node-door-hall-bed-01",
+        "nearestStationId": "station-primary"
+      }
+    ],
+    "scale": {
+      "unit": "feet",
+      "origin": "top-left",
+      "snapToGrid": true,
+      "gridSizeFeet": 1.0,
+      "pixelsPerUnit": 8.0
+    },
+    "zones": [
+      {
+        "x": 0.0,
+        "y": 0.0,
+        "id": "zone-pod-a",
+        "type": "provider_area",
+        "color": "#4f8a67",
+        "label": "Pod A",
+        "widthFeet": 86.0,
+        "lengthFeet": 48.0
+      },
+      {
+        "x": 0.0,
+        "y": 18.0,
+        "id": "zone-hallway",
+        "type": "hallway",
+        "color": "#8aa0ad",
+        "label": "Hallway Zone",
+        "widthFeet": 86.0,
+        "lengthFeet": 12.0
+      },
+      {
+        "x": 0.0,
+        "y": 50.0,
+        "id": "zone-ems",
+        "type": "ems_entry",
+        "color": "#b46b33",
+        "label": "EMS Entry",
+        "widthFeet": 20.0,
+        "lengthFeet": 12.0
+      },
+      {
+        "x": 68.0,
+        "y": 34.0,
+        "id": "zone-storage",
+        "type": "storage",
+        "color": "#6e7c91",
+        "label": "Supply Storage",
+        "widthFeet": 12.0,
+        "lengthFeet": 10.0
+      }
+    ],
+    "planId": "plan-er-pod-phase2",
+    "hallways": [
+      {
+        "id": "hallway-main",
+        "label": "Main Hallway",
+        "points": [
+          {
+            "x": 0.0,
+            "y": 24.0
+          },
+          {
+            "x": 86.0,
+            "y": 24.0
+          }
+        ],
+        "widthFeet": 10.0
+      },
+      {
+        "id": "hallway-ems-entry",
+        "label": "EMS Entry Hallway",
+        "points": [
+          {
+            "x": 8.0,
+            "y": 50.0
+          },
+          {
+            "x": 8.0,
+            "y": 24.0
+          }
+        ],
+        "widthFeet": 8.0
+      }
+    ],
+    "pathEdges": [
+      {
+        "id": "edge-room-01-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-west",
+        "fromNodeId": "node-door-room-01",
+        "lengthFeet": 8.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 4.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-room-02-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-mid",
+        "fromNodeId": "node-door-room-02",
+        "lengthFeet": 10.0,
+        "congestionFactor": 1.1,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 6.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-room-03-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-mid",
+        "fromNodeId": "node-door-room-03",
+        "lengthFeet": 8.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 5.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-room-04-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-east",
+        "fromNodeId": "node-door-room-04",
+        "lengthFeet": 8.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 4.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-room-05-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-west",
+        "fromNodeId": "node-door-room-05",
+        "lengthFeet": 8.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 4.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-room-06-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-mid",
+        "fromNodeId": "node-door-room-06",
+        "lengthFeet": 8.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 4.0,
+        "turnPenaltySeconds": 2.0
+      },
+      {
+        "id": "edge-hall-bed-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-east",
+        "fromNodeId": "node-door-hall-bed-01",
+        "lengthFeet": 4.0,
+        "congestionFactor": 1.2,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 1.0,
+        "turnPenaltySeconds": 1.0
+      },
+      {
+        "id": "edge-hall-west-mid",
+        "blocked": false,
+        "toNodeId": "node-hall-mid",
+        "fromNodeId": "node-hall-west",
+        "lengthFeet": 28.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 0.0,
+        "turnPenaltySeconds": 1.0
+      },
+      {
+        "id": "edge-hall-mid-east",
+        "blocked": false,
+        "toNodeId": "node-hall-east",
+        "fromNodeId": "node-hall-mid",
+        "lengthFeet": 28.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 0.0,
+        "turnPenaltySeconds": 1.0
+      },
+      {
+        "id": "edge-hall-east-station",
+        "blocked": false,
+        "toNodeId": "node-station-primary",
+        "fromNodeId": "node-hall-east",
+        "lengthFeet": 6.0,
+        "congestionFactor": 1.0,
+        "hallwayWidthFeet": 10.0,
+        "doorPenaltySeconds": 0.0,
+        "turnPenaltySeconds": 1.0
+      },
+      {
+        "id": "edge-ems-hall",
+        "blocked": false,
+        "toNodeId": "node-hall-west",
+        "fromNodeId": "node-ems-entry",
+        "lengthFeet": 26.0,
+        "congestionFactor": 1.1,
+        "hallwayWidthFeet": 8.0,
+        "doorPenaltySeconds": 3.0,
+        "turnPenaltySeconds": 2.0
+      }
+    ],
+    "pathNodes": [
+      {
+        "x": 10.0,
+        "y": 16.0,
+        "id": "node-door-room-01",
+        "type": "room_door",
+        "linkedObjectId": "door-room-01"
+      },
+      {
+        "x": 27.0,
+        "y": 18.0,
+        "id": "node-door-room-02",
+        "type": "room_door",
+        "linkedObjectId": "door-room-02"
+      },
+      {
+        "x": 44.0,
+        "y": 16.0,
+        "id": "node-door-room-03",
+        "type": "room_door",
+        "linkedObjectId": "door-room-03"
+      },
+      {
+        "x": 60.0,
+        "y": 16.0,
+        "id": "node-door-room-04",
+        "type": "room_door",
+        "linkedObjectId": "door-room-04"
+      },
+      {
+        "x": 10.0,
+        "y": 32.0,
+        "id": "node-door-room-05",
+        "type": "room_door",
+        "linkedObjectId": "door-room-05"
+      },
+      {
+        "x": 26.0,
+        "y": 32.0,
+        "id": "node-door-room-06",
+        "type": "room_door",
+        "linkedObjectId": "door-room-06"
+      },
+      {
+        "x": 52.0,
+        "y": 26.0,
+        "id": "node-door-hall-bed-01",
+        "type": "room_door",
+        "linkedObjectId": "door-hall-bed-01"
+      },
+      {
+        "x": 8.0,
+        "y": 24.0,
+        "id": "node-hall-west",
+        "type": "hallway",
+        "linkedObjectId": "hallway-main"
+      },
+      {
+        "x": 36.0,
+        "y": 24.0,
+        "id": "node-hall-mid",
+        "type": "hallway",
+        "linkedObjectId": "hallway-main"
+      },
+      {
+        "x": 64.0,
+        "y": 24.0,
+        "id": "node-hall-east",
+        "type": "hallway",
+        "linkedObjectId": "hallway-main"
+      },
+      {
+        "x": 68.0,
+        "y": 24.0,
+        "id": "node-station-primary",
+        "type": "station",
+        "linkedObjectId": "station-primary"
+      },
+      {
+        "x": 8.0,
+        "y": 50.0,
+        "id": "node-ems-entry",
+        "type": "entry",
+        "linkedObjectId": null
+      },
+      {
+        "x": 68.0,
+        "y": 34.0,
+        "id": "node-zone-storage",
+        "type": "zone",
+        "linkedObjectId": "zone-storage"
+      }
+    ],
+    "nurseStations": [
+      {
+        "x": 68.0,
+        "y": 18.0,
+        "id": "station-primary",
+        "label": "Primary Nurse Station",
+        "widthFeet": 14.0,
+        "lengthFeet": 10.0,
+        "pathNodeId": "node-station-primary"
+      }
+    ],
+    "schemaVersion": "1.0.0"
+  },
+  "createdAt": "2026-05-22T13:41:19.044311-04:00",
+  "updatedAt": "2026-05-22T13:41:19.044317-04:00"
+}

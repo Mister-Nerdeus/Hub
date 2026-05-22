@@ -2,15 +2,36 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
+RoomType = Literal[
+    "standard",
+    "trauma",
+    "isolation",
+    "psych",
+    "hall_bed",
+    "procedure",
+    "overflow",
+]
+ZoneType = Literal[
+    "provider_area",
+    "pharmacy",
+    "ems_entry",
+    "hallway",
+    "waiting",
+    "storage",
+    "staff_only",
+]
+PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
+
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
 
-class UnitSettings(StrictModel):
+class ScaleSettings(StrictModel):
     unit: Literal["feet"]
     pixelsPerUnit: float = Field(gt=0)
-    gridSizeUnits: float = Field(gt=0)
+    gridSizeFeet: float = Field(gt=0)
+    snapToGrid: bool
     origin: Literal["top-left"]
 
 
@@ -22,74 +43,100 @@ class Point(StrictModel):
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
+    type: RoomType
     x: float
     y: float
-    width: float = Field(gt=0)
-    height: float = Field(gt=0)
+    widthFeet: float = Field(gt=0)
+    lengthFeet: float = Field(gt=0)
     zoneId: str | None = None
+    nearestStationId: str | None = None
+    pathNodeId: str | None = None
 
 
 class Hallway(StrictModel):
     id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    widthFeet: float = Field(gt=0)
     points: list[Point] = Field(min_length=2)
 
 
 class Door(StrictModel):
     id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
     roomId: str = Field(min_length=1)
     x: float
     y: float
+    widthFeet: float = Field(gt=0)
+    pathNodeId: str | None = None
 
 
-class Station(StrictModel):
+class NurseStation(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
     x: float
     y: float
+    widthFeet: float = Field(gt=0)
+    lengthFeet: float = Field(gt=0)
+    pathNodeId: str = Field(min_length=1)
 
 
 class Zone(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
+    type: ZoneType
     color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    x: float
+    y: float
+    widthFeet: float = Field(gt=0)
+    lengthFeet: float = Field(gt=0)
 
 
 class PathNode(StrictModel):
     id: str = Field(min_length=1)
+    type: PathNodeType
     x: float
     y: float
+    linkedObjectId: str | None = None
 
 
 class PathEdge(StrictModel):
     id: str = Field(min_length=1)
     fromNodeId: str = Field(min_length=1)
     toNodeId: str = Field(min_length=1)
-    lengthUnits: float | None = Field(default=None, gt=0)
+    lengthFeet: float = Field(gt=0)
+    hallwayWidthFeet: float = Field(gt=0)
+    congestionFactor: float = Field(gt=0)
+    doorPenaltySeconds: float = Field(ge=0)
+    turnPenaltySeconds: float = Field(ge=0)
+    blocked: bool
 
 
 class PlanContract(StrictModel):
     schemaVersion: Literal["1.0.0"]
     planId: str = Field(min_length=1)
     name: str = Field(min_length=1)
-    units: UnitSettings
+    scale: ScaleSettings
     rooms: list[Room]
-    hallways: list[Hallway] = []
-    doors: list[Door] = []
-    stations: list[Station] = []
-    zones: list[Zone] = []
-    pathNodes: list[PathNode] = []
-    pathEdges: list[PathEdge] = []
+    hallways: list[Hallway] = Field(default_factory=list)
+    doors: list[Door] = Field(default_factory=list)
+    nurseStations: list[NurseStation] = Field(default_factory=list)
+    zones: list[Zone] = Field(default_factory=list)
+    pathNodes: list[PathNode] = Field(default_factory=list)
+    pathEdges: list[PathEdge] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_references(self) -> "PlanContract":
         room_ids = {room.id for room in self.rooms}
+        hallway_ids = {hallway.id for hallway in self.hallways}
+        door_ids = {door.id for door in self.doors}
+        nurse_station_ids = {station.id for station in self.nurseStations}
         zone_ids = {zone.id for zone in self.zones}
         path_node_ids = {node.id for node in self.pathNodes}
 
         require_unique("room ids", [room.id for room in self.rooms])
         require_unique("hallway ids", [hallway.id for hallway in self.hallways])
         require_unique("door ids", [door.id for door in self.doors])
-        require_unique("station ids", [station.id for station in self.stations])
+        require_unique("nurse station ids", [station.id for station in self.nurseStations])
         require_unique("zone ids", [zone.id for zone in self.zones])
         require_unique("path node ids", [node.id for node in self.pathNodes])
         require_unique("path edge ids", [edge.id for edge in self.pathEdges])
@@ -97,14 +144,47 @@ class PlanContract(StrictModel):
         for room in self.rooms:
             if room.zoneId is not None and room.zoneId not in zone_ids:
                 raise ValueError(f"room {room.id} references unknown zone {room.zoneId}")
+            if room.nearestStationId is not None and room.nearestStationId not in nurse_station_ids:
+                raise ValueError(
+                    f"room {room.id} references unknown nurse station {room.nearestStationId}"
+                )
+            if room.pathNodeId is not None and room.pathNodeId not in path_node_ids:
+                raise ValueError(f"room {room.id} references unknown path node {room.pathNodeId}")
+
         for door in self.doors:
             if door.roomId not in room_ids:
                 raise ValueError(f"door {door.id} references unknown room {door.roomId}")
+            if door.pathNodeId is not None and door.pathNodeId not in path_node_ids:
+                raise ValueError(f"door {door.id} references unknown path node {door.pathNodeId}")
+
+        for station in self.nurseStations:
+            if station.pathNodeId not in path_node_ids:
+                raise ValueError(
+                    f"nurse station {station.id} references unknown path node {station.pathNodeId}"
+                )
+
+        for node in self.pathNodes:
+            if node.type == "entry":
+                if node.linkedObjectId is not None:
+                    raise ValueError(f"path node {node.id} cannot link an entry node")
+                continue
+            if node.linkedObjectId is None:
+                raise ValueError(f"path node {node.id} requires linkedObjectId")
+            if node.type == "room_door" and node.linkedObjectId not in door_ids:
+                raise ValueError(f"path node {node.id} references unknown door")
+            if node.type == "hallway" and node.linkedObjectId not in hallway_ids:
+                raise ValueError(f"path node {node.id} references unknown hallway")
+            if node.type == "station" and node.linkedObjectId not in nurse_station_ids:
+                raise ValueError(f"path node {node.id} references unknown nurse station")
+            if node.type == "zone" and node.linkedObjectId not in zone_ids:
+                raise ValueError(f"path node {node.id} references unknown zone")
+
         for edge in self.pathEdges:
             if edge.fromNodeId not in path_node_ids:
                 raise ValueError(f"path edge {edge.id} references unknown from node")
             if edge.toNodeId not in path_node_ids:
                 raise ValueError(f"path edge {edge.id} references unknown to node")
+
         return self
 
 

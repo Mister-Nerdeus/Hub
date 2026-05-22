@@ -1,0 +1,49 @@
+.plan-draft-panel {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.plan-draft-panel__metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plan-draft-panel__metrics span {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #263340;
+  font-size: 0.82rem;
+  font-weight: 800;
+  min-height: 30px;
+  padding: 7px 10px;
+}
+
+.plan-draft-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plan-draft-panel__actions button {
+  background: #1f2933;
+  border: 1px solid #1f2933;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 800;
+  min-height: 34px;
+  padding: 8px 11px;
+}
+
+.plan-draft-panel__actions button:hover {
+  background: #40505f;
+}

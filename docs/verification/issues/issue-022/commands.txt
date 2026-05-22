@@ -1,0 +1,17 @@
+# Issue 022 command log
+
+Failure reproduction before implementation:
+- planApi.createPlan did not exist.
+- Invalid API responses could not be rejected by the web client because the client module was missing.
+- Save did not validate drafts before POST because save/load UI was missing.
+
+Commands run:
+- docker compose up --build -d
+- curl -f http://localhost:8010/health
+- cd apps/api && python -m pytest
+- cd apps/web && npm run build
+- cd packages/shared && npm test
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- node scripts/verify-local.mjs
+- Edge headless screenshot against http://localhost:5180

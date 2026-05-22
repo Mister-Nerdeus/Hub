@@ -1,0 +1,18 @@
+# Issue 024 command log
+
+Failure reproduction first:
+- Created Phase 2 checklist with evidence items initially marked missing before final evidence collection.
+
+Commands run:
+- docker compose config
+- docker compose up --build -d
+- docker compose ps
+- curl -f http://localhost:8010/health
+- cd apps/api && python -m pytest
+- cd apps/web && npm run build
+- cd packages/shared && npm test
+- node scripts/validate-plan-contract.mjs docs/verification/issues/issue-024/sample-json/exported-er-pod-plan.json
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- node scripts/verify-local.mjs
+- Edge headless screenshots against http://localhost:5180

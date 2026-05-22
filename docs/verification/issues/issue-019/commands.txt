@@ -1,0 +1,11 @@
+# Issue 019 command log
+
+Failure reproduction before implementation:
+- node scripts/validate-plan-contract.mjs packages/shared/fixtures/plan-er-pod-phase2.json failed because the script did not exist.
+
+Commands run:
+- node scripts/validate-plan-contract.mjs packages/shared/fixtures/plan-er-pod-phase2.json
+- node scripts/validate-plan-contract.mjs packages/shared/fixtures/invalid/plan-bad-room-type.json
+- cd packages/shared && npm test
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs

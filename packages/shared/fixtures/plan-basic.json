@@ -2,35 +2,44 @@
   "schemaVersion": "1.0.0",
   "planId": "plan-basic",
   "name": "Basic ER Pod",
-  "units": {
+  "scale": {
     "unit": "feet",
     "pixelsPerUnit": 10,
-    "gridSizeUnits": 1,
+    "gridSizeFeet": 1,
+    "snapToGrid": true,
     "origin": "top-left"
   },
   "rooms": [
     {
       "id": "room-01",
       "label": "Room 01",
+      "type": "standard",
       "x": 0,
       "y": 0,
-      "width": 12,
-      "height": 10,
-      "zoneId": "zone-a"
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "zoneId": "zone-a",
+      "nearestStationId": "station-team",
+      "pathNodeId": "node-room-01"
     },
     {
       "id": "room-02",
       "label": "Room 02",
+      "type": "standard",
       "x": 14,
       "y": 0,
-      "width": 12,
-      "height": 10,
-      "zoneId": "zone-a"
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "zoneId": "zone-a",
+      "nearestStationId": "station-team",
+      "pathNodeId": "node-room-02"
     }
   ],
   "hallways": [
     {
       "id": "hallway-main",
+      "label": "Main Hallway",
+      "widthFeet": 8,
       "points": [
         {
           "x": 0,
@@ -46,47 +55,67 @@
   "doors": [
     {
       "id": "door-room-01",
+      "label": "Door Room 01",
       "roomId": "room-01",
       "x": 6,
-      "y": 10
+      "y": 10,
+      "widthFeet": 3,
+      "pathNodeId": "node-room-01"
     },
     {
       "id": "door-room-02",
+      "label": "Door Room 02",
       "roomId": "room-02",
       "x": 20,
-      "y": 10
+      "y": 10,
+      "widthFeet": 3,
+      "pathNodeId": "node-room-02"
     }
   ],
-  "stations": [
+  "nurseStations": [
     {
       "id": "station-team",
       "label": "Team Station",
-      "x": 14,
-      "y": 18
+      "x": 12,
+      "y": 18,
+      "widthFeet": 8,
+      "lengthFeet": 6,
+      "pathNodeId": "node-station"
     }
   ],
   "zones": [
     {
       "id": "zone-a",
       "label": "Zone A",
-      "color": "#4f8a67"
+      "type": "provider_area",
+      "color": "#4f8a67",
+      "x": 0,
+      "y": 0,
+      "widthFeet": 28,
+      "lengthFeet": 24
     }
   ],
   "pathNodes": [
     {
       "id": "node-room-01",
+      "type": "room_door",
       "x": 6,
-      "y": 12
+      "y": 12,
+      "linkedObjectId": "door-room-01"
     },
     {
       "id": "node-room-02",
+      "type": "room_door",
       "x": 20,
-      "y": 12
+      "y": 12,
+      "linkedObjectId": "door-room-02"
     },
     {
       "id": "node-station",
+      "type": "station",
       "x": 14,
-      "y": 18
+      "y": 18,
+      "linkedObjectId": "station-team"
     }
   ],
   "pathEdges": [
@@ -94,13 +123,23 @@
       "id": "edge-room-01-station",
       "fromNodeId": "node-room-01",
       "toNodeId": "node-station",
-      "lengthUnits": 10
+      "lengthFeet": 10,
+      "hallwayWidthFeet": 8,
+      "congestionFactor": 1,
+      "doorPenaltySeconds": 4,
+      "turnPenaltySeconds": 2,
+      "blocked": false
     },
     {
       "id": "edge-room-02-station",
       "fromNodeId": "node-room-02",
       "toNodeId": "node-station",
-      "lengthUnits": 10
+      "lengthFeet": 10,
+      "hallwayWidthFeet": 8,
+      "congestionFactor": 1,
+      "doorPenaltySeconds": 4,
+      "turnPenaltySeconds": 2,
+      "blocked": false
     }
   ]
 }

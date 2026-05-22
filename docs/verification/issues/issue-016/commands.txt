@@ -1,0 +1,8 @@
+# Issue 016 command log
+
+Commands run:
+- cd packages/shared && npm test
+- cd apps/api && python -m pytest tests/contracts
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- node scripts/verify-local.mjs

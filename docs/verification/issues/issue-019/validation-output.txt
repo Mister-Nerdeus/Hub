@@ -1,0 +1,12 @@
+VALID COMMAND EXIT 0
+Plan contract validation: PASS
+plan ID: plan-er-pod-phase2
+plan name: Phase 2 ER Pod Layout
+room count: 7
+hallway count: 2
+path node count: 13
+path edge count: 11
+
+INVALID COMMAND EXIT 1
+Plan contract validation: FAIL
+rooms[0].type must be one of standard, trauma, isolation, psych, hall_bed, procedure, overflow

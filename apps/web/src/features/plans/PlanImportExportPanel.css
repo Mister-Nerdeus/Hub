@@ -1,0 +1,49 @@
+.plan-import-export-panel {
+  display: grid;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.plan-import-export-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plan-import-export-panel button {
+  background: #ffffff;
+  border: 1px solid #31485c;
+  border-radius: 6px;
+  color: #1f2933;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 800;
+  min-height: 34px;
+  padding: 8px 11px;
+}
+
+.plan-import-export-panel button:hover {
+  background: #e7edf2;
+}
+
+.plan-import-export-panel textarea {
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  border-radius: 8px;
+  color: #263340;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.78rem;
+  min-height: 150px;
+  padding: 10px;
+  resize: vertical;
+  width: 100%;
+}
+
+.plan-import-export-panel p {
+  color: #40505f;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin: 0;
+}

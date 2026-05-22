@@ -1,0 +1,11 @@
+# Issue 021 command log
+
+Failure reproduction before implementation:
+- planDraftReducer.ts did not exist, so addRoom, updateRoomDimensions, duplicate ID rejection, missing node rejection, and draft validation tests had no implementation.
+
+Commands run:
+- cd apps/web && npm run build
+- cd packages/shared && npm test
+- node scripts/validate-plan-contract.mjs docs/verification/issues/issue-021/sample-json/local-draft-after-edits.json
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs

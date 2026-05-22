@@ -1,0 +1,17 @@
+# Issue 018 command log
+
+Failure reproduction before implementation:
+- POST /v1/plans returned 404 before the router existed.
+- GET /v1/plans returned 404 before the router existed.
+- Invalid plan payloads could not be validated because the route was missing.
+
+Commands run:
+- cd apps/api && python -m pytest
+- docker compose config
+- docker compose up --build -d
+- curl -f http://localhost:8010/health
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- node scripts/verify-local.mjs
+
+Live API evidence saved under api-responses/.

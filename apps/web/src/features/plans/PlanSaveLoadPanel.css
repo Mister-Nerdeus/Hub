@@ -1,0 +1,59 @@
+.plan-save-load-panel {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.plan-save-load-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plan-save-load-panel button,
+.plan-save-load-panel select {
+  border-radius: 6px;
+  min-height: 34px;
+}
+
+.plan-save-load-panel button {
+  background: #ffffff;
+  border: 1px solid #31485c;
+  color: #1f2933;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 8px 11px;
+}
+
+.plan-save-load-panel button:hover {
+  background: #e7edf2;
+}
+
+.plan-save-load-panel__select {
+  align-items: center;
+  color: #263340;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 800;
+  gap: 8px;
+}
+
+.plan-save-load-panel select {
+  background: #ffffff;
+  border: 1px solid #c5d0db;
+  color: #1f2933;
+  min-width: 220px;
+  padding: 6px 8px;
+}
+
+.plan-save-load-panel p {
+  color: #40505f;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin: 0;
+}

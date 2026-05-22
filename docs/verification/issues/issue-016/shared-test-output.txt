@@ -1,0 +1,66 @@
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: plan fixture validates against TypeScript contract
+ok 1 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.4255
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 2 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.0455
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 3 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.0126
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 4 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.7697
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 5 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4623
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 6 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 1.0136
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 7 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4238
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 8 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3527
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 91.6921

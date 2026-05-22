@@ -1,0 +1,12 @@
+# Issue 020 command log
+
+Failure reproduction before implementation:
+- planRenderGeometry.ts did not exist, so room feet-to-pixels conversion and path edge rendering data helpers were unavailable.
+
+Commands run:
+- cd apps/web && npm run build
+- cd packages/shared && npm test
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- node scripts/verify-local.mjs
+- Edge headless screenshot against http://localhost:5180

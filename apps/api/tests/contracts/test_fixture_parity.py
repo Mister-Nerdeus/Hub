@@ -1,10 +1,14 @@
 import json
 from pathlib import Path
 
+import pytest
+from pydantic import ValidationError
+
 from app.contracts import PlanContract, ScenarioContract
 
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURES = ROOT / "packages" / "shared" / "fixtures"
+INVALID_FIXTURES = FIXTURES / "invalid"
 
 
 def load_fixture(name: str) -> dict:
@@ -12,12 +16,25 @@ def load_fixture(name: str) -> dict:
         return json.load(fixture)
 
 
+def load_invalid_fixture(name: str) -> dict:
+    with (INVALID_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
 def test_plan_fixture_matches_python_contract() -> None:
     plan = PlanContract.model_validate(load_fixture("plan-basic.json"))
 
     assert plan.schemaVersion == "1.0.0"
-    assert plan.units.origin == "top-left"
-    assert plan.units.unit == "feet"
+    assert plan.scale.origin == "top-left"
+    assert plan.scale.unit == "feet"
+
+
+def test_phase2_plan_fixture_matches_python_contract() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+
+    assert len(plan.rooms) == 7
+    assert len(plan.nurseStations) == 1
+    assert plan.scale.snapToGrid is True
 
 
 def test_scenario_fixture_matches_python_contract() -> None:
@@ -26,3 +43,18 @@ def test_scenario_fixture_matches_python_contract() -> None:
     assert scenario.schemaVersion == "1.0.0"
     assert scenario.shiftLengthMinutes == 480
     assert scenario.timestepMinutes == 5
+
+
+@pytest.mark.parametrize(
+    "fixture_name",
+    [
+        "plan-duplicate-door-id.json",
+        "plan-duplicate-path-edge-id.json",
+        "plan-bad-room-type.json",
+        "plan-path-edge-missing-node.json",
+        "plan-extra-unknown-field.json",
+    ],
+)
+def test_invalid_plan_fixtures_are_rejected_by_python_contract(fixture_name: str) -> None:
+    with pytest.raises((ValidationError, ValueError)):
+        PlanContract.model_validate(load_invalid_fixture(fixture_name))
