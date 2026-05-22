@@ -66,6 +66,8 @@ npm run evidence:local -- --out docs/verification/local-runs/latest
 LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
 ```
 
+Evidence output target precedence is `--out <path>`, then `LOCAL_EVIDENCE_DIR`, then `--tracked`, then the transient OS temp default. The manifest records `outputMode` as `transient`, `tracked`, or `custom`, and records the selected `outputDir`.
+
 ## Local Docker Ports
 
 Docker Compose is the local runtime for the web, API, and database. Container ports stay stable, while host ports are configurable through `.env`.
@@ -94,4 +96,4 @@ Phase 2 Plan Builder foundation is implemented through the evidence gate in `doc
 
 Phase 3 manual assignment proof covers shared nurse and room-load contracts, deterministic room workload scoring, deterministic manual assignment warnings, deterministic nurse burden scoring, and an API-free web proof surface. Seeded full-shift simulation and optimization are still not implemented.
 
-The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024 and Phase 3 gate evidence for Issue 038.
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024 and the Phase 3 gate evidence for Issue 038. The Phase 3 gate requires non-empty evidence, checklist, scoring output, warning output, screenshot, commands, and closeout artifacts.

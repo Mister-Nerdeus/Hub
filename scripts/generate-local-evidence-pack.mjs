@@ -205,20 +205,13 @@ function valueFor(values, key, fallback) {
 }
 
 function parseOutputTarget(args) {
-  let explicitOut = process.env.LOCAL_EVIDENCE_DIR;
-  let tracked = false;
-
-  if (isTruthyNpmConfig(process.env.npm_config_tracked)) {
-    tracked = true;
-  }
-  if (process.env.npm_config_out != null && !isTruthyNpmConfig(process.env.npm_config_out)) {
-    explicitOut = process.env.npm_config_out;
-  }
+  let cliOut;
+  let cliTracked = false;
 
   for (let index = 0; index < args.length; index += 1) {
     const arg = args[index];
     if (arg === "--tracked") {
-      tracked = true;
+      cliTracked = true;
       continue;
     }
     if (arg === "--out") {
@@ -226,35 +219,34 @@ function parseOutputTarget(args) {
       if (value == null || value.startsWith("--")) {
         throw new Error("--out requires a path");
       }
-      explicitOut = value;
+      cliOut = value;
       index += 1;
       continue;
     }
     if (arg.startsWith("--out=")) {
-      explicitOut = arg.slice("--out=".length);
+      cliOut = arg.slice("--out=".length);
       continue;
     }
-    if (
-      !arg.startsWith("--") &&
-      (explicitOut == null || isTruthyNpmConfig(explicitOut)) &&
-      !tracked
-    ) {
-      explicitOut = arg;
+    if (!arg.startsWith("--") && cliOut == null && !cliTracked) {
+      cliOut = arg;
       continue;
     }
     throw new Error(`Unknown argument: ${arg}`);
   }
 
-  if (tracked && explicitOut != null) {
-    throw new Error("Use either --tracked or --out, not both");
+  const npmConfigOut = process.env.npm_config_out;
+  if (cliOut == null && npmConfigOut != null) {
+    if (isTruthyNpmConfig(npmConfigOut)) {
+      throw new Error("--out requires a path");
+    }
+    cliOut = npmConfigOut;
   }
 
-  if (tracked) {
-    return { latestDir: trackedLatestDir, outputMode: "tracked" };
-  }
+  const envOut = process.env.LOCAL_EVIDENCE_DIR;
+  const explicitOut = cliOut ?? (envOut ? envOut : undefined);
 
   if (explicitOut != null) {
-    if (isTruthyNpmConfig(explicitOut)) {
+    if (explicitOut === "") {
       throw new Error("--out requires a path");
     }
     const resolvedOut = isAbsolute(explicitOut) ? explicitOut : resolve(root, explicitOut);
@@ -262,6 +254,11 @@ function parseOutputTarget(args) {
       latestDir: resolvedOut,
       outputMode: isSamePath(resolvedOut, trackedLatestDir) ? "tracked" : "custom"
     };
+  }
+
+  const tracked = cliTracked || isTruthyNpmConfig(process.env.npm_config_tracked);
+  if (tracked) {
+    return { latestDir: trackedLatestDir, outputMode: "tracked" };
   }
 
   return {

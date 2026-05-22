@@ -1,0 +1,66 @@
+# Issue 039 Transient Evidence Output
+
+Command: npm run evidence:local
+Exit code: 0
+Output:
+
+> nerdeus-er-pod-shift-simulator@0.1.0 evidence:local
+> node scripts/generate-local-evidence-pack.mjs
+
+
+> docker compose config
+
+> docker compose up --build -d
+
+> docker compose ps
+
+> docker compose --profile tools run --rm migrate
+
+> node scripts/verify-docker-plan-api.mjs
+
+> node scripts/check-no-phi-fields.mjs
+
+> node scripts/check-docs-contracts.mjs
+
+> npm --workspace packages/shared test
+
+> npm --workspace apps/web test
+
+> cd apps/api && python -m pytest
+
+> npm --workspace apps/web run build
+
+> npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+Local evidence pack generated at C:\Users\MISTER~1\AppData\Local\Temp\nerdeus-er-pod-shift-simulator\local-evidence\latest
+
+Tracked local-runs status after transient command:
+<clean>
+
+Transient manifest:
+{
+  "createdAt": "2026-05-22T22:17:28.822Z",
+  "apiHostPort": "8010",
+  "webHostPort": "5180",
+  "outputMode": "transient",
+  "outputDir": "C:\\Users\\MISTER~1\\AppData\\Local\\Temp\\nerdeus-er-pod-shift-simulator\\local-evidence\\latest",
+  "status": "passed",
+  "artifacts": [
+    "api-health.json",
+    "api-responses/create-plan.json",
+    "api-responses/get-plan.json",
+    "api-responses/list-plans.json",
+    "api-test-output.txt",
+    "docker-compose-config.txt",
+    "docker-compose-ps.txt",
+    "docker-compose-up.txt",
+    "docker-plan-api-output.txt",
+    "docs-contract-output.txt",
+    "migration-output.txt",
+    "no-phi-output.txt",
+    "plan-validation-output.txt",
+    "ports.json",
+    "shared-test-output.txt",
+    "web-build-output.txt",
+    "web-test-output.txt"
+  ]
+}

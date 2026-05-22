@@ -34,6 +34,7 @@ docs/verification/issues/issue-XXX/commands.txt
 Use `commands.txt`, `test-output.txt`, `screenshots/`, `api-responses/`, and `sample-json/` under the same issue folder when they are relevant.
 Issue folders from Issue 015 forward are checked by `node scripts/check-docs-contracts.mjs`; missing closeouts, missing command logs, and missing issue-specific required evidence must fail the docs gate.
 When an issue creates a phase-level evidence gate, wire the required phase evidence files into `node scripts/check-docs-contracts.mjs` before closing the issue so the documentation claim and local checker behavior stay aligned.
+Phase 3 manual assignment evidence is docs-gated by `node scripts/check-docs-contracts.mjs`; the gate requires the Phase 3 evidence doc, checklist, Issue 038 scoring output, warning output, screenshot, commands, and closeout artifacts to exist and remain non-empty.
 Command evidence must come from local commands. The full local verifier must be run from a stopped Docker state when an issue changes runtime, API, web, shared contracts, or local verification behavior.
 Use `npm run evidence:local` when a task needs a consolidated local evidence pack for the current repository state.
 

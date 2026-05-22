@@ -1,0 +1,52 @@
+# Issue 040 Negative Proof Output
+
+Artifact moved: docs/verification/phase-3-manual-assignment-evidence.md
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing Issue 038 Phase 3 evidence: docs/verification/phase-3-manual-assignment-evidence.md
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/phase-3-manual-assignment-checklist.md
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing Issue 038 Phase 3 evidence: docs/verification/phase-3-manual-assignment-checklist.md
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/issues/issue-038/scoring-output.json
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/scoring-output.json
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/issues/issue-038/warning-output.json
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/warning-output.json
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/issues/issue-038/commands.txt
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing commands artifact: C:\Projects\Hub\docs\verification\issues\issue-038\commands.txt
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/commands.txt
+Result: Passed negative proof - docs checker failed as expected.
+
+Artifact moved: docs/verification/issues/issue-038/closeout.md
+Command: node scripts/check-docs-contracts.mjs
+Exit code: 1
+Output:
+Missing closeout artifact: C:\Projects\Hub\docs\verification\issues\issue-038\closeout.md
+Missing Issue 038 Phase 3 evidence: docs/verification/issues/issue-038/closeout.md
+Result: Passed negative proof - docs checker failed as expected.

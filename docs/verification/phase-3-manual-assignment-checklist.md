@@ -8,11 +8,13 @@ Before Phase 3 evidence was collected, the required scoring output, warning outp
 
 | Criterion | Status | Evidence |
 | --- | --- | --- |
-| User can assign rooms to nurses through a manual assignment contract | Complete | `packages/shared/fixtures/manual-assignment-basic.json` |
-| App shows over target ratio | Complete | `docs/verification/issues/issue-037/manual-assignment-output.json` |
-| App shows different burden for same occupied-room count | Complete | `docs/verification/issues/issue-037/screenshots/manual-assignment-proof.png` |
-| App shows warnings | Complete | `docs/verification/issues/issue-035/warning-output.json` |
-| Evidence uses synthetic operational data only | Complete | `node scripts/check-no-phi-fields.mjs` |
-| No seeded full-shift simulation output | Complete | No simulation code or artifacts added |
-| No optimizer output | Complete | No optimizer code or artifacts added |
-| Local verification from stopped Docker state | Complete | `node scripts/verify-local.mjs` |
+| Manual assignment contracts | Pass | `packages/shared/fixtures/manual-assignment-basic.json` |
+| Room-load contracts | Pass | `packages/shared/fixtures/room-load-basic.json` |
+| Room scoring | Pass | `docs/verification/issues/issue-038/scoring-output.json` |
+| Assignment warnings | Pass | `docs/verification/issues/issue-038/warning-output.json` |
+| Nurse scoring | Pass | `docs/verification/issues/issue-038/scoring-output.json` |
+| Web proof | Pass | `docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png` |
+| Local verifier | Pass | `node scripts/verify-local.mjs` |
+| Evidence uses synthetic operational data only | Pass | `node scripts/check-no-phi-fields.mjs` |
+| No seeded full-shift simulation output | Pass | No simulation code or artifacts added |
+| No optimizer output | Pass | No optimizer code or artifacts added |

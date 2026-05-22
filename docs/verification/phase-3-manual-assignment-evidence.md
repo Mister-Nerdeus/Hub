@@ -25,6 +25,8 @@ Phase 3 proves manual nurse assignment, abstract room load, room burden, nurse b
 
 ## Boundary Confirmation
 
-No PHI, patient identity, diagnosis text, clinical notes, EHR integration, clinical safety certification language, full-shift simulation, optimizer, or hidden scoring model was added.
+No PHI, patient identity, diagnosis text, clinical notes, EHR integration, clinical safety certification language, or hidden scoring model was added.
+No full-shift simulation was added.
+No optimizer was added.
 
 The proof supports the Phase 3 thesis: four occupied rooms are not automatically four equal operational burdens.

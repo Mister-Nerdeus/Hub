@@ -2,14 +2,17 @@
 
 ## Summary
 
-Verified and preserved the local evidence pack output-mode truth: default evidence generation writes transient artifacts under the OS temp directory, while tracked repository output requires explicit opt-in through `--tracked` or an explicit tracked output path.
+Aligned local evidence pack output selection with the documented contract. Default `npm run evidence:local` resolves to the OS temp directory, explicit `--tracked` resolves to `docs/verification/local-runs/latest/`, and explicit `--out` or `LOCAL_EVIDENCE_DIR` paths take precedence.
 
 ## Files Changed
 
+- `scripts/generate-local-evidence-pack.mjs`
+- `README.md`
+- `docs/verification/local-evidence-pack.md`
+- `docs/contracts/local-first-verification-contract.md`
+- `package.json`
+- `docs/verification/issues/issue-039/*`
 - `docs/verification/local-runs/latest/*`
-- `docs/verification/issues/issue-039/commands.txt`
-- `docs/verification/issues/issue-039/output-mode-proof.txt`
-- `docs/verification/issues/issue-039/closeout.md`
 
 ## Commands Run
 
@@ -21,32 +24,29 @@ Passed:
 
 - `npm run evidence:local`
 - `npm run evidence:local -- --tracked`
-- `npm run evidence:local -- --out <os-temp>\nerdeus-evidence-custom-issue039`
+- `npm run evidence:local -- --out docs/verification/local-runs/latest`
+- `LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local`
 - `node scripts/check-no-phi-fields.mjs`
 - `node scripts/check-docs-contracts.mjs`
-- `npm --workspace packages/shared test`
-- `npm --workspace apps/web test`
-- `cd apps/api && python -m pytest`
-- `npm --workspace apps/web run build`
-- `npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json`
 - `docker compose down`
 - `node scripts/verify-local.mjs`
 
-Failed: None.
-
 ## Evidence
 
-- `docs/verification/issues/issue-039/output-mode-proof.txt`
-- `docs/verification/local-runs/latest/manifest.json`
+- `failure-reproduction.txt`
+- `transient-evidence-output.txt`
+- `tracked-evidence-output.txt`
+- `git-status-after-transient.txt`
+- `git-status-after-tracked.txt`
 
 ## Known Limitations
 
-The evidence pack still runs the full local Docker and test sequence for every output mode; this issue only verifies where artifacts are written and how the mode is recorded.
+The failure reproduction did not reproduce the expected dirty tracked-evidence behavior because the checked-out baseline already had a transient default implementation. The remaining fix was to align argument precedence and document the behavior precisely.
 
 ## Non-PHI Confirmation
 
-No PHI fields, patient identity, clinical notes, EHR integration, diagnosis text, hidden scoring, optimizer behavior, or clinical safety certification claims were added. `node scripts/check-no-phi-fields.mjs` passes.
+No PHI fields, real patient identity, diagnosis text, clinical notes, EHR integration, or clinical safety certification language were added. `node scripts/check-no-phi-fields.mjs` passed.
 
 ## Next Recommended Issue
 
-Issue 040, to enforce Phase 3 evidence artifacts in the docs checker.
+Complete Issue 040 in the same batch, then Phase 4 planning can begin after the batch close gates pass.

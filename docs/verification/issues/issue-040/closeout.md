@@ -2,17 +2,16 @@
 
 ## Summary
 
-Updated the local docs checker so Phase 3 manual-assignment evidence is enforced the same way as the Phase 2 evidence gate. Missing Phase 3 evidence documentation, checklist, scoring output, warning output, or screenshot now fails `node scripts/check-docs-contracts.mjs`.
+Added explicit Phase 3 evidence enforcement to the docs checker for the Phase 3 evidence doc, checklist, Issue 038 scoring output, warning output, screenshot, commands, and closeout artifacts. The checker also validates required Phase 3 evidence phrases so the docs cannot silently drift away from the gate.
 
 ## Files Changed
 
 - `scripts/check-docs-contracts.mjs`
-- `README.md`
 - `docs/codex/codex-operating-rules.md`
-- `docs/verification/local-runs/latest/*`
-- `docs/verification/issues/issue-040/commands.txt`
-- `docs/verification/issues/issue-040/phase3-docs-check-negative-proof.txt`
-- `docs/verification/issues/issue-040/closeout.md`
+- `docs/verification/phase-3-manual-assignment-checklist.md`
+- `docs/verification/phase-3-manual-assignment-evidence.md`
+- `README.md`
+- `docs/verification/issues/issue-040/*`
 
 ## Commands Run
 
@@ -23,32 +22,25 @@ See `docs/verification/issues/issue-040/commands.txt`.
 Passed:
 
 - `node scripts/check-docs-contracts.mjs`
-- Temporary-copy negative proof for all five Phase 3 required evidence artifacts
 - `node scripts/check-no-phi-fields.mjs`
-- `npm --workspace packages/shared test`
-- `npm --workspace apps/web test`
-- `cd apps/api && python -m pytest`
-- `npm --workspace apps/web run build`
-- `npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json`
+- Negative proof for each required Phase 3 artifact listed in `negative-proof-output.txt`
 - `docker compose down`
 - `node scripts/verify-local.mjs`
 
-Failed: None.
-
 ## Evidence
 
-- `docs/verification/issues/issue-040/phase3-docs-check-negative-proof.txt`
-- `docs/verification/local-runs/latest/docs-contract-output.txt`
-- `docs/verification/local-runs/latest/manifest.json`
+- `failure-reproduction.txt`
+- `negative-proof-output.txt`
+- `docs-check-output.txt`
 
 ## Known Limitations
 
-The docs checker enforces the required Phase 3 artifact paths and non-empty files. It does not semantically inspect screenshot pixels or recompute scoring and warning JSON content.
+The requested pre-fix reproduction already failed for a missing Phase 3 evidence doc in this checkout. Issue 040 still expands the explicit Phase 3 gate to include all required Issue 038 artifacts and content checks.
 
 ## Non-PHI Confirmation
 
-No PHI fields, patient identity, clinical notes, EHR integration, diagnosis text, hidden scoring, optimizer behavior, or clinical safety certification claims were added. `node scripts/check-no-phi-fields.mjs` passes.
+No PHI fields, real patient identity, diagnosis text, clinical notes, EHR integration, or clinical safety certification language were added. `node scripts/check-no-phi-fields.mjs` passed.
 
 ## Next Recommended Issue
 
-Proceed to Phase 4 only after reviewing the committed local verifier evidence for Issues 039 and 040.
+Phase 4 planning can begin after the batch close gates pass and this commit is pushed.

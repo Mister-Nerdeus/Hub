@@ -57,7 +57,35 @@ const requiredEvidenceGates = [
       "docs/verification/phase-3-manual-assignment-checklist.md",
       "docs/verification/issues/issue-038/scoring-output.json",
       "docs/verification/issues/issue-038/warning-output.json",
-      "docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png"
+      "docs/verification/issues/issue-038/screenshots/manual-assignment-proof.png",
+      "docs/verification/issues/issue-038/commands.txt",
+      "docs/verification/issues/issue-038/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-3-manual-assignment-evidence.md",
+        checks: [
+          ["Manual assignment", /\bmanual assignment\b/i],
+          ["Room burden", /\broom burden\b/i],
+          ["Nurse burden", /\bnurse burden\b/i],
+          ["Warning output", /\bwarning output\b/i],
+          ["No PHI", /\bno\s+phi\b/i],
+          ["No full-shift simulation", /\bno\b[\s\S]{0,80}\bfull-shift simulation\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-3-manual-assignment-checklist.md",
+        checks: [
+          ["contracts", /\bcontracts?\b/i],
+          ["room-load", /\broom-load\b|\broom load\b/i],
+          ["room scoring", /\broom scoring\b|\broom workload scoring\b/i],
+          ["assignment warnings", /\bassignment warnings\b|\bmanual assignment warnings\b/i],
+          ["nurse scoring", /\bnurse scoring\b|\bnurse burden scoring\b/i],
+          ["web proof", /\bweb proof\b|\bweb view\b|\bweb screenshot\b/i],
+          ["local verifier", /\blocal verifier\b|\blocal verification\b/i]
+        ]
+      }
     ]
   }
 ];
@@ -113,6 +141,9 @@ for (const gate of requiredEvidenceGates) {
   for (const evidencePath of gate.paths) {
     requireExistingFile(evidencePath, `Missing ${gate.label}: ${evidencePath}`);
   }
+  for (const contentCheck of gate.contentChecks ?? []) {
+    requireContentChecks(gate.label, contentCheck.path, contentCheck.checks);
+  }
 }
 
 if (failures.length > 0) {
@@ -152,5 +183,19 @@ function requireExistingFile(path, message) {
   }
   if (statSync(absolutePath).size === 0) {
     failures.push(`Required evidence is empty: ${path}`);
+  }
+}
+
+function requireContentChecks(label, path, checks) {
+  const absolutePath = join(root, path);
+  if (!existsSync(absolutePath) || !statSync(absolutePath).isFile()) {
+    return;
+  }
+
+  const content = readFileSync(absolutePath, "utf8");
+  for (const [name, pattern] of checks) {
+    if (!pattern.test(content)) {
+      failures.push(`${label} content missing ${name}: ${path}`);
+    }
   }
 }

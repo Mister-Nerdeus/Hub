@@ -15,13 +15,10 @@ Command: docker compose up --build -d
 #3 DONE 0.0s
 
 #4 [api internal] load metadata for docker.io/library/python:3.13-slim
-#4 ...
+#4 DONE 0.2s
 
 #5 [web internal] load metadata for docker.io/library/node:22-alpine
-#5 DONE 0.3s
-
-#4 [api internal] load metadata for docker.io/library/python:3.13-slim
-#4 DONE 0.3s
+#5 DONE 0.2s
 
 #6 [web internal] load .dockerignore
 #6 transferring context: 127B done
@@ -54,9 +51,10 @@ Command: docker compose up --build -d
 #14 [api] exporting to image
 #14 exporting layers done
 #14 exporting manifest sha256:b8a962bd09d6843212f33838054f140eb5394286a4b0cad943bcadaa9ffa901c done
+#14 exporting config sha256:ff1000e80e0d07ce753c25f30aed53d0e0c1b2cc10634cc08f68dc454b6e19e8
 #14 exporting config sha256:ff1000e80e0d07ce753c25f30aed53d0e0c1b2cc10634cc08f68dc454b6e19e8 done
-#14 exporting attestation manifest sha256:6e9cc09dbc84b356e370cf7b953e7c3704a61872d25dd013b12ee38a0c524516 0.0s done
-#14 exporting manifest list sha256:e798170b4a8c050b13956b64bdcbffc22d15a406d3a608d6d9ea57ca1e6b9e2f 0.0s done
+#14 exporting attestation manifest sha256:e8057dbf77b11d87780327a57fb5d866e351c50ec442dd8ba3e42c7b63eab738 0.0s done
+#14 exporting manifest list sha256:c2f193678e4d5f6564fae7258d248b0a6263893c4a99bb356d773b5c4976c695 0.0s done
 #14 naming to docker.io/library/hub-api:latest
 #14 naming to docker.io/library/hub-api:latest done
 #14 unpacking to docker.io/library/hub-api:latest 0.0s done
@@ -69,7 +67,7 @@ Command: docker compose up --build -d
 #16 [web  3/10] COPY package.json package-lock.json ./
 #16 CACHED
 
-#17 [web  6/10] RUN npm ci
+#17 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
 #17 CACHED
 
 #18 [web  7/10] COPY tsconfig.base.json ./
@@ -78,13 +76,13 @@ Command: docker compose up --build -d
 #19 [web  2/10] WORKDIR /repo
 #19 CACHED
 
-#20 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#20 [web  6/10] RUN npm ci
 #20 CACHED
 
-#21 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#21 [web  8/10] COPY apps/web apps/web
 #21 CACHED
 
-#22 [web  8/10] COPY apps/web apps/web
+#22 [web  4/10] COPY apps/web/package.json apps/web/package.json
 #22 CACHED
 
 #23 [web  9/10] COPY packages/shared packages/shared
@@ -95,12 +93,12 @@ Command: docker compose up --build -d
 
 #25 [web] exporting to image
 #25 exporting layers 0.0s done
-#25 exporting manifest sha256:cb67b67fc98176f397048d2bc403f59ad27bd0801cc8a314cfa9238df4eb1439 0.0s done
-#25 exporting config sha256:d2883db9179e7010958758feb65e58f2a3f66f6eec96d1adb81c4221dde0a94f 0.0s done
-#25 exporting attestation manifest sha256:9add49a3f4934d4b25b571c20ec620c4a7dda5f30c7592d93b7144ae68dbf586
-#25 exporting attestation manifest sha256:9add49a3f4934d4b25b571c20ec620c4a7dda5f30c7592d93b7144ae68dbf586 0.1s done
-#25 exporting manifest list sha256:5a3dcddc4a5cc02deddc7c9aaa2eeefc11194de8d5685d5d0d89347992f0ee4e
-#25 exporting manifest list sha256:5a3dcddc4a5cc02deddc7c9aaa2eeefc11194de8d5685d5d0d89347992f0ee4e 0.0s done
+#25 exporting manifest sha256:19b3a2cd516cfd7264d5589132606d0748e268e98d16aac925cc08e8064d7b3a done
+#25 exporting config sha256:cd681bfe6536a4fcba7084b27792c31494f1c38d5fb4ccf1e9cc704ac52223ca done
+#25 exporting attestation manifest sha256:55eea66370ff7d52f5fde63d01d077528168e83675b15d0135c42fda76a72818
+#25 exporting attestation manifest sha256:55eea66370ff7d52f5fde63d01d077528168e83675b15d0135c42fda76a72818 0.1s done
+#25 exporting manifest list sha256:c9591e1386be527a9b98c83daabbadeb4c79abc921b4c6317ea55a9200712d99
+#25 exporting manifest list sha256:c9591e1386be527a9b98c83daabbadeb4c79abc921b4c6317ea55a9200712d99 0.0s done
 #25 naming to docker.io/library/hub-web:latest done
 #25 unpacking to docker.io/library/hub-web:latest 0.0s done
 #25 DONE 0.3s
