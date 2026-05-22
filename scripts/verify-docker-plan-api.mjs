@@ -1,10 +1,16 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
 const envFile = loadLocalEnv();
 const apiHostPort = valueFor(envFile, "API_HOST_PORT", "8010");
 const apiUrl = `http://localhost:${apiHostPort}`;
-const evidenceDir = process.env.EVIDENCE_DIR ?? "docs/verification/issues/issue-025D";
+const defaultEvidenceDir = join(
+  tmpdir(),
+  "nerdeus-er-pod-shift-simulator",
+  "docker-plan-api-smoke"
+);
+const evidenceDir = process.env.EVIDENCE_DIR ?? defaultEvidenceDir;
 const planId = process.env.DOCKER_PLAN_SMOKE_ID ?? "plan-docker-smoke";
 
 const fixture = JSON.parse(readFileSync("packages/shared/fixtures/plan-er-pod-phase2.json", "utf8"));
@@ -19,6 +25,7 @@ const smokePlan = {
 
 mkdirSync(join(evidenceDir, "api-responses"), { recursive: true });
 
+console.log(`Writing Docker plan API smoke evidence to ${evidenceDir}`);
 console.log(`> GET ${apiUrl}/health`);
 const health = await requestJson(`${apiUrl}/health`);
 writeJson(join(evidenceDir, "api-health.json"), health);

@@ -50,6 +50,7 @@ docker compose down
 ```
 
 The verifier starts the Docker stack, runs migrations, performs local contract and no-PHI checks, runs shared/web/API tests, builds the web app, and performs Docker-backed API and web smoke checks.
+The Docker plan API smoke helper writes transient response evidence to the OS temp directory by default; set `EVIDENCE_DIR` when an issue needs tracked response artifacts.
 
 To generate a consolidated local evidence pack:
 

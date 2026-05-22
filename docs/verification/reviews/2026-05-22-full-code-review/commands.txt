@@ -1,0 +1,17 @@
+git status --short
+git log --oneline -5
+git show --stat --oneline HEAD
+Get-Content -Raw AGENTS.md
+Get-Content -Raw scripts/verify-docker-plan-api.mjs
+Get-Content -Raw scripts/verify-local.mjs
+Get-Content -Raw scripts/generate-local-evidence-pack.mjs
+rg -n "EVIDENCE_DIR|verify-docker-plan-api" .
+rg -n "writeFileSync|Set-Content|Add-Content|EVIDENCE_DIR|docs/verification/issues/issue-025D|local-runs/latest|docker compose up|docker compose down" scripts docs README.md AGENTS.md
+rg -n "description" apps/api/app apps/api/tests apps/web/src/features/plans packages/shared/src packages/shared/tests
+rg -n "model_fields_set|canonical_description|pathNodeId|linkedObjectId" apps/api/app/contracts.py packages/shared/src/contracts.ts apps/api/app/routes/plans.py
+docker compose down
+node scripts/verify-local.mjs
+docker compose ps
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git status --short
