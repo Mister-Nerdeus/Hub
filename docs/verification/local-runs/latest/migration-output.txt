@@ -4,11 +4,11 @@ Command: docker compose --profile tools run --rm migrate
 ## stdout
 
 ## stderr
- Container hub-db-1 Running 
- Container hub-db-1 Waiting 
- Container hub-db-1 Healthy 
- Container hub-migrate-run-2c0ff0894472 Creating 
- Container hub-migrate-run-2c0ff0894472 Created 
+ Container hub-db-1 Running
+ Container hub-db-1 Waiting
+ Container hub-db-1 Healthy
+ Container hub-migrate-run-3ae7cd5037b1 Creating
+ Container hub-migrate-run-3ae7cd5037b1 Created
 INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
 INFO  [alembic.runtime.migration] Will assume transactional DDL.
 

@@ -1,0 +1,110 @@
+{
+  "schemaVersion": "1.0.0",
+  "assignmentSetId": "manual-assignment-basic",
+  "planId": "plan-er-pod-phase2",
+  "name": "Basic Manual Assignment",
+  "description": "Synthetic operational assignment set for Phase 3 contract proof.",
+  "nurses": [
+    {
+      "id": "nurse-alpha",
+      "name": "Nurse Alpha",
+      "color": "#2563eb",
+      "role": "primary",
+      "homeStationId": "station-primary",
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "psychQualified": true,
+      "triageQualified": false,
+      "maxPatients": 3,
+      "targetPatients": 1,
+      "walkingSpeedFeetPerMinute": 250,
+      "shiftStartMinute": 0,
+      "shiftEndMinute": 720,
+      "breakWindows": [
+        {
+          "id": "break-alpha-1",
+          "nurseId": "nurse-alpha",
+          "startMinute": 240,
+          "endMinute": 270,
+          "flexible": true
+        }
+      ]
+    },
+    {
+      "id": "nurse-bravo",
+      "name": "Nurse Bravo",
+      "color": "#059669",
+      "role": "float",
+      "homeStationId": "station-primary",
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "psychQualified": false,
+      "triageQualified": false,
+      "maxPatients": 2,
+      "targetPatients": 1,
+      "walkingSpeedFeetPerMinute": 240,
+      "shiftStartMinute": 0,
+      "shiftEndMinute": 720,
+      "breakWindows": [
+        {
+          "id": "break-bravo-1",
+          "nurseId": "nurse-bravo",
+          "startMinute": 300,
+          "endMinute": 330,
+          "flexible": true
+        }
+      ]
+    },
+    {
+      "id": "nurse-charlie",
+      "name": "Nurse Charlie",
+      "color": "#b45309",
+      "role": "trauma",
+      "homeStationId": "station-primary",
+      "traumaQualified": true,
+      "chargeQualified": false,
+      "psychQualified": false,
+      "triageQualified": false,
+      "maxPatients": 2,
+      "targetPatients": 2,
+      "walkingSpeedFeetPerMinute": 255,
+      "shiftStartMinute": 0,
+      "shiftEndMinute": 720,
+      "breakWindows": [
+        {
+          "id": "break-charlie-1",
+          "nurseId": "nurse-charlie",
+          "startMinute": 360,
+          "endMinute": 390,
+          "flexible": false
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "id": "assignment-alpha",
+      "nurseId": "nurse-alpha",
+      "roomIds": ["room-01", "room-03"],
+      "assignmentType": "manual",
+      "startMinute": 0,
+      "endMinute": null
+    },
+    {
+      "id": "assignment-bravo",
+      "nurseId": "nurse-bravo",
+      "roomIds": ["room-04"],
+      "assignmentType": "manual",
+      "startMinute": 0,
+      "endMinute": null
+    },
+    {
+      "id": "assignment-charlie",
+      "nurseId": "nurse-charlie",
+      "roomIds": ["room-02", "room-05"],
+      "assignmentType": "manual",
+      "startMinute": 0,
+      "endMinute": null
+    }
+  ]
+}

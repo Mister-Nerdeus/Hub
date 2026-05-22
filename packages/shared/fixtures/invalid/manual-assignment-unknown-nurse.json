@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "assignmentSetId": "manual-assignment-unknown-nurse",
+  "planId": "plan-er-pod-phase2",
+  "name": "Unknown Nurse",
+  "description": null,
+  "nurses": [
+    {
+      "id": "nurse-alpha",
+      "name": "Nurse Alpha",
+      "color": "#2563eb",
+      "role": "primary",
+      "homeStationId": "station-primary",
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "psychQualified": false,
+      "triageQualified": false,
+      "maxPatients": 2,
+      "targetPatients": 1,
+      "walkingSpeedFeetPerMinute": 250,
+      "shiftStartMinute": 0,
+      "shiftEndMinute": 720,
+      "breakWindows": []
+    }
+  ],
+  "assignments": [
+    {
+      "id": "assignment-alpha",
+      "nurseId": "nurse-missing",
+      "roomIds": ["room-01"],
+      "assignmentType": "manual",
+      "startMinute": 0,
+      "endMinute": null
+    }
+  ]
+}

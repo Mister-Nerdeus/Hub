@@ -1,0 +1,205 @@
+[
+  {
+    "name": "acuity 1 only",
+    "roomLoad": {
+      "roomId": "room-01",
+      "occupied": true,
+      "acuity": 1,
+      "traumaActive": false,
+      "isolationActive": false,
+      "behavioralRisk": false,
+      "fallRisk": false,
+      "sitterRequired": false,
+      "medicationFrequency": "none",
+      "monitoringFrequency": "none",
+      "procedureBurden": "none",
+      "expectedTurnover": "low"
+    },
+    "expected": {
+      "acuityPoints": 1,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 1
+    }
+  },
+  {
+    "name": "acuity 5 only",
+    "roomLoad": {
+      "roomId": "room-02",
+      "occupied": true,
+      "acuity": 5,
+      "traumaActive": false,
+      "isolationActive": false,
+      "behavioralRisk": false,
+      "fallRisk": false,
+      "sitterRequired": false,
+      "medicationFrequency": "none",
+      "monitoringFrequency": "none",
+      "procedureBurden": "none",
+      "expectedTurnover": "low"
+    },
+    "expected": {
+      "acuityPoints": 10,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 10
+    }
+  },
+  {
+    "name": "trauma active",
+    "roomLoad": {
+      "roomId": "room-03",
+      "occupied": true,
+      "acuity": 3,
+      "traumaActive": true,
+      "isolationActive": false,
+      "behavioralRisk": false,
+      "fallRisk": false,
+      "sitterRequired": false,
+      "medicationFrequency": "none",
+      "monitoringFrequency": "none",
+      "procedureBurden": "none",
+      "expectedTurnover": "low"
+    },
+    "expected": {
+      "acuityPoints": 4,
+      "traumaPoints": 8,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 12
+    }
+  },
+  {
+    "name": "isolation active",
+    "roomLoad": {
+      "roomId": "room-04",
+      "occupied": true,
+      "acuity": 3,
+      "traumaActive": false,
+      "isolationActive": true,
+      "behavioralRisk": false,
+      "fallRisk": false,
+      "sitterRequired": false,
+      "medicationFrequency": "none",
+      "monitoringFrequency": "none",
+      "procedureBurden": "none",
+      "expectedTurnover": "low"
+    },
+    "expected": {
+      "acuityPoints": 4,
+      "traumaPoints": 0,
+      "isolationPoints": 3,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 7
+    }
+  },
+  {
+    "name": "behavioral fall sitter active",
+    "roomLoad": {
+      "roomId": "room-05",
+      "occupied": true,
+      "acuity": 2,
+      "traumaActive": false,
+      "isolationActive": false,
+      "behavioralRisk": true,
+      "fallRisk": true,
+      "sitterRequired": true,
+      "medicationFrequency": "none",
+      "monitoringFrequency": "none",
+      "procedureBurden": "none",
+      "expectedTurnover": "normal"
+    },
+    "expected": {
+      "acuityPoints": 2,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 4,
+      "fallRiskPoints": 2,
+      "sitterPoints": 5,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 13
+    }
+  },
+  {
+    "name": "high medication monitoring procedure",
+    "roomLoad": {
+      "roomId": "room-06",
+      "occupied": true,
+      "acuity": 1,
+      "traumaActive": false,
+      "isolationActive": false,
+      "behavioralRisk": false,
+      "fallRisk": false,
+      "sitterRequired": false,
+      "medicationFrequency": "high",
+      "monitoringFrequency": "continuous",
+      "procedureBurden": "high",
+      "expectedTurnover": "high"
+    },
+    "expected": {
+      "acuityPoints": 1,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 3,
+      "monitoringPoints": 3,
+      "procedurePoints": 4,
+      "totalRoomBurden": 11
+    }
+  },
+  {
+    "name": "unoccupied room zero burden",
+    "roomLoad": {
+      "roomId": "room-07",
+      "occupied": false,
+      "acuity": 5,
+      "traumaActive": true,
+      "isolationActive": true,
+      "behavioralRisk": true,
+      "fallRisk": true,
+      "sitterRequired": true,
+      "medicationFrequency": "continuous",
+      "monitoringFrequency": "continuous",
+      "procedureBurden": "very_high",
+      "expectedTurnover": "surge"
+    },
+    "expected": {
+      "acuityPoints": 0,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 0
+    }
+  }
+]

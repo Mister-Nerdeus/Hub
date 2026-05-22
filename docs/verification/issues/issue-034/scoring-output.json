@@ -1,0 +1,117 @@
+{
+  "generatedFrom": "packages/shared/fixtures/scoring/room-workload-cases.json",
+  "cases": [
+    {
+      "name": "acuity 1 only",
+      "score": {
+        "roomId": "room-01",
+        "acuityPoints": 1,
+        "traumaPoints": 0,
+        "isolationPoints": 0,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 1
+      }
+    },
+    {
+      "name": "acuity 5 only",
+      "score": {
+        "roomId": "room-02",
+        "acuityPoints": 10,
+        "traumaPoints": 0,
+        "isolationPoints": 0,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 10
+      }
+    },
+    {
+      "name": "trauma active",
+      "score": {
+        "roomId": "room-03",
+        "acuityPoints": 4,
+        "traumaPoints": 8,
+        "isolationPoints": 0,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 12
+      }
+    },
+    {
+      "name": "isolation active",
+      "score": {
+        "roomId": "room-04",
+        "acuityPoints": 4,
+        "traumaPoints": 0,
+        "isolationPoints": 3,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 7
+      }
+    },
+    {
+      "name": "behavioral fall sitter active",
+      "score": {
+        "roomId": "room-05",
+        "acuityPoints": 2,
+        "traumaPoints": 0,
+        "isolationPoints": 0,
+        "behavioralPoints": 4,
+        "fallRiskPoints": 2,
+        "sitterPoints": 5,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 13
+      }
+    },
+    {
+      "name": "high medication monitoring procedure",
+      "score": {
+        "roomId": "room-06",
+        "acuityPoints": 1,
+        "traumaPoints": 0,
+        "isolationPoints": 0,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 3,
+        "monitoringPoints": 3,
+        "procedurePoints": 4,
+        "totalRoomBurden": 11
+      }
+    },
+    {
+      "name": "unoccupied room zero burden",
+      "score": {
+        "roomId": "room-07",
+        "acuityPoints": 0,
+        "traumaPoints": 0,
+        "isolationPoints": 0,
+        "behavioralPoints": 0,
+        "fallRiskPoints": 0,
+        "sitterPoints": 0,
+        "medicationPoints": 0,
+        "monitoringPoints": 0,
+        "procedurePoints": 0,
+        "totalRoomBurden": 0
+      }
+    }
+  ]
+}

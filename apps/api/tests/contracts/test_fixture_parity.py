@@ -4,7 +4,12 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 
-from app.contracts import PlanContract, ScenarioContract
+from app.contracts import (
+    PlanContract,
+    ScenarioContract,
+    validate_manual_assignment_contract,
+    validate_room_loads,
+)
 
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURES = ROOT / "packages" / "shared" / "fixtures"
@@ -43,6 +48,26 @@ def test_scenario_fixture_matches_python_contract() -> None:
     assert scenario.schemaVersion == "1.0.0"
     assert scenario.shiftLengthMinutes == 480
     assert scenario.timestepMinutes == 5
+    assert scenario.roomLoads[0].acuity == 3
+    assert scenario.roomLoads[0].monitoringFrequency == "high"
+
+
+def test_room_load_fixture_matches_python_contract() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    room_loads = validate_room_loads(load_fixture("room-loads-basic.json"), plan)
+
+    assert len(room_loads) == 7
+    assert room_loads[1].expectedTurnover == "high"
+
+
+def test_manual_assignment_fixture_matches_python_contract() -> None:
+    plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
+    assignment_set = validate_manual_assignment_contract(
+        load_fixture("manual-assignment-basic.json"), plan
+    )
+
+    assert assignment_set.schemaVersion == "1.0.0"
+    assert len(assignment_set.nurses) == 3
 
 
 @pytest.mark.parametrize(

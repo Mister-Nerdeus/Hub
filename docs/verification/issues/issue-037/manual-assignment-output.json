@@ -1,0 +1,143 @@
+{
+  "assignmentSetName": "Basic Manual Assignment",
+  "occupiedRoomCount": 6,
+  "assignedOccupiedRoomCount": 5,
+  "unassignedOccupiedRooms": [
+    {
+      "roomId": "hall-bed-01",
+      "label": "Hall Bed 01",
+      "burden": 12
+    }
+  ],
+  "nurseCards": [
+    {
+      "nurseId": "nurse-alpha",
+      "name": "Nurse Alpha",
+      "role": "primary",
+      "color": "#2563eb",
+      "targetPatients": 1,
+      "maxPatients": 3,
+      "assignedRooms": [
+        {
+          "roomId": "room-01",
+          "label": "Room 01",
+          "occupied": true,
+          "burden": 9
+        },
+        {
+          "roomId": "room-03",
+          "label": "Room 03",
+          "occupied": true,
+          "burden": 5
+        }
+      ]
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "name": "Nurse Bravo",
+      "role": "float",
+      "color": "#059669",
+      "targetPatients": 1,
+      "maxPatients": 2,
+      "assignedRooms": [
+        {
+          "roomId": "room-04",
+          "label": "Room 04",
+          "occupied": true,
+          "burden": 13
+        }
+      ]
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "name": "Nurse Charlie",
+      "role": "trauma",
+      "color": "#b45309",
+      "targetPatients": 2,
+      "maxPatients": 2,
+      "assignedRooms": [
+        {
+          "roomId": "room-02",
+          "label": "Room 02",
+          "occupied": true,
+          "burden": 24
+        },
+        {
+          "roomId": "room-05",
+          "label": "Room 05",
+          "occupied": true,
+          "burden": 5
+        }
+      ]
+    }
+  ],
+  "burdenRows": [
+    {
+      "nurseId": "nurse-alpha",
+      "nurseName": "Nurse Alpha",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 6,
+      "totalSpecialBurden": 8,
+      "overRatioPenalty": 5,
+      "traumaMismatchPenalty": 0,
+      "totalBurden": 21
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "nurseName": "Nurse Bravo",
+      "assignedRoomCount": 1,
+      "occupiedRoomCount": 1,
+      "totalAcuityBurden": 4,
+      "totalSpecialBurden": 9,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "totalBurden": 13
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "nurseName": "Nurse Charlie",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 11,
+      "totalSpecialBurden": 18,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "totalBurden": 31
+    }
+  ],
+  "warnings": [
+    {
+      "severity": "warning",
+      "code": "OVER_TARGET_RATIO",
+      "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+      "nurseIds": [
+        "nurse-alpha"
+      ],
+      "id": "OVER_TARGET_RATIO:nurse-alpha",
+      "displayMessage": "Nurse Alpha is assigned 2 occupied rooms above target 1. (Nurse Alpha)"
+    },
+    {
+      "severity": "warning",
+      "code": "UNASSIGNED_OCCUPIED_ROOM",
+      "message": "Occupied room hall-bed-01 is unassigned.",
+      "roomIds": [
+        "hall-bed-01"
+      ],
+      "id": "UNASSIGNED_OCCUPIED_ROOM::hall-bed-01",
+      "displayMessage": "Occupied room hall-bed-01 is unassigned. (Hall Bed 01)"
+    }
+  ],
+  "sameCountDifferentBurdenProof": {
+    "occupiedRoomCount": 2,
+    "nurseNames": [
+      "Nurse Alpha",
+      "Nurse Charlie"
+    ],
+    "burdens": [
+      21,
+      31
+    ],
+    "visible": true
+  }
+}

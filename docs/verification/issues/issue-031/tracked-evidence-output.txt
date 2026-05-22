@@ -1,0 +1,98 @@
+# Issue 031 Tracked Evidence Proof
+
+> npm run evidence:local -- --tracked
+
+> nerdeus-er-pod-shift-simulator@0.1.0 evidence:local
+> node scripts/generate-local-evidence-pack.mjs
+
+
+> docker compose config
+
+> docker compose up --build -d
+
+> docker compose ps
+
+> docker compose --profile tools run --rm migrate
+
+> node scripts/verify-docker-plan-api.mjs
+
+> node scripts/check-no-phi-fields.mjs
+
+> node scripts/check-docs-contracts.mjs
+
+> npm --workspace packages/shared test
+
+> npm --workspace apps/web test
+
+> cd apps/api && python -m pytest
+
+> npm --workspace apps/web run build
+
+> npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+Local evidence pack generated at docs\verification\local-runs\latest
+
+> Get-Content docs/verification/local-runs/latest/manifest.json
+{
+  "createdAt": "2026-05-22T20:07:56.256Z",
+  "apiHostPort": "8010",
+  "webHostPort": "5180",
+  "outputMode": "tracked",
+  "outputDir": "C:\\Projects\\Hub\\docs\\verification\\local-runs\\latest",
+  "status": "passed",
+  "artifacts": [
+    "api-health.json",
+    "api-responses/create-plan.json",
+    "api-responses/get-plan.json",
+    "api-responses/list-plans.json",
+    "api-test-output.txt",
+    "docker-compose-config.txt",
+    "docker-compose-ps.txt",
+    "docker-compose-up.txt",
+    "docker-plan-api-output.txt",
+    "docs-contract-output.txt",
+    "migration-output.txt",
+    "no-phi-output.txt",
+    "plan-validation-output.txt",
+    "ports.json",
+    "shared-test-output.txt",
+    "web-build-output.txt",
+    "web-test-output.txt"
+  ]
+}
+
+# Additional Tracked Mode Checks
+
+> npm run evidence:local -- --out docs/verification/local-runs/latest
+Result: passed, generated docs/verification/local-runs/latest.
+
+> LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
+Result: passed, generated docs/verification/local-runs/latest.
+
+> Get-Content docs/verification/local-runs/latest/manifest.json
+{
+  "createdAt": "2026-05-22T20:10:40.322Z",
+  "apiHostPort": "8010",
+  "webHostPort": "5180",
+  "outputMode": "tracked",
+  "outputDir": "C:\\Projects\\Hub\\docs\\verification\\local-runs\\latest",
+  "status": "passed",
+  "artifacts": [
+    "api-health.json",
+    "api-responses/create-plan.json",
+    "api-responses/get-plan.json",
+    "api-responses/list-plans.json",
+    "api-test-output.txt",
+    "docker-compose-config.txt",
+    "docker-compose-ps.txt",
+    "docker-compose-up.txt",
+    "docker-plan-api-output.txt",
+    "docs-contract-output.txt",
+    "migration-output.txt",
+    "no-phi-output.txt",
+    "plan-validation-output.txt",
+    "ports.json",
+    "shared-test-output.txt",
+    "web-build-output.txt",
+    "web-test-output.txt"
+  ]
+}

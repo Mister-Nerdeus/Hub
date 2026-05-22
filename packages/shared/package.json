@@ -7,7 +7,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test tests/*.test.mjs"
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "test:contracts": "npm run build && node --test tests/contracts.test.mjs",
+    "test:scoring": "npm run build && node --test tests/roomWorkloadScore.test.mjs tests/validateManualAssignment.test.mjs tests/nurseBurdenScore.test.mjs"
   },
   "devDependencies": {
     "typescript": "latest"

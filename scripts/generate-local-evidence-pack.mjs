@@ -8,15 +8,12 @@ import {
   statSync,
   writeFileSync
 } from "node:fs";
-import { relative, resolve } from "node:path";
+import { tmpdir } from "node:os";
+import { isAbsolute, relative, resolve } from "node:path";
 
 const root = process.cwd();
-const outputRoot = resolve(root, "docs/verification/local-runs");
-const latestDir = resolve(outputRoot, "latest");
-const issue028ManifestPath = resolve(
-  root,
-  "docs/verification/issues/issue-028/local-evidence-manifest.json"
-);
+const trackedLatestDir = resolve(root, "docs/verification/local-runs/latest");
+const { latestDir, outputMode } = parseOutputTarget(process.argv.slice(2));
 
 const envFile = loadLocalEnv();
 const apiHostPort = valueFor(envFile, "API_HOST_PORT", "8010");
@@ -31,6 +28,8 @@ const manifest = {
   createdAt: new Date().toISOString(),
   apiHostPort,
   webHostPort,
+  outputMode,
+  outputDir: latestDir,
   status: "running",
   artifacts: []
 };
@@ -123,7 +122,7 @@ try {
 }
 
 finalizeManifest();
-console.log(`Local evidence pack generated at ${relative(root, latestDir)}`);
+console.log(`Local evidence pack generated at ${displayPath(latestDir)}`);
 
 function runStep(step) {
   const displayCommand = step.displayCommand ?? step.command;
@@ -156,8 +155,6 @@ function finalizeManifest() {
     .filter((path) => path !== "manifest.json")
     .sort();
   writeJson("manifest.json", manifest);
-  mkdirSync(resolve(root, "docs/verification/issues/issue-028"), { recursive: true });
-  writeFileSync(issue028ManifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function collectFiles(dir) {
@@ -203,4 +200,82 @@ function loadLocalEnv() {
 
 function valueFor(values, key, fallback) {
   return process.env[key] ?? values[key] ?? fallback;
+}
+
+function parseOutputTarget(args) {
+  let explicitOut = process.env.LOCAL_EVIDENCE_DIR;
+  let tracked = false;
+
+  if (isTruthyNpmConfig(process.env.npm_config_tracked)) {
+    tracked = true;
+  }
+  if (process.env.npm_config_out != null && !isTruthyNpmConfig(process.env.npm_config_out)) {
+    explicitOut = process.env.npm_config_out;
+  }
+
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--tracked") {
+      tracked = true;
+      continue;
+    }
+    if (arg === "--out") {
+      const value = args[index + 1];
+      if (value == null || value.startsWith("--")) {
+        throw new Error("--out requires a path");
+      }
+      explicitOut = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--out=")) {
+      explicitOut = arg.slice("--out=".length);
+      continue;
+    }
+    if (
+      !arg.startsWith("--") &&
+      (explicitOut == null || isTruthyNpmConfig(explicitOut)) &&
+      !tracked
+    ) {
+      explicitOut = arg;
+      continue;
+    }
+    throw new Error(`Unknown argument: ${arg}`);
+  }
+
+  if (tracked && explicitOut != null) {
+    throw new Error("Use either --tracked or --out, not both");
+  }
+
+  if (tracked) {
+    return { latestDir: trackedLatestDir, outputMode: "tracked" };
+  }
+
+  if (explicitOut != null) {
+    if (isTruthyNpmConfig(explicitOut)) {
+      throw new Error("--out requires a path");
+    }
+    const resolvedOut = isAbsolute(explicitOut) ? explicitOut : resolve(root, explicitOut);
+    return {
+      latestDir: resolvedOut,
+      outputMode: resolvedOut === trackedLatestDir ? "tracked" : "custom"
+    };
+  }
+
+  return {
+    latestDir: resolve(tmpdir(), "nerdeus-er-pod-shift-simulator", "local-evidence", "latest"),
+    outputMode: "transient"
+  };
+}
+
+function displayPath(path) {
+  const relativePath = relative(root, path);
+  if (!relativePath.startsWith("..") && !isAbsolute(relativePath)) {
+    return relativePath;
+  }
+  return path;
+}
+
+function isTruthyNpmConfig(value) {
+  return value === "true" || value === "1" || value === "";
 }

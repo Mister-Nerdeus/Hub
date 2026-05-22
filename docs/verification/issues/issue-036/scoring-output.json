@@ -1,0 +1,86 @@
+{
+  "generatedFrom": [
+    "packages/shared/fixtures/manual-assignment-basic.json",
+    "packages/shared/fixtures/room-loads-basic.json"
+  ],
+  "nurseScores": [
+    {
+      "nurseId": "nurse-alpha",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 6,
+      "totalSpecialBurden": 8,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 2,
+      "overRatioPenalty": 5,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 21,
+      "warnings": [
+        {
+          "severity": "warning",
+          "code": "OVER_TARGET_RATIO",
+          "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+          "nurseIds": [
+            "nurse-alpha"
+          ],
+          "id": "OVER_TARGET_RATIO:nurse-alpha"
+        }
+      ]
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "assignedRoomCount": 1,
+      "occupiedRoomCount": 1,
+      "totalAcuityBurden": 4,
+      "totalSpecialBurden": 9,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 0,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 13,
+      "warnings": []
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 11,
+      "totalSpecialBurden": 18,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 2,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 31,
+      "warnings": []
+    }
+  ],
+  "warnings": [
+    {
+      "severity": "warning",
+      "code": "OVER_TARGET_RATIO",
+      "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+      "nurseIds": [
+        "nurse-alpha"
+      ],
+      "id": "OVER_TARGET_RATIO:nurse-alpha"
+    },
+    {
+      "severity": "warning",
+      "code": "UNASSIGNED_OCCUPIED_ROOM",
+      "message": "Occupied room hall-bed-01 is unassigned.",
+      "roomIds": [
+        "hall-bed-01"
+      ],
+      "id": "UNASSIGNED_OCCUPIED_ROOM::hall-bed-01"
+    }
+  ]
+}

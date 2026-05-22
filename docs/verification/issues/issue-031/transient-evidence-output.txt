@@ -1,0 +1,216 @@
+# Issue 031 Failure Reproduction
+
+> git status --short
+?? docs/verification/issues/issue-031/
+
+> npm run evidence:local
+
+> nerdeus-er-pod-shift-simulator@0.1.0 evidence:local
+> node scripts/generate-local-evidence-pack.mjs
+
+
+> docker compose config
+
+> docker compose up --build -d
+
+> docker compose ps
+
+> docker compose --profile tools run --rm migrate
+
+> node scripts/verify-docker-plan-api.mjs
+
+> node scripts/check-no-phi-fields.mjs
+
+> node scripts/check-docs-contracts.mjs
+node scripts/check-docs-contracts.mjs failed with exit code 1
+
+> git status --short
+ M docs/verification/issues/issue-028/local-evidence-manifest.json
+ M docs/verification/local-runs/latest/api-responses/create-plan.json
+ M docs/verification/local-runs/latest/api-responses/get-plan.json
+ M docs/verification/local-runs/latest/api-responses/list-plans.json
+ D docs/verification/local-runs/latest/api-test-output.txt
+ M docs/verification/local-runs/latest/docker-compose-ps.txt
+ M docs/verification/local-runs/latest/docker-compose-up.txt
+ M docs/verification/local-runs/latest/docker-plan-api-output.txt
+ M docs/verification/local-runs/latest/docs-contract-output.txt
+ M docs/verification/local-runs/latest/manifest.json
+ M docs/verification/local-runs/latest/migration-output.txt
+ D docs/verification/local-runs/latest/plan-validation-output.txt
+ D docs/verification/local-runs/latest/shared-test-output.txt
+ D docs/verification/local-runs/latest/web-build-output.txt
+ D docs/verification/local-runs/latest/web-test-output.txt
+?? docs/verification/issues/issue-031/
+
+# Issue 031 Post-Implementation Transient Proof
+
+> git status --short
+ M README.md
+ M apps/api/app/contracts.py
+ M apps/api/tests/contracts/test_fixture_parity.py
+ M apps/web/package.json
+ M apps/web/src/App.tsx
+ M docs/compliance/non-phi-policy.md
+ M docs/contracts/local-first-verification-contract.md
+ M docs/project/project-charter.md
+ M docs/verification/issues/issue-028/local-evidence-manifest.json
+ M docs/verification/local-evidence-pack.md
+ M docs/verification/local-runs/latest/api-responses/create-plan.json
+ M docs/verification/local-runs/latest/api-responses/get-plan.json
+ M docs/verification/local-runs/latest/api-responses/list-plans.json
+ D docs/verification/local-runs/latest/api-test-output.txt
+ M docs/verification/local-runs/latest/docker-compose-ps.txt
+ M docs/verification/local-runs/latest/docker-compose-up.txt
+ M docs/verification/local-runs/latest/docker-plan-api-output.txt
+ M docs/verification/local-runs/latest/docs-contract-output.txt
+ M docs/verification/local-runs/latest/manifest.json
+ M docs/verification/local-runs/latest/migration-output.txt
+ D docs/verification/local-runs/latest/plan-validation-output.txt
+ D docs/verification/local-runs/latest/shared-test-output.txt
+ D docs/verification/local-runs/latest/web-build-output.txt
+ D docs/verification/local-runs/latest/web-test-output.txt
+ M package.json
+ M packages/shared/fixtures/scenario-basic.json
+ M packages/shared/package.json
+ M packages/shared/src/contracts.ts
+ M packages/shared/src/index.ts
+ M packages/shared/tests/contracts.test.mjs
+ M scripts/generate-local-evidence-pack.mjs
+?? apps/api/tests/contracts/test_manual_assignment_contract.py
+?? apps/api/tests/contracts/test_room_load_contract.py
+?? apps/web/src/features/manual-assignment/
+?? apps/web/src/fixtures/manualAssignmentBasic.ts
+?? docs/contracts/manual-assignment-validation-contract.md
+?? docs/contracts/nurse-burden-scoring-contract.md
+?? docs/contracts/phase-3-manual-assignment-contract.md
+?? docs/contracts/room-load-contract.md
+?? docs/contracts/room-workload-scoring-contract.md
+?? docs/verification/issues/issue-031/
+?? docs/verification/issues/issue-032/
+?? docs/verification/issues/issue-033/
+?? docs/verification/issues/issue-034/
+?? docs/verification/issues/issue-035/
+?? docs/verification/issues/issue-036/
+?? docs/verification/issues/issue-037/
+?? docs/verification/issues/issue-038/
+?? docs/verification/phase-3-manual-assignment-checklist.md
+?? docs/verification/phase-3-manual-assignment-evidence.md
+?? packages/shared/fixtures/assignment/
+?? packages/shared/fixtures/invalid/manual-assignment-break-window-invalid.json
+?? packages/shared/fixtures/invalid/manual-assignment-duplicate-nurse-id.json
+?? packages/shared/fixtures/invalid/manual-assignment-room-assigned-twice.json
+?? packages/shared/fixtures/invalid/manual-assignment-unknown-nurse.json
+?? packages/shared/fixtures/invalid/manual-assignment-unknown-room.json
+?? packages/shared/fixtures/invalid/room-load-bad-burden.json
+?? packages/shared/fixtures/invalid/room-load-bad-frequency.json
+?? packages/shared/fixtures/invalid/room-load-unknown-room.json
+?? packages/shared/fixtures/manual-assignment-basic.json
+?? packages/shared/fixtures/room-loads-basic.json
+?? packages/shared/fixtures/scoring/
+?? packages/shared/src/assignment/
+?? packages/shared/src/scoring/
+?? packages/shared/tests/nurseBurdenScore.test.mjs
+?? packages/shared/tests/roomWorkloadScore.test.mjs
+?? packages/shared/tests/validateManualAssignment.test.mjs
+
+> npm run evidence:local
+
+> nerdeus-er-pod-shift-simulator@0.1.0 evidence:local
+> node scripts/generate-local-evidence-pack.mjs
+
+
+> docker compose config
+
+> docker compose up --build -d
+
+> docker compose ps
+
+> docker compose --profile tools run --rm migrate
+
+> node scripts/verify-docker-plan-api.mjs
+
+> node scripts/check-no-phi-fields.mjs
+
+> node scripts/check-docs-contracts.mjs
+
+> npm --workspace packages/shared test
+
+> npm --workspace apps/web test
+
+> cd apps/api && python -m pytest
+
+> npm --workspace apps/web run build
+
+> npm run validate:plan -- packages/shared/fixtures/plan-er-pod-phase2.json
+Local evidence pack generated at C:\Users\MISTER~1\AppData\Local\Temp\nerdeus-er-pod-shift-simulator\local-evidence\latest
+
+> git status --short
+ M README.md
+ M apps/api/app/contracts.py
+ M apps/api/tests/contracts/test_fixture_parity.py
+ M apps/web/package.json
+ M apps/web/src/App.tsx
+ M docs/compliance/non-phi-policy.md
+ M docs/contracts/local-first-verification-contract.md
+ M docs/project/project-charter.md
+ M docs/verification/issues/issue-028/local-evidence-manifest.json
+ M docs/verification/local-evidence-pack.md
+ M docs/verification/local-runs/latest/api-responses/create-plan.json
+ M docs/verification/local-runs/latest/api-responses/get-plan.json
+ M docs/verification/local-runs/latest/api-responses/list-plans.json
+ D docs/verification/local-runs/latest/api-test-output.txt
+ M docs/verification/local-runs/latest/docker-compose-ps.txt
+ M docs/verification/local-runs/latest/docker-compose-up.txt
+ M docs/verification/local-runs/latest/docker-plan-api-output.txt
+ M docs/verification/local-runs/latest/docs-contract-output.txt
+ M docs/verification/local-runs/latest/manifest.json
+ M docs/verification/local-runs/latest/migration-output.txt
+ D docs/verification/local-runs/latest/plan-validation-output.txt
+ D docs/verification/local-runs/latest/shared-test-output.txt
+ D docs/verification/local-runs/latest/web-build-output.txt
+ D docs/verification/local-runs/latest/web-test-output.txt
+ M package.json
+ M packages/shared/fixtures/scenario-basic.json
+ M packages/shared/package.json
+ M packages/shared/src/contracts.ts
+ M packages/shared/src/index.ts
+ M packages/shared/tests/contracts.test.mjs
+ M scripts/generate-local-evidence-pack.mjs
+?? apps/api/tests/contracts/test_manual_assignment_contract.py
+?? apps/api/tests/contracts/test_room_load_contract.py
+?? apps/web/src/features/manual-assignment/
+?? apps/web/src/fixtures/manualAssignmentBasic.ts
+?? docs/contracts/manual-assignment-validation-contract.md
+?? docs/contracts/nurse-burden-scoring-contract.md
+?? docs/contracts/phase-3-manual-assignment-contract.md
+?? docs/contracts/room-load-contract.md
+?? docs/contracts/room-workload-scoring-contract.md
+?? docs/verification/issues/issue-031/
+?? docs/verification/issues/issue-032/
+?? docs/verification/issues/issue-033/
+?? docs/verification/issues/issue-034/
+?? docs/verification/issues/issue-035/
+?? docs/verification/issues/issue-036/
+?? docs/verification/issues/issue-037/
+?? docs/verification/issues/issue-038/
+?? docs/verification/phase-3-manual-assignment-checklist.md
+?? docs/verification/phase-3-manual-assignment-evidence.md
+?? packages/shared/fixtures/assignment/
+?? packages/shared/fixtures/invalid/manual-assignment-break-window-invalid.json
+?? packages/shared/fixtures/invalid/manual-assignment-duplicate-nurse-id.json
+?? packages/shared/fixtures/invalid/manual-assignment-room-assigned-twice.json
+?? packages/shared/fixtures/invalid/manual-assignment-unknown-nurse.json
+?? packages/shared/fixtures/invalid/manual-assignment-unknown-room.json
+?? packages/shared/fixtures/invalid/room-load-bad-burden.json
+?? packages/shared/fixtures/invalid/room-load-bad-frequency.json
+?? packages/shared/fixtures/invalid/room-load-unknown-room.json
+?? packages/shared/fixtures/manual-assignment-basic.json
+?? packages/shared/fixtures/room-loads-basic.json
+?? packages/shared/fixtures/scoring/
+?? packages/shared/src/assignment/
+?? packages/shared/src/scoring/
+?? packages/shared/tests/nurseBurdenScore.test.mjs
+?? packages/shared/tests/roomWorkloadScore.test.mjs
+?? packages/shared/tests/validateManualAssignment.test.mjs
+
+Status unchanged after transient run: True

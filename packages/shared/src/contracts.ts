@@ -33,6 +33,37 @@ export const STATION_TYPES = [
   "temporary"
 ] as const;
 
+export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
+
+export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
+
+export const TURNOVER_LEVELS = ["low", "normal", "high", "surge"] as const;
+
+export const NURSE_ROLES = [
+  "primary",
+  "charge",
+  "float",
+  "triage",
+  "trauma",
+  "preceptor",
+  "orientee"
+] as const;
+
+export const ASSIGNMENT_TYPES = ["manual", "optimized", "temporary_break_coverage"] as const;
+
+export const WARNING_SEVERITIES = ["info", "warning", "critical"] as const;
+
+export const WARNING_CODES = [
+  "OVER_TARGET_RATIO",
+  "OVER_MAX_RATIO",
+  "TRAUMA_WITH_NON_QUALIFIED_NURSE",
+  "UNASSIGNED_OCCUPIED_ROOM",
+  "ROOM_WITHOUT_COVERAGE",
+  "UNKNOWN_NURSE",
+  "UNKNOWN_ROOM",
+  "ROOM_ASSIGNED_MULTIPLE_TIMES"
+] as const;
+
 export const PLAN_ID_MAX_LENGTH = 64;
 export const PLAN_NAME_MAX_LENGTH = 160;
 export const PLAN_DESCRIPTION_MAX_LENGTH = 500;
@@ -41,6 +72,13 @@ export type RoomType = (typeof ROOM_TYPES)[number];
 export type ZoneType = (typeof ZONE_TYPES)[number];
 export type PathNodeType = (typeof PATH_NODE_TYPES)[number];
 export type StationType = (typeof STATION_TYPES)[number];
+export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
+export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
+export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
+export type NurseRole = (typeof NURSE_ROLES)[number];
+export type AssignmentType = (typeof ASSIGNMENT_TYPES)[number];
+export type WarningSeverity = (typeof WARNING_SEVERITIES)[number];
+export type WarningCode = (typeof WARNING_CODES)[number];
 
 export type ScaleSettings = {
   unit: "feet";
@@ -153,16 +191,16 @@ export type PlanContract = {
 export type RoomLoad = {
   roomId: string;
   occupied: boolean;
-  acuityScore: number;
+  acuity: 1 | 2 | 3 | 4 | 5;
   traumaActive: boolean;
   isolationActive: boolean;
   behavioralRisk: boolean;
   fallRisk: boolean;
   sitterRequired: boolean;
-  medicationFrequency: number;
-  monitoringFrequency: number;
-  procedureBurden: number;
-  turnoverBurden: number;
+  medicationFrequency: TaskFrequency;
+  monitoringFrequency: TaskFrequency;
+  procedureBurden: BurdenLevel;
+  expectedTurnover: TurnoverLevel;
 };
 
 export type ScenarioContract = {
@@ -174,6 +212,106 @@ export type ScenarioContract = {
   timestepMinutes: number;
   seed: number;
   roomLoads: RoomLoad[];
+};
+
+export type BreakWindow = {
+  id: string;
+  nurseId: string;
+  startMinute: number;
+  endMinute: number;
+  flexible: boolean;
+};
+
+export type Nurse = {
+  id: string;
+  name: string;
+  color: string;
+  role: NurseRole;
+  homeStationId?: string | null;
+  traumaQualified: boolean;
+  chargeQualified: boolean;
+  psychQualified: boolean;
+  triageQualified: boolean;
+  maxPatients: number;
+  targetPatients: number;
+  walkingSpeedFeetPerMinute: number;
+  shiftStartMinute: number;
+  shiftEndMinute: number;
+  breakWindows: BreakWindow[];
+};
+
+export type Assignment = {
+  id: string;
+  nurseId: string;
+  roomIds: string[];
+  assignmentType: AssignmentType;
+  startMinute: number;
+  endMinute?: number | null;
+};
+
+export type ManualAssignmentContract = {
+  schemaVersion: "1.0.0";
+  assignmentSetId: string;
+  planId: string;
+  name: string;
+  description?: string | null;
+  nurses: Nurse[];
+  assignments: Assignment[];
+};
+
+export type Warning = {
+  id: string;
+  severity: WarningSeverity;
+  code: WarningCode;
+  message: string;
+  nurseIds?: string[];
+  roomIds?: string[];
+  taskIds?: string[];
+  minute?: number | null;
+};
+
+export type RoomWorkloadScore = {
+  roomId: string;
+  acuityPoints: number;
+  traumaPoints: number;
+  isolationPoints: number;
+  behavioralPoints: number;
+  fallRiskPoints: number;
+  sitterPoints: number;
+  medicationPoints: number;
+  monitoringPoints: number;
+  procedurePoints: number;
+  totalRoomBurden: number;
+};
+
+export type ManualAssignmentValidationResult = {
+  warnings: Warning[];
+  assignedRoomMap: Record<string, string[]>;
+  unassignedOccupiedRoomIds: string[];
+  perNurseAssignedOccupiedCounts: Record<string, number>;
+};
+
+export type NurseBurdenScore = {
+  nurseId: string;
+  assignedRoomCount: number;
+  occupiedRoomCount: number;
+  totalAcuityBurden: number;
+  totalSpecialBurden: number;
+  activeTaskMinutes: number;
+  walkingMinutes: number;
+  roomSpreadPenalty: number;
+  overRatioPenalty: number;
+  traumaMismatchPenalty: number;
+  breakCoveragePenalty: number;
+  interruptionPenalty: number;
+  totalBurden: number;
+  warnings: Warning[];
+};
+
+export type NurseBurdenResult = {
+  nurseScores: NurseBurdenScore[];
+  warnings: Warning[];
+  validation: ManualAssignmentValidationResult;
 };
 
 type IdSets = {
@@ -281,11 +419,97 @@ export function validateScenarioContract(value: unknown): ScenarioContract {
     throw new Error("shiftLengthMinutes must divide evenly by timestepMinutes");
   }
 
-  const roomLoads = requireArray(scenario.roomLoads, "roomLoads");
-  const roomLoadIds = roomLoads.map((roomLoad, index) => validateRoomLoad(roomLoad, index).roomId);
-  requireUnique("room load ids", roomLoadIds);
+  validateRoomLoads(scenario.roomLoads);
 
   return scenario as ScenarioContract;
+}
+
+export function validateRoomLoads(value: unknown, plan?: PlanContract): RoomLoad[] {
+  const roomLoads = requireArray(value, "roomLoads").map(validateRoomLoad);
+  requireUnique(
+    "room load ids",
+    roomLoads.map((roomLoad) => roomLoad.roomId)
+  );
+
+  if (plan != null) {
+    const roomIds = new Set(plan.rooms.map((room) => room.id));
+    roomLoads.forEach((roomLoad, index) => {
+      if (!roomIds.has(roomLoad.roomId)) {
+        throw new Error(`roomLoads[${index}].roomId references an unknown room`);
+      }
+    });
+  }
+
+  return roomLoads;
+}
+
+export function validateManualAssignmentContract(
+  value: unknown,
+  plan?: PlanContract
+): ManualAssignmentContract {
+  const assignmentSet = requireRecord(value, "manualAssignment");
+  requireExactKeys(assignmentSet, "manualAssignment", [
+    "schemaVersion",
+    "assignmentSetId",
+    "planId",
+    "name",
+    "description",
+    "nurses",
+    "assignments"
+  ]);
+
+  requireLiteral(assignmentSet.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(assignmentSet.assignmentSetId, "assignmentSetId");
+  requireString(assignmentSet.planId, "planId");
+  requireString(assignmentSet.name, "name");
+  requireOptionalString(assignmentSet.description, "description");
+
+  if (plan != null && assignmentSet.planId !== plan.planId) {
+    throw new Error("manualAssignment.planId must match the referenced plan");
+  }
+
+  const nurses = requireArray(assignmentSet.nurses, "nurses").map(validateNurse);
+  const assignments = requireArray(assignmentSet.assignments, "assignments").map(
+    validateAssignment
+  );
+
+  const nurseIds = requireUnique(
+    "nurse ids",
+    nurses.map((nurse) => nurse.id)
+  );
+  requireUnique(
+    "assignment ids",
+    assignments.map((assignment) => assignment.id)
+  );
+
+  const breakWindowIds = nurses.flatMap((nurse) =>
+    nurse.breakWindows.map((breakWindow) => breakWindow.id)
+  );
+  requireUnique("break window ids", breakWindowIds);
+
+  assignments.forEach((assignment, index) => {
+    if (!nurseIds.has(assignment.nurseId)) {
+      throw new Error(`assignments[${index}].nurseId references an unknown nurse`);
+    }
+  });
+
+  const assignedRoomIds = assignments.flatMap((assignment) => assignment.roomIds);
+  requireUnique("assigned room ids", assignedRoomIds);
+
+  if (plan != null) {
+    const roomIds = new Set(plan.rooms.map((room) => room.id));
+    assignments.forEach((assignment, assignmentIndex) => {
+      assignment.roomIds.forEach((roomId, roomIndex) => {
+        if (!roomIds.has(roomId)) {
+          throw new Error(
+            `assignments[${assignmentIndex}].roomIds[${roomIndex}] references an unknown room`
+          );
+        }
+      });
+    });
+  }
+
+  return assignmentSet as ManualAssignmentContract;
 }
 
 function validateScale(value: unknown): ScaleSettings {
@@ -574,7 +798,7 @@ function validateRoomLoad(value: unknown, index: number): RoomLoad {
   requireExactKeys(roomLoad, `roomLoads[${index}]`, [
     "roomId",
     "occupied",
-    "acuityScore",
+    "acuity",
     "traumaActive",
     "isolationActive",
     "behavioralRisk",
@@ -583,21 +807,146 @@ function validateRoomLoad(value: unknown, index: number): RoomLoad {
     "medicationFrequency",
     "monitoringFrequency",
     "procedureBurden",
-    "turnoverBurden"
+    "expectedTurnover"
   ]);
   requireString(roomLoad.roomId, `roomLoads[${index}].roomId`);
   requireBoolean(roomLoad.occupied, `roomLoads[${index}].occupied`);
-  requireInteger(roomLoad.acuityScore, `roomLoads[${index}].acuityScore`, 1, 5);
+  requireInteger(roomLoad.acuity, `roomLoads[${index}].acuity`, 1, 5);
   requireBoolean(roomLoad.traumaActive, `roomLoads[${index}].traumaActive`);
   requireBoolean(roomLoad.isolationActive, `roomLoads[${index}].isolationActive`);
   requireBoolean(roomLoad.behavioralRisk, `roomLoads[${index}].behavioralRisk`);
   requireBoolean(roomLoad.fallRisk, `roomLoads[${index}].fallRisk`);
   requireBoolean(roomLoad.sitterRequired, `roomLoads[${index}].sitterRequired`);
-  requireInteger(roomLoad.medicationFrequency, `roomLoads[${index}].medicationFrequency`, 0);
-  requireInteger(roomLoad.monitoringFrequency, `roomLoads[${index}].monitoringFrequency`, 0);
-  requireInteger(roomLoad.procedureBurden, `roomLoads[${index}].procedureBurden`, 0);
-  requireInteger(roomLoad.turnoverBurden, `roomLoads[${index}].turnoverBurden`, 0);
+  requireEnum(
+    roomLoad.medicationFrequency,
+    TASK_FREQUENCIES,
+    `roomLoads[${index}].medicationFrequency`
+  );
+  requireEnum(
+    roomLoad.monitoringFrequency,
+    TASK_FREQUENCIES,
+    `roomLoads[${index}].monitoringFrequency`
+  );
+  requireEnum(roomLoad.procedureBurden, BURDEN_LEVELS, `roomLoads[${index}].procedureBurden`);
+  requireEnum(roomLoad.expectedTurnover, TURNOVER_LEVELS, `roomLoads[${index}].expectedTurnover`);
   return roomLoad as RoomLoad;
+}
+
+function validateNurse(value: unknown, index: number): Nurse {
+  const nurse = requireRecord(value, `nurses[${index}]`);
+  requireExactKeys(nurse, `nurses[${index}]`, [
+    "id",
+    "name",
+    "color",
+    "role",
+    "homeStationId",
+    "traumaQualified",
+    "chargeQualified",
+    "psychQualified",
+    "triageQualified",
+    "maxPatients",
+    "targetPatients",
+    "walkingSpeedFeetPerMinute",
+    "shiftStartMinute",
+    "shiftEndMinute",
+    "breakWindows"
+  ]);
+  const nurseId = requireString(nurse.id, `nurses[${index}].id`);
+  requireString(nurse.name, `nurses[${index}].name`);
+  const color = requireString(nurse.color, `nurses[${index}].color`);
+  if (!/^#[0-9a-fA-F]{6}$/.test(color)) {
+    throw new Error(`nurses[${index}].color must be a hex color`);
+  }
+  requireEnum(nurse.role, NURSE_ROLES, `nurses[${index}].role`);
+  requireOptionalString(nurse.homeStationId, `nurses[${index}].homeStationId`);
+  requireBoolean(nurse.traumaQualified, `nurses[${index}].traumaQualified`);
+  requireBoolean(nurse.chargeQualified, `nurses[${index}].chargeQualified`);
+  requireBoolean(nurse.psychQualified, `nurses[${index}].psychQualified`);
+  requireBoolean(nurse.triageQualified, `nurses[${index}].triageQualified`);
+  const maxPatients = requirePositiveInteger(nurse.maxPatients, `nurses[${index}].maxPatients`);
+  const targetPatients = requirePositiveInteger(
+    nurse.targetPatients,
+    `nurses[${index}].targetPatients`
+  );
+  if (maxPatients < targetPatients) {
+    throw new Error(`nurses[${index}].maxPatients must be greater than or equal to targetPatients`);
+  }
+  requirePositiveNumber(
+    nurse.walkingSpeedFeetPerMinute,
+    `nurses[${index}].walkingSpeedFeetPerMinute`
+  );
+  const shiftStartMinute = requireInteger(
+    nurse.shiftStartMinute,
+    `nurses[${index}].shiftStartMinute`,
+    0
+  );
+  const shiftEndMinute = requireInteger(
+    nurse.shiftEndMinute,
+    `nurses[${index}].shiftEndMinute`,
+    0
+  );
+  if (shiftEndMinute <= shiftStartMinute) {
+    throw new Error(`nurses[${index}].shiftEndMinute must be greater than shiftStartMinute`);
+  }
+  requireArray(nurse.breakWindows, `nurses[${index}].breakWindows`).forEach(
+    (breakWindow, breakWindowIndex) =>
+      validateBreakWindow(breakWindow, breakWindowIndex, nurseId, `nurses[${index}].breakWindows`)
+  );
+  return nurse as Nurse;
+}
+
+function validateBreakWindow(
+  value: unknown,
+  index: number,
+  nurseId: string,
+  parentLabel: string
+): BreakWindow {
+  const label = `${parentLabel}[${index}]`;
+  const breakWindow = requireRecord(value, label);
+  requireExactKeys(breakWindow, label, ["id", "nurseId", "startMinute", "endMinute", "flexible"]);
+  requireString(breakWindow.id, `${label}.id`);
+  const referencedNurseId = requireString(breakWindow.nurseId, `${label}.nurseId`);
+  if (referencedNurseId !== nurseId) {
+    throw new Error(`${label}.nurseId must reference its parent nurse`);
+  }
+  const startMinute = requireInteger(breakWindow.startMinute, `${label}.startMinute`, 0);
+  const endMinute = requireInteger(breakWindow.endMinute, `${label}.endMinute`, 0);
+  if (endMinute <= startMinute) {
+    throw new Error(`${label}.endMinute must be greater than startMinute`);
+  }
+  requireBoolean(breakWindow.flexible, `${label}.flexible`);
+  return breakWindow as BreakWindow;
+}
+
+function validateAssignment(value: unknown, index: number): Assignment {
+  const assignment = requireRecord(value, `assignments[${index}]`);
+  requireExactKeys(assignment, `assignments[${index}]`, [
+    "id",
+    "nurseId",
+    "roomIds",
+    "assignmentType",
+    "startMinute",
+    "endMinute"
+  ]);
+  requireString(assignment.id, `assignments[${index}].id`);
+  requireString(assignment.nurseId, `assignments[${index}].nurseId`);
+  const roomIds = requireArray(assignment.roomIds, `assignments[${index}].roomIds`);
+  if (roomIds.length === 0) {
+    throw new Error(`assignments[${index}].roomIds requires at least one room`);
+  }
+  roomIds.forEach((roomId, roomIndex) =>
+    requireString(roomId, `assignments[${index}].roomIds[${roomIndex}]`)
+  );
+  requireUnique("assignment room ids", roomIds as string[]);
+  requireEnum(assignment.assignmentType, ASSIGNMENT_TYPES, `assignments[${index}].assignmentType`);
+  const startMinute = requireInteger(assignment.startMinute, `assignments[${index}].startMinute`, 0);
+  if (assignment.endMinute != null) {
+    const endMinute = requireInteger(assignment.endMinute, `assignments[${index}].endMinute`, 0);
+    if (endMinute <= startMinute) {
+      throw new Error(`assignments[${index}].endMinute must be greater than startMinute`);
+    }
+  }
+  return assignment as Assignment;
 }
 
 function validatePoint(value: unknown, label: string): Point {

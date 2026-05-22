@@ -28,7 +28,17 @@ Every issue must include `commands.txt` and `closeout.md` under its issue eviden
 
 ## Evidence Packs
 
-`npm run evidence:local` generates a local evidence pack under `docs/verification/local-runs/latest/` and writes a manifest that lists the generated artifacts. The evidence pack command is local-only and must not upload artifacts externally.
+`npm run evidence:local` generates a local evidence pack and writes a manifest that lists the generated artifacts. The default output mode is transient and writes outside tracked repository paths under the OS temp directory.
+
+Tracked evidence is opt-in for formal closeout:
+
+```text
+npm run evidence:local -- --tracked
+npm run evidence:local -- --out docs/verification/local-runs/latest
+LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
+```
+
+The manifest must include `createdAt`, `apiHostPort`, `webHostPort`, `outputMode`, `outputDir`, `artifacts`, and `status`. The evidence pack command is local-only and must not upload artifacts externally.
 
 ## Boundaries
 

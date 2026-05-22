@@ -1,0 +1,73 @@
+[
+  {
+    "name": "unassigned occupied room",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }],
+    "assignments": [],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
+    "expectedCodes": ["UNASSIGNED_OCCUPIED_ROOM"]
+  },
+  {
+    "name": "room assigned twice",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true },
+      { "id": "nurse-bravo", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01"] },
+      { "id": "assignment-bravo", "nurseId": "nurse-bravo", "roomIds": ["room-01"] }
+    ],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
+    "expectedCodes": ["ROOM_ASSIGNED_MULTIPLE_TIMES"]
+  },
+  {
+    "name": "nurse over target",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 1, "maxPatients": 3, "traumaQualified": true }],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-02"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 2, "traumaActive": false },
+      { "roomId": "room-02", "occupied": true, "acuity": 2, "traumaActive": false }
+    ],
+    "expectedCodes": ["OVER_TARGET_RATIO"]
+  },
+  {
+    "name": "nurse over max",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 1, "maxPatients": 1, "traumaQualified": true }],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-02"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 2, "traumaActive": false },
+      { "roomId": "room-02", "occupied": true, "acuity": 2, "traumaActive": false }
+    ],
+    "expectedCodes": ["OVER_TARGET_RATIO", "OVER_MAX_RATIO"]
+  },
+  {
+    "name": "trauma room assigned to non-qualified nurse",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": false }],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-02"] }
+    ],
+    "roomLoads": [{ "roomId": "room-02", "occupied": true, "acuity": 4, "traumaActive": true }],
+    "expectedCodes": ["TRAUMA_WITH_NON_QUALIFIED_NURSE"]
+  },
+  {
+    "name": "unknown nurse",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-missing", "roomIds": ["room-01"] }
+    ],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
+    "expectedCodes": ["UNKNOWN_NURSE", "ROOM_WITHOUT_COVERAGE"]
+  },
+  {
+    "name": "unknown room",
+    "nurses": [{ "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-99"] }
+    ],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
+    "expectedCodes": ["UNKNOWN_ROOM", "UNASSIGNED_OCCUPIED_ROOM"]
+  }
+]

@@ -1,0 +1,11 @@
+# Issue 037 Commands
+
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm --workspace packages/shared test
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose down
+node scripts/verify-local.mjs
+git diff --name-only

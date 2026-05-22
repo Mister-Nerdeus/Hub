@@ -1,15 +1,26 @@
 import { useReducer } from "react";
 import type { PlanContract } from "@nerdeus/shared";
 
+import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
+import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
 import { PlanDraftPanel } from "./features/plan-builder/PlanDraftPanel";
 import { planDraftReducer } from "./features/plan-builder/planDraftReducer";
 import { PlanRenderer } from "./features/plan-renderer/PlanRenderer";
 import { PlanImportExportPanel } from "./features/plans/PlanImportExportPanel";
 import { PlanSaveLoadPanel } from "./features/plans/PlanSaveLoadPanel";
+import {
+  manualAssignmentBasic,
+  manualAssignmentRoomLoads
+} from "./fixtures/manualAssignmentBasic";
 import { planErPodPhase2 } from "./fixtures/planErPodPhase2";
 
 export function App() {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8010";
+  const manualAssignmentViewModel = createManualAssignmentViewModel(
+    planErPodPhase2,
+    manualAssignmentRoomLoads,
+    manualAssignmentBasic
+  );
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -28,6 +39,7 @@ export function App() {
         </div>
       </section>
 
+      <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

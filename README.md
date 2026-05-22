@@ -58,6 +58,14 @@ To generate a consolidated local evidence pack:
 npm run evidence:local
 ```
 
+By default, the evidence pack writes transient artifacts under the OS temp directory so routine local testing does not dirty tracked documentation paths. Use tracked mode only when formal issue evidence requires it:
+
+```text
+npm run evidence:local -- --tracked
+npm run evidence:local -- --out docs/verification/local-runs/latest
+LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
+```
+
 ## Local Docker Ports
 
 Docker Compose is the local runtime for the web, API, and database. Container ports stay stable, while host ports are configurable through `.env`.
@@ -82,6 +90,8 @@ The Phase 2 plan contract alignment is documented in `docs/contracts/phase-2-pla
 
 ## Phase Status
 
-Phase 2 Plan Builder foundation is implemented through the evidence gate in `docs/verification/phase-2-plan-builder-evidence.md`. Phase 3 nurse assignment, scoring, simulation, and optimization have not started.
+Phase 2 Plan Builder foundation is implemented through the evidence gate in `docs/verification/phase-2-plan-builder-evidence.md`.
+
+Phase 3 manual assignment proof covers shared nurse and room-load contracts, deterministic room workload scoring, deterministic manual assignment warnings, deterministic nurse burden scoring, and an API-free web proof surface. Seeded full-shift simulation and optimization are still not implemented.
 
 The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024.

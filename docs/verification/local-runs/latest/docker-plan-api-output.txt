@@ -2,6 +2,7 @@
 Command: node scripts/verify-docker-plan-api.mjs
 
 ## stdout
+Writing Docker plan API smoke evidence to C:\Projects\Hub\docs\verification\local-runs\latest
 > GET http://localhost:8010/health
 > DELETE http://localhost:8010/v1/plans/plan-docker-smoke
 > POST http://localhost:8010/v1/plans

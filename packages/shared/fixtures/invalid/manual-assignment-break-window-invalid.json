@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "assignmentSetId": "manual-assignment-break-window-invalid",
+  "planId": "plan-er-pod-phase2",
+  "name": "Invalid Break Window",
+  "description": null,
+  "nurses": [
+    {
+      "id": "nurse-alpha",
+      "name": "Nurse Alpha",
+      "color": "#2563eb",
+      "role": "primary",
+      "homeStationId": "station-primary",
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "psychQualified": false,
+      "triageQualified": false,
+      "maxPatients": 2,
+      "targetPatients": 1,
+      "walkingSpeedFeetPerMinute": 250,
+      "shiftStartMinute": 0,
+      "shiftEndMinute": 720,
+      "breakWindows": [
+        {
+          "id": "break-alpha-1",
+          "nurseId": "nurse-alpha",
+          "startMinute": 300,
+          "endMinute": 240,
+          "flexible": true
+        }
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "id": "assignment-alpha",
+      "nurseId": "nurse-alpha",
+      "roomIds": ["room-01"],
+      "assignmentType": "manual",
+      "startMinute": 0,
+      "endMinute": null
+    }
+  ]
+}

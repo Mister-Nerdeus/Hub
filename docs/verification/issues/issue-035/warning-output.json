@@ -1,0 +1,51 @@
+{
+  "generatedFrom": [
+    "packages/shared/fixtures/manual-assignment-basic.json",
+    "packages/shared/fixtures/room-loads-basic.json"
+  ],
+  "warnings": [
+    {
+      "severity": "warning",
+      "code": "OVER_TARGET_RATIO",
+      "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+      "nurseIds": [
+        "nurse-alpha"
+      ],
+      "id": "OVER_TARGET_RATIO:nurse-alpha"
+    },
+    {
+      "severity": "warning",
+      "code": "UNASSIGNED_OCCUPIED_ROOM",
+      "message": "Occupied room hall-bed-01 is unassigned.",
+      "roomIds": [
+        "hall-bed-01"
+      ],
+      "id": "UNASSIGNED_OCCUPIED_ROOM::hall-bed-01"
+    }
+  ],
+  "assignedRoomMap": {
+    "room-01": [
+      "nurse-alpha"
+    ],
+    "room-02": [
+      "nurse-charlie"
+    ],
+    "room-03": [
+      "nurse-alpha"
+    ],
+    "room-04": [
+      "nurse-bravo"
+    ],
+    "room-05": [
+      "nurse-charlie"
+    ]
+  },
+  "unassignedOccupiedRoomIds": [
+    "hall-bed-01"
+  ],
+  "perNurseAssignedOccupiedCounts": {
+    "nurse-alpha": 2,
+    "nurse-bravo": 1,
+    "nurse-charlie": 2
+  }
+}

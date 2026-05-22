@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator, model_validator
 
 RoomType = Literal[
     "standard",
@@ -22,6 +22,30 @@ ZoneType = Literal[
 ]
 PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
 StationType = Literal["primary", "secondary", "charge", "temporary"]
+TaskFrequency = Literal["none", "low", "medium", "high", "continuous"]
+BurdenLevel = Literal["none", "low", "medium", "high", "very_high"]
+TurnoverLevel = Literal["low", "normal", "high", "surge"]
+NurseRole = Literal[
+    "primary",
+    "charge",
+    "float",
+    "triage",
+    "trauma",
+    "preceptor",
+    "orientee",
+]
+AssignmentType = Literal["manual", "optimized", "temporary_break_coverage"]
+WarningSeverity = Literal["info", "warning", "critical"]
+WarningCode = Literal[
+    "OVER_TARGET_RATIO",
+    "OVER_MAX_RATIO",
+    "TRAUMA_WITH_NON_QUALIFIED_NURSE",
+    "UNASSIGNED_OCCUPIED_ROOM",
+    "ROOM_WITHOUT_COVERAGE",
+    "UNKNOWN_NURSE",
+    "UNKNOWN_ROOM",
+    "ROOM_ASSIGNED_MULTIPLE_TIMES",
+]
 
 PLAN_ID_MAX_LENGTH = 64
 PLAN_NAME_MAX_LENGTH = 160
@@ -240,16 +264,16 @@ class PlanContract(StrictModel):
 class RoomLoad(StrictModel):
     roomId: str = Field(min_length=1)
     occupied: bool
-    acuityScore: int = Field(ge=1, le=5)
+    acuity: int = Field(ge=1, le=5)
     traumaActive: bool
     isolationActive: bool
     behavioralRisk: bool
     fallRisk: bool
     sitterRequired: bool
-    medicationFrequency: int = Field(ge=0)
-    monitoringFrequency: int = Field(ge=0)
-    procedureBurden: int = Field(ge=0)
-    turnoverBurden: int = Field(ge=0)
+    medicationFrequency: TaskFrequency
+    monitoringFrequency: TaskFrequency
+    procedureBurden: BurdenLevel
+    expectedTurnover: TurnoverLevel
 
 
 class ScenarioContract(StrictModel):
@@ -268,6 +292,143 @@ class ScenarioContract(StrictModel):
             raise ValueError("shiftLengthMinutes must divide evenly by timestepMinutes")
         require_unique("room load ids", [load.roomId for load in self.roomLoads])
         return self
+
+
+class BreakWindow(StrictModel):
+    id: str = Field(min_length=1)
+    nurseId: str = Field(min_length=1)
+    startMinute: int = Field(ge=0)
+    endMinute: int = Field(ge=0)
+    flexible: bool
+
+    @model_validator(mode="after")
+    def validate_window(self) -> "BreakWindow":
+        if self.endMinute <= self.startMinute:
+            raise ValueError("break endMinute must be greater than startMinute")
+        return self
+
+
+class Nurse(StrictModel):
+    id: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    role: NurseRole
+    homeStationId: str | None = None
+    traumaQualified: bool
+    chargeQualified: bool
+    psychQualified: bool
+    triageQualified: bool
+    maxPatients: int = Field(gt=0)
+    targetPatients: int = Field(gt=0)
+    walkingSpeedFeetPerMinute: float = Field(gt=0)
+    shiftStartMinute: int = Field(ge=0)
+    shiftEndMinute: int = Field(ge=0)
+    breakWindows: list[BreakWindow]
+
+    @model_validator(mode="after")
+    def validate_nurse(self) -> "Nurse":
+        if self.maxPatients < self.targetPatients:
+            raise ValueError("maxPatients must be greater than or equal to targetPatients")
+        if self.shiftEndMinute <= self.shiftStartMinute:
+            raise ValueError("shiftEndMinute must be greater than shiftStartMinute")
+        for break_window in self.breakWindows:
+            if break_window.nurseId != self.id:
+                raise ValueError("break window nurseId must reference its parent nurse")
+        return self
+
+
+class Assignment(StrictModel):
+    id: str = Field(min_length=1)
+    nurseId: str = Field(min_length=1)
+    roomIds: list[str] = Field(min_length=1)
+    assignmentType: AssignmentType
+    startMinute: int = Field(ge=0)
+    endMinute: int | None = None
+
+    @field_validator("roomIds")
+    @classmethod
+    def validate_room_ids(cls, value: list[str]) -> list[str]:
+        require_unique("assignment room ids", value)
+        if any(room_id == "" for room_id in value):
+            raise ValueError("assignment room ids must be non-empty")
+        return value
+
+    @model_validator(mode="after")
+    def validate_assignment(self) -> "Assignment":
+        if self.endMinute is not None and self.endMinute <= self.startMinute:
+            raise ValueError("assignment endMinute must be greater than startMinute")
+        return self
+
+
+class ManualAssignmentContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    assignmentSetId: str = Field(min_length=1)
+    planId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    nurses: list[Nurse]
+    assignments: list[Assignment]
+
+    @model_validator(mode="after")
+    def validate_assignment_set(self) -> "ManualAssignmentContract":
+        nurse_ids = {nurse.id for nurse in self.nurses}
+        require_unique("nurse ids", [nurse.id for nurse in self.nurses])
+        require_unique("assignment ids", [assignment.id for assignment in self.assignments])
+        require_unique(
+            "break window ids",
+            [break_window.id for nurse in self.nurses for break_window in nurse.breakWindows],
+        )
+
+        for assignment in self.assignments:
+            if assignment.nurseId not in nurse_ids:
+                raise ValueError(f"assignment {assignment.id} references an unknown nurse")
+
+        assigned_room_ids = [
+            room_id for assignment in self.assignments for room_id in assignment.roomIds
+        ]
+        require_unique("assigned room ids", assigned_room_ids)
+        return self
+
+
+class Warning(StrictModel):
+    id: str = Field(min_length=1)
+    severity: WarningSeverity
+    code: WarningCode
+    message: str = Field(min_length=1)
+    nurseIds: list[str] | None = None
+    roomIds: list[str] | None = None
+    taskIds: list[str] | None = None
+    minute: int | None = None
+
+
+def validate_room_loads(value: Any, plan: PlanContract | None = None) -> list[RoomLoad]:
+    room_loads = TypeAdapter(list[RoomLoad]).validate_python(value)
+    require_unique("room load ids", [load.roomId for load in room_loads])
+
+    if plan is not None:
+        room_ids = {room.id for room in plan.rooms}
+        for load in room_loads:
+            if load.roomId not in room_ids:
+                raise ValueError(f"room load {load.roomId} references an unknown room")
+
+    return room_loads
+
+
+def validate_manual_assignment_contract(
+    value: Any, plan: PlanContract | None = None
+) -> ManualAssignmentContract:
+    assignment_set = ManualAssignmentContract.model_validate(value)
+
+    if plan is not None:
+        if assignment_set.planId != plan.planId:
+            raise ValueError("manual assignment planId must match the referenced plan")
+        room_ids = {room.id for room in plan.rooms}
+        for assignment in assignment_set.assignments:
+            for room_id in assignment.roomIds:
+                if room_id not in room_ids:
+                    raise ValueError(f"assignment {assignment.id} references unknown room {room_id}")
+
+    return assignment_set
 
 
 def require_unique(label: str, values: list[str]) -> None:

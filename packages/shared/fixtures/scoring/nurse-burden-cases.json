@@ -1,0 +1,96 @@
+[
+  {
+    "name": "balanced assignment",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-02"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 2, "traumaActive": false },
+      { "roomId": "room-02", "occupied": true, "acuity": 3, "traumaActive": false }
+    ],
+    "expected": { "nurseId": "nurse-alpha", "occupiedRoomCount": 2, "minimumTotalBurden": 8 }
+  },
+  {
+    "name": "nurse over target ratio",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 1, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-02"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 2, "traumaActive": false },
+      { "roomId": "room-02", "occupied": true, "acuity": 3, "traumaActive": false }
+    ],
+    "expected": { "nurseId": "nurse-alpha", "warningCode": "OVER_TARGET_RATIO", "overRatioPenalty": 5 }
+  },
+  {
+    "name": "nurse over max ratio",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 1, "maxPatients": 1, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-02"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 2, "traumaActive": false },
+      { "roomId": "room-02", "occupied": true, "acuity": 3, "traumaActive": false }
+    ],
+    "expected": { "nurseId": "nurse-alpha", "warningCode": "OVER_MAX_RATIO", "overRatioPenalty": 15 }
+  },
+  {
+    "name": "trauma mismatch",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": false }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-02"] }
+    ],
+    "roomLoads": [{ "roomId": "room-02", "occupied": true, "acuity": 4, "traumaActive": true }],
+    "expected": {
+      "nurseId": "nurse-alpha",
+      "warningCode": "TRAUMA_WITH_NON_QUALIFIED_NURSE",
+      "traumaMismatchPenalty": 8
+    }
+  },
+  {
+    "name": "same count lower acuity",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-01", "room-03"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-01", "occupied": true, "acuity": 1, "traumaActive": false },
+      { "roomId": "room-03", "occupied": true, "acuity": 2, "traumaActive": false }
+    ],
+    "expected": { "nurseId": "nurse-alpha", "occupiedRoomCount": 2, "totalAcuityBurden": 3 }
+  },
+  {
+    "name": "same count higher acuity",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [
+      { "id": "assignment-alpha", "nurseId": "nurse-alpha", "roomIds": ["room-02", "room-04"] }
+    ],
+    "roomLoads": [
+      { "roomId": "room-02", "occupied": true, "acuity": 5, "traumaActive": false },
+      { "roomId": "room-04", "occupied": true, "acuity": 4, "traumaActive": false }
+    ],
+    "expected": { "nurseId": "nurse-alpha", "occupiedRoomCount": 2, "totalAcuityBurden": 17 }
+  },
+  {
+    "name": "unassigned occupied room warning propagates",
+    "nurses": [
+      { "id": "nurse-alpha", "targetPatients": 2, "maxPatients": 3, "traumaQualified": true }
+    ],
+    "assignments": [],
+    "roomLoads": [{ "roomId": "room-01", "occupied": true, "acuity": 3, "traumaActive": false }],
+    "expected": { "warningCode": "UNASSIGNED_OCCUPIED_ROOM" }
+  }
+]

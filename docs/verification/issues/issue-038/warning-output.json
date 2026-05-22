@@ -1,0 +1,25 @@
+{
+  "warnings": [
+    {
+      "severity": "warning",
+      "code": "OVER_TARGET_RATIO",
+      "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+      "nurseIds": [
+        "nurse-alpha"
+      ],
+      "id": "OVER_TARGET_RATIO:nurse-alpha"
+    },
+    {
+      "severity": "warning",
+      "code": "UNASSIGNED_OCCUPIED_ROOM",
+      "message": "Occupied room hall-bed-01 is unassigned.",
+      "roomIds": [
+        "hall-bed-01"
+      ],
+      "id": "UNASSIGNED_OCCUPIED_ROOM::hall-bed-01"
+    }
+  ],
+  "unassignedOccupiedRoomIds": [
+    "hall-bed-01"
+  ]
+}

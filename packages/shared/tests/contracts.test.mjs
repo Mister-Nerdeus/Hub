@@ -4,7 +4,12 @@ import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 import test from "node:test";
 
-import { validatePlanContract, validateScenarioContract } from "../dist/index.js";
+import {
+  validateManualAssignmentContract,
+  validatePlanContract,
+  validateRoomLoads,
+  validateScenarioContract
+} from "../dist/index.js";
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const invalidFixturesDir = join(fixturesDir, "invalid");
@@ -49,6 +54,29 @@ test("scenario fixture validates against TypeScript contract", () => {
   assert.equal(scenario.shiftLengthMinutes, 480);
   assert.equal(scenario.timestepMinutes, 5);
   assert.equal(scenario.seed, 20260521);
+  assert.equal(scenario.roomLoads[0].acuity, 3);
+  assert.equal(scenario.roomLoads[0].monitoringFrequency, "high");
+});
+
+test("room-load fixture validates against TypeScript contract and plan rooms", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const roomLoads = validateRoomLoads(readFixture("room-loads-basic.json"), plan);
+
+  assert.equal(roomLoads.length, 7);
+  assert.equal(roomLoads[1].acuity, 5);
+  assert.equal(roomLoads[1].expectedTurnover, "high");
+});
+
+test("manual assignment fixture validates against TypeScript contract and plan rooms", () => {
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+
+  assert.equal(assignmentSet.schemaVersion, "1.0.0");
+  assert.equal(assignmentSet.nurses.length, 3);
+  assert.equal(assignmentSet.assignments[0].assignmentType, "manual");
 });
 
 const invalidPlanFixtures = [
@@ -72,5 +100,54 @@ const invalidPlanFixtures = [
 for (const fixtureName of invalidPlanFixtures) {
   test(`${fixtureName} is rejected by TypeScript contract`, () => {
     assert.throws(() => validatePlanContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+const invalidRoomLoadFixtures = [
+  "room-load-bad-frequency.json",
+  "room-load-bad-burden.json",
+  "room-load-unknown-room.json"
+];
+
+for (const fixtureName of invalidRoomLoadFixtures) {
+  test(`${fixtureName} is rejected by TypeScript room-load contract`, () => {
+    const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+    assert.throws(() => validateRoomLoads(readInvalidFixture(fixtureName), plan));
+  });
+}
+
+test("old numeric room-load fields are rejected by TypeScript contract", () => {
+  assert.throws(() =>
+    validateRoomLoads([
+      {
+        roomId: "room-01",
+        occupied: true,
+        acuityScore: 3,
+        traumaActive: false,
+        isolationActive: false,
+        behavioralRisk: false,
+        fallRisk: false,
+        sitterRequired: false,
+        medicationFrequency: 2,
+        monitoringFrequency: 2,
+        procedureBurden: 1,
+        turnoverBurden: 1
+      }
+    ])
+  );
+});
+
+const invalidManualAssignmentFixtures = [
+  "manual-assignment-duplicate-nurse-id.json",
+  "manual-assignment-room-assigned-twice.json",
+  "manual-assignment-unknown-room.json",
+  "manual-assignment-unknown-nurse.json",
+  "manual-assignment-break-window-invalid.json"
+];
+
+for (const fixtureName of invalidManualAssignmentFixtures) {
+  test(`${fixtureName} is rejected by TypeScript manual assignment contract`, () => {
+    const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+    assert.throws(() => validateManualAssignmentContract(readInvalidFixture(fixtureName), plan));
   });
 }

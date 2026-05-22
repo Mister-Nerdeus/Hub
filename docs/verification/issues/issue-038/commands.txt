@@ -1,0 +1,8 @@
+# Issue 038 Commands
+
+docker compose down
+node scripts/verify-local.mjs
+npm run evidence:local -- --tracked
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git diff --name-only

@@ -1,0 +1,155 @@
+{
+  "roomScores": [
+    {
+      "roomId": "room-01",
+      "acuityPoints": 4,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 2,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 3,
+      "procedurePoints": 0,
+      "totalRoomBurden": 9
+    },
+    {
+      "roomId": "room-02",
+      "acuityPoints": 10,
+      "traumaPoints": 8,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 3,
+      "monitoringPoints": 3,
+      "procedurePoints": 0,
+      "totalRoomBurden": 24
+    },
+    {
+      "roomId": "room-03",
+      "acuityPoints": 2,
+      "traumaPoints": 0,
+      "isolationPoints": 3,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 5
+    },
+    {
+      "roomId": "room-04",
+      "acuityPoints": 4,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 4,
+      "fallRiskPoints": 0,
+      "sitterPoints": 5,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 13
+    },
+    {
+      "roomId": "room-05",
+      "acuityPoints": 1,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 4,
+      "totalRoomBurden": 5
+    },
+    {
+      "roomId": "room-06",
+      "acuityPoints": 0,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 0,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 0,
+      "procedurePoints": 0,
+      "totalRoomBurden": 0
+    },
+    {
+      "roomId": "hall-bed-01",
+      "acuityPoints": 7,
+      "traumaPoints": 0,
+      "isolationPoints": 0,
+      "behavioralPoints": 0,
+      "fallRiskPoints": 2,
+      "sitterPoints": 0,
+      "medicationPoints": 0,
+      "monitoringPoints": 3,
+      "procedurePoints": 0,
+      "totalRoomBurden": 12
+    }
+  ],
+  "nurseScores": [
+    {
+      "nurseId": "nurse-alpha",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 6,
+      "totalSpecialBurden": 8,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 2,
+      "overRatioPenalty": 5,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 21,
+      "warnings": [
+        {
+          "severity": "warning",
+          "code": "OVER_TARGET_RATIO",
+          "message": "Nurse Alpha is assigned 2 occupied rooms above target 1.",
+          "nurseIds": [
+            "nurse-alpha"
+          ],
+          "id": "OVER_TARGET_RATIO:nurse-alpha"
+        }
+      ]
+    },
+    {
+      "nurseId": "nurse-bravo",
+      "assignedRoomCount": 1,
+      "occupiedRoomCount": 1,
+      "totalAcuityBurden": 4,
+      "totalSpecialBurden": 9,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 0,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 13,
+      "warnings": []
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "assignedRoomCount": 2,
+      "occupiedRoomCount": 2,
+      "totalAcuityBurden": 11,
+      "totalSpecialBurden": 18,
+      "activeTaskMinutes": 0,
+      "walkingMinutes": 0,
+      "roomSpreadPenalty": 2,
+      "overRatioPenalty": 0,
+      "traumaMismatchPenalty": 0,
+      "breakCoveragePenalty": 0,
+      "interruptionPenalty": 0,
+      "totalBurden": 31,
+      "warnings": []
+    }
+  ]
+}
