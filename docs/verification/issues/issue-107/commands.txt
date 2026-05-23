@@ -1,0 +1,11 @@
+npm --workspace packages/shared run build; node --test packages/shared/tests/simulation-event-reference-integrity.test.mjs
+python -m pytest apps/api/tests/test_simulation_event_reference_integrity.py
+npm --workspace packages/shared test
+python -m pytest apps/api
+npm --workspace packages/shared test > docs/verification/issues/issue-107/test-output/shared.txt
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-107/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+docker compose config
+node scripts/check-docs-contracts.mjs
+npm run verify
+docker compose down

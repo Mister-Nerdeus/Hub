@@ -479,7 +479,14 @@ function validateSimulationEventReferences(
   events: SimulationEventContract[],
   context: SimulationRunValidationContext
 ): void {
-  const taskIds = new Set(context.generatedTaskSet?.generatedTasks.map((task) => task.id) ?? []);
+  const taskEventIds = new Set(
+    events
+      .filter((event): event is SimulationTaskEventContract => event.eventType === "task")
+      .map((event) => event.taskId)
+  );
+  const generatedTaskIds = new Set(
+    context.generatedTaskSet?.generatedTasks.map((task) => task.id) ?? []
+  );
   const nurseIds = new Set(context.manualAssignmentSet?.nurses.map((nurse) => nurse.id) ?? []);
   for (const assignment of context.nurseTaskAssignmentSet?.taskAssignments ?? []) {
     if (assignment.nurseId != null) {
@@ -488,7 +495,10 @@ function validateSimulationEventReferences(
   }
   for (const [index, event] of events.entries()) {
     const taskId = "taskId" in event ? event.taskId : null;
-    if (typeof taskId === "string" && taskIds.size > 0 && !taskIds.has(taskId)) {
+    if (typeof taskId === "string" && event.eventType !== "task" && !taskEventIds.has(taskId)) {
+      throw new Error(`events[${index}].taskId must reference the task-event stream`);
+    }
+    if (typeof taskId === "string" && generatedTaskIds.size > 0 && !generatedTaskIds.has(taskId)) {
       throw new Error(`events[${index}].taskId references an unknown generated task`);
     }
     const nurseId = "nurseId" in event ? event.nurseId : null;

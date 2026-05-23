@@ -416,6 +416,9 @@ export const requiredEvidenceGates = [
       "docs/verification/ISSUE_EVIDENCE_INDEX.json",
       "docs/verification/issues/issue-105/test-output/evidence-index-gate.txt",
       "docs/verification/issues/issue-106/test-output/determinism-cleanup.txt",
+      "docs/verification/issues/issue-107/referential-integrity-output.json",
+      "docs/verification/issues/issue-107/test-output/shared.txt",
+      "docs/verification/issues/issue-107/test-output/api.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -465,7 +468,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-105/commands.txt",
       "docs/verification/issues/issue-105/closeout.md",
       "docs/verification/issues/issue-106/commands.txt",
-      "docs/verification/issues/issue-106/closeout.md"
+      "docs/verification/issues/issue-106/closeout.md",
+      "docs/verification/issues/issue-107/commands.txt",
+      "docs/verification/issues/issue-107/closeout.md"
     ],
     contentChecks: [
       {

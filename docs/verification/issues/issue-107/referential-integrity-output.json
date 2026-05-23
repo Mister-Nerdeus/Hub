@@ -1,0 +1,15 @@
+{
+  "issue": "107",
+  "rule": "all event taskId references must map to task events",
+  "typescript": {
+    "orphanQueueRejected": true,
+    "orphanTravelRejected": true,
+    "orphanNurseRejected": true
+  },
+  "python": {
+    "orphanQueueRejected": true,
+    "orphanTravelRejected": true,
+    "orphanNurseRejected": true
+  },
+  "testsPassed": true
+}

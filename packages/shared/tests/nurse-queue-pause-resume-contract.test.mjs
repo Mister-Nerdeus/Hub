@@ -12,6 +12,14 @@ function runWithQueueAction(action) {
     assignmentSetId: "manual-assignment-basic",
     events: [
       {
+        eventId: `task-basic-ready-${action}`,
+        eventType: "task",
+        action: "ready",
+        taskId: "task-basic",
+        minute: 0,
+        scheduledMinute: 0
+      },
+      {
         eventId: `queue-nurse-alpha-task-basic-${action}`,
         eventType: "queue",
         action,
@@ -24,7 +32,7 @@ function runWithQueueAction(action) {
       }
     ],
     summary: {
-      totalTasks: 0,
+      totalTasks: 1,
       completedTaskCount: 0,
       delayedTaskCount: 0,
       missedTaskCount: 0,
@@ -46,7 +54,7 @@ test("existing queue actions still validate", () => {
   for (const action of ["entered_queue", "started_from_queue", "released"]) {
     const run = runWithQueueAction(action);
     if (action !== "entered_queue") {
-      run.events[0].startedMinute = 0;
+      run.events[1].startedMinute = 0;
     }
     assert.doesNotThrow(() => validateSimulationRunContract(run));
   }

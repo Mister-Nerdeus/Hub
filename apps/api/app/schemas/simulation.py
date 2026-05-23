@@ -153,6 +153,9 @@ class SimulationRunContract(StrictModel):
             raise ValueError("eventId values must be unique")
         task_events = [event for event in self.events if event.eventType == "task" and event.taskId is not None]
         task_ids = {event.taskId for event in task_events}
+        for index, event in enumerate(self.events):
+            if event.eventType != "task" and event.taskId is not None and event.taskId not in task_ids:
+                raise ValueError(f"events[{index}].taskId must reference the task-event stream")
         completed = {event.taskId for event in task_events if event.action == "completed"}
         delayed = {event.taskId for event in task_events if event.action == "delayed"}
         missed = {event.taskId for event in task_events if event.action == "missed"}
