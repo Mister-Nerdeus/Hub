@@ -1,0 +1,13 @@
+Commands run for Issue 074:
+
+- npm --workspace packages/shared test - passed.
+- npm --workspace apps/web test - passed.
+- npm --workspace apps/web run build - passed.
+- cd apps/api; python -m pytest - passed.
+- node scripts/check-no-phi-fields.mjs - passed.
+- node scripts/check-docs-contracts.mjs - passed after Phase 9 gate evidence was restored.
+- Negative docs-gate proof by temporarily renaming issue-074/integrity-output.json - passed.
+- docker compose down - passed.
+- node scripts/verify-local.mjs - passed.
+- npm run evidence:local -- --tracked - passed.
+- git diff --name-only - reviewed.

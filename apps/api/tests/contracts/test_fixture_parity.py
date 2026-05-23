@@ -11,6 +11,8 @@ from app.contracts import (
     ScenarioContract,
     TaskTemplateContract,
     Warning,
+    validate_bundle_audit_trail_contract,
+    validate_export_bundle_integrity_contract,
     validate_generated_operational_task_set,
     validate_manual_assignment_contract,
     validate_nurse_task_assignment_contract,
@@ -222,6 +224,28 @@ def test_phase7_report_export_bundle_fixture_matches_python_contract() -> None:
     assert bundle.exportType == "operational_report_bundle"
     assert len(bundle.reports) == 2
     assert bundle.metadata.generatedBy == "local-proof"
+
+
+def test_phase9_export_bundle_integrity_fixture_matches_python_contract() -> None:
+    bundle = validate_report_export_bundle_contract(
+        load_export_fixture("report-export-bundle-basic.json")
+    )
+    integrity = validate_export_bundle_integrity_contract(
+        load_export_fixture("report-export-bundle-integrity-basic.json"),
+        bundle=bundle,
+    )
+
+    assert integrity.exportId == bundle.exportId
+    assert integrity.algorithm == "sha256"
+
+
+def test_phase9_bundle_audit_trail_fixture_matches_python_contract() -> None:
+    audit_trail = validate_bundle_audit_trail_contract(
+        load_export_fixture("bundle-audit-trail-basic.json")
+    )
+
+    assert audit_trail.validationStatus == "passed"
+    assert audit_trail.integrity.exportId == audit_trail.exportId
 
 
 @pytest.mark.parametrize(

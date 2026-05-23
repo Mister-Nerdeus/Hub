@@ -51,4 +51,8 @@ Phase 7 adds the scenario comparison contract, manual scenario comparison builde
 
 Phase 8 documents the report-centric comparison decision, makes deterministic timestamp input explicit for report builders, refactors the phase evidence gate registry, validates report export bundle JSON locally, and adds an API-free export bundle review proof surface. Phase 8 remains local-first, uses synthetic operational data only, and does not add API endpoints, persistence, file upload, file download, or PDF export.
 
+## Phase 9 Bundle Audit Foundation
+
+Phase 9 adds deterministic export bundle integrity hashes, local bundle audit trail contracts, a read-only bundle audit builder, and an API-free bundle audit proof surface. Phase 9 remains local-first, uses synthetic operational data only, and does not add API endpoints, persistence, upload/download behavior, signatures, encryption, legal compliance claims, tamper-proof claims, recommendation, or optimization.
+
 Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, report bundle persistence, PDF export, file download behavior, recommendation, workload balancing, and optimization remain out of scope until later accepted contracts.

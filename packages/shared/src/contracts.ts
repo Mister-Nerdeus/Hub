@@ -687,6 +687,36 @@ export type ReportExportBundleImportSummary = {
   limitations: string[];
 };
 
+export type ExportBundleIntegrityContract = {
+  schemaVersion: "1.0.0";
+  integrityId: string;
+  exportId: string;
+  createdAt: string;
+  algorithm: "sha256";
+  canonicalJsonHash: string;
+  canonicalJsonLength: number;
+  limitations: string[];
+};
+
+export type BundleAuditStep = {
+  id: string;
+  label: string;
+  status: "passed" | "failed" | "not_run";
+  message: string;
+};
+
+export type BundleAuditTrailContract = {
+  schemaVersion: "1.0.0";
+  auditTrailId: string;
+  exportId: string;
+  createdAt: string;
+  validationStatus: "passed" | "failed";
+  integrity: ExportBundleIntegrityContract;
+  reviewSteps: BundleAuditStep[];
+  warnings: Warning[];
+  limitations: string[];
+};
+
 type IdSets = {
   roomIds: Set<string>;
   hallwayIds: Set<string>;
@@ -1408,6 +1438,157 @@ export function validateReportExportBundleContract(
   };
 }
 
+export function validateBundleAuditTrailContract(
+  value: unknown
+): BundleAuditTrailContract {
+  const auditTrail = requireRecord(value, "bundleAuditTrail");
+  requireExactKeys(auditTrail, "bundleAuditTrail", [
+    "schemaVersion",
+    "auditTrailId",
+    "exportId",
+    "createdAt",
+    "validationStatus",
+    "integrity",
+    "reviewSteps",
+    "warnings",
+    "limitations"
+  ]);
+
+  requireLiteral(auditTrail.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(auditTrail.auditTrailId, "auditTrailId");
+  const exportId = requireString(auditTrail.exportId, "exportId");
+  requireIsoDateTime(auditTrail.createdAt, "createdAt");
+  const validationStatus = requireEnum(
+    auditTrail.validationStatus,
+    ["passed", "failed"] as const,
+    "validationStatus"
+  );
+  const integrity = validateExportBundleIntegrityShape(auditTrail.integrity, "integrity");
+  if (integrity.exportId !== exportId) {
+    throw new Error("exportId must match integrity.exportId");
+  }
+
+  const reviewSteps = requireArray(auditTrail.reviewSteps, "reviewSteps").map(
+    validateBundleAuditStep
+  );
+  if (reviewSteps.length === 0) {
+    throw new Error("reviewSteps requires at least one step");
+  }
+  requireUnique(
+    "bundle audit step ids",
+    reviewSteps.map((step) => step.id)
+  );
+  const hasFailedStep = reviewSteps.some((step) => step.status === "failed");
+  if ((validationStatus === "failed") !== hasFailedStep) {
+    throw new Error("validationStatus must reflect failed review steps");
+  }
+
+  const warnings = requireArray(auditTrail.warnings, "warnings").map(validateWarning);
+  requireUnique(
+    "bundle audit warning ids",
+    warnings.map((warning) => warning.id)
+  );
+  const limitations = requireArray(auditTrail.limitations, "limitations").map(
+    (limitation, index) => validateProofLimitationText(limitation, `limitations[${index}]`)
+  );
+  validateRequiredAuditTrailLimitations(limitations);
+
+  return {
+    ...(auditTrail as BundleAuditTrailContract),
+    integrity,
+    reviewSteps,
+    warnings,
+    limitations
+  };
+}
+
+function validateExportBundleIntegrityShape(
+  value: unknown,
+  label: string
+): ExportBundleIntegrityContract {
+  const integrity = requireRecord(value, label);
+  requireExactKeys(integrity, label, [
+    "schemaVersion",
+    "integrityId",
+    "exportId",
+    "createdAt",
+    "algorithm",
+    "canonicalJsonHash",
+    "canonicalJsonLength",
+    "limitations"
+  ]);
+
+  requireLiteral(integrity.schemaVersion, "1.0.0", `${label}.schemaVersion`);
+  requireString(integrity.integrityId, `${label}.integrityId`);
+  requireString(integrity.exportId, `${label}.exportId`);
+  requireIsoDateTime(integrity.createdAt, `${label}.createdAt`);
+  requireLiteral(integrity.algorithm, "sha256", `${label}.algorithm`);
+  const hash = requireString(integrity.canonicalJsonHash, `${label}.canonicalJsonHash`);
+  if (!/^[0-9a-f]{64}$/.test(hash)) {
+    throw new Error(`${label}.canonicalJsonHash must be lowercase sha256 hex`);
+  }
+  requireInteger(integrity.canonicalJsonLength, `${label}.canonicalJsonLength`, 0);
+  const limitations = requireArray(integrity.limitations, `${label}.limitations`).map(
+    (limitation, index) =>
+      validateProofLimitationText(limitation, `${label}.limitations[${index}]`)
+  );
+  validateRequiredIntegrityLimitations(limitations);
+
+  return {
+    ...(integrity as ExportBundleIntegrityContract),
+    limitations
+  };
+}
+
+function validateBundleAuditStep(value: unknown, index: number): BundleAuditStep {
+  const step = requireRecord(value, `reviewSteps[${index}]`);
+  requireExactKeys(step, `reviewSteps[${index}]`, ["id", "label", "status", "message"]);
+  requireString(step.id, `reviewSteps[${index}].id`);
+  validateProofLimitationText(step.label, `reviewSteps[${index}].label`);
+  requireEnum(
+    step.status,
+    ["passed", "failed", "not_run"] as const,
+    `reviewSteps[${index}].status`
+  );
+  validateProofLimitationText(step.message, `reviewSteps[${index}].message`);
+  return step as BundleAuditStep;
+}
+
+function validateWarning(value: unknown, index: number): Warning {
+  const warning = requireRecord(value, `warnings[${index}]`);
+  requireExactKeys(warning, `warnings[${index}]`, [
+    "id",
+    "severity",
+    "code",
+    "message",
+    "nurseIds",
+    "roomIds",
+    "taskIds",
+    "minute"
+  ]);
+  requireString(warning.id, `warnings[${index}].id`);
+  requireEnum(warning.severity, WARNING_SEVERITIES, `warnings[${index}].severity`);
+  requireEnum(warning.code, WARNING_CODES, `warnings[${index}].code`);
+  validateProofLimitationText(warning.message, `warnings[${index}].message`);
+  validateOptionalStringArray(warning.nurseIds, `warnings[${index}].nurseIds`);
+  validateOptionalStringArray(warning.roomIds, `warnings[${index}].roomIds`);
+  validateOptionalStringArray(warning.taskIds, `warnings[${index}].taskIds`);
+  if (warning.minute != null) {
+    requireInteger(warning.minute, `warnings[${index}].minute`, 0);
+  }
+  return warning as Warning;
+}
+
+function validateOptionalStringArray(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const values = requireArray(value, label).map((item, index) =>
+    requireString(item, `${label}[${index}]`)
+  );
+  requireUnique(label, values);
+}
+
 function validateScenarioComparisonItem(
   value: unknown,
   index: number
@@ -1633,6 +1814,48 @@ function validateRequiredExportBundleLimitations(limitations: string[]): void {
   }
 }
 
+function validateRequiredIntegrityLimitations(limitations: string[]): void {
+  if (limitations.length === 0) {
+    throw new Error("limitations requires at least one entry");
+  }
+  const text = limitations.join(" ").toLowerCase();
+  const requiredPhrases: Array<[string, RegExp]> = [
+    ["operational-only integrity proof", /\boperational[- ]only\b[\s\S]{0,80}\bintegrity proof\b/],
+    ["no tamper-proof claim", /\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b/],
+    [
+      "no legal/compliance claim",
+      /\bno\b[\s\S]{0,40}\blegal(?:\/| or | )compliance\b[\s\S]{0,30}\bclaim\b/
+    ],
+    ["no clinical safety claim", /\bno clinical safety claims?\b/]
+  ];
+  for (const [label, pattern] of requiredPhrases) {
+    if (!pattern.test(text)) {
+      throw new Error(`limitations must include ${label} language`);
+    }
+  }
+}
+
+function validateRequiredAuditTrailLimitations(limitations: string[]): void {
+  if (limitations.length === 0) {
+    throw new Error("limitations requires at least one entry");
+  }
+  const text = limitations.join(" ").toLowerCase();
+  const requiredPhrases: Array<[string, RegExp]> = [
+    ["local proof only", /\blocal proof only\b/],
+    [
+      "no legal compliance claim",
+      /\bno\b[\s\S]{0,40}\blegal(?:\/| or | )compliance\b[\s\S]{0,30}\bclaim\b/
+    ],
+    ["no tamper-proof claim", /\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b/],
+    ["no clinical safety claim", /\bno clinical safety claims?\b/]
+  ];
+  for (const [label, pattern] of requiredPhrases) {
+    if (!pattern.test(text)) {
+      throw new Error(`limitations must include ${label} language`);
+    }
+  }
+}
+
 function validateReportExportBundleMetadata(value: unknown): ReportExportBundleMetadata {
   const metadata = requireRecord(value, "metadata");
   requireExactKeys(metadata, "metadata", [
@@ -1799,6 +2022,48 @@ function validateReportText(value: unknown, label: string): string {
   ];
   if (forbiddenPhrases.some((phrase) => lowerText.includes(phrase))) {
     throw new Error(`${label} must remain an operational inspection summary only`);
+  }
+  return text;
+}
+
+function validateProofLimitationText(value: unknown, label: string): string {
+  const text = validateReportText(value, label);
+  const lowerText = text.toLowerCase();
+  const hasNegatedTamperClaim =
+    /\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b/.test(lowerText);
+  const hasNegatedLegalComplianceClaim =
+    /\bno\b[\s\S]{0,40}\blegal(?:\/| or | )compliance\b[\s\S]{0,30}\bclaim\b/.test(
+      lowerText
+    );
+
+  if (/\btamper[- ]proof\b/.test(lowerText) && !hasNegatedTamperClaim) {
+    throw new Error(`${label} must not claim tamper-proof integrity`);
+  }
+  if (
+    /\blegal(?:\/| or | )compliance\b/.test(lowerText) &&
+    !hasNegatedLegalComplianceClaim
+  ) {
+    throw new Error(`${label} must not claim legal or compliance status`);
+  }
+
+  const forbiddenProofClaims = [
+    "legal audit",
+    "audit compliance",
+    "chain-of-custody",
+    "chain of custody",
+    "non-repudiation",
+    "non repudiation",
+    "digital signature",
+    "signed evidence",
+    "security certification",
+    "security guarantee",
+    "legally binding",
+    "tamper evident",
+    "tamper-evident",
+    "encrypted proof"
+  ];
+  if (forbiddenProofClaims.some((phrase) => lowerText.includes(phrase))) {
+    throw new Error(`${label} must remain a local deterministic proof only`);
   }
   return text;
 }

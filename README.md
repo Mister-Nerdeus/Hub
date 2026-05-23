@@ -108,4 +108,6 @@ Phase 7 comparison is intentionally report-centric: validated operational report
 
 Phase 8 export review proof covers report-centric comparison documentation, deterministic timestamp input cleanup, the phase evidence gate registry, local export bundle import validation, and an API-free export bundle review proof surface. It does not add optimization, recommendation, API endpoints, persistence, file upload, file download, PDF export, clinical safety claims, or PHI.
 
+Phase 9 bundle audit proof covers deterministic export bundle integrity hashes, local bundle audit trail contracts, a read-only bundle audit builder, and an API-free bundle audit proof surface. It does not add upload/download behavior, API endpoints, persistence, signatures, encryption, optimization, recommendation, legal compliance claims, tamper-proof claims, clinical safety claims, or PHI.
+
 The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus phase evidence gates from `scripts/phase-evidence-gates.mjs` for Phase 2 through the current completed phase.

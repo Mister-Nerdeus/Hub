@@ -274,5 +274,56 @@ export const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 074 Phase 9 evidence",
+    paths: [
+      "docs/verification/phase-9-bundle-audit-evidence.md",
+      "docs/verification/phase-9-bundle-audit-checklist.md",
+      "docs/verification/issues/issue-074/integrity-output.json",
+      "docs/verification/issues/issue-074/audit-output.json",
+      "docs/verification/issues/issue-074/screenshots/bundle-audit-proof.png",
+      "docs/verification/issues/issue-074/validation-output.txt",
+      "docs/verification/issues/issue-074/commands.txt",
+      "docs/verification/issues/issue-074/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-9-bundle-audit-evidence.md",
+        checks: [
+          ["Export bundle integrity", /\bexport bundle integrity\b/i],
+          ["Bundle audit trail", /\bbundle audit trail\b/i],
+          ["Read-only bundle audit", /\bread-only bundle audit\b/i],
+          ["API-free bundle audit proof", /\bapi-free bundle audit proof\b/i],
+          ["No file upload", /\bno\b[\s\S]{0,80}\bfile upload\b/i],
+          ["No file download", /\bno\b[\s\S]{0,80}\bfile download\b/i],
+          ["No API endpoints", /\bno\b[\s\S]{0,80}\bapi endpoints\b/i],
+          ["No persistence", /\bno\b[\s\S]{0,80}\bpersistence\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No recommendation", /\bno\b[\s\S]{0,80}\brecommendation\b/i],
+          ["No legal compliance claim", /\bno\b[\s\S]{0,80}\blegal compliance claim\b/i],
+          ["No tamper-proof claim", /\bno\b[\s\S]{0,80}\btamper-proof claim\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-9-bundle-audit-checklist.md",
+        checks: [
+          ["Export bundle integrity", /\bexport bundle integrity\b/i],
+          ["Bundle audit trail", /\bbundle audit trail\b/i],
+          ["Read-only bundle audit", /\bread-only bundle audit\b/i],
+          ["API-free bundle audit proof", /\bapi-free bundle audit proof\b/i],
+          ["No file upload", /\bno\b[\s\S]{0,80}\bfile upload\b/i],
+          ["No file download", /\bno\b[\s\S]{0,80}\bfile download\b/i],
+          ["No API endpoints", /\bno\b[\s\S]{0,80}\bapi endpoints\b/i],
+          ["No persistence", /\bno\b[\s\S]{0,80}\bpersistence\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No recommendation", /\bno\b[\s\S]{0,80}\brecommendation\b/i],
+          ["No legal compliance claim", /\bno\b[\s\S]{0,80}\blegal compliance claim\b/i],
+          ["No tamper-proof claim", /\bno\b[\s\S]{0,80}\btamper-proof claim\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      }
+    ]
   }
 ];

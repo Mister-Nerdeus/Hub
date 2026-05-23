@@ -1,0 +1,11 @@
+Commands run for Issue 070:
+
+- npm --workspace packages/shared test - passed.
+- cd apps/api; python -m pytest tests/contracts - passed.
+- npm --workspace apps/web test - passed.
+- npm --workspace apps/web run build - passed.
+- node scripts/check-no-phi-fields.mjs - passed.
+- node scripts/check-docs-contracts.mjs - passed in final batch verification.
+- docker compose down - passed in final batch verification.
+- node scripts/verify-local.mjs - passed in final batch verification.
+- git diff --name-only - reviewed.

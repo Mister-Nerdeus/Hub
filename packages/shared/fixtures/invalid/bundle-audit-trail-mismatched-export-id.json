@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "auditTrailId": "report-export-bundle-basic-audit-trail",
+  "exportId": "mismatched-report-export-bundle",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "validationStatus": "passed",
+  "integrity": {
+    "schemaVersion": "1.0.0",
+    "integrityId": "report-export-bundle-basic-integrity",
+    "exportId": "report-export-bundle-basic",
+    "createdAt": "2026-05-22T00:00:00Z",
+    "algorithm": "sha256",
+    "canonicalJsonHash": "43389c7fe8e5fb9793c2751fefbbc243c34c16edd98d45e9e40c2e1a78bd261e",
+    "canonicalJsonLength": 5175,
+    "limitations": [
+      "Operational-only integrity proof for deterministic local export bundle review.",
+      "No tamper-proof claim is made.",
+      "No legal/compliance claim is made.",
+      "No clinical safety claim is made."
+    ]
+  },
+  "reviewSteps": [
+    {
+      "id": "parse-json",
+      "label": "Parse JSON text",
+      "status": "passed",
+      "message": "JSON text parsed locally."
+    },
+    {
+      "id": "validate-bundle",
+      "label": "Validate export bundle contract",
+      "status": "passed",
+      "message": "Report export bundle contract validated locally."
+    },
+    {
+      "id": "compute-integrity",
+      "label": "Compute deterministic integrity hash",
+      "status": "passed",
+      "message": "Deterministic sha256 integrity hash computed locally."
+    },
+    {
+      "id": "summarize-bundle",
+      "label": "Summarize export bundle",
+      "status": "passed",
+      "message": "Export bundle summary built locally."
+    }
+  ],
+  "warnings": [],
+  "limitations": [
+    "Local proof only for deterministic export bundle audit review.",
+    "No legal/compliance claim is made.",
+    "No tamper-proof claim is made.",
+    "No clinical safety claim is made.",
+    "No persistence, API endpoint, upload, download, signature, encryption, optimizer, or recommendation behavior is included."
+  ]
+}

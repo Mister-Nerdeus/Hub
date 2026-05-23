@@ -1,0 +1,21 @@
+# Phase 9 Bundle Audit Checklist
+
+- Export bundle integrity implemented and tested.
+- Bundle audit trail implemented and tested.
+- Read-only bundle audit builder implemented and tested.
+- API-free bundle audit proof implemented and tested.
+- Integrity output evidence captured.
+- Audit output evidence captured.
+- Screenshot evidence captured.
+- Validation output captured.
+- Local verifier required from a stopped Docker state.
+- No file upload.
+- No file download.
+- No API endpoints.
+- No persistence.
+- No optimizer.
+- No recommendation.
+- No legal compliance claim.
+- No tamper-proof claim.
+- No signatures or encryption.
+- No PHI.

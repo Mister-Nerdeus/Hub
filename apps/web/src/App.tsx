@@ -1,6 +1,8 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import type { PlanContract } from "@nerdeus/shared";
 
+import { BundleAuditProof } from "./features/bundle-audit/BundleAuditProof";
+import { createBundleAuditProofViewModel } from "./features/bundle-audit/bundleAuditViewModel";
 import { ScenarioComparisonProof } from "./features/comparison/ScenarioComparisonProof";
 import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
 import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
@@ -30,10 +32,18 @@ export function App() {
   const reportProofViewModel = createReportProofViewModel();
   const scenarioComparisonProofViewModel = createScenarioComparisonProofViewModel();
   const exportBundleReviewViewModel = createExportBundleReviewViewModel();
+  const bundleAuditProofViewModel = createBundleAuditProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
   );
+
+  useEffect(() => {
+    if (window.location.hash.length > 1) {
+      const targetId = decodeURIComponent(window.location.hash.slice(1));
+      document.getElementById(targetId)?.scrollIntoView();
+    }
+  }, []);
 
   return (
     <main className="app-shell">
@@ -52,6 +62,7 @@ export function App() {
       <OperationalReportsProof viewModel={reportProofViewModel} />
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
+      <BundleAuditProof viewModel={bundleAuditProofViewModel} />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

@@ -1,3 +1,5 @@
+import hashlib
+import json
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator, model_validator
@@ -1002,6 +1004,90 @@ class ReportExportBundleContract(StrictModel):
         return self
 
 
+class ExportBundleIntegrityContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    integrityId: str = Field(min_length=1)
+    exportId: str = Field(min_length=1)
+    createdAt: str = Field(min_length=1)
+    algorithm: Literal["sha256"]
+    canonicalJsonHash: str = Field(pattern=r"^[0-9a-f]{64}$")
+    canonicalJsonLength: int = Field(ge=0)
+    limitations: list[str] = Field(min_length=1)
+
+    @field_validator("createdAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @field_validator("limitations")
+    @classmethod
+    def validate_limitations(cls, value: list[str]) -> list[str]:
+        for index, limitation in enumerate(value):
+            validate_proof_text(limitation, f"limitations[{index}]")
+        validate_required_integrity_limitations(value)
+        return value
+
+
+class BundleAuditStep(StrictModel):
+    id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    status: Literal["passed", "failed", "not_run"]
+    message: str = Field(min_length=1)
+
+    @field_validator("label", "message")
+    @classmethod
+    def validate_text(cls, value: str) -> str:
+        return validate_proof_text(value, "bundle audit step text")
+
+
+class BundleAuditTrailContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    auditTrailId: str = Field(min_length=1)
+    exportId: str = Field(min_length=1)
+    createdAt: str = Field(min_length=1)
+    validationStatus: Literal["passed", "failed"]
+    integrity: ExportBundleIntegrityContract
+    reviewSteps: list[BundleAuditStep] = Field(min_length=1)
+    warnings: list[Warning]
+    limitations: list[str] = Field(min_length=1)
+
+    @field_validator("createdAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @field_validator("limitations")
+    @classmethod
+    def validate_limitations(cls, value: list[str]) -> list[str]:
+        for index, limitation in enumerate(value):
+            validate_proof_text(limitation, f"limitations[{index}]")
+        validate_required_audit_trail_limitations(value)
+        return value
+
+    @model_validator(mode="after")
+    def validate_audit_trail(self) -> "BundleAuditTrailContract":
+        if self.exportId != self.integrity.exportId:
+            raise ValueError("exportId must match integrity.exportId")
+        require_unique("bundle audit step ids", [step.id for step in self.reviewSteps])
+        require_unique("bundle audit warning ids", [warning.id for warning in self.warnings])
+        has_failed_step = any(step.status == "failed" for step in self.reviewSteps)
+        if (self.validationStatus == "failed") != has_failed_step:
+            raise ValueError("validationStatus must reflect failed review steps")
+        return self
+
+
 def validate_room_loads(value: Any, plan: PlanContract | None = None) -> list[RoomLoad]:
     room_loads = TypeAdapter(list[RoomLoad]).validate_python(value)
     require_unique("room load ids", [load.roomId for load in room_loads])
@@ -1254,6 +1340,53 @@ def validate_report_export_bundle_contract(value: Any) -> ReportExportBundleCont
     return bundle
 
 
+def canonicalize_report_export_bundle(bundle: ReportExportBundleContract) -> str:
+    validated = validate_report_export_bundle_contract(bundle.model_dump())
+    return json.dumps(
+        normalize_json_numbers(validated.model_dump()),
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+
+
+def hash_canonical_json(canonical_json: str) -> str:
+    return hashlib.sha256(canonical_json.encode("utf-8")).hexdigest()
+
+
+def validate_export_bundle_integrity_contract(
+    value: Any,
+    bundle: ReportExportBundleContract | None = None,
+) -> ExportBundleIntegrityContract:
+    integrity = ExportBundleIntegrityContract.model_validate(value)
+
+    if bundle is not None:
+        validated_bundle = validate_report_export_bundle_contract(bundle.model_dump())
+        if integrity.exportId != validated_bundle.exportId:
+            raise ValueError("exportId must match the supplied report export bundle")
+        canonical_json = canonicalize_report_export_bundle(validated_bundle)
+        if integrity.canonicalJsonHash != hash_canonical_json(canonical_json):
+            raise ValueError("canonicalJsonHash must match the supplied report export bundle")
+        if integrity.canonicalJsonLength != len(canonical_json):
+            raise ValueError("canonicalJsonLength must equal canonical JSON string length")
+
+    return integrity
+
+
+def validate_bundle_audit_trail_contract(value: Any) -> BundleAuditTrailContract:
+    return BundleAuditTrailContract.model_validate(value)
+
+
+def normalize_json_numbers(value: Any) -> Any:
+    if isinstance(value, list):
+        return [normalize_json_numbers(item) for item in value]
+    if isinstance(value, dict):
+        return {key: normalize_json_numbers(item) for key, item in value.items()}
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    return value
+
+
 def validate_scenario_comparison_against_reports(
     comparison: ScenarioComparisonContract,
     reports: list[OperationalReportContract],
@@ -1433,6 +1566,53 @@ def validate_report_text(value: str, label: str) -> str:
     return value
 
 
+def validate_proof_text(value: str, label: str) -> str:
+    validate_report_text(value, label)
+    lower_value = value.lower()
+    has_negated_tamper_claim = regex_contains(
+        lower_value,
+        r"\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b",
+    )
+    has_negated_legal_compliance_claim = regex_contains(
+        lower_value,
+        r"\bno\b[\s\S]{0,40}\blegal(?:/| or | )compliance\b[\s\S]{0,30}\bclaim\b",
+    )
+
+    if regex_contains(lower_value, r"\btamper[- ]proof\b") and not has_negated_tamper_claim:
+        raise ValueError(f"{label} must not claim tamper-proof integrity")
+    if (
+        regex_contains(lower_value, r"\blegal(?:/| or | )compliance\b")
+        and not has_negated_legal_compliance_claim
+    ):
+        raise ValueError(f"{label} must not claim legal or compliance status")
+
+    forbidden_phrases = [
+        "legal audit",
+        "audit compliance",
+        "chain-of-custody",
+        "chain of custody",
+        "non-repudiation",
+        "non repudiation",
+        "digital signature",
+        "signed evidence",
+        "security certification",
+        "security guarantee",
+        "legally binding",
+        "tamper evident",
+        "tamper-evident",
+        "encrypted proof",
+    ]
+    if any(phrase in lower_value for phrase in forbidden_phrases):
+        raise ValueError(f"{label} must remain a local deterministic proof only")
+    return value
+
+
+def regex_contains(value: str, pattern: str) -> bool:
+    import re
+
+    return re.search(pattern, value) is not None
+
+
 def validate_required_report_limitations(limitations: list[str]) -> None:
     text = " ".join(limitations).lower()
     required = [
@@ -1475,6 +1655,47 @@ def validate_required_export_bundle_limitations(limitations: list[str]) -> None:
     ]
     for label, accepted_phrases in required:
         if not any(phrase in text for phrase in accepted_phrases):
+            raise ValueError(f"limitations must include {label} language")
+
+
+def validate_required_integrity_limitations(limitations: list[str]) -> None:
+    text = " ".join(limitations).lower()
+    required = [
+        (
+            "operational-only integrity proof",
+            r"\boperational[- ]only\b[\s\S]{0,80}\bintegrity proof\b",
+        ),
+        (
+            "no tamper-proof claim",
+            r"\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b",
+        ),
+        (
+            "no legal/compliance claim",
+            r"\bno\b[\s\S]{0,40}\blegal(?:/| or | )compliance\b[\s\S]{0,30}\bclaim\b",
+        ),
+        ("no clinical safety claim", r"\bno clinical safety claims?\b"),
+    ]
+    for label, pattern in required:
+        if not regex_contains(text, pattern):
+            raise ValueError(f"limitations must include {label} language")
+
+
+def validate_required_audit_trail_limitations(limitations: list[str]) -> None:
+    text = " ".join(limitations).lower()
+    required = [
+        ("local proof only", r"\blocal proof only\b"),
+        (
+            "no legal compliance claim",
+            r"\bno\b[\s\S]{0,40}\blegal(?:/| or | )compliance\b[\s\S]{0,30}\bclaim\b",
+        ),
+        (
+            "no tamper-proof claim",
+            r"\bno\b[\s\S]{0,40}\btamper[- ]proof\b[\s\S]{0,30}\bclaim\b",
+        ),
+        ("no clinical safety claim", r"\bno clinical safety claims?\b"),
+    ]
+    for label, pattern in required:
+        if not regex_contains(text, pattern):
             raise ValueError(f"limitations must include {label} language")
 
 

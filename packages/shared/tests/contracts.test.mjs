@@ -10,7 +10,9 @@ import {
   ROOM_WORKLOAD_WEIGHTS,
   summarizeReportExportBundle,
   validateAssumptionsRegisterContract,
+  validateBundleAuditTrailContract,
   validateDayProfileContract,
+  validateExportBundleIntegrity,
   validateGeneratedOperationalTaskSet,
   validateManualAssignmentContract,
   validateNurseTaskAssignmentContract,
@@ -383,6 +385,27 @@ test("report export bundle import utilities remain public and deterministic", ()
   ]);
 });
 
+test("report export bundle integrity fixture validates against TypeScript contract", () => {
+  const bundle = readExportFixture("report-export-bundle-basic.json");
+  const integrity = validateExportBundleIntegrity(
+    readExportFixture("report-export-bundle-integrity-basic.json"),
+    bundle
+  );
+
+  assert.equal(integrity.algorithm, "sha256");
+  assert.equal(integrity.exportId, bundle.exportId);
+});
+
+test("bundle audit trail fixture validates against TypeScript contract", () => {
+  const auditTrail = validateBundleAuditTrailContract(
+    readExportFixture("bundle-audit-trail-basic.json")
+  );
+
+  assert.equal(auditTrail.validationStatus, "passed");
+  assert.equal(auditTrail.exportId, auditTrail.integrity.exportId);
+  assert.equal(auditTrail.reviewSteps.length, 4);
+});
+
 const invalidPlanFixtures = [
   "plan-duplicate-door-id.json",
   "plan-duplicate-path-edge-id.json",
@@ -612,3 +635,38 @@ for (const fixtureName of invalidReportExportBundleFixtures) {
     assert.throws(() => validateReportExportBundleContract(readInvalidFixture(fixtureName)));
   });
 }
+
+const invalidExportBundleIntegrityFixtures = [
+  "export-bundle-integrity-bad-hash.json",
+  "export-bundle-integrity-mismatched-export-id.json"
+];
+
+for (const fixtureName of invalidExportBundleIntegrityFixtures) {
+  test(`${fixtureName} is rejected by TypeScript integrity contract with bundle context`, () => {
+    assert.throws(() =>
+      validateExportBundleIntegrity(
+        readInvalidFixture(fixtureName),
+        readExportFixture("report-export-bundle-basic.json")
+      )
+    );
+  });
+}
+
+const invalidBundleAuditTrailFixtures = [
+  "bundle-audit-trail-missing-step.json",
+  "bundle-audit-trail-security-claim.json",
+  "bundle-audit-trail-mismatched-export-id.json"
+];
+
+for (const fixtureName of invalidBundleAuditTrailFixtures) {
+  test(`${fixtureName} is rejected by TypeScript bundle audit trail contract`, () => {
+    assert.throws(() => validateBundleAuditTrailContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+test("bundle audit trail validationStatus mismatch is rejected", () => {
+  const auditTrail = readExportFixture("bundle-audit-trail-basic.json");
+  auditTrail.validationStatus = "failed";
+
+  assert.throws(() => validateBundleAuditTrailContract(auditTrail), /validationStatus/);
+});
