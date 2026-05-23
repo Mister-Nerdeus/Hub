@@ -140,6 +140,8 @@ Issue 128 moves the operational outcome dashboard proof data into `packages/shar
 
 Issue 129 persists metric directionality on operational delta objects so serialized comparisons can validate improved, worse, and unchanged labels from delta data alone.
 
+Issue 130 adds projected missed-task pressure to the patient wait/idle proxy so missed-not-started tasks with projected timing fields contribute operational pressure beyond terminal event timing.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

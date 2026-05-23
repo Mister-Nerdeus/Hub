@@ -270,6 +270,10 @@ test("buildPatientWaitIdleProxy adds deterministic patient-flow wait/idle proxy 
     output.metrics.some((metric) => metric.metricId === "patient_flow_wait_idle_by_room_room-02"),
     true
   );
+  assert.equal(
+    output.metrics.some((metric) => metric.metricId === "projected_missed_task_pressure_minutes"),
+    true
+  );
 });
 
 test("buildPatientWaitIdleProxy produces higher patient-flow pressure for high-delay run", () => {

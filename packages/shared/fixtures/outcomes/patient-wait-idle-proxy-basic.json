@@ -19,7 +19,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -39,7 +40,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -59,7 +61,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -79,7 +82,29 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "projected_missed_task_pressure_minutes",
+      "label": "Projected missed task pressure minutes",
+      "group": "patient_flow",
+      "unit": "minutes",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
+        "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
+        "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -99,7 +124,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -119,7 +145,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -139,7 +166,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -159,7 +187,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -179,7 +208,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -199,7 +229,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -219,7 +250,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -239,7 +271,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -259,7 +292,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -279,7 +313,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -299,7 +334,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -319,7 +355,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     },
     {
@@ -339,7 +376,8 @@
         "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
         "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
         "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+        "Projected missed-task pressure uses projected not-started timing fields when available.",
+        "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
       ]
     }
   ]

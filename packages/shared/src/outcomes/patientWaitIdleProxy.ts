@@ -1,6 +1,7 @@
 import {
   validateSimulationRunContract,
-  type SimulationRunContract
+  type SimulationRunContract,
+  type SimulationTaskEventContract
 } from "../simulation/simulationRunContract.js";
 import { type GeneratedOperationalTaskSetContract } from "../contracts.js";
 import {
@@ -34,7 +35,8 @@ const PATIENT_WAIT_IDLE_LIMITATIONS = [
   "Patient wait/idle proxy values are deterministic and derived from validated task ready/start/delay events.",
   "Room or synthetic slot grouping is resolved from generated task set room IDs when available, with deterministic taskId pattern fallback.",
   "Missed or unassigned proxy penalty minutes use terminal minute minus first ready minute for each terminal task event.",
-  "Total patient-flow wait/idle proxy is additive across wait, delay exposure, and terminal delay-assumption inputs."
+  "Projected missed-task pressure uses projected not-started timing fields when available.",
+  "Total patient-flow wait/idle proxy is additive across wait, delay exposure, terminal delay-assumption inputs, and projected missed-task pressure."
 ];
 
 export function buildPatientWaitIdleProxy(
@@ -52,6 +54,7 @@ export function buildPatientWaitIdleProxy(
   const waitMinutesByTask: TurnKeyedMap = {};
   const delayMinutesByTask: TurnKeyedMap = {};
   const penaltyMinutesByTask: TurnKeyedMap = {};
+  const projectedMissedPressureByTask: TurnKeyedMap = {};
   const firstReadyByTask: TurnKeyedMap = {};
   const firstStartByTask: TurnKeyedMap = {};
   const terminalMinuteByTask: TurnKeyedMap = {};
@@ -92,6 +95,11 @@ export function buildPatientWaitIdleProxy(
     if (event.action === "missed" || event.action === "unassigned") {
       terminalMinuteByTask[taskId] = event.minute;
       terminalReasonByTask.add(taskId);
+      const projectedPressure = calculateProjectedMissedTaskPressure(event);
+      if (projectedPressure > 0) {
+        projectedMissedPressureByTask[taskId] =
+          (projectedMissedPressureByTask[taskId] ?? 0) + projectedPressure;
+      }
     }
   }
 
@@ -99,11 +107,13 @@ export function buildPatientWaitIdleProxy(
   const waitByRoom: TurnKeyedMap = {};
   const delayByRoom: TurnKeyedMap = {};
   const penaltyByRoom: TurnKeyedMap = {};
+  const projectedMissedPressureByRoom: TurnKeyedMap = {};
 
   const allTaskIds = new Set<string>([
     ...Object.keys(firstStartByTask),
     ...Object.keys(firstReadyByTask),
     ...Object.keys(delayMinutesByTask),
+    ...Object.keys(projectedMissedPressureByTask),
     ...terminalReasonByTask
   ]);
 
@@ -123,6 +133,12 @@ export function buildPatientWaitIdleProxy(
       delayByRoom[roomId] = (delayByRoom[roomId] ?? 0) + delayMinutes;
     }
 
+    const projectedPressure = projectedMissedPressureByTask[taskId] ?? 0;
+    if (projectedPressure > 0) {
+      projectedMissedPressureByRoom[roomId] =
+        (projectedMissedPressureByRoom[roomId] ?? 0) + projectedPressure;
+    }
+
     if (terminalReasonByTask.has(taskId)) {
       const terminalMinute = terminalMinuteByTask[taskId] ?? readyMinute;
       const penaltyMinutes = Math.max(0, terminalMinute - readyMinute);
@@ -137,6 +153,7 @@ export function buildPatientWaitIdleProxy(
     waitByRoom[roomId] = waitByRoom[roomId] ?? 0;
     delayByRoom[roomId] = delayByRoom[roomId] ?? 0;
     penaltyByRoom[roomId] = penaltyByRoom[roomId] ?? 0;
+    projectedMissedPressureByRoom[roomId] = projectedMissedPressureByRoom[roomId] ?? 0;
   }
 
   const allWaitMinutes = roundToTwo(
@@ -145,6 +162,9 @@ export function buildPatientWaitIdleProxy(
   const allDelayMinutes = roundToTwo(Object.values(delayMinutesByTask).reduce((sum, value) => sum + value, 0));
   const allPenaltyMinutes = roundToTwo(
     Object.values(penaltyMinutesByTask).reduce((sum, value) => sum + value, 0)
+  );
+  const projectedMissedTaskPressureMinutes = roundToTwo(
+    Object.values(projectedMissedPressureByTask).reduce((sum, value) => sum + value, 0)
   );
 
   let firstModeledTaskWaitMinutes = 0;
@@ -163,11 +183,15 @@ export function buildPatientWaitIdleProxy(
   const roomProxyByRoom: Record<string, number> = {};
   for (const roomId of Object.keys(waitByRoom)) {
     roomProxyByRoom[roomId] = roundToTwo(
-      (waitByRoom[roomId] ?? 0) + (delayByRoom[roomId] ?? 0) + (penaltyByRoom[roomId] ?? 0)
+      (waitByRoom[roomId] ?? 0) +
+        (delayByRoom[roomId] ?? 0) +
+        (penaltyByRoom[roomId] ?? 0) +
+        (projectedMissedPressureByRoom[roomId] ?? 0)
     );
   }
 
-  const totalPatientFlowWaitIdleMinutes = allWaitMinutes + allDelayMinutes + allPenaltyMinutes;
+  const totalPatientFlowWaitIdleMinutes =
+    allWaitMinutes + allDelayMinutes + allPenaltyMinutes + projectedMissedTaskPressureMinutes;
 
   const metrics: OperationalMetricContract[] = [];
 
@@ -220,6 +244,20 @@ export function buildPatientWaitIdleProxy(
       group: "patient_flow",
       unit: "minutes",
       value: allPenaltyMinutes,
+      directionality: "lower_is_better",
+      source: "task_event",
+      scope: "simulation",
+      limitations: PATIENT_WAIT_IDLE_LIMITATIONS
+    })
+  );
+
+  metrics.push(
+    buildOperationalMetric({
+      metricId: "projected_missed_task_pressure_minutes",
+      label: "Projected missed task pressure minutes",
+      group: "patient_flow",
+      unit: "minutes",
+      value: projectedMissedTaskPressureMinutes,
       directionality: "lower_is_better",
       source: "task_event",
       scope: "simulation",
@@ -307,6 +345,27 @@ export function buildPatientWaitIdleProxy(
     summaryLabel: "Patient wait and idle proxy",
     metrics
   };
+}
+
+function calculateProjectedMissedTaskPressure(event: SimulationTaskEventContract): number {
+  if (event.action !== "missed" || event.missReason !== "not_started_shift_window_exceeded") {
+    return 0;
+  }
+  if (
+    typeof event.projectedStartMinute !== "number" ||
+    typeof event.projectedCompletionMinute !== "number" ||
+    typeof event.shiftDurationMinutes !== "number"
+  ) {
+    return 0;
+  }
+
+  const projectedStartAfterShift = Math.max(0, event.projectedStartMinute - event.shiftDurationMinutes);
+  const projectedCompletionAfterStart = Math.max(
+    0,
+    event.projectedCompletionMinute - Math.max(event.projectedStartMinute, event.shiftDurationMinutes)
+  );
+
+  return roundToTwo(projectedStartAfterShift + projectedCompletionAfterStart);
 }
 
 function resolvePatientRoom(taskId: string, taskToRoom: TaskRoomMap): string {
