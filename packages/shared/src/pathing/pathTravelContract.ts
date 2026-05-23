@@ -15,6 +15,7 @@ export type PathTravelResponseContract = {
   destinationNodeId: string;
   routeNodeIds: string[];
   routeEdgeIds: string[];
+  travelDistanceFeet: number;
   travelSeconds: number;
   travelMinutes: number;
   warnings: string[];
@@ -81,6 +82,7 @@ export function validatePathTravelResponseContract(
     "destinationNodeId",
     "routeNodeIds",
     "routeEdgeIds",
+    "travelDistanceFeet",
     "travelSeconds",
     "travelMinutes",
     "warnings",
@@ -93,6 +95,7 @@ export function validatePathTravelResponseContract(
   }
   const routeNodeIds = validateStringArray(response.routeNodeIds, "routeNodeIds");
   const routeEdgeIds = validateStringArray(response.routeEdgeIds, "routeEdgeIds");
+  const travelDistanceFeet = requireNumber(response.travelDistanceFeet, "travelDistanceFeet", 0);
   const travelSeconds = requireNumber(response.travelSeconds, "travelSeconds", 0);
   const travelMinutes = requireInteger(response.travelMinutes, "travelMinutes", 0);
   const warnings = validateTextArray(response.warnings, "warnings");
@@ -103,6 +106,12 @@ export function validatePathTravelResponseContract(
   if (travelMinutes !== Math.ceil(travelSeconds / 60)) {
     throw new Error("travelMinutes must equal deterministic ceiling of travelSeconds / 60");
   }
+  if (plan != null) {
+    const edgeDistanceFeet = sumPathEdgeDistanceFeet(routeEdgeIds, plan);
+    if (Math.abs(edgeDistanceFeet - travelDistanceFeet) > 0.001) {
+      throw new Error("travelDistanceFeet must equal the route path-edge lengthFeet total");
+    }
+  }
   return {
     schemaVersion: "1.0.0",
     planId,
@@ -110,11 +119,23 @@ export function validatePathTravelResponseContract(
     destinationNodeId: requireString(response.destinationNodeId, "destinationNodeId"),
     routeNodeIds,
     routeEdgeIds,
+    travelDistanceFeet,
     travelSeconds,
     travelMinutes,
     warnings,
     limitations
   };
+}
+
+function sumPathEdgeDistanceFeet(routeEdgeIds: string[], plan: PlanContract): number {
+  const edgeById = new Map(plan.pathEdges.map((edge) => [edge.id, edge]));
+  return routeEdgeIds.reduce((sum, edgeId) => {
+    const edge = edgeById.get(edgeId);
+    if (edge == null) {
+      throw new Error("routeEdgeIds must reference plan path edges");
+    }
+    return sum + edge.lengthFeet;
+  }, 0);
 }
 
 function validateTextArray(value: unknown, label: string): string[] {

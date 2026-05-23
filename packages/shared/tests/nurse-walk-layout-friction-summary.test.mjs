@@ -61,6 +61,7 @@ test("buildNurseWalkLayoutFrictionSummary derives deterministic walk metrics fro
         destinationNodeId: "room-02",
         routeNodeIds: ["room-01", "hall-01", "room-02"],
         routeEdgeIds: ["edge-01", "edge-02"],
+        travelDistanceFeet: 40,
         travelSeconds: 225,
         travelMinutes: 4,
         warnings: []
@@ -76,6 +77,7 @@ test("buildNurseWalkLayoutFrictionSummary derives deterministic walk metrics fro
         destinationNodeId: "room-01",
         routeNodeIds: ["room-02", "hall-01", "room-01"],
         routeEdgeIds: ["edge-03", "edge-04"],
+        travelDistanceFeet: 20,
         travelSeconds: 120,
         travelMinutes: 2,
         warnings: []
@@ -91,6 +93,7 @@ test("buildNurseWalkLayoutFrictionSummary derives deterministic walk metrics fro
         destinationNodeId: "room-03",
         routeNodeIds: ["room-02", "hall-01"],
         routeEdgeIds: ["edge-05"],
+        travelDistanceFeet: 0,
         travelSeconds: 60,
         travelMinutes: 1,
         warnings: ["No direct route available"]
@@ -168,8 +171,13 @@ test("buildNurseWalkLayoutFrictionSummary returns deterministic zero walk metric
   });
 
   assert.equal(output.metrics.some((metric) => metric.metricId === "total_walk_minutes" && metric.value === 0), true);
+  assert.equal(output.metrics.some((metric) => metric.metricId === "total_walk_distance_feet" && metric.value === 0), true);
   assert.equal(
     output.metrics.some((metric) => metric.metricId === "walk_minutes_by_nurse_nurse-alpha" && metric.value === 0),
+    true
+  );
+  assert.equal(
+    output.metrics.some((metric) => metric.metricId === "walk_distance_feet_by_nurse_nurse-alpha" && metric.value === 0),
     true
   );
   assert.equal(

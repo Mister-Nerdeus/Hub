@@ -58,6 +58,7 @@ test("rejects orphan travel task references", () => {
     destinationNodeId: "room-1",
     routeNodeIds: ["nurse-station", "room-1"],
     routeEdgeIds: ["edge-nurse-station-room-1"],
+    travelDistanceFeet: 10,
     travelSeconds: 30,
     travelMinutes: 1,
     warnings: []
@@ -109,6 +110,7 @@ test("accepts non-task references when the task appears in the task-event stream
       destinationNodeId: "room-1",
       routeNodeIds: ["nurse-station", "room-1"],
       routeEdgeIds: ["edge-nurse-station-room-1"],
+      travelDistanceFeet: 10,
       travelSeconds: 30,
       travelMinutes: 1,
       warnings: []

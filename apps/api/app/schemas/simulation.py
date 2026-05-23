@@ -83,6 +83,7 @@ class SimulationEvent(StrictModel):
     destinationNodeId: str | None = None
     routeNodeIds: list[str] | None = None
     routeEdgeIds: list[str] | None = None
+    travelDistanceFeet: float | None = Field(default=None, ge=0)
     travelSeconds: float | None = Field(default=None, ge=0)
     warnings: list[str] | None = None
 
@@ -133,6 +134,7 @@ class SimulationEvent(StrictModel):
                 or self.destinationNodeId is None
                 or self.routeNodeIds is None
                 or self.routeEdgeIds is None
+                or self.travelDistanceFeet is None
                 or self.travelSeconds is None
                 or self.travelMinutes is None
                 or self.warnings is None

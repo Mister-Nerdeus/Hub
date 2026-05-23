@@ -34,6 +34,7 @@ test("simple route calculates expected travel time", () => {
   });
 
   assert.deepEqual(output.routeEdgeIds, ["edge-hall-east-station", "edge-room-04-hall"]);
+  assert.equal(output.travelDistanceFeet, 14);
   assert.equal(output.travelMinutes, Math.ceil(output.travelSeconds / 60));
   assert.doesNotThrow(() => validatePathTravelResponseContract(output));
 });
@@ -96,6 +97,7 @@ test("simulation travel option adds travel minutes", () => {
   });
 
   assert.ok(run.events.some((event) => event.eventType === "travel" && event.travelMinutes > 0));
+  assert.ok(run.events.some((event) => event.eventType === "travel" && event.travelDistanceFeet > 0));
 });
 
 test("simulation can still run with travel disabled", () => {

@@ -53,6 +53,7 @@ type AssignedTask = {
 
 type TravelResult = {
   travelMinutes: number;
+  travelDistanceFeet: number;
   currentNodeId: string;
   event?: SimulationEventContract;
 };
@@ -208,7 +209,7 @@ function maybeBuildTravelEvent(
   travel?: SimulationTravelOption
 ): TravelResult {
   if (travel == null || !travel.enabled) {
-    return { travelMinutes: 0, currentNodeId: currentNodeId ?? "" };
+    return { travelMinutes: 0, travelDistanceFeet: 0, currentNodeId: currentNodeId ?? "" };
   }
   const plan = travel.plan;
   const originNodeId =
@@ -220,7 +221,7 @@ function maybeBuildTravelEvent(
     travel.taskLocationNodeIds?.[task.id] ??
     plan.rooms.find((room) => room.id === task.roomId)?.pathNodeId;
   if (originNodeId == null || destinationNodeId == null) {
-    return { travelMinutes: 0, currentNodeId: currentNodeId ?? "" };
+    return { travelMinutes: 0, travelDistanceFeet: 0, currentNodeId: currentNodeId ?? "" };
   }
   const response = calculatePathTravelTime({
     plan,
@@ -231,6 +232,7 @@ function maybeBuildTravelEvent(
   const reachable = response.warnings.length === 0;
   return {
     travelMinutes: reachable ? response.travelMinutes : 0,
+    travelDistanceFeet: reachable ? response.travelDistanceFeet : 0,
     currentNodeId: reachable ? destinationNodeId : originNodeId,
     event: {
       eventId: `travel-${nurseId}-${task.id}`,
@@ -243,6 +245,7 @@ function maybeBuildTravelEvent(
       destinationNodeId,
       routeNodeIds: response.routeNodeIds,
       routeEdgeIds: response.routeEdgeIds,
+      travelDistanceFeet: reachable ? response.travelDistanceFeet : 0,
       travelSeconds: response.travelSeconds,
       travelMinutes: reachable ? response.travelMinutes : 0,
       warnings: response.warnings

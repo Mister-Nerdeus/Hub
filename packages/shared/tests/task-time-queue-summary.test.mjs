@@ -201,6 +201,7 @@ function buildFixtureRun() {
         destinationNodeId: "room-02",
         routeNodeIds: ["room-01", "hall-01", "room-02"],
         routeEdgeIds: ["edge-01", "edge-02"],
+        travelDistanceFeet: 40,
         travelSeconds: 300,
         travelMinutes: 5,
         warnings: []
@@ -216,6 +217,7 @@ function buildFixtureRun() {
         destinationNodeId: "room-03",
         routeNodeIds: ["room-02", "hall-01", "room-03"],
         routeEdgeIds: ["edge-03", "edge-04"],
+        travelDistanceFeet: 25,
         travelSeconds: 120,
         travelMinutes: 2,
         warnings: []
@@ -231,6 +233,7 @@ function buildFixtureRun() {
         destinationNodeId: "room-04",
         routeNodeIds: ["room-03", "hall-01"],
         routeEdgeIds: ["edge-05"],
+        travelDistanceFeet: 0,
         travelSeconds: 60,
         travelMinutes: 3,
         warnings: ["No direct route available"]
@@ -303,6 +306,7 @@ test("buildTaskTimeQueueSummary uses deterministic buckets and task/nurse/travel
     destinationNodeId: "room-01",
     routeNodeIds: ["room-03", "hall-01", "room-01"],
     routeEdgeIds: ["edge-06", "edge-07"],
+    travelDistanceFeet: 20,
     travelSeconds: 90,
     travelMinutes: 1,
     warnings: []

@@ -14,6 +14,7 @@ export const PATH_TRAVEL_LIMITATIONS = [
 
 type RouteState = {
   nodeId: string;
+  travelDistanceFeet: number;
   travelSeconds: number;
   routeNodeIds: string[];
   routeEdgeIds: string[];
@@ -48,6 +49,7 @@ export function calculatePathTravelTime(
       destinationNodeId: input.destinationNodeId,
       routeNodeIds: [],
       routeEdgeIds: [],
+      travelDistanceFeet: 0,
       travelSeconds: 0,
       travelMinutes: 0,
       warnings: [
@@ -65,6 +67,7 @@ export function calculatePathTravelTime(
     destinationNodeId: input.destinationNodeId,
     routeNodeIds: route.routeNodeIds,
     routeEdgeIds: route.routeEdgeIds,
+    travelDistanceFeet: roundFeet(route.travelDistanceFeet),
     travelSeconds,
     travelMinutes: Math.ceil(travelSeconds / 60),
     warnings: [],
@@ -81,6 +84,7 @@ function shortestRoute(
   const frontier: RouteState[] = [
     {
       nodeId: input.originNodeId,
+      travelDistanceFeet: 0,
       travelSeconds: 0,
       routeNodeIds: [input.originNodeId],
       routeEdgeIds: []
@@ -107,6 +111,7 @@ function shortestRoute(
         travelSeconds:
           current.travelSeconds +
           edgeTravelSeconds(adjacencyEdge.edge, input.walkingSpeedFeetPerMinute),
+        travelDistanceFeet: current.travelDistanceFeet + adjacencyEdge.edge.lengthFeet,
         routeNodeIds: [...current.routeNodeIds, adjacencyEdge.nextNodeId],
         routeEdgeIds: [...current.routeEdgeIds, adjacencyEdge.edge.id]
       });
@@ -168,5 +173,9 @@ function compareRouteStates(left: RouteState, right: RouteState): number {
 }
 
 function roundSeconds(value: number): number {
+  return Math.round(value * 1000) / 1000;
+}
+
+function roundFeet(value: number): number {
   return Math.round(value * 1000) / 1000;
 }

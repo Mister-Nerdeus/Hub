@@ -144,6 +144,8 @@ Issue 130 adds projected missed-task pressure to the patient wait/idle proxy so 
 
 Issue 131 adds shared nurse-level task burden metrics for direct task minutes, queue wait, delayed tasks, missed tasks, completed tasks, and assigned task counts.
 
+Issue 132 carries feet-based travel distance through path travel responses, simulation travel events, and nurse walk layout-friction summary metrics.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

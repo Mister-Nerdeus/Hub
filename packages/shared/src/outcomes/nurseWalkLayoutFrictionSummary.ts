@@ -26,12 +26,13 @@ const LAYOUT_FRICTION_LIMITATIONS = [
   "Operational metric is operational-only and derived from validated simulation outputs.",
   "No external-system inferences, person identifiers, or PHI are represented.",
   "Assumptions are visible where derived aggregates include normalization or weighting.",
-  "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+  "Layout friction is derived from walk/travel metrics using deterministic walk duration, feet distance, and event-weighting.",
   "No layout or clinical claims are represented; this is an operational movement proxy only."
 ];
 
 export const NURSE_WALK_SUMMARY_UNITS = {
   nurseMinutes: "walk_minutes_by_nurse" as const,
+  nurseDistanceFeet: "walk_distance_feet_by_nurse" as const,
   nurseEvents: "walk_events_by_nurse" as const
 };
 
@@ -76,11 +77,13 @@ export function buildNurseWalkLayoutFrictionSummary(
   }
 
   const walkMinutesByNurse: Record<string, number> = {};
+  const walkDistanceFeetByNurse: Record<string, number> = {};
   const walkEventsByNurse: Record<string, number> = {};
   const walkMinutesByTask: Record<string, number> = {};
   const walkMinutesByRoom: Record<string, number> = {};
 
   let totalWalkMinutes = 0;
+  let totalWalkDistanceFeet = 0;
 
   for (const event of travelEvents) {
     const nurseId = event.nurseId;
@@ -88,9 +91,12 @@ export function buildNurseWalkLayoutFrictionSummary(
     const roomId = taskToRoom.get(taskId);
 
     const minutes = event.travelMinutes;
+    const distanceFeet = event.travelDistanceFeet;
     totalWalkMinutes += minutes;
+    totalWalkDistanceFeet += distanceFeet;
 
     walkMinutesByNurse[nurseId] = (walkMinutesByNurse[nurseId] ?? 0) + minutes;
+    walkDistanceFeetByNurse[nurseId] = (walkDistanceFeetByNurse[nurseId] ?? 0) + distanceFeet;
     walkEventsByNurse[nurseId] = (walkEventsByNurse[nurseId] ?? 0) + 1;
     walkMinutesByTask[taskId] = (walkMinutesByTask[taskId] ?? 0) + minutes;
     if (roomId != null) {
@@ -101,6 +107,7 @@ export function buildNurseWalkLayoutFrictionSummary(
   if (travelEvents.length === 0) {
     for (const nurseId of [...knownNurses].sort()) {
       walkMinutesByNurse[nurseId] = walkMinutesByNurse[nurseId] ?? 0;
+      walkDistanceFeetByNurse[nurseId] = walkDistanceFeetByNurse[nurseId] ?? 0;
       walkEventsByNurse[nurseId] = walkEventsByNurse[nurseId] ?? 0;
     }
     for (const taskId of [...knownTasks].sort()) {
@@ -110,11 +117,21 @@ export function buildNurseWalkLayoutFrictionSummary(
         walkMinutesByRoom[roomId] = walkMinutesByRoom[roomId] ?? 0;
       }
     }
-    return finalizeSummary([], totalWalkMinutes, walkMinutesByNurse, walkEventsByNurse, walkMinutesByTask, walkMinutesByRoom);
+    return finalizeSummary(
+      [],
+      totalWalkMinutes,
+      totalWalkDistanceFeet,
+      walkMinutesByNurse,
+      walkDistanceFeetByNurse,
+      walkEventsByNurse,
+      walkMinutesByTask,
+      walkMinutesByRoom
+    );
   }
 
   for (const nurseId of [...knownNurses].sort()) {
     walkMinutesByNurse[nurseId] = walkMinutesByNurse[nurseId] ?? 0;
+    walkDistanceFeetByNurse[nurseId] = walkDistanceFeetByNurse[nurseId] ?? 0;
     walkEventsByNurse[nurseId] = walkEventsByNurse[nurseId] ?? 0;
   }
   for (const taskId of [...knownTasks].sort()) {
@@ -128,7 +145,9 @@ export function buildNurseWalkLayoutFrictionSummary(
   return finalizeSummary(
     travelEvents,
     totalWalkMinutes,
+    totalWalkDistanceFeet,
     walkMinutesByNurse,
+    walkDistanceFeetByNurse,
     walkEventsByNurse,
     walkMinutesByTask,
     walkMinutesByRoom
@@ -138,7 +157,9 @@ export function buildNurseWalkLayoutFrictionSummary(
 function finalizeSummary(
   travelEvents: SimulationTravelEventContract[],
   totalWalkMinutes: number,
+  totalWalkDistanceFeet: number,
   walkMinutesByNurse: Record<string, number>,
+  walkDistanceFeetByNurse: Record<string, number>,
   walkEventsByNurse: Record<string, number>,
   walkMinutesByTask: Record<string, number>,
   walkMinutesByRoom: Record<string, number>
@@ -159,6 +180,20 @@ function finalizeSummary(
     })
   );
 
+  metrics.push(
+    buildOperationalMetric({
+      metricId: "total_walk_distance_feet",
+      label: "Total walk distance feet",
+      group: "nurse",
+      unit: "feet",
+      value: roundToTwo(totalWalkDistanceFeet),
+      directionality: "lower_is_better",
+      source: "travel_event",
+      scope: "simulation",
+      limitations: [...LAYOUT_FRICTION_LIMITATIONS]
+    })
+  );
+
   for (const [nurseId, minutes] of sortedEntries(walkMinutesByNurse)) {
     metrics.push(
       buildOperationalMetric({
@@ -167,6 +202,19 @@ function finalizeSummary(
         group: "nurse",
         unit: "minutes",
         value: roundToTwo(minutes),
+        directionality: "lower_is_better",
+        source: "travel_event",
+        scope: "nurse",
+        limitations: [...LAYOUT_FRICTION_LIMITATIONS]
+      })
+    );
+    metrics.push(
+      buildOperationalMetric({
+        metricId: `${NURSE_WALK_SUMMARY_UNITS.nurseDistanceFeet}_${nurseId}`,
+        label: `Walk distance feet for nurse ${nurseId}`,
+        group: "nurse",
+        unit: "feet",
+        value: roundToTwo(walkDistanceFeetByNurse[nurseId] ?? 0),
         directionality: "lower_is_better",
         source: "travel_event",
         scope: "nurse",

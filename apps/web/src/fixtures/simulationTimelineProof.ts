@@ -72,6 +72,7 @@ export const simulationTimelineProofFixture: SimulationTimelineProofFixture = {
         destinationNodeId: "node-door-room-05",
         routeNodeIds: ["node-station-primary", "node-hall-east", "node-hall-mid", "node-hall-west", "node-door-room-05"],
         routeEdgeIds: ["edge-hall-east-station", "edge-hall-mid-east", "edge-hall-west-mid", "edge-room-05-hall"],
+        travelDistanceFeet: 70,
         travelSeconds: 25.4,
         travelMinutes: 1,
         warnings: []

@@ -89,6 +89,7 @@ export type SimulationTravelEventContract = {
   destinationNodeId: string;
   routeNodeIds: string[];
   routeEdgeIds: string[];
+  travelDistanceFeet: number;
   travelSeconds: number;
   travelMinutes: number;
   warnings: string[];
@@ -465,6 +466,7 @@ function validateTravelEvent(event: Record<string, unknown>): SimulationTravelEv
     "destinationNodeId",
     "routeNodeIds",
     "routeEdgeIds",
+    "travelDistanceFeet",
     "travelSeconds",
     "travelMinutes",
     "warnings"
@@ -481,6 +483,7 @@ function validateTravelEvent(event: Record<string, unknown>): SimulationTravelEv
     destinationNodeId: requireString(event.destinationNodeId, "destinationNodeId"),
     routeNodeIds: validateStringArray(event.routeNodeIds, "routeNodeIds"),
     routeEdgeIds: validateStringArray(event.routeEdgeIds, "routeEdgeIds"),
+    travelDistanceFeet: requireNumber(event.travelDistanceFeet, "travelDistanceFeet", 0),
     travelSeconds: requireNumber(event.travelSeconds, "travelSeconds", 0),
     travelMinutes: requireInteger(event.travelMinutes, "travelMinutes", 0),
     warnings: validateStringArray(event.warnings, "warnings")
