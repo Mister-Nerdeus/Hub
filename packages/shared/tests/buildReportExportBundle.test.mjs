@@ -44,6 +44,36 @@ test("buildReportExportBundle creates deterministic validated output", () => {
   assert.doesNotThrow(() => validateReportExportBundleContract(bundle));
 });
 
+test("buildReportExportBundle supports bundles without a comparison", () => {
+  const fixture = readExportFixture("report-export-bundle-basic.json");
+  const bundle = buildReportExportBundle({
+    exportId: "report-export-bundle-basic",
+    label: "Operational-only report export bundle proof",
+    reports: fixture.reports
+  });
+
+  assert.equal(bundle.comparison, null);
+  assert.doesNotThrow(() => validateReportExportBundleContract(bundle));
+});
+
+test("report export bundle contract accepts omitted optional comparison", () => {
+  const fixture = readExportFixture("report-export-bundle-basic.json");
+  delete fixture.comparison;
+
+  const bundle = validateReportExportBundleContract(fixture);
+
+  assert.equal(bundle.comparison, null);
+});
+
+test("report export bundle contract accepts null optional comparison", () => {
+  const fixture = readExportFixture("report-export-bundle-basic.json");
+  fixture.comparison = null;
+
+  const bundle = validateReportExportBundleContract(fixture);
+
+  assert.equal(bundle.comparison, null);
+});
+
 test("buildReportExportBundle rejects empty reports", () => {
   assert.throws(
     () =>

@@ -1,0 +1,44 @@
+# 2026-05-23 Phase 7 code review commands
+
+git status --short
+Get-Content AGENTS.md
+Get-Content docs/contracts/codex-global-invariants.md
+Get-Content docs/compliance/non-phi-policy.md
+Get-Content docs/architecture/dependency-decision-matrix.md
+Get-Content docs/contracts/local-first-verification-contract.md
+Get-Content docs/contracts/reproducibility-contract.md
+Get-Content docs/codex/drift-traps.md
+Get-Content docs/codex/codex-operating-rules.md
+Get-Content docs/codex/forbidden-implementation-patterns.md
+git log --oneline -5
+git rev-parse --abbrev-ref HEAD
+docker compose ps
+rg -n "TODO|FIXME|recommend|optimized|safe staffing|safety certification|clinical safety|patient outcome|Math.random|fetch|localStorage|download|pdf|persist" packages apps scripts docs -g "!node_modules" -g "!dist" -g "!build" -g "!docs/verification/local-runs/latest/*.txt"
+Get-Content packages/shared/src/comparison/buildScenarioComparison.ts
+Get-Content packages/shared/src/export/buildReportExportBundle.ts
+Get-Content apps/web/src/features/comparison/scenarioComparisonViewModel.ts
+Get-Content packages/shared/tests/buildReportExportBundle.test.mjs
+Get-Content apps/api/tests/contracts/test_report_export_bundle_contract.py
+Select-String -Path packages/shared/src/contracts.ts -Pattern "function validateScenarioComparisonItem|busiestMinute|validateReportExportBundleContract" -Context 2,8
+npm --workspace packages/shared test
+cd apps/api && python -m pytest tests/contracts/test_report_export_bundle_contract.py
+git diff -- packages/shared/src/contracts.ts packages/shared/tests/buildReportExportBundle.test.mjs apps/api/tests/contracts/test_report_export_bundle_contract.py
+git status --short
+
+# Final verification commands
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose down
+node scripts/verify-local.mjs
+npm run evidence:local -- --tracked
+docker compose ps
+git diff --check
+git diff --name-only
+git status --short
+git add .
+git commit -m "Harden report export bundle validation coverage"
+git push

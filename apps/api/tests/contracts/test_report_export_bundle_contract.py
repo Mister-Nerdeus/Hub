@@ -57,6 +57,24 @@ def test_report_export_bundle_fixture_matches_python_contract() -> None:
     assert bundle.metadata.source == "synthetic-operational-data"
 
 
+def test_report_export_bundle_accepts_omitted_optional_comparison() -> None:
+    fixture = load_export_fixture("report-export-bundle-basic.json")
+    fixture.pop("comparison")
+
+    bundle = validate_report_export_bundle_contract(fixture)
+
+    assert bundle.comparison is None
+
+
+def test_report_export_bundle_accepts_null_optional_comparison() -> None:
+    fixture = load_export_fixture("report-export-bundle-basic.json")
+    fixture["comparison"] = None
+
+    bundle = validate_report_export_bundle_contract(fixture)
+
+    assert bundle.comparison is None
+
+
 @pytest.mark.parametrize(
     "fixture_name",
     [

@@ -1445,9 +1445,6 @@ function validateScenarioComparisonItem(
     item.busiestMinute == null
       ? null
       : requireInteger(item.busiestMinute, `items[${index}].busiestMinute`, 0);
-  if (item.busiestMinute != null) {
-    requireInteger(item.busiestMinute, `items[${index}].busiestMinute`, 0);
-  }
   const busiestMinuteTaskCount = requireInteger(
     item.busiestMinuteTaskCount,
     `items[${index}].busiestMinuteTaskCount`,
