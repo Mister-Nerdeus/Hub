@@ -16,6 +16,7 @@ export * from "./optimization/optimizerAuditTrail.js";
 export * from "./pathing/pathTravelContract.js";
 export * from "./pathing/pathTravelTime.js";
 export * from "./outcomes/operationalMetricContract.js";
+export * from "./outcomes/operationalMetricRegistry.js";
 export * from "./outcomes/operationalDeltaComparison.js";
 export * from "./outcomes/operationalOutcomeDashboardProofData.js";
 export * from "./outcomes/ratioScenarioIntensityContract.js";

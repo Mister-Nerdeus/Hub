@@ -369,10 +369,10 @@ test("buildOperationalDeltaComparison computes deterministic zero-baseline perce
     baselineMetrics: [
       {
         schemaVersion: "1.0.0",
-        metricId: "queue-delay",
-        label: "Queue delay",
-        group: "patient_flow",
-        unit: "minutes",
+        metricId: "ad_hoc_zero_baseline",
+        label: "Ad hoc zero baseline",
+        group: "comparison",
+        unit: "count",
         value: 0,
         directionality: "higher_is_better",
         source: "comparison_delta",
@@ -383,10 +383,10 @@ test("buildOperationalDeltaComparison computes deterministic zero-baseline perce
     modifiedMetrics: [
       {
         schemaVersion: "1.0.0",
-        metricId: "queue-delay",
-        label: "Queue delay",
-        group: "patient_flow",
-        unit: "minutes",
+        metricId: "ad_hoc_zero_baseline",
+        label: "Ad hoc zero baseline",
+        group: "comparison",
+        unit: "count",
         value: 12,
         directionality: "higher_is_better",
         source: "comparison_delta",
@@ -498,7 +498,7 @@ test("buildOperationalDeltaComparison enforces directionality and direction resu
   const directions = output.deltas.map((delta) => [delta.metricId, delta.directionality, delta.direction]);
   assert.deepEqual(directions, [
     ["queue-delay", "lower_is_better", "improved"],
-    ["room-turnover-pressure", "higher_is_better", "improved"]
+    ["room-turnover-pressure", "lower_is_better", "worse"]
   ]);
 });
 
@@ -510,10 +510,10 @@ test("buildOperationalDeltaComparison rejects metrics with different directional
     baselineMetrics: [
       {
         schemaVersion: "1.0.0",
-        metricId: "queue-delay",
-        label: "Queue delay",
-        group: "patient_flow",
-        unit: "minutes",
+        metricId: "ad_hoc_directionality_check",
+        label: "Ad hoc directionality check",
+        group: "comparison",
+        unit: "count",
         value: 12,
         directionality: "lower_is_better",
         source: "comparison_delta",
@@ -524,10 +524,10 @@ test("buildOperationalDeltaComparison rejects metrics with different directional
     modifiedMetrics: [
       {
         schemaVersion: "1.0.0",
-        metricId: "queue-delay",
-        label: "Queue delay",
-        group: "patient_flow",
-        unit: "minutes",
+        metricId: "ad_hoc_directionality_check",
+        label: "Ad hoc directionality check",
+        group: "comparison",
+        unit: "count",
         value: 14,
         directionality: "higher_is_better",
         source: "comparison_delta",

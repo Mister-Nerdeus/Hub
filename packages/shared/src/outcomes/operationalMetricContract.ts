@@ -26,6 +26,16 @@ export const OPERATIONAL_METRIC_DIRECTIONALITY = [
   "neutral"
 ] as const;
 
+export const OPERATIONAL_METRIC_KINDS = [
+  "burden",
+  "pressure",
+  "throughput",
+  "distance",
+  "time",
+  "density",
+  "comparison"
+] as const;
+
 export const OPERATIONAL_METRIC_SOURCES = [
   "task_event",
   "nurse_event",
@@ -50,6 +60,7 @@ export const OPERATIONAL_METRIC_SCOPES = [
 export type OperationalMetricGroup = (typeof OPERATIONAL_METRIC_GROUPS)[number];
 export type OperationalMetricUnit = (typeof OPERATIONAL_METRIC_UNITS)[number];
 export type OperationalMetricDirectionality = (typeof OPERATIONAL_METRIC_DIRECTIONALITY)[number];
+export type OperationalMetricKind = (typeof OPERATIONAL_METRIC_KINDS)[number];
 export type OperationalMetricSource = (typeof OPERATIONAL_METRIC_SOURCES)[number];
 export type OperationalMetricScope = (typeof OPERATIONAL_METRIC_SCOPES)[number];
 

@@ -51,12 +51,12 @@
     },
     {
       "metricId": "room-turnover-pressure",
-      "directionality": "higher_is_better",
+      "directionality": "lower_is_better",
       "baselineValue": 58,
       "modifiedValue": 64,
       "absoluteChange": 6,
       "percentChange": 10.34,
-      "direction": "improved"
+      "direction": "worse"
     },
     {
       "metricId": "task-time",
@@ -80,6 +80,6 @@
   "limitations": [
     "Operational delta comparison is deterministic across named baseline and modified metric sets.",
     "Comparison output uses signed absolute and percentage deltas with deterministic zero-baseline behavior.",
-    "Directions are derived from Issue 117 metric directionality and value movement."
+    "Directions are derived from canonical registry directionality when a metric is registered, otherwise from metric directionality and value movement."
   ]
 }

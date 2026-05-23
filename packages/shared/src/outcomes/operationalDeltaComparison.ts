@@ -6,6 +6,10 @@ import {
   type OperationalMetricContract,
   type OperationalMetricDirectionality
 } from "./operationalMetricContract.js";
+import {
+  getOperationalMetricDirectionality,
+  resolveCanonicalMetricId
+} from "./operationalMetricRegistry.js";
 import { roundToTwo } from "./outcomeMetricsBuilder.js";
 
 export const OPERATIONAL_DELTA_COMPARISON_SCHEMA_VERSION = "1.0.0" as const;
@@ -42,17 +46,21 @@ type BuildOperationalDeltaComparisonInput = {
   limitations?: string[];
 };
 
+type OperationalMetricForDelta = OperationalMetricContract & {
+  comparisonMetricId: string;
+};
+
 const OPERATIONAL_DELTA_LIMITATIONS = [
   "Operational delta comparison is deterministic across named baseline and modified metric sets.",
   "Comparison output uses signed absolute and percentage deltas with deterministic zero-baseline behavior.",
-  "Directions are derived from Issue 117 metric directionality and value movement."
+  "Directions are derived from canonical registry directionality when a metric is registered, otherwise from metric directionality and value movement."
 ];
 
 export function buildOperationalDeltaComparison(
   input: BuildOperationalDeltaComparisonInput
 ): OperationalDeltaComparisonContract {
-  const baseline = validateOperationalMetricContracts(input.baselineMetrics);
-  const modified = validateOperationalMetricContracts(input.modifiedMetrics);
+  const baseline = validateOperationalMetricContracts(input.baselineMetrics).map(normalizeMetricForDelta);
+  const modified = validateOperationalMetricContracts(input.modifiedMetrics).map(normalizeMetricForDelta);
   const baselineById = mapMetricsById(baseline);
   const modifiedById = mapMetricsById(modified);
 
@@ -67,7 +75,7 @@ export function buildOperationalDeltaComparison(
     }
   }
   for (const metric of modified) {
-    if (!baselineById.has(metric.metricId)) {
+    if (!baselineById.has(metric.comparisonMetricId)) {
       throw new Error(`metricId mismatch: ${metric.metricId} missing in baseline metrics`);
     }
   }
@@ -99,8 +107,8 @@ export function buildOperationalDeltaComparison(
 }
 
 function buildOperationalMetricDelta(
-  baselineMetric: OperationalMetricContract,
-  modifiedMetric: OperationalMetricContract
+  baselineMetric: OperationalMetricForDelta,
+  modifiedMetric: OperationalMetricForDelta
 ): OperationalMetricDelta {
   if (baselineMetric.directionality !== modifiedMetric.directionality) {
     throw new Error(`directionality mismatch for ${baselineMetric.metricId}`);
@@ -113,7 +121,9 @@ function buildOperationalMetricDelta(
   );
 
   return {
-    metricId: baselineMetric.metricId,
+    metricId: baselineMetric.metricId === modifiedMetric.metricId
+      ? baselineMetric.metricId
+      : baselineMetric.comparisonMetricId,
     directionality: baselineMetric.directionality,
     baselineValue: baselineMetric.value,
     modifiedValue: modifiedMetric.value,
@@ -123,6 +133,23 @@ function buildOperationalMetricDelta(
       absoluteChange,
       baselineMetric.directionality
     )
+  };
+}
+
+function normalizeMetricForDelta(metric: OperationalMetricContract): OperationalMetricForDelta {
+  const canonicalMetricId = resolveCanonicalMetricId(metric.metricId);
+  const registryDirectionality = getOperationalMetricDirectionality(metric.metricId);
+  if (canonicalMetricId == null || registryDirectionality == null) {
+    return {
+      ...metric,
+      comparisonMetricId: metric.metricId
+    };
+  }
+
+  return {
+    ...metric,
+    comparisonMetricId: canonicalMetricId,
+    directionality: registryDirectionality
   };
 }
 
@@ -224,7 +251,12 @@ function validateOperationalMetricDelta(
   }
 
   const metricId = validateOperationalText(metric.metricId, `deltas[${index}].metricId`);
-  const expectedDirection = determineDirection(absoluteChange, directionality);
+  const registryDirectionality = getOperationalMetricDirectionality(metricId);
+  const effectiveDirectionality = registryDirectionality ?? directionality;
+  if (registryDirectionality != null && directionality !== registryDirectionality) {
+    throw new Error(`deltas[${index}].directionality must match operational metric registry`);
+  }
+  const expectedDirection = determineDirection(absoluteChange, effectiveDirectionality);
 
   if (direction !== expectedDirection) {
     throw new Error(`deltas[${index}].direction must match directionality and value movement`);
@@ -232,7 +264,7 @@ function validateOperationalMetricDelta(
 
   return {
     metricId,
-    directionality,
+    directionality: effectiveDirectionality,
     baselineValue,
     modifiedValue,
     absoluteChange,
@@ -241,13 +273,13 @@ function validateOperationalMetricDelta(
   };
 }
 
-function mapMetricsById(metrics: OperationalMetricContract[]): Map<string, OperationalMetricContract> {
-  const mapped = new Map<string, OperationalMetricContract>();
+function mapMetricsById(metrics: OperationalMetricForDelta[]): Map<string, OperationalMetricForDelta> {
+  const mapped = new Map<string, OperationalMetricForDelta>();
   for (const metric of metrics) {
-    if (mapped.has(metric.metricId)) {
-      throw new Error(`duplicate metricId ${metric.metricId} in input metrics`);
+    if (mapped.has(metric.comparisonMetricId)) {
+      throw new Error(`duplicate metricId ${metric.comparisonMetricId} in input metrics`);
     }
-    mapped.set(metric.metricId, metric);
+    mapped.set(metric.comparisonMetricId, metric);
   }
   return mapped;
 }

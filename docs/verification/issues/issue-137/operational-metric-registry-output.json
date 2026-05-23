@@ -1,0 +1,24 @@
+{
+  "issue": "137",
+  "canonicalMetricCount": 47,
+  "dashboardCanonicalMetricIds": [
+    "nurse_walk_time",
+    "patient_wait_idle_proxy",
+    "task_time",
+    "queue_delay",
+    "unit_saturation",
+    "room_turnover_pressure",
+    "nurse_strain_proxy",
+    "layout_friction"
+  ],
+  "aliasResolution": {
+    "nurse-walk-time": "nurse_walk_time",
+    "layout_friction_score": "layout_friction",
+    "completed_task_count_by_nurse_alpha": "completed_task_count_by_nurse"
+  },
+  "protectedDirectionality": {
+    "completed_task_count_by_nurse": "neutral",
+    "assigned_task_count_by_nurse": "neutral",
+    "direct_task_minutes": "neutral"
+  }
+}
