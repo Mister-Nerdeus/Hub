@@ -15,60 +15,57 @@ Command: docker compose up --build -d
 #3 DONE 0.0s
 
 #4 [api internal] load metadata for docker.io/library/python:3.13-slim
-#4 DONE 0.3s
+#4 ...
 
 #5 [web internal] load metadata for docker.io/library/node:22-alpine
 #5 DONE 0.3s
 
-#6 [api internal] load .dockerignore
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 DONE 0.3s
+
+#6 [web internal] load .dockerignore
 #6 transferring context: 127B done
 #6 DONE 0.0s
 
-#7 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
-#7 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#7 [api internal] load build context
+#7 transferring context: 409.95kB 0.0s done
 #7 DONE 0.1s
 
-#8 [api internal] load build context
-#8 transferring context: 409.04kB 0.0s done
+#8 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#8 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
 #8 DONE 0.1s
 
 #9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
 #9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
 #9 DONE 0.1s
 
-#10 [web internal] load build context
-#10 ...
+#10 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#10 CACHED
 
 #11 [api 2/5] WORKDIR /app
 #11 CACHED
 
-#12 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#12 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
 #12 CACHED
 
-#13 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#13 [api 5/5] COPY apps/api/ ./
 #13 CACHED
 
-#14 [api 5/5] COPY apps/api/ ./
-#14 CACHED
-
-#10 [web internal] load build context
-#10 ...
+#14 [web internal] load build context
+#14 transferring context: 3.66MB 0.4s done
+#14 DONE 0.4s
 
 #15 [api] exporting to image
 #15 exporting layers done
-#15 exporting manifest sha256:4fc8db0d9d2d7b15a8a25f8b9cf44b2c61a24d6e55ce44a75ea820a4f6f56a5d done
-#15 exporting config sha256:017c221c9e8b740378fb5cfa986553c3cf84255021115635cb4b18499be5fa15 done
-#15 exporting attestation manifest sha256:1f1ab37f719901fde37d6d5ba6bec80d17f9cda142085542817e78c855832f71 0.1s done
-#15 exporting manifest list sha256:4ba36ad9b8c99cc22487e2dd0df3f24a3a2d2a0dcde99bda70b3ecf88d203fed 0.0s done
+#15 exporting manifest sha256:8728aecf607e6ca793544d3ead504bb0af4346699c90930f6dd1818d68b94ee9 done
+#15 exporting config sha256:f4911d1d9a07c353dbaa26082bc11f38356212e9bb15441a071823d23c534f86 done
+#15 exporting attestation manifest sha256:1bfdd501166dec6c5d94feca36c361eca3cffab6ee091d6ec461b90713f014be 0.1s done
+#15 exporting manifest list sha256:d0f8baae10e950e52536932b050e9a97e193629766c58de0dbf093ab44e0f946 0.0s done
 #15 naming to docker.io/library/hub-api:latest done
 #15 unpacking to docker.io/library/hub-api:latest 0.0s done
-#15 DONE 0.2s
+#15 DONE 0.4s
 
-#10 [web internal] load build context
-#10 transferring context: 3.66MB 0.4s done
-#10 DONE 0.4s
-
-#16 [web  9/10] COPY packages/shared packages/shared
+#16 [web  3/10] COPY package.json package-lock.json ./
 #16 CACHED
 
 #17 [web  2/10] WORKDIR /repo
@@ -77,19 +74,19 @@ Command: docker compose up --build -d
 #18 [web  4/10] COPY apps/web/package.json apps/web/package.json
 #18 CACHED
 
-#19 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#19 [web  7/10] COPY tsconfig.base.json ./
 #19 CACHED
 
-#20 [web  7/10] COPY tsconfig.base.json ./
+#20 [web  8/10] COPY apps/web apps/web
 #20 CACHED
 
-#21 [web  3/10] COPY package.json package-lock.json ./
+#21 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
 #21 CACHED
 
 #22 [web  6/10] RUN npm ci
 #22 CACHED
 
-#23 [web  8/10] COPY apps/web apps/web
+#23 [web  9/10] COPY packages/shared packages/shared
 #23 CACHED
 
 #24 [web 10/10] WORKDIR /repo/apps/web
@@ -97,28 +94,28 @@ Command: docker compose up --build -d
 
 #25 [web] exporting to image
 #25 exporting layers 0.0s done
-#25 exporting manifest sha256:3de3628beaa2129857bdb6692c16df9cb4ff9ef825abbb24956a815721140fc3 done
-#25 exporting config sha256:7935858d48db93d0e81b105f9dd0fac3d5af45ee06372e247f59142756993832
-#25 exporting config sha256:7935858d48db93d0e81b105f9dd0fac3d5af45ee06372e247f59142756993832 0.0s done
-#25 exporting attestation manifest sha256:74c2eb7d52da9aaf951cae8ad38d1375f67ee49e4fc70d91efa7180855cf11e7
+#25 exporting manifest sha256:310f725cf089e23ba57095b88dfe350554f5d83097386118706384e0769ae56e 0.0s done
+#25 exporting config sha256:dd08faef057516e73e967410b8829296e305c32ae0dd1eb02bd64c6c2bffff66 0.0s done
+#25 exporting attestation manifest sha256:deca69396af7d308d85aaf6e98e253c3c9b534d2f5a547ed6daf794a953372a7
+#25 exporting attestation manifest sha256:deca69396af7d308d85aaf6e98e253c3c9b534d2f5a547ed6daf794a953372a7 0.1s done
+#25 exporting manifest list sha256:18c190a3ee952b609e46bae005430573ab6cb772a53ed51768d3bb77fa8b5fa1
 #25 ...
 
 #26 [api] resolving provenance for metadata file
 #26 DONE 0.0s
 
 #25 [web] exporting to image
-#25 exporting attestation manifest sha256:74c2eb7d52da9aaf951cae8ad38d1375f67ee49e4fc70d91efa7180855cf11e7 0.1s done
-#25 exporting manifest list sha256:831ba6b16698be68b38e21ead0fd188f70c067d0e7b053409a1d3ac3c956a69a 0.1s done
+#25 exporting manifest list sha256:18c190a3ee952b609e46bae005430573ab6cb772a53ed51768d3bb77fa8b5fa1 0.0s done
 #25 naming to docker.io/library/hub-web:latest done
-#25 unpacking to docker.io/library/hub-web:latest 0.1s done
-#25 DONE 0.5s
+#25 unpacking to docker.io/library/hub-web:latest 0.0s done
+#25 DONE 0.4s
 
 #27 [web] resolving provenance for metadata file
 #27 DONE 0.0s
 
 ## stderr
- Image hub-web Building
  Image hub-api Building
+ Image hub-web Building
  Image hub-api Built
  Image hub-web Built
  Container hub-db-1 Running

@@ -99,7 +99,7 @@ SAFE_INTEGER_MAX = 9007199254740991
 
 
 class StrictModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", allow_inf_nan=False)
+    model_config = ConfigDict(extra="forbid", allow_inf_nan=False, strict=True)
 
 
 class ScaleSettings(StrictModel):

@@ -94,3 +94,11 @@ def test_report_export_bundle_rejects_recommendation_language() -> None:
 
     with pytest.raises((ValidationError, ValueError)):
         validate_report_export_bundle_contract(bundle)
+
+
+def test_report_export_bundle_rejects_string_numeric_summary_values() -> None:
+    bundle = load_export_fixture("report-export-bundle-basic.json")
+    bundle["comparison"]["summary"]["reportCount"] = "2"
+
+    with pytest.raises((ValidationError, ValueError)):
+        validate_report_export_bundle_contract(bundle)

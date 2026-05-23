@@ -112,3 +112,10 @@ test("buildReportExportBundle rejects comparison/report mismatches", () => {
     /included reports/
   );
 });
+
+test("report export bundle contract rejects string numeric summary values", () => {
+  const fixture = readExportFixture("report-export-bundle-basic.json");
+  fixture.comparison.summary.reportCount = "2";
+
+  assert.throws(() => validateReportExportBundleContract(fixture), /integer/);
+});
