@@ -1,0 +1,60 @@
+{
+  "issue": "131",
+  "summaryLabel": "Nurse task burden summary",
+  "nurseLevel": true,
+  "eventDerived": true,
+  "outputValidatesThroughOperationalMetricContract": true,
+  "metrics": [
+    {
+      "metricId": "direct_task_minutes_by_nurse_nurse-alpha",
+      "value": 10
+    },
+    {
+      "metricId": "completed_task_count_by_nurse_nurse-alpha",
+      "value": 1
+    },
+    {
+      "metricId": "delayed_task_count_by_nurse_nurse-alpha",
+      "value": 1
+    },
+    {
+      "metricId": "missed_task_count_by_nurse_nurse-alpha",
+      "value": 1
+    },
+    {
+      "metricId": "queue_wait_minutes_by_nurse_nurse-alpha",
+      "value": 4
+    },
+    {
+      "metricId": "assigned_task_count_by_nurse_nurse-alpha",
+      "value": 2
+    },
+    {
+      "metricId": "direct_task_minutes_by_nurse_nurse-bravo",
+      "value": 7
+    },
+    {
+      "metricId": "completed_task_count_by_nurse_nurse-bravo",
+      "value": 1
+    },
+    {
+      "metricId": "delayed_task_count_by_nurse_nurse-bravo",
+      "value": 0
+    },
+    {
+      "metricId": "missed_task_count_by_nurse_nurse-bravo",
+      "value": 0
+    },
+    {
+      "metricId": "queue_wait_minutes_by_nurse_nurse-bravo",
+      "value": 0
+    },
+    {
+      "metricId": "assigned_task_count_by_nurse_nurse-bravo",
+      "value": 1
+    }
+  ],
+  "noRealStaffIdentity": true,
+  "operationalOnly": true,
+  "testsPassed": true
+}

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.0.0",
+  "summaryLabel": "Nurse task burden summary",
+  "metrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "direct_task_minutes_by_nurse_nurse-alpha",
+      "label": "Direct task minutes for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 10,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "direct_task_minutes_by_nurse_nurse-bravo",
+      "label": "Direct task minutes for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 7,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "completed_task_count_by_nurse_nurse-alpha",
+      "label": "Completed task count for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "completed_task_count_by_nurse_nurse-bravo",
+      "label": "Completed task count for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "delayed_task_count_by_nurse_nurse-alpha",
+      "label": "Delayed task count for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "delayed_task_count_by_nurse_nurse-bravo",
+      "label": "Delayed task count for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "count",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_task_count_by_nurse_nurse-alpha",
+      "label": "Missed task count for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_task_count_by_nurse_nurse-bravo",
+      "label": "Missed task count for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "count",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "queue_wait_minutes_by_nurse_nurse-alpha",
+      "label": "Queue wait minutes for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 4,
+      "directionality": "lower_is_better",
+      "source": "queue_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "queue_wait_minutes_by_nurse_nurse-bravo",
+      "label": "Queue wait minutes for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "queue_event",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "assigned_task_count_by_nurse_nurse-alpha",
+      "label": "Assigned task count for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "count",
+      "value": 2,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "assigned_task_count_by_nurse_nurse-bravo",
+      "label": "Assigned task count for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "nurse",
+      "limitations": [
+        "Nurse task burden is an operational workload proxy derived from simulation events.",
+        "Nurse IDs are synthetic role labels from local fixtures.",
+        "Metrics summarize task minutes, task counts, queue wait, delay, and missed work only."
+      ]
+    }
+  ]
+}

@@ -142,6 +142,8 @@ Issue 129 persists metric directionality on operational delta objects so seriali
 
 Issue 130 adds projected missed-task pressure to the patient wait/idle proxy so missed-not-started tasks with projected timing fields contribute operational pressure beyond terminal event timing.
 
+Issue 131 adds shared nurse-level task burden metrics for direct task minutes, queue wait, delayed tasks, missed tasks, completed tasks, and assigned task counts.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

@@ -21,6 +21,7 @@ export * from "./outcomes/ratioScenarioIntensityContract.js";
 export * from "./outcomes/pressureBandingSummary.js";
 export * from "./outcomes/taskTimeQueueSummary.js";
 export * from "./outcomes/nurseWalkLayoutFrictionSummary.js";
+export * from "./outcomes/nurseTaskBurdenSummary.js";
 export * from "./outcomes/patientWaitIdleProxy.js";
 export * from "./outcomes/roomTurnoverBlockedTimeProxy.js";
 export * from "./scoring/assumptionsScoring.js";
