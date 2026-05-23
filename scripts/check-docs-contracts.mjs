@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, normalize } from "node:path";
 
+import { checkIssueCommandOutput } from "./check-issue-command-output.mjs";
 import { requiredEvidenceGates } from "./phase-evidence-gates.mjs";
 
 const root = process.cwd();
@@ -11,6 +12,7 @@ const requiredFiles = [
   "docs/compliance/non-phi-policy.md",
   "docs/architecture/dependency-decision-matrix.md",
   "docs/contracts/reproducibility-contract.md",
+  "docs/contracts/issue-evidence-output-contract.md",
   "docs/codex/drift-traps.md",
   "docs/codex/codex-operating-rules.md",
   "docs/codex/forbidden-implementation-patterns.md",
@@ -95,6 +97,8 @@ for (const gate of requiredEvidenceGates) {
     requireContentChecks(gate.label, contentCheck.path, contentCheck.checks);
   }
 }
+
+failures.push(...checkIssueCommandOutput(root));
 
 if (failures.length > 0) {
   console.error(failures.join("\n"));

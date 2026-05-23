@@ -74,9 +74,20 @@ docs/verification/issues/issue-XXX/
   commands.txt
   screenshots/
   api-responses/
-  test-output.txt
+  test-output/
   sample-json/
 ```
+
+For Issue 104 and later, every issue must include at least one non-empty captured output artifact matching:
+
+```text
+test-output/*.txt
+api-responses/*.json
+sample-json/*.json
+screenshots/*.png
+```
+
+`commands.txt` alone is not sufficient output evidence.
 
 ## Do Not Close Unless
 The issue may not be marked complete unless:
@@ -87,7 +98,8 @@ The issue may not be marked complete unless:
 5. Dependency matrix is unchanged or intentionally updated.
 6. Closeout evidence is written to `docs/verification/issues/issue-XXX/closeout.md`.
 7. Command evidence is written to `docs/verification/issues/issue-XXX/commands.txt`.
-8. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
+8. For Issue 104 and later, at least one non-empty captured output artifact exists.
+9. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
 
 ## Closeout Response Format
 Codex must answer with:
