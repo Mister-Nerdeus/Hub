@@ -1,0 +1,46 @@
+{
+  "issue": "142",
+  "feature": "layoutEditorReducer",
+  "stateFields": [
+    "editableLayout",
+    "selectedObjectId",
+    "selectedObjectType",
+    "viewport",
+    "snapMode",
+    "validationWarnings",
+    "isDirty"
+  ],
+  "actions": [
+    "loadLayout",
+    "selectObject",
+    "clearSelection",
+    "setViewport",
+    "setSnapMode",
+    "setValidationWarnings",
+    "markClean"
+  ],
+  "snapModes": [
+    "default",
+    "fine"
+  ],
+  "selectableTypes": [
+    "room",
+    "door",
+    "station",
+    "hallway",
+    "zone"
+  ],
+  "validatedInvariants": {
+    "immutableStateTransitions": true,
+    "selectionReferencesKnownIds": true,
+    "invalidSelectionIsDeterministicNoOp": true,
+    "invalidPayloadsFail": true,
+    "viewportPanStoredInFeet": true,
+    "geometryRemainsFeetBased": true,
+    "noDragOrResizeBehavior": true
+  },
+  "tests": [
+    "apps/web/src/features/layout-editor/layoutEditorReducer.test.ts"
+  ],
+  "nonPhi": true
+}

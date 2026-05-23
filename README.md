@@ -164,6 +164,8 @@ Issue 140 extends editable layout room geometry with operational room metadata, 
 
 Issue 141 adds a docs-only evidence consistency gate requiring every Issue 112+ command-output mapped artifact to be listed in `docs/verification/ISSUE_EVIDENCE_INDEX.json`. It updates the issue template and evidence contract so captured command output remains index-reviewable.
 
+Issue 142 adds the deterministic layout editor state reducer for editable layout loading, ID-based selection, viewport state, default/fine snap mode, validation warnings, and dirty state. It does not add a visible stage, drag/drop, resizing, save/load, path sync, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
