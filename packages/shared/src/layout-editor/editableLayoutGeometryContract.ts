@@ -2,12 +2,24 @@ export const EDITABLE_LAYOUT_GEOMETRY_SCHEMA_VERSION = "1.0.0" as const;
 
 export const EDITABLE_LAYOUT_UNITS = ["feet"] as const;
 export const EDITABLE_DOOR_WALLS = ["north", "south", "east", "west"] as const;
+export const EDITABLE_ROOM_TYPES = [
+  "standard",
+  "trauma",
+  "isolation",
+  "behavioral",
+  "procedure",
+  "overflow",
+  "hall_bed"
+] as const;
+export const EDITABLE_ROOM_CAPACITY_TYPES = ["single", "double", "hall", "flex"] as const;
 export const EDITABLE_STATION_TYPES = ["nurse_station", "desk"] as const;
 export const EDITABLE_ZONE_TYPES = ["ems_entry", "trauma", "provider_pharmacy"] as const;
 export const EDITABLE_DOOR_OWNER_KINDS = ["room", "hallway"] as const;
 
 export type EditableLayoutUnits = (typeof EDITABLE_LAYOUT_UNITS)[number];
 export type EditableDoorWall = (typeof EDITABLE_DOOR_WALLS)[number];
+export type EditableRoomType = (typeof EDITABLE_ROOM_TYPES)[number];
+export type EditableRoomCapacityType = (typeof EDITABLE_ROOM_CAPACITY_TYPES)[number];
 export type EditableStationType = (typeof EDITABLE_STATION_TYPES)[number];
 export type EditableZoneType = (typeof EDITABLE_ZONE_TYPES)[number];
 export type EditableDoorOwnerKind = (typeof EDITABLE_DOOR_OWNER_KINDS)[number];
@@ -23,6 +35,11 @@ export type EditableRectFeet = {
 
 export type EditableRoomGeometry = EditableRectFeet & {
   objectType: "room";
+  roomNumber: string;
+  roomType: EditableRoomType;
+  capacityType: EditableRoomCapacityType;
+  isHallBed: boolean;
+  isTraumaAdjacent: boolean;
 };
 
 export type EditableStationGeometry = EditableRectFeet & {
@@ -69,6 +86,10 @@ const MIN_ZONE_SIZE_FEET = 1;
 const MIN_DOOR_WIDTH_FEET = 2;
 
 const FORBIDDEN_PIXEL_KEY_PATTERN = /(^|_)(px|pixel|pixels)$/i;
+const FORBIDDEN_ROOM_NUMBER_TEXT_PATTERN =
+  /\b(patient|pt|medical record|record number|chart)\b/i;
+const FORBIDDEN_ROOM_TYPE_TEXT_PATTERN =
+  /\b(diagnosis|diagnoses|dx|sepsis|stroke|cardiac|fracture|overdose|symptom)\b/i;
 
 export function validateEditableLayoutGeometryContract(
   value: unknown
@@ -126,8 +147,43 @@ export function validateEditableLayoutGeometryContract(
 }
 
 function validateRoom(value: unknown, index: number): EditableRoomGeometry {
-  const room = validateBasicRect(value, `rooms[${index}]`, "room", MIN_ROOM_SIZE_FEET);
-  return { ...room, objectType: "room" };
+  const room = requireRecord(value, `rooms[${index}]`);
+  requireExactKeys(room, `rooms[${index}]`, [
+    "objectType",
+    "id",
+    "label",
+    "roomNumber",
+    "roomType",
+    "capacityType",
+    "isHallBed",
+    "isTraumaAdjacent",
+    "xFeet",
+    "yFeet",
+    "widthFeet",
+    "heightFeet"
+  ]);
+  const rect = validateRectFields(room, `rooms[${index}]`, "room", MIN_ROOM_SIZE_FEET);
+  const roomNumber = requireRoomNumber(room.roomNumber, `rooms[${index}].roomNumber`);
+  const roomType = requireRoomType(room.roomType, `rooms[${index}].roomType`);
+  const capacityType = requireEnum(
+    room.capacityType,
+    EDITABLE_ROOM_CAPACITY_TYPES,
+    `rooms[${index}].capacityType`
+  );
+  const isHallBed = requireBoolean(room.isHallBed, `rooms[${index}].isHallBed`);
+  if (roomType === "hall_bed" && !isHallBed) {
+    throw new Error(`rooms[${index}].isHallBed must be true when roomType is hall_bed`);
+  }
+
+  return {
+    ...rect,
+    objectType: "room",
+    roomNumber,
+    roomType,
+    capacityType,
+    isHallBed,
+    isTraumaAdjacent: requireBoolean(room.isTraumaAdjacent, `rooms[${index}].isTraumaAdjacent`)
+  };
 }
 
 function validateStation(value: unknown, index: number): EditableStationGeometry {
@@ -312,6 +368,24 @@ function requireString(value: unknown, label: string): string {
   return value;
 }
 
+function requireRoomNumber(value: unknown, label: string): string {
+  const roomNumber = requireString(value, label).trim();
+  if (roomNumber.length === 0) {
+    throw new Error(`${label} must be a non-empty room display label`);
+  }
+  if (FORBIDDEN_ROOM_NUMBER_TEXT_PATTERN.test(roomNumber)) {
+    throw new Error(`${label} must be an operational room label, not a patient identifier`);
+  }
+  return roomNumber;
+}
+
+function requireRoomType(value: unknown, label: string): EditableRoomType {
+  if (typeof value === "string" && FORBIDDEN_ROOM_TYPE_TEXT_PATTERN.test(value)) {
+    throw new Error(`${label} must be an operational room type, not diagnosis or clinical text`);
+  }
+  return requireEnum(value, EDITABLE_ROOM_TYPES, label);
+}
+
 function requireNumber(value: unknown, label: string, min?: number): number {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     throw new Error(`${label} must be a finite number`);
@@ -327,6 +401,13 @@ function requireLiteral<T extends string>(value: unknown, expected: T, label: st
     throw new Error(`${label} must be ${expected}`);
   }
   return expected;
+}
+
+function requireBoolean(value: unknown, label: string): boolean {
+  if (typeof value !== "boolean") {
+    throw new Error(`${label} must be a boolean`);
+  }
+  return value;
 }
 
 function requireEnum<T extends string>(

@@ -160,6 +160,8 @@ Issue 138 applies the operational metric registry to current shared outcome buil
 
 Issue 139 generates shared dashboard proof data through a shared builder using canonical registry metrics, ratio/intensity assumptions, pressure banding, and operational delta comparison. The web dashboard adapter now consumes shared metric values and shared ratio deltas as display-only data.
 
+Issue 140 extends editable layout room geometry with operational room metadata, including room number, room type, capacity type, hall-bed flag, and trauma-adjacent planning flag. Room metadata remains feet-based and operational-only; it does not add UI editing behavior, task generation, simulation reruns, diagnosis fields, identity fields, or clinical outcome claims.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

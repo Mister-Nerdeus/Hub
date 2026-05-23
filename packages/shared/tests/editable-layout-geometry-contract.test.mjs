@@ -5,6 +5,8 @@ import { join } from "node:path";
 import test from "node:test";
 
 import {
+  EDITABLE_ROOM_CAPACITY_TYPES,
+  EDITABLE_ROOM_TYPES,
   validateEditableLayoutGeometryContract
 } from "../dist/index.js";
 
@@ -25,6 +27,12 @@ test("editable layout geometry fixture validates with feet-based editable object
   assert.deepEqual(validated, fixture);
   assert.equal(validated.units, "feet");
   assert.equal(validated.rooms.length > 0, true);
+  assert.equal(validated.rooms.every((room) => EDITABLE_ROOM_TYPES.includes(room.roomType)), true);
+  assert.equal(
+    validated.rooms.every((room) => EDITABLE_ROOM_CAPACITY_TYPES.includes(room.capacityType)),
+    true
+  );
+  assert.equal(validated.rooms.some((room) => room.isTraumaAdjacent === true), true);
   assert.equal(validated.doors.length > 0, true);
   assert.equal(validated.stations.some((station) => station.stationType === "nurse_station"), true);
   assert.equal(validated.stations.some((station) => station.stationType === "desk"), true);

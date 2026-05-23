@@ -1,0 +1,42 @@
+{
+  "issue": "140",
+  "schemaVersion": "1.0.0",
+  "contract": "EditableLayoutGeometryContract",
+  "roomMetadataFields": [
+    "roomNumber",
+    "roomType",
+    "capacityType",
+    "isHallBed",
+    "isTraumaAdjacent"
+  ],
+  "supportedRoomTypes": [
+    "standard",
+    "trauma",
+    "isolation",
+    "behavioral",
+    "procedure",
+    "overflow",
+    "hall_bed"
+  ],
+  "supportedCapacityTypes": [
+    "single",
+    "double",
+    "hall",
+    "flex"
+  ],
+  "validatedInvariants": {
+    "roomNumberRequired": true,
+    "roomNumberRejectsIdentityLikeLabels": true,
+    "roomTypeRejectsDiagnosisOrClinicalText": true,
+    "roomTypeHallBedRequiresIsHallBed": true,
+    "negativeGeometryRejected": true,
+    "pixelFieldsRejected": true,
+    "feetBasedGeometryOnly": true
+  },
+  "fixture": "packages/shared/fixtures/layout-editor/editable-layout-basic.json",
+  "tests": [
+    "packages/shared/tests/editable-layout-geometry-contract.test.mjs",
+    "packages/shared/tests/editable-room-metadata-contract.test.mjs"
+  ],
+  "nonPhi": true
+}
