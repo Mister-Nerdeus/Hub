@@ -38,6 +38,7 @@ FORBIDDEN_TEXT_PATTERNS = (
     ),
 )
 TASK_ACTIONS = {"ready", "started", "completed", "delayed", "missed", "unassigned"}
+MISS_REASONS = {"unassigned", "not_started_shift_window_exceeded"}
 NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
 QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released", "paused", "resumed"}
 TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
@@ -89,6 +90,8 @@ class SimulationEvent(StrictModel):
                 raise ValueError("delayed task events require positive delayMinutes")
             if self.action == "missed" and self.missReason is None:
                 raise ValueError("missed task events require missReason")
+            if self.missReason is not None and self.missReason not in MISS_REASONS:
+                raise ValueError("task event missReason is not allowed")
         if self.eventType == "nurse":
             if self.action not in NURSE_ACTIONS:
                 raise ValueError("nurse event action is not allowed")

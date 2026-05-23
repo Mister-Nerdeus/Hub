@@ -1,0 +1,25 @@
+# Issue 099 Commands
+
+Failure reproduction before fix:
+
+```text
+npm --workspace packages/shared test -- simulation-missed-task-semantics.test.mjs
+```
+
+Observed pre-fix result:
+
+```text
+The legacy shift-window miss reason was accepted.
+The deferred attempted-overrun miss reason was accepted.
+Generated missed tasks used the legacy shift-window miss reason.
+```
+
+Final verification:
+
+```text
+npm --workspace packages/shared test > docs/verification/issues/issue-099/test-output/shared.txt
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config
+```

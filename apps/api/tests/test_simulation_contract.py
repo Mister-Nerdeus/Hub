@@ -130,6 +130,48 @@ def test_validate_endpoint_rejects_invalid_event_action(client: TestClient) -> N
     assert response.status_code == 422
 
 
+def test_validate_endpoint_rejects_ambiguous_miss_reason(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "event-with-ambiguous-miss-reason",
+            "eventType": "task",
+            "action": "missed",
+            "taskId": "task-basic",
+            "minute": 0,
+            "scheduledMinute": 0,
+            "missReason": "shift_window_exceeded",
+        }
+    )
+    payload["summary"]["totalTasks"] = 1
+    payload["summary"]["missedTaskCount"] = 1
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
+def test_validate_endpoint_accepts_not_started_miss_reason(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "event-with-not-started-miss-reason",
+            "eventType": "task",
+            "action": "missed",
+            "taskId": "task-basic",
+            "minute": 0,
+            "scheduledMinute": 0,
+            "missReason": "not_started_shift_window_exceeded",
+        }
+    )
+    payload["summary"]["totalTasks"] = 1
+    payload["summary"]["missedTaskCount"] = 1
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 200
+
+
 def test_validate_endpoint_rejects_duplicate_event_ids(client: TestClient) -> None:
     payload = valid_simulation_run()
     payload["events"] = [
@@ -164,4 +206,3 @@ def test_validate_endpoint_does_not_write_database(client: TestClient) -> None:
 
     assert response.status_code == 200
     assert client.get("/v1/simulation/runs").json()["simulationRuns"] == []
-

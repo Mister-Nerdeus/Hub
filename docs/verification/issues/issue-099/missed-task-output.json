@@ -1,0 +1,13 @@
+{
+  "issue": "099",
+  "missedTaskModel": "not_started",
+  "validMissReasons": [
+    "unassigned",
+    "not_started_shift_window_exceeded"
+  ],
+  "deferredMissReasons": [
+    "attempted_shift_overrun"
+  ],
+  "consumesNurseBusyMinutes": false,
+  "testsPassed": true
+}

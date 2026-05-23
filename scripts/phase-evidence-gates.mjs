@@ -400,6 +400,8 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-098/parity-output.json",
       "docs/verification/issues/issue-098/test-output/shared.txt",
       "docs/verification/issues/issue-098/test-output/api.txt",
+      "docs/verification/issues/issue-099/missed-task-output.json",
+      "docs/verification/issues/issue-099/test-output/shared.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -433,7 +435,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-097/commands.txt",
       "docs/verification/issues/issue-097/closeout.md",
       "docs/verification/issues/issue-098/commands.txt",
-      "docs/verification/issues/issue-098/closeout.md"
+      "docs/verification/issues/issue-098/closeout.md",
+      "docs/verification/issues/issue-099/commands.txt",
+      "docs/verification/issues/issue-099/closeout.md"
     ],
     contentChecks: [
       {

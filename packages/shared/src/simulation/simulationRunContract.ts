@@ -13,6 +13,10 @@ export type SimulationTaskEventAction =
   | "missed"
   | "unassigned";
 
+export type SimulationMissReason =
+  | "unassigned"
+  | "not_started_shift_window_exceeded";
+
 export type SimulationNurseEventAction =
   | "started_task"
   | "completed_task"
@@ -40,7 +44,7 @@ export type SimulationTaskEventContract = {
   completedMinute?: number | null;
   durationMinutes?: number | null;
   delayMinutes?: number | null;
-  missReason?: string | null;
+  missReason?: SimulationMissReason | null;
   queueWaitMinutes?: number | null;
   travelMinutes?: number | null;
   routeNodeIds?: string[];
@@ -128,6 +132,8 @@ const TASK_EVENT_ACTIONS = [
   "missed",
   "unassigned"
 ] as const;
+
+const MISS_REASONS = ["unassigned", "not_started_shift_window_exceeded"] as const;
 
 const NURSE_EVENT_ACTIONS = ["started_task", "completed_task", "idle", "queued"] as const;
 
@@ -332,7 +338,7 @@ function validateTaskEvent(event: Record<string, unknown>): SimulationTaskEventC
   assignOptionalInteger(event, taskEvent, "completedMinute", 0);
   assignOptionalNumber(event, taskEvent, "durationMinutes", 0);
   assignOptionalNumber(event, taskEvent, "delayMinutes", 0);
-  assignOptionalString(event, taskEvent, "missReason");
+  assignOptionalMissReason(event, taskEvent, "missReason");
   assignOptionalNumber(event, taskEvent, "queueWaitMinutes", 0);
   assignOptionalNumber(event, taskEvent, "travelMinutes", 0);
   assignOptionalStringArray(event, taskEvent, "routeNodeIds");
@@ -579,6 +585,17 @@ function assignOptionalString(
   if (source[key] !== undefined) {
     (target as Record<string, unknown>)[key] =
       source[key] == null ? null : requireString(source[key], key);
+  }
+}
+
+function assignOptionalMissReason(
+  source: Record<string, unknown>,
+  target: object,
+  key: string
+): void {
+  if (source[key] !== undefined) {
+    (target as Record<string, unknown>)[key] =
+      source[key] == null ? null : requireEnum(source[key], MISS_REASONS, key);
   }
 }
 

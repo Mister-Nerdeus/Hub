@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "simulationRunId": "simulation-run-missed-not-started",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "events": [
+    {
+      "eventId": "task-task-missed-not-started-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-missed-not-started",
+      "minute": 15,
+      "scheduledMinute": 15
+    },
+    {
+      "eventId": "task-task-missed-not-started-missed",
+      "eventType": "task",
+      "action": "missed",
+      "taskId": "task-missed-not-started",
+      "nurseId": "nurse-alpha",
+      "minute": 15,
+      "scheduledMinute": 15,
+      "missReason": "not_started_shift_window_exceeded"
+    }
+  ],
+  "summary": {
+    "totalTasks": 1,
+    "completedTaskCount": 0,
+    "delayedTaskCount": 0,
+    "missedTaskCount": 1,
+    "unassignedTaskCount": 0
+  },
+  "limitations": [
+    "Operational-only deterministic shift execution result from synthetic task and assignment inputs.",
+    "No optimizer or clinical claim is applied.",
+    "No route travel is included unless explicit plan path options are supplied."
+  ]
+}

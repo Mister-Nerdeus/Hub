@@ -16,6 +16,7 @@ import { calculatePathTravelTime } from "../pathing/pathTravelTime.js";
 import { compareQueueTasks } from "./nurseQueue.js";
 import {
   type SimulationEventContract,
+  type SimulationMissReason,
   type SimulationRunContract,
   validateSimulationRunContract
 } from "./simulationRunContract.js";
@@ -142,24 +143,24 @@ export function buildSimulationRun(input: BuildSimulationRunInput): SimulationRu
         currentNodeByNurseId.get(nurseId),
         input.travel
       );
+      const startMinute = Math.max(readyMinute, nurseAvailableMinute) + travel.travelMinutes;
+      const completedMinute = startMinute + task.estimatedDurationMinutes;
+      if (completedMinute > shiftDurationMinutes) {
+        events.push(taskMissedEvent(task, nurseId, startMinute, "not_started_shift_window_exceeded"));
+        continue;
+      }
+
       if (travel.event != null) {
         events.push(travel.event);
       }
       currentNodeByNurseId.set(nurseId, travel.currentNodeId);
 
-      const startMinute = Math.max(readyMinute, nurseAvailableMinute) + travel.travelMinutes;
       const delayMinutes = startMinute - readyMinute;
       if (delayMinutes > 0) {
         events.push(taskDelayedEvent(task, nurseId, startMinute, delayMinutes, queueWaitMinutes, travel.travelMinutes));
       }
       if (queueWaitMinutes > 0) {
         events.push(queueStartedEvent(nurseId, task, readyMinute, startMinute, queueWaitMinutes));
-      }
-
-      const completedMinute = startMinute + task.estimatedDurationMinutes;
-      if (completedMinute > shiftDurationMinutes) {
-        events.push(taskMissedEvent(task, nurseId, startMinute, "shift_window_exceeded"));
-        continue;
       }
 
       events.push(taskStartedEvent(task, nurseId, startMinute, queueWaitMinutes, travel.travelMinutes));
@@ -388,8 +389,8 @@ function taskCompletedEvent(
 function taskMissedEvent(
   task: GeneratedOperationalTask,
   nurseId: string,
-  startMinute: number,
-  missReason: string
+  missMinute: number,
+  missReason: SimulationMissReason
 ): SimulationEventContract {
   return {
     eventId: `task-${task.id}-missed`,
@@ -397,9 +398,8 @@ function taskMissedEvent(
     action: "missed",
     taskId: task.id,
     nurseId,
-    minute: startMinute,
+    minute: missMinute,
     scheduledMinute: task.scheduledMinute,
-    startMinute,
     missReason
   };
 }
