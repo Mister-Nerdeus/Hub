@@ -6,7 +6,7 @@ Command: npm --workspace apps/web test
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 6 web test file(s).
+Discovered 7 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -15,6 +15,8 @@ Discovered 6 web test file(s).
 
 
 > node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/comparison/scenarioComparisonViewModel.test.ts
 
 > src/features/manual-assignment/manualAssignmentViewModel.test.ts
 
@@ -28,7 +30,7 @@ Discovered 6 web test file(s).
 
 > src/features/reports/reportProofViewModel.test.ts
 
-Executed 6 web test file(s).
+Executed 7 web test file(s).
 
 ## stderr
 

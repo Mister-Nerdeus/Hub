@@ -1,0 +1,21 @@
+# Phase 7 Comparison and Export Checklist
+
+- [x] Scenario comparison contract exists.
+- [x] Manual scenario comparison builder exists.
+- [x] Report export JSON bundle contract exists.
+- [x] Report export JSON bundle builder exists.
+- [x] API-free comparison proof exists.
+- [x] Comparison output evidence exists.
+- [x] Export bundle output evidence exists.
+- [x] Screenshot evidence exists.
+- [x] Validation output evidence exists.
+- [x] Local verifier is required.
+- [x] No optimizer.
+- [x] No recommendation.
+- [x] No clinical safety claims.
+- [x] No API endpoints.
+- [x] No persistence.
+- [x] No PDF export.
+- [x] No route calculation.
+- [x] No delay calculation.
+- [x] No PHI.

@@ -1,0 +1,11 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm --workspace packages/shared test
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+Start-Process npm.cmd --workspace apps/web run dev -- --host 127.0.0.1 --port 5181
+chrome --headless=new --disable-gpu --window-size=1440,3600 --screenshot=docs/verification/issues/issue-062/screenshots/comparison-proof.png http://127.0.0.1:5181
+docker compose down
+node scripts/verify-local.mjs
+git diff --name-only

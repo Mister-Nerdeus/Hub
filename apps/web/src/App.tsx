@@ -1,6 +1,8 @@
 import { useReducer } from "react";
 import type { PlanContract } from "@nerdeus/shared";
 
+import { ScenarioComparisonProof } from "./features/comparison/ScenarioComparisonProof";
+import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
 import { PlanDraftPanel } from "./features/plan-builder/PlanDraftPanel";
@@ -24,6 +26,7 @@ export function App() {
     manualAssignmentBasic
   );
   const reportProofViewModel = createReportProofViewModel();
+  const scenarioComparisonProofViewModel = createScenarioComparisonProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -44,6 +47,7 @@ export function App() {
 
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
+      <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

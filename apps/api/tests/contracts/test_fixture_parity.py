@@ -15,7 +15,9 @@ from app.contracts import (
     validate_manual_assignment_contract,
     validate_nurse_task_assignment_contract,
     validate_operational_report_contract,
+    validate_report_export_bundle_contract,
     validate_room_loads,
+    validate_scenario_comparison_contract,
     validate_shift_scenario_contract,
 )
 
@@ -25,6 +27,8 @@ INVALID_FIXTURES = FIXTURES / "invalid"
 TASK_FIXTURES = FIXTURES / "tasks"
 INVALID_TASK_FIXTURES = TASK_FIXTURES / "invalid"
 REPORT_FIXTURES = FIXTURES / "reports"
+COMPARISON_FIXTURES = FIXTURES / "comparison"
+EXPORT_FIXTURES = FIXTURES / "export"
 
 
 def load_fixture(name: str) -> dict:
@@ -44,6 +48,16 @@ def load_task_fixture(name: str) -> dict:
 
 def load_report_fixture(name: str) -> dict:
     with (REPORT_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
+def load_comparison_fixture(name: str) -> dict:
+    with (COMPARISON_FIXTURES / name).open(encoding="utf-8") as fixture:
+        return json.load(fixture)
+
+
+def load_export_fixture(name: str) -> dict:
+    with (EXPORT_FIXTURES / name).open(encoding="utf-8") as fixture:
         return json.load(fixture)
 
 
@@ -185,6 +199,31 @@ def test_phase6_operational_report_fixture_matches_python_contract() -> None:
     assert report.summary.totalGeneratedTasks == task_set.taskCount
 
 
+def test_phase7_scenario_comparison_fixture_matches_python_contract() -> None:
+    bundle = load_export_fixture("report-export-bundle-basic.json")
+    comparison = validate_scenario_comparison_contract(
+        load_comparison_fixture("scenario-comparison-basic.json"),
+        reports=[
+            validate_operational_report_contract(report)
+            for report in bundle["reports"]
+        ],
+    )
+
+    assert comparison.comparisonType == "manual_scenario_comparison"
+    assert comparison.reportIds[0] == comparison.baselineReportId
+    assert comparison.summary.maxGeneratedTasks == 8
+
+
+def test_phase7_report_export_bundle_fixture_matches_python_contract() -> None:
+    bundle = validate_report_export_bundle_contract(
+        load_export_fixture("report-export-bundle-basic.json")
+    )
+
+    assert bundle.exportType == "operational_report_bundle"
+    assert len(bundle.reports) == 2
+    assert bundle.metadata.generatedBy == "local-proof"
+
+
 @pytest.mark.parametrize(
     "fixture_name",
     [
@@ -208,3 +247,18 @@ def test_phase6_operational_report_fixture_matches_python_contract() -> None:
 def test_invalid_plan_fixtures_are_rejected_by_python_contract(fixture_name: str) -> None:
     with pytest.raises((ValidationError, ValueError)):
         PlanContract.model_validate(load_invalid_fixture(fixture_name))
+
+
+@pytest.mark.parametrize(
+    "fixture_name",
+    [
+        "export-bundle-missing-report.json",
+        "export-bundle-comparison-mismatch.json",
+        "export-bundle-safety-claim.json",
+    ],
+)
+def test_invalid_report_export_bundle_fixtures_are_rejected_by_python_contract(
+    fixture_name: str,
+) -> None:
+    with pytest.raises((ValidationError, ValueError)):
+        validate_report_export_bundle_contract(load_invalid_fixture(fixture_name))

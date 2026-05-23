@@ -43,4 +43,8 @@ Phase 5 adds assumptions-driven scoring parity, generated task-set validation, d
 
 Phase 6 adds operational report contracts, deterministic report builders, unassigned task and warning reports, and an API-free web proof surface for inspecting generated operational task workload. Phase 6 remains local-first, reports are operational inspection summaries only, and the proof uses synthetic operational data only.
 
-Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, workload balancing, and optimization remain out of scope until later accepted contracts.
+## Phase 7 Comparison and Export Foundation
+
+Phase 7 adds the scenario comparison contract, manual scenario comparison builder, report export JSON bundle contract, report export JSON bundle builder, and an API-free comparison proof surface. Phase 7 remains local-first, uses synthetic operational data only, and packages JSON proof artifacts without adding API endpoints or persistence.
+
+Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, report bundle persistence, PDF export, file download behavior, recommendation, workload balancing, and optimization remain out of scope until later accepted contracts.

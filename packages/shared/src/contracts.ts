@@ -616,6 +616,67 @@ export type OperationalReportValidationContext = {
   warnings?: Warning[];
 };
 
+export type ScenarioComparisonItem = {
+  reportId: string;
+  scenarioId: string;
+  label: string;
+  isBaseline: boolean;
+  totalGeneratedTasks: number;
+  assignedTaskCount: number;
+  unassignedTaskCount: number;
+  totalEstimatedTaskMinutes: number;
+  warningCount: number;
+  busiestMinute: number | null;
+  busiestMinuteTaskCount: number;
+};
+
+export type ScenarioComparisonSummary = {
+  reportCount: number;
+  baselineReportId: string;
+  maxGeneratedTasks: number;
+  maxAssignedTaskCount: number;
+  maxUnassignedTaskCount: number;
+  maxEstimatedTaskMinutes: number;
+  maxWarningCount: number;
+  maxBusiestMinuteTaskCount: number;
+};
+
+export type ScenarioComparisonContract = {
+  schemaVersion: "1.0.0";
+  comparisonId: string;
+  comparisonType: "manual_scenario_comparison";
+  createdAt: string;
+  label: string;
+  baselineReportId: string;
+  reportIds: string[];
+  items: ScenarioComparisonItem[];
+  summary: ScenarioComparisonSummary;
+  limitations: string[];
+};
+
+export type ScenarioComparisonValidationContext = {
+  reports?: OperationalReportContract[];
+};
+
+export type ReportExportBundleMetadata = {
+  appName: string;
+  appVersion: string;
+  generatedBy: "local-proof";
+  source: "synthetic-operational-data";
+};
+
+export type ReportExportBundleContract = {
+  schemaVersion: "1.0.0";
+  exportId: string;
+  exportType: "operational_report_bundle";
+  createdAt: string;
+  label: string;
+  reports: OperationalReportContract[];
+  comparison?: ScenarioComparisonContract | null;
+  limitations: string[];
+  metadata: ReportExportBundleMetadata;
+};
+
 type IdSets = {
   roomIds: Set<string>;
   hallwayIds: Set<string>;
@@ -1206,6 +1267,384 @@ export function validateOperationalReportContract(
   return report as OperationalReportContract;
 }
 
+export function validateScenarioComparisonContract(
+  value: unknown,
+  context: ScenarioComparisonValidationContext = {}
+): ScenarioComparisonContract {
+  const comparison = requireRecord(value, "scenarioComparison");
+  requireExactKeys(comparison, "scenarioComparison", [
+    "schemaVersion",
+    "comparisonId",
+    "comparisonType",
+    "createdAt",
+    "label",
+    "baselineReportId",
+    "reportIds",
+    "items",
+    "summary",
+    "limitations"
+  ]);
+
+  requireLiteral(comparison.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(comparison.comparisonId, "comparisonId");
+  requireLiteral(
+    comparison.comparisonType,
+    "manual_scenario_comparison",
+    "comparisonType"
+  );
+  requireIsoDateTime(comparison.createdAt, "createdAt");
+  validateReportText(comparison.label, "label");
+  const baselineReportId = requireString(comparison.baselineReportId, "baselineReportId");
+  const reportIds = requireArray(comparison.reportIds, "reportIds").map((reportId, index) =>
+    requireString(reportId, `reportIds[${index}]`)
+  );
+  if (reportIds.length === 0) {
+    throw new Error("reportIds requires at least one report");
+  }
+  requireUnique("comparison report ids", reportIds);
+  if (reportIds[0] !== baselineReportId) {
+    throw new Error("reportIds must list the baseline report first");
+  }
+  if (!reportIds.includes(baselineReportId)) {
+    throw new Error("baselineReportId must reference a comparison report");
+  }
+
+  const items = requireArray(comparison.items, "items").map(validateScenarioComparisonItem);
+  if (items.length === 0) {
+    throw new Error("items requires at least one comparison item");
+  }
+  const itemReportIds = items.map((item) => item.reportId);
+  requireUnique("comparison item report ids", itemReportIds);
+  if (!sameStringArray(itemReportIds, reportIds)) {
+    throw new Error("items must match reportIds in deterministic order");
+  }
+  if (items[0]?.reportId !== baselineReportId || items[0].isBaseline !== true) {
+    throw new Error("items must list the baseline report first");
+  }
+  for (const item of items) {
+    if (item.isBaseline !== (item.reportId === baselineReportId)) {
+      throw new Error("comparison item baseline flags must match baselineReportId");
+    }
+  }
+
+  const summary = validateScenarioComparisonSummary(comparison.summary);
+  const limitations = requireArray(comparison.limitations, "limitations").map(
+    (limitation, index) => validateReportText(limitation, `limitations[${index}]`)
+  );
+  validateRequiredComparisonLimitations(limitations);
+  validateScenarioComparisonSummaryValues(summary, baselineReportId, items);
+
+  if (context.reports != null) {
+    validateScenarioComparisonAgainstReports(
+      comparison as ScenarioComparisonContract,
+      items,
+      context.reports
+    );
+  }
+
+  return comparison as ScenarioComparisonContract;
+}
+
+export function validateReportExportBundleContract(
+  value: unknown
+): ReportExportBundleContract {
+  const bundle = requireRecord(value, "reportExportBundle");
+  requireExactKeys(bundle, "reportExportBundle", [
+    "schemaVersion",
+    "exportId",
+    "exportType",
+    "createdAt",
+    "label",
+    "reports",
+    "comparison",
+    "limitations",
+    "metadata"
+  ]);
+
+  requireLiteral(bundle.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(bundle.exportId, "exportId");
+  requireLiteral(bundle.exportType, "operational_report_bundle", "exportType");
+  requireIsoDateTime(bundle.createdAt, "createdAt");
+  validateReportText(bundle.label, "label");
+
+  const reports = requireArray(bundle.reports, "reports").map((report) =>
+    validateOperationalReportContract(report)
+  );
+  if (reports.length === 0) {
+    throw new Error("reports requires at least one operational report");
+  }
+  requireUnique(
+    "export bundle report ids",
+    reports.map((report) => report.reportId)
+  );
+
+  let comparison: ScenarioComparisonContract | null = null;
+  if (bundle.comparison != null) {
+    comparison = validateScenarioComparisonContract(bundle.comparison, { reports });
+  }
+
+  const limitations = requireArray(bundle.limitations, "limitations").map(
+    (limitation, index) => validateReportText(limitation, `limitations[${index}]`)
+  );
+  validateRequiredExportBundleLimitations(limitations);
+  validateReportExportBundleMetadata(bundle.metadata);
+
+  return {
+    ...(bundle as ReportExportBundleContract),
+    reports,
+    comparison,
+    limitations,
+    metadata: bundle.metadata as ReportExportBundleMetadata
+  };
+}
+
+function validateScenarioComparisonItem(
+  value: unknown,
+  index: number
+): ScenarioComparisonItem {
+  const item = requireRecord(value, `items[${index}]`);
+  requireExactKeys(item, `items[${index}]`, [
+    "reportId",
+    "scenarioId",
+    "label",
+    "isBaseline",
+    "totalGeneratedTasks",
+    "assignedTaskCount",
+    "unassignedTaskCount",
+    "totalEstimatedTaskMinutes",
+    "warningCount",
+    "busiestMinute",
+    "busiestMinuteTaskCount"
+  ]);
+
+  requireString(item.reportId, `items[${index}].reportId`);
+  requireString(item.scenarioId, `items[${index}].scenarioId`);
+  validateReportText(item.label, `items[${index}].label`);
+  requireBoolean(item.isBaseline, `items[${index}].isBaseline`);
+  const totalGeneratedTasks = requireInteger(
+    item.totalGeneratedTasks,
+    `items[${index}].totalGeneratedTasks`,
+    0
+  );
+  const assignedTaskCount = requireInteger(
+    item.assignedTaskCount,
+    `items[${index}].assignedTaskCount`,
+    0
+  );
+  const unassignedTaskCount = requireInteger(
+    item.unassignedTaskCount,
+    `items[${index}].unassignedTaskCount`,
+    0
+  );
+  requireNonNegativeNumber(
+    item.totalEstimatedTaskMinutes,
+    `items[${index}].totalEstimatedTaskMinutes`
+  );
+  requireInteger(item.warningCount, `items[${index}].warningCount`, 0);
+  const busiestMinute =
+    item.busiestMinute == null
+      ? null
+      : requireInteger(item.busiestMinute, `items[${index}].busiestMinute`, 0);
+  if (item.busiestMinute != null) {
+    requireInteger(item.busiestMinute, `items[${index}].busiestMinute`, 0);
+  }
+  const busiestMinuteTaskCount = requireInteger(
+    item.busiestMinuteTaskCount,
+    `items[${index}].busiestMinuteTaskCount`,
+    0
+  );
+  if (busiestMinute == null && busiestMinuteTaskCount !== 0) {
+    throw new Error(
+      `items[${index}].busiestMinuteTaskCount must be 0 when busiestMinute is null`
+    );
+  }
+  if (assignedTaskCount + unassignedTaskCount !== totalGeneratedTasks) {
+    throw new Error(
+      `items[${index}].assignedTaskCount plus unassignedTaskCount must equal totalGeneratedTasks`
+    );
+  }
+  return item as ScenarioComparisonItem;
+}
+
+function validateScenarioComparisonSummary(value: unknown): ScenarioComparisonSummary {
+  const summary = requireRecord(value, "summary");
+  requireExactKeys(summary, "summary", [
+    "reportCount",
+    "baselineReportId",
+    "maxGeneratedTasks",
+    "maxAssignedTaskCount",
+    "maxUnassignedTaskCount",
+    "maxEstimatedTaskMinutes",
+    "maxWarningCount",
+    "maxBusiestMinuteTaskCount"
+  ]);
+  requireInteger(summary.reportCount, "summary.reportCount", 1);
+  requireString(summary.baselineReportId, "summary.baselineReportId");
+  requireInteger(summary.maxGeneratedTasks, "summary.maxGeneratedTasks", 0);
+  requireInteger(summary.maxAssignedTaskCount, "summary.maxAssignedTaskCount", 0);
+  requireInteger(summary.maxUnassignedTaskCount, "summary.maxUnassignedTaskCount", 0);
+  requireNonNegativeNumber(summary.maxEstimatedTaskMinutes, "summary.maxEstimatedTaskMinutes");
+  requireInteger(summary.maxWarningCount, "summary.maxWarningCount", 0);
+  requireInteger(
+    summary.maxBusiestMinuteTaskCount,
+    "summary.maxBusiestMinuteTaskCount",
+    0
+  );
+  return summary as ScenarioComparisonSummary;
+}
+
+function validateScenarioComparisonSummaryValues(
+  summary: ScenarioComparisonSummary,
+  baselineReportId: string,
+  items: ScenarioComparisonItem[]
+): void {
+  if (summary.reportCount !== items.length) {
+    throw new Error("summary.reportCount must equal items.length");
+  }
+  if (summary.baselineReportId !== baselineReportId) {
+    throw new Error("summary.baselineReportId must match baselineReportId");
+  }
+  const expected = summarizeScenarioComparisonItems(items);
+  if (summary.maxGeneratedTasks !== expected.maxGeneratedTasks) {
+    throw new Error("summary.maxGeneratedTasks must match comparison items");
+  }
+  if (summary.maxAssignedTaskCount !== expected.maxAssignedTaskCount) {
+    throw new Error("summary.maxAssignedTaskCount must match comparison items");
+  }
+  if (summary.maxUnassignedTaskCount !== expected.maxUnassignedTaskCount) {
+    throw new Error("summary.maxUnassignedTaskCount must match comparison items");
+  }
+  if (summary.maxEstimatedTaskMinutes !== expected.maxEstimatedTaskMinutes) {
+    throw new Error("summary.maxEstimatedTaskMinutes must match comparison items");
+  }
+  if (summary.maxWarningCount !== expected.maxWarningCount) {
+    throw new Error("summary.maxWarningCount must match comparison items");
+  }
+  if (summary.maxBusiestMinuteTaskCount !== expected.maxBusiestMinuteTaskCount) {
+    throw new Error("summary.maxBusiestMinuteTaskCount must match comparison items");
+  }
+}
+
+function validateScenarioComparisonAgainstReports(
+  comparison: ScenarioComparisonContract,
+  items: ScenarioComparisonItem[],
+  reports: OperationalReportContract[]
+): void {
+  const reportById = new Map(
+    reports.map((report) => [report.reportId, validateOperationalReportContract(report)])
+  );
+  for (const reportId of comparison.reportIds) {
+    if (!reportById.has(reportId)) {
+      throw new Error("scenario comparison reportIds must reference included reports");
+    }
+  }
+  for (const item of items) {
+    const report = reportById.get(item.reportId);
+    if (report == null) {
+      throw new Error("scenario comparison items must reference included reports");
+    }
+    if (item.scenarioId !== report.scenarioId) {
+      throw new Error("scenario comparison item scenarioId must match report");
+    }
+    if (item.label !== report.title) {
+      throw new Error("scenario comparison item label must match report title");
+    }
+    if (item.totalGeneratedTasks !== report.summary.totalGeneratedTasks) {
+      throw new Error("scenario comparison totalGeneratedTasks must match report");
+    }
+    if (item.assignedTaskCount !== report.summary.assignedTaskCount) {
+      throw new Error("scenario comparison assignedTaskCount must match report");
+    }
+    if (item.unassignedTaskCount !== report.summary.unassignedTaskCount) {
+      throw new Error("scenario comparison unassignedTaskCount must match report");
+    }
+    if (item.totalEstimatedTaskMinutes !== report.summary.totalEstimatedTaskMinutes) {
+      throw new Error("scenario comparison totalEstimatedTaskMinutes must match report");
+    }
+    if (item.warningCount !== report.summary.warningCount) {
+      throw new Error("scenario comparison warningCount must match report");
+    }
+    if (item.busiestMinute !== report.timelineSummary.busiestMinute) {
+      throw new Error("scenario comparison busiestMinute must match report");
+    }
+    if (item.busiestMinuteTaskCount !== report.timelineSummary.busiestMinuteTaskCount) {
+      throw new Error("scenario comparison busiestMinuteTaskCount must match report");
+    }
+  }
+}
+
+function summarizeScenarioComparisonItems(
+  items: ScenarioComparisonItem[]
+): Omit<ScenarioComparisonSummary, "reportCount" | "baselineReportId"> {
+  return {
+    maxGeneratedTasks: Math.max(...items.map((item) => item.totalGeneratedTasks)),
+    maxAssignedTaskCount: Math.max(...items.map((item) => item.assignedTaskCount)),
+    maxUnassignedTaskCount: Math.max(...items.map((item) => item.unassignedTaskCount)),
+    maxEstimatedTaskMinutes: Math.max(
+      ...items.map((item) => item.totalEstimatedTaskMinutes)
+    ),
+    maxWarningCount: Math.max(...items.map((item) => item.warningCount)),
+    maxBusiestMinuteTaskCount: Math.max(
+      ...items.map((item) => item.busiestMinuteTaskCount)
+    )
+  };
+}
+
+function validateRequiredComparisonLimitations(limitations: string[]): void {
+  if (limitations.length === 0) {
+    throw new Error("limitations requires at least one entry");
+  }
+  const text = limitations.join(" ").toLowerCase();
+  const requiredPhrases: Array<[string, RegExp]> = [
+    ["operational-only", /\boperational[- ]only\b/],
+    ["no optimizer", /\bno optimizer\b/],
+    ["no recommendation", /\bno scenario recommendation\b|\bno recommendation\b/],
+    ["no clinical safety claim", /\bno clinical safety claim\b|\bno clinical safety claims\b/]
+  ];
+  for (const [label, pattern] of requiredPhrases) {
+    if (!pattern.test(text)) {
+      throw new Error(`limitations must include ${label} language`);
+    }
+  }
+}
+
+function validateRequiredExportBundleLimitations(limitations: string[]): void {
+  if (limitations.length === 0) {
+    throw new Error("limitations requires at least one entry");
+  }
+  const text = limitations.join(" ").toLowerCase();
+  const requiredPhrases: Array<[string, RegExp]> = [
+    ["operational-only", /\boperational[- ]only\b/],
+    ["no optimizer", /\bno optimizer\b/],
+    ["no recommendation", /\bno scenario recommendation\b|\bno recommendation\b/],
+    ["no clinical safety claim", /\bno clinical safety claim\b|\bno clinical safety claims\b/]
+  ];
+  for (const [label, pattern] of requiredPhrases) {
+    if (!pattern.test(text)) {
+      throw new Error(`limitations must include ${label} language`);
+    }
+  }
+}
+
+function validateReportExportBundleMetadata(value: unknown): ReportExportBundleMetadata {
+  const metadata = requireRecord(value, "metadata");
+  requireExactKeys(metadata, "metadata", [
+    "appName",
+    "appVersion",
+    "generatedBy",
+    "source"
+  ]);
+  validateReportText(metadata.appName, "metadata.appName");
+  requireString(metadata.appVersion, "metadata.appVersion");
+  requireLiteral(metadata.generatedBy, "local-proof", "metadata.generatedBy");
+  requireLiteral(
+    metadata.source,
+    "synthetic-operational-data",
+    "metadata.source"
+  );
+  return metadata as ReportExportBundleMetadata;
+}
+
 function validateOperationalReportSummary(value: unknown): OperationalReportSummary {
   const summary = requireRecord(value, "summary");
   requireExactKeys(summary, "summary", [
@@ -1329,8 +1768,19 @@ function validateReportText(value: unknown, label: string): string {
     "staffing certification",
     "certifies staffing",
     "safety certification",
+    "certifies safety",
+    "certified safe",
+    "clinically safe",
     "patient outcome",
     "optimized assignment",
+    "recommended scenario",
+    "recommend this scenario",
+    "recommend scenario",
+    "best scenario",
+    "preferred scenario",
+    "optimal scenario",
+    "safest scenario",
+    "should choose",
     "completed work",
     "walking route accuracy",
     "delay prediction",

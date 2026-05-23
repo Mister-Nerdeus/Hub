@@ -218,6 +218,53 @@ const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 063 Phase 7 evidence",
+    paths: [
+      "docs/verification/phase-7-comparison-export-evidence.md",
+      "docs/verification/phase-7-comparison-export-checklist.md",
+      "docs/verification/issues/issue-063/comparison-output.json",
+      "docs/verification/issues/issue-063/export-bundle-output.json",
+      "docs/verification/issues/issue-063/screenshots/comparison-proof.png",
+      "docs/verification/issues/issue-063/validation-output.txt",
+      "docs/verification/issues/issue-063/commands.txt",
+      "docs/verification/issues/issue-063/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-7-comparison-export-evidence.md",
+        checks: [
+          ["Scenario comparison contract", /\bscenario comparison contract\b/i],
+          ["Manual scenario comparison", /\bmanual scenario comparison\b/i],
+          ["Report export JSON bundle", /\breport export JSON bundle\b/i],
+          ["Report export JSON bundle builder", /\breport export JSON bundle builder\b/i],
+          ["API-free comparison proof", /\bapi-free comparison proof\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No recommendation", /\bno\b[\s\S]{0,80}\brecommendation\b/i],
+          ["No clinical safety claims", /\bno\b[\s\S]{0,80}\bclinical safety claims\b/i],
+          ["No API endpoints", /\bno\b[\s\S]{0,80}\bapi endpoints\b/i],
+          ["No persistence", /\bno\b[\s\S]{0,80}\bpersistence\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-7-comparison-export-checklist.md",
+        checks: [
+          ["Scenario comparison contract", /\bscenario comparison contract\b/i],
+          ["Manual scenario comparison", /\bmanual scenario comparison\b/i],
+          ["Report export JSON bundle", /\breport export JSON bundle\b/i],
+          ["Report export JSON bundle builder", /\breport export JSON bundle builder\b/i],
+          ["API-free comparison proof", /\bapi-free comparison proof\b/i],
+          ["No optimizer", /\bno\b[\s\S]{0,80}\boptimizer\b/i],
+          ["No recommendation", /\bno\b[\s\S]{0,80}\brecommendation\b/i],
+          ["No clinical safety claims", /\bno\b[\s\S]{0,80}\bclinical safety claims\b/i],
+          ["No API endpoints", /\bno\b[\s\S]{0,80}\bapi endpoints\b/i],
+          ["No persistence", /\bno\b[\s\S]{0,80}\bpersistence\b/i],
+          ["No PHI", /\bno\s+phi\b/i]
+        ]
+      }
+    ]
   }
 ];
 

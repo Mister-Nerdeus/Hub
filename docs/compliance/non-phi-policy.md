@@ -16,6 +16,8 @@ This repository must not store, generate, import, or display PHI.
 - Generated operational task-set IDs, task IDs, scheduled minutes, durations, task burden categories, and nurse-task assignment IDs.
 - Deterministic timeline aggregation summaries and manual-coverage task assignment proof artifacts.
 - Operational inspection report contracts, report summaries, warning summaries, unassigned task summaries, and deterministic report proof artifacts using synthetic data.
+- Deterministic scenario comparison proof artifacts based on operational report summaries.
+- Operational report export JSON bundles using synthetic operational data.
 - Synthetic day profiles and shift scenarios.
 
 ## Forbidden
@@ -28,5 +30,6 @@ This repository must not store, generate, import, or display PHI.
 - Generated operational tasks presented as clinical orders or care instructions.
 - Nurse-task assignment output presented as clinical staffing safety certification.
 - Operational reports presented as safe-staffing certification, clinical adequacy, patient outcome prediction, completed work, route accuracy, delay prediction, clinical documentation, or EHR artifacts.
+- Scenario comparisons or report export bundles presented as recommendations, optimization output, clinical safety claims, patient outcome predictions, clinical documentation, or EHR artifacts.
 
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

@@ -827,6 +827,181 @@ class OperationalReportContract(StrictModel):
         return self
 
 
+class ScenarioComparisonItem(StrictModel):
+    reportId: str = Field(min_length=1)
+    scenarioId: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    isBaseline: bool
+    totalGeneratedTasks: int = Field(ge=0)
+    assignedTaskCount: int = Field(ge=0)
+    unassignedTaskCount: int = Field(ge=0)
+    totalEstimatedTaskMinutes: float = Field(ge=0)
+    warningCount: int = Field(ge=0)
+    busiestMinute: int | None = Field(default=None, ge=0)
+    busiestMinuteTaskCount: int = Field(ge=0)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_report_text(value, "label")
+
+    @model_validator(mode="after")
+    def validate_counts(self) -> "ScenarioComparisonItem":
+        if self.assignedTaskCount + self.unassignedTaskCount != self.totalGeneratedTasks:
+            raise ValueError(
+                "assignedTaskCount plus unassignedTaskCount must equal totalGeneratedTasks"
+            )
+        if self.busiestMinute is None and self.busiestMinuteTaskCount != 0:
+            raise ValueError("busiestMinuteTaskCount must be 0 when busiestMinute is null")
+        return self
+
+
+class ScenarioComparisonSummary(StrictModel):
+    reportCount: int = Field(ge=1)
+    baselineReportId: str = Field(min_length=1)
+    maxGeneratedTasks: int = Field(ge=0)
+    maxAssignedTaskCount: int = Field(ge=0)
+    maxUnassignedTaskCount: int = Field(ge=0)
+    maxEstimatedTaskMinutes: float = Field(ge=0)
+    maxWarningCount: int = Field(ge=0)
+    maxBusiestMinuteTaskCount: int = Field(ge=0)
+
+
+class ScenarioComparisonContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    comparisonId: str = Field(min_length=1)
+    comparisonType: Literal["manual_scenario_comparison"]
+    createdAt: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    baselineReportId: str = Field(min_length=1)
+    reportIds: list[str] = Field(min_length=1)
+    items: list[ScenarioComparisonItem] = Field(min_length=1)
+    summary: ScenarioComparisonSummary
+    limitations: list[str] = Field(min_length=1)
+
+    @field_validator("createdAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_report_text(value, "label")
+
+    @field_validator("reportIds")
+    @classmethod
+    def validate_report_ids(cls, value: list[str]) -> list[str]:
+        if any(report_id == "" for report_id in value):
+            raise ValueError("comparison report IDs must be non-empty")
+        require_unique("comparison report ids", value)
+        return value
+
+    @field_validator("limitations")
+    @classmethod
+    def validate_limitations(cls, value: list[str]) -> list[str]:
+        for index, limitation in enumerate(value):
+            validate_report_text(limitation, f"limitations[{index}]")
+        validate_required_comparison_limitations(value)
+        return value
+
+    @model_validator(mode="after")
+    def validate_order_and_summary(self) -> "ScenarioComparisonContract":
+        if self.reportIds[0] != self.baselineReportId:
+            raise ValueError("reportIds must list the baseline report first")
+        if self.baselineReportId not in self.reportIds:
+            raise ValueError("baselineReportId must reference a comparison report")
+        item_report_ids = [item.reportId for item in self.items]
+        require_unique("comparison item report ids", item_report_ids)
+        if item_report_ids != self.reportIds:
+            raise ValueError("items must match reportIds in deterministic order")
+        if self.items[0].reportId != self.baselineReportId or self.items[0].isBaseline is not True:
+            raise ValueError("items must list the baseline report first")
+        for item in self.items:
+            if item.isBaseline != (item.reportId == self.baselineReportId):
+                raise ValueError("comparison item baseline flags must match baselineReportId")
+
+        expected = summarize_scenario_comparison_items(self.items)
+        if self.summary.reportCount != len(self.items):
+            raise ValueError("summary reportCount must equal items length")
+        if self.summary.baselineReportId != self.baselineReportId:
+            raise ValueError("summary baselineReportId must match baselineReportId")
+        if self.summary.maxGeneratedTasks != expected["maxGeneratedTasks"]:
+            raise ValueError("summary maxGeneratedTasks must match comparison items")
+        if self.summary.maxAssignedTaskCount != expected["maxAssignedTaskCount"]:
+            raise ValueError("summary maxAssignedTaskCount must match comparison items")
+        if self.summary.maxUnassignedTaskCount != expected["maxUnassignedTaskCount"]:
+            raise ValueError("summary maxUnassignedTaskCount must match comparison items")
+        if self.summary.maxEstimatedTaskMinutes != expected["maxEstimatedTaskMinutes"]:
+            raise ValueError("summary maxEstimatedTaskMinutes must match comparison items")
+        if self.summary.maxWarningCount != expected["maxWarningCount"]:
+            raise ValueError("summary maxWarningCount must match comparison items")
+        if self.summary.maxBusiestMinuteTaskCount != expected["maxBusiestMinuteTaskCount"]:
+            raise ValueError("summary maxBusiestMinuteTaskCount must match comparison items")
+        return self
+
+
+class ReportExportBundleMetadata(StrictModel):
+    appName: str = Field(min_length=1)
+    appVersion: str = Field(min_length=1)
+    generatedBy: Literal["local-proof"]
+    source: Literal["synthetic-operational-data"]
+
+    @field_validator("appName")
+    @classmethod
+    def validate_app_name(cls, value: str) -> str:
+        return validate_report_text(value, "metadata.appName")
+
+
+class ReportExportBundleContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    exportId: str = Field(min_length=1)
+    exportType: Literal["operational_report_bundle"]
+    createdAt: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    reports: list[OperationalReportContract] = Field(min_length=1)
+    comparison: ScenarioComparisonContract | None = None
+    limitations: list[str] = Field(min_length=1)
+    metadata: ReportExportBundleMetadata
+
+    @field_validator("createdAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_report_text(value, "label")
+
+    @field_validator("limitations")
+    @classmethod
+    def validate_limitations(cls, value: list[str]) -> list[str]:
+        for index, limitation in enumerate(value):
+            validate_report_text(limitation, f"limitations[{index}]")
+        validate_required_export_bundle_limitations(value)
+        return value
+
+    @model_validator(mode="after")
+    def validate_bundle_references(self) -> "ReportExportBundleContract":
+        require_unique("export bundle report ids", [report.reportId for report in self.reports])
+        if self.comparison is not None:
+            validate_scenario_comparison_against_reports(self.comparison, self.reports)
+        return self
+
+
 def validate_room_loads(value: Any, plan: PlanContract | None = None) -> list[RoomLoad]:
     room_loads = TypeAdapter(list[RoomLoad]).validate_python(value)
     require_unique("room load ids", [load.roomId for load in room_loads])
@@ -1058,6 +1233,63 @@ def validate_operational_report_contract(
     return report
 
 
+def validate_scenario_comparison_contract(
+    value: Any,
+    reports: list[OperationalReportContract] | None = None,
+) -> ScenarioComparisonContract:
+    comparison = ScenarioComparisonContract.model_validate(value)
+
+    if reports is not None:
+        validate_scenario_comparison_against_reports(comparison, reports)
+
+    return comparison
+
+
+def validate_report_export_bundle_contract(value: Any) -> ReportExportBundleContract:
+    bundle = ReportExportBundleContract.model_validate(value)
+
+    if bundle.comparison is not None:
+        validate_scenario_comparison_against_reports(bundle.comparison, bundle.reports)
+
+    return bundle
+
+
+def validate_scenario_comparison_against_reports(
+    comparison: ScenarioComparisonContract,
+    reports: list[OperationalReportContract],
+) -> None:
+    report_by_id = {
+        report.reportId: validate_operational_report_contract(report.model_dump())
+        for report in reports
+    }
+    for report_id in comparison.reportIds:
+        if report_id not in report_by_id:
+            raise ValueError("scenario comparison reportIds must reference included reports")
+
+    for item in comparison.items:
+        report = report_by_id.get(item.reportId)
+        if report is None:
+            raise ValueError("scenario comparison items must reference included reports")
+        if item.scenarioId != report.scenarioId:
+            raise ValueError("scenario comparison item scenarioId must match report")
+        if item.label != report.title:
+            raise ValueError("scenario comparison item label must match report title")
+        if item.totalGeneratedTasks != report.summary.totalGeneratedTasks:
+            raise ValueError("scenario comparison totalGeneratedTasks must match report")
+        if item.assignedTaskCount != report.summary.assignedTaskCount:
+            raise ValueError("scenario comparison assignedTaskCount must match report")
+        if item.unassignedTaskCount != report.summary.unassignedTaskCount:
+            raise ValueError("scenario comparison unassignedTaskCount must match report")
+        if item.totalEstimatedTaskMinutes != report.summary.totalEstimatedTaskMinutes:
+            raise ValueError("scenario comparison totalEstimatedTaskMinutes must match report")
+        if item.warningCount != report.summary.warningCount:
+            raise ValueError("scenario comparison warningCount must match report")
+        if item.busiestMinute != report.timelineSummary.busiestMinute:
+            raise ValueError("scenario comparison busiestMinute must match report")
+        if item.busiestMinuteTaskCount != report.timelineSummary.busiestMinuteTaskCount:
+            raise ValueError("scenario comparison busiestMinuteTaskCount must match report")
+
+
 def validate_report_against_generated_task_set(
     report: OperationalReportContract,
     generated_task_set: GeneratedOperationalTaskSetContract,
@@ -1174,8 +1406,19 @@ def validate_report_text(value: str, label: str) -> str:
         "staffing certification",
         "certifies staffing",
         "safety certification",
+        "certifies safety",
+        "certified safe",
+        "clinically safe",
         "patient outcome",
         "optimized assignment",
+        "recommended scenario",
+        "recommend this scenario",
+        "recommend scenario",
+        "best scenario",
+        "preferred scenario",
+        "optimal scenario",
+        "safest scenario",
+        "should choose",
         "completed work",
         "walking route accuracy",
         "delay prediction",
@@ -1201,6 +1444,51 @@ def validate_required_report_limitations(limitations: list[str]) -> None:
     for label, accepted_phrases in required:
         if not any(phrase in text for phrase in accepted_phrases):
             raise ValueError(f"limitations must include {label} language")
+
+
+def validate_required_comparison_limitations(limitations: list[str]) -> None:
+    text = " ".join(limitations).lower()
+    required = [
+        ("operational-only", ("operational-only", "operational only")),
+        ("no optimizer", ("no optimizer",)),
+        ("no recommendation", ("no scenario recommendation", "no recommendation")),
+        (
+            "no clinical safety claim",
+            ("no clinical safety claim", "no clinical safety claims"),
+        ),
+    ]
+    for label, accepted_phrases in required:
+        if not any(phrase in text for phrase in accepted_phrases):
+            raise ValueError(f"limitations must include {label} language")
+
+
+def validate_required_export_bundle_limitations(limitations: list[str]) -> None:
+    text = " ".join(limitations).lower()
+    required = [
+        ("operational-only", ("operational-only", "operational only")),
+        ("no optimizer", ("no optimizer",)),
+        ("no recommendation", ("no scenario recommendation", "no recommendation")),
+        (
+            "no clinical safety claim",
+            ("no clinical safety claim", "no clinical safety claims"),
+        ),
+    ]
+    for label, accepted_phrases in required:
+        if not any(phrase in text for phrase in accepted_phrases):
+            raise ValueError(f"limitations must include {label} language")
+
+
+def summarize_scenario_comparison_items(
+    items: list[ScenarioComparisonItem],
+) -> dict[str, float]:
+    return {
+        "maxGeneratedTasks": max(item.totalGeneratedTasks for item in items),
+        "maxAssignedTaskCount": max(item.assignedTaskCount for item in items),
+        "maxUnassignedTaskCount": max(item.unassignedTaskCount for item in items),
+        "maxEstimatedTaskMinutes": max(item.totalEstimatedTaskMinutes for item in items),
+        "maxWarningCount": max(item.warningCount for item in items),
+        "maxBusiestMinuteTaskCount": max(item.busiestMinuteTaskCount for item in items),
+    }
 
 
 def summarize_generated_task_timeline(

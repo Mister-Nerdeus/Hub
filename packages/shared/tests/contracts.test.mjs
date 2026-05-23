@@ -14,8 +14,10 @@ import {
   validateNurseTaskAssignmentContract,
   validateOperationalReportContract,
   validatePlanContract,
+  validateReportExportBundleContract,
   validateRoomLoads,
   validateScenarioContract,
+  validateScenarioComparisonContract,
   validateShiftScenarioContract,
   validateTaskTemplateContract
 } from "../dist/index.js";
@@ -25,6 +27,8 @@ const invalidFixturesDir = join(fixturesDir, "invalid");
 const taskFixturesDir = join(fixturesDir, "tasks");
 const invalidTaskFixturesDir = join(taskFixturesDir, "invalid");
 const reportFixturesDir = join(fixturesDir, "reports");
+const comparisonFixturesDir = join(fixturesDir, "comparison");
+const exportFixturesDir = join(fixturesDir, "export");
 
 function readFixture(name) {
   return JSON.parse(readFileSync(join(fixturesDir, name), "utf8"));
@@ -40,6 +44,14 @@ function readTaskFixture(name) {
 
 function readReportFixture(name) {
   return JSON.parse(readFileSync(join(reportFixturesDir, name), "utf8"));
+}
+
+function readComparisonFixture(name) {
+  return JSON.parse(readFileSync(join(comparisonFixturesDir, name), "utf8"));
+}
+
+function readExportFixture(name) {
+  return JSON.parse(readFileSync(join(exportFixturesDir, name), "utf8"));
 }
 
 function readInvalidTaskFixture(name) {
@@ -334,6 +346,28 @@ test("operational report builder outputs validate against TypeScript contract", 
   );
 });
 
+test("scenario comparison fixture validates against TypeScript contract", () => {
+  const bundle = readExportFixture("report-export-bundle-basic.json");
+  const comparison = validateScenarioComparisonContract(
+    readComparisonFixture("scenario-comparison-basic.json"),
+    { reports: bundle.reports }
+  );
+
+  assert.equal(comparison.comparisonType, "manual_scenario_comparison");
+  assert.equal(comparison.reportIds[0], comparison.baselineReportId);
+  assert.equal(comparison.summary.maxGeneratedTasks, 8);
+});
+
+test("report export bundle fixture validates against TypeScript contract", () => {
+  const bundle = validateReportExportBundleContract(
+    readExportFixture("report-export-bundle-basic.json")
+  );
+
+  assert.equal(bundle.exportType, "operational_report_bundle");
+  assert.equal(bundle.reports.length, 2);
+  assert.equal(bundle.metadata.generatedBy, "local-proof");
+});
+
 const invalidPlanFixtures = [
   "plan-duplicate-door-id.json",
   "plan-duplicate-path-edge-id.json",
@@ -549,5 +583,17 @@ for (const fixtureName of invalidOperationalReportFixtures) {
         warnings: assignmentResult.warnings
       })
     );
+  });
+}
+
+const invalidReportExportBundleFixtures = [
+  "export-bundle-missing-report.json",
+  "export-bundle-comparison-mismatch.json",
+  "export-bundle-safety-claim.json"
+];
+
+for (const fixtureName of invalidReportExportBundleFixtures) {
+  test(`${fixtureName} is rejected by TypeScript report export bundle contract`, () => {
+    assert.throws(() => validateReportExportBundleContract(readInvalidFixture(fixtureName)));
   });
 }

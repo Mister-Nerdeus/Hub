@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "exportId": "report-export-bundle-basic",
+  "exportType": "operational_report_bundle",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "label": "Operational-only report export bundle proof",
+  "reports": [],
+  "comparison": {
+    "schemaVersion": "1.0.0",
+    "comparisonId": "scenario-comparison-basic",
+    "comparisonType": "manual_scenario_comparison",
+    "createdAt": "2026-05-22T00:00:00Z",
+    "label": "Operational-only scenario comparison proof",
+    "baselineReportId": "operational-summary-generated-task-set-basic",
+    "reportIds": [
+      "operational-summary-generated-task-set-basic",
+      "operational-summary-generated-task-set-surge"
+    ],
+    "items": [
+      {
+        "reportId": "operational-summary-generated-task-set-basic",
+        "scenarioId": "shift-scenario-basic",
+        "label": "Operational Summary Report",
+        "isBaseline": true,
+        "totalGeneratedTasks": 6,
+        "assignedTaskCount": 5,
+        "unassignedTaskCount": 1,
+        "totalEstimatedTaskMinutes": 73,
+        "warningCount": 1,
+        "busiestMinute": 0,
+        "busiestMinuteTaskCount": 2
+      },
+      {
+        "reportId": "operational-summary-generated-task-set-surge",
+        "scenarioId": "shift-scenario-surge",
+        "label": "Operational Summary Report - Surge Scenario",
+        "isBaseline": false,
+        "totalGeneratedTasks": 8,
+        "assignedTaskCount": 6,
+        "unassignedTaskCount": 2,
+        "totalEstimatedTaskMinutes": 96,
+        "warningCount": 2,
+        "busiestMinute": 30,
+        "busiestMinuteTaskCount": 3
+      }
+    ],
+    "summary": {
+      "reportCount": 2,
+      "baselineReportId": "operational-summary-generated-task-set-basic",
+      "maxGeneratedTasks": 8,
+      "maxAssignedTaskCount": 6,
+      "maxUnassignedTaskCount": 2,
+      "maxEstimatedTaskMinutes": 96,
+      "maxWarningCount": 2,
+      "maxBusiestMinuteTaskCount": 3
+    },
+    "limitations": [
+      "Operational-only comparison of deterministic synthetic report outputs.",
+      "No optimizer or workload rebalancing is applied.",
+      "No scenario recommendation is made.",
+      "No clinical safety claim is made.",
+      "No task-completion simulation, walking route calculation, or delay calculation is performed."
+    ]
+  },
+  "limitations": [
+    "Operational-only JSON evidence bundle based on deterministic synthetic report outputs.",
+    "No optimizer or workload rebalancing is applied.",
+    "No scenario recommendation is made.",
+    "No clinical safety claim is made.",
+    "No API endpoint, persistence behavior, PDF export, or file download behavior is included."
+  ],
+  "metadata": {
+    "appName": "Nerdeus ER Pod Shift Simulator",
+    "appVersion": "0.1.0",
+    "generatedBy": "local-proof",
+    "source": "synthetic-operational-data"
+  }
+}

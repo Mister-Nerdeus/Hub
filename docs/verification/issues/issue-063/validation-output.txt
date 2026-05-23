@@ -1,0 +1,8 @@
+> node export bundle validation
+TypeScript valid export bundle passed
+TypeScript invalid fixture rejected: export-bundle-missing-report.json
+TypeScript invalid fixture rejected: export-bundle-comparison-mismatch.json
+TypeScript invalid fixture rejected: export-bundle-safety-claim.json
+> python -m pytest tests/contracts/test_report_export_bundle_contract.py
+......                                                                   [100%]
+6 passed in 0.13s
