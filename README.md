@@ -126,6 +126,8 @@ Issue 103 hardens simulation persistence reads. Listing is bounded with default 
 
 Issue 104 adds a captured command-output evidence gate. Issues 104 and later must include at least one non-empty output artifact; command names and closeout text are not enough by themselves.
 
+Issue 105 adds a deterministic issue-level evidence index for Issues 082 and later. Missing or empty indexed evidence now reports the exact issue number.
+
 Issue 099 defines the V1 missed-task model: tasks that cannot complete inside the shift window are not started, consume no nurse busy minutes, and use the explicit not-started miss reason. Attempted-overrun behavior remains deferred.
 
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.

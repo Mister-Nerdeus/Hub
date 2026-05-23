@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, normalize } from "node:path";
 
 import { checkIssueCommandOutput } from "./check-issue-command-output.mjs";
+import { checkIssueEvidenceIndex } from "./check-issue-evidence-index.mjs";
 import { requiredEvidenceGates } from "./phase-evidence-gates.mjs";
 
 const root = process.cwd();
@@ -99,6 +100,7 @@ for (const gate of requiredEvidenceGates) {
 }
 
 failures.push(...checkIssueCommandOutput(root));
+failures.push(...checkIssueEvidenceIndex(root));
 
 if (failures.length > 0) {
   console.error(failures.join("\n"));

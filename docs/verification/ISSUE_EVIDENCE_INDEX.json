@@ -1,0 +1,236 @@
+{
+  "issues": [
+    {
+      "issue": "082",
+      "title": "Simulation Run Contract Foundation",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-082/closeout.md",
+        "docs/verification/issues/issue-082/commands.txt",
+        "docs/verification/issues/issue-082/simulation-run-contract-output.json"
+      ]
+    },
+    {
+      "issue": "083",
+      "title": "Deterministic Task Execution Engine V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-083/closeout.md",
+        "docs/verification/issues/issue-083/commands.txt",
+        "docs/verification/issues/issue-083/simulation-output-basic.json",
+        "docs/verification/issues/issue-083/simulation-output-surge.json"
+      ]
+    },
+    {
+      "issue": "084",
+      "title": "Deterministic Nurse Queue V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-084/closeout.md",
+        "docs/verification/issues/issue-084/commands.txt",
+        "docs/verification/issues/issue-084/nurse-queue-output.json"
+      ]
+    },
+    {
+      "issue": "085",
+      "title": "Path Travel Time V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-085/closeout.md",
+        "docs/verification/issues/issue-085/commands.txt",
+        "docs/verification/issues/issue-085/path-travel-output.json"
+      ]
+    },
+    {
+      "issue": "086",
+      "title": "Simulation Scoring V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-086/closeout.md",
+        "docs/verification/issues/issue-086/commands.txt",
+        "docs/verification/issues/issue-086/scoring-output.json"
+      ]
+    },
+    {
+      "issue": "087",
+      "title": "Simulation Operational Report V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-087/closeout.md",
+        "docs/verification/issues/issue-087/commands.txt",
+        "docs/verification/issues/issue-087/report-output.json"
+      ]
+    },
+    {
+      "issue": "088",
+      "title": "Simulation Timeline UI Proof",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-088/closeout.md",
+        "docs/verification/issues/issue-088/commands.txt",
+        "docs/verification/issues/issue-088/screenshots/simulation-timeline-proof.png"
+      ]
+    },
+    {
+      "issue": "089",
+      "title": "Simulation Report Comparison V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-089/closeout.md",
+        "docs/verification/issues/issue-089/commands.txt",
+        "docs/verification/issues/issue-089/comparison-output.json"
+      ]
+    },
+    {
+      "issue": "090",
+      "title": "Assignment Variant Runner V1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-090/closeout.md",
+        "docs/verification/issues/issue-090/commands.txt",
+        "docs/verification/issues/issue-090/variant-run-output.json"
+      ]
+    },
+    {
+      "issue": "091",
+      "title": "Optimizer Boundary Contract",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-091/closeout.md",
+        "docs/verification/issues/issue-091/commands.txt",
+        "docs/verification/issues/issue-091/optimization-contract-output.json"
+      ]
+    },
+    {
+      "issue": "092",
+      "title": "Baseline Assignment Optimizer",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-092/closeout.md",
+        "docs/verification/issues/issue-092/commands.txt",
+        "docs/verification/issues/issue-092/optimizer-output.json"
+      ]
+    },
+    {
+      "issue": "093",
+      "title": "Optimizer Audit Trail",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-093/closeout.md",
+        "docs/verification/issues/issue-093/commands.txt",
+        "docs/verification/issues/issue-093/optimizer-audit-output.json"
+      ]
+    },
+    {
+      "issue": "094",
+      "title": "Optimizer UI Proof",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-094/closeout.md",
+        "docs/verification/issues/issue-094/commands.txt",
+        "docs/verification/issues/issue-094/screenshots/optimizer-proof.png"
+      ]
+    },
+    {
+      "issue": "095",
+      "title": "Simulation API Validation",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-095/closeout.md",
+        "docs/verification/issues/issue-095/commands.txt",
+        "docs/verification/issues/issue-095/api-responses/simulation-validate-response.json"
+      ]
+    },
+    {
+      "issue": "096",
+      "title": "Simulation Run Persistence",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-096/closeout.md",
+        "docs/verification/issues/issue-096/commands.txt",
+        "docs/verification/issues/issue-096/api-responses/create-simulation-run-response.json"
+      ]
+    },
+    {
+      "issue": "097",
+      "title": "Batch 082-096 Audit, Evidence Index, and Hardening Plan",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-097/closeout.md",
+        "docs/verification/issues/issue-097/commands.txt",
+        "docs/verification/issues/issue-097/review-findings.md",
+        "docs/verification/issues/issue-097/batch-082-096-file-index.md",
+        "docs/verification/issues/issue-097/hardening-plan.md",
+        "docs/verification/issues/issue-097/test-output/shared.txt",
+        "docs/verification/issues/issue-097/test-output/api.txt",
+        "docs/verification/issues/issue-097/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "issue": "098",
+      "title": "TypeScript/Python Simulation Contract Parity",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-098/closeout.md",
+        "docs/verification/issues/issue-098/commands.txt",
+        "docs/verification/issues/issue-098/parity-output.json",
+        "docs/verification/issues/issue-098/test-output/shared.txt",
+        "docs/verification/issues/issue-098/test-output/api.txt"
+      ]
+    },
+    {
+      "issue": "099",
+      "title": "Explicit Missed-Task Semantics",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-099/closeout.md",
+        "docs/verification/issues/issue-099/commands.txt",
+        "docs/verification/issues/issue-099/missed-task-output.json",
+        "docs/verification/issues/issue-099/test-output/shared.txt"
+      ]
+    },
+    {
+      "issue": "100",
+      "title": "Queue Pause/Resume Contract Deferral",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-100/closeout.md",
+        "docs/verification/issues/issue-100/commands.txt",
+        "docs/verification/issues/issue-100/queue-contract-output.json",
+        "docs/verification/issues/issue-100/test-output/shared.txt"
+      ]
+    },
+    {
+      "issue": "101",
+      "title": "Optimizer Candidate Constraint Adapter",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-101/closeout.md",
+        "docs/verification/issues/issue-101/commands.txt",
+        "docs/verification/issues/issue-101/optimizer-constraint-output.json",
+        "docs/verification/issues/issue-101/test-output/shared.txt"
+      ]
+    },
+    {
+      "issue": "102",
+      "title": "Optimizer Assignment Reason Truth",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-102/closeout.md",
+        "docs/verification/issues/issue-102/commands.txt",
+        "docs/verification/issues/issue-102/assignment-reason-output.json",
+        "docs/verification/issues/issue-102/test-output/shared.txt"
+      ]
+    },
+    {
+      "issue": "103",
+      "title": "Simulation Persistence Read Validation and Bounded Listing",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-103/closeout.md",
+        "docs/verification/issues/issue-103/commands.txt",
+        "docs/verification/issues/issue-103/api-responses/list-simulation-runs-response.json",
+        "docs/verification/issues/issue-103/api-responses/get-invalid-persisted-run-response.json",
+        "docs/verification/issues/issue-103/test-output/api.txt"
+      ]
+    },
+    {
+      "issue": "104",
+      "title": "Captured Command Output Evidence Gate",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-104/closeout.md",
+        "docs/verification/issues/issue-104/commands.txt",
+        "docs/verification/issues/issue-104/test-output/evidence-output-gate.txt",
+        "docs/contracts/issue-evidence-output-contract.md"
+      ]
+    },
+    {
+      "issue": "105",
+      "title": "Issue-Level Evidence Index Gate",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-105/closeout.md",
+        "docs/verification/issues/issue-105/commands.txt",
+        "docs/verification/issues/issue-105/test-output/evidence-index-gate.txt",
+        "docs/verification/ISSUE_EVIDENCE_INDEX.json"
+      ]
+    }
+  ]
+}
