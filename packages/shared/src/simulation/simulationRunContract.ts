@@ -45,6 +45,10 @@ export type SimulationTaskEventContract = {
   missReason?: SimulationMissReason | null;
   queueWaitMinutes?: number | null;
   travelMinutes?: number | null;
+  projectedStartMinute?: number | null;
+  projectedTravelMinutes?: number | null;
+  projectedCompletionMinute?: number | null;
+  shiftDurationMinutes?: number | null;
   routeNodeIds?: string[];
   routeEdgeIds?: string[];
 };
@@ -324,6 +328,10 @@ function validateTaskEvent(event: Record<string, unknown>): SimulationTaskEventC
     "missReason",
     "queueWaitMinutes",
     "travelMinutes",
+    "projectedStartMinute",
+    "projectedTravelMinutes",
+    "projectedCompletionMinute",
+    "shiftDurationMinutes",
     "routeNodeIds",
     "routeEdgeIds"
   ]);
@@ -344,6 +352,10 @@ function validateTaskEvent(event: Record<string, unknown>): SimulationTaskEventC
   assignOptionalMissReason(event, taskEvent, "missReason");
   assignOptionalNumber(event, taskEvent, "queueWaitMinutes", 0);
   assignOptionalNumber(event, taskEvent, "travelMinutes", 0);
+  assignOptionalInteger(event, taskEvent, "projectedStartMinute", 0);
+  assignOptionalInteger(event, taskEvent, "projectedTravelMinutes", 0);
+  assignOptionalInteger(event, taskEvent, "projectedCompletionMinute", 0);
+  assignOptionalInteger(event, taskEvent, "shiftDurationMinutes", 0);
   assignOptionalStringArray(event, taskEvent, "routeNodeIds");
   assignOptionalStringArray(event, taskEvent, "routeEdgeIds");
 
@@ -359,8 +371,27 @@ function validateTaskEvent(event: Record<string, unknown>): SimulationTaskEventC
   }
   if (taskEvent.action === "missed") {
     requireString(taskEvent.missReason, "missReason");
+    if (taskEvent.missReason === "not_started_shift_window_exceeded") {
+      requireProjectedMissedTaskField(taskEvent, "projectedStartMinute");
+      requireProjectedMissedTaskField(taskEvent, "projectedTravelMinutes");
+      requireProjectedMissedTaskField(taskEvent, "projectedCompletionMinute");
+      requireProjectedMissedTaskField(taskEvent, "shiftDurationMinutes");
+    }
   }
   return taskEvent;
+}
+
+function requireProjectedMissedTaskField(
+  event: SimulationTaskEventContract,
+  key:
+    | "projectedStartMinute"
+    | "projectedTravelMinutes"
+    | "projectedCompletionMinute"
+    | "shiftDurationMinutes"
+): void {
+  if (event[key] == null) {
+    throw new Error(`not-started missed task event requires ${key}`);
+  }
 }
 
 function validateNurseEvent(event: Record<string, unknown>): SimulationNurseEventContract {

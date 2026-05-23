@@ -68,6 +68,10 @@ class SimulationEvent(StrictModel):
     missReason: str | None = None
     queueWaitMinutes: float | None = Field(default=None, ge=0)
     travelMinutes: int | None = Field(default=None, ge=0)
+    projectedStartMinute: int | None = Field(default=None, ge=0)
+    projectedTravelMinutes: int | None = Field(default=None, ge=0)
+    projectedCompletionMinute: int | None = Field(default=None, ge=0)
+    shiftDurationMinutes: int | None = Field(default=None, ge=0)
     originalReadyMinute: int | None = Field(default=None, ge=0)
     enteredQueueMinute: int | None = Field(default=None, ge=0)
     startedMinute: int | None = Field(default=None, ge=0)
@@ -93,6 +97,14 @@ class SimulationEvent(StrictModel):
                 raise ValueError("missed task events require missReason")
             if self.missReason is not None and self.missReason not in MISS_REASONS:
                 raise ValueError("task event missReason is not allowed")
+            if self.missReason == "not_started_shift_window_exceeded":
+                if (
+                    self.projectedStartMinute is None
+                    or self.projectedTravelMinutes is None
+                    or self.projectedCompletionMinute is None
+                    or self.shiftDurationMinutes is None
+                ):
+                    raise ValueError("not-started missed task events require projected timing fields")
         if self.eventType == "nurse":
             if self.action not in NURSE_ACTIONS:
                 raise ValueError("nurse event action is not allowed")

@@ -422,6 +422,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-108/lifecycle-ordering-output.json",
       "docs/verification/issues/issue-108/test-output/shared.txt",
       "docs/verification/issues/issue-108/test-output/api.txt",
+      "docs/verification/issues/issue-109/missed-task-explanation-output.json",
+      "docs/verification/issues/issue-109/test-output/shared.txt",
+      "docs/verification/issues/issue-109/test-output/api.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -475,7 +478,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-107/commands.txt",
       "docs/verification/issues/issue-107/closeout.md",
       "docs/verification/issues/issue-108/commands.txt",
-      "docs/verification/issues/issue-108/closeout.md"
+      "docs/verification/issues/issue-108/closeout.md",
+      "docs/verification/issues/issue-109/commands.txt",
+      "docs/verification/issues/issue-109/closeout.md"
     ],
     contentChecks: [
       {

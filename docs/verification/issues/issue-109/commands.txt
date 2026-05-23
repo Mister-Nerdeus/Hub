@@ -1,0 +1,13 @@
+npm --workspace packages/shared run build; node --test packages/shared/tests/simulation-missed-task-explanation.test.mjs
+python -m pytest apps/api/tests/test_simulation_missed_task_explanation.py
+npm --workspace packages/shared run build; node --test packages/shared/tests/simulation-missed-task-explanation.test.mjs packages/shared/tests/simulation-missed-task-semantics.test.mjs packages/shared/tests/simulation-lifecycle-ordering.test.mjs
+python -m pytest apps/api/tests/test_simulation_missed_task_explanation.py apps/api/tests/test_simulation_lifecycle_ordering.py apps/api/tests/test_simulation_contract.py
+npm --workspace packages/shared test
+python -m pytest apps/api
+npm --workspace packages/shared test > docs/verification/issues/issue-109/test-output/shared.txt
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-109/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+docker compose config
+node scripts/check-docs-contracts.mjs
+npm run verify
+docker compose down

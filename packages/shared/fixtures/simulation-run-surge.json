@@ -185,7 +185,11 @@
       "minute": 20,
       "nurseId": "nurse-alpha",
       "scheduledMinute": 0,
-      "missReason": "not_started_shift_window_exceeded"
+      "missReason": "not_started_shift_window_exceeded",
+      "projectedStartMinute": 20,
+      "projectedTravelMinutes": 0,
+      "projectedCompletionMinute": 30,
+      "shiftDurationMinutes": 20
     },
     {
       "eventId": "task-task-basic-room-03-isolation-001-ready",
@@ -211,7 +215,11 @@
       "minute": 30,
       "nurseId": "nurse-alpha",
       "scheduledMinute": 30,
-      "missReason": "not_started_shift_window_exceeded"
+      "missReason": "not_started_shift_window_exceeded",
+      "projectedStartMinute": 30,
+      "projectedTravelMinutes": 0,
+      "projectedCompletionMinute": 38,
+      "shiftDurationMinutes": 20
     },
     {
       "eventId": "task-task-basic-room-04-behavioral-001-missed",
@@ -221,7 +229,11 @@
       "minute": 30,
       "nurseId": "nurse-bravo",
       "scheduledMinute": 30,
-      "missReason": "not_started_shift_window_exceeded"
+      "missReason": "not_started_shift_window_exceeded",
+      "projectedStartMinute": 30,
+      "projectedTravelMinutes": 0,
+      "projectedCompletionMinute": 45,
+      "shiftDurationMinutes": 20
     },
     {
       "eventId": "task-task-basic-room-05-procedure-001-ready",
@@ -239,7 +251,11 @@
       "minute": 45,
       "nurseId": "nurse-charlie",
       "scheduledMinute": 45,
-      "missReason": "not_started_shift_window_exceeded"
+      "missReason": "not_started_shift_window_exceeded",
+      "projectedStartMinute": 45,
+      "projectedTravelMinutes": 0,
+      "projectedCompletionMinute": 65,
+      "shiftDurationMinutes": 20
     }
   ],
   "summary": {

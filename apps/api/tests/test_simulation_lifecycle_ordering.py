@@ -106,6 +106,10 @@ def missed(task_id: str = "task-alpha", minute: int = 5) -> dict:
         "minute": minute,
         "scheduledMinute": 0,
         "missReason": "not_started_shift_window_exceeded",
+        "projectedStartMinute": minute,
+        "projectedTravelMinutes": 0,
+        "projectedCompletionMinute": minute + 5,
+        "shiftDurationMinutes": minute + 4,
     }
 
 

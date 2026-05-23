@@ -1,0 +1,13 @@
+{
+  "issue": "109",
+  "missedTaskModel": "not_started_shift_window_exceeded",
+  "requiredProjectedFields": [
+    "projectedStartMinute",
+    "projectedTravelMinutes",
+    "projectedCompletionMinute",
+    "shiftDurationMinutes"
+  ],
+  "consumesNurseBusyMinutes": false,
+  "attemptedOverrunDeferred": true,
+  "testsPassed": true
+}

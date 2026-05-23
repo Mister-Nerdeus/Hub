@@ -71,7 +71,11 @@ function missed(taskId = "task-alpha", minute = 5) {
     taskId,
     minute,
     scheduledMinute: 0,
-    missReason: "not_started_shift_window_exceeded"
+    missReason: "not_started_shift_window_exceeded",
+    projectedStartMinute: minute,
+    projectedTravelMinutes: 0,
+    projectedCompletionMinute: minute + 5,
+    shiftDurationMinutes: minute + 4
   };
 }
 

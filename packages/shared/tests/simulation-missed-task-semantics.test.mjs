@@ -71,7 +71,11 @@ function missedTaskEvent(reason) {
     nurseId: "nurse-alpha",
     minute: 15,
     scheduledMinute: 15,
-    missReason: reason
+    missReason: reason,
+    projectedStartMinute: 15,
+    projectedTravelMinutes: 0,
+    projectedCompletionMinute: 21,
+    shiftDurationMinutes: 20
   };
 }
 

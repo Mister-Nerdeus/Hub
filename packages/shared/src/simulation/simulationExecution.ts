@@ -144,7 +144,14 @@ export function buildSimulationRun(input: BuildSimulationRunInput): SimulationRu
       const startMinute = Math.max(readyMinute, nurseAvailableMinute) + travel.travelMinutes;
       const completedMinute = startMinute + task.estimatedDurationMinutes;
       if (completedMinute > shiftDurationMinutes) {
-        events.push(taskMissedEvent(task, nurseId, startMinute, "not_started_shift_window_exceeded"));
+        events.push(
+          taskMissedEvent(task, nurseId, startMinute, "not_started_shift_window_exceeded", {
+            projectedStartMinute: startMinute,
+            projectedTravelMinutes: travel.travelMinutes,
+            projectedCompletionMinute: completedMinute,
+            shiftDurationMinutes
+          })
+        );
         continue;
       }
 
@@ -386,7 +393,13 @@ function taskMissedEvent(
   task: GeneratedOperationalTask,
   nurseId: string,
   missMinute: number,
-  missReason: SimulationMissReason
+  missReason: SimulationMissReason,
+  projectedTiming?: {
+    projectedStartMinute: number;
+    projectedTravelMinutes: number;
+    projectedCompletionMinute: number;
+    shiftDurationMinutes: number;
+  }
 ): SimulationEventContract {
   return {
     eventId: `task-${task.id}-missed`,
@@ -396,7 +409,8 @@ function taskMissedEvent(
     nurseId,
     minute: missMinute,
     scheduledMinute: task.scheduledMinute,
-    missReason
+    missReason,
+    ...projectedTiming
   };
 }
 

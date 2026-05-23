@@ -162,6 +162,10 @@ def test_validate_endpoint_accepts_not_started_miss_reason(client: TestClient) -
             "minute": 0,
             "scheduledMinute": 0,
             "missReason": "not_started_shift_window_exceeded",
+            "projectedStartMinute": 0,
+            "projectedTravelMinutes": 0,
+            "projectedCompletionMinute": 5,
+            "shiftDurationMinutes": 4,
         }
     )
     payload["summary"]["totalTasks"] = 1
