@@ -149,6 +149,7 @@ const FORBIDDEN_KEYS = new Set([
   ["diagnosis", "code"].join(""),
   "medication",
   "ehr",
+  ["e", "hr", "id"].join(""),
   "chart",
   "note",
   ["clinical", "note"].join(""),
@@ -156,6 +157,18 @@ const FORBIDDEN_KEYS = new Set([
   ["date", "of", "birth"].join(""),
   ["m", "rn"].join("")
 ]);
+
+const FORBIDDEN_KEY_PREFIXES = [
+  "patient",
+  "diagnosis",
+  "medication",
+  "ehr",
+  "chart",
+  ["clinical", "note"].join(""),
+  ["d", "ob"].join(""),
+  ["date", "of", "birth"].join(""),
+  ["m", "rn"].join("")
+] as const;
 
 const FORBIDDEN_TEXT_PATTERNS: Array<[string, RegExp]> = [
   ["safe", /\bsafe\b/i],
@@ -530,7 +543,8 @@ function validateNoForbiddenKeysOrText(value: unknown, label: string): void {
   }
   if (value !== null && typeof value === "object") {
     for (const [key, child] of Object.entries(value as Record<string, unknown>)) {
-      if (FORBIDDEN_KEYS.has(key.toLowerCase())) {
+      const normalizedKey = normalizeKey(key);
+      if (FORBIDDEN_KEYS.has(normalizedKey) || startsWithForbiddenKeyPrefix(normalizedKey)) {
         throw new Error(`${label}.${key} is not allowed in simulation output`);
       }
       validateNoForbiddenKeysOrText(child, `${label}.${key}`);
@@ -544,6 +558,17 @@ function validateNoForbiddenKeysOrText(value: unknown, label: string): void {
       }
     }
   }
+}
+
+function normalizeKey(key: string): string {
+  return key.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+function startsWithForbiddenKeyPrefix(normalizedKey: string): boolean {
+  return (
+    FORBIDDEN_KEY_PREFIXES.some((prefix) => normalizedKey.startsWith(prefix)) ||
+    normalizedKey === "notes"
+  );
 }
 
 function assignOptionalString(

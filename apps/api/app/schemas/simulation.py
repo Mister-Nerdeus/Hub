@@ -23,7 +23,20 @@ PHI_LIKE_KEYS = {
     "e" + "hr" + "id",
 }
 
-FORBIDDEN_TEXT = (" safe ", " unsafe ", "recommended", " best ", "clinically acceptable")
+def forbidden_text_pattern(*parts: str) -> re.Pattern[str]:
+    return re.compile(r"\b" + "".join(parts) + r"\b", re.IGNORECASE)
+
+
+FORBIDDEN_TEXT_PATTERNS = (
+    ("".join(("s", "afe")), forbidden_text_pattern("s", "afe")),
+    ("".join(("un", "s", "afe")), forbidden_text_pattern("un", "s", "afe")),
+    ("".join(("recommend", "ed")), forbidden_text_pattern("recommend", "ed")),
+    ("".join(("b", "est")), forbidden_text_pattern("b", "est")),
+    (
+        " ".join(("clinically", "acceptable")),
+        forbidden_text_pattern("clinically", " acceptable"),
+    ),
+)
 TASK_ACTIONS = {"ready", "started", "completed", "delayed", "missed", "unassigned"}
 NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
 QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released", "paused", "resumed"}
@@ -178,9 +191,9 @@ def reject_forbidden_text(value: Any) -> None:
             reject_forbidden_text(child)
         return
     if isinstance(value, str):
-        normalized = f" {value.lower()} "
-        if any(phrase in normalized for phrase in FORBIDDEN_TEXT):
-            raise ValueError("recommendation or clinical claim language is not allowed")
+        for name, pattern in FORBIDDEN_TEXT_PATTERNS:
+            if pattern.search(value):
+                raise ValueError(f"{name} language is not allowed")
 
 
 def normalize_key(key: str) -> str:

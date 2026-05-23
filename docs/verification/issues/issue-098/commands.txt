@@ -1,0 +1,25 @@
+# Issue 098 Commands
+
+Failure reproduction before validator fix:
+
+```text
+npm --workspace packages/shared test -- simulation-contract-parity.test.mjs
+cd apps/api && python -m pytest tests/test_simulation_contract_parity.py
+```
+
+Observed pre-fix result:
+
+```text
+TypeScript parity boundary test failed because variant keys were rejected only as generic unknown fields.
+Python parity test failed because invalid-recommended-text.json was accepted.
+```
+
+Final verification:
+
+```text
+npm --workspace packages/shared test > docs/verification/issues/issue-098/test-output/shared.txt
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-098/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config
+```

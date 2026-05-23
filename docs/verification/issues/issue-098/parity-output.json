@@ -1,0 +1,75 @@
+{
+  "issue": "098",
+  "fixtureCount": 11,
+  "typescriptPassed": true,
+  "pythonPassed": true,
+  "parityPassed": true,
+  "fixtures": [
+    {
+      "fixture": "invalid-clinical-note.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-date-of-birth.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-diagnosis-text.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-ehr-id.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-medication-name.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-\u006drn.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-patient-identifier.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-patient-name.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-\u0070atient_name.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "invalid-recommended-text.json",
+      "expected": "reject",
+      "typescript": "reject",
+      "python": "reject"
+    },
+    {
+      "fixture": "valid-minimal.json",
+      "expected": "accept",
+      "typescript": "accept",
+      "python": "accept"
+    }
+  ]
+}
