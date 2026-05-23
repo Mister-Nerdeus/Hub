@@ -1,0 +1,13 @@
+{
+  "issue": "108",
+  "lifecycleRules": {
+    "completedRequiresStarted": true,
+    "startedRequiresReady": true,
+    "noCompletedBeforeStarted": true,
+    "noStartBeforeReady": true,
+    "noConflictingTerminalStates": true,
+    "delayedRequiresStartOrMiss": true
+  },
+  "typescriptPassed": true,
+  "pythonPassed": true
+}

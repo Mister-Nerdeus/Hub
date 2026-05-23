@@ -143,6 +143,12 @@ const QUEUE_EVENT_ACTIONS = [
 
 const TRAVEL_EVENT_ACTIONS = ["travel_calculated", "travel_unreachable"] as const;
 
+const TERMINAL_TASK_EVENT_ACTIONS = new Set<SimulationTaskEventAction>([
+  "completed",
+  "missed",
+  "unassigned"
+]);
+
 const FORBIDDEN_KEYS = new Set([
   ["patient", "name"].join(""),
   ["patient", "id"].join(""),
@@ -241,6 +247,7 @@ export function validateSimulationRunContract(
   }
 
   validateSimulationEventReferences(events, context);
+  validateSimulationTaskLifecycle(events);
   validateSimulationSummaryAgainstEvents(summary, events, context.generatedTaskSet);
 
   return {
@@ -546,6 +553,74 @@ function validateSimulationSummaryAgainstEvents(
   if (summary.unassignedTaskCount !== unassignedTaskIds.size) {
     throw new Error("summary.unassignedTaskCount must match unassigned task events");
   }
+}
+
+function validateSimulationTaskLifecycle(events: SimulationEventContract[]): void {
+  const taskEventsByTaskId = new Map<string, SimulationTaskEventContract[]>();
+  for (const event of events) {
+    if (event.eventType !== "task") {
+      continue;
+    }
+    taskEventsByTaskId.set(event.taskId, [
+      ...(taskEventsByTaskId.get(event.taskId) ?? []),
+      event
+    ]);
+  }
+
+  for (const [taskId, taskEvents] of taskEventsByTaskId.entries()) {
+    const readyEvents = taskEvents.filter((event) => event.action === "ready");
+    const startedEvents = taskEvents.filter((event) => event.action === "started");
+    const completedEvents = taskEvents.filter((event) => event.action === "completed");
+    const delayedEvents = taskEvents.filter((event) => event.action === "delayed");
+    const missedEvents = taskEvents.filter((event) => event.action === "missed");
+    const terminalEvents = taskEvents.filter((event) =>
+      TERMINAL_TASK_EVENT_ACTIONS.has(event.action)
+    );
+
+    if (startedEvents.length > 0 && readyEvents.length === 0) {
+      throw new Error(`task ${taskId} lifecycle has started without ready`);
+    }
+    if (completedEvents.length > 0 && startedEvents.length === 0) {
+      throw new Error(`task ${taskId} lifecycle has completed without started`);
+    }
+    if (terminalEvents.length > 1) {
+      throw new Error(`task ${taskId} lifecycle has multiple terminal states`);
+    }
+
+    if (readyEvents.length > 0) {
+      const earliestReadyMinute = Math.min(...readyEvents.map(taskReadyMinute));
+      for (const startedEvent of startedEvents) {
+        if (taskStartMinute(startedEvent) < earliestReadyMinute) {
+          throw new Error(`task ${taskId} lifecycle cannot start before ready`);
+        }
+      }
+    }
+
+    if (startedEvents.length > 0) {
+      const earliestStartMinute = Math.min(...startedEvents.map(taskStartMinute));
+      for (const completedEvent of completedEvents) {
+        if (taskCompletedMinute(completedEvent) < earliestStartMinute) {
+          throw new Error(`task ${taskId} lifecycle cannot complete before started`);
+        }
+      }
+    }
+
+    if (delayedEvents.length > 0 && startedEvents.length === 0 && missedEvents.length === 0) {
+      throw new Error(`task ${taskId} lifecycle delayed event requires started or missed outcome`);
+    }
+  }
+}
+
+function taskReadyMinute(event: SimulationTaskEventContract): number {
+  return event.scheduledMinute ?? event.minute;
+}
+
+function taskStartMinute(event: SimulationTaskEventContract): number {
+  return event.startMinute ?? event.minute;
+}
+
+function taskCompletedMinute(event: SimulationTaskEventContract): number {
+  return event.completedMinute ?? event.minute;
 }
 
 function validateNoForbiddenKeysOrText(value: unknown, label: string): void {

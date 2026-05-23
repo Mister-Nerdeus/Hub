@@ -42,6 +42,7 @@ MISS_REASONS = {"unassigned", "not_started_shift_window_exceeded"}
 NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
 QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released"}
 TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
+TERMINAL_TASK_ACTIONS = {"completed", "missed", "unassigned"}
 
 
 class SimulationRunSummary(StrictModel):
@@ -156,6 +157,7 @@ class SimulationRunContract(StrictModel):
         for index, event in enumerate(self.events):
             if event.eventType != "task" and event.taskId is not None and event.taskId not in task_ids:
                 raise ValueError(f"events[{index}].taskId must reference the task-event stream")
+        validate_task_lifecycle(task_events)
         completed = {event.taskId for event in task_events if event.action == "completed"}
         delayed = {event.taskId for event in task_events if event.action == "delayed"}
         missed = {event.taskId for event in task_events if event.action == "missed"}
@@ -179,6 +181,56 @@ def validate_persisted_simulation_run(value: Any) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError("persisted simulation run must be an object")
     return value
+
+
+def validate_task_lifecycle(task_events: list[SimulationEvent]) -> None:
+    task_events_by_task_id: dict[str, list[SimulationEvent]] = {}
+    for event in task_events:
+        if event.taskId is None:
+            continue
+        task_events_by_task_id.setdefault(event.taskId, []).append(event)
+
+    for task_id, events in task_events_by_task_id.items():
+        ready_events = [event for event in events if event.action == "ready"]
+        started_events = [event for event in events if event.action == "started"]
+        completed_events = [event for event in events if event.action == "completed"]
+        delayed_events = [event for event in events if event.action == "delayed"]
+        missed_events = [event for event in events if event.action == "missed"]
+        terminal_events = [event for event in events if event.action in TERMINAL_TASK_ACTIONS]
+
+        if started_events and not ready_events:
+            raise ValueError(f"task {task_id} lifecycle has started without ready")
+        if completed_events and not started_events:
+            raise ValueError(f"task {task_id} lifecycle has completed without started")
+        if len(terminal_events) > 1:
+            raise ValueError(f"task {task_id} lifecycle has multiple terminal states")
+
+        if ready_events:
+            earliest_ready_minute = min(task_ready_minute(event) for event in ready_events)
+            for event in started_events:
+                if task_start_minute(event) < earliest_ready_minute:
+                    raise ValueError(f"task {task_id} lifecycle cannot start before ready")
+
+        if started_events:
+            earliest_start_minute = min(task_start_minute(event) for event in started_events)
+            for event in completed_events:
+                if task_completed_minute(event) < earliest_start_minute:
+                    raise ValueError(f"task {task_id} lifecycle cannot complete before started")
+
+        if delayed_events and not started_events and not missed_events:
+            raise ValueError(f"task {task_id} lifecycle delayed event requires started or missed outcome")
+
+
+def task_ready_minute(event: SimulationEvent) -> int:
+    return event.scheduledMinute if event.scheduledMinute is not None else event.minute
+
+
+def task_start_minute(event: SimulationEvent) -> int:
+    return event.startMinute if event.startMinute is not None else event.minute
+
+
+def task_completed_minute(event: SimulationEvent) -> int:
+    return event.completedMinute if event.completedMinute is not None else event.minute
 
 
 def reject_phi_like_keys(value: Any) -> None:

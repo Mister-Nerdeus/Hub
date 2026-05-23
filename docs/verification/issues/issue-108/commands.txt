@@ -1,0 +1,11 @@
+npm --workspace packages/shared run build; node --test packages/shared/tests/simulation-lifecycle-ordering.test.mjs
+python -m pytest apps/api/tests/test_simulation_lifecycle_ordering.py
+npm --workspace packages/shared test
+python -m pytest apps/api
+npm --workspace packages/shared test > docs/verification/issues/issue-108/test-output/shared.txt
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-108/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config
+npm run verify
+docker compose down
