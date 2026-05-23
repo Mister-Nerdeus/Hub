@@ -4,7 +4,8 @@ import {
 } from "../simulation/simulationRunContract.js";
 import { type GeneratedOperationalTaskSetContract } from "../contracts.js";
 import {
-  buildOperationalMetric,
+  buildDynamicOperationalMetric,
+  buildRegisteredOperationalMetric,
   OPERATIONAL_OUTCOME_LIMITATIONS,
   roundToTwo,
   sortedEntries
@@ -161,71 +162,46 @@ export function buildRoomTurnoverBlockedTimeProxy(
   const metrics: OperationalMetricContract[] = [];
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "room_turnover_task_minutes",
       label: "Room turnover task minutes",
-      group: "room",
-      unit: "minutes",
       value: totalTurnoverTaskMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: ROOM_TURNOVER_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "blocked_room_minutes",
       label: "Blocked room minutes",
-      group: "room",
-      unit: "minutes",
       value: totalBlockedRoomMinutes,
-      directionality: "lower_is_better",
-      source: "derived_proxy",
-      scope: "room",
       limitations: ROOM_TURNOVER_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "delayed_turnover_minutes",
       label: "Delayed turnover minutes",
-      group: "room",
-      unit: "minutes",
       value: totalDelayedTurnoverMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "room",
       limitations: ROOM_TURNOVER_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "missed_turnover_tasks",
       label: "Missed turnover tasks",
-      group: "room",
-      unit: "count",
       value: totalMissedTurnoverTasks,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "room",
       limitations: ROOM_TURNOVER_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
-      metricId: "room_pressure_score",
+    buildRegisteredOperationalMetric({
+      metricId: "room_turnover_pressure",
       label: "Room pressure score",
-      group: "room",
-      unit: "score",
       value: totalRoomPressure,
-      directionality: "lower_is_better",
-      source: "derived_proxy",
-      scope: "layout",
       limitations: ROOM_TURNOVER_LIMITATIONS
     })
   );
@@ -236,71 +212,46 @@ export function buildRoomTurnoverBlockedTimeProxy(
     const missedCount = roomMissedCount[roomId] ?? 0;
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `blocked_room_minutes_by_room_${roomId}`,
         label: `Blocked minutes for room ${roomId}`,
-        group: "room",
-        unit: "minutes",
         value: roundToTwo(blockedMinutes),
-        directionality: "lower_is_better",
-        source: "derived_proxy",
-        scope: "room",
         limitations: ROOM_TURNOVER_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `turnover_task_minutes_by_room_${roomId}`,
         label: `Turnover task minutes for room ${roomId}`,
-        group: "room",
-        unit: "minutes",
         value: roundToTwo(turnaroundMinutes),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: ROOM_TURNOVER_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `delayed_turnover_minutes_by_room_${roomId}`,
         label: `Delayed turnover minutes for room ${roomId}`,
-        group: "room",
-        unit: "minutes",
         value: roundToTwo(delayedMinutes),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: ROOM_TURNOVER_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `missed_turnover_tasks_by_room_${roomId}`,
         label: `Missed turnover tasks for room ${roomId}`,
-        group: "room",
-        unit: "count",
         value: missedCount,
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: ROOM_TURNOVER_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `room_turnover_pressure_by_room_${roomId}`,
         label: `Room turnover pressure score for room ${roomId}`,
-        group: "room",
-        unit: "score",
         value: roundToTwo(roomPressure[roomId] ?? 0),
-        directionality: "lower_is_better",
-        source: "derived_proxy",
-        scope: "room",
         limitations: ROOM_TURNOVER_LIMITATIONS
       })
     );

@@ -9,6 +9,10 @@ import {
   validateMetricLimitations,
   validateOperationalMetricContract
 } from "./operationalMetricContract.js";
+import {
+  getOperationalMetricDefinition,
+  validateMetricAgainstRegistry
+} from "./operationalMetricRegistry.js";
 
 export type OperationalMetricBuilderInput = {
   metricId: string;
@@ -19,6 +23,13 @@ export type OperationalMetricBuilderInput = {
   directionality: (typeof OPERATIONAL_METRIC_DIRECTIONALITY)[number];
   source: OperationalMetricSource;
   scope: OperationalMetricScope;
+  limitations?: string[];
+};
+
+export type RegisteredOperationalMetricBuilderInput = {
+  metricId: string;
+  value: number;
+  label?: string;
   limitations?: string[];
 };
 
@@ -45,6 +56,36 @@ export function buildOperationalMetric(
   });
 }
 
+export function buildRegisteredOperationalMetric(
+  input: RegisteredOperationalMetricBuilderInput
+): OperationalMetricContract {
+  const definition = getRequiredOperationalMetricDefinition(input.metricId);
+  if (isDynamicMetricId(input.metricId, definition.canonicalMetricId)) {
+    throw new Error(`registered operational metric must use a canonical metric ID or alias, not dynamic metric ${input.metricId}`);
+  }
+  return buildMetricFromDefinition({
+    metricId: definition.canonicalMetricId,
+    label: input.label ?? definition.label,
+    value: input.value,
+    limitations: input.limitations
+  });
+}
+
+export function buildDynamicOperationalMetric(
+  input: RegisteredOperationalMetricBuilderInput
+): OperationalMetricContract {
+  const definition = getRequiredOperationalMetricDefinition(input.metricId);
+  if (!isDynamicMetricId(input.metricId, definition.canonicalMetricId)) {
+    throw new Error(`dynamic operational metric must use a registered dynamic prefix for ${input.metricId}`);
+  }
+  return buildMetricFromDefinition({
+    metricId: input.metricId,
+    label: input.label,
+    value: input.value,
+    limitations: input.limitations
+  });
+}
+
 export function roundToTwo(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -62,4 +103,35 @@ export function validateLimitationsSet(limitations: string[] | undefined): strin
     return validateMetricLimitations(limitations, "limitations");
   }
   return OPERATIONAL_OUTCOME_LIMITATIONS;
+}
+
+function buildMetricFromDefinition(
+  input: RegisteredOperationalMetricBuilderInput
+): OperationalMetricContract {
+  const definition = getRequiredOperationalMetricDefinition(input.metricId);
+  const metric = buildOperationalMetric({
+    metricId: input.metricId,
+    label: input.label ?? definition.label,
+    group: definition.group,
+    unit: definition.unit,
+    value: input.value,
+    directionality: definition.directionality,
+    source: definition.source,
+    scope: definition.scope,
+    limitations: input.limitations
+  });
+  validateMetricAgainstRegistry(metric);
+  return metric;
+}
+
+function getRequiredOperationalMetricDefinition(metricId: string) {
+  const definition = getOperationalMetricDefinition(metricId);
+  if (definition == null) {
+    throw new Error(`registered operational metric is required for ${metricId}`);
+  }
+  return definition;
+}
+
+function isDynamicMetricId(metricId: string, canonicalMetricId: string): boolean {
+  return metricId !== canonicalMetricId && metricId.startsWith(`${canonicalMetricId}_`);
 }

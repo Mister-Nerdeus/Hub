@@ -1,0 +1,29 @@
+{
+  "issue": "138",
+  "builderFixtureCount": 5,
+  "registeredMetricOutputsChecked": 66,
+  "registryAlignment": {
+    "knownBuilderMetricsUseRegistryDefinitions": true,
+    "dynamicMetricPrefixesResolveToBaseDefinitions": true,
+    "builderDirectionalityContradictionsRejected": true,
+    "deltaComparisonPrefersRegistryDirectionality": true
+  },
+  "canonicalOutputs": {
+    "layoutFrictionMetricId": "layout_friction",
+    "roomTurnoverPressureMetricId": "room_turnover_pressure"
+  },
+  "protectedDirectionality": {
+    "direct_task_minutes": "neutral",
+    "direct_task_minutes_by_nurse_nurse-alpha": "neutral",
+    "completed_task_count_by_nurse_nurse-alpha": "neutral",
+    "assigned_task_count_by_nurse_nurse-alpha": "neutral"
+  },
+  "failureReproduction": {
+    "preFixMismatch": [
+      "direct_task_minutes_by_nurse_nurse-alpha emitted lower_is_better while the registry required neutral",
+      "completed_task_count_by_nurse_nurse-alpha emitted lower_is_better while the registry required neutral",
+      "assigned_task_count_by_nurse_nurse-alpha emitted lower_is_better while the registry required neutral"
+    ],
+    "postFixResult": "builders emit registry-aligned directionality and registered dynamic prefixes are deterministic"
+  }
+}

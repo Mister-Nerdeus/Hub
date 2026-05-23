@@ -5,7 +5,8 @@ import {
 } from "../simulation/simulationRunContract.js";
 import { type GeneratedOperationalTaskSetContract } from "../contracts.js";
 import {
-  buildOperationalMetric,
+  buildDynamicOperationalMetric,
+  buildRegisteredOperationalMetric,
   OPERATIONAL_OUTCOME_LIMITATIONS,
   roundToTwo,
   sortedEntries
@@ -196,85 +197,55 @@ export function buildPatientWaitIdleProxy(
   const metrics: OperationalMetricContract[] = [];
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "first_modeled_task_wait_minutes",
       label: "Wait before first modeled task minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: roundToTwo(firstModeledTaskWaitMinutes),
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "scenario",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "idle_between_ready_and_start_minutes",
       label: "Idle time between ready and start minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: allWaitMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "scenario",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "delay_exposure_minutes",
       label: "Delay exposure minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: allDelayMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "missed_unassigned_proxy_penalty_minutes",
       label: "Missed and unassigned proxy penalty minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: allPenaltyMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "projected_missed_task_pressure_minutes",
       label: "Projected missed task pressure minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: projectedMissedTaskPressureMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "patient_flow_wait_idle_minutes",
       label: "Total patient-flow wait and idle minutes",
-      group: "patient_flow",
-      unit: "minutes",
       value: roundToTwo(totalPatientFlowWaitIdleMinutes),
-      directionality: "lower_is_better",
-      source: "derived_proxy",
-      scope: "simulation",
       limitations: PATIENT_WAIT_IDLE_LIMITATIONS
     })
   );
@@ -282,57 +253,37 @@ export function buildPatientWaitIdleProxy(
   for (const [key, roomWaitIdle] of sortedEntries(roomProxyByRoom)) {
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `patient_flow_wait_idle_by_room_${key}`,
         label: `Patient-flow wait/idle proxy minutes for room ${key}`,
-        group: "patient_flow",
-        unit: "minutes",
         value: roundToTwo(roomWaitIdle),
-        directionality: "lower_is_better",
-        source: "derived_proxy",
-        scope: "room",
         limitations: PATIENT_WAIT_IDLE_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `patient_flow_wait_between_ready_and_start_by_room_${key}`,
         label: `Idle time between ready and start by room ${key}`,
-        group: "patient_flow",
-        unit: "minutes",
         value: roundToTwo(waitByRoom[key] ?? 0),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: PATIENT_WAIT_IDLE_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `patient_flow_delay_exposure_by_room_${key}`,
         label: `Delay exposure by room ${key}`,
-        group: "patient_flow",
-        unit: "minutes",
         value: roundToTwo(delayByRoom[key] ?? 0),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: PATIENT_WAIT_IDLE_LIMITATIONS
       })
     );
 
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `patient_flow_terminal_penalty_by_room_${key}`,
         label: `Missed and unassigned terminal penalty by room ${key}`,
-        group: "patient_flow",
-        unit: "minutes",
         value: roundToTwo(penaltyByRoom[key] ?? 0),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "room",
         limitations: PATIENT_WAIT_IDLE_LIMITATIONS
       })
     );

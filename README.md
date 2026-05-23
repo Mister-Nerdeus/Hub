@@ -156,6 +156,8 @@ Issue 136 adds a deterministic feet-based snap grid engine for default, fine, po
 
 Issue 137 adds a canonical operational metric registry for stable metric IDs, aliases, directionality, group, unit, source, scope, metric kind, and purpose. Registered throughput and direct-work metrics such as completed task count, assigned task count, and direct task minutes use neutral directionality so reduced work volume is not labeled as automatic improvement.
 
+Issue 138 applies the operational metric registry to current shared outcome builders. Known and registered dynamic builder outputs now derive directionality and metric metadata from the registry, including neutral direct-work, completed-task, and assigned-task metrics.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

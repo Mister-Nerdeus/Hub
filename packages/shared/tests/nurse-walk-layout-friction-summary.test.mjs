@@ -193,7 +193,7 @@ test("buildNurseWalkLayoutFrictionSummary returns deterministic zero walk metric
     true
   );
   assert.equal(
-    output.metrics.some((metric) => metric.metricId === "layout_friction_score" && metric.value === 0),
+    output.metrics.some((metric) => metric.metricId === "layout_friction" && metric.value === 0),
     true
   );
   assert.equal(output.metrics.every((metric) => metric.value >= 0), true);

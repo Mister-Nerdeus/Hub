@@ -286,8 +286,8 @@ test("buildRoomTurnoverBlockedTimeProxy pressure increases with additional turno
     generatedTaskSet: buildGeneratedTaskSet()
   });
 
-  const lowPressure = low.metrics.find((metric) => metric.metricId === "room_pressure_score");
-  const highPressure = high.metrics.find((metric) => metric.metricId === "room_pressure_score");
+  const lowPressure = low.metrics.find((metric) => metric.metricId === "room_turnover_pressure");
+  const highPressure = high.metrics.find((metric) => metric.metricId === "room_turnover_pressure");
 
   assert.equal(typeof lowPressure?.value, "number");
   assert.equal(typeof highPressure?.value, "number");

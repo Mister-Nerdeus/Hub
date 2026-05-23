@@ -4,7 +4,8 @@ import {
   type SimulationRunContract
 } from "../simulation/simulationRunContract.js";
 import {
-  buildOperationalMetric,
+  buildDynamicOperationalMetric,
+  buildRegisteredOperationalMetric,
   OPERATIONAL_OUTCOME_LIMITATIONS,
   roundToTwo,
   sortedEntries
@@ -119,71 +120,46 @@ export function buildTaskTimeQueueSummary(
   const metricLimitations = [...OPERATIONAL_OUTCOME_LIMITATIONS];
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "direct_task_minutes",
       label: "Direct task minutes",
-      group: "task",
-      unit: "minutes",
       value: directTaskMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: metricLimitations
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "queue_wait_minutes",
       label: "Queue wait minutes",
-      group: "task",
-      unit: "minutes",
       value: roundToTwo(queueWaitMinutes),
-      directionality: "lower_is_better",
-      source: "queue_event",
-      scope: "scenario",
       limitations: metricLimitations
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "task_delay_minutes",
       label: "Task delay minutes",
-      group: "task",
-      unit: "minutes",
       value: taskDelayMinutes,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: metricLimitations
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "travel_to_task_minutes",
       label: "Travel to task minutes",
-      group: "task",
-      unit: "minutes",
       value: travelToTaskMinutes,
-      directionality: "lower_is_better",
-      source: "travel_event",
-      scope: "simulation",
       limitations: metricLimitations
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "missed_task_count",
       label: "Missed task count",
-      group: "task",
-      unit: "count",
       value: missedTaskCount,
-      directionality: "lower_is_better",
-      source: "task_event",
-      scope: "simulation",
       limitations: metricLimitations
     })
   );
@@ -191,15 +167,10 @@ export function buildTaskTimeQueueSummary(
   for (const [bucketMetricId, value] of sortedEntries(taskDensityCounts)) {
     const bucketMinute = bucketMetricId.replace("task_density_bucket_", "");
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: bucketMetricId,
         label: `Tasks ready at minute bucket ${bucketMinute}`,
-        group: "task",
-        unit: "count",
         value,
-        directionality: "neutral",
-        source: "task_event",
-        scope: "scenario",
         limitations: [
           ...metricLimitations,
           `Task-density bucket size is deterministic and ${bucketMinutes}-minute based.`

@@ -5,7 +5,8 @@ import {
 } from "../simulation/simulationRunContract.js";
 import { type GeneratedOperationalTaskSetContract } from "../contracts.js";
 import {
-  buildOperationalMetric,
+  buildDynamicOperationalMetric,
+  buildRegisteredOperationalMetric,
   sortedEntries,
   roundToTwo
 } from "./outcomeMetricsBuilder.js";
@@ -167,70 +168,45 @@ function finalizeSummary(
   const metrics: OperationalMetricContract[] = [];
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "total_walk_minutes",
       label: "Total walk minutes",
-      group: "nurse",
-      unit: "minutes",
       value: roundToTwo(totalWalkMinutes),
-      directionality: "lower_is_better",
-      source: "travel_event",
-      scope: "simulation",
       limitations: [...LAYOUT_FRICTION_LIMITATIONS]
     })
   );
 
   metrics.push(
-    buildOperationalMetric({
+    buildRegisteredOperationalMetric({
       metricId: "total_walk_distance_feet",
       label: "Total walk distance feet",
-      group: "nurse",
-      unit: "feet",
       value: roundToTwo(totalWalkDistanceFeet),
-      directionality: "lower_is_better",
-      source: "travel_event",
-      scope: "simulation",
       limitations: [...LAYOUT_FRICTION_LIMITATIONS]
     })
   );
 
   for (const [nurseId, minutes] of sortedEntries(walkMinutesByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_WALK_SUMMARY_UNITS.nurseMinutes}_${nurseId}`,
         label: `Walk minutes for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "minutes",
         value: roundToTwo(minutes),
-        directionality: "lower_is_better",
-        source: "travel_event",
-        scope: "nurse",
         limitations: [...LAYOUT_FRICTION_LIMITATIONS]
       })
     );
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_WALK_SUMMARY_UNITS.nurseDistanceFeet}_${nurseId}`,
         label: `Walk distance feet for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "feet",
         value: roundToTwo(walkDistanceFeetByNurse[nurseId] ?? 0),
-        directionality: "lower_is_better",
-        source: "travel_event",
-        scope: "nurse",
         limitations: [...LAYOUT_FRICTION_LIMITATIONS]
       })
     );
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_WALK_SUMMARY_UNITS.nurseEvents}_${nurseId}`,
         label: `Walk events for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "count",
         value: walkEventsByNurse[nurseId] ?? 0,
-        directionality: "lower_is_better",
-        source: "travel_event",
-        scope: "nurse",
         limitations: [...LAYOUT_FRICTION_LIMITATIONS]
       })
     );
@@ -238,15 +214,10 @@ function finalizeSummary(
 
   for (const [taskId, minutes] of sortedEntries(walkMinutesByTask)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `walk_minutes_by_task_${taskId}`,
         label: `Walk minutes for task ${taskId}`,
-        group: "task",
-        unit: "minutes",
         value: roundToTwo(minutes),
-        directionality: "lower_is_better",
-        source: "travel_event",
-        scope: "task",
         limitations: [...LAYOUT_FRICTION_LIMITATIONS]
       })
     );
@@ -254,15 +225,10 @@ function finalizeSummary(
 
   for (const [roomId, minutes] of sortedEntries(walkMinutesByRoom)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `walk_minutes_by_room_${roomId}`,
         label: `Walk minutes for room ${roomId}`,
-        group: "room",
-        unit: "minutes",
         value: roundToTwo(minutes),
-        directionality: "lower_is_better",
-        source: "travel_event",
-        scope: "room",
         limitations: [...LAYOUT_FRICTION_LIMITATIONS]
       })
     );
@@ -276,15 +242,10 @@ function finalizeSummary(
       : totalWalkMinutes + (travelEvents.length * 0.5) + roomWeight + unreachablePenalty;
 
   metrics.push(
-    buildOperationalMetric({
-      metricId: "layout_friction_score",
+    buildRegisteredOperationalMetric({
+      metricId: "layout_friction",
       label: "Layout friction score",
-      group: "layout",
-      unit: "score",
       value: roundToTwo(layoutFrictionScore),
-      directionality: "lower_is_better",
-      source: "derived_proxy",
-      scope: "layout",
       limitations: [...LAYOUT_FRICTION_LIMITATIONS, "Layout friction uses travel minutes, event counts, room coverage, and unreachable penalties only."]
     })
   );

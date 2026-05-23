@@ -4,7 +4,7 @@ import {
   type SimulationRunContract
 } from "../simulation/simulationRunContract.js";
 import {
-  buildOperationalMetric,
+  buildDynamicOperationalMetric,
   roundToTwo,
   sortedEntries
 } from "./outcomeMetricsBuilder.js";
@@ -218,15 +218,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, minutes] of sortedEntries(buckets.directMinutesByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.directMinutes}_${nurseId}`,
         label: `Direct task minutes for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "minutes",
         value: roundToTwo(minutes),
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
@@ -234,15 +229,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, value] of sortedEntries(buckets.completedTasksByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.completedCount}_${nurseId}`,
         label: `Completed task count for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "count",
         value,
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
@@ -250,15 +240,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, value] of sortedEntries(buckets.delayedTasksByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.delayedCount}_${nurseId}`,
         label: `Delayed task count for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "count",
         value,
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
@@ -266,15 +251,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, value] of sortedEntries(buckets.missedTasksByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.missedCount}_${nurseId}`,
         label: `Missed task count for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "count",
         value,
-        directionality: "lower_is_better",
-        source: "task_event",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
@@ -282,15 +262,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, minutes] of sortedEntries(buckets.queueWaitByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.queueWaitMinutes}_${nurseId}`,
         label: `Queue wait minutes for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "minutes",
         value: roundToTwo(minutes),
-        directionality: "lower_is_better",
-        source: "queue_event",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
@@ -298,15 +273,10 @@ function buildMetrics(buckets: NurseTaskBurdenBuckets): OperationalMetricContrac
 
   for (const [nurseId, value] of sortedEntries(buckets.assignedTasksByNurse)) {
     metrics.push(
-      buildOperationalMetric({
+      buildDynamicOperationalMetric({
         metricId: `${NURSE_TASK_BURDEN_METRIC_PREFIXES.assignedCount}_${nurseId}`,
         label: `Assigned task count for nurse ${nurseId}`,
-        group: "nurse",
-        unit: "count",
         value,
-        directionality: "lower_is_better",
-        source: "derived_proxy",
-        scope: "nurse",
         limitations: [...NURSE_TASK_BURDEN_LIMITATIONS]
       })
     );
