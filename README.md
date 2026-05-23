@@ -150,6 +150,8 @@ Issue 133 documents the layout editor architecture, interaction contract, and ge
 
 Issue 134 adds the shared editable layout geometry contract for rooms, doors, nurse stations/desks, hallways, EMS entry, trauma, and provider/pharmacy zones with persisted feet-based values only.
 
+Issue 135 adds deterministic web coordinate transforms between persisted feet-based layout geometry and display-only pixels with zoom and pan support.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

@@ -1,0 +1,22 @@
+{
+  "issue": "135",
+  "module": "apps/web/src/features/layout-editor/layoutCoordinateSystem.ts",
+  "tests": "apps/web/src/features/layout-editor/layoutCoordinateSystem.test.ts",
+  "feetSourceOfTruth": true,
+  "pixelsDisplayOnly": true,
+  "deterministicTransforms": {
+    "feetToPixels": true,
+    "pixelsToFeet": true,
+    "rectFeetToPixels": true,
+    "rectPixelsToFeet": true
+  },
+  "viewportSupport": {
+    "zoom": true,
+    "panXFeet": true,
+    "panYFeet": true
+  },
+  "roundtripWithinSnapPrecision": true,
+  "sourceGeometryMutation": false,
+  "uiAdded": false,
+  "testsPassed": true
+}
