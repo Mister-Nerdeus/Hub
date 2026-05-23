@@ -1,0 +1,33 @@
+{
+  "issue": "134",
+  "contract": "packages/shared/src/layout-editor/editableLayoutGeometryContract.ts",
+  "fixture": "packages/shared/fixtures/layout-editor/editable-layout-basic.json",
+  "schemaVersion": "1.0.0",
+  "units": "feet",
+  "editableObjects": [
+    "rooms",
+    "doors",
+    "nurse stations",
+    "desks",
+    "hallways",
+    "EMS entry",
+    "trauma zone",
+    "provider/pharmacy zone"
+  ],
+  "validation": {
+    "stableIdsRequired": true,
+    "minimumSizesEnforced": true,
+    "negativeGeometryRejected": true,
+    "doorWallAttachmentRequired": true,
+    "doorsCannotExceedWallLength": true,
+    "pixelFieldsRejected": true
+  },
+  "nonGoals": {
+    "uiAdded": false,
+    "dragDropAdded": false,
+    "resizeHandlesAdded": false,
+    "saveLoadChanged": false,
+    "pathRecalculationAdded": false
+  },
+  "testsPassed": true
+}

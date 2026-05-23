@@ -7,6 +7,7 @@ export * from "./export/buildBundleAudit.js";
 export * from "./export/buildReportExportBundle.js";
 export * from "./export/exportBundleIntegrity.js";
 export * from "./export/parseReportExportBundle.js";
+export * from "./layout-editor/editableLayoutGeometryContract.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
 export * from "./optimization/optimizationContract.js";
 export * from "./optimization/optimizerConstraintAdapter.js";
