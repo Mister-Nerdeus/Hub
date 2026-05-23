@@ -1,0 +1,5 @@
+npm --workspace packages/shared test -- simulation-determinism-cleanup.test.mjs
+npm --workspace packages/shared test > docs/verification/issues/issue-106/test-output/determinism-cleanup.txt
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config

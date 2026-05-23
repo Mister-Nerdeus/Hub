@@ -215,8 +215,6 @@ function maybeBuildTravelEvent(
   if (originNodeId == null || destinationNodeId == null) {
     return { travelMinutes: 0, currentNodeId: currentNodeId ?? "" };
   }
-  const nurse = plan == null ? undefined : undefined;
-  void nurse;
   const response = calculatePathTravelTime({
     plan,
     originNodeId,

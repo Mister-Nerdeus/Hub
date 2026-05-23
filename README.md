@@ -128,6 +128,8 @@ Issue 104 adds a captured command-output evidence gate. Issues 104 and later mus
 
 Issue 105 adds a deterministic issue-level evidence index for Issues 082 and later. Missing or empty indexed evidence now reports the exact issue number.
 
+Issue 106 completes cleanup-only hardening for the simulation batch by removing a known no-op pattern and adding deterministic output locks for simulation and optimizer paths. No feature behavior is added.
+
 Issue 099 defines the V1 missed-task model: tasks that cannot complete inside the shift window are not started, consume no nurse busy minutes, and use the explicit not-started miss reason. Attempted-overrun behavior remains deferred.
 
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.
