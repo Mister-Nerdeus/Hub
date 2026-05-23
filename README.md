@@ -120,6 +120,14 @@ Issue 118 adds deterministic nurse walk-time summaries by nurse/task/room and a 
 
 Issue 119 adds task-time and queue-delay summaries from simulation events, including direct task minutes, queue wait, task delay, travel-to-task minutes, missed task count, and deterministic task-density buckets.
 
+Issue 120 adds patient-flow operational proxies for wait before first modeled task, idle time between task ready and start, delay exposure, and missed/unassigned proxy penalties, plus scenario- and room-scoped totals.
+
+Issue 121 adds room-level turnover readiness proxies including blocked room minutes, turnover task minutes, delayed turnover minutes, missed turnover tasks, and room pressure scores from deterministic turnover/reset event-derived assumptions.
+
+Issue 122 adds deterministic ratio and intensity scenario assumptions for 3:1 and 4:1 occupied-room coverage baselines across light, normal, busy, and slammed workload labels. It does not execute a simulation, alter assignments, or generate tasks.
+
+Issue 123 adds deterministic pressure-band summaries that map operational metric values into explicit low, watch, elevated, and compressed bands, preserving source metric values and adding no optimizer or workflow guidance.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

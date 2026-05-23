@@ -16,7 +16,7 @@
         "scope": "simulation",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting."
         ]
       },
@@ -32,7 +32,7 @@
         "scope": "scenario",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting."
         ]
       },
@@ -42,13 +42,13 @@
         "label": "Task delay minutes",
         "group": "task",
         "unit": "minutes",
-        "value": 6,
+        "value": 8,
         "directionality": "lower_is_better",
         "source": "task_event",
         "scope": "simulation",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting."
         ]
       },
@@ -64,7 +64,7 @@
         "scope": "simulation",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting."
         ]
       },
@@ -80,14 +80,14 @@
         "scope": "simulation",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting."
         ]
       },
       {
         "schemaVersion": "1.0.0",
         "metricId": "task_density_bucket_0000",
-        "label": "Tasks ready at minute bucket 0",
+        "label": "Tasks ready at minute bucket 0000",
         "group": "task",
         "unit": "count",
         "value": 2,
@@ -96,7 +96,7 @@
         "scope": "scenario",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting.",
           "Task-density bucket size is deterministic and 60-minute based."
         ]
@@ -104,7 +104,7 @@
       {
         "schemaVersion": "1.0.0",
         "metricId": "task_density_bucket_0060",
-        "label": "Tasks ready at minute bucket 60",
+        "label": "Tasks ready at minute bucket 0060",
         "group": "task",
         "unit": "count",
         "value": 1,
@@ -113,7 +113,7 @@
         "scope": "scenario",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting.",
           "Task-density bucket size is deterministic and 60-minute based."
         ]
@@ -121,7 +121,7 @@
       {
         "schemaVersion": "1.0.0",
         "metricId": "task_density_bucket_0120",
-        "label": "Tasks ready at minute bucket 120",
+        "label": "Tasks ready at minute bucket 0120",
         "group": "task",
         "unit": "count",
         "value": 1,
@@ -130,7 +130,7 @@
         "scope": "scenario",
         "limitations": [
           "Operational metric is operational-only and derived from validated simulation outputs.",
-          "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+          "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
           "Assumptions are visible where derived aggregates include normalization or weighting.",
           "Task-density bucket size is deterministic and 60-minute based."
         ]

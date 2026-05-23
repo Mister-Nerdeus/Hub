@@ -24,7 +24,7 @@ export type OperationalMetricBuilderInput = {
 
 export const OPERATIONAL_OUTCOME_LIMITATIONS = [
   "Operational metric is operational-only and derived from validated simulation outputs.",
-  "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+  "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
   "Assumptions are visible where derived aggregates include normalization or weighting."
 ];
 

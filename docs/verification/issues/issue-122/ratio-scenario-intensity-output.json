@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "comparisonSetId": "ratio-scenario-intensity-baseline",
+  "ratios": [
+    "3_to_1",
+    "4_to_1"
+  ],
+  "intensities": [
+    "light",
+    "normal",
+    "busy",
+    "slammed"
+  ],
+  "scenarios": [
+    {
+      "scenarioKey": "3_to_1_light",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "light",
+      "targetOccupiedRoomsPerNurse": 3,
+      "taskVolumeMultiplier": 0.75,
+      "turnoverMultiplier": 0.8,
+      "compositeIntensityWeight": 0.78,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "3_to_1_normal",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "normal",
+      "targetOccupiedRoomsPerNurse": 3,
+      "taskVolumeMultiplier": 1,
+      "turnoverMultiplier": 1,
+      "compositeIntensityWeight": 1,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "3_to_1_busy",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "busy",
+      "targetOccupiedRoomsPerNurse": 3,
+      "taskVolumeMultiplier": 1.35,
+      "turnoverMultiplier": 1.25,
+      "compositeIntensityWeight": 1.3,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "3_to_1_slammed",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "slammed",
+      "targetOccupiedRoomsPerNurse": 3,
+      "taskVolumeMultiplier": 1.7,
+      "turnoverMultiplier": 1.6,
+      "compositeIntensityWeight": 1.65,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "4_to_1_light",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "light",
+      "targetOccupiedRoomsPerNurse": 4,
+      "taskVolumeMultiplier": 0.75,
+      "turnoverMultiplier": 0.8,
+      "compositeIntensityWeight": 0.78,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "4_to_1_normal",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "normal",
+      "targetOccupiedRoomsPerNurse": 4,
+      "taskVolumeMultiplier": 1,
+      "turnoverMultiplier": 1,
+      "compositeIntensityWeight": 1,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "4_to_1_busy",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "busy",
+      "targetOccupiedRoomsPerNurse": 4,
+      "taskVolumeMultiplier": 1.35,
+      "turnoverMultiplier": 1.25,
+      "compositeIntensityWeight": 1.3,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    },
+    {
+      "scenarioKey": "4_to_1_slammed",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "slammed",
+      "targetOccupiedRoomsPerNurse": 4,
+      "taskVolumeMultiplier": 1.7,
+      "turnoverMultiplier": 1.6,
+      "compositeIntensityWeight": 1.65,
+      "assumptionNotes": [
+        "Ratio label maps to occupied rooms per nurse.",
+        "Intensity label maps to task-volume and turnover multipliers.",
+        "Composite weight is the rounded average of task-volume and turnover multipliers."
+      ]
+    }
+  ],
+  "limitations": [
+    "Ratio scenarios are deterministic operational assumptions for occupied room coverage only.",
+    "Intensity scenarios apply visible task-volume and turnover multipliers without running a simulation.",
+    "Scenario keys are stable comparison inputs and do not change source plans, assignments, or generated tasks."
+  ]
+}

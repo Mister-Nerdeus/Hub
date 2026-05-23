@@ -1,0 +1,155 @@
+{
+  "schemaVersion": "1.0.0",
+  "summaryLabel": "Operational pressure banding summary",
+  "thresholds": [
+    {
+      "bandLabel": "low",
+      "bandValue": 1,
+      "minInclusive": 0,
+      "maxExclusive": 25
+    },
+    {
+      "bandLabel": "watch",
+      "bandValue": 2,
+      "minInclusive": 25,
+      "maxExclusive": 50
+    },
+    {
+      "bandLabel": "elevated",
+      "bandValue": 3,
+      "minInclusive": 50,
+      "maxExclusive": 75
+    },
+    {
+      "bandLabel": "compressed",
+      "bandValue": 4,
+      "minInclusive": 75,
+      "maxExclusive": null
+    }
+  ],
+  "bandedMetrics": [
+    {
+      "metricId": "pressure_band_queue_wait_minutes",
+      "label": "Pressure band for Queue wait minutes",
+      "sourceMetricId": "queue-wait-minutes",
+      "group": "task",
+      "scope": "simulation",
+      "sourceValue": 12,
+      "bandLabel": "low",
+      "bandValue": 1,
+      "thresholdMinInclusive": 0,
+      "thresholdMaxExclusive": 25
+    },
+    {
+      "metricId": "pressure_band_room_pressure_score",
+      "label": "Pressure band for Room pressure score",
+      "sourceMetricId": "room-pressure-score",
+      "group": "room",
+      "scope": "room",
+      "sourceValue": 58,
+      "bandLabel": "elevated",
+      "bandValue": 3,
+      "thresholdMinInclusive": 50,
+      "thresholdMaxExclusive": 75
+    },
+    {
+      "metricId": "pressure_band_layout_friction_score",
+      "label": "Pressure band for Layout friction score",
+      "sourceMetricId": "layout-friction-score",
+      "group": "layout",
+      "scope": "layout",
+      "sourceValue": 82,
+      "bandLabel": "compressed",
+      "bandValue": 4,
+      "thresholdMinInclusive": 75,
+      "thresholdMaxExclusive": null
+    }
+  ],
+  "metrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "pressure_band_queue_wait_minutes",
+      "label": "Pressure band for Queue wait minutes",
+      "group": "task",
+      "unit": "band",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Pressure bands are deterministic operational groupings based on numeric metric values.",
+        "Band thresholds are explicit and applied without simulation execution.",
+        "Band output is a comparison aid and does not alter source metric values."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "pressure_band_room_pressure_score",
+      "label": "Pressure band for Room pressure score",
+      "group": "room",
+      "unit": "band",
+      "value": 3,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Pressure bands are deterministic operational groupings based on numeric metric values.",
+        "Band thresholds are explicit and applied without simulation execution.",
+        "Band output is a comparison aid and does not alter source metric values."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "pressure_band_layout_friction_score",
+      "label": "Pressure band for Layout friction score",
+      "group": "layout",
+      "unit": "band",
+      "value": 4,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "layout",
+      "limitations": [
+        "Pressure bands are deterministic operational groupings based on numeric metric values.",
+        "Band thresholds are explicit and applied without simulation execution.",
+        "Band output is a comparison aid and does not alter source metric values."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "overall_pressure_band",
+      "label": "Overall operational pressure band",
+      "group": "unit",
+      "unit": "band",
+      "value": 4,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Pressure bands are deterministic operational groupings based on numeric metric values.",
+        "Band thresholds are explicit and applied without simulation execution.",
+        "Band output is a comparison aid and does not alter source metric values."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "metrics_in_upper_pressure_bands",
+      "label": "Metrics in upper pressure bands",
+      "group": "unit",
+      "unit": "count",
+      "value": 2,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Pressure bands are deterministic operational groupings based on numeric metric values.",
+        "Band thresholds are explicit and applied without simulation execution.",
+        "Band output is a comparison aid and does not alter source metric values."
+      ]
+    }
+  ],
+  "limitations": [
+    "Pressure bands are deterministic operational groupings based on numeric metric values.",
+    "Band thresholds are explicit and applied without simulation execution.",
+    "Band output is a comparison aid and does not alter source metric values."
+  ]
+}

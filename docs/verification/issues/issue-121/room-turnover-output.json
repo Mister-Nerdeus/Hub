@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "1.0.0",
+  "summaryLabel": "Room turnover and blocked-time proxy",
+  "metrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room_turnover_task_minutes",
+      "label": "Room turnover task minutes",
+      "group": "room",
+      "unit": "minutes",
+      "value": 46,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "blocked_room_minutes",
+      "label": "Blocked room minutes",
+      "group": "room",
+      "unit": "minutes",
+      "value": 112,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "delayed_turnover_minutes",
+      "label": "Delayed turnover minutes",
+      "group": "room",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_turnover_tasks",
+      "label": "Missed turnover tasks",
+      "group": "room",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room_pressure_score",
+      "label": "Room pressure score",
+      "group": "room",
+      "unit": "score",
+      "value": 122,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "layout",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "blocked_room_minutes_by_room_room-01",
+      "label": "Blocked minutes for room room-01",
+      "group": "room",
+      "unit": "minutes",
+      "value": 52,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "turnover_task_minutes_by_room_room-01",
+      "label": "Turnover task minutes for room room-01",
+      "group": "room",
+      "unit": "minutes",
+      "value": 46,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "delayed_turnover_minutes_by_room_room-01",
+      "label": "Delayed turnover minutes for room room-01",
+      "group": "room",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_turnover_tasks_by_room_room-01",
+      "label": "Missed turnover tasks for room room-01",
+      "group": "room",
+      "unit": "count",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room_turnover_pressure_by_room_room-01",
+      "label": "Room turnover pressure score for room room-01",
+      "group": "room",
+      "unit": "score",
+      "value": 52,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "blocked_room_minutes_by_room_room-02",
+      "label": "Blocked minutes for room room-02",
+      "group": "room",
+      "unit": "minutes",
+      "value": 60,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "turnover_task_minutes_by_room_room-02",
+      "label": "Turnover task minutes for room room-02",
+      "group": "room",
+      "unit": "minutes",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "delayed_turnover_minutes_by_room_room-02",
+      "label": "Delayed turnover minutes for room room-02",
+      "group": "room",
+      "unit": "minutes",
+      "value": 0,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_turnover_tasks_by_room_room-02",
+      "label": "Missed turnover tasks for room room-02",
+      "group": "room",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room_turnover_pressure_by_room_room-02",
+      "label": "Room turnover pressure score for room room-02",
+      "group": "room",
+      "unit": "score",
+      "value": 70,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No PHI, person identity field, external-system inference, or care-quality conclusion is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Room turnover identification uses generated task metadata when available and deterministic taskId heuristics otherwise.",
+        "Room blocked minutes derive from completed turnover task minutes, turnover delay minutes, and terminal proxy penalties.",
+        "Room pressure is a deterministic operational proxy built from blocked minutes plus a fixed terminal penalty weight.",
+        "Room ids are preserved from generated tasks where provided; missing values use deterministic synthetic room-id fallback."
+      ]
+    }
+  ]
+}

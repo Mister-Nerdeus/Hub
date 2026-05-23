@@ -183,6 +183,10 @@ function buildFixtureRun() {
         minute: 150,
         scheduledMinute: 130,
         missReason: "not_started_shift_window_exceeded",
+        projectedStartMinute: 160,
+        projectedTravelMinutes: 0,
+        projectedCompletionMinute: 175,
+        shiftDurationMinutes: 150,
         queueWaitMinutes: 11,
         travelMinutes: 0
       },
@@ -300,7 +304,7 @@ test("buildTaskTimeQueueSummary uses deterministic buckets and task/nurse/travel
     routeNodeIds: ["room-03", "hall-01", "room-01"],
     routeEdgeIds: ["edge-06", "edge-07"],
     travelSeconds: 90,
-    travelMinutes: 1.5,
+    travelMinutes: 1,
     warnings: []
   });
 
@@ -316,7 +320,7 @@ test("buildTaskTimeQueueSummary uses deterministic buckets and task/nurse/travel
   assert.equal(metricById.direct_task_minutes, 19);
   assert.equal(metricById.queue_wait_minutes, 6);
   assert.equal(metricById.task_delay_minutes, 8);
-  assert.equal(metricById.travel_to_task_minutes, 11.5);
+  assert.equal(metricById.travel_to_task_minutes, 11);
   assert.equal(metricById.missed_task_count, 1);
   assert.equal(metricById.task_density_bucket_0000, 2);
   assert.equal(metricById.task_density_bucket_0045, 1);
