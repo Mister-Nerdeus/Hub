@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "1.0.0",
+  "summaryLabel": "Nurse walk and layout friction summary",
+  "metrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "total_walk_minutes",
+      "label": "Total walk minutes",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 7,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_nurse_nurse-alpha",
+      "label": "Walk minutes for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_events_by_nurse_nurse-alpha",
+      "label": "Walk events for nurse nurse-alpha",
+      "group": "nurse",
+      "unit": "count",
+      "value": 2,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_nurse_nurse-bravo",
+      "label": "Walk minutes for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_events_by_nurse_nurse-bravo",
+      "label": "Walk events for nurse nurse-bravo",
+      "group": "nurse",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_task_task-basic-room-01-medication-001",
+      "label": "Walk minutes for task task-basic-room-01-medication-001",
+      "group": "task",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "task",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_task_task-basic-room-02-monitoring-001",
+      "label": "Walk minutes for task task-basic-room-02-monitoring-001",
+      "group": "task",
+      "unit": "minutes",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "task",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_room_room-01",
+      "label": "Walk minutes for room room-01",
+      "group": "room",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "walk_minutes_by_room_room-02",
+      "label": "Walk minutes for room room-02",
+      "group": "room",
+      "unit": "minutes",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "room",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "layout_friction_score",
+      "label": "Layout friction score",
+      "group": "layout",
+      "unit": "score",
+      "value": 12.5,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "layout",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No external-system inferences, person identifiers, or PHI are represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Layout friction is derived from walk/travel metrics using deterministic walk duration and event-weighting.",
+        "No layout or clinical claims are represented; this is an operational movement proxy only.",
+        "Layout friction uses travel minutes, event counts, room coverage, and unreachable penalties only."
+      ]
+    }
+  ]
+}
+
+
+

@@ -1,0 +1,9 @@
+Issue 119 shared evidence capture.
+
+Command output was captured from the Issue 119 command set in:
+docs/verification/issues/issue-119/commands.txt
+
+Commands:
+- npm --workspace packages/shared test
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs

@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "summaryLabel": "Task time and queue delay summary",
+  "metrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "direct_task_minutes",
+      "label": "Direct task minutes",
+      "group": "task",
+      "unit": "minutes",
+      "value": 19,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "queue_wait_minutes",
+      "label": "Queue wait minutes",
+      "group": "task",
+      "unit": "minutes",
+      "value": 4,
+      "directionality": "lower_is_better",
+      "source": "queue_event",
+      "scope": "scenario",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task_delay_minutes",
+      "label": "Task delay minutes",
+      "group": "task",
+      "unit": "minutes",
+      "value": 6,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "travel_to_task_minutes",
+      "label": "Travel to task minutes",
+      "group": "task",
+      "unit": "minutes",
+      "value": 10,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "missed_task_count",
+      "label": "Missed task count",
+      "group": "task",
+      "unit": "count",
+      "value": 1,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "simulation",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task_density_bucket_0000",
+      "label": "Tasks ready at minute bucket 0",
+      "group": "task",
+      "unit": "count",
+      "value": 2,
+      "directionality": "neutral",
+      "source": "task_event",
+      "scope": "scenario",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Task-density bucket size is deterministic and 60-minute based."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task_density_bucket_0060",
+      "label": "Tasks ready at minute bucket 60",
+      "group": "task",
+      "unit": "count",
+      "value": 1,
+      "directionality": "neutral",
+      "source": "task_event",
+      "scope": "scenario",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Task-density bucket size is deterministic and 60-minute based."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task_density_bucket_0120",
+      "label": "Tasks ready at minute bucket 120",
+      "group": "task",
+      "unit": "count",
+      "value": 1,
+      "directionality": "neutral",
+      "source": "task_event",
+      "scope": "scenario",
+      "limitations": [
+        "Operational metric is operational-only and derived from validated simulation outputs.",
+        "No clinical safety claim, clinical recommendation, PHI, patient identity, or EHR inference is represented.",
+        "Assumptions are visible where derived aggregates include normalization or weighting.",
+        "Task-density bucket size is deterministic and 60-minute based."
+      ]
+    }
+  ]
+}

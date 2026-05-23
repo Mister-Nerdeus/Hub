@@ -116,6 +116,10 @@ Simulation Execution proof covers the Issue 082 simulation run contract foundati
 
 Simulation Execution metric baseline proof adds Issue 117 Operational Variable Metric Contract to support operational comparisons across workload modes (3:1 vs 4:1), flow states (light, normal, busy, slammed), and layout baselines using reusable directional and provenance-aware metric fields. It adds no UI, API route, persistence behavior, optimizer change, recommendation surface, or clinical outcomes. The phase remains operational-only and retains no clinical safety certification, diagnosis, EHR, patient identity, or full-shift execution claims.
 
+Issue 118 adds deterministic nurse walk-time summaries by nurse/task/room and a layout friction score derived only from travel-event-derived walk totals and unreachable penalties. It does not add optimizer behavior, recommendations, full-shift scheduling claims, or clinical interpretation language.
+
+Issue 119 adds task-time and queue-delay summaries from simulation events, including direct task minutes, queue wait, task delay, travel-to-task minutes, missed task count, and deterministic task-density buckets.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

@@ -449,6 +449,16 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-117/operational-metric-output.json",
       "docs/verification/issues/issue-117/closeout.md",
       "docs/verification/issues/issue-117/test-output/shared.txt",
+      "docs/verification/issues/issue-118/commands.txt",
+      "docs/verification/issues/issue-118/command-output-map.json",
+      "docs/verification/issues/issue-118/nurse-walk-layout-friction-output.json",
+      "docs/verification/issues/issue-118/closeout.md",
+      "docs/verification/issues/issue-118/test-output/shared.txt",
+      "docs/verification/issues/issue-119/commands.txt",
+      "docs/verification/issues/issue-119/command-output-map.json",
+      "docs/verification/issues/issue-119/task-time-queue-output.json",
+      "docs/verification/issues/issue-119/closeout.md",
+      "docs/verification/issues/issue-119/test-output/shared.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -518,7 +528,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-115/commands.txt",
       "docs/verification/issues/issue-115/closeout.md",
       "docs/verification/issues/issue-116/commands.txt",
-      "docs/verification/issues/issue-116/closeout.md"
+      "docs/verification/issues/issue-116/closeout.md",
+      "docs/verification/issues/issue-118/commands.txt",
+      "docs/verification/issues/issue-118/closeout.md"
     ],
     contentChecks: [
       {
