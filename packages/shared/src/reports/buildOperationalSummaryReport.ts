@@ -27,6 +27,7 @@ export type OperationalReportBuilderInput = {
   timelineSummary: TaskTimelineSummary;
   nurseTaskAssignmentResult: BasicNurseTaskAssignmentResult;
   manualAssignmentSet: ManualAssignmentContract;
+  createdAt?: string;
 };
 
 export const OPERATIONAL_REPORT_CREATED_AT = "2026-05-22T00:00:00Z";
@@ -58,7 +59,7 @@ export function buildOperationalReport(
     scenarioId: prepared.scenario.scenarioId,
     generatedTaskSetId: prepared.generatedTaskSet.generatedTaskSetId,
     nurseTaskAssignmentSetId: prepared.nurseTaskAssignmentSet.nurseTaskAssignmentSetId,
-    createdAt: OPERATIONAL_REPORT_CREATED_AT,
+    createdAt: input.createdAt ?? OPERATIONAL_REPORT_CREATED_AT,
     title,
     summary: {
       totalGeneratedTasks: prepared.generatedTaskSet.generatedTasks.length,

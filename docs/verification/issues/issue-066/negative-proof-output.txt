@@ -1,0 +1,10 @@
+# Issue 066 Negative Proof
+
+Command:
+node scripts/check-docs-contracts.mjs
+
+Expected result:
+The docs checker must fail while a required Phase 7 evidence artifact is missing.
+
+Output:
+Missing Issue 063 Phase 7 evidence: docs/verification/issues/issue-063/export-bundle-output.json

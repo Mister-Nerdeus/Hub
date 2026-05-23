@@ -1,0 +1,18 @@
+Commands run for Issue 069:
+
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- cd apps/api && python -m pytest
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- docker compose down
+- node scripts/verify-local.mjs
+- npm run evidence:local -- --tracked
+- Temporarily moved docs/verification/issues/issue-069/export-review-output.json
+- node scripts/check-docs-contracts.mjs (expected failure for missing Phase 8 evidence)
+- node scripts/check-docs-contracts.mjs
+- git diff --name-only
+
+Result:
+All final verification commands passed. Phase 8 evidence gate negative proof and final validation output are saved under Issue 069.

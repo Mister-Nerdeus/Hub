@@ -47,4 +47,8 @@ Phase 6 adds operational report contracts, deterministic report builders, unassi
 
 Phase 7 adds the scenario comparison contract, manual scenario comparison builder, report export JSON bundle contract, report export JSON bundle builder, and an API-free comparison proof surface. Phase 7 remains local-first, uses synthetic operational data only, and packages JSON proof artifacts without adding API endpoints or persistence.
 
+## Phase 8 Export Review Foundation
+
+Phase 8 documents the report-centric comparison decision, makes deterministic timestamp input explicit for report builders, refactors the phase evidence gate registry, validates report export bundle JSON locally, and adds an API-free export bundle review proof surface. Phase 8 remains local-first, uses synthetic operational data only, and does not add API endpoints, persistence, file upload, file download, or PDF export.
+
 Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, report bundle persistence, PDF export, file download behavior, recommendation, workload balancing, and optimization remain out of scope until later accepted contracts.

@@ -1,0 +1,17 @@
+Commands run for Issue 068:
+
+- npm --workspace apps/web test (failed before implementation because the export review view model and fixture did not exist)
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- npm --workspace packages/shared test
+- cd apps/api && python -m pytest
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- docker compose down
+- node scripts/verify-local.mjs
+- Started Vite locally on 127.0.0.1:5181 for screenshot capture
+- Microsoft Edge headless screenshot to docs/verification/issues/issue-068/screenshots/export-bundle-review-proof.png
+- git diff --name-only
+
+Result:
+All final verification commands passed. Export review JSON output and screenshot evidence are saved under Issue 068.

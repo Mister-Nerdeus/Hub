@@ -1,6 +1,6 @@
 # Scenario Comparison Contract
 
-The scenario comparison contract packages deterministic operational report summaries for side-by-side local proof.
+The scenario comparison contract packages deterministic operational report summaries for side-by-side local proof. The shape is intentionally report-centric: operational reports are the compared artifacts, and scenario IDs stay visible inside comparison items.
 
 ## Contract
 
@@ -34,6 +34,8 @@ The scenario comparison contract packages deterministic operational report summa
 ## Invariants
 
 - Reports validate before comparison.
+- Report IDs are first-class because validated operational report outputs are the artifacts under review.
+- Scenario IDs remain available in `items[].scenarioId`.
 - Report IDs are unique.
 - The baseline report is first in `reportIds` and `items`.
 - Items must reference included reports when report context is supplied.
@@ -44,3 +46,5 @@ The scenario comparison contract packages deterministic operational report summa
 ## Boundaries
 
 The comparison is a manual deterministic proof artifact only. It does not optimize, recommend a scenario, rank scenarios as better or worse, certify clinical safety, add API endpoints, persist data, export PDF, calculate routes, calculate delay, or simulate task completion.
+
+Future scenario-centric views may be derived from this report-centric contract later, but they must not replace `baselineReportId`, `reportIds`, or item-level report references without a later accepted contract change.

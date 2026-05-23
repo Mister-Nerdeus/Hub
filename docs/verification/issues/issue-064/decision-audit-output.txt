@@ -1,0 +1,31 @@
+# Issue 064 Decision Audit
+
+Command:
+rg -n "baselineScenarioId|comparedScenarioIds|comparisonMode|baselineReportId|reportIds|report-centric|scenario-centric" docs
+
+Result:
+docs\contracts\scenario-comparison-contract.md:14:- `baselineReportId`: report ID used as the baseline row.
+docs\contracts\scenario-comparison-contract.md:15:- `reportIds`: deterministic report IDs with the baseline report first.
+docs\contracts\scenario-comparison-contract.md:38:- The baseline report is first in `reportIds` and `items`.
+docs\verification\issues\issue-064\decision-audit-output.txt:4:rg -n "baselineScenarioId|comparedScenarioIds|comparisonMode|baselineReportId|reportIds|report-centric|scenario-centric" docs
+docs\verification\issues\issue-063\export-bundle-output.json:153:    "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-063\export-bundle-output.json:154:    "reportIds": [
+docs\verification\issues\issue-063\export-bundle-output.json:188:      "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-063\comparison-output.json:7:  "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-063\comparison-output.json:8:  "reportIds": [
+docs\verification\issues\issue-063\comparison-output.json:42:    "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-061\export-bundle-output.json:153:    "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-061\export-bundle-output.json:154:    "reportIds": [
+docs\verification\issues\issue-061\export-bundle-output.json:188:      "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-062\comparison-proof-output.json:8:    "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-062\comparison-proof-output.json:9:    "reportIds": [
+docs\verification\issues\issue-062\comparison-proof-output.json:43:      "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-062\comparison-proof-output.json:211:      "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-062\comparison-proof-output.json:212:      "reportIds": [
+docs\verification\issues\issue-062\comparison-proof-output.json:246:        "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-060\comparison-output.json:7:  "baselineReportId": "operational-summary-generated-task-set-basic",
+docs\verification\issues\issue-060\comparison-output.json:8:  "reportIds": [
+docs\verification\issues\issue-060\comparison-output.json:42:    "baselineReportId": "operational-summary-generated-task-set-basic",
+
+Audit note:
+Before Issue 064 implementation, the existing docs mention baselineReportId and reportIds in the scenario comparison contract, but they do not explicitly name the design as report-centric, explain why report IDs are first-class, or warn against replacing it with baselineScenarioId and comparedScenarioIds.

@@ -9,6 +9,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "node scripts/run-web-tests.mjs",
     "test:comparison": "node scripts/run-web-tests.mjs",
+    "test:export-review": "node scripts/run-web-tests.mjs",
     "test:manual-assignment": "node scripts/run-web-tests.mjs",
     "test:reports": "node scripts/run-web-tests.mjs"
   },

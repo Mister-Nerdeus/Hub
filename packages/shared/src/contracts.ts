@@ -677,6 +677,16 @@ export type ReportExportBundleContract = {
   metadata: ReportExportBundleMetadata;
 };
 
+export type ReportExportBundleImportSummary = {
+  exportId: string;
+  reportCount: number;
+  hasComparison: boolean;
+  comparisonId?: string | null;
+  scenarioIds: string[];
+  reportIds: string[];
+  limitations: string[];
+};
+
 type IdSets = {
   roomIds: Set<string>;
   hallwayIds: Set<string>;

@@ -1,0 +1,15 @@
+Commands run for Issue 064:
+
+- rg -n "baselineScenarioId|comparedScenarioIds|comparisonMode|baselineReportId|reportIds|report-centric|scenario-centric" docs
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- cd apps/api && python -m pytest
+- docker compose down
+- node scripts/verify-local.mjs
+- git diff --name-only
+
+Result:
+All final verification commands passed. The initial audit output is saved in decision-audit-output.txt.

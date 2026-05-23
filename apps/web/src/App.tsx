@@ -3,6 +3,8 @@ import type { PlanContract } from "@nerdeus/shared";
 
 import { ScenarioComparisonProof } from "./features/comparison/ScenarioComparisonProof";
 import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
+import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
+import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
 import { PlanDraftPanel } from "./features/plan-builder/PlanDraftPanel";
@@ -27,6 +29,7 @@ export function App() {
   );
   const reportProofViewModel = createReportProofViewModel();
   const scenarioComparisonProofViewModel = createScenarioComparisonProofViewModel();
+  const exportBundleReviewViewModel = createExportBundleReviewViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -48,6 +51,7 @@ export function App() {
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
+      <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

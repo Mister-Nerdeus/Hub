@@ -104,4 +104,8 @@ Phase 6 reporting proof covers operational report contracts, deterministic repor
 
 Phase 7 comparison and export proof covers the scenario comparison contract, manual scenario comparison builder, report export JSON bundle contract, report export JSON bundle builder, and an API-free comparison proof surface using local synthetic fixtures. It does not add optimization, recommendation, clinical safety claims, API endpoints, persistence, PDF export, download behavior, route calculation, delay calculation, or task completion simulation.
 
-The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus the Phase 2 gate evidence for Issue 024, the Phase 3 gate evidence for Issue 038, the Phase 4 task-generation evidence for Issue 047, the Phase 5 task-assignment evidence for Issue 053, the Phase 6 reporting evidence for Issue 058, and the Phase 7 comparison/export evidence for Issue 063.
+Phase 7 comparison is intentionally report-centric: validated operational reports are the compared artifacts, `baselineReportId` and `reportIds` remain first-class, and scenario IDs stay visible inside comparison items. Future scenario-centric views can be derived later without replacing the current report-centric contract.
+
+Phase 8 export review proof covers report-centric comparison documentation, deterministic timestamp input cleanup, the phase evidence gate registry, local export bundle import validation, and an API-free export bundle review proof surface. It does not add optimization, recommendation, API endpoints, persistence, file upload, file download, PDF export, clinical safety claims, or PHI.
+
+The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus phase evidence gates from `scripts/phase-evidence-gates.mjs` for Phase 2 through the current completed phase.

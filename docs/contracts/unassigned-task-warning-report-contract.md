@@ -7,11 +7,13 @@ Phase 6 includes dedicated operational inspection builders for coverage gaps and
 - `buildUnassignedTaskReport(input)` returns report type `unassigned_tasks`.
 - `buildWarningReport(input)` returns report type `warnings`.
 
-Both builders use the same input shape as the operational summary builder and return validated `OperationalReportContract` objects.
+Both builders use the same input shape as the operational summary builder, including optional explicit `createdAt`, and return validated `OperationalReportContract` objects.
 
 ## Required Behavior
 
 - Builders are pure and deterministic.
+- Builders use deterministic proof timestamp defaults when `createdAt` is omitted.
+- Builders use explicit `createdAt` input exactly when supplied and reject invalid timestamp input through report validation.
 - Task IDs are sorted deterministically.
 - Room IDs are sorted deterministically.
 - Warning codes are sorted deterministically.

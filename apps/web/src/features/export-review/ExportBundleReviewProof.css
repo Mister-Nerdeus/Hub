@@ -1,0 +1,135 @@
+.export-review-proof {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.export-review-proof__header,
+.export-review-proof__panel {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.export-review-proof__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.export-review-proof h2,
+.export-review-proof h3 {
+  color: #111827;
+  margin: 0;
+}
+
+.export-review-proof h2 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.export-review-proof h3 {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.export-review-proof__badge {
+  background: #30524b;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.2;
+  max-width: 320px;
+  padding: 8px 10px;
+}
+
+.export-review-proof__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.export-review-proof__grid--lists {
+  grid-template-columns: minmax(260px, 0.75fr) minmax(0, 1.25fr);
+}
+
+.export-review-proof__metrics {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.export-review-proof__metrics div {
+  background: #f4f7f8;
+  border: 1px solid #dbe4ea;
+  border-radius: 6px;
+  min-height: 64px;
+  padding: 10px;
+}
+
+.export-review-proof dt {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0 0 5px;
+}
+
+.export-review-proof dd {
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.export-review-proof__error {
+  border-left: 4px solid #9f3a38;
+  color: #5f2624;
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+  overflow-wrap: anywhere;
+  padding-left: 10px;
+}
+
+.export-review-proof__list,
+.export-review-proof__limitations {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.export-review-proof__list li,
+.export-review-proof__limitations li {
+  border-left: 4px solid #3b6f7d;
+  color: #263340;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  padding-left: 10px;
+}
+
+@media (max-width: 840px) {
+  .export-review-proof__grid,
+  .export-review-proof__grid--lists,
+  .export-review-proof__metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .export-review-proof__header {
+    flex-direction: column;
+  }
+}

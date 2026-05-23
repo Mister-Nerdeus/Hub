@@ -21,6 +21,7 @@ Use this document when a task starts to drift beyond the project boundaries.
 - Keep TypeScript schemas, Python contracts, fixtures, and API examples in parity.
 - Keep plan exports deterministic with stable ordering.
 - Keep coordinate origin, units, grid snapping, and `pixelsPerUnit` conversion rules explicit.
+- Keep Phase 7 comparison report-centric. Do not rename `baselineReportId` and `reportIds` back to raw scenario fields such as `baselineScenarioId` or `comparedScenarioIds`; scenario IDs remain in comparison items.
 
 ## Evidence Drift
 

@@ -6,7 +6,9 @@ import test from "node:test";
 
 import {
   NURSE_BURDEN_PENALTIES,
+  parseReportExportBundleJson,
   ROOM_WORKLOAD_WEIGHTS,
+  summarizeReportExportBundle,
   validateAssumptionsRegisterContract,
   validateDayProfileContract,
   validateGeneratedOperationalTaskSet,
@@ -366,6 +368,19 @@ test("report export bundle fixture validates against TypeScript contract", () =>
   assert.equal(bundle.exportType, "operational_report_bundle");
   assert.equal(bundle.reports.length, 2);
   assert.equal(bundle.metadata.generatedBy, "local-proof");
+});
+
+test("report export bundle import utilities remain public and deterministic", () => {
+  const bundle = parseReportExportBundleJson(
+    JSON.stringify(readExportFixture("report-export-bundle-basic.json"))
+  );
+  const summary = summarizeReportExportBundle(bundle);
+
+  assert.equal(summary.exportId, "report-export-bundle-basic");
+  assert.deepEqual(summary.reportIds, [
+    "operational-summary-generated-task-set-basic",
+    "operational-summary-generated-task-set-surge"
+  ]);
 });
 
 const invalidPlanFixtures = [

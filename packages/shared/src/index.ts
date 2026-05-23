@@ -2,6 +2,7 @@ export * from "./contracts.js";
 export * from "./assignment/validateManualAssignment.js";
 export * from "./comparison/buildScenarioComparison.js";
 export * from "./export/buildReportExportBundle.js";
+export * from "./export/parseReportExportBundle.js";
 export * from "./scoring/assumptionsScoring.js";
 export * from "./scoring/nurseBurdenScore.js";
 export * from "./scoring/roomWorkloadScore.js";

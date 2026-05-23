@@ -1,0 +1,16 @@
+Commands run for Issue 066:
+
+- node scripts/check-docs-contracts.mjs
+- Temporarily moved docs/verification/issues/issue-063/export-bundle-output.json
+- node scripts/check-docs-contracts.mjs (expected failure for missing Phase 7 evidence)
+- node scripts/check-no-phi-fields.mjs
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- cd apps/api && python -m pytest
+- docker compose down
+- node scripts/verify-local.mjs
+- git diff --name-only
+
+Result:
+All final verification commands passed. Negative proof and positive docs-check output are saved for Issue 066.

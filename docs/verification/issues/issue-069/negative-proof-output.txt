@@ -1,0 +1,10 @@
+# Issue 069 Negative Proof
+
+Command:
+node scripts/check-docs-contracts.mjs
+
+Expected result:
+The docs checker must fail while a required Phase 8 evidence artifact is missing.
+
+Output:
+Missing Issue 069 Phase 8 evidence: docs/verification/issues/issue-069/export-review-output.json

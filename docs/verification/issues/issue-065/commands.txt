@@ -1,0 +1,15 @@
+Commands run for Issue 065:
+
+- npm --workspace packages/shared test (failed before implementation with createdAt override and invalid timestamp tests)
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- cd apps/api && python -m pytest
+- node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- docker compose down
+- node scripts/verify-local.mjs
+- git diff --name-only
+
+Result:
+All final verification commands passed. Timestamp proof output is saved in timestamp-output.json.
