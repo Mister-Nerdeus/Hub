@@ -37,6 +37,7 @@ import { createOperationalOutcomeDashboardViewModel } from "./features/outcomes/
 import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
 import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
 import { SimulationRunRetrievalProof } from "./features/simulation/SimulationRunRetrievalProof";
+import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
 import {
   manualAssignmentBasic,
   manualAssignmentRoomLoads
@@ -109,6 +110,7 @@ export function App() {
         </div>
       </section>
 
+      <LayoutEditorStage />
       <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
