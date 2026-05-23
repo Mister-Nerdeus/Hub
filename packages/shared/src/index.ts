@@ -9,6 +9,7 @@ export * from "./export/exportBundleIntegrity.js";
 export * from "./export/parseReportExportBundle.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
 export * from "./optimization/optimizationContract.js";
+export * from "./optimization/optimizerConstraintAdapter.js";
 export * from "./optimization/optimizerAuditContract.js";
 export * from "./optimization/optimizerAuditTrail.js";
 export * from "./pathing/pathTravelContract.js";

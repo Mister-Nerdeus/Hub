@@ -8,6 +8,7 @@ import type {
 import { validateNurseTaskAssignmentContract } from "../contracts.js";
 import type { AssignmentVariantRunContract } from "../simulation/assignmentVariantRunContract.js";
 import { runAssignmentVariants } from "../simulation/assignmentVariantRunner.js";
+import { constrainOptimizerCandidateAssignments } from "./optimizerConstraintAdapter.js";
 
 export type BaselineOptimizerCandidate = {
   candidateId: string;
@@ -58,11 +59,25 @@ export function buildBaselineAssignmentOptimizer(
   if (nurseIds.length === 0) {
     throw new Error("baseNurseTaskAssignmentSet requires at least one assigned nurse");
   }
+  const generatedTaskIds = input.generatedTaskSet.generatedTasks.map((task) => task.id);
+  const constrainCandidate = (candidateAssignments: NurseTaskAssignment[]) =>
+    constrainOptimizerCandidateAssignments({
+      generatedTaskIds,
+      allowedNurseIds: nurseIds,
+      baseAssignments: original.taskAssignments,
+      candidateAssignments
+    }).taskAssignments;
   const variants = [
     {
       variantId: "candidate-original",
       label: "Original manual assignment",
-      nurseTaskAssignmentSet: cloneAssignmentSet(original, "candidate-original", original.taskAssignments)
+      nurseTaskAssignmentSet: cloneAssignmentSet(
+        original,
+        "candidate-original",
+        constrainCandidate(original.taskAssignments),
+        input.scenario,
+        input.generatedTaskSet
+      )
     },
     {
       variantId: "candidate-room-count-balanced",
@@ -70,7 +85,9 @@ export function buildBaselineAssignmentOptimizer(
       nurseTaskAssignmentSet: cloneAssignmentSet(
         original,
         "candidate-room-count-balanced",
-        distributeByRoomCount(input.generatedTaskSet.generatedTasks, nurseIds)
+        constrainCandidate(distributeByRoomCount(input.generatedTaskSet.generatedTasks, nurseIds)),
+        input.scenario,
+        input.generatedTaskSet
       )
     },
     {
@@ -79,7 +96,9 @@ export function buildBaselineAssignmentOptimizer(
       nurseTaskAssignmentSet: cloneAssignmentSet(
         original,
         "candidate-task-minute-balanced",
-        distributeByTaskMinutes(input.generatedTaskSet.generatedTasks, nurseIds)
+        constrainCandidate(distributeByTaskMinutes(input.generatedTaskSet.generatedTasks, nurseIds)),
+        input.scenario,
+        input.generatedTaskSet
       )
     }
   ];
@@ -131,18 +150,25 @@ function sortedNurseIds(assignmentSet: NurseTaskAssignmentContract): string[] {
 function cloneAssignmentSet(
   original: NurseTaskAssignmentContract,
   variantId: string,
-  taskAssignments: NurseTaskAssignment[]
+  taskAssignments: NurseTaskAssignment[],
+  scenario: ShiftScenarioContract,
+  generatedTaskSet: GeneratedOperationalTaskSetContract
 ): NurseTaskAssignmentContract {
-  return validateNurseTaskAssignmentContract({
-    ...original,
-    nurseTaskAssignmentSetId: `${original.nurseTaskAssignmentSetId}-${variantId}`,
-    assignmentSetId: `${original.assignmentSetId}-${variantId}`,
-    name: `${original.name} ${variantId}`,
-    taskAssignments: taskAssignments.map((assignment) => ({
-      ...assignment,
-      id: `${variantId}-${assignment.taskId}`
-    }))
-  });
+  return validateNurseTaskAssignmentContract(
+    {
+      ...original,
+      nurseTaskAssignmentSetId: `${original.nurseTaskAssignmentSetId}-${variantId}`,
+      assignmentSetId: `${original.assignmentSetId}-${variantId}`,
+      name: `${original.name} ${variantId}`,
+      taskAssignments: taskAssignments.map((assignment) => ({
+        ...assignment,
+        id: `${variantId}-${assignment.taskId}`
+      }))
+    },
+    scenario,
+    undefined,
+    generatedTaskSet
+  );
 }
 
 function distributeByRoomCount(

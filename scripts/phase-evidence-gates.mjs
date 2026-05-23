@@ -404,6 +404,8 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-099/test-output/shared.txt",
       "docs/verification/issues/issue-100/queue-contract-output.json",
       "docs/verification/issues/issue-100/test-output/shared.txt",
+      "docs/verification/issues/issue-101/optimizer-constraint-output.json",
+      "docs/verification/issues/issue-101/test-output/shared.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -441,7 +443,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-099/commands.txt",
       "docs/verification/issues/issue-099/closeout.md",
       "docs/verification/issues/issue-100/commands.txt",
-      "docs/verification/issues/issue-100/closeout.md"
+      "docs/verification/issues/issue-100/closeout.md",
+      "docs/verification/issues/issue-101/commands.txt",
+      "docs/verification/issues/issue-101/closeout.md"
     ],
     contentChecks: [
       {

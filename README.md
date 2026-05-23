@@ -118,6 +118,8 @@ Hardening pause: Issues 097-106 must complete before new feature expansion. This
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
 
+Issue 101 constrains baseline optimizer candidates before simulation scoring: generated candidates must reference known tasks, known nurses, and must preserve base unassigned tasks. The optimizer remains an operational candidate generator that runs through the shared assignment variant runner and simulation score path.
+
 Issue 099 defines the V1 missed-task model: tasks that cannot complete inside the shift window are not started, consume no nurse busy minutes, and use the explicit not-started miss reason. Attempted-overrun behavior remains deferred.
 
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.

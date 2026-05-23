@@ -1,3 +1,17 @@
+import type { NurseTaskAssignment } from "../contracts.js";
+
+export type OptimizerConstraintAdapterInput = {
+  generatedTaskIds: string[];
+  allowedNurseIds: string[];
+  baseAssignments: NurseTaskAssignment[];
+  candidateAssignments: NurseTaskAssignment[];
+};
+
+export type OptimizerConstraintAdapterOutput = {
+  taskAssignments: NurseTaskAssignment[];
+  preservedUnassignedTaskIds: string[];
+};
+
 export type OptimizationInputContract = {
   schemaVersion: "1.0.0";
   optimizationInputId: string;
