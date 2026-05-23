@@ -32,6 +32,8 @@ import { PlanImportExportPanel } from "./features/plans/PlanImportExportPanel";
 import { PlanSaveLoadPanel } from "./features/plans/PlanSaveLoadPanel";
 import { OperationalReportsProof } from "./features/reports/OperationalReportsProof";
 import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
+import { OperationalOutcomeDashboardProof } from "./features/outcomes/OperationalOutcomeDashboardProof";
+import { createOperationalOutcomeDashboardViewModel } from "./features/outcomes/operationalOutcomeDashboardViewModel";
 import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
 import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
 import { SimulationRunRetrievalProof } from "./features/simulation/SimulationRunRetrievalProof";
@@ -53,6 +55,7 @@ export function App() {
   const exportBundleReviewViewModel = createExportBundleReviewViewModel();
   const bundleAuditProofViewModel = createBundleAuditProofViewModel();
   const simulationTimelineViewModel = createSimulationTimelineViewModel();
+  const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
@@ -109,6 +112,7 @@ export function App() {
       <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
+      <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
       <BundleAuditProof viewModel={bundleAuditProofViewModel} />

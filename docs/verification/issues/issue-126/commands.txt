@@ -1,0 +1,9 @@
+npm --workspace apps/web test > docs/verification/issues/issue-126/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+docker compose up --build -d | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+docker compose up -d api | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+docker compose --profile tools run --rm migrate | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless --disable-gpu --window-size=1280,900 --virtual-time-budget=3000 --screenshot="C:\Projects\Hub\docs\verification\issues\issue-126\screenshots\operational-outcome-dashboard-proof.png" "http://localhost:5180/#operational-outcome-dashboard-proof"
+docker compose down | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-126/test-output/web.txt -Append

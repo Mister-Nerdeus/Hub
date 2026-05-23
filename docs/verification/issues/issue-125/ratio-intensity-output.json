@@ -1,0 +1,102 @@
+{
+  "issue": "125",
+  "scenarioFiles": [
+    "ratio-3to1-light.json",
+    "ratio-3to1-normal.json",
+    "ratio-3to1-busy.json",
+    "ratio-3to1-slammed.json",
+    "ratio-4to1-light.json",
+    "ratio-4to1-normal.json",
+    "ratio-4to1-busy.json",
+    "ratio-4to1-slammed.json"
+  ],
+  "metricIds": [
+    "nurse-walk-time",
+    "patient-wait-idle-proxy",
+    "task-time",
+    "queue-delay",
+    "unit-saturation",
+    "room-turnover-pressure",
+    "nurse-strain-proxy",
+    "layout-friction"
+  ],
+  "scenarioSummary": [
+    {
+      "comparisonSetId": "ratio-3to1-light",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "light",
+      "pressureBand": "low",
+      "metricCount": 8,
+      "minValue": 4,
+      "maxValue": 34
+    },
+    {
+      "comparisonSetId": "ratio-3to1-normal",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "normal",
+      "pressureBand": "moderate",
+      "metricCount": 8,
+      "minValue": 7,
+      "maxValue": 46
+    },
+    {
+      "comparisonSetId": "ratio-3to1-busy",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "busy",
+      "pressureBand": "high",
+      "metricCount": 8,
+      "minValue": 10,
+      "maxValue": 68
+    },
+    {
+      "comparisonSetId": "ratio-3to1-slammed",
+      "ratioLabel": "3_to_1",
+      "intensityLabel": "slammed",
+      "pressureBand": "critical",
+      "metricCount": 8,
+      "minValue": 15,
+      "maxValue": 82
+    },
+    {
+      "comparisonSetId": "ratio-4to1-light",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "light",
+      "pressureBand": "low",
+      "metricCount": 8,
+      "minValue": 5,
+      "maxValue": 46
+    },
+    {
+      "comparisonSetId": "ratio-4to1-normal",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "normal",
+      "pressureBand": "moderate",
+      "metricCount": 8,
+      "minValue": 8,
+      "maxValue": 63
+    },
+    {
+      "comparisonSetId": "ratio-4to1-busy",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "busy",
+      "pressureBand": "high",
+      "metricCount": 8,
+      "minValue": 12,
+      "maxValue": 74
+    },
+    {
+      "comparisonSetId": "ratio-4to1-slammed",
+      "ratioLabel": "4_to_1",
+      "intensityLabel": "slammed",
+      "pressureBand": "critical",
+      "metricCount": 8,
+      "minValue": 18,
+      "maxValue": 94
+    }
+  ],
+  "visibilityChecks": {
+    "lightToSlammedPressureGap": "Slammed pressureBand is high or critical for both ratios; light has lowest band for both ratios",
+    "equivalentIntensity3To1Versus4To1": "At each intensity, at least one 4:1 metric is directionally worse than 3:1",
+    "monotonicIntensity": "Within each ratio, all metrics are nondecreasing from light -> normal -> busy -> slammed for lower-is-better metrics and the inverse for higher-is-better metrics"
+  }
+}

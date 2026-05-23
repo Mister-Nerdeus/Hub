@@ -1,0 +1,180 @@
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 17 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/bundle-audit/bundleAuditViewModel.test.ts
+
+> src/features/comparison/scenarioComparisonViewModel.test.ts
+
+> src/features/export-review/exportBundleReviewViewModel.test.ts
+
+> src/features/manual-assignment/manualAssignmentViewModel.test.ts
+
+> src/features/optimization/optimizerProofViewModel.test.ts
+
+> src/features/outcomes/operationalOutcomeDashboardViewModel.test.ts
+
+> src/features/plan-builder/generatedPlanPreviewViewModel.test.ts
+
+> src/features/plan-builder/planBuilderAdvancedDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderValidation.test.ts
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+> src/features/reports/reportProofViewModel.test.ts
+
+> src/features/simulation/simulationRunRetrievalViewModel.test.ts
+
+> src/features/simulation/simulationTimelineViewModel.test.ts
+
+Executed 17 web test file(s).
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 117 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:   0.28 kB
+dist/assets/index-BROWIMPo.css   32.33 kB │ gzip:   4.99 kB
+dist/assets/index-BCjEYA38.js   382.95 kB │ gzip: 102.87 kB
+
+[32m✓ built in 173ms[39m
+#1 [internal] load local bake definitions
+#1 reading from stdin 869B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 299B done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 416B done
+#3 DONE 0.0s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.3s
+
+#5 [api internal] load metadata for docker.io/library/python:3.13-slim
+#5 DONE 0.3s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 127B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 9.16kB 0.0s done
+#8 DONE 0.0s
+
+#9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#9 DONE 0.1s
+
+#10 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#10 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#10 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#10 DONE 0.1s
+
+#9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 DONE 0.1s
+
+#11 [api 2/5] WORKDIR /app
+#11 CACHED
+
+#12 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#12 CACHED
+
+#13 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#13 CACHED
+
+#14 [api 5/5] COPY apps/api/ ./
+#14 CACHED
+
+#15 [api] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:34eb84518d5a2bd8c4e867c460f5a9a4dd9cbce14102b3412e4fa1da8915b53b done
+#15 exporting config sha256:d6415f839caf0f22568c47e91797062d76727b8d6bf81bd77c83d9367d6a24cf done
+#15 exporting attestation manifest sha256:c4bc535616be2cc884a748d5a07f073ea4d3c345e172dd9a682010c878024856 0.1s done
+#15 exporting manifest list sha256:9272037c0c0cfcd8e3a6ad30df9e8be1367e13c40aff0cc344f06b57f78fdad2
+#15 exporting manifest list sha256:9272037c0c0cfcd8e3a6ad30df9e8be1367e13c40aff0cc344f06b57f78fdad2 0.0s done
+#15 naming to docker.io/library/hub-api:latest done
+#15 unpacking to docker.io/library/hub-api:latest 0.0s done
+#15 DONE 0.2s
+
+#7 [web internal] load build context
+#7 transferring context: 906.08kB 0.4s done
+#7 DONE 0.5s
+
+#16 [web  9/10] COPY packages/shared packages/shared
+#16 CACHED
+
+#17 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#17 CACHED
+
+#18 [web  3/10] COPY package.json package-lock.json ./
+#18 CACHED
+
+#19 [web  6/10] RUN npm ci
+#19 CACHED
+
+#20 [web  7/10] COPY tsconfig.base.json ./
+#20 CACHED
+
+#21 [web  2/10] WORKDIR /repo
+#21 CACHED
+
+#22 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#22 CACHED
+
+#23 [web  8/10] COPY apps/web apps/web
+#23 CACHED
+
+#24 [api] resolving provenance for metadata file
+#24 DONE 0.0s
+
+#25 [web 10/10] WORKDIR /repo/apps/web
+#25 CACHED
+
+#26 [web] exporting to image
+#26 exporting layers 0.0s done
+#26 exporting manifest sha256:4f22fb9052c1ccdbcd53649b514d78ae3f4e696fb4b0c8d1247e0fb9677fbd2f 0.0s done
+#26 exporting config sha256:f58cf2d7f39c0e16a9a38ffd83311048c202c23c59954ddc86f2b11529dadaed 0.0s done
+#26 exporting attestation manifest sha256:46a5df7a704822b46e8a0f4b51becfbb016767e2b05c69065107e65ef07f20c0 0.1s done
+#26 exporting manifest list sha256:0ed5f874118048ab231174a99972fa6f2eb9446c136d11d47b62c18b4e94bcae
+#26 exporting manifest list sha256:0ed5f874118048ab231174a99972fa6f2eb9446c136d11d47b62c18b4e94bcae 0.1s done
+#26 naming to docker.io/library/hub-web:latest done
+#26 unpacking to docker.io/library/hub-web:latest 0.1s done
+#26 DONE 0.6s
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+No PHI-like fields found.
+Docs and contract guardrails pass.

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "comparisonId": "layout-change-example",
+  "baselineLabel": "3:1 original layout",
+  "modifiedLabel": "4:1 modified layout",
+  "deltas": [
+    {
+      "metricId": "layout-friction",
+      "baselineValue": 33,
+      "modifiedValue": 45,
+      "absoluteChange": 12,
+      "percentChange": 36.36,
+      "direction": "worse"
+    },
+    {
+      "metricId": "nurse-strain-proxy",
+      "baselineValue": 44,
+      "modifiedValue": 39,
+      "absoluteChange": -5,
+      "percentChange": -11.36,
+      "direction": "improved"
+    },
+    {
+      "metricId": "nurse-walk-time",
+      "baselineValue": 312,
+      "modifiedValue": 248,
+      "absoluteChange": -64,
+      "percentChange": -20.51,
+      "direction": "improved"
+    },
+    {
+      "metricId": "patient-wait-idle-proxy",
+      "baselineValue": 140,
+      "modifiedValue": 160,
+      "absoluteChange": 20,
+      "percentChange": 14.29,
+      "direction": "worse"
+    },
+    {
+      "metricId": "queue-delay",
+      "baselineValue": 12,
+      "modifiedValue": 18,
+      "absoluteChange": 6,
+      "percentChange": 50,
+      "direction": "worse"
+    },
+    {
+      "metricId": "room-turnover-pressure",
+      "baselineValue": 58,
+      "modifiedValue": 64,
+      "absoluteChange": 6,
+      "percentChange": 10.34,
+      "direction": "improved"
+    },
+    {
+      "metricId": "task-time",
+      "baselineValue": 38,
+      "modifiedValue": 36,
+      "absoluteChange": -2,
+      "percentChange": -5.26,
+      "direction": "improved"
+    },
+    {
+      "metricId": "unit-saturation",
+      "baselineValue": 74,
+      "modifiedValue": 69,
+      "absoluteChange": -5,
+      "percentChange": -6.76,
+      "direction": "improved"
+    }
+  ],
+  "limitations": [
+    "Operational delta comparison is deterministic across named baseline and modified metric sets.",
+    "Comparison output uses signed absolute and percentage deltas with deterministic zero-baseline behavior.",
+    "Directions are derived from Issue 117 metric directionality and value movement."
+  ]
+}

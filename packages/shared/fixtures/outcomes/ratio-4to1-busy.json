@@ -1,0 +1,127 @@
+{
+  "comparisonSetId": "ratio-4to1-busy",
+  "ratioLabel": "4_to_1",
+  "intensityLabel": "busy",
+  "pressureBand": "high",
+  "scenarioKey": "4_to_1_busy",
+  "schemaVersion": "1.0.0",
+  "limitations": [
+    "Operational-only synthetic workload assumptions for deterministic scenario contrast.",
+    "Metric values model operational pressure only and do not represent real patients or outcomes.",
+    "Scenario keys are stable contract inputs only."
+  ],
+  "operationalMetrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-walk-time",
+      "label": "Nurse walk time",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 49,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "patient-wait-idle-proxy",
+      "label": "Patient wait / idle proxy",
+      "group": "patient_flow",
+      "unit": "minutes",
+      "value": 25,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task-time",
+      "label": "Task time",
+      "group": "task",
+      "unit": "minutes",
+      "value": 50,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "queue-delay",
+      "label": "Queue delay",
+      "group": "patient_flow",
+      "unit": "minutes",
+      "value": 12,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "unit-saturation",
+      "label": "Unit saturation",
+      "group": "unit",
+      "unit": "percent",
+      "value": 74,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room-turnover-pressure",
+      "label": "Room turnover pressure",
+      "group": "room",
+      "unit": "score",
+      "value": 57,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-strain-proxy",
+      "label": "Nurse strain proxy",
+      "group": "nurse",
+      "unit": "score",
+      "value": 48,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "layout-friction",
+      "label": "Layout friction",
+      "group": "layout",
+      "unit": "score",
+      "value": 32,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": [
+        "Operational-only metric proxy for deterministic scenario pressure checks."
+      ]
+    }
+  ]
+}

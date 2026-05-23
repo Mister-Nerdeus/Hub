@@ -128,6 +128,12 @@ Issue 122 adds deterministic ratio and intensity scenario assumptions for 3:1 an
 
 Issue 123 adds deterministic pressure-band summaries that map operational metric values into explicit low, watch, elevated, and compressed bands, preserving source metric values and adding no optimizer or workflow guidance.
 
+Issue 124 adds deterministic operational delta comparison output for matched baseline/modified metric sets with signed absolute deltas, deterministic signed percent deltas, zero-baseline handling, and directionality mapped to issue-117 metric directionality.
+
+Issue 125 adds deterministic 3:1 vs 4:1 light-to-slammed scenario fixtures across light, normal, busy, and slammed intensities, ensuring monotonic pressure movement and pressure-band continuity for contrast proof.
+
+Issue 126 adds a proof-only web dashboard surface that shows core operational outcome cards, 3:1 vs 4:1 ratio contrast, light vs slammed contrast, delta percentages, and pressure-band context without clinical, safety, or recommendation wording.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
