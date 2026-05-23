@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "queueId": "nurse-queue-basic",
+  "nurseId": "nurse-alpha",
+  "taskIdsInQueueOrder": [
+    "task-queue-room-03-procedure-001",
+    "task-basic-room-01-medication-001"
+  ],
+  "items": [
+    {
+      "taskId": "task-queue-room-03-procedure-001",
+      "originalReadyMinute": 0,
+      "minuteEnteredQueue": 0,
+      "minuteStarted": 0,
+      "waitMinutes": 0,
+      "interruptible": false,
+      "operationalUrgencyScore": 5,
+      "reasonForOrdering": "operational urgency 5; scheduled minute 0; duration 20; task ID task-queue-room-03-procedure-001"
+    },
+    {
+      "taskId": "task-basic-room-01-medication-001",
+      "originalReadyMinute": 0,
+      "minuteEnteredQueue": 0,
+      "minuteStarted": 20,
+      "waitMinutes": 20,
+      "interruptible": false,
+      "operationalUrgencyScore": 4,
+      "reasonForOrdering": "operational urgency 4; scheduled minute 0; duration 10; task ID task-basic-room-01-medication-001"
+    }
+  ],
+  "limitations": [
+    "Operational-only deterministic queue ordering for synthetic task demand.",
+    "Queue ordering uses visible operational fields only.",
+    "No optimizer or clinical claim is applied."
+  ]
+}

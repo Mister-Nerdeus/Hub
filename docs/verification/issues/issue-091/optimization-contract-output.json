@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "optimizerBoundaryId": "optimizer-boundary-basic",
+  "optimizationInputId": "optimization-input-basic",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "candidates": [
+    {
+      "candidateId": "candidate-a",
+      "assignmentSetId": "manual-assignment-basic",
+      "simulationRunId": "simulation-run-basic",
+      "simulationScoreId": "simulation-score-simulation-run-basic",
+      "limitations": [
+        "Operational-only candidate shell."
+      ]
+    }
+  ],
+  "limitations": [
+    "Boundary-only contract with no selected candidate or clinical claim."
+  ]
+}

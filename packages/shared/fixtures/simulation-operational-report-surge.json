@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "reportId": "simulation-operational-report-surge",
+  "reportType": "simulation_operational_report",
+  "simulationRunId": "simulation-run-surge",
+  "simulationScoreId": "simulation-score-simulation-run-surge",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "summary": {
+    "completedTaskCount": 2,
+    "delayedTaskCount": 1,
+    "missedTaskCount": 4,
+    "unassignedTaskCount": 1,
+    "queueWaitMinutes": 20,
+    "travelMinutes": 0,
+    "operationalBurdenScore": 117.5
+  },
+  "nurseWorkload": [
+    {
+      "nurseId": "nurse-alpha",
+      "busyMinutes": 20
+    },
+    {
+      "nurseId": "nurse-charlie",
+      "busyMinutes": 5
+    }
+  ],
+  "limitations": [
+    "Operational-only report derived from validated simulation run and score outputs.",
+    "Report values mirror the source simulation score.",
+    "No independent scoring logic, optimizer, API, persistence, or clinical claim is applied."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "plan-er-pod-phase2",
+  "originNodeId": "node-station-primary",
+  "destinationNodeId": "node-door-room-04",
+  "routeNodeIds": [
+    "node-station-primary",
+    "node-hall-east",
+    "node-door-room-04"
+  ],
+  "routeEdgeIds": [
+    "edge-hall-east-station",
+    "edge-room-04-hall"
+  ],
+  "travelSeconds": 10.5,
+  "travelMinutes": 1,
+  "warnings": [],
+  "limitations": [
+    "Operational-only deterministic shortest-path calculation over plan path graph data.",
+    "Blocked path edges are excluded.",
+    "No optimizer, real map data, or clinical claim is applied."
+  ]
+}

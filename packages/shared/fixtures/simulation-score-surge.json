@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "simulationScoreId": "simulation-score-simulation-run-surge",
+  "simulationRunId": "simulation-run-surge",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "metrics": {
+    "completedTaskCount": 2,
+    "delayedTaskCount": 1,
+    "missedTaskCount": 4,
+    "unassignedTaskCount": 1,
+    "queueWaitMinutes": 20,
+    "travelMinutes": 0,
+    "nurseBusyMinutes": {
+      "nurse-alpha": 20,
+      "nurse-charlie": 5
+    },
+    "totalNurseBusyMinutes": 25,
+    "operationalBurdenScore": 117.5
+  },
+  "definitions": [
+    {
+      "metricId": "completedTaskCount",
+      "source": "Unique task completed events."
+    },
+    {
+      "metricId": "delayedTaskCount",
+      "source": "Unique task delayed events."
+    },
+    {
+      "metricId": "missedTaskCount",
+      "source": "Unique task missed events."
+    },
+    {
+      "metricId": "unassignedTaskCount",
+      "source": "Unique task unassigned events."
+    },
+    {
+      "metricId": "queueWaitMinutes",
+      "source": "Queue started-from-queue event wait minutes."
+    },
+    {
+      "metricId": "travelMinutes",
+      "source": "Travel event minutes."
+    },
+    {
+      "metricId": "nurseBusyMinutesByNurse",
+      "source": "Nurse completed-task event duration minutes."
+    },
+    {
+      "metricId": "operationalBurdenScore",
+      "source": "Visible named assumptions multiplied by derived event metrics."
+    }
+  ],
+  "assumptions": {
+    "delayedTaskWeight": 5,
+    "missedTaskWeight": 20,
+    "unassignedTaskWeight": 10,
+    "queueWaitMinuteWeight": 1,
+    "travelMinuteWeight": 0.5,
+    "nurseBusyMinuteWeight": 0.1
+  },
+  "limitations": [
+    "Operational-only score derived from validated simulation run events.",
+    "Weights are visible named assumptions in the score output.",
+    "No optimizer-only score or clinical claim is applied."
+  ]
+}

@@ -370,5 +370,89 @@ export const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Phase Simulation Execution evidence",
+    paths: [
+      "docs/verification/phase-simulation-execution-evidence.md",
+      "docs/verification/phase-simulation-execution-checklist.md",
+      "docs/verification/issues/issue-082/simulation-run-contract-output.json",
+      "docs/verification/issues/issue-083/simulation-output-basic.json",
+      "docs/verification/issues/issue-083/simulation-output-surge.json",
+      "docs/verification/issues/issue-084/nurse-queue-output.json",
+      "docs/verification/issues/issue-085/path-travel-output.json",
+      "docs/verification/issues/issue-086/scoring-output.json",
+      "docs/verification/issues/issue-087/report-output.json",
+      "docs/verification/issues/issue-088/screenshots/simulation-timeline-proof.png",
+      "docs/verification/issues/issue-089/comparison-output.json",
+      "docs/verification/issues/issue-090/variant-run-output.json",
+      "docs/verification/issues/issue-091/optimization-contract-output.json",
+      "docs/verification/issues/issue-092/optimizer-output.json",
+      "docs/verification/issues/issue-093/optimizer-audit-output.json",
+      "docs/verification/issues/issue-094/screenshots/optimizer-proof.png",
+      "docs/verification/issues/issue-095/api-responses/simulation-validate-response.json",
+      "docs/verification/issues/issue-096/api-responses/create-simulation-run-response.json",
+      "docs/verification/issues/issue-082/commands.txt",
+      "docs/verification/issues/issue-082/closeout.md",
+      "docs/verification/issues/issue-083/commands.txt",
+      "docs/verification/issues/issue-083/closeout.md",
+      "docs/verification/issues/issue-084/commands.txt",
+      "docs/verification/issues/issue-084/closeout.md",
+      "docs/verification/issues/issue-085/commands.txt",
+      "docs/verification/issues/issue-085/closeout.md",
+      "docs/verification/issues/issue-086/commands.txt",
+      "docs/verification/issues/issue-086/closeout.md",
+      "docs/verification/issues/issue-087/commands.txt",
+      "docs/verification/issues/issue-087/closeout.md",
+      "docs/verification/issues/issue-088/commands.txt",
+      "docs/verification/issues/issue-088/closeout.md",
+      "docs/verification/issues/issue-089/commands.txt",
+      "docs/verification/issues/issue-089/closeout.md",
+      "docs/verification/issues/issue-090/commands.txt",
+      "docs/verification/issues/issue-090/closeout.md",
+      "docs/verification/issues/issue-091/commands.txt",
+      "docs/verification/issues/issue-091/closeout.md",
+      "docs/verification/issues/issue-092/commands.txt",
+      "docs/verification/issues/issue-092/closeout.md",
+      "docs/verification/issues/issue-093/commands.txt",
+      "docs/verification/issues/issue-093/closeout.md",
+      "docs/verification/issues/issue-094/commands.txt",
+      "docs/verification/issues/issue-094/closeout.md",
+      "docs/verification/issues/issue-095/commands.txt",
+      "docs/verification/issues/issue-095/closeout.md",
+      "docs/verification/issues/issue-096/commands.txt",
+      "docs/verification/issues/issue-096/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-simulation-execution-evidence.md",
+        checks: [
+          ["simulation run contract", /\bsimulation run contract\b/i],
+          ["deterministic task execution", /\bdeterministic task execution\b/i],
+          ["operational queue", /\boperational queue\b/i],
+          ["path travel", /\bpath travel\b/i],
+          ["event-derived scoring", /\bevent-derived scoring\b|\bscoring derived from simulation events\b/i],
+          ["API-free timeline proof", /\bAPI-free\b[\s\S]{0,80}\btimeline proof\b/i],
+          ["optimizer boundary", /\boptimizer boundary\b/i],
+          ["API validation", /\bAPI validation\b/i],
+          ["persistence", /\bpersistence\b/i],
+          ["No PHI", /\bNo PHI\b/i],
+          ["No EHR integration", /\bNo EHR integration\b/i],
+          ["No clinical safety claim", /\bNo clinical safety claim\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-simulation-execution-checklist.md",
+        checks: [
+          ["Simulation run contract", /\bSimulation run contract\b/i],
+          ["Nurse queue", /\bNurse queue\b/i],
+          ["Path travel", /\bPath travel\b/i],
+          ["Simulation scoring", /\bSimulation scoring\b/i],
+          ["API-free optimizer proof", /\bAPI-free optimizer proof\b/i],
+          ["Simulation persistence", /\bSimulation persistence\b/i],
+          ["No EHR integration", /\bNo EHR integration\b/i]
+        ]
+      }
+    ]
   }
 ];

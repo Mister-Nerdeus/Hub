@@ -88,6 +88,213 @@ h1 {
   scroll-margin-top: 24px;
 }
 
+#simulation-timeline-proof,
+#optimizer-proof {
+  scroll-margin-top: 24px;
+}
+
+.simulation-proof,
+.optimizer-proof {
+  display: grid;
+  gap: 18px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.simulation-proof__header,
+.optimizer-proof__header,
+.simulation-proof__panel,
+.optimizer-proof__panel,
+.simulation-proof__metrics {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.simulation-proof__header,
+.optimizer-proof__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.simulation-proof h2,
+.simulation-proof h3,
+.optimizer-proof h2,
+.optimizer-proof h3 {
+  color: #111827;
+  margin: 0;
+}
+
+.simulation-proof h2,
+.optimizer-proof h2 {
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.simulation-proof h3,
+.optimizer-proof h3 {
+  font-size: 1rem;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.simulation-proof__sources,
+.optimizer-proof__sources {
+  display: grid;
+  gap: 6px;
+  max-width: 540px;
+}
+
+.simulation-proof__sources span,
+.optimizer-proof__sources span {
+  color: #40505f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.simulation-proof__sources strong,
+.optimizer-proof__sources strong {
+  color: #111827;
+}
+
+.simulation-proof__metrics {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin: 0;
+}
+
+.simulation-proof__metrics div {
+  background: #f5f8fb;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  min-height: 66px;
+  padding: 10px;
+}
+
+.simulation-proof__metrics dt {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0 0 5px;
+}
+
+.simulation-proof__metrics dd {
+  color: #111827;
+  font-size: 1.15rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.simulation-proof__grid,
+.optimizer-proof__grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+}
+
+.simulation-proof__timeline,
+.simulation-proof__limitations,
+.optimizer-proof__list,
+.optimizer-proof__limitations {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.simulation-proof__timeline li,
+.simulation-proof__rows div,
+.optimizer-proof__table-row,
+.optimizer-proof__list li {
+  color: #263340;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.simulation-proof__timeline li {
+  padding-left: 4px;
+}
+
+.simulation-proof__timeline time {
+  color: #456253;
+  display: inline-block;
+  font-weight: 900;
+  min-width: 38px;
+}
+
+.simulation-proof__timeline span {
+  display: inline-block;
+  min-width: 150px;
+}
+
+.simulation-proof__timeline strong,
+.simulation-proof__rows strong {
+  color: #111827;
+}
+
+.simulation-proof__rows {
+  display: grid;
+  gap: 8px;
+}
+
+.simulation-proof__rows div {
+  align-items: center;
+  background: #f7f9fb;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 8px 10px;
+}
+
+.simulation-proof__limitations li,
+.optimizer-proof__limitations li {
+  color: #263340;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.optimizer-proof__table {
+  border: 1px solid #d8e0e8;
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.optimizer-proof__table-row {
+  align-items: center;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(240px, 1.3fr) minmax(90px, 0.4fr) minmax(180px, 0.8fr);
+  min-width: 620px;
+  padding: 10px 12px;
+}
+
+.optimizer-proof__table-row + .optimizer-proof__table-row {
+  border-top: 1px solid #e2e8ef;
+}
+
+.optimizer-proof__table-row--head {
+  background: #263340;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.optimizer-proof__table-row--head span {
+  color: #ffffff;
+}
+
 @media (max-width: 760px) {
   .workspace-header {
     flex-direction: column;
@@ -95,5 +302,19 @@ h1 {
 
   .api-pill {
     width: 100%;
+  }
+
+  .simulation-proof__header,
+  .optimizer-proof__header {
+    flex-direction: column;
+  }
+
+  .simulation-proof__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .simulation-proof__grid,
+  .optimizer-proof__grid {
+    grid-template-columns: 1fr;
   }
 }

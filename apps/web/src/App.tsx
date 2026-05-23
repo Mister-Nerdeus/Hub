@@ -9,6 +9,8 @@ import { ExportBundleReviewProof } from "./features/export-review/ExportBundleRe
 import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
+import { OptimizerProof } from "./features/optimization/OptimizerProof";
+import { createOptimizerProofViewModel } from "./features/optimization/optimizerProofViewModel";
 import { GeneratedPlanPreview } from "./features/plan-builder/GeneratedPlanPreview";
 import {
   applyGeneratedPlanPreview,
@@ -30,6 +32,8 @@ import { PlanImportExportPanel } from "./features/plans/PlanImportExportPanel";
 import { PlanSaveLoadPanel } from "./features/plans/PlanSaveLoadPanel";
 import { OperationalReportsProof } from "./features/reports/OperationalReportsProof";
 import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
+import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
+import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
 import {
   manualAssignmentBasic,
   manualAssignmentRoomLoads
@@ -47,6 +51,8 @@ export function App() {
   const scenarioComparisonProofViewModel = createScenarioComparisonProofViewModel();
   const exportBundleReviewViewModel = createExportBundleReviewViewModel();
   const bundleAuditProofViewModel = createBundleAuditProofViewModel();
+  const simulationTimelineViewModel = createSimulationTimelineViewModel();
+  const optimizerProofViewModel = createOptimizerProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -104,6 +110,8 @@ export function App() {
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
       <BundleAuditProof viewModel={bundleAuditProofViewModel} />
+      <SimulationTimelineProof viewModel={simulationTimelineViewModel} />
+      <OptimizerProof viewModel={optimizerProofViewModel} />
       <PlanBuilderDefaultsForm
         state={defaultsFormState}
         validationError={validationError}

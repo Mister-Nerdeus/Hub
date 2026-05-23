@@ -1,0 +1,261 @@
+{
+  "schemaVersion": "1.0.0",
+  "simulationRunId": "simulation-run-surge",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "assignmentSetId": "manual-assignment-basic",
+  "events": [
+    {
+      "eventId": "task-task-basic-room-01-medication-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-room-01-medication-001",
+      "minute": 0,
+      "scheduledMinute": 0
+    },
+    {
+      "eventId": "task-task-basic-room-02-monitoring-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-room-02-monitoring-001",
+      "minute": 0,
+      "scheduledMinute": 0
+    },
+    {
+      "eventId": "task-task-surge-room-03-procedure-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-surge-room-03-procedure-001",
+      "minute": 0,
+      "scheduledMinute": 0
+    },
+    {
+      "eventId": "queue-nurse-alpha-task-basic-room-01-medication-001-entered",
+      "eventType": "queue",
+      "action": "entered_queue",
+      "nurseId": "nurse-alpha",
+      "taskId": "task-basic-room-01-medication-001",
+      "minute": 0,
+      "originalReadyMinute": 0,
+      "enteredQueueMinute": 0,
+      "orderingReason": "Queued by deterministic operational ordering fields."
+    },
+    {
+      "eventId": "task-task-basic-room-02-monitoring-001-started",
+      "eventType": "task",
+      "action": "started",
+      "taskId": "task-basic-room-02-monitoring-001",
+      "minute": 0,
+      "nurseId": "nurse-charlie",
+      "scheduledMinute": 0,
+      "startMinute": 0,
+      "durationMinutes": 5,
+      "queueWaitMinutes": 0,
+      "travelMinutes": 0
+    },
+    {
+      "eventId": "task-task-surge-room-03-procedure-001-started",
+      "eventType": "task",
+      "action": "started",
+      "taskId": "task-surge-room-03-procedure-001",
+      "minute": 0,
+      "nurseId": "nurse-alpha",
+      "scheduledMinute": 0,
+      "startMinute": 0,
+      "durationMinutes": 20,
+      "queueWaitMinutes": 0,
+      "travelMinutes": 0
+    },
+    {
+      "eventId": "nurse-nurse-alpha-task-surge-room-03-procedure-001-started",
+      "eventType": "nurse",
+      "action": "started_task",
+      "nurseId": "nurse-alpha",
+      "minute": 0,
+      "taskId": "task-surge-room-03-procedure-001",
+      "durationMinutes": 20,
+      "busyUntilMinute": 20
+    },
+    {
+      "eventId": "nurse-nurse-charlie-task-basic-room-02-monitoring-001-started",
+      "eventType": "nurse",
+      "action": "started_task",
+      "nurseId": "nurse-charlie",
+      "minute": 0,
+      "taskId": "task-basic-room-02-monitoring-001",
+      "durationMinutes": 5,
+      "busyUntilMinute": 5
+    },
+    {
+      "eventId": "task-task-basic-room-02-monitoring-001-completed",
+      "eventType": "task",
+      "action": "completed",
+      "taskId": "task-basic-room-02-monitoring-001",
+      "minute": 5,
+      "nurseId": "nurse-charlie",
+      "scheduledMinute": 0,
+      "startMinute": 0,
+      "completedMinute": 5,
+      "durationMinutes": 5,
+      "delayMinutes": 0,
+      "queueWaitMinutes": 0,
+      "travelMinutes": 0
+    },
+    {
+      "eventId": "nurse-nurse-charlie-task-basic-room-02-monitoring-001-completed",
+      "eventType": "nurse",
+      "action": "completed_task",
+      "nurseId": "nurse-charlie",
+      "minute": 5,
+      "taskId": "task-basic-room-02-monitoring-001",
+      "durationMinutes": 5
+    },
+    {
+      "eventId": "task-task-basic-hall-bed-01-turnover-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-hall-bed-01-turnover-001",
+      "minute": 15,
+      "scheduledMinute": 15
+    },
+    {
+      "eventId": "task-task-basic-hall-bed-01-turnover-001-unassigned",
+      "eventType": "task",
+      "action": "unassigned",
+      "taskId": "task-basic-hall-bed-01-turnover-001",
+      "minute": 15,
+      "scheduledMinute": 15,
+      "missReason": "unassigned"
+    },
+    {
+      "eventId": "task-task-basic-room-01-medication-001-delayed",
+      "eventType": "task",
+      "action": "delayed",
+      "taskId": "task-basic-room-01-medication-001",
+      "minute": 20,
+      "nurseId": "nurse-alpha",
+      "scheduledMinute": 0,
+      "startMinute": 20,
+      "delayMinutes": 20,
+      "queueWaitMinutes": 20,
+      "travelMinutes": 0
+    },
+    {
+      "eventId": "queue-nurse-alpha-task-basic-room-01-medication-001-started",
+      "eventType": "queue",
+      "action": "started_from_queue",
+      "nurseId": "nurse-alpha",
+      "taskId": "task-basic-room-01-medication-001",
+      "minute": 20,
+      "originalReadyMinute": 0,
+      "enteredQueueMinute": 0,
+      "orderingReason": "Started after deterministic nurse availability and queue ordering.",
+      "startedMinute": 20,
+      "waitMinutes": 20
+    },
+    {
+      "eventId": "task-task-surge-room-03-procedure-001-completed",
+      "eventType": "task",
+      "action": "completed",
+      "taskId": "task-surge-room-03-procedure-001",
+      "minute": 20,
+      "nurseId": "nurse-alpha",
+      "scheduledMinute": 0,
+      "startMinute": 0,
+      "completedMinute": 20,
+      "durationMinutes": 20,
+      "delayMinutes": 0,
+      "queueWaitMinutes": 0,
+      "travelMinutes": 0
+    },
+    {
+      "eventId": "nurse-nurse-alpha-task-surge-room-03-procedure-001-completed",
+      "eventType": "nurse",
+      "action": "completed_task",
+      "nurseId": "nurse-alpha",
+      "minute": 20,
+      "taskId": "task-surge-room-03-procedure-001",
+      "durationMinutes": 20
+    },
+    {
+      "eventId": "task-task-basic-room-01-medication-001-missed",
+      "eventType": "task",
+      "action": "missed",
+      "taskId": "task-basic-room-01-medication-001",
+      "minute": 20,
+      "nurseId": "nurse-alpha",
+      "scheduledMinute": 0,
+      "startMinute": 20,
+      "missReason": "shift_window_exceeded"
+    },
+    {
+      "eventId": "task-task-basic-room-03-isolation-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-room-03-isolation-001",
+      "minute": 30,
+      "scheduledMinute": 30
+    },
+    {
+      "eventId": "task-task-basic-room-04-behavioral-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-room-04-behavioral-001",
+      "minute": 30,
+      "scheduledMinute": 30
+    },
+    {
+      "eventId": "task-task-basic-room-03-isolation-001-missed",
+      "eventType": "task",
+      "action": "missed",
+      "taskId": "task-basic-room-03-isolation-001",
+      "minute": 30,
+      "nurseId": "nurse-alpha",
+      "scheduledMinute": 30,
+      "startMinute": 30,
+      "missReason": "shift_window_exceeded"
+    },
+    {
+      "eventId": "task-task-basic-room-04-behavioral-001-missed",
+      "eventType": "task",
+      "action": "missed",
+      "taskId": "task-basic-room-04-behavioral-001",
+      "minute": 30,
+      "nurseId": "nurse-bravo",
+      "scheduledMinute": 30,
+      "startMinute": 30,
+      "missReason": "shift_window_exceeded"
+    },
+    {
+      "eventId": "task-task-basic-room-05-procedure-001-ready",
+      "eventType": "task",
+      "action": "ready",
+      "taskId": "task-basic-room-05-procedure-001",
+      "minute": 45,
+      "scheduledMinute": 45
+    },
+    {
+      "eventId": "task-task-basic-room-05-procedure-001-missed",
+      "eventType": "task",
+      "action": "missed",
+      "taskId": "task-basic-room-05-procedure-001",
+      "minute": 45,
+      "nurseId": "nurse-charlie",
+      "scheduledMinute": 45,
+      "startMinute": 45,
+      "missReason": "shift_window_exceeded"
+    }
+  ],
+  "summary": {
+    "totalTasks": 7,
+    "completedTaskCount": 2,
+    "delayedTaskCount": 1,
+    "missedTaskCount": 4,
+    "unassignedTaskCount": 1
+  },
+  "limitations": [
+    "Operational-only deterministic shift execution result from synthetic task and assignment inputs.",
+    "No optimizer or clinical claim is applied.",
+    "No route travel is included unless explicit plan path options are supplied."
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "comparisonId": "simulation-comparison-basic-vs-surge",
+  "comparisonType": "simulation_report_comparison",
+  "baselineReportId": "simulation-operational-report-basic",
+  "reportIds": [
+    "simulation-operational-report-basic",
+    "simulation-operational-report-surge"
+  ],
+  "items": [
+    {
+      "reportId": "simulation-operational-report-basic",
+      "simulationRunId": "simulation-run-basic",
+      "scenarioId": "shift-scenario-basic",
+      "isBaseline": true,
+      "completedTaskCount": 5,
+      "delayedTaskCount": 0,
+      "missedTaskCount": 0,
+      "unassignedTaskCount": 1,
+      "queueWaitMinutes": 0,
+      "travelMinutes": 0,
+      "operationalBurdenScore": 15.8
+    },
+    {
+      "reportId": "simulation-operational-report-surge",
+      "simulationRunId": "simulation-run-surge",
+      "scenarioId": "shift-scenario-basic",
+      "isBaseline": false,
+      "completedTaskCount": 2,
+      "delayedTaskCount": 1,
+      "missedTaskCount": 4,
+      "unassignedTaskCount": 1,
+      "queueWaitMinutes": 20,
+      "travelMinutes": 0,
+      "operationalBurdenScore": 117.5
+    }
+  ],
+  "summary": {
+    "reportCount": 2,
+    "baselineReportId": "simulation-operational-report-basic",
+    "maxDelayedTaskCount": 1,
+    "maxMissedTaskCount": 4,
+    "maxUnassignedTaskCount": 1,
+    "maxQueueWaitMinutes": 20,
+    "maxTravelMinutes": 0,
+    "maxOperationalBurdenScore": 117.5
+  },
+  "limitations": [
+    "Operational-only comparison of simulation-derived reports.",
+    "Baseline report remains first for deterministic review.",
+    "No optimizer, scenario recommendation, or clinical claim is applied."
+  ]
+}
