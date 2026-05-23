@@ -25,23 +25,25 @@ export function BundleAuditProof({ viewModel }: BundleAuditProofProps) {
       </div>
 
       <div className="bundle-audit-proof__grid">
-        <AuditPanel title="Valid Bundle Audit" audit={viewModel.validAudit} />
-        <AuditPanel title="Invalid JSON Path" audit={viewModel.invalidAudit} />
+        <AuditPanel titleId="bundle-audit-valid-title" title="Valid Bundle Audit" audit={viewModel.validAudit} />
+        <AuditPanel
+          titleId="bundle-audit-invalid-title"
+          title="Invalid JSON Path"
+          audit={viewModel.invalidAudit}
+        />
       </div>
 
       <div className="bundle-audit-proof__grid bundle-audit-proof__grid--wide">
-        <section className="bundle-audit-proof__panel" aria-labelledby="bundle-audit-steps-title">
-          <h3 id="bundle-audit-steps-title">Review Steps</h3>
-          <ol className="bundle-audit-proof__steps">
-            {viewModel.validAudit.reviewSteps.map((step) => (
-              <li key={step.id}>
-                <strong>{step.label}</strong>
-                <span>{step.status}</span>
-                <p>{step.message}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
+        <AuditPanelStepList
+          titleId="bundle-audit-valid-steps-title"
+          title="Valid Bundle Review Steps"
+          audit={viewModel.validAudit}
+        />
+        <AuditPanelStepList
+          titleId="bundle-audit-invalid-steps-title"
+          title="Invalid JSON Review Steps"
+          audit={viewModel.invalidAudit}
+        />
 
         <section
           className="bundle-audit-proof__panel"
@@ -55,18 +57,27 @@ export function BundleAuditProof({ viewModel }: BundleAuditProofProps) {
           </ul>
         </section>
       </div>
+
+      <section
+        className="bundle-audit-proof__panel"
+        aria-labelledby="bundle-audit-invalid-details-title"
+      >
+        <h3 id="bundle-audit-invalid-details-title">Invalid JSON Failure Path</h3>
+        <p className="bundle-audit-proof__error">{viewModel.invalidAudit.failureMessage}</p>
+      </section>
     </section>
   );
 }
 
 function AuditPanel({
   title,
+  titleId,
   audit
 }: {
   title: string;
+  titleId: string;
   audit: BundleAuditResultViewModel;
 }) {
-  const titleId = audit.ok ? "bundle-audit-valid-title" : "bundle-audit-invalid-title";
   return (
     <section className="bundle-audit-proof__panel" aria-labelledby={titleId}>
       <h3 id={titleId}>{title}</h3>
@@ -104,6 +115,31 @@ function AuditPanel({
       ) : (
         <p className="bundle-audit-proof__error">{audit.failureMessage}</p>
       )}
+    </section>
+  );
+}
+
+function AuditPanelStepList({
+  title,
+  titleId,
+  audit
+}: {
+  title: string;
+  titleId: string;
+  audit: BundleAuditResultViewModel;
+}) {
+  return (
+    <section className="bundle-audit-proof__panel" aria-labelledby={titleId}>
+      <h3 id={titleId}>{title}</h3>
+      <ol className="bundle-audit-proof__steps">
+        {audit.reviewSteps.map((step) => (
+          <li key={step.id}>
+            <strong>{step.label}</strong>
+            <span>{step.status}</span>
+            <p>{step.message}</p>
+          </li>
+        ))}
+      </ol>
     </section>
   );
 }
