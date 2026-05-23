@@ -392,6 +392,11 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-094/screenshots/optimizer-proof.png",
       "docs/verification/issues/issue-095/api-responses/simulation-validate-response.json",
       "docs/verification/issues/issue-096/api-responses/create-simulation-run-response.json",
+      "docs/verification/issues/issue-097/review-findings.md",
+      "docs/verification/issues/issue-097/batch-082-096-file-index.md",
+      "docs/verification/issues/issue-097/hardening-plan.md",
+      "docs/verification/issues/issue-097/test-output/shared.txt",
+      "docs/verification/issues/issue-097/test-output/api.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -421,7 +426,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-095/commands.txt",
       "docs/verification/issues/issue-095/closeout.md",
       "docs/verification/issues/issue-096/commands.txt",
-      "docs/verification/issues/issue-096/closeout.md"
+      "docs/verification/issues/issue-096/closeout.md",
+      "docs/verification/issues/issue-097/commands.txt",
+      "docs/verification/issues/issue-097/closeout.md"
     ],
     contentChecks: [
       {
