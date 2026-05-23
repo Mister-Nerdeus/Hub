@@ -2,6 +2,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, normalize } from "node:path";
 
 import { checkCommandOutputMap } from "./check-command-output-map.mjs";
+import { checkEvidenceIndexOutputConsistency } from "./check-evidence-index-output-consistency.mjs";
 import { checkIssueCommandOutput } from "./check-issue-command-output.mjs";
 import { checkIssueEvidenceIndex } from "./check-issue-evidence-index.mjs";
 import { requiredEvidenceGates } from "./phase-evidence-gates.mjs";
@@ -104,6 +105,7 @@ for (const gate of requiredEvidenceGates) {
 failures.push(...checkIssueCommandOutput(root));
 failures.push(...checkIssueEvidenceIndex(root));
 failures.push(...checkCommandOutputMap(root));
+failures.push(...checkEvidenceIndexOutputConsistency(root));
 
 if (failures.length > 0) {
   console.error(failures.join("\n"));

@@ -96,6 +96,7 @@ docs/verification/issues/issue-XXX/command-output-map.json
 ```
 
 Every non-empty command listed in `commands.txt` must map to at least one non-empty output artifact under the same issue evidence folder. Extra output artifacts are allowed, but they cannot replace command mappings.
+Every output path referenced by `command-output-map.json` must also be listed in `docs/verification/ISSUE_EVIDENCE_INDEX.json`.
 
 Use the evidence index scaffolder before registering new issue evidence:
 
@@ -117,7 +118,8 @@ The issue may not be marked complete unless:
 7. Command evidence is written to `docs/verification/issues/issue-XXX/commands.txt`.
 8. For Issue 104 and later, at least one non-empty captured output artifact exists.
 9. For Issue 112 and later, `command-output-map.json` maps every command to non-empty output.
-10. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
+10. For Issue 112 and later, every mapped output path is indexed in `docs/verification/ISSUE_EVIDENCE_INDEX.json`.
+11. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
 
 ## Closeout Response Format
 Codex must answer with:

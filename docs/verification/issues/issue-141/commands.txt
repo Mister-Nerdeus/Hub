@@ -1,0 +1,3 @@
+node scripts/check-evidence-index-output-consistency.mjs > docs/verification/issues/issue-141/test-output/docs.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-141/test-output/docs.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-141/test-output/docs.txt -Append

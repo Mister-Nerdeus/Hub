@@ -35,7 +35,10 @@ Run:
 
 ```text
 node scripts/check-issue-command-output.mjs
+node scripts/check-evidence-index-output-consistency.mjs
 node scripts/check-docs-contracts.mjs
 ```
 
 The standalone checker includes self-tests for command-only issue folders, empty output artifacts, non-empty output artifacts, and grandfathered older issues.
+
+From Issue 112 onward, every output path referenced by `command-output-map.json` must also be listed in `docs/verification/ISSUE_EVIDENCE_INDEX.json`. This keeps captured command output reviewable from the issue evidence index instead of only from each issue folder.

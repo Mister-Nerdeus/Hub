@@ -1,0 +1,22 @@
+{
+  "issue": "141",
+  "checker": "scripts/check-evidence-index-output-consistency.mjs",
+  "scope": "Issue 112+ command-output-map.json outputs",
+  "failureReproducedBeforeIndexPatch": true,
+  "reproducedMissingIndexedOutputs": [
+    "docs/verification/issues/issue-134/test-output/shared.txt",
+    "docs/verification/issues/issue-135/test-output/web.txt",
+    "docs/verification/issues/issue-136/test-output/web.txt"
+  ],
+  "patchedIndexEntries": [
+    "134",
+    "135",
+    "136"
+  ],
+  "docsGateIntegration": true,
+  "productCodeChanged": false,
+  "expectedPassingOutput": [
+    "Evidence index output consistency self-tests pass.",
+    "Issue 112+ mapped command outputs are indexed."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "issue": "141",
+  "commands": [
+    {
+      "command": "node scripts/check-evidence-index-output-consistency.mjs > docs/verification/issues/issue-141/test-output/docs.txt",
+      "outputs": [
+        "docs/verification/issues/issue-141/test-output/docs.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-141/test-output/docs.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-141/test-output/docs.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-141/test-output/docs.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-141/test-output/docs.txt"
+      ]
+    }
+  ]
+}
