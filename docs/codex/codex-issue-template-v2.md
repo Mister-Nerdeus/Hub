@@ -97,6 +97,15 @@ docs/verification/issues/issue-XXX/command-output-map.json
 
 Every non-empty command listed in `commands.txt` must map to at least one non-empty output artifact under the same issue evidence folder. Extra output artifacts are allowed, but they cannot replace command mappings.
 
+Use the evidence index scaffolder before registering new issue evidence:
+
+```text
+node scripts/scaffold-issue-evidence-index-entry.mjs --issue XXX --title "Issue Title"
+node scripts/scaffold-issue-evidence-index-entry.mjs --issue XXX --title "Issue Title" --write
+```
+
+The scaffolder dry-runs by default and does not overwrite existing index entries unless `--force` is supplied.
+
 ## Do Not Close Unless
 The issue may not be marked complete unless:
 1. Required files exist.

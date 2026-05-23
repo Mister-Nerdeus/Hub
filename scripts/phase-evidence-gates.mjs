@@ -432,6 +432,9 @@ export const requiredEvidenceGates = [
       "docs/contracts/command-output-map-contract.md",
       "docs/verification/issues/issue-112/command-output-map.json",
       "docs/verification/issues/issue-112/test-output/command-output-map.txt",
+      "docs/verification/issues/issue-113/command-output-map.json",
+      "docs/verification/issues/issue-113/scaffold-output.json",
+      "docs/verification/issues/issue-113/test-output/scaffold.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -493,7 +496,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-111/commands.txt",
       "docs/verification/issues/issue-111/closeout.md",
       "docs/verification/issues/issue-112/commands.txt",
-      "docs/verification/issues/issue-112/closeout.md"
+      "docs/verification/issues/issue-112/closeout.md",
+      "docs/verification/issues/issue-113/commands.txt",
+      "docs/verification/issues/issue-113/closeout.md"
     ],
     contentChecks: [
       {

@@ -35,6 +35,7 @@ docs/verification/issues/issue-XXX/commands.txt
 
 Use `commands.txt`, `test-output.txt`, `screenshots/`, `api-responses/`, and `sample-json/` under the same issue folder when they are relevant.
 Issue folders from Issue 015 forward are checked by `node scripts/check-docs-contracts.mjs`; missing closeouts, missing command logs, and missing issue-specific required evidence must fail the docs gate.
+Use `node scripts/scaffold-issue-evidence-index-entry.mjs --issue XXX --title "Issue Title"` to dry-run new issue evidence index entries, and add `--write` only when the output is correct. The scaffolder must not overwrite an existing issue entry unless `--force` is explicitly supplied.
 When an issue creates a phase-level evidence gate, wire the required phase evidence files into `node scripts/check-docs-contracts.mjs` before closing the issue so the documentation claim and local checker behavior stay aligned.
 Phase evidence gate definitions live in `scripts/phase-evidence-gates.mjs`; `scripts/check-docs-contracts.mjs` imports that registry and remains the local enforcement command.
 Phase 3 manual assignment evidence is docs-gated by `node scripts/check-docs-contracts.mjs`; the gate requires the Phase 3 evidence doc, checklist, Issue 038 scoring output, warning output, screenshot, commands, and closeout artifacts to exist and remain non-empty.
