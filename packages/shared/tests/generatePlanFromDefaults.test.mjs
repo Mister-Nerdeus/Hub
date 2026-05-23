@@ -70,6 +70,26 @@ test("path edges follow autoCreatePathEdges", () => {
   assert.equal(plan.pathEdges.length, 0);
 });
 
+test("generator rejects unsupported room auto-connect without door path nodes", () => {
+  const defaults = basicDefaults();
+  defaults.doorDefaults.autoCreateDoorPathNodes = false;
+
+  assert.throws(
+    () => generatePlanFromDefaults(validatePlanBuilderDefaultsContract(defaults)),
+    /autoCreateDoorPathNodes/
+  );
+});
+
+test("generator rejects nurse stations without station path nodes", () => {
+  const defaults = basicDefaults();
+  defaults.nurseStationDefaults.autoCreateStationPathNodes = false;
+
+  assert.throws(
+    () => generatePlanFromDefaults(validatePlanBuilderDefaultsContract(defaults)),
+    /autoCreateStationPathNodes/
+  );
+});
+
 test("generated references are valid and preview summary matches output", () => {
   const preview = buildPlanGenerationPreview(basicDefaults());
 

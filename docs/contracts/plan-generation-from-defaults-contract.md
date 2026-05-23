@@ -25,4 +25,10 @@
 - Door offset plus width is rejected when it falls outside the room wall.
 - Nurse stations are placed near the hallway start, centered on the hallway, or near the hallway end.
 
+## Generation Preconditions
+
+- Room hallway auto-connect edges require generated door path nodes.
+- Nurse stations require generated station path nodes because the current `PlanContract` requires every nurse station to reference a valid station path node.
+- Unsupported combinations fail before returning a plan so user-facing preview flows can show a visible validation error instead of applying invalid draft state.
+
 The generator does not save plans, call the API, persist data, score nurses, create reports, compare scenarios, export bundles, optimize, recommend, or add PHI.

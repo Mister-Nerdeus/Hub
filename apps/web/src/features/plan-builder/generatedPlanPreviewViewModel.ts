@@ -1,4 +1,9 @@
-import { buildPlanGenerationPreview, type PlanContract, type PlanGenerationSummary } from "@nerdeus/shared";
+import {
+  buildPlanGenerationPreview,
+  validatePlanBuilderDefaultsContract,
+  type PlanContract,
+  type PlanGenerationSummary
+} from "@nerdeus/shared";
 
 import type { PlanBuilderValidationResult } from "./planBuilderValidation";
 
@@ -18,7 +23,7 @@ export type GeneratedPlanPreviewViewModel =
 
 export function createGeneratedPlanPreviewViewModel(defaults: unknown): GeneratedPlanPreviewViewModel {
   try {
-    const preview = buildPlanGenerationPreview(defaults as never);
+    const preview = buildPlanGenerationPreview(validatePlanBuilderDefaultsContract(defaults));
     return { ok: true, plan: preview.plan, summary: preview.summary, error: null };
   } catch (error) {
     return {

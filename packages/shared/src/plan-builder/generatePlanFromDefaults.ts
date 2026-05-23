@@ -39,6 +39,7 @@ export type PlanGenerationSummary = {
 
 export function generatePlanFromDefaults(defaults: PlanBuilderDefaultsContract): PlanContract {
   const validatedDefaults = validatePlanBuilderDefaultsContract(defaults);
+  assertSupportedGenerationDefaults(validatedDefaults);
   const hallways = generateHallways(validatedDefaults.hallwayDefaults);
   const mainHallway = hallways[0];
   if (mainHallway == null) {
@@ -119,6 +120,24 @@ export function buildPlanGenerationPreview(
       pathEdgeCount: plan.pathEdges.length
     }
   };
+}
+
+function assertSupportedGenerationDefaults(defaults: PlanBuilderDefaultsContract): void {
+  if (
+    defaults.pathGraphDefaults.autoCreatePathEdges &&
+    defaults.pathGraphDefaults.autoConnectRoomsToHallway &&
+    defaults.doorDefaults.autoCreateDoors &&
+    !defaults.doorDefaults.autoCreateDoorPathNodes
+  ) {
+    throw new Error("room hallway path edges require autoCreateDoorPathNodes");
+  }
+
+  if (
+    defaults.nurseStationDefaults.nurseStationCount > 0 &&
+    !defaults.nurseStationDefaults.autoCreateStationPathNodes
+  ) {
+    throw new Error("nurse stations require autoCreateStationPathNodes for valid plan references");
+  }
 }
 
 function generateRooms(

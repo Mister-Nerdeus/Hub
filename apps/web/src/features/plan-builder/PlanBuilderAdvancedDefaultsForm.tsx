@@ -43,6 +43,7 @@ export function PlanBuilderAdvancedDefaultsForm({ state, onChange }: Props) {
         <NumberField label="Path edge width" name="defaultHallwayEdgeWidthFeet" value={state.defaultHallwayEdgeWidthFeet} onChange={onChange} />
         <NumberField label="Path congestion" name="defaultCongestionFactor" value={state.defaultCongestionFactor} onChange={onChange} />
         <NumberField label="Turn penalty seconds" name="defaultTurnPenaltySeconds" value={state.defaultTurnPenaltySeconds} onChange={onChange} />
+        <CheckboxField label="Blocked path edges" name="pathGraphDefaultBlocked" checked={state.pathGraphDefaultBlocked} onChange={onChange} />
 
         <CheckboxField label="Create default zone" name="createDefaultZone" checked={state.createDefaultZone} onChange={onChange} />
         <TextField label="Zone label" name="defaultZoneLabel" value={state.defaultZoneLabel} onChange={onChange} />

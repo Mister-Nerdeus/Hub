@@ -63,6 +63,7 @@ export function App() {
     value: PlanBuilderDefaultsFormState[K]
   ) {
     setDefaultsFormState((state) => updatePlanBuilderDefaultsFormState(state, key, value));
+    setGeneratedPreview(null);
   }
 
   function generatePreview() {

@@ -52,3 +52,11 @@ const disabledPathEdges = planBuilderDefaultsFormStateToContract({
 if (!disabledPathEdges.ok) {
   throw new Error("path edge width may be zero when autoCreatePathEdges is false");
 }
+
+const blockedPathGraph = planBuilderDefaultsFormStateToContract({
+  ...defaultState,
+  pathGraphDefaultBlocked: true
+});
+if (!blockedPathGraph.ok || blockedPathGraph.value.pathGraphDefaults.defaultBlocked !== true) {
+  throw new Error("path graph blocked field must map into pathGraphDefaults.defaultBlocked");
+}

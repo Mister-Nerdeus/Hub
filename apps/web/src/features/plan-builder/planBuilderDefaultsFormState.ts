@@ -58,6 +58,7 @@ export type PlanBuilderDefaultsFormState = {
   defaultHallwayEdgeWidthFeet: string;
   defaultCongestionFactor: string;
   defaultTurnPenaltySeconds: string;
+  pathGraphDefaultBlocked: boolean;
   createDefaultZone: boolean;
   defaultZoneLabel: string;
   defaultZoneType: ZoneType;
@@ -113,6 +114,7 @@ export function createDefaultPlanBuilderDefaultsFormState(): PlanBuilderDefaults
     defaultHallwayEdgeWidthFeet: "8",
     defaultCongestionFactor: "1",
     defaultTurnPenaltySeconds: "2",
+    pathGraphDefaultBlocked: false,
     createDefaultZone: true,
     defaultZoneLabel: "Default Pod Zone",
     defaultZoneType: "provider_area",
@@ -205,7 +207,7 @@ export function buildDefaults(state: PlanBuilderDefaultsFormState): PlanBuilderD
       defaultHallwayEdgeWidthFeet: numberValue(state.defaultHallwayEdgeWidthFeet),
       defaultCongestionFactor: numberValue(state.defaultCongestionFactor),
       defaultTurnPenaltySeconds: numberValue(state.defaultTurnPenaltySeconds),
-      defaultBlocked: false
+      defaultBlocked: state.pathGraphDefaultBlocked
     },
     zoneDefaults: {
       createDefaultZone: state.createDefaultZone,

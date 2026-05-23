@@ -12,6 +12,7 @@ Codex work in this repository must preserve the project as an operational ER pod
 ## Implementation Rules
 
 - Use existing repo patterns before adding abstractions.
+- Use the `apply_patch` tool for manual file patches; do not route patch payloads through shell commands.
 - Keep dependencies minimal. A major dependency requires a dependency matrix update.
 - Keep contracts explicit across TypeScript, Python, API payloads, fixtures, and persisted JSON.
 - Validate exported or imported plan JSON with `node scripts/validate-plan-contract.mjs <path>` before using it as evidence.
