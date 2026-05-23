@@ -1,10 +1,11 @@
-import type { NurseTaskAssignment } from "../contracts.js";
+import type { NurseTaskAssignment, NurseTaskAssignmentReason } from "../contracts.js";
 
 export type OptimizerConstraintAdapterInput = {
   generatedTaskIds: string[];
   allowedNurseIds: string[];
   baseAssignments: NurseTaskAssignment[];
   candidateAssignments: NurseTaskAssignment[];
+  assignedCandidateReason?: NurseTaskAssignmentReason | "preserve";
 };
 
 export type OptimizerConstraintAdapterOutput = {

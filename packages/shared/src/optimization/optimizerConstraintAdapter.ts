@@ -10,6 +10,7 @@ export function constrainOptimizerCandidateAssignments(
   const generatedTaskIds = [...input.generatedTaskIds];
   const knownTaskIds = uniqueIdSet(generatedTaskIds, "generatedTaskIds");
   const allowedNurseIds = uniqueIdSet(input.allowedNurseIds, "allowedNurseIds");
+  const assignedCandidateReason = input.assignedCandidateReason ?? "optimizer_candidate";
   const baseByTaskId = assignmentByTaskId(
     input.baseAssignments,
     "baseAssignments",
@@ -38,7 +39,13 @@ export function constrainOptimizerCandidateAssignments(
       preservedUnassignedTaskIds.push(taskId);
       return { ...baseAssignment };
     }
-    return { ...candidateAssignment };
+    if (candidateAssignment.assignmentReason === "unassigned") {
+      return { ...candidateAssignment };
+    }
+    if (assignedCandidateReason === "preserve") {
+      return { ...candidateAssignment };
+    }
+    return { ...candidateAssignment, assignmentReason: assignedCandidateReason };
   });
 
   return {

@@ -120,6 +120,8 @@ Issue 098 establishes shared TypeScript/Python simulation contract parity fixtur
 
 Issue 101 constrains baseline optimizer candidates before simulation scoring: generated candidates must reference known tasks, known nurses, and must preserve base unassigned tasks. The optimizer remains an operational candidate generator that runs through the shared assignment variant runner and simulation score path.
 
+Issue 102 adds assignment-source truth for optimizer candidates. Manual assignments keep `manual_room_coverage`; generated optimizer candidate assignments use `optimizer_candidate` before shared variant execution.
+
 Issue 099 defines the V1 missed-task model: tasks that cannot complete inside the shift window are not started, consume no nurse busy minutes, and use the explicit not-started miss reason. Attempted-overrun behavior remains deferred.
 
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.

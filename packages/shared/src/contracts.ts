@@ -103,6 +103,7 @@ export const WARNING_CODES = [
 
 export const NURSE_TASK_ASSIGNMENT_REASONS = [
   "manual_room_coverage",
+  "optimizer_candidate",
   "charge_coverage",
   "float_coverage",
   "unassigned"

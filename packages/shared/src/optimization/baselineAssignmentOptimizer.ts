@@ -60,12 +60,16 @@ export function buildBaselineAssignmentOptimizer(
     throw new Error("baseNurseTaskAssignmentSet requires at least one assigned nurse");
   }
   const generatedTaskIds = input.generatedTaskSet.generatedTasks.map((task) => task.id);
-  const constrainCandidate = (candidateAssignments: NurseTaskAssignment[]) =>
+  const constrainCandidate = (
+    candidateAssignments: NurseTaskAssignment[],
+    assignedCandidateReason: NurseTaskAssignment["assignmentReason"] | "preserve"
+  ) =>
     constrainOptimizerCandidateAssignments({
       generatedTaskIds,
       allowedNurseIds: nurseIds,
       baseAssignments: original.taskAssignments,
-      candidateAssignments
+      candidateAssignments,
+      assignedCandidateReason
     }).taskAssignments;
   const variants = [
     {
@@ -74,7 +78,7 @@ export function buildBaselineAssignmentOptimizer(
       nurseTaskAssignmentSet: cloneAssignmentSet(
         original,
         "candidate-original",
-        constrainCandidate(original.taskAssignments),
+        constrainCandidate(original.taskAssignments, "preserve"),
         input.scenario,
         input.generatedTaskSet
       )
@@ -85,7 +89,10 @@ export function buildBaselineAssignmentOptimizer(
       nurseTaskAssignmentSet: cloneAssignmentSet(
         original,
         "candidate-room-count-balanced",
-        constrainCandidate(distributeByRoomCount(input.generatedTaskSet.generatedTasks, nurseIds)),
+        constrainCandidate(
+          distributeByRoomCount(input.generatedTaskSet.generatedTasks, nurseIds),
+          "optimizer_candidate"
+        ),
         input.scenario,
         input.generatedTaskSet
       )
@@ -96,7 +103,10 @@ export function buildBaselineAssignmentOptimizer(
       nurseTaskAssignmentSet: cloneAssignmentSet(
         original,
         "candidate-task-minute-balanced",
-        constrainCandidate(distributeByTaskMinutes(input.generatedTaskSet.generatedTasks, nurseIds)),
+        constrainCandidate(
+          distributeByTaskMinutes(input.generatedTaskSet.generatedTasks, nurseIds),
+          "optimizer_candidate"
+        ),
         input.scenario,
         input.generatedTaskSet
       )
@@ -221,7 +231,7 @@ function taskAssignment(task: GeneratedOperationalTask, nurseId: string): NurseT
     id: `candidate-task-${task.id}`,
     taskId: task.id,
     nurseId,
-    assignmentReason: "manual_room_coverage",
+    assignmentReason: "optimizer_candidate",
     minute: task.scheduledMinute
   };
 }

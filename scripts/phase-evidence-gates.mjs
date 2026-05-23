@@ -406,6 +406,8 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-100/test-output/shared.txt",
       "docs/verification/issues/issue-101/optimizer-constraint-output.json",
       "docs/verification/issues/issue-101/test-output/shared.txt",
+      "docs/verification/issues/issue-102/assignment-reason-output.json",
+      "docs/verification/issues/issue-102/test-output/shared.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -445,7 +447,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-100/commands.txt",
       "docs/verification/issues/issue-100/closeout.md",
       "docs/verification/issues/issue-101/commands.txt",
-      "docs/verification/issues/issue-101/closeout.md"
+      "docs/verification/issues/issue-101/closeout.md",
+      "docs/verification/issues/issue-102/commands.txt",
+      "docs/verification/issues/issue-102/closeout.md"
     ],
     contentChecks: [
       {

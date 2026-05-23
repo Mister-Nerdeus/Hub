@@ -28,7 +28,7 @@ export type RunAssignmentVariantsInput = {
 };
 
 export const ASSIGNMENT_VARIANT_RUN_LIMITATIONS = [
-  "Operational-only runner for manual assignment variants.",
+  "Operational-only runner for assignment variants.",
   "Each variant uses the same simulation execution and scoring path.",
   "No optimizer or clinical claim is applied by the runner."
 ];
