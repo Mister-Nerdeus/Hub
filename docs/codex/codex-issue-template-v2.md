@@ -89,6 +89,14 @@ screenshots/*.png
 
 `commands.txt` alone is not sufficient output evidence.
 
+For Issue 112 and later, every issue must also include:
+
+```text
+docs/verification/issues/issue-XXX/command-output-map.json
+```
+
+Every non-empty command listed in `commands.txt` must map to at least one non-empty output artifact under the same issue evidence folder. Extra output artifacts are allowed, but they cannot replace command mappings.
+
 ## Do Not Close Unless
 The issue may not be marked complete unless:
 1. Required files exist.
@@ -99,7 +107,8 @@ The issue may not be marked complete unless:
 6. Closeout evidence is written to `docs/verification/issues/issue-XXX/closeout.md`.
 7. Command evidence is written to `docs/verification/issues/issue-XXX/commands.txt`.
 8. For Issue 104 and later, at least one non-empty captured output artifact exists.
-9. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
+9. For Issue 112 and later, `command-output-map.json` maps every command to non-empty output.
+10. `node scripts/check-docs-contracts.mjs` passes with the issue evidence present.
 
 ## Closeout Response Format
 Codex must answer with:

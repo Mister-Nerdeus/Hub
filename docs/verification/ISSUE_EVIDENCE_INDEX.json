@@ -293,6 +293,17 @@
         "docs/verification/issues/issue-111/api-responses/invalid-persisted-run-error.json",
         "docs/verification/issues/issue-111/test-output/api.txt"
       ]
+    },
+    {
+      "issue": "112",
+      "title": "Command-to-Output Evidence Mapping",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-112/closeout.md",
+        "docs/verification/issues/issue-112/commands.txt",
+        "docs/verification/issues/issue-112/command-output-map.json",
+        "docs/verification/issues/issue-112/test-output/command-output-map.txt",
+        "docs/contracts/command-output-map-contract.md"
+      ]
     }
   ]
 }

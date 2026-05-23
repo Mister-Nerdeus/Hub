@@ -1,0 +1,23 @@
+{
+  "issue": "112",
+  "commands": [
+    {
+      "command": "node scripts/check-command-output-map.mjs | Tee-Object -FilePath docs/verification/issues/issue-112/test-output/command-output-map.txt",
+      "outputs": [
+        "docs/verification/issues/issue-112/test-output/command-output-map.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-112/test-output/command-output-map.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-112/test-output/command-output-map.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-112/test-output/command-output-map.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-112/test-output/command-output-map.txt"
+      ]
+    }
+  ]
+}

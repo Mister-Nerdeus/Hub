@@ -135,3 +135,4 @@ Issue 099 defines the V1 missed-task model: tasks that cannot complete inside th
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.
 
 The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus phase evidence gates from `scripts/phase-evidence-gates.mjs` for Phase 2 through the current completed phase.
+From Issue 112 onward, each issue must also include `command-output-map.json`; the docs gate verifies every command in `commands.txt` maps to at least one non-empty output artifact under that issue folder.

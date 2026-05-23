@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, normalize } from "node:path";
 
+import { checkCommandOutputMap } from "./check-command-output-map.mjs";
 import { checkIssueCommandOutput } from "./check-issue-command-output.mjs";
 import { checkIssueEvidenceIndex } from "./check-issue-evidence-index.mjs";
 import { requiredEvidenceGates } from "./phase-evidence-gates.mjs";
@@ -14,6 +15,7 @@ const requiredFiles = [
   "docs/architecture/dependency-decision-matrix.md",
   "docs/contracts/reproducibility-contract.md",
   "docs/contracts/issue-evidence-output-contract.md",
+  "docs/contracts/command-output-map-contract.md",
   "docs/codex/drift-traps.md",
   "docs/codex/codex-operating-rules.md",
   "docs/codex/forbidden-implementation-patterns.md",
@@ -101,6 +103,7 @@ for (const gate of requiredEvidenceGates) {
 
 failures.push(...checkIssueCommandOutput(root));
 failures.push(...checkIssueEvidenceIndex(root));
+failures.push(...checkCommandOutputMap(root));
 
 if (failures.length > 0) {
   console.error(failures.join("\n"));

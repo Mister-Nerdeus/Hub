@@ -429,6 +429,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-110/test-output/parity.txt",
       "docs/verification/issues/issue-111/api-responses/invalid-persisted-run-error.json",
       "docs/verification/issues/issue-111/test-output/api.txt",
+      "docs/contracts/command-output-map-contract.md",
+      "docs/verification/issues/issue-112/command-output-map.json",
+      "docs/verification/issues/issue-112/test-output/command-output-map.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -488,7 +491,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-110/commands.txt",
       "docs/verification/issues/issue-110/closeout.md",
       "docs/verification/issues/issue-111/commands.txt",
-      "docs/verification/issues/issue-111/closeout.md"
+      "docs/verification/issues/issue-111/closeout.md",
+      "docs/verification/issues/issue-112/commands.txt",
+      "docs/verification/issues/issue-112/closeout.md"
     ],
     contentChecks: [
       {
