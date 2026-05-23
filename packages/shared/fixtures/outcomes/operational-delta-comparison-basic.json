@@ -6,6 +6,7 @@
   "deltas": [
     {
       "metricId": "layout-friction",
+      "directionality": "lower_is_better",
       "baselineValue": 33,
       "modifiedValue": 45,
       "absoluteChange": 12,
@@ -14,6 +15,7 @@
     },
     {
       "metricId": "nurse-strain-proxy",
+      "directionality": "lower_is_better",
       "baselineValue": 44,
       "modifiedValue": 39,
       "absoluteChange": -5,
@@ -22,6 +24,7 @@
     },
     {
       "metricId": "nurse-walk-time",
+      "directionality": "lower_is_better",
       "baselineValue": 312,
       "modifiedValue": 248,
       "absoluteChange": -64,
@@ -30,6 +33,7 @@
     },
     {
       "metricId": "patient-wait-idle-proxy",
+      "directionality": "lower_is_better",
       "baselineValue": 140,
       "modifiedValue": 160,
       "absoluteChange": 20,
@@ -38,6 +42,7 @@
     },
     {
       "metricId": "queue-delay",
+      "directionality": "lower_is_better",
       "baselineValue": 12,
       "modifiedValue": 18,
       "absoluteChange": 6,
@@ -46,6 +51,7 @@
     },
     {
       "metricId": "room-turnover-pressure",
+      "directionality": "higher_is_better",
       "baselineValue": 58,
       "modifiedValue": 64,
       "absoluteChange": 6,
@@ -54,6 +60,7 @@
     },
     {
       "metricId": "task-time",
+      "directionality": "lower_is_better",
       "baselineValue": 38,
       "modifiedValue": 36,
       "absoluteChange": -2,
@@ -62,6 +69,7 @@
     },
     {
       "metricId": "unit-saturation",
+      "directionality": "lower_is_better",
       "baselineValue": 74,
       "modifiedValue": 69,
       "absoluteChange": -5,

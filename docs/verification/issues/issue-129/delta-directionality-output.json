@@ -1,0 +1,48 @@
+{
+  "issue": "129",
+  "deltas": [
+    {
+      "metricId": "higher-throughput",
+      "directionality": "higher_is_better",
+      "baselineValue": 10,
+      "modifiedValue": 12,
+      "absoluteChange": 2,
+      "percentChange": 20,
+      "direction": "improved"
+    },
+    {
+      "metricId": "lower-pressure",
+      "directionality": "lower_is_better",
+      "baselineValue": 10,
+      "modifiedValue": 12,
+      "absoluteChange": 2,
+      "percentChange": 20,
+      "direction": "worse"
+    },
+    {
+      "metricId": "neutral-context",
+      "directionality": "neutral",
+      "baselineValue": 4,
+      "modifiedValue": 8,
+      "absoluteChange": 4,
+      "percentChange": 100,
+      "direction": "unchanged"
+    },
+    {
+      "metricId": "zero-change",
+      "directionality": "lower_is_better",
+      "baselineValue": 4,
+      "modifiedValue": 4,
+      "absoluteChange": 0,
+      "percentChange": 0,
+      "direction": "unchanged"
+    }
+  ],
+  "eachDeltaCarriesDirectionality": true,
+  "incorrectDirectionRejected": true,
+  "rejectionMessage": "deltas[1].direction must match directionality and value movement",
+  "serializedValidationPasses": true,
+  "operationalOnly": true,
+  "noRecommendationWording": true,
+  "testsPassed": true
+}

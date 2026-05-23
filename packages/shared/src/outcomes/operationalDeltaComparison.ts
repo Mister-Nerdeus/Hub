@@ -16,6 +16,7 @@ export type OperationalDeltaComparisonDirection = (typeof OPERATIONAL_DELTA_DIRE
 
 export type OperationalMetricDelta = {
   metricId: string;
+  directionality: OperationalMetricDirectionality;
   baselineValue: number;
   modifiedValue: number;
   absoluteChange: number;
@@ -113,6 +114,7 @@ function buildOperationalMetricDelta(
 
   return {
     metricId: baselineMetric.metricId,
+    directionality: baselineMetric.directionality,
     baselineValue: baselineMetric.value,
     modifiedValue: modifiedMetric.value,
     absoluteChange,
@@ -194,6 +196,7 @@ function validateOperationalMetricDelta(
   const metric = requireRecord(value, `deltas[${index}]`);
   requireExactKeys(metric, `deltas[${index}]`, [
     "metricId",
+    "directionality",
     "baselineValue",
     "modifiedValue",
     "absoluteChange",
@@ -202,6 +205,11 @@ function validateOperationalMetricDelta(
   ]);
 
   const direction = requireDeltaDirection(metric.direction, `deltas[${index}].direction`);
+  const directionality = requireEnum(
+    metric.directionality,
+    OPERATIONAL_METRIC_DIRECTIONALITY,
+    `deltas[${index}].directionality`
+  );
   const baselineValue = requireFiniteNumber(metric.baselineValue, `deltas[${index}].baselineValue`);
   const modifiedValue = requireFiniteNumber(metric.modifiedValue, `deltas[${index}].modifiedValue`);
   const absoluteChange = requireFiniteNumber(metric.absoluteChange, `deltas[${index}].absoluteChange`);
@@ -216,19 +224,15 @@ function validateOperationalMetricDelta(
   }
 
   const metricId = validateOperationalText(metric.metricId, `deltas[${index}].metricId`);
+  const expectedDirection = determineDirection(absoluteChange, directionality);
 
-  if (direction === "unchanged" && absoluteChange !== 0) {
-    throw new Error(`deltas[${index}].direction unchanged requires absoluteChange of 0`);
-  }
-  if (direction === "improved" && absoluteChange === 0) {
-    throw new Error(`deltas[${index}].direction improved requires non-zero improvement`);
-  }
-  if (direction === "worse" && absoluteChange === 0) {
-    throw new Error(`deltas[${index}].direction worse requires non-zero regression`);
+  if (direction !== expectedDirection) {
+    throw new Error(`deltas[${index}].direction must match directionality and value movement`);
   }
 
   return {
     metricId,
+    directionality,
     baselineValue,
     modifiedValue,
     absoluteChange,
@@ -297,4 +301,15 @@ function requireDeltaDirection(
     throw new Error(`${label} must be one of ${OPERATIONAL_DELTA_DIRECTIONS.join(", ")}`);
   }
   return value as OperationalDeltaComparisonDirection;
+}
+
+function requireEnum<T extends string>(
+  value: unknown,
+  allowed: readonly T[],
+  label: string
+): T {
+  if (typeof value !== "string" || !allowed.includes(value as T)) {
+    throw new Error(`${label} must be one of ${allowed.join(", ")}`);
+  }
+  return value as T;
 }

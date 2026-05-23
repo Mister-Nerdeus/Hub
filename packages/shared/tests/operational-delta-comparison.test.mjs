@@ -349,6 +349,7 @@ test("buildOperationalDeltaComparison output includes baseline, modified, deltas
     ]
   });
   assert.deepEqual(output, fixture);
+  assert.equal(output.deltas.every((delta) => typeof delta.directionality === "string"), true);
 });
 
 test("validateOperationalDeltaComparison rejects forbidden wording", () => {
@@ -494,10 +495,10 @@ test("buildOperationalDeltaComparison enforces directionality and direction resu
     ]
   });
 
-  const directions = output.deltas.map((delta) => [delta.metricId, delta.direction]);
+  const directions = output.deltas.map((delta) => [delta.metricId, delta.directionality, delta.direction]);
   assert.deepEqual(directions, [
-    ["queue-delay", "improved"],
-    ["room-turnover-pressure", "improved"]
+    ["queue-delay", "lower_is_better", "improved"],
+    ["room-turnover-pressure", "higher_is_better", "improved"]
   ]);
 });
 
