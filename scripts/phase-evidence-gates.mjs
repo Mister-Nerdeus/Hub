@@ -438,6 +438,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-114/command-output-map.json",
       "docs/verification/issues/issue-114/surge-snapshot-output.json",
       "docs/verification/issues/issue-114/test-output/shared.txt",
+      "docs/verification/issues/issue-115/command-output-map.json",
+      "docs/verification/issues/issue-115/optimizer-snapshot-output.json",
+      "docs/verification/issues/issue-115/test-output/shared.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -503,7 +506,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-113/commands.txt",
       "docs/verification/issues/issue-113/closeout.md",
       "docs/verification/issues/issue-114/commands.txt",
-      "docs/verification/issues/issue-114/closeout.md"
+      "docs/verification/issues/issue-114/closeout.md",
+      "docs/verification/issues/issue-115/commands.txt",
+      "docs/verification/issues/issue-115/closeout.md"
     ],
     contentChecks: [
       {

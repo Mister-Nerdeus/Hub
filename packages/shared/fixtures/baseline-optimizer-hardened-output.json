@@ -1,0 +1,1219 @@
+{
+  "schemaVersion": "1.0.0",
+  "optimizerRunId": "baseline-optimizer-hardened",
+  "scenarioId": "shift-scenario-basic",
+  "generatedTaskSetId": "generated-task-set-basic",
+  "executionPath": "assignment_variant_runner",
+  "candidates": [
+    {
+      "candidateId": "candidate-original",
+      "label": "Original manual assignment",
+      "assignmentSetId": "manual-assignment-basic-candidate-original",
+      "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-original",
+      "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-original",
+      "operationalBurdenScore": 15.8
+    },
+    {
+      "candidateId": "candidate-room-count-balanced",
+      "label": "Room-count balanced assignment",
+      "assignmentSetId": "manual-assignment-basic-candidate-room-count-balanced",
+      "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-room-count-balanced",
+      "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-room-count-balanced",
+      "operationalBurdenScore": 15.8
+    },
+    {
+      "candidateId": "candidate-task-minute-balanced",
+      "label": "Task-minute balanced assignment",
+      "assignmentSetId": "manual-assignment-basic-candidate-task-minute-balanced",
+      "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-task-minute-balanced",
+      "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-task-minute-balanced",
+      "operationalBurdenScore": 15.8
+    }
+  ],
+  "lowestOperationalBurdenCandidateId": "candidate-original",
+  "tieBreakers": [
+    "operationalBurdenScore ascending",
+    "candidateId ascending"
+  ],
+  "variantRun": {
+    "schemaVersion": "1.0.0",
+    "variantRunId": "baseline-optimizer-hardened-variant-run",
+    "scenarioId": "shift-scenario-basic",
+    "generatedTaskSetId": "generated-task-set-basic",
+    "variants": [
+      {
+        "variantId": "candidate-original",
+        "label": "Original manual assignment",
+        "assignmentSetId": "manual-assignment-basic-candidate-original",
+        "simulationRun": {
+          "schemaVersion": "1.0.0",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-original",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-original",
+          "events": [
+            {
+              "eventId": "task-task-basic-room-01-medication-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 10,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 5,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 0,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10,
+              "busyUntilMinute": 10
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-02-monitoring-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-charlie",
+              "minute": 0,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5,
+              "busyUntilMinute": 5
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 5,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 5,
+              "durationMinutes": 5,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-02-monitoring-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-charlie",
+              "minute": 5,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 10,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 10,
+              "durationMinutes": 10,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 10,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-unassigned",
+              "eventType": "task",
+              "action": "unassigned",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15,
+              "missReason": "unassigned"
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 8,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 15,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-03-isolation-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 30,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8,
+              "busyUntilMinute": 38
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-04-behavioral-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 30,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15,
+              "busyUntilMinute": 45
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 38,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 38,
+              "durationMinutes": 8,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-03-isolation-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 38,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "scheduledMinute": 45
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "durationMinutes": 20,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-05-procedure-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-charlie",
+              "minute": 45,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20,
+              "busyUntilMinute": 65
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 45,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 45,
+              "durationMinutes": 15,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-04-behavioral-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 45,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 65,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "completedMinute": 65,
+              "durationMinutes": 20,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-05-procedure-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-charlie",
+              "minute": 65,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20
+            }
+          ],
+          "summary": {
+            "totalTasks": 6,
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1
+          },
+          "limitations": [
+            "Operational-only deterministic shift execution result from synthetic task and assignment inputs.",
+            "No optimizer or clinical claim is applied.",
+            "No route travel is included unless explicit plan path options are supplied."
+          ]
+        },
+        "simulationScore": {
+          "schemaVersion": "1.0.0",
+          "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-original",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-original",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-original",
+          "metrics": {
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1,
+            "queueWaitMinutes": 0,
+            "travelMinutes": 0,
+            "nurseBusyMinutes": {
+              "nurse-alpha": 18,
+              "nurse-bravo": 15,
+              "nurse-charlie": 25
+            },
+            "totalNurseBusyMinutes": 58,
+            "operationalBurdenScore": 15.8
+          },
+          "definitions": [
+            {
+              "metricId": "completedTaskCount",
+              "source": "Unique task completed events."
+            },
+            {
+              "metricId": "delayedTaskCount",
+              "source": "Unique task delayed events."
+            },
+            {
+              "metricId": "missedTaskCount",
+              "source": "Unique task missed events."
+            },
+            {
+              "metricId": "unassignedTaskCount",
+              "source": "Unique task unassigned events."
+            },
+            {
+              "metricId": "queueWaitMinutes",
+              "source": "Queue started-from-queue event wait minutes."
+            },
+            {
+              "metricId": "travelMinutes",
+              "source": "Travel event minutes."
+            },
+            {
+              "metricId": "nurseBusyMinutesByNurse",
+              "source": "Nurse completed-task event duration minutes."
+            },
+            {
+              "metricId": "operationalBurdenScore",
+              "source": "Visible named assumptions multiplied by derived event metrics."
+            }
+          ],
+          "assumptions": {
+            "delayedTaskWeight": 5,
+            "missedTaskWeight": 20,
+            "unassignedTaskWeight": 10,
+            "queueWaitMinuteWeight": 1,
+            "travelMinuteWeight": 0.5,
+            "nurseBusyMinuteWeight": 0.1
+          },
+          "limitations": [
+            "Operational-only score derived from validated simulation run events.",
+            "Weights are visible named assumptions in the score output.",
+            "No optimizer-only score or clinical claim is applied."
+          ]
+        }
+      },
+      {
+        "variantId": "candidate-room-count-balanced",
+        "label": "Room-count balanced assignment",
+        "assignmentSetId": "manual-assignment-basic-candidate-room-count-balanced",
+        "simulationRun": {
+          "schemaVersion": "1.0.0",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-room-count-balanced",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-room-count-balanced",
+          "events": [
+            {
+              "eventId": "task-task-basic-room-01-medication-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 10,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 5,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 0,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10,
+              "busyUntilMinute": 10
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-02-monitoring-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 0,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5,
+              "busyUntilMinute": 5
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 5,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 5,
+              "durationMinutes": 5,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-02-monitoring-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 5,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 10,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 10,
+              "durationMinutes": 10,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 10,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-unassigned",
+              "eventType": "task",
+              "action": "unassigned",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15,
+              "missReason": "unassigned"
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 8,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 15,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-03-isolation-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 30,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8,
+              "busyUntilMinute": 38
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-04-behavioral-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 30,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15,
+              "busyUntilMinute": 45
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 38,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 38,
+              "durationMinutes": 8,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-03-isolation-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 38,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "scheduledMinute": 45
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "durationMinutes": 20,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-05-procedure-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-charlie",
+              "minute": 45,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20,
+              "busyUntilMinute": 65
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 45,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 45,
+              "durationMinutes": 15,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-04-behavioral-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 45,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 65,
+              "nurseId": "nurse-charlie",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "completedMinute": 65,
+              "durationMinutes": 20,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-charlie-task-basic-room-05-procedure-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-charlie",
+              "minute": 65,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20
+            }
+          ],
+          "summary": {
+            "totalTasks": 6,
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1
+          },
+          "limitations": [
+            "Operational-only deterministic shift execution result from synthetic task and assignment inputs.",
+            "No optimizer or clinical claim is applied.",
+            "No route travel is included unless explicit plan path options are supplied."
+          ]
+        },
+        "simulationScore": {
+          "schemaVersion": "1.0.0",
+          "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-room-count-balanced",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-room-count-balanced",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-room-count-balanced",
+          "metrics": {
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1,
+            "queueWaitMinutes": 0,
+            "travelMinutes": 0,
+            "nurseBusyMinutes": {
+              "nurse-alpha": 18,
+              "nurse-bravo": 20,
+              "nurse-charlie": 20
+            },
+            "totalNurseBusyMinutes": 58,
+            "operationalBurdenScore": 15.8
+          },
+          "definitions": [
+            {
+              "metricId": "completedTaskCount",
+              "source": "Unique task completed events."
+            },
+            {
+              "metricId": "delayedTaskCount",
+              "source": "Unique task delayed events."
+            },
+            {
+              "metricId": "missedTaskCount",
+              "source": "Unique task missed events."
+            },
+            {
+              "metricId": "unassignedTaskCount",
+              "source": "Unique task unassigned events."
+            },
+            {
+              "metricId": "queueWaitMinutes",
+              "source": "Queue started-from-queue event wait minutes."
+            },
+            {
+              "metricId": "travelMinutes",
+              "source": "Travel event minutes."
+            },
+            {
+              "metricId": "nurseBusyMinutesByNurse",
+              "source": "Nurse completed-task event duration minutes."
+            },
+            {
+              "metricId": "operationalBurdenScore",
+              "source": "Visible named assumptions multiplied by derived event metrics."
+            }
+          ],
+          "assumptions": {
+            "delayedTaskWeight": 5,
+            "missedTaskWeight": 20,
+            "unassignedTaskWeight": 10,
+            "queueWaitMinuteWeight": 1,
+            "travelMinuteWeight": 0.5,
+            "nurseBusyMinuteWeight": 0.1
+          },
+          "limitations": [
+            "Operational-only score derived from validated simulation run events.",
+            "Weights are visible named assumptions in the score output.",
+            "No optimizer-only score or clinical claim is applied."
+          ]
+        }
+      },
+      {
+        "variantId": "candidate-task-minute-balanced",
+        "label": "Task-minute balanced assignment",
+        "assignmentSetId": "manual-assignment-basic-candidate-task-minute-balanced",
+        "simulationRun": {
+          "schemaVersion": "1.0.0",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-task-minute-balanced",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-task-minute-balanced",
+          "events": [
+            {
+              "eventId": "task-task-basic-room-01-medication-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "scheduledMinute": 0
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 0,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 10,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 0,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "durationMinutes": 5,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 0,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10,
+              "busyUntilMinute": 10
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-02-monitoring-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 0,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5,
+              "busyUntilMinute": 5
+            },
+            {
+              "eventId": "task-task-basic-room-02-monitoring-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-02-monitoring-001",
+              "minute": 5,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 5,
+              "durationMinutes": 5,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-02-monitoring-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 5,
+              "taskId": "task-basic-room-02-monitoring-001",
+              "durationMinutes": 5
+            },
+            {
+              "eventId": "task-task-basic-room-01-medication-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-01-medication-001",
+              "minute": 10,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 0,
+              "startMinute": 0,
+              "completedMinute": 10,
+              "durationMinutes": 10,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-01-medication-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 10,
+              "taskId": "task-basic-room-01-medication-001",
+              "durationMinutes": 10
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15
+            },
+            {
+              "eventId": "task-task-basic-hall-bed-01-turnover-001-unassigned",
+              "eventType": "task",
+              "action": "unassigned",
+              "taskId": "task-basic-hall-bed-01-turnover-001",
+              "minute": 15,
+              "scheduledMinute": 15,
+              "missReason": "unassigned"
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "scheduledMinute": 30
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 30,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 8,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 30,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "durationMinutes": 15,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-04-behavioral-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-alpha",
+              "minute": 30,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15,
+              "busyUntilMinute": 45
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-03-isolation-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 30,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8,
+              "busyUntilMinute": 38
+            },
+            {
+              "eventId": "task-task-basic-room-03-isolation-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-03-isolation-001",
+              "minute": 38,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 38,
+              "durationMinutes": 8,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-03-isolation-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 38,
+              "taskId": "task-basic-room-03-isolation-001",
+              "durationMinutes": 8
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-ready",
+              "eventType": "task",
+              "action": "ready",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "scheduledMinute": 45
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-started",
+              "eventType": "task",
+              "action": "started",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 45,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "durationMinutes": 20,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-05-procedure-001-started",
+              "eventType": "nurse",
+              "action": "started_task",
+              "nurseId": "nurse-bravo",
+              "minute": 45,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20,
+              "busyUntilMinute": 65
+            },
+            {
+              "eventId": "task-task-basic-room-04-behavioral-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-04-behavioral-001",
+              "minute": 45,
+              "nurseId": "nurse-alpha",
+              "scheduledMinute": 30,
+              "startMinute": 30,
+              "completedMinute": 45,
+              "durationMinutes": 15,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-alpha-task-basic-room-04-behavioral-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-alpha",
+              "minute": 45,
+              "taskId": "task-basic-room-04-behavioral-001",
+              "durationMinutes": 15
+            },
+            {
+              "eventId": "task-task-basic-room-05-procedure-001-completed",
+              "eventType": "task",
+              "action": "completed",
+              "taskId": "task-basic-room-05-procedure-001",
+              "minute": 65,
+              "nurseId": "nurse-bravo",
+              "scheduledMinute": 45,
+              "startMinute": 45,
+              "completedMinute": 65,
+              "durationMinutes": 20,
+              "delayMinutes": 0,
+              "queueWaitMinutes": 0,
+              "travelMinutes": 0
+            },
+            {
+              "eventId": "nurse-nurse-bravo-task-basic-room-05-procedure-001-completed",
+              "eventType": "nurse",
+              "action": "completed_task",
+              "nurseId": "nurse-bravo",
+              "minute": 65,
+              "taskId": "task-basic-room-05-procedure-001",
+              "durationMinutes": 20
+            }
+          ],
+          "summary": {
+            "totalTasks": 6,
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1
+          },
+          "limitations": [
+            "Operational-only deterministic shift execution result from synthetic task and assignment inputs.",
+            "No optimizer or clinical claim is applied.",
+            "No route travel is included unless explicit plan path options are supplied."
+          ]
+        },
+        "simulationScore": {
+          "schemaVersion": "1.0.0",
+          "simulationScoreId": "simulation-score-baseline-optimizer-hardened-variant-run-candidate-task-minute-balanced",
+          "simulationRunId": "baseline-optimizer-hardened-variant-run-candidate-task-minute-balanced",
+          "scenarioId": "shift-scenario-basic",
+          "generatedTaskSetId": "generated-task-set-basic",
+          "assignmentSetId": "manual-assignment-basic-candidate-task-minute-balanced",
+          "metrics": {
+            "completedTaskCount": 5,
+            "delayedTaskCount": 0,
+            "missedTaskCount": 0,
+            "unassignedTaskCount": 1,
+            "queueWaitMinutes": 0,
+            "travelMinutes": 0,
+            "nurseBusyMinutes": {
+              "nurse-alpha": 25,
+              "nurse-bravo": 33
+            },
+            "totalNurseBusyMinutes": 58,
+            "operationalBurdenScore": 15.8
+          },
+          "definitions": [
+            {
+              "metricId": "completedTaskCount",
+              "source": "Unique task completed events."
+            },
+            {
+              "metricId": "delayedTaskCount",
+              "source": "Unique task delayed events."
+            },
+            {
+              "metricId": "missedTaskCount",
+              "source": "Unique task missed events."
+            },
+            {
+              "metricId": "unassignedTaskCount",
+              "source": "Unique task unassigned events."
+            },
+            {
+              "metricId": "queueWaitMinutes",
+              "source": "Queue started-from-queue event wait minutes."
+            },
+            {
+              "metricId": "travelMinutes",
+              "source": "Travel event minutes."
+            },
+            {
+              "metricId": "nurseBusyMinutesByNurse",
+              "source": "Nurse completed-task event duration minutes."
+            },
+            {
+              "metricId": "operationalBurdenScore",
+              "source": "Visible named assumptions multiplied by derived event metrics."
+            }
+          ],
+          "assumptions": {
+            "delayedTaskWeight": 5,
+            "missedTaskWeight": 20,
+            "unassignedTaskWeight": 10,
+            "queueWaitMinuteWeight": 1,
+            "travelMinuteWeight": 0.5,
+            "nurseBusyMinuteWeight": 0.1
+          },
+          "limitations": [
+            "Operational-only score derived from validated simulation run events.",
+            "Weights are visible named assumptions in the score output.",
+            "No optimizer-only score or clinical claim is applied."
+          ]
+        }
+      }
+    ],
+    "limitations": [
+      "Operational-only runner for assignment variants.",
+      "Each variant uses the same simulation execution and scoring path.",
+      "No optimizer or clinical claim is applied by the runner."
+    ]
+  },
+  "limitations": [
+    "Operational-only deterministic candidate generator.",
+    "Candidates are evaluated through the shared assignment variant runner and simulation score path.",
+    "No clinical claim, machine learning, API, persistence, or separate scoring engine is applied."
+  ]
+}

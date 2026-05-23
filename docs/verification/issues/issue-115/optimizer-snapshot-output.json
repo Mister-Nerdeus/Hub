@@ -1,0 +1,13 @@
+{
+  "issue": "115",
+  "fixture": "packages/shared/fixtures/baseline-optimizer-hardened-output.json",
+  "candidateIds": [
+    "candidate-original",
+    "candidate-room-count-balanced",
+    "candidate-task-minute-balanced"
+  ],
+  "usesSharedSimulationScoreIds": true,
+  "optimizerCandidateReasonVerified": true,
+  "byteStable": true,
+  "testsPassed": true
+}
