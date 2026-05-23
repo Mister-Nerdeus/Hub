@@ -55,4 +55,8 @@ Phase 8 documents the report-centric comparison decision, makes deterministic ti
 
 Phase 9 adds deterministic export bundle integrity hashes, local bundle audit trail contracts, a read-only bundle audit builder, and an API-free bundle audit proof surface. Phase 9 remains local-first, uses synthetic operational data only, and does not add API endpoints, persistence, upload/download behavior, signatures, encryption, legal compliance claims, tamper-proof claims, recommendation, or optimization.
 
+## Plan Builder Input Foundation
+
+The Plan Builder Input phase adds validated operational defaults, deterministic plan generation from defaults, plan setup and room defaults inputs, hallway/door/nurse station/path graph/zone defaults inputs, generated plan preview, and apply-to-draft behavior through existing plan draft state. The phase remains local-first, uses synthetic operational data only, and does not add optimizer behavior, recommendation behavior, new API endpoints, new persistence beyond existing plan save/load, PHI, EHR imports, or new nurse scoring/reporting/comparison/export/audit behavior.
+
 Task completion simulation, walking route calculation, delay calculation, seeded full-shift simulation, assignment persistence, report bundle persistence, PDF export, file download behavior, recommendation, workload balancing, and optimization remain out of scope until later accepted contracts.

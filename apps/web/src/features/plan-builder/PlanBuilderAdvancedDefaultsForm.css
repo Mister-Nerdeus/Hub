@@ -1,0 +1,48 @@
+.plan-builder-advanced-defaults {
+  display: grid;
+  gap: 14px;
+}
+
+.plan-builder-advanced-defaults h3 {
+  color: #22313d;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.plan-builder-advanced-defaults__grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.plan-builder-advanced-defaults label {
+  display: grid;
+  gap: 6px;
+}
+
+.plan-builder-advanced-defaults span {
+  color: #465663;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.plan-builder-advanced-defaults input,
+.plan-builder-advanced-defaults select {
+  background: #ffffff;
+  border: 1px solid #c8d3dd;
+  border-radius: 6px;
+  color: #17212b;
+  min-height: 36px;
+  padding: 7px 9px;
+}
+
+.plan-builder-advanced-defaults__check {
+  align-items: center;
+  background: #f5f8fa;
+  border: 1px solid #d8e0e7;
+  border-radius: 6px;
+  display: flex !important;
+  gap: 8px !important;
+  min-height: 36px;
+  padding: 8px 10px;
+}

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "plan-builder-defaults-basic",
+  "name": "Generated ER Pod",
+  "description": "Synthetic generated operational layout.",
+  "createdAt": "2026-05-23T00:00:00Z",
+  "updatedAt": "2026-05-23T00:00:00Z",
+  "scale": {
+    "unit": "feet",
+    "pixelsPerUnit": 10,
+    "gridSizeFeet": 1,
+    "snapToGrid": true,
+    "origin": "top-left"
+  },
+  "rooms": [
+    {
+      "id": "room-001",
+      "label": "Room 01",
+      "roomType": "standard",
+      "x": 0,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    },
+    {
+      "id": "room-002",
+      "label": "Room 02",
+      "roomType": "standard",
+      "x": 14,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    },
+    {
+      "id": "room-003",
+      "label": "Room 03",
+      "roomType": "standard",
+      "x": 28,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    },
+    {
+      "id": "room-004",
+      "label": "Room 04",
+      "roomType": "standard",
+      "x": 0,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    },
+    {
+      "id": "room-005",
+      "label": "Room 05",
+      "roomType": "standard",
+      "x": 14,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    },
+    {
+      "id": "room-006",
+      "label": "Room 06",
+      "roomType": "standard",
+      "x": 28,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": null,
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": null
+    }
+  ],
+  "hallways": [
+    {
+      "id": "hallway-main",
+      "label": "Main Hallway",
+      "widthFeet": 8,
+      "points": [
+        {
+          "x": 0,
+          "y": 26
+        },
+        {
+          "x": 48,
+          "y": 26
+        }
+      ]
+    }
+  ],
+  "doors": [],
+  "nurseStations": [
+    {
+      "id": "station-001",
+      "label": "Station 01",
+      "stationType": "primary",
+      "x": 19,
+      "y": 34,
+      "widthFeet": 10,
+      "lengthFeet": 6,
+      "pathNodeId": "node-station-001"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-default-pod",
+      "label": "Default Pod Zone",
+      "zoneType": "provider_area",
+      "color": "#4f8a67",
+      "x": 0,
+      "y": 0,
+      "widthFeet": 48,
+      "lengthFeet": 40,
+      "travelBlocked": false,
+      "travelPenalty": 1
+    }
+  ],
+  "pathNodes": [
+    {
+      "id": "node-station-001",
+      "nodeType": "station",
+      "x": 24,
+      "y": 34,
+      "linkedObjectId": "station-001"
+    }
+  ],
+  "pathEdges": []
+}

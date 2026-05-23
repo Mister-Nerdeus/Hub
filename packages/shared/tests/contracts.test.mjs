@@ -17,6 +17,7 @@ import {
   validateManualAssignmentContract,
   validateNurseTaskAssignmentContract,
   validateOperationalReportContract,
+  validatePlanBuilderDefaultsContract,
   validatePlanContract,
   validateReportExportBundleContract,
   validateRoomLoads,
@@ -71,6 +72,16 @@ test("plan fixture validates against TypeScript contract", () => {
   assert.equal(Object.hasOwn(plan, "selectionState"), false);
 });
 
+test("plan-builder defaults fixture validates against TypeScript contract", () => {
+  const defaults = validatePlanBuilderDefaultsContract(readFixture("plan-builder-defaults-basic.json"));
+
+  assert.equal(defaults.schemaVersion, "1.0.0");
+  assert.equal(defaults.roomDefaults.roomCount, 6);
+  assert.equal(defaults.roomDefaults.roomsPerRow, 3);
+  assert.equal(defaults.doorDefaults.autoCreateDoors, true);
+  assert.equal(defaults.zoneDefaults.defaultZoneLabel, "Default Pod Zone");
+});
+
 test("Phase 2 ER pod fixture validates against TypeScript contract", () => {
   const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
 
@@ -86,6 +97,17 @@ test("Phase 2 ER pod fixture validates against TypeScript contract", () => {
   assert.equal(plan.zones[0].travelBlocked, false);
   assert.equal(plan.pathEdges.some((edge) => edge.blocked), false);
 });
+
+for (const fixtureName of [
+  "generated-plan-from-defaults-basic.json",
+  "generated-plan-from-defaults-no-doors.json",
+  "generated-plan-from-defaults-no-path-edges.json",
+  "generated-plan-from-defaults-no-stations.json"
+]) {
+  test(`${fixtureName} validates against TypeScript plan contract`, () => {
+    assert.equal(validatePlanContract(readFixture(fixtureName)).schemaVersion, "1.0.0");
+  });
+}
 
 test("scenario fixture validates against TypeScript contract", () => {
   const scenario = validateScenarioContract(readFixture("scenario-basic.json"));
@@ -421,12 +443,30 @@ const invalidPlanFixtures = [
   "plan-door-path-node-wrong-type.json",
   "plan-station-path-node-wrong-type.json",
   "plan-room-path-node-unrelated-door.json",
-  "plan-path-node-linked-object-mismatch.json"
+  "plan-path-node-linked-object-mismatch.json",
+  "generated-plan-from-defaults-invalid-references.json"
 ];
 
 for (const fixtureName of invalidPlanFixtures) {
   test(`${fixtureName} is rejected by TypeScript contract`, () => {
     assert.throws(() => validatePlanContract(readInvalidFixture(fixtureName)));
+  });
+}
+
+const invalidPlanBuilderDefaultsFixtures = [
+  "plan-builder-defaults-bad-room-count.json",
+  "plan-builder-defaults-bad-room-size.json",
+  "plan-builder-defaults-bad-door-width.json",
+  "plan-builder-defaults-bad-hallway-width.json",
+  "plan-builder-defaults-bad-station-count.json",
+  "plan-builder-defaults-bad-path-graph-config.json",
+  "plan-builder-defaults-bad-zone-penalty.json",
+  "plan-builder-defaults-empty-labels.json"
+];
+
+for (const fixtureName of invalidPlanBuilderDefaultsFixtures) {
+  test(`${fixtureName} is rejected by TypeScript plan-builder defaults contract`, () => {
+    assert.throws(() => validatePlanBuilderDefaultsContract(readInvalidFixture(fixtureName)));
   });
 }
 

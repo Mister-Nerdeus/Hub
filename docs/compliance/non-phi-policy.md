@@ -21,6 +21,8 @@ This repository must not store, generate, import, or display PHI.
 - Deterministic export bundle integrity hashes for local proof review.
 - Local bundle audit trails that record synthetic export IDs, deterministic validation steps, warnings, and limitations without reviewer identity.
 - Synthetic day profiles and shift scenarios.
+- Operational plan-builder defaults for synthetic room, hallway, door, nurse station, path graph, and zone generation.
+- Deterministic generated plan previews created from synthetic operational defaults.
 
 ## Forbidden
 
@@ -34,5 +36,6 @@ This repository must not store, generate, import, or display PHI.
 - Operational reports presented as safe-staffing certification, clinical adequacy, patient outcome prediction, completed work, route accuracy, delay prediction, clinical documentation, or EHR artifacts.
 - Scenario comparisons or report export bundles presented as recommendations, optimization output, clinical safety claims, patient outcome predictions, clinical documentation, or EHR artifacts.
 - Integrity hashes or audit trails presented as tamper-proof security, legal compliance, chain-of-custody, non-repudiation, clinical safety certification, or reviewer/user identity proof.
+- Plan-builder defaults or generated plan previews that include PHI, patient identity, diagnosis text, clinical notes, EHR imports, optimizer output, or recommendations.
 
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

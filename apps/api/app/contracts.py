@@ -24,6 +24,13 @@ ZoneType = Literal[
 ]
 PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
 StationType = Literal["primary", "secondary", "charge", "temporary"]
+DoorWall = Literal["top", "bottom", "left", "right"]
+EdgeLengthStrategy = Literal["manhattan", "straight_line"]
+StationPlacementMode = Literal[
+    "near_hallway_start",
+    "centered_on_hallway",
+    "near_hallway_end",
+]
 TaskFrequency = Literal["none", "low", "medium", "high", "continuous"]
 BurdenLevel = Literal["none", "low", "medium", "high", "very_high"]
 TurnoverLevel = Literal["low", "normal", "high", "surge"]
@@ -306,6 +313,156 @@ class PlanContract(StrictModel):
             if edge.toNodeId not in path_node_ids:
                 raise ValueError(f"path edge {edge.id} references unknown to node")
 
+        return self
+
+
+class PlanSetupDefaults(StrictModel):
+    planName: str = Field(min_length=1)
+    planDescription: str | None = None
+    pixelsPerFoot: float = Field(gt=0)
+    gridSizeFeet: float = Field(gt=0)
+    snapToGrid: bool
+    originX: float
+    originY: float
+
+
+class RoomGenerationDefaults(StrictModel):
+    roomCount: int = Field(gt=0)
+    roomsPerRow: int = Field(gt=0)
+    defaultRoomWidthFeet: float = Field(gt=0)
+    defaultRoomLengthFeet: float = Field(gt=0)
+    roomSpacingFeet: float = Field(ge=0)
+    roomLabelPrefix: str = Field(min_length=1)
+    defaultRoomType: RoomType
+    defaultMaxPatients: int = Field(gt=0)
+    defaultTraumaCapable: bool
+    defaultIsolationCapable: bool
+    startX: float
+    startY: float
+
+    @model_validator(mode="after")
+    def validate_room_rows(self) -> "RoomGenerationDefaults":
+        if self.roomsPerRow > self.roomCount:
+            raise ValueError("roomsPerRow must be less than or equal to roomCount")
+        return self
+
+
+class HallwayGenerationDefaults(StrictModel):
+    defaultHallwayWidthFeet: float = Field(gt=0)
+    mainHallwayLengthFeet: float = Field(gt=0)
+    mainHallwayStartX: float
+    mainHallwayStartY: float
+    congestionFactor: float = Field(gt=0)
+    defaultBlocked: bool
+
+
+class DoorGenerationDefaults(StrictModel):
+    autoCreateDoors: bool
+    defaultDoorWidthFeet: float = Field(ge=0)
+    doorWall: DoorWall
+    doorOffsetFeet: float = Field(ge=0)
+    doorPenaltySeconds: float = Field(ge=0)
+    autoCreateDoorPathNodes: bool
+
+    @model_validator(mode="after")
+    def validate_door_width(self) -> "DoorGenerationDefaults":
+        if self.autoCreateDoors and self.defaultDoorWidthFeet <= 0:
+            raise ValueError("defaultDoorWidthFeet must be positive when autoCreateDoors is true")
+        return self
+
+
+class NurseStationGenerationDefaults(StrictModel):
+    nurseStationCount: int = Field(ge=0)
+    defaultStationWidthFeet: float = Field(ge=0)
+    defaultStationLengthFeet: float = Field(ge=0)
+    stationType: StationType
+    stationPlacementMode: StationPlacementMode
+    autoCreateStationPathNodes: bool
+
+    @model_validator(mode="after")
+    def validate_station_dimensions(self) -> "NurseStationGenerationDefaults":
+        if self.nurseStationCount > 0:
+            if self.defaultStationWidthFeet <= 0:
+                raise ValueError("defaultStationWidthFeet must be positive when stations are created")
+            if self.defaultStationLengthFeet <= 0:
+                raise ValueError("defaultStationLengthFeet must be positive when stations are created")
+        return self
+
+
+class PathGraphGenerationDefaults(StrictModel):
+    autoCreatePathEdges: bool
+    autoConnectRoomsToHallway: bool
+    defaultEdgeLengthStrategy: EdgeLengthStrategy
+    defaultHallwayEdgeWidthFeet: float = Field(ge=0)
+    defaultCongestionFactor: float = Field(gt=0)
+    defaultTurnPenaltySeconds: float = Field(ge=0)
+    defaultBlocked: bool
+
+    @model_validator(mode="after")
+    def validate_path_edge_width(self) -> "PathGraphGenerationDefaults":
+        if self.autoCreatePathEdges and self.defaultHallwayEdgeWidthFeet <= 0:
+            raise ValueError("defaultHallwayEdgeWidthFeet must be positive when path edges are created")
+        return self
+
+
+class ZoneGenerationDefaults(StrictModel):
+    createDefaultZone: bool
+    defaultZoneLabel: str = ""
+    defaultZoneType: ZoneType
+    defaultZoneTravelBlocked: bool
+    defaultZoneTravelPenalty: float | None = Field(default=None, ge=0)
+
+    @model_validator(mode="after")
+    def validate_zone_label(self) -> "ZoneGenerationDefaults":
+        if self.createDefaultZone and len(self.defaultZoneLabel) == 0:
+            raise ValueError("defaultZoneLabel must be non-empty when createDefaultZone is true")
+        return self
+
+
+class PlanBuilderDefaultsContract(StrictModel):
+    schemaVersion: Literal["1.0.0"]
+    defaultsId: str = Field(min_length=1)
+    name: str = Field(min_length=1)
+    description: str | None = None
+    createdAt: str = Field(min_length=1)
+    updatedAt: str = Field(min_length=1)
+    planSetup: PlanSetupDefaults
+    roomDefaults: RoomGenerationDefaults
+    hallwayDefaults: HallwayGenerationDefaults
+    doorDefaults: DoorGenerationDefaults
+    nurseStationDefaults: NurseStationGenerationDefaults
+    pathGraphDefaults: PathGraphGenerationDefaults
+    zoneDefaults: ZoneGenerationDefaults
+
+    @field_validator("createdAt", "updatedAt")
+    @classmethod
+    def validate_timestamp(cls, value: str) -> str:
+        from datetime import datetime
+
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("timestamp must be ISO-compatible") from exc
+        return value
+
+    @model_validator(mode="after")
+    def validate_generation_cross_fields(self) -> "PlanBuilderDefaultsContract":
+        wall_length = (
+            self.roomDefaults.defaultRoomWidthFeet
+            if self.doorDefaults.doorWall in {"top", "bottom"}
+            else self.roomDefaults.defaultRoomLengthFeet
+        )
+        if (
+            self.doorDefaults.autoCreateDoors
+            and self.doorDefaults.doorOffsetFeet + self.doorDefaults.defaultDoorWidthFeet > wall_length
+        ):
+            raise ValueError("door offset and width must fit on the configured room wall")
+        if (
+            self.pathGraphDefaults.autoCreatePathEdges
+            and self.pathGraphDefaults.autoConnectRoomsToHallway
+            and not self.doorDefaults.autoCreateDoors
+        ):
+            raise ValueError("autoConnectRoomsToHallway requires autoCreateDoors")
         return self
 
 
@@ -1116,6 +1273,10 @@ def validate_manual_assignment_contract(
                     raise ValueError(f"assignment {assignment.id} references unknown room {room_id}")
 
     return assignment_set
+
+
+def validate_plan_builder_defaults_contract(value: Any) -> PlanBuilderDefaultsContract:
+    return PlanBuilderDefaultsContract.model_validate(value)
 
 
 def validate_shift_scenario_contract(

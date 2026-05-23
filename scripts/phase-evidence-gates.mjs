@@ -325,5 +325,50 @@ export const requiredEvidenceGates = [
         ]
       }
     ]
+  },
+  {
+    label: "Issue 081 Plan Builder Input evidence",
+    paths: [
+      "docs/verification/phase-plan-builder-input-evidence.md",
+      "docs/verification/phase-plan-builder-input-checklist.md",
+      "docs/verification/issues/issue-081/defaults-output.json",
+      "docs/verification/issues/issue-081/generated-plan-output.json",
+      "docs/verification/issues/issue-081/screenshots/plan-builder-input-proof.png",
+      "docs/verification/issues/issue-081/validation-output.txt",
+      "docs/verification/issues/issue-081/commands.txt",
+      "docs/verification/issues/issue-081/closeout.md"
+    ],
+    contentChecks: [
+      {
+        path: "docs/verification/phase-plan-builder-input-evidence.md",
+        checks: [
+          ["Plan Builder Defaults", /\bPlan Builder Defaults\b/i],
+          ["Plan generation from defaults", /\bPlan generation from defaults\b/i],
+          ["Plan setup input form", /\bPlan setup input form\b/i],
+          ["Room defaults form", /\bRoom defaults form\b/i],
+          ["Hallway door nurse station defaults", /\bHallway door nurse station defaults\b/i],
+          ["Generated plan preview", /\bGenerated plan preview\b/i],
+          ["Apply generated plan", /\bApply generated plan\b/i],
+          ["No optimizer", /\bNo optimizer\b/i],
+          ["No recommendation", /\bNo recommendation\b/i],
+          ["No PHI", /\bNo PHI\b/i]
+        ]
+      },
+      {
+        path: "docs/verification/phase-plan-builder-input-checklist.md",
+        checks: [
+          ["Plan Builder Defaults", /\bPlan Builder Defaults\b/i],
+          ["Plan generation from defaults", /\bPlan generation from defaults\b/i],
+          ["Plan setup input form", /\bPlan setup input form\b/i],
+          ["Room defaults form", /\bRoom defaults form\b/i],
+          ["Hallway door nurse station defaults", /\bHallway door nurse station defaults\b/i],
+          ["Generated plan preview", /\bGenerated plan preview\b/i],
+          ["Apply generated plan", /\bApply generated plan\b/i],
+          ["No optimizer", /\bNo optimizer\b/i],
+          ["No recommendation", /\bNo recommendation\b/i],
+          ["No PHI", /\bNo PHI\b/i]
+        ]
+      }
+    ]
   }
 ];

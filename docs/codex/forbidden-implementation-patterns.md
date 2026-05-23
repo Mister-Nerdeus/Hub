@@ -23,6 +23,7 @@ The following patterns are not allowed unless a later issue explicitly changes t
 - Major dependencies without dependency matrix review.
 - Report builders that add UI, API endpoints, PDF export, persistence, optimizer behavior, task-completion simulation, walking route calculation, delay calculation, auto-fix behavior, or reassignment suggestions before those scopes are explicitly accepted.
 - Export bundle integrity or audit features that add upload/download behavior, API endpoints, persistence, digital signatures, encryption, key management, chain-of-custody claims, non-repudiation claims, legal compliance claims, tamper-proof claims, reviewer identity, optimizer behavior, or recommendations.
+- Plan-builder input flows that add optimizer or recommendation behavior, API endpoints, new persistence, PHI fields, patient identity, diagnosis text, clinical notes, EHR imports, nurse scoring, reporting, comparison, export, or audit behavior before those scopes are explicitly accepted.
 
 ## Evidence Violations
 

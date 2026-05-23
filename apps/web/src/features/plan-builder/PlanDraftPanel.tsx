@@ -13,10 +13,16 @@ type PlanDraftPanelProps = {
 export function PlanDraftPanel({ plan, dispatch }: PlanDraftPanelProps) {
   return (
     <section className="plan-draft-panel" aria-label="Plan draft operations">
-      <div className="plan-draft-panel__metrics" aria-label="Draft counts">
-        <span>{plan.rooms.length} rooms</span>
-        <span>{plan.hallways.length} hallways</span>
-        <span>{plan.pathEdges.length} path edges</span>
+      <div className="plan-draft-panel__summary">
+        <div>
+          <p className="eyebrow">Developer Proof Controls</p>
+          <h2>Manual draft reducer checks</h2>
+        </div>
+        <div className="plan-draft-panel__metrics" aria-label="Draft counts">
+          <span>{plan.rooms.length} rooms</span>
+          <span>{plan.hallways.length} hallways</span>
+          <span>{plan.pathEdges.length} path edges</span>
+        </div>
       </div>
       <div className="plan-draft-panel__actions">
         <button type="button" onClick={() => dispatch({ type: "addRoom", room: room07 })}>

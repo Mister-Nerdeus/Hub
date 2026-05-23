@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import type { PlanContract } from "@nerdeus/shared";
 
 import { BundleAuditProof } from "./features/bundle-audit/BundleAuditProof";
@@ -9,6 +9,20 @@ import { ExportBundleReviewProof } from "./features/export-review/ExportBundleRe
 import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
+import { GeneratedPlanPreview } from "./features/plan-builder/GeneratedPlanPreview";
+import {
+  applyGeneratedPlanPreview,
+  createGeneratedPlanPreviewViewModel,
+  type GeneratedPlanPreviewViewModel
+} from "./features/plan-builder/generatedPlanPreviewViewModel";
+import { PlanBuilderDefaultsForm } from "./features/plan-builder/PlanBuilderDefaultsForm";
+import {
+  buildDefaults,
+  createDefaultPlanBuilderDefaultsFormState,
+  planBuilderDefaultsFormStateToContract,
+  updatePlanBuilderDefaultsFormState,
+  type PlanBuilderDefaultsFormState
+} from "./features/plan-builder/planBuilderDefaultsFormState";
 import { PlanDraftPanel } from "./features/plan-builder/PlanDraftPanel";
 import { planDraftReducer } from "./features/plan-builder/planDraftReducer";
 import { PlanRenderer } from "./features/plan-renderer/PlanRenderer";
@@ -37,6 +51,32 @@ export function App() {
     planDraftReducer,
     planErPodPhase2 as PlanContract
   );
+  const [defaultsFormState, setDefaultsFormState] = useState(
+    createDefaultPlanBuilderDefaultsFormState
+  );
+  const [generatedPreview, setGeneratedPreview] = useState<GeneratedPlanPreviewViewModel | null>(null);
+  const defaultsResult = planBuilderDefaultsFormStateToContract(defaultsFormState);
+  const validationError = defaultsResult.ok ? null : defaultsResult.error;
+
+  function updateDefaultsField<K extends keyof PlanBuilderDefaultsFormState>(
+    key: K,
+    value: PlanBuilderDefaultsFormState[K]
+  ) {
+    setDefaultsFormState((state) => updatePlanBuilderDefaultsFormState(state, key, value));
+  }
+
+  function generatePreview() {
+    setGeneratedPreview(createGeneratedPlanPreviewViewModel(buildDefaults(defaultsFormState)));
+  }
+
+  function applyPreview() {
+    if (generatedPreview == null) {
+      return;
+    }
+    applyGeneratedPlanPreview(generatedPreview, (plan) =>
+      dispatchDraft({ type: "replacePlan", plan })
+    );
+  }
 
   useEffect(() => {
     if (window.location.hash.length > 1) {
@@ -63,6 +103,16 @@ export function App() {
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
       <BundleAuditProof viewModel={bundleAuditProofViewModel} />
+      <PlanBuilderDefaultsForm
+        state={defaultsFormState}
+        validationError={validationError}
+        onChange={updateDefaultsField}
+      />
+      <GeneratedPlanPreview
+        preview={generatedPreview}
+        onGenerate={generatePreview}
+        onApply={applyPreview}
+      />
       <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
       <PlanSaveLoadPanel
         apiBaseUrl={apiBaseUrl}

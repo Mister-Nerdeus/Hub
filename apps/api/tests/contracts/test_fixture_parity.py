@@ -7,6 +7,7 @@ from pydantic import ValidationError
 from app.contracts import (
     AssumptionsRegisterContract,
     DayProfileContract,
+    PlanBuilderDefaultsContract,
     PlanContract,
     ScenarioContract,
     TaskTemplateContract,
@@ -17,6 +18,7 @@ from app.contracts import (
     validate_manual_assignment_contract,
     validate_nurse_task_assignment_contract,
     validate_operational_report_contract,
+    validate_plan_builder_defaults_contract,
     validate_report_export_bundle_contract,
     validate_room_loads,
     validate_scenario_comparison_contract,
@@ -76,12 +78,37 @@ def test_plan_fixture_matches_python_contract() -> None:
     assert plan.scale.unit == "feet"
 
 
+def test_plan_builder_defaults_fixture_matches_python_contract() -> None:
+    defaults = validate_plan_builder_defaults_contract(
+        load_fixture("plan-builder-defaults-basic.json")
+    )
+
+    assert defaults.schemaVersion == "1.0.0"
+    assert defaults.roomDefaults.roomCount == 6
+    assert defaults.doorDefaults.autoCreateDoors is True
+
+
 def test_phase2_plan_fixture_matches_python_contract() -> None:
     plan = PlanContract.model_validate(load_fixture("plan-er-pod-phase2.json"))
 
     assert len(plan.rooms) == 7
     assert len(plan.nurseStations) == 1
     assert plan.scale.snapToGrid is True
+
+
+@pytest.mark.parametrize(
+    "fixture_name",
+    [
+        "generated-plan-from-defaults-basic.json",
+        "generated-plan-from-defaults-no-doors.json",
+        "generated-plan-from-defaults-no-path-edges.json",
+        "generated-plan-from-defaults-no-stations.json",
+    ],
+)
+def test_generated_plan_from_defaults_fixtures_match_python_contract(fixture_name: str) -> None:
+    plan = PlanContract.model_validate(load_fixture(fixture_name))
+
+    assert plan.schemaVersion == "1.0.0"
 
 
 def test_scenario_fixture_matches_python_contract() -> None:
@@ -266,11 +293,32 @@ def test_phase9_bundle_audit_trail_fixture_matches_python_contract() -> None:
         "plan-station-path-node-wrong-type.json",
         "plan-room-path-node-unrelated-door.json",
         "plan-path-node-linked-object-mismatch.json",
+        "generated-plan-from-defaults-invalid-references.json",
     ],
 )
 def test_invalid_plan_fixtures_are_rejected_by_python_contract(fixture_name: str) -> None:
     with pytest.raises((ValidationError, ValueError)):
         PlanContract.model_validate(load_invalid_fixture(fixture_name))
+
+
+@pytest.mark.parametrize(
+    "fixture_name",
+    [
+        "plan-builder-defaults-bad-room-count.json",
+        "plan-builder-defaults-bad-room-size.json",
+        "plan-builder-defaults-bad-door-width.json",
+        "plan-builder-defaults-bad-hallway-width.json",
+        "plan-builder-defaults-bad-station-count.json",
+        "plan-builder-defaults-bad-path-graph-config.json",
+        "plan-builder-defaults-bad-zone-penalty.json",
+        "plan-builder-defaults-empty-labels.json",
+    ],
+)
+def test_invalid_plan_builder_defaults_fixtures_are_rejected_by_python_contract(
+    fixture_name: str,
+) -> None:
+    with pytest.raises((ValidationError, ValueError)):
+        PlanBuilderDefaultsContract.model_validate(load_invalid_fixture(fixture_name))
 
 
 @pytest.mark.parametrize(

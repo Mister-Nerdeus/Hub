@@ -1,0 +1,11 @@
+Negative docs-gate proof:
+
+Command:
+Move-Item docs/verification/issues/issue-081/defaults-output.json docs/verification/issues/issue-081/defaults-output.json.tmp; node scripts/check-docs-contracts.mjs; restore artifact.
+
+Observed:
+exit=1
+Missing Issue 081 Plan Builder Input evidence: docs/verification/issues/issue-081/defaults-output.json
+
+Result:
+The docs checker protects the Plan Builder Input evidence gate.

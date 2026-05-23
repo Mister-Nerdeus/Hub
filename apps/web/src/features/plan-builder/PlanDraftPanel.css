@@ -1,12 +1,26 @@
 .plan-draft-panel {
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
+  background: #f6f7f8;
+  border: 1px dashed #aeb8c2;
+  border-radius: 8px;
+  display: grid;
   gap: 14px;
-  justify-content: space-between;
   margin: 0 auto;
   max-width: 1180px;
+  padding: 16px;
   width: 100%;
+}
+
+.plan-draft-panel__summary {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+.plan-draft-panel h2 {
+  color: #263340;
+  font-size: 1rem;
+  margin: 0;
 }
 
 .plan-draft-panel__metrics {
@@ -46,4 +60,10 @@
 
 .plan-draft-panel__actions button:hover {
   background: #40505f;
+}
+
+@media (max-width: 760px) {
+  .plan-draft-panel__summary {
+    flex-direction: column;
+  }
 }

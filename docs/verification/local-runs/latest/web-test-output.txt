@@ -6,7 +6,7 @@ Command: npm --workspace apps/web test
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 9 web test file(s).
+Discovered 13 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -24,6 +24,14 @@ Discovered 9 web test file(s).
 
 > src/features/manual-assignment/manualAssignmentViewModel.test.ts
 
+> src/features/plan-builder/generatedPlanPreviewViewModel.test.ts
+
+> src/features/plan-builder/planBuilderAdvancedDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderValidation.test.ts
+
 > src/features/plan-builder/planDraftReducer.test.ts
 
 > src/features/plan-renderer/planRenderGeometry.test.ts
@@ -34,7 +42,7 @@ Discovered 9 web test file(s).
 
 > src/features/reports/reportProofViewModel.test.ts
 
-Executed 9 web test file(s).
+Executed 13 web test file(s).
 
 ## stderr
 

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "defaultsId": "",
+  "name": "",
+  "description": "Synthetic operational plan-builder defaults.",
+  "createdAt": "2026-05-23T00:00:00Z",
+  "updatedAt": "2026-05-23T00:00:00Z",
+  "planSetup": {
+    "planName": "",
+    "planDescription": "Synthetic generated operational layout.",
+    "pixelsPerFoot": 10,
+    "gridSizeFeet": 1,
+    "snapToGrid": true,
+    "originX": 0,
+    "originY": 0
+  },
+  "roomDefaults": {
+    "roomCount": 6,
+    "roomsPerRow": 3,
+    "defaultRoomWidthFeet": 12,
+    "defaultRoomLengthFeet": 10,
+    "roomSpacingFeet": 2,
+    "roomLabelPrefix": "",
+    "defaultRoomType": "standard",
+    "defaultMaxPatients": 1,
+    "defaultTraumaCapable": false,
+    "defaultIsolationCapable": false,
+    "startX": 0,
+    "startY": 0
+  },
+  "hallwayDefaults": {
+    "defaultHallwayWidthFeet": 8,
+    "mainHallwayLengthFeet": 48,
+    "mainHallwayStartX": 0,
+    "mainHallwayStartY": 26,
+    "congestionFactor": 1,
+    "defaultBlocked": false
+  },
+  "doorDefaults": {
+    "autoCreateDoors": true,
+    "defaultDoorWidthFeet": 3,
+    "doorWall": "bottom",
+    "doorOffsetFeet": 4,
+    "doorPenaltySeconds": 4,
+    "autoCreateDoorPathNodes": true
+  },
+  "nurseStationDefaults": {
+    "nurseStationCount": 1,
+    "defaultStationWidthFeet": 10,
+    "defaultStationLengthFeet": 6,
+    "stationType": "primary",
+    "stationPlacementMode": "centered_on_hallway",
+    "autoCreateStationPathNodes": true
+  },
+  "pathGraphDefaults": {
+    "autoCreatePathEdges": true,
+    "autoConnectRoomsToHallway": true,
+    "defaultEdgeLengthStrategy": "manhattan",
+    "defaultHallwayEdgeWidthFeet": 8,
+    "defaultCongestionFactor": 1,
+    "defaultTurnPenaltySeconds": 2,
+    "defaultBlocked": false
+  },
+  "zoneDefaults": {
+    "createDefaultZone": true,
+    "defaultZoneLabel": "",
+    "defaultZoneType": "provider_area",
+    "defaultZoneTravelBlocked": false,
+    "defaultZoneTravelPenalty": 1
+  }
+}

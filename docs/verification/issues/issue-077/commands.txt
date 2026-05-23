@@ -1,0 +1,13 @@
+Commands run for Plan Builder Input batch:
+
+- npm --workspace packages/shared test - passed.
+- cd apps/api; python -m pytest tests/contracts - passed.
+- npm --workspace apps/web test - passed.
+- npm --workspace apps/web run build - passed.
+- cd apps/api; python -m pytest - passed.
+- node scripts/check-no-phi-fields.mjs - passed.
+- node scripts/check-docs-contracts.mjs - passed.
+- Negative docs-gate proof by temporarily renaming issue-081/defaults-output.json - passed.
+- docker compose down - passed.
+- node scripts/verify-local.mjs - passed.
+- npm run evidence:local -- --tracked - passed.

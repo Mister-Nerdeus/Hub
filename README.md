@@ -110,4 +110,6 @@ Phase 8 export review proof covers report-centric comparison documentation, dete
 
 Phase 9 bundle audit proof covers deterministic export bundle integrity hashes, local bundle audit trail contracts, a read-only bundle audit builder, and an API-free bundle audit proof surface. It does not add upload/download behavior, API endpoints, persistence, signatures, encryption, optimization, recommendation, legal compliance claims, tamper-proof claims, clinical safety claims, or PHI.
 
+Plan Builder Input proof covers validated plan-builder defaults, deterministic plan generation from defaults, basic and advanced web input forms, generated plan preview, and apply-to-draft behavior through the existing reducer. It does not add optimizer behavior, recommendation behavior, new API endpoints, new persistence beyond existing plan save/load, PHI, patient identity, diagnosis text, clinical notes, EHR imports, or new nurse scoring/reporting/comparison/export/audit behavior.
+
 The docs guardrail command `node scripts/check-docs-contracts.mjs` enforces Issue 015+ closeout and command artifacts, plus phase evidence gates from `scripts/phase-evidence-gates.mjs` for Phase 2 through the current completed phase.

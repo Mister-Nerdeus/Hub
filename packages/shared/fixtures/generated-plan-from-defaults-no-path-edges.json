@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "plan-builder-defaults-basic",
+  "name": "Generated ER Pod",
+  "description": "Synthetic generated operational layout.",
+  "createdAt": "2026-05-23T00:00:00Z",
+  "updatedAt": "2026-05-23T00:00:00Z",
+  "scale": {
+    "unit": "feet",
+    "pixelsPerUnit": 10,
+    "gridSizeFeet": 1,
+    "snapToGrid": true,
+    "origin": "top-left"
+  },
+  "rooms": [
+    {
+      "id": "room-001",
+      "label": "Room 01",
+      "roomType": "standard",
+      "x": 0,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 4,
+        "y": 10
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-001"
+    },
+    {
+      "id": "room-002",
+      "label": "Room 02",
+      "roomType": "standard",
+      "x": 14,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 18,
+        "y": 10
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-002"
+    },
+    {
+      "id": "room-003",
+      "label": "Room 03",
+      "roomType": "standard",
+      "x": 28,
+      "y": 0,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 32,
+        "y": 10
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-003"
+    },
+    {
+      "id": "room-004",
+      "label": "Room 04",
+      "roomType": "standard",
+      "x": 0,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 4,
+        "y": 22
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-004"
+    },
+    {
+      "id": "room-005",
+      "label": "Room 05",
+      "roomType": "standard",
+      "x": 14,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 18,
+        "y": 22
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-005"
+    },
+    {
+      "id": "room-006",
+      "label": "Room 06",
+      "roomType": "standard",
+      "x": 28,
+      "y": 12,
+      "widthFeet": 12,
+      "lengthFeet": 10,
+      "maxPatients": 1,
+      "traumaCapable": false,
+      "isolationCapable": false,
+      "doorPoint": {
+        "x": 32,
+        "y": 22
+      },
+      "zoneId": "zone-default-pod",
+      "nearestStationId": "station-001",
+      "pathNodeId": "node-door-room-006"
+    }
+  ],
+  "hallways": [
+    {
+      "id": "hallway-main",
+      "label": "Main Hallway",
+      "widthFeet": 8,
+      "points": [
+        {
+          "x": 0,
+          "y": 26
+        },
+        {
+          "x": 48,
+          "y": 26
+        }
+      ]
+    }
+  ],
+  "doors": [
+    {
+      "id": "door-room-001",
+      "label": "Door Room 01",
+      "roomId": "room-001",
+      "x": 4,
+      "y": 10,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-001"
+    },
+    {
+      "id": "door-room-002",
+      "label": "Door Room 02",
+      "roomId": "room-002",
+      "x": 18,
+      "y": 10,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-002"
+    },
+    {
+      "id": "door-room-003",
+      "label": "Door Room 03",
+      "roomId": "room-003",
+      "x": 32,
+      "y": 10,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-003"
+    },
+    {
+      "id": "door-room-004",
+      "label": "Door Room 04",
+      "roomId": "room-004",
+      "x": 4,
+      "y": 22,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-004"
+    },
+    {
+      "id": "door-room-005",
+      "label": "Door Room 05",
+      "roomId": "room-005",
+      "x": 18,
+      "y": 22,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-005"
+    },
+    {
+      "id": "door-room-006",
+      "label": "Door Room 06",
+      "roomId": "room-006",
+      "x": 32,
+      "y": 22,
+      "widthFeet": 3,
+      "pathNodeId": "node-door-room-006"
+    }
+  ],
+  "nurseStations": [
+    {
+      "id": "station-001",
+      "label": "Station 01",
+      "stationType": "primary",
+      "x": 19,
+      "y": 34,
+      "widthFeet": 10,
+      "lengthFeet": 6,
+      "pathNodeId": "node-station-001"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-default-pod",
+      "label": "Default Pod Zone",
+      "zoneType": "provider_area",
+      "color": "#4f8a67",
+      "x": 0,
+      "y": 0,
+      "widthFeet": 48,
+      "lengthFeet": 40,
+      "travelBlocked": false,
+      "travelPenalty": 1
+    }
+  ],
+  "pathNodes": [
+    {
+      "id": "node-door-room-001",
+      "nodeType": "room_door",
+      "x": 4,
+      "y": 10,
+      "linkedObjectId": "door-room-001"
+    },
+    {
+      "id": "node-door-room-002",
+      "nodeType": "room_door",
+      "x": 18,
+      "y": 10,
+      "linkedObjectId": "door-room-002"
+    },
+    {
+      "id": "node-door-room-003",
+      "nodeType": "room_door",
+      "x": 32,
+      "y": 10,
+      "linkedObjectId": "door-room-003"
+    },
+    {
+      "id": "node-door-room-004",
+      "nodeType": "room_door",
+      "x": 4,
+      "y": 22,
+      "linkedObjectId": "door-room-004"
+    },
+    {
+      "id": "node-door-room-005",
+      "nodeType": "room_door",
+      "x": 18,
+      "y": 22,
+      "linkedObjectId": "door-room-005"
+    },
+    {
+      "id": "node-door-room-006",
+      "nodeType": "room_door",
+      "x": 32,
+      "y": 22,
+      "linkedObjectId": "door-room-006"
+    },
+    {
+      "id": "node-station-001",
+      "nodeType": "station",
+      "x": 24,
+      "y": 34,
+      "linkedObjectId": "station-001"
+    }
+  ],
+  "pathEdges": []
+}

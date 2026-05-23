@@ -1,5 +1,4 @@
 import {
-  validatePlanContract,
   type Door,
   type Hallway,
   type NurseStation,
@@ -9,6 +8,8 @@ import {
   type Room,
   type ScaleSettings
 } from "@nerdeus/shared";
+
+import { applyValidatedPlanDraft } from "./planBuilderValidation";
 
 export type PlanDraftAction =
   | { type: "replacePlan"; plan: PlanContract }
@@ -71,9 +72,5 @@ export function planDraftReducer(state: PlanContract, action: PlanDraftAction): 
 }
 
 function validatedDraft(previous: PlanContract, next: PlanContract): PlanContract {
-  try {
-    return validatePlanContract(next);
-  } catch {
-    return previous;
-  }
+  return applyValidatedPlanDraft(previous, next).plan;
 }

@@ -1,4 +1,5 @@
 export * from "./contracts.js";
+export * from "./plan-builder/generatePlanFromDefaults.js";
 export * from "./assignment/validateManualAssignment.js";
 export * from "./comparison/buildScenarioComparison.js";
 export * from "./export/buildBundleAudit.js";

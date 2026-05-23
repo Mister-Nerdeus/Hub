@@ -245,6 +245,101 @@ export type PlanContract = {
   pathEdges: PathEdge[];
 };
 
+export type PlanBuilderDefaultsContract = {
+  schemaVersion: "1.0.0";
+  defaultsId: string;
+  name: string;
+  description?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  planSetup: PlanSetupDefaults;
+  roomDefaults: RoomGenerationDefaults;
+  hallwayDefaults: HallwayGenerationDefaults;
+  doorDefaults: DoorGenerationDefaults;
+  nurseStationDefaults: NurseStationGenerationDefaults;
+  pathGraphDefaults: PathGraphGenerationDefaults;
+  zoneDefaults: ZoneGenerationDefaults;
+};
+
+export type DoorWall = "top" | "bottom" | "left" | "right";
+
+export type EdgeLengthStrategy = "manhattan" | "straight_line";
+
+export type StationPlacementMode =
+  | "near_hallway_start"
+  | "centered_on_hallway"
+  | "near_hallway_end";
+
+export type PlanSetupDefaults = {
+  planName: string;
+  planDescription?: string | null;
+  pixelsPerFoot: number;
+  gridSizeFeet: number;
+  snapToGrid: boolean;
+  originX: number;
+  originY: number;
+};
+
+export type RoomGenerationDefaults = {
+  roomCount: number;
+  roomsPerRow: number;
+  defaultRoomWidthFeet: number;
+  defaultRoomLengthFeet: number;
+  roomSpacingFeet: number;
+  roomLabelPrefix: string;
+  defaultRoomType: RoomType;
+  defaultMaxPatients: number;
+  defaultTraumaCapable: boolean;
+  defaultIsolationCapable: boolean;
+  startX: number;
+  startY: number;
+};
+
+export type DoorGenerationDefaults = {
+  autoCreateDoors: boolean;
+  defaultDoorWidthFeet: number;
+  doorWall: DoorWall;
+  doorOffsetFeet: number;
+  doorPenaltySeconds: number;
+  autoCreateDoorPathNodes: boolean;
+};
+
+export type HallwayGenerationDefaults = {
+  defaultHallwayWidthFeet: number;
+  mainHallwayLengthFeet: number;
+  mainHallwayStartX: number;
+  mainHallwayStartY: number;
+  congestionFactor: number;
+  defaultBlocked: boolean;
+};
+
+export type NurseStationGenerationDefaults = {
+  nurseStationCount: number;
+  defaultStationWidthFeet: number;
+  defaultStationLengthFeet: number;
+  stationType: StationType;
+  stationPlacementMode: StationPlacementMode;
+  autoCreateStationPathNodes: boolean;
+};
+
+export type PathGraphGenerationDefaults = {
+  autoCreatePathEdges: boolean;
+  autoConnectRoomsToHallway: boolean;
+  defaultEdgeLengthStrategy: EdgeLengthStrategy;
+  defaultHallwayEdgeWidthFeet: number;
+  defaultCongestionFactor: number;
+  defaultTurnPenaltySeconds: number;
+  defaultBlocked: boolean;
+};
+
+export type ZoneGenerationDefaults = {
+  createDefaultZone: boolean;
+  defaultZoneLabel: string;
+  defaultZoneType: ZoneType;
+  defaultZoneTravelBlocked: boolean;
+  defaultZoneTravelPenalty?: number | null;
+};
+
 export type RoomLoad = {
   roomId: string;
   occupied: boolean;
@@ -794,8 +889,416 @@ export function validatePlanContract(value: unknown): PlanContract {
   return plan as PlanContract;
 }
 
+export function validatePlanBuilderDefaultsContract(
+  value: unknown
+): PlanBuilderDefaultsContract {
+  const defaults = requireRecord(value, "planBuilderDefaults");
+  requireExactKeys(defaults, "planBuilderDefaults", [
+    "schemaVersion",
+    "defaultsId",
+    "name",
+    "description",
+    "createdAt",
+    "updatedAt",
+    "planSetup",
+    "roomDefaults",
+    "hallwayDefaults",
+    "doorDefaults",
+    "nurseStationDefaults",
+    "pathGraphDefaults",
+    "zoneDefaults"
+  ]);
+
+  requireLiteral(defaults.schemaVersion, "1.0.0", "schemaVersion");
+  requireString(defaults.defaultsId, "defaultsId");
+  requireString(defaults.name, "name");
+  requireOptionalString(defaults.description, "description");
+  requireIsoDateTime(defaults.createdAt, "createdAt");
+  requireIsoDateTime(defaults.updatedAt, "updatedAt");
+
+  const planSetup = validatePlanSetupDefaults(
+    defaults.planSetup,
+    "planSetup"
+  );
+  const roomDefaults = validateRoomGenerationDefaults(
+    defaults.roomDefaults,
+    "roomDefaults"
+  );
+  const hallwayDefaults = validateHallwayGenerationDefaults(
+    defaults.hallwayDefaults,
+    "hallwayDefaults"
+  );
+  const doorDefaults = validateDoorGenerationDefaults(
+    defaults.doorDefaults,
+    "doorDefaults",
+    roomDefaults
+  );
+  const nurseStationDefaults = validateNurseStationGenerationDefaults(
+    defaults.nurseStationDefaults,
+    "nurseStationDefaults"
+  );
+  const pathGraphDefaults = validatePathGraphGenerationDefaults(
+    defaults.pathGraphDefaults,
+    "pathGraphDefaults",
+    roomDefaults,
+    hallwayDefaults,
+    doorDefaults
+  );
+  const zoneDefaults = validateZoneGenerationDefaults(
+    defaults.zoneDefaults,
+    "zoneDefaults"
+  );
+
+  return {
+    schemaVersion: "1.0.0",
+    defaultsId: defaults.defaultsId,
+    name: defaults.name,
+    description: defaults.description ?? null,
+    createdAt: defaults.createdAt,
+    updatedAt: defaults.updatedAt,
+    planSetup,
+    roomDefaults,
+    hallwayDefaults,
+    doorDefaults,
+    nurseStationDefaults,
+    pathGraphDefaults,
+    zoneDefaults
+  } as PlanBuilderDefaultsContract;
+}
+
 export function validateScenarioContract(value: unknown): ScenarioContract {
   return validateShiftScenarioContract(value);
+}
+
+function validatePlanSetupDefaults(
+  value: unknown,
+  label: string
+): PlanSetupDefaults {
+  const planSetup = requireRecord(value, label);
+  requireExactKeys(planSetup, label, [
+    "planName",
+    "planDescription",
+    "pixelsPerFoot",
+    "gridSizeFeet",
+    "snapToGrid",
+    "originX",
+    "originY"
+  ]);
+
+  const planName = requireString(planSetup.planName, `${label}.planName`);
+  const planDescription = requireOptionalString(planSetup.planDescription, `${label}.planDescription`);
+  const pixelsPerFoot = requirePositiveNumber(planSetup.pixelsPerFoot, `${label}.pixelsPerFoot`);
+  const gridSizeFeet = requirePositiveNumber(planSetup.gridSizeFeet, `${label}.gridSizeFeet`);
+  const snapToGrid = requireBoolean(planSetup.snapToGrid, `${label}.snapToGrid`);
+  const originX = requireNumber(planSetup.originX, `${label}.originX`);
+  const originY = requireNumber(planSetup.originY, `${label}.originY`);
+
+  return {
+    planName,
+    planDescription: planDescription ?? null,
+    pixelsPerFoot,
+    gridSizeFeet,
+    snapToGrid,
+    originX,
+    originY
+  };
+}
+
+function validateRoomGenerationDefaults(value: unknown, label: string): RoomGenerationDefaults {
+  const roomDefaults = requireRecord(value, label);
+  requireExactKeys(roomDefaults, label, [
+    "roomCount",
+    "roomsPerRow",
+    "defaultRoomWidthFeet",
+    "defaultRoomLengthFeet",
+    "roomSpacingFeet",
+    "roomLabelPrefix",
+    "defaultRoomType",
+    "defaultMaxPatients",
+    "defaultTraumaCapable",
+    "defaultIsolationCapable",
+    "startX",
+    "startY"
+  ]);
+
+  const roomCount = requirePositiveInteger(roomDefaults.roomCount, `${label}.roomCount`);
+  const roomsPerRow = requirePositiveInteger(roomDefaults.roomsPerRow, `${label}.roomsPerRow`);
+  if (roomsPerRow > roomCount) {
+    throw new Error("roomsPerRow must be less than or equal to roomCount");
+  }
+  const defaultRoomWidthFeet = requirePositiveNumber(
+    roomDefaults.defaultRoomWidthFeet,
+    `${label}.defaultRoomWidthFeet`
+  );
+  const defaultRoomLengthFeet = requirePositiveNumber(
+    roomDefaults.defaultRoomLengthFeet,
+    `${label}.defaultRoomLengthFeet`
+  );
+  const roomSpacingFeet = requireNonNegativeNumber(roomDefaults.roomSpacingFeet, `${label}.roomSpacingFeet`);
+  const roomLabelPrefix = requireString(roomDefaults.roomLabelPrefix, `${label}.roomLabelPrefix`);
+  const defaultRoomType = requireEnum(roomDefaults.defaultRoomType, ROOM_TYPES, `${label}.defaultRoomType`);
+  const defaultMaxPatients = requirePositiveInteger(
+    roomDefaults.defaultMaxPatients,
+    `${label}.defaultMaxPatients`
+  );
+  const defaultTraumaCapable = requireBoolean(roomDefaults.defaultTraumaCapable, `${label}.defaultTraumaCapable`);
+  const defaultIsolationCapable = requireBoolean(
+    roomDefaults.defaultIsolationCapable,
+    `${label}.defaultIsolationCapable`
+  );
+  const startX = requireNumber(roomDefaults.startX, `${label}.startX`);
+  const startY = requireNumber(roomDefaults.startY, `${label}.startY`);
+
+  return {
+    roomCount,
+    roomsPerRow,
+    defaultRoomWidthFeet,
+    defaultRoomLengthFeet,
+    roomSpacingFeet,
+    roomLabelPrefix,
+    defaultRoomType,
+    defaultMaxPatients,
+    defaultTraumaCapable,
+    defaultIsolationCapable,
+    startX,
+    startY
+  };
+}
+
+function validateHallwayGenerationDefaults(value: unknown, label: string): HallwayGenerationDefaults {
+  const hallwayDefaults = requireRecord(value, label);
+  requireExactKeys(hallwayDefaults, label, [
+    "defaultHallwayWidthFeet",
+    "mainHallwayLengthFeet",
+    "mainHallwayStartX",
+    "mainHallwayStartY",
+    "congestionFactor",
+    "defaultBlocked"
+  ]);
+
+  const defaultHallwayWidthFeet = requirePositiveNumber(
+    hallwayDefaults.defaultHallwayWidthFeet,
+    `${label}.defaultHallwayWidthFeet`
+  );
+  const mainHallwayLengthFeet = requirePositiveNumber(
+    hallwayDefaults.mainHallwayLengthFeet,
+    `${label}.mainHallwayLengthFeet`
+  );
+  const mainHallwayStartX = requireNumber(hallwayDefaults.mainHallwayStartX, `${label}.mainHallwayStartX`);
+  const mainHallwayStartY = requireNumber(hallwayDefaults.mainHallwayStartY, `${label}.mainHallwayStartY`);
+  const congestionFactor = requirePositiveNumber(hallwayDefaults.congestionFactor, `${label}.congestionFactor`);
+  const defaultBlocked = requireBoolean(hallwayDefaults.defaultBlocked, `${label}.defaultBlocked`);
+
+  return {
+    defaultHallwayWidthFeet,
+    mainHallwayLengthFeet,
+    mainHallwayStartX,
+    mainHallwayStartY,
+    congestionFactor,
+    defaultBlocked
+  };
+}
+
+function validateDoorGenerationDefaults(
+  value: unknown,
+  label: string,
+  roomDefaults: RoomGenerationDefaults
+): DoorGenerationDefaults {
+  const doorDefaults = requireRecord(value, label);
+  requireExactKeys(doorDefaults, label, [
+    "autoCreateDoors",
+    "defaultDoorWidthFeet",
+    "doorWall",
+    "doorOffsetFeet",
+    "doorPenaltySeconds",
+    "autoCreateDoorPathNodes"
+  ]);
+  const autoCreateDoors = requireBoolean(doorDefaults.autoCreateDoors, `${label}.autoCreateDoors`);
+  const doorWall = requireEnum(doorDefaults.doorWall, ["top", "bottom", "left", "right"], `${label}.doorWall`);
+  const defaultDoorWidthFeet = requireNonNegativeNumber(doorDefaults.defaultDoorWidthFeet, `${label}.defaultDoorWidthFeet`);
+  if (autoCreateDoors && defaultDoorWidthFeet <= 0) {
+    throw new Error("defaultDoorWidthFeet must be positive when autoCreateDoors is true");
+  }
+  const doorOffsetFeet = requireNonNegativeNumber(doorDefaults.doorOffsetFeet, `${label}.doorOffsetFeet`);
+  const wallLength = doorWall === "left" || doorWall === "right"
+    ? roomDefaults.defaultRoomLengthFeet
+    : roomDefaults.defaultRoomWidthFeet;
+  if (autoCreateDoors && doorOffsetFeet > Math.max(0, wallLength - defaultDoorWidthFeet)) {
+    throw new Error("doorOffsetFeet would place the door outside the room wall");
+  }
+  const doorPenaltySeconds = requireNonNegativeNumber(
+    doorDefaults.doorPenaltySeconds,
+    `${label}.doorPenaltySeconds`
+  );
+  const autoCreateDoorPathNodes = requireBoolean(doorDefaults.autoCreateDoorPathNodes, `${label}.autoCreateDoorPathNodes`);
+
+  return {
+    autoCreateDoors,
+    defaultDoorWidthFeet,
+    doorWall,
+    doorOffsetFeet,
+    doorPenaltySeconds,
+    autoCreateDoorPathNodes
+  };
+}
+
+function validateNurseStationGenerationDefaults(value: unknown, label: string): NurseStationGenerationDefaults {
+  const stationDefaults = requireRecord(value, label);
+  requireExactKeys(stationDefaults, label, [
+    "nurseStationCount",
+    "defaultStationWidthFeet",
+    "defaultStationLengthFeet",
+    "stationType",
+    "stationPlacementMode",
+    "autoCreateStationPathNodes"
+  ]);
+
+  const nurseStationCount = requireNonNegativeNumber(
+    stationDefaults.nurseStationCount,
+    `${label}.nurseStationCount`
+  );
+  if (!Number.isInteger(nurseStationCount)) {
+    throw new Error(`${label}.nurseStationCount must be an integer`);
+  }
+  const defaultStationWidthFeet = nurseStationCount > 0
+    ? requirePositiveNumber(
+      stationDefaults.defaultStationWidthFeet,
+      `${label}.defaultStationWidthFeet`
+    )
+    : requireNonNegativeNumber(stationDefaults.defaultStationWidthFeet, `${label}.defaultStationWidthFeet`);
+  const defaultStationLengthFeet = nurseStationCount > 0
+    ? requirePositiveNumber(
+      stationDefaults.defaultStationLengthFeet,
+      `${label}.defaultStationLengthFeet`
+    )
+    : requireNonNegativeNumber(stationDefaults.defaultStationLengthFeet, `${label}.defaultStationLengthFeet`);
+  const stationType = requireEnum(stationDefaults.stationType, STATION_TYPES, `${label}.stationType`);
+  const stationPlacementMode = requireEnum(
+    stationDefaults.stationPlacementMode,
+    ["near_hallway_start", "centered_on_hallway", "near_hallway_end"],
+    `${label}.stationPlacementMode`
+  );
+  const autoCreateStationPathNodes = requireBoolean(stationDefaults.autoCreateStationPathNodes, `${label}.autoCreateStationPathNodes`);
+
+  return {
+    nurseStationCount: Math.trunc(nurseStationCount),
+    defaultStationWidthFeet,
+    defaultStationLengthFeet,
+    stationType,
+    stationPlacementMode,
+    autoCreateStationPathNodes
+  };
+}
+
+function validatePathGraphGenerationDefaults(
+  value: unknown,
+  label: string,
+  roomDefaults: RoomGenerationDefaults,
+  hallwayDefaults: HallwayGenerationDefaults,
+  doorDefaults: DoorGenerationDefaults
+): PathGraphGenerationDefaults {
+  const pathGraphDefaults = requireRecord(value, label);
+  requireExactKeys(pathGraphDefaults, label, [
+    "autoCreatePathEdges",
+    "autoConnectRoomsToHallway",
+    "defaultEdgeLengthStrategy",
+    "defaultHallwayEdgeWidthFeet",
+    "defaultCongestionFactor",
+    "defaultTurnPenaltySeconds",
+    "defaultBlocked"
+  ]);
+
+  const autoCreatePathEdges = requireBoolean(pathGraphDefaults.autoCreatePathEdges, `${label}.autoCreatePathEdges`);
+  const autoConnectRoomsToHallway = requireBoolean(pathGraphDefaults.autoConnectRoomsToHallway, `${label}.autoConnectRoomsToHallway`);
+  const defaultEdgeLengthStrategy = requireEnum(
+    pathGraphDefaults.defaultEdgeLengthStrategy,
+    ["manhattan", "straight_line"],
+    `${label}.defaultEdgeLengthStrategy`
+  );
+  const defaultHallwayEdgeWidthFeet = autoCreatePathEdges
+    ? requirePositiveNumber(
+        pathGraphDefaults.defaultHallwayEdgeWidthFeet,
+        `${label}.defaultHallwayEdgeWidthFeet`
+      )
+    : requireNonNegativeNumber(
+        pathGraphDefaults.defaultHallwayEdgeWidthFeet,
+        `${label}.defaultHallwayEdgeWidthFeet`
+      );
+  const defaultCongestionFactor = requirePositiveNumber(
+    pathGraphDefaults.defaultCongestionFactor,
+    `${label}.defaultCongestionFactor`
+  );
+  const defaultTurnPenaltySeconds = requireNonNegativeNumber(
+    pathGraphDefaults.defaultTurnPenaltySeconds,
+    `${label}.defaultTurnPenaltySeconds`
+  );
+  const defaultBlocked = requireBoolean(pathGraphDefaults.defaultBlocked, `${label}.defaultBlocked`);
+
+  if (
+    autoCreatePathEdges &&
+    autoConnectRoomsToHallway &&
+    !doorDefaults.autoCreateDoors &&
+    roomDefaults.roomCount > 0
+  ) {
+    throw new Error(
+      "autoConnectRoomsToHallway requires autoCreateDoors or path graph generation must be disabled"
+    );
+  }
+  if (autoCreatePathEdges && hallwayDefaults.mainHallwayLengthFeet <= 0) {
+    throw new Error("path graph defaults require a valid hallway length");
+  }
+
+  return {
+    autoCreatePathEdges,
+    autoConnectRoomsToHallway,
+    defaultEdgeLengthStrategy,
+    defaultHallwayEdgeWidthFeet,
+    defaultCongestionFactor,
+    defaultTurnPenaltySeconds,
+    defaultBlocked
+  };
+}
+
+function validateZoneGenerationDefaults(value: unknown, label: string): ZoneGenerationDefaults {
+  const zoneDefaults = requireRecord(value, label);
+  requireExactKeys(zoneDefaults, label, [
+    "createDefaultZone",
+    "defaultZoneLabel",
+    "defaultZoneType",
+    "defaultZoneTravelBlocked",
+    "defaultZoneTravelPenalty"
+  ]);
+
+  const createDefaultZone = requireBoolean(zoneDefaults.createDefaultZone, `${label}.createDefaultZone`);
+  const defaultZoneLabel =
+    zoneDefaults.defaultZoneLabel == null
+      ? ""
+      : requireOptionalString(zoneDefaults.defaultZoneLabel, `${label}.defaultZoneLabel`) ?? "";
+  const defaultZoneType = requireEnum(
+    zoneDefaults.defaultZoneType,
+    ZONE_TYPES,
+    `${label}.defaultZoneType`
+  );
+  const defaultZoneTravelBlocked = requireBoolean(
+    zoneDefaults.defaultZoneTravelBlocked,
+    `${label}.defaultZoneTravelBlocked`
+  );
+  const defaultZoneTravelPenalty =
+    zoneDefaults.defaultZoneTravelPenalty == null
+      ? null
+      : requireNonNegativeNumber(zoneDefaults.defaultZoneTravelPenalty, `${label}.defaultZoneTravelPenalty`);
+
+  if (createDefaultZone) {
+    requireString(defaultZoneLabel, `${label}.defaultZoneLabel`);
+  }
+
+  return {
+    createDefaultZone,
+    defaultZoneLabel,
+    defaultZoneType,
+    defaultZoneTravelBlocked,
+    defaultZoneTravelPenalty
+  };
 }
 
 export function validateAssumptionsRegisterContract(
