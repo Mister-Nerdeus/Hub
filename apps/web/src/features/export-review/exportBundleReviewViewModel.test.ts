@@ -25,8 +25,19 @@ if (viewModel.validReview.summary.scenarioIds.length === 0) {
   throw new Error("scenario IDs missing");
 }
 
+if (viewModel.validReview.summary.scenarioIds.join(",") !== "shift-scenario-basic,shift-scenario-surge") {
+  throw new Error("scenario IDs must be deterministic");
+}
+
 if (viewModel.validReview.summary.reportIds.length === 0) {
   throw new Error("report IDs missing");
+}
+
+if (
+  viewModel.validReview.summary.reportIds.join(",") !==
+  "operational-summary-generated-task-set-basic,operational-summary-generated-task-set-surge"
+) {
+  throw new Error("report IDs must be deterministic");
 }
 
 if (!viewModel.validReview.summary.hasComparison) {

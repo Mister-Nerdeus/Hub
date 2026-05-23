@@ -1,0 +1,1418 @@
+Commands run for Phase 8 export review code review:
+
+- git status --short
+- git log --oneline -5
+- git show --stat --oneline HEAD
+- git diff HEAD~1..HEAD --name-only
+- Read Phase 8 export review, parser, tests, and phase evidence gate files.
+- rg boundary scan for upload/download/recommendation/optimizer/API/persistence/PHI terms.
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- npm --workspace packages/shared test
+- node scripts/check-docs-contracts.mjs
+- node scripts/check-no-phi-fields.mjs
+
+> cd apps/api && python -m pytest
+........................................................................ [ 53%]
+...............................................................          [100%]
+135 passed in 1.06s
+
+> docker compose down
+ Container hub-web-1 Stopping 
+ Container hub-web-1 Stopped 
+ Container hub-web-1 Removing 
+ Container hub-web-1 Removed 
+ Container hub-api-1 Stopping 
+ Container hub-api-1 Stopped 
+ Container hub-api-1 Removing 
+ Container hub-api-1 Removed 
+ Container hub-db-1 Stopping 
+ Container hub-db-1 Stopped 
+ Container hub-db-1 Removing 
+ Container hub-db-1 Removed 
+ Network hub_default Removing 
+ Network hub_default Removed 
+
+> node scripts/verify-local.mjs
+
+> docker compose config
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+
+> docker compose up --build -d
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 869B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 416B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 299B done
+#3 DONE 0.0s
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [auth] library/python:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [api internal] load metadata for docker.io/library/python:3.13-slim
+#6 ...
+
+#7 [web internal] load metadata for docker.io/library/node:22-alpine
+#7 DONE 0.6s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 127B done
+#8 DONE 0.0s
+
+#9 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#9 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#9 DONE 0.0s
+
+#6 [api internal] load metadata for docker.io/library/python:3.13-slim
+#6 DONE 0.7s
+
+#10 [web internal] load build context
+#10 ...
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 127B done
+#8 DONE 0.0s
+
+#11 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#11 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.0s done
+#11 DONE 0.0s
+
+#10 [web internal] load build context
+#10 ...
+
+#12 [api internal] load build context
+#12 transferring context: 409.95kB 0.2s done
+#12 DONE 0.3s
+
+#13 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#13 CACHED
+
+#14 [api 2/5] WORKDIR /app
+#14 CACHED
+
+#15 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#15 CACHED
+
+#16 [api 5/5] COPY apps/api/ ./
+#16 CACHED
+
+#10 [web internal] load build context
+#10 transferring context: 3.70MB 0.4s done
+#10 DONE 0.5s
+
+#17 [web  3/10] COPY package.json package-lock.json ./
+#17 CACHED
+
+#18 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#18 CACHED
+
+#19 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#19 CACHED
+
+#20 [web  6/10] RUN npm ci
+#20 CACHED
+
+#21 [web  2/10] WORKDIR /repo
+#21 CACHED
+
+#22 [web  7/10] COPY tsconfig.base.json ./
+#22 CACHED
+
+#23 [api] exporting to image
+#23 exporting layers done
+#23 exporting manifest sha256:8728aecf607e6ca793544d3ead504bb0af4346699c90930f6dd1818d68b94ee9 done
+#23 exporting config sha256:f4911d1d9a07c353dbaa26082bc11f38356212e9bb15441a071823d23c534f86 0.0s done
+#23 exporting attestation manifest sha256:9e8d00be626f042021182e5cd359bff51f29fbb43d3a4a5b3feab59810e539cb 0.1s done
+#23 exporting manifest list sha256:84404c7457bfbb6cb2d1c6252889ef7be81e6c85dab66b9fa6c6bc4c0742f0d5 0.0s done
+#23 naming to docker.io/library/hub-api:latest
+#23 naming to docker.io/library/hub-api:latest done
+#23 unpacking to docker.io/library/hub-api:latest 0.0s done
+#23 DONE 0.4s
+
+#24 [web  8/10] COPY apps/web apps/web
+#24 DONE 0.2s
+
+#25 [web  9/10] COPY packages/shared packages/shared
+#25 DONE 0.3s
+
+#26 [web 10/10] WORKDIR /repo/apps/web
+#26 DONE 0.2s
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#28 [web] exporting to image
+#28 exporting layers 0.3s done
+#28 exporting manifest sha256:4960ab12f1babd1ca2d75643c4aa7774e6844cd9b4922c82de10454ff4096fcf 0.0s done
+#28 exporting config sha256:041e5a5394b3a13c8b600221418d4c149eac31a5cefa5e79ecd491ce6e72aa02 0.0s done
+#28 exporting attestation manifest sha256:39a23d5b00a912513ea5954be6e2a4bf9d527f54261991dd2f4514b4b1faad7f 0.0s done
+#28 exporting manifest list sha256:8b35fe77035a7d23b97537890a9e32ff5d36670177d2f5b3cc5b0ebd24fa3a9b
+#28 exporting manifest list sha256:8b35fe77035a7d23b97537890a9e32ff5d36670177d2f5b3cc5b0ebd24fa3a9b 0.0s done
+#28 naming to docker.io/library/hub-web:latest done
+#28 unpacking to docker.io/library/hub-web:latest 0.1s done
+#28 DONE 0.6s
+
+#29 [web] resolving provenance for metadata file
+#29 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Network hub_default Creating 
+ Network hub_default Created 
+ Container hub-db-1 Creating 
+ Container hub-db-1 Created 
+ Container hub-api-1 Creating 
+ Container hub-api-1 Created 
+ Container hub-web-1 Creating 
+ Container hub-web-1 Created 
+ Container hub-db-1 Starting 
+ Container hub-db-1 Started 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 
+
+> docker compose ps
+NAME        IMAGE                COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       6 seconds ago   Up Less than a second    0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        6 seconds ago   Up 6 seconds (healthy)   5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       6 seconds ago   Up Less than a second    0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
+
+> docker compose --profile tools run --rm migrate
+ Container hub-db-1 Running 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-c3df6a50d07b Creating 
+ Container hub-migrate-run-c3df6a50d07b Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+> node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+
+> npm --workspace packages/shared test
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: aggregateTaskTimeline groups generated tasks by deterministic timestep buckets
+ok 1 - aggregateTaskTimeline groups generated tasks by deterministic timestep buckets
+  ---
+  duration_ms: 29.6628
+  type: 'test'
+  ...
+# Subtest: aggregateTaskTimeline sorts task IDs and room IDs within buckets
+ok 2 - aggregateTaskTimeline sorts task IDs and room IDs within buckets
+  ---
+  duration_ms: 1.7298
+  type: 'test'
+  ...
+# Subtest: aggregateTaskTimeline validates the generated task set before aggregating
+ok 3 - aggregateTaskTimeline validates the generated task set before aggregating
+  ---
+  duration_ms: 1.9176
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage assigns covered-room tasks and validates output contract
+ok 4 - assignTasksByManualCoverage assigns covered-room tasks and validates output contract
+  ---
+  duration_ms: 60.041
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage leaves uncovered rooms unassigned with warnings
+ok 5 - assignTasksByManualCoverage leaves uncovered rooms unassigned with warnings
+  ---
+  duration_ms: 29.1888
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage treats duplicate room coverage as invalid coverage
+ok 6 - assignTasksByManualCoverage treats duplicate room coverage as invalid coverage
+  ---
+  duration_ms: 17.964
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage leaves unknown-room tasks unassigned with warning
+ok 7 - assignTasksByManualCoverage leaves unknown-room tasks unassigned with warning
+  ---
+  duration_ms: 2.2957
+  type: 'test'
+  ...
+# Subtest: default scoring assumptions match exported default constants
+ok 8 - default scoring assumptions match exported default constants
+  ---
+  duration_ms: 2.1049
+  type: 'test'
+  ...
+# Subtest: parity failure names the mismatched assumption weight
+ok 9 - parity failure names the mismatched assumption weight
+  ---
+  duration_ms: 1.2605
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoadWithAssumptions matches default scoring with assumptions-basic
+ok 10 - scoreRoomLoadWithAssumptions matches default scoring with assumptions-basic
+  ---
+  duration_ms: 5.7207
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoadWithAssumptions responds to changed assumptions without changing default scoring
+ok 11 - scoreRoomLoadWithAssumptions responds to changed assumptions without changing default scoring
+  ---
+  duration_ms: 1.8582
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurdenWithAssumptions matches default scoring with assumptions-basic
+ok 12 - scoreNurseBurdenWithAssumptions matches default scoring with assumptions-basic
+  ---
+  duration_ms: 48.9814
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurdenWithAssumptions responds to changed nurse burden weights only
+ok 13 - scoreNurseBurdenWithAssumptions responds to changed nurse burden weights only
+  ---
+  duration_ms: 2.6464
+  type: 'test'
+  ...
+# Subtest: buildNurseWorkloadReport creates deterministic per-nurse workload output
+ok 14 - buildNurseWorkloadReport creates deterministic per-nurse workload output
+  ---
+  duration_ms: 54.2557
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport creates deterministic validated summary output
+ok 15 - buildOperationalSummaryReport creates deterministic validated summary output
+  ---
+  duration_ms: 86.3204
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport rejects mismatched timeline input
+ok 16 - buildOperationalSummaryReport rejects mismatched timeline input
+  ---
+  duration_ms: 2.0731
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport includes required operational limitations
+ok 17 - buildOperationalSummaryReport includes required operational limitations
+  ---
+  duration_ms: 2.2755
+  type: 'test'
+  ...
+# Subtest: report export bundle fixture validates against TypeScript contract
+ok 18 - report export bundle fixture validates against TypeScript contract
+  ---
+  duration_ms: 6.4816
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle creates deterministic validated output
+ok 19 - buildReportExportBundle creates deterministic validated output
+  ---
+  duration_ms: 4.7563
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle supports bundles without a comparison
+ok 20 - buildReportExportBundle supports bundles without a comparison
+  ---
+  duration_ms: 2.1485
+  type: 'test'
+  ...
+# Subtest: report export bundle contract accepts omitted optional comparison
+ok 21 - report export bundle contract accepts omitted optional comparison
+  ---
+  duration_ms: 0.7672
+  type: 'test'
+  ...
+# Subtest: report export bundle contract accepts null optional comparison
+ok 22 - report export bundle contract accepts null optional comparison
+  ---
+  duration_ms: 0.8074
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle rejects empty reports
+ok 23 - buildReportExportBundle rejects empty reports
+  ---
+  duration_ms: 0.7219
+  type: 'test'
+  ...
+# Subtest: invalid report export bundle fixtures are rejected by TypeScript contract
+ok 24 - invalid report export bundle fixtures are rejected by TypeScript contract
+  ---
+  duration_ms: 1.874
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle rejects comparison/report mismatches
+ok 25 - buildReportExportBundle rejects comparison/report mismatches
+  ---
+  duration_ms: 0.8455
+  type: 'test'
+  ...
+# Subtest: report export bundle contract rejects string numeric summary values
+ok 26 - report export bundle contract rejects string numeric summary values
+  ---
+  duration_ms: 0.9964
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison creates deterministic validated output
+ok 27 - buildScenarioComparison creates deterministic validated output
+  ---
+  duration_ms: 8.1252
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison keeps baseline first
+ok 28 - buildScenarioComparison keeps baseline first
+  ---
+  duration_ms: 1.5231
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison summary max values match comparison items
+ok 29 - buildScenarioComparison summary max values match comparison items
+  ---
+  duration_ms: 0.5781
+  type: 'test'
+  ...
+# Subtest: validateScenarioComparisonContract rejects mismatched summary max values
+ok 30 - validateScenarioComparisonContract rejects mismatched summary max values
+  ---
+  duration_ms: 1.0941
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison rejects missing baseline report
+ok 31 - buildScenarioComparison rejects missing baseline report
+  ---
+  duration_ms: 0.837
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison rejects recommendation language
+ok 32 - buildScenarioComparison rejects recommendation language
+  ---
+  duration_ms: 6.6435
+  type: 'test'
+  ...
+# Subtest: buildUnassignedTaskReport exposes deterministic unassigned task IDs and room IDs
+ok 33 - buildUnassignedTaskReport exposes deterministic unassigned task IDs and room IDs
+  ---
+  duration_ms: 73.9334
+  type: 'test'
+  ...
+# Subtest: buildWarningReport exposes deterministic warning severity and code aggregation
+ok 34 - buildWarningReport exposes deterministic warning severity and code aggregation
+  ---
+  duration_ms: 43.0335
+  type: 'test'
+  ...
+# Subtest: plan fixture validates against TypeScript contract
+ok 35 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 21.2803
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 36 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.7769
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 37 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.2308
+  type: 'test'
+  ...
+# Subtest: room-load fixture validates against TypeScript contract and plan rooms
+ok 38 - room-load fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 6.6842
+  type: 'test'
+  ...
+# Subtest: manual assignment fixture validates against TypeScript contract and plan rooms
+ok 39 - manual assignment fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 1.9617
+  type: 'test'
+  ...
+# Subtest: assumptions register fixture validates and represents current scoring constants
+ok 40 - assumptions register fixture validates and represents current scoring constants
+  ---
+  duration_ms: 1.9465
+  type: 'test'
+  ...
+# Subtest: task template fixture validates against TypeScript contract
+ok 41 - task template fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.4834
+  type: 'test'
+  ...
+# Subtest: task template boolean trigger source mismatch is rejected
+ok 42 - task template boolean trigger source mismatch is rejected
+  ---
+  duration_ms: 0.8942
+  type: 'test'
+  ...
+# Subtest: typical day profile validates against TypeScript contract
+ok 43 - typical day profile validates against TypeScript contract
+  ---
+  duration_ms: 1.2373
+  type: 'test'
+  ...
+# Subtest: slammed day profile validates against TypeScript contract
+ok 44 - slammed day profile validates against TypeScript contract
+  ---
+  duration_ms: 1.5488
+  type: 'test'
+  ...
+# Subtest: shift scenario fixture validates against TypeScript contract with references
+ok 45 - shift scenario fixture validates against TypeScript contract with references
+  ---
+  duration_ms: 9.9751
+  type: 'test'
+  ...
+# Subtest: generated operational task set fixture validates against TypeScript contract
+ok 46 - generated operational task set fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.9404
+  type: 'test'
+  ...
+# Subtest: nurse task assignment fixture validates against TypeScript contract
+ok 47 - nurse task assignment fixture validates against TypeScript contract
+  ---
+  duration_ms: 7.4003
+  type: 'test'
+  ...
+# Subtest: operational report fixture validates against TypeScript contract with Phase 5 context
+ok 48 - operational report fixture validates against TypeScript contract with Phase 5 context
+  ---
+  duration_ms: 30.8326
+  type: 'test'
+  ...
+# Subtest: operational report validation requires every manual assignment nurse when context is supplied
+ok 49 - operational report validation requires every manual assignment nurse when context is supplied
+  ---
+  duration_ms: 22.0366
+  type: 'test'
+  ...
+# Subtest: operational report builder outputs validate against TypeScript contract
+ok 50 - operational report builder outputs validate against TypeScript contract
+  ---
+  duration_ms: 4.9314
+  type: 'test'
+  ...
+# Subtest: scenario comparison fixture validates against TypeScript contract
+ok 51 - scenario comparison fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.2651
+  type: 'test'
+  ...
+# Subtest: report export bundle fixture validates against TypeScript contract
+ok 52 - report export bundle fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.6046
+  type: 'test'
+  ...
+# Subtest: report export bundle import utilities remain public and deterministic
+ok 53 - report export bundle import utilities remain public and deterministic
+  ---
+  duration_ms: 35.9188
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 54 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.6439
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 55 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4475
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 56 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.45
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 57 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4422
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 58 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4388
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 59 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4199
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 60 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.6092
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 61 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5382
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 62 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5566
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 63 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4785
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 64 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4811
+  type: 'test'
+  ...
+# Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+ok 65 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5473
+  type: 'test'
+  ...
+# Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+ok 66 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.3977
+  type: 'test'
+  ...
+# Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+ok 67 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+  ---
+  duration_ms: 1.61
+  type: 'test'
+  ...
+# Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+ok 68 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+  ---
+  duration_ms: 1.6729
+  type: 'test'
+  ...
+# Subtest: room-load-bad-frequency.json is rejected by TypeScript room-load contract
+ok 69 - room-load-bad-frequency.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 1.0286
+  type: 'test'
+  ...
+# Subtest: room-load-bad-burden.json is rejected by TypeScript room-load contract
+ok 70 - room-load-bad-burden.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 0.7687
+  type: 'test'
+  ...
+# Subtest: room-load-unknown-room.json is rejected by TypeScript room-load contract
+ok 71 - room-load-unknown-room.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 0.7186
+  type: 'test'
+  ...
+# Subtest: old numeric room-load fields are rejected by TypeScript contract
+ok 72 - old numeric room-load fields are rejected by TypeScript contract
+  ---
+  duration_ms: 0.2667
+  type: 'test'
+  ...
+# Subtest: manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+ok 73 - manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 1.0563
+  type: 'test'
+  ...
+# Subtest: manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+ok 74 - manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 0.853
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+ok 75 - manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 2.3869
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+ok 76 - manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 3.5732
+  type: 'test'
+  ...
+# Subtest: manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+ok 77 - manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 3.3216
+  type: 'test'
+  ...
+# Subtest: assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+ok 78 - assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 2.4325
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+ok 79 - assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 1.6665
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+ok 80 - assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 1.9656
+  type: 'test'
+  ...
+# Subtest: assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+ok 81 - assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 2.1852
+  type: 'test'
+  ...
+# Subtest: task-template-bad-type.json is rejected by TypeScript task template contract
+ok 82 - task-template-bad-type.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.6407
+  type: 'test'
+  ...
+# Subtest: task-template-bad-trigger.json is rejected by TypeScript task template contract
+ok 83 - task-template-bad-trigger.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.3889
+  type: 'test'
+  ...
+# Subtest: task-template-bad-duration.json is rejected by TypeScript task template contract
+ok 84 - task-template-bad-duration.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.3789
+  type: 'test'
+  ...
+# Subtest: task-template-duplicate-id.json is rejected by TypeScript task template contract
+ok 85 - task-template-duplicate-id.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.3456
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+ok 86 - day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.4415
+  type: 'test'
+  ...
+# Subtest: day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+ok 87 - day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.3618
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+ok 88 - day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.3302
+  type: 'test'
+  ...
+# Subtest: day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+ok 89 - day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.3624
+  type: 'test'
+  ...
+# Subtest: shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+ok 90 - shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.4887
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+ok 91 - shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.3312
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+ok 92 - shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.3149
+  type: 'test'
+  ...
+# Subtest: shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+ok 93 - shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+  ---
+  duration_ms: 3.26
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-minute.json is rejected by TypeScript generated task set contract
+ok 94 - generated-task-bad-minute.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 2.5742
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-duration.json is rejected by TypeScript generated task set contract
+ok 95 - generated-task-bad-duration.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 1.4256
+  type: 'test'
+  ...
+# Subtest: generated-task-unknown-room.json is rejected by TypeScript generated task set contract
+ok 96 - generated-task-unknown-room.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.6511
+  type: 'test'
+  ...
+# Subtest: generated-task-duplicate-id.json is rejected by TypeScript generated task set contract
+ok 97 - generated-task-duplicate-id.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.499
+  type: 'test'
+  ...
+# Subtest: generated-task-set-mismatched-scenario.json is rejected by TypeScript generated task set contract
+ok 98 - generated-task-set-mismatched-scenario.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.5373
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-unknown-nurse.json is rejected by TypeScript nurse task assignment contract
+ok 99 - nurse-task-assignment-unknown-nurse.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.3474
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-unknown-task.json is rejected by TypeScript nurse task assignment contract
+ok 100 - nurse-task-assignment-unknown-task.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.0877
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-task-assigned-twice.json is rejected by TypeScript nurse task assignment contract
+ok 101 - nurse-task-assignment-task-assigned-twice.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 0.9821
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-minute-mismatch.json is rejected by TypeScript nurse task assignment contract
+ok 102 - nurse-task-assignment-minute-mismatch.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 7.1736
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-mismatched-scenario.json is rejected by TypeScript nurse task assignment contract
+ok 103 - nurse-task-assignment-mismatched-scenario.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 5.1486
+  type: 'test'
+  ...
+# Subtest: report-missing-summary.json is rejected by TypeScript operational report contract
+ok 104 - report-missing-summary.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 7.1949
+  type: 'test'
+  ...
+# Subtest: report-clinical-safety-claim.json is rejected by TypeScript operational report contract
+ok 105 - report-clinical-safety-claim.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 3.004
+  type: 'test'
+  ...
+# Subtest: report-unknown-nurse.json is rejected by TypeScript operational report contract
+ok 106 - report-unknown-nurse.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 2.275
+  type: 'test'
+  ...
+# Subtest: report-unknown-task.json is rejected by TypeScript operational report contract
+ok 107 - report-unknown-task.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.7899
+  type: 'test'
+  ...
+# Subtest: report-count-mismatch.json is rejected by TypeScript operational report contract
+ok 108 - report-count-mismatch.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 3.3645
+  type: 'test'
+  ...
+# Subtest: export-bundle-missing-report.json is rejected by TypeScript report export bundle contract
+ok 109 - export-bundle-missing-report.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.7704
+  type: 'test'
+  ...
+# Subtest: export-bundle-comparison-mismatch.json is rejected by TypeScript report export bundle contract
+ok 110 - export-bundle-comparison-mismatch.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.9611
+  type: 'test'
+  ...
+# Subtest: export-bundle-safety-claim.json is rejected by TypeScript report export bundle contract
+ok 111 - export-bundle-safety-claim.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.5441
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic typical output
+ok 112 - generateOperationalTasks returns deterministic typical output
+  ---
+  duration_ms: 51.3953
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic slammed output
+ok 113 - generateOperationalTasks returns deterministic slammed output
+  ---
+  duration_ms: 3.0491
+  type: 'test'
+  ...
+# Subtest: different seed produces controlled timing differences
+ok 114 - different seed produces controlled timing differences
+  ---
+  duration_ms: 2.7055
+  type: 'test'
+  ...
+# Subtest: slammed day profile changes generated task volume
+ok 115 - slammed day profile changes generated task volume
+  ---
+  duration_ms: 5.271
+  type: 'test'
+  ...
+# Subtest: generated tasks validate and stay within shift bounds
+ok 116 - generated tasks validate and stay within shift bounds
+  ---
+  duration_ms: 2.0293
+  type: 'test'
+  ...
+# Subtest: generated task IDs are deterministic and do not assign work to nurses
+ok 117 - generated task IDs are deterministic and do not assign work to nurses
+  ---
+  duration_ms: 2.0024
+  type: 'test'
+  ...
+# Subtest: generated task validator is publicly exported
+ok 118 - generated task validator is publicly exported
+  ---
+  duration_ms: 6.8463
+  type: 'test'
+  ...
+# Subtest: generated task array validator remains public and rejects duplicate IDs
+ok 119 - generated task array validator remains public and rejects duplicate IDs
+  ---
+  duration_ms: 2.5037
+  type: 'test'
+  ...
+# Subtest: valid generated operational task set fixture validates with references
+ok 120 - valid generated operational task set fixture validates with references
+  ---
+  duration_ms: 12.8947
+  type: 'test'
+  ...
+# Subtest: generated task set rejects taskCount mismatch
+ok 121 - generated task set rejects taskCount mismatch
+  ---
+  duration_ms: 9.2856
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-minute.json is rejected by generated task-set validator
+ok 122 - generated-task-bad-minute.json is rejected by generated task-set validator
+  ---
+  duration_ms: 10.207
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-duration.json is rejected by generated task-set validator
+ok 123 - generated-task-bad-duration.json is rejected by generated task-set validator
+  ---
+  duration_ms: 4.3681
+  type: 'test'
+  ...
+# Subtest: generated-task-unknown-room.json is rejected by generated task-set validator
+ok 124 - generated-task-unknown-room.json is rejected by generated task-set validator
+  ---
+  duration_ms: 3.376
+  type: 'test'
+  ...
+# Subtest: generated-task-duplicate-id.json is rejected by generated task-set validator
+ok 125 - generated-task-duplicate-id.json is rejected by generated task-set validator
+  ---
+  duration_ms: 1.3628
+  type: 'test'
+  ...
+# Subtest: generated-task-set-mismatched-scenario.json is rejected by generated task-set validator
+ok 126 - generated-task-set-mismatched-scenario.json is rejected by generated task-set validator
+  ---
+  duration_ms: 2.0573
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: balanced assignment
+ok 127 - scoreNurseBurden: balanced assignment
+  ---
+  duration_ms: 62.8023
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over target ratio
+ok 128 - scoreNurseBurden: nurse over target ratio
+  ---
+  duration_ms: 1.289
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over max ratio
+ok 129 - scoreNurseBurden: nurse over max ratio
+  ---
+  duration_ms: 1.1351
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: trauma mismatch
+ok 130 - scoreNurseBurden: trauma mismatch
+  ---
+  duration_ms: 3.3616
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: duplicate room does not score as valid coverage
+ok 131 - scoreNurseBurden: duplicate room does not score as valid coverage
+  ---
+  duration_ms: 0.9928
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count lower acuity
+ok 132 - scoreNurseBurden: same count lower acuity
+  ---
+  duration_ms: 0.538
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count higher acuity
+ok 133 - scoreNurseBurden: same count higher acuity
+  ---
+  duration_ms: 0.525
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: unassigned occupied room warning propagates
+ok 134 - scoreNurseBurden: unassigned occupied room warning propagates
+  ---
+  duration_ms: 0.4636
+  type: 'test'
+  ...
+# Subtest: same occupied-room count with different acuity yields different burden
+ok 135 - same occupied-room count with different acuity yields different burden
+  ---
+  duration_ms: 1.0043
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson parses and validates a report export bundle
+ok 136 - parseReportExportBundleJson parses and validates a report export bundle
+  ---
+  duration_ms: 10.5257
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson rejects invalid JSON clearly
+ok 137 - parseReportExportBundleJson rejects invalid JSON clearly
+  ---
+  duration_ms: 3.2136
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson rejects wrong schema version
+ok 138 - parseReportExportBundleJson rejects wrong schema version
+  ---
+  duration_ms: 1.4044
+  type: 'test'
+  ...
+# Subtest: summarizeReportExportBundle creates deterministic import summary
+ok 139 - summarizeReportExportBundle creates deterministic import summary
+  ---
+  duration_ms: 31.4665
+  type: 'test'
+  ...
+# Subtest: summarizeReportExportBundle sorts IDs deterministically
+ok 140 - summarizeReportExportBundle sorts IDs deterministically
+  ---
+  duration_ms: 1.8579
+  type: 'test'
+  ...
+# Subtest: operational summary report builder uses deterministic proof timestamp by default
+ok 141 - operational summary report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 74.2225
+  type: 'test'
+  ...
+# Subtest: operational summary report builder accepts explicit createdAt input
+ok 142 - operational summary report builder accepts explicit createdAt input
+  ---
+  duration_ms: 3.4219
+  type: 'test'
+  ...
+# Subtest: operational summary report builder rejects invalid createdAt input
+ok 143 - operational summary report builder rejects invalid createdAt input
+  ---
+  duration_ms: 4.3631
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder uses deterministic proof timestamp by default
+ok 144 - nurse workload report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 3.5881
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder accepts explicit createdAt input
+ok 145 - nurse workload report builder accepts explicit createdAt input
+  ---
+  duration_ms: 3.3576
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder rejects invalid createdAt input
+ok 146 - nurse workload report builder rejects invalid createdAt input
+  ---
+  duration_ms: 2.4113
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder uses deterministic proof timestamp by default
+ok 147 - unassigned task report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 1.9903
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder accepts explicit createdAt input
+ok 148 - unassigned task report builder accepts explicit createdAt input
+  ---
+  duration_ms: 2.5044
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder rejects invalid createdAt input
+ok 149 - unassigned task report builder rejects invalid createdAt input
+  ---
+  duration_ms: 1.913
+  type: 'test'
+  ...
+# Subtest: warning report builder uses deterministic proof timestamp by default
+ok 150 - warning report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 1.9955
+  type: 'test'
+  ...
+# Subtest: warning report builder accepts explicit createdAt input
+ok 151 - warning report builder accepts explicit createdAt input
+  ---
+  duration_ms: 1.9795
+  type: 'test'
+  ...
+# Subtest: warning report builder rejects invalid createdAt input
+ok 152 - warning report builder rejects invalid createdAt input
+  ---
+  duration_ms: 1.4121
+  type: 'test'
+  ...
+# Subtest: deterministic timestamp contract documents proof defaults and explicit inputs
+ok 153 - deterministic timestamp contract documents proof defaults and explicit inputs
+  ---
+  duration_ms: 0.7748
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 1 only
+ok 154 - scoreRoomLoad: acuity 1 only
+  ---
+  duration_ms: 2.9787
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 5 only
+ok 155 - scoreRoomLoad: acuity 5 only
+  ---
+  duration_ms: 0.5196
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: trauma active
+ok 156 - scoreRoomLoad: trauma active
+  ---
+  duration_ms: 0.2934
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: isolation active
+ok 157 - scoreRoomLoad: isolation active
+  ---
+  duration_ms: 0.4024
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: behavioral fall sitter active
+ok 158 - scoreRoomLoad: behavioral fall sitter active
+  ---
+  duration_ms: 0.4205
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: high medication monitoring procedure
+ok 159 - scoreRoomLoad: high medication monitoring procedure
+  ---
+  duration_ms: 0.239
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: unoccupied room zero burden
+ok 160 - scoreRoomLoad: unoccupied room zero burden
+  ---
+  duration_ms: 0.4156
+  type: 'test'
+  ...
+# Subtest: same seed produces the same float sequence
+ok 161 - same seed produces the same float sequence
+  ---
+  duration_ms: 2.8421
+  type: 'test'
+  ...
+# Subtest: different seeds produce different float sequences
+ok 162 - different seeds produce different float sequences
+  ---
+  duration_ms: 0.3981
+  type: 'test'
+  ...
+# Subtest: nextFloat returns values in [0, 1)
+ok 163 - nextFloat returns values in [0, 1)
+  ---
+  duration_ms: 0.5142
+  type: 'test'
+  ...
+# Subtest: nextInt uses an exclusive upper bound
+ok 164 - nextInt uses an exclusive upper bound
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: pick is deterministic and rejects empty arrays
+ok 165 - pick is deterministic and rejects empty arrays
+  ---
+  duration_ms: 0.8306
+  type: 'test'
+  ...
+# Subtest: shuffle is deterministic and does not mutate input
+ok 166 - shuffle is deterministic and does not mutate input
+  ---
+  duration_ms: 0.4333
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unassigned occupied room
+ok 167 - validateManualAssignment: unassigned occupied room
+  ---
+  duration_ms: 2.7642
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: room assigned twice
+ok 168 - validateManualAssignment: room assigned twice
+  ---
+  duration_ms: 21.9517
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over target
+ok 169 - validateManualAssignment: nurse over target
+  ---
+  duration_ms: 0.5663
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over max
+ok 170 - validateManualAssignment: nurse over max
+  ---
+  duration_ms: 0.3814
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: trauma room assigned to non-qualified nurse
+ok 171 - validateManualAssignment: trauma room assigned to non-qualified nurse
+  ---
+  duration_ms: 0.6049
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown nurse
+ok 172 - validateManualAssignment: unknown nurse
+  ---
+  duration_ms: 0.7821
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown room
+ok 173 - validateManualAssignment: unknown room
+  ---
+  duration_ms: 0.4429
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment returns deterministic warning order
+ok 174 - validateManualAssignment returns deterministic warning order
+  ---
+  duration_ms: 2.1249
+  type: 'test'
+  ...
+1..174
+# tests 174
+# suites 0
+# pass 174
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 631.6471
+
+> npm --workspace apps/web test
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 8 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/comparison/scenarioComparisonViewModel.test.ts
+
+> src/features/export-review/exportBundleReviewViewModel.test.ts
+
+> src/features/manual-assignment/manualAssignmentViewModel.test.ts
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+> src/features/reports/reportProofViewModel.test.ts
+
+Executed 8 web test file(s).
+
+> cd apps/api && python -m pytest
+........................................................................ [ 53%]
+...............................................................          [100%]
+135 passed in 0.99s
+
+> npm --workspace apps/web run build
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 62 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:  0.28 kB
+dist/assets/index-IpvsHU11.css   17.28 kB │ gzip:  3.17 kB
+dist/assets/index-TDdSBAAo.js   304.19 kB │ gzip: 83.81 kB
+
+[32m✓ built in 137ms[39m
+> node scripts/verify-docker-plan-api.mjs
+Writing Docker plan API smoke evidence to C:\Users\MISTER~1\AppData\Local\Temp\nerdeus-er-pod-shift-simulator\docker-plan-api-smoke
+> GET http://localhost:8010/health
+> DELETE http://localhost:8010/v1/plans/plan-docker-smoke
+> POST http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans
+> GET http://localhost:8010/v1/plans/plan-docker-smoke
+Docker plan API smoke test passed.
+
+> GET http://localhost:8010/health
+{"status":"ok","service":"nerdeus-api"}
+
+> GET http://localhost:5180
+Web runtime reachable at http://localhost:5180
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+> node scripts/check-docs-contracts.mjs
+Docs and contract guardrails pass.
+
+> git diff --name-only
+apps/web/src/features/export-review/ExportBundleReviewProof.tsx
+apps/web/src/features/export-review/exportBundleReviewViewModel.test.ts
+apps/web/src/fixtures/phase8ExportBundleReview.ts
+apps/web/src/styles.css

@@ -1,52 +1,220 @@
-import {
-  aggregateTaskTimeline,
-  assignTasksByManualCoverage,
-  buildOperationalSummaryReport,
-  buildReportExportBundle,
-  buildScenarioComparison,
-  validateOperationalReportContract,
-  type OperationalReportContract
-} from "@nerdeus/shared";
-
-import { phase7ComparisonProofFixture } from "./phase7ComparisonProof";
-
-const timelineSummary = aggregateTaskTimeline(
-  phase7ComparisonProofFixture.reportFixture.scenario,
-  phase7ComparisonProofFixture.reportFixture.generatedTaskSet
-);
-const nurseTaskAssignmentResult = assignTasksByManualCoverage({
-  plan: phase7ComparisonProofFixture.reportFixture.plan,
-  roomLoads: phase7ComparisonProofFixture.reportFixture.scenario.roomLoads,
-  assignmentSet: phase7ComparisonProofFixture.reportFixture.manualAssignmentSet,
-  generatedTaskSet: phase7ComparisonProofFixture.reportFixture.generatedTaskSet
-});
-const baselineReport = buildOperationalSummaryReport({
-  scenario: phase7ComparisonProofFixture.reportFixture.scenario,
-  generatedTaskSet: phase7ComparisonProofFixture.reportFixture.generatedTaskSet,
-  timelineSummary,
-  nurseTaskAssignmentResult,
-  manualAssignmentSet: phase7ComparisonProofFixture.reportFixture.manualAssignmentSet
-});
-const comparisonReport = validateOperationalReportContract({
-  ...baselineReport,
-  ...phase7ComparisonProofFixture.comparisonReport,
-  limitations: [...baselineReport.limitations]
-});
-const reports: OperationalReportContract[] = [baselineReport, comparisonReport];
-const comparison = buildScenarioComparison({
-  comparisonId: phase7ComparisonProofFixture.comparisonId,
-  label: phase7ComparisonProofFixture.comparisonLabel,
-  baselineReportId: baselineReport.reportId,
-  reports: [comparisonReport, baselineReport]
-});
-const exportBundle = buildReportExportBundle({
-  exportId: phase7ComparisonProofFixture.exportId,
-  label: phase7ComparisonProofFixture.exportLabel,
-  reports,
-  comparison
-});
-
-export const phase8ExportBundleJsonText = JSON.stringify(exportBundle, null, 2);
+export const phase8ExportBundleJsonText = `{
+  "schemaVersion": "1.0.0",
+  "exportId": "report-export-bundle-basic",
+  "exportType": "operational_report_bundle",
+  "createdAt": "2026-05-22T00:00:00Z",
+  "label": "Operational-only report export bundle proof",
+  "reports": [
+    {
+      "schemaVersion": "1.0.0",
+      "reportId": "operational-summary-generated-task-set-basic",
+      "reportType": "operational_summary",
+      "scenarioId": "shift-scenario-basic",
+      "generatedTaskSetId": "generated-task-set-basic",
+      "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-basic",
+      "createdAt": "2026-05-22T00:00:00Z",
+      "title": "Operational Summary Report",
+      "summary": {
+        "totalGeneratedTasks": 6,
+        "assignedTaskCount": 5,
+        "unassignedTaskCount": 1,
+        "totalEstimatedTaskMinutes": 73,
+        "nurseCount": 3,
+        "warningCount": 1
+      },
+      "nurseSummaries": [
+        {
+          "nurseId": "nurse-alpha",
+          "assignedTaskCount": 2,
+          "estimatedTaskMinutes": 18,
+          "warningCount": 0
+        },
+        {
+          "nurseId": "nurse-bravo",
+          "assignedTaskCount": 1,
+          "estimatedTaskMinutes": 15,
+          "warningCount": 0
+        },
+        {
+          "nurseId": "nurse-charlie",
+          "assignedTaskCount": 2,
+          "estimatedTaskMinutes": 25,
+          "warningCount": 0
+        }
+      ],
+      "timelineSummary": {
+        "bucketCount": 4,
+        "busiestMinute": 0,
+        "busiestMinuteTaskCount": 2,
+        "totalInterruptiveTasks": 2
+      },
+      "warningSummary": {
+        "infoCount": 0,
+        "warningCount": 1,
+        "criticalCount": 0,
+        "warningCodes": {
+          "ROOM_WITHOUT_COVERAGE": 1
+        }
+      },
+      "unassignedTaskSummary": {
+        "unassignedTaskCount": 1,
+        "taskIds": [
+          "task-basic-hall-bed-01-turnover-001"
+        ],
+        "roomIds": [
+          "hall-bed-01"
+        ]
+      },
+      "limitations": [
+        "Operational-only inspection summary based on synthetic Phase 5 task workload outputs.",
+        "No optimizer or workload rebalancing is applied.",
+        "No task-completion simulation is performed.",
+        "No walking route calculation is performed.",
+        "No delay calculation is performed."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "reportId": "operational-summary-generated-task-set-surge",
+      "reportType": "operational_summary",
+      "scenarioId": "shift-scenario-surge",
+      "generatedTaskSetId": "generated-task-set-surge",
+      "nurseTaskAssignmentSetId": "nurse-task-assignment-generated-task-set-surge",
+      "createdAt": "2026-05-22T00:00:00Z",
+      "title": "Operational Summary Report - Surge Scenario",
+      "summary": {
+        "totalGeneratedTasks": 8,
+        "assignedTaskCount": 6,
+        "unassignedTaskCount": 2,
+        "totalEstimatedTaskMinutes": 96,
+        "nurseCount": 3,
+        "warningCount": 2
+      },
+      "nurseSummaries": [
+        {
+          "nurseId": "nurse-alpha",
+          "assignedTaskCount": 3,
+          "estimatedTaskMinutes": 31,
+          "warningCount": 1
+        },
+        {
+          "nurseId": "nurse-bravo",
+          "assignedTaskCount": 1,
+          "estimatedTaskMinutes": 15,
+          "warningCount": 0
+        },
+        {
+          "nurseId": "nurse-charlie",
+          "assignedTaskCount": 2,
+          "estimatedTaskMinutes": 30,
+          "warningCount": 1
+        }
+      ],
+      "timelineSummary": {
+        "bucketCount": 5,
+        "busiestMinute": 30,
+        "busiestMinuteTaskCount": 3,
+        "totalInterruptiveTasks": 3
+      },
+      "warningSummary": {
+        "infoCount": 0,
+        "warningCount": 2,
+        "criticalCount": 0,
+        "warningCodes": {
+          "ROOM_WITHOUT_COVERAGE": 2
+        }
+      },
+      "unassignedTaskSummary": {
+        "unassignedTaskCount": 2,
+        "taskIds": [
+          "task-basic-hall-bed-01-turnover-001",
+          "task-surge-room-04-behavioral-002"
+        ],
+        "roomIds": [
+          "hall-bed-01",
+          "room-04"
+        ]
+      },
+      "limitations": [
+        "Operational-only inspection summary based on synthetic Phase 5 task workload outputs.",
+        "No optimizer or workload rebalancing is applied.",
+        "No task-completion simulation is performed.",
+        "No walking route calculation is performed.",
+        "No delay calculation is performed."
+      ]
+    }
+  ],
+  "comparison": {
+    "schemaVersion": "1.0.0",
+    "comparisonId": "scenario-comparison-basic",
+    "comparisonType": "manual_scenario_comparison",
+    "createdAt": "2026-05-22T00:00:00Z",
+    "label": "Operational-only scenario comparison proof",
+    "baselineReportId": "operational-summary-generated-task-set-basic",
+    "reportIds": [
+      "operational-summary-generated-task-set-basic",
+      "operational-summary-generated-task-set-surge"
+    ],
+    "items": [
+      {
+        "reportId": "operational-summary-generated-task-set-basic",
+        "scenarioId": "shift-scenario-basic",
+        "label": "Operational Summary Report",
+        "isBaseline": true,
+        "totalGeneratedTasks": 6,
+        "assignedTaskCount": 5,
+        "unassignedTaskCount": 1,
+        "totalEstimatedTaskMinutes": 73,
+        "warningCount": 1,
+        "busiestMinute": 0,
+        "busiestMinuteTaskCount": 2
+      },
+      {
+        "reportId": "operational-summary-generated-task-set-surge",
+        "scenarioId": "shift-scenario-surge",
+        "label": "Operational Summary Report - Surge Scenario",
+        "isBaseline": false,
+        "totalGeneratedTasks": 8,
+        "assignedTaskCount": 6,
+        "unassignedTaskCount": 2,
+        "totalEstimatedTaskMinutes": 96,
+        "warningCount": 2,
+        "busiestMinute": 30,
+        "busiestMinuteTaskCount": 3
+      }
+    ],
+    "summary": {
+      "reportCount": 2,
+      "baselineReportId": "operational-summary-generated-task-set-basic",
+      "maxGeneratedTasks": 8,
+      "maxAssignedTaskCount": 6,
+      "maxUnassignedTaskCount": 2,
+      "maxEstimatedTaskMinutes": 96,
+      "maxWarningCount": 2,
+      "maxBusiestMinuteTaskCount": 3
+    },
+    "limitations": [
+      "Operational-only comparison of deterministic synthetic report outputs.",
+      "No optimizer or workload rebalancing is applied.",
+      "No scenario recommendation is made.",
+      "No clinical safety claim is made.",
+      "No task-completion simulation, walking route calculation, or delay calculation is performed."
+    ]
+  },
+  "limitations": [
+    "Operational-only JSON evidence bundle based on deterministic synthetic report outputs.",
+    "No optimizer or workload rebalancing is applied.",
+    "No scenario recommendation is made.",
+    "No clinical safety claim is made.",
+    "No API endpoint, persistence behavior, PDF export, or file download behavior is included."
+  ],
+  "metadata": {
+    "appName": "Nerdeus ER Pod Shift Simulator",
+    "appVersion": "0.1.0",
+    "generatedBy": "local-proof",
+    "source": "synthetic-operational-data"
+  }
+}`;
 
 export const invalidPhase8ExportBundleJsonText = `{
   "schemaVersion": "1.0.0",

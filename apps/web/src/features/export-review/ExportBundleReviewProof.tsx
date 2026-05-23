@@ -11,7 +11,11 @@ export function ExportBundleReviewProof({ viewModel }: ExportBundleReviewProofPr
   const invalidReview = viewModel.invalidReview;
 
   return (
-    <section className="export-review-proof" aria-labelledby="export-review-proof-title">
+    <section
+      id="export-review-proof"
+      className="export-review-proof"
+      aria-labelledby="export-review-proof-title"
+    >
       <div className="export-review-proof__header">
         <div>
           <p className="eyebrow">Phase 8 local proof</p>
