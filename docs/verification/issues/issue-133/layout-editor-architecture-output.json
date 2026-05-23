@@ -1,0 +1,24 @@
+{
+  "issue": "133",
+  "documents": [
+    "docs/architecture/layout-editor-architecture.md",
+    "docs/contracts/layout-editor-interaction-contract.md",
+    "docs/contracts/layout-editor-geometry-invariants.md"
+  ],
+  "feetSourceOfTruth": true,
+  "pixelsDisplayOnly": true,
+  "stableIdsRequired": true,
+  "editableObjectsDocumented": [
+    "rooms",
+    "doors",
+    "nurse stations/desks",
+    "hallways",
+    "EMS entry",
+    "trauma zone",
+    "provider/pharmacy zone"
+  ],
+  "pathGraphReferencesMustNotSilentlyBreak": true,
+  "simulationDeltaIntegrationNamedFutureDependency": true,
+  "noUiImplementationAdded": true,
+  "testsPassed": true
+}

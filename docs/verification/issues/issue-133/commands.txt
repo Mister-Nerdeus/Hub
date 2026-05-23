@@ -1,0 +1,3 @@
+npm --workspace packages/shared test > docs/verification/issues/issue-133/test-output/shared.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-133/test-output/shared.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-133/test-output/shared.txt -Append
