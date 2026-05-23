@@ -171,6 +171,13 @@ class SimulationRunContract(StrictModel):
         return self
 
 
+def validate_persisted_simulation_run(value: Any) -> dict[str, Any]:
+    SimulationRunContract.model_validate(value)
+    if not isinstance(value, dict):
+        raise ValueError("persisted simulation run must be an object")
+    return value
+
+
 def reject_phi_like_keys(value: Any) -> None:
     if isinstance(value, list):
         for item in value:

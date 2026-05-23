@@ -29,13 +29,18 @@ def create_simulation_run(
     return record
 
 
-def list_simulation_runs(db: Session) -> list[SimulationRunRecord]:
+def list_simulation_runs(
+    db: Session,
+    *,
+    limit: int,
+    offset: int,
+) -> list[SimulationRunRecord]:
     return list(
         db.scalars(
             select(SimulationRunRecord).order_by(
                 SimulationRunRecord.created_at,
                 SimulationRunRecord.id,
-            )
+            ).offset(offset).limit(limit)
         ).all()
     )
 

@@ -1,0 +1,5 @@
+cd apps/api && python -m pytest tests/test_simulation_read_validation.py
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-103/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config

@@ -122,6 +122,8 @@ Issue 101 constrains baseline optimizer candidates before simulation scoring: ge
 
 Issue 102 adds assignment-source truth for optimizer candidates. Manual assignments keep `manual_room_coverage`; generated optimizer candidate assignments use `optimizer_candidate` before shared variant execution.
 
+Issue 103 hardens simulation persistence reads. Listing is bounded with default pagination, and stored simulation JSON is validated before list/get responses return it.
+
 Issue 099 defines the V1 missed-task model: tasks that cannot complete inside the shift window are not started, consume no nurse busy minutes, and use the explicit not-started miss reason. Attempted-overrun behavior remains deferred.
 
 Issue 100 defers queue pause/resume interruption actions. Current V1 queue events accept only entered, started-from-queue, and released actions until real interruption state is implemented in a later issue.

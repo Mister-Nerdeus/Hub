@@ -408,6 +408,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-101/test-output/shared.txt",
       "docs/verification/issues/issue-102/assignment-reason-output.json",
       "docs/verification/issues/issue-102/test-output/shared.txt",
+      "docs/verification/issues/issue-103/api-responses/list-simulation-runs-response.json",
+      "docs/verification/issues/issue-103/api-responses/get-invalid-persisted-run-response.json",
+      "docs/verification/issues/issue-103/test-output/api.txt",
       "docs/verification/issues/issue-082/commands.txt",
       "docs/verification/issues/issue-082/closeout.md",
       "docs/verification/issues/issue-083/commands.txt",
@@ -449,7 +452,9 @@ export const requiredEvidenceGates = [
       "docs/verification/issues/issue-101/commands.txt",
       "docs/verification/issues/issue-101/closeout.md",
       "docs/verification/issues/issue-102/commands.txt",
-      "docs/verification/issues/issue-102/closeout.md"
+      "docs/verification/issues/issue-102/closeout.md",
+      "docs/verification/issues/issue-103/commands.txt",
+      "docs/verification/issues/issue-103/closeout.md"
     ],
     contentChecks: [
       {
