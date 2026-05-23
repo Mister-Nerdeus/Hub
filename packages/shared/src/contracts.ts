@@ -1528,6 +1528,11 @@ function validateReportAgainstManualAssignmentSet(
       throw new Error("nurseSummaries.nurseId references an unknown nurse");
     }
   }
+  const expectedNurseIds = manualAssignmentSet.nurses.map((nurse) => nurse.id).sort();
+  const actualNurseIds = nurseSummaries.map((nurseSummary) => nurseSummary.nurseId).sort();
+  if (!sameStringArray(actualNurseIds, expectedNurseIds)) {
+    throw new Error("nurseSummaries must include every manual assignment nurse");
+  }
 }
 
 function validateReportAgainstWarnings(

@@ -94,6 +94,33 @@ def test_operational_report_fixture_matches_python_contract() -> None:
     ]
 
 
+def test_operational_report_requires_every_manual_assignment_nurse() -> None:
+    (
+        scenario,
+        generated_task_set,
+        nurse_task_assignment_set,
+        assignment_set,
+        warnings,
+    ) = build_references()
+    report = load_report_fixture("operational-report-basic.json")
+    report["nurseSummaries"] = [
+        summary
+        for summary in report["nurseSummaries"]
+        if summary["nurseId"] != "nurse-charlie"
+    ]
+    report["summary"]["nurseCount"] = len(report["nurseSummaries"])
+
+    with pytest.raises(ValueError, match="manual assignment nurse"):
+        validate_operational_report_contract(
+            report,
+            scenario=scenario,
+            generated_task_set=generated_task_set,
+            nurse_task_assignment_set=nurse_task_assignment_set,
+            manual_assignment_set=assignment_set,
+            warnings=warnings,
+        )
+
+
 @pytest.mark.parametrize(
     "fixture_name",
     [

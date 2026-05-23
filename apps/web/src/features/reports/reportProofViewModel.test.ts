@@ -1,4 +1,8 @@
 import { createReportProofViewModel } from "./reportProofViewModel";
+import {
+  phase6ReportProofFixture,
+  type Phase6ReportProofFixture
+} from "../../fixtures/phase6ReportProof";
 
 const viewModel = createReportProofViewModel();
 
@@ -48,4 +52,34 @@ if (viewModel.limitations.length === 0) {
 
 if (!viewModel.limitations.join(" ").includes("No optimizer")) {
   throw new Error("limitations must include no optimizer language");
+}
+
+const duplicateUnassignedRoomFixture = structuredClone(
+  phase6ReportProofFixture
+) as Phase6ReportProofFixture;
+duplicateUnassignedRoomFixture.generatedTaskSet.generatedTasks.push({
+  id: "task-basic-hall-bed-01-turnover-002",
+  taskType: "room_turnover",
+  roomId: "hall-bed-01",
+  sourceTemplateId: "template-room-turnover",
+  scheduledMinute: 60,
+  estimatedDurationMinutes: 15,
+  burdenCategory: "turnover",
+  interruptive: false,
+  requiresRoomPresence: true
+});
+duplicateUnassignedRoomFixture.generatedTaskSet.taskCount =
+  duplicateUnassignedRoomFixture.generatedTaskSet.generatedTasks.length;
+
+const duplicateUnassignedRoomViewModel = createReportProofViewModel(duplicateUnassignedRoomFixture);
+const duplicateUnassignedRows = duplicateUnassignedRoomViewModel.unassignedRows.filter((row) =>
+  row.taskId.startsWith("task-basic-hall-bed-01-turnover-")
+);
+
+if (duplicateUnassignedRows.length !== 2) {
+  throw new Error("unassigned task rows must include every unassigned task in a duplicate room");
+}
+
+if (duplicateUnassignedRows.some((row) => row.roomId !== "hall-bed-01")) {
+  throw new Error("unassigned task rows must derive room IDs per task, not by room summary index");
 }

@@ -247,6 +247,43 @@ test("operational report fixture validates against TypeScript contract with Phas
   assert.equal(report.unassignedTaskSummary.taskIds.length, 1);
 });
 
+test("operational report validation requires every manual assignment nurse when context is supplied", () => {
+  const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
+  const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
+  const assignmentSet = validateManualAssignmentContract(
+    readFixture("manual-assignment-basic.json"),
+    plan
+  );
+  const generatedTaskSet = validateGeneratedOperationalTaskSet(
+    readTaskFixture("generated-task-set-basic.json"),
+    scenario
+  );
+  const assignmentResult = readTaskFixture("nurse-task-assignments-basic.json");
+  const nurseTaskAssignmentSet = validateNurseTaskAssignmentContract(
+    assignmentResult.assignmentSet,
+    scenario,
+    assignmentSet,
+    generatedTaskSet
+  );
+  const report = readReportFixture("operational-report-basic.json");
+  report.nurseSummaries = report.nurseSummaries.filter(
+    (nurseSummary) => nurseSummary.nurseId !== "nurse-charlie"
+  );
+  report.summary.nurseCount = report.nurseSummaries.length;
+
+  assert.throws(
+    () =>
+      validateOperationalReportContract(report, {
+        scenario,
+        generatedTaskSet,
+        nurseTaskAssignmentSet,
+        manualAssignmentSet: assignmentSet,
+        warnings: assignmentResult.warnings
+      }),
+    /manual assignment nurse/
+  );
+});
+
 test("operational report builder outputs validate against TypeScript contract", () => {
   const scenario = validateShiftScenarioContract(readFixture("shift-scenario-basic.json"));
   const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));

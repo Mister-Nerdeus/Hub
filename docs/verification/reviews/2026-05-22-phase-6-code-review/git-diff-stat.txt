@@ -1,0 +1,37 @@
+warning: in the working copy of 'docs/verification/reviews/2026-05-22-phase-6-code-review/git-diff-name-only.txt', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'docs/verification/reviews/2026-05-22-phase-6-code-review/git-status-before-commit.txt', CRLF will be replaced by LF the next time Git touches it
+ apps/api/app/contracts.py                          |    4 +
+ .../contracts/test_operational_report_contract.py  |   27 +
+ .../features/reports/reportProofViewModel.test.ts  |   34 +
+ .../src/features/reports/reportProofViewModel.ts   |   13 +-
+ .../latest/api-responses/create-plan.json          |    4 +-
+ .../local-runs/latest/api-responses/get-plan.json  |    4 +-
+ .../latest/api-responses/list-plans.json           |    4 +-
+ .../local-runs/latest/api-test-output.txt          |    6 +-
+ .../local-runs/latest/docker-compose-ps.txt        |    2 +-
+ .../local-runs/latest/docker-compose-up.txt        |   91 +-
+ docs/verification/local-runs/latest/manifest.json  |    2 +-
+ .../local-runs/latest/migration-output.txt         |    4 +-
+ .../local-runs/latest/shared-test-output.txt       |  484 +++++----
+ .../local-runs/latest/web-build-output.txt         |    4 +-
+ .../api-contract-test-output.txt                   |    3 +
+ .../api-test-output.txt                            |    3 +
+ .../2026-05-22-phase-6-code-review/closeout.md     |   49 +
+ .../2026-05-22-phase-6-code-review/commands.txt    |   24 +
+ .../docker-compose-down-output.txt                 |   14 +
+ .../docker-compose-ps.txt                          |    4 +
+ .../docs-contract-after-evidence-output.txt        |    1 +
+ .../docs-contract-output.txt                       |    1 +
+ .../evidence-local-output.txt                      |   29 +
+ .../git-diff-name-only.txt                         |   34 +
+ .../git-diff-stat.txt                              |   17 +
+ .../git-status-before-commit.txt                   |   34 +
+ .../no-phi-output.txt                              |    1 +
+ .../review-findings.md                             |   25 +
+ .../shared-test-output.txt                         |  828 ++++++++++++++
+ .../verify-local-output.txt                        | 1138 ++++++++++++++++++++
+ .../web-build-output.txt                           |   18 +
+ .../web-test-output.txt                            |   27 +
+ packages/shared/src/contracts.ts                   |    5 +
+ packages/shared/tests/contracts.test.mjs           |   37 +
+ 34 files changed, 2669 insertions(+), 306 deletions(-)

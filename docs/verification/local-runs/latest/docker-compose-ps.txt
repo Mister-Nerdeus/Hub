@@ -4,7 +4,7 @@ Command: docker compose ps
 ## stdout
 NAME        IMAGE                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
 hub-api-1   hub-api              "uvicorn app.main:ap…"   api       3 seconds ago    Up Less than a second     0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
-hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        34 seconds ago   Up 33 seconds (healthy)   5432/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        36 seconds ago   Up 34 seconds (healthy)   5432/tcp
 hub-web-1   hub-web              "docker-entrypoint.s…"   web       2 seconds ago    Up Less than a second     0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
 
 ## stderr

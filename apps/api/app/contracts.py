@@ -1048,6 +1048,10 @@ def validate_operational_report_contract(
         for nurse_summary in report.nurseSummaries:
             if nurse_summary.nurseId not in nurse_ids:
                 raise ValueError("report nurse summary references unknown nurse")
+        expected_nurse_ids = sorted(nurse.id for nurse in manual_assignment_set.nurses)
+        actual_nurse_ids = sorted(summary.nurseId for summary in report.nurseSummaries)
+        if actual_nurse_ids != expected_nurse_ids:
+            raise ValueError("report nurse summaries must include every manual assignment nurse")
     if warnings is not None:
         validate_report_against_warnings(report, warnings)
 

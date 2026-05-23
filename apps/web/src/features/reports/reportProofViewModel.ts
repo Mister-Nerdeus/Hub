@@ -82,6 +82,9 @@ export function createReportProofViewModel(
   if (operationalSummary == null) {
     throw new Error("operational summary report must be generated");
   }
+  const generatedTaskRoomById = new Map(
+    fixture.generatedTaskSet.generatedTasks.map((task) => [task.id, task.roomId])
+  );
 
   return {
     label: "Operational-only report proof",
@@ -118,12 +121,10 @@ export function createReportProofViewModel(
       estimatedTaskMinutes: summary.estimatedTaskMinutes,
       warningCount: summary.warningCount
     })),
-    unassignedRows: (unassignedReport?.unassignedTaskSummary.taskIds ?? []).map(
-      (taskId, index) => ({
-        taskId,
-        roomId: unassignedReport?.unassignedTaskSummary.roomIds[index] ?? ""
-      })
-    ),
+    unassignedRows: (unassignedReport?.unassignedTaskSummary.taskIds ?? []).map((taskId) => ({
+      taskId,
+      roomId: generatedTaskRoomById.get(taskId) ?? ""
+    })),
     warningRows: Object.entries(warningReport?.warningSummary.warningCodes ?? {})
       .sort(([left], [right]) => left.localeCompare(right))
       .map(([code, count]) => ({ code, count })),

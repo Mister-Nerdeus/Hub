@@ -1,0 +1,24 @@
+git status --short
+git log --oneline -5
+rg -n "roomIds\[[^\]]+\]|unassignedTaskSummary\.roomIds|nurseSummaries.*manual|manual assignment nurse" apps packages docs scripts -S
+npm --workspace packages/shared test
+npm --workspace apps/web test
+cd apps/api && python -m pytest tests/contracts
+npm --workspace apps/web run build
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git diff -- .github
+git diff --check
+docker compose down
+node scripts/verify-local.mjs
+npm run evidence:local -- --tracked
+node scripts/check-docs-contracts.mjs
+docker compose ps
+git diff --name-only
+git diff --stat
+git diff --name-only HEAD
+git diff --stat HEAD
+git status --short
+git commit -m "Harden Phase 6 report validation"
+git push
