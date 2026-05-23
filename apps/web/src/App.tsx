@@ -34,6 +34,7 @@ import { OperationalReportsProof } from "./features/reports/OperationalReportsPr
 import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
 import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
 import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
+import { SimulationRunRetrievalProof } from "./features/simulation/SimulationRunRetrievalProof";
 import {
   manualAssignmentBasic,
   manualAssignmentRoomLoads
@@ -105,6 +106,7 @@ export function App() {
         </div>
       </section>
 
+      <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
