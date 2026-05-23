@@ -1,0 +1,19 @@
+{
+  "issue": "136",
+  "module": "apps/web/src/features/layout-editor/layoutSnapEngine.ts",
+  "tests": "apps/web/src/features/layout-editor/layoutSnapEngine.test.ts",
+  "operatesInFeet": true,
+  "defaultSnapSizeFeet": 1,
+  "fineSnapSizeFeet": 0.5,
+  "deterministicSnapping": {
+    "positiveValues": true,
+    "negativeValues": true,
+    "fractionalValues": true,
+    "boundaryValues": true,
+    "resizeDeltas": true
+  },
+  "sourceMutation": false,
+  "pixelInputsRequired": false,
+  "uiAdded": false,
+  "testsPassed": true
+}

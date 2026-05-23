@@ -152,6 +152,8 @@ Issue 134 adds the shared editable layout geometry contract for rooms, doors, nu
 
 Issue 135 adds deterministic web coordinate transforms between persisted feet-based layout geometry and display-only pixels with zoom and pan support.
 
+Issue 136 adds a deterministic feet-based snap grid engine for default, fine, point, rectangle, and resize-delta snapping without mutating source geometry.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
