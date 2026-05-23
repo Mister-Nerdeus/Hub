@@ -82,7 +82,7 @@ test("buildPressureBandingSummary increases band value when the source value cro
   });
 
   assert.equal(low.bandedMetrics[0].bandLabel, "low");
-  assert.equal(high.bandedMetrics[0].bandLabel, "compressed");
+  assert.equal(high.bandedMetrics[0].bandLabel, "critical");
   assert.equal(high.bandedMetrics[0].bandValue > low.bandedMetrics[0].bandValue, true);
 });
 

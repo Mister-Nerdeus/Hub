@@ -1,0 +1,61 @@
+{
+  "issue": "127",
+  "activePressureBandLabels": [
+    "low",
+    "moderate",
+    "high",
+    "critical"
+  ],
+  "defaultThresholdLabels": [
+    "low",
+    "moderate",
+    "high",
+    "critical"
+  ],
+  "sampleBandAssignments": [
+    {
+      "sourceMetricId": "taxonomy-low",
+      "sourceValue": 12,
+      "bandLabel": "low",
+      "bandValue": 1
+    },
+    {
+      "sourceMetricId": "taxonomy-moderate",
+      "sourceValue": 38,
+      "bandLabel": "moderate",
+      "bandValue": 2
+    },
+    {
+      "sourceMetricId": "taxonomy-high",
+      "sourceValue": 58,
+      "bandLabel": "high",
+      "bandValue": 3
+    },
+    {
+      "sourceMetricId": "taxonomy-critical",
+      "sourceValue": 82,
+      "bandLabel": "critical",
+      "bandValue": 4
+    }
+  ],
+  "rejectedRetiredLabels": [
+    {
+      "label": "watch",
+      "rejected": true,
+      "message": "thresholds[0].bandLabel must be one of low, moderate, high, critical"
+    },
+    {
+      "label": "elevated",
+      "rejected": true,
+      "message": "thresholds[0].bandLabel must be one of low, moderate, high, critical"
+    },
+    {
+      "label": "compressed",
+      "rejected": true,
+      "message": "thresholds[0].bandLabel must be one of low, moderate, high, critical"
+    }
+  ],
+  "operationalOnly": true,
+  "noClinicalSafetyOrSatisfactionWording": true,
+  "testsPassed": true
+}

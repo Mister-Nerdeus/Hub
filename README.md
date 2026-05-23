@@ -126,7 +126,9 @@ Issue 121 adds room-level turnover readiness proxies including blocked room minu
 
 Issue 122 adds deterministic ratio and intensity scenario assumptions for 3:1 and 4:1 occupied-room coverage baselines across light, normal, busy, and slammed workload labels. It does not execute a simulation, alter assignments, or generate tasks.
 
-Issue 123 adds deterministic pressure-band summaries that map operational metric values into explicit low, watch, elevated, and compressed bands, preserving source metric values and adding no optimizer or workflow guidance.
+Issue 123 adds deterministic pressure-band summaries that map operational metric values into explicit low, moderate, high, and critical bands, preserving source metric values and adding no optimizer or workflow guidance.
+
+Issue 127 unifies active operational pressure-band labels on the low, moderate, high, and critical taxonomy for shared validation, outcome fixtures, and dashboard proof language.
 
 Issue 124 adds deterministic operational delta comparison output for matched baseline/modified metric sets with signed absolute deltas, deterministic signed percent deltas, zero-baseline handling, and directionality mapped to issue-117 metric directionality.
 

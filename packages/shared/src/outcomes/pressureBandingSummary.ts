@@ -14,7 +14,7 @@ import {
 } from "./operationalMetricContract.js";
 
 export const PRESSURE_BANDING_SCHEMA_VERSION = "1.0.0" as const;
-export const PRESSURE_BAND_LABELS = ["low", "watch", "elevated", "compressed"] as const;
+export const PRESSURE_BAND_LABELS = ["low", "moderate", "high", "critical"] as const;
 
 export type PressureBandLabel = (typeof PRESSURE_BAND_LABELS)[number];
 
@@ -61,19 +61,19 @@ export const DEFAULT_PRESSURE_BAND_THRESHOLDS: PressureBandThreshold[] = [
     maxExclusive: 25
   },
   {
-    bandLabel: "watch",
+    bandLabel: "moderate",
     bandValue: 2,
     minInclusive: 25,
     maxExclusive: 50
   },
   {
-    bandLabel: "elevated",
+    bandLabel: "high",
     bandValue: 3,
     minInclusive: 50,
     maxExclusive: 75
   },
   {
-    bandLabel: "compressed",
+    bandLabel: "critical",
     bandValue: 4,
     minInclusive: 75,
     maxExclusive: null

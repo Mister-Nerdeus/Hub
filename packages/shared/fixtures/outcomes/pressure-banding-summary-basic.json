@@ -9,19 +9,19 @@
       "maxExclusive": 25
     },
     {
-      "bandLabel": "watch",
+      "bandLabel": "moderate",
       "bandValue": 2,
       "minInclusive": 25,
       "maxExclusive": 50
     },
     {
-      "bandLabel": "elevated",
+      "bandLabel": "high",
       "bandValue": 3,
       "minInclusive": 50,
       "maxExclusive": 75
     },
     {
-      "bandLabel": "compressed",
+      "bandLabel": "critical",
       "bandValue": 4,
       "minInclusive": 75,
       "maxExclusive": null
@@ -47,7 +47,7 @@
       "group": "room",
       "scope": "room",
       "sourceValue": 58,
-      "bandLabel": "elevated",
+      "bandLabel": "high",
       "bandValue": 3,
       "thresholdMinInclusive": 50,
       "thresholdMaxExclusive": 75
@@ -59,7 +59,7 @@
       "group": "layout",
       "scope": "layout",
       "sourceValue": 82,
-      "bandLabel": "compressed",
+      "bandLabel": "critical",
       "bandValue": 4,
       "thresholdMinInclusive": 75,
       "thresholdMaxExclusive": null
