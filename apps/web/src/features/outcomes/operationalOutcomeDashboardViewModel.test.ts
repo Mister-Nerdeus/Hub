@@ -6,6 +6,10 @@ import {
 
 const viewModel = createOperationalOutcomeDashboardViewModel();
 
+if (viewModel.sourcePackage !== "@nerdeus/shared" || viewModel.sourceDataId.length === 0) {
+  throw new Error("dashboard view model must retain the shared source data identity");
+}
+
 if (viewModel.metricCards.length !== 8) {
   throw new Error("dashboard must render all operational metric cards");
 }

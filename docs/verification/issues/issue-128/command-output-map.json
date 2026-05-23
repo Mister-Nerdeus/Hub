@@ -1,0 +1,35 @@
+{
+  "issue": "128",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test > docs/verification/issues/issue-128/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-128/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test > docs/verification/issues/issue-128/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-128/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-128/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-128/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-128/test-output/shared.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-128/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-128/test-output/shared.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-128/test-output/shared.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "issue": "128",
+  "sourcePackage": "@nerdeus/shared",
+  "sourceDataId": "operational-outcome-dashboard-proof-data",
+  "scenarioCount": 4,
+  "sharedMetricIds": [
+    "nurse-walk-time",
+    "patient-wait-idle-proxy",
+    "task-time",
+    "queue-delay",
+    "unit-saturation",
+    "room-turnover-pressure",
+    "nurse-strain-proxy",
+    "layout-friction"
+  ],
+  "scenarioKeys": [
+    "3_to_1_light",
+    "4_to_1_light",
+    "3_to_1_slammed",
+    "4_to_1_slammed"
+  ],
+  "pressureBands": [
+    "low",
+    "low",
+    "critical",
+    "critical"
+  ],
+  "pressureBandsValid": true,
+  "webFixtureReexportsAdapter": true,
+  "webFixtureDefinesMetricValues": false,
+  "webAdapterConsumesSharedData": true,
+  "webAdapterDefinesMetricValues": false,
+  "noIndependentWebMetricTruth": true,
+  "operationalOnly": true,
+  "testsPassed": true
+}

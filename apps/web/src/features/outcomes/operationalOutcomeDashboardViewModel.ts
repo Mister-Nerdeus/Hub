@@ -3,7 +3,10 @@ import {
   OPERATIONAL_METRIC_SCHEMA_VERSION,
   validateMetricLimitations
 } from "@nerdeus/shared";
-import type { OperationalDeltaComparisonContract } from "@nerdeus/shared";
+import type {
+  OperationalDeltaComparisonContract,
+  OperationalMetricGroup
+} from "@nerdeus/shared";
 
 import {
   allOperationalOutcomeMetricDirections,
@@ -15,6 +18,7 @@ import {
 type OperationalScenarioMetric = {
   metricId: string;
   label: string;
+  group: OperationalMetricGroup;
   unit: string;
   value: number;
   directionality: "lower_is_better" | "higher_is_better" | "neutral";
@@ -47,6 +51,8 @@ type PressureBandTile = {
 };
 
 export type OperationalOutcomeDashboardViewModel = {
+  sourcePackage: "@nerdeus/shared";
+  sourceDataId: string;
   proofTitle: string;
   proofBadge: string;
   ratioComparisonBaselineLabel: string;
@@ -103,6 +109,8 @@ export function createOperationalOutcomeDashboardViewModel(
   ];
 
   return {
+    sourcePackage: fixture.sourcePackage,
+    sourceDataId: fixture.sourceDataId,
     proofTitle: fixture.proofTitle,
     proofBadge: fixture.proofBadge,
     ratioComparisonBaselineLabel: fixture.ratioComparisonBaselineLabel,
@@ -124,7 +132,7 @@ function toOperationalMetricInput(
     schemaVersion: OPERATIONAL_METRIC_SCHEMA_VERSION,
     metricId: metric.metricId,
     label: `${metric.label} (${scenarioLabel})`,
-    group: scenarioMetricGroup(metric.metricId),
+    group: metric.group,
     unit: metric.unit as "minutes" | "count" | "percent" | "score" | "feet" | "band",
     value: metric.value,
     directionality: metric.directionality,
@@ -132,29 +140,6 @@ function toOperationalMetricInput(
     scope: "comparison" as const,
     limitations: ["Operational-only dashboard contract input for deterministic contrast."]
   };
-}
-
-function scenarioMetricGroup(metricId: string): "nurse" | "patient_flow" | "task" | "unit" | "room" | "layout" {
-  const lower = metricId.toLowerCase();
-  if (lower.includes("nurse")) {
-    return "nurse";
-  }
-  if (lower.includes("patient")) {
-    return "patient_flow";
-  }
-  if (lower.includes("queue")) {
-    return "task";
-  }
-  if (lower.includes("unit")) {
-    return "unit";
-  }
-  if (lower.includes("room")) {
-    return "room";
-  }
-  if (lower.includes("layout")) {
-    return "layout";
-  }
-  return "task";
 }
 
 function createMetricRows(

@@ -16,6 +16,7 @@ export * from "./pathing/pathTravelContract.js";
 export * from "./pathing/pathTravelTime.js";
 export * from "./outcomes/operationalMetricContract.js";
 export * from "./outcomes/operationalDeltaComparison.js";
+export * from "./outcomes/operationalOutcomeDashboardProofData.js";
 export * from "./outcomes/ratioScenarioIntensityContract.js";
 export * from "./outcomes/pressureBandingSummary.js";
 export * from "./outcomes/taskTimeQueueSummary.js";
