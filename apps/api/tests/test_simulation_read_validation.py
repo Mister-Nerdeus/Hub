@@ -12,6 +12,7 @@ from app import models  # noqa: F401
 from app.db import Base, get_db
 from app.main import app
 from app.models import SimulationRunRecord
+from app.schemas.simulation import persisted_simulation_run_invalid_detail
 
 
 def valid_simulation_run(run_id: str = "simulation-run-read-validation") -> dict:
@@ -77,6 +78,10 @@ def insert_stored_run(
         db.commit()
 
 
+def invalid_persisted_detail() -> dict:
+    return {"detail": persisted_simulation_run_invalid_detail()}
+
+
 def test_default_limit_and_pagination_shape(db_client: tuple[TestClient, sessionmaker[Session]]) -> None:
     client, _ = db_client
 
@@ -139,7 +144,7 @@ def test_invalid_persisted_json_returns_deterministic_error(
     response = client.get("/v1/simulation/runs/simulation-run-read-validation")
 
     assert response.status_code == 500
-    assert response.json() == {"detail": "persisted simulation run failed validation"}
+    assert response.json() == invalid_persisted_detail()
 
 
 def test_phi_like_persisted_payload_blocked_on_read(
@@ -163,4 +168,4 @@ def test_phi_like_persisted_payload_blocked_on_read(
     response = client.get("/v1/simulation/runs/simulation-run-read-validation")
 
     assert response.status_code == 500
-    assert response.json() == {"detail": "persisted simulation run failed validation"}
+    assert response.json() == invalid_persisted_detail()

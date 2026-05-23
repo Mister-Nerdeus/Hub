@@ -1,0 +1,7 @@
+python -m pytest apps/api/tests/test_simulation_persisted_error_contract.py
+python -m pytest apps/api/tests/test_simulation_persisted_error_contract.py apps/api/tests/test_simulation_read_validation.py
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-111/test-output/api.txt
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+npm run verify
+docker compose down

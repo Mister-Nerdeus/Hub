@@ -43,6 +43,8 @@ NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
 QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released"}
 TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
 TERMINAL_TASK_ACTIONS = {"completed", "missed", "unassigned"}
+PERSISTED_SIMULATION_RUN_INVALID_CODE = "PERSISTED_SIMULATION_RUN_INVALID"
+PERSISTED_SIMULATION_RUN_INVALID_MESSAGE = "persisted simulation run failed validation"
 
 
 class SimulationRunSummary(StrictModel):
@@ -193,6 +195,13 @@ def validate_persisted_simulation_run(value: Any) -> dict[str, Any]:
     if not isinstance(value, dict):
         raise ValueError("persisted simulation run must be an object")
     return value
+
+
+def persisted_simulation_run_invalid_detail() -> dict[str, str]:
+    return {
+        "code": PERSISTED_SIMULATION_RUN_INVALID_CODE,
+        "message": PERSISTED_SIMULATION_RUN_INVALID_MESSAGE,
+    }
 
 
 def validate_task_lifecycle(task_events: list[SimulationEvent]) -> None:

@@ -9,7 +9,11 @@ from sqlalchemy.orm import Session
 from app.db import get_db
 from app.models import SimulationRunRecord
 from app.repositories import simulation_runs as simulation_run_repository
-from app.schemas.simulation import SimulationRunContract, validate_persisted_simulation_run
+from app.schemas.simulation import (
+    SimulationRunContract,
+    persisted_simulation_run_invalid_detail,
+    validate_persisted_simulation_run,
+)
 
 router = APIRouter(prefix="/v1/simulation", tags=["simulation"])
 
@@ -38,7 +42,7 @@ def validated_simulation_json(record: SimulationRunRecord) -> dict[str, Any]:
     except (ValidationError, ValueError) as exc:
         raise HTTPException(
             status_code=500,
-            detail="persisted simulation run failed validation",
+            detail=persisted_simulation_run_invalid_detail(),
         ) from exc
 
 
