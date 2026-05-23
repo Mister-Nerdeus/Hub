@@ -1,0 +1,23 @@
+{
+  "issue": "117",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-117/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-117/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-117/test-output/shared.txt"
+      ]
+    }
+  ]
+}

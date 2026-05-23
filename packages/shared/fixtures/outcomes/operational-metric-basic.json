@@ -1,0 +1,148 @@
+{
+  "operationalMetrics": [
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-walk-time",
+      "label": "Nurse walk time",
+      "group": "nurse",
+      "unit": "minutes",
+      "value": 7.2,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": ["Operational-only metric derived from path travel timing."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-walk-distance",
+      "label": "Nurse walking distance",
+      "group": "nurse",
+      "unit": "feet",
+      "value": 312,
+      "directionality": "lower_is_better",
+      "source": "travel_event",
+      "scope": "nurse",
+      "limitations": ["Operational-only metric derived from travel graph distances."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "task-time",
+      "label": "Task time",
+      "group": "task",
+      "unit": "minutes",
+      "value": 4.6,
+      "directionality": "lower_is_better",
+      "source": "task_event",
+      "scope": "task",
+      "limitations": ["Operational-only task duration proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "queue-delay",
+      "label": "Queue delay",
+      "group": "patient_flow",
+      "unit": "minutes",
+      "value": 2.1,
+      "directionality": "lower_is_better",
+      "source": "queue_event",
+      "scope": "task",
+      "limitations": ["Operational-only queue-wait proxy from nurse queue events."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "patient-wait-idle",
+      "label": "Patient wait / idle proxy",
+      "group": "patient_flow",
+      "unit": "minutes",
+      "value": 3.4,
+      "directionality": "lower_is_better",
+      "source": "queue_event",
+      "scope": "task",
+      "limitations": ["Operational-only patient wait and nurse idle proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room-blocked-time",
+      "label": "Room blocked time",
+      "group": "room",
+      "unit": "minutes",
+      "value": 11.8,
+      "directionality": "lower_is_better",
+      "source": "simulation_score",
+      "scope": "room",
+      "limitations": ["Operational-only room occupancy delay proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "room-turnover-pressure",
+      "label": "Room turnover pressure",
+      "group": "room",
+      "unit": "percent",
+      "value": 65,
+      "directionality": "higher_is_better",
+      "source": "simulation_score",
+      "scope": "room",
+      "limitations": ["Operational-only room turnover proxy from turnover-burden assumptions."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "layout-friction",
+      "label": "Layout friction",
+      "group": "layout",
+      "unit": "score",
+      "value": 38,
+      "directionality": "lower_is_better",
+      "source": "scenario_assumption",
+      "scope": "layout",
+      "limitations": ["Operational-only physical layout friction proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-strain-proxy",
+      "label": "Nurse strain proxy",
+      "group": "nurse",
+      "unit": "score",
+      "value": 47,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "nurse",
+      "limitations": ["Operational-only workload strain proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "nurse-coverage-3v4",
+      "label": "3:1 vs 4:1 baseline load ratio",
+      "group": "ratio",
+      "unit": "score",
+      "value": 0.74,
+      "directionality": "higher_is_better",
+      "source": "comparison_delta",
+      "scope": "comparison",
+      "limitations": ["Operational-only staffing-ratio comparison delta between scenarios."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "unit-saturation",
+      "label": "Unit saturation",
+      "group": "unit",
+      "unit": "percent",
+      "value": 72,
+      "directionality": "lower_is_better",
+      "source": "derived_proxy",
+      "scope": "simulation",
+      "limitations": ["Operational-only unit occupancy saturation proxy."]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "metricId": "comparison-delta",
+      "label": "Comparison delta",
+      "group": "comparison",
+      "unit": "count",
+      "value": -4,
+      "directionality": "neutral",
+      "source": "comparison_delta",
+      "scope": "comparison",
+      "limitations": ["Operational-only signed delta proxy across scenario comparisons."]
+    }
+  ]
+}

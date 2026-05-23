@@ -1,0 +1,27 @@
+{
+  "issue": "117",
+  "schema": {
+    "metricCount": 12,
+    "groupTypes": [
+      "comparison",
+      "layout",
+      "nurse",
+      "patient_flow",
+      "ratio",
+      "room",
+      "task",
+      "unit"
+    ],
+    "requiredDirections": [
+      "lower_is_better",
+      "higher_is_better",
+      "neutral"
+    ],
+    "sourceCount": 7
+  },
+  "validation": {
+    "input": "packages/shared/fixtures/outcomes/operational-metric-basic.json",
+    "status": "operational",
+    "provenance": "derived_proxy and event provenance fields present"
+  }
+}

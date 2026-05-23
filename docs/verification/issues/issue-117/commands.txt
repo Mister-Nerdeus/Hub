@@ -1,0 +1,3 @@
+npm --workspace packages/shared test
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs

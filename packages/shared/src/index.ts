@@ -14,6 +14,7 @@ export * from "./optimization/optimizerAuditContract.js";
 export * from "./optimization/optimizerAuditTrail.js";
 export * from "./pathing/pathTravelContract.js";
 export * from "./pathing/pathTravelTime.js";
+export * from "./outcomes/operationalMetricContract.js";
 export * from "./scoring/assumptionsScoring.js";
 export * from "./scoring/nurseBurdenScore.js";
 export * from "./scoring/roomWorkloadScore.js";
