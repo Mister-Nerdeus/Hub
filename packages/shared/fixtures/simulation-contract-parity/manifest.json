@@ -1,0 +1,48 @@
+{
+  "fixtures": [
+    {
+      "fixture": "invalid-clinical-note.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-date-of-birth.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-diagnosis-text.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-ehr-id.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-identity-underscore-key.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-medication-name.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-patient-identifier.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-patient-name.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-recommended-text.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-record-number-key.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "valid-minimal.json",
+      "expected": "accept"
+    }
+  ]
+}

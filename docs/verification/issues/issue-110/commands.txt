@@ -1,0 +1,7 @@
+node scripts/check-simulation-contract-parity.mjs > docs/verification/issues/issue-110/test-output/parity.txt
+npm --workspace packages/shared test
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+npm run verify
+docker compose down

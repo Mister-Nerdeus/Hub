@@ -11,15 +11,16 @@ const fixturesDir = fileURLToPath(
 );
 
 const fixtureNames = readdirSync(fixturesDir)
-  .filter((name) => name.endsWith(".json"))
+  .filter((name) => name.endsWith(".json") && name !== "manifest.json")
   .sort();
+
+const manifest = JSON.parse(readFileSync(join(fixturesDir, "manifest.json"), "utf8"));
+const manifestEntries = [...manifest.fixtures].sort((left, right) =>
+  left.fixture < right.fixture ? -1 : left.fixture > right.fixture ? 1 : 0
+);
 
 function readFixture(name) {
   return JSON.parse(readFileSync(join(fixturesDir, name), "utf8"));
-}
-
-function expectedResult(name) {
-  return name === "valid-minimal.json" ? "accept" : "reject";
 }
 
 function validateFixture(name) {
@@ -32,14 +33,18 @@ function validateFixture(name) {
 }
 
 test("simulation contract parity fixtures have the expected count", () => {
-  assert.equal(fixtureNames.length, 11);
+  assert.equal(manifestEntries.length, 11);
+  assert.deepEqual(
+    manifestEntries.map((entry) => entry.fixture),
+    fixtureNames
+  );
 });
 
 test("TypeScript validator accepts and rejects parity fixtures as expected", () => {
-  const results = fixtureNames.map((name) => ({
-    fixture: basename(name),
-    expected: expectedResult(name),
-    typescript: validateFixture(name)
+  const results = manifestEntries.map((entry) => ({
+    fixture: basename(entry.fixture),
+    expected: entry.expected,
+    typescript: validateFixture(entry.fixture)
   }));
 
   assert.deepEqual(
