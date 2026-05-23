@@ -89,3 +89,26 @@ test("buildPressureBandingSummary increases band value when the source value cro
 test("buildPressureBandingSummary rejects empty metric input", () => {
   assert.throws(() => buildPressureBandingSummary({ metrics: [] }), /at least one/);
 });
+
+test("buildPressureBandingSummary preserves negative comparison deltas while banding from zero floor", () => {
+  const output = buildPressureBandingSummary({
+    metrics: validateOperationalMetricContracts([
+      {
+        schemaVersion: "1.0.0",
+        metricId: "comparison-delta",
+        label: "Comparison delta",
+        group: "comparison",
+        unit: "count",
+        value: -4,
+        directionality: "neutral",
+        source: "comparison_delta",
+        scope: "comparison",
+        limitations: ["Operational-only signed delta metric."]
+      }
+    ])
+  });
+
+  assert.equal(output.bandedMetrics[0].sourceValue, -4);
+  assert.equal(output.bandedMetrics[0].bandLabel, "low");
+  assert.equal(output.bandedMetrics[0].bandValue, 1);
+});

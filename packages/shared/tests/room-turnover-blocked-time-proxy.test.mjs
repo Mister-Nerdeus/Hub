@@ -293,3 +293,45 @@ test("buildRoomTurnoverBlockedTimeProxy pressure increases with additional turno
   assert.equal(typeof highPressure?.value, "number");
   assert.equal(highPressure.value > lowPressure.value, true);
 });
+
+test("buildRoomTurnoverBlockedTimeProxy ignores non-turnover missed tasks", () => {
+  const output = buildRoomTurnoverBlockedTimeProxy({
+    simulationRun: buildFixtureRun(),
+    generatedTaskSet: buildGeneratedTaskSet()
+  });
+  const withNonTurnoverMiss = buildFixtureRun();
+  withNonTurnoverMiss.events.push(
+    {
+      eventId: "task-task-issue121-room-03-extra-medication-missed-ready",
+      eventType: "task",
+      action: "ready",
+      taskId: "task-issue121-room-03-extra-medication-missed",
+      minute: 120,
+      scheduledMinute: 120
+    },
+    {
+      eventId: "task-task-issue121-room-03-extra-medication-missed",
+      eventType: "task",
+      action: "missed",
+      taskId: "task-issue121-room-03-extra-medication-missed",
+      minute: 140,
+      scheduledMinute: 120,
+      missReason: "not_started_shift_window_exceeded",
+      projectedStartMinute: 150,
+      projectedTravelMinutes: 2,
+      projectedCompletionMinute: 160,
+      shiftDurationMinutes: 140
+    }
+  );
+  withNonTurnoverMiss.summary = {
+    ...withNonTurnoverMiss.summary,
+    totalTasks: 6,
+    missedTaskCount: 2
+  };
+  const withExtraMiss = buildRoomTurnoverBlockedTimeProxy({
+    simulationRun: withNonTurnoverMiss,
+    generatedTaskSet: buildGeneratedTaskSet()
+  });
+
+  assert.deepEqual(withExtraMiss, output);
+});

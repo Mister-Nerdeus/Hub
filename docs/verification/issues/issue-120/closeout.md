@@ -27,9 +27,9 @@ Added deterministic patient-flow wait/idle proxies derived from validated simula
 
 ## Tests Passed/Failed
 
-- Not run in this environment: `npm --workspace packages/shared test`
-- Not run in this environment: `node scripts/check-no-phi-fields.mjs`
-- Not run in this environment: `node scripts/check-docs-contracts.mjs`
+- Passed: `npm --workspace packages/shared test`
+- Passed: `node scripts/check-no-phi-fields.mjs`
+- Passed: `node scripts/check-docs-contracts.mjs`
 - Failed: None.
 
 ## Evidence

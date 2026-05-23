@@ -42,3 +42,10 @@ test("ratio scenario intensity validation rejects forbidden wording", () => {
 
   assert.throws(() => validateRatioScenarioIntensityContract(fixture), /forbidden wording/);
 });
+
+test("ratio scenario intensity validation rejects composite multiplier drift", () => {
+  const fixture = readFixture("ratio-scenario-intensity-basic.json");
+  fixture.scenarios[0].compositeIntensityWeight = 9;
+
+  assert.throws(() => validateRatioScenarioIntensityContract(fixture), /compositeIntensityWeight/);
+});

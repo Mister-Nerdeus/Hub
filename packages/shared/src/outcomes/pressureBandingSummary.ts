@@ -314,7 +314,7 @@ function validatePressureBandedMetric(value: unknown, index: number): PressureBa
     sourceMetricId: validateOperationalText(metric.sourceMetricId, `bandedMetrics[${index}].sourceMetricId`),
     group: requireEnum(metric.group, OPERATIONAL_METRIC_GROUPS, `bandedMetrics[${index}].group`),
     scope: requireEnum(metric.scope, OPERATIONAL_METRIC_SCOPES, `bandedMetrics[${index}].scope`),
-    sourceValue: requireNonNegativeNumber(metric.sourceValue, `bandedMetrics[${index}].sourceValue`),
+    sourceValue: requireFiniteNumber(metric.sourceValue, `bandedMetrics[${index}].sourceValue`),
     bandLabel: requireEnum(metric.bandLabel, PRESSURE_BAND_LABELS, `bandedMetrics[${index}].bandLabel`),
     bandValue: requirePositiveNumber(metric.bandValue, `bandedMetrics[${index}].bandValue`),
     thresholdMinInclusive: requireNonNegativeNumber(
@@ -378,11 +378,16 @@ function requirePositiveNumber(value: unknown, label: string): number {
 }
 
 function requireNonNegativeNumber(value: unknown, label: string): number {
+  const numberValue = requireFiniteNumber(value, label);
+  if (numberValue < 0) {
+    throw new Error(`${label} must be non-negative`);
+  }
+  return numberValue;
+}
+
+function requireFiniteNumber(value: unknown, label: string): number {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     throw new Error(`${label} must be a finite number`);
-  }
-  if (value < 0) {
-    throw new Error(`${label} must be non-negative`);
   }
   return value;
 }

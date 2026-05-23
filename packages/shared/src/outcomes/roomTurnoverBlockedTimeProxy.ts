@@ -94,7 +94,9 @@ export function buildRoomTurnoverBlockedTimeProxy(
       if (event.action === "missed" || event.action === "unassigned") {
         terminalActionByTask[taskId] = event.action;
         terminalMinuteByTask[taskId] = event.minute;
-        isTurnoverTaskById.add(taskId);
+        if (isTurnoverTask) {
+          isTurnoverTaskById.add(taskId);
+        }
       }
       continue;
     }

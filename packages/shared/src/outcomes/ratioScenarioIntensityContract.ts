@@ -206,6 +206,13 @@ function validateRatioScenarioIntensityScenario(
   if (turnoverMultiplier !== INTENSITY_TURNOVER_MULTIPLIERS[intensityLabel]) {
     throw new Error(`scenarios[${index}].turnoverMultiplier must match intensityLabel`);
   }
+  const compositeIntensityWeight = requireNonNegativeNumber(
+    scenario.compositeIntensityWeight,
+    `scenarios[${index}].compositeIntensityWeight`
+  );
+  if (compositeIntensityWeight !== roundToTwo((taskVolumeMultiplier + turnoverMultiplier) / 2)) {
+    throw new Error(`scenarios[${index}].compositeIntensityWeight must match intensity multipliers`);
+  }
 
   return {
     scenarioKey: validateOperationalText(scenario.scenarioKey, `scenarios[${index}].scenarioKey`),
@@ -217,10 +224,7 @@ function validateRatioScenarioIntensityScenario(
     ),
     taskVolumeMultiplier,
     turnoverMultiplier,
-    compositeIntensityWeight: requireNonNegativeNumber(
-      scenario.compositeIntensityWeight,
-      `scenarios[${index}].compositeIntensityWeight`
-    ),
+    compositeIntensityWeight,
     assumptionNotes: requireArray(
       scenario.assumptionNotes,
       `scenarios[${index}].assumptionNotes`
