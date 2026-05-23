@@ -172,6 +172,48 @@ def test_validate_endpoint_accepts_not_started_miss_reason(client: TestClient) -
     assert response.status_code == 200
 
 
+def test_validate_endpoint_rejects_paused_queue_action(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "queue-paused",
+            "eventType": "queue",
+            "action": "paused",
+            "taskId": "task-basic",
+            "nurseId": "nurse-alpha",
+            "minute": 0,
+            "originalReadyMinute": 0,
+            "enteredQueueMinute": 0,
+            "orderingReason": "Queue action validation fixture.",
+        }
+    )
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
+def test_validate_endpoint_rejects_resumed_queue_action(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "queue-resumed",
+            "eventType": "queue",
+            "action": "resumed",
+            "taskId": "task-basic",
+            "nurseId": "nurse-alpha",
+            "minute": 0,
+            "originalReadyMinute": 0,
+            "enteredQueueMinute": 0,
+            "orderingReason": "Queue action validation fixture.",
+        }
+    )
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
 def test_validate_endpoint_rejects_duplicate_event_ids(client: TestClient) -> None:
     payload = valid_simulation_run()
     payload["events"] = [

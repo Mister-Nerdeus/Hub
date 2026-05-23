@@ -99,7 +99,7 @@ test("non-interruptible task is not paused", () => {
   assert.equal(run.events.some((event) => event.eventType === "queue" && event.action === "paused"), false);
 });
 
-test("interruptible task may be paused only if explicitly marked", () => {
+test("interruptible marker does not imply pause action support", () => {
   const queue = buildNurseQueue({
     queueId: "queue-interruptible",
     nurseId: "nurse-alpha",

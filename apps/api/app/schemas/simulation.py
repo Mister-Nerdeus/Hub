@@ -40,7 +40,7 @@ FORBIDDEN_TEXT_PATTERNS = (
 TASK_ACTIONS = {"ready", "started", "completed", "delayed", "missed", "unassigned"}
 MISS_REASONS = {"unassigned", "not_started_shift_window_exceeded"}
 NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
-QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released", "paused", "resumed"}
+QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released"}
 TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
 
 

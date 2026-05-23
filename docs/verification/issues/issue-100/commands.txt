@@ -1,0 +1,25 @@
+# Issue 100 Commands
+
+Failure reproduction before fix:
+
+```text
+npm --workspace packages/shared test -- nurse-queue-pause-resume-contract.test.mjs
+cd apps/api && python -m pytest tests/test_simulation_contract.py
+```
+
+Observed pre-fix result:
+
+```text
+TypeScript accepted paused and resumed queue actions.
+Python accepted paused and resumed queue actions.
+```
+
+Final verification:
+
+```text
+npm --workspace packages/shared test > docs/verification/issues/issue-100/test-output/shared.txt
+cd apps/api && python -m pytest
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config
+```

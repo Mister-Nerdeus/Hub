@@ -26,9 +26,7 @@ export type SimulationNurseEventAction =
 export type SimulationQueueEventAction =
   | "entered_queue"
   | "started_from_queue"
-  | "released"
-  | "paused"
-  | "resumed";
+  | "released";
 
 export type SimulationTravelEventAction = "travel_calculated" | "travel_unreachable";
 
@@ -140,9 +138,7 @@ const NURSE_EVENT_ACTIONS = ["started_task", "completed_task", "idle", "queued"]
 const QUEUE_EVENT_ACTIONS = [
   "entered_queue",
   "started_from_queue",
-  "released",
-  "paused",
-  "resumed"
+  "released"
 ] as const;
 
 const TRAVEL_EVENT_ACTIONS = ["travel_calculated", "travel_unreachable"] as const;

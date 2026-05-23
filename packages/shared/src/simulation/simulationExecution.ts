@@ -72,9 +72,7 @@ const EVENT_ACTION_ORDER: Record<string, number> = {
   unassigned: 10,
   missed: 11,
   queued: 12,
-  idle: 13,
-  paused: 14,
-  resumed: 15
+  idle: 13
 };
 
 export function buildSimulationRun(input: BuildSimulationRunInput): SimulationRunContract {
