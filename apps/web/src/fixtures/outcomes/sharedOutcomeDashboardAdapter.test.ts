@@ -29,6 +29,10 @@ if (
   throw new Error("dashboard metric IDs must come from shared dashboard proof data");
 }
 
+if (adapted.ratioDelta !== operationalOutcomeDashboardProofData.ratioDeltaComparison) {
+  throw new Error("dashboard ratio delta must be display-adapted from shared data");
+}
+
 const fixtureScenarios = [
   operationalOutcomeDashboardProofFixture.threeToOneLight,
   operationalOutcomeDashboardProofFixture.fourToOneLight,
@@ -51,6 +55,9 @@ for (const scenario of fixtureScenarios) {
     );
     if (sharedMetric == null || sharedMetric.value !== metric.value) {
       throw new Error(`metric ${metric.metricId} must be display-adapted from shared data`);
+    }
+    if (metric.metricId.includes("-")) {
+      throw new Error(`metric ${metric.metricId} must use canonical registry ID format`);
     }
   }
 }

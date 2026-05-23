@@ -3,6 +3,7 @@ import {
   operationalOutcomeDashboardProofData
 } from "@nerdeus/shared";
 import type {
+  OperationalDeltaComparisonContract,
   OperationalMetricDirectionality,
   OperationalMetricGroup,
   OperationalOutcomeDashboardProofData,
@@ -39,6 +40,7 @@ export type OperationalOutcomeDashboardProofFixture = {
   ratioComparisonBaselineLabel: string;
   ratioComparisonModifiedLabel: string;
   intensityContrastLabel: string;
+  ratioDelta: OperationalDeltaComparisonContract;
   threeToOneLight: OperationalOutcomeScenarioFixture;
   fourToOneLight: OperationalOutcomeScenarioFixture;
   threeToOneSlammed: OperationalOutcomeScenarioFixture;
@@ -56,6 +58,7 @@ export function adaptSharedOutcomeDashboardProofData(
     ratioComparisonBaselineLabel: data.ratioComparisonBaselineLabel,
     ratioComparisonModifiedLabel: data.ratioComparisonModifiedLabel,
     intensityContrastLabel: data.intensityContrastLabel,
+    ratioDelta: data.ratioDeltaComparison,
     limitations: data.limitations,
     threeToOneLight: adaptScenario(findScenario(data, "3_to_1", "light")),
     fourToOneLight: adaptScenario(findScenario(data, "4_to_1", "light")),

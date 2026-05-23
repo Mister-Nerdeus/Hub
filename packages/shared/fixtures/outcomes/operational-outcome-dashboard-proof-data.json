@@ -6,6 +6,91 @@
   "ratioComparisonBaselineLabel": "3:1 light",
   "ratioComparisonModifiedLabel": "4:1 light",
   "intensityContrastLabel": "3:1 light vs 3:1 slammed",
+  "ratioDeltaComparison": {
+    "schemaVersion": "1.0.0",
+    "comparisonId": "outcome-dashboard-ratio-contrast",
+    "baselineLabel": "3:1 light",
+    "modifiedLabel": "4:1 light",
+    "deltas": [
+      {
+        "metricId": "layout_friction",
+        "directionality": "lower_is_better",
+        "baselineValue": 7.67,
+        "modifiedValue": 10.23,
+        "absoluteChange": 2.56,
+        "percentChange": 33.38,
+        "direction": "worse"
+      },
+      {
+        "metricId": "nurse_strain_proxy",
+        "directionality": "lower_is_better",
+        "baselineValue": 11.56,
+        "modifiedValue": 15.21,
+        "absoluteChange": 3.65,
+        "percentChange": 31.57,
+        "direction": "worse"
+      },
+      {
+        "metricId": "nurse_walk_time",
+        "directionality": "lower_is_better",
+        "baselineValue": 13.78,
+        "modifiedValue": 15.84,
+        "absoluteChange": 2.06,
+        "percentChange": 14.95,
+        "direction": "worse"
+      },
+      {
+        "metricId": "patient_wait_idle_proxy",
+        "directionality": "lower_is_better",
+        "baselineValue": 6.37,
+        "modifiedValue": 8.68,
+        "absoluteChange": 2.31,
+        "percentChange": 36.26,
+        "direction": "worse"
+      },
+      {
+        "metricId": "queue_delay",
+        "directionality": "lower_is_better",
+        "baselineValue": 4.52,
+        "modifiedValue": 6.21,
+        "absoluteChange": 1.69,
+        "percentChange": 37.39,
+        "direction": "worse"
+      },
+      {
+        "metricId": "room_turnover_pressure",
+        "directionality": "lower_is_better",
+        "baselineValue": 10.68,
+        "modifiedValue": 14.84,
+        "absoluteChange": 4.16,
+        "percentChange": 38.95,
+        "direction": "worse"
+      },
+      {
+        "metricId": "task_time",
+        "directionality": "lower_is_better",
+        "baselineValue": 16.95,
+        "modifiedValue": 19.77,
+        "absoluteChange": 2.82,
+        "percentChange": 16.64,
+        "direction": "worse"
+      },
+      {
+        "metricId": "unit_saturation",
+        "directionality": "lower_is_better",
+        "baselineValue": 13.22,
+        "modifiedValue": 17.63,
+        "absoluteChange": 4.41,
+        "percentChange": 33.36,
+        "direction": "worse"
+      }
+    ],
+    "limitations": [
+      "Dashboard proof data is generated from shared operational builders for deterministic scenario contrast.",
+      "Scenario values are derived from shared ratio and intensity assumptions, not web-local metric truth.",
+      "Values are workload-pressure labels and operational metrics only."
+    ]
+  },
   "scenarios": [
     {
       "scenarioKey": "3_to_1_light",
@@ -16,114 +101,114 @@
       "operationalMetrics": [
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-walk-time",
-          "label": "Nurse Walk Time",
+          "metricId": "nurse_walk_time",
+          "label": "Nurse walk time",
           "group": "nurse",
           "unit": "minutes",
-          "value": 28,
+          "value": 13.78,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "travel_event",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "patient-wait-idle-proxy",
-          "label": "Patient Wait / Idle Proxy",
+          "metricId": "patient_wait_idle_proxy",
+          "label": "Patient wait idle proxy",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 8,
+          "value": 6.37,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "task-time",
-          "label": "Task Time",
+          "metricId": "task_time",
+          "label": "Task time",
           "group": "task",
           "unit": "minutes",
-          "value": 30,
+          "value": 16.95,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "task_event",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "queue-delay",
-          "label": "Queue Delay",
+          "metricId": "queue_delay",
+          "label": "Queue delay",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 4,
+          "value": 4.52,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
+          "source": "queue_event",
           "scope": "scenario",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "unit-saturation",
-          "label": "Unit Saturation",
+          "metricId": "unit_saturation",
+          "label": "Unit saturation",
           "group": "unit",
           "unit": "percent",
-          "value": 34,
+          "value": 13.22,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "room-turnover-pressure",
-          "label": "Room Turnover Pressure",
+          "metricId": "room_turnover_pressure",
+          "label": "Room turnover pressure",
           "group": "room",
           "unit": "score",
-          "value": 22,
+          "value": 10.68,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-strain-proxy",
-          "label": "Nurse Strain Proxy",
+          "metricId": "nurse_strain_proxy",
+          "label": "Nurse strain proxy",
           "group": "nurse",
           "unit": "score",
-          "value": 26,
+          "value": 11.56,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "layout-friction",
-          "label": "Layout Friction",
+          "metricId": "layout_friction",
+          "label": "Layout friction",
           "group": "layout",
           "unit": "score",
-          "value": 16,
+          "value": 7.67,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         }
       ]
@@ -137,114 +222,114 @@
       "operationalMetrics": [
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-walk-time",
-          "label": "Nurse Walk Time",
+          "metricId": "nurse_walk_time",
+          "label": "Nurse walk time",
           "group": "nurse",
           "unit": "minutes",
-          "value": 32,
+          "value": 15.84,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "travel_event",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "patient-wait-idle-proxy",
-          "label": "Patient Wait / Idle Proxy",
+          "metricId": "patient_wait_idle_proxy",
+          "label": "Patient wait idle proxy",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 12,
+          "value": 8.68,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "task-time",
-          "label": "Task Time",
+          "metricId": "task_time",
+          "label": "Task time",
           "group": "task",
           "unit": "minutes",
-          "value": 34,
+          "value": 19.77,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "task_event",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "queue-delay",
-          "label": "Queue Delay",
+          "metricId": "queue_delay",
+          "label": "Queue delay",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 5,
+          "value": 6.21,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
+          "source": "queue_event",
           "scope": "scenario",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "unit-saturation",
-          "label": "Unit Saturation",
+          "metricId": "unit_saturation",
+          "label": "Unit saturation",
           "group": "unit",
           "unit": "percent",
-          "value": 46,
+          "value": 17.63,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "room-turnover-pressure",
-          "label": "Room Turnover Pressure",
+          "metricId": "room_turnover_pressure",
+          "label": "Room turnover pressure",
           "group": "room",
           "unit": "score",
-          "value": 39,
+          "value": 14.84,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-strain-proxy",
-          "label": "Nurse Strain Proxy",
+          "metricId": "nurse_strain_proxy",
+          "label": "Nurse strain proxy",
           "group": "nurse",
           "unit": "score",
-          "value": 30,
+          "value": 15.21,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "layout-friction",
-          "label": "Layout Friction",
+          "metricId": "layout_friction",
+          "label": "Layout friction",
           "group": "layout",
           "unit": "score",
-          "value": 19,
+          "value": 10.23,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         }
       ]
@@ -258,114 +343,114 @@
       "operationalMetrics": [
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-walk-time",
-          "label": "Nurse Walk Time",
+          "metricId": "nurse_walk_time",
+          "label": "Nurse walk time",
           "group": "nurse",
           "unit": "minutes",
-          "value": 44,
+          "value": 42.39,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "travel_event",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "patient-wait-idle-proxy",
-          "label": "Patient Wait / Idle Proxy",
+          "metricId": "patient_wait_idle_proxy",
+          "label": "Patient wait idle proxy",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 20,
+          "value": 33.1,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "task-time",
-          "label": "Task Time",
+          "metricId": "task_time",
+          "label": "Task time",
           "group": "task",
           "unit": "minutes",
-          "value": 60,
+          "value": 48.38,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "task_event",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "queue-delay",
-          "label": "Queue Delay",
+          "metricId": "queue_delay",
+          "label": "Queue delay",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 17,
+          "value": 25.31,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
+          "source": "queue_event",
           "scope": "scenario",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "unit-saturation",
-          "label": "Unit Saturation",
+          "metricId": "unit_saturation",
+          "label": "Unit saturation",
           "group": "unit",
           "unit": "percent",
-          "value": 68,
+          "value": 79.83,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "room-turnover-pressure",
-          "label": "Room Turnover Pressure",
+          "metricId": "room_turnover_pressure",
+          "label": "Room turnover pressure",
           "group": "room",
           "unit": "score",
-          "value": 61,
+          "value": 51.52,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-strain-proxy",
-          "label": "Nurse Strain Proxy",
+          "metricId": "nurse_strain_proxy",
+          "label": "Nurse strain proxy",
           "group": "nurse",
           "unit": "score",
-          "value": 45,
+          "value": 51.73,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "layout-friction",
-          "label": "Layout Friction",
+          "metricId": "layout_friction",
+          "label": "Layout friction",
           "group": "layout",
           "unit": "score",
-          "value": 33,
+          "value": 29.56,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         }
       ]
@@ -379,122 +464,122 @@
       "operationalMetrics": [
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-walk-time",
-          "label": "Nurse Walk Time",
+          "metricId": "nurse_walk_time",
+          "label": "Nurse walk time",
           "group": "nurse",
           "unit": "minutes",
-          "value": 48,
+          "value": 48.75,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "travel_event",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "patient-wait-idle-proxy",
-          "label": "Patient Wait / Idle Proxy",
+          "metricId": "patient_wait_idle_proxy",
+          "label": "Patient wait idle proxy",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 23,
+          "value": 45.14,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "task-time",
-          "label": "Task Time",
+          "metricId": "task_time",
+          "label": "Task time",
           "group": "task",
           "unit": "minutes",
-          "value": 68,
+          "value": 56.45,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
-          "scope": "scenario",
+          "source": "task_event",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "queue-delay",
-          "label": "Queue Delay",
+          "metricId": "queue_delay",
+          "label": "Queue delay",
           "group": "patient_flow",
           "unit": "minutes",
-          "value": 20,
+          "value": 34.8,
           "directionality": "lower_is_better",
-          "source": "derived_proxy",
+          "source": "queue_event",
           "scope": "scenario",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "unit-saturation",
-          "label": "Unit Saturation",
+          "metricId": "unit_saturation",
+          "label": "Unit saturation",
           "group": "unit",
           "unit": "percent",
-          "value": 74,
+          "value": 100,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "simulation",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "room-turnover-pressure",
-          "label": "Room Turnover Pressure",
+          "metricId": "room_turnover_pressure",
+          "label": "Room turnover pressure",
           "group": "room",
           "unit": "score",
-          "value": 73,
+          "value": 71.56,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "nurse-strain-proxy",
-          "label": "Nurse Strain Proxy",
+          "metricId": "nurse_strain_proxy",
+          "label": "Nurse strain proxy",
           "group": "nurse",
           "unit": "score",
-          "value": 58,
+          "value": 68.06,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "nurse",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         },
         {
           "schemaVersion": "1.0.0",
-          "metricId": "layout-friction",
-          "label": "Layout Friction",
+          "metricId": "layout_friction",
+          "label": "Layout friction",
           "group": "layout",
           "unit": "score",
-          "value": 42,
+          "value": 39.41,
           "directionality": "lower_is_better",
           "source": "derived_proxy",
-          "scope": "scenario",
+          "scope": "layout",
           "limitations": [
-            "Operational-only dashboard proof metric from shared source data."
+            "Operational-only dashboard proof metric generated from shared ratio and intensity assumptions."
           ]
         }
       ]
     }
   ],
   "limitations": [
-    "Dashboard proof data is synthetic operational data for deterministic scenario contrast.",
-    "Scenario values are shared package fixture values, not web-local metric truth.",
+    "Dashboard proof data is generated from shared operational builders for deterministic scenario contrast.",
+    "Scenario values are derived from shared ratio and intensity assumptions, not web-local metric truth.",
     "Values are workload-pressure labels and operational metrics only."
   ]
 }

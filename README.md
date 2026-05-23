@@ -158,6 +158,8 @@ Issue 137 adds a canonical operational metric registry for stable metric IDs, al
 
 Issue 138 applies the operational metric registry to current shared outcome builders. Known and registered dynamic builder outputs now derive directionality and metric metadata from the registry, including neutral direct-work, completed-task, and assigned-task metrics.
 
+Issue 139 generates shared dashboard proof data through a shared builder using canonical registry metrics, ratio/intensity assumptions, pressure banding, and operational delta comparison. The web dashboard adapter now consumes shared metric values and shared ratio deltas as display-only data.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

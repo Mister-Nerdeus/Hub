@@ -1,6 +1,4 @@
 import {
-  buildOperationalDeltaComparison,
-  OPERATIONAL_METRIC_SCHEMA_VERSION,
   validateMetricLimitations
 } from "@nerdeus/shared";
 import type {
@@ -69,18 +67,7 @@ export function createOperationalOutcomeDashboardViewModel(
   fixture: OperationalOutcomeDashboardProofFixture = operationalOutcomeDashboardProofFixture
 ): OperationalOutcomeDashboardViewModel {
   const limitations = validateMetricLimitations(fixture.limitations, "limitations");
-  const ratioDelta = buildOperationalDeltaComparison({
-    comparisonId: "outcome-dashboard-ratio-contrast",
-    baselineLabel: fixture.ratioComparisonBaselineLabel,
-    modifiedLabel: fixture.ratioComparisonModifiedLabel,
-    baselineMetrics: fixture.threeToOneLight.metrics.map((metric) =>
-      toOperationalMetricInput(metric, fixture.threeToOneLight.scenarioLabel)
-    ),
-    modifiedMetrics: fixture.fourToOneLight.metrics.map((metric) =>
-      toOperationalMetricInput(metric, fixture.fourToOneLight.scenarioLabel)
-    ),
-    limitations
-  });
+  const ratioDelta = fixture.ratioDelta;
 
   const rows = createMetricRows(
     fixture.threeToOneLight,
@@ -121,24 +108,6 @@ export function createOperationalOutcomeDashboardViewModel(
     pressureBands,
     limitations,
     jsonPreview: JSON.stringify({ ratioDelta, pressureBands }, null, 2)
-  };
-}
-
-function toOperationalMetricInput(
-  metric: OperationalScenarioMetric,
-  scenarioLabel: string
-) {
-  return {
-    schemaVersion: OPERATIONAL_METRIC_SCHEMA_VERSION,
-    metricId: metric.metricId,
-    label: `${metric.label} (${scenarioLabel})`,
-    group: metric.group,
-    unit: metric.unit as "minutes" | "count" | "percent" | "score" | "feet" | "band",
-    value: metric.value,
-    directionality: metric.directionality,
-    source: "derived_proxy" as const,
-    scope: "comparison" as const,
-    limitations: ["Operational-only dashboard contract input for deterministic contrast."]
   };
 }
 

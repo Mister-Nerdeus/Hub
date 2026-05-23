@@ -15,14 +15,14 @@ if (viewModel.metricCards.length !== 8) {
 }
 
 const requiredMetricLabels = [
-  "Nurse Walk Time",
-  "Patient Wait / Idle Proxy",
-  "Task Time",
-  "Queue Delay",
-  "Unit Saturation",
-  "Room Turnover Pressure",
-  "Nurse Strain Proxy",
-  "Layout Friction"
+  "Nurse walk time",
+  "Patient wait idle proxy",
+  "Task time",
+  "Queue delay",
+  "Unit saturation",
+  "Room turnover pressure",
+  "Nurse strain proxy",
+  "Layout friction"
 ];
 
 for (const label of requiredMetricLabels) {
@@ -33,6 +33,10 @@ for (const label of requiredMetricLabels) {
 
 if (viewModel.ratioDelta.deltas.length !== 8) {
   throw new Error("ratio delta comparison missing all metric deltas");
+}
+
+if (viewModel.ratioDelta !== operationalOutcomeDashboardProofFixture.ratioDelta) {
+  throw new Error("ratio delta comparison must come from the shared dashboard proof fixture");
 }
 
 if (viewModel.pressureBands.every((tile) => tile.band !== "critical")) {

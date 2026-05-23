@@ -1,0 +1,48 @@
+{
+  "issue": "139",
+  "sourceDataId": "operational-outcome-dashboard-proof-data",
+  "scenarioCount": 4,
+  "metricIds": [
+    "nurse_walk_time",
+    "patient_wait_idle_proxy",
+    "task_time",
+    "queue_delay",
+    "unit_saturation",
+    "room_turnover_pressure",
+    "nurse_strain_proxy",
+    "layout_friction"
+  ],
+  "pressureBands": {
+    "3_to_1_light": "low",
+    "4_to_1_light": "low",
+    "3_to_1_slammed": "critical",
+    "4_to_1_slammed": "critical"
+  },
+  "ratioDeltaMetricIds": [
+    "layout_friction",
+    "nurse_strain_proxy",
+    "nurse_walk_time",
+    "patient_wait_idle_proxy",
+    "queue_delay",
+    "room_turnover_pressure",
+    "task_time",
+    "unit_saturation"
+  ],
+  "ratioDeltaDirections": {
+    "layout_friction": "worse",
+    "nurse_strain_proxy": "worse",
+    "nurse_walk_time": "worse",
+    "patient_wait_idle_proxy": "worse",
+    "queue_delay": "worse",
+    "room_turnover_pressure": "worse",
+    "task_time": "worse",
+    "unit_saturation": "worse"
+  },
+  "builderInputs": {
+    "ratioIntensityBuilder": "buildRatioScenarioIntensityContract",
+    "metricBuilder": "buildRegisteredOperationalMetric",
+    "pressureBanding": "buildPressureBandingSummary",
+    "deltaComparison": "buildOperationalDeltaComparison"
+  },
+  "webLocalMetricTruth": false
+}
