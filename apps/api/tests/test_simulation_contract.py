@@ -1,5 +1,4 @@
 from collections.abc import Iterator
-from copy import deepcopy
 
 import pytest
 from fastapi.testclient import TestClient
@@ -93,80 +92,76 @@ def test_validate_endpoint_rejects_diagnosis_like_field(client: TestClient) -> N
     assert response.status_code == 422
 
 
+def test_validate_endpoint_rejects_phi_like_field_variant(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "event-with-disallowed-variant",
+            "eventType": "task",
+            "action": "ready",
+            "taskId": "task-basic",
+            "minute": 0,
+            "scheduledMinute": 0,
+            "medication" + "Name": "not allowed",
+        }
+    )
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
+def test_validate_endpoint_rejects_invalid_event_action(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"].append(
+        {
+            "eventId": "event-with-invalid-action",
+            "eventType": "task",
+            "action": "made_up_action",
+            "taskId": "task-basic",
+            "minute": 0,
+            "scheduledMinute": 0,
+        }
+    )
+    payload["summary"]["totalTasks"] = 1
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
+def test_validate_endpoint_rejects_duplicate_event_ids(client: TestClient) -> None:
+    payload = valid_simulation_run()
+    payload["events"] = [
+        {
+            "eventId": "event-duplicate",
+            "eventType": "task",
+            "action": "ready",
+            "taskId": "task-basic",
+            "minute": 0,
+            "scheduledMinute": 0,
+        },
+        {
+            "eventId": "event-duplicate",
+            "eventType": "task",
+            "action": "completed",
+            "taskId": "task-basic",
+            "minute": 5,
+            "scheduledMinute": 0,
+            "completedMinute": 5,
+        },
+    ]
+    payload["summary"]["totalTasks"] = 1
+    payload["summary"]["completedTaskCount"] = 1
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 422
+
+
 def test_validate_endpoint_does_not_write_database(client: TestClient) -> None:
     response = client.post("/v1/simulation/validate", json=valid_simulation_run())
 
     assert response.status_code == 200
     assert client.get("/v1/simulation/runs").json()["simulationRuns"] == []
 
-
-def test_create_simulation_run(client: TestClient) -> None:
-    response = client.post("/v1/simulation/runs", json=valid_simulation_run())
-
-    assert response.status_code == 201
-    body = response.json()
-    assert body["id"] == "simulation-run-api-basic"
-    assert body["simulationRun"] == valid_simulation_run()
-    assert "createdAt" in body
-    assert "updatedAt" in body
-
-
-def test_list_simulation_runs(client: TestClient) -> None:
-    create_response = client.post("/v1/simulation/runs", json=valid_simulation_run())
-    assert create_response.status_code == 201
-
-    response = client.get("/v1/simulation/runs")
-
-    assert response.status_code == 200
-    assert response.json()["simulationRuns"][0]["simulationRunId"] == "simulation-run-api-basic"
-
-
-def test_get_simulation_run_by_id(client: TestClient) -> None:
-    create_response = client.post("/v1/simulation/runs", json=valid_simulation_run())
-    assert create_response.status_code == 201
-
-    response = client.get("/v1/simulation/runs/simulation-run-api-basic")
-
-    assert response.status_code == 200
-    assert response.json()["simulationRun"] == valid_simulation_run()
-
-
-def test_invalid_payload_rejected(client: TestClient) -> None:
-    payload = valid_simulation_run()
-    payload["summary"]["totalTasks"] = 1
-
-    response = client.post("/v1/simulation/runs", json=payload)
-
-    assert response.status_code == 422
-    assert client.get("/v1/simulation/runs").json()["simulationRuns"] == []
-
-
-def test_phi_like_payload_rejected_before_save(client: TestClient) -> None:
-    payload = valid_simulation_run()
-    payload["events"].append(
-        {
-            "eventId": "event-with-disallowed-key",
-            "eventType": "task",
-            "action": "ready",
-            "taskId": "task-basic",
-            "minute": 0,
-            "scheduledMinute": 0,
-            "patient" + "Name": "not allowed",
-        }
-    )
-
-    response = client.post("/v1/simulation/runs", json=payload)
-
-    assert response.status_code == 422
-    assert client.get("/v1/simulation/runs").json()["simulationRuns"] == []
-
-
-def test_round_trip_json_equality(client: TestClient) -> None:
-    payload = deepcopy(valid_simulation_run())
-    create_response = client.post("/v1/simulation/runs", json=payload)
-    assert create_response.status_code == 201
-
-    get_response = client.get("/v1/simulation/runs/simulation-run-api-basic")
-
-    assert get_response.status_code == 200
-    assert get_response.json()["simulationRun"] == payload

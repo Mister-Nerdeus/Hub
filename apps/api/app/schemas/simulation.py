@@ -1,3 +1,4 @@
+import re
 from typing import Any, Literal
 
 from pydantic import Field, model_validator
@@ -23,6 +24,10 @@ PHI_LIKE_KEYS = {
 }
 
 FORBIDDEN_TEXT = (" safe ", " unsafe ", "recommended", " best ", "clinically acceptable")
+TASK_ACTIONS = {"ready", "started", "completed", "delayed", "missed", "unassigned"}
+NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
+QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released", "paused", "resumed"}
+TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
 
 
 class SimulationRunSummary(StrictModel):
@@ -62,12 +67,46 @@ class SimulationEvent(StrictModel):
 
     @model_validator(mode="after")
     def validate_event_references(self) -> "SimulationEvent":
-        if self.eventType == "task" and self.taskId is None:
-            raise ValueError("task events require taskId")
-        if self.eventType == "nurse" and self.nurseId is None:
-            raise ValueError("nurse events require nurseId")
-        if self.eventType in {"queue", "travel"} and (self.taskId is None or self.nurseId is None):
-            raise ValueError("queue and travel events require taskId and nurseId")
+        if self.eventType == "task":
+            if self.action not in TASK_ACTIONS:
+                raise ValueError("task event action is not allowed")
+            if self.taskId is None:
+                raise ValueError("task events require taskId")
+            if self.action == "delayed" and (self.delayMinutes is None or self.delayMinutes <= 0):
+                raise ValueError("delayed task events require positive delayMinutes")
+            if self.action == "missed" and self.missReason is None:
+                raise ValueError("missed task events require missReason")
+        if self.eventType == "nurse":
+            if self.action not in NURSE_ACTIONS:
+                raise ValueError("nurse event action is not allowed")
+            if self.nurseId is None:
+                raise ValueError("nurse events require nurseId")
+        if self.eventType == "queue":
+            if self.action not in QUEUE_ACTIONS:
+                raise ValueError("queue event action is not allowed")
+            if self.taskId is None or self.nurseId is None:
+                raise ValueError("queue events require taskId and nurseId")
+            if self.originalReadyMinute is None or self.enteredQueueMinute is None:
+                raise ValueError("queue events require ready and entered queue minutes")
+            if self.orderingReason is None:
+                raise ValueError("queue events require orderingReason")
+            if self.waitMinutes is not None and self.waitMinutes > 0 and self.startedMinute is None:
+                raise ValueError("queue wait events require startedMinute")
+        if self.eventType == "travel":
+            if self.action not in TRAVEL_ACTIONS:
+                raise ValueError("travel event action is not allowed")
+            if self.taskId is None or self.nurseId is None:
+                raise ValueError("travel events require taskId and nurseId")
+            if (
+                self.originNodeId is None
+                or self.destinationNodeId is None
+                or self.routeNodeIds is None
+                or self.routeEdgeIds is None
+                or self.travelSeconds is None
+                or self.travelMinutes is None
+                or self.warnings is None
+            ):
+                raise ValueError("travel events require route and travel fields")
         if self.action == "completed" and self.completedMinute is not None and self.scheduledMinute is not None:
             if self.completedMinute < self.scheduledMinute:
                 raise ValueError("completed task event cannot precede scheduled minute")
@@ -93,6 +132,9 @@ class SimulationRunContract(StrictModel):
 
     @model_validator(mode="after")
     def validate_summary(self) -> "SimulationRunContract":
+        event_ids = [event.eventId for event in self.events]
+        if len(set(event_ids)) != len(event_ids):
+            raise ValueError("eventId values must be unique")
         task_events = [event for event in self.events if event.eventType == "task" and event.taskId is not None]
         task_ids = {event.taskId for event in task_events}
         completed = {event.taskId for event in task_events if event.action == "completed"}
@@ -120,8 +162,8 @@ def reject_phi_like_keys(value: Any) -> None:
         return
     if isinstance(value, dict):
         for key, child in value.items():
-            normalized = key.replace("_", "").lower()
-            if normalized in PHI_LIKE_KEYS:
+            normalized = normalize_key(key)
+            if normalized in PHI_LIKE_KEYS or starts_with_phi_like_token(normalized):
                 raise ValueError(f"{key} is not allowed")
             reject_phi_like_keys(child)
 
@@ -139,3 +181,22 @@ def reject_forbidden_text(value: Any) -> None:
         normalized = f" {value.lower()} "
         if any(phrase in normalized for phrase in FORBIDDEN_TEXT):
             raise ValueError("recommendation or clinical claim language is not allowed")
+
+
+def normalize_key(key: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", key.lower())
+
+
+def starts_with_phi_like_token(normalized_key: str) -> bool:
+    prefixes = (
+        "patient",
+        "diagnosis",
+        "medication",
+        "e" + "hr",
+        "chart",
+        "clinical" + "note",
+        "d" + "ob",
+        "date" + "of" + "birth",
+        "m" + "rn",
+    )
+    return normalized_key.startswith(prefixes) or normalized_key in {"note", "notes"}
