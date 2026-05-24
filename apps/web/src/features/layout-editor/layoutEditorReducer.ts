@@ -19,6 +19,7 @@ import {
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
+import { moveRoomByDeltaFeet } from "./roomDragMove";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -33,6 +34,7 @@ export type LayoutEditorAction =
   | { type: "panViewport"; deltaXFeet: number; deltaYFeet: number }
   | { type: "resetViewport" }
   | { type: "setSnapMode"; snapMode: LayoutEditorSnapMode }
+  | { type: "moveRoom"; roomId: string; deltaXFeet: number; deltaYFeet: number }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
   | { type: "markClean" };
 
@@ -93,6 +95,11 @@ export function layoutEditorReducer(
         ...state,
         snapMode: action.snapMode
       };
+    case "moveRoom":
+      return moveRoom(state, action.roomId, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
     case "setValidationWarnings":
       if (!Array.isArray(action.validationWarnings)) {
         throw new Error("validationWarnings must be an array");
@@ -149,5 +156,28 @@ function selectObject(
     ...state,
     selectedObjectId: selection.objectId,
     selectedObjectType: selection.objectType
+  };
+}
+
+function moveRoom(
+  state: LayoutEditorState,
+  roomId: string,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.editableLayout == null) {
+    return state;
+  }
+
+  return {
+    ...state,
+    editableLayout: moveRoomByDeltaFeet({
+      layout: state.editableLayout,
+      roomId,
+      delta,
+      snapMode: state.snapMode
+    }),
+    selectedObjectType: "room",
+    selectedObjectId: roomId,
+    isDirty: true
   };
 }

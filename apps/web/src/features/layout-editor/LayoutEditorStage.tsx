@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef, type PointerEvent } from "react";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { DoorShape } from "./DoorShape";
@@ -19,6 +19,8 @@ import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
+import { snapSizeForRoomMove } from "./roomDragMove";
+import { snapMoveDeltaFeet } from "./layoutSnapEngine";
 import { StationShape } from "./StationShape";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
@@ -30,6 +32,12 @@ const STAGE_PIXELS_PER_FOOT = 12;
 const STAGE_WIDTH_PIXELS = STAGE_WIDTH_FEET * STAGE_PIXELS_PER_FOOT;
 const STAGE_HEIGHT_PIXELS = STAGE_HEIGHT_FEET * STAGE_PIXELS_PER_FOOT;
 const STAGE_VIEW_BOX = `0 0 ${STAGE_WIDTH_PIXELS} ${STAGE_HEIGHT_PIXELS}`;
+
+type RoomDragState = {
+  roomId: string;
+  lastClientX: number;
+  lastClientY: number;
+};
 
 const initialStageState = createLayoutEditorState({
   editableLayout: layoutEditorProofFixture,
@@ -46,6 +54,7 @@ const initialStageState = createLayoutEditorState({
 
 export function LayoutEditorStage() {
   const [stageState, dispatchStage] = useReducer(layoutEditorReducer, initialStageState);
+  const roomDragRef = useRef<RoomDragState | null>(null);
   const grid = buildLayoutGridViewModel({
     widthFeet: STAGE_WIDTH_FEET,
     heightFeet: STAGE_HEIGHT_FEET,
@@ -77,6 +86,50 @@ export function LayoutEditorStage() {
       type: "selectObject",
       ...selectionFromShapeClick(objectType, objectId)
     });
+  };
+  const startRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
+    selectStageObject("room", roomId);
+    roomDragRef.current = {
+      roomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const moveRoom = (roomId: string, event: PointerEvent<SVGGElement>) => {
+    const drag = roomDragRef.current;
+    if (drag == null || drag.roomId !== roomId) {
+      return;
+    }
+
+    const deltaXFeet = pixelsDeltaToFeet(event.clientX - drag.lastClientX, stageState.viewport);
+    const deltaYFeet = pixelsDeltaToFeet(event.clientY - drag.lastClientY, stageState.viewport);
+    const snappedDelta = snapMoveDeltaFeet(
+      { deltaXFeet, deltaYFeet },
+      snapSizeForRoomMove(stageState.snapMode)
+    );
+    if (snappedDelta.deltaXFeet === 0 && snappedDelta.deltaYFeet === 0) {
+      return;
+    }
+
+    dispatchStage({
+      type: "moveRoom",
+      roomId,
+      ...snappedDelta
+    });
+    roomDragRef.current = {
+      roomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+  };
+  const endRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
+    if (roomDragRef.current?.roomId === roomId) {
+      roomDragRef.current = null;
+    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
   };
 
   return (
@@ -212,6 +265,9 @@ export function LayoutEditorStage() {
                     selectedObjectId: stageState.selectedObjectId
                   })}
                   onSelect={selectStageObject}
+                  onMoveStart={startRoomMove}
+                  onMove={moveRoom}
+                  onMoveEnd={endRoomMove}
                 />
               ))}
             </g>
@@ -251,4 +307,11 @@ export function LayoutEditorStage() {
       </div>
     </section>
   );
+}
+
+function pixelsDeltaToFeet(
+  deltaPixels: number,
+  viewport: { pixelsPerFoot: number; zoom: number }
+): number {
+  return deltaPixels / (viewport.pixelsPerFoot * viewport.zoom);
 }

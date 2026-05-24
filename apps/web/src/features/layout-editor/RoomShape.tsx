@@ -1,3 +1,5 @@
+import type { PointerEvent } from "react";
+
 import type { RoomShapeViewModel } from "./roomShapeViewModel";
 import { selectedClassName } from "./layoutSelectionHighlight";
 
@@ -5,9 +7,19 @@ type RoomShapeProps = {
   viewModel: RoomShapeViewModel;
   isSelected?: boolean;
   onSelect?: (objectType: "room", objectId: string) => void;
+  onMoveStart?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
+  onMove?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
+  onMoveEnd?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
 };
 
-export function RoomShape({ viewModel, isSelected = false, onSelect }: RoomShapeProps) {
+export function RoomShape({
+  viewModel,
+  isSelected = false,
+  onSelect,
+  onMoveStart,
+  onMove,
+  onMoveEnd
+}: RoomShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__room", isSelected)}
@@ -16,6 +28,10 @@ export function RoomShape({ viewModel, isSelected = false, onSelect }: RoomShape
       role="img"
       aria-label={viewModel.ariaLabel}
       onClick={() => onSelect?.("room", viewModel.objectId)}
+      onPointerDown={(event) => onMoveStart?.(viewModel.objectId, event)}
+      onPointerMove={(event) => onMove?.(viewModel.objectId, event)}
+      onPointerUp={(event) => onMoveEnd?.(viewModel.objectId, event)}
+      onPointerCancel={(event) => onMoveEnd?.(viewModel.objectId, event)}
     >
       <rect
         x={viewModel.xPixels}

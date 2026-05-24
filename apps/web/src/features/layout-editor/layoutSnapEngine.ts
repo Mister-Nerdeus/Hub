@@ -16,6 +16,11 @@ export type LayoutResizeDeltaFeet = {
   deltaHeightFeet: number;
 };
 
+export type LayoutMoveDeltaFeet = {
+  deltaXFeet: number;
+  deltaYFeet: number;
+};
+
 export function snapFeet(
   valueFeet: number,
   snapSizeFeet = DEFAULT_SNAP_SIZE_FEET
@@ -58,6 +63,17 @@ export function snapResizeDeltaFeet<TDelta extends LayoutResizeDeltaFeet>(
     ...delta,
     deltaWidthFeet: snapFeet(delta.deltaWidthFeet, snapSizeFeet),
     deltaHeightFeet: snapFeet(delta.deltaHeightFeet, snapSizeFeet)
+  };
+}
+
+export function snapMoveDeltaFeet<TDelta extends LayoutMoveDeltaFeet>(
+  delta: TDelta,
+  snapSizeFeet = DEFAULT_SNAP_SIZE_FEET
+): TDelta {
+  return {
+    ...delta,
+    deltaXFeet: snapFeet(delta.deltaXFeet, snapSizeFeet),
+    deltaYFeet: snapFeet(delta.deltaYFeet, snapSizeFeet)
   };
 }
 

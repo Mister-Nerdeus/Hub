@@ -192,6 +192,8 @@ Issue 154 adds display-only selected styling for room, door, station, hallway, a
 
 Issue 155 wires read-only stage click selection for rendered layout objects. Clicking a room, door, station, hallway, or zone dispatches the existing selection action, updates the selected styling, and syncs the inspector without mutating geometry or adding drag/edit behavior.
 
+Issue 156 adds the first constrained layout edit behavior: selected rooms can be moved in feet through snapped `xFeet`/`yFeet` deltas. Width, height, metadata, doors, path graph, persistence, collision validation, and simulation outputs are not synchronized or changed in this issue.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

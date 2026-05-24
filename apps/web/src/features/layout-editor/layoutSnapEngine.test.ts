@@ -2,6 +2,7 @@ import {
   DEFAULT_SNAP_SIZE_FEET,
   FINE_SNAP_SIZE_FEET,
   snapFeet,
+  snapMoveDeltaFeet,
   snapPointFeet,
   snapRectFeet,
   snapResizeDeltaFeet
@@ -55,6 +56,16 @@ if (JSON.stringify(rectFeet) !== JSON.stringify(rectCopy)) {
 const snappedDelta = snapResizeDeltaFeet({ deltaWidthFeet: 1.24, deltaHeightFeet: -1.25 }, FINE_SNAP_SIZE_FEET);
 if (snappedDelta.deltaWidthFeet !== 1 || snappedDelta.deltaHeightFeet !== -1.5) {
   throw new Error("resize deltas must snap deterministically");
+}
+
+const moveDelta = { deltaXFeet: 1.24, deltaYFeet: -1.25 };
+const moveDeltaCopy = { ...moveDelta };
+const snappedMoveDelta = snapMoveDeltaFeet(moveDelta, FINE_SNAP_SIZE_FEET);
+if (snappedMoveDelta.deltaXFeet !== 1 || snappedMoveDelta.deltaYFeet !== -1.5) {
+  throw new Error("move deltas must snap deterministically");
+}
+if (JSON.stringify(moveDelta) !== JSON.stringify(moveDeltaCopy)) {
+  throw new Error("snapMoveDeltaFeet must not mutate source deltas");
 }
 
 try {

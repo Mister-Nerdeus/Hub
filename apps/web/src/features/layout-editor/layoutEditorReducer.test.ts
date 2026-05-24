@@ -169,6 +169,54 @@ const cleanState = layoutEditorReducer(createLayoutEditorState({ editableLayout,
 });
 assert.equal(cleanState.isDirty, false);
 
+const roomBeforeMove = editableLayout.rooms.find((room) => room.id === "room-01");
+if (roomBeforeMove == null) {
+  throw new Error("proof fixture must include room-01");
+}
+const movedRoomState = layoutEditorReducer(stateWithLayout, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 1.2,
+  deltaYFeet: 0.6
+});
+const roomAfterMove = movedRoomState.editableLayout?.rooms.find((room) => room.id === "room-01");
+if (roomAfterMove == null) {
+  throw new Error("moved state must include room-01");
+}
+assert.equal(roomAfterMove.xFeet, roomBeforeMove.xFeet + 1);
+assert.equal(roomAfterMove.yFeet, roomBeforeMove.yFeet + 1);
+assert.equal(roomAfterMove.widthFeet, roomBeforeMove.widthFeet);
+assert.equal(roomAfterMove.heightFeet, roomBeforeMove.heightFeet);
+assert.equal(roomAfterMove.label, roomBeforeMove.label);
+assert.equal(movedRoomState.selectedObjectType, "room");
+assert.equal(movedRoomState.selectedObjectId, "room-01");
+assert.equal(movedRoomState.isDirty, true);
+assert.deepEqual(movedRoomState.editableLayout?.doors, editableLayout.doors);
+assert.equal(stateWithLayout.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
+
+const fineMovedRoomState = layoutEditorReducer(
+  createLayoutEditorState({ editableLayout, snapMode: "fine" }),
+  {
+    type: "moveRoom",
+    roomId: "room-01",
+    deltaXFeet: 0.25,
+    deltaYFeet: -0.25
+  }
+);
+assert.equal(fineMovedRoomState.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet + 0.5);
+assert.equal(fineMovedRoomState.editableLayout?.rooms[0]?.yFeet, roomBeforeMove.yFeet - 0.5);
+
+assert.throws(
+  () =>
+    layoutEditorReducer(stateWithLayout, {
+      type: "moveRoom",
+      roomId: "station-primary",
+      deltaXFeet: 1,
+      deltaYFeet: 1
+    }),
+  /unknown room/
+);
+
 assert.throws(
   () =>
     layoutEditorReducer(stateWithLayout, {
