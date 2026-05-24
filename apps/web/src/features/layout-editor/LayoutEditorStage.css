@@ -125,6 +125,33 @@
   stroke-width: 1.5;
 }
 
+.layout-editor-stage__hallway rect {
+  fill: #d9e7ef;
+  opacity: 0.82;
+  stroke: #7d93a4;
+  stroke-width: 1;
+}
+
+.layout-editor-stage__zone rect {
+  fill: #dcebd6;
+  opacity: 0.72;
+  stroke: #6c8d63;
+  stroke-dasharray: 5 4;
+  stroke-width: 1;
+}
+
+.layout-editor-stage__zone--ems_entry rect {
+  fill: #dcebd6;
+}
+
+.layout-editor-stage__hallway text,
+.layout-editor-stage__zone text {
+  fill: #243447;
+  font-size: 9px;
+  font-weight: 900;
+  pointer-events: none;
+}
+
 .layout-editor-stage__grid-line {
   stroke: #d9e1e8;
   stroke-width: 0.55;

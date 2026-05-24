@@ -2,12 +2,18 @@ import { useReducer } from "react";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
+import { HallwayShape } from "./HallwayShape";
+import {
+  buildHallwayShapeViewModel,
+  buildZoneShapeViewModel
+} from "./hallwayZoneShapeViewModel";
 import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
+import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
 const STAGE_WIDTH_FEET = 64;
@@ -50,6 +56,8 @@ export function LayoutEditorStage() {
         layout: stageState.editableLayout,
         viewport: stageState.viewport
       });
+  const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
+  const zoneItems = renderItems.filter((item) => item.objectType === "zone");
 
   return (
     <section
@@ -106,6 +114,20 @@ export function LayoutEditorStage() {
               height={STAGE_HEIGHT_PIXELS}
               rx="0"
             />
+            <g className="layout-editor-stage__background-objects">
+              {hallwayItems.map((item) => (
+                <HallwayShape
+                  key={item.hitTargetKey}
+                  viewModel={buildHallwayShapeViewModel(item)}
+                />
+              ))}
+              {zoneItems.map((item) => (
+                <ZoneShape
+                  key={item.hitTargetKey}
+                  viewModel={buildZoneShapeViewModel(item)}
+                />
+              ))}
+            </g>
             <g>
               {grid.verticalLines.map((line) => (
                 <line

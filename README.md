@@ -180,6 +180,8 @@ Issue 148 extracts the layout editor proof geometry into `apps/web/src/fixtures/
 
 Issue 149 adds a deterministic layout object render pipeline that turns editable feet-based geometry into display-only render items with layer order, object metadata, pixel rectangles, accessibility labels, and hit-target keys. It does not add visible object shapes or editing behavior.
 
+Issue 150 renders hallway and zone SVG shapes from editable layout geometry through the shared render pipeline. Hallways and zones remain read-only background/context layers with labels and accessibility metadata; no editing or selection wiring is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
