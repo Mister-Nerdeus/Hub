@@ -109,6 +109,15 @@ test("route preview builder returns structured invalid and unreachable outputs",
   assert.equal(invalid.status, "invalid");
   assert.equal(invalid.warnings.some((warning) => warning.code === "MISSING_ORIGIN_NODE"), true);
 
+  const sameNodeInvalid = buildRoutePreview(plan, input(plan, "node-entry-ems", "node-entry-ems"));
+  assert.equal(sameNodeInvalid.status, "invalid");
+  assert.equal(sameNodeInvalid.routeNodeIds.length, 0);
+  assert.equal(sameNodeInvalid.routeEdgeIds.length, 0);
+  assert.equal(
+    sameNodeInvalid.warnings.some((warning) => warning.code === "SAME_ORIGIN_DESTINATION_NODE"),
+    true
+  );
+
   const disconnected = clone(plan);
   disconnected.pathEdges = disconnected.pathEdges.filter(
     (edge) => edge.fromNodeId !== "node-door-room-01" && edge.toNodeId !== "node-door-room-01"
@@ -124,8 +133,10 @@ test("route preview builder returns structured invalid and unreachable outputs",
     issue: "221",
     status: "passed",
     invalidStatus: invalid.status,
+    sameNodeInvalidStatus: sameNodeInvalid.status,
     unreachableStatus: unreachable.status,
     invalidWarningCodes: invalid.warnings.map((warning) => warning.code),
+    sameNodeInvalidWarningCodes: sameNodeInvalid.warnings.map((warning) => warning.code),
     unreachableWarningCodes: unreachable.warnings.map((warning) => warning.code)
   });
 });

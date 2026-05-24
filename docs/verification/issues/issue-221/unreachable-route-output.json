@@ -2,9 +2,13 @@
   "issue": "221",
   "status": "passed",
   "invalidStatus": "invalid",
+  "sameNodeInvalidStatus": "invalid",
   "unreachableStatus": "unreachable",
   "invalidWarningCodes": [
     "MISSING_ORIGIN_NODE"
+  ],
+  "sameNodeInvalidWarningCodes": [
+    "SAME_ORIGIN_DESTINATION_NODE"
   ],
   "unreachableWarningCodes": [
     "UNREACHABLE_ROUTE"

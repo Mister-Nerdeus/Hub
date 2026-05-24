@@ -51,6 +51,17 @@ export function buildRoutePreview(
     return validateRoutePreviewOutput(baseOutput(input, "invalid", warnings));
   }
 
+  if (input.originPathNodeId === input.destinationPathNodeId) {
+    return validateRoutePreviewOutput(
+      baseOutput(input, "invalid", [
+        {
+          code: "SAME_ORIGIN_DESTINATION_NODE",
+          message: "Origin and destination path nodes must be different."
+        }
+      ])
+    );
+  }
+
   if (plan.pathEdges.some((edge) => edge.blocked)) {
     warnings.push({
       code: "BLOCKED_EDGE_EXCLUDED",

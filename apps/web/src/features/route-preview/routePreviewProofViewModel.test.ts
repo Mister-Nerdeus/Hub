@@ -43,6 +43,22 @@ if (before !== after) {
   throw new Error("route preview proof view model must not mutate default plans");
 }
 
+const sameNodeViewModel = createRoutePreviewProofViewModel({
+  selectedPlanId: "default-er-layout-plan-1",
+  originPathNodeId: "node-entry-ems",
+  destinationPathNodeId: "node-entry-ems"
+});
+if (sameNodeViewModel.routePreview.status !== "invalid") {
+  throw new Error("same-node route preview proof selection must return invalid output");
+}
+if (
+  sameNodeViewModel.routePreview.warnings.every(
+    (warning) => warning.code !== "SAME_ORIGIN_DESTINATION_NODE"
+  )
+) {
+  throw new Error("same-node route preview proof selection must expose a deterministic warning");
+}
+
 const prohibited = ["safe", "unsafe", "recommendation", "certify"];
 const textOutput = JSON.stringify(viewModel).toLowerCase();
 if (prohibited.some((word) => textOutput.includes(word))) {
