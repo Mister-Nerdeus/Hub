@@ -12,6 +12,6 @@
     "test:scoring": "npm run build && node --test tests/roomWorkloadScore.test.mjs tests/validateManualAssignment.test.mjs tests/nurseBurdenScore.test.mjs"
   },
   "devDependencies": {
-    "typescript": "latest"
+    "typescript": "6.0.3"
   }
 }

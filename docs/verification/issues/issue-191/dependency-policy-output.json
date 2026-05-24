@@ -1,0 +1,11 @@
+{
+  "issue": "191",
+  "status": "passed",
+  "policyDocument": "docs/architecture/dependency-policy.md",
+  "runtimeVersionsDocumented": [
+    "Node.js >=22",
+    "local Python for API tests",
+    "docker-compose Postgres image"
+  ],
+  "localGate": "node scripts/check-dependency-specs.mjs"
+}

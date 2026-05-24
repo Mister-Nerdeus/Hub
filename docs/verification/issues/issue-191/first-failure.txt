@@ -1,0 +1,21 @@
+Issue 191 first failure capture
+
+Command: rg '"latest"|[\^~*xX]' package.json apps/web/package.json packages/shared/package.json package-lock.json -n
+
+Floating top-level manifest declarations:
+apps/web/package.json:19:    "@vitejs/plugin-react": "latest",
+apps/web/package.json:20:    "vite": "latest",
+apps/web/package.json:21:    "typescript": "latest",
+apps/web/package.json:22:    "react": "latest",
+apps/web/package.json:23:    "react-dom": "latest"
+apps/web/package.json:26:    "@types/react": "latest",
+apps/web/package.json:27:    "@types/react-dom": "latest"
+package-lock.json:23:        "@vitejs/plugin-react": "latest",
+package-lock.json:24:        "react": "latest",
+package-lock.json:25:        "react-dom": "latest",
+package-lock.json:26:        "typescript": "latest",
+package-lock.json:27:        "vite": "latest"
+package-lock.json:30:        "@types/react": "latest",
+package-lock.json:31:        "@types/react-dom": "latest"
+package-lock.json:949:        "typescript": "latest"
+packages/shared/package.json:15:    "typescript": "latest"

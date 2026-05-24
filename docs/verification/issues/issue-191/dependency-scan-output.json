@@ -1,0 +1,12 @@
+{
+  "issue": "191",
+  "status": "passed",
+  "gate": "node scripts/check-dependency-specs.mjs",
+  "disallowedSpecsFound": 0,
+  "checkedSections": [
+    "dependencies",
+    "devDependencies",
+    "optionalDependencies",
+    "peerDependencies"
+  ]
+}

@@ -1,0 +1,8 @@
+rg '"latest"' package.json apps/web/package.json packages/shared/package.json package-lock.json -n
+node scripts/check-dependency-specs.mjs
+npm ci *> docs/verification/issues/issue-191/test-output/install.txt
+npm --workspace packages/shared test *> docs/verification/issues/issue-191/test-output/shared.txt
+"npm --workspace apps/web test" | Set-Content docs/verification/issues/issue-191/test-output/web.txt; npm --workspace apps/web test *>> docs/verification/issues/issue-191/test-output/web.txt; "npm --workspace apps/web run build" | Add-Content docs/verification/issues/issue-191/test-output/web.txt; npm --workspace apps/web run build *>> docs/verification/issues/issue-191/test-output/web.txt
+cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-191/test-output/api.txt
+Set-Content docs/verification/issues/issue-191/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-191/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs *> docs/verification/issues/issue-191/test-output/verify-local.txt

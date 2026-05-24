@@ -69,6 +69,7 @@ const commands = [
   "docker compose ps",
   "docker compose --profile tools run --rm migrate",
   "node scripts/check-no-phi-fields.mjs",
+  "node scripts/check-dependency-specs.mjs",
   "node scripts/check-docs-contracts.mjs",
   "node scripts/check-simulation-contract-parity.mjs",
   "npm --workspace packages/shared test",

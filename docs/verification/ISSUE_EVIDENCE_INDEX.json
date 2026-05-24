@@ -1202,6 +1202,24 @@
         "docs/verification/issues/issue-190/test-output/no-phi.txt",
         "docs/verification/issues/issue-190/test-output/docs-gate.txt"
       ]
+    },
+    {
+      "issue": "191",
+      "title": "Dependency Pinning and Runtime Policy",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-191/closeout.md",
+        "docs/verification/issues/issue-191/commands.txt",
+        "docs/verification/issues/issue-191/command-output-map.json",
+        "docs/verification/issues/issue-191/first-failure.txt",
+        "docs/verification/issues/issue-191/dependency-policy-output.json",
+        "docs/verification/issues/issue-191/dependency-scan-output.json",
+        "docs/verification/issues/issue-191/test-output/install.txt",
+        "docs/verification/issues/issue-191/test-output/shared.txt",
+        "docs/verification/issues/issue-191/test-output/web.txt",
+        "docs/verification/issues/issue-191/test-output/api.txt",
+        "docs/verification/issues/issue-191/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-191/test-output/verify-local.txt"
+      ]
     }
   ]
 }

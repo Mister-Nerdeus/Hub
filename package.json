@@ -8,6 +8,7 @@
     "packages/shared"
   ],
   "scripts": {
+    "check:dependencies": "node scripts/check-dependency-specs.mjs",
     "check:docs": "node scripts/check-docs-contracts.mjs",
     "check:no-phi": "node scripts/check-no-phi-fields.mjs",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",

@@ -1,0 +1,54 @@
+{
+  "issue": "191",
+  "commands": [
+    {
+      "command": "rg '\"latest\"' package.json apps/web/package.json packages/shared/package.json package-lock.json -n",
+      "outputs": [
+        "docs/verification/issues/issue-191/first-failure.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dependency-specs.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-191/dependency-scan-output.json",
+        "docs/verification/issues/issue-191/dependency-policy-output.json"
+      ]
+    },
+    {
+      "command": "npm ci *> docs/verification/issues/issue-191/test-output/install.txt",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/install.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-191/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "\"npm --workspace apps/web test\" | Set-Content docs/verification/issues/issue-191/test-output/web.txt; npm --workspace apps/web test *>> docs/verification/issues/issue-191/test-output/web.txt; \"npm --workspace apps/web run build\" | Add-Content docs/verification/issues/issue-191/test-output/web.txt; npm --workspace apps/web run build *>> docs/verification/issues/issue-191/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-191/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "Set-Content docs/verification/issues/issue-191/test-output/docs-gate.txt \"pending docs gate rerun\"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-191/test-output/docs-gate.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *> docs/verification/issues/issue-191/test-output/verify-local.txt",
+      "outputs": [
+        "docs/verification/issues/issue-191/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}
