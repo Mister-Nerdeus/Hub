@@ -216,6 +216,8 @@ Issue 166 adds visual-only resize handles for the selected room. The eight handl
 
 Issue 167 adds a dedicated layout validation warning contract for operational editor warnings. Warnings now require code, severity, source, message, object references, generated/manual classification, and deterministic validation; generated bounds and collision warnings use the contract, and the validation panel displays severity and source without adding blocking behavior, resize behavior, path sync, save/load, simulation rerun, or recommendation behavior.
 
+Issue 168 recalculates generated bounds and collision warnings from current feet-based layout geometry after room movement. Stale generated warnings clear when geometry returns within bounds or no longer overlaps, non-generated warnings are preserved, warning ordering is deterministic, and movement remains permissive without path sync, save/load, simulation rerun, or recommendation behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

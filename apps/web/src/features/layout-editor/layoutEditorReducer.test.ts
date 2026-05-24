@@ -269,10 +269,10 @@ const bottomRightWarningState = layoutEditorReducer(stateWithLayout, {
 });
 assert.deepEqual(bottomRightWarningState.validationWarnings, [
   {
-    code: "room_out_of_bounds_right",
+    code: "room_out_of_bounds_bottom",
     severity: "warning",
     source: "bounds",
-    message: "Room extends beyond the layout right boundary.",
+    message: "Room extends beyond the layout bottom boundary.",
     objectType: "room",
     objectId: "room-01",
     relatedObjectType: null,
@@ -280,10 +280,10 @@ assert.deepEqual(bottomRightWarningState.validationWarnings, [
     isGenerated: true
   },
   {
-    code: "room_out_of_bounds_bottom",
+    code: "room_out_of_bounds_right",
     severity: "warning",
     source: "bounds",
-    message: "Room extends beyond the layout bottom boundary.",
+    message: "Room extends beyond the layout right boundary.",
     objectType: "room",
     objectId: "room-01",
     relatedObjectType: null,

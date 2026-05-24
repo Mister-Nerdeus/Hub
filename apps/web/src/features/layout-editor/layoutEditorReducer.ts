@@ -19,9 +19,9 @@ import {
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
 import { createRoomMoveAuditEntry } from "./layoutEditAuditTrail";
-import { validateRoomMoveWarnings } from "./layoutMoveValidation";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
+import { recalculateWarningsForRoom } from "./layoutWarningRecalculation";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 
 export type LayoutEditorAction =
@@ -190,7 +190,8 @@ function moveRoom(
   return {
     ...state,
     editableLayout: movedLayout,
-    validationWarnings: validateRoomMoveWarnings({
+    validationWarnings: recalculateWarningsForRoom({
+      existingWarnings: state.validationWarnings,
       layout: movedLayout,
       roomId,
       boundsFeet: state.layoutBoundsFeet
