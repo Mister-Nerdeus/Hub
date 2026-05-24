@@ -17,6 +17,8 @@ import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
+import { StationShape } from "./StationShape";
+import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
@@ -64,6 +66,7 @@ export function LayoutEditorStage() {
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
+  const stationItems = renderItems.filter((item) => item.objectType === "station");
 
   return (
     <section
@@ -185,6 +188,14 @@ export function LayoutEditorStage() {
                 <DoorShape
                   key={item.hitTargetKey}
                   viewModel={buildDoorShapeViewModel(item)}
+                />
+              ))}
+            </g>
+            <g className="layout-editor-stage__stations">
+              {stationItems.map((item) => (
+                <StationShape
+                  key={item.hitTargetKey}
+                  viewModel={buildStationShapeViewModel(item)}
                 />
               ))}
             </g>

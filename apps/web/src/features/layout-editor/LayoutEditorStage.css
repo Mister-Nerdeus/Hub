@@ -173,6 +173,21 @@
   stroke-width: 1;
 }
 
+.layout-editor-stage__station rect {
+  fill: #f4ead5;
+  stroke: #8b6f3d;
+  stroke-width: 1.4;
+}
+
+.layout-editor-stage__station text {
+  dominant-baseline: middle;
+  fill: #2b2112;
+  font-size: 9px;
+  font-weight: 900;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
 .layout-editor-stage__grid-line {
   stroke: #d9e1e8;
   stroke-width: 0.55;
