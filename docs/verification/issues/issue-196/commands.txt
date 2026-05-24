@@ -1,0 +1,3 @@
+node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-196/test-output/no-phi.txt
+Set-Content docs/verification/issues/issue-196/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-196/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs *> docs/verification/issues/issue-196/test-output/verify-local.txt

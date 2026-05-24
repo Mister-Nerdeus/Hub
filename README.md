@@ -94,6 +94,8 @@ The Phase 2 plan contract alignment is documented in `docs/contracts/phase-2-pla
 
 Phase 2 Plan Builder foundation is implemented through the evidence gate in `docs/verification/phase-2-plan-builder-evidence.md`.
 
+Hardening Pause 2 for Issues 187-196 is GO based on local evidence in `docs/verification/issues/issue-196/`. The pause covered TypeScript/Python simulation contract parity, layout workspace bounds, runtime no-PHI guards, negative fixture coverage, dependency pinning, Docker split, API error codes, persisted simulation list tolerance, and evidence gate hardening. This does not certify production readiness, clinical safety, legal staffing compliance, PHI support, or EHR integration.
+
 Phase 3 manual assignment proof covers shared nurse and room-load contracts, deterministic room workload scoring, deterministic manual assignment warnings, deterministic nurse burden scoring, and an API-free web proof surface. Seeded full-shift simulation and optimization are still not implemented.
 
 Phase 4 deterministic task-generation proof covers the assumptions register, operational task templates, typical and slammed day profiles, expanded shift scenario inputs, a seeded random utility, and reproducible generated operational task fixtures. Generated tasks are not assigned to nurses, task completion is not simulated, walking routes are not calculated, and no optimizer exists.
