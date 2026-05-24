@@ -8,13 +8,23 @@ export type LayoutEditAuditDeltaFeet = {
   deltaYFeet: number;
 };
 
-export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = ["move_room"] as const;
+export type LayoutEditAuditRectFeet = LayoutEditAuditPointFeet & {
+  widthFeet: number;
+  heightFeet: number;
+};
+
+export type LayoutEditAuditResizeDeltaFeet = LayoutEditAuditDeltaFeet & {
+  deltaWidthFeet: number;
+  deltaHeightFeet: number;
+};
+
+export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = ["move_room", "resize_room"] as const;
 
 export type LayoutEditAuditEntryType = (typeof LAYOUT_EDIT_AUDIT_ENTRY_TYPES)[number];
 
-export type LayoutEditAuditEntry = {
+export type LayoutRoomMoveAuditEntry = {
   editId: string;
-  editType: LayoutEditAuditEntryType;
+  editType: "move_room";
   objectType: "room";
   objectId: string;
   before: LayoutEditAuditPointFeet;
@@ -24,11 +34,35 @@ export type LayoutEditAuditEntry = {
   limitations: string[];
 };
 
+export type LayoutRoomResizeAuditEntry = {
+  editId: string;
+  editType: "resize_room";
+  objectType: "room";
+  objectId: string;
+  resizeHandle: string;
+  before: LayoutEditAuditRectFeet;
+  after: LayoutEditAuditRectFeet;
+  deltaFeet: LayoutEditAuditResizeDeltaFeet;
+  createdAtOrder: number;
+  limitations: string[];
+};
+
+export type LayoutEditAuditEntry = LayoutRoomMoveAuditEntry | LayoutRoomResizeAuditEntry;
+
 export type CreateRoomMoveAuditEntryInput = {
   roomId: string;
   before: LayoutEditAuditPointFeet;
   after: LayoutEditAuditPointFeet;
   deltaFeet: LayoutEditAuditDeltaFeet;
+  createdAtOrder: number;
+};
+
+export type CreateRoomResizeAuditEntryInput = {
+  roomId: string;
+  resizeHandle: string;
+  before: LayoutEditAuditRectFeet;
+  after: LayoutEditAuditRectFeet;
+  deltaFeet: LayoutEditAuditResizeDeltaFeet;
   createdAtOrder: number;
 };
 
@@ -58,6 +92,29 @@ export function createRoomMoveAuditEntry({
   };
 }
 
+export function createRoomResizeAuditEntry({
+  roomId,
+  resizeHandle,
+  before,
+  after,
+  deltaFeet,
+  createdAtOrder
+}: CreateRoomResizeAuditEntryInput): LayoutRoomResizeAuditEntry {
+  const order = requirePositiveInteger(createdAtOrder, "createdAtOrder");
+  return {
+    editId: `layout-edit-${order.toString().padStart(6, "0")}`,
+    editType: "resize_room",
+    objectType: "room",
+    objectId: requireString(roomId, "roomId"),
+    resizeHandle: requireString(resizeHandle, "resizeHandle"),
+    before: normalizeRect(before, "before"),
+    after: normalizeRect(after, "after"),
+    deltaFeet: normalizeResizeDelta(deltaFeet),
+    createdAtOrder: order,
+    limitations: [...ROOM_MOVE_AUDIT_LIMITATIONS]
+  };
+}
+
 function normalizePoint(point: LayoutEditAuditPointFeet, label: string): LayoutEditAuditPointFeet {
   return {
     xFeet: normalizeSignedZero(roundFeet(requireFinite(point.xFeet, `${label}.xFeet`))),
@@ -69,6 +126,22 @@ function normalizeDelta(delta: LayoutEditAuditDeltaFeet): LayoutEditAuditDeltaFe
   return {
     deltaXFeet: normalizeSignedZero(roundFeet(requireFinite(delta.deltaXFeet, "deltaFeet.deltaXFeet"))),
     deltaYFeet: normalizeSignedZero(roundFeet(requireFinite(delta.deltaYFeet, "deltaFeet.deltaYFeet")))
+  };
+}
+
+function normalizeRect(rect: LayoutEditAuditRectFeet, label: string): LayoutEditAuditRectFeet {
+  return {
+    ...normalizePoint(rect, label),
+    widthFeet: normalizeSignedZero(roundFeet(requireFinite(rect.widthFeet, `${label}.widthFeet`))),
+    heightFeet: normalizeSignedZero(roundFeet(requireFinite(rect.heightFeet, `${label}.heightFeet`)))
+  };
+}
+
+function normalizeResizeDelta(delta: LayoutEditAuditResizeDeltaFeet): LayoutEditAuditResizeDeltaFeet {
+  return {
+    ...normalizeDelta(delta),
+    deltaWidthFeet: normalizeSignedZero(roundFeet(requireFinite(delta.deltaWidthFeet, "deltaFeet.deltaWidthFeet"))),
+    deltaHeightFeet: normalizeSignedZero(roundFeet(requireFinite(delta.deltaHeightFeet, "deltaFeet.deltaHeightFeet")))
   };
 }
 

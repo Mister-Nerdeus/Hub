@@ -18,11 +18,13 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
-import { createRoomMoveAuditEntry } from "./layoutEditAuditTrail";
+import { createRoomMoveAuditEntry, createRoomResizeAuditEntry } from "./layoutEditAuditTrail";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
 import { recalculateWarningsForRoom } from "./layoutWarningRecalculation";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
+import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
+import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -38,6 +40,13 @@ export type LayoutEditorAction =
   | { type: "resetViewport" }
   | { type: "setSnapMode"; snapMode: LayoutEditorSnapMode }
   | { type: "moveRoom"; roomId: string; deltaXFeet: number; deltaYFeet: number }
+  | {
+      type: "resizeRoom";
+      roomId: string;
+      handle: RoomResizeHandle;
+      deltaXFeet: number;
+      deltaYFeet: number;
+    }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
   | { type: "markClean" };
 
@@ -104,6 +113,11 @@ export function layoutEditorReducer(
         deltaXFeet: action.deltaXFeet,
         deltaYFeet: action.deltaYFeet
       });
+    case "resizeRoom":
+      return resizeRoom(state, action.roomId, action.handle, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
     case "setValidationWarnings":
       if (!Array.isArray(action.validationWarnings)) {
         throw new Error("validationWarnings must be an array");
@@ -120,6 +134,81 @@ export function layoutEditorReducer(
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
   }
+}
+
+function resizeRoom(
+  state: LayoutEditorState,
+  roomId: string,
+  handle: RoomResizeHandle,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "room" || state.selectedObjectId !== roomId) {
+    return state;
+  }
+
+  const beforeRoom = state.editableLayout.rooms.find((room) => room.id === roomId);
+  if (beforeRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
+
+  const resizedLayout = resizeSelectedRoomInLayout({
+    layout: state.editableLayout,
+    selectedObjectType: state.selectedObjectType,
+    selectedObjectId: state.selectedObjectId,
+    roomId,
+    handle,
+    deltaFeet: delta,
+    snapMode: state.snapMode
+  });
+  const afterRoom = resizedLayout.rooms.find((room) => room.id === roomId);
+  if (afterRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
+  if (
+    beforeRoom.xFeet === afterRoom.xFeet &&
+    beforeRoom.yFeet === afterRoom.yFeet &&
+    beforeRoom.widthFeet === afterRoom.widthFeet &&
+    beforeRoom.heightFeet === afterRoom.heightFeet
+  ) {
+    return state;
+  }
+
+  return {
+    ...state,
+    editableLayout: resizedLayout,
+    editAuditTrail: [
+      ...state.editAuditTrail,
+      createRoomResizeAuditEntry({
+        roomId,
+        resizeHandle: handle,
+        before: {
+          xFeet: beforeRoom.xFeet,
+          yFeet: beforeRoom.yFeet,
+          widthFeet: beforeRoom.widthFeet,
+          heightFeet: beforeRoom.heightFeet
+        },
+        after: {
+          xFeet: afterRoom.xFeet,
+          yFeet: afterRoom.yFeet,
+          widthFeet: afterRoom.widthFeet,
+          heightFeet: afterRoom.heightFeet
+        },
+        deltaFeet: {
+          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
+          deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
+          deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
+        },
+        createdAtOrder: state.editAuditTrail.length + 1
+      })
+    ],
+    selectedObjectType: "room",
+    selectedObjectId: roomId,
+    isDirty: true
+  };
 }
 
 export function panViewportAction(

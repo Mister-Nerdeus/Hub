@@ -353,6 +353,62 @@ const fineMovedRoomState = layoutEditorReducer(
 assert.equal(fineMovedRoomState.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet + 0.5);
 assert.equal(fineMovedRoomState.editableLayout?.rooms[0]?.yFeet, roomBeforeMove.yFeet - 0.5);
 
+const resizeUnselectedState = layoutEditorReducer(stateWithLayout, {
+  type: "resizeRoom",
+  roomId: "room-01",
+  handle: "east",
+  deltaXFeet: 2,
+  deltaYFeet: 0
+});
+assert.equal(resizeUnselectedState, stateWithLayout);
+
+const selectedResizeState = layoutEditorReducer(selectedRoomState, {
+  type: "resizeRoom",
+  roomId: "room-01",
+  handle: "southeast",
+  deltaXFeet: 2,
+  deltaYFeet: 1
+});
+const resizedRoom = selectedResizeState.editableLayout?.rooms.find((room) => room.id === "room-01");
+if (resizedRoom == null) {
+  throw new Error("resized state must include room-01");
+}
+assert.equal(resizedRoom.xFeet, roomBeforeMove.xFeet);
+assert.equal(resizedRoom.yFeet, roomBeforeMove.yFeet);
+assert.equal(resizedRoom.widthFeet, roomBeforeMove.widthFeet + 2);
+assert.equal(resizedRoom.heightFeet, roomBeforeMove.heightFeet + 1);
+assert.equal(resizedRoom.label, roomBeforeMove.label);
+assert.deepEqual(selectedResizeState.editableLayout?.doors, editableLayout.doors);
+assert.equal(selectedResizeState.isDirty, true);
+assert.equal(selectedResizeState.selectedObjectId, "room-01");
+assert.deepEqual(selectedResizeState.editAuditTrail, [
+  {
+    editId: "layout-edit-000001",
+    editType: "resize_room",
+    objectType: "room",
+    objectId: "room-01",
+    resizeHandle: "southeast",
+    before: {
+      xFeet: roomBeforeMove.xFeet,
+      yFeet: roomBeforeMove.yFeet,
+      widthFeet: roomBeforeMove.widthFeet,
+      heightFeet: roomBeforeMove.heightFeet
+    },
+    after: {
+      xFeet: roomBeforeMove.xFeet,
+      yFeet: roomBeforeMove.yFeet,
+      widthFeet: roomBeforeMove.widthFeet + 2,
+      heightFeet: roomBeforeMove.heightFeet + 1
+    },
+    deltaFeet: { deltaXFeet: 0, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: 1 },
+    createdAtOrder: 1,
+    limitations: [
+      "Audit entry describes an operational layout edit only.",
+      "Undo, redo, persistence, path sync, and simulation rerun are not performed."
+    ]
+  }
+]);
+
 assert.throws(
   () =>
     layoutEditorReducer(stateWithLayout, {

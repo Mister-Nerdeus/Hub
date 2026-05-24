@@ -23,7 +23,10 @@ import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomResizeHandles } from "./RoomResizeHandles";
-import { buildSelectedRoomResizeHandlesViewModel } from "./roomResizeHandlesViewModel";
+import {
+  buildSelectedRoomResizeHandlesViewModel,
+  type RoomResizeHandle
+} from "./roomResizeHandlesViewModel";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
 import { createRoomMoveSnapAccumulator } from "./roomDragMove";
@@ -50,6 +53,13 @@ type RoomDragState = {
   accumulator: RoomDragSnapAccumulator;
 };
 
+type RoomResizeState = {
+  roomId: string;
+  handle: RoomResizeHandle;
+  lastClientX: number;
+  lastClientY: number;
+};
+
 const initialStageState = createLayoutEditorState({
   editableLayout: layoutEditorProofFixture,
   viewport: {
@@ -67,6 +77,7 @@ const initialStageState = createLayoutEditorState({
 export function LayoutEditorStage() {
   const [stageState, dispatchStage] = useReducer(layoutEditorReducer, initialStageState);
   const roomDragRef = useRef<RoomDragState | null>(null);
+  const roomResizeRef = useRef<RoomResizeState | null>(null);
   const grid = buildLayoutGridViewModel({
     widthFeet: STAGE_WIDTH_FEET,
     heightFeet: STAGE_HEIGHT_FEET,
@@ -152,6 +163,69 @@ export function LayoutEditorStage() {
     if (roomDragRef.current?.roomId === roomId) {
       roomDragRef.current = null;
     }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+  const startRoomResize = (
+    roomId: string,
+    handle: RoomResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (stageState.selectedObjectType !== "room" || stageState.selectedObjectId !== roomId) {
+      return;
+    }
+    roomResizeRef.current = {
+      roomId,
+      handle,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const resizeRoom = (
+    roomId: string,
+    handle: RoomResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    const resize = roomResizeRef.current;
+    if (resize == null || resize.roomId !== roomId || resize.handle !== handle) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+
+    const deltaXFeet = pixelsDeltaToFeet(event.clientX - resize.lastClientX, stageState.viewport);
+    const deltaYFeet = pixelsDeltaToFeet(event.clientY - resize.lastClientY, stageState.viewport);
+    roomResizeRef.current = {
+      roomId,
+      handle,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    if (deltaXFeet === 0 && deltaYFeet === 0) {
+      return;
+    }
+
+    dispatchStage({
+      type: "resizeRoom",
+      roomId,
+      handle,
+      deltaXFeet,
+      deltaYFeet
+    });
+  };
+  const endRoomResize = (
+    roomId: string,
+    handle: RoomResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    if (roomResizeRef.current?.roomId === roomId && roomResizeRef.current.handle === handle) {
+      roomResizeRef.current = null;
+    }
+    event.stopPropagation();
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
@@ -328,7 +402,12 @@ export function LayoutEditorStage() {
               ))}
             </g>
             {roomResizeHandlesViewModel == null ? null : (
-              <RoomResizeHandles viewModel={roomResizeHandlesViewModel} />
+              <RoomResizeHandles
+                viewModel={roomResizeHandlesViewModel}
+                onResizeStart={startRoomResize}
+                onResize={resizeRoom}
+                onResizeEnd={endRoomResize}
+              />
             )}
           </svg>
         </div>

@@ -29,7 +29,7 @@ export type RoomResizeHandleViewModel = {
 export type RoomResizeHandlesViewModel = {
   objectType: "room";
   objectId: string;
-  isDisplayOnly: true;
+  isDisplayOnly: false;
   handles: readonly RoomResizeHandleViewModel[];
 };
 
@@ -85,7 +85,7 @@ export function buildRoomResizeHandlesViewModel(
   return {
     objectType: "room",
     objectId: selectedRoomItem.objectId,
-    isDisplayOnly: true,
+    isDisplayOnly: false,
     handles: ROOM_RESIZE_HANDLE_ORDER.map((handle) => ({
       handle,
       xPixels: points[handle].xPixels,

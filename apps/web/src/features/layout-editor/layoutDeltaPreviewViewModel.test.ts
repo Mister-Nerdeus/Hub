@@ -54,3 +54,24 @@ assert.deepEqual(pendingViewModel.affectedCategories, [
   "nurse strain proxy"
 ]);
 assert.equal(pendingViewModel.latestEditId, "layout-edit-000001");
+
+const resizeAuditEntry: LayoutEditAuditEntry = {
+  editId: "layout-edit-000002",
+  editType: "resize_room",
+  objectType: "room",
+  objectId: "room-01",
+  resizeHandle: "east",
+  before: { xFeet: 0, yFeet: 0, widthFeet: 12, heightFeet: 10 },
+  after: { xFeet: 0, yFeet: 0, widthFeet: 14, heightFeet: 10 },
+  deltaFeet: { deltaXFeet: 0, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: 0 },
+  createdAtOrder: 2,
+  limitations: ["Audit entry describes an operational layout edit only."]
+};
+
+assert.equal(
+  buildLayoutDeltaPreviewViewModel({
+    isDirty: true,
+    editAuditTrail: [auditEntry, resizeAuditEntry]
+  }).latestEditId,
+  "layout-edit-000002"
+);

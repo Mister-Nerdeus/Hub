@@ -224,6 +224,8 @@ Issue 170 adds the shared editable layout to plan/path bridge contract. The cont
 
 Issue 171 adds a pure feet-based room resize geometry helper. All eight room handles are supported, active snap mode is applied, minimum room size is enforced, room metadata is preserved, and input room objects are not mutated; it does not add pointer interaction, stage wiring, inspector editing, door mutation, path sync, save/load, or simulation rerun behavior.
 
+Issue 172 adds selected-room resize interaction for room handles. Resize changes only the selected room rectangle fields, snaps in feet, enforces minimum room size through the pure helper, creates deterministic resize audit entries, and marks metric deltas pending without mutating doors or path graph, adding save/load, inspector editing, station/hallway/zone resize, or rerunning simulation.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

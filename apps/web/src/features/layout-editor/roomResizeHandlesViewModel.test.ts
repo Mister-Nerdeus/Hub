@@ -50,7 +50,7 @@ if (roomItem == null || hallwayItem == null) {
 const handles = buildRoomResizeHandlesViewModel(roomItem);
 assert.equal(handles.objectType, "room");
 assert.equal(handles.objectId, "room-01");
-assert.equal(handles.isDisplayOnly, true);
+assert.equal(handles.isDisplayOnly, false);
 assert.deepEqual(
   handles.handles.map((handle) => handle.handle),
   ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"]
