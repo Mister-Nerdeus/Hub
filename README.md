@@ -252,6 +252,8 @@ Issue 184 adds pure shared door path node geometry sync. The helper returns a co
 
 Issue 185 adds pure shared room move path node sync. Linked room path nodes move by the supplied room delta, room-owned door path nodes recalculate from derived door centers, unrelated nodes and all path edges remain unchanged, and no pathfinding or simulation rerun is performed.
 
+Issue 186 adds walking distance recalculation from edited path node geometry. The shared helper rebuilds copied path edge lengths from baseline and edited node coordinates, compares deterministic route distance in feet, returns baseline/edited/delta/percent values, and does not rerun simulation or change pathfinding behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

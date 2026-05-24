@@ -37,6 +37,7 @@ export type RoomMovePathNodeGeometrySyncResult = {
   syncedPathNodeIds: string[];
   skippedPathNodeIds: string[];
   pathEdgesMutated: false;
+  walkingDistanceRecalculated: false;
   limitations: string[];
 };
 
@@ -175,6 +176,7 @@ function createResult(input: {
     syncedPathNodeIds,
     skippedPathNodeIds: uniqueSorted(input.skippedPathNodeIds),
     pathEdgesMutated: false,
+    walkingDistanceRecalculated: false,
     limitations: [...ROOM_MOVE_PATH_NODE_GEOMETRY_SYNC_LIMITATIONS]
   };
 }

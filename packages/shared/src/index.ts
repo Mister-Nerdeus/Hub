@@ -14,6 +14,7 @@ export * from "./layout-editor/doorPathNodeSyncContract.js";
 export * from "./layout-editor/syncDoorPathNodeGeometry.js";
 export * from "./layout-editor/roomMovePathSyncContract.js";
 export * from "./layout-editor/syncRoomMovePathNodeGeometry.js";
+export * from "./layout-editor/recalculateWalkingDistanceFromEditedLayout.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
 export * from "./optimization/optimizationContract.js";
 export * from "./optimization/optimizerConstraintAdapter.js";

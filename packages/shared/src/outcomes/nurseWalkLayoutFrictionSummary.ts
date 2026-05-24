@@ -23,7 +23,7 @@ export type BuildNurseWalkLayoutFrictionSummaryOutput = {
   metrics: OperationalMetricContract[];
 };
 
-const LAYOUT_FRICTION_LIMITATIONS = [
+export const LAYOUT_FRICTION_LIMITATIONS = [
   "Operational metric is operational-only and derived from validated simulation outputs.",
   "No external-system inferences, person identifiers, or PHI are represented.",
   "Assumptions are visible where derived aggregates include normalization or weighting.",

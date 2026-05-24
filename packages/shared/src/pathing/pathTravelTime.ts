@@ -1,4 +1,4 @@
-import type { PathEdge, PlanContract } from "../contracts.js";
+import type { PathEdge, PathNode, PlanContract } from "../contracts.js";
 import { validatePlanContract } from "../contracts.js";
 import {
   type PathTravelCalculationInput,
@@ -73,6 +73,39 @@ export function calculatePathTravelTime(
     warnings: [],
     limitations: [...PATH_TRAVEL_LIMITATIONS]
   });
+}
+
+export function rebuildPathEdgeLengthsFromNodeGeometry(plan: PlanContract): PlanContract {
+  const validated = validatePlanContract(plan);
+  const nodesById = new Map(validated.pathNodes.map((node) => [node.id, node]));
+  return {
+    ...validated,
+    rooms: validated.rooms.map((room) => ({ ...room })),
+    hallways: validated.hallways.map((hallway) => ({
+      ...hallway,
+      points: hallway.points.map((point) => ({ ...point }))
+    })),
+    doors: validated.doors.map((door) => ({ ...door })),
+    nurseStations: validated.nurseStations.map((station) => ({ ...station })),
+    zones: validated.zones.map((zone) => ({ ...zone })),
+    pathNodes: validated.pathNodes.map((node) => ({ ...node })),
+    pathEdges: validated.pathEdges.map((edge) => ({
+      ...edge,
+      lengthFeet: derivePathEdgeLengthFeetFromNodes(edge, nodesById)
+    }))
+  };
+}
+
+export function derivePathEdgeLengthFeetFromNodes(
+  edge: Pick<PathEdge, "fromNodeId" | "toNodeId">,
+  nodesById: ReadonlyMap<string, PathNode>
+): number {
+  const fromNode = nodesById.get(edge.fromNodeId);
+  const toNode = nodesById.get(edge.toNodeId);
+  if (fromNode == null || toNode == null) {
+    throw new Error("path edge references a missing path node");
+  }
+  return roundFeet(Math.hypot(toNode.x - fromNode.x, toNode.y - fromNode.y));
 }
 
 function shortestRoute(

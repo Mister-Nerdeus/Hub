@@ -276,6 +276,7 @@ test("syncs moved room path node by delta and recalculates owned door path nodes
   });
   assert.deepEqual(result.updatedPlan.pathEdges, plan.pathEdges);
   assert.equal(result.pathEdgesMutated, false);
+  assert.equal(result.walkingDistanceRecalculated, false);
   assert.equal(JSON.stringify(plan), planBefore);
 });
 
