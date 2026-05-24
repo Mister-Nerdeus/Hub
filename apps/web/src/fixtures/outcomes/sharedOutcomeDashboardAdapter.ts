@@ -1,6 +1,7 @@
 import {
   OPERATIONAL_OUTCOME_DASHBOARD_METRIC_IDS,
-  operationalOutcomeDashboardProofData
+  operationalOutcomeDashboardProofData,
+  validateOperationalOutcomeDashboardProofData
 } from "@nerdeus/shared";
 import type {
   OperationalDeltaComparisonContract,
@@ -50,6 +51,7 @@ export type OperationalOutcomeDashboardProofFixture = {
 export function adaptSharedOutcomeDashboardProofData(
   data: OperationalOutcomeDashboardProofData = operationalOutcomeDashboardProofData
 ): OperationalOutcomeDashboardProofFixture {
+  validateOperationalOutcomeDashboardProofData(data);
   return {
     sourcePackage: "@nerdeus/shared",
     sourceDataId: data.sourceDataId,
