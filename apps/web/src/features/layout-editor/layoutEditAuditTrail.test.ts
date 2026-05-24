@@ -1,4 +1,4 @@
-import { createRoomMoveAuditEntry } from "./layoutEditAuditTrail";
+import { createRoomMoveAuditEntry, LAYOUT_EDIT_AUDIT_ENTRY_TYPES } from "./layoutEditAuditTrail";
 
 const assert = {
   deepEqual(actual: unknown, expected: unknown): void {
@@ -7,6 +7,8 @@ const assert = {
     }
   }
 };
+
+assert.deepEqual([...LAYOUT_EDIT_AUDIT_ENTRY_TYPES], ["move_room"]);
 
 assert.deepEqual(
   createRoomMoveAuditEntry({

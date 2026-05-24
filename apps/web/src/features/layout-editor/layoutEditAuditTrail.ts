@@ -8,9 +8,13 @@ export type LayoutEditAuditDeltaFeet = {
   deltaYFeet: number;
 };
 
+export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = ["move_room"] as const;
+
+export type LayoutEditAuditEntryType = (typeof LAYOUT_EDIT_AUDIT_ENTRY_TYPES)[number];
+
 export type LayoutEditAuditEntry = {
   editId: string;
-  editType: "move_room";
+  editType: LayoutEditAuditEntryType;
   objectType: "room";
   objectId: string;
   before: LayoutEditAuditPointFeet;

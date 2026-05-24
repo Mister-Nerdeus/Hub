@@ -218,6 +218,8 @@ Issue 167 adds a dedicated layout validation warning contract for operational ed
 
 Issue 168 recalculates generated bounds and collision warnings from current feet-based layout geometry after room movement. Stale generated warnings clear when geometry returns within bounds or no longer overlaps, non-generated warnings are preserved, warning ordering is deterministic, and movement remains permissive without path sync, save/load, simulation rerun, or recommendation behavior.
 
+Issue 169 adds a pure room-move gesture audit summary contract. Multiple low-level `move_room` audit entries can be summarized into one deterministic `room_move_drag` gesture with stable object references, start/end feet positions, total delta feet, low-level edit IDs, deterministic order, and limitations without adding undo/redo, persistence, save/load, reducer-level audit compression, path sync, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
