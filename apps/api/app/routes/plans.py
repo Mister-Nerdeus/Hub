@@ -1,13 +1,20 @@
 from datetime import datetime
 from typing import Any
 
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import APIRouter, Depends, Response, status
 from pydantic import Field
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.contracts import PLAN_DESCRIPTION_MAX_LENGTH, PlanContract, StrictModel
 from app.db import get_db
+from app.errors import (
+    PLAN_ALREADY_EXISTS,
+    PLAN_CONTRACT_INVALID,
+    PLAN_ID_MISMATCH,
+    PLAN_NOT_FOUND,
+    api_error,
+)
 from app.models import PlanRecord
 from app.repositories import plans as plan_repository
 
@@ -46,10 +53,7 @@ def serialize_plan_summary(record: PlanRecord) -> dict[str, Any]:
 
 def canonical_description(request: PlanWriteRequest) -> str | None:
     if "description" in request.model_fields_set and request.description != request.layout.description:
-        raise HTTPException(
-            status_code=400,
-            detail="description must match layout.description when provided",
-        )
+        raise api_error(400, PLAN_CONTRACT_INVALID, "description must match layout.description when provided")
     return request.layout.description
 
 
@@ -67,7 +71,7 @@ def create_plan(request: PlanWriteRequest, db: Session = Depends(get_db)) -> dic
         )
     except IntegrityError as exc:
         db.rollback()
-        raise HTTPException(status_code=409, detail="plan already exists") from exc
+        raise api_error(409, PLAN_ALREADY_EXISTS) from exc
     return serialize_plan(record)
 
 
@@ -81,7 +85,7 @@ def list_plans(db: Session = Depends(get_db)) -> dict[str, Any]:
 def get_plan(plan_id: str, db: Session = Depends(get_db)) -> dict[str, Any]:
     record = plan_repository.get_plan(db, plan_id)
     if record is None:
-        raise HTTPException(status_code=404, detail="plan not found")
+        raise api_error(404, PLAN_NOT_FOUND)
     return serialize_plan(record)
 
 
@@ -92,11 +96,11 @@ def update_plan(
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
     if request.layout.planId != plan_id:
-        raise HTTPException(status_code=400, detail="layout.planId must match route plan_id")
+        raise api_error(400, PLAN_ID_MISMATCH)
 
     record = plan_repository.get_plan(db, plan_id)
     if record is None:
-        raise HTTPException(status_code=404, detail="plan not found")
+        raise api_error(404, PLAN_NOT_FOUND)
 
     updated = plan_repository.update_plan(
         db,
@@ -112,6 +116,6 @@ def update_plan(
 def delete_plan(plan_id: str, db: Session = Depends(get_db)) -> Response:
     record = plan_repository.get_plan(db, plan_id)
     if record is None:
-        raise HTTPException(status_code=404, detail="plan not found")
+        raise api_error(404, PLAN_NOT_FOUND)
     plan_repository.delete_plan(db, record)
     return Response(status_code=status.HTTP_204_NO_CONTENT)

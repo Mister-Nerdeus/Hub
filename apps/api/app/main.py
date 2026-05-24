@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 
 from app.routes.plans import router as plans_router
 from app.routes.simulation import router as simulation_router
+from app.errors import validation_error_detail
 from app.settings import get_settings
 
 settings = get_settings()
@@ -25,16 +26,8 @@ app.add_middleware(
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(_request, exc: RequestValidationError) -> JSONResponse:
-    errors = [
-        {
-            "type": error.get("type", "value_error"),
-            "loc": error.get("loc", ()),
-            "msg": error.get("msg", "Invalid request"),
-        }
-        for error in exc.errors()
-    ]
-    return JSONResponse(status_code=422, content={"detail": errors})
+async def validation_exception_handler(request, exc: RequestValidationError) -> JSONResponse:
+    return JSONResponse(status_code=422, content={"detail": validation_error_detail(request, exc)})
 
 
 @app.get("/health")

@@ -4,6 +4,7 @@ from typing import Any, Literal
 from pydantic import Field, model_validator
 
 from app.contracts import StrictModel, validate_runtime_operational_text
+from app.errors import PERSISTED_SIMULATION_RUN_INVALID, ERROR_MESSAGES
 
 
 PHI_LIKE_KEYS = {
@@ -43,8 +44,8 @@ NURSE_ACTIONS = {"started_task", "completed_task", "idle", "queued"}
 QUEUE_ACTIONS = {"entered_queue", "started_from_queue", "released"}
 TRAVEL_ACTIONS = {"travel_calculated", "travel_unreachable"}
 TERMINAL_TASK_ACTIONS = {"completed", "missed", "unassigned"}
-PERSISTED_SIMULATION_RUN_INVALID_CODE = "PERSISTED_SIMULATION_RUN_INVALID"
-PERSISTED_SIMULATION_RUN_INVALID_MESSAGE = "persisted simulation run failed validation"
+PERSISTED_SIMULATION_RUN_INVALID_CODE = PERSISTED_SIMULATION_RUN_INVALID
+PERSISTED_SIMULATION_RUN_INVALID_MESSAGE = ERROR_MESSAGES[PERSISTED_SIMULATION_RUN_INVALID]
 
 
 class SimulationRunSummary(StrictModel):

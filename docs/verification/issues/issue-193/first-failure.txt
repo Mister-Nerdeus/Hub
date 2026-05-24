@@ -1,0 +1,49 @@
+{
+  "duplicate_plan": {
+    "detail": "plan already exists"
+  },
+  "missing_plan": {
+    "detail": "plan not found"
+  },
+  "plan_id_mismatch": {
+    "detail": "layout.planId must match route plan_id"
+  },
+  "invalid_simulation_run": {
+    "detail": [
+      {
+        "type": "value_error",
+        "loc": [
+          "body"
+        ],
+        "msg": "Value error, summary.totalTasks must match task events"
+      }
+    ]
+  },
+  "duplicate_simulation_run": {
+    "detail": "simulation run already exists"
+  },
+  "missing_simulation_run": {
+    "detail": "simulation run not found"
+  },
+  "invalid_persisted_simulation_run": {
+    "detail": {
+      "code": "PERSISTED_SIMULATION_RUN_INVALID",
+      "message": "persisted simulation run failed validation"
+    }
+  },
+  "no_phi_rejection": {
+    "detail": [
+      {
+        "type": "value_error",
+        "loc": [
+          "body",
+          "layout",
+          "rooms",
+          0,
+          "label"
+        ],
+        "msg": "Value error, NO_PHI_RUNTIME_REJECTION: room.label rejected for identity-like placeholder name"
+      }
+    ]
+  }
+}

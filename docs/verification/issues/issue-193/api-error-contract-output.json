@@ -1,0 +1,134 @@
+{
+  "PLAN_ALREADY_EXISTS": {
+    "statusCode": 409,
+    "body": {
+      "detail": {
+        "code": "PLAN_ALREADY_EXISTS",
+        "message": "plan already exists"
+      }
+    }
+  },
+  "PLAN_NOT_FOUND": {
+    "statusCode": 404,
+    "body": {
+      "detail": {
+        "code": "PLAN_NOT_FOUND",
+        "message": "plan not found"
+      }
+    }
+  },
+  "PLAN_ID_MISMATCH": {
+    "statusCode": 400,
+    "body": {
+      "detail": {
+        "code": "PLAN_ID_MISMATCH",
+        "message": "layout.planId must match route plan_id"
+      }
+    }
+  },
+  "PLAN_CONTRACT_INVALID": {
+    "statusCode": 422,
+    "body": {
+      "detail": {
+        "code": "PLAN_CONTRACT_INVALID",
+        "message": "plan contract invalid",
+        "errors": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body",
+              "layout"
+            ],
+            "msg": "Value error, path edge edge-room-01-hall references unknown to node"
+          }
+        ]
+      }
+    }
+  },
+  "SIMULATION_RUN_CONTRACT_INVALID": {
+    "statusCode": 422,
+    "body": {
+      "detail": {
+        "code": "SIMULATION_RUN_CONTRACT_INVALID",
+        "message": "simulation run contract invalid",
+        "errors": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body"
+            ],
+            "msg": "Value error, summary.totalTasks must match task events"
+          }
+        ]
+      }
+    }
+  },
+  "SIMULATION_RUN_ALREADY_EXISTS": {
+    "statusCode": 409,
+    "body": {
+      "detail": {
+        "code": "SIMULATION_RUN_ALREADY_EXISTS",
+        "message": "simulation run already exists"
+      }
+    }
+  },
+  "SIMULATION_RUN_NOT_FOUND": {
+    "statusCode": 404,
+    "body": {
+      "detail": {
+        "code": "SIMULATION_RUN_NOT_FOUND",
+        "message": "simulation run not found"
+      }
+    }
+  },
+  "PERSISTED_SIMULATION_RUN_INVALID": {
+    "statusCode": 500,
+    "body": {
+      "detail": {
+        "code": "PERSISTED_SIMULATION_RUN_INVALID",
+        "message": "persisted simulation run failed validation"
+      }
+    }
+  },
+  "NO_PHI_RUNTIME_REJECTION": {
+    "statusCode": 422,
+    "body": {
+      "detail": {
+        "code": "NO_PHI_RUNTIME_REJECTION",
+        "message": "runtime no-PHI validation rejected the request",
+        "errors": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body",
+              "layout",
+              "rooms",
+              0,
+              "label"
+            ],
+            "msg": "Value error, NO_PHI_RUNTIME_REJECTION: room.label rejected for identity-like placeholder name"
+          }
+        ]
+      }
+    }
+  },
+  "REQUEST_VALIDATION_FAILED": {
+    "statusCode": 422,
+    "body": {
+      "detail": {
+        "code": "REQUEST_VALIDATION_FAILED",
+        "message": "request validation failed",
+        "errors": [
+          {
+            "type": "less_than_equal",
+            "loc": [
+              "query",
+              "limit"
+            ],
+            "msg": "Input should be less than or equal to 100"
+          }
+        ]
+      }
+    }
+  }
+}

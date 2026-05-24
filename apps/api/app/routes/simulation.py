@@ -7,6 +7,11 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.db import get_db
+from app.errors import (
+    SIMULATION_RUN_ALREADY_EXISTS,
+    SIMULATION_RUN_NOT_FOUND,
+    api_error,
+)
 from app.models import SimulationRunRecord
 from app.repositories import simulation_runs as simulation_run_repository
 from app.schemas.simulation import (
@@ -86,7 +91,7 @@ def create_simulation_run(
         )
     except IntegrityError as exc:
         db.rollback()
-        raise HTTPException(status_code=409, detail="simulation run already exists") from exc
+        raise api_error(409, SIMULATION_RUN_ALREADY_EXISTS) from exc
     return serialize_run(record)
 
 
@@ -115,5 +120,5 @@ def get_simulation_run(
 ) -> dict[str, Any]:
     record = simulation_run_repository.get_simulation_run(db, simulation_run_id)
     if record is None:
-        raise HTTPException(status_code=404, detail="simulation run not found")
+        raise api_error(404, SIMULATION_RUN_NOT_FOUND)
     return serialize_run(record)
