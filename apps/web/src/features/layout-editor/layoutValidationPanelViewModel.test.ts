@@ -1,5 +1,8 @@
 import type { LayoutEditorValidationWarning } from "./layoutValidationWarningContract";
-import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import {
+  buildLayoutValidationPanelViewModel,
+  buildLayoutValidationPanelWarningKey
+} from "./layoutValidationPanelViewModel";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -110,3 +113,48 @@ assert.deepEqual(
   ]
 );
 assert.equal(warnings.length, 3);
+
+const distinctWarningsWithSharedDisplayMetadata: LayoutEditorValidationWarning[] = [
+  {
+    code: "room_bounds_review",
+    severity: "warning",
+    source: "bounds",
+    message: "Room extends beyond the layout left boundary.",
+    objectType: "room",
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
+  },
+  {
+    code: "room_bounds_review",
+    severity: "warning",
+    source: "bounds",
+    message: "Room extends beyond the layout right boundary.",
+    objectType: "room",
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
+  },
+  {
+    code: "room_bounds_review",
+    severity: "warning",
+    source: "bounds",
+    message: "Room extends beyond the layout left boundary.",
+    objectType: "room",
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: false
+  }
+];
+
+const distinctWarningViewModel = buildLayoutValidationPanelViewModel({
+  warnings: distinctWarningsWithSharedDisplayMetadata
+});
+assert.equal(distinctWarningViewModel.warningCount, 3);
+assert.equal(
+  new Set(distinctWarningViewModel.warnings.map(buildLayoutValidationPanelWarningKey)).size,
+  distinctWarningViewModel.warnings.length
+);

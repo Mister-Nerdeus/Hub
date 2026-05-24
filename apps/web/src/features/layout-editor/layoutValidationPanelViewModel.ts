@@ -1,6 +1,4 @@
-import type {
-  LayoutEditorSelectableObjectType,
-} from "./layoutEditorState";
+import type { LayoutEditorSelectableObjectType } from "./layoutEditorState";
 import type {
   LayoutEditorValidationWarning,
   LayoutValidationWarningSeverity,
@@ -59,7 +57,7 @@ function collapseDuplicateWarnings(
   const warningsByKey = new Map<string, LayoutValidationPanelWarningViewModel>();
   for (const warning of warnings) {
     const viewModel = normalizeWarning(warning);
-    const key = warningKey(viewModel);
+    const key = buildLayoutValidationPanelWarningKey(viewModel);
     const existing = warningsByKey.get(key);
     if (existing == null) {
       warningsByKey.set(key, viewModel);
@@ -89,7 +87,9 @@ function normalizeWarning(
   };
 }
 
-function warningKey(warning: LayoutValidationPanelWarningViewModel): string {
+export function buildLayoutValidationPanelWarningKey(
+  warning: LayoutValidationPanelWarningViewModel
+): string {
   return [
     warning.code,
     warning.severity,

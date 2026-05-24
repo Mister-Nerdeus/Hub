@@ -1,0 +1,6 @@
+npm --workspace apps/web test > docs/verification/reviews/2026-05-24-batch-177-186-code-review/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-177-186-code-review/test-output/web.txt -Append
+npm --workspace packages/shared test > docs/verification/reviews/2026-05-24-batch-177-186-code-review/test-output/shared.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-177-186-code-review/test-output/guardrails.txt
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-177-186-code-review/test-output/guardrails.txt -Append
+docker compose config > docs/verification/reviews/2026-05-24-batch-177-186-code-review/docker-compose-config.txt

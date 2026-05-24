@@ -1,4 +1,7 @@
-import type { LayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import {
+  buildLayoutValidationPanelWarningKey,
+  type LayoutValidationPanelViewModel
+} from "./layoutValidationPanelViewModel";
 
 export type LayoutValidationPanelProps = {
   viewModel: LayoutValidationPanelViewModel;
@@ -18,17 +21,7 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
       ) : (
         <ol className="layout-validation-panel__list">
           {viewModel.warnings.map((warning) => (
-            <li
-              key={[
-                warning.code,
-                warning.severity,
-                warning.source,
-                warning.objectType,
-                warning.objectId,
-                warning.relatedObjectType,
-                warning.relatedObjectId
-              ].join(":")}
-            >
+            <li key={buildLayoutValidationPanelWarningKey(warning)}>
               <code>{warning.code}</code>
               <p>{warning.message}</p>
               <dl className="layout-validation-panel__metadata">
