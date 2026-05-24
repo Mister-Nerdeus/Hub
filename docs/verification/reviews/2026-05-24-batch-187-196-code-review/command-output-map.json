@@ -1,0 +1,125 @@
+{
+  "review": "2026-05-24-batch-187-196-code-review",
+  "commands": [
+    {
+      "command": "git status --short *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-before.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-before.txt"
+      ]
+    },
+    {
+      "command": "git log --oneline -12 *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-log.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-log.txt"
+      ]
+    },
+    {
+      "command": "git diff --stat 28c41c2..HEAD *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/batch-diff-stat.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/batch-diff-stat.txt"
+      ]
+    },
+    {
+      "command": "rg -n \"busyUntilMinute|NO_PHI_RUNTIME_REJECTION|PERSISTED_SIMULATION_RUN_INVALID|Dockerfile.production|Math.random|\\\"latest\\\"\" apps packages scripts docs docker-compose.yml package.json apps/web/package.json packages/shared/package.json *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/static-review-search.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/static-review-search.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dependency-specs.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/dependency-specs.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/dependency-specs.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *> ../../docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "docker compose config *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-config.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose up --build -d *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-up.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-up.txt"
+      ]
+    },
+    {
+      "command": "docker compose ps *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-ps.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-ps.txt"
+      ]
+    },
+    {
+      "command": "docker build -f apps/api/Dockerfile.production . *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api-production-docker-build.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api-production-docker-build.txt"
+      ]
+    },
+    {
+      "command": "docker build -f apps/web/Dockerfile.production . *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-production-docker-build.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-production-docker-build.txt"
+      ]
+    },
+    {
+      "command": "docker compose down *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-down-before-verify-local.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-down-before-verify-local.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/verify-local.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/verify-local.txt"
+      ]
+    },
+    {
+      "command": "git diff --check *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-diff-check.txt; if ($LASTEXITCODE -eq 0) { Add-Content docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-diff-check.txt \"git diff --check passed\" }",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-diff-check.txt"
+      ]
+    },
+    {
+      "command": "git status --short *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-after.txt",
+      "outputs": [
+        "docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-after.txt"
+      ]
+    }
+  ]
+}

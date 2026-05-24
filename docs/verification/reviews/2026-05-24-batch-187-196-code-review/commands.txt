@@ -1,0 +1,22 @@
+# 2026-05-24 batch 187-196 code review commands
+
+git status --short *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-before.txt
+git log --oneline -12 *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-log.txt
+git diff --stat 28c41c2..HEAD *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/batch-diff-stat.txt
+rg -n "busyUntilMinute|NO_PHI_RUNTIME_REJECTION|PERSISTED_SIMULATION_RUN_INVALID|Dockerfile.production|Math.random|\"latest\"" apps packages scripts docs docker-compose.yml package.json apps/web/package.json packages/shared/package.json *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/static-review-search.txt
+node scripts/check-dependency-specs.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/dependency-specs.txt
+npm --workspace packages/shared test *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/shared.txt
+npm --workspace apps/web test *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web.txt
+npm --workspace apps/web run build *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-build.txt
+cd apps/api && python -m pytest *> ../../docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/docs-gate.txt
+docker compose config *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-config.txt
+docker compose up --build -d *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-up.txt
+docker compose ps *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-ps.txt
+docker build -f apps/api/Dockerfile.production . *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/api-production-docker-build.txt
+docker build -f apps/web/Dockerfile.production . *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/web-production-docker-build.txt
+docker compose down *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/docker-compose-down-before-verify-local.txt
+node scripts/verify-local.mjs *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/verify-local.txt
+git diff --check *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-diff-check.txt; if ($LASTEXITCODE -eq 0) { Add-Content docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-diff-check.txt "git diff --check passed" }
+git status --short *> docs/verification/reviews/2026-05-24-batch-187-196-code-review/test-output/git-status-after.txt

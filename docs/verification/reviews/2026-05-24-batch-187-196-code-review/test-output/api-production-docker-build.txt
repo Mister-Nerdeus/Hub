@@ -1,0 +1,45 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.production
+#1 transferring dockerfile: 282B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 127B done
+#3 DONE 0.0s
+
+#4 [1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#4 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 285.68kB 0.0s done
+#5 DONE 0.1s
+
+#6 [2/5] WORKDIR /app
+#6 CACHED
+
+#7 [3/5] COPY apps/api/requirements.txt ./
+#7 CACHED
+
+#8 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [5/5] COPY apps/api/app ./app
+#9 DONE 0.1s
+
+#10 exporting to image
+#10 exporting layers 0.1s done
+#10 exporting manifest sha256:2d7207897bf72bffc25c5a6ae40fd48322c2dfac2908b0c2d881a1b302f844a2 0.0s done
+#10 exporting config sha256:86beef79c2c917200729b5e0e500601ea0a4dd87c58c4e82bcc007b21df1c326 0.0s done
+#10 exporting attestation manifest sha256:5bae86ed29fe07597d458826f5a4e9d6b1ba0f8c79e1110e2986d8153ff84a67
+#10 exporting attestation manifest sha256:5bae86ed29fe07597d458826f5a4e9d6b1ba0f8c79e1110e2986d8153ff84a67 0.1s done
+#10 exporting manifest list sha256:8ede174473fa5d6b589b1ef78679e9e9973de1bc9c17a086224e1ea17193f416 0.0s done
+#10 naming to moby-dangling@sha256:8ede174473fa5d6b589b1ef78679e9e9973de1bc9c17a086224e1ea17193f416 done
+#10 unpacking to moby-dangling@sha256:8ede174473fa5d6b589b1ef78679e9e9973de1bc9c17a086224e1ea17193f416 0.1s done
+#10 DONE 0.4s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/ulx6kk7jxyvmdyn1g10599007
