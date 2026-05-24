@@ -8,7 +8,19 @@ type RuntimeTextRule = {
 const RUNTIME_TEXT_RULES: RuntimeTextRule[] = [
   {
     reason: "record identifier language",
-    pattern: /\b(?:m\s*r\s*n|medical record|record number|chart number|visit id|date of birth)\b/i
+    pattern: /\b(?:m\s*r\s*n|medical record|record number|chart(?: id| number)?|visit(?: id| number)?|encounter(?: id| number)?|lab(?: id| number| accession)|date of birth|d\s*o\s*b|birth date|born on)\b/i
+  },
+  {
+    reason: "government identifier language",
+    pattern: /\b(?:s\s*s\s*n|social security|driver'?s license|passport(?: id| number)?|government id|state id|national id)\b/i
+  },
+  {
+    reason: "contact location or insurance language",
+    pattern: /\b(?:phone(?: number)?|telephone|email(?: address)?|home address|street address|mailing address|zip code|insurance(?: id| number| member| policy)?|policy number|member id)\b/i
+  },
+  {
+    reason: "visit workflow identifier language",
+    pattern: /\b(?:discharge(?: summary| instructions| paperwork| disposition)?|lab result|chart export|encounter record|visit record)\b/i
   },
   {
     reason: "identity-like placeholder name",

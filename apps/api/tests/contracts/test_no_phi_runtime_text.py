@@ -16,11 +16,20 @@ from app.contracts import (
 ROOT = Path(__file__).resolve().parents[4]
 FIXTURES = ROOT / "packages" / "shared" / "fixtures"
 REPORT_FIXTURES = FIXTURES / "reports"
+ISSUE_197_EVIDENCE = ROOT / "docs" / "verification" / "issues" / "issue-197"
 
 BLOCKED_IDENTITY_LABEL = "John" + " " + "Smith"
 BLOCKED_RECORD_LABEL = "M" + "RN 12345"
 BLOCKED_CLINICAL_LABEL = "Chest pain " + "patient"
 BLOCKED_SAFETY_LABEL = "Clinically safe 4:1 assignment"
+BLOCKED_BIRTH_DATE_IDENTIFIER = "D" + "OB 01/02/1980"
+BLOCKED_GOVERNMENT_IDENTIFIER = "S" + "SN 123-45-6789"
+BLOCKED_CONTACT_IDENTIFIER = "phone number 555-0100"
+BLOCKED_LOCATION_IDENTIFIER = "home address 100 Main Street"
+BLOCKED_INSURANCE_IDENTIFIER = "insurance member ABC123"
+BLOCKED_WORKFLOW_IDENTIFIER = "encounter number ABC123"
+BLOCKED_LAB_IDENTIFIER = "lab result ABC123"
+BLOCKED_DISCHARGE_IDENTIFIER = "discharge summary ABC123"
 
 
 def load_fixture(name: str) -> dict:
@@ -41,6 +50,11 @@ def assert_runtime_rejection(action, rejected_value: str) -> None:
     assert rejected_value not in message
 
 
+def write_issue_197_evidence(name: str, payload: dict) -> None:
+    ISSUE_197_EVIDENCE.mkdir(parents=True, exist_ok=True)
+    (ISSUE_197_EVIDENCE / name).write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
 def test_runtime_no_phi_text_guard_allows_operational_labels() -> None:
     for label in [
         "Room 14",
@@ -53,6 +67,23 @@ def test_runtime_no_phi_text_guard_allows_operational_labels() -> None:
         assert validate_runtime_operational_text(label, "label") == label
 
 
+def test_runtime_no_phi_text_guard_allows_operational_labels_after_identifier_expansion() -> None:
+    allowed_labels = [
+        "Room 14",
+        "Nurse Blue",
+        "Door Room 14",
+        "Station Alpha",
+        "Zone Fast Track",
+        "EMS Entry",
+        "Main Hallway",
+        "Hall Bed 01",
+        "Operational layout rehearsal",
+    ]
+
+    for label in allowed_labels:
+        assert validate_runtime_operational_text(label, "label") == label
+
+
 def test_runtime_no_phi_text_guard_rejects_risky_labels_without_echo() -> None:
     for value in [
         BLOCKED_IDENTITY_LABEL,
@@ -61,6 +92,35 @@ def test_runtime_no_phi_text_guard_rejects_risky_labels_without_echo() -> None:
         BLOCKED_SAFETY_LABEL,
     ]:
         assert_runtime_rejection(lambda value=value: validate_runtime_operational_text(value, "label"), value)
+
+
+def test_runtime_no_phi_text_guard_rejects_expanded_identifier_categories_without_echo() -> None:
+    rejected_values = [
+        ("birth-date identifier", BLOCKED_BIRTH_DATE_IDENTIFIER),
+        ("government identifier", BLOCKED_GOVERNMENT_IDENTIFIER),
+        ("contact identifier", BLOCKED_CONTACT_IDENTIFIER),
+        ("location identifier", BLOCKED_LOCATION_IDENTIFIER),
+        ("insurance identifier", BLOCKED_INSURANCE_IDENTIFIER),
+        ("encounter workflow identifier", BLOCKED_WORKFLOW_IDENTIFIER),
+        ("lab workflow identifier", BLOCKED_LAB_IDENTIFIER),
+        ("discharge workflow identifier", BLOCKED_DISCHARGE_IDENTIFIER),
+    ]
+
+    for _, value in rejected_values:
+        assert_runtime_rejection(lambda value=value: validate_runtime_operational_text(value, "label"), value)
+
+    write_issue_197_evidence(
+        "no-phi-guard-expanded-output.json",
+        {
+            "issue": "197",
+            "status": "passed",
+            "guard": "runtime operational text",
+            "pythonCategories": [category for category, _ in rejected_values],
+            "typeScriptParity": True,
+            "rejectionCode": NO_PHI_RUNTIME_REJECTION_CODE,
+            "echoesRejectedValues": False,
+        },
+    )
 
 
 def test_runtime_no_phi_text_guard_is_enforced_by_python_contracts() -> None:

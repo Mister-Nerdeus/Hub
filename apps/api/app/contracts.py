@@ -1817,7 +1817,31 @@ NO_PHI_RUNTIME_REJECTION_CODE = "NO_PHI_RUNTIME_REJECTION"
 RUNTIME_TEXT_RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "record identifier language",
-        re.compile(r"\b(?:m\s*r\s*n|medical record|record number|chart number|visit id|date of birth)\b", re.IGNORECASE),
+        re.compile(
+            r"\b(?:m\s*r\s*n|medical record|record number|chart(?: id| number)?|visit(?: id| number)?|encounter(?: id| number)?|lab(?: id| number| accession)|date of birth|d\s*o\s*b|birth date|born on)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "government identifier language",
+        re.compile(
+            r"\b(?:s\s*s\s*n|social security|driver'?s license|passport(?: id| number)?|government id|state id|national id)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "contact location or insurance language",
+        re.compile(
+            r"\b(?:phone(?: number)?|telephone|email(?: address)?|home address|street address|mailing address|zip code|insurance(?: id| number| member| policy)?|policy number|member id)\b",
+            re.IGNORECASE,
+        ),
+    ),
+    (
+        "visit workflow identifier language",
+        re.compile(
+            r"\b(?:discharge(?: summary| instructions| paperwork| disposition)?|lab result|chart export|encounter record|visit record)\b",
+            re.IGNORECASE,
+        ),
     ),
     (
         "identity-like placeholder name",

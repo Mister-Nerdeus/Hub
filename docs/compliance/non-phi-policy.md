@@ -42,7 +42,7 @@ This repository must not store, generate, import, or display PHI.
 
 Operational labels may use synthetic terms such as Room 14, Nurse Blue, Door Room 14, Station Alpha, and Zone Fast Track.
 
-Runtime contract validation must reject obvious identity-like labels, record identifier wording, diagnosis or clinical-note wording, and clinical safety or recommendation wording. Runtime rejection messages must use deterministic categories and must not echo the rejected value in full.
+Runtime contract validation must reject obvious identity-like labels, record identifier wording, synthetic birth-date identifier wording, government-identifier wording, contact/location/insurance wording, visit/encounter/chart/export/lab/discharge identifier wording, diagnosis or clinical-note wording, and clinical safety or recommendation wording. Runtime rejection messages must use deterministic categories and must not echo the rejected value in full.
 
 This guard complements the static scanner. It is not a HIPAA certification, does not detect every possible human name, and does not permit PHI.
 

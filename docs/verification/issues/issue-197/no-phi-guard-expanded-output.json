@@ -1,0 +1,18 @@
+{
+  "issue": "197",
+  "status": "passed",
+  "guard": "runtime operational text",
+  "pythonCategories": [
+    "birth-date identifier",
+    "government identifier",
+    "contact identifier",
+    "location identifier",
+    "insurance identifier",
+    "encounter workflow identifier",
+    "lab workflow identifier",
+    "discharge workflow identifier"
+  ],
+  "typeScriptParity": true,
+  "rejectionCode": "NO_PHI_RUNTIME_REJECTION",
+  "echoesRejectedValues": false
+}
