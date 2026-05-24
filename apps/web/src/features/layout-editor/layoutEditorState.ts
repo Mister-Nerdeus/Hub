@@ -1,6 +1,7 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import type { LayoutViewportTransform } from "./layoutCoordinateSystem";
+import type { LayoutEditAuditEntry } from "./layoutEditAuditTrail";
 import {
   DEFAULT_LAYOUT_BOUNDS_FEET,
   normalizeBoundsFeet,
@@ -39,6 +40,7 @@ export type LayoutEditorState = {
   layoutBoundsFeet: LayoutBoundsFeet;
   snapMode: LayoutEditorSnapMode;
   validationWarnings: readonly LayoutEditorValidationWarning[];
+  editAuditTrail: readonly LayoutEditAuditEntry[];
   isDirty: boolean;
 };
 
@@ -74,6 +76,7 @@ export function createLayoutEditorState(
     layoutBoundsFeet: normalizeBoundsFeet(overrides.layoutBoundsFeet ?? DEFAULT_LAYOUT_BOUNDS_FEET),
     snapMode,
     validationWarnings: [...(overrides.validationWarnings ?? [])],
+    editAuditTrail: [...(overrides.editAuditTrail ?? [])],
     isDirty: overrides.isDirty ?? false
   };
 }

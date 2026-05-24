@@ -1,0 +1,19 @@
+{
+  "issue": "164",
+  "auditEntryFields": [
+    "editId",
+    "editType",
+    "objectType",
+    "objectId",
+    "before",
+    "after",
+    "deltaFeet",
+    "createdAtOrder",
+    "limitations"
+  ],
+  "createdAtOrderType": "deterministic_integer_sequence",
+  "oneEntryPerMoveRoomAction": true,
+  "persistenceAdded": false,
+  "undoRedoAdded": false,
+  "testsPassed": true
+}

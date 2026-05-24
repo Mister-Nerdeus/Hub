@@ -208,6 +208,8 @@ Issue 162 defines the deferred room move path sync contract in shared code and d
 
 Issue 163 defines the deferred door path node sync contract in shared code and docs. The contract derives a wall-attached door center from current owner geometry, records explicit linked path node references and sync status, and does not mutate the path graph, move doors, change visuals, save/load, or rerun simulation.
 
+Issue 164 adds deterministic in-memory room move audit trail entries for reducer `moveRoom` actions. Entries record stable edit IDs, object references, before/after feet positions, delta feet, deterministic integer order, and limitations without wall-clock timestamps, persistence, undo/redo, path mutation, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

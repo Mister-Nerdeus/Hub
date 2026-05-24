@@ -36,6 +36,7 @@ assert.equal(defaultState.selectedObjectId, null);
 assert.equal(defaultState.selectedObjectType, null);
 assert.equal(defaultState.snapMode, "default");
 assert.equal(defaultState.isDirty, false);
+assert.deepEqual(defaultState.editAuditTrail, []);
 assert.deepEqual(defaultState.viewport, {
   pixelsPerFoot: 12,
   zoom: 1,
@@ -66,6 +67,7 @@ assert.equal(loadedState.editableLayout, editableLayout);
 assert.equal(loadedState.selectedObjectId, null);
 assert.equal(loadedState.selectedObjectType, null);
 assert.equal(loadedState.validationWarnings.length, 0);
+assert.equal(loadedState.editAuditTrail.length, 0);
 assert.equal(loadedState.isDirty, false);
 
 const stateWithLayout = createLayoutEditorState({ editableLayout });
@@ -198,6 +200,22 @@ assert.equal(movedRoomState.selectedObjectType, "room");
 assert.equal(movedRoomState.selectedObjectId, "room-01");
 assert.equal(movedRoomState.isDirty, true);
 assert.deepEqual(movedRoomState.validationWarnings, []);
+assert.deepEqual(movedRoomState.editAuditTrail, [
+  {
+    editId: "layout-edit-000001",
+    editType: "move_room",
+    objectType: "room",
+    objectId: "room-01",
+    before: { xFeet: roomBeforeMove.xFeet, yFeet: roomBeforeMove.yFeet },
+    after: { xFeet: roomBeforeMove.xFeet + 1, yFeet: roomBeforeMove.yFeet + 1 },
+    deltaFeet: { deltaXFeet: 1, deltaYFeet: 1 },
+    createdAtOrder: 1,
+    limitations: [
+      "Audit entry describes an operational layout edit only.",
+      "Undo, redo, persistence, path sync, and simulation rerun are not performed."
+    ]
+  }
+]);
 assert.deepEqual(movedRoomState.editableLayout?.doors, editableLayout.doors);
 assert.equal(stateWithLayout.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
 
@@ -257,6 +275,32 @@ assert.deepEqual(collisionWarningState.validationWarnings, [
   }
 ]);
 assert.equal(collisionWarningState.editableLayout?.rooms[0]?.xFeet, 18);
+
+const secondMoveAuditState = layoutEditorReducer(movedRoomState, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 1,
+  deltaYFeet: 0
+});
+assert.deepEqual(
+  secondMoveAuditState.editAuditTrail.map((entry) => ({
+    editId: entry.editId,
+    createdAtOrder: entry.createdAtOrder,
+    deltaFeet: entry.deltaFeet
+  })),
+  [
+    {
+      editId: "layout-edit-000001",
+      createdAtOrder: 1,
+      deltaFeet: { deltaXFeet: 1, deltaYFeet: 1 }
+    },
+    {
+      editId: "layout-edit-000002",
+      createdAtOrder: 2,
+      deltaFeet: { deltaXFeet: 1, deltaYFeet: 0 }
+    }
+  ]
+);
 
 const fineMovedRoomState = layoutEditorReducer(
   createLayoutEditorState({ editableLayout, snapMode: "fine" }),

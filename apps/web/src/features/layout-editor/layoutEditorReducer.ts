@@ -18,6 +18,7 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
+import { createRoomMoveAuditEntry } from "./layoutEditAuditTrail";
 import { validateRoomMoveWarnings } from "./layoutMoveValidation";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
@@ -55,6 +56,7 @@ export function layoutEditorReducer(
         selectedObjectId: null,
         selectedObjectType: null,
         validationWarnings: [],
+        editAuditTrail: [],
         isDirty: false
       };
     case "selectObject":
@@ -169,12 +171,20 @@ function moveRoom(
     return state;
   }
 
+  const beforeRoom = state.editableLayout.rooms.find((room) => room.id === roomId);
+  if (beforeRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
   const movedLayout = moveRoomByDeltaFeet({
     layout: state.editableLayout,
     roomId,
     delta,
     snapMode: state.snapMode
   });
+  const afterRoom = movedLayout.rooms.find((room) => room.id === roomId);
+  if (afterRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
 
   return {
     ...state,
@@ -184,6 +194,19 @@ function moveRoom(
       roomId,
       boundsFeet: state.layoutBoundsFeet
     }),
+    editAuditTrail: [
+      ...state.editAuditTrail,
+      createRoomMoveAuditEntry({
+        roomId,
+        before: { xFeet: beforeRoom.xFeet, yFeet: beforeRoom.yFeet },
+        after: { xFeet: afterRoom.xFeet, yFeet: afterRoom.yFeet },
+        deltaFeet: {
+          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet
+        },
+        createdAtOrder: state.editAuditTrail.length + 1
+      })
+    ],
     selectedObjectType: "room",
     selectedObjectId: roomId,
     isDirty: true
