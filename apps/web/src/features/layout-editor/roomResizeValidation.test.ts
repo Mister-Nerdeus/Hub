@@ -2,7 +2,10 @@ import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEdi
 import { layoutEditorReducer } from "./layoutEditorReducer";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { DEFAULT_LAYOUT_BOUNDS_FEET } from "./layoutMoveValidation";
-import { validateRoomResizeBounds } from "./roomResizeValidation";
+import {
+  ROOM_RESIZE_COLLISION_WARNING_CODES,
+  validateRoomResizeBounds
+} from "./roomResizeValidation";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -31,6 +34,13 @@ const warningShape = {
   relatedObjectId: null,
   isGenerated: true
 } as const;
+
+assert.deepEqual(ROOM_RESIZE_COLLISION_WARNING_CODES, [
+  "room_resize_overlap_room",
+  "room_resize_overlap_station",
+  "room_resize_overlap_zone",
+  "room_resize_overlap_hallway"
+]);
 
 assert.deepEqual(
   validateRoomResizeBounds({

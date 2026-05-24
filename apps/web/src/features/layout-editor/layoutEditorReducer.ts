@@ -28,7 +28,7 @@ import {
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
-import { validateRoomResizeBounds } from "./roomResizeValidation";
+import { validateRoomResizeWarnings } from "./roomResizeValidation";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -185,7 +185,7 @@ function resizeRoom(
     editableLayout: resizedLayout,
     validationWarnings: replaceGeneratedWarningsBySources({
       existingWarnings: state.validationWarnings,
-      replacementWarnings: validateRoomResizeBounds({
+      replacementWarnings: validateRoomResizeWarnings({
         layout: resizedLayout,
         roomId,
         boundsFeet: state.layoutBoundsFeet

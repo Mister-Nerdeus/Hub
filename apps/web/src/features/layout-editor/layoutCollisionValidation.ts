@@ -35,6 +35,8 @@ type CollisionTarget =
   | EditableZoneGeometry
   | EditableHallwayGeometry;
 
+export type LayoutCollisionTarget = CollisionTarget;
+
 export function validateMovedRoomCollisions({
   layout,
   roomId,
@@ -82,7 +84,7 @@ function roomCollisionWarning(
   movedRoomId: string,
   target: CollisionTarget
 ): LayoutEditorValidationWarning {
-  const relatedObjectType = target.objectType === "station" ? "station" : target.objectType;
+  const relatedObjectType = collisionTargetObjectType(target);
   return buildLayoutValidationWarning({
     code: codeForCollisionTarget(relatedObjectType),
     severity: "warning",
@@ -94,6 +96,12 @@ function roomCollisionWarning(
     relatedObjectId: target.id,
     isGenerated: true
   });
+}
+
+export function collisionTargetObjectType(
+  target: LayoutCollisionTarget
+): LayoutEditorSelectableObjectType {
+  return target.objectType === "station" ? "station" : target.objectType;
 }
 
 function codeForCollisionTarget(
