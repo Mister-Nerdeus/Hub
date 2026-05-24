@@ -240,6 +240,8 @@ Issue 178 adds draft buffering for selected-room inspector dimension fields. Dra
 
 Issue 179 centralizes layout edit side effects for room move, room resize, and committed inspector dimension edits. Shared helpers now apply dirty state, validation warning replacement, audit append, no-op suppression, and delta-preview triggering consistently without displaying fake metric values or rerunning simulation.
 
+Issue 180 replaces the earlier move-only gesture audit summary with a unified deterministic gesture audit contract for move-room, resize-room, and single-entry dimension-edit gestures. Mixed object IDs, mixed edit types, and incompatible resize handles are rejected without adding persistence, undo/redo, path sync, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
