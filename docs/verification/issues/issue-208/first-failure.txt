@@ -1,0 +1,5 @@
+Issue 208 current gap:
+
+Before this issue, `packages/shared/fixtures/default-plans/source-layout-manifest.json` did not exist. The five ER layout source filenames therefore had no stable `sourcePlanId`, intended `defaultPlanId`, conversion status, non-PHI review status, or approximation limitations.
+
+Default plan conversion was NO-GO before manifest creation.

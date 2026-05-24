@@ -1,0 +1,25 @@
+{
+  "issue": "208",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-208/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-208/test-output/shared.txt",
+        "docs/verification/issues/issue-208/source-layout-manifest-output.json",
+        "docs/verification/issues/issue-208/no-phi-source-manifest-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-208/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-208/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-208/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-208/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}
