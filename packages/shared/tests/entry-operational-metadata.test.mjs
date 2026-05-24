@@ -33,7 +33,7 @@ test("EMS entry metadata validates and links to trauma zone and path node", () =
   assert.equal(entry.entryOperationalMetadata.entryClass, "ems");
   assert.equal(entry.entryOperationalMetadata.preferredFlowDirection, "inbound");
   assert.equal(entry.entryOperationalMetadata.preferredTraumaZoneId, "zone-trauma");
-  assert.equal(entry.entryOperationalMetadata.linkedPathNodeId, "node-ems-entry");
+  assert.equal(entry.entryOperationalMetadata.linkedPathNodeId, "node-hall-west");
   assert.equal(traumaZone.zoneType, "trauma_zone");
 
   writeEvidence("ems-entry-contract-output.json", {
@@ -96,11 +96,19 @@ test("entry metadata rejects unknown zone and path-node references", () => {
     /entryOperationalMetadata\.linkedPathNodeId references an unknown path node/
   );
 
+  const selfReference = readFixture("plan-er-pod-phase2.json");
+  entryNode(selfReference).entryOperationalMetadata.linkedPathNodeId = "node-ems-entry";
+  assert.throws(
+    () => validatePlanContract(selfReference),
+    /entryOperationalMetadata\.linkedPathNodeId must not self-reference/
+  );
+
   writeEvidence("entry-reference-validation-output.json", {
     issue: "204",
     status: "passed",
     unknownPreferredTraumaZoneRejected: true,
     unknownLinkedPathNodeRejected: true,
+    selfReferenceRejected: true,
     referencesChecked: ["preferredTraumaZoneId", "linkedPathNodeId"]
   });
 });

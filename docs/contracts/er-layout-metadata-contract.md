@@ -145,7 +145,7 @@ This metadata must not include staff identity, staff schedules, staffing-complia
 }
 ```
 
-`preferredTraumaZoneId` must reference a known zone when present. `linkedPathNodeId` must reference a known path node when present. This metadata does not add patient arrival records, arrival simulation, trauma-flow safety certification, patient outcomes, or pathfinding changes.
+`preferredTraumaZoneId` must reference a known zone when present. `linkedPathNodeId` must reference a known path node when present and must not reference the entry path node itself. It identifies the first interior path node used for operational traceability, not an arrival simulation edge or pathfinding override. This metadata does not add patient arrival records, arrival simulation, trauma-flow safety certification, patient outcomes, or pathfinding changes.
 
 ## Overflow And Adjacency Metadata
 
@@ -212,11 +212,22 @@ TypeScript and Python contracts must stay aligned:
 - Unknown fields inside metadata containers are rejected.
 - Unknown top-level metadata-like fields on existing objects are rejected.
 - Metadata references must be validated by the plan-level reference validator when fields are introduced.
+- Door metadata is semantically enforced for special rooms when both a room and door provide operational metadata:
+  - Trauma room metadata requires trauma door metadata, `traumaAccess: true`, and no isolation or behavioral boundary flags.
+  - Isolation room metadata requires isolation door metadata, `isolationBoundary: true`, and no trauma or behavioral boundary flags.
+  - Behavioral room metadata requires behavioral door metadata, `behavioralBoundary: true`, and no trauma or isolation boundary flags.
+- Entry `linkedPathNodeId` self-reference is rejected. The field must reference another known path node when present.
 - Rejection messages must not echo rejected text values.
+
+Deferred semantic checks:
+
+- Zone containment and exact geometry agreement remain deferred because source layout drawings are visual references, not CAD geometry.
+- Door swing direction and delay category semantics remain deferred beyond closed enum validation.
+- Adjacency distance thresholds remain deferred until source-to-plan mapping and walking-truth contracts exist.
 
 ## Canonical Fixture Audit
 
-`plan-er-pod-phase2` is the canonical metadata-rich ER pod fixture after Issue 206. It must remain valid in both TypeScript and Python and must represent every metadata object in this contract before path graph editing, walking-truth, assignment-input, or optimizer-adjacent work consumes these fields.
+`plan-er-pod-phase2` is the canonical metadata-rich ER pod fixture after Issue 207. It must remain valid in both TypeScript and Python, represent every metadata object in this contract, keep special room/door semantics coherent, and avoid entry self-reference before path graph editing, walking-truth, assignment-input, or optimizer-adjacent work consumes these fields.
 
 ## Non-Claims
 

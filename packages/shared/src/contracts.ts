@@ -1015,6 +1015,7 @@ type IdSets = {
 };
 
 type ReferenceIndex = IdSets & {
+  roomsById: Map<string, Room>;
   doorsById: Map<string, Door>;
   pathNodesById: Map<string, PathNode>;
 };
@@ -1072,6 +1073,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     ),
     zoneIds: requireUnique("zone ids", zones.map((zone) => zone.id)),
     pathNodeIds: requireUnique("path node ids", pathNodes.map((node) => node.id)),
+    roomsById: new Map(rooms.map((room) => [room.id, room])),
     doorsById: new Map(doors.map((door) => [door.id, door])),
     pathNodesById: new Map(pathNodes.map((node) => [node.id, node]))
   };
@@ -3783,6 +3785,7 @@ function validateDoorReferences(door: Door, index: number, references: Reference
   if (!references.roomIds.has(door.roomId)) {
     throw new Error(`doors[${index}].roomId references an unknown room`);
   }
+  validateDoorOperationalSemantics(door, index, references);
   if (door.pathNodeId != null) {
     const pathNode = references.pathNodesById.get(door.pathNodeId);
     if (pathNode == null) {
@@ -3795,6 +3798,57 @@ function validateDoorReferences(door: Door, index: number, references: Reference
       throw new Error(`doors[${index}].pathNodeId must link back to the same door`);
     }
   }
+}
+
+function validateDoorOperationalSemantics(
+  door: Door,
+  index: number,
+  references: ReferenceIndex
+): void {
+  if (door.doorOperationalMetadata == null) {
+    return;
+  }
+  const room = references.roomsById.get(door.roomId);
+  if (room == null) {
+    return;
+  }
+  const expectedClass = expectedDoorClassForRoom(room);
+  if (expectedClass == null) {
+    return;
+  }
+  const metadata = door.doorOperationalMetadata;
+  if (metadata.doorClass !== expectedClass) {
+    throw new Error(`doors[${index}].doorOperationalMetadata.doorClass must match room metadata`);
+  }
+  if (expectedClass === "trauma") {
+    if (metadata.traumaAccess !== true || metadata.isolationBoundary || metadata.behavioralBoundary) {
+      throw new Error(`doors[${index}].doorOperationalMetadata must match trauma room metadata`);
+    }
+  }
+  if (expectedClass === "isolation") {
+    if (metadata.isolationBoundary !== true || metadata.traumaAccess || metadata.behavioralBoundary) {
+      throw new Error(`doors[${index}].doorOperationalMetadata must match isolation room metadata`);
+    }
+  }
+  if (expectedClass === "behavioral") {
+    if (metadata.behavioralBoundary !== true || metadata.traumaAccess || metadata.isolationBoundary) {
+      throw new Error(`doors[${index}].doorOperationalMetadata must match behavioral room metadata`);
+    }
+  }
+}
+
+function expectedDoorClassForRoom(room: Room): DoorOperationalClass | null {
+  const roomClass = room.roomOperationalMetadata?.roomClass;
+  if (roomClass === "trauma" || room.roomType === "trauma" || room.traumaCapable) {
+    return "trauma";
+  }
+  if (roomClass === "isolation" || room.roomType === "isolation" || room.isolationCapable) {
+    return "isolation";
+  }
+  if (roomClass === "behavioral" || room.roomType === "psych") {
+    return "behavioral";
+  }
+  return null;
 }
 
 function validateNurseStationReferences(
@@ -3833,6 +3887,11 @@ function validatePathNodeReferences(node: PathNode, index: number, references: R
     ) {
       throw new Error(
         `pathNodes[${index}].entryOperationalMetadata.linkedPathNodeId references an unknown path node`
+      );
+    }
+    if (node.entryOperationalMetadata?.linkedPathNodeId === node.id) {
+      throw new Error(
+        `pathNodes[${index}].entryOperationalMetadata.linkedPathNodeId must not self-reference`
       );
     }
     return;

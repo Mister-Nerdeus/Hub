@@ -46,7 +46,7 @@ test("ER layout metadata architecture accepts optional nested metadata placehold
       entryClass: "ems",
       preferredFlowDirection: "inbound",
       preferredTraumaZoneId: "zone-trauma",
-      linkedPathNodeId: "node-ems-entry"
+      linkedPathNodeId: "node-hall-west"
     }
   );
 

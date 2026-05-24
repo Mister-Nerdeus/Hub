@@ -29,16 +29,16 @@ def test_door_operational_metadata_validates_in_er_pod_fixture() -> None:
 
     assert [door.doorOperationalMetadata.doorClass for door in plan.doors] == [
         "standard",
+        "trauma",
         "isolation",
         "behavioral",
-        "trauma",
         "standard",
         "standard",
         "standard",
     ]
-    assert plan.doors[1].doorOperationalMetadata.isolationBoundary is True
-    assert plan.doors[2].doorOperationalMetadata.behavioralBoundary is True
-    assert plan.doors[3].doorOperationalMetadata.traumaAccess is True
+    assert plan.doors[1].doorOperationalMetadata.traumaAccess is True
+    assert plan.doors[2].doorOperationalMetadata.isolationBoundary is True
+    assert plan.doors[3].doorOperationalMetadata.behavioralBoundary is True
 
 
 def test_door_operational_metadata_rejects_invalid_enum_and_free_text_field() -> None:

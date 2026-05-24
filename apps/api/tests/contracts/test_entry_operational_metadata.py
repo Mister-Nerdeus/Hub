@@ -27,7 +27,7 @@ def test_entry_operational_metadata_validates_in_er_pod_fixture() -> None:
     assert entry.entryOperationalMetadata.entryClass == "ems"
     assert entry.entryOperationalMetadata.preferredFlowDirection == "inbound"
     assert entry.entryOperationalMetadata.preferredTraumaZoneId == "zone-trauma"
-    assert entry.entryOperationalMetadata.linkedPathNodeId == "node-ems-entry"
+    assert entry.entryOperationalMetadata.linkedPathNodeId == "node-hall-west"
     assert trauma_zone.zoneType == "trauma_zone"
 
 
@@ -65,3 +65,8 @@ def test_entry_operational_metadata_rejects_unknown_references() -> None:
     entry_node(unknown_path_node)["entryOperationalMetadata"]["linkedPathNodeId"] = "node-missing"
     with pytest.raises(ValidationError):
         PlanContract.model_validate(unknown_path_node)
+
+    self_reference = load_fixture("plan-er-pod-phase2.json")
+    entry_node(self_reference)["entryOperationalMetadata"]["linkedPathNodeId"] = "node-ems-entry"
+    with pytest.raises(ValidationError):
+        PlanContract.model_validate(self_reference)

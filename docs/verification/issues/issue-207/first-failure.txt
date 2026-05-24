@@ -1,0 +1,32 @@
+{
+  "issue": "207",
+  "status": "current-gap-captured",
+  "canonicalFixture": "packages/shared/fixtures/plan-er-pod-phase2.json",
+  "doorSemanticMismatches": [
+    {
+      "doorId": "door-room-02",
+      "roomId": "room-02",
+      "roomClass": "trauma",
+      "doorClass": "isolation"
+    },
+    {
+      "doorId": "door-room-03",
+      "roomId": "room-03",
+      "roomClass": "isolation",
+      "doorClass": "behavioral"
+    },
+    {
+      "doorId": "door-room-04",
+      "roomId": "room-04",
+      "roomClass": "behavioral",
+      "doorClass": "trauma"
+    }
+  ],
+  "entrySelfReferences": [
+    {
+      "pathNodeId": "node-ems-entry",
+      "linkedPathNodeId": "node-ems-entry"
+    }
+  ],
+  "defaultImportReadiness": "NO-GO before repair"
+}

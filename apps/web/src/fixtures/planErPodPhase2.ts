@@ -343,12 +343,12 @@ export const planErPodPhase2 = {
       "widthFeet": 4,
       "pathNodeId": "node-door-room-02",
       "doorOperationalMetadata": {
-        "doorClass": "isolation",
-        "swingDirection": "in",
-        "accessRestriction": "controlled",
-        "isolationBoundary": true,
+        "doorClass": "trauma",
+        "swingDirection": "sliding",
+        "accessRestriction": "none",
+        "isolationBoundary": false,
         "behavioralBoundary": false,
-        "traumaAccess": false,
+        "traumaAccess": true,
         "delayCategory": "low"
       }
     },
@@ -361,13 +361,13 @@ export const planErPodPhase2 = {
       "widthFeet": 3,
       "pathNodeId": "node-door-room-03",
       "doorOperationalMetadata": {
-        "doorClass": "behavioral",
-        "swingDirection": "out",
+        "doorClass": "isolation",
+        "swingDirection": "in",
         "accessRestriction": "controlled",
-        "isolationBoundary": false,
-        "behavioralBoundary": true,
+        "isolationBoundary": true,
+        "behavioralBoundary": false,
         "traumaAccess": false,
-        "delayCategory": "moderate"
+        "delayCategory": "low"
       }
     },
     {
@@ -379,13 +379,13 @@ export const planErPodPhase2 = {
       "widthFeet": 3,
       "pathNodeId": "node-door-room-04",
       "doorOperationalMetadata": {
-        "doorClass": "trauma",
-        "swingDirection": "sliding",
-        "accessRestriction": "none",
+        "doorClass": "behavioral",
+        "swingDirection": "out",
+        "accessRestriction": "controlled",
         "isolationBoundary": false,
-        "behavioralBoundary": false,
-        "traumaAccess": true,
-        "delayCategory": "low"
+        "behavioralBoundary": true,
+        "traumaAccess": false,
+        "delayCategory": "moderate"
       }
     },
     {
@@ -649,7 +649,7 @@ export const planErPodPhase2 = {
         "entryClass": "ems",
         "preferredFlowDirection": "inbound",
         "preferredTraumaZoneId": "zone-trauma",
-        "linkedPathNodeId": "node-ems-entry"
+        "linkedPathNodeId": "node-hall-west"
       }
     },
     {

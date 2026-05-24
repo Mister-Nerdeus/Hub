@@ -414,6 +414,7 @@ class PlanContract(StrictModel):
         require_unique("path node ids", [node.id for node in self.pathNodes])
         require_unique("path edge ids", [edge.id for edge in self.pathEdges])
 
+        rooms_by_id = {room.id: room for room in self.rooms}
         doors_by_id = {door.id: door for door in self.doors}
         path_nodes_by_id = {node.id: node for node in self.pathNodes}
 
@@ -463,6 +464,7 @@ class PlanContract(StrictModel):
         for door in self.doors:
             if door.roomId not in room_ids:
                 raise ValueError(f"door {door.id} references unknown room {door.roomId}")
+            validate_door_operational_semantics(door, rooms_by_id[door.roomId])
             if door.pathNodeId is not None and door.pathNodeId not in path_node_ids:
                 raise ValueError(f"door {door.id} references unknown path node {door.pathNodeId}")
             if door.pathNodeId is not None:
@@ -504,6 +506,13 @@ class PlanContract(StrictModel):
                 ):
                     raise ValueError(
                         f"path node {node.id} entry metadata references unknown path node"
+                    )
+                if (
+                    node.entryOperationalMetadata is not None
+                    and node.entryOperationalMetadata.linkedPathNodeId == node.id
+                ):
+                    raise ValueError(
+                        f"path node {node.id} entry metadata linkedPathNodeId must not self-reference"
                     )
                 continue
             if node.entryOperationalMetadata is not None:
@@ -2210,6 +2219,46 @@ def validate_required_audit_trail_limitations(limitations: list[str]) -> None:
     for label, pattern in required:
         if not regex_contains(text, pattern):
             raise ValueError(f"limitations must include {label} language")
+
+
+def validate_door_operational_semantics(door: Door, room: Room) -> None:
+    if door.doorOperationalMetadata is None:
+        return
+    expected_class = expected_door_class_for_room(room)
+    if expected_class is None:
+        return
+    metadata = door.doorOperationalMetadata
+    if metadata.doorClass != expected_class:
+        raise ValueError("door operational metadata class must match room metadata")
+    if expected_class == "trauma" and (
+        metadata.traumaAccess is not True
+        or metadata.isolationBoundary
+        or metadata.behavioralBoundary
+    ):
+        raise ValueError("door operational metadata must match trauma room metadata")
+    if expected_class == "isolation" and (
+        metadata.isolationBoundary is not True
+        or metadata.traumaAccess
+        or metadata.behavioralBoundary
+    ):
+        raise ValueError("door operational metadata must match isolation room metadata")
+    if expected_class == "behavioral" and (
+        metadata.behavioralBoundary is not True
+        or metadata.traumaAccess
+        or metadata.isolationBoundary
+    ):
+        raise ValueError("door operational metadata must match behavioral room metadata")
+
+
+def expected_door_class_for_room(room: Room) -> str | None:
+    room_class = room.roomOperationalMetadata.roomClass if room.roomOperationalMetadata is not None else None
+    if room_class == "trauma" or room.roomType == "trauma" or room.traumaCapable:
+        return "trauma"
+    if room_class == "isolation" or room.roomType == "isolation" or room.isolationCapable:
+        return "isolation"
+    if room_class == "behavioral" or room.roomType == "psych":
+        return "behavioral"
+    return None
 
 
 def summarize_scenario_comparison_items(

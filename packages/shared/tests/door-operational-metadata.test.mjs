@@ -38,16 +38,16 @@ test("door operational metadata validates in representative fixture doors", () =
 
   assert.deepEqual(doorClasses, [
     "standard",
+    "trauma",
     "isolation",
     "behavioral",
-    "trauma",
     "standard",
     "standard",
     "standard"
   ]);
-  assert.equal(plan.doors[1].doorOperationalMetadata.isolationBoundary, true);
-  assert.equal(plan.doors[2].doorOperationalMetadata.behavioralBoundary, true);
-  assert.equal(plan.doors[3].doorOperationalMetadata.traumaAccess, true);
+  assert.equal(plan.doors[1].doorOperationalMetadata.traumaAccess, true);
+  assert.equal(plan.doors[2].doorOperationalMetadata.isolationBoundary, true);
+  assert.equal(plan.doors[3].doorOperationalMetadata.behavioralBoundary, true);
 
   writeEvidence("door-metadata-contract-output.json", {
     issue: "202",
