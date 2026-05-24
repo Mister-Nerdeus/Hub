@@ -13,6 +13,8 @@ import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
+import { RoomShape } from "./RoomShape";
+import { buildRoomShapeViewModel } from "./roomShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
@@ -58,6 +60,7 @@ export function LayoutEditorStage() {
       });
   const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
+  const roomItems = renderItems.filter((item) => item.objectType === "room");
 
   return (
     <section
@@ -165,6 +168,14 @@ export function LayoutEditorStage() {
                     {line.label}
                   </text>
                 ))}
+            </g>
+            <g className="layout-editor-stage__rooms">
+              {roomItems.map((item) => (
+                <RoomShape
+                  key={item.hitTargetKey}
+                  viewModel={buildRoomShapeViewModel(item)}
+                />
+              ))}
             </g>
           </svg>
         </div>

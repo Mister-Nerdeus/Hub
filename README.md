@@ -182,6 +182,8 @@ Issue 149 adds a deterministic layout object render pipeline that turns editable
 
 Issue 150 renders hallway and zone SVG shapes from editable layout geometry through the shared render pipeline. Hallways and zones remain read-only background/context layers with labels and accessibility metadata; no editing or selection wiring is added.
 
+Issue 151 renders read-only room SVG shapes from editable room geometry through the shared render pipeline, including visible room number labels and room type accessibility metadata. No room editing, resizing, path sync, save/load, or simulation rerun behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
