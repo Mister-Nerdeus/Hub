@@ -250,6 +250,8 @@ Issue 183 adds a pure shared adapter that builds editable layout to plan/path br
 
 Issue 184 adds pure shared door path node geometry sync. The helper returns a copied plan with only linked door path node coordinates updated from derived door centers, leaves stored door geometry and path edges unchanged, reports deterministic skipped statuses for missing links or owner geometry, and does not rerun simulation.
 
+Issue 185 adds pure shared room move path node sync. Linked room path nodes move by the supplied room delta, room-owned door path nodes recalculate from derived door centers, unrelated nodes and all path edges remain unchanged, and no pathfinding or simulation rerun is performed.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

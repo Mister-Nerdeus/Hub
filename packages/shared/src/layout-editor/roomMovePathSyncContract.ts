@@ -30,9 +30,14 @@ export type BuildRoomMovePathSyncContractInput = {
   roomDeltaFeet: RoomMovePathSyncDeltaFeet;
 };
 
-const DEFAULT_ROOM_MOVE_PATH_SYNC_LIMITATIONS = [
+export const DEFAULT_ROOM_MOVE_PATH_SYNC_LIMITATIONS = [
   "Contract only; no path geometry changes are applied.",
   "Simulation rerun and pathfinding changes are not performed."
+] as const;
+
+export const ROOM_MOVE_PATH_NODE_GEOMETRY_SYNC_LIMITATIONS = [
+  "Room move path node sync updates copied linked room nodes by room delta and room-owned door nodes by derived door centers only.",
+  "Path edges, pathfinding changes, walking metric recalculation, and simulation rerun are not performed."
 ] as const;
 
 export function buildRoomMovePathSyncContract({

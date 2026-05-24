@@ -45,6 +45,7 @@ export type SyncDoorPathNodeGeometryInput = {
   editableLayout: EditableLayoutGeometryContract;
   plan: PlanContract;
   bridge: EditableLayoutPlanPathBridgeContract;
+  doorIds?: readonly string[];
 };
 
 export function syncDoorPathNodeGeometry(
@@ -60,8 +61,10 @@ export function syncDoorPathNodeGeometry(
 
   const pathNodesById = new Map(input.plan.pathNodes.map((node) => [node.id, node]));
   const doorMappingsById = new Map(bridge.doorMappings.map((mapping) => [mapping.editableObjectId, mapping]));
+  const selectedDoorIds = input.doorIds == null ? null : new Set(input.doorIds);
   const pathNodeUpdates = new Map<string, DoorCenterFeet>();
-  const doorResults = [...input.editableLayout.doors]
+  const doorResults = input.editableLayout.doors
+    .filter((door) => selectedDoorIds == null || selectedDoorIds.has(door.id))
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((door) => {
       const owner = findDoorOwner(door, input.editableLayout);
