@@ -5,6 +5,7 @@ import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
+import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import "./LayoutEditorStage.css";
@@ -43,6 +44,12 @@ export function LayoutEditorStage() {
     selectedObjectId: stageState.selectedObjectId,
     selectedObjectType: stageState.selectedObjectType
   });
+  const renderItems = stageState.editableLayout == null
+    ? []
+    : buildLayoutObjectRenderPipeline({
+        layout: stageState.editableLayout,
+        viewport: stageState.viewport
+      });
 
   return (
     <section
@@ -89,6 +96,7 @@ export function LayoutEditorStage() {
             viewBox={STAGE_VIEW_BOX}
             role="img"
             aria-label="Feet-based SVG grid stage"
+            data-render-item-count={renderItems.length}
           >
             <rect
               className="layout-editor-stage__frame"

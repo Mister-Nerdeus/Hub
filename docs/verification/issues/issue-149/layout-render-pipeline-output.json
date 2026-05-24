@@ -1,0 +1,174 @@
+[
+  {
+    "objectType": "hallway",
+    "objectId": "hall-main",
+    "renderLayer": "hallways",
+    "renderLayerIndex": 0,
+    "ariaLabel": "Main hallway hallway",
+    "hitTargetKey": "hallway:hall-main",
+    "displayRectFeet": {
+      "id": "hall-main",
+      "label": "Main hallway",
+      "xFeet": 0,
+      "yFeet": 12,
+      "widthFeet": 64,
+      "heightFeet": 8,
+      "objectType": "hallway"
+    },
+    "displayRectPixels": {
+      "xPixels": 0,
+      "yPixels": 144,
+      "widthPixels": 768,
+      "heightPixels": 96
+    },
+    "sourceGeometry": {
+      "id": "hall-main",
+      "label": "Main hallway",
+      "xFeet": 0,
+      "yFeet": 12,
+      "widthFeet": 64,
+      "heightFeet": 8,
+      "objectType": "hallway"
+    }
+  },
+  {
+    "objectType": "zone",
+    "objectId": "zone-entry",
+    "renderLayer": "zones",
+    "renderLayerIndex": 1,
+    "ariaLabel": "Entry zone ems_entry zone",
+    "hitTargetKey": "zone:zone-entry",
+    "displayRectFeet": {
+      "id": "zone-entry",
+      "label": "Entry zone",
+      "xFeet": 32,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 8,
+      "objectType": "zone",
+      "zoneType": "ems_entry"
+    },
+    "displayRectPixels": {
+      "xPixels": 384,
+      "yPixels": 0,
+      "widthPixels": 144,
+      "heightPixels": 96
+    },
+    "sourceGeometry": {
+      "id": "zone-entry",
+      "label": "Entry zone",
+      "xFeet": 32,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 8,
+      "objectType": "zone",
+      "zoneType": "ems_entry"
+    }
+  },
+  {
+    "objectType": "room",
+    "objectId": "room-01",
+    "renderLayer": "rooms",
+    "renderLayerIndex": 2,
+    "ariaLabel": "Room 01 standard room",
+    "hitTargetKey": "room:room-01",
+    "displayRectFeet": {
+      "id": "room-01",
+      "label": "Room 01",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "01",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    "displayRectPixels": {
+      "xPixels": 0,
+      "yPixels": 0,
+      "widthPixels": 144,
+      "heightPixels": 120
+    },
+    "sourceGeometry": {
+      "id": "room-01",
+      "label": "Room 01",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "01",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  },
+  {
+    "objectType": "door",
+    "objectId": "door-room-01-east",
+    "renderLayer": "doors",
+    "renderLayerIndex": 3,
+    "ariaLabel": "Room 01 east door east door",
+    "hitTargetKey": "door:door-room-01-east",
+    "displayRectFeet": {
+      "xFeet": 11.75,
+      "yFeet": 3,
+      "widthFeet": 0.5,
+      "heightFeet": 4
+    },
+    "displayRectPixels": {
+      "xPixels": 141,
+      "yPixels": 36,
+      "widthPixels": 6,
+      "heightPixels": 48
+    },
+    "sourceGeometry": {
+      "objectType": "door",
+      "id": "door-room-01-east",
+      "label": "Room 01 east door",
+      "ownerKind": "room",
+      "ownerId": "room-01",
+      "wall": "east",
+      "offsetFeet": 3,
+      "widthFeet": 4
+    }
+  },
+  {
+    "objectType": "station",
+    "objectId": "station-primary",
+    "renderLayer": "stations",
+    "renderLayerIndex": 4,
+    "ariaLabel": "Primary nurse station nurse_station station",
+    "hitTargetKey": "station:station-primary",
+    "displayRectFeet": {
+      "id": "station-primary",
+      "label": "Primary nurse station",
+      "xFeet": 18,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 6,
+      "objectType": "station",
+      "stationType": "nurse_station"
+    },
+    "displayRectPixels": {
+      "xPixels": 216,
+      "yPixels": 0,
+      "widthPixels": 120,
+      "heightPixels": 72
+    },
+    "sourceGeometry": {
+      "id": "station-primary",
+      "label": "Primary nurse station",
+      "xFeet": 18,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 6,
+      "objectType": "station",
+      "stationType": "nurse_station"
+    }
+  }
+]
