@@ -38,6 +38,14 @@ import {
 import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
 import { validateRoomResizeWarnings } from "./roomResizeValidation";
+import {
+  createLayoutUndoRedoHistory,
+  createLayoutUndoRedoSnapshot,
+  pushLayoutUndoRedoSnapshot,
+  redoLayoutEditHistory,
+  undoLayoutEditHistory,
+  type LayoutUndoRedoSnapshot
+} from "./layoutUndoRedoHistory";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -61,6 +69,8 @@ export type LayoutEditorAction =
       deltaYFeet: number;
     }
   | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
+  | { type: "undoLayoutEdit" }
+  | { type: "redoLayoutEdit" }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
   | { type: "markClean" };
 
@@ -81,7 +91,8 @@ export function layoutEditorReducer(
         selectedObjectType: null,
         validationWarnings: [],
         editAuditTrail: [],
-        isDirty: false
+        isDirty: false,
+        history: createLayoutUndoRedoHistory(state.history.maxDepth)
       };
     case "selectObject":
       return selectObject(state, action.objectType, action.objectId);
@@ -134,6 +145,10 @@ export function layoutEditorReducer(
       });
     case "editSelectedRoomDimensions":
       return editSelectedRoomDimensions(state, action.dimensions);
+    case "undoLayoutEdit":
+      return restoreLayoutEditHistory(state, "undo");
+    case "redoLayoutEdit":
+      return restoreLayoutEditHistory(state, "redo");
     case "setValidationWarnings":
       if (!Array.isArray(action.validationWarnings)) {
         throw new Error("validationWarnings must be an array");
@@ -150,6 +165,21 @@ export function layoutEditorReducer(
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
   }
+}
+
+function restoreLayoutEditHistory(
+  state: LayoutEditorState,
+  direction: "undo" | "redo"
+): LayoutEditorState {
+  const currentSnapshot = snapshotForHistory(state);
+  const transition =
+    direction === "undo"
+      ? undoLayoutEditHistory(state.history, currentSnapshot)
+      : redoLayoutEditHistory(state.history, currentSnapshot);
+  if (transition.status === "empty") {
+    return state;
+  }
+  return applyHistorySnapshot(state, transition.snapshot, transition.history);
 }
 
 function editSelectedRoomDimensions(
@@ -199,22 +229,25 @@ function editSelectedRoomDimensions(
     createdAtOrder: state.editAuditTrail.length + 1
   });
 
-  return applyLayoutEditEffects({
+  return withUndoHistory(
     state,
-    editableLayout: editedLayout,
-    validationWarnings: replaceGeneratedWarningsBySources({
-      existingWarnings: state.validationWarnings,
-      replacementWarnings: validateRoomResizeWarnings({
-        layout: editedLayout,
-        roomId,
-        boundsFeet: state.layoutBoundsFeet
+    applyLayoutEditEffects({
+      state,
+      editableLayout: editedLayout,
+      validationWarnings: replaceGeneratedWarningsBySources({
+        existingWarnings: state.validationWarnings,
+        replacementWarnings: validateRoomResizeWarnings({
+          layout: editedLayout,
+          roomId,
+          boundsFeet: state.layoutBoundsFeet
+        }),
+        sources: ["resize", "door_sync"]
       }),
-      sources: ["resize", "door_sync"]
-    }),
-    selectedObjectType: "room",
-    selectedObjectId: roomId,
-    auditEntry
-  });
+      selectedObjectType: "room",
+      selectedObjectId: roomId,
+      auditEntry
+    })
+  );
 }
 
 function resizeRoom(
@@ -266,22 +299,25 @@ function resizeRoom(
     createdAtOrder: state.editAuditTrail.length + 1
   });
 
-  return applyLayoutEditEffects({
+  return withUndoHistory(
     state,
-    editableLayout: resizedLayout,
-    validationWarnings: replaceGeneratedWarningsBySources({
-      existingWarnings: state.validationWarnings,
-      replacementWarnings: validateRoomResizeWarnings({
-        layout: resizedLayout,
-        roomId,
-        boundsFeet: state.layoutBoundsFeet
+    applyLayoutEditEffects({
+      state,
+      editableLayout: resizedLayout,
+      validationWarnings: replaceGeneratedWarningsBySources({
+        existingWarnings: state.validationWarnings,
+        replacementWarnings: validateRoomResizeWarnings({
+          layout: resizedLayout,
+          roomId,
+          boundsFeet: state.layoutBoundsFeet
+        }),
+        sources: ["resize", "door_sync"]
       }),
-      sources: ["resize", "door_sync"]
-    }),
-    selectedObjectType: "room",
-    selectedObjectId: roomId,
-    auditEntry
-  });
+      selectedObjectType: "room",
+      selectedObjectId: roomId,
+      auditEntry
+    })
+  );
 }
 
 function roomRectEquals(
@@ -397,17 +433,54 @@ function moveRoom(
     createdAtOrder: state.editAuditTrail.length + 1
   });
 
-  return applyLayoutEditEffects({
+  return withUndoHistory(
     state,
-    editableLayout: movedLayout,
-    validationWarnings: recalculateWarningsForRoom({
-      existingWarnings: state.validationWarnings,
-      layout: movedLayout,
-      roomId,
-      boundsFeet: state.layoutBoundsFeet
-    }),
-    selectedObjectType: "room",
-    selectedObjectId: roomId,
-    auditEntry
+    applyLayoutEditEffects({
+      state,
+      editableLayout: movedLayout,
+      validationWarnings: recalculateWarningsForRoom({
+        existingWarnings: state.validationWarnings,
+        layout: movedLayout,
+        roomId,
+        boundsFeet: state.layoutBoundsFeet
+      }),
+      selectedObjectType: "room",
+      selectedObjectId: roomId,
+      auditEntry
+    })
+  );
+}
+
+function withUndoHistory(state: LayoutEditorState, nextState: LayoutEditorState): LayoutEditorState {
+  if (nextState === state) {
+    return state;
+  }
+  return {
+    ...nextState,
+    history: pushLayoutUndoRedoSnapshot(state.history, snapshotForHistory(state))
+  };
+}
+
+function snapshotForHistory(state: LayoutEditorState): LayoutUndoRedoSnapshot {
+  return createLayoutUndoRedoSnapshot({
+    editableLayout: state.editableLayout,
+    validationWarnings: state.validationWarnings,
+    editAuditTrail: state.editAuditTrail,
+    isDirty: state.isDirty
   });
+}
+
+function applyHistorySnapshot(
+  state: LayoutEditorState,
+  snapshot: LayoutUndoRedoSnapshot,
+  history: LayoutEditorState["history"]
+): LayoutEditorState {
+  return {
+    ...state,
+    editableLayout: snapshot.editableLayout,
+    validationWarnings: snapshot.validationWarnings,
+    editAuditTrail: snapshot.editAuditTrail,
+    isDirty: snapshot.isDirty,
+    history
+  };
 }

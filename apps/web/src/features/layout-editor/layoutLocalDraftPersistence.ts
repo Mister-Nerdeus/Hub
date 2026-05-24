@@ -103,6 +103,9 @@ export function validateLayoutLocalDraftRecord(value: unknown): LayoutLocalDraft
   if (candidate.schemaVersion !== LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION) {
     throw new Error("layout local draft schema version mismatch");
   }
+  if ("history" in candidate) {
+    throw new Error("layout local draft must not persist undo redo history");
+  }
   if (!Array.isArray(candidate.auditTrail)) {
     throw new Error("layout local draft auditTrail must be an array");
   }

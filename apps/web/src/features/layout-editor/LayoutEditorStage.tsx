@@ -288,18 +288,33 @@ export function LayoutEditorStage() {
         <div>
           <p className="eyebrow">Layout editor proof</p>
           <h2 id="layout-editor-stage-title">SVG stage shell</h2>
-          <button
-            className="layout-editor-stage__reset-draft"
-            type="button"
-            onClick={() => {
-              if (localDraftStorage != null) {
-                resetLayoutLocalDraft(localDraftStorage);
-              }
-              dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
-            }}
-          >
-            Reset local draft
-          </button>
+          <div className="layout-editor-stage__history-controls">
+            <button
+              type="button"
+              disabled={stageState.history.past.length === 0}
+              onClick={() => dispatchStage({ type: "undoLayoutEdit" })}
+            >
+              Undo
+            </button>
+            <button
+              type="button"
+              disabled={stageState.history.future.length === 0}
+              onClick={() => dispatchStage({ type: "redoLayoutEdit" })}
+            >
+              Redo
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                if (localDraftStorage != null) {
+                  resetLayoutLocalDraft(localDraftStorage);
+                }
+                dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
+              }}
+            >
+              Reset local draft
+            </button>
+          </div>
         </div>
         <dl className="layout-editor-stage__meta" aria-label="Layout editor stage metadata">
           <div>

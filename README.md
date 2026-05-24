@@ -244,6 +244,8 @@ Issue 180 replaces the earlier move-only gesture audit summary with a unified de
 
 Issue 181 adds browser-local proof draft persistence for the layout editor. The draft stores schema version, editable layout, snap mode, viewport, audit trail, and dirty state through an injectable local storage interface, rejects invalid drafts, and includes a reset-to-baseline control without adding API, database, multi-user, or production save/load behavior.
 
+Issue 182 adds deterministic editor-local undo/redo history for room moves, room resizes, and committed inspector dimension edits. History uses bounded local snapshots, redo clears after a new edit, validation/delta pending state follows restored snapshots, and no simulation rerun, path sync, server persistence, or branch history is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

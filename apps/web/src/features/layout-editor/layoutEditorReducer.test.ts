@@ -39,6 +39,7 @@ assert.equal(defaultState.selectedObjectType, null);
 assert.equal(defaultState.snapMode, "default");
 assert.equal(defaultState.isDirty, false);
 assert.deepEqual(defaultState.editAuditTrail, []);
+assert.deepEqual(defaultState.history, { past: [], future: [], maxDepth: 20 });
 assert.deepEqual(defaultState.viewport, {
   pixelsPerFoot: 12,
   zoom: 1,
@@ -222,6 +223,8 @@ assert.equal(roomAfterMove.label, roomBeforeMove.label);
 assert.equal(movedRoomState.selectedObjectType, "room");
 assert.equal(movedRoomState.selectedObjectId, "room-01");
 assert.equal(movedRoomState.isDirty, true);
+assert.equal(movedRoomState.history.past.length, 1);
+assert.equal(movedRoomState.history.future.length, 0);
 assert.deepEqual(movedRoomState.validationWarnings, []);
 assert.deepEqual(movedRoomState.editAuditTrail, [
   {
@@ -251,6 +254,7 @@ const noOpMoveState = layoutEditorReducer(stateWithLayout, {
 assert.equal(noOpMoveState, stateWithLayout);
 assert.equal(noOpMoveState.isDirty, false);
 assert.deepEqual(noOpMoveState.editAuditTrail, []);
+assert.equal(noOpMoveState.history.past.length, 0);
 
 const leftWarningState = layoutEditorReducer(stateWithLayout, {
   type: "moveRoom",
@@ -392,6 +396,7 @@ assert.equal(resizedRoom.heightFeet, roomBeforeMove.heightFeet + 1);
 assert.equal(resizedRoom.label, roomBeforeMove.label);
 assert.deepEqual(selectedResizeState.editableLayout?.doors, editableLayout.doors);
 assert.equal(selectedResizeState.isDirty, true);
+assert.equal(selectedResizeState.history.past.length, 1);
 assert.equal(selectedResizeState.selectedObjectId, "room-01");
 assert.deepEqual(selectedResizeState.editAuditTrail, [
   {
@@ -448,6 +453,7 @@ assert.deepEqual(
 assert.equal(inspectorEditedRoom.label, roomBeforeMove.label);
 assert.deepEqual(inspectorEditedState.editableLayout?.doors, editableLayout.doors);
 assert.equal(inspectorEditedState.isDirty, true);
+assert.equal(inspectorEditedState.history.past.length, 1);
 assert.equal(inspectorEditedState.validationWarnings.some((warning) => warning.source === "resize"), true);
 assert.deepEqual(inspectorEditedState.editAuditTrail, [
   {
@@ -478,6 +484,40 @@ assert.equal(
   }).status,
   "pending_recalculation"
 );
+
+const undoneMoveState = layoutEditorReducer(movedRoomState, { type: "undoLayoutEdit" });
+assert.equal(undoneMoveState.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
+assert.equal(undoneMoveState.editableLayout?.rooms[0]?.yFeet, roomBeforeMove.yFeet);
+assert.equal(undoneMoveState.isDirty, false);
+assert.equal(undoneMoveState.history.future.length, 1);
+
+const redoneMoveState = layoutEditorReducer(undoneMoveState, { type: "redoLayoutEdit" });
+assert.equal(redoneMoveState.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet + 1);
+assert.equal(redoneMoveState.editableLayout?.rooms[0]?.yFeet, roomBeforeMove.yFeet + 1);
+assert.equal(redoneMoveState.isDirty, true);
+assert.equal(redoneMoveState.history.future.length, 0);
+
+const undoneResizeState = layoutEditorReducer(selectedResizeState, { type: "undoLayoutEdit" });
+assert.equal(undoneResizeState.editableLayout?.rooms[0]?.widthFeet, roomBeforeMove.widthFeet);
+assert.equal(undoneResizeState.editableLayout?.rooms[0]?.heightFeet, roomBeforeMove.heightFeet);
+const redoneResizeState = layoutEditorReducer(undoneResizeState, { type: "redoLayoutEdit" });
+assert.equal(redoneResizeState.editableLayout?.rooms[0]?.widthFeet, roomBeforeMove.widthFeet + 2);
+assert.equal(redoneResizeState.editableLayout?.rooms[0]?.heightFeet, roomBeforeMove.heightFeet + 1);
+
+const undoneInspectorState = layoutEditorReducer(inspectorEditedState, { type: "undoLayoutEdit" });
+assert.equal(undoneInspectorState.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
+assert.equal(undoneInspectorState.editableLayout?.rooms[0]?.widthFeet, roomBeforeMove.widthFeet);
+const redoneInspectorState = layoutEditorReducer(undoneInspectorState, { type: "redoLayoutEdit" });
+assert.equal(redoneInspectorState.editableLayout?.rooms[0]?.xFeet, -1);
+assert.equal(redoneInspectorState.editableLayout?.rooms[0]?.widthFeet, 4);
+
+const redoClearedByNewEditState = layoutEditorReducer(undoneMoveState, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 2,
+  deltaYFeet: 0
+});
+assert.equal(redoClearedByNewEditState.history.future.length, 0);
 
 const inspectorEditIgnoredState = layoutEditorReducer(stateWithLayout, {
   type: "editSelectedRoomDimensions",

@@ -3,6 +3,10 @@ import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 import type { LayoutViewportTransform } from "./layoutCoordinateSystem";
 import type { LayoutEditAuditEntry } from "./layoutEditAuditTrail";
 import {
+  createLayoutUndoRedoHistory,
+  type LayoutUndoRedoHistory
+} from "./layoutUndoRedoHistory";
+import {
   validateLayoutValidationWarning,
   type LayoutEditorValidationWarning
 } from "./layoutValidationWarningContract";
@@ -39,6 +43,7 @@ export type LayoutEditorState = {
   validationWarnings: readonly LayoutEditorValidationWarning[];
   editAuditTrail: readonly LayoutEditAuditEntry[];
   isDirty: boolean;
+  history: LayoutUndoRedoHistory;
 };
 
 export const DEFAULT_LAYOUT_EDITOR_VIEWPORT: LayoutEditorViewport = {
@@ -74,7 +79,8 @@ export function createLayoutEditorState(
     snapMode,
     validationWarnings: (overrides.validationWarnings ?? []).map(validateLayoutValidationWarning),
     editAuditTrail: [...(overrides.editAuditTrail ?? [])],
-    isDirty: overrides.isDirty ?? false
+    isDirty: overrides.isDirty ?? false,
+    history: overrides.history ?? createLayoutUndoRedoHistory()
   };
 }
 

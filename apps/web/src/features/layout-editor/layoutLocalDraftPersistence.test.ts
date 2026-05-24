@@ -69,6 +69,12 @@ storage.setItem(
 );
 assert.equal(loadLayoutLocalDraft(storage).status, "invalid");
 
+storage.setItem(
+  LAYOUT_LOCAL_DRAFT_STORAGE_KEY,
+  JSON.stringify({ ...draft, history: { past: [], future: [] } })
+);
+assert.equal(loadLayoutLocalDraft(storage).status, "invalid");
+
 saveLayoutLocalDraft(storage, draft);
 resetLayoutLocalDraft(storage);
 assert.equal(loadLayoutLocalDraft(storage).status, "empty");
