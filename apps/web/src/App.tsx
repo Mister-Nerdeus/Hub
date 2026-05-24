@@ -34,6 +34,8 @@ import { OperationalReportsProof } from "./features/reports/OperationalReportsPr
 import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
 import { OperationalOutcomeDashboardProof } from "./features/outcomes/OperationalOutcomeDashboardProof";
 import { createOperationalOutcomeDashboardViewModel } from "./features/outcomes/operationalOutcomeDashboardViewModel";
+import { RoutePreviewProof } from "./features/route-preview/RoutePreviewProof";
+import { createRoutePreviewProofViewModel } from "./features/route-preview/routePreviewProofViewModel";
 import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
 import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
 import { SimulationRunRetrievalProof } from "./features/simulation/SimulationRunRetrievalProof";
@@ -57,6 +59,7 @@ export function App() {
   const bundleAuditProofViewModel = createBundleAuditProofViewModel();
   const simulationTimelineViewModel = createSimulationTimelineViewModel();
   const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
+  const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
@@ -115,6 +118,7 @@ export function App() {
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />
       <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />
+      <RoutePreviewProof initialViewModel={routePreviewProofViewModel} />
       <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
       <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
       <BundleAuditProof viewModel={bundleAuditProofViewModel} />

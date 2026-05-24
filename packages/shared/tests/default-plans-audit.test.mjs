@@ -6,6 +6,7 @@ import test from "node:test";
 
 import {
   validateDefaultSavedPlanFixtureContract,
+  validateSourceMappingAgainstPlan,
   validateSourceToPlanMappingContract
 } from "../dist/index.js";
 
@@ -13,6 +14,7 @@ const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const defaultPlansDir = join(repoRoot, "packages", "shared", "fixtures", "default-plans");
 const mappingDir = join(defaultPlansDir, "source-mappings");
 const evidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-216");
+const issue217EvidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-217");
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -21,6 +23,11 @@ function readJson(path) {
 function writeEvidence(name, payload) {
   mkdirSync(evidenceDir, { recursive: true });
   writeFileSync(join(evidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
+}
+
+function writeIssue217Evidence(name, payload) {
+  mkdirSync(issue217EvidenceDir, { recursive: true });
+  writeFileSync(join(issue217EvidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 function objectIds(plan) {
@@ -58,12 +65,15 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
     const manifestSource = sourceById.get(wrapper.sourcePlanId);
     assert.ok(manifestSource);
     assert.equal(manifestSource.conversionStatus, wrapper.importStatus);
+    assert.equal(manifestSource.auditStatus, wrapper.auditStatus);
+    assert.equal(wrapper.importStatus, wrapper.auditStatus);
     assert.equal(defaultPlanIds.has(wrapper.plan.planId), true);
     assert.equal(wrapper.limitations.length > 0, true);
     const mapping = mappings.find((candidate) => candidate.mappingId === wrapper.mappingId);
     assert.ok(mapping);
     assert.equal(mapping.sourcePlanId, wrapper.sourcePlanId);
     assert.equal(mapping.targetPlanId, wrapper.plan.planId);
+    validateSourceMappingAgainstPlan(mapping, wrapper.plan);
     const ids = objectIds(wrapper.plan);
     assert.equal(mapping.objects.every((object) => ids.has(object.targetObjectId)), true);
   }
@@ -77,6 +87,7 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
     nestedPlanContractsValidated: true,
     wrapperContractsValidated: true,
     manifestConversionStatusesAligned: true,
+    manifestAuditStatusesAligned: true,
     approximationNotesPresent: true
   });
   writeEvidence("source-mapping-validation-output.json", {
@@ -85,6 +96,16 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
     mappingCount: mappings.length,
     mappingFiles: mappingFiles.map((name) => basename(name)),
     allMappingTargetsResolved: true,
+    allMappingTargetsResolvedInCorrectCollection: true,
     manifestLinksValidated: true
+  });
+
+  writeIssue217Evidence("import-status-alignment-output.json", {
+    issue: "217",
+    status: "passed",
+    alignedPlanIds: wrappers.map((wrapper) => wrapper.plan.planId),
+    conversionStatus: "validated_default",
+    importStatus: "validated_default",
+    auditStatus: "validated_default"
   });
 });

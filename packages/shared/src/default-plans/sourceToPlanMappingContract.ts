@@ -1,4 +1,5 @@
 import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
+import type { PlanContract } from "../contracts.js";
 
 export const SOURCE_MAPPING_OBJECT_TYPES = [
   "room",
@@ -92,6 +93,60 @@ export function validateSourceToPlanMappingContract(
   });
 
   return mapping as SourceToPlanMappingContract;
+}
+
+export function validateSourceMappingAgainstPlan(
+  mappingValue: unknown,
+  plan: PlanContract
+): SourceToPlanMappingContract {
+  const mapping = validateSourceToPlanMappingContract(mappingValue);
+  if (mapping.targetPlanId !== plan.planId) {
+    throw new Error("mapping.targetPlanId must match plan.planId");
+  }
+
+  const idsByType: Record<Exclude<SourceMappingObjectType, "annotation">, Set<string>> = {
+    room: new Set(plan.rooms.map((room) => room.id)),
+    hallway: new Set(plan.hallways.map((hallway) => hallway.id)),
+    door: new Set(plan.doors.map((door) => door.id)),
+    nurseStation: new Set(plan.nurseStations.map((station) => station.id)),
+    zone: new Set(plan.zones.map((zone) => zone.id)),
+    pathNode: new Set(plan.pathNodes.map((node) => node.id)),
+    pathEdge: new Set(plan.pathEdges.map((edge) => edge.id))
+  };
+
+  mapping.objects.forEach((object, index) => {
+    if (object.objectType === "annotation") {
+      throw new Error(`objects[${index}].objectType annotation is deferred until annotation objects exist`);
+    }
+    if (!idsByType[object.objectType].has(object.targetObjectId)) {
+      throw new Error(
+        `objects[${index}].targetObjectId must reference plan.${collectionNameForObjectType(
+          object.objectType
+        )}`
+      );
+    }
+  });
+
+  return mapping;
+}
+
+function collectionNameForObjectType(objectType: Exclude<SourceMappingObjectType, "annotation">): string {
+  switch (objectType) {
+    case "room":
+      return "rooms";
+    case "hallway":
+      return "hallways";
+    case "door":
+      return "doors";
+    case "nurseStation":
+      return "nurseStations";
+    case "zone":
+      return "zones";
+    case "pathNode":
+      return "pathNodes";
+    case "pathEdge":
+      return "pathEdges";
+  }
 }
 
 function validateMappedObject(

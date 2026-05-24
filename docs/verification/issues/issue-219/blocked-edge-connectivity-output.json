@@ -1,0 +1,22 @@
+{
+  "issue": "219",
+  "status": "passed",
+  "blockedCase": {
+    "name": "all paths blocked between components",
+    "expectedCode": "REQUIRED_NODE_DISCONNECTED",
+    "blockedPathEdges": 1,
+    "gapCodes": [
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED",
+      "REQUIRED_NODE_DISCONNECTED"
+    ]
+  }
+}

@@ -4,7 +4,7 @@
   "sourcePlanId": "source-er-layout-plan-3",
   "mappingId": "mapping-er-layout-plan-3",
   "readOnly": true,
-  "importStatus": "draft_converted",
+  "importStatus": "validated_default",
   "plan": {
     "schemaVersion": "1.0.0",
     "planId": "default-er-layout-plan-3",
@@ -12,50 +12,474 @@
     "description": "Approximate operational fixture converted from source layout reference.",
     "createdAt": "2026-05-24T00:00:00Z",
     "updatedAt": "2026-05-24T00:00:00Z",
-    "scale": { "unit": "feet", "pixelsPerUnit": 6, "gridSizeFeet": 1, "snapToGrid": true, "origin": "top-left" },
+    "scale": {
+      "unit": "feet",
+      "pixelsPerUnit": 6,
+      "gridSizeFeet": 1,
+      "snapToGrid": true,
+      "origin": "top-left"
+    },
     "rooms": [
-      { "id": "room-level-1-trauma", "label": "Level 1 Trauma", "roomType": "trauma", "x": 16, "y": 16, "widthFeet": 20, "lengthFeet": 18, "maxPatients": 1, "traumaCapable": true, "isolationCapable": false, "doorPoint": { "x": 36, "y": 25 }, "zoneId": "zone-level-1-trauma", "nearestStationId": "station-primary", "pathNodeId": "node-door-level-1-trauma", "roomOperationalMetadata": { "roomNumber": null, "roomClass": "trauma", "capacityCategory": "single", "traumaAdjacent": true, "isolationReady": false, "behavioralReady": false, "sitterCapable": false, "lineOfSightLevel": "high" } },
-      { "id": "room-01", "label": "Room 01", "roomType": "standard", "x": 50, "y": 10, "widthFeet": 15, "lengthFeet": 14, "maxPatients": 1, "traumaCapable": false, "isolationCapable": false, "doorPoint": { "x": 58, "y": 24 }, "zoneId": "zone-numbered-room-bank", "nearestStationId": "station-primary", "pathNodeId": "node-door-room-01", "roomOperationalMetadata": { "roomNumber": "01", "roomClass": "standard", "capacityCategory": "single", "traumaAdjacent": false, "isolationReady": false, "behavioralReady": false, "sitterCapable": false, "lineOfSightLevel": "moderate" } },
-      { "id": "room-02", "label": "Room 02", "roomType": "standard", "x": 68, "y": 10, "widthFeet": 15, "lengthFeet": 14, "maxPatients": 1, "traumaCapable": false, "isolationCapable": false, "doorPoint": { "x": 76, "y": 24 }, "zoneId": "zone-numbered-room-bank", "nearestStationId": "station-primary", "pathNodeId": "node-door-room-02", "roomOperationalMetadata": { "roomNumber": "02", "roomClass": "standard", "capacityCategory": "single", "traumaAdjacent": false, "isolationReady": false, "behavioralReady": false, "sitterCapable": false, "lineOfSightLevel": "moderate" } }
+      {
+        "id": "room-level-1-trauma",
+        "label": "Level 1 Trauma",
+        "roomType": "trauma",
+        "x": 16,
+        "y": 16,
+        "widthFeet": 20,
+        "lengthFeet": 18,
+        "maxPatients": 1,
+        "traumaCapable": true,
+        "isolationCapable": false,
+        "doorPoint": {
+          "x": 36,
+          "y": 25
+        },
+        "zoneId": "zone-level-1-trauma",
+        "nearestStationId": "station-primary",
+        "pathNodeId": "node-door-level-1-trauma",
+        "roomOperationalMetadata": {
+          "roomNumber": null,
+          "roomClass": "trauma",
+          "capacityCategory": "single",
+          "traumaAdjacent": true,
+          "isolationReady": false,
+          "behavioralReady": false,
+          "sitterCapable": false,
+          "lineOfSightLevel": "high"
+        }
+      },
+      {
+        "id": "room-01",
+        "label": "Room 01",
+        "roomType": "standard",
+        "x": 50,
+        "y": 10,
+        "widthFeet": 15,
+        "lengthFeet": 14,
+        "maxPatients": 1,
+        "traumaCapable": false,
+        "isolationCapable": false,
+        "doorPoint": {
+          "x": 58,
+          "y": 24
+        },
+        "zoneId": "zone-numbered-room-bank",
+        "nearestStationId": "station-primary",
+        "pathNodeId": "node-door-room-01",
+        "roomOperationalMetadata": {
+          "roomNumber": "01",
+          "roomClass": "standard",
+          "capacityCategory": "single",
+          "traumaAdjacent": false,
+          "isolationReady": false,
+          "behavioralReady": false,
+          "sitterCapable": false,
+          "lineOfSightLevel": "moderate"
+        }
+      },
+      {
+        "id": "room-02",
+        "label": "Room 02",
+        "roomType": "standard",
+        "x": 68,
+        "y": 10,
+        "widthFeet": 15,
+        "lengthFeet": 14,
+        "maxPatients": 1,
+        "traumaCapable": false,
+        "isolationCapable": false,
+        "doorPoint": {
+          "x": 76,
+          "y": 24
+        },
+        "zoneId": "zone-numbered-room-bank",
+        "nearestStationId": "station-primary",
+        "pathNodeId": "node-door-room-02",
+        "roomOperationalMetadata": {
+          "roomNumber": "02",
+          "roomClass": "standard",
+          "capacityCategory": "single",
+          "traumaAdjacent": false,
+          "isolationReady": false,
+          "behavioralReady": false,
+          "sitterCapable": false,
+          "lineOfSightLevel": "moderate"
+        }
+      }
     ],
     "hallways": [
-      { "id": "hallway-main", "label": "Main Hall", "widthFeet": 10, "points": [{ "x": 14, "y": 42 }, { "x": 112, "y": 42 }], "hallwayOperationalMetadata": { "hallwayClass": "main", "allowsBedMovement": true, "allowsPublicTraffic": true, "staffOnly": false, "congestionLevel": "low", "bottleneck": false, "throughRoute": true } },
-      { "id": "hallway-south-entry", "label": "South Entry Hall", "widthFeet": 10, "points": [{ "x": 22, "y": 92 }, { "x": 22, "y": 42 }], "hallwayOperationalMetadata": { "hallwayClass": "ems", "allowsBedMovement": true, "allowsPublicTraffic": false, "staffOnly": false, "congestionLevel": "low", "bottleneck": false, "throughRoute": true } }
+      {
+        "id": "hallway-main",
+        "label": "Main Hall",
+        "widthFeet": 10,
+        "points": [
+          {
+            "x": 14,
+            "y": 42
+          },
+          {
+            "x": 112,
+            "y": 42
+          }
+        ],
+        "hallwayOperationalMetadata": {
+          "hallwayClass": "main",
+          "allowsBedMovement": true,
+          "allowsPublicTraffic": true,
+          "staffOnly": false,
+          "congestionLevel": "low",
+          "bottleneck": false,
+          "throughRoute": true
+        }
+      },
+      {
+        "id": "hallway-south-entry",
+        "label": "South Entry Hall",
+        "widthFeet": 10,
+        "points": [
+          {
+            "x": 22,
+            "y": 92
+          },
+          {
+            "x": 22,
+            "y": 42
+          }
+        ],
+        "hallwayOperationalMetadata": {
+          "hallwayClass": "ems",
+          "allowsBedMovement": true,
+          "allowsPublicTraffic": false,
+          "staffOnly": false,
+          "congestionLevel": "low",
+          "bottleneck": false,
+          "throughRoute": true
+        }
+      }
     ],
     "doors": [
-      { "id": "door-level-1-trauma", "label": "Door Level 1 Trauma", "roomId": "room-level-1-trauma", "x": 36, "y": 25, "widthFeet": 4, "pathNodeId": "node-door-level-1-trauma", "doorOperationalMetadata": { "doorClass": "trauma", "swingDirection": "unknown", "accessRestriction": "controlled", "isolationBoundary": false, "behavioralBoundary": false, "traumaAccess": true, "delayCategory": "low" } },
-      { "id": "door-room-01", "label": "Door Room 01", "roomId": "room-01", "x": 58, "y": 24, "widthFeet": 3, "pathNodeId": "node-door-room-01" },
-      { "id": "door-room-02", "label": "Door Room 02", "roomId": "room-02", "x": 76, "y": 24, "widthFeet": 3, "pathNodeId": "node-door-room-02" }
+      {
+        "id": "door-level-1-trauma",
+        "label": "Door Level 1 Trauma",
+        "roomId": "room-level-1-trauma",
+        "x": 36,
+        "y": 25,
+        "widthFeet": 4,
+        "pathNodeId": "node-door-level-1-trauma",
+        "doorOperationalMetadata": {
+          "doorClass": "trauma",
+          "swingDirection": "unknown",
+          "accessRestriction": "controlled",
+          "isolationBoundary": false,
+          "behavioralBoundary": false,
+          "traumaAccess": true,
+          "delayCategory": "low"
+        }
+      },
+      {
+        "id": "door-room-01",
+        "label": "Door Room 01",
+        "roomId": "room-01",
+        "x": 58,
+        "y": 24,
+        "widthFeet": 3,
+        "pathNodeId": "node-door-room-01"
+      },
+      {
+        "id": "door-room-02",
+        "label": "Door Room 02",
+        "roomId": "room-02",
+        "x": 76,
+        "y": 24,
+        "widthFeet": 3,
+        "pathNodeId": "node-door-room-02"
+      }
     ],
     "nurseStations": [
-      { "id": "station-primary", "label": "Primary Nurse Station", "stationType": "primary", "x": 74, "y": 34, "widthFeet": 16, "lengthFeet": 8, "pathNodeId": "node-station-primary", "stationOperationalMetadata": { "stationClass": "primary", "supportsChargeNurse": true, "supportsPrimaryNurse": true, "supportsProvider": false, "supportsTriage": false, "visibilityLevel": "high", "defaultWalkingOrigin": true } },
-      { "id": "station-provider-pharmacy", "label": "Provider Pharmacy Work Area", "stationType": "secondary", "x": 94, "y": 52, "widthFeet": 18, "lengthFeet": 12, "pathNodeId": "node-station-provider-pharmacy", "stationOperationalMetadata": { "stationClass": "provider", "supportsChargeNurse": false, "supportsPrimaryNurse": false, "supportsProvider": true, "supportsTriage": false, "visibilityLevel": "moderate", "defaultWalkingOrigin": false } }
+      {
+        "id": "station-primary",
+        "label": "Primary Nurse Station",
+        "stationType": "primary",
+        "x": 74,
+        "y": 34,
+        "widthFeet": 16,
+        "lengthFeet": 8,
+        "pathNodeId": "node-station-primary",
+        "stationOperationalMetadata": {
+          "stationClass": "primary",
+          "supportsChargeNurse": true,
+          "supportsPrimaryNurse": true,
+          "supportsProvider": false,
+          "supportsTriage": false,
+          "visibilityLevel": "high",
+          "defaultWalkingOrigin": true
+        }
+      },
+      {
+        "id": "station-provider-pharmacy",
+        "label": "Provider Pharmacy Work Area",
+        "stationType": "secondary",
+        "x": 94,
+        "y": 52,
+        "widthFeet": 18,
+        "lengthFeet": 12,
+        "pathNodeId": "node-station-provider-pharmacy",
+        "stationOperationalMetadata": {
+          "stationClass": "provider",
+          "supportsChargeNurse": false,
+          "supportsPrimaryNurse": false,
+          "supportsProvider": true,
+          "supportsTriage": false,
+          "visibilityLevel": "moderate",
+          "defaultWalkingOrigin": false
+        }
+      }
     ],
     "zones": [
-      { "id": "zone-level-1-trauma", "label": "Level 1 Trauma Zone", "zoneType": "trauma_zone", "color": "#d04f45", "x": 14, "y": 14, "widthFeet": 24, "lengthFeet": 22, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
-      { "id": "zone-hall-ems-entry", "label": "Hall EMS Entry Zone", "zoneType": "ems_entry", "color": "#3f7cac", "x": 12, "y": 42, "widthFeet": 24, "lengthFeet": 52, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "entry", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": false } },
-      { "id": "zone-numbered-room-bank", "label": "Numbered Room Bank", "zoneType": "provider_area", "color": "#6b8f71", "x": 48, "y": 8, "widthFeet": 38, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
-      { "id": "zone-provider-pharmacy", "label": "Provider Pharmacy Area", "zoneType": "pharmacy", "color": "#8c6bb1", "x": 92, "y": 50, "widthFeet": 24, "lengthFeet": 18, "travelBlocked": false, "travelPenalty": 1.1, "zoneOperationalMetadata": { "zoneClass": "support", "publicAccess": false, "staffOnly": true, "supportsPatientFlow": false, "supportsClinicalOperations": true } }
+      {
+        "id": "zone-level-1-trauma",
+        "label": "Level 1 Trauma Zone",
+        "zoneType": "trauma_zone",
+        "color": "#d04f45",
+        "x": 14,
+        "y": 14,
+        "widthFeet": 24,
+        "lengthFeet": 22,
+        "travelBlocked": false,
+        "travelPenalty": 1,
+        "zoneOperationalMetadata": {
+          "zoneClass": "patient_care",
+          "publicAccess": false,
+          "staffOnly": false,
+          "supportsPatientFlow": true,
+          "supportsClinicalOperations": true
+        }
+      },
+      {
+        "id": "zone-hall-ems-entry",
+        "label": "Hall EMS Entry Zone",
+        "zoneType": "ems_entry",
+        "color": "#3f7cac",
+        "x": 12,
+        "y": 42,
+        "widthFeet": 24,
+        "lengthFeet": 52,
+        "travelBlocked": false,
+        "travelPenalty": 1,
+        "zoneOperationalMetadata": {
+          "zoneClass": "entry",
+          "publicAccess": false,
+          "staffOnly": false,
+          "supportsPatientFlow": true,
+          "supportsClinicalOperations": false
+        }
+      },
+      {
+        "id": "zone-numbered-room-bank",
+        "label": "Numbered Room Bank",
+        "zoneType": "provider_area",
+        "color": "#6b8f71",
+        "x": 48,
+        "y": 8,
+        "widthFeet": 38,
+        "lengthFeet": 20,
+        "travelBlocked": false,
+        "travelPenalty": 1,
+        "zoneOperationalMetadata": {
+          "zoneClass": "patient_care",
+          "publicAccess": false,
+          "staffOnly": false,
+          "supportsPatientFlow": true,
+          "supportsClinicalOperations": true
+        }
+      },
+      {
+        "id": "zone-provider-pharmacy",
+        "label": "Provider Pharmacy Area",
+        "zoneType": "pharmacy",
+        "color": "#8c6bb1",
+        "x": 92,
+        "y": 50,
+        "widthFeet": 24,
+        "lengthFeet": 18,
+        "travelBlocked": false,
+        "travelPenalty": 1.1,
+        "zoneOperationalMetadata": {
+          "zoneClass": "support",
+          "publicAccess": false,
+          "staffOnly": true,
+          "supportsPatientFlow": false,
+          "supportsClinicalOperations": true
+        }
+      }
     ],
     "pathNodes": [
-      { "id": "node-entry-ems", "nodeType": "entry", "x": 22, "y": 92, "linkedObjectId": null, "entryOperationalMetadata": { "entryClass": "ems", "preferredFlowDirection": "inbound", "preferredTraumaZoneId": "zone-level-1-trauma", "linkedPathNodeId": "node-hall-west" } },
-      { "id": "node-hall-west", "nodeType": "hallway", "x": 22, "y": 42, "linkedObjectId": "hallway-main" },
-      { "id": "node-hall-east", "nodeType": "hallway", "x": 96, "y": 42, "linkedObjectId": "hallway-main" },
-      { "id": "node-door-level-1-trauma", "nodeType": "room_door", "x": 38, "y": 25, "linkedObjectId": "door-level-1-trauma" },
-      { "id": "node-door-room-01", "nodeType": "room_door", "x": 58, "y": 26, "linkedObjectId": "door-room-01" },
-      { "id": "node-door-room-02", "nodeType": "room_door", "x": 76, "y": 26, "linkedObjectId": "door-room-02" },
-      { "id": "node-station-primary", "nodeType": "station", "x": 82, "y": 42, "linkedObjectId": "station-primary" },
-      { "id": "node-station-provider-pharmacy", "nodeType": "station", "x": 103, "y": 50, "linkedObjectId": "station-provider-pharmacy" }
+      {
+        "id": "node-entry-ems",
+        "nodeType": "entry",
+        "x": 22,
+        "y": 92,
+        "linkedObjectId": null,
+        "entryOperationalMetadata": {
+          "entryClass": "ems",
+          "preferredFlowDirection": "inbound",
+          "preferredTraumaZoneId": "zone-level-1-trauma",
+          "linkedPathNodeId": "node-hall-west"
+        }
+      },
+      {
+        "id": "node-hall-south-entry",
+        "nodeType": "hallway",
+        "x": 22,
+        "y": 72,
+        "linkedObjectId": "hallway-south-entry"
+      },
+      {
+        "id": "node-hall-west",
+        "nodeType": "hallway",
+        "x": 22,
+        "y": 42,
+        "linkedObjectId": "hallway-main"
+      },
+      {
+        "id": "node-hall-east",
+        "nodeType": "hallway",
+        "x": 96,
+        "y": 42,
+        "linkedObjectId": "hallway-main"
+      },
+      {
+        "id": "node-door-level-1-trauma",
+        "nodeType": "room_door",
+        "x": 38,
+        "y": 25,
+        "linkedObjectId": "door-level-1-trauma"
+      },
+      {
+        "id": "node-door-room-01",
+        "nodeType": "room_door",
+        "x": 58,
+        "y": 26,
+        "linkedObjectId": "door-room-01"
+      },
+      {
+        "id": "node-door-room-02",
+        "nodeType": "room_door",
+        "x": 76,
+        "y": 26,
+        "linkedObjectId": "door-room-02"
+      },
+      {
+        "id": "node-station-primary",
+        "nodeType": "station",
+        "x": 82,
+        "y": 42,
+        "linkedObjectId": "station-primary"
+      },
+      {
+        "id": "node-station-provider-pharmacy",
+        "nodeType": "station",
+        "x": 103,
+        "y": 50,
+        "linkedObjectId": "station-provider-pharmacy"
+      }
     ],
     "pathEdges": [
-      { "id": "edge-entry-hall-west", "fromNodeId": "node-entry-ems", "toNodeId": "node-hall-west", "lengthFeet": 50, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 0, "turnPenaltySeconds": 2, "blocked": false },
-      { "id": "edge-hall-west-east", "fromNodeId": "node-hall-west", "toNodeId": "node-hall-east", "lengthFeet": 74, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 0, "turnPenaltySeconds": 1, "blocked": false },
-      { "id": "edge-trauma-hall-west", "fromNodeId": "node-door-level-1-trauma", "toNodeId": "node-hall-west", "lengthFeet": 20, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 4, "turnPenaltySeconds": 1, "blocked": false },
-      { "id": "edge-room-01-hall-east", "fromNodeId": "node-door-room-01", "toNodeId": "node-hall-east", "lengthFeet": 39, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 3, "turnPenaltySeconds": 1, "blocked": false },
-      { "id": "edge-room-02-hall-east", "fromNodeId": "node-door-room-02", "toNodeId": "node-hall-east", "lengthFeet": 26, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 3, "turnPenaltySeconds": 1, "blocked": false },
-      { "id": "edge-station-primary-hall-east", "fromNodeId": "node-station-primary", "toNodeId": "node-hall-east", "lengthFeet": 14, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 0, "turnPenaltySeconds": 1, "blocked": false },
-      { "id": "edge-provider-pharmacy-hall-east", "fromNodeId": "node-station-provider-pharmacy", "toNodeId": "node-hall-east", "lengthFeet": 12, "hallwayWidthFeet": 10, "congestionFactor": 1, "doorPenaltySeconds": 0, "turnPenaltySeconds": 1, "blocked": false }
+      {
+        "id": "edge-entry-hall-west",
+        "fromNodeId": "node-entry-ems",
+        "toNodeId": "node-hall-west",
+        "lengthFeet": 50,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 2,
+        "blocked": false
+      },
+      {
+        "id": "edge-hall-south-entry-anchor",
+        "fromNodeId": "node-hall-south-entry",
+        "toNodeId": "node-hall-west",
+        "lengthFeet": 20,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 0,
+        "blocked": false
+      },
+      {
+        "id": "edge-hall-west-east",
+        "fromNodeId": "node-hall-west",
+        "toNodeId": "node-hall-east",
+        "lengthFeet": 74,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-trauma-hall-west",
+        "fromNodeId": "node-door-level-1-trauma",
+        "toNodeId": "node-hall-west",
+        "lengthFeet": 20,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 4,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-room-01-hall-east",
+        "fromNodeId": "node-door-room-01",
+        "toNodeId": "node-hall-east",
+        "lengthFeet": 39,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 3,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-room-02-hall-east",
+        "fromNodeId": "node-door-room-02",
+        "toNodeId": "node-hall-east",
+        "lengthFeet": 26,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 3,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-station-primary-hall-east",
+        "fromNodeId": "node-station-primary",
+        "toNodeId": "node-hall-east",
+        "lengthFeet": 14,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-provider-pharmacy-hall-east",
+        "fromNodeId": "node-station-provider-pharmacy",
+        "toNodeId": "node-hall-east",
+        "lengthFeet": 12,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      }
     ]
   },
-  "limitations": ["Approximate manual conversion from source layout reference.", "Not exact CAD geometry.", "Operational fixture only."]
+  "limitations": [
+    "Approximate manual conversion from source layout reference.",
+    "Not exact CAD geometry.",
+    "Operational fixture only."
+  ],
+  "auditStatus": "validated_default"
 }

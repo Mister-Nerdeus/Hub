@@ -41,7 +41,8 @@ function validWrapper() {
     sourcePlanId: "source-er-layout-plan-1",
     mappingId: "mapping-er-layout-plan-1",
     readOnly: true,
-    importStatus: "draft_converted",
+    importStatus: "validated_default",
+    auditStatus: "validated_default",
     plan: {
       ...plan,
       planId: "default-er-layout-plan-1",
@@ -62,6 +63,8 @@ test("default saved plan fixture wrapper validates nested PlanContract and regis
   assert.equal(wrapper.readOnly, true);
   assert.equal(wrapper.sourcePlanId, "source-er-layout-plan-1");
   assert.equal(wrapper.mappingId, "mapping-er-layout-plan-1");
+  assert.equal(wrapper.importStatus, "validated_default");
+  assert.equal(wrapper.auditStatus, "validated_default");
   assert.equal(wrapper.plan.planId, "default-er-layout-plan-1");
 
   writeEvidence("default-plan-fixture-contract-output.json", {
@@ -97,12 +100,20 @@ test("default saved plan fixture rejects user namespace and mutable records", ()
     /readOnly must be true/
   );
 
+  const misalignedStatus = validWrapper();
+  misalignedStatus.importStatus = "draft_converted";
+  assert.throws(
+    () => validateDefaultSavedPlanFixtureContract(misalignedStatus, registeredReferences()),
+    /importStatus must match auditStatus/
+  );
+
   writeEvidence("default-plan-id-namespace-output.json", {
     issue: "210",
     status: "passed",
     rejectedUserRecordNamespace: true,
     rejectedUserPlanNamespace: true,
-    rejectedMutableRecord: true
+    rejectedMutableRecord: true,
+    rejectedMisalignedStatus: true
   });
 });
 

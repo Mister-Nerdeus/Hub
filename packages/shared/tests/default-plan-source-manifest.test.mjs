@@ -16,10 +16,13 @@ const manifestPath = join(
   "source-layout-manifest.json"
 );
 const evidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-208");
+const issue217EvidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-217");
 
-const conversionStatuses = new Set(["not_started", "mapping_started", "draft_converted", "validated"]);
+const conversionStatuses = new Set(["not_started", "mapping_started", "draft_converted", "validated", "validated_default"]);
+const auditStatuses = new Set(["validated_default"]);
 const sourceTypes = new Set(["docx-layout-reference"]);
 const nonPhiStatuses = new Set(["source-reviewed-operational-only"]);
+const sourceSha256Statuses = new Set(["not_archived_in_repo", "verified"]);
 const forbiddenContentFields = new Set([
   "binaryData",
   "docxBinary",
@@ -37,6 +40,11 @@ function readManifest() {
 function writeEvidence(name, payload) {
   mkdirSync(evidenceDir, { recursive: true });
   writeFileSync(join(evidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
+}
+
+function writeIssue217Evidence(name, payload) {
+  mkdirSync(issue217EvidenceDir, { recursive: true });
+  writeFileSync(join(issue217EvidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 function validateSourceLayoutManifest(manifest) {
@@ -57,20 +65,38 @@ function validateSourceLayoutManifest(manifest) {
 
     assert.deepEqual(Object.keys(source), [
       "sourcePlanId",
+      "sourceArtifactId",
+      "sourceRevision",
+      "sourceCapturedAt",
       "sourceFilename",
+      "sourceType",
+      "sourceSha256",
+      "sourceSha256Status",
       "defaultPlanId",
       "defaultPlanName",
-      "sourceType",
       "conversionStatus",
+      "auditStatus",
       "nonPhiStatus",
       "limitations"
     ]);
     assert.equal(source.sourcePlanId, `source-er-layout-plan-${index + 1}`);
+    assert.equal(source.sourceArtifactId, `default-er-layout-source-plan-${index + 1}-docx`);
+    assert.equal(typeof source.sourceRevision, "string");
+    assert.equal(Number.isNaN(Date.parse(source.sourceCapturedAt)), false);
     assert.equal(source.sourceFilename, `ER Layout_plan ${index + 1}.docx`);
     assert.equal(source.defaultPlanId, `default-er-layout-plan-${index + 1}`);
     assert.equal(source.defaultPlanName, `ER Layout Plan ${index + 1}`);
     assert.equal(sourceTypes.has(source.sourceType), true);
+    assert.equal(sourceSha256Statuses.has(source.sourceSha256Status), true);
+    if (source.sourceSha256Status === "not_archived_in_repo") {
+      assert.equal(source.sourceSha256, null);
+    }
+    if (source.sourceSha256Status === "verified") {
+      assert.match(source.sourceSha256, /^[0-9a-f]{64}$/);
+    }
     assert.equal(conversionStatuses.has(source.conversionStatus), true);
+    assert.equal(auditStatuses.has(source.auditStatus), true);
+    assert.equal(source.conversionStatus, source.auditStatus);
     assert.equal(nonPhiStatuses.has(source.nonPhiStatus), true);
     assert.ok(Array.isArray(source.limitations));
     assert.ok(source.limitations.length > 0, "limitations are required");
@@ -122,6 +148,20 @@ test("source layout manifest registers all uploaded ER layout archive references
     conversionStatuses: manifest.sources.map((source) => source.conversionStatus),
     ...summary
   });
+  writeIssue217Evidence("source-traceability-output.json", {
+    issue: "217",
+    status: "passed",
+    sourceCount: manifest.sources.length,
+    traceabilityFieldsPresent: [
+      "sourceArtifactId",
+      "sourceRevision",
+      "sourceCapturedAt",
+      "sourceSha256",
+      "sourceSha256Status"
+    ],
+    sha256Statuses: manifest.sources.map((source) => source.sourceSha256Status),
+    docxBinaryPolicy: "not_archived_in_repo_requires_null_sha256"
+  });
 });
 
 test("source layout manifest rejects duplicate IDs, missing limitations, and embedded content", () => {
@@ -146,9 +186,13 @@ test("source layout manifest text remains non-PHI and operational only", () => {
   const manifest = readManifest();
   const checkedTextValues = manifest.sources.flatMap((source) => [
     source.sourceFilename,
+    source.sourceArtifactId,
+    source.sourceRevision,
     source.defaultPlanName,
     source.sourceType,
+    source.sourceSha256Status,
     source.conversionStatus,
+    source.auditStatus,
     source.nonPhiStatus,
     ...source.limitations
   ]);

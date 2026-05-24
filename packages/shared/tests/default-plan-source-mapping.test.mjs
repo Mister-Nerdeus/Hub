@@ -4,12 +4,16 @@ import { fileURLToPath } from "node:url";
 import { basename, join } from "node:path";
 import test from "node:test";
 
-import { validateSourceToPlanMappingContract } from "../dist/index.js";
+import {
+  validateSourceMappingAgainstPlan,
+  validateSourceToPlanMappingContract
+} from "../dist/index.js";
 
 const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const defaultPlansDir = join(repoRoot, "packages", "shared", "fixtures", "default-plans");
 const mappingDir = join(defaultPlansDir, "source-mappings");
 const evidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-209");
+const issue217EvidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-217");
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -18,6 +22,11 @@ function readJson(path) {
 function writeEvidence(name, payload) {
   mkdirSync(evidenceDir, { recursive: true });
   writeFileSync(join(evidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
+}
+
+function writeIssue217Evidence(name, payload) {
+  mkdirSync(issue217EvidenceDir, { recursive: true });
+  writeFileSync(join(issue217EvidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 function readMappingFiles() {
@@ -69,6 +78,90 @@ test("source-to-plan mapping skeletons validate and link to the manifest", () =>
     }))
   });
 });
+
+test("source-to-plan mappings validate against the correct target plan collections", () => {
+  const mappingFiles = readMappingFiles();
+  const results = [];
+  for (const path of mappingFiles) {
+    const mapping = validateSourceToPlanMappingContract(readJson(path));
+    const wrapper = readJson(join(defaultPlansDir, `${mapping.targetPlanId}.json`));
+    validateSourceMappingAgainstPlan(mapping, wrapper.plan);
+    results.push({
+      mappingId: mapping.mappingId,
+      targetPlanId: wrapper.plan.planId,
+      mappedObjectCount: mapping.objects.length
+    });
+  }
+
+  writeIssue217Evidence("mapping-object-type-target-validation-output.json", {
+    issue: "217",
+    status: "passed",
+    mappingCount: results.length,
+    results
+  });
+});
+
+test("source-to-plan mapping rejects wrong target collections for every supported object type", () => {
+  const plan = readJson(join(defaultPlansDir, "default-er-layout-plan-1.json")).plan;
+  const wrongTargets = {
+    room: plan.zones[0].id,
+    zone: plan.rooms[0].id,
+    door: plan.rooms[0].id,
+    nurseStation: plan.rooms[0].id,
+    hallway: plan.rooms[0].id,
+    pathNode: plan.rooms[0].id,
+    pathEdge: plan.rooms[0].id
+  };
+  const rejected = [];
+
+  for (const [objectType, targetObjectId] of Object.entries(wrongTargets)) {
+    const mapping = singleObjectMapping(objectType, targetObjectId);
+    assert.throws(
+      () => validateSourceMappingAgainstPlan(mapping, plan),
+      /targetObjectId must reference plan\./
+    );
+    rejected.push(objectType);
+  }
+
+  assert.throws(
+    () => validateSourceMappingAgainstPlan(singleObjectMapping("annotation", plan.rooms[0].id), plan),
+    /annotation is deferred/
+  );
+  rejected.push("annotation");
+
+  writeIssue217Evidence("wrong-collection-negative-output.json", {
+    issue: "217",
+    status: "passed",
+    rejectedObjectTypes: rejected
+  });
+});
+
+function singleObjectMapping(objectType, targetObjectId) {
+  return {
+    schemaVersion: "1.0.0",
+    mappingId: `mapping-test-${objectType}`,
+    sourcePlanId: "source-er-layout-plan-1",
+    targetPlanId: "default-er-layout-plan-1",
+    objects: [
+      {
+        sourceObjectId: `source-test-${objectType}`,
+        sourceLabel: `Operational ${objectType}`,
+        objectType,
+        targetObjectId,
+        confidence: "medium",
+        geometryApproximation: "manual",
+        approximateCoordinates: {
+          x: 1,
+          y: 1,
+          widthFeet: null,
+          lengthFeet: null
+        },
+        notesCode: "source-visible-operational-object"
+      }
+    ],
+    deferredSourceLabels: []
+  };
+}
 
 test("source-to-plan mapping rejects duplicate source and target object IDs", () => {
   const mapping = readJson(join(mappingDir, "mapping-er-layout-plan-1.json"));

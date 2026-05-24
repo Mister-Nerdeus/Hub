@@ -1,0 +1,188 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "nodeAudits": [
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-1",
+      "status": "passed",
+      "counts": {
+        "rooms": 8,
+        "doors": 8,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 15
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-2",
+      "status": "passed",
+      "counts": {
+        "rooms": 5,
+        "doors": 5,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 12
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-3",
+      "status": "passed",
+      "counts": {
+        "rooms": 3,
+        "doors": 3,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 9
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-4",
+      "status": "passed",
+      "counts": {
+        "rooms": 4,
+        "doors": 4,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-5",
+      "status": "passed",
+      "counts": {
+        "rooms": 4,
+        "doors": 4,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    }
+  ],
+  "edgeAudits": [
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-1",
+      "status": "passed",
+      "counts": {
+        "pathNodes": 15,
+        "pathEdges": 14,
+        "usablePathEdges": 14,
+        "blockedPathEdges": 0,
+        "requiredOperationalNodes": 15,
+        "connectedRequiredOperationalNodes": 15
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-edge coverage confirms graph connectivity over fixture edges.",
+        "Fixture edge lengths are approximate placeholders and are not measured walking truth."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-2",
+      "status": "passed",
+      "counts": {
+        "pathNodes": 12,
+        "pathEdges": 11,
+        "usablePathEdges": 11,
+        "blockedPathEdges": 0,
+        "requiredOperationalNodes": 12,
+        "connectedRequiredOperationalNodes": 12
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-edge coverage confirms graph connectivity over fixture edges.",
+        "Fixture edge lengths are approximate placeholders and are not measured walking truth."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-3",
+      "status": "passed",
+      "counts": {
+        "pathNodes": 9,
+        "pathEdges": 8,
+        "usablePathEdges": 8,
+        "blockedPathEdges": 0,
+        "requiredOperationalNodes": 9,
+        "connectedRequiredOperationalNodes": 9
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-edge coverage confirms graph connectivity over fixture edges.",
+        "Fixture edge lengths are approximate placeholders and are not measured walking truth."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-4",
+      "status": "passed",
+      "counts": {
+        "pathNodes": 10,
+        "pathEdges": 9,
+        "usablePathEdges": 9,
+        "blockedPathEdges": 0,
+        "requiredOperationalNodes": 10,
+        "connectedRequiredOperationalNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-edge coverage confirms graph connectivity over fixture edges.",
+        "Fixture edge lengths are approximate placeholders and are not measured walking truth."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-5",
+      "status": "passed",
+      "counts": {
+        "pathNodes": 10,
+        "pathEdges": 9,
+        "usablePathEdges": 9,
+        "blockedPathEdges": 0,
+        "requiredOperationalNodes": 10,
+        "connectedRequiredOperationalNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-edge coverage confirms graph connectivity over fixture edges.",
+        "Fixture edge lengths are approximate placeholders and are not measured walking truth."
+      ]
+    }
+  ]
+}

@@ -8,6 +8,7 @@ export const DEFAULT_SAVED_PLAN_IMPORT_STATUSES = [
 ] as const;
 
 export type DefaultSavedPlanImportStatus = (typeof DEFAULT_SAVED_PLAN_IMPORT_STATUSES)[number];
+export type DefaultSavedPlanAuditStatus = "validated_default";
 
 export type DefaultSavedPlanFixtureContract = {
   schemaVersion: "1.0.0";
@@ -16,6 +17,7 @@ export type DefaultSavedPlanFixtureContract = {
   mappingId: string;
   readOnly: true;
   importStatus: DefaultSavedPlanImportStatus;
+  auditStatus: DefaultSavedPlanAuditStatus;
   plan: PlanContract;
   limitations: string[];
 };
@@ -37,6 +39,7 @@ export function validateDefaultSavedPlanFixtureContract(
     "mappingId",
     "readOnly",
     "importStatus",
+    "auditStatus",
     "plan",
     "limitations"
   ]);
@@ -66,6 +69,10 @@ export function validateDefaultSavedPlanFixtureContract(
     DEFAULT_SAVED_PLAN_IMPORT_STATUSES,
     "importStatus"
   );
+  requireLiteral(wrapper.auditStatus, "validated_default", "auditStatus");
+  if (wrapper.importStatus !== wrapper.auditStatus) {
+    throw new Error("importStatus must match auditStatus");
+  }
 
   const plan = validatePlanContract(wrapper.plan);
   if (!plan.planId.startsWith("default-er-layout-plan-")) {

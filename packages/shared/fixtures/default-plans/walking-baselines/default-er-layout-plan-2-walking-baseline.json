@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineId": "default-er-layout-plan-2-walking-baseline",
+  "planId": "default-er-layout-plan-2",
+  "routeGroupSummaries": [
+    {
+      "groupId": "ems-entry-to-trauma",
+      "label": "EMS entry to trauma",
+      "routeCount": 1,
+      "reachableRouteCount": 1,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 58,
+      "totalTravelSeconds": 20.182,
+      "routes": [
+        {
+          "routeId": "ems-entry-to-trauma-route-01",
+          "originPathNodeId": "node-entry-ems",
+          "destinationPathNodeId": "node-door-level-1-trauma",
+          "status": "reachable",
+          "distanceFeet": 58,
+          "travelSeconds": 20.182,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "primary-station-to-rooms",
+      "label": "Primary station to rooms",
+      "routeCount": 5,
+      "reachableRouteCount": 5,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 212,
+      "totalTravelSeconds": 77.908,
+      "routes": [
+        {
+          "routeId": "primary-station-to-rooms-route-01",
+          "originPathNodeId": "node-station-primary",
+          "destinationPathNodeId": "node-door-room-01",
+          "status": "reachable",
+          "distanceFeet": 36,
+          "travelSeconds": 13.636,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "primary-station-to-rooms-route-02",
+          "originPathNodeId": "node-station-primary",
+          "destinationPathNodeId": "node-door-room-02",
+          "status": "reachable",
+          "distanceFeet": 36,
+          "travelSeconds": 13.636,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "primary-station-to-rooms-route-03",
+          "originPathNodeId": "node-station-primary",
+          "destinationPathNodeId": "node-door-room-03",
+          "status": "reachable",
+          "distanceFeet": 34,
+          "travelSeconds": 13.136,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "primary-station-to-rooms-route-04",
+          "originPathNodeId": "node-station-primary",
+          "destinationPathNodeId": "node-door-room-04",
+          "status": "reachable",
+          "distanceFeet": 34,
+          "travelSeconds": 13.136,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "primary-station-to-rooms-route-05",
+          "originPathNodeId": "node-station-primary",
+          "destinationPathNodeId": "node-door-level-1-trauma",
+          "status": "reachable",
+          "distanceFeet": 72,
+          "travelSeconds": 24.364,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "provider-pharmacy-to-rooms",
+      "label": "Provider pharmacy to rooms",
+      "routeCount": 5,
+      "reachableRouteCount": 5,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 467,
+      "totalTravelSeconds": 154.727,
+      "routes": [
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-01",
+          "originPathNodeId": "node-station-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-01",
+          "status": "reachable",
+          "distanceFeet": 87,
+          "travelSeconds": 29,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-02",
+          "originPathNodeId": "node-station-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-02",
+          "status": "reachable",
+          "distanceFeet": 87,
+          "travelSeconds": 29,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-03",
+          "originPathNodeId": "node-station-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-03",
+          "status": "reachable",
+          "distanceFeet": 85,
+          "travelSeconds": 28.5,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-04",
+          "originPathNodeId": "node-station-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-04",
+          "status": "reachable",
+          "distanceFeet": 85,
+          "travelSeconds": 28.5,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-05",
+          "originPathNodeId": "node-station-provider-pharmacy",
+          "destinationPathNodeId": "node-door-level-1-trauma",
+          "status": "reachable",
+          "distanceFeet": 123,
+          "travelSeconds": 39.727,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    }
+  ],
+  "totalRouteCount": 11,
+  "reachableRouteCount": 11,
+  "unreachableRouteCount": 0,
+  "invalidRouteCount": 0,
+  "totalDistanceFeet": 737,
+  "totalTravelSeconds": 252.817,
+  "warnings": [],
+  "limitations": [
+    "Walking baseline is derived from approximate route preview outputs.",
+    "Distances and times are fixture graph summaries, not measured walking truth.",
+    "No staffing, assignment, optimizer, or care guidance is implied."
+  ]
+}

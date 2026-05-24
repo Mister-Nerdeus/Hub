@@ -1,0 +1,133 @@
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 59 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/features/bundle-audit/bundleAuditViewModel.test.ts
+
+> src/features/comparison/scenarioComparisonViewModel.test.ts
+
+> src/features/export-review/exportBundleReviewViewModel.test.ts
+
+> src/features/layout-editor/doorFollowsMovedRoom.test.ts
+
+> src/features/layout-editor/doorShapeViewModel.test.ts
+
+> src/features/layout-editor/doorValidityAfterRoomResize.test.ts
+
+> src/features/layout-editor/hallwayZoneShapeViewModel.test.ts
+
+> src/features/layout-editor/layoutCollisionValidation.test.ts
+
+> src/features/layout-editor/layoutCoordinateSystem.test.ts
+
+> src/features/layout-editor/layoutDeltaPreviewViewModel.test.ts
+
+> src/features/layout-editor/layoutEditAuditTrail.test.ts
+
+> src/features/layout-editor/layoutEditEffects.test.ts
+
+> src/features/layout-editor/layoutEditGestureAuditContract.test.ts
+
+> src/features/layout-editor/layoutEditorReducer.test.ts
+
+> src/features/layout-editor/layoutGridViewModel.test.ts
+
+> src/features/layout-editor/layoutInspectorSelectionSync.test.ts
+
+> src/features/layout-editor/layoutInspectorViewModel.test.ts
+
+> src/features/layout-editor/layoutLocalDraftPersistence.test.ts
+
+> src/features/layout-editor/layoutMoveValidation.test.ts
+
+> src/features/layout-editor/layoutObjectRenderPipeline.test.ts
+
+> src/features/layout-editor/layoutSelectionHighlight.test.ts
+
+> src/features/layout-editor/layoutSelectionModel.test.ts
+
+> src/features/layout-editor/layoutSnapEngine.test.ts
+
+> src/features/layout-editor/layoutStageSelectionEvents.test.ts
+
+> src/features/layout-editor/layoutUndoRedoHistory.test.ts
+
+> src/features/layout-editor/layoutValidationPanelViewModel.test.ts
+
+> src/features/layout-editor/layoutValidationSeverityDisplay.test.ts
+
+> src/features/layout-editor/layoutValidationWarningContract.test.ts
+
+> src/features/layout-editor/layoutViewportControls.test.ts
+
+> src/features/layout-editor/layoutWarningRecalculation.test.ts
+
+> src/features/layout-editor/roomDragMove.test.ts
+
+> src/features/layout-editor/roomDragSnapAccumulator.test.ts
+
+> src/features/layout-editor/roomInspectorDimensionDraft.test.ts
+
+> src/features/layout-editor/roomInspectorDimensionEdit.test.ts
+
+> src/features/layout-editor/roomResizeCollisionValidation.test.ts
+
+> src/features/layout-editor/roomResizeGeometry.test.ts
+
+> src/features/layout-editor/roomResizeHandlesViewModel.test.ts
+
+> src/features/layout-editor/roomResizeInteraction.test.ts
+
+> src/features/layout-editor/roomResizeValidation.test.ts
+
+> src/features/layout-editor/roomShapeViewModel.test.ts
+
+> src/features/layout-editor/stationShapeViewModel.test.ts
+
+> src/features/manual-assignment/manualAssignmentViewModel.test.ts
+
+> src/features/optimization/optimizerProofViewModel.test.ts
+
+> src/features/outcomes/operationalOutcomeDashboardViewModel.test.ts
+
+> src/features/plan-builder/generatedPlanPreviewViewModel.test.ts
+
+> src/features/plan-builder/planBuilderAdvancedDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderValidation.test.ts
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/defaultPlansRender.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+> src/features/reports/reportProofViewModel.test.ts
+
+> src/features/route-preview/routePreviewProofViewModel.test.ts
+
+> src/features/simulation/simulationRunRetrievalViewModel.test.ts
+
+> src/features/simulation/simulationTimelineViewModel.test.ts
+
+> src/fixtures/layout-editor/layoutEditorProofFixture.test.ts
+
+> src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
+
+Executed 59 web test file(s).

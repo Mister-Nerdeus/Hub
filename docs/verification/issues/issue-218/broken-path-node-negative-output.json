@@ -1,0 +1,48 @@
+{
+  "issue": "218",
+  "status": "passed",
+  "negativeResults": [
+    {
+      "name": "missing door path node",
+      "expectedCode": "MISSING_DOOR_PATH_NODE",
+      "gapCodes": [
+        "MISSING_DOOR_PATH_NODE"
+      ]
+    },
+    {
+      "name": "missing room path node",
+      "expectedCode": "MISSING_ROOM_PATH_NODE",
+      "gapCodes": [
+        "MISSING_ROOM_PATH_NODE"
+      ]
+    },
+    {
+      "name": "wrong room door linkedObjectId",
+      "expectedCode": "ROOM_DOOR_NODE_LINKS_WRONG_ROOM",
+      "gapCodes": [
+        "ROOM_DOOR_NODE_LINKS_WRONG_ROOM"
+      ]
+    },
+    {
+      "name": "station pathNodeId points to room door",
+      "expectedCode": "STATION_PATH_NODE_NOT_STATION",
+      "gapCodes": [
+        "STATION_PATH_NODE_NOT_STATION"
+      ]
+    },
+    {
+      "name": "hallway without anchor",
+      "expectedCode": "HALLWAY_WITHOUT_ANCHOR_NODE",
+      "gapCodes": [
+        "HALLWAY_WITHOUT_ANCHOR_NODE"
+      ]
+    },
+    {
+      "name": "entry node self-reference",
+      "expectedCode": "ENTRY_NODE_SELF_REFERENCE",
+      "gapCodes": [
+        "ENTRY_NODE_SELF_REFERENCE"
+      ]
+    }
+  ]
+}

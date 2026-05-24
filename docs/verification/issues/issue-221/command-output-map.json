@@ -1,0 +1,22 @@
+{
+  "issue": "221",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-221/test-output/shared.txt",
+        "docs/verification/issues/issue-221/default-plan-route-preview-output.json",
+        "docs/verification/issues/issue-221/route-preview-determinism-output.json",
+        "docs/verification/issues/issue-221/unreachable-route-output.json",
+        "docs/verification/issues/issue-221/blocked-edge-route-output.json",
+        "docs/verification/issues/issue-221/nonmutation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-222/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-221/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

@@ -45,3 +45,5 @@ export const defaultPlanFixtures: DefaultSavedPlanFixtureContract[] = [
 export const defaultPlanRenderProofPlans: PlanContract[] = defaultPlanFixtures.map(
   (fixture) => fixture.plan
 );
+
+export const defaultRoutePreviewProofFixtures: DefaultSavedPlanFixtureContract[] = defaultPlanFixtures;

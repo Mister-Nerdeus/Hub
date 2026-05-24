@@ -1,0 +1,96 @@
+{
+  "issue": "218",
+  "status": "passed",
+  "audits": [
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-1",
+      "status": "passed",
+      "counts": {
+        "rooms": 8,
+        "doors": 8,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 15
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-2",
+      "status": "passed",
+      "counts": {
+        "rooms": 5,
+        "doors": 5,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 12
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-3",
+      "status": "passed",
+      "counts": {
+        "rooms": 3,
+        "doors": 3,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 9
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-4",
+      "status": "passed",
+      "counts": {
+        "rooms": 4,
+        "doors": 4,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "planId": "default-er-layout-plan-5",
+      "status": "passed",
+      "counts": {
+        "rooms": 4,
+        "doors": 4,
+        "stations": 2,
+        "hallways": 2,
+        "entries": 1,
+        "pathNodes": 10
+      },
+      "gaps": [],
+      "limitations": [
+        "Path-node coverage confirms graph references and anchors only.",
+        "It does not prove measured walking distance or exact source geometry."
+      ]
+    }
+  ]
+}

@@ -21,11 +21,17 @@ Source entry shape:
 ```ts
 {
   sourcePlanId: string;
+  sourceArtifactId: string;
+  sourceRevision: string;
+  sourceCapturedAt: string;
   sourceFilename: string;
+  sourceType: "docx-layout-reference";
+  sourceSha256: string | null;
+  sourceSha256Status: "not_archived_in_repo" | "verified";
   defaultPlanId: string;
   defaultPlanName: string;
-  sourceType: "docx-layout-reference";
-  conversionStatus: "not_started" | "mapping_started" | "draft_converted" | "validated";
+  conversionStatus: "not_started" | "mapping_started" | "draft_converted" | "validated" | "validated_default";
+  auditStatus: "validated_default";
   nonPhiStatus: "source-reviewed-operational-only";
   limitations: string[];
 }
@@ -36,6 +42,10 @@ Source entry shape:
 - Source documents are archive references, not structured truth.
 - Manifest entries must not embed DOCX binary data, base64 content, raw file text, extracted narrative text, or other source payload fields.
 - Every source has one stable `sourcePlanId`, one intended `defaultPlanId`, a conversion status, and at least one limitation.
+- Every source has one stable `sourceArtifactId`, `sourceRevision`, and `sourceCapturedAt` value for traceability.
+- If source DOCX binaries are not archived in the repository, `sourceSha256Status` must be `not_archived_in_repo` and `sourceSha256` must be `null`.
+- If source binaries are archived later, `sourceSha256Status` must be `verified` and `sourceSha256` must contain a lowercase SHA-256 digest.
+- `conversionStatus` and `auditStatus` must not contradict each other. The validated default fixtures use `validated_default`.
 - `sourcePlanId` and `defaultPlanId` values must be unique inside the manifest.
 - Conversion to a default saved plan fixture is blocked until the source has a manifest entry.
 - Source limitations must preserve approximation language. The drawings are visual layout references, not exact CAD geometry.
@@ -94,6 +104,8 @@ Mapping rules:
 - `sourceObjectId` values must be unique within a mapping.
 - `targetObjectId` values must be unique within mapped objects for a single mapping.
 - Source labels remain source text and are distinct from validated target object IDs.
+- Mapped object IDs must resolve to the collection matching `objectType`: rooms to `plan.rooms`, zones to `plan.zones`, doors to `plan.doors`, nurse stations to `plan.nurseStations`, hallways to `plan.hallways`, path nodes to `plan.pathNodes`, and path edges to `plan.pathEdges`.
+- `annotation` mappings are rejected until annotation objects exist in the plan contract.
 - Coordinates, when present, are approximate manual coordinates only.
 - Notes and deferred reasons are coded enums, not free-text notes.
 - Mapping text must pass no-PHI checks.
@@ -112,6 +124,7 @@ Wrapper shape:
   mappingId: string;
   readOnly: true;
   importStatus: "draft_converted" | "ready_for_review" | "validated_default";
+  auditStatus: "validated_default";
   plan: PlanContract;
   limitations: string[];
 }
@@ -122,6 +135,7 @@ Wrapper rules:
 - `defaultPlanRecordId` must use the `default-plan-` namespace.
 - Nested `plan.planId` must use the `default-er-layout-plan-` namespace.
 - `readOnly` must be `true`; default fixtures are not user-authored saved plan records.
+- `importStatus` must match `auditStatus` for validated default fixtures.
 - `sourcePlanId` must link to a registered source manifest entry when references are supplied to the validator.
 - `mappingId` must link to a registered source mapping when references are supplied to the validator.
 - `plan` must validate through `PlanContract`.

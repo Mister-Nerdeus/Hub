@@ -1,0 +1,80 @@
+{
+  "issue": "219",
+  "status": "passed",
+  "negativeResults": [
+    {
+      "name": "broken fromNodeId",
+      "expectedCode": "BROKEN_FROM_NODE",
+      "blockedPathEdges": 1,
+      "gapCodes": [
+        "BROKEN_FROM_NODE",
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "broken toNodeId",
+      "expectedCode": "BROKEN_TO_NODE",
+      "blockedPathEdges": 1,
+      "gapCodes": [
+        "BROKEN_TO_NODE",
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "isolated room door",
+      "expectedCode": "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+      "blockedPathEdges": 0,
+      "gapCodes": [
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "isolated station",
+      "expectedCode": "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+      "blockedPathEdges": 0,
+      "gapCodes": [
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "isolated EMS entry",
+      "expectedCode": "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+      "blockedPathEdges": 0,
+      "gapCodes": [
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "disconnected hallway component",
+      "expectedCode": "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+      "blockedPathEdges": 0,
+      "gapCodes": [
+        "REQUIRED_NODE_WITHOUT_USABLE_EDGE",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    },
+    {
+      "name": "all paths blocked between components",
+      "expectedCode": "REQUIRED_NODE_DISCONNECTED",
+      "blockedPathEdges": 1,
+      "gapCodes": [
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED",
+        "REQUIRED_NODE_DISCONNECTED"
+      ]
+    }
+  ]
+}
