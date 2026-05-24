@@ -19,6 +19,13 @@ import {
   createRoomInspectorDimensionDraft,
   updateRoomInspectorDimensionDraft
 } from "./roomInspectorDimensionDraft";
+import {
+  buildLayoutLocalDraftRecord,
+  loadLayoutLocalDraft,
+  resetLayoutLocalDraft,
+  saveLayoutLocalDraft,
+  type LayoutLocalDraftStorage
+} from "./layoutLocalDraftPersistence";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
@@ -66,7 +73,7 @@ type RoomResizeState = {
   lastClientY: number;
 };
 
-const initialStageState = createLayoutEditorState({
+const baseInitialStageState = createLayoutEditorState({
   editableLayout: layoutEditorProofFixture,
   viewport: {
     pixelsPerFoot: STAGE_PIXELS_PER_FOOT,
@@ -81,9 +88,14 @@ const initialStageState = createLayoutEditorState({
 });
 
 export function LayoutEditorStage() {
-  const [stageState, dispatchStage] = useReducer(layoutEditorReducer, initialStageState);
+  const localDraftStorage = getBrowserLocalDraftStorage();
+  const [stageState, dispatchStage] = useReducer(
+    layoutEditorReducer,
+    undefined,
+    createInitialStageState
+  );
   const [roomDimensionDraft, setRoomDimensionDraft] = useState(() =>
-    createRoomInspectorDimensionDraft(findSelectedRoom(initialStageState))
+    createRoomInspectorDimensionDraft(findSelectedRoom(stageState))
   );
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
@@ -91,6 +103,28 @@ export function LayoutEditorStage() {
   useEffect(() => {
     setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedRoom));
   }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
+  useEffect(() => {
+    if (localDraftStorage == null || stageState.editableLayout == null) {
+      return;
+    }
+    saveLayoutLocalDraft(
+      localDraftStorage,
+      buildLayoutLocalDraftRecord({
+        editableLayout: stageState.editableLayout,
+        snapMode: stageState.snapMode,
+        viewport: stageState.viewport,
+        auditTrail: stageState.editAuditTrail,
+        isDirty: stageState.isDirty
+      })
+    );
+  }, [
+    localDraftStorage,
+    stageState.editableLayout,
+    stageState.snapMode,
+    stageState.viewport,
+    stageState.editAuditTrail,
+    stageState.isDirty
+  ]);
   const grid = buildLayoutGridViewModel({
     widthFeet: STAGE_WIDTH_FEET,
     heightFeet: STAGE_HEIGHT_FEET,
@@ -254,6 +288,18 @@ export function LayoutEditorStage() {
         <div>
           <p className="eyebrow">Layout editor proof</p>
           <h2 id="layout-editor-stage-title">SVG stage shell</h2>
+          <button
+            className="layout-editor-stage__reset-draft"
+            type="button"
+            onClick={() => {
+              if (localDraftStorage != null) {
+                resetLayoutLocalDraft(localDraftStorage);
+              }
+              dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
+            }}
+          >
+            Reset local draft
+          </button>
         </div>
         <dl className="layout-editor-stage__meta" aria-label="Layout editor stage metadata">
           <div>
@@ -455,7 +501,7 @@ export function LayoutEditorStage() {
 }
 
 function findSelectedRoom(state: {
-  editableLayout: typeof initialStageState.editableLayout;
+  editableLayout: typeof baseInitialStageState.editableLayout;
   selectedObjectType: string | null;
   selectedObjectId: string | null;
 }) {
@@ -467,6 +513,37 @@ function findSelectedRoom(state: {
     return null;
   }
   return state.editableLayout.rooms.find((room) => room.id === state.selectedObjectId) ?? null;
+}
+
+function createInitialStageState() {
+  const storage = getBrowserLocalDraftStorage();
+  if (storage == null) {
+    return baseInitialStageState;
+  }
+
+  const loadedDraft = loadLayoutLocalDraft(storage);
+  if (loadedDraft.status !== "loaded") {
+    return baseInitialStageState;
+  }
+
+  const firstRoom = loadedDraft.draft.editableLayout.rooms[0];
+  return createLayoutEditorState({
+    ...baseInitialStageState,
+    editableLayout: loadedDraft.draft.editableLayout,
+    viewport: loadedDraft.draft.viewport,
+    snapMode: loadedDraft.draft.snapMode,
+    editAuditTrail: loadedDraft.draft.auditTrail,
+    isDirty: loadedDraft.draft.dirtyState.isDirty,
+    selectedObjectType: firstRoom == null ? null : "room",
+    selectedObjectId: firstRoom?.id ?? null
+  });
+}
+
+function getBrowserLocalDraftStorage(): LayoutLocalDraftStorage | null {
+  if (typeof window === "undefined" || window.localStorage == null) {
+    return null;
+  }
+  return window.localStorage;
 }
 
 function pixelsDeltaToFeet(

@@ -242,6 +242,8 @@ Issue 179 centralizes layout edit side effects for room move, room resize, and c
 
 Issue 180 replaces the earlier move-only gesture audit summary with a unified deterministic gesture audit contract for move-room, resize-room, and single-entry dimension-edit gestures. Mixed object IDs, mixed edit types, and incompatible resize handles are rejected without adding persistence, undo/redo, path sync, or simulation rerun behavior.
 
+Issue 181 adds browser-local proof draft persistence for the layout editor. The draft stores schema version, editable layout, snap mode, viewport, audit trail, and dirty state through an injectable local storage interface, rejects invalid drafts, and includes a reset-to-baseline control without adding API, database, multi-user, or production save/load behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
