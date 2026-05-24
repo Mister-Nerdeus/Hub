@@ -1,1 +1,3 @@
-Current-gap evidence before implementation: no deterministic route preview builder existed over default plan pathNodes and pathEdges.
+Current-gap evidence captured before implementation:
+
+Default JSON floorplans could be listed and opened read-only, but there was no shared helper or web view model for duplicating a default fixture into a new editable JSON floorplan copy. Without that boundary, future edit workflows could accidentally mutate default fixtures or carry source-only DOCX metadata into user-editable plan state.

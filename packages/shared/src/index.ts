@@ -1,6 +1,7 @@
 export * from "./contracts.js";
 export * from "./default-plans/sourceToPlanMappingContract.js";
 export * from "./default-plans/defaultSavedPlanFixtureContract.js";
+export * from "./default-plans/duplicateDefaultPlan.js";
 export * from "./plan-builder/generatePlanFromDefaults.js";
 export * from "./assignment/validateManualAssignment.js";
 export * from "./comparison/buildScenarioComparison.js";

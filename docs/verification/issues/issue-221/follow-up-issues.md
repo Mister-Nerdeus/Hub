@@ -1,4 +1,4 @@
 # Follow-Up Issues
 
-- Continue with the next issue in batch order.
-- Preserve the approximate fixture graph and non-claims until later measured-distance work is explicitly scoped.
+- Issue 222: Saved Floorplan Store V1.
+- Issue 223: Editor Loads Selected Saved Floorplan.

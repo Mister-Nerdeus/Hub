@@ -1,0 +1,14 @@
+{
+  "issue": "221",
+  "status": "passed",
+  "forbiddenPayloadKeysRejected": [
+    "sourceDocumentPath",
+    "docxBinary",
+    "binaryData",
+    "rawFileContent",
+    "base64Content",
+    "embeddedDocument",
+    "sourceFilename"
+  ],
+  "copiedPlansContainDocxPayload": false
+}

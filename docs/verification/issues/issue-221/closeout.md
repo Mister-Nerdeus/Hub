@@ -1,31 +1,63 @@
 # Issue 221 Closeout
 
 ## Summary
-Route Preview Builder for Default Plans is complete within the batch boundaries. The work remains limited to default-plan import repair, path graph readiness, route preview, walking baseline fixtures, metadata annotation, and audit evidence.
+
+Added default floorplan duplication into an editable JSON copy wrapper. The shared helper creates a new plan ID and name, records `parentDefaultPlanId`, preserves plan geometry and operational metadata, keeps defaults immutable, validates the nested plan through `PlanContract`, and rejects DOCX-like payload keys. A web view model proves the duplicate action shape.
 
 ## Files Changed
-See repository diff for the scoped source, fixture, docs, and evidence files for this issue. No PHI, EHR integration, assignment scoring, optimizer candidate generation, simulation reruns, database seeding, or production deployment was added.
+
+- `packages/shared/src/default-plans/duplicateDefaultPlan.ts`
+- `packages/shared/src/index.ts`
+- `packages/shared/tests/duplicate-default-plan.test.mjs`
+- `apps/web/src/features/floorplans/duplicateFloorplanViewModel.ts`
+- `apps/web/src/features/floorplans/duplicateFloorplanViewModel.test.ts`
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `docs/verification/issues/issue-221/*`
 
 ## Commands Run
-Commands are listed in commands.txt and mapped in command-output-map.json.
+
+- `npm --workspace packages/shared test`
+- `npm --workspace apps/web test`
+- `node scripts/check-no-phi-fields.mjs`
+- `node scripts/check-docs-contracts.mjs`
 
 ## Tests Passed/Failed
-Required local gates are captured in test-output artifacts. Passing gates are reflected in the final docs gate and verifier outputs.
+
+- Passed: `npm --workspace packages/shared test` (530 shared tests).
+- Passed: `npm --workspace apps/web test` (62 web test files).
+- Passed: `node scripts/check-no-phi-fields.mjs`.
+- Passed: `node scripts/check-docs-contracts.mjs`.
+- Failed final gates: none.
 
 ## Evidence
-Issue evidence artifacts are present in this directory and indexed in docs/verification/ISSUE_EVIDENCE_INDEX.json.
 
-## TypeScript/Python Parity Confirmation
-Contracts changed in TypeScript shared code only. No Python API or persistence contract mirrors were changed in this batch.
+- `first-failure.txt`
+- `duplicate-default-plan-output.json`
+- `editable-copy-integrity-output.json`
+- `no-docx-payload-output.json`
+- `default-immutability-output.json`
+- `command-output-map.json`
+- `test-output/shared.txt`
+- `test-output/web.txt`
+- `test-output/no-phi.txt`
+- `test-output/docs-gate.txt`
 
 ## Non-PHI Confirmation
-The non-PHI scanner remains part of the captured gates where required. New fixtures and docs use operational-only default layout and path graph terms.
+
+No PHI fields, EHR integration, clinical safety claims, legal compliance claims, or exact-CAD claims were introduced.
+
+## DOCX Privacy Confirmation
+
+Editable copies are JSON floorplan copies only. They do not include DOCX source paths, filenames, binary payloads, base64 content, preview links, or download links.
 
 ## Non-Claims
-This issue does not claim measured walking truth, exact source DOCX geometry, clinical correctness, safety certification, EHR support, assignment scoring, optimizer behavior, database seeding, or production deployment.
+
+This issue does not persist saved copies, add database records, open DOCX files, add layout editing behavior, add route or walking-truth logic, or change assignment/scoring/simulation behavior.
 
 ## Known Limitations
-Known limitations are documented in the issue-specific gaps artifact when applicable. Path edges remain approximate fixture graph edges.
+
+Duplicated floorplans are in-memory copy records only until the saved floorplan store is added.
 
 ## Next Recommended Issue
-222.
+
+Issue 222: Saved Floorplan Store V1.
