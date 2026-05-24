@@ -4,6 +4,8 @@ import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEdi
 import { DoorShape } from "./DoorShape";
 import { buildDoorShapeViewModel } from "./doorShapeViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
+import { LayoutDeltaPreviewPanel } from "./LayoutDeltaPreviewPanel";
+import { buildLayoutDeltaPreviewViewModel } from "./layoutDeltaPreviewViewModel";
 import { HallwayShape } from "./HallwayShape";
 import {
   buildHallwayShapeViewModel,
@@ -77,6 +79,10 @@ export function LayoutEditorStage() {
   });
   const validationPanelViewModel = buildLayoutValidationPanelViewModel({
     warnings: stageState.validationWarnings
+  });
+  const deltaPreviewViewModel = buildLayoutDeltaPreviewViewModel({
+    isDirty: stageState.isDirty,
+    editAuditTrail: stageState.editAuditTrail
   });
   const renderItems = stageState.editableLayout == null
     ? []
@@ -319,6 +325,7 @@ export function LayoutEditorStage() {
         <div className="layout-editor-stage__side-panels">
           <LayoutInspectorPanel viewModel={inspectorViewModel} />
           <LayoutValidationPanel viewModel={validationPanelViewModel} />
+          <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
         </div>
       </div>
     </section>
