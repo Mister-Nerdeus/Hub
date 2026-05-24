@@ -1,0 +1,16 @@
+{
+  "issue": "214",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-214/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-214/test-output/shared.txt",
+        "docs/verification/issues/issue-214/plan-4-source-mapping-output.json",
+        "docs/verification/issues/issue-214/plan-4-default-fixture-output.json",
+        "docs/verification/issues/issue-214/plan-4-object-count-summary.json"
+      ]
+    },
+    { "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-214/test-output/no-phi.txt", "outputs": ["docs/verification/issues/issue-214/test-output/no-phi.txt"] },
+    { "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-214/test-output/docs-gate.txt", "outputs": ["docs/verification/issues/issue-214/test-output/docs-gate.txt"] }
+  ]
+}
