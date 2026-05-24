@@ -1,0 +1,5 @@
+Current-gap evidence before Issue 211:
+
+The source manifest and source-to-plan mapping contract existed, but Plan 1 had no structured
+default saved plan fixture. The existing mapping skeleton did not yet resolve all intended Plan 1
+source labels to concrete target object IDs in a nested `PlanContract` object.
