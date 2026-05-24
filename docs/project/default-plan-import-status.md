@@ -3,6 +3,7 @@
 Status: validated default import layer.
 
 The five default ER layout fixtures are registered, mapped, wrapped as read-only default plan records, traceable to source manifest entries, and validated through local TypeScript contract tests.
+The private DOCX source files are conversion references only. Product runtime surfaces must use the converted JSON default plan fixtures and must not expose, preview, download, import, or serve DOCX source files.
 
 ## Fixture Coverage
 
@@ -15,6 +16,10 @@ The five default ER layout fixtures are registered, mapped, wrapped as read-only
 ## Local Verification Scope
 
 - Source manifest links are validated.
+- Source manifest entries explicitly mark DOCX references as `private-reference-only`.
+- Source manifest entries explicitly set `publicExposureAllowed`, `runtimeServedByWeb`, and `runtimeServedByApi` to `false`.
+- `sourceDocumentPath` values stay under `docs/floorplans/` and never point into `apps/web/public`.
+- `conversionOutputPlanId` values resolve to JSON default plan fixtures.
 - Source-to-plan mappings are validated.
 - Source-to-plan mappings are validated against the correct target plan collection for each `objectType`.
 - Default saved plan wrappers are validated.
@@ -25,4 +30,4 @@ The five default ER layout fixtures are registered, mapped, wrapped as read-only
 
 ## Limits
 
-The fixtures are approximate operational layouts only. They do not embed DOCX content, claim exact CAD geometry, seed a database, change simulation behavior, add assignment scoring, or certify any layout.
+The fixtures are approximate operational layouts only. They do not expose DOCX files as product assets, embed DOCX content, claim exact CAD geometry, seed a database, change simulation behavior, add assignment scoring, or certify any layout.

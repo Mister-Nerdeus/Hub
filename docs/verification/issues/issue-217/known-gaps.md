@@ -1,5 +1,6 @@
 # Known Gaps
 
-- Default plan geometry remains approximate and manually converted from source layout references.
-- Path edges are fixture graph placeholders, not measured walking distances.
-- This issue does not add assignment scoring, optimizer behavior, simulation changes, database seeding, PHI support, EHR support, clinical guidance, or production deployment.
+- This issue does not create a DOCX converter.
+- This issue does not render, preview, serve, download, or import DOCX files.
+- The converted JSON default plans remain approximate operational layouts, not exact CAD geometry.
+- Saved editable floorplan workflow remains deferred to later issues in this batch.

@@ -1,4 +1,4 @@
 # Follow-Up Issues
 
-- Continue with the next issue in batch order.
-- Preserve the approximate fixture graph and non-claims until later measured-distance work is explicitly scoped.
+- Issue 218: audit source-to-JSON conversion completeness against object collections.
+- Issue 219: add the JSON floorplan library without exposing DOCX source paths.

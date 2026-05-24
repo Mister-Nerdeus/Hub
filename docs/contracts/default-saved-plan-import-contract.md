@@ -25,10 +25,16 @@ Source entry shape:
   sourceRevision: string;
   sourceCapturedAt: string;
   sourceFilename: string;
+  sourceDocumentPath: string;
   sourceType: "docx-layout-reference";
+  sourceVisibility: "private-reference-only";
+  publicExposureAllowed: false;
+  runtimeServedByWeb: false;
+  runtimeServedByApi: false;
   sourceSha256: string | null;
   sourceSha256Status: "not_archived_in_repo" | "verified";
   defaultPlanId: string;
+  conversionOutputPlanId: string;
   defaultPlanName: string;
   conversionStatus: "not_started" | "mapping_started" | "draft_converted" | "validated" | "validated_default";
   auditStatus: "validated_default";
@@ -39,8 +45,14 @@ Source entry shape:
 
 ## Rules
 
-- Source documents are archive references, not structured truth.
+- Source DOCX documents under `docs/floorplans/` are private conversion references only, not product assets or structured truth.
+- `sourceDocumentPath` must start with `docs/floorplans/`, end with `.docx`, and must never point into `apps/web/public`.
+- Manifest entries must explicitly keep `sourceVisibility` set to `private-reference-only`.
+- Manifest entries must explicitly keep `publicExposureAllowed`, `runtimeServedByWeb`, and `runtimeServedByApi` set to `false`.
+- `conversionOutputPlanId` must resolve to an existing converted JSON default plan fixture.
 - Manifest entries must not embed DOCX binary data, base64 content, raw file text, extracted narrative text, or other source payload fields.
+- Web runtime code must load converted JSON default plan fixtures only. It must not import, link, display, preview, download, or otherwise serve DOCX source files.
+- API routes must not serve `docs/floorplans/` or any DOCX source file.
 - Every source has one stable `sourcePlanId`, one intended `defaultPlanId`, a conversion status, and at least one limitation.
 - Every source has one stable `sourceArtifactId`, `sourceRevision`, and `sourceCapturedAt` value for traceability.
 - If source DOCX binaries are not archived in the repository, `sourceSha256Status` must be `not_archived_in_repo` and `sourceSha256` must be `null`.
@@ -143,4 +155,4 @@ Wrapper rules:
 
 ## Non-Claims
 
-This contract does not convert layouts, perform OCR, seed a database, add UI, add EHR support, add PHI support, or claim exact geometry.
+This contract does not render DOCX files, serve DOCX files, convert layouts automatically, perform OCR, seed a database, add EHR support, add PHI support, or claim exact geometry.

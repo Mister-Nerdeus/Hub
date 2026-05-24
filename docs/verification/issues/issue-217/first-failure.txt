@@ -1,1 +1,12 @@
-Current-gap evidence before repair: source mappings could validate when targetObjectId existed in any plan collection, even if objectType pointed to the wrong collection. Annotation mappings also had no concrete plan collection to validate against.
+Current-gap evidence captured before implementation:
+
+The source manifest entries recorded source filenames, artifact IDs, source revisions, conversion status, audit status, and hash status, but did not explicitly declare the DOCX privacy boundary fields required by Issue 217:
+
+- sourceDocumentPath
+- sourceVisibility
+- publicExposureAllowed
+- runtimeServedByWeb
+- runtimeServedByApi
+- conversionOutputPlanId
+
+Without those fields, future work could misread private DOCX references as product-loadable assets instead of using the converted JSON default floorplans only.
