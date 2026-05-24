@@ -38,9 +38,14 @@ export type BuildDoorPathNodeSyncContractInput = {
   linkedPathNodeId?: string | null;
 };
 
-const DEFAULT_DOOR_PATH_NODE_SYNC_LIMITATIONS = [
+export const DEFAULT_DOOR_PATH_NODE_SYNC_LIMITATIONS = [
   "Contract only; no path node geometry changes are applied.",
   "Simulation rerun and pathfinding changes are not performed."
+] as const;
+
+export const DOOR_PATH_NODE_GEOMETRY_SYNC_LIMITATIONS = [
+  "Door path node sync updates copied linked path node coordinates from derived door centers only.",
+  "Door stored geometry, path edges, pathfinding changes, and simulation rerun are not performed."
 ] as const;
 
 export function buildDoorPathNodeSyncContract({
