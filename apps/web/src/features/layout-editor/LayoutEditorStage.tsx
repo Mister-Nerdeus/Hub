@@ -14,6 +14,7 @@ import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
+import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
@@ -68,6 +69,15 @@ export function LayoutEditorStage() {
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
+  const selectStageObject = (
+    objectType: Parameters<typeof selectionFromShapeClick>[0],
+    objectId: string
+  ) => {
+    dispatchStage({
+      type: "selectObject",
+      ...selectionFromShapeClick(objectType, objectId)
+    });
+  };
 
   return (
     <section
@@ -135,6 +145,7 @@ export function LayoutEditorStage() {
                     selectedObjectType: stageState.selectedObjectType,
                     selectedObjectId: stageState.selectedObjectId
                   })}
+                  onSelect={selectStageObject}
                 />
               ))}
               {zoneItems.map((item) => (
@@ -147,6 +158,7 @@ export function LayoutEditorStage() {
                     selectedObjectType: stageState.selectedObjectType,
                     selectedObjectId: stageState.selectedObjectId
                   })}
+                  onSelect={selectStageObject}
                 />
               ))}
             </g>
@@ -199,6 +211,7 @@ export function LayoutEditorStage() {
                     selectedObjectType: stageState.selectedObjectType,
                     selectedObjectId: stageState.selectedObjectId
                   })}
+                  onSelect={selectStageObject}
                 />
               ))}
             </g>
@@ -213,6 +226,7 @@ export function LayoutEditorStage() {
                     selectedObjectType: stageState.selectedObjectType,
                     selectedObjectId: stageState.selectedObjectId
                   })}
+                  onSelect={selectStageObject}
                 />
               ))}
             </g>
@@ -227,6 +241,7 @@ export function LayoutEditorStage() {
                     selectedObjectType: stageState.selectedObjectType,
                     selectedObjectId: stageState.selectedObjectId
                   })}
+                  onSelect={selectStageObject}
                 />
               ))}
             </g>

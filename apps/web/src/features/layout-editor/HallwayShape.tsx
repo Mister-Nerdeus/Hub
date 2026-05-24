@@ -4,15 +4,17 @@ import { selectedClassName } from "./layoutSelectionHighlight";
 type HallwayShapeProps = {
   viewModel: HallwayShapeViewModel;
   isSelected?: boolean;
+  onSelect?: (objectType: "hallway", objectId: string) => void;
 };
 
-export function HallwayShape({ viewModel, isSelected = false }: HallwayShapeProps) {
+export function HallwayShape({ viewModel, isSelected = false, onSelect }: HallwayShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__hallway", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       role="img"
       aria-label={viewModel.ariaLabel}
+      onClick={() => onSelect?.("hallway", viewModel.objectId)}
     >
       <rect
         x={viewModel.xPixels}

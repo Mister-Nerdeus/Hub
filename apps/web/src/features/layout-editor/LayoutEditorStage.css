@@ -126,6 +126,7 @@
 }
 
 .layout-editor-stage__hallway rect {
+  cursor: pointer;
   fill: #d9e7ef;
   opacity: 0.82;
   stroke: #7d93a4;
@@ -133,6 +134,7 @@
 }
 
 .layout-editor-stage__zone rect {
+  cursor: pointer;
   fill: #dcebd6;
   opacity: 0.72;
   stroke: #6c8d63;
@@ -153,6 +155,7 @@
 }
 
 .layout-editor-stage__room rect {
+  cursor: pointer;
   fill: #ffffff;
   stroke: #22364a;
   stroke-width: 1.5;
@@ -168,12 +171,14 @@
 }
 
 .layout-editor-stage__door rect {
+  cursor: pointer;
   fill: #243447;
   stroke: #ffffff;
   stroke-width: 1;
 }
 
 .layout-editor-stage__station rect {
+  cursor: pointer;
   fill: #f4ead5;
   stroke: #8b6f3d;
   stroke-width: 1.4;

@@ -4,9 +4,10 @@ import { selectedClassName } from "./layoutSelectionHighlight";
 type StationShapeProps = {
   viewModel: StationShapeViewModel;
   isSelected?: boolean;
+  onSelect?: (objectType: "station", objectId: string) => void;
 };
 
-export function StationShape({ viewModel, isSelected = false }: StationShapeProps) {
+export function StationShape({ viewModel, isSelected = false, onSelect }: StationShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__station", isSelected)}
@@ -14,6 +15,7 @@ export function StationShape({ viewModel, isSelected = false }: StationShapeProp
       data-station-type={viewModel.stationType}
       role="img"
       aria-label={viewModel.ariaLabel}
+      onClick={() => onSelect?.("station", viewModel.objectId)}
     >
       <rect
         x={viewModel.xPixels}

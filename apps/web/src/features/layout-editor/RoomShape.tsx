@@ -4,9 +4,10 @@ import { selectedClassName } from "./layoutSelectionHighlight";
 type RoomShapeProps = {
   viewModel: RoomShapeViewModel;
   isSelected?: boolean;
+  onSelect?: (objectType: "room", objectId: string) => void;
 };
 
-export function RoomShape({ viewModel, isSelected = false }: RoomShapeProps) {
+export function RoomShape({ viewModel, isSelected = false, onSelect }: RoomShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__room", isSelected)}
@@ -14,6 +15,7 @@ export function RoomShape({ viewModel, isSelected = false }: RoomShapeProps) {
       data-room-type={viewModel.roomType}
       role="img"
       aria-label={viewModel.ariaLabel}
+      onClick={() => onSelect?.("room", viewModel.objectId)}
     >
       <rect
         x={viewModel.xPixels}

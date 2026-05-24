@@ -190,6 +190,8 @@ Issue 153 renders read-only station/desk SVG shapes from editable station geomet
 
 Issue 154 adds display-only selected styling for room, door, station, hallway, and zone shapes from existing editor selection state. It does not add click selection, drag/drop, resizing, inspector editing, path sync, save/load, or simulation rerun behavior.
 
+Issue 155 wires read-only stage click selection for rendered layout objects. Clicking a room, door, station, hallway, or zone dispatches the existing selection action, updates the selected styling, and syncs the inspector without mutating geometry or adding drag/edit behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
