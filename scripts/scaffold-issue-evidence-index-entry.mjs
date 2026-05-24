@@ -21,6 +21,7 @@ function parseArgs(argv) {
     root: process.cwd(),
     write: false,
     force: false,
+    createFiles: false,
     selfTest: false
   };
   for (let index = 0; index < argv.length; index += 1) {
@@ -31,6 +32,8 @@ function parseArgs(argv) {
       options.write = true;
     } else if (arg === "--force") {
       options.force = true;
+    } else if (arg === "--create-files") {
+      options.createFiles = true;
     } else if (arg === "--root") {
       options.root = requireValue(argv, index);
       index += 1;
@@ -58,6 +61,9 @@ function requireValue(argv, index) {
 export function scaffoldIssueEvidenceIndexEntry(root, options) {
   const issue = normalizeIssue(options.issue);
   const title = options.title ?? `Issue ${issue}`;
+  if (options.createFiles) {
+    createCompliantIssueEvidence(root, issue, title, Boolean(options.force));
+  }
   const entry = buildEntry(root, issue, title);
   const index = readIndex(root);
   const existingIndex = index.issues.findIndex((candidate) => candidate.issue === issue);
@@ -80,6 +86,7 @@ export function scaffoldIssueEvidenceIndexEntry(root, options) {
     title,
     mode: options.write ? "write" : "dry-run",
     force: Boolean(options.force),
+    createFiles: Boolean(options.createFiles),
     indexIssueCount: nextIssues.length,
     entry,
     detectedEvidenceFolders: detectedFolders(root, issue)
@@ -113,6 +120,82 @@ function buildEntry(root, issue, title) {
     title,
     requiredEvidence: [...new Set(evidence)]
   };
+}
+
+function createCompliantIssueEvidence(root, issue, title, force) {
+  const issuePath = join(root, issueEvidenceRoot, `issue-${issue}`);
+  const testOutputPath = join(issuePath, "test-output");
+  mkdirSync(testOutputPath, { recursive: true });
+  writeIfAllowed(
+    join(issuePath, "closeout.md"),
+    closeoutTemplate(issue, title),
+    force
+  );
+  const placeholderCommand = `Set-Content docs/verification/issues/issue-${issue}/test-output/docs-gate.txt "scaffold placeholder"`;
+  writeIfAllowed(join(issuePath, "commands.txt"), `${placeholderCommand}\n`, force);
+  writeIfAllowed(
+    join(issuePath, "command-output-map.json"),
+    `${JSON.stringify(
+      {
+        issue,
+        commands: [
+          {
+            command: placeholderCommand,
+            outputs: [`docs/verification/issues/issue-${issue}/test-output/docs-gate.txt`]
+          }
+        ]
+      },
+      null,
+      2
+    )}\n`,
+    force
+  );
+  writeIfAllowed(join(testOutputPath, "docs-gate.txt"), "scaffold placeholder\n", force);
+}
+
+function writeIfAllowed(path, content, force) {
+  if (existsSync(path) && !force) {
+    return;
+  }
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, content);
+}
+
+function closeoutTemplate(issue, title) {
+  return `# Issue ${issue} Closeout
+
+## Summary
+
+Scaffold placeholder for ${title}.
+
+## Files Changed
+
+- TBD
+
+## Commands Run
+
+- TBD
+
+## Tests Passed
+
+- TBD
+
+## Evidence Artifacts
+
+- TBD
+
+## Known Limitations
+
+- TBD
+
+## Next Recommended Issue
+
+TBD
+
+## Non-PHI Confirmation
+
+TBD
+`;
 }
 
 function rootEvidenceFiles(issuePath) {
@@ -240,6 +323,23 @@ export function runSelfTests(root = process.cwd()) {
         }),
       /already exists/
     );
+
+    const createFilesOutput = scaffoldIssueEvidenceIndexEntry(tempRoot, {
+      issue: "187",
+      title: "Hardened Evidence Scaffold",
+      write: true,
+      createFiles: true
+    });
+    assertIncludes(
+      "create-files includes command-output-map",
+      createFilesOutput.entry.requiredEvidence,
+      "docs/verification/issues/issue-187/command-output-map.json"
+    );
+    assertIncludes(
+      "create-files includes docs gate output",
+      createFilesOutput.entry.requiredEvidence,
+      "docs/verification/issues/issue-187/test-output/docs-gate.txt"
+    );
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
@@ -251,9 +351,9 @@ export function runSelfTests(root = process.cwd()) {
     noOverwriteDefault: true,
     detectedEvidenceFolders: commonEvidenceFolders,
     deterministicOutput: true,
+    createFilesCreatesHardenedStructure: true,
     testsPassed: true
   };
-  writeJson(join(root, "docs", "verification", "issues", "issue-113", "scaffold-output.json"), summary);
   return summary;
 }
 
@@ -303,7 +403,6 @@ function runCli() {
   const options = parseArgs(process.argv.slice(2));
   if (options.selfTest) {
     const output = runSelfTests(options.root);
-    console.log("Issue evidence index scaffolder self-tests pass.");
     console.log(JSON.stringify(output, null, 2));
     return;
   }

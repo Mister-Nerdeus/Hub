@@ -1,0 +1,14 @@
+Issue 195 first failure capture
+
+Observed pre-fix state:
+- The docs gate delegated much of command-output validation to helper gates but did not have an explicit Issue 187+ evidence rule.
+- The evidence scaffolder indexed discovered files but did not create a complete closeout/commands/command-output-map/output scaffold for hardened issues before work began.
+- A new Issue 187+ directory could be created without a purpose-built hardened scaffold.
+
+Failure classes captured for hardening:
+- Missing closeout.md.
+- Missing commands.txt.
+- Missing command-output-map.json.
+- Issue missing from ISSUE_EVIDENCE_INDEX.json.
+- Empty required root evidence.
+- Command-output mapping problems remained covered by the existing command-output-map gate.

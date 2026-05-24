@@ -1,0 +1,33 @@
+{
+  "issue": "195",
+  "gate": "hardened issue evidence",
+  "firstHardenedIssue": 187,
+  "cases": [
+    {
+      "label": "missing closeout",
+      "passed": true,
+      "failure": "Issue 187 missing required evidence artifact: docs/verification/issues/issue-187/closeout.md"
+    },
+    {
+      "label": "missing commands",
+      "passed": true,
+      "failure": "Issue 187 missing required evidence artifact: docs/verification/issues/issue-187/commands.txt"
+    },
+    {
+      "label": "missing command-output-map",
+      "passed": true,
+      "failure": "Issue 187 missing required evidence artifact: docs/verification/issues/issue-187/command-output-map.json"
+    },
+    {
+      "label": "missing index entry",
+      "passed": true,
+      "failure": "Issue 187 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json"
+    },
+    {
+      "label": "empty command-output-map",
+      "passed": true,
+      "failure": "Issue 187 required evidence artifact is empty: docs/verification/issues/issue-187/command-output-map.json"
+    }
+  ],
+  "testsPassed": true
+}

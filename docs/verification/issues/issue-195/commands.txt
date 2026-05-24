@@ -1,0 +1,4 @@
+node scripts/check-docs-contracts.mjs --self-test *> docs/verification/issues/issue-195/negative-docs-gate-output.json
+node scripts/scaffold-issue-evidence-index-entry.mjs --self-test *> docs/verification/issues/issue-195/evidence-gate-output.json
+Set-Content docs/verification/issues/issue-195/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-195/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs *> docs/verification/issues/issue-195/test-output/verify-local.txt
