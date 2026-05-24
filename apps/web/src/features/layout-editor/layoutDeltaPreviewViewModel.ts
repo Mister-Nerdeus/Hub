@@ -1,4 +1,5 @@
 import type { LayoutEditAuditEntry } from "./layoutEditAuditTrail";
+import { getLatestDeltaPreviewEdit } from "./layoutEditEffects";
 
 export const LAYOUT_DELTA_PREVIEW_CATEGORIES = [
   "walk time",
@@ -29,8 +30,8 @@ export function buildLayoutDeltaPreviewViewModel({
   isDirty,
   editAuditTrail
 }: BuildLayoutDeltaPreviewViewModelInput): LayoutDeltaPreviewViewModel {
-  const deltaTriggerEdits = editAuditTrail.filter(isLayoutDeltaPreviewEdit);
-  if (!isDirty || deltaTriggerEdits.length === 0) {
+  const latestEdit = getLatestDeltaPreviewEdit(editAuditTrail);
+  if (!isDirty || latestEdit == null) {
     return {
       status: "current",
       title: "Metric deltas",
@@ -41,10 +42,6 @@ export function buildLayoutDeltaPreviewViewModel({
     };
   }
 
-  const latestEdit = [...deltaTriggerEdits].sort(
-    (left, right) => right.createdAtOrder - left.createdAtOrder
-  )[0];
-
   return {
     status: "pending_recalculation",
     title: "Metric deltas",
@@ -54,13 +51,4 @@ export function buildLayoutDeltaPreviewViewModel({
     affectedCategories: [...LAYOUT_DELTA_PREVIEW_CATEGORIES],
     latestEditId: latestEdit?.editId
   };
-}
-
-function isLayoutDeltaPreviewEdit(entry: LayoutEditAuditEntry): boolean {
-  switch (entry.editType) {
-    case "move_room":
-    case "resize_room":
-    case "edit_room_dimensions":
-      return true;
-  }
 }

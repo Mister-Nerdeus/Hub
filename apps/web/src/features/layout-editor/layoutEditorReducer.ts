@@ -23,6 +23,7 @@ import {
   createRoomMoveAuditEntry,
   createRoomResizeAuditEntry
 } from "./layoutEditAuditTrail";
+import { applyLayoutEditEffects } from "./layoutEditEffects";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
 import {
@@ -184,8 +185,22 @@ function editSelectedRoomDimensions(
     return state;
   }
 
-  return {
-    ...state,
+  const auditEntry = createRoomDimensionEditAuditEntry({
+    roomId,
+    before: roomRectForAudit(beforeRoom),
+    after: roomRectForAudit(afterRoom),
+    deltaFeet: {
+      deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+      deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
+      deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
+      deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
+    },
+    changedFields: changedRoomDimensionFields(beforeRoom, afterRoom),
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return applyLayoutEditEffects({
+    state,
     editableLayout: editedLayout,
     validationWarnings: replaceGeneratedWarningsBySources({
       existingWarnings: state.validationWarnings,
@@ -196,26 +211,10 @@ function editSelectedRoomDimensions(
       }),
       sources: ["resize", "door_sync"]
     }),
-    editAuditTrail: [
-      ...state.editAuditTrail,
-      createRoomDimensionEditAuditEntry({
-        roomId,
-        before: roomRectForAudit(beforeRoom),
-        after: roomRectForAudit(afterRoom),
-        deltaFeet: {
-          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
-          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
-          deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
-          deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
-        },
-        changedFields: changedRoomDimensionFields(beforeRoom, afterRoom),
-        createdAtOrder: state.editAuditTrail.length + 1
-      })
-    ],
     selectedObjectType: "room",
     selectedObjectId: roomId,
-    isDirty: true
-  };
+    auditEntry
+  });
 }
 
 function resizeRoom(
@@ -253,8 +252,22 @@ function resizeRoom(
     return state;
   }
 
-  return {
-    ...state,
+  const auditEntry = createRoomResizeAuditEntry({
+    roomId,
+    resizeHandle: handle,
+    before: roomRectForAudit(beforeRoom),
+    after: roomRectForAudit(afterRoom),
+    deltaFeet: {
+      deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+      deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
+      deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
+      deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return applyLayoutEditEffects({
+    state,
     editableLayout: resizedLayout,
     validationWarnings: replaceGeneratedWarningsBySources({
       existingWarnings: state.validationWarnings,
@@ -265,26 +278,10 @@ function resizeRoom(
       }),
       sources: ["resize", "door_sync"]
     }),
-    editAuditTrail: [
-      ...state.editAuditTrail,
-      createRoomResizeAuditEntry({
-        roomId,
-        resizeHandle: handle,
-        before: roomRectForAudit(beforeRoom),
-        after: roomRectForAudit(afterRoom),
-        deltaFeet: {
-          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
-          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
-          deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
-          deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
-        },
-        createdAtOrder: state.editAuditTrail.length + 1
-      })
-    ],
     selectedObjectType: "room",
     selectedObjectId: roomId,
-    isDirty: true
-  };
+    auditEntry
+  });
 }
 
 function roomRectEquals(
@@ -389,8 +386,19 @@ function moveRoom(
     throw new Error(`unknown room: ${roomId}`);
   }
 
-  return {
-    ...state,
+  const auditEntry = createRoomMoveAuditEntry({
+    roomId,
+    before: { xFeet: beforeRoom.xFeet, yFeet: beforeRoom.yFeet },
+    after: { xFeet: afterRoom.xFeet, yFeet: afterRoom.yFeet },
+    deltaFeet: {
+      deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+      deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return applyLayoutEditEffects({
+    state,
     editableLayout: movedLayout,
     validationWarnings: recalculateWarningsForRoom({
       existingWarnings: state.validationWarnings,
@@ -398,21 +406,8 @@ function moveRoom(
       roomId,
       boundsFeet: state.layoutBoundsFeet
     }),
-    editAuditTrail: [
-      ...state.editAuditTrail,
-      createRoomMoveAuditEntry({
-        roomId,
-        before: { xFeet: beforeRoom.xFeet, yFeet: beforeRoom.yFeet },
-        after: { xFeet: afterRoom.xFeet, yFeet: afterRoom.yFeet },
-        deltaFeet: {
-          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
-          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet
-        },
-        createdAtOrder: state.editAuditTrail.length + 1
-      })
-    ],
     selectedObjectType: "room",
     selectedObjectId: roomId,
-    isDirty: true
-  };
+    auditEntry
+  });
 }

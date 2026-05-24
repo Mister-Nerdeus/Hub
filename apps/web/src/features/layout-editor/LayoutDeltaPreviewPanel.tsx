@@ -6,7 +6,13 @@ export type LayoutDeltaPreviewPanelProps = {
 
 export function LayoutDeltaPreviewPanel({ viewModel }: LayoutDeltaPreviewPanelProps) {
   return (
-    <aside className="layout-delta-preview-panel" aria-label={viewModel.title} aria-readonly="true">
+    <aside
+      className="layout-delta-preview-panel"
+      aria-label={viewModel.title}
+      aria-readonly="true"
+      data-has-fake-metric-values={String(viewModel.hasFakeMetricValues)}
+      data-rerun-wired={String(viewModel.rerunWired)}
+    >
       <header className="layout-delta-preview-panel__header">
         <p className="eyebrow">Preview</p>
         <h3>{viewModel.title}</h3>

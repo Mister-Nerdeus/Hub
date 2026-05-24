@@ -198,6 +198,7 @@ const cleanState = layoutEditorReducer(createLayoutEditorState({ editableLayout,
   type: "markClean"
 });
 assert.equal(cleanState.isDirty, false);
+assert.equal(cleanState.editableLayout, editableLayout);
 
 const roomBeforeMove = editableLayout.rooms.find((room) => room.id === "room-01");
 if (roomBeforeMove == null) {
@@ -240,6 +241,16 @@ assert.deepEqual(movedRoomState.editAuditTrail, [
 ]);
 assert.deepEqual(movedRoomState.editableLayout?.doors, editableLayout.doors);
 assert.equal(stateWithLayout.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
+
+const noOpMoveState = layoutEditorReducer(stateWithLayout, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 0,
+  deltaYFeet: 0
+});
+assert.equal(noOpMoveState, stateWithLayout);
+assert.equal(noOpMoveState.isDirty, false);
+assert.deepEqual(noOpMoveState.editAuditTrail, []);
 
 const leftWarningState = layoutEditorReducer(stateWithLayout, {
   type: "moveRoom",

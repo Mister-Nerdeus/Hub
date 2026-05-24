@@ -54,6 +54,8 @@ assert.deepEqual(pendingViewModel.affectedCategories, [
   "nurse strain proxy"
 ]);
 assert.equal(pendingViewModel.latestEditId, "layout-edit-000001");
+assert.equal(JSON.stringify(pendingViewModel).includes("improvement"), false);
+assert.equal(JSON.stringify(pendingViewModel).includes("regression"), false);
 
 const resizeAuditEntry: LayoutEditAuditEntry = {
   editId: "layout-edit-000002",
@@ -87,4 +89,12 @@ assert.equal(
     editAuditTrail: [auditEntry, resizeAuditEntry, inspectorDimensionAuditEntry]
   }).latestEditId,
   "layout-edit-000003"
+);
+
+assert.equal(
+  buildLayoutDeltaPreviewViewModel({
+    isDirty: true,
+    editAuditTrail: []
+  }).status,
+  "current"
 );
