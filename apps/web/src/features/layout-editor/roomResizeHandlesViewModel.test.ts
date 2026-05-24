@@ -2,7 +2,8 @@ import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEdi
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import {
   buildRoomResizeHandlesViewModel,
-  buildSelectedRoomResizeHandlesViewModel
+  buildSelectedRoomResizeHandlesViewModel,
+  isRoomResizeHandle
 } from "./roomResizeHandlesViewModel";
 
 const assert = {
@@ -54,6 +55,8 @@ assert.deepEqual(
   handles.handles.map((handle) => handle.handle),
   ["north", "south", "east", "west", "northeast", "northwest", "southeast", "southwest"]
 );
+assert.equal(isRoomResizeHandle("north"), true);
+assert.equal(isRoomResizeHandle("center"), false);
 assert.deepEqual(
   handles.handles.map((handle) => ({
     handle: handle.handle,

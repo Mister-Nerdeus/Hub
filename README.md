@@ -222,6 +222,8 @@ Issue 169 adds a pure room-move gesture audit summary contract. Multiple low-lev
 
 Issue 170 adds the shared editable layout to plan/path bridge contract. The contract maps editable rooms, doors, stations, hallways, and zones to plan object IDs plus path node and edge references with explicit mapped, missing-plan-object, missing-path-reference, and not-required statuses; it does not mutate path geometry, run pathfinding, save/load, sync paths, rerun simulation, or add recommendation behavior.
 
+Issue 171 adds a pure feet-based room resize geometry helper. All eight room handles are supported, active snap mode is applied, minimum room size is enforced, room metadata is preserved, and input room objects are not mutated; it does not add pointer interaction, stage wiring, inspector editing, door mutation, path sync, save/load, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

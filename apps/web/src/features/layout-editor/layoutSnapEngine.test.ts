@@ -5,7 +5,8 @@ import {
   snapMoveDeltaFeet,
   snapPointFeet,
   snapRectFeet,
-  snapResizeDeltaFeet
+  snapResizeDeltaFeet,
+  snapSizeFeetForMode
 } from "./layoutSnapEngine";
 
 if (DEFAULT_SNAP_SIZE_FEET !== 1) {
@@ -14,6 +15,10 @@ if (DEFAULT_SNAP_SIZE_FEET !== 1) {
 
 if (FINE_SNAP_SIZE_FEET !== 0.5) {
   throw new Error("fine snap size must be 0.5 foot");
+}
+
+if (snapSizeFeetForMode("default") !== 1 || snapSizeFeetForMode("fine") !== 0.5) {
+  throw new Error("snap modes must resolve to deterministic snap sizes");
 }
 
 if (snapFeet(2.49) !== 2 || snapFeet(2.5) !== 3) {

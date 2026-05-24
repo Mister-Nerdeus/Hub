@@ -1,6 +1,10 @@
 export const DEFAULT_SNAP_SIZE_FEET = 1;
 export const FINE_SNAP_SIZE_FEET = 0.5;
 
+export const LAYOUT_SNAP_ENGINE_MODES = ["default", "fine"] as const;
+
+export type LayoutSnapEngineMode = (typeof LAYOUT_SNAP_ENGINE_MODES)[number];
+
 export type LayoutSnapPointFeet = {
   xFeet: number;
   yFeet: number;
@@ -29,6 +33,15 @@ export function snapFeet(
   const snapSize = requirePositive(snapSizeFeet, "snapSizeFeet");
   const snapSteps = roundHalfAwayFromZero(value / snapSize);
   return normalizeSignedZero(roundFeet(snapSteps * snapSize));
+}
+
+export function snapSizeFeetForMode(snapMode: LayoutSnapEngineMode): number {
+  switch (snapMode) {
+    case "default":
+      return DEFAULT_SNAP_SIZE_FEET;
+    case "fine":
+      return FINE_SNAP_SIZE_FEET;
+  }
 }
 
 export function snapPointFeet<TPoint extends LayoutSnapPointFeet>(

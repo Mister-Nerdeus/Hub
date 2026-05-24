@@ -14,6 +14,10 @@ export const ROOM_RESIZE_HANDLE_ORDER = [
 
 export type RoomResizeHandle = (typeof ROOM_RESIZE_HANDLE_ORDER)[number];
 
+export function isRoomResizeHandle(value: unknown): value is RoomResizeHandle {
+  return typeof value === "string" && ROOM_RESIZE_HANDLE_ORDER.includes(value as RoomResizeHandle);
+}
+
 export type RoomResizeHandleViewModel = {
   handle: RoomResizeHandle;
   xPixels: number;
