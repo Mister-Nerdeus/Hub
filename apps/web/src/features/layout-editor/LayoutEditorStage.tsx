@@ -1,6 +1,8 @@
 import { useReducer } from "react";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
+import { DoorShape } from "./DoorShape";
+import { buildDoorShapeViewModel } from "./doorShapeViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { HallwayShape } from "./HallwayShape";
 import {
@@ -61,6 +63,7 @@ export function LayoutEditorStage() {
   const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
   const roomItems = renderItems.filter((item) => item.objectType === "room");
+  const doorItems = renderItems.filter((item) => item.objectType === "door");
 
   return (
     <section
@@ -174,6 +177,14 @@ export function LayoutEditorStage() {
                 <RoomShape
                   key={item.hitTargetKey}
                   viewModel={buildRoomShapeViewModel(item)}
+                />
+              ))}
+            </g>
+            <g className="layout-editor-stage__doors">
+              {doorItems.map((item) => (
+                <DoorShape
+                  key={item.hitTargetKey}
+                  viewModel={buildDoorShapeViewModel(item)}
                 />
               ))}
             </g>

@@ -184,6 +184,8 @@ Issue 150 renders hallway and zone SVG shapes from editable layout geometry thro
 
 Issue 151 renders read-only room SVG shapes from editable room geometry through the shared render pipeline, including visible room number labels and room type accessibility metadata. No room editing, resizing, path sync, save/load, or simulation rerun behavior is added.
 
+Issue 152 renders read-only door SVG shapes attached to room or hallway owner walls from feet-based owner, wall, offset, and width geometry. Missing owners deterministically do not render, and no door movement or editing behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
