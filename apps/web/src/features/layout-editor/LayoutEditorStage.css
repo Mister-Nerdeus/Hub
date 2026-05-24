@@ -213,6 +213,16 @@
   stroke-width: 2;
 }
 
+.layout-editor-stage__resize-handles {
+  pointer-events: none;
+}
+
+.layout-editor-stage__resize-handle {
+  fill: #ffffff;
+  stroke: #0f62fe;
+  stroke-width: 1.6;
+}
+
 .layout-editor-stage__grid-line {
   stroke: #d9e1e8;
   stroke-width: 0.55;

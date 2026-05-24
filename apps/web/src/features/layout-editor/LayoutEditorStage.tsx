@@ -22,6 +22,8 @@ import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
+import { RoomResizeHandles } from "./RoomResizeHandles";
+import { buildSelectedRoomResizeHandlesViewModel } from "./roomResizeHandlesViewModel";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
 import { createRoomMoveSnapAccumulator } from "./roomDragMove";
@@ -95,6 +97,11 @@ export function LayoutEditorStage() {
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
+  const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
+    renderItems,
+    selectedObjectType: stageState.selectedObjectType,
+    selectedObjectId: stageState.selectedObjectId
+  });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -320,6 +327,9 @@ export function LayoutEditorStage() {
                 />
               ))}
             </g>
+            {roomResizeHandlesViewModel == null ? null : (
+              <RoomResizeHandles viewModel={roomResizeHandlesViewModel} />
+            )}
           </svg>
         </div>
         <div className="layout-editor-stage__side-panels">

@@ -25,6 +25,7 @@ export function RoomShape({
       className={selectedClassName("layout-editor-stage__room", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       data-room-type={viewModel.roomType}
+      data-resize-handles={isSelected ? "display-only" : undefined}
       role="img"
       aria-label={viewModel.ariaLabel}
       onClick={() => onSelect?.("room", viewModel.objectId)}

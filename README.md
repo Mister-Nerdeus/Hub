@@ -212,6 +212,8 @@ Issue 164 adds deterministic in-memory room move audit trail entries for reducer
 
 Issue 165 adds a read-only delta preview placeholder that marks operational metric recalculation as pending after room move audit entries. It lists affected categories without fake improvement or regression values and does not rerun simulation, sync paths, persist changes, or add recommendation behavior.
 
+Issue 166 adds visual-only resize handles for the selected room. The eight handle positions are derived from feet-based room render geometry, pointer interaction is disabled, and no resize behavior, geometry mutation, path sync, collision validation, save/load, or simulation rerun is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
