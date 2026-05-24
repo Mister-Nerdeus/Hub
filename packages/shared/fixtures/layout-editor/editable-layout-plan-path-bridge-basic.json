@@ -54,7 +54,7 @@
   "zoneMappings": [
     {
       "editableObjectId": "zone-ems-entry",
-      "planObjectId": null,
+      "planObjectId": "zone-ems-entry",
       "pathNodeIds": [],
       "pathEdgeIds": [],
       "mappingStatus": "not_required"
@@ -62,6 +62,7 @@
   ],
   "limitations": [
     "Bridge contract records explicit editable layout to plan/path references only.",
+    "Adapter-built mappings remain exact-key validated by this contract.",
     "Path graph mutation, pathfinding changes, and simulation rerun are not performed.",
     "Missing links are represented by mappingStatus values."
   ]

@@ -246,6 +246,8 @@ Issue 181 adds browser-local proof draft persistence for the layout editor. The 
 
 Issue 182 adds deterministic editor-local undo/redo history for room moves, room resizes, and committed inspector dimension edits. History uses bounded local snapshots, redo clears after a new edit, validation/delta pending state follows restored snapshots, and no simulation rerun, path sync, server persistence, or branch history is added.
 
+Issue 183 adds a pure shared adapter that builds editable layout to plan/path bridge mappings from source editable layout and plan objects. It supports stable IDs plus explicit mapping tables, marks missing plan objects and path references explicitly, keeps exact-key bridge validation, and does not mutate the path graph or rerun simulation.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

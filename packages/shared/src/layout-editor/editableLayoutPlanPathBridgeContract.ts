@@ -8,6 +8,12 @@ export const EDITABLE_LAYOUT_PLAN_PATH_BRIDGE_MAPPING_STATUSES = [
 export type EditableLayoutPlanPathBridgeMappingStatus =
   (typeof EDITABLE_LAYOUT_PLAN_PATH_BRIDGE_MAPPING_STATUSES)[number];
 
+export const EDITABLE_LAYOUT_PLAN_PATH_BRIDGE_ADAPTER_LIMITATIONS = [
+  "Bridge adapter builds deterministic editable layout to plan/path references only.",
+  "Missing plan objects and missing path references are represented explicitly.",
+  "Path graph mutation, pathfinding changes, recommendations, and simulation rerun are not performed."
+] as const;
+
 export type EditableLayoutPlanPathBridgeMapping = {
   editableObjectId: string;
   planObjectId: string | null;
