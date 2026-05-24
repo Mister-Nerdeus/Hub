@@ -67,7 +67,9 @@ assert.deepEqual(
   warningViewModel.warnings.map((warning) => ({
     code: warning.code,
     severity: warning.severity,
+    severityLabel: warning.severityLabel,
     source: warning.source,
+    sourceLabel: warning.sourceLabel,
     message: warning.message,
     objectType: warning.objectType,
     objectId: warning.objectId,
@@ -80,7 +82,9 @@ assert.deepEqual(
     {
       code: "room_out_of_bounds_left",
       severity: "warning",
+      severityLabel: "Warning",
       source: "bounds",
+      sourceLabel: "Bounds",
       message: "Room extends beyond the layout left boundary.",
       objectType: "room",
       objectId: "room-01",
@@ -92,7 +96,9 @@ assert.deepEqual(
     {
       code: "room_overlap_station",
       severity: "warning",
+      severityLabel: "Warning",
       source: "collision",
+      sourceLabel: "Collision",
       message: "Room overlaps station station-primary.",
       objectType: "room",
       objectId: "room-01",

@@ -6,11 +6,17 @@ import type {
   LayoutValidationWarningSeverity,
   LayoutValidationWarningSource
 } from "./layoutValidationWarningContract";
+import {
+  formatLayoutValidationSeverity,
+  formatLayoutValidationSource
+} from "./layoutValidationSeverityDisplay";
 
 export type LayoutValidationPanelWarningViewModel = {
   code: string;
   severity: LayoutValidationWarningSeverity;
+  severityLabel: string;
   source: LayoutValidationWarningSource;
+  sourceLabel: string;
   message: string;
   objectType: LayoutEditorSelectableObjectType | null;
   objectId: string | null;
@@ -70,7 +76,9 @@ function normalizeWarning(
   return {
     code: warning.code,
     severity: warning.severity,
+    severityLabel: formatLayoutValidationSeverity(warning.severity),
     source: warning.source,
+    sourceLabel: formatLayoutValidationSource(warning.source),
     message: warning.message,
     objectType: warning.objectType,
     objectId: warning.objectId,

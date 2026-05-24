@@ -31,14 +31,14 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
             >
               <code>{warning.code}</code>
               <p>{warning.message}</p>
-              <dl>
+              <dl className="layout-validation-panel__metadata">
                 <div>
                   <dt>Severity</dt>
-                  <dd>{warning.severity}</dd>
+                  <dd>{warning.severityLabel}</dd>
                 </div>
                 <div>
                   <dt>Source</dt>
-                  <dd>{warning.source}</dd>
+                  <dd>{warning.sourceLabel}</dd>
                 </div>
                 <div>
                   <dt>Object</dt>

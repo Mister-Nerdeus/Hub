@@ -1,0 +1,5 @@
+npm --workspace apps/web test > docs/verification/issues/issue-177/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append
+Temporary Vite server plus headless Edge CDP screenshot capture for docs/verification/issues/issue-177/screenshots/validation-severity-source-proof.png

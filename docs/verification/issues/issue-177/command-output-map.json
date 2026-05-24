@@ -1,0 +1,35 @@
+{
+  "issue": "177",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test > docs/verification/issues/issue-177/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-177/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-177/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-177/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-177/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-177/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "Temporary Vite server plus headless Edge CDP screenshot capture for docs/verification/issues/issue-177/screenshots/validation-severity-source-proof.png",
+      "outputs": [
+        "docs/verification/issues/issue-177/screenshots/validation-severity-source-proof.png"
+      ]
+    }
+  ]
+}
