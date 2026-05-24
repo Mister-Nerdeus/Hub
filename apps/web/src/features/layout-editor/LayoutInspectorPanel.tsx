@@ -2,16 +2,25 @@ import type {
   LayoutInspectorField,
   LayoutInspectorViewModel
 } from "./layoutInspectorViewModel";
-import type { RoomInspectorDimensionChanges } from "./roomInspectorDimensionEdit";
+import type {
+  RoomInspectorDimensionDraftState
+} from "./roomInspectorDimensionDraft";
+import type { RoomInspectorDimensionField } from "./roomInspectorDimensionEdit";
 
 export type LayoutInspectorPanelProps = {
   viewModel: LayoutInspectorViewModel;
-  onEditRoomDimensions?: (changes: RoomInspectorDimensionChanges) => void;
+  roomDimensionDraft?: RoomInspectorDimensionDraftState;
+  onChangeRoomDimensionDraft?: (field: RoomInspectorDimensionField, value: string) => void;
+  onCommitRoomDimensionDraft?: (field: RoomInspectorDimensionField) => void;
+  onCancelRoomDimensionDraft?: (field: RoomInspectorDimensionField) => void;
 };
 
 export function LayoutInspectorPanel({
   viewModel,
-  onEditRoomDimensions
+  roomDimensionDraft,
+  onChangeRoomDimensionDraft,
+  onCommitRoomDimensionDraft,
+  onCancelRoomDimensionDraft
 }: LayoutInspectorPanelProps) {
   return (
     <aside
@@ -48,7 +57,15 @@ export function LayoutInspectorPanel({
                 {section.fields.map((field) => (
                   <div key={field.label}>
                     <dt>{field.label}</dt>
-                    <dd>{renderInspectorFieldValue(field, onEditRoomDimensions)}</dd>
+                    <dd>
+                      {renderInspectorFieldValue({
+                        field,
+                        roomDimensionDraft,
+                        onChangeRoomDimensionDraft,
+                        onCommitRoomDimensionDraft,
+                        onCancelRoomDimensionDraft
+                      })}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -62,27 +79,60 @@ export function LayoutInspectorPanel({
   );
 }
 
-function renderInspectorFieldValue(
-  field: LayoutInspectorField,
-  onEditRoomDimensions: LayoutInspectorPanelProps["onEditRoomDimensions"]
-) {
-  if (field.editKey == null || field.valueFeet == null || onEditRoomDimensions == null) {
+function renderInspectorFieldValue({
+  field,
+  roomDimensionDraft,
+  onChangeRoomDimensionDraft,
+  onCommitRoomDimensionDraft,
+  onCancelRoomDimensionDraft
+}: {
+  field: LayoutInspectorField;
+  roomDimensionDraft: LayoutInspectorPanelProps["roomDimensionDraft"];
+  onChangeRoomDimensionDraft: LayoutInspectorPanelProps["onChangeRoomDimensionDraft"];
+  onCommitRoomDimensionDraft: LayoutInspectorPanelProps["onCommitRoomDimensionDraft"];
+  onCancelRoomDimensionDraft: LayoutInspectorPanelProps["onCancelRoomDimensionDraft"];
+}) {
+  if (
+    field.editKey == null ||
+    field.valueFeet == null ||
+    roomDimensionDraft == null ||
+    onChangeRoomDimensionDraft == null ||
+    onCommitRoomDimensionDraft == null ||
+    onCancelRoomDimensionDraft == null
+  ) {
     return field.value;
   }
 
   const editKey = field.editKey;
+  const draftField = roomDimensionDraft.fields[editKey];
+  const draftValue = draftField?.value ?? String(field.valueFeet);
+  const error = draftField?.error ?? null;
   return (
-    <input
-      aria-label={`${field.label} feet`}
-      type="number"
-      step="0.5"
-      value={field.valueFeet}
-      onChange={(event) => {
-        const nextValue = Number(event.currentTarget.value);
-        if (Number.isFinite(nextValue)) {
-          onEditRoomDimensions({ [editKey]: nextValue });
-        }
-      }}
-    />
+    <>
+      <input
+        aria-label={`${field.label} feet`}
+        aria-invalid={error == null ? "false" : "true"}
+        type="text"
+        inputMode="decimal"
+        value={draftValue}
+        onChange={(event) => onChangeRoomDimensionDraft(editKey, event.currentTarget.value)}
+        onBlur={() => onCommitRoomDimensionDraft(editKey)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            event.preventDefault();
+            onCommitRoomDimensionDraft(editKey);
+          }
+          if (event.key === "Escape") {
+            event.preventDefault();
+            onCancelRoomDimensionDraft(editKey);
+          }
+        }}
+      />
+      {error == null ? null : (
+        <span className="layout-inspector-panel__field-error" role="status">
+          {error}
+        </span>
+      )}
+    </>
   );
 }

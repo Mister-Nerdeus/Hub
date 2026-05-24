@@ -236,6 +236,8 @@ Issue 176 adds selected-room inspector dimension editing for exact feet-based `x
 
 Issue 177 adds display-only severity and source labels to the validation panel so operational editor warnings visibly show code, severity, source, message, object references, related references, and duplicate counts without adding blocking behavior, path sync, save/load, simulation rerun, recommendation wording, or clinical safety language.
 
+Issue 178 adds draft buffering for selected-room inspector dimension fields. Draft text can hold temporary invalid values, commits occur on blur or Enter, Escape cancels the draft, and layout geometry mutates only through committed feet-based values that continue to snap and enforce minimum room size.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

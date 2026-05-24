@@ -1,4 +1,4 @@
-import { useReducer, useRef, type PointerEvent } from "react";
+import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { DoorShape } from "./DoorShape";
@@ -13,6 +13,12 @@ import {
 } from "./hallwayZoneShapeViewModel";
 import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
+import {
+  cancelRoomInspectorDimensionDraftField,
+  commitRoomInspectorDimensionDraftField,
+  createRoomInspectorDimensionDraft,
+  updateRoomInspectorDimensionDraft
+} from "./roomInspectorDimensionDraft";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
@@ -76,8 +82,15 @@ const initialStageState = createLayoutEditorState({
 
 export function LayoutEditorStage() {
   const [stageState, dispatchStage] = useReducer(layoutEditorReducer, initialStageState);
+  const [roomDimensionDraft, setRoomDimensionDraft] = useState(() =>
+    createRoomInspectorDimensionDraft(findSelectedRoom(initialStageState))
+  );
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
+  const selectedRoom = findSelectedRoom(stageState);
+  useEffect(() => {
+    setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedRoom));
+  }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
   const grid = buildLayoutGridViewModel({
     widthFeet: STAGE_WIDTH_FEET,
     heightFeet: STAGE_HEIGHT_FEET,
@@ -414,8 +427,23 @@ export function LayoutEditorStage() {
         <div className="layout-editor-stage__side-panels">
           <LayoutInspectorPanel
             viewModel={inspectorViewModel}
-            onEditRoomDimensions={(dimensions) =>
-              dispatchStage({ type: "editSelectedRoomDimensions", dimensions })
+            roomDimensionDraft={roomDimensionDraft}
+            onChangeRoomDimensionDraft={(field, value) =>
+              setRoomDimensionDraft((draft) =>
+                updateRoomInspectorDimensionDraft(draft, field, value)
+              )
+            }
+            onCommitRoomDimensionDraft={(field) => {
+              const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
+              setRoomDimensionDraft(result.draft);
+              if (result.status === "valid") {
+                dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
+              }
+            }}
+            onCancelRoomDimensionDraft={(field) =>
+              setRoomDimensionDraft((draft) =>
+                cancelRoomInspectorDimensionDraftField(draft, selectedRoom, field)
+              )
             }
           />
           <LayoutValidationPanel viewModel={validationPanelViewModel} />
@@ -424,6 +452,21 @@ export function LayoutEditorStage() {
       </div>
     </section>
   );
+}
+
+function findSelectedRoom(state: {
+  editableLayout: typeof initialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "room" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.rooms.find((room) => room.id === state.selectedObjectId) ?? null;
 }
 
 function pixelsDeltaToFeet(

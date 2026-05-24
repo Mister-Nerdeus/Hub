@@ -9,6 +9,7 @@ import type { RoomInspectorDimensionField } from "./roomInspectorDimensionEdit";
 export type LayoutInspectorField = {
   label: string;
   value: string;
+  isEditable: boolean;
   editKey?: RoomInspectorDimensionField;
   valueFeet?: number;
 };
@@ -92,7 +93,7 @@ function buildSections(
             { label: "Capacity type", value: selectedObject.capacityType },
             { label: "Hall bed", value: formatBoolean(selectedObject.isHallBed) },
             { label: "Trauma adjacent", value: formatBoolean(selectedObject.isTraumaAdjacent) }
-          ]
+          ].map(readOnlyField)
         },
         rectGeometrySection(selectedObject, "Geometry", true)
       ];
@@ -106,14 +107,14 @@ function buildSections(
             { label: "Wall", value: selectedObject.wall },
             { label: "Offset", value: formatFeet(selectedObject.offsetFeet) },
             { label: "Width", value: formatFeet(selectedObject.widthFeet) }
-          ]
+          ].map(readOnlyField)
         }
       ];
     case "station":
       return [
         {
           title: "Station metadata",
-          fields: [{ label: "Station type", value: selectedObject.stationType }]
+          fields: [{ label: "Station type", value: selectedObject.stationType }].map(readOnlyField)
         },
         rectGeometrySection(selectedObject)
       ];
@@ -123,11 +124,18 @@ function buildSections(
       return [
         {
           title: "Zone metadata",
-          fields: [{ label: "Zone type", value: selectedObject.zoneType }]
+          fields: [{ label: "Zone type", value: selectedObject.zoneType }].map(readOnlyField)
         },
         rectGeometrySection(selectedObject)
       ];
   }
+}
+
+function readOnlyField(field: Omit<LayoutInspectorField, "isEditable">): LayoutInspectorField {
+  return {
+    ...field,
+    isEditable: false
+  };
 }
 
 function rectGeometrySection(
@@ -160,6 +168,7 @@ function geometryField(
   return {
     label,
     value: formatFeet(valueFeet),
+    isEditable,
     ...(isEditable ? { editKey, valueFeet } : {})
   };
 }

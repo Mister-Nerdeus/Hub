@@ -303,6 +303,20 @@
   text-align: right;
 }
 
+.layout-inspector-panel input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+.layout-inspector-panel__field-error {
+  color: #b42318;
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-top: 4px;
+  text-align: right;
+}
+
 .layout-inspector-panel__sections {
   display: grid;
   gap: 14px;

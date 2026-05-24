@@ -14,6 +14,17 @@ const assert = {
     if (JSON.stringify(actual) !== JSON.stringify(expected)) {
       throw new Error(`Expected ${JSON.stringify(actual)} to deep equal ${JSON.stringify(expected)}`);
     }
+  },
+  throws(fn: () => void, pattern: RegExp): void {
+    try {
+      fn();
+    } catch (error) {
+      if (error instanceof Error && pattern.test(error.message)) {
+        return;
+      }
+      throw error;
+    }
+    throw new Error(`Expected function to throw ${pattern}`);
   }
 };
 
@@ -85,3 +96,31 @@ const nonRoomSelectionLayout = editSelectedRoomDimensionsInLayout({
 });
 assert.equal(nonRoomSelectionLayout, layoutEditorProofFixture);
 assert.deepEqual(layoutEditorProofFixture.rooms[0], room);
+
+assert.throws(
+  () =>
+    editSelectedRoomDimensionsInLayout({
+      layout: layoutEditorProofFixture,
+      selectedObjectType: "room",
+      selectedObjectId: room.id,
+      roomId: room.id,
+      changes: { xFeet: Number.NaN },
+      snapMode: "default"
+    }),
+  /finite number/
+);
+
+const minimumSizeLayout = editSelectedRoomDimensionsInLayout({
+  layout: layoutEditorProofFixture,
+  selectedObjectType: "room",
+  selectedObjectId: room.id,
+  roomId: room.id,
+  changes: { widthFeet: 1, heightFeet: 2 },
+  snapMode: "default"
+});
+const minimumSizeRoom = minimumSizeLayout.rooms.find((candidate) => candidate.id === room.id);
+if (minimumSizeRoom == null) {
+  throw new Error("minimum size layout must include room-01");
+}
+assert.equal(minimumSizeRoom.widthFeet, 4);
+assert.equal(minimumSizeRoom.heightFeet, 4);
