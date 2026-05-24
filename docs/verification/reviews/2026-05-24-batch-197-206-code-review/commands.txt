@@ -1,0 +1,18 @@
+git diff --stat d23cc31..HEAD *> docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/batch-diff-stat.txt
+node scripts/check-dependency-specs.mjs *> docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/dependency-specs.txt
+rg -n "Math\.random|Date\.now|new Date\(|crypto\.random|randomUUID|patientName|patient name|diagnosis|clinical note|ehr|EHR|ssn|mrn|medical record|chart|encounter|insurance|date of birth|DOB|optimizer|pathfinding|Dockerfile|docker compose|latest" packages/shared/src packages/shared/tests apps/api/app apps/api/tests apps/web/src/fixtures docs/contracts docs/verification/issues/issue-197 docs/verification/issues/issue-198 docs/verification/issues/issue-199 docs/verification/issues/issue-200 docs/verification/issues/issue-201 docs/verification/issues/issue-202 docs/verification/issues/issue-203 docs/verification/issues/issue-204 docs/verification/issues/issue-205 docs/verification/issues/issue-206 docker-compose.yml apps/api/Dockerfile.local apps/api/Dockerfile.production apps/web/Dockerfile.local apps/web/Dockerfile.production *> docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/static-review-search.txt
+npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/shared.txt
+npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/web.txt
+npm --workspace apps/web run build *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/web-build.txt
+cd apps/api && python -m pytest *>&1 | Tee-Object -FilePath ../../docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/docs-gate.txt
+git diff --check *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/git-diff-check.txt
+docker compose config *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/docker-compose-config.txt
+docker compose up --build -d *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/docker-compose-up.txt
+docker compose ps *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/docker-compose-ps.txt
+docker build -f apps/api/Dockerfile.production . *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/api-production-docker-build.txt
+docker build -f apps/web/Dockerfile.production . *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/web-production-docker-build.txt
+docker compose down *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/docker-compose-down-before-verify-local.txt
+node scripts/verify-local.mjs *>&1 | Tee-Object -FilePath docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/verify-local.txt
+git status --short *> docs/verification/reviews/2026-05-24-batch-197-206-code-review/test-output/git-status-after.txt

@@ -1,0 +1,691 @@
+docs\verification\issues\issue-199\test-output\shared.txt:1042:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-199\test-output\shared.txt:1043:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-199\test-output\shared.txt:1606:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-199\test-output\shared.txt:1607:ok 267 - valid optimizer shell contract passes
+docs\verification\issues\issue-199\test-output\shared.txt:1642:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-199\test-output\shared.txt:1643:ok 273 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-199\test-output\shared.txt:1648:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-199\test-output\shared.txt:1649:ok 274 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-199\test-output\shared.txt:1660:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-199\test-output\shared.txt:1661:ok 276 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-199\test-output\shared.txt:1666:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-199\test-output\shared.txt:1667:ok 277 - optimizer output remains deterministic
+docs\verification\issues\issue-199\test-output\shared.txt:1678:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-199\test-output\shared.txt:1679:ok 279 - selected candidate matches optimizer output
+docs\verification\issues\issue-199\test-output\shared.txt:1726:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-199\test-output\shared.txt:1727:ok 287 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-199\test-output\shared.txt:1732:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-199\test-output\shared.txt:1733:ok 288 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-199\test-output\shared.txt:1738:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-199\test-output\shared.txt:1739:ok 289 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-199\test-output\shared.txt:1744:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-199\test-output\shared.txt:1745:ok 290 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-199\test-output\shared.txt:1750:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-199\test-output\shared.txt:1751:ok 291 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-199\test-output\shared.txt:1756:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-199\test-output\shared.txt:1757:ok 292 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-199\test-output\shared.txt:1762:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-199\test-output\shared.txt:1763:ok 293 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-199\test-output\shared.txt:2266:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-199\test-output\shared.txt:2267:ok 377 - optimizer output is byte-stable for repeated input
+apps\api\app\schemas\simulation.py:14:    "diagnosis",
+apps\api\app\schemas\simulation.py:15:    "diagnosis" + "code",
+apps\api\app\schemas\simulation.py:17:    "chart",
+apps\api\app\schemas\simulation.py:374:        "diagnosis",
+apps\api\app\schemas\simulation.py:377:        "chart",
+docs\verification\issues\issue-200\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+docs\verification\issues\issue-199\closeout.md:71:- Does not add optimizer behavior.
+docs\verification\issues\issue-199\closeout.md:74:- Does not change simulation execution, pathfinding, API persistence routes, Docker, or deployment.
+docs\verification\issues\issue-199\closeout.md:78:- Room metadata is validation-only and is not consumed by scoring, pathing, assignment, simulation, or optimizer behavior.
+apps\web\src\fixtures\simulationTimelineProof.ts:90:      "No optimizer or clinical claim is applied."
+docs\verification\issues\issue-200\test-output\shared.txt:1042:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-200\test-output\shared.txt:1043:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-200\test-output\shared.txt:1606:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-200\test-output\shared.txt:1607:ok 267 - valid optimizer shell contract passes
+docs\verification\issues\issue-200\test-output\shared.txt:1642:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-200\test-output\shared.txt:1643:ok 273 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-200\test-output\shared.txt:1648:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-200\test-output\shared.txt:1649:ok 274 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-200\test-output\shared.txt:1660:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-200\test-output\shared.txt:1661:ok 276 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-200\test-output\shared.txt:1666:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-200\test-output\shared.txt:1667:ok 277 - optimizer output remains deterministic
+docs\verification\issues\issue-200\test-output\shared.txt:1678:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-200\test-output\shared.txt:1679:ok 279 - selected candidate matches optimizer output
+docs\verification\issues\issue-200\test-output\shared.txt:1726:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-200\test-output\shared.txt:1727:ok 287 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-200\test-output\shared.txt:1732:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-200\test-output\shared.txt:1733:ok 288 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-200\test-output\shared.txt:1738:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-200\test-output\shared.txt:1739:ok 289 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-200\test-output\shared.txt:1744:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-200\test-output\shared.txt:1745:ok 290 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-200\test-output\shared.txt:1750:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-200\test-output\shared.txt:1751:ok 291 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-200\test-output\shared.txt:1756:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-200\test-output\shared.txt:1757:ok 292 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-200\test-output\shared.txt:1762:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-200\test-output\shared.txt:1763:ok 293 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-200\test-output\shared.txt:2266:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-200\test-output\shared.txt:2267:ok 377 - optimizer output is byte-stable for repeated input
+apps\api\tests\test_simulation_contract.py:170:def test_validate_endpoint_rejects_diagnosis_like_field(client: TestClient) -> None:
+apps\api\tests\test_simulation_contract.py:172:    payload["diagnosis"] = "not allowed"
+docs\verification\issues\issue-198\closeout.md:67:- Does not change pathfinding.
+docs\verification\issues\issue-198\closeout.md:68:- Does not change optimizer behavior.
+docs\verification\issues\issue-198\closeout.md:71:- Does not add clinical safety, staffing-compliance, legal-compliance, EHR, or PHI support.
+apps\web\src\fixtures\phase8ExportBundleReview.ts:70:        "No optimizer or workload rebalancing is applied.",
+apps\web\src\fixtures\phase8ExportBundleReview.ts:140:        "No optimizer or workload rebalancing is applied.",
+apps\web\src\fixtures\phase8ExportBundleReview.ts:198:      "No optimizer or workload rebalancing is applied.",
+apps\web\src\fixtures\phase8ExportBundleReview.ts:206:    "No optimizer or workload rebalancing is applied.",
+packages\shared\src\simulation\simulationScoring.ts:24:  "No optimizer-only score or clinical claim is applied."
+packages\shared\src\simulation\simulationRunContract.ts:162:  "diagnosis",
+packages\shared\src\simulation\simulationRunContract.ts:163:  ["diagnosis", "code"].join(""),
+packages\shared\src\simulation\simulationRunContract.ts:165:  "ehr",
+packages\shared\src\simulation\simulationRunContract.ts:167:  "chart",
+packages\shared\src\simulation\simulationRunContract.ts:177:  "diagnosis",
+packages\shared\src\simulation\simulationRunContract.ts:179:  "ehr",
+packages\shared\src\simulation\simulationRunContract.ts:180:  "chart",
+docs\verification\issues\issue-200\closeout.md:75:- Does not add optimizer behavior.
+docs\verification\issues\issue-200\closeout.md:76:- Does not add PHI, diagnosis text, clinical notes, EHR fields, API persistence routes, Docker, or deployment changes.
+docs\verification\issues\issue-200\closeout.md:80:- Zone metadata is validation-only and is not consumed by rendering, pathfinding, assignment, scoring, simulation, or optimizer behavior.
+packages\shared\src\simulation\simulationExecution.ts:45:  "No optimizer or clinical claim is applied.",
+docs\verification\issues\issue-197\first-failure.txt:15:      "category": "contact/location/insurance",
+docs\verification\issues\issue-197\first-failure.txt:19:      "category": "encounter/export/lab/discharge",
+docs\verification\issues\issue-198\test-output\shared.txt:1042:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-198\test-output\shared.txt:1043:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-198\test-output\shared.txt:1606:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-198\test-output\shared.txt:1607:ok 267 - valid optimizer shell contract passes
+docs\verification\issues\issue-198\test-output\shared.txt:1642:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-198\test-output\shared.txt:1643:ok 273 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-198\test-output\shared.txt:1648:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-198\test-output\shared.txt:1649:ok 274 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-198\test-output\shared.txt:1660:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-198\test-output\shared.txt:1661:ok 276 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-198\test-output\shared.txt:1666:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-198\test-output\shared.txt:1667:ok 277 - optimizer output remains deterministic
+docs\verification\issues\issue-198\test-output\shared.txt:1678:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-198\test-output\shared.txt:1679:ok 279 - selected candidate matches optimizer output
+docs\verification\issues\issue-198\test-output\shared.txt:1726:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-198\test-output\shared.txt:1727:ok 287 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-198\test-output\shared.txt:1732:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-198\test-output\shared.txt:1733:ok 288 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-198\test-output\shared.txt:1738:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-198\test-output\shared.txt:1739:ok 289 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-198\test-output\shared.txt:1744:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-198\test-output\shared.txt:1745:ok 290 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-198\test-output\shared.txt:1750:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-198\test-output\shared.txt:1751:ok 291 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-198\test-output\shared.txt:1756:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-198\test-output\shared.txt:1757:ok 292 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-198\test-output\shared.txt:1762:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-198\test-output\shared.txt:1763:ok 293 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-198\test-output\shared.txt:2242:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-198\test-output\shared.txt:2243:ok 373 - optimizer output is byte-stable for repeated input
+packages\shared\src\simulation\nurseQueue.ts:18:  "No optimizer or clinical claim is applied."
+apps\web\src\fixtures\optimizerProof.ts:7:export const optimizerProofFixture: OptimizerProofFixture = {
+apps\web\src\fixtures\optimizerProof.ts:10:    auditTrailId: "optimizer-audit-baseline-optimizer-basic",
+apps\web\src\fixtures\optimizerProof.ts:11:    optimizerRunId: "baseline-optimizer-basic",
+apps\web\src\fixtures\optimizerProof.ts:17:        simulationScoreId: "simulation-score-baseline-optimizer-basic-variant-run-candidate-original",
+apps\web\src\fixtures\optimizerProof.ts:23:        simulationScoreId: "simulation-score-baseline-optimizer-basic-variant-run-candidate-room-count-balanced",
+apps\web\src\fixtures\optimizerProof.ts:29:        simulationScoreId: "simulation-score-baseline-optimizer-basic-variant-run-candidate-task-minute-balanced",
+docs\verification\issues\issue-197\test-output\verify-local.txt:2:> docker compose config
+docs\verification\issues\issue-197\test-output\verify-local.txt:8:      dockerfile: apps/api/Dockerfile.local
+docs\verification\issues\issue-197\test-output\verify-local.txt:49:      dockerfile: apps/web/Dockerfile.local
+docs\verification\issues\issue-197\test-output\verify-local.txt:70:> docker compose up --build -d
+docs\verification\issues\issue-197\test-output\verify-local.txt:77:#2 [web internal] load build definition from Dockerfile.local
+docs\verification\issues\issue-197\test-output\verify-local.txt:81:#3 [api internal] load build definition from Dockerfile.local
+docs\verification\issues\issue-197\test-output\verify-local.txt:169:#25 naming to docker.io/library/hub-api:latest 0.0s done
+docs\verification\issues\issue-197\test-output\verify-local.txt:170:#25 unpacking to docker.io/library/hub-api:latest 0.0s done
+docs\verification\issues\issue-197\test-output\verify-local.txt:176:#24 naming to docker.io/library/hub-web:latest
+docs\verification\issues\issue-197\test-output\verify-local.txt:177:#24 naming to docker.io/library/hub-web:latest 0.0s done
+docs\verification\issues\issue-197\test-output\verify-local.txt:178:#24 unpacking to docker.io/library/hub-web:latest 0.0s done
+docs\verification\issues\issue-197\test-output\verify-local.txt:200:> docker compose ps
+docs\verification\issues\issue-197\test-output\verify-local.txt:206:> docker compose --profile tools run --rm migrate
+docs\verification\issues\issue-197\test-output\verify-local.txt:251:      "fixture": "invalid-diagnosis-text.json",
+docs\verification\issues\issue-197\test-output\verify-local.txt:257:      "fixture": "invalid-ehr-id.json",
+docs\verification\issues\issue-197\test-output\verify-local.txt:1367:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-197\test-output\verify-local.txt:1368:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-197\test-output\verify-local.txt:1913:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-197\test-output\verify-local.txt:1914:ok 264 - valid optimizer shell contract passes
+docs\verification\issues\issue-197\test-output\verify-local.txt:1949:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:1950:ok 270 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:1955:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:1956:ok 271 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:1967:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-197\test-output\verify-local.txt:1968:ok 273 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-197\test-output\verify-local.txt:1973:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-197\test-output\verify-local.txt:1974:ok 274 - optimizer output remains deterministic
+docs\verification\issues\issue-197\test-output\verify-local.txt:1985:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-197\test-output\verify-local.txt:1986:ok 276 - selected candidate matches optimizer output
+docs\verification\issues\issue-197\test-output\verify-local.txt:2033:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-197\test-output\verify-local.txt:2034:ok 284 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-197\test-output\verify-local.txt:2039:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-197\test-output\verify-local.txt:2040:ok 285 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-197\test-output\verify-local.txt:2045:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-197\test-output\verify-local.txt:2046:ok 286 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-197\test-output\verify-local.txt:2051:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-197\test-output\verify-local.txt:2052:ok 287 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-197\test-output\verify-local.txt:2057:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-197\test-output\verify-local.txt:2058:ok 288 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-197\test-output\verify-local.txt:2063:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:2064:ok 289 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-197\test-output\verify-local.txt:2069:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-197\test-output\verify-local.txt:2070:ok 290 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-197\test-output\verify-local.txt:2549:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-197\test-output\verify-local.txt:2550:ok 370 - optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-197\test-output\verify-local.txt:3132:> src/features/optimization/optimizerProofViewModel.test.ts
+docs\verification\issues\issue-197\rejected-identifier-text-output.json:10:    "insurance identifier",
+docs\verification\issues\issue-197\rejected-identifier-text-output.json:11:    "encounter workflow identifier",
+packages\shared\src\simulation\assignmentVariantRunner.ts:33:  "No optimizer or clinical claim is applied by the runner."
+docs\verification\issues\issue-197\closeout.md:5:Expanded runtime no-PHI text guard coverage for synthetic birth-date identifier wording, government identifier wording, contact/location/insurance wording, and visit/encounter/chart/export/lab/discharge identifier wording. TypeScript and Python rule sets now use aligned deterministic categories, and rejection messages keep using `NO_PHI_RUNTIME_REJECTION` without echoing rejected values.
+docs\verification\issues\issue-197\closeout.md:9:`first-failure.txt` shows the pre-change guard allowed synthetic birth-date, government identifier, contact/location, and encounter identifier text.
+docs\verification\issues\issue-197\closeout.md:72:- Does not add simulation, optimizer, pathfinding, API persistence, or deployment behavior.
+docs\verification\issues\issue-197\no-phi-guard-expanded-output.json:10:    "insurance identifier",
+docs\verification\issues\issue-197\no-phi-guard-expanded-output.json:11:    "encounter workflow identifier",
+docs\verification\issues\issue-197\test-output\shared.txt:1042:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-197\test-output\shared.txt:1043:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-197\test-output\shared.txt:1588:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-197\test-output\shared.txt:1589:ok 264 - valid optimizer shell contract passes
+docs\verification\issues\issue-197\test-output\shared.txt:1624:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-197\test-output\shared.txt:1625:ok 270 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-197\test-output\shared.txt:1630:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-197\test-output\shared.txt:1631:ok 271 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-197\test-output\shared.txt:1642:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-197\test-output\shared.txt:1643:ok 273 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-197\test-output\shared.txt:1648:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-197\test-output\shared.txt:1649:ok 274 - optimizer output remains deterministic
+docs\verification\issues\issue-197\test-output\shared.txt:1660:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-197\test-output\shared.txt:1661:ok 276 - selected candidate matches optimizer output
+docs\verification\issues\issue-197\test-output\shared.txt:1708:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-197\test-output\shared.txt:1709:ok 284 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-197\test-output\shared.txt:1714:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-197\test-output\shared.txt:1715:ok 285 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-197\test-output\shared.txt:1720:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-197\test-output\shared.txt:1721:ok 286 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-197\test-output\shared.txt:1726:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-197\test-output\shared.txt:1727:ok 287 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-197\test-output\shared.txt:1732:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-197\test-output\shared.txt:1733:ok 288 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-197\test-output\shared.txt:1738:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-197\test-output\shared.txt:1739:ok 289 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-197\test-output\shared.txt:1744:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-197\test-output\shared.txt:1745:ok 290 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-197\test-output\shared.txt:2224:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-197\test-output\shared.txt:2225:ok 370 - optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-202\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+docs\verification\issues\issue-201\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+docs\contracts\assumptions-driven-scoring-contract.md:24:This contract does not add simulation, optimization, generated task assignment, walking routes, delay calculation, hidden scoring, PHI, patient identity, EHR integration, or clinical safety certification claims.
+docs\contracts\api-simulation-contract.md:7:The API contract is operational-only. It rejects PHI-like keys before save, returns source IDs and limitations, and does not call optimizer logic.
+docker-compose.yml:19:      dockerfile: apps/api/Dockerfile.local
+docker-compose.yml:37:      dockerfile: apps/api/Dockerfile.local
+docker-compose.yml:49:      dockerfile: apps/web/Dockerfile.local
+docs\contracts\care-task-template-contract.md:3:Care task templates are abstract operational workload templates. They are not clinical orders, care instructions, patient records, or EHR-derived content.
+docs\contracts\care-task-template-contract.md:50:Templates do not generate tasks by themselves. They do not assign work to nurses, simulate completion, calculate routes, persist data, or introduce diagnosis text, clinical notes, EHR integration, or clinical safety certification language.
+docs\contracts\local-first-verification-contract.md:10:- The local verifier must run `docker compose up --build -d` before migrations and API smoke proof.
+docs\contracts\local-first-verification-contract.md:11:- The local verifier must run `docker compose ps` after startup.
+docs\contracts\local-first-verification-contract.md:37:npm run evidence:local -- --out docs/verification/local-runs/latest
+docs\contracts\local-first-verification-contract.md:38:LOCAL_EVIDENCE_DIR=docs/verification/local-runs/latest npm run evidence:local
+docs\contracts\local-first-verification-contract.md:41:Evidence output target precedence is `--out <path>`, then `LOCAL_EVIDENCE_DIR`, then `--tracked`, then the OS temp transient default. `--tracked` resolves to `docs/verification/local-runs/latest/`; repository-local custom output must stay under `docs/verification/local-runs/`.
+docs\contracts\local-first-verification-contract.md:49:- Do not add PHI fields, clinical safety claims, EHR integration, hidden scoring, or optimizer behavior.
+docs\contracts\codex-global-invariants.md:7:- No PHI, real patient identity, EHR integration, diagnosis text, or clinical note workflow is allowed.
+apps\api\app\contracts.py:1992:            r"\b(?:m\s*r\s*n|medical record|record number|chart(?: id| number)?|visit(?: id| number)?|encounter(?: id| number)?|lab(?: id| number| accession)|date of birth|d\s*o\s*b|birth date|born on)\b",
+apps\api\app\contracts.py:2004:        "contact location or insurance language",
+apps\api\app\contracts.py:2006:            r"\b(?:phone(?: number)?|telephone|email(?: address)?|home address|street address|mailing address|zip code|insurance(?: id| number| member| policy)?|policy number|member id)\b",
+apps\api\app\contracts.py:2013:            r"\b(?:discharge(?: summary| instructions| paperwork| disposition)?|lab result|chart export|encounter record|visit record)\b",
+apps\api\app\contracts.py:2022:        "clinical-note or diagnosis language",
+apps\api\app\contracts.py:2023:        re.compile(r"\b(?:diagnosis|chief complaint|clinical note|treatment plan|chest pain|patient identity|patient name)\b", re.IGNORECASE),
+apps\api\app\contracts.py:2071:        "diagnosis",
+apps\api\app\contracts.py:2073:        "clinical note",
+apps\api\app\contracts.py:2074:        "patient name",
+apps\api\app\contracts.py:2075:        "ehr",
+apps\api\app\contracts.py:2133:        ("no optimizer", ("no optimizer",)),
+apps\api\app\contracts.py:2146:        ("no optimizer", ("no optimizer",)),
+apps\api\app\contracts.py:2162:        ("no optimizer", ("no optimizer",)),
+docs\verification\issues\issue-201\test-output\shared.txt:1042:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-201\test-output\shared.txt:1043:ok 173 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-201\test-output\shared.txt:1624:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-201\test-output\shared.txt:1625:ok 270 - valid optimizer shell contract passes
+docs\verification\issues\issue-201\test-output\shared.txt:1660:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-201\test-output\shared.txt:1661:ok 276 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-201\test-output\shared.txt:1666:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-201\test-output\shared.txt:1667:ok 277 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-201\test-output\shared.txt:1678:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-201\test-output\shared.txt:1679:ok 279 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-201\test-output\shared.txt:1684:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-201\test-output\shared.txt:1685:ok 280 - optimizer output remains deterministic
+docs\verification\issues\issue-201\test-output\shared.txt:1696:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-201\test-output\shared.txt:1697:ok 282 - selected candidate matches optimizer output
+docs\verification\issues\issue-201\test-output\shared.txt:1744:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-201\test-output\shared.txt:1745:ok 290 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-201\test-output\shared.txt:1750:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-201\test-output\shared.txt:1751:ok 291 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-201\test-output\shared.txt:1756:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-201\test-output\shared.txt:1757:ok 292 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-201\test-output\shared.txt:1762:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-201\test-output\shared.txt:1763:ok 293 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-201\test-output\shared.txt:1768:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-201\test-output\shared.txt:1769:ok 294 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-201\test-output\shared.txt:1774:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-201\test-output\shared.txt:1775:ok 295 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-201\test-output\shared.txt:1780:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-201\test-output\shared.txt:1781:ok 296 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-201\test-output\shared.txt:2284:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-201\test-output\shared.txt:2285:ok 380 - optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-202\test-output\shared.txt:1060:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-202\test-output\shared.txt:1061:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-202\test-output\shared.txt:1642:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-202\test-output\shared.txt:1643:ok 273 - valid optimizer shell contract passes
+docs\verification\issues\issue-202\test-output\shared.txt:1678:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-202\test-output\shared.txt:1679:ok 279 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-202\test-output\shared.txt:1684:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-202\test-output\shared.txt:1685:ok 280 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-202\test-output\shared.txt:1696:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-202\test-output\shared.txt:1697:ok 282 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-202\test-output\shared.txt:1702:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-202\test-output\shared.txt:1703:ok 283 - optimizer output remains deterministic
+docs\verification\issues\issue-202\test-output\shared.txt:1714:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-202\test-output\shared.txt:1715:ok 285 - selected candidate matches optimizer output
+docs\verification\issues\issue-202\test-output\shared.txt:1762:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-202\test-output\shared.txt:1763:ok 293 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-202\test-output\shared.txt:1768:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-202\test-output\shared.txt:1769:ok 294 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-202\test-output\shared.txt:1774:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-202\test-output\shared.txt:1775:ok 295 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-202\test-output\shared.txt:1780:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-202\test-output\shared.txt:1781:ok 296 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-202\test-output\shared.txt:1786:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-202\test-output\shared.txt:1787:ok 297 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-202\test-output\shared.txt:1792:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-202\test-output\shared.txt:1793:ok 298 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-202\test-output\shared.txt:1798:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-202\test-output\shared.txt:1799:ok 299 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-202\test-output\shared.txt:2302:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-202\test-output\shared.txt:2303:ok 383 - optimizer output is byte-stable for repeated input
+docs\contracts\generated-task-output-contract.md:44:Generated task sets are abstract operational data. They do not contain patient identity, diagnosis text, clinical notes, clinical orders, EHR imports, task completion state, walking routes, delay calculations, nurse assignment algorithms, optimizer fields, or clinical safety certification claims.
+docs\contracts\er-layout-metadata-contract.md:7:ER layout metadata is operational simulation input only. It supports future pathing, assignment, scoring, and optimizer realism without adding patient records, clinical documentation, EHR data, or safety/compliance claims.
+docs\contracts\er-layout-metadata-contract.md:97:This metadata does not change pathfinding, walking calculations, fire-code analysis, stretcher/bed movement safety, or compliance status.
+docs\contracts\er-layout-metadata-contract.md:115:This metadata does not mutate room geometry, simulate door state over time, certify isolation safety, or change pathfinding behavior.
+docs\contracts\er-layout-metadata-contract.md:148:`preferredTraumaZoneId` must reference a known zone when present. `linkedPathNodeId` must reference a known path node when present. This metadata does not add patient arrival records, arrival simulation, trauma-flow safety certification, patient outcomes, or pathfinding changes.
+docs\contracts\er-layout-metadata-contract.md:179:Overflow references must point to known hallways and stations. Adjacency references must point to known zones. These objects do not include patient data, diagnosis, narrative clinical notes, hallway-bed appropriateness certification, trauma readiness certification, behavioral event prediction, or clinical safety scoring.
+docs\contracts\er-layout-metadata-contract.md:194:- Patient identity, contact, insurance, government identifier, visit, encounter, chart, lab, or discharge text.
+docs\contracts\er-layout-metadata-contract.md:195:- Diagnosis, chief complaint, treatment, clinical note, or clinical recommendation text.
+docs\contracts\er-layout-metadata-contract.md:196:- EHR import, export, mapping, or sync identifiers.
+docs\contracts\er-layout-metadata-contract.md:219:`plan-er-pod-phase2` is the canonical metadata-rich ER pod fixture after Issue 206. It must remain valid in both TypeScript and Python and must represent every metadata object in this contract before path graph editing, walking-truth, assignment-input, or optimizer-adjacent work consumes these fields.
+docs\contracts\er-layout-metadata-contract.md:223:This contract does not add simulation behavior, pathfinding behavior, assignment scoring, optimizer behavior, production deployment behavior, clinical safety certification, staffing compliance certification, legal compliance, EHR support, or PHI support.
+docs\contracts\nurse-burden-scoring-contract.md:3:Nurse burden scoring is deterministic operational scoring for manual assignment proof. It is not a full-shift simulation, route engine, optimizer, or clinical safety certification.
+docs\contracts\operational-summary-report-builder-contract.md:39:- No UI, API endpoint, persistence, PDF export, optimizer, task-completion simulation, walking route calculation, or delay calculation.
+docs\contracts\local-port-contract.md:25:docker compose up --build -d
+docs\contracts\local-port-contract.md:26:docker compose ps
+docs\contracts\local-port-contract.md:27:docker compose --profile tools run --rm migrate
+docs\contracts\environment-contract.md:20:Run migrations with `docker compose --profile tools run --rm migrate`; do not publish Postgres just to apply local migrations.
+docs\contracts\operational-task-generation-contract.md:66:Generated tasks are abstract operational tasks only. There is no patient identity, diagnosis text, clinical note text, clinical order workflow, nurse assignment, task completion simulation, walking route calculation, full-shift simulation, optimizer, API persistence, or UI.
+docs\contracts\operational-report-contract.md:57:- Limitations must include operational-only language, no optimizer, no task-completion simulation, and no walking route calculation.
+docs\contracts\operational-report-contract.md:58:- Report text rejects safety certification, clinical adequacy, diagnosis, treatment, clinical note, patient name, EHR, patient outcome, completed work, walking route accuracy, and delay prediction language.
+docs\contracts\operational-report-contract.md:63:- No UI, API endpoint, PDF export, persistence, optimizer, task-completion simulation, walking route calculation, or delay calculation is part of this contract.
+docs\contracts\optimization-contract.md:3:This contract defines the shared boundary for operational optimizer work.
+docs\contracts\optimization-contract.md:13:The boundary shell does not rank, choose, or recommend a candidate. Later baseline optimizer output uses the assignment variant runner and shared scoring path, with visible tie-breakers and operational-only language.
+docs\contracts\optimization-contract.md:15:No clinical claim, EHR integration, hidden scoring model, API endpoint, persistence, or UI behavior is created by the boundary contract.
+docs\contracts\editable-layout-plan-path-bridge-contract.md:36:- The contract does not run pathfinding, save/load behavior, path sync, or simulation rerun behavior.
+docs\contracts\nurse-task-assignment-contract.md:48:The contract does not add assignment logic, optimization, balancing, completion status, delay calculation, walking route calculation, clinical notes, PHI, EHR integration, or clinical safety certification language.
+docs\contracts\phase-3-manual-assignment-contract.md:3:Manual assignment is a synthetic operational contract for assigning rooms to nurses. It is not a clinical record, staffing certification, EHR integration, optimizer, or simulation output.
+docs\contracts\phase-evidence-gate-registry.md:24:The registry is a local docs checker input only. It does not add GitHub Actions, remote proof, dependencies, API endpoints, persistence, optimizer behavior, scenario recommendation, file upload, file download, PDF export, clinical safety claims, or PHI.
+docs\contracts\phase-2-plan-contract-alignment.md:31:These fields are operational layout attributes only. They are not patient identity, diagnosis, clinical note, or EHR fields.
+docs\verification\issues\issue-201\closeout.md:72:- Does not change pathfinding behavior.
+docs\verification\issues\issue-201\closeout.md:73:- Does not add simulation execution, optimizer, assignment scoring, API persistence routes, Docker, deployment, PHI, diagnosis text, clinical notes, or EHR fields.
+docs\verification\issues\issue-201\closeout.md:77:- Hallway metadata is validation-only and is not consumed by pathfinding, assignment, scoring, simulation, or optimizer behavior.
+docs\contracts\plan-builder-defaults-contract.md:26:The contract stores no PHI, no identity, no diagnosis text, no clinical notes, no EHR fields, no optimizer fields, and no recommendation behavior.
+docs\contracts\deterministic-timestamp-contract.md:27:This contract does not change report calculations, report contents other than timestamp selection, API endpoints, persistence, PDF export, file download behavior, optimizer behavior, scenario recommendation, clinical safety claims, or PHI.
+docs\contracts\deterministic-randomness-contract.md:19:The implementation uses a small SplitMix64-style BigInt PRNG. It uses no external dependency and no `Math.random()`.
+packages\shared\tests\buildOperationalSummaryReport.test.mjs:66:  assert.match(limitationText, /No optimizer/);
+docs\contracts\report-export-json-bundle-contract.md:35:- Limitations include operational-only, no optimizer, no recommendation, and no clinical safety claim language.
+docs\contracts\report-export-json-bundle-contract.md:42:The bundle is a JSON proof object only. It does not add export UI, file download behavior, PDF export, API endpoints, persistence, optimization, scenario recommendation, route calculation, delay calculation, task-completion simulation, EHR integration, or PHI.
+docs\contracts\reproducibility-contract.md:8:- `Math.random()` must not be used in deterministic operational task generation or later simulation logic.
+docs\contracts\room-load-contract.md:3:Room load is an abstract operational workload input. It describes occupied-room workload categories and never stores patient identity, diagnosis text, clinical notes, or EHR-derived data.
+docs\contracts\room-move-path-sync-contract.md:23:- No pathfinding behavior changes.
+apps\api\tests\contracts\test_no_phi_runtime_text.py:29:BLOCKED_INSURANCE_IDENTIFIER = "insurance member ABC123"
+apps\api\tests\contracts\test_no_phi_runtime_text.py:30:BLOCKED_WORKFLOW_IDENTIFIER = "encounter number ABC123"
+apps\api\tests\contracts\test_no_phi_runtime_text.py:103:        ("insurance identifier", BLOCKED_INSURANCE_IDENTIFIER),
+apps\api\tests\contracts\test_no_phi_runtime_text.py:104:        ("encounter workflow identifier", BLOCKED_WORKFLOW_IDENTIFIER),
+docs\contracts\scenario-comparison-contract.md:43:- Limitations include operational-only, no optimizer, no recommendation, and no clinical safety claim language.
+docs\verification\issues\issue-202\closeout.md:73:- Does not change pathfinding behavior.
+docs\verification\issues\issue-202\closeout.md:74:- Does not add simulation execution, optimizer, assignment scoring, API persistence routes, Docker, deployment, PHI, diagnosis text, clinical notes, or EHR fields.
+docs\verification\issues\issue-202\closeout.md:78:- Door metadata is validation-only and is not consumed by pathfinding, assignment, scoring, simulation, optimizer behavior, or UI editing behavior.
+docs\contracts\unassigned-task-warning-report-contract.md:27:- No optimizer recommendations.
+docs\contracts\walking-graph-contract.md:18:- It does not implement pathfinding, walking-distance scoring, nurse assignment, simulation, or optimization.
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:22:function optimizerInput() {
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:24:    optimizerRunId: "baseline-optimizer-basic",
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:32:  const output = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:38:  const output = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:45:  const output = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:59:    buildBaselineAssignmentOptimizer(optimizerInput()),
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:60:    buildBaselineAssignmentOptimizer(optimizerInput())
+packages\shared\tests\baseline-assignment-optimizer.test.mjs:65:  const output = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\src\reports\simulationOperationalReport.ts:42:  "No independent scoring logic, optimizer, API, persistence, or clinical claim is applied."
+docs\verification\issues\issue-205\closeout.md:73:- Does not add simulation execution, pathfinding changes, optimizer behavior, assignment scoring, API persistence routes, Docker, deployment, PHI, diagnosis text, clinical notes, or EHR fields.
+docs\verification\issues\issue-205\closeout.md:77:- Metadata is validation-only and is not consumed by pathfinding, assignment, scoring, simulation, optimizer behavior, or UI editing behavior.
+packages\shared\src\reports\buildOperationalSummaryReport.ts:37:  "No optimizer or workload rebalancing is applied.",
+packages\shared\tests\editable-room-metadata-contract.test.mjs:47:test("editable room metadata rejects unsupported diagnosis-oriented room type text", () => {
+packages\shared\tests\optimization-contract.test.mjs:12:    optimizerBoundaryId: "optimizer-boundary-basic",
+packages\shared\tests\optimization-contract.test.mjs:29:test("valid optimizer shell contract passes", () => {
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:25:function optimizerInput() {
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:27:    optimizerRunId: "baseline-optimizer-constraint",
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:34:function assignedCandidateAssignments(input = optimizerInput()) {
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:45:  const input = optimizerInput();
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:69:  const input = optimizerInput();
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:99:  const input = optimizerInput();
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:117:test("optimizer candidates preserve base unassigned tasks", () => {
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:118:  const output = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:134:test("optimizer still produces deterministic candidates through shared scoring", () => {
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:135:  const first = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\optimizer-constraint-adapter.test.mjs:136:  const second = buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\door-path-node-sync-contract.test.mjs:66:      "Simulation rerun and pathfinding changes are not performed."
+packages\shared\tests\optimizer-audit-trail.test.mjs:24:function optimizerOutput() {
+packages\shared\tests\optimizer-audit-trail.test.mjs:26:    optimizerRunId: "baseline-optimizer-audit",
+packages\shared\tests\optimizer-audit-trail.test.mjs:34:  const output = optimizerOutput();
+packages\shared\tests\optimizer-audit-trail.test.mjs:43:test("selected candidate matches optimizer output", () => {
+packages\shared\tests\optimizer-audit-trail.test.mjs:44:  const output = optimizerOutput();
+packages\shared\tests\optimizer-audit-trail.test.mjs:51:  const output = optimizerOutput();
+packages\shared\tests\optimizer-audit-trail.test.mjs:57:    /orderedCandidateIds|every optimizer candidate/
+packages\shared\tests\optimizer-audit-trail.test.mjs:62:  const output = optimizerOutput();
+packages\shared\tests\optimizer-audit-trail.test.mjs:70:  const output = optimizerOutput();
+packages\shared\tests\no-phi-runtime-text.test.mjs:30:const blockedInsuranceIdentifier = "insurance member ABC123";
+packages\shared\tests\no-phi-runtime-text.test.mjs:31:const blockedWorkflowIdentifier = "encounter number ABC123";
+packages\shared\tests\no-phi-runtime-text.test.mjs:142:    { category: "insurance identifier", value: blockedInsuranceIdentifier },
+packages\shared\tests\no-phi-runtime-text.test.mjs:143:    { category: "encounter workflow identifier", value: blockedWorkflowIdentifier },
+packages\shared\tests\optimizer-fixture-stability.test.mjs:28:function optimizerInput() {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:30:    optimizerRunId: "baseline-optimizer-hardened",
+packages\shared\tests\optimizer-fixture-stability.test.mjs:38:  return buildBaselineAssignmentOptimizer(optimizerInput());
+packages\shared\tests\optimizer-fixture-stability.test.mjs:41:function generatedCandidateAssignments(input = optimizerInput()) {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:51:test("hardened optimizer output remains fixture-stable", () => {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:54:    readFixture("baseline-optimizer-hardened-output.json")
+packages\shared\tests\optimizer-fixture-stability.test.mjs:58:test("hardened optimizer candidate IDs and order are stable", () => {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:59:  const output = readFixture("baseline-optimizer-hardened-output.json");
+packages\shared\tests\optimizer-fixture-stability.test.mjs:67:test("hardened optimizer candidates reference shared simulation score IDs", () => {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:68:  const output = readFixture("baseline-optimizer-hardened-output.json");
+packages\shared\tests\optimizer-fixture-stability.test.mjs:78:test("generated optimizer candidates use optimizer assignment reason", () => {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:79:  const input = optimizerInput();
+packages\shared\tests\optimizer-fixture-stability.test.mjs:90:      .every((assignment) => assignment.assignmentReason === "optimizer_candidate")
+packages\shared\tests\optimizer-fixture-stability.test.mjs:94:test("hardened optimizer builder byte-stable output matches fixture", () => {
+packages\shared\tests\optimizer-fixture-stability.test.mjs:95:  const fixture = readFixture("baseline-optimizer-hardened-output.json");
+docs\verification\issues\issue-205\test-output\shared.txt:1060:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-205\test-output\shared.txt:1061:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-205\test-output\shared.txt:1660:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-205\test-output\shared.txt:1661:ok 276 - valid optimizer shell contract passes
+docs\verification\issues\issue-205\test-output\shared.txt:1696:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-205\test-output\shared.txt:1697:ok 282 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-205\test-output\shared.txt:1702:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-205\test-output\shared.txt:1703:ok 283 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-205\test-output\shared.txt:1714:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-205\test-output\shared.txt:1715:ok 285 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-205\test-output\shared.txt:1720:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-205\test-output\shared.txt:1721:ok 286 - optimizer output remains deterministic
+docs\verification\issues\issue-205\test-output\shared.txt:1732:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-205\test-output\shared.txt:1733:ok 288 - selected candidate matches optimizer output
+docs\verification\issues\issue-205\test-output\shared.txt:1780:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-205\test-output\shared.txt:1781:ok 296 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-205\test-output\shared.txt:1786:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-205\test-output\shared.txt:1787:ok 297 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-205\test-output\shared.txt:1792:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-205\test-output\shared.txt:1793:ok 298 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-205\test-output\shared.txt:1798:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-205\test-output\shared.txt:1799:ok 299 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-205\test-output\shared.txt:1804:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-205\test-output\shared.txt:1805:ok 300 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-205\test-output\shared.txt:1810:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-205\test-output\shared.txt:1811:ok 301 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-205\test-output\shared.txt:1816:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-205\test-output\shared.txt:1817:ok 302 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-205\test-output\shared.txt:2344:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-205\test-output\shared.txt:2345:ok 390 - optimizer output is byte-stable for repeated input
+packages\shared\tests\optimizer-assignment-reason.test.mjs:25:function optimizerInput() {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:27:    optimizerRunId: "baseline-optimizer-assignment-reason",
+packages\shared\tests\optimizer-assignment-reason.test.mjs:34:function generatedCandidateAssignments(input = optimizerInput()) {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:44:function constrainedOptimizerAssignments(input = optimizerInput()) {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:54:  const input = optimizerInput();
+packages\shared\tests\optimizer-assignment-reason.test.mjs:69:test("optimizer candidate uses optimizer_candidate reason", () => {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:75:      .every((assignment) => assignment.assignmentReason === "optimizer_candidate")
+packages\shared\tests\optimizer-assignment-reason.test.mjs:79:test("optimizer candidate does not use manual room coverage reason", () => {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:89:  const input = optimizerInput();
+packages\shared\tests\optimizer-assignment-reason.test.mjs:103:test("variant runner accepts optimizer candidate assignments", () => {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:104:  const input = optimizerInput();
+packages\shared\tests\optimizer-assignment-reason.test.mjs:108:      nurseTaskAssignmentSetId: "nurse-task-assignment-optimizer-candidate-reason",
+packages\shared\tests\optimizer-assignment-reason.test.mjs:109:      assignmentSetId: "optimizer-candidate-assignment-reason",
+packages\shared\tests\optimizer-assignment-reason.test.mjs:118:    variantRunId: "variant-run-optimizer-candidate-reason",
+packages\shared\tests\optimizer-assignment-reason.test.mjs:123:        variantId: "optimizer-candidate-reason",
+packages\shared\tests\optimizer-assignment-reason.test.mjs:133:test("optimizer output remains deterministic", () => {
+packages\shared\tests\optimizer-assignment-reason.test.mjs:135:    buildBaselineAssignmentOptimizer(optimizerInput()),
+packages\shared\tests\optimizer-assignment-reason.test.mjs:136:    buildBaselineAssignmentOptimizer(optimizerInput())
+packages\shared\src\index.ts:21:export * from "./optimization/optimizerConstraintAdapter.js";
+packages\shared\src\index.ts:22:export * from "./optimization/optimizerAuditContract.js";
+packages\shared\src\index.ts:23:export * from "./optimization/optimizerAuditTrail.js";
+packages\shared\tests\room-move-path-sync-contract.test.mjs:98:      "Simulation rerun and pathfinding changes are not performed."
+docs\verification\issues\issue-204\closeout.md:80:- Does not add simulation execution, pathfinding changes, optimizer behavior, assignment scoring, API persistence routes, Docker, deployment, PHI, diagnosis text, clinical notes, or EHR fields.
+docs\verification\issues\issue-204\closeout.md:84:- Entry metadata is validation-only and is not consumed by pathfinding, assignment, scoring, simulation, optimizer behavior, or UI editing behavior.
+docs\verification\issues\issue-204\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+packages\shared\src\comparison\simulationScenarioComparison.ts:49:  "No optimizer, scenario recommendation, or clinical claim is applied."
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:11:import { constrainOptimizerCandidateAssignments } from "./optimizerConstraintAdapter.js";
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:24:  optimizerRunId: string;
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:36:  optimizerRunId: string;
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:94:          "optimizer_candidate"
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:108:          "optimizer_candidate"
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:116:    variantRunId: `${input.optimizerRunId}-variant-run`,
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:132:    throw new Error("optimizer candidates require at least one entry");
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:138:    optimizerRunId: input.optimizerRunId,
+packages\shared\src\optimization\baselineAssignmentOptimizer.ts:234:    assignmentReason: "optimizer_candidate",
+packages\shared\src\comparison\buildScenarioComparison.ts:23:  "No optimizer or workload rebalancing is applied.",
+packages\shared\src\optimization\optimizerConstraintAdapter.ts:13:  const assignedCandidateReason = input.assignedCandidateReason ?? "optimizer_candidate";
+packages\shared\src\no-phi\runtimeTextGuard.ts:11:    pattern: /\b(?:m\s*r\s*n|medical record|record number|chart(?: id| number)?|visit(?: id| number)?|encounter(?: id| number)?|lab(?: id| number| accession)|date of birth|d\s*o\s*b|birth date|born on)\b/i
+packages\shared\src\no-phi\runtimeTextGuard.ts:18:    reason: "contact location or insurance language",
+packages\shared\src\no-phi\runtimeTextGuard.ts:19:    pattern: /\b(?:phone(?: number)?|telephone|email(?: address)?|home address|street address|mailing address|zip code|insurance(?: id| number| member| policy)?|policy number|member id)\b/i
+packages\shared\src\no-phi\runtimeTextGuard.ts:23:    pattern: /\b(?:discharge(?: summary| instructions| paperwork| disposition)?|lab result|chart export|encounter record|visit record)\b/i
+packages\shared\src\no-phi\runtimeTextGuard.ts:30:    reason: "clinical-note or diagnosis language",
+packages\shared\src\no-phi\runtimeTextGuard.ts:31:    pattern: /\b(?:diagnosis|chief complaint|clinical note|treatment plan|chest pain|patient identity|patient name)\b/i
+docs\verification\issues\issue-204\test-output\shared.txt:1060:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-204\test-output\shared.txt:1061:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-204\test-output\shared.txt:1660:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-204\test-output\shared.txt:1661:ok 276 - valid optimizer shell contract passes
+docs\verification\issues\issue-204\test-output\shared.txt:1696:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-204\test-output\shared.txt:1697:ok 282 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-204\test-output\shared.txt:1702:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-204\test-output\shared.txt:1703:ok 283 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-204\test-output\shared.txt:1714:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-204\test-output\shared.txt:1715:ok 285 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-204\test-output\shared.txt:1720:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-204\test-output\shared.txt:1721:ok 286 - optimizer output remains deterministic
+docs\verification\issues\issue-204\test-output\shared.txt:1732:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-204\test-output\shared.txt:1733:ok 288 - selected candidate matches optimizer output
+docs\verification\issues\issue-204\test-output\shared.txt:1780:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-204\test-output\shared.txt:1781:ok 296 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-204\test-output\shared.txt:1786:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-204\test-output\shared.txt:1787:ok 297 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-204\test-output\shared.txt:1792:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-204\test-output\shared.txt:1793:ok 298 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-204\test-output\shared.txt:1798:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-204\test-output\shared.txt:1799:ok 299 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-204\test-output\shared.txt:1804:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-204\test-output\shared.txt:1805:ok 300 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-204\test-output\shared.txt:1810:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-204\test-output\shared.txt:1811:ok 301 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-204\test-output\shared.txt:1816:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-204\test-output\shared.txt:1817:ok 302 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-204\test-output\shared.txt:2320:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-204\test-output\shared.txt:2321:ok 386 - optimizer output is byte-stable for repeated input
+packages\shared\src\optimization\optimizerAuditContract.ts:13:  optimizerRunId: string;
+packages\shared\src\optimization\optimizerAuditContract.ts:39:  optimizerOutput?: BaselineAssignmentOptimizerOutput
+packages\shared\src\optimization\optimizerAuditContract.ts:41:  const audit = requireRecord(value, "optimizerAuditTrail");
+packages\shared\src\optimization\optimizerAuditContract.ts:42:  requireExactKeys(audit, "optimizerAuditTrail", [
+packages\shared\src\optimization\optimizerAuditContract.ts:45:    "optimizerRunId",
+packages\shared\src\optimization\optimizerAuditContract.ts:54:  const optimizerRunId = requireString(audit.optimizerRunId, "optimizerRunId");
+packages\shared\src\optimization\optimizerAuditContract.ts:87:  if (optimizerOutput != null) {
+packages\shared\src\optimization\optimizerAuditContract.ts:88:    if (optimizerRunId !== optimizerOutput.optimizerRunId) {
+packages\shared\src\optimization\optimizerAuditContract.ts:89:      throw new Error("optimizerRunId must match optimizer output");
+packages\shared\src\optimization\optimizerAuditContract.ts:91:    if (selectedOperationalCandidateId !== optimizerOutput.lowestOperationalBurdenCandidateId) {
+packages\shared\src\optimization\optimizerAuditContract.ts:92:      throw new Error("audit selected candidate must match optimizer output");
+packages\shared\src\optimization\optimizerAuditContract.ts:94:    const outputIds = optimizerOutput.candidates.map((candidate) => candidate.candidateId).sort();
+packages\shared\src\optimization\optimizerAuditContract.ts:97:      throw new Error("every optimizer candidate must appear in audit");
+packages\shared\src\optimization\optimizerAuditContract.ts:103:    optimizerRunId,
+packages\shared\src\export\buildBundleAudit.ts:34:  "No persistence, API endpoint, upload, download, signature, encryption, optimizer, or recommendation behavior is included."
+packages\shared\src\pathing\pathTravelTime.ts:12:  "No optimizer, real map data, or clinical claim is applied."
+packages\shared\tests\simulation-determinism-cleanup.test.mjs:61:function optimizerInput() {
+packages\shared\tests\simulation-determinism-cleanup.test.mjs:63:    optimizerRunId: "baseline-optimizer-basic",
+packages\shared\tests\simulation-determinism-cleanup.test.mjs:88:test("optimizer output is byte-stable for repeated input", () => {
+packages\shared\tests\simulation-determinism-cleanup.test.mjs:89:  const first = JSON.stringify(buildBaselineAssignmentOptimizer(optimizerInput()));
+packages\shared\tests\simulation-determinism-cleanup.test.mjs:90:  const second = JSON.stringify(buildBaselineAssignmentOptimizer(optimizerInput()));
+packages\shared\src\layout-editor\editableLayoutGeometryContract.ts:90:  /\b(patient|pt|medical record|record number|chart)\b/i;
+packages\shared\src\layout-editor\editableLayoutGeometryContract.ts:92:  /\b(diagnosis|diagnoses|dx|sepsis|stroke|cardiac|fracture|overdose|symptom)\b/i;
+packages\shared\src\layout-editor\editableLayoutGeometryContract.ts:384:    throw new Error(`${label} must be an operational room type, not diagnosis or clinical text`);
+packages\shared\src\optimization\optimizerAuditTrail.ts:6:} from "./optimizerAuditContract.js";
+packages\shared\src\optimization\optimizerAuditTrail.ts:9:  optimizerOutput: BaselineAssignmentOptimizerOutput
+packages\shared\src\optimization\optimizerAuditTrail.ts:11:  const candidates = optimizerOutput.candidates.map((candidate) => ({
+packages\shared\src\optimization\optimizerAuditTrail.ts:30:      auditTrailId: `optimizer-audit-${optimizerOutput.optimizerRunId}`,
+packages\shared\src\optimization\optimizerAuditTrail.ts:31:      optimizerRunId: optimizerOutput.optimizerRunId,
+packages\shared\src\optimization\optimizerAuditTrail.ts:32:      selectedOperationalCandidateId: optimizerOutput.lowestOperationalBurdenCandidateId,
+packages\shared\src\optimization\optimizerAuditTrail.ts:34:      tieBreakers: [...optimizerOutput.tieBreakers],
+packages\shared\src\optimization\optimizerAuditTrail.ts:41:    optimizerOutput
+packages\shared\src\export\buildReportExportBundle.ts:25:  "No optimizer or workload rebalancing is applied.",
+packages\shared\src\optimization\optimizationContract.ts:40:  optimizerBoundaryId: string;
+packages\shared\src\optimization\optimizationContract.ts:57:  "Boundary-only contract for future operational optimizer work.",
+packages\shared\src\optimization\optimizationContract.ts:104:    "optimizerBoundaryId",
+packages\shared\src\optimization\optimizationContract.ts:123:    optimizerBoundaryId: requireString(output.optimizerBoundaryId, "optimizerBoundaryId"),
+packages\shared\src\contracts.ts:196:  "optimizer_candidate",
+packages\shared\src\contracts.ts:2520:    ["no optimizer", /\bno optimizer\b/],
+packages\shared\src\contracts.ts:2538:    ["no optimizer", /\bno optimizer\b/],
+packages\shared\src\contracts.ts:2712:    ["no optimizer", /\bno optimizer\b/],
+packages\shared\src\contracts.ts:2749:    "diagnosis",
+packages\shared\src\contracts.ts:2751:    "clinical note",
+packages\shared\src\contracts.ts:2752:    "patient name",
+packages\shared\src\contracts.ts:2753:    "ehr"
+packages\shared\src\contracts.ts:3302:    "diagnosis",
+packages\shared\src\contracts.ts:3303:    "clinical note",
+packages\shared\src\layout-editor\doorPathNodeSyncContract.ts:43:  "Simulation rerun and pathfinding changes are not performed."
+packages\shared\src\layout-editor\doorPathNodeSyncContract.ts:48:  "Door stored geometry, path edges, pathfinding changes, and simulation rerun are not performed."
+docs\verification\issues\issue-206\closeout.md:50:No patient identity, diagnosis, clinical note, EHR, insurance, contact, government identifier, or visit identifier fields were added. The no-PHI gate remains part of the acceptance evidence.
+packages\shared\src\export\exportBundleIntegrity.ts:370:    "diagnosis",
+packages\shared\src\export\exportBundleIntegrity.ts:372:    "clinical note",
+packages\shared\src\export\exportBundleIntegrity.ts:373:    "patient name",
+packages\shared\src\export\exportBundleIntegrity.ts:374:    "ehr",
+packages\shared\src\layout-editor\editableLayoutPlanPathBridgeContract.ts:14:  "Path graph mutation, pathfinding changes, and simulation rerun are not performed."
+docs\verification\issues\issue-206\er-layout-metadata-audit.md:5:This audit consolidates metadata added in Issues 198-205. It does not add simulation execution behavior, pathfinding behavior, optimizer behavior, API persistence routes, deployment changes, patient records, diagnosis fields, clinical notes, EHR fields, or safety/compliance scoring.
+docs\verification\issues\issue-206\er-layout-metadata-audit.md:31:- This fixture does not represent PHI, patient identity, diagnoses, clinical notes, EHR fields, or patient arrival records.
+docs\verification\issues\issue-206\er-layout-metadata-audit.md:32:- This fixture does not change pathfinding, assignment scoring, simulation execution, or optimizer behavior.
+docs\verification\issues\issue-206\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+docs\verification\issues\issue-206\follow-up-issues.md:3:1. Path graph and walking-truth batch should consume metadata only after preserving current pathfinding behavior with explicit stability evidence.
+docs\verification\issues\issue-206\follow-up-issues.md:4:2. Layout editor metadata editing should add user controls without adding PHI, diagnosis, clinical note, staff identity, or EHR fields.
+docs\verification\issues\issue-206\follow-up-issues.md:5:3. Assignment workflow work should add transparent scoring inputs before any optimizer candidate generation.
+docs\verification\issues\issue-206\go-no-go.md:9:GO is limited to continued operational layout, path graph, walking-distance, and assignment-input work. It is not GO for production deployment, clinical safety claims, legal/regulatory compliance claims, PHI support, EHR integration, simulation scoring changes, optimizer candidate generation, or pathfinding algorithm changes without a new issue-specific guardrail.
+packages\shared\src\layout-editor\recalculateWalkingDistanceFromEditedLayout.ts:11:  "No full simulation rerun, task schedule regeneration, or pathfinding algorithm change is performed."
+packages\shared\src\outcomes\operationalMetricContract.ts:86:  "diagnosis",
+packages\shared\src\outcomes\operationalMetricContract.ts:87:  "ehr",
+docs\verification\issues\issue-206\test-output\shared.txt:1060:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-206\test-output\shared.txt:1061:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-206\test-output\shared.txt:1666:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-206\test-output\shared.txt:1667:ok 277 - valid optimizer shell contract passes
+docs\verification\issues\issue-206\test-output\shared.txt:1702:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-206\test-output\shared.txt:1703:ok 283 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-206\test-output\shared.txt:1708:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-206\test-output\shared.txt:1709:ok 284 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-206\test-output\shared.txt:1720:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-206\test-output\shared.txt:1721:ok 286 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-206\test-output\shared.txt:1726:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-206\test-output\shared.txt:1727:ok 287 - optimizer output remains deterministic
+docs\verification\issues\issue-206\test-output\shared.txt:1738:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-206\test-output\shared.txt:1739:ok 289 - selected candidate matches optimizer output
+docs\verification\issues\issue-206\test-output\shared.txt:1786:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-206\test-output\shared.txt:1787:ok 297 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-206\test-output\shared.txt:1792:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-206\test-output\shared.txt:1793:ok 298 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-206\test-output\shared.txt:1798:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-206\test-output\shared.txt:1799:ok 299 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-206\test-output\shared.txt:1804:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-206\test-output\shared.txt:1805:ok 300 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-206\test-output\shared.txt:1810:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-206\test-output\shared.txt:1811:ok 301 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-206\test-output\shared.txt:1816:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-206\test-output\shared.txt:1817:ok 302 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-206\test-output\shared.txt:1822:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-206\test-output\shared.txt:1823:ok 303 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-206\test-output\shared.txt:2350:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-206\test-output\shared.txt:2351:ok 391 - optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-203\closeout.md:74:- Does not add optimizer behavior.
+docs\verification\issues\issue-203\closeout.md:75:- Does not add simulation execution, pathfinding changes, assignment scoring, API persistence routes, Docker, deployment, PHI, diagnosis text, clinical notes, or EHR fields.
+docs\verification\issues\issue-203\closeout.md:79:- Station metadata is validation-only and is not consumed by pathfinding, assignment, scoring, simulation, optimizer behavior, or UI editing behavior.
+docs\verification\issues\issue-203\test-output\web.txt:99:> src/features/optimization/optimizerProofViewModel.test.ts
+packages\shared\src\layout-editor\roomMovePathSyncContract.ts:35:  "Simulation rerun and pathfinding changes are not performed."
+packages\shared\src\layout-editor\roomMovePathSyncContract.ts:40:  "Path edges, pathfinding changes, walking metric recalculation, and simulation rerun are not performed."
+docs\verification\issues\issue-206\test-output\verify-local.txt:2:> docker compose config
+docs\verification\issues\issue-206\test-output\verify-local.txt:8:      dockerfile: apps/api/Dockerfile.local
+docs\verification\issues\issue-206\test-output\verify-local.txt:49:      dockerfile: apps/web/Dockerfile.local
+docs\verification\issues\issue-206\test-output\verify-local.txt:70:> docker compose up --build -d
+docs\verification\issues\issue-206\test-output\verify-local.txt:77:#2 [api internal] load build definition from Dockerfile.local
+docs\verification\issues\issue-206\test-output\verify-local.txt:81:#3 [web internal] load build definition from Dockerfile.local
+docs\verification\issues\issue-206\test-output\verify-local.txt:186:#23 naming to docker.io/library/hub-api:latest done
+docs\verification\issues\issue-206\test-output\verify-local.txt:187:#23 unpacking to docker.io/library/hub-api:latest 0.1s done
+docs\verification\issues\issue-206\test-output\verify-local.txt:206:#27 naming to docker.io/library/hub-web:latest done
+docs\verification\issues\issue-206\test-output\verify-local.txt:207:#27 unpacking to docker.io/library/hub-web:latest
+docs\verification\issues\issue-206\test-output\verify-local.txt:208:#27 unpacking to docker.io/library/hub-web:latest 0.2s done
+docs\verification\issues\issue-206\test-output\verify-local.txt:227:> docker compose ps
+docs\verification\issues\issue-206\test-output\verify-local.txt:233:> docker compose --profile tools run --rm migrate
+docs\verification\issues\issue-206\test-output\verify-local.txt:278:      "fixture": "invalid-diagnosis-text.json",
+docs\verification\issues\issue-206\test-output\verify-local.txt:284:      "fixture": "invalid-ehr-id.json",
+docs\verification\issues\issue-206\test-output\verify-local.txt:1412:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-206\test-output\verify-local.txt:1413:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-206\test-output\verify-local.txt:2018:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-206\test-output\verify-local.txt:2019:ok 277 - valid optimizer shell contract passes
+docs\verification\issues\issue-206\test-output\verify-local.txt:2054:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2055:ok 283 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2060:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2061:ok 284 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2072:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-206\test-output\verify-local.txt:2073:ok 286 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-206\test-output\verify-local.txt:2078:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-206\test-output\verify-local.txt:2079:ok 287 - optimizer output remains deterministic
+docs\verification\issues\issue-206\test-output\verify-local.txt:2090:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-206\test-output\verify-local.txt:2091:ok 289 - selected candidate matches optimizer output
+docs\verification\issues\issue-206\test-output\verify-local.txt:2138:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-206\test-output\verify-local.txt:2139:ok 297 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-206\test-output\verify-local.txt:2144:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-206\test-output\verify-local.txt:2145:ok 298 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-206\test-output\verify-local.txt:2150:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-206\test-output\verify-local.txt:2151:ok 299 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-206\test-output\verify-local.txt:2156:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-206\test-output\verify-local.txt:2157:ok 300 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-206\test-output\verify-local.txt:2162:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-206\test-output\verify-local.txt:2163:ok 301 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-206\test-output\verify-local.txt:2168:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2169:ok 302 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-206\test-output\verify-local.txt:2174:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-206\test-output\verify-local.txt:2175:ok 303 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-206\test-output\verify-local.txt:2702:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-206\test-output\verify-local.txt:2703:ok 391 - optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-206\test-output\verify-local.txt:3327:> src/features/optimization/optimizerProofViewModel.test.ts
+packages\shared\tests\simulation-run-contract.test.mjs:69:    diagnosis: "not allowed"
+docs\verification\issues\issue-203\test-output\shared.txt:1060:# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-203\test-output\shared.txt:1061:ok 176 - editable room metadata rejects unsupported diagnosis-oriented room type text
+docs\verification\issues\issue-203\test-output\shared.txt:1642:# Subtest: valid optimizer shell contract passes
+docs\verification\issues\issue-203\test-output\shared.txt:1643:ok 273 - valid optimizer shell contract passes
+docs\verification\issues\issue-203\test-output\shared.txt:1678:# Subtest: optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-203\test-output\shared.txt:1679:ok 279 - optimizer candidate uses optimizer_candidate reason
+docs\verification\issues\issue-203\test-output\shared.txt:1684:# Subtest: optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-203\test-output\shared.txt:1685:ok 280 - optimizer candidate does not use manual room coverage reason
+docs\verification\issues\issue-203\test-output\shared.txt:1696:# Subtest: variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-203\test-output\shared.txt:1697:ok 282 - variant runner accepts optimizer candidate assignments
+docs\verification\issues\issue-203\test-output\shared.txt:1702:# Subtest: optimizer output remains deterministic
+docs\verification\issues\issue-203\test-output\shared.txt:1703:ok 283 - optimizer output remains deterministic
+docs\verification\issues\issue-203\test-output\shared.txt:1714:# Subtest: selected candidate matches optimizer output
+docs\verification\issues\issue-203\test-output\shared.txt:1715:ok 285 - selected candidate matches optimizer output
+docs\verification\issues\issue-203\test-output\shared.txt:1762:# Subtest: optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-203\test-output\shared.txt:1763:ok 293 - optimizer candidates preserve base unassigned tasks
+docs\verification\issues\issue-203\test-output\shared.txt:1768:# Subtest: optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-203\test-output\shared.txt:1769:ok 294 - optimizer still produces deterministic candidates through shared scoring
+docs\verification\issues\issue-203\test-output\shared.txt:1774:# Subtest: hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-203\test-output\shared.txt:1775:ok 295 - hardened optimizer output remains fixture-stable
+docs\verification\issues\issue-203\test-output\shared.txt:1780:# Subtest: hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-203\test-output\shared.txt:1781:ok 296 - hardened optimizer candidate IDs and order are stable
+docs\verification\issues\issue-203\test-output\shared.txt:1786:# Subtest: hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-203\test-output\shared.txt:1787:ok 297 - hardened optimizer candidates reference shared simulation score IDs
+docs\verification\issues\issue-203\test-output\shared.txt:1792:# Subtest: generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-203\test-output\shared.txt:1793:ok 298 - generated optimizer candidates use optimizer assignment reason
+docs\verification\issues\issue-203\test-output\shared.txt:1798:# Subtest: hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-203\test-output\shared.txt:1799:ok 299 - hardened optimizer builder byte-stable output matches fixture
+docs\verification\issues\issue-203\test-output\shared.txt:2302:# Subtest: optimizer output is byte-stable for repeated input
+docs\verification\issues\issue-203\test-output\shared.txt:2303:ok 383 - optimizer output is byte-stable for repeated input

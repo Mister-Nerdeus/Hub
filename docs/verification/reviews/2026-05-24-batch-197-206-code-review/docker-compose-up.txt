@@ -1,0 +1,130 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 881B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 305B done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.local
+#3 transferring dockerfile: 422B done
+#3 DONE 0.0s
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [auth] library/node:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/node:22-alpine
+#6 DONE 0.9s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 DONE 1.0s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 127B done
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 DONE 0.0s
+
+#10 [api internal] load build context
+#10 transferring context: 935.61kB 0.1s done
+#10 DONE 0.1s
+
+#11 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#11 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#11 DONE 0.1s
+
+#12 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#12 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#12 DONE 0.1s
+
+#13 [api 2/5] WORKDIR /app
+#13 CACHED
+
+#14 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#14 CACHED
+
+#15 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#15 CACHED
+
+#16 [api 5/5] COPY apps/api/ ./
+#16 CACHED
+
+#17 [api] exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:9daefa0f16afcb91ec900a3f147d027351651acd4044e2e81d4a21ba779b34af done
+#17 exporting config sha256:9611953f34c9375904e59f20582579f368d0182f54fcab0d339da6a271a9399c done
+#17 exporting attestation manifest sha256:0ddf166441c0688ee57a91141dfa8f1045a6dceaa565a763e0be0d24c672aa9e
+#17 exporting attestation manifest sha256:0ddf166441c0688ee57a91141dfa8f1045a6dceaa565a763e0be0d24c672aa9e 0.1s done
+#17 exporting manifest list sha256:3bd357f5956e1445820f2760ad9898e0a0688ad50ca23079f90400b59aafbe1d 0.0s done
+#17 naming to docker.io/library/hub-api:latest
+#17 naming to docker.io/library/hub-api:latest done
+#17 unpacking to docker.io/library/hub-api:latest 0.0s done
+#17 DONE 0.4s
+
+#9 [web internal] load build context
+#9 transferring context: 3.50MB 0.9s done
+#9 DONE 1.0s
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [web  2/10] WORKDIR /repo
+#19 CACHED
+
+#20 [web  6/10] RUN npm ci
+#20 CACHED
+
+#21 [web  3/10] COPY package.json package-lock.json ./
+#21 CACHED
+
+#22 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#22 CACHED
+
+#23 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#23 CACHED
+
+#24 [web  7/10] COPY tsconfig.base.json ./
+#24 CACHED
+
+#25 [web  8/10] COPY apps/web apps/web
+#25 DONE 0.2s
+
+#26 [web  9/10] COPY packages/shared packages/shared
+#26 DONE 0.1s
+
+#27 [web 10/10] WORKDIR /repo/apps/web
+#27 DONE 0.1s
+
+#28 [web] exporting to image
+#28 exporting layers 0.3s done
+#28 exporting manifest sha256:11cecaf6496fff6f56408ebd651c18a361e56234a28b60fa51bc9fc86d3de162 0.0s done
+#28 exporting config sha256:5072108bd206ba1cc88ed85b018634fe26d30d85317c7ca5ab827bbe1e1b8884 0.0s done
+#28 exporting attestation manifest sha256:68817f1824c97eba54842cee0823584eaf0ff6807019419ef0bc9b104a7f8f49 0.0s done
+#28 exporting manifest list sha256:b92cab643a55985554626692c47a5801cba1f367fae02cd3a09a207bfc3221ca
+#28 exporting manifest list sha256:b92cab643a55985554626692c47a5801cba1f367fae02cd3a09a207bfc3221ca 0.0s done
+#28 naming to docker.io/library/hub-web:latest done
+#28 unpacking to docker.io/library/hub-web:latest
+#28 unpacking to docker.io/library/hub-web:latest 0.2s done
+#28 DONE 0.6s
+
+#29 [web] resolving provenance for metadata file
+#29 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Container hub-db-1 Running 
+ Container hub-api-1 Recreate 
+ Container hub-api-1 Recreated 
+ Container hub-web-1 Recreate 
+ Container hub-web-1 Recreated 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 

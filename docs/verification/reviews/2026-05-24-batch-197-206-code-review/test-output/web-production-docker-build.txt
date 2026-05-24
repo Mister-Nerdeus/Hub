@@ -1,0 +1,102 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.production
+#1 transferring dockerfile: 605B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:22-alpine
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/nginx:1.27-alpine
+#3 ...
+
+#4 [auth] library/nginx:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/nginx:1.27-alpine
+#3 DONE 0.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 127B done
+#5 DONE 0.0s
+
+#6 [build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#6 DONE 0.1s
+
+#7 [stage-1 1/2] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#7 DONE 0.1s
+
+#8 [internal] load build context
+#8 transferring context: 3.50MB 0.2s done
+#8 DONE 0.2s
+
+#9 [build  3/10] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [build  4/10] COPY apps/web/package.json apps/web/package.json
+#10 CACHED
+
+#11 [build  5/10] COPY packages/shared/package.json packages/shared/package.json
+#11 CACHED
+
+#12 [build  6/10] RUN npm ci
+#12 CACHED
+
+#13 [build  2/10] WORKDIR /repo
+#13 CACHED
+
+#14 [build  7/10] COPY tsconfig.base.json ./
+#14 CACHED
+
+#15 [build  8/10] COPY apps/web apps/web
+#15 DONE 0.1s
+
+#16 [build  9/10] COPY packages/shared packages/shared
+#16 DONE 0.1s
+
+#17 [build 10/10] RUN npm --workspace apps/web run build
+#17 0.567 
+#17 0.567 > @nerdeus/web@0.1.0 build
+#17 0.567 > npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+#17 0.567 
+#17 0.739 
+#17 0.739 > @nerdeus/shared@0.1.0 build
+#17 0.739 > tsc -p tsconfig.json
+#17 0.739 
+#17 8.193 vite v8.0.14 building client environment for production...
+#17 8.220 [2K
+transforming...✓ 179 modules transformed.
+#17 8.447 rendering chunks...
+#17 8.516 computing gzip size...
+#17 8.525 dist/index.html                   0.41 kB │ gzip:   0.28 kB
+#17 8.525 dist/assets/index-BTWs27nT.css   40.22 kB │ gzip:   6.25 kB
+#17 8.525 dist/assets/index-DEg-LkRX.js   529.44 kB │ gzip: 135.22 kB
+#17 8.525 
+#17 8.526 ✓ built in 331ms
+#17 8.527 [plugin builtin:vite-reporter] 
+#17 8.527 (!) Some chunks are larger than 500 kB after minification. Consider:
+#17 8.527 - Using dynamic import() to code-split the application
+#17 8.527 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+#17 8.527 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+#17 DONE 8.7s
+
+#7 [stage-1 1/2] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 CACHED
+
+#18 [stage-1 2/2] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
+#18 DONE 0.1s
+
+#19 exporting to image
+#19 exporting layers 0.1s done
+#19 exporting manifest sha256:ca71c7e4fa4db0b39e2d4b823ef77e11f97b30afd1e3b6ab7a0e7e8d860f2e46 0.0s done
+#19 exporting config sha256:4b105d63642ad11dd916e80e7c8e536ea6a8be503e2b487b87e756fc80fe39f7 0.0s done
+#19 exporting attestation manifest sha256:89c55cae1719a31eaf631f800bc347b7b90d99578e117aee15c2221536b97d80 0.1s done
+#19 exporting manifest list sha256:39018f404e151f06609cf2bd60f5438b4f362cb6aee1461df3c8ea34d78aa90f
+#19 exporting manifest list sha256:39018f404e151f06609cf2bd60f5438b4f362cb6aee1461df3c8ea34d78aa90f 0.0s done
+#19 naming to moby-dangling@sha256:39018f404e151f06609cf2bd60f5438b4f362cb6aee1461df3c8ea34d78aa90f done
+#19 unpacking to moby-dangling@sha256:39018f404e151f06609cf2bd60f5438b4f362cb6aee1461df3c8ea34d78aa90f 0.0s done
+#19 DONE 0.4s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lzrc8vq6xk9roqy3xk9q58glv
