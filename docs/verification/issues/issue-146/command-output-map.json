@@ -1,0 +1,29 @@
+{
+  "issue": "146",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test > docs/verification/issues/issue-146/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-146/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-146/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-146/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-146/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-146/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-146/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-146/test-output/web.txt"
+      ]
+    }
+  ]
+}

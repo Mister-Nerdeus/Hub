@@ -172,6 +172,8 @@ Issue 144 adds viewport-only zoom and pan controls for the layout editor stage. 
 
 Issue 145 adds a deterministic layout selection model for stable editable layout object IDs across rooms, doors, stations, hallways, and zones. Selection remains UI/editor state only and does not add rendering or editing behavior.
 
+Issue 146 adds a read-only inspector panel contract for selected editable layout rooms, doors, stations, hallways, and zones. Inspector values are feet-based operational layout metadata only; no editing inputs, drag/drop, save/load, path sync, or simulation rerun behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

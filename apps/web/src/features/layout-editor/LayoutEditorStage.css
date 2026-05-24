@@ -58,6 +58,13 @@
   overflow: hidden;
 }
 
+.layout-editor-stage__workspace {
+  align-items: start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+}
+
 .layout-viewport-toolbar {
   align-items: center;
   display: flex;
@@ -136,6 +143,76 @@
   pointer-events: none;
 }
 
+.layout-inspector-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+}
+
+.layout-inspector-panel__header h3 {
+  color: #111827;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.layout-inspector-panel__identity,
+.layout-inspector-panel__section dl {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.layout-inspector-panel__identity div,
+.layout-inspector-panel__section dl div {
+  align-items: baseline;
+  border-bottom: 1px solid #e1e7ef;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  min-width: 0;
+  padding-bottom: 7px;
+}
+
+.layout-inspector-panel dt {
+  color: #53616f;
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.layout-inspector-panel dd {
+  color: #111827;
+  font-size: 0.82rem;
+  font-weight: 900;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.layout-inspector-panel__sections {
+  display: grid;
+  gap: 14px;
+}
+
+.layout-inspector-panel__section h4 {
+  color: #243447;
+  font-size: 0.86rem;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.layout-inspector-panel__empty {
+  color: #53616f;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0;
+}
+
 @media (max-width: 760px) {
   .layout-editor-stage__header {
     flex-direction: column;
@@ -145,5 +222,9 @@
     grid-template-columns: 1fr;
     min-width: 0;
     width: 100%;
+  }
+
+  .layout-editor-stage__workspace {
+    grid-template-columns: 1fr;
   }
 }
