@@ -18,7 +18,7 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
-import { validateRoomMoveBounds } from "./layoutMoveValidation";
+import { validateRoomMoveWarnings } from "./layoutMoveValidation";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 
@@ -179,7 +179,7 @@ function moveRoom(
   return {
     ...state,
     editableLayout: movedLayout,
-    validationWarnings: validateRoomMoveBounds({
+    validationWarnings: validateRoomMoveWarnings({
       layout: movedLayout,
       roomId,
       boundsFeet: state.layoutBoundsFeet

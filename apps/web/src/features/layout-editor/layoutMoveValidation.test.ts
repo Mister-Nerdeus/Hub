@@ -1,7 +1,8 @@
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import {
   DEFAULT_LAYOUT_BOUNDS_FEET,
-  validateRoomMoveBounds
+  validateRoomMoveBounds,
+  validateRoomMoveWarnings
 } from "./layoutMoveValidation";
 
 const assert = {
@@ -100,4 +101,22 @@ assert.deepEqual(
     boundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET
   }),
   []
+);
+
+const station = layoutEditorProofFixture.stations[0];
+if (station == null) {
+  throw new Error("proof fixture requires a station");
+}
+
+assert.deepEqual(
+  validateRoomMoveWarnings({
+    layout: {
+      ...layoutEditorProofFixture,
+      rooms: [{ ...room, xFeet: -1 }],
+      stations: [{ ...station, xFeet: 4, yFeet: 2 }]
+    },
+    roomId: room.id,
+    boundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET
+  }).map((warning) => warning.code),
+  ["room_out_of_bounds_left", "room_overlap_station"]
 );

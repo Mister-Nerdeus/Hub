@@ -200,6 +200,8 @@ Issue 158 proves moved room-owned doors visually follow their owner room because
 
 Issue 159 adds deterministic operational bounds warnings for permissive room moves beyond the editor layout area. Warning codes cover left, top, right, and bottom bounds; movement is not clamped or blocked, and no collision validation, auto-fix, recommendation, persistence, path sync, resize, or simulation rerun behavior is added.
 
+Issue 160 adds deterministic feet-based collision warnings when permissive room moves overlap other rooms, stations, zones, or configured hallway geometry. Warnings identify the moved room and related object IDs, movement remains unblocked, and no path sync, simulation rerun, persistence, auto-fix, recommendation, or resize behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

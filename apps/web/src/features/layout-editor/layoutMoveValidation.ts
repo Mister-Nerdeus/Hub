@@ -1,6 +1,7 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import type { LayoutEditorValidationWarning } from "./layoutEditorState";
+import { validateMovedRoomCollisions } from "./layoutCollisionValidation";
 
 export const ROOM_MOVE_BOUNDS_WARNING_CODES = [
   "room_out_of_bounds_left",
@@ -30,6 +31,22 @@ export type ValidateRoomMoveBoundsInput = {
   roomId: string;
   boundsFeet?: LayoutBoundsFeet;
 };
+
+export type ValidateRoomMoveWarningsInput = ValidateRoomMoveBoundsInput & {
+  includeHallways?: boolean;
+};
+
+export function validateRoomMoveWarnings({
+  layout,
+  roomId,
+  boundsFeet = DEFAULT_LAYOUT_BOUNDS_FEET,
+  includeHallways = true
+}: ValidateRoomMoveWarningsInput): LayoutEditorValidationWarning[] {
+  return [
+    ...validateRoomMoveBounds({ layout, roomId, boundsFeet }),
+    ...validateMovedRoomCollisions({ layout, roomId, includeHallways })
+  ];
+}
 
 export function validateRoomMoveBounds({
   layout,

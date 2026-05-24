@@ -240,6 +240,24 @@ assert.deepEqual(bottomRightWarningState.validationWarnings, [
 assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.xFeet, 60);
 assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.yFeet, 36);
 
+const collisionWarningState = layoutEditorReducer(stateWithLayout, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 18,
+  deltaYFeet: 0
+});
+assert.deepEqual(collisionWarningState.validationWarnings, [
+  {
+    code: "room_overlap_station",
+    message: "Room overlaps station station-primary.",
+    objectType: "room",
+    objectId: "room-01",
+    relatedObjectType: "station",
+    relatedObjectId: "station-primary"
+  }
+]);
+assert.equal(collisionWarningState.editableLayout?.rooms[0]?.xFeet, 18);
+
 const fineMovedRoomState = layoutEditorReducer(
   createLayoutEditorState({ editableLayout, snapMode: "fine" }),
   {

@@ -27,6 +27,8 @@ export type LayoutEditorValidationWarning = {
   message: string;
   objectType?: LayoutEditorSelectableObjectType;
   objectId?: string;
+  relatedObjectType?: LayoutEditorSelectableObjectType;
+  relatedObjectId?: string;
 };
 
 export type LayoutEditorState = {

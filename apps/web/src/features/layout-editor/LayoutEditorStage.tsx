@@ -185,6 +185,7 @@ export function LayoutEditorStage() {
             role="img"
             aria-label="Feet-based SVG grid stage"
             data-render-item-count={renderItems.length}
+            data-validation-warning-count={stageState.validationWarnings.length}
           >
             <rect
               className="layout-editor-stage__frame"
