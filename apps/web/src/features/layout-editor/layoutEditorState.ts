@@ -1,19 +1,17 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import type { LayoutViewportTransform } from "./layoutCoordinateSystem";
+import {
+  isLayoutSelectionObjectType,
+  LAYOUT_SELECTION_OBJECT_TYPES,
+  type LayoutSelectionObjectType
+} from "./layoutSelectionModel";
 
-export const LAYOUT_EDITOR_SELECTABLE_OBJECT_TYPES = [
-  "room",
-  "door",
-  "station",
-  "hallway",
-  "zone"
-] as const;
+export const LAYOUT_EDITOR_SELECTABLE_OBJECT_TYPES = LAYOUT_SELECTION_OBJECT_TYPES;
 
 export const LAYOUT_EDITOR_SNAP_MODES = ["default", "fine"] as const;
 
-export type LayoutEditorSelectableObjectType =
-  (typeof LAYOUT_EDITOR_SELECTABLE_OBJECT_TYPES)[number];
+export type LayoutEditorSelectableObjectType = LayoutSelectionObjectType;
 
 export type LayoutEditorSnapMode = (typeof LAYOUT_EDITOR_SNAP_MODES)[number];
 
@@ -89,10 +87,7 @@ export function isLayoutEditorSnapMode(value: unknown): value is LayoutEditorSna
 export function isLayoutEditorSelectableObjectType(
   value: unknown
 ): value is LayoutEditorSelectableObjectType {
-  return (
-    typeof value === "string" &&
-    LAYOUT_EDITOR_SELECTABLE_OBJECT_TYPES.includes(value as LayoutEditorSelectableObjectType)
-  );
+  return isLayoutSelectionObjectType(value);
 }
 
 function requirePositive(value: number, label: string): number {

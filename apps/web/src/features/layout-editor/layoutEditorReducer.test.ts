@@ -2,6 +2,7 @@ import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { createLayoutEditorState, type LayoutEditorState } from "./layoutEditorState";
+import { LAYOUT_SELECTION_OBJECT_TYPES } from "./layoutSelectionModel";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -138,6 +139,10 @@ const selectableObjects = [
   ["hallway", "hall-main"],
   ["zone", "zone-ems-entry"]
 ] as const;
+assert.deepEqual(
+  selectableObjects.map(([objectType]) => objectType),
+  [...LAYOUT_SELECTION_OBJECT_TYPES]
+);
 for (const [objectType, objectId] of selectableObjects) {
   const selectedState = layoutEditorReducer(stateWithLayout, {
     type: "selectObject",

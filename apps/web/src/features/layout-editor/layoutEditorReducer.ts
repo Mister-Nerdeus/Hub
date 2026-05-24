@@ -18,6 +18,7 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
+import { selectEditableLayoutObject } from "./layoutSelectionModel";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -136,32 +137,17 @@ function selectObject(
   if (typeof objectId !== "string" || objectId.length === 0) {
     throw new Error("objectId must be a non-empty string");
   }
-  if (state.editableLayout == null || !layoutObjectExists(state.editableLayout, objectType, objectId)) {
+  if (state.editableLayout == null) {
+    return state;
+  }
+  const selection = selectEditableLayoutObject(state.editableLayout, objectType, objectId);
+  if (selection == null) {
     return state;
   }
 
   return {
     ...state,
-    selectedObjectId: objectId,
-    selectedObjectType: objectType
+    selectedObjectId: selection.objectId,
+    selectedObjectType: selection.objectType
   };
-}
-
-function layoutObjectExists(
-  layout: EditableLayoutGeometryContract,
-  objectType: LayoutEditorSelectableObjectType,
-  objectId: string
-): boolean {
-  switch (objectType) {
-    case "room":
-      return layout.rooms.some((object) => object.id === objectId);
-    case "door":
-      return layout.doors.some((object) => object.id === objectId);
-    case "station":
-      return layout.stations.some((object) => object.id === objectId);
-    case "hallway":
-      return layout.hallways.some((object) => object.id === objectId);
-    case "zone":
-      return layout.zones.some((object) => object.id === objectId);
-  }
 }

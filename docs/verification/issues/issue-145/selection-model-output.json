@@ -1,0 +1,30 @@
+{
+  "issue": "145",
+  "feature": "layoutSelectionModel",
+  "selectableTypes": [
+    "room",
+    "door",
+    "station",
+    "hallway",
+    "zone"
+  ],
+  "selectionShape": {
+    "objectType": "room|door|station|hallway|zone",
+    "objectId": "stable editable layout object ID"
+  },
+  "validatedInvariants": {
+    "idBasedSelection": true,
+    "clearSelectionReturnsNull": true,
+    "unknownIdsReturnNull": true,
+    "unsupportedTypesFail": true,
+    "emptyIdsFail": true,
+    "geometryIsNotMutated": true,
+    "reducerUsesSelectionModel": true,
+    "noEditingBehaviorAdded": true
+  },
+  "tests": [
+    "apps/web/src/features/layout-editor/layoutSelectionModel.test.ts",
+    "apps/web/src/features/layout-editor/layoutEditorReducer.test.ts"
+  ],
+  "nonPhi": true
+}
