@@ -1,0 +1,35 @@
+{
+  "issue": "206",
+  "status": "passed",
+  "fixture": "plan-er-pod-phase2.json",
+  "planId": "plan-er-pod-phase2",
+  "metadataObjects": [
+    "roomOperationalMetadata",
+    "zoneOperationalMetadata",
+    "hallwayOperationalMetadata",
+    "doorOperationalMetadata",
+    "stationOperationalMetadata",
+    "entryOperationalMetadata",
+    "overflowOperationalMetadata",
+    "adjacencyOperationalMetadata"
+  ],
+  "counts": {
+    "roomOperationalMetadata": 7,
+    "zoneOperationalMetadata": 5,
+    "hallwayOperationalMetadata": 2,
+    "doorOperationalMetadata": 7,
+    "stationOperationalMetadata": 1,
+    "entryOperationalMetadata": 1,
+    "overflowOperationalMetadata": 2,
+    "adjacencyOperationalMetadata": 3
+  },
+  "canonicalFixtureValidInTypeScript": true,
+  "representedCases": {
+    "hallBed": "hall-bed-01",
+    "overflowSpace": "room-06",
+    "traumaAdjacentRoom": "room-02",
+    "behavioralAdjacentRoom": "room-04",
+    "emsEntryPathNode": "node-ems-entry"
+  },
+  "nonPhiClinicalNoteScan": "covered-by-no-phi-and-contract-gates"
+}

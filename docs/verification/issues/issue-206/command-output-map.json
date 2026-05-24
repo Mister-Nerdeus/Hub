@@ -1,0 +1,42 @@
+{
+  "issue": "206",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-206/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/shared.txt",
+        "docs/verification/issues/issue-206/canonical-er-layout-fixture-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-206/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *>&1 | Tee-Object -FilePath ../../docs/verification/issues/issue-206/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-206/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-206/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-206/test-output/verify-local.txt",
+      "outputs": [
+        "docs/verification/issues/issue-206/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}

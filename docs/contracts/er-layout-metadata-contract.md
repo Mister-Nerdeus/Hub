@@ -214,6 +214,10 @@ TypeScript and Python contracts must stay aligned:
 - Metadata references must be validated by the plan-level reference validator when fields are introduced.
 - Rejection messages must not echo rejected text values.
 
+## Canonical Fixture Audit
+
+`plan-er-pod-phase2` is the canonical metadata-rich ER pod fixture after Issue 206. It must remain valid in both TypeScript and Python and must represent every metadata object in this contract before path graph editing, walking-truth, assignment-input, or optimizer-adjacent work consumes these fields.
+
 ## Non-Claims
 
 This contract does not add simulation behavior, pathfinding behavior, assignment scoring, optimizer behavior, production deployment behavior, clinical safety certification, staffing compliance certification, legal compliance, EHR support, or PHI support.
