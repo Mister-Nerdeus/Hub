@@ -1,5 +1,4 @@
-import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
-
+import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import type { LayoutSelectionObjectType } from "./layoutSelectionModel";
 
@@ -21,75 +20,7 @@ const assert = {
   }
 };
 
-const layout: EditableLayoutGeometryContract = {
-  schemaVersion: "1.0.0",
-  layoutId: "layout-inspector-proof",
-  units: "feet",
-  rooms: [
-    {
-      objectType: "room",
-      id: "room-01",
-      label: "Room 01",
-      roomNumber: "01",
-      roomType: "standard",
-      capacityType: "single",
-      isHallBed: false,
-      isTraumaAdjacent: true,
-      xFeet: 0,
-      yFeet: 0,
-      widthFeet: 12,
-      heightFeet: 10
-    }
-  ],
-  doors: [
-    {
-      objectType: "door",
-      id: "door-room-01-east",
-      label: "Room 01 east door",
-      ownerKind: "room",
-      ownerId: "room-01",
-      wall: "east",
-      offsetFeet: 3,
-      widthFeet: 4
-    }
-  ],
-  stations: [
-    {
-      objectType: "station",
-      id: "station-primary",
-      label: "Primary nurse station",
-      stationType: "nurse_station",
-      xFeet: 18,
-      yFeet: 0,
-      widthFeet: 10,
-      heightFeet: 6
-    }
-  ],
-  hallways: [
-    {
-      objectType: "hallway",
-      id: "hall-main",
-      label: "Main hallway",
-      xFeet: 0,
-      yFeet: 12,
-      widthFeet: 32,
-      heightFeet: 8
-    }
-  ],
-  zones: [
-    {
-      objectType: "zone",
-      id: "zone-entry",
-      label: "Entry zone",
-      zoneType: "ems_entry",
-      xFeet: 0,
-      yFeet: 22,
-      widthFeet: 12,
-      heightFeet: 8
-    }
-  ],
-  limitations: ["Inspector proof fixture uses feet-based operational layout geometry only."]
-};
+const layout = layoutEditorProofFixture;
 
 const objectCases = [
   {
@@ -102,7 +33,7 @@ const objectCases = [
       ["Room type", "standard"],
       ["Capacity type", "single"],
       ["Hall bed", "No"],
-      ["Trauma adjacent", "Yes"],
+      ["Trauma adjacent", "No"],
       ["Width", "12 ft"]
     ]
   },
@@ -134,7 +65,7 @@ const objectCases = [
     expectedSections: ["Hallway geometry"],
     expectedFields: [
       ["X", "0 ft"],
-      ["Width", "32 ft"]
+      ["Width", "64 ft"]
     ]
   },
   {
@@ -144,7 +75,7 @@ const objectCases = [
     expectedSections: ["Zone metadata", "Geometry"],
     expectedFields: [
       ["Zone type", "ems_entry"],
-      ["Y", "22 ft"]
+      ["Y", "0 ft"]
     ]
   }
 ] as const;

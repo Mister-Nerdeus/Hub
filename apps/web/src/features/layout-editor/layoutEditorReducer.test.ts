@@ -1,5 +1,4 @@
-import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
-
+import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { createLayoutEditorState, type LayoutEditorState } from "./layoutEditorState";
 import { LAYOUT_SELECTION_OBJECT_TYPES } from "./layoutSelectionModel";
@@ -28,75 +27,7 @@ const assert = {
   }
 };
 
-const editableLayout: EditableLayoutGeometryContract = {
-  schemaVersion: "1.0.0",
-  layoutId: "layout-editor-reducer-proof",
-  units: "feet",
-  rooms: [
-    {
-      objectType: "room",
-      id: "room-01",
-      label: "Room 01",
-      roomNumber: "01",
-      roomType: "standard",
-      capacityType: "single",
-      isHallBed: false,
-      isTraumaAdjacent: false,
-      xFeet: 0,
-      yFeet: 0,
-      widthFeet: 12,
-      heightFeet: 10
-    }
-  ],
-  doors: [
-    {
-      objectType: "door",
-      id: "door-room-01-east",
-      label: "Room 01 east door",
-      ownerKind: "room",
-      ownerId: "room-01",
-      wall: "east",
-      offsetFeet: 3,
-      widthFeet: 4
-    }
-  ],
-  stations: [
-    {
-      objectType: "station",
-      id: "station-primary",
-      label: "Primary nurse station",
-      stationType: "nurse_station",
-      xFeet: 18,
-      yFeet: 0,
-      widthFeet: 10,
-      heightFeet: 6
-    }
-  ],
-  hallways: [
-    {
-      objectType: "hallway",
-      id: "hall-main",
-      label: "Main hallway",
-      xFeet: 0,
-      yFeet: 12,
-      widthFeet: 32,
-      heightFeet: 8
-    }
-  ],
-  zones: [
-    {
-      objectType: "zone",
-      id: "zone-ems-entry",
-      label: "EMS entry",
-      zoneType: "ems_entry",
-      xFeet: 0,
-      yFeet: 22,
-      widthFeet: 12,
-      heightFeet: 8
-    }
-  ],
-  limitations: ["Reducer proof fixture uses feet-based operational layout geometry only."]
-};
+const editableLayout = layoutEditorProofFixture;
 
 const defaultState = createLayoutEditorState();
 
@@ -137,7 +68,7 @@ const selectableObjects = [
   ["door", "door-room-01-east"],
   ["station", "station-primary"],
   ["hallway", "hall-main"],
-  ["zone", "zone-ems-entry"]
+  ["zone", "zone-entry"]
 ] as const;
 assert.deepEqual(
   selectableObjects.map(([objectType]) => objectType),

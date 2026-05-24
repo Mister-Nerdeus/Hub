@@ -176,6 +176,8 @@ Issue 146 adds a read-only inspector panel contract for selected editable layout
 
 Issue 147 routes dashboard proof data through shared ratio/intensity assumptions, shared outcome builders, unified pressure bands, operational delta comparison, and the canonical metric registry before the web adapter displays it. The dashboard remains proof-only and does not add API, persistence, optimizer, recommendation, satisfaction, or staffing-certification behavior.
 
+Issue 148 extracts the layout editor proof geometry into `apps/web/src/fixtures/layout-editor/layoutEditorProofFixture.ts`, validates it through the shared editable layout geometry contract, and keeps `LayoutEditorStage` display-only over fixture-owned feet-based geometry.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

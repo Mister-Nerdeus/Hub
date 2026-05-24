@@ -1,6 +1,6 @@
 import { useReducer } from "react";
-import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
+import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
@@ -16,78 +16,8 @@ const STAGE_WIDTH_PIXELS = STAGE_WIDTH_FEET * STAGE_PIXELS_PER_FOOT;
 const STAGE_HEIGHT_PIXELS = STAGE_HEIGHT_FEET * STAGE_PIXELS_PER_FOOT;
 const STAGE_VIEW_BOX = `0 0 ${STAGE_WIDTH_PIXELS} ${STAGE_HEIGHT_PIXELS}`;
 
-const proofLayout: EditableLayoutGeometryContract = {
-  schemaVersion: "1.0.0",
-  layoutId: "layout-editor-stage-proof",
-  units: "feet",
-  rooms: [
-    {
-      objectType: "room",
-      id: "room-01",
-      label: "Room 01",
-      roomNumber: "01",
-      roomType: "standard",
-      capacityType: "single",
-      isHallBed: false,
-      isTraumaAdjacent: false,
-      xFeet: 0,
-      yFeet: 0,
-      widthFeet: 12,
-      heightFeet: 10
-    }
-  ],
-  doors: [
-    {
-      objectType: "door",
-      id: "door-room-01-east",
-      label: "Room 01 east door",
-      ownerKind: "room",
-      ownerId: "room-01",
-      wall: "east",
-      offsetFeet: 3,
-      widthFeet: 4
-    }
-  ],
-  stations: [
-    {
-      objectType: "station",
-      id: "station-primary",
-      label: "Primary nurse station",
-      stationType: "nurse_station",
-      xFeet: 18,
-      yFeet: 0,
-      widthFeet: 10,
-      heightFeet: 6
-    }
-  ],
-  hallways: [
-    {
-      objectType: "hallway",
-      id: "hall-main",
-      label: "Main hallway",
-      xFeet: 0,
-      yFeet: 12,
-      widthFeet: 64,
-      heightFeet: 8
-    }
-  ],
-  zones: [
-    {
-      objectType: "zone",
-      id: "zone-entry",
-      label: "Entry zone",
-      zoneType: "ems_entry",
-      xFeet: 32,
-      yFeet: 0,
-      widthFeet: 12,
-      heightFeet: 8
-    }
-  ],
-  limitations: ["Proof-only stage shell; source geometry remains feet-based."]
-};
-
 const initialStageState = createLayoutEditorState({
-  editableLayout: proofLayout,
+  editableLayout: layoutEditorProofFixture,
   viewport: {
     pixelsPerFoot: STAGE_PIXELS_PER_FOOT,
     zoom: 1,

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "layoutId": "layout-editor-stage-proof",
+  "units": "feet",
+  "rooms": [
+    {
+      "id": "room-01",
+      "label": "Room 01",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "01",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  ],
+  "doors": [
+    {
+      "objectType": "door",
+      "id": "door-room-01-east",
+      "label": "Room 01 east door",
+      "ownerKind": "room",
+      "ownerId": "room-01",
+      "wall": "east",
+      "offsetFeet": 3,
+      "widthFeet": 4
+    }
+  ],
+  "stations": [
+    {
+      "id": "station-primary",
+      "label": "Primary nurse station",
+      "xFeet": 18,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 6,
+      "objectType": "station",
+      "stationType": "nurse_station"
+    }
+  ],
+  "hallways": [
+    {
+      "id": "hall-main",
+      "label": "Main hallway",
+      "xFeet": 0,
+      "yFeet": 12,
+      "widthFeet": 64,
+      "heightFeet": 8,
+      "objectType": "hallway"
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone-entry",
+      "label": "Entry zone",
+      "xFeet": 32,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 8,
+      "objectType": "zone",
+      "zoneType": "ems_entry"
+    }
+  ],
+  "limitations": [
+    "Proof-only layout fixture; source geometry remains feet-based."
+  ]
+}
