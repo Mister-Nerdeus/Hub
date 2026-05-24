@@ -455,6 +455,25 @@ export const planErPodPhase2 = {
       }
     },
     {
+      "id": "zone-trauma",
+      "label": "Trauma Zone",
+      "color": "#c85f5f",
+      "x": 54,
+      "y": 0,
+      "widthFeet": 32,
+      "lengthFeet": 24,
+      "zoneType": "trauma_zone",
+      "travelBlocked": false,
+      "travelPenalty": 1.1,
+      "zoneOperationalMetadata": {
+        "zoneClass": "patient_care",
+        "publicAccess": false,
+        "staffOnly": false,
+        "supportsPatientFlow": true,
+        "supportsClinicalOperations": true
+      }
+    },
+    {
       "id": "zone-ems",
       "label": "EMS Entry",
       "color": "#b46b33",
@@ -576,7 +595,13 @@ export const planErPodPhase2 = {
       "x": 8,
       "y": 50,
       "linkedObjectId": null,
-      "nodeType": "entry"
+      "nodeType": "entry",
+      "entryOperationalMetadata": {
+        "entryClass": "ems",
+        "preferredFlowDirection": "inbound",
+        "preferredTraumaZoneId": "zone-trauma",
+        "linkedPathNodeId": "node-ems-entry"
+      }
     },
     {
       "id": "node-zone-storage",

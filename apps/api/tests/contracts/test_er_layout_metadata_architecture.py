@@ -19,8 +19,6 @@ def with_metadata_placeholders() -> dict:
     plan = load_fixture("plan-er-pod-phase2.json")
     plan["rooms"][0]["overflowOperationalMetadata"] = {}
     plan["rooms"][0]["adjacencyOperationalMetadata"] = {}
-    entry_node = next(node for node in plan["pathNodes"] if node["nodeType"] == "entry")
-    entry_node["entryOperationalMetadata"] = {}
     return plan
 
 
@@ -39,7 +37,9 @@ def test_er_layout_metadata_architecture_accepts_optional_nested_placeholders() 
     assert plan.nurseStations[0].stationOperationalMetadata.stationClass == "primary"
     assert plan.zones[0].zoneOperationalMetadata is not None
     assert plan.zones[0].zoneOperationalMetadata.zoneClass == "patient_care"
-    assert next(node for node in plan.pathNodes if node.nodeType == "entry").entryOperationalMetadata is not None
+    entry_node = next(node for node in plan.pathNodes if node.nodeType == "entry")
+    assert entry_node.entryOperationalMetadata is not None
+    assert entry_node.entryOperationalMetadata.entryClass == "ems"
 
 
 def test_er_layout_metadata_architecture_rejects_sprawl_and_narrative_fields() -> None:

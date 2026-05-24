@@ -21,12 +21,13 @@ def test_zone_taxonomy_and_metadata_validate_in_er_pod_fixture() -> None:
     assert [zone.zoneType for zone in plan.zones] == [
         "provider_area",
         "hallway",
+        "trauma_zone",
         "ems_entry",
         "supply_storage",
     ]
     assert plan.zones[0].zoneOperationalMetadata.zoneClass == "patient_care"
     assert plan.zones[1].zoneOperationalMetadata.supportsPatientFlow is True
-    assert plan.zones[3].zoneOperationalMetadata.staffOnly is True
+    assert plan.zones[4].zoneOperationalMetadata.staffOnly is True
 
 
 def test_zone_taxonomy_and_metadata_reject_invalid_enum_and_free_text_field() -> None:

@@ -105,6 +105,16 @@ export const DOOR_ACCESS_RESTRICTIONS = ["none", "staff_only", "controlled"] as 
 
 export const DOOR_DELAY_CATEGORIES = ["none", "low", "moderate", "high"] as const;
 
+export const ENTRY_OPERATIONAL_CLASSES = [
+  "ems",
+  "ambulance",
+  "walk_in",
+  "staff",
+  "service"
+] as const;
+
+export const ENTRY_FLOW_DIRECTIONS = ["inbound", "outbound", "bidirectional"] as const;
+
 export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
 
 export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
@@ -207,6 +217,8 @@ export type DoorOperationalClass = (typeof DOOR_OPERATIONAL_CLASSES)[number];
 export type DoorSwingDirection = (typeof DOOR_SWING_DIRECTIONS)[number];
 export type DoorAccessRestriction = (typeof DOOR_ACCESS_RESTRICTIONS)[number];
 export type DoorDelayCategory = (typeof DOOR_DELAY_CATEGORIES)[number];
+export type EntryOperationalClass = (typeof ENTRY_OPERATIONAL_CLASSES)[number];
+export type EntryFlowDirection = (typeof ENTRY_FLOW_DIRECTIONS)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
@@ -285,6 +297,13 @@ export type StationOperationalMetadata = {
   defaultWalkingOrigin: boolean;
 };
 
+export type EntryOperationalMetadata = {
+  entryClass: EntryOperationalClass;
+  preferredFlowDirection: EntryFlowDirection;
+  preferredTraumaZoneId?: string | null;
+  linkedPathNodeId?: string | null;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -356,7 +375,7 @@ export type PathNode = {
   x: number;
   y: number;
   linkedObjectId?: string | null;
-  entryOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  entryOperationalMetadata?: EntryOperationalMetadata | null;
 };
 
 export type PathEdge = {
@@ -3630,10 +3649,13 @@ function validatePathNode(value: unknown, index: number): PathNode {
   requireNumber(node.x, `pathNodes[${index}].x`);
   requireNumber(node.y, `pathNodes[${index}].y`);
   requireOptionalString(node.linkedObjectId, `pathNodes[${index}].linkedObjectId`);
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalEntryOperationalMetadata(
     node.entryOperationalMetadata,
     `pathNodes[${index}].entryOperationalMetadata`
   );
+  if (node.entryOperationalMetadata != null && node.nodeType !== "entry") {
+    throw new Error(`pathNodes[${index}].entryOperationalMetadata is only allowed on entry nodes`);
+  }
   return node as PathNode;
 }
 
@@ -3719,10 +3741,26 @@ function validateNurseStationReferences(
   }
 }
 
-function validatePathNodeReferences(node: PathNode, index: number, idSets: IdSets): void {
+function validatePathNodeReferences(node: PathNode, index: number, references: ReferenceIndex): void {
   if (node.nodeType === "entry") {
     if (node.linkedObjectId != null) {
       throw new Error(`pathNodes[${index}].linkedObjectId is not allowed for entry nodes`);
+    }
+    if (
+      node.entryOperationalMetadata?.preferredTraumaZoneId != null &&
+      !references.zoneIds.has(node.entryOperationalMetadata.preferredTraumaZoneId)
+    ) {
+      throw new Error(
+        `pathNodes[${index}].entryOperationalMetadata.preferredTraumaZoneId references an unknown zone`
+      );
+    }
+    if (
+      node.entryOperationalMetadata?.linkedPathNodeId != null &&
+      !references.pathNodeIds.has(node.entryOperationalMetadata.linkedPathNodeId)
+    ) {
+      throw new Error(
+        `pathNodes[${index}].entryOperationalMetadata.linkedPathNodeId references an unknown path node`
+      );
     }
     return;
   }
@@ -3732,16 +3770,16 @@ function validatePathNodeReferences(node: PathNode, index: number, idSets: IdSet
     `pathNodes[${index}].linkedObjectId`
   );
 
-  if (node.nodeType === "room_door" && !idSets.doorIds.has(linkedObjectId)) {
+  if (node.nodeType === "room_door" && !references.doorIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown door`);
   }
-  if (node.nodeType === "hallway" && !idSets.hallwayIds.has(linkedObjectId)) {
+  if (node.nodeType === "hallway" && !references.hallwayIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown hallway`);
   }
-  if (node.nodeType === "station" && !idSets.nurseStationIds.has(linkedObjectId)) {
+  if (node.nodeType === "station" && !references.nurseStationIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown nurse station`);
   }
-  if (node.nodeType === "zone" && !idSets.zoneIds.has(linkedObjectId)) {
+  if (node.nodeType === "zone" && !references.zoneIds.has(linkedObjectId)) {
     throw new Error(`pathNodes[${index}].linkedObjectId references an unknown zone`);
   }
 }
@@ -4063,6 +4101,27 @@ function validateOptionalStationOperationalMetadata(value: unknown, label: strin
   requireBoolean(metadata.supportsTriage, `${label}.supportsTriage`);
   requireEnum(metadata.visibilityLevel, LINE_OF_SIGHT_LEVELS, `${label}.visibilityLevel`);
   requireBoolean(metadata.defaultWalkingOrigin, `${label}.defaultWalkingOrigin`);
+}
+
+function validateOptionalEntryOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "entryClass",
+    "preferredFlowDirection",
+    "preferredTraumaZoneId",
+    "linkedPathNodeId"
+  ]);
+  requireEnum(metadata.entryClass, ENTRY_OPERATIONAL_CLASSES, `${label}.entryClass`);
+  requireEnum(
+    metadata.preferredFlowDirection,
+    ENTRY_FLOW_DIRECTIONS,
+    `${label}.preferredFlowDirection`
+  );
+  requireOptionalString(metadata.preferredTraumaZoneId, `${label}.preferredTraumaZoneId`);
+  requireOptionalString(metadata.linkedPathNodeId, `${label}.linkedPathNodeId`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

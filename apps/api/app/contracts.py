@@ -54,6 +54,8 @@ DoorOperationalClass = Literal["standard", "isolation", "behavioral", "trauma", 
 DoorSwingDirection = Literal["unknown", "in", "out", "sliding"]
 DoorAccessRestriction = Literal["none", "staff_only", "controlled"]
 DoorDelayCategory = Literal["none", "low", "moderate", "high"]
+EntryOperationalClass = Literal["ems", "ambulance", "walk_in", "staff", "service"]
+EntryFlowDirection = Literal["inbound", "outbound", "bidirectional"]
 DoorWall = Literal["top", "bottom", "left", "right"]
 EdgeLengthStrategy = Literal["manhattan", "straight_line"]
 StationPlacementMode = Literal[
@@ -217,6 +219,13 @@ class StationOperationalMetadata(StrictModel):
     defaultWalkingOrigin: bool
 
 
+class EntryOperationalMetadata(StrictModel):
+    entryClass: EntryOperationalClass
+    preferredFlowDirection: EntryFlowDirection
+    preferredTraumaZoneId: str | None = None
+    linkedPathNodeId: str | None = None
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -313,7 +322,7 @@ class PathNode(StrictModel):
     x: float
     y: float
     linkedObjectId: str | None = None
-    entryOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    entryOperationalMetadata: EntryOperationalMetadata | None = None
 
 
 class PathEdge(StrictModel):
@@ -431,7 +440,25 @@ class PlanContract(StrictModel):
             if node.nodeType == "entry":
                 if node.linkedObjectId is not None:
                     raise ValueError(f"path node {node.id} cannot link an entry node")
+                if (
+                    node.entryOperationalMetadata is not None
+                    and node.entryOperationalMetadata.preferredTraumaZoneId is not None
+                    and node.entryOperationalMetadata.preferredTraumaZoneId not in zone_ids
+                ):
+                    raise ValueError(
+                        f"path node {node.id} entry metadata references unknown trauma zone"
+                    )
+                if (
+                    node.entryOperationalMetadata is not None
+                    and node.entryOperationalMetadata.linkedPathNodeId is not None
+                    and node.entryOperationalMetadata.linkedPathNodeId not in path_node_ids
+                ):
+                    raise ValueError(
+                        f"path node {node.id} entry metadata references unknown path node"
+                    )
                 continue
+            if node.entryOperationalMetadata is not None:
+                raise ValueError(f"path node {node.id} entry metadata is only allowed on entry nodes")
             if node.linkedObjectId is None:
                 raise ValueError(f"path node {node.id} requires linkedObjectId")
             if node.nodeType == "room_door" and node.linkedObjectId not in door_ids:

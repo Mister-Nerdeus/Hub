@@ -132,6 +132,21 @@ This metadata does not mutate room geometry, simulate door state over time, cert
 
 This metadata must not include staff identity, staff schedules, staffing-compliance claims, visibility adequacy certification, or clinical staffing recommendations.
 
+## Entry Operational Metadata
+
+`entryOperationalMetadata` is optional on `entry` path nodes only. Entry geometry remains feet-based through existing path node `x` and `y` fields. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  entryClass: "ems" | "ambulance" | "walk_in" | "staff" | "service";
+  preferredFlowDirection: "inbound" | "outbound" | "bidirectional";
+  preferredTraumaZoneId?: string | null;
+  linkedPathNodeId?: string | null;
+}
+```
+
+`preferredTraumaZoneId` must reference a known zone when present. `linkedPathNodeId` must reference a known path node when present. This metadata does not add patient arrival records, arrival simulation, trauma-flow safety certification, patient outcomes, or pathfinding changes.
+
 ## Field Rules
 
 Allowed metadata field shapes:

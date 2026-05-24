@@ -37,10 +37,16 @@ test("ER zone taxonomy and metadata validate in representative fixture zones", (
   const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
   const zoneTypes = plan.zones.map((zone) => zone.zoneType);
 
-  assert.deepEqual(zoneTypes, ["provider_area", "hallway", "ems_entry", "supply_storage"]);
+  assert.deepEqual(zoneTypes, [
+    "provider_area",
+    "hallway",
+    "trauma_zone",
+    "ems_entry",
+    "supply_storage"
+  ]);
   assert.equal(plan.zones[0].zoneOperationalMetadata.zoneClass, "patient_care");
   assert.equal(plan.zones[1].zoneOperationalMetadata.supportsPatientFlow, true);
-  assert.equal(plan.zones[3].zoneOperationalMetadata.staffOnly, true);
+  assert.equal(plan.zones[4].zoneOperationalMetadata.staffOnly, true);
 
   writeEvidence("er-zone-taxonomy-output.json", {
     issue: "200",

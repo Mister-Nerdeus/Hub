@@ -23,9 +23,6 @@ function withMetadataPlaceholders() {
   const plan = readFixture("plan-er-pod-phase2.json");
   plan.rooms[0].overflowOperationalMetadata = {};
   plan.rooms[0].adjacencyOperationalMetadata = {};
-  const entryNode = plan.pathNodes.find((node) => node.nodeType === "entry");
-  assert.ok(entryNode);
-  entryNode.entryOperationalMetadata = {};
   return plan;
 }
 
@@ -41,7 +38,12 @@ test("ER layout metadata architecture accepts optional nested metadata placehold
   assert.equal(plan.zones[0].zoneOperationalMetadata.zoneClass, "patient_care");
   assert.deepEqual(
     plan.pathNodes.find((node) => node.nodeType === "entry").entryOperationalMetadata,
-    {}
+    {
+      entryClass: "ems",
+      preferredFlowDirection: "inbound",
+      preferredTraumaZoneId: "zone-trauma",
+      linkedPathNodeId: "node-ems-entry"
+    }
   );
 
   writeEvidence("er-layout-metadata-architecture-output.json", {

@@ -30,7 +30,13 @@ const nodes: PathNode[] = [
     nodeType: "entry",
     x: 1,
     y: 1,
-    linkedObjectId: null
+    linkedObjectId: null,
+    entryOperationalMetadata: {
+      entryClass: "ems",
+      preferredFlowDirection: "inbound",
+      preferredTraumaZoneId: "zone-trauma",
+      linkedPathNodeId: "node-a"
+    }
   },
   {
     id: "node-b",
