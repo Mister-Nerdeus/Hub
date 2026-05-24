@@ -1,0 +1,26 @@
+{
+  "issue": "210",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-210/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-210/test-output/shared.txt",
+        "docs/verification/issues/issue-210/default-plan-fixture-contract-output.json",
+        "docs/verification/issues/issue-210/default-plan-id-namespace-output.json",
+        "docs/verification/issues/issue-210/no-phi-default-plan-wrapper-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-210/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-210/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-210/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-210/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

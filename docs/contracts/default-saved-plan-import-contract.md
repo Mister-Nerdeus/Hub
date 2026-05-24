@@ -98,6 +98,35 @@ Mapping rules:
 - Notes and deferred reasons are coded enums, not free-text notes.
 - Mapping text must pass no-PHI checks.
 
+## Default Saved Plan Fixture Wrapper Contract
+
+Default saved plan fixtures are read-only fixture records. The wrapper distinguishes default operational fixtures from user-created saved plans while keeping the nested plan inside the existing `PlanContract`.
+
+Wrapper shape:
+
+```ts
+{
+  schemaVersion: "1.0.0";
+  defaultPlanRecordId: string;
+  sourcePlanId: string;
+  mappingId: string;
+  readOnly: true;
+  importStatus: "draft_converted" | "ready_for_review" | "validated_default";
+  plan: PlanContract;
+  limitations: string[];
+}
+```
+
+Wrapper rules:
+
+- `defaultPlanRecordId` must use the `default-plan-` namespace.
+- Nested `plan.planId` must use the `default-er-layout-plan-` namespace.
+- `readOnly` must be `true`; default fixtures are not user-authored saved plan records.
+- `sourcePlanId` must link to a registered source manifest entry when references are supplied to the validator.
+- `mappingId` must link to a registered source mapping when references are supplied to the validator.
+- `plan` must validate through `PlanContract`.
+- `limitations` must contain at least one operational-only limitation and must pass no-PHI runtime text checks.
+
 ## Non-Claims
 
-This contract does not convert layouts, perform OCR, create structured plans, add UI, seed a database, add EHR support, add PHI support, or claim exact geometry.
+This contract does not convert layouts, perform OCR, seed a database, add UI, add EHR support, add PHI support, or claim exact geometry.

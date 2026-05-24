@@ -1,0 +1,6 @@
+Current-gap evidence before Issue 210:
+
+Default saved plan fixture wrapper validation did not exist. Source manifests and source-to-plan
+mappings could be validated, but a read-only default fixture record could not yet enforce nested
+PlanContract validation, sourcePlanId linkage, mappingId linkage, default ID namespace, readOnly
+semantics, limitations, or wrapper-level no-PHI runtime text checks.
