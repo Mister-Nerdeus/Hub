@@ -1,1 +1,3 @@
-Current-gap evidence before implementation: the web app had no proof-only route preview surface for all five default plans.
+Current-gap evidence captured before implementation:
+
+Editable floorplan copies could be created in memory, but there was no local saved floorplan store abstraction for listing, saving, loading, and deleting editable JSON floorplans. There was also no store-level guard rejecting source-document or DOCX-like payload keys before saved records were retained locally.
