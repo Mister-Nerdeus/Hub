@@ -77,7 +77,7 @@ def create_simulation_run(
     simulation_run: SimulationRunContract,
     db: Session = Depends(get_db),
 ) -> dict[str, Any]:
-    payload = simulation_run.model_dump(mode="json")
+    payload = simulation_run.model_dump(mode="json", exclude_none=True)
     try:
         record = simulation_run_repository.create_simulation_run(
             db,

@@ -1,5 +1,7 @@
 from collections.abc import Iterator
 from copy import deepcopy
+import json
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -10,6 +12,20 @@ from sqlalchemy.pool import StaticPool
 from app import models  # noqa: F401
 from app.db import Base, get_db
 from app.main import app
+
+
+ROOT = Path(__file__).resolve().parents[3]
+PARITY_FIXTURES_DIR = ROOT / "packages" / "shared" / "fixtures" / "simulation-contract-parity"
+EVIDENCE_DIR = ROOT / "docs" / "verification" / "issues" / "issue-187"
+
+
+def read_parity_fixture(name: str) -> dict:
+    return json.loads((PARITY_FIXTURES_DIR / name).read_text(encoding="utf-8"))
+
+
+def write_evidence(name: str, payload: dict) -> None:
+    EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    (EVIDENCE_DIR / name).write_text(f"{json.dumps(payload, indent=2)}\n", encoding="utf-8")
 
 
 def valid_simulation_run() -> dict:
@@ -126,3 +142,26 @@ def test_round_trip_json_equality(client: TestClient) -> None:
 
     assert get_response.status_code == 200
     assert get_response.json()["simulationRun"] == payload
+
+
+def test_canonical_busy_until_fixture_round_trips_without_schema_mutation(client: TestClient) -> None:
+    payload = read_parity_fixture("valid-nurse-busy-until.json")
+
+    create_response = client.post("/v1/simulation/runs", json=payload)
+    assert create_response.status_code == 201
+    assert create_response.json()["simulationRun"] == payload
+
+    get_response = client.get("/v1/simulation/runs/simulation-run-parity-busy-until")
+
+    assert get_response.status_code == 200
+    assert get_response.json()["simulationRun"] == payload
+    write_evidence(
+        "api-persistence-output.json",
+        {
+            "fixture": "valid-nurse-busy-until.json",
+            "createStatusCode": create_response.status_code,
+            "getStatusCode": get_response.status_code,
+            "schemaMutation": get_response.json()["simulationRun"] != payload,
+            "simulationRun": get_response.json()["simulationRun"],
+        },
+    )

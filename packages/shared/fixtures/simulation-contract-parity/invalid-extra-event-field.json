@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "simulationRunId": "simulation-run-parity-invalid-extra-event-field",
+  "scenarioId": "shift-scenario-parity",
+  "generatedTaskSetId": "generated-task-set-parity",
+  "assignmentSetId": "assignment-set-parity",
+  "events": [
+    {
+      "eventId": "event-nurse-extra-field",
+      "eventType": "nurse",
+      "action": "idle",
+      "nurseId": "nurse-blue",
+      "minute": 0,
+      "unexpectedOperationalField": true
+    }
+  ],
+  "summary": {
+    "totalTasks": 0,
+    "completedTaskCount": 0,
+    "delayedTaskCount": 0,
+    "missedTaskCount": 0,
+    "unassignedTaskCount": 0
+  },
+  "limitations": [
+    "Operational-only contract parity fixture."
+  ]
+}

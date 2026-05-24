@@ -1,0 +1,65 @@
+{
+  "fixture": "valid-nurse-busy-until.json",
+  "createStatusCode": 201,
+  "getStatusCode": 200,
+  "schemaMutation": false,
+  "simulationRun": {
+    "schemaVersion": "1.0.0",
+    "simulationRunId": "simulation-run-parity-busy-until",
+    "scenarioId": "shift-scenario-parity",
+    "generatedTaskSetId": "generated-task-set-parity",
+    "assignmentSetId": "assignment-set-parity",
+    "events": [
+      {
+        "eventId": "event-task-ready",
+        "eventType": "task",
+        "action": "ready",
+        "taskId": "task-operational-1",
+        "minute": 0,
+        "scheduledMinute": 0
+      },
+      {
+        "eventId": "event-task-started",
+        "eventType": "task",
+        "action": "started",
+        "taskId": "task-operational-1",
+        "nurseId": "nurse-blue",
+        "minute": 1,
+        "scheduledMinute": 0,
+        "startMinute": 1
+      },
+      {
+        "eventId": "event-nurse-started",
+        "eventType": "nurse",
+        "action": "started_task",
+        "taskId": "task-operational-1",
+        "nurseId": "nurse-blue",
+        "minute": 1,
+        "durationMinutes": 5.0,
+        "busyUntilMinute": 6
+      },
+      {
+        "eventId": "event-task-completed",
+        "eventType": "task",
+        "action": "completed",
+        "taskId": "task-operational-1",
+        "nurseId": "nurse-blue",
+        "minute": 6,
+        "scheduledMinute": 0,
+        "startMinute": 1,
+        "completedMinute": 6,
+        "durationMinutes": 5.0
+      }
+    ],
+    "summary": {
+      "totalTasks": 1,
+      "completedTaskCount": 1,
+      "delayedTaskCount": 0,
+      "missedTaskCount": 0,
+      "unassignedTaskCount": 0
+    },
+    "limitations": [
+      "Operational-only contract parity fixture."
+    ]
+  }
+}

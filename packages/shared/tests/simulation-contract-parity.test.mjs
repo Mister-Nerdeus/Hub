@@ -33,7 +33,7 @@ function validateFixture(name) {
 }
 
 test("simulation contract parity fixtures have the expected count", () => {
-  assert.equal(manifestEntries.length, 11);
+  assert.equal(manifestEntries.length, 15);
   assert.deepEqual(
     manifestEntries.map((entry) => entry.fixture),
     fixtureNames
@@ -55,7 +55,13 @@ test("TypeScript validator accepts and rejects parity fixtures as expected", () 
 
 test("identity-like key fixture rejection uses the simulation boundary", () => {
   const keyFixtures = fixtureNames.filter(
-    (name) => name !== "valid-minimal.json" && name !== "invalid-recommended-text.json"
+    (name) =>
+      name.startsWith("invalid-") &&
+      ![
+        "invalid-clinical-recommendation-text.json",
+        "invalid-extra-event-field.json",
+        "invalid-recommended-text.json"
+      ].includes(name)
   );
 
   for (const name of keyFixtures) {
@@ -65,4 +71,12 @@ test("identity-like key fixture rejection uses the simulation boundary", () => {
       `${name} should be rejected by forbidden-key validation`
     );
   }
+});
+
+test("TypeScript validator accepts canonical nurse busy-until fixture", () => {
+  const run = validateSimulationRunContract(readFixture("valid-nurse-busy-until.json"));
+  const nurseEvent = run.events.find((event) => event.eventType === "nurse");
+
+  assert.equal(nurseEvent?.eventType, "nurse");
+  assert.equal(nurseEvent?.busyUntilMinute, 6);
 });

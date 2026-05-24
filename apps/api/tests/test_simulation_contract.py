@@ -1,4 +1,6 @@
 from collections.abc import Iterator
+import json
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -9,6 +11,20 @@ from sqlalchemy.pool import StaticPool
 from app import models  # noqa: F401
 from app.db import Base, get_db
 from app.main import app
+
+
+ROOT = Path(__file__).resolve().parents[3]
+PARITY_FIXTURES_DIR = ROOT / "packages" / "shared" / "fixtures" / "simulation-contract-parity"
+EVIDENCE_DIR = ROOT / "docs" / "verification" / "issues" / "issue-187"
+
+
+def read_parity_fixture(name: str) -> dict:
+    return json.loads((PARITY_FIXTURES_DIR / name).read_text(encoding="utf-8"))
+
+
+def write_evidence(name: str, payload: dict) -> None:
+    EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    (EVIDENCE_DIR / name).write_text(f"{json.dumps(payload, indent=2)}\n", encoding="utf-8")
 
 
 @pytest.fixture()
@@ -62,6 +78,74 @@ def test_validate_endpoint_accepts_valid_payload(client: TestClient) -> None:
     body = response.json()
     assert body["status"] == "valid"
     assert body["limitations"] == ["Operational-only validation payload."]
+
+
+def test_validate_endpoint_accepts_canonical_busy_until_fixture(client: TestClient) -> None:
+    payload = read_parity_fixture("valid-nurse-busy-until.json")
+
+    response = client.post("/v1/simulation/validate", json=payload)
+
+    assert response.status_code == 200
+    assert response.json()["simulationRunId"] == "simulation-run-parity-busy-until"
+    write_evidence(
+        "api-validation-output.json",
+        {
+            "fixture": "valid-nurse-busy-until.json",
+            "statusCode": response.status_code,
+            "response": response.json(),
+        },
+    )
+
+
+def test_validate_endpoint_rejects_unknown_extra_event_field(client: TestClient) -> None:
+    response = client.post(
+        "/v1/simulation/validate",
+        json=read_parity_fixture("invalid-extra-event-field.json"),
+    )
+
+    assert response.status_code == 422
+    write_evidence(
+        "negative-extra-field-output.json",
+        {
+            "fixture": "invalid-extra-event-field.json",
+            "statusCode": response.status_code,
+            "accepted": False,
+        },
+    )
+
+
+def test_validate_endpoint_rejects_phi_like_key_fixture(client: TestClient) -> None:
+    response = client.post(
+        "/v1/simulation/validate",
+        json=read_parity_fixture("invalid-phi-like-key.json"),
+    )
+
+    assert response.status_code == 422
+    write_evidence(
+        "negative-no-phi-output.json",
+        {
+            "fixture": "invalid-phi-like-key.json",
+            "statusCode": response.status_code,
+            "accepted": False,
+        },
+    )
+
+
+def test_validate_endpoint_rejects_clinical_recommendation_text_fixture(client: TestClient) -> None:
+    response = client.post(
+        "/v1/simulation/validate",
+        json=read_parity_fixture("invalid-clinical-recommendation-text.json"),
+    )
+
+    assert response.status_code == 422
+    write_evidence(
+        "negative-clinical-text-output.json",
+        {
+            "fixture": "invalid-clinical-recommendation-text.json",
+            "statusCode": response.status_code,
+            "accepted": False,
+        },
+    )
 
 
 def test_validate_endpoint_rejects_phi_like_field(client: TestClient) -> None:

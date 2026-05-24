@@ -70,6 +70,7 @@ const commands = [
   "docker compose --profile tools run --rm migrate",
   "node scripts/check-no-phi-fields.mjs",
   "node scripts/check-docs-contracts.mjs",
+  "node scripts/check-simulation-contract-parity.mjs",
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",

@@ -35,7 +35,7 @@ def validate_fixture(name: str) -> str:
 def test_simulation_contract_parity_fixtures_have_expected_count() -> None:
     entries = manifest_entries()
 
-    assert len(entries) == 11
+    assert len(entries) == 15
     assert [entry["fixture"] for entry in entries] == fixture_names()
 
 
@@ -48,3 +48,11 @@ def test_python_validator_accepts_and_rejects_parity_fixtures_as_expected() -> N
     assert [(result["fixture"], result["python"]) for result in results] == [
         (result["fixture"], result["expected"]) for result in results
     ]
+
+
+def test_python_validator_accepts_canonical_nurse_busy_until_fixture() -> None:
+    run = SimulationRunContract.model_validate(read_fixture("valid-nurse-busy-until.json"))
+    nurse_events = [event for event in run.events if event.eventType == "nurse"]
+
+    assert len(nurse_events) == 1
+    assert nurse_events[0].busyUntilMinute == 6

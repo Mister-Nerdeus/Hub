@@ -5,6 +5,10 @@
       "expected": "reject"
     },
     {
+      "fixture": "invalid-clinical-recommendation-text.json",
+      "expected": "reject"
+    },
+    {
       "fixture": "invalid-date-of-birth.json",
       "expected": "reject"
     },
@@ -14,6 +18,14 @@
     },
     {
       "fixture": "invalid-ehr-id.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-extra-event-field.json",
+      "expected": "reject"
+    },
+    {
+      "fixture": "invalid-phi-like-key.json",
       "expected": "reject"
     },
     {
@@ -42,6 +54,10 @@
     },
     {
       "fixture": "valid-minimal.json",
+      "expected": "accept"
+    },
+    {
+      "fixture": "valid-nurse-busy-until.json",
       "expected": "accept"
     }
   ]

@@ -74,6 +74,7 @@ class SimulationEvent(StrictModel):
     projectedTravelMinutes: int | None = Field(default=None, ge=0)
     projectedCompletionMinute: int | None = Field(default=None, ge=0)
     shiftDurationMinutes: int | None = Field(default=None, ge=0)
+    busyUntilMinute: int | None = Field(default=None, ge=0)
     originalReadyMinute: int | None = Field(default=None, ge=0)
     enteredQueueMinute: int | None = Field(default=None, ge=0)
     startedMinute: int | None = Field(default=None, ge=0)
@@ -86,6 +87,83 @@ class SimulationEvent(StrictModel):
     travelDistanceFeet: float | None = Field(default=None, ge=0)
     travelSeconds: float | None = Field(default=None, ge=0)
     warnings: list[str] | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_event_key_set(cls, value: Any) -> Any:
+        if not isinstance(value, dict):
+            return value
+        event_type = value.get("eventType")
+        allowed_keys_by_type = {
+            "task": {
+                "eventId",
+                "eventType",
+                "action",
+                "taskId",
+                "nurseId",
+                "minute",
+                "scheduledMinute",
+                "startMinute",
+                "completedMinute",
+                "durationMinutes",
+                "delayMinutes",
+                "missReason",
+                "queueWaitMinutes",
+                "travelMinutes",
+                "projectedStartMinute",
+                "projectedTravelMinutes",
+                "projectedCompletionMinute",
+                "shiftDurationMinutes",
+                "routeNodeIds",
+                "routeEdgeIds",
+            },
+            "nurse": {
+                "eventId",
+                "eventType",
+                "action",
+                "nurseId",
+                "taskId",
+                "minute",
+                "durationMinutes",
+                "busyUntilMinute",
+            },
+            "queue": {
+                "eventId",
+                "eventType",
+                "action",
+                "nurseId",
+                "taskId",
+                "minute",
+                "originalReadyMinute",
+                "enteredQueueMinute",
+                "startedMinute",
+                "waitMinutes",
+                "orderingReason",
+            },
+            "travel": {
+                "eventId",
+                "eventType",
+                "action",
+                "nurseId",
+                "taskId",
+                "minute",
+                "originNodeId",
+                "destinationNodeId",
+                "routeNodeIds",
+                "routeEdgeIds",
+                "travelDistanceFeet",
+                "travelSeconds",
+                "travelMinutes",
+                "warnings",
+            },
+        }
+        allowed_keys = allowed_keys_by_type.get(event_type)
+        if allowed_keys is None:
+            return value
+        unsupported_keys = sorted(set(value) - allowed_keys)
+        if unsupported_keys:
+            raise ValueError(f"{event_type} event contains unsupported fields")
+        return value
 
     @model_validator(mode="after")
     def validate_event_references(self) -> "SimulationEvent":

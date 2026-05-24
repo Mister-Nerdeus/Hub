@@ -1,0 +1,14 @@
+{
+  "fixture": "valid-nurse-busy-until.json",
+  "statusCode": 200,
+  "response": {
+    "status": "valid",
+    "simulationRunId": "simulation-run-parity-busy-until",
+    "scenarioId": "shift-scenario-parity",
+    "generatedTaskSetId": "generated-task-set-parity",
+    "assignmentSetId": "assignment-set-parity",
+    "limitations": [
+      "Operational-only contract parity fixture."
+    ]
+  }
+}

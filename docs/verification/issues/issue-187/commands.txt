@@ -1,0 +1,7 @@
+npm --workspace packages/shared run build; node <typescript parity probe>; python <python parity probe> > docs/verification/issues/issue-187/first-failure.txt
+node scripts/check-simulation-contract-parity.mjs > docs/verification/issues/issue-187/parity-output.json
+npm --workspace packages/shared test > docs/verification/issues/issue-187/test-output/shared.txt
+cd apps/api && python -m pytest > ../../docs/verification/issues/issue-187/test-output/api.txt
+node scripts/check-no-phi-fields.mjs > docs/verification/issues/issue-187/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-187/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs > docs/verification/issues/issue-187/test-output/verify-local.txt

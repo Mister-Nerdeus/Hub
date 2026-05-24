@@ -1,0 +1,52 @@
+{
+  "issue": "187",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared run build; node <typescript parity probe>; python <python parity probe> > docs/verification/issues/issue-187/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-187/first-failure.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-contract-parity.mjs > docs/verification/issues/issue-187/parity-output.json",
+      "outputs": [
+        "docs/verification/issues/issue-187/parity-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test > docs/verification/issues/issue-187/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-187/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest > ../../docs/verification/issues/issue-187/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-187/test-output/api.txt",
+        "docs/verification/issues/issue-187/api-validation-output.json",
+        "docs/verification/issues/issue-187/api-persistence-output.json",
+        "docs/verification/issues/issue-187/negative-extra-field-output.json",
+        "docs/verification/issues/issue-187/negative-no-phi-output.json",
+        "docs/verification/issues/issue-187/negative-clinical-text-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs > docs/verification/issues/issue-187/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-187/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-187/test-output/docs-gate.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-187/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs > docs/verification/issues/issue-187/test-output/verify-local.txt",
+      "outputs": [
+        "docs/verification/issues/issue-187/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}
