@@ -1,4 +1,4 @@
 # Follow-Up Issues
 
-- Continue with the next issue in batch order.
-- Preserve the approximate fixture graph and non-claims until later measured-distance work is explicitly scoped.
+- Continue with Issue 224 for JSON floorplan import/export.
+- Add save-back behavior only when a later issue explicitly scopes editor persistence.

@@ -2,9 +2,11 @@ import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import {
   createLayoutEditorState,
+  createLayoutEditorStateFromFloorplan,
   isLayoutEditorSelectableObjectType,
   isLayoutEditorSnapMode,
   normalizeLayoutEditorViewport,
+  type LayoutEditorFloorplanInput,
   type LayoutEditorSelectableObjectType,
   type LayoutEditorSnapMode,
   type LayoutEditorState,
@@ -49,6 +51,7 @@ import {
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
+  | { type: "loadActiveFloorplan"; floorplan: LayoutEditorFloorplanInput }
   | {
       type: "selectObject";
       objectType: LayoutEditorSelectableObjectType;
@@ -87,6 +90,9 @@ export function layoutEditorReducer(
       return {
         ...state,
         editableLayout: action.layout,
+        sourcePlan: null,
+        loadedFloorplan: null,
+        readOnly: false,
         selectedObjectId: null,
         selectedObjectType: null,
         validationWarnings: [],
@@ -94,6 +100,13 @@ export function layoutEditorReducer(
         isDirty: false,
         history: createLayoutUndoRedoHistory(state.history.maxDepth)
       };
+    case "loadActiveFloorplan":
+      return createLayoutEditorStateFromFloorplan(action.floorplan, {
+        viewport: state.viewport,
+        layoutBoundsFeet: state.layoutBoundsFeet,
+        snapMode: state.snapMode,
+        history: createLayoutUndoRedoHistory(state.history.maxDepth)
+      });
     case "selectObject":
       return selectObject(state, action.objectType, action.objectId);
     case "clearSelection":
@@ -186,6 +199,9 @@ function editSelectedRoomDimensions(
   state: LayoutEditorState,
   dimensions: RoomInspectorDimensionChanges
 ): LayoutEditorState {
+  if (state.readOnly) {
+    return state;
+  }
   if (state.editableLayout == null) {
     return state;
   }
@@ -256,6 +272,9 @@ function resizeRoom(
   handle: RoomResizeHandle,
   delta: { deltaXFeet: number; deltaYFeet: number }
 ): LayoutEditorState {
+  if (state.readOnly) {
+    return state;
+  }
   if (state.editableLayout == null) {
     return state;
   }
@@ -403,6 +422,9 @@ function moveRoom(
   roomId: string,
   delta: { deltaXFeet: number; deltaYFeet: number }
 ): LayoutEditorState {
+  if (state.readOnly) {
+    return state;
+  }
   if (state.editableLayout == null) {
     return state;
   }

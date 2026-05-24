@@ -30,7 +30,10 @@ import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
 import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
-import { createLayoutEditorState } from "./layoutEditorState";
+import {
+  createLayoutEditorState,
+  type LayoutEditorFloorplanInput
+} from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
@@ -91,7 +94,11 @@ const baseInitialStageState = createLayoutEditorState({
   snapMode: "default"
 });
 
-export function LayoutEditorStage() {
+type LayoutEditorStageProps = {
+  activeFloorplan?: LayoutEditorFloorplanInput | null;
+};
+
+export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageProps) {
   const localDraftStorage = getBrowserLocalDraftStorage();
   const [stageState, dispatchStage] = useReducer(
     layoutEditorReducer,
@@ -105,10 +112,21 @@ export function LayoutEditorStage() {
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
   useEffect(() => {
+    if (activeFloorplan == null) {
+      return;
+    }
+    dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
+  }, [
+    activeFloorplan?.recordId,
+    activeFloorplan?.planId,
+    activeFloorplan?.sourceKind,
+    activeFloorplan?.readOnly
+  ]);
+  useEffect(() => {
     setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedRoom));
   }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
   useEffect(() => {
-    if (localDraftStorage == null || stageState.editableLayout == null) {
+    if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
       return;
     }
     saveLayoutLocalDraft(
@@ -124,6 +142,7 @@ export function LayoutEditorStage() {
   }, [
     localDraftStorage,
     stageState.editableLayout,
+    stageState.readOnly,
     stageState.snapMode,
     stageState.viewport,
     stageState.editAuditTrail,
@@ -175,6 +194,9 @@ export function LayoutEditorStage() {
   };
   const startRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
     selectStageObject("room", roomId);
+    if (stageState.readOnly) {
+      return;
+    }
     roomDragRef.current = {
       roomId,
       lastClientX: event.clientX,
@@ -225,6 +247,9 @@ export function LayoutEditorStage() {
   ) => {
     event.preventDefault();
     event.stopPropagation();
+    if (stageState.readOnly) {
+      return;
+    }
     if (stageState.selectedObjectType !== "room" || stageState.selectedObjectId !== roomId) {
       return;
     }
@@ -291,7 +316,7 @@ export function LayoutEditorStage() {
       <header className="layout-editor-stage__header">
         <div>
           <p className="eyebrow">Layout editor proof</p>
-          <h2 id="layout-editor-stage-title">SVG stage shell</h2>
+          <h2 id="layout-editor-stage-title">JSON floorplan editor</h2>
           <div className="layout-editor-stage__history-controls">
             <button
               type="button"
@@ -313,7 +338,11 @@ export function LayoutEditorStage() {
                 if (localDraftStorage != null) {
                   resetLayoutLocalDraft(localDraftStorage);
                 }
-                dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
+                if (activeFloorplan == null) {
+                  dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
+                } else {
+                  dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
+                }
               }}
             >
               Reset local draft
@@ -323,7 +352,11 @@ export function LayoutEditorStage() {
         <dl className="layout-editor-stage__meta" aria-label="Layout editor stage metadata">
           <div>
             <dt>Layout</dt>
-            <dd>{stageState.editableLayout?.layoutId}</dd>
+            <dd>{stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId}</dd>
+          </div>
+          <div>
+            <dt>Mode</dt>
+            <dd>{stageState.readOnly ? "Read-only" : "Editable"}</dd>
           </div>
           <div>
             <dt>Units</dt>
@@ -356,6 +389,7 @@ export function LayoutEditorStage() {
             aria-label="Feet-based SVG grid stage"
             data-render-item-count={renderItems.length}
             data-validation-warning-count={stageState.validationWarnings.length}
+            data-read-only={stageState.readOnly ? "true" : "false"}
           >
             <rect
               className="layout-editor-stage__viewport-frame"

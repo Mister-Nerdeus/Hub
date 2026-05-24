@@ -134,7 +134,7 @@ export function App() {
         }
       />
       <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
-      <LayoutEditorStage />
+      <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />
       <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
       <OperationalReportsProof viewModel={reportProofViewModel} />

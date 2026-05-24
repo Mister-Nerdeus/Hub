@@ -1762,18 +1762,20 @@
     },
     {
       "issue": "223",
-      "title": "Walking Baseline Contract V1",
+      "title": "Editor Loads Selected Saved Floorplan",
       "requiredEvidence": [
-        "docs/contracts/walking-baseline-contract.md",
         "docs/verification/issues/issue-223/closeout.md",
         "docs/verification/issues/issue-223/command-output-map.json",
         "docs/verification/issues/issue-223/commands.txt",
+        "docs/verification/issues/issue-223/editable-copy-editor-output.json",
+        "docs/verification/issues/issue-223/editor-loads-active-floorplan-output.json",
         "docs/verification/issues/issue-223/first-failure.txt",
+        "docs/verification/issues/issue-223/metadata-preservation-output.json",
+        "docs/verification/issues/issue-223/read-only-default-guard-output.json",
         "docs/verification/issues/issue-223/test-output/docs-gate.txt",
-        "docs/verification/issues/issue-223/test-output/shared.txt",
-        "docs/verification/issues/issue-223/walking-baseline-contract-output.json",
-        "docs/verification/issues/issue-223/walking-baseline-limitations-output.json",
-        "docs/verification/issues/issue-223/walking-baseline-negative-output.json"
+        "docs/verification/issues/issue-223/test-output/no-phi.txt",
+        "docs/verification/issues/issue-223/test-output/web.txt",
+        "docs/verification/issues/issue-223/test-output/web-build.txt"
       ]
     },
     {

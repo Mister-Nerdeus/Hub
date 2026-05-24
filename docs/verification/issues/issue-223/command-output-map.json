@@ -2,16 +2,29 @@
   "issue": "223",
   "commands": [
     {
-      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt",
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/web.txt",
       "outputs": [
-        "docs/verification/issues/issue-223/test-output/shared.txt",
-        "docs/verification/issues/issue-223/walking-baseline-contract-output.json",
-        "docs/verification/issues/issue-223/walking-baseline-negative-output.json",
-        "docs/verification/issues/issue-223/walking-baseline-limitations-output.json"
+        "docs/verification/issues/issue-223/test-output/web.txt",
+        "docs/verification/issues/issue-223/editor-loads-active-floorplan-output.json",
+        "docs/verification/issues/issue-223/read-only-default-guard-output.json",
+        "docs/verification/issues/issue-223/editable-copy-editor-output.json",
+        "docs/verification/issues/issue-223/metadata-preservation-output.json"
       ]
     },
     {
-      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-222/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt",
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-223/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-223/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/docs-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-223/test-output/docs-gate.txt"
       ]

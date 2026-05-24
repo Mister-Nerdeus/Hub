@@ -1,1 +1,5 @@
-Current-gap evidence before implementation: no walking baseline contract or builder existed for summaries derived from route preview outputs.
+Current-gap evidence before implementation:
+
+- `LayoutEditorStage` constructed its state from `layoutEditorProofFixture` only.
+- `LayoutEditorStage` accepted no active floorplan input and `App.tsx` rendered it without the active JSON floorplan selected by the floorplan library.
+- `LayoutEditorState` had no read-only guard, no active floorplan identity, and no place to preserve full `PlanContract` metadata, path nodes, or path edges while editing derived geometry.

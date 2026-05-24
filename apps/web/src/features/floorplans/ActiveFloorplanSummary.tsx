@@ -12,7 +12,11 @@ export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProp
           <p className="eyebrow">Active floorplan</p>
           <h2 id="active-floorplan-title">{viewModel.name}</h2>
         </div>
-        {viewModel.hasActiveFloorplan ? <span>Read-only</span> : <span>None</span>}
+        {viewModel.hasActiveFloorplan ? (
+          <span>{viewModel.readOnly ? "Read-only" : "Editable"}</span>
+        ) : (
+          <span>None</span>
+        )}
       </div>
 
       {viewModel.hasActiveFloorplan && viewModel.objectCounts != null ? (
@@ -32,7 +36,7 @@ export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProp
             </div>
             <div>
               <dt>Mapping</dt>
-              <dd>{viewModel.mappingStatus}</dd>
+              <dd>{viewModel.mappingStatus ?? viewModel.parentDefaultPlanId}</dd>
             </div>
           </dl>
           <dl className="active-floorplan__counts" aria-label="Active floorplan object counts">

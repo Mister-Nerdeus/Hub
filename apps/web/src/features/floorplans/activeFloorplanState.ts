@@ -1,8 +1,13 @@
 import type { DefaultSavedPlanFixtureContract, PlanContract } from "@nerdeus/shared";
 
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
+import type { SavedFloorplanRecord } from "./savedFloorplanStore";
 
-export type ActiveFloorplanRecord = {
+export type ActiveFloorplanRecord =
+  | ActiveDefaultFloorplanRecord
+  | ActiveSavedFloorplanRecord;
+
+export type ActiveDefaultFloorplanRecord = {
   planId: string;
   name: string;
   recordId: string;
@@ -10,6 +15,19 @@ export type ActiveFloorplanRecord = {
   readOnly: true;
   importStatus: "validated_default";
   mappingStatus: string;
+  parentDefaultPlanId: null;
+  plan: PlanContract;
+};
+
+export type ActiveSavedFloorplanRecord = {
+  planId: string;
+  name: string;
+  recordId: string;
+  sourceKind: "saved-json";
+  readOnly: false;
+  importStatus: "validated_saved";
+  mappingStatus: null;
+  parentDefaultPlanId: string;
   plan: PlanContract;
 };
 
@@ -29,9 +47,10 @@ export type ActiveFloorplanSummaryViewModel = {
   planId: string | null;
   name: string;
   readOnly: boolean;
-  sourceKind: "default-json" | null;
+  sourceKind: "default-json" | "saved-json" | null;
   importStatus: string | null;
   mappingStatus: string | null;
+  parentDefaultPlanId: string | null;
   selectedObjectId: string | null;
   objectCounts: {
     rooms: number;
@@ -71,7 +90,33 @@ export function openDefaultFloorplan(
       readOnly: true,
       importStatus: fixture.importStatus,
       mappingStatus: fixture.mappingId,
+      parentDefaultPlanId: null,
       plan: fixture.plan
+    },
+    selection: createEmptySelectionState(),
+    sequence: state.sequence + 1
+  };
+}
+
+export function openSavedFloorplan(
+  state: ActiveFloorplanState,
+  record: SavedFloorplanRecord
+): ActiveFloorplanState {
+  if (record.readOnly !== false) {
+    throw new Error(`Cannot open read-only saved JSON floorplan: ${record.recordId}`);
+  }
+
+  return {
+    activeFloorplan: {
+      planId: record.plan.planId,
+      name: record.plan.name,
+      recordId: record.recordId,
+      sourceKind: "saved-json",
+      readOnly: false,
+      importStatus: "validated_saved",
+      mappingStatus: null,
+      parentDefaultPlanId: record.parentDefaultPlanId,
+      plan: record.plan
     },
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -91,6 +136,7 @@ export function createActiveFloorplanSummaryViewModel(
       sourceKind: null,
       importStatus: null,
       mappingStatus: null,
+      parentDefaultPlanId: null,
       selectedObjectId: state.selection.selectedObjectId,
       objectCounts: null
     };
@@ -104,6 +150,7 @@ export function createActiveFloorplanSummaryViewModel(
     sourceKind: floorplan.sourceKind,
     importStatus: floorplan.importStatus,
     mappingStatus: floorplan.mappingStatus,
+    parentDefaultPlanId: floorplan.parentDefaultPlanId,
     selectedObjectId: state.selection.selectedObjectId,
     objectCounts: {
       rooms: floorplan.plan.rooms.length,
