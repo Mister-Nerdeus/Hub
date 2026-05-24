@@ -11,10 +11,10 @@ import {
   type LayoutEditorValidationWarning
 } from "./layoutValidationWarningContract";
 import {
-  DEFAULT_LAYOUT_BOUNDS_FEET,
   normalizeBoundsFeet,
   type LayoutBoundsFeet
 } from "./layoutMoveValidation";
+import { DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET } from "./layoutWorkspaceConfig";
 import {
   isLayoutSelectionObjectType,
   LAYOUT_SELECTION_OBJECT_TYPES,
@@ -75,7 +75,9 @@ export function createLayoutEditorState(
     selectedObjectId,
     selectedObjectType,
     viewport: normalizeLayoutEditorViewport(overrides.viewport ?? DEFAULT_LAYOUT_EDITOR_VIEWPORT),
-    layoutBoundsFeet: normalizeBoundsFeet(overrides.layoutBoundsFeet ?? DEFAULT_LAYOUT_BOUNDS_FEET),
+    layoutBoundsFeet: normalizeBoundsFeet(
+      overrides.layoutBoundsFeet ?? DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET
+    ),
     snapMode,
     validationWarnings: (overrides.validationWarnings ?? []).map(validateLayoutValidationWarning),
     editAuditTrail: [...(overrides.editAuditTrail ?? [])],

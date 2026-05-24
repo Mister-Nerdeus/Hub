@@ -1,0 +1,51 @@
+{
+  "issue": "188",
+  "commands": [
+    {
+      "command": "npx --yes tsx <issue-188 first-failure probe> > docs/verification/issues/issue-188/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-188/first-failure.txt"
+      ]
+    },
+    {
+      "command": "PowerShell grid proof render > docs/verification/issues/issue-188/screenshots/*.png",
+      "outputs": [
+        "docs/verification/issues/issue-188/screenshots/before-grid-proof.png",
+        "docs/verification/issues/issue-188/screenshots/workspace-180x120-proof.png",
+        "docs/verification/issues/issue-188/screenshots/zoom-50-grid-proof.png"
+      ]
+    },
+    {
+      "command": "npx --yes tsx <issue-188 workspace/grid evidence probes> > docs/verification/issues/issue-188/*.json",
+      "outputs": [
+        "docs/verification/issues/issue-188/workspace-grid-output.json",
+        "docs/verification/issues/issue-188/viewport-grid-output.json",
+        "docs/verification/issues/issue-188/local-draft-migration-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test > docs/verification/issues/issue-188/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-188/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-188/test-output/web.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-188/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-188/test-output/docs-gate.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-188/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs > docs/verification/issues/issue-188/test-output/verify-local.txt",
+      "outputs": [
+        "docs/verification/issues/issue-188/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+npx --yes tsx <issue-188 first-failure probe> > docs/verification/issues/issue-188/first-failure.txt
+PowerShell grid proof render > docs/verification/issues/issue-188/screenshots/*.png
+npx --yes tsx <issue-188 workspace/grid evidence probes> > docs/verification/issues/issue-188/*.json
+npm --workspace apps/web test > docs/verification/issues/issue-188/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-188/test-output/web.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-188/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs > docs/verification/issues/issue-188/test-output/verify-local.txt

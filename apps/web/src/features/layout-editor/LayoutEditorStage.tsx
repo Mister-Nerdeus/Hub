@@ -29,12 +29,18 @@ import {
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
-import { DEFAULT_LAYOUT_BOUNDS_FEET } from "./layoutMoveValidation";
 import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
+import {
+  DEFAULT_LAYOUT_MAJOR_GRID_FEET,
+  DEFAULT_LAYOUT_MINOR_GRID_FEET,
+  DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT,
+  DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS,
+  DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET
+} from "./layoutWorkspaceConfig";
 import { RoomResizeHandles } from "./RoomResizeHandles";
 import {
   buildSelectedRoomResizeHandlesViewModel,
@@ -52,11 +58,9 @@ import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
-const STAGE_WIDTH_FEET = DEFAULT_LAYOUT_BOUNDS_FEET.widthFeet;
-const STAGE_HEIGHT_FEET = DEFAULT_LAYOUT_BOUNDS_FEET.heightFeet;
-const STAGE_PIXELS_PER_FOOT = 12;
-const STAGE_WIDTH_PIXELS = STAGE_WIDTH_FEET * STAGE_PIXELS_PER_FOOT;
-const STAGE_HEIGHT_PIXELS = STAGE_HEIGHT_FEET * STAGE_PIXELS_PER_FOOT;
+const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
+const STAGE_WIDTH_PIXELS = DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS.widthPixels;
+const STAGE_HEIGHT_PIXELS = DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS.heightPixels;
 const STAGE_VIEW_BOX = `0 0 ${STAGE_WIDTH_PIXELS} ${STAGE_HEIGHT_PIXELS}`;
 
 type RoomDragState = {
@@ -81,7 +85,7 @@ const baseInitialStageState = createLayoutEditorState({
     panXFeet: 0,
     panYFeet: 0
   },
-  layoutBoundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET,
+  layoutBoundsFeet: DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET,
   selectedObjectId: "room-01",
   selectedObjectType: "room",
   snapMode: "default"
@@ -126,11 +130,11 @@ export function LayoutEditorStage() {
     stageState.isDirty
   ]);
   const grid = buildLayoutGridViewModel({
-    widthFeet: STAGE_WIDTH_FEET,
-    heightFeet: STAGE_HEIGHT_FEET,
+    workspaceBoundsFeet: stageState.layoutBoundsFeet,
+    viewportSizePixels: DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS,
     viewport: stageState.viewport,
-    gridSpacingFeet: 1,
-    majorEveryFeet: 5
+    gridSpacingFeet: DEFAULT_LAYOUT_MINOR_GRID_FEET,
+    majorEveryFeet: DEFAULT_LAYOUT_MAJOR_GRID_FEET
   });
   const inspectorViewModel = buildLayoutInspectorViewModel({
     layout: stageState.editableLayout,
@@ -354,11 +358,19 @@ export function LayoutEditorStage() {
             data-validation-warning-count={stageState.validationWarnings.length}
           >
             <rect
-              className="layout-editor-stage__frame"
+              className="layout-editor-stage__viewport-frame"
               x="0"
               y="0"
               width={STAGE_WIDTH_PIXELS}
               height={STAGE_HEIGHT_PIXELS}
+              rx="0"
+            />
+            <rect
+              className="layout-editor-stage__workspace-boundary"
+              x={grid.workspaceBoundary.xPixels}
+              y={grid.workspaceBoundary.yPixels}
+              width={grid.workspaceBoundary.widthPixels}
+              height={grid.workspaceBoundary.heightPixels}
               rx="0"
             />
             <g className="layout-editor-stage__background-objects">

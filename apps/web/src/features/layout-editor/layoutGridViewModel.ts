@@ -1,4 +1,12 @@
-import { feetToPixels, type LayoutViewportTransform } from "./layoutCoordinateSystem";
+import {
+  feetToPixels,
+  pixelsToFeet,
+  type LayoutViewportTransform
+} from "./layoutCoordinateSystem";
+import type {
+  LayoutStageViewportPixels,
+  LayoutWorkspaceBoundsFeet
+} from "./layoutWorkspaceConfig";
 
 export type LayoutGridLineOrientation = "vertical" | "horizontal";
 
@@ -20,7 +28,8 @@ export type LayoutGridViewModel = {
   widthPixels: number;
   heightPixels: number;
   viewBox: string;
-  frame: {
+  visibleBoundsFeet: LayoutWorkspaceBoundsFeet;
+  workspaceBoundary: {
     xPixels: number;
     yPixels: number;
     widthPixels: number;
@@ -33,61 +42,49 @@ export type LayoutGridViewModel = {
 };
 
 export type BuildLayoutGridViewModelInput = {
-  widthFeet: number;
-  heightFeet: number;
+  workspaceBoundsFeet: LayoutWorkspaceBoundsFeet;
+  viewportSizePixels: LayoutStageViewportPixels;
   viewport: LayoutViewportTransform;
   gridSpacingFeet?: number;
   majorEveryFeet?: number;
 };
 
 export function buildLayoutGridViewModel({
-  widthFeet,
-  heightFeet,
+  workspaceBoundsFeet,
+  viewportSizePixels,
   viewport,
   gridSpacingFeet = 1,
   majorEveryFeet = 5
 }: BuildLayoutGridViewModelInput): LayoutGridViewModel {
-  const normalizedWidthFeet = requirePositive(widthFeet, "widthFeet");
-  const normalizedHeightFeet = requirePositive(heightFeet, "heightFeet");
+  const workspaceBounds = normalizeWorkspaceBounds(workspaceBoundsFeet);
+  const normalizedViewportSize = normalizeViewportSize(viewportSizePixels);
   const normalizedGridSpacingFeet = requirePositive(gridSpacingFeet, "gridSpacingFeet");
   const normalizedMajorEveryFeet = requirePositive(majorEveryFeet, "majorEveryFeet");
-  const topLeft = feetToPixels({ xFeet: 0, yFeet: 0 }, viewport);
-  const bottomRight = feetToPixels(
-    { xFeet: normalizedWidthFeet, yFeet: normalizedHeightFeet },
+  const visibleBoundsFeet = visibleWorkspaceIntersection({
+    workspaceBoundsFeet: workspaceBounds,
+    viewportSizePixels: normalizedViewportSize,
     viewport
-  );
-  const widthPixels = roundPixels(bottomRight.xPixels - topLeft.xPixels);
-  const heightPixels = roundPixels(bottomRight.yPixels - topLeft.yPixels);
+  });
+  const workspaceBoundary = workspaceBoundaryPixels(workspaceBounds, viewport);
 
   return {
-    widthFeet: normalizedWidthFeet,
-    heightFeet: normalizedHeightFeet,
-    widthPixels,
-    heightPixels,
-    viewBox: [
-      roundPixels(topLeft.xPixels),
-      roundPixels(topLeft.yPixels),
-      widthPixels,
-      heightPixels
-    ].join(" "),
-    frame: {
-      xPixels: roundPixels(topLeft.xPixels),
-      yPixels: roundPixels(topLeft.yPixels),
-      widthPixels,
-      heightPixels
-    },
+    widthFeet: workspaceBounds.widthFeet,
+    heightFeet: workspaceBounds.heightFeet,
+    widthPixels: normalizedViewportSize.widthPixels,
+    heightPixels: normalizedViewportSize.heightPixels,
+    viewBox: `0 0 ${roundPixels(normalizedViewportSize.widthPixels)} ${roundPixels(normalizedViewportSize.heightPixels)}`,
+    visibleBoundsFeet,
+    workspaceBoundary,
     gridSpacingFeet: normalizedGridSpacingFeet,
     majorEveryFeet: normalizedMajorEveryFeet,
     verticalLines: buildVerticalLines(
-      normalizedWidthFeet,
-      normalizedHeightFeet,
+      visibleBoundsFeet,
       viewport,
       normalizedGridSpacingFeet,
       normalizedMajorEveryFeet
     ),
     horizontalLines: buildHorizontalLines(
-      normalizedWidthFeet,
-      normalizedHeightFeet,
+      visibleBoundsFeet,
       viewport,
       normalizedGridSpacingFeet,
       normalizedMajorEveryFeet
@@ -96,15 +93,21 @@ export function buildLayoutGridViewModel({
 }
 
 function buildVerticalLines(
-  widthFeet: number,
-  heightFeet: number,
+  visibleBoundsFeet: LayoutWorkspaceBoundsFeet,
   viewport: LayoutViewportTransform,
   gridSpacingFeet: number,
   majorEveryFeet: number
 ): LayoutGridLineViewModel[] {
-  return buildFootValues(widthFeet, gridSpacingFeet).map((xFeet) => {
-    const start = feetToPixels({ xFeet, yFeet: 0 }, viewport);
-    const end = feetToPixels({ xFeet, yFeet: heightFeet }, viewport);
+  return buildFootValues(
+    visibleBoundsFeet.xFeet,
+    visibleBoundsFeet.xFeet + visibleBoundsFeet.widthFeet,
+    gridSpacingFeet
+  ).map((xFeet) => {
+    const start = feetToPixels({ xFeet, yFeet: visibleBoundsFeet.yFeet }, viewport);
+    const end = feetToPixels(
+      { xFeet, yFeet: visibleBoundsFeet.yFeet + visibleBoundsFeet.heightFeet },
+      viewport
+    );
     return {
       id: `grid-x-${formatFeet(xFeet)}`,
       orientation: "vertical",
@@ -120,15 +123,21 @@ function buildVerticalLines(
 }
 
 function buildHorizontalLines(
-  widthFeet: number,
-  heightFeet: number,
+  visibleBoundsFeet: LayoutWorkspaceBoundsFeet,
   viewport: LayoutViewportTransform,
   gridSpacingFeet: number,
   majorEveryFeet: number
 ): LayoutGridLineViewModel[] {
-  return buildFootValues(heightFeet, gridSpacingFeet).map((yFeet) => {
-    const start = feetToPixels({ xFeet: 0, yFeet }, viewport);
-    const end = feetToPixels({ xFeet: widthFeet, yFeet }, viewport);
+  return buildFootValues(
+    visibleBoundsFeet.yFeet,
+    visibleBoundsFeet.yFeet + visibleBoundsFeet.heightFeet,
+    gridSpacingFeet
+  ).map((yFeet) => {
+    const start = feetToPixels({ xFeet: visibleBoundsFeet.xFeet, yFeet }, viewport);
+    const end = feetToPixels(
+      { xFeet: visibleBoundsFeet.xFeet + visibleBoundsFeet.widthFeet, yFeet },
+      viewport
+    );
     return {
       id: `grid-y-${formatFeet(yFeet)}`,
       orientation: "horizontal",
@@ -143,20 +152,93 @@ function buildHorizontalLines(
   });
 }
 
-function buildFootValues(maxFeet: number, gridSpacingFeet: number): number[] {
+function buildFootValues(minFeet: number, maxFeet: number, gridSpacingFeet: number): number[] {
+  if (maxFeet < minFeet) {
+    return [];
+  }
   const values: number[] = [];
-  const maxSteps = Math.ceil(maxFeet / gridSpacingFeet);
-  for (let step = 0; step <= maxSteps; step += 1) {
+  const minStep = Math.ceil(minFeet / gridSpacingFeet);
+  const maxStep = Math.floor(maxFeet / gridSpacingFeet);
+  for (let step = minStep; step <= maxStep; step += 1) {
     const valueFeet = roundFeet(step * gridSpacingFeet);
-    if (valueFeet <= maxFeet) {
+    if (valueFeet >= minFeet && valueFeet <= maxFeet) {
       values.push(valueFeet);
     }
   }
-  const lastValue = values.at(-1);
-  if (lastValue !== maxFeet) {
-    values.push(maxFeet);
-  }
   return values;
+}
+
+function visibleWorkspaceIntersection({
+  workspaceBoundsFeet,
+  viewportSizePixels,
+  viewport
+}: {
+  workspaceBoundsFeet: LayoutWorkspaceBoundsFeet;
+  viewportSizePixels: LayoutStageViewportPixels;
+  viewport: LayoutViewportTransform;
+}): LayoutWorkspaceBoundsFeet {
+  const visibleTopLeft = pixelsToFeet({ xPixels: 0, yPixels: 0 }, viewport);
+  const visibleBottomRight = pixelsToFeet(
+    {
+      xPixels: viewportSizePixels.widthPixels,
+      yPixels: viewportSizePixels.heightPixels
+    },
+    viewport
+  );
+  const visibleLeftFeet = Math.min(visibleTopLeft.xFeet, visibleBottomRight.xFeet);
+  const visibleTopFeet = Math.min(visibleTopLeft.yFeet, visibleBottomRight.yFeet);
+  const visibleRightFeet = Math.max(visibleTopLeft.xFeet, visibleBottomRight.xFeet);
+  const visibleBottomFeet = Math.max(visibleTopLeft.yFeet, visibleBottomRight.yFeet);
+  const workspaceRightFeet = workspaceBoundsFeet.xFeet + workspaceBoundsFeet.widthFeet;
+  const workspaceBottomFeet = workspaceBoundsFeet.yFeet + workspaceBoundsFeet.heightFeet;
+
+  const xFeet = Math.max(workspaceBoundsFeet.xFeet, visibleLeftFeet);
+  const yFeet = Math.max(workspaceBoundsFeet.yFeet, visibleTopFeet);
+  const rightFeet = Math.min(workspaceRightFeet, visibleRightFeet);
+  const bottomFeet = Math.min(workspaceBottomFeet, visibleBottomFeet);
+
+  return {
+    xFeet: roundFeet(xFeet),
+    yFeet: roundFeet(yFeet),
+    widthFeet: roundFeet(Math.max(0, rightFeet - xFeet)),
+    heightFeet: roundFeet(Math.max(0, bottomFeet - yFeet))
+  };
+}
+
+function workspaceBoundaryPixels(
+  workspaceBoundsFeet: LayoutWorkspaceBoundsFeet,
+  viewport: LayoutViewportTransform
+): LayoutGridViewModel["workspaceBoundary"] {
+  const topLeft = feetToPixels(workspaceBoundsFeet, viewport);
+  const bottomRight = feetToPixels(
+    {
+      xFeet: workspaceBoundsFeet.xFeet + workspaceBoundsFeet.widthFeet,
+      yFeet: workspaceBoundsFeet.yFeet + workspaceBoundsFeet.heightFeet
+    },
+    viewport
+  );
+  return {
+    xPixels: roundPixels(topLeft.xPixels),
+    yPixels: roundPixels(topLeft.yPixels),
+    widthPixels: roundPixels(bottomRight.xPixels - topLeft.xPixels),
+    heightPixels: roundPixels(bottomRight.yPixels - topLeft.yPixels)
+  };
+}
+
+function normalizeWorkspaceBounds(boundsFeet: LayoutWorkspaceBoundsFeet): LayoutWorkspaceBoundsFeet {
+  return {
+    xFeet: requireFinite(boundsFeet.xFeet, "workspaceBoundsFeet.xFeet"),
+    yFeet: requireFinite(boundsFeet.yFeet, "workspaceBoundsFeet.yFeet"),
+    widthFeet: requirePositive(boundsFeet.widthFeet, "workspaceBoundsFeet.widthFeet"),
+    heightFeet: requirePositive(boundsFeet.heightFeet, "workspaceBoundsFeet.heightFeet")
+  };
+}
+
+function normalizeViewportSize(viewportSizePixels: LayoutStageViewportPixels): LayoutStageViewportPixels {
+  return {
+    widthPixels: requirePositive(viewportSizePixels.widthPixels, "viewportSizePixels.widthPixels"),
+    heightPixels: requirePositive(viewportSizePixels.heightPixels, "viewportSizePixels.heightPixels")
+  };
 }
 
 function isMajorLine(valueFeet: number, majorEveryFeet: number): boolean {
@@ -177,8 +259,16 @@ function roundPixels(value: number): number {
 }
 
 function requirePositive(value: number, label: string): number {
-  if (!Number.isFinite(value) || value <= 0) {
+  const finite = requireFinite(value, label);
+  if (finite <= 0) {
     throw new Error(`${label} must be a finite number greater than 0`);
+  }
+  return finite;
+}
+
+function requireFinite(value: number, label: string): number {
+  if (!Number.isFinite(value)) {
+    throw new Error(`${label} must be finite`);
   }
   return value;
 }

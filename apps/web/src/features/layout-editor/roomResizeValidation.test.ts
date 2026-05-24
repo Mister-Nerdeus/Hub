@@ -82,7 +82,7 @@ assert.deepEqual(
   validateRoomResizeBounds({
     layout: {
       ...layoutEditorProofFixture,
-      rooms: [{ ...room, widthFeet: 80 }]
+      rooms: [{ ...room, widthFeet: 181 }]
     },
     roomId: room.id,
     boundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET
@@ -94,7 +94,7 @@ assert.deepEqual(
   validateRoomResizeBounds({
     layout: {
       ...layoutEditorProofFixture,
-      rooms: [{ ...room, heightFeet: 80 }]
+      rooms: [{ ...room, heightFeet: 121 }]
     },
     roomId: room.id,
     boundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET

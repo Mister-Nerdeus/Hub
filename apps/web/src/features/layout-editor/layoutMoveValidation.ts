@@ -5,6 +5,7 @@ import {
   buildLayoutValidationWarning,
   type LayoutEditorValidationWarning
 } from "./layoutValidationWarningContract";
+import { DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET } from "./layoutWorkspaceConfig";
 
 export const ROOM_MOVE_BOUNDS_WARNING_CODES = [
   "room_out_of_bounds_left",
@@ -23,10 +24,7 @@ export type LayoutBoundsFeet = {
 };
 
 export const DEFAULT_LAYOUT_BOUNDS_FEET: LayoutBoundsFeet = {
-  xFeet: 0,
-  yFeet: 0,
-  widthFeet: 64,
-  heightFeet: 40
+  ...DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET
 };
 
 export type ValidateRoomMoveBoundsInput = {

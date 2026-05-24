@@ -141,15 +141,20 @@
 }
 
 .layout-editor-stage__svg {
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 3 / 2;
   background: #f8fafc;
   display: block;
   height: auto;
   width: 100%;
 }
 
-.layout-editor-stage__frame {
+.layout-editor-stage__viewport-frame {
   fill: #ffffff;
+  stroke: none;
+}
+
+.layout-editor-stage__workspace-boundary {
+  fill: none;
   stroke: #2f4659;
   stroke-width: 1.5;
 }

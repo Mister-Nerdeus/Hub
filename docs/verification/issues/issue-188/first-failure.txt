@@ -1,0 +1,31 @@
+{
+  "defaultBoundsFeet": {
+    "xFeet": 0,
+    "yFeet": 0,
+    "widthFeet": 64,
+    "heightFeet": 40
+  },
+  "stagePixelsDerivedFromBounds": {
+    "widthPixels": 768,
+    "heightPixels": 480
+  },
+  "zoomOne": {
+    "viewBox": "0 0 768 480",
+    "widthPixels": 768,
+    "heightPixels": 480,
+    "verticalLineCount": 65,
+    "horizontalLineCount": 41,
+    "maxXFeet": 64,
+    "maxYFeet": 40
+  },
+  "zoomHalf": {
+    "viewBox": "0 0 384 240",
+    "widthPixels": 384,
+    "heightPixels": 240,
+    "verticalLineCount": 65,
+    "horizontalLineCount": 41,
+    "maxXFeet": 64,
+    "maxYFeet": 40
+  },
+  "failure": "stage and grid are bounded to the 64x40 proof layout bounds, so zoom-out shrinks the grid instead of revealing a larger workspace"
+}

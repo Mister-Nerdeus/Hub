@@ -49,8 +49,8 @@ assert.deepEqual(defaultState.viewport, {
 assert.deepEqual(defaultState.layoutBoundsFeet, {
   xFeet: 0,
   yFeet: 0,
-  widthFeet: 64,
-  heightFeet: 40
+  widthFeet: 180,
+  heightFeet: 120
 });
 
 const dirtySelectedState = createLayoutEditorState({
@@ -280,8 +280,8 @@ assert.equal(leftWarningState.editableLayout?.rooms[0]?.xFeet, -2);
 const bottomRightWarningState = layoutEditorReducer(stateWithLayout, {
   type: "moveRoom",
   roomId: "room-01",
-  deltaXFeet: 60,
-  deltaYFeet: 36
+  deltaXFeet: 176,
+  deltaYFeet: 112
 });
 assert.deepEqual(bottomRightWarningState.validationWarnings, [
   {
@@ -307,8 +307,8 @@ assert.deepEqual(bottomRightWarningState.validationWarnings, [
     isGenerated: true
   }
 ]);
-assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.xFeet, 60);
-assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.yFeet, 36);
+assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.xFeet, 176);
+assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.yFeet, 112);
 
 const collisionWarningState = layoutEditorReducer(stateWithLayout, {
   type: "moveRoom",

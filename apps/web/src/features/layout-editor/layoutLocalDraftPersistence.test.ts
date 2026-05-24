@@ -7,6 +7,7 @@ import {
   LAYOUT_LOCAL_DRAFT_STORAGE_KEY,
   type LayoutLocalDraftStorage
 } from "./layoutLocalDraftPersistence";
+import { DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET } from "./layoutWorkspaceConfig";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -74,6 +75,26 @@ storage.setItem(
   JSON.stringify({ ...draft, history: { past: [], future: [] } })
 );
 assert.equal(loadLayoutLocalDraft(storage).status, "invalid");
+
+storage.setItem(
+  LAYOUT_LOCAL_DRAFT_STORAGE_KEY,
+  JSON.stringify({
+    ...draft,
+    layoutBoundsFeet: { xFeet: 0, yFeet: 0, widthFeet: 64, heightFeet: 40 }
+  })
+);
+const loadedOldDraft = loadLayoutLocalDraft(storage);
+assert.equal(loadedOldDraft.status, "loaded");
+if (loadedOldDraft.status !== "loaded") {
+  throw new Error("old local draft should load without workspace bounds");
+}
+assert.equal("layoutBoundsFeet" in loadedOldDraft.draft, false);
+assert.deepEqual(DEFAULT_LAYOUT_WORKSPACE_BOUNDS_FEET, {
+  xFeet: 0,
+  yFeet: 0,
+  widthFeet: 180,
+  heightFeet: 120
+});
 
 saveLayoutLocalDraft(storage, draft);
 resetLayoutLocalDraft(storage);
