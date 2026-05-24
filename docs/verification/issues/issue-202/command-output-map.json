@@ -1,0 +1,43 @@
+{
+  "issue": "202",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared run build; node --input-type=module <inline current-gap probe> *> docs/verification/issues/issue-202/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-202/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/test-output/shared.txt",
+        "docs/verification/issues/issue-202/door-metadata-contract-output.json",
+        "docs/verification/issues/issue-202/door-sync-stability-output.json"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *>&1 | Tee-Object -FilePath ../../docs/verification/issues/issue-202/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-202/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-202/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-202/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-202/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

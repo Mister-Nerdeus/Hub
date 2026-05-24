@@ -82,6 +82,20 @@ export const HALLWAY_OPERATIONAL_CLASSES = [
 
 export const CONGESTION_LEVELS = ["low", "moderate", "high"] as const;
 
+export const DOOR_OPERATIONAL_CLASSES = [
+  "standard",
+  "isolation",
+  "behavioral",
+  "trauma",
+  "staff_only"
+] as const;
+
+export const DOOR_SWING_DIRECTIONS = ["unknown", "in", "out", "sliding"] as const;
+
+export const DOOR_ACCESS_RESTRICTIONS = ["none", "staff_only", "controlled"] as const;
+
+export const DOOR_DELAY_CATEGORIES = ["none", "low", "moderate", "high"] as const;
+
 export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
 
 export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
@@ -179,6 +193,10 @@ export type RoomCapacityCategory = (typeof ROOM_CAPACITY_CATEGORIES)[number];
 export type LineOfSightLevel = (typeof LINE_OF_SIGHT_LEVELS)[number];
 export type HallwayOperationalClass = (typeof HALLWAY_OPERATIONAL_CLASSES)[number];
 export type CongestionLevel = (typeof CONGESTION_LEVELS)[number];
+export type DoorOperationalClass = (typeof DOOR_OPERATIONAL_CLASSES)[number];
+export type DoorSwingDirection = (typeof DOOR_SWING_DIRECTIONS)[number];
+export type DoorAccessRestriction = (typeof DOOR_ACCESS_RESTRICTIONS)[number];
+export type DoorDelayCategory = (typeof DOOR_DELAY_CATEGORIES)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
@@ -237,6 +255,16 @@ export type HallwayOperationalMetadata = {
   throughRoute: boolean;
 };
 
+export type DoorOperationalMetadata = {
+  doorClass: DoorOperationalClass;
+  swingDirection: DoorSwingDirection;
+  accessRestriction: DoorAccessRestriction;
+  isolationBoundary: boolean;
+  behavioralBoundary: boolean;
+  traumaAccess: boolean;
+  delayCategory: DoorDelayCategory;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -273,7 +301,7 @@ export type Door = {
   y: number;
   widthFeet: number;
   pathNodeId?: string | null;
-  doorOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  doorOperationalMetadata?: DoorOperationalMetadata | null;
 };
 
 export type NurseStation = {
@@ -3489,7 +3517,7 @@ function validateDoor(value: unknown, index: number): Door {
   requireNumber(door.y, `doors[${index}].y`);
   requirePositiveNumber(door.widthFeet, `doors[${index}].widthFeet`);
   requireOptionalString(door.pathNodeId, `doors[${index}].pathNodeId`);
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalDoorOperationalMetadata(
     door.doorOperationalMetadata,
     `doors[${index}].doorOperationalMetadata`
   );
@@ -3965,6 +3993,33 @@ function validateOptionalHallwayOperationalMetadata(value: unknown, label: strin
   requireEnum(metadata.congestionLevel, CONGESTION_LEVELS, `${label}.congestionLevel`);
   requireBoolean(metadata.bottleneck, `${label}.bottleneck`);
   requireBoolean(metadata.throughRoute, `${label}.throughRoute`);
+}
+
+function validateOptionalDoorOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "doorClass",
+    "swingDirection",
+    "accessRestriction",
+    "isolationBoundary",
+    "behavioralBoundary",
+    "traumaAccess",
+    "delayCategory"
+  ]);
+  requireEnum(metadata.doorClass, DOOR_OPERATIONAL_CLASSES, `${label}.doorClass`);
+  requireEnum(metadata.swingDirection, DOOR_SWING_DIRECTIONS, `${label}.swingDirection`);
+  requireEnum(
+    metadata.accessRestriction,
+    DOOR_ACCESS_RESTRICTIONS,
+    `${label}.accessRestriction`
+  );
+  requireBoolean(metadata.isolationBoundary, `${label}.isolationBoundary`);
+  requireBoolean(metadata.behavioralBoundary, `${label}.behavioralBoundary`);
+  requireBoolean(metadata.traumaAccess, `${label}.traumaAccess`);
+  requireEnum(metadata.delayCategory, DOOR_DELAY_CATEGORIES, `${label}.delayCategory`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

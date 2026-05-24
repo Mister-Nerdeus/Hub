@@ -274,7 +274,16 @@ export const planErPodPhase2 = {
       "x": 10,
       "y": 14,
       "widthFeet": 3,
-      "pathNodeId": "node-door-room-01"
+      "pathNodeId": "node-door-room-01",
+      "doorOperationalMetadata": {
+        "doorClass": "standard",
+        "swingDirection": "unknown",
+        "accessRestriction": "none",
+        "isolationBoundary": false,
+        "behavioralBoundary": false,
+        "traumaAccess": false,
+        "delayCategory": "none"
+      }
     },
     {
       "id": "door-room-02",
@@ -283,7 +292,16 @@ export const planErPodPhase2 = {
       "x": 27,
       "y": 16,
       "widthFeet": 4,
-      "pathNodeId": "node-door-room-02"
+      "pathNodeId": "node-door-room-02",
+      "doorOperationalMetadata": {
+        "doorClass": "isolation",
+        "swingDirection": "in",
+        "accessRestriction": "controlled",
+        "isolationBoundary": true,
+        "behavioralBoundary": false,
+        "traumaAccess": false,
+        "delayCategory": "low"
+      }
     },
     {
       "id": "door-room-03",
@@ -292,7 +310,16 @@ export const planErPodPhase2 = {
       "x": 44,
       "y": 14,
       "widthFeet": 3,
-      "pathNodeId": "node-door-room-03"
+      "pathNodeId": "node-door-room-03",
+      "doorOperationalMetadata": {
+        "doorClass": "behavioral",
+        "swingDirection": "out",
+        "accessRestriction": "controlled",
+        "isolationBoundary": false,
+        "behavioralBoundary": true,
+        "traumaAccess": false,
+        "delayCategory": "moderate"
+      }
     },
     {
       "id": "door-room-04",
@@ -301,7 +328,16 @@ export const planErPodPhase2 = {
       "x": 60,
       "y": 14,
       "widthFeet": 3,
-      "pathNodeId": "node-door-room-04"
+      "pathNodeId": "node-door-room-04",
+      "doorOperationalMetadata": {
+        "doorClass": "trauma",
+        "swingDirection": "sliding",
+        "accessRestriction": "none",
+        "isolationBoundary": false,
+        "behavioralBoundary": false,
+        "traumaAccess": true,
+        "delayCategory": "low"
+      }
     },
     {
       "id": "door-room-05",
@@ -310,7 +346,16 @@ export const planErPodPhase2 = {
       "x": 10,
       "y": 34,
       "widthFeet": 3,
-      "pathNodeId": "node-door-room-05"
+      "pathNodeId": "node-door-room-05",
+      "doorOperationalMetadata": {
+        "doorClass": "standard",
+        "swingDirection": "unknown",
+        "accessRestriction": "none",
+        "isolationBoundary": false,
+        "behavioralBoundary": false,
+        "traumaAccess": false,
+        "delayCategory": "none"
+      }
     },
     {
       "id": "door-room-06",
@@ -319,7 +364,16 @@ export const planErPodPhase2 = {
       "x": 26,
       "y": 34,
       "widthFeet": 3,
-      "pathNodeId": "node-door-room-06"
+      "pathNodeId": "node-door-room-06",
+      "doorOperationalMetadata": {
+        "doorClass": "standard",
+        "swingDirection": "unknown",
+        "accessRestriction": "staff_only",
+        "isolationBoundary": false,
+        "behavioralBoundary": false,
+        "traumaAccess": false,
+        "delayCategory": "low"
+      }
     },
     {
       "id": "door-hall-bed-01",
@@ -328,7 +382,16 @@ export const planErPodPhase2 = {
       "x": 52,
       "y": 26,
       "widthFeet": 4,
-      "pathNodeId": "node-door-hall-bed-01"
+      "pathNodeId": "node-door-hall-bed-01",
+      "doorOperationalMetadata": {
+        "doorClass": "standard",
+        "swingDirection": "unknown",
+        "accessRestriction": "none",
+        "isolationBoundary": false,
+        "behavioralBoundary": false,
+        "traumaAccess": false,
+        "delayCategory": "none"
+      }
     }
   ],
   "nurseStations": [

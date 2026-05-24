@@ -49,6 +49,10 @@ RoomCapacityCategory = Literal["single", "double", "hall", "overflow"]
 LineOfSightLevel = Literal["low", "moderate", "high"]
 HallwayOperationalClass = Literal["main", "side", "staff_only", "ems", "overflow"]
 CongestionLevel = Literal["low", "moderate", "high"]
+DoorOperationalClass = Literal["standard", "isolation", "behavioral", "trauma", "staff_only"]
+DoorSwingDirection = Literal["unknown", "in", "out", "sliding"]
+DoorAccessRestriction = Literal["none", "staff_only", "controlled"]
+DoorDelayCategory = Literal["none", "low", "moderate", "high"]
 DoorWall = Literal["top", "bottom", "left", "right"]
 EdgeLengthStrategy = Literal["manhattan", "straight_line"]
 StationPlacementMode = Literal[
@@ -192,6 +196,16 @@ class HallwayOperationalMetadata(StrictModel):
     throughRoute: bool
 
 
+class DoorOperationalMetadata(StrictModel):
+    doorClass: DoorOperationalClass
+    swingDirection: DoorSwingDirection
+    accessRestriction: DoorAccessRestriction
+    isolationBoundary: bool
+    behavioralBoundary: bool
+    traumaAccess: bool
+    delayCategory: DoorDelayCategory
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -238,7 +252,7 @@ class Door(StrictModel):
     y: float
     widthFeet: float = Field(gt=0)
     pathNodeId: str | None = None
-    doorOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    doorOperationalMetadata: DoorOperationalMetadata | None = None
 
     @field_validator("label")
     @classmethod

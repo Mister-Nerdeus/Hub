@@ -23,7 +23,6 @@ function withMetadataPlaceholders() {
   const plan = readFixture("plan-er-pod-phase2.json");
   plan.rooms[0].overflowOperationalMetadata = {};
   plan.rooms[0].adjacencyOperationalMetadata = {};
-  plan.doors[0].doorOperationalMetadata = {};
   plan.nurseStations[0].stationOperationalMetadata = {};
   const entryNode = plan.pathNodes.find((node) => node.nodeType === "entry");
   assert.ok(entryNode);
@@ -38,7 +37,7 @@ test("ER layout metadata architecture accepts optional nested metadata placehold
   assert.deepEqual(plan.rooms[0].overflowOperationalMetadata, {});
   assert.deepEqual(plan.rooms[0].adjacencyOperationalMetadata, {});
   assert.equal(plan.hallways[0].hallwayOperationalMetadata.hallwayClass, "main");
-  assert.deepEqual(plan.doors[0].doorOperationalMetadata, {});
+  assert.equal(plan.doors[0].doorOperationalMetadata.doorClass, "standard");
   assert.deepEqual(plan.nurseStations[0].stationOperationalMetadata, {});
   assert.equal(plan.zones[0].zoneOperationalMetadata.zoneClass, "patient_care");
   assert.deepEqual(

@@ -96,6 +96,24 @@ Zone labels remain operational labels only and stay covered by runtime no-PHI te
 
 This metadata does not change pathfinding, walking calculations, fire-code analysis, stretcher/bed movement safety, or compliance status.
 
+## Door Operational Metadata
+
+`doorOperationalMetadata` is optional on doors. Door geometry remains feet-based through existing `x`, `y`, `widthFeet`, and `pathNodeId` fields. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  doorClass: "standard" | "isolation" | "behavioral" | "trauma" | "staff_only";
+  swingDirection: "unknown" | "in" | "out" | "sliding";
+  accessRestriction: "none" | "staff_only" | "controlled";
+  isolationBoundary: boolean;
+  behavioralBoundary: boolean;
+  traumaAccess: boolean;
+  delayCategory: "none" | "low" | "moderate" | "high";
+}
+```
+
+This metadata does not mutate room geometry, simulate door state over time, certify isolation safety, or change pathfinding behavior.
+
 ## Field Rules
 
 Allowed metadata field shapes:
