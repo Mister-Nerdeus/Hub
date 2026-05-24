@@ -1,0 +1,29 @@
+{
+  "issue": "216",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-216/test-output/shared.txt",
+        "docs/verification/issues/issue-216/default-plan-validation-output.json",
+        "docs/verification/issues/issue-216/source-mapping-validation-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/web.txt",
+      "outputs": ["docs/verification/issues/issue-216/test-output/web.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/no-phi.txt",
+      "outputs": ["docs/verification/issues/issue-216/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/issues/issue-216/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/verify-local.txt",
+      "outputs": ["docs/verification/issues/issue-216/test-output/verify-local.txt"]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/shared.txt
+npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/web.txt
+node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/docs-gate.txt
+node scripts/verify-local.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-216/test-output/verify-local.txt
