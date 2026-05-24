@@ -1,0 +1,4 @@
+npm --workspace apps/web test > docs/verification/issues/issue-144/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-144/test-output/web.txt -Append
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-144/test-output/web.txt -Append
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-144/test-output/web.txt -Append

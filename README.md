@@ -168,6 +168,8 @@ Issue 142 adds the deterministic layout editor state reducer for editable layout
 
 Issue 143 adds a proof-only SVG layout editor stage shell with a feet-based grid and viewport frame using the shared feet-to-pixel transform. It does not render editable objects, drag/drop, resize handles, save/load, path sync, or simulation rerun behavior.
 
+Issue 144 adds viewport-only zoom and pan controls for the layout editor stage. Zoom is clamped, pan offsets are stored in feet, reset restores the default viewport, and source editable layout geometry remains unchanged.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

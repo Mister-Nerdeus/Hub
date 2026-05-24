@@ -1,6 +1,6 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
-import { layoutEditorReducer } from "./layoutEditorReducer";
+import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { createLayoutEditorState, type LayoutEditorState } from "./layoutEditorState";
 
 const assert = {
@@ -182,6 +182,32 @@ assert.deepEqual(viewportState.viewport, {
   panYFeet: 3
 });
 assert.equal(stateWithLayout.viewport.zoom, 1);
+
+const zoomedViewportState = layoutEditorReducer(stateWithLayout, {
+  type: "zoomViewport",
+  direction: "in"
+});
+assert.equal(zoomedViewportState.viewport.zoom, 1.25);
+assert.equal(zoomedViewportState.editableLayout?.rooms[0]?.xFeet, 0);
+
+const pannedViewportState = layoutEditorReducer(stateWithLayout, panViewportAction("east"));
+assert.equal(pannedViewportState.viewport.panXFeet, 5);
+assert.equal(pannedViewportState.viewport.panYFeet, 0);
+assert.equal(stateWithLayout.viewport.panXFeet, 0);
+
+const resetViewportState = layoutEditorReducer(
+  createLayoutEditorState({
+    editableLayout,
+    viewport: { pixelsPerFoot: 18, zoom: 2, panXFeet: 8, panYFeet: 4 }
+  }),
+  { type: "resetViewport" }
+);
+assert.deepEqual(resetViewportState.viewport, {
+  pixelsPerFoot: 12,
+  zoom: 1,
+  panXFeet: 0,
+  panYFeet: 0
+});
 
 const fineSnapState = layoutEditorReducer(stateWithLayout, {
   type: "setSnapMode",

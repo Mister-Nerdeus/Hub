@@ -58,6 +58,52 @@
   overflow: hidden;
 }
 
+.layout-viewport-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.layout-viewport-toolbar__group {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  display: inline-flex;
+  gap: 6px;
+  padding: 6px;
+}
+
+.layout-viewport-toolbar button,
+.layout-viewport-toolbar output {
+  align-items: center;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 900;
+  height: 34px;
+  justify-content: center;
+  min-width: 34px;
+}
+
+.layout-viewport-toolbar button {
+  background: #243447;
+  border: 1px solid #243447;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.layout-viewport-toolbar output {
+  color: #111827;
+  min-width: 54px;
+}
+
+.layout-viewport-toolbar__reset {
+  padding: 0 12px;
+}
+
 .layout-editor-stage__svg {
   aspect-ratio: 8 / 5;
   background: #f8fafc;

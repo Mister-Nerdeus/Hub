@@ -1,8 +1,18 @@
+import { useReducer } from "react";
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
+import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { createLayoutEditorState } from "./layoutEditorState";
+import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import "./LayoutEditorStage.css";
+
+const STAGE_WIDTH_FEET = 64;
+const STAGE_HEIGHT_FEET = 40;
+const STAGE_PIXELS_PER_FOOT = 12;
+const STAGE_WIDTH_PIXELS = STAGE_WIDTH_FEET * STAGE_PIXELS_PER_FOOT;
+const STAGE_HEIGHT_PIXELS = STAGE_HEIGHT_FEET * STAGE_PIXELS_PER_FOOT;
+const STAGE_VIEW_BOX = `0 0 ${STAGE_WIDTH_PIXELS} ${STAGE_HEIGHT_PIXELS}`;
 
 const proofLayout: EditableLayoutGeometryContract = {
   schemaVersion: "1.0.0",
@@ -31,10 +41,10 @@ const proofLayout: EditableLayoutGeometryContract = {
   limitations: ["Proof-only stage shell; source geometry remains feet-based."]
 };
 
-const stageState = createLayoutEditorState({
+const initialStageState = createLayoutEditorState({
   editableLayout: proofLayout,
   viewport: {
-    pixelsPerFoot: 12,
+    pixelsPerFoot: STAGE_PIXELS_PER_FOOT,
     zoom: 1,
     panXFeet: 0,
     panYFeet: 0
@@ -42,15 +52,16 @@ const stageState = createLayoutEditorState({
   snapMode: "default"
 });
 
-const grid = buildLayoutGridViewModel({
-  widthFeet: 64,
-  heightFeet: 40,
-  viewport: stageState.viewport,
-  gridSpacingFeet: 1,
-  majorEveryFeet: 5
-});
-
 export function LayoutEditorStage() {
+  const [stageState, dispatchStage] = useReducer(layoutEditorReducer, initialStageState);
+  const grid = buildLayoutGridViewModel({
+    widthFeet: STAGE_WIDTH_FEET,
+    heightFeet: STAGE_HEIGHT_FEET,
+    viewport: stageState.viewport,
+    gridSpacingFeet: 1,
+    majorEveryFeet: 5
+  });
+
   return (
     <section
       id="layout-editor-stage-proof"
@@ -78,19 +89,30 @@ export function LayoutEditorStage() {
         </dl>
       </header>
 
+      <LayoutViewportToolbar
+        viewport={stageState.viewport}
+        onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
+        onZoomOut={() => dispatchStage({ type: "zoomViewport", direction: "out" })}
+        onPanNorth={() => dispatchStage(panViewportAction("north"))}
+        onPanSouth={() => dispatchStage(panViewportAction("south"))}
+        onPanWest={() => dispatchStage(panViewportAction("west"))}
+        onPanEast={() => dispatchStage(panViewportAction("east"))}
+        onReset={() => dispatchStage({ type: "resetViewport" })}
+      />
+
       <div className="layout-editor-stage__shell" data-proof-only="true">
         <svg
           className="layout-editor-stage__svg"
-          viewBox={grid.viewBox}
+          viewBox={STAGE_VIEW_BOX}
           role="img"
           aria-label="Feet-based SVG grid stage"
         >
           <rect
             className="layout-editor-stage__frame"
-            x={grid.frame.xPixels}
-            y={grid.frame.yPixels}
-            width={grid.frame.widthPixels}
-            height={grid.frame.heightPixels}
+            x="0"
+            y="0"
+            width={STAGE_WIDTH_PIXELS}
+            height={STAGE_HEIGHT_PIXELS}
             rx="0"
           />
           <g>
@@ -119,14 +141,14 @@ export function LayoutEditorStage() {
             {grid.verticalLines
               .filter((line) => line.isMajor)
               .map((line) => (
-                <text key={`${line.id}-label`} x={line.x1Pixels + 3} y={grid.frame.yPixels + 14}>
+                <text key={`${line.id}-label`} x={line.x1Pixels + 3} y="14">
                   {line.label}
                 </text>
               ))}
             {grid.horizontalLines
               .filter((line) => line.isMajor && line.valueFeet > 0)
               .map((line) => (
-                <text key={`${line.id}-label`} x={grid.frame.xPixels + 4} y={line.y1Pixels - 4}>
+                <text key={`${line.id}-label`} x="4" y={line.y1Pixels - 4}>
                   {line.label}
                 </text>
               ))}

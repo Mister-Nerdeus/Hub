@@ -11,6 +11,13 @@ import {
   type LayoutEditorValidationWarning,
   type LayoutEditorViewport
 } from "./layoutEditorState";
+import {
+  DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET,
+  panLayoutViewport,
+  resetLayoutViewport,
+  zoomLayoutViewport,
+  type LayoutViewportZoomDirection
+} from "./layoutViewportControls";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -21,6 +28,9 @@ export type LayoutEditorAction =
     }
   | { type: "clearSelection" }
   | { type: "setViewport"; viewport: LayoutEditorViewport }
+  | { type: "zoomViewport"; direction: LayoutViewportZoomDirection }
+  | { type: "panViewport"; deltaXFeet: number; deltaYFeet: number }
+  | { type: "resetViewport" }
   | { type: "setSnapMode"; snapMode: LayoutEditorSnapMode }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
   | { type: "markClean" };
@@ -56,6 +66,24 @@ export function layoutEditorReducer(
         ...state,
         viewport: normalizeLayoutEditorViewport(action.viewport)
       };
+    case "zoomViewport":
+      return {
+        ...state,
+        viewport: zoomLayoutViewport(state.viewport, action.direction)
+      };
+    case "panViewport":
+      return {
+        ...state,
+        viewport: panLayoutViewport(state.viewport, {
+          deltaXFeet: action.deltaXFeet,
+          deltaYFeet: action.deltaYFeet
+        })
+      };
+    case "resetViewport":
+      return {
+        ...state,
+        viewport: resetLayoutViewport()
+      };
     case "setSnapMode":
       if (!isLayoutEditorSnapMode(action.snapMode)) {
         throw new Error("snapMode must be default or fine");
@@ -79,6 +107,21 @@ export function layoutEditorReducer(
       };
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
+  }
+}
+
+export function panViewportAction(
+  direction: "north" | "south" | "west" | "east"
+): Extract<LayoutEditorAction, { type: "panViewport" }> {
+  switch (direction) {
+    case "north":
+      return { type: "panViewport", deltaXFeet: 0, deltaYFeet: -DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET };
+    case "south":
+      return { type: "panViewport", deltaXFeet: 0, deltaYFeet: DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET };
+    case "west":
+      return { type: "panViewport", deltaXFeet: -DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET, deltaYFeet: 0 };
+    case "east":
+      return { type: "panViewport", deltaXFeet: DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET, deltaYFeet: 0 };
   }
 }
 
