@@ -17,6 +17,8 @@ import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
 import { DEFAULT_LAYOUT_BOUNDS_FEET } from "./layoutMoveValidation";
 import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import { createLayoutEditorState } from "./layoutEditorState";
+import { LayoutValidationPanel } from "./LayoutValidationPanel";
+import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
@@ -72,6 +74,9 @@ export function LayoutEditorStage() {
     layout: stageState.editableLayout,
     selectedObjectId: stageState.selectedObjectId,
     selectedObjectType: stageState.selectedObjectType
+  });
+  const validationPanelViewModel = buildLayoutValidationPanelViewModel({
+    warnings: stageState.validationWarnings
   });
   const renderItems = stageState.editableLayout == null
     ? []
@@ -311,7 +316,10 @@ export function LayoutEditorStage() {
             </g>
           </svg>
         </div>
-        <LayoutInspectorPanel viewModel={inspectorViewModel} />
+        <div className="layout-editor-stage__side-panels">
+          <LayoutInspectorPanel viewModel={inspectorViewModel} />
+          <LayoutValidationPanel viewModel={validationPanelViewModel} />
+        </div>
       </div>
     </section>
   );

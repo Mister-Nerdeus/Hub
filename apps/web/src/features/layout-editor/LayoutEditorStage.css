@@ -65,6 +65,11 @@
   grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
 }
 
+.layout-editor-stage__side-panels {
+  display: grid;
+  gap: 16px;
+}
+
 .layout-viewport-toolbar {
   align-items: center;
   display: flex;
@@ -294,6 +299,116 @@
   font-size: 0.88rem;
   font-weight: 700;
   margin: 0;
+}
+
+.layout-validation-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.layout-validation-panel__header {
+  align-items: center;
+  display: grid;
+  gap: 4px 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.layout-validation-panel__header .eyebrow {
+  grid-column: 1 / -1;
+}
+
+.layout-validation-panel__header h3 {
+  color: #111827;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.layout-validation-panel__header span {
+  align-items: center;
+  background: #f3f0e8;
+  border: 1px solid #c8b98f;
+  border-radius: 999px;
+  color: #3c3322;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 900;
+  height: 26px;
+  justify-content: center;
+  min-width: 26px;
+  padding: 0 8px;
+}
+
+.layout-validation-panel__empty {
+  color: #53616f;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.layout-validation-panel__list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layout-validation-panel__list li {
+  border-left: 3px solid #8b6f3d;
+  display: grid;
+  gap: 8px;
+  padding: 0 0 10px 10px;
+}
+
+.layout-validation-panel__list code {
+  color: #243447;
+  font-size: 0.76rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.layout-validation-panel__list p {
+  color: #111827;
+  font-size: 0.84rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.layout-validation-panel__list dl {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.layout-validation-panel__list div {
+  align-items: baseline;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.layout-validation-panel__list dt {
+  color: #53616f;
+  font-size: 0.7rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.layout-validation-panel__list dd {
+  color: #111827;
+  font-size: 0.76rem;
+  font-weight: 900;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: right;
 }
 
 @media (max-width: 760px) {

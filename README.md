@@ -202,6 +202,8 @@ Issue 159 adds deterministic operational bounds warnings for permissive room mov
 
 Issue 160 adds deterministic feet-based collision warnings when permissive room moves overlap other rooms, stations, zones, or configured hallway geometry. Warnings identify the moved room and related object IDs, movement remains unblocked, and no path sync, simulation rerun, persistence, auto-fix, recommendation, or resize behavior is added.
 
+Issue 161 adds a read-only validation panel for current layout warnings, including deterministic empty state, stable warning ordering, duplicate collapse, warning codes, messages, and object references. It does not block edits, auto-fix geometry, save/load changes, sync paths, rerun simulation, or add recommendation behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
