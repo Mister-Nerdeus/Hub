@@ -1,0 +1,16 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "importExportIssue": "224",
+  "exportsJsonOnly": true,
+  "importsPlanContractJsonOnly": true,
+  "invalidJsonRejected": true,
+  "privatePayloadKeysRejected": true,
+  "apiRoutesUsed": false,
+  "docxImportSupported": false,
+  "evidence": [
+    "docs/verification/issues/issue-224/json-floorplan-export-output.json",
+    "docs/verification/issues/issue-224/json-floorplan-import-output.json",
+    "docs/verification/issues/issue-224/docx-payload-rejection-output.json"
+  ]
+}

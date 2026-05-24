@@ -1,0 +1,18 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "libraryIssue": "219",
+  "openWorkflowIssue": "220",
+  "defaultJsonPlanCount": 5,
+  "jsonPlansOnly": true,
+  "defaultsReadOnly": true,
+  "defaultPlansOpenDeterministically": true,
+  "docxPathsDisplayed": false,
+  "evidence": [
+    "docs/verification/issues/issue-219/floorplan-library-output.json",
+    "docs/verification/issues/issue-219/no-docx-exposure-output.json",
+    "docs/verification/issues/issue-219/default-json-plan-list-output.json",
+    "docs/verification/issues/issue-220/open-default-floorplan-output.json",
+    "docs/verification/issues/issue-220/active-floorplan-state-output.json"
+  ]
+}

@@ -2,41 +2,31 @@
   "issue": "226",
   "commands": [
     {
-      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt",
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt",
       "outputs": [
-        "docs/verification/issues/issue-226/test-output/shared.txt",
-        "docs/verification/issues/issue-226/default-plan-path-coverage-summary.json",
-        "docs/verification/issues/issue-226/walking-baseline-summary.json",
-        "docs/verification/issues/issue-226/route-preview-summary.json",
-        "docs/verification/issues/issue-226/metadata-adapter-summary.json"
+        "docs/verification/issues/issue-226/test-output/shared.txt"
       ]
     },
     {
-      "command": "npm --workspace apps/web test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/web.txt | Tee-Object -FilePath docs/verification/issues/issue-222/test-output/web.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/web.txt",
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/web.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/web.txt"
       ]
     },
     {
-      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/no-phi.txt",
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/no-phi.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/no-phi.txt"
       ]
     },
     {
-      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-222/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt",
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/docs-gate.txt"
       ]
     },
     {
-      "command": "docker compose down *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/docker-down-before-verify-local.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docker-down-before-verify-local.txt",
-      "outputs": [
-        "docs/verification/issues/issue-226/test-output/docker-down-before-verify-local.txt"
-      ]
-    },
-    {
-      "command": "node scripts/verify-local.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/verify-local.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/verify-local.txt",
+      "command": "node scripts/verify-local.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/verify-local.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/verify-local.txt"
       ]

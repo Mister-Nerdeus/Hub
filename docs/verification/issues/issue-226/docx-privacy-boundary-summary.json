@@ -1,0 +1,17 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "sourcePolicyIssue": "217",
+  "sourceVisibility": "private-reference-only",
+  "publicExposureAllowed": false,
+  "runtimeServedByWeb": false,
+  "runtimeServedByApi": false,
+  "webPublicDocxAllowed": false,
+  "webSourceDocxReferencesAllowed": false,
+  "apiDocxServingAllowed": false,
+  "evidence": [
+    "docs/verification/issues/issue-217/private-docx-source-policy-output.json",
+    "docs/verification/issues/issue-217/public-exposure-negative-output.json",
+    "docs/verification/issues/issue-217/api-serving-negative-output.json"
+  ]
+}

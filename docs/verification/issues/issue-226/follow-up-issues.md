@@ -1,4 +1,6 @@
 # Follow-Up Issues
 
-- Begin nurse assignment burden preview foundation using the validated path graph and walking baseline artifacts.
-- Keep scoring, optimizer, persistence, and clinical claims out until explicitly approved by later issues.
+- Start the next route/walking-truth batch only against validated JSON floorplans.
+- Keep private DOCX files as conversion references only.
+- Add saved-store persistence for imported JSON only if explicitly scoped.
+- Keep proof-heavy modules behind Developer Proof Mode unless production navigation is explicitly scoped.

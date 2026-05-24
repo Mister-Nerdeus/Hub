@@ -1,0 +1,17 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "sourceToJsonAuditIssue": "218",
+  "defaultJsonPlanCount": 5,
+  "mappingValidationPassed": true,
+  "wrongCollectionMappingsRejected": true,
+  "annotationMappingsRejectedUntilSupported": true,
+  "deferredSourceLabelsDocumented": true,
+  "exactGeometryClaimAllowed": false,
+  "evidence": [
+    "docs/verification/issues/issue-218/source-to-json-completeness-output.json",
+    "docs/verification/issues/issue-218/mapping-object-type-target-validation-output.json",
+    "docs/verification/issues/issue-218/wrong-collection-negative-output.json",
+    "docs/verification/issues/issue-218/deferred-source-labels-output.json"
+  ]
+}
