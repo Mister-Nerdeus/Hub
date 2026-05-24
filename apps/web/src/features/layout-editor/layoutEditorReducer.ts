@@ -21,10 +21,14 @@ import {
 import { createRoomMoveAuditEntry, createRoomResizeAuditEntry } from "./layoutEditAuditTrail";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
-import { recalculateWarningsForRoom } from "./layoutWarningRecalculation";
+import {
+  recalculateWarningsForRoom,
+  replaceGeneratedWarningsBySources
+} from "./layoutWarningRecalculation";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
+import { validateRoomResizeBounds } from "./roomResizeValidation";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -179,6 +183,15 @@ function resizeRoom(
   return {
     ...state,
     editableLayout: resizedLayout,
+    validationWarnings: replaceGeneratedWarningsBySources({
+      existingWarnings: state.validationWarnings,
+      replacementWarnings: validateRoomResizeBounds({
+        layout: resizedLayout,
+        roomId,
+        boundsFeet: state.layoutBoundsFeet
+      }),
+      sources: ["resize"]
+    }),
     editAuditTrail: [
       ...state.editAuditTrail,
       createRoomResizeAuditEntry({
