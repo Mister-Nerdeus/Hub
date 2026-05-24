@@ -26,7 +26,6 @@ function withMetadataPlaceholders() {
   plan.hallways[0].hallwayOperationalMetadata = {};
   plan.doors[0].doorOperationalMetadata = {};
   plan.nurseStations[0].stationOperationalMetadata = {};
-  plan.zones[0].zoneOperationalMetadata = {};
   const entryNode = plan.pathNodes.find((node) => node.nodeType === "entry");
   assert.ok(entryNode);
   entryNode.entryOperationalMetadata = {};
@@ -42,7 +41,7 @@ test("ER layout metadata architecture accepts optional nested metadata placehold
   assert.deepEqual(plan.hallways[0].hallwayOperationalMetadata, {});
   assert.deepEqual(plan.doors[0].doorOperationalMetadata, {});
   assert.deepEqual(plan.nurseStations[0].stationOperationalMetadata, {});
-  assert.deepEqual(plan.zones[0].zoneOperationalMetadata, {});
+  assert.equal(plan.zones[0].zoneOperationalMetadata.zoneClass, "patient_care");
   assert.deepEqual(
     plan.pathNodes.find((node) => node.nodeType === "entry").entryOperationalMetadata,
     {}

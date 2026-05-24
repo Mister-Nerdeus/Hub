@@ -22,7 +22,6 @@ def with_metadata_placeholders() -> dict:
     plan["hallways"][0]["hallwayOperationalMetadata"] = {}
     plan["doors"][0]["doorOperationalMetadata"] = {}
     plan["nurseStations"][0]["stationOperationalMetadata"] = {}
-    plan["zones"][0]["zoneOperationalMetadata"] = {}
     entry_node = next(node for node in plan["pathNodes"] if node["nodeType"] == "entry")
     entry_node["entryOperationalMetadata"] = {}
     return plan
@@ -39,6 +38,7 @@ def test_er_layout_metadata_architecture_accepts_optional_nested_placeholders() 
     assert plan.doors[0].doorOperationalMetadata is not None
     assert plan.nurseStations[0].stationOperationalMetadata is not None
     assert plan.zones[0].zoneOperationalMetadata is not None
+    assert plan.zones[0].zoneOperationalMetadata.zoneClass == "patient_care"
     assert next(node for node in plan.pathNodes if node.nodeType == "entry").entryOperationalMetadata is not None
 
 

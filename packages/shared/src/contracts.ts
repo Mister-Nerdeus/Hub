@@ -14,13 +14,33 @@ export const ROOM_TYPES = [
 ] as const;
 
 export const ZONE_TYPES = [
+  "triage",
   "provider_area",
   "pharmacy",
+  "medication_room",
   "ems_entry",
-  "hallway",
+  "ambulance_entry",
   "waiting",
+  "staff_only",
+  "supply_storage",
+  "clean_utility",
+  "dirty_utility",
+  "behavioral_zone",
+  "isolation_zone",
+  "trauma_zone",
+  "hallway",
+  "overflow",
+  "family_consult"
+] as const;
+
+export const ZONE_CLASSES = [
+  "patient_care",
+  "staff",
+  "entry",
+  "support",
   "storage",
-  "staff_only"
+  "public",
+  "overflow"
 ] as const;
 
 export const PATH_NODE_TYPES = [
@@ -141,6 +161,7 @@ export const PLAN_DESCRIPTION_MAX_LENGTH = 500;
 
 export type RoomType = (typeof ROOM_TYPES)[number];
 export type ZoneType = (typeof ZONE_TYPES)[number];
+export type ZoneClass = (typeof ZONE_CLASSES)[number];
 export type PathNodeType = (typeof PATH_NODE_TYPES)[number];
 export type StationType = (typeof STATION_TYPES)[number];
 export type RoomOperationalClass = (typeof ROOM_OPERATIONAL_CLASSES)[number];
@@ -184,6 +205,14 @@ export type RoomOperationalMetadata = {
   behavioralReady: boolean;
   sitterCapable: boolean;
   lineOfSightLevel: LineOfSightLevel;
+};
+
+export type ZoneOperationalMetadata = {
+  zoneClass: ZoneClass;
+  publicAccess: boolean;
+  staffOnly: boolean;
+  supportsPatientFlow: boolean;
+  supportsClinicalOperations: boolean;
 };
 
 export type Room = {
@@ -248,7 +277,7 @@ export type Zone = {
   lengthFeet: number;
   travelBlocked: boolean;
   travelPenalty?: number | null;
-  zoneOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  zoneOperationalMetadata?: ZoneOperationalMetadata | null;
 };
 
 export type PathNode = {
@@ -3509,7 +3538,7 @@ function validateZone(value: unknown, index: number): Zone {
   if (zone.travelPenalty != null) {
     requireNonNegativeNumber(zone.travelPenalty, `zones[${index}].travelPenalty`);
   }
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalZoneOperationalMetadata(
     zone.zoneOperationalMetadata,
     `zones[${index}].zoneOperationalMetadata`
   );
@@ -3872,6 +3901,25 @@ function validateOptionalRoomOperationalMetadata(value: unknown, label: string):
   requireBoolean(metadata.behavioralReady, `${label}.behavioralReady`);
   requireBoolean(metadata.sitterCapable, `${label}.sitterCapable`);
   requireEnum(metadata.lineOfSightLevel, LINE_OF_SIGHT_LEVELS, `${label}.lineOfSightLevel`);
+}
+
+function validateOptionalZoneOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "zoneClass",
+    "publicAccess",
+    "staffOnly",
+    "supportsPatientFlow",
+    "supportsClinicalOperations"
+  ]);
+  requireEnum(metadata.zoneClass, ZONE_CLASSES, `${label}.zoneClass`);
+  requireBoolean(metadata.publicAccess, `${label}.publicAccess`);
+  requireBoolean(metadata.staffOnly, `${label}.staffOnly`);
+  requireBoolean(metadata.supportsPatientFlow, `${label}.supportsPatientFlow`);
+  requireBoolean(metadata.supportsClinicalOperations, `${label}.supportsClinicalOperations`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

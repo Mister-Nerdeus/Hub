@@ -15,14 +15,25 @@ RoomType = Literal[
     "overflow",
 ]
 ZoneType = Literal[
+    "triage",
     "provider_area",
     "pharmacy",
+    "medication_room",
     "ems_entry",
-    "hallway",
+    "ambulance_entry",
     "waiting",
-    "storage",
     "staff_only",
+    "supply_storage",
+    "clean_utility",
+    "dirty_utility",
+    "behavioral_zone",
+    "isolation_zone",
+    "trauma_zone",
+    "hallway",
+    "overflow",
+    "family_consult",
 ]
+ZoneClass = Literal["patient_care", "staff", "entry", "support", "storage", "public", "overflow"]
 PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
 StationType = Literal["primary", "secondary", "charge", "temporary"]
 RoomOperationalClass = Literal[
@@ -161,6 +172,14 @@ class RoomOperationalMetadata(StrictModel):
         return validate_optional_runtime_operational_text(value, "roomOperationalMetadata.roomNumber")
 
 
+class ZoneOperationalMetadata(StrictModel):
+    zoneClass: ZoneClass
+    publicAccess: bool
+    staffOnly: bool
+    supportsPatientFlow: bool
+    supportsClinicalOperations: bool
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -243,7 +262,7 @@ class Zone(StrictModel):
     lengthFeet: float = Field(gt=0)
     travelBlocked: bool
     travelPenalty: float | None = Field(default=None, ge=0)
-    zoneOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    zoneOperationalMetadata: ZoneOperationalMetadata | None = None
 
     @field_validator("label")
     @classmethod

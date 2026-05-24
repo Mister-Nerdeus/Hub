@@ -42,6 +42,42 @@ Issue 198 created strict placeholder containers only. Issue 199 defines `roomOpe
 
 `roomNumber` is an operational label only and remains covered by the runtime no-PHI text guard. The other fields are closed enums or booleans. No free-text room metadata fields are allowed.
 
+## Zone Taxonomy and Operational Metadata
+
+`zoneType` is an explicit ER operational taxonomy and must not be inferred from labels. Allowed zone types:
+
+- `triage`
+- `provider_area`
+- `pharmacy`
+- `medication_room`
+- `ems_entry`
+- `ambulance_entry`
+- `waiting`
+- `staff_only`
+- `supply_storage`
+- `clean_utility`
+- `dirty_utility`
+- `behavioral_zone`
+- `isolation_zone`
+- `trauma_zone`
+- `hallway`
+- `overflow`
+- `family_consult`
+
+`zoneOperationalMetadata` is optional on zones. When present, it must use this operational-only shape:
+
+```ts
+{
+  zoneClass: "patient_care" | "staff" | "entry" | "support" | "storage" | "public" | "overflow";
+  publicAccess: boolean;
+  staffOnly: boolean;
+  supportsPatientFlow: boolean;
+  supportsClinicalOperations: boolean;
+}
+```
+
+Zone labels remain operational labels only and stay covered by runtime no-PHI text guards.
+
 ## Field Rules
 
 Allowed metadata field shapes:

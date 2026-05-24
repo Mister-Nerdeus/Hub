@@ -336,7 +336,14 @@ export const planErPodPhase2 = {
       "lengthFeet": 48,
       "zoneType": "provider_area",
       "travelBlocked": false,
-      "travelPenalty": 1.2
+      "travelPenalty": 1.2,
+      "zoneOperationalMetadata": {
+        "zoneClass": "patient_care",
+        "publicAccess": false,
+        "staffOnly": false,
+        "supportsPatientFlow": true,
+        "supportsClinicalOperations": true
+      }
     },
     {
       "id": "zone-hallway",
@@ -348,7 +355,14 @@ export const planErPodPhase2 = {
       "lengthFeet": 12,
       "zoneType": "hallway",
       "travelBlocked": false,
-      "travelPenalty": 1
+      "travelPenalty": 1,
+      "zoneOperationalMetadata": {
+        "zoneClass": "support",
+        "publicAccess": true,
+        "staffOnly": false,
+        "supportsPatientFlow": true,
+        "supportsClinicalOperations": false
+      }
     },
     {
       "id": "zone-ems",
@@ -360,7 +374,14 @@ export const planErPodPhase2 = {
       "lengthFeet": 12,
       "zoneType": "ems_entry",
       "travelBlocked": false,
-      "travelPenalty": 1.2
+      "travelPenalty": 1.2,
+      "zoneOperationalMetadata": {
+        "zoneClass": "entry",
+        "publicAccess": false,
+        "staffOnly": false,
+        "supportsPatientFlow": true,
+        "supportsClinicalOperations": true
+      }
     },
     {
       "id": "zone-storage",
@@ -370,9 +391,16 @@ export const planErPodPhase2 = {
       "y": 34,
       "widthFeet": 12,
       "lengthFeet": 10,
-      "zoneType": "storage",
+      "zoneType": "supply_storage",
       "travelBlocked": true,
-      "travelPenalty": 1.2
+      "travelPenalty": 1.2,
+      "zoneOperationalMetadata": {
+        "zoneClass": "storage",
+        "publicAccess": false,
+        "staffOnly": true,
+        "supportsPatientFlow": false,
+        "supportsClinicalOperations": true
+      }
     }
   ],
   "pathNodes": [
