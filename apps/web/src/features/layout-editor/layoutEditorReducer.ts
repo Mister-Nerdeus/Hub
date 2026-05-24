@@ -18,7 +18,11 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
-import { createRoomMoveAuditEntry, createRoomResizeAuditEntry } from "./layoutEditAuditTrail";
+import {
+  createRoomDimensionEditAuditEntry,
+  createRoomMoveAuditEntry,
+  createRoomResizeAuditEntry
+} from "./layoutEditAuditTrail";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
 import {
@@ -26,6 +30,10 @@ import {
   replaceGeneratedWarningsBySources
 } from "./layoutWarningRecalculation";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
+import {
+  editSelectedRoomDimensionsInLayout,
+  type RoomInspectorDimensionChanges
+} from "./roomInspectorDimensionEdit";
 import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
 import { validateRoomResizeWarnings } from "./roomResizeValidation";
@@ -51,6 +59,7 @@ export type LayoutEditorAction =
       deltaXFeet: number;
       deltaYFeet: number;
     }
+  | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
   | { type: "markClean" };
 
@@ -122,6 +131,8 @@ export function layoutEditorReducer(
         deltaXFeet: action.deltaXFeet,
         deltaYFeet: action.deltaYFeet
       });
+    case "editSelectedRoomDimensions":
+      return editSelectedRoomDimensions(state, action.dimensions);
     case "setValidationWarnings":
       if (!Array.isArray(action.validationWarnings)) {
         throw new Error("validationWarnings must be an array");
@@ -138,6 +149,73 @@ export function layoutEditorReducer(
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
   }
+}
+
+function editSelectedRoomDimensions(
+  state: LayoutEditorState,
+  dimensions: RoomInspectorDimensionChanges
+): LayoutEditorState {
+  if (state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "room" || state.selectedObjectId == null) {
+    return state;
+  }
+
+  const roomId = state.selectedObjectId;
+  const beforeRoom = state.editableLayout.rooms.find((room) => room.id === roomId);
+  if (beforeRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
+
+  const editedLayout = editSelectedRoomDimensionsInLayout({
+    layout: state.editableLayout,
+    selectedObjectType: state.selectedObjectType,
+    selectedObjectId: state.selectedObjectId,
+    roomId,
+    changes: dimensions,
+    snapMode: state.snapMode
+  });
+  const afterRoom = editedLayout.rooms.find((room) => room.id === roomId);
+  if (afterRoom == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
+  if (roomRectEquals(beforeRoom, afterRoom)) {
+    return state;
+  }
+
+  return {
+    ...state,
+    editableLayout: editedLayout,
+    validationWarnings: replaceGeneratedWarningsBySources({
+      existingWarnings: state.validationWarnings,
+      replacementWarnings: validateRoomResizeWarnings({
+        layout: editedLayout,
+        roomId,
+        boundsFeet: state.layoutBoundsFeet
+      }),
+      sources: ["resize", "door_sync"]
+    }),
+    editAuditTrail: [
+      ...state.editAuditTrail,
+      createRoomDimensionEditAuditEntry({
+        roomId,
+        before: roomRectForAudit(beforeRoom),
+        after: roomRectForAudit(afterRoom),
+        deltaFeet: {
+          deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+          deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
+          deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
+          deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
+        },
+        changedFields: changedRoomDimensionFields(beforeRoom, afterRoom),
+        createdAtOrder: state.editAuditTrail.length + 1
+      })
+    ],
+    selectedObjectType: "room",
+    selectedObjectId: roomId,
+    isDirty: true
+  };
 }
 
 function resizeRoom(
@@ -171,12 +249,7 @@ function resizeRoom(
   if (afterRoom == null) {
     throw new Error(`unknown room: ${roomId}`);
   }
-  if (
-    beforeRoom.xFeet === afterRoom.xFeet &&
-    beforeRoom.yFeet === afterRoom.yFeet &&
-    beforeRoom.widthFeet === afterRoom.widthFeet &&
-    beforeRoom.heightFeet === afterRoom.heightFeet
-  ) {
+  if (roomRectEquals(beforeRoom, afterRoom)) {
     return state;
   }
 
@@ -197,18 +270,8 @@ function resizeRoom(
       createRoomResizeAuditEntry({
         roomId,
         resizeHandle: handle,
-        before: {
-          xFeet: beforeRoom.xFeet,
-          yFeet: beforeRoom.yFeet,
-          widthFeet: beforeRoom.widthFeet,
-          heightFeet: beforeRoom.heightFeet
-        },
-        after: {
-          xFeet: afterRoom.xFeet,
-          yFeet: afterRoom.yFeet,
-          widthFeet: afterRoom.widthFeet,
-          heightFeet: afterRoom.heightFeet
-        },
+        before: roomRectForAudit(beforeRoom),
+        after: roomRectForAudit(afterRoom),
         deltaFeet: {
           deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
           deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
@@ -222,6 +285,43 @@ function resizeRoom(
     selectedObjectId: roomId,
     isDirty: true
   };
+}
+
+function roomRectEquals(
+  left: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number },
+  right: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number }
+): boolean {
+  return (
+    left.xFeet === right.xFeet &&
+    left.yFeet === right.yFeet &&
+    left.widthFeet === right.widthFeet &&
+    left.heightFeet === right.heightFeet
+  );
+}
+
+function roomRectForAudit(room: {
+  xFeet: number;
+  yFeet: number;
+  widthFeet: number;
+  heightFeet: number;
+}) {
+  return {
+    xFeet: room.xFeet,
+    yFeet: room.yFeet,
+    widthFeet: room.widthFeet,
+    heightFeet: room.heightFeet
+  };
+}
+
+function changedRoomDimensionFields(
+  beforeRoom: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number },
+  afterRoom: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number }
+): string[] {
+  return ["xFeet", "yFeet", "widthFeet", "heightFeet"].filter(
+    (field) =>
+      beforeRoom[field as keyof typeof beforeRoom] !==
+      afterRoom[field as keyof typeof afterRoom]
+  );
 }
 
 export function panViewportAction(

@@ -1,4 +1,5 @@
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
+import { buildLayoutDeltaPreviewViewModel } from "./layoutDeltaPreviewViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { createLayoutEditorState, type LayoutEditorState } from "./layoutEditorState";
 import { LAYOUT_SELECTION_OBJECT_TYPES } from "./layoutSelectionModel";
@@ -408,6 +409,70 @@ assert.deepEqual(selectedResizeState.editAuditTrail, [
     ]
   }
 ]);
+
+const inspectorEditedState = layoutEditorReducer(selectedRoomState, {
+  type: "editSelectedRoomDimensions",
+  dimensions: {
+    xFeet: -1.2,
+    yFeet: 1.6,
+    widthFeet: 3,
+    heightFeet: 8
+  }
+});
+const inspectorEditedRoom = inspectorEditedState.editableLayout?.rooms.find(
+  (room) => room.id === "room-01"
+);
+if (inspectorEditedRoom == null) {
+  throw new Error("inspector edited state must include room-01");
+}
+assert.deepEqual(
+  {
+    xFeet: inspectorEditedRoom.xFeet,
+    yFeet: inspectorEditedRoom.yFeet,
+    widthFeet: inspectorEditedRoom.widthFeet,
+    heightFeet: inspectorEditedRoom.heightFeet
+  },
+  { xFeet: -1, yFeet: 2, widthFeet: 4, heightFeet: 8 }
+);
+assert.equal(inspectorEditedRoom.label, roomBeforeMove.label);
+assert.deepEqual(inspectorEditedState.editableLayout?.doors, editableLayout.doors);
+assert.equal(inspectorEditedState.isDirty, true);
+assert.equal(inspectorEditedState.validationWarnings.some((warning) => warning.source === "resize"), true);
+assert.deepEqual(inspectorEditedState.editAuditTrail, [
+  {
+    editId: "layout-edit-000001",
+    editType: "edit_room_dimensions",
+    objectType: "room",
+    objectId: "room-01",
+    before: {
+      xFeet: roomBeforeMove.xFeet,
+      yFeet: roomBeforeMove.yFeet,
+      widthFeet: roomBeforeMove.widthFeet,
+      heightFeet: roomBeforeMove.heightFeet
+    },
+    after: { xFeet: -1, yFeet: 2, widthFeet: 4, heightFeet: 8 },
+    deltaFeet: { deltaXFeet: -1, deltaYFeet: 2, deltaWidthFeet: -8, deltaHeightFeet: -2 },
+    changedFields: ["heightFeet", "widthFeet", "xFeet", "yFeet"],
+    createdAtOrder: 1,
+    limitations: [
+      "Audit entry describes an operational layout edit only.",
+      "Undo, redo, persistence, path sync, and simulation rerun are not performed."
+    ]
+  }
+]);
+assert.equal(
+  buildLayoutDeltaPreviewViewModel({
+    isDirty: inspectorEditedState.isDirty,
+    editAuditTrail: inspectorEditedState.editAuditTrail
+  }).status,
+  "pending_recalculation"
+);
+
+const inspectorEditIgnoredState = layoutEditorReducer(stateWithLayout, {
+  type: "editSelectedRoomDimensions",
+  dimensions: { widthFeet: 20 }
+});
+assert.equal(inspectorEditIgnoredState, stateWithLayout);
 
 assert.throws(
   () =>

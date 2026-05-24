@@ -27,6 +27,7 @@ const objectCases = [
     objectType: "room",
     objectId: "room-01",
     expectedTitle: "Room 01",
+    expectedIsReadOnly: false,
     expectedSections: ["Room metadata", "Geometry"],
     expectedFields: [
       ["Room number", "01"],
@@ -41,6 +42,7 @@ const objectCases = [
     objectType: "door",
     objectId: "door-room-01-east",
     expectedTitle: "Room 01 east door",
+    expectedIsReadOnly: true,
     expectedSections: ["Door geometry"],
     expectedFields: [
       ["Wall", "east"],
@@ -52,6 +54,7 @@ const objectCases = [
     objectType: "station",
     objectId: "station-primary",
     expectedTitle: "Primary nurse station",
+    expectedIsReadOnly: true,
     expectedSections: ["Station metadata", "Geometry"],
     expectedFields: [
       ["Station type", "nurse_station"],
@@ -62,6 +65,7 @@ const objectCases = [
     objectType: "hallway",
     objectId: "hall-main",
     expectedTitle: "Main hallway",
+    expectedIsReadOnly: true,
     expectedSections: ["Hallway geometry"],
     expectedFields: [
       ["X", "0 ft"],
@@ -72,6 +76,7 @@ const objectCases = [
     objectType: "zone",
     objectId: "zone-entry",
     expectedTitle: "Entry zone",
+    expectedIsReadOnly: true,
     expectedSections: ["Zone metadata", "Geometry"],
     expectedFields: [
       ["Zone type", "ems_entry"],
@@ -91,7 +96,7 @@ for (const objectCase of objectCases) {
   assert.equal(viewModel.objectType, objectCase.objectType);
   assert.equal(viewModel.objectId, objectCase.objectId);
   assert.equal(viewModel.sourceUnits, "feet");
-  assert.equal(viewModel.isReadOnly, true);
+  assert.equal(viewModel.isReadOnly, objectCase.expectedIsReadOnly);
   assert.deepEqual(
     viewModel.sections.map((section) => section.title),
     [...objectCase.expectedSections]
@@ -131,6 +136,19 @@ const roomViewModel = buildLayoutInspectorViewModel({
   selectedObjectType: "room",
   selectedObjectId: "room-01"
 });
+assert.deepEqual(
+  roomViewModel.sections.flatMap((section) =>
+    section.fields
+      .filter((field) => field.editKey != null)
+      .map((field) => [field.label, field.editKey, field.valueFeet])
+  ),
+  [
+    ["X", "xFeet", 0],
+    ["Y", "yFeet", 0],
+    ["Width", "widthFeet", 12],
+    ["Height", "heightFeet", 10]
+  ]
+);
 const serializedFields = JSON.stringify(roomViewModel.sections);
 assert.equal(serializedFields.includes("pixel"), false);
 assert.equal(serializedFields.includes("px"), false);

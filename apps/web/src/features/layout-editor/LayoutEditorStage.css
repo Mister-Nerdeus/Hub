@@ -292,6 +292,17 @@
   text-align: right;
 }
 
+.layout-inspector-panel input {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-weight: 900;
+  max-width: 92px;
+  padding: 4px 6px;
+  text-align: right;
+}
+
 .layout-inspector-panel__sections {
   display: grid;
   gap: 14px;

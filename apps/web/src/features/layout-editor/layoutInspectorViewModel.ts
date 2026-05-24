@@ -4,10 +4,13 @@ import {
   findEditableLayoutObject,
   type LayoutSelectionObjectType
 } from "./layoutSelectionModel";
+import type { RoomInspectorDimensionField } from "./roomInspectorDimensionEdit";
 
 export type LayoutInspectorField = {
   label: string;
   value: string;
+  editKey?: RoomInspectorDimensionField;
+  valueFeet?: number;
 };
 
 export type LayoutInspectorSection = {
@@ -21,7 +24,7 @@ export type LayoutInspectorViewModel = {
   objectType: LayoutSelectionObjectType | null;
   objectId: string | null;
   sourceUnits: "feet";
-  isReadOnly: true;
+  isReadOnly: boolean;
   sections: readonly LayoutInspectorSection[];
 };
 
@@ -58,7 +61,7 @@ export function buildLayoutInspectorViewModel(
     objectType: selectedObjectType,
     objectId: selectedObjectId,
     sourceUnits: "feet",
-    isReadOnly: true,
+    isReadOnly: selectedObject.objectType !== "room",
     sections: buildSections(selectedObject)
   };
 }
@@ -91,7 +94,7 @@ function buildSections(
             { label: "Trauma adjacent", value: formatBoolean(selectedObject.isTraumaAdjacent) }
           ]
         },
-        rectGeometrySection(selectedObject)
+        rectGeometrySection(selectedObject, "Geometry", true)
       ];
     case "door":
       return [
@@ -134,16 +137,30 @@ function rectGeometrySection(
     widthFeet: number;
     heightFeet: number;
   },
-  title = "Geometry"
+  title = "Geometry",
+  isEditable = false
 ): LayoutInspectorSection {
   return {
     title,
     fields: [
-      { label: "X", value: formatFeet(value.xFeet) },
-      { label: "Y", value: formatFeet(value.yFeet) },
-      { label: "Width", value: formatFeet(value.widthFeet) },
-      { label: "Height", value: formatFeet(value.heightFeet) }
+      geometryField("X", "xFeet", value.xFeet, isEditable),
+      geometryField("Y", "yFeet", value.yFeet, isEditable),
+      geometryField("Width", "widthFeet", value.widthFeet, isEditable),
+      geometryField("Height", "heightFeet", value.heightFeet, isEditable)
     ]
+  };
+}
+
+function geometryField(
+  label: string,
+  editKey: RoomInspectorDimensionField,
+  valueFeet: number,
+  isEditable: boolean
+): LayoutInspectorField {
+  return {
+    label,
+    value: formatFeet(valueFeet),
+    ...(isEditable ? { editKey, valueFeet } : {})
   };
 }
 

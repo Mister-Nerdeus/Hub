@@ -232,6 +232,8 @@ Issue 174 adds deterministic resize-specific collision warnings for resized room
 
 Issue 175 adds deterministic door validity warnings after room resize. Room-owned doors warn when their stored offset plus width no longer fits the resized wall length or when owner room geometry is missing; stored door geometry is not mutated, resize remains permissive, and no path sync, save/load, simulation rerun, or recommendation behavior is added.
 
+Issue 176 adds selected-room inspector dimension editing for exact feet-based `xFeet`, `yFeet`, `widthFeet`, and `heightFeet` values. Edits snap to the active mode, enforce minimum room size, recalculate validation warnings, create deterministic audit entries, and mark metric deltas pending without mutating doors, syncing paths, saving/loading, or rerunning simulation.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

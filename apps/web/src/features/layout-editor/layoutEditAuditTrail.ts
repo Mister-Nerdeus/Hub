@@ -18,7 +18,11 @@ export type LayoutEditAuditResizeDeltaFeet = LayoutEditAuditDeltaFeet & {
   deltaHeightFeet: number;
 };
 
-export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = ["move_room", "resize_room"] as const;
+export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = [
+  "move_room",
+  "resize_room",
+  "edit_room_dimensions"
+] as const;
 
 export type LayoutEditAuditEntryType = (typeof LAYOUT_EDIT_AUDIT_ENTRY_TYPES)[number];
 
@@ -47,7 +51,23 @@ export type LayoutRoomResizeAuditEntry = {
   limitations: string[];
 };
 
-export type LayoutEditAuditEntry = LayoutRoomMoveAuditEntry | LayoutRoomResizeAuditEntry;
+export type LayoutRoomDimensionEditAuditEntry = {
+  editId: string;
+  editType: "edit_room_dimensions";
+  objectType: "room";
+  objectId: string;
+  before: LayoutEditAuditRectFeet;
+  after: LayoutEditAuditRectFeet;
+  deltaFeet: LayoutEditAuditResizeDeltaFeet;
+  changedFields: string[];
+  createdAtOrder: number;
+  limitations: string[];
+};
+
+export type LayoutEditAuditEntry =
+  | LayoutRoomMoveAuditEntry
+  | LayoutRoomResizeAuditEntry
+  | LayoutRoomDimensionEditAuditEntry;
 
 export type CreateRoomMoveAuditEntryInput = {
   roomId: string;
@@ -63,6 +83,15 @@ export type CreateRoomResizeAuditEntryInput = {
   before: LayoutEditAuditRectFeet;
   after: LayoutEditAuditRectFeet;
   deltaFeet: LayoutEditAuditResizeDeltaFeet;
+  createdAtOrder: number;
+};
+
+export type CreateRoomDimensionEditAuditEntryInput = {
+  roomId: string;
+  before: LayoutEditAuditRectFeet;
+  after: LayoutEditAuditRectFeet;
+  deltaFeet: LayoutEditAuditResizeDeltaFeet;
+  changedFields: readonly string[];
   createdAtOrder: number;
 };
 
@@ -110,6 +139,29 @@ export function createRoomResizeAuditEntry({
     before: normalizeRect(before, "before"),
     after: normalizeRect(after, "after"),
     deltaFeet: normalizeResizeDelta(deltaFeet),
+    createdAtOrder: order,
+    limitations: [...ROOM_MOVE_AUDIT_LIMITATIONS]
+  };
+}
+
+export function createRoomDimensionEditAuditEntry({
+  roomId,
+  before,
+  after,
+  deltaFeet,
+  changedFields,
+  createdAtOrder
+}: CreateRoomDimensionEditAuditEntryInput): LayoutRoomDimensionEditAuditEntry {
+  const order = requirePositiveInteger(createdAtOrder, "createdAtOrder");
+  return {
+    editId: `layout-edit-${order.toString().padStart(6, "0")}`,
+    editType: "edit_room_dimensions",
+    objectType: "room",
+    objectId: requireString(roomId, "roomId"),
+    before: normalizeRect(before, "before"),
+    after: normalizeRect(after, "after"),
+    deltaFeet: normalizeResizeDelta(deltaFeet),
+    changedFields: [...changedFields].map((field) => requireString(field, "changedField")).sort(),
     createdAtOrder: order,
     limitations: [...ROOM_MOVE_AUDIT_LIMITATIONS]
   };

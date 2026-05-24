@@ -29,7 +29,8 @@ export function buildLayoutDeltaPreviewViewModel({
   isDirty,
   editAuditTrail
 }: BuildLayoutDeltaPreviewViewModelInput): LayoutDeltaPreviewViewModel {
-  if (!isDirty || editAuditTrail.length === 0) {
+  const deltaTriggerEdits = editAuditTrail.filter(isLayoutDeltaPreviewEdit);
+  if (!isDirty || deltaTriggerEdits.length === 0) {
     return {
       status: "current",
       title: "Metric deltas",
@@ -40,7 +41,7 @@ export function buildLayoutDeltaPreviewViewModel({
     };
   }
 
-  const latestEdit = [...editAuditTrail].sort(
+  const latestEdit = [...deltaTriggerEdits].sort(
     (left, right) => right.createdAtOrder - left.createdAtOrder
   )[0];
 
@@ -53,4 +54,13 @@ export function buildLayoutDeltaPreviewViewModel({
     affectedCategories: [...LAYOUT_DELTA_PREVIEW_CATEGORIES],
     latestEditId: latestEdit?.editId
   };
+}
+
+function isLayoutDeltaPreviewEdit(entry: LayoutEditAuditEntry): boolean {
+  switch (entry.editType) {
+    case "move_room":
+    case "resize_room":
+    case "edit_room_dimensions":
+      return true;
+  }
 }

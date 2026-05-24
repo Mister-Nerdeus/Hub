@@ -412,7 +412,12 @@ export function LayoutEditorStage() {
           </svg>
         </div>
         <div className="layout-editor-stage__side-panels">
-          <LayoutInspectorPanel viewModel={inspectorViewModel} />
+          <LayoutInspectorPanel
+            viewModel={inspectorViewModel}
+            onEditRoomDimensions={(dimensions) =>
+              dispatchStage({ type: "editSelectedRoomDimensions", dimensions })
+            }
+          />
           <LayoutValidationPanel viewModel={validationPanelViewModel} />
           <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
         </div>

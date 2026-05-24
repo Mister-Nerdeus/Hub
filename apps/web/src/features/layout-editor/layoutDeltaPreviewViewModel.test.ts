@@ -68,10 +68,23 @@ const resizeAuditEntry: LayoutEditAuditEntry = {
   limitations: ["Audit entry describes an operational layout edit only."]
 };
 
+const inspectorDimensionAuditEntry: LayoutEditAuditEntry = {
+  editId: "layout-edit-000003",
+  editType: "edit_room_dimensions",
+  objectType: "room",
+  objectId: "room-01",
+  before: { xFeet: 0, yFeet: 0, widthFeet: 12, heightFeet: 10 },
+  after: { xFeet: 1, yFeet: 0, widthFeet: 14, heightFeet: 10 },
+  deltaFeet: { deltaXFeet: 1, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: 0 },
+  changedFields: ["widthFeet", "xFeet"],
+  createdAtOrder: 3,
+  limitations: ["Audit entry describes an operational layout edit only."]
+};
+
 assert.equal(
   buildLayoutDeltaPreviewViewModel({
     isDirty: true,
-    editAuditTrail: [auditEntry, resizeAuditEntry]
+    editAuditTrail: [auditEntry, resizeAuditEntry, inspectorDimensionAuditEntry]
   }).latestEditId,
-  "layout-edit-000002"
+  "layout-edit-000003"
 );
