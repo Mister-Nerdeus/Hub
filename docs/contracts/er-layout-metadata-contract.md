@@ -78,6 +78,24 @@ Issue 198 created strict placeholder containers only. Issue 199 defines `roomOpe
 
 Zone labels remain operational labels only and stay covered by runtime no-PHI text guards.
 
+## Hallway Operational Metadata
+
+`hallwayOperationalMetadata` is optional on hallways. Hallway geometry remains feet-based through existing `widthFeet` and `points` fields. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  hallwayClass: "main" | "side" | "staff_only" | "ems" | "overflow";
+  allowsBedMovement: boolean;
+  allowsPublicTraffic: boolean;
+  staffOnly: boolean;
+  congestionLevel: "low" | "moderate" | "high";
+  bottleneck: boolean;
+  throughRoute: boolean;
+}
+```
+
+This metadata does not change pathfinding, walking calculations, fire-code analysis, stretcher/bed movement safety, or compliance status.
+
 ## Field Rules
 
 Allowed metadata field shapes:

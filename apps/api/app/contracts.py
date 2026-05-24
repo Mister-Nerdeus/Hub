@@ -47,6 +47,8 @@ RoomOperationalClass = Literal[
 ]
 RoomCapacityCategory = Literal["single", "double", "hall", "overflow"]
 LineOfSightLevel = Literal["low", "moderate", "high"]
+HallwayOperationalClass = Literal["main", "side", "staff_only", "ems", "overflow"]
+CongestionLevel = Literal["low", "moderate", "high"]
 DoorWall = Literal["top", "bottom", "left", "right"]
 EdgeLengthStrategy = Literal["manhattan", "straight_line"]
 StationPlacementMode = Literal[
@@ -180,6 +182,16 @@ class ZoneOperationalMetadata(StrictModel):
     supportsClinicalOperations: bool
 
 
+class HallwayOperationalMetadata(StrictModel):
+    hallwayClass: HallwayOperationalClass
+    allowsBedMovement: bool
+    allowsPublicTraffic: bool
+    staffOnly: bool
+    congestionLevel: CongestionLevel
+    bottleneck: bool
+    throughRoute: bool
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -210,7 +222,7 @@ class Hallway(StrictModel):
     label: str = Field(min_length=1)
     widthFeet: float = Field(gt=0)
     points: list[Point] = Field(min_length=2)
-    hallwayOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    hallwayOperationalMetadata: HallwayOperationalMetadata | None = None
 
     @field_validator("label")
     @classmethod

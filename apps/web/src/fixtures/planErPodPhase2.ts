@@ -230,7 +230,16 @@ export const planErPodPhase2 = {
           "x": 86,
           "y": 24
         }
-      ]
+      ],
+      "hallwayOperationalMetadata": {
+        "hallwayClass": "main",
+        "allowsBedMovement": true,
+        "allowsPublicTraffic": true,
+        "staffOnly": false,
+        "congestionLevel": "moderate",
+        "bottleneck": false,
+        "throughRoute": true
+      }
     },
     {
       "id": "hallway-ems-entry",
@@ -245,7 +254,16 @@ export const planErPodPhase2 = {
           "x": 8,
           "y": 24
         }
-      ]
+      ],
+      "hallwayOperationalMetadata": {
+        "hallwayClass": "ems",
+        "allowsBedMovement": true,
+        "allowsPublicTraffic": false,
+        "staffOnly": false,
+        "congestionLevel": "low",
+        "bottleneck": false,
+        "throughRoute": true
+      }
     }
   ],
   "doors": [

@@ -72,6 +72,16 @@ export const ROOM_CAPACITY_CATEGORIES = ["single", "double", "hall", "overflow"]
 
 export const LINE_OF_SIGHT_LEVELS = ["low", "moderate", "high"] as const;
 
+export const HALLWAY_OPERATIONAL_CLASSES = [
+  "main",
+  "side",
+  "staff_only",
+  "ems",
+  "overflow"
+] as const;
+
+export const CONGESTION_LEVELS = ["low", "moderate", "high"] as const;
+
 export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
 
 export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
@@ -167,6 +177,8 @@ export type StationType = (typeof STATION_TYPES)[number];
 export type RoomOperationalClass = (typeof ROOM_OPERATIONAL_CLASSES)[number];
 export type RoomCapacityCategory = (typeof ROOM_CAPACITY_CATEGORIES)[number];
 export type LineOfSightLevel = (typeof LINE_OF_SIGHT_LEVELS)[number];
+export type HallwayOperationalClass = (typeof HALLWAY_OPERATIONAL_CLASSES)[number];
+export type CongestionLevel = (typeof CONGESTION_LEVELS)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
@@ -215,6 +227,16 @@ export type ZoneOperationalMetadata = {
   supportsClinicalOperations: boolean;
 };
 
+export type HallwayOperationalMetadata = {
+  hallwayClass: HallwayOperationalClass;
+  allowsBedMovement: boolean;
+  allowsPublicTraffic: boolean;
+  staffOnly: boolean;
+  congestionLevel: CongestionLevel;
+  bottleneck: boolean;
+  throughRoute: boolean;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -240,7 +262,7 @@ export type Hallway = {
   label: string;
   widthFeet: number;
   points: Point[];
-  hallwayOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  hallwayOperationalMetadata?: HallwayOperationalMetadata | null;
 };
 
 export type Door = {
@@ -3438,7 +3460,7 @@ function validateHallway(value: unknown, index: number): Hallway {
   points.forEach((point, pointIndex) =>
     validatePoint(point, `hallways[${index}].points[${pointIndex}]`)
   );
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalHallwayOperationalMetadata(
     hallway.hallwayOperationalMetadata,
     `hallways[${index}].hallwayOperationalMetadata`
   );
@@ -3920,6 +3942,29 @@ function validateOptionalZoneOperationalMetadata(value: unknown, label: string):
   requireBoolean(metadata.staffOnly, `${label}.staffOnly`);
   requireBoolean(metadata.supportsPatientFlow, `${label}.supportsPatientFlow`);
   requireBoolean(metadata.supportsClinicalOperations, `${label}.supportsClinicalOperations`);
+}
+
+function validateOptionalHallwayOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "hallwayClass",
+    "allowsBedMovement",
+    "allowsPublicTraffic",
+    "staffOnly",
+    "congestionLevel",
+    "bottleneck",
+    "throughRoute"
+  ]);
+  requireEnum(metadata.hallwayClass, HALLWAY_OPERATIONAL_CLASSES, `${label}.hallwayClass`);
+  requireBoolean(metadata.allowsBedMovement, `${label}.allowsBedMovement`);
+  requireBoolean(metadata.allowsPublicTraffic, `${label}.allowsPublicTraffic`);
+  requireBoolean(metadata.staffOnly, `${label}.staffOnly`);
+  requireEnum(metadata.congestionLevel, CONGESTION_LEVELS, `${label}.congestionLevel`);
+  requireBoolean(metadata.bottleneck, `${label}.bottleneck`);
+  requireBoolean(metadata.throughRoute, `${label}.throughRoute`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {
