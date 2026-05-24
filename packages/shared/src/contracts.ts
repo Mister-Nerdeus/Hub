@@ -115,6 +115,14 @@ export const ENTRY_OPERATIONAL_CLASSES = [
 
 export const ENTRY_FLOW_DIRECTIONS = ["inbound", "outbound", "bidirectional"] as const;
 
+export const OVERFLOW_CLASSES = ["hall_bed", "chair", "temporary_room", "surge_space"] as const;
+
+export const PRIVACY_CONSTRAINT_LEVELS = ["low", "moderate", "high"] as const;
+
+export const OVERFLOW_TURNOVER_COMPLEXITIES = ["low", "normal", "high"] as const;
+
+export const ADJACENCY_LEVELS = ["none", "near", "direct"] as const;
+
 export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
 
 export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
@@ -219,6 +227,10 @@ export type DoorAccessRestriction = (typeof DOOR_ACCESS_RESTRICTIONS)[number];
 export type DoorDelayCategory = (typeof DOOR_DELAY_CATEGORIES)[number];
 export type EntryOperationalClass = (typeof ENTRY_OPERATIONAL_CLASSES)[number];
 export type EntryFlowDirection = (typeof ENTRY_FLOW_DIRECTIONS)[number];
+export type OverflowClass = (typeof OVERFLOW_CLASSES)[number];
+export type PrivacyConstraintLevel = (typeof PRIVACY_CONSTRAINT_LEVELS)[number];
+export type OverflowTurnoverComplexity = (typeof OVERFLOW_TURNOVER_COMPLEXITIES)[number];
+export type AdjacencyLevel = (typeof ADJACENCY_LEVELS)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
@@ -304,6 +316,25 @@ export type EntryOperationalMetadata = {
   linkedPathNodeId?: string | null;
 };
 
+export type OverflowOperationalMetadata = {
+  overflowClass: OverflowClass;
+  visibilityLevel: LineOfSightLevel;
+  privacyConstraint: PrivacyConstraintLevel;
+  portableMonitorNeeded: boolean;
+  turnoverComplexity: OverflowTurnoverComplexity;
+  nearbyHallwayId?: string | null;
+  nearbyStationId?: string | null;
+};
+
+export type AdjacencyOperationalMetadata = {
+  traumaAdjacencyLevel: AdjacencyLevel;
+  behavioralAdjacencyLevel: AdjacencyLevel;
+  lineOfSightLevel: LineOfSightLevel;
+  nearbySupportZoneIds: string[];
+  nearbyProviderZoneId?: string | null;
+  nearbyMedicationZoneId?: string | null;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -320,8 +351,8 @@ export type Room = {
   nearestStationId?: string | null;
   pathNodeId?: string | null;
   roomOperationalMetadata?: RoomOperationalMetadata | null;
-  overflowOperationalMetadata?: OperationalMetadataPlaceholder | null;
-  adjacencyOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  overflowOperationalMetadata?: OverflowOperationalMetadata | null;
+  adjacencyOperationalMetadata?: AdjacencyOperationalMetadata | null;
 };
 
 export type Hallway = {
@@ -3494,11 +3525,11 @@ function validateRoom(value: unknown, index: number): Room {
     room.roomOperationalMetadata,
     `rooms[${index}].roomOperationalMetadata`
   );
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalOverflowOperationalMetadata(
     room.overflowOperationalMetadata,
     `rooms[${index}].overflowOperationalMetadata`
   );
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalAdjacencyOperationalMetadata(
     room.adjacencyOperationalMetadata,
     `rooms[${index}].adjacencyOperationalMetadata`
   );
@@ -3690,6 +3721,48 @@ function validateRoomReferences(room: Room, index: number, references: Reference
   }
   if (room.nearestStationId != null && !references.nurseStationIds.has(room.nearestStationId)) {
     throw new Error(`rooms[${index}].nearestStationId references an unknown nurse station`);
+  }
+  if (
+    room.overflowOperationalMetadata?.nearbyHallwayId != null &&
+    !references.hallwayIds.has(room.overflowOperationalMetadata.nearbyHallwayId)
+  ) {
+    throw new Error(
+      `rooms[${index}].overflowOperationalMetadata.nearbyHallwayId references an unknown hallway`
+    );
+  }
+  if (
+    room.overflowOperationalMetadata?.nearbyStationId != null &&
+    !references.nurseStationIds.has(room.overflowOperationalMetadata.nearbyStationId)
+  ) {
+    throw new Error(
+      `rooms[${index}].overflowOperationalMetadata.nearbyStationId references an unknown nurse station`
+    );
+  }
+  const adjacency = room.adjacencyOperationalMetadata;
+  if (adjacency != null) {
+    adjacency.nearbySupportZoneIds.forEach((zoneId, zoneIndex) => {
+      if (!references.zoneIds.has(zoneId)) {
+        throw new Error(
+          `rooms[${index}].adjacencyOperationalMetadata.nearbySupportZoneIds[${zoneIndex}] references an unknown zone`
+        );
+      }
+    });
+    if (
+      adjacency.nearbyProviderZoneId != null &&
+      !references.zoneIds.has(adjacency.nearbyProviderZoneId)
+    ) {
+      throw new Error(
+        `rooms[${index}].adjacencyOperationalMetadata.nearbyProviderZoneId references an unknown zone`
+      );
+    }
+    if (
+      adjacency.nearbyMedicationZoneId != null &&
+      !references.zoneIds.has(adjacency.nearbyMedicationZoneId)
+    ) {
+      throw new Error(
+        `rooms[${index}].adjacencyOperationalMetadata.nearbyMedicationZoneId references an unknown zone`
+      );
+    }
   }
   if (room.pathNodeId != null) {
     const pathNode = references.pathNodesById.get(room.pathNodeId);
@@ -4009,6 +4082,60 @@ function validateOptionalRoomOperationalMetadata(value: unknown, label: string):
   requireBoolean(metadata.behavioralReady, `${label}.behavioralReady`);
   requireBoolean(metadata.sitterCapable, `${label}.sitterCapable`);
   requireEnum(metadata.lineOfSightLevel, LINE_OF_SIGHT_LEVELS, `${label}.lineOfSightLevel`);
+}
+
+function validateOptionalOverflowOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "overflowClass",
+    "visibilityLevel",
+    "privacyConstraint",
+    "portableMonitorNeeded",
+    "turnoverComplexity",
+    "nearbyHallwayId",
+    "nearbyStationId"
+  ]);
+  requireEnum(metadata.overflowClass, OVERFLOW_CLASSES, `${label}.overflowClass`);
+  requireEnum(metadata.visibilityLevel, LINE_OF_SIGHT_LEVELS, `${label}.visibilityLevel`);
+  requireEnum(metadata.privacyConstraint, PRIVACY_CONSTRAINT_LEVELS, `${label}.privacyConstraint`);
+  requireBoolean(metadata.portableMonitorNeeded, `${label}.portableMonitorNeeded`);
+  requireEnum(
+    metadata.turnoverComplexity,
+    OVERFLOW_TURNOVER_COMPLEXITIES,
+    `${label}.turnoverComplexity`
+  );
+  requireOptionalString(metadata.nearbyHallwayId, `${label}.nearbyHallwayId`);
+  requireOptionalString(metadata.nearbyStationId, `${label}.nearbyStationId`);
+}
+
+function validateOptionalAdjacencyOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "traumaAdjacencyLevel",
+    "behavioralAdjacencyLevel",
+    "lineOfSightLevel",
+    "nearbySupportZoneIds",
+    "nearbyProviderZoneId",
+    "nearbyMedicationZoneId"
+  ]);
+  requireEnum(metadata.traumaAdjacencyLevel, ADJACENCY_LEVELS, `${label}.traumaAdjacencyLevel`);
+  requireEnum(
+    metadata.behavioralAdjacencyLevel,
+    ADJACENCY_LEVELS,
+    `${label}.behavioralAdjacencyLevel`
+  );
+  requireEnum(metadata.lineOfSightLevel, LINE_OF_SIGHT_LEVELS, `${label}.lineOfSightLevel`);
+  requireArray(metadata.nearbySupportZoneIds, `${label}.nearbySupportZoneIds`).forEach(
+    (zoneId, index) => requireString(zoneId, `${label}.nearbySupportZoneIds[${index}]`)
+  );
+  requireOptionalString(metadata.nearbyProviderZoneId, `${label}.nearbyProviderZoneId`);
+  requireOptionalString(metadata.nearbyMedicationZoneId, `${label}.nearbyMedicationZoneId`);
 }
 
 function validateOptionalZoneOperationalMetadata(value: unknown, label: string): void {

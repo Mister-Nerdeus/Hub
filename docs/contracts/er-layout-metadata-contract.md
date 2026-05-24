@@ -147,6 +147,37 @@ This metadata must not include staff identity, staff schedules, staffing-complia
 
 `preferredTraumaZoneId` must reference a known zone when present. `linkedPathNodeId` must reference a known path node when present. This metadata does not add patient arrival records, arrival simulation, trauma-flow safety certification, patient outcomes, or pathfinding changes.
 
+## Overflow And Adjacency Metadata
+
+`overflowOperationalMetadata` is optional on rooms that represent hall beds, chairs, temporary rooms, or surge spaces. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  overflowClass: "hall_bed" | "chair" | "temporary_room" | "surge_space";
+  visibilityLevel: "low" | "moderate" | "high";
+  privacyConstraint: "low" | "moderate" | "high";
+  portableMonitorNeeded: boolean;
+  turnoverComplexity: "low" | "normal" | "high";
+  nearbyHallwayId?: string | null;
+  nearbyStationId?: string | null;
+}
+```
+
+`adjacencyOperationalMetadata` is optional on rooms that need operational adjacency context. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  traumaAdjacencyLevel: "none" | "near" | "direct";
+  behavioralAdjacencyLevel: "none" | "near" | "direct";
+  lineOfSightLevel: "low" | "moderate" | "high";
+  nearbySupportZoneIds: string[];
+  nearbyProviderZoneId?: string | null;
+  nearbyMedicationZoneId?: string | null;
+}
+```
+
+Overflow references must point to known hallways and stations. Adjacency references must point to known zones. These objects do not include patient data, diagnosis, narrative clinical notes, hallway-bed appropriateness certification, trauma readiness certification, behavioral event prediction, or clinical safety scoring.
+
 ## Field Rules
 
 Allowed metadata field shapes:

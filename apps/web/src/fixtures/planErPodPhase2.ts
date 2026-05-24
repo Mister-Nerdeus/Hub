@@ -68,6 +68,17 @@ export const planErPodPhase2 = {
         "behavioralReady": false,
         "sitterCapable": true,
         "lineOfSightLevel": "high"
+      },
+      "adjacencyOperationalMetadata": {
+        "traumaAdjacencyLevel": "direct",
+        "behavioralAdjacencyLevel": "none",
+        "lineOfSightLevel": "high",
+        "nearbySupportZoneIds": [
+          "zone-trauma",
+          "zone-storage"
+        ],
+        "nearbyProviderZoneId": "zone-pod-a",
+        "nearbyMedicationZoneId": null
       }
     },
     {
@@ -126,6 +137,16 @@ export const planErPodPhase2 = {
         "behavioralReady": true,
         "sitterCapable": true,
         "lineOfSightLevel": "high"
+      },
+      "adjacencyOperationalMetadata": {
+        "traumaAdjacencyLevel": "near",
+        "behavioralAdjacencyLevel": "direct",
+        "lineOfSightLevel": "high",
+        "nearbySupportZoneIds": [
+          "zone-hallway"
+        ],
+        "nearbyProviderZoneId": "zone-pod-a",
+        "nearbyMedicationZoneId": null
       }
     },
     {
@@ -184,6 +205,15 @@ export const planErPodPhase2 = {
         "behavioralReady": false,
         "sitterCapable": false,
         "lineOfSightLevel": "low"
+      },
+      "overflowOperationalMetadata": {
+        "overflowClass": "surge_space",
+        "visibilityLevel": "low",
+        "privacyConstraint": "moderate",
+        "portableMonitorNeeded": true,
+        "turnoverComplexity": "high",
+        "nearbyHallwayId": "hallway-main",
+        "nearbyStationId": "station-primary"
       }
     },
     {
@@ -213,6 +243,25 @@ export const planErPodPhase2 = {
         "behavioralReady": false,
         "sitterCapable": true,
         "lineOfSightLevel": "moderate"
+      },
+      "overflowOperationalMetadata": {
+        "overflowClass": "hall_bed",
+        "visibilityLevel": "moderate",
+        "privacyConstraint": "high",
+        "portableMonitorNeeded": true,
+        "turnoverComplexity": "normal",
+        "nearbyHallwayId": "hallway-main",
+        "nearbyStationId": "station-primary"
+      },
+      "adjacencyOperationalMetadata": {
+        "traumaAdjacencyLevel": "near",
+        "behavioralAdjacencyLevel": "near",
+        "lineOfSightLevel": "moderate",
+        "nearbySupportZoneIds": [
+          "zone-hallway"
+        ],
+        "nearbyProviderZoneId": "zone-pod-a",
+        "nearbyMedicationZoneId": null
       }
     }
   ],

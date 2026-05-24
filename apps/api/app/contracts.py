@@ -56,6 +56,10 @@ DoorAccessRestriction = Literal["none", "staff_only", "controlled"]
 DoorDelayCategory = Literal["none", "low", "moderate", "high"]
 EntryOperationalClass = Literal["ems", "ambulance", "walk_in", "staff", "service"]
 EntryFlowDirection = Literal["inbound", "outbound", "bidirectional"]
+OverflowClass = Literal["hall_bed", "chair", "temporary_room", "surge_space"]
+PrivacyConstraintLevel = Literal["low", "moderate", "high"]
+OverflowTurnoverComplexity = Literal["low", "normal", "high"]
+AdjacencyLevel = Literal["none", "near", "direct"]
 DoorWall = Literal["top", "bottom", "left", "right"]
 EdgeLengthStrategy = Literal["manhattan", "straight_line"]
 StationPlacementMode = Literal[
@@ -226,6 +230,25 @@ class EntryOperationalMetadata(StrictModel):
     linkedPathNodeId: str | None = None
 
 
+class OverflowOperationalMetadata(StrictModel):
+    overflowClass: OverflowClass
+    visibilityLevel: LineOfSightLevel
+    privacyConstraint: PrivacyConstraintLevel
+    portableMonitorNeeded: bool
+    turnoverComplexity: OverflowTurnoverComplexity
+    nearbyHallwayId: str | None = None
+    nearbyStationId: str | None = None
+
+
+class AdjacencyOperationalMetadata(StrictModel):
+    traumaAdjacencyLevel: AdjacencyLevel
+    behavioralAdjacencyLevel: AdjacencyLevel
+    lineOfSightLevel: LineOfSightLevel
+    nearbySupportZoneIds: list[str]
+    nearbyProviderZoneId: str | None = None
+    nearbyMedicationZoneId: str | None = None
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -242,8 +265,8 @@ class Room(StrictModel):
     nearestStationId: str | None = None
     pathNodeId: str | None = None
     roomOperationalMetadata: RoomOperationalMetadata | None = None
-    overflowOperationalMetadata: OperationalMetadataPlaceholder | None = None
-    adjacencyOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    overflowOperationalMetadata: OverflowOperationalMetadata | None = None
+    adjacencyOperationalMetadata: AdjacencyOperationalMetadata | None = None
 
     @field_validator("label")
     @classmethod
@@ -401,6 +424,32 @@ class PlanContract(StrictModel):
                 raise ValueError(
                     f"room {room.id} references unknown nurse station {room.nearestStationId}"
                 )
+            if (
+                room.overflowOperationalMetadata is not None
+                and room.overflowOperationalMetadata.nearbyHallwayId is not None
+                and room.overflowOperationalMetadata.nearbyHallwayId not in hallway_ids
+            ):
+                raise ValueError(f"room {room.id} overflow metadata references unknown hallway")
+            if (
+                room.overflowOperationalMetadata is not None
+                and room.overflowOperationalMetadata.nearbyStationId is not None
+                and room.overflowOperationalMetadata.nearbyStationId not in nurse_station_ids
+            ):
+                raise ValueError(f"room {room.id} overflow metadata references unknown station")
+            if room.adjacencyOperationalMetadata is not None:
+                for zone_id in room.adjacencyOperationalMetadata.nearbySupportZoneIds:
+                    if zone_id not in zone_ids:
+                        raise ValueError(f"room {room.id} adjacency metadata references unknown zone")
+                if (
+                    room.adjacencyOperationalMetadata.nearbyProviderZoneId is not None
+                    and room.adjacencyOperationalMetadata.nearbyProviderZoneId not in zone_ids
+                ):
+                    raise ValueError(f"room {room.id} adjacency metadata references unknown provider zone")
+                if (
+                    room.adjacencyOperationalMetadata.nearbyMedicationZoneId is not None
+                    and room.adjacencyOperationalMetadata.nearbyMedicationZoneId not in zone_ids
+                ):
+                    raise ValueError(f"room {room.id} adjacency metadata references unknown medication zone")
             if room.pathNodeId is not None and room.pathNodeId not in path_node_ids:
                 raise ValueError(f"room {room.id} references unknown path node {room.pathNodeId}")
             if room.pathNodeId is not None:

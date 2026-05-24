@@ -21,8 +21,6 @@ function writeEvidence(name, payload) {
 
 function withMetadataPlaceholders() {
   const plan = readFixture("plan-er-pod-phase2.json");
-  plan.rooms[0].overflowOperationalMetadata = {};
-  plan.rooms[0].adjacencyOperationalMetadata = {};
   return plan;
 }
 
@@ -30,8 +28,14 @@ test("ER layout metadata architecture accepts optional nested metadata placehold
   const plan = validatePlanContract(withMetadataPlaceholders());
 
   assert.equal(plan.rooms[0].roomOperationalMetadata.roomClass, "standard");
-  assert.deepEqual(plan.rooms[0].overflowOperationalMetadata, {});
-  assert.deepEqual(plan.rooms[0].adjacencyOperationalMetadata, {});
+  assert.equal(
+    plan.rooms.find((room) => room.id === "room-06").overflowOperationalMetadata.overflowClass,
+    "surge_space"
+  );
+  assert.equal(
+    plan.rooms.find((room) => room.id === "room-02").adjacencyOperationalMetadata.traumaAdjacencyLevel,
+    "direct"
+  );
   assert.equal(plan.hallways[0].hallwayOperationalMetadata.hallwayClass, "main");
   assert.equal(plan.doors[0].doorOperationalMetadata.doorClass, "standard");
   assert.equal(plan.nurseStations[0].stationOperationalMetadata.stationClass, "primary");

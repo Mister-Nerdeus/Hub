@@ -17,8 +17,6 @@ def load_fixture(name: str) -> dict:
 
 def with_metadata_placeholders() -> dict:
     plan = load_fixture("plan-er-pod-phase2.json")
-    plan["rooms"][0]["overflowOperationalMetadata"] = {}
-    plan["rooms"][0]["adjacencyOperationalMetadata"] = {}
     return plan
 
 
@@ -27,8 +25,12 @@ def test_er_layout_metadata_architecture_accepts_optional_nested_placeholders() 
 
     assert plan.rooms[0].roomOperationalMetadata is not None
     assert plan.rooms[0].roomOperationalMetadata.roomClass == "standard"
-    assert plan.rooms[0].overflowOperationalMetadata is not None
-    assert plan.rooms[0].adjacencyOperationalMetadata is not None
+    overflow_room = next(room for room in plan.rooms if room.id == "room-06")
+    adjacency_room = next(room for room in plan.rooms if room.id == "room-02")
+    assert overflow_room.overflowOperationalMetadata is not None
+    assert overflow_room.overflowOperationalMetadata.overflowClass == "surge_space"
+    assert adjacency_room.adjacencyOperationalMetadata is not None
+    assert adjacency_room.adjacencyOperationalMetadata.traumaAdjacencyLevel == "direct"
     assert plan.hallways[0].hallwayOperationalMetadata is not None
     assert plan.hallways[0].hallwayOperationalMetadata.hallwayClass == "main"
     assert plan.doors[0].doorOperationalMetadata is not None

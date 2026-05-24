@@ -1,0 +1,5 @@
+npm --workspace packages/shared run build; node --input-type=module <inline current-gap probe> *> docs/verification/issues/issue-205/first-failure.txt
+npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-205/test-output/shared.txt
+cd apps/api && python -m pytest *>&1 | Tee-Object -FilePath ../../docs/verification/issues/issue-205/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-205/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-205/test-output/docs-gate.txt
