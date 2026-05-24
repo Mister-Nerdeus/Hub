@@ -1,1 +1,3 @@
-Current-gap evidence before implementation: no route preview V1 input/output contract existed for reachable, unreachable, invalid, warnings, limitations, distance, and time validation.
+Current-gap evidence captured before implementation:
+
+The JSON floorplan library could list the five default floorplans, but there was no active floorplan state, no default-plan open action, and no summary proving that opened default JSON plans remain read-only. Switching from one floorplan to another also had no deterministic state reset point for selection-specific data.

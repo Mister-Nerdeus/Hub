@@ -1,31 +1,60 @@
 # Issue 220 Closeout
 
 ## Summary
-Route Preview Contract V1 is complete within the batch boundaries. The work remains limited to default-plan import repair, path graph readiness, route preview, walking baseline fixtures, metadata annotation, and audit evidence.
+
+Added the open-default JSON floorplan workflow. The app now has deterministic active floorplan state, the library can open validated JSON defaults, opened defaults remain read-only, switching plans resets selection-specific state, and the active summary avoids DOCX source exposure.
 
 ## Files Changed
-See repository diff for the scoped source, fixture, docs, and evidence files for this issue. No PHI, EHR integration, assignment scoring, optimizer candidate generation, simulation reruns, database seeding, or production deployment was added.
+
+- `apps/web/src/features/floorplans/activeFloorplanState.ts`
+- `apps/web/src/features/floorplans/ActiveFloorplanSummary.tsx`
+- `apps/web/src/features/floorplans/activeFloorplanState.test.ts`
+- `apps/web/src/features/floorplans/FloorplanLibrary.tsx`
+- `apps/web/src/App.tsx`
+- `apps/web/src/styles.css`
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `docs/verification/issues/issue-220/*`
 
 ## Commands Run
-Commands are listed in commands.txt and mapped in command-output-map.json.
+
+- `npm --workspace apps/web test`
+- `npm --workspace apps/web run build`
+- `node scripts/check-docs-contracts.mjs`
 
 ## Tests Passed/Failed
-Required local gates are captured in test-output artifacts. Passing gates are reflected in the final docs gate and verifier outputs.
+
+- Passed: `npm --workspace apps/web test` (61 web test files).
+- Passed: `npm --workspace apps/web run build`.
+- Passed: `node scripts/check-docs-contracts.mjs`.
+- Failed final gates: none. An initial local web test iteration caught an invalid test fixture typing issue; fixed and reran successfully.
 
 ## Evidence
-Issue evidence artifacts are present in this directory and indexed in docs/verification/ISSUE_EVIDENCE_INDEX.json.
 
-## TypeScript/Python Parity Confirmation
-Contracts changed in TypeScript shared code only. No Python API or persistence contract mirrors were changed in this batch.
+- `first-failure.txt`
+- `open-default-floorplan-output.json`
+- `active-floorplan-state-output.json`
+- `no-docx-open-output.json`
+- `command-output-map.json`
+- `test-output/web.txt`
+- `test-output/web-build.txt`
+- `test-output/docs-gate.txt`
 
 ## Non-PHI Confirmation
-The non-PHI scanner remains part of the captured gates where required. New fixtures and docs use operational-only default layout and path graph terms.
+
+No PHI fields, EHR integration, clinical safety claims, legal compliance claims, or exact-CAD claims were introduced.
+
+## DOCX Privacy Confirmation
+
+Opening a floorplan uses validated JSON default fixtures only. Active state and summaries do not include DOCX source paths, filenames, preview links, download links, or payloads.
 
 ## Non-Claims
-This issue does not claim measured walking truth, exact source DOCX geometry, clinical correctness, safety certification, EHR support, assignment scoring, optimizer behavior, database seeding, or production deployment.
+
+This issue does not edit floorplans, save floorplans, open DOCX files, add route or walking-truth logic, or change assignment/scoring/simulation behavior.
 
 ## Known Limitations
-Known limitations are documented in the issue-specific gaps artifact when applicable. Path edges remain approximate fixture graph edges.
+
+Active defaults are read-only. Duplicate-to-editable and saved local storage workflows are deferred to later issues in the batch.
 
 ## Next Recommended Issue
-221.
+
+Issue 221: Duplicate Default Floorplan to Editable Copy.

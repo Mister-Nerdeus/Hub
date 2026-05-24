@@ -7,6 +7,12 @@ import { ScenarioComparisonProof } from "./features/comparison/ScenarioCompariso
 import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
 import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
 import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
+import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
+import {
+  createActiveFloorplanSummaryViewModel,
+  createEmptyActiveFloorplanState,
+  openDefaultFloorplan
+} from "./features/floorplans/activeFloorplanState";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
@@ -64,6 +70,11 @@ export function App() {
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
+  const [activeFloorplanState, setActiveFloorplanState] = useState(
+    createEmptyActiveFloorplanState
+  );
+  const activeFloorplanSummaryViewModel =
+    createActiveFloorplanSummaryViewModel(activeFloorplanState);
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -116,7 +127,13 @@ export function App() {
         </div>
       </section>
 
-      <FloorplanLibrary viewModel={floorplanLibraryViewModel} />
+      <FloorplanLibrary
+        viewModel={floorplanLibraryViewModel}
+        onOpenDefaultPlan={(planId) =>
+          setActiveFloorplanState((state) => openDefaultFloorplan(state, planId))
+        }
+      />
+      <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
       <LayoutEditorStage />
       <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />

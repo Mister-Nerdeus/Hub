@@ -207,6 +207,18 @@ h1 {
   padding: 6px 8px;
 }
 
+.floorplan-library__open {
+  background: #263340;
+  border: 0;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  justify-self: start;
+  padding: 9px 12px;
+}
+
 .floorplan-library__status {
   display: grid;
   gap: 10px;
@@ -247,6 +259,88 @@ h1 {
   border: 1px solid #cfd8e3;
   border-radius: 8px;
   padding: 14px 14px 14px 34px;
+}
+
+.active-floorplan {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 16px;
+  width: 100%;
+}
+
+.active-floorplan__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.active-floorplan h2 {
+  color: #111827;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.active-floorplan__header span {
+  background: #eaf2ed;
+  border: 1px solid #b9d0c2;
+  border-radius: 999px;
+  color: #294d3a;
+  flex: 0 0 auto;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 6px 8px;
+}
+
+.active-floorplan__status,
+.active-floorplan__counts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.active-floorplan__status {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.active-floorplan__counts {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.active-floorplan__status div,
+.active-floorplan__counts div {
+  background: #f7f9fb;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  min-width: 0;
+  padding: 8px;
+}
+
+.active-floorplan dt {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0 0 5px;
+}
+
+.active-floorplan dd {
+  color: #111827;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.active-floorplan__empty {
+  color: #263340;
+  font-size: 0.86rem;
+  font-weight: 800;
+  margin: 0;
 }
 
 .simulation-proof,
@@ -560,7 +654,8 @@ h1 {
   .retrieval-proof__header,
   .optimizer-proof__header,
   .floorplan-library__header,
-  .floorplan-library__card-header {
+  .floorplan-library__card-header,
+  .active-floorplan__header {
     flex-direction: column;
   }
 
@@ -571,11 +666,13 @@ h1 {
   .simulation-proof__grid,
   .optimizer-proof__grid,
   .floorplan-library__grid,
-  .floorplan-library__status {
+  .floorplan-library__status,
+  .active-floorplan__status {
     grid-template-columns: 1fr;
   }
 
-  .floorplan-library__counts {
+  .floorplan-library__counts,
+  .active-floorplan__counts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

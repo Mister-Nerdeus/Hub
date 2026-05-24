@@ -2,9 +2,10 @@ import type { FloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
 
 type FloorplanLibraryProps = {
   viewModel: FloorplanLibraryViewModel;
+  onOpenDefaultPlan?: (planId: string) => void;
 };
 
-export function FloorplanLibrary({ viewModel }: FloorplanLibraryProps) {
+export function FloorplanLibrary({ viewModel, onOpenDefaultPlan }: FloorplanLibraryProps) {
   return (
     <section className="floorplan-library" aria-labelledby="floorplan-library-title">
       <div className="floorplan-library__header">
@@ -34,6 +35,15 @@ export function FloorplanLibrary({ viewModel }: FloorplanLibraryProps) {
               </div>
               <span>{floorplan.readOnlyLabel}</span>
             </div>
+            {onOpenDefaultPlan ? (
+              <button
+                className="floorplan-library__open"
+                type="button"
+                onClick={() => onOpenDefaultPlan(floorplan.planId)}
+              >
+                Open JSON
+              </button>
+            ) : null}
             <dl className="floorplan-library__status">
               <div>
                 <dt>Artifact</dt>
