@@ -1,0 +1,53 @@
+{
+  "reviewId": "2026-05-24-batch-207-216-code-review",
+  "commands": [
+    {
+      "command": "git diff --stat",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/git-diff-stat.txt"
+    },
+    {
+      "command": "git status --short",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/git-status-before.txt"
+    },
+    {
+      "command": "rg -n boundary search",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/static-review-search.txt"
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/shared.txt"
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/web.txt"
+    },
+    {
+      "command": "cd apps/api && python -m pytest",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/api.txt"
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/no-phi.txt"
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docs-gate.txt"
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/web-build.txt"
+    },
+    {
+      "command": "docker compose down",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docker-compose-down-before-verify-local.txt"
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/verify-local.txt"
+    },
+    {
+      "command": "docker compose ps",
+      "output": "docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docker-compose-ps.txt"
+    }
+  ]
+}

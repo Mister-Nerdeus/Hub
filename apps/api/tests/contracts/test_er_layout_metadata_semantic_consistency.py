@@ -48,6 +48,8 @@ def test_canonical_fixture_special_room_door_semantics_are_coherent() -> None:
             "status": "passed",
             "pythonSemanticValidation": "aligned-with-typescript",
             "typeScriptSemanticValidation": "aligned-with-python",
+            "rejectedDoorClassMismatch": True,
+            "rejectedBoundaryMismatch": True,
             "specialRoomDoorChecks": checks,
         },
     )
@@ -85,8 +87,10 @@ def test_entry_linked_path_node_rejects_self_reference() -> None:
         {
             "issue": "207",
             "status": "passed",
+            "entryNodeId": entry.id,
+            "linkedPathNodeId": entry.entryOperationalMetadata.linkedPathNodeId,
+            "selfReferenceRejected": True,
             "pythonSelfReferenceRejected": True,
             "typeScriptSelfReferenceRejected": True,
-            "linkedPathNodeId": entry.entryOperationalMetadata.linkedPathNodeId,
         },
     )

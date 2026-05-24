@@ -1,0 +1,38 @@
+# Commands
+
+Get-Content docs/contracts/codex-global-invariants.md
+Get-Content docs/compliance/non-phi-policy.md
+Get-Content docs/architecture/dependency-decision-matrix.md
+Get-Content docs/contracts/local-first-verification-contract.md
+Get-Content docs/contracts/reproducibility-contract.md
+Get-Content docs/codex/drift-traps.md
+Get-Content docs/codex/codex-operating-rules.md
+Get-Content docs/codex/forbidden-implementation-patterns.md
+git status --short
+rg -n "safe|safety|clinical|patient|EHR|PHI|certif|recommend|optimizer|optimization|pathfinding|scoring|score|Math\.random|random\(" ...
+Get-Content packages/shared/src/default-plans/sourceToPlanMappingContract.ts
+Get-Content packages/shared/src/default-plans/defaultSavedPlanFixtureContract.ts
+Get-Content packages/shared/tests/default-plans-audit.test.mjs
+Get-Content packages/shared/tests/default-plan-source-mapping.test.mjs
+Get-Content packages/shared/tests/default-saved-plan-fixture-contract.test.mjs
+Get-Content apps/web/src/fixtures/defaultPlans.ts
+Get-Content apps/web/src/features/plan-renderer/defaultPlansRender.test.ts
+npm --workspace apps/web test
+npm --workspace packages/shared test
+python -m pytest tests/contracts/test_er_layout_metadata_semantic_consistency.py
+npm --workspace apps/web build
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+git diff --stat
+git status --short
+npm --workspace packages/shared test *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/shared.txt
+npm --workspace apps/web test *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/web.txt
+python -m pytest *> ../../docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docs-gate.txt
+npm --workspace apps/web run build *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/web-build.txt
+docker compose down *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docker-compose-down-before-verify-local.txt
+node scripts/verify-local.mjs *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/verify-local.txt
+docker compose ps *> docs/verification/reviews/2026-05-24-batch-207-216-code-review/test-output/docker-compose-ps.txt
+git diff --cached --check

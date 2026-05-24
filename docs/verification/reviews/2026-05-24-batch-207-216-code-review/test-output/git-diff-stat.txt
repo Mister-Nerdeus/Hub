@@ -1,0 +1,13 @@
+ ...test_er_layout_metadata_semantic_consistency.py |   6 +-
+ .../plan-renderer/defaultPlansRender.test.ts       |  22 +++-
+ apps/web/src/fixtures/defaultPlans.ts              | 126 +++------------------
+ apps/web/tsconfig.json                             |   1 +
+ .../issue-207/canonical-fixture-repair-output.json |  10 +-
+ .../issue-207/entry-link-semantics-output.json     |   6 +-
+ .../metadata-semantic-consistency-output.json      |   2 +
+ .../issue-208/source-layout-manifest-output.json   |  10 +-
+ .../issue-216/default-plan-validation-output.json  |   1 +
+ .../default-plans/source-layout-manifest.json      |  10 +-
+ packages/shared/tests/default-plans-audit.test.mjs |   5 +
+ ...r-layout-metadata-semantic-consistency.test.mjs |  24 ++--
+ 12 files changed, 86 insertions(+), 137 deletions(-)

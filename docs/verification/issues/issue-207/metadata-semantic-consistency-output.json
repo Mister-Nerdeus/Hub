@@ -3,6 +3,8 @@
   "status": "passed",
   "pythonSemanticValidation": "aligned-with-typescript",
   "typeScriptSemanticValidation": "aligned-with-python",
+  "rejectedDoorClassMismatch": true,
+  "rejectedBoundaryMismatch": true,
   "specialRoomDoorChecks": {
     "door-room-02": [
       "room-02",

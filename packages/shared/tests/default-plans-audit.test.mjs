@@ -39,6 +39,7 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
   const manifest = readJson(join(defaultPlansDir, "source-layout-manifest.json"));
   const sourcePlanIds = new Set(manifest.sources.map((source) => source.sourcePlanId));
   const defaultPlanIds = new Set(manifest.sources.map((source) => source.defaultPlanId));
+  const sourceById = new Map(manifest.sources.map((source) => [source.sourcePlanId, source]));
   const mappingFiles = readdirSync(mappingDir).filter((name) => /^mapping-er-layout-plan-\d+\.json$/.test(name)).sort();
   const mappings = mappingFiles.map((name) => validateSourceToPlanMappingContract(readJson(join(mappingDir, name))));
   const mappingIds = new Set(mappings.map((mapping) => mapping.mappingId));
@@ -54,6 +55,9 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
   assert.equal(wrappers.length, 5);
 
   for (const wrapper of wrappers) {
+    const manifestSource = sourceById.get(wrapper.sourcePlanId);
+    assert.ok(manifestSource);
+    assert.equal(manifestSource.conversionStatus, wrapper.importStatus);
     assert.equal(defaultPlanIds.has(wrapper.plan.planId), true);
     assert.equal(wrapper.limitations.length > 0, true);
     const mapping = mappings.find((candidate) => candidate.mappingId === wrapper.mappingId);
@@ -72,6 +76,7 @@ test("all default plan fixtures validate and link to manifest and mappings", () 
     defaultPlanIds: wrappers.map((wrapper) => wrapper.plan.planId),
     nestedPlanContractsValidated: true,
     wrapperContractsValidated: true,
+    manifestConversionStatusesAligned: true,
     approximationNotesPresent: true
   });
   writeEvidence("source-mapping-validation-output.json", {

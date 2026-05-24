@@ -25,31 +25,31 @@ function entryNode(plan) {
 
 test("canonical metadata fixture keeps special room and door semantics coherent", () => {
   const plan = validatePlanContract(readFixture("plan-er-pod-phase2.json"));
-  const checks = [
-    {
+  const checks = {
+    "door-room-02": {
       roomId: "room-02",
       doorId: "door-room-02",
       roomClass: "trauma",
       doorClass: "trauma",
       traumaAccess: true
     },
-    {
+    "door-room-03": {
       roomId: "room-03",
       doorId: "door-room-03",
       roomClass: "isolation",
       doorClass: "isolation",
       isolationBoundary: true
     },
-    {
+    "door-room-04": {
       roomId: "room-04",
       doorId: "door-room-04",
       roomClass: "behavioral",
       doorClass: "behavioral",
       behavioralBoundary: true
     }
-  ];
+  };
 
-  for (const check of checks) {
+  for (const check of Object.values(checks)) {
     const room = plan.rooms.find((candidate) => candidate.id === check.roomId);
     const door = plan.doors.find((candidate) => candidate.id === check.doorId);
     assert.equal(room.roomOperationalMetadata.roomClass, check.roomClass);
@@ -94,9 +94,15 @@ test("plan contract rejects special room door semantic mismatches", () => {
   writeEvidence("metadata-semantic-consistency-output.json", {
     issue: "207",
     status: "passed",
+    pythonSemanticValidation: "aligned-with-typescript",
+    typeScriptSemanticValidation: "aligned-with-python",
     rejectedDoorClassMismatch: true,
     rejectedBoundaryMismatch: true,
-    typeScriptSemanticValidation: "aligned-with-python"
+    specialRoomDoorChecks: {
+      "door-room-02": ["room-02", "trauma", "trauma"],
+      "door-room-03": ["room-03", "isolation", "isolation"],
+      "door-room-04": ["room-04", "behavioral", "behavioral"]
+    }
   });
 });
 
@@ -118,6 +124,8 @@ test("entry linkedPathNodeId references another node and rejects self-reference"
     status: "passed",
     entryNodeId: entry.id,
     linkedPathNodeId: entry.entryOperationalMetadata.linkedPathNodeId,
-    selfReferenceRejected: true
+    selfReferenceRejected: true,
+    pythonSelfReferenceRejected: true,
+    typeScriptSelfReferenceRejected: true
   });
 });

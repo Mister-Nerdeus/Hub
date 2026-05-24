@@ -1,4 +1,8 @@
-import { defaultPlanFixtureReferences, defaultPlanRenderProofPlans } from "../../fixtures/defaultPlans";
+import {
+  defaultPlanFixtureReferences,
+  defaultPlanFixtures,
+  defaultPlanRenderProofPlans
+} from "../../fixtures/defaultPlans";
 import {
   getPlanBounds,
   hallwayToPolyline,
@@ -7,14 +11,28 @@ import {
   zoneToRect
 } from "./planRenderGeometry";
 
-if (defaultPlanFixtureReferences.length !== 5 || defaultPlanRenderProofPlans.length !== 5) {
+if (
+  defaultPlanFixtureReferences.length !== 5 ||
+  defaultPlanFixtures.length !== 5 ||
+  defaultPlanRenderProofPlans.length !== 5
+) {
   throw new Error("Web default plan fixture list must include all five plans");
 }
 
 for (const reference of defaultPlanFixtureReferences) {
+  const fixture = defaultPlanFixtures.find((candidate) => candidate.plan.planId === reference.planId);
   const plan = defaultPlanRenderProofPlans.find((candidate) => candidate.planId === reference.planId);
+  if (!fixture) {
+    throw new Error(`Missing loaded default plan fixture for ${reference.planId}`);
+  }
   if (!plan) {
     throw new Error(`Missing web render proof plan for ${reference.planId}`);
+  }
+  if (fixture.readOnly !== true || fixture.defaultPlanRecordId !== `default-plan-er-layout-plan-${reference.planId.slice(-1)}`) {
+    throw new Error(`Default plan fixture wrapper must be read-only and namespaced for ${reference.planId}`);
+  }
+  if (fixture.plan !== plan) {
+    throw new Error(`Default plan render proof must use loaded fixture plan for ${reference.planId}`);
   }
   if (!reference.fixturePath.includes(`${reference.planId}.json`)) {
     throw new Error(`Default plan fixture path must include ${reference.planId}`);

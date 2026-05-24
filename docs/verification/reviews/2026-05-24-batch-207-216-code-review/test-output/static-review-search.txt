@@ -1,0 +1,74 @@
+packages/shared/tests/default-saved-plan-fixture-contract.test.mjs:109:test("default saved plan fixture rejects missing links, limitations, and PHI-like wrapper text", () => {
+packages/shared/tests/default-saved-plan-fixture-contract.test.mjs:135:    /NO_PHI_RUNTIME_REJECTION/
+packages/shared/tests/default-plan-source-mapping.test.mjs:112:test("source-to-plan mapping rejects PHI-like or clinical source labels", () => {
+packages/shared/tests/default-plan-source-mapping.test.mjs:115:  assert.throws(() => validateSourceToPlanMappingContract(badSourceLabel), /NO_PHI_RUNTIME_REJECTION/);
+packages/shared/tests/default-plan-source-mapping.test.mjs:118:  badDeferredLabel.deferredSourceLabels[0].sourceLabel = "clinical note";
+packages/shared/tests/default-plan-source-mapping.test.mjs:121:    /NO_PHI_RUNTIME_REJECTION/
+packages/shared/tests/default-plan-source-manifest.test.mjs:145:test("source layout manifest text remains non-PHI and operational only", () => {
+docs/project/default-plan-import-status.md:22:- No-PHI and docs/contracts gates pass locally.
+docs/project/default-plan-import-status.md:26:The fixtures are approximate operational layouts only. They do not embed DOCX content, claim exact CAD geometry, seed a database, add a UI picker, change simulation behavior, or certify any layout.
+docs/contracts/default-saved-plan-import-contract.md:42:- Manifest text remains operational-only and must pass no-PHI checks.
+docs/contracts/default-saved-plan-import-contract.md:99:- Mapping text must pass no-PHI checks.
+docs/contracts/default-saved-plan-import-contract.md:128:- `limitations` must contain at least one operational-only limitation and must pass no-PHI runtime text checks.
+docs/contracts/default-saved-plan-import-contract.md:132:This contract does not convert layouts, perform OCR, seed a database, add UI, add EHR support, add PHI support, or claim exact geometry.
+docs/verification/issues/issue-216\closeout.md:37:- No-PHI gate: passed.
+docs/verification/issues/issue-216\closeout.md:60:## Non-PHI Confirmation
+docs/verification/issues/issue-216\closeout.md:62:The final audit is covered by runtime fixture validation and the repository no-PHI scanner.
+docs/verification/issues/issue-216\closeout.md:67:geometry, certify layout safety, add path graph editing, change assignment scoring, change
+docs/verification/issues/issue-216\closeout.md:68:simulation, or change optimizer behavior.
+docs/verification/issues/issue-215\closeout.md:32:- No-PHI gate: passed.
+docs/verification/issues/issue-215\closeout.md:49:## Non-PHI Confirmation
+docs/verification/issues/issue-215\closeout.md:52:the repository no-PHI scanner.
+docs/verification/issues/issue-215\closeout.md:56:This issue does not claim exact geometry, certify layout safety, add UI, seed a database, change
+docs/verification/issues/issue-215\closeout.md:57:simulation, change pathfinding, change scoring, or change optimizer behavior.
+docs/verification/issues/issue-214\closeout.md:32:- No-PHI gate: passed.
+docs/verification/issues/issue-214\closeout.md:49:## Non-PHI Confirmation
+docs/verification/issues/issue-214\closeout.md:52:the repository no-PHI scanner.
+docs/verification/issues/issue-214\closeout.md:56:This issue does not claim exact geometry, certify layout safety, add UI, seed a database, change
+docs/verification/issues/issue-214\closeout.md:57:simulation, change pathfinding, change scoring, or change optimizer behavior.
+docs/verification/issues/issue-213\closeout.md:32:- No-PHI gate: passed.
+docs/verification/issues/issue-213\closeout.md:49:## Non-PHI Confirmation
+docs/verification/issues/issue-213\closeout.md:52:the repository no-PHI scanner.
+docs/verification/issues/issue-213\closeout.md:56:This issue does not claim exact geometry, certify layout safety, add UI, seed a database, change
+docs/verification/issues/issue-213\closeout.md:57:simulation, change pathfinding, change scoring, or change optimizer behavior.
+packages/shared/fixtures/default-plans\default-er-layout-plan-3.json:35:      { "id": "zone-level-1-trauma", "label": "Level 1 Trauma Zone", "zoneType": "trauma_zone", "color": "#d04f45", "x": 14, "y": 14, "widthFeet": 24, "lengthFeet": 22, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-3.json:37:      { "id": "zone-numbered-room-bank", "label": "Numbered Room Bank", "zoneType": "provider_area", "color": "#6b8f71", "x": 48, "y": 8, "widthFeet": 38, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-2.json:119:      { "id": "zone-level-1-trauma", "label": "Level 1 Trauma Zone", "zoneType": "trauma_zone", "color": "#d04f45", "x": 10, "y": 10, "widthFeet": 26, "lengthFeet": 24, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-2.json:121:      { "id": "zone-numbered-room-bank", "label": "Numbered Room Bank", "zoneType": "provider_area", "color": "#6b8f71", "x": 42, "y": 6, "widthFeet": 42, "lengthFeet": 64, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-1.json:359:          "zoneClass": "patient_care",
+packages/shared/fixtures/default-plans\default-er-layout-plan-1.json:397:          "zoneClass": "patient_care",
+docs/verification/issues/issue-216\go-no-go.md:5:Rationale: source manifest, mappings, wrappers, nested plans, approximation notes, no-PHI gate, docs gate, shared validation, and web render geometry proof are all covered by local artifacts.
+packages/shared/fixtures/default-plans\default-er-layout-plan-5.json:37:      { "id": "zone-level-1-trauma", "label": "Level 1 Trauma Zone", "zoneType": "trauma_zone", "color": "#d04f45", "x": 12, "y": 10, "widthFeet": 24, "lengthFeet": 24, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-5.json:39:      { "id": "zone-numbered-room-bank", "label": "Numbered Room Bank", "zoneType": "provider_area", "color": "#6b8f71", "x": 40, "y": 6, "widthFeet": 38, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-5.json:40:      { "id": "zone-behavioral-support", "label": "Behavioral Support Zone", "zoneType": "behavioral_zone", "color": "#9a6f6f", "x": 80, "y": 54, "widthFeet": 22, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1.2, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-4.json:37:      { "id": "zone-level-1-trauma", "label": "Level 1 Trauma Zone", "zoneType": "trauma_zone", "color": "#d04f45", "x": 8, "y": 12, "widthFeet": 24, "lengthFeet": 24, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-4.json:39:      { "id": "zone-numbered-room-bank", "label": "Numbered Room Bank", "zoneType": "provider_area", "color": "#6b8f71", "x": 42, "y": 6, "widthFeet": 38, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+packages/shared/fixtures/default-plans\default-er-layout-plan-4.json:40:      { "id": "zone-isolation-support", "label": "Isolation Support Zone", "zoneType": "isolation_zone", "color": "#6a9fb5", "x": 44, "y": 54, "widthFeet": 22, "lengthFeet": 20, "travelBlocked": false, "travelPenalty": 1.1, "zoneOperationalMetadata": { "zoneClass": "patient_care", "publicAccess": false, "staffOnly": false, "supportsPatientFlow": true, "supportsClinicalOperations": true } },
+docs/verification/issues/issue-211\closeout.md:32:- No-PHI gate: passed.
+docs/verification/issues/issue-211\closeout.md:49:## Non-PHI Confirmation
+docs/verification/issues/issue-211\closeout.md:52:the repository no-PHI scanner.
+docs/verification/issues/issue-211\closeout.md:56:This issue does not import into a database, add UI, claim exact geometry, certify layout safety,
+docs/verification/issues/issue-211\closeout.md:57:change simulation, change pathfinding, change scoring, or change optimizer behavior.
+docs/verification/issues/issue-210\closeout.md:13:- Enforced `readOnly: true`, import status enums, required limitations, and wrapper no-PHI checks.
+docs/verification/issues/issue-210\closeout.md:34:- No-PHI gate: passed.
+docs/verification/issues/issue-210\closeout.md:50:## Non-PHI Confirmation
+docs/verification/issues/issue-210\closeout.md:53:and the repository no-PHI scanner.
+docs/verification/issues/issue-210\closeout.md:58:simulation, change pathfinding, change scoring, or change optimizer behavior.
+docs/verification/issues/issue-209\closeout.md:11:- Added shared tests for positive validation, duplicate source/target object rejection, enum rejection, and no-PHI mapping text rejection.
+docs/verification/issues/issue-209\closeout.md:46:## Non-PHI Confirmation
+docs/verification/issues/issue-209\closeout.md:48:Mapping labels are checked by the runtime text guard, notes are coded enums, and no-PHI checks pass.
+docs/verification/issues/issue-209\closeout.md:52:This issue does not create structured default plans, perform OCR, infer exact geometry, add UI, seed a database, change pathfinding, change simulation, or change scoring.
+docs/verification/issues/issue-208\closeout.md:10:- Added shared manifest tests for stable IDs, duplicate rejection, required limitations, forbidden embedded content fields, and no-PHI text validation.
+docs/verification/issues/issue-208\closeout.md:42:## Non-PHI Confirmation
+docs/verification/issues/issue-208\closeout.md:44:Manifest text is operational-only, contains no embedded source document content, and passes no-PHI checks.
+docs/verification/issues/issue-207\closeout.md:56:## Non-PHI Confirmation
+docs/verification/issues/issue-207\closeout.md:58:No PHI fields, real patient identity, EHR support, diagnosis text, or clinical notes were introduced. The no-PHI scan output is captured in `test-output/no-phi.txt`.
+docs/verification/issues/issue-207\closeout.md:62:This issue does not import uploaded ER layout documents, add default saved plan UI, change pathfinding, change simulation, change scoring, seed a database, or certify any layout as clinically safe, buildable, or compliant.
+docs/verification/issues/issue-207\default-import-readiness-go-no-go.md:10:- This GO is limited to default saved plan import foundation metadata. It does not approve source document conversion, database seeding, UI picking, pathfinding changes, simulation changes, or optimizer changes.
+docs/verification/issues/issue-212\closeout.md:32:- No-PHI gate: passed.
+docs/verification/issues/issue-212\closeout.md:49:## Non-PHI Confirmation
+docs/verification/issues/issue-212\closeout.md:52:the repository no-PHI scanner.
+docs/verification/issues/issue-212\closeout.md:56:This issue does not add database seed data, add UI, claim exact geometry, certify layout safety,
+docs/verification/issues/issue-212\closeout.md:57:change simulation, change pathfinding, change scoring, or change optimizer behavior.
+docs/verification/issues/issue-207\known-gaps.md:5:- Entry linking is traceability metadata only and does not alter pathfinding.
+docs/verification/issues/issue-207\follow-up-issues.md:3:Next recommended issue: 208 - Source Layout Archive Manifest.
