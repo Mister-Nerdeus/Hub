@@ -30,9 +30,14 @@ assert.deepEqual(
   [
     {
       code: "room_out_of_bounds_left",
+      severity: "warning",
+      source: "bounds",
       message: "Room extends beyond the layout left boundary.",
       objectType: "room",
-      objectId: room.id
+      objectId: room.id,
+      relatedObjectType: null,
+      relatedObjectId: null,
+      isGenerated: true
     }
   ]
 );
@@ -49,9 +54,14 @@ assert.deepEqual(
   [
     {
       code: "room_out_of_bounds_top",
+      severity: "warning",
+      source: "bounds",
       message: "Room extends beyond the layout top boundary.",
       objectType: "room",
-      objectId: room.id
+      objectId: room.id,
+      relatedObjectType: null,
+      relatedObjectId: null,
+      isGenerated: true
     }
   ]
 );
@@ -68,9 +78,14 @@ assert.deepEqual(
   [
     {
       code: "room_out_of_bounds_right",
+      severity: "warning",
+      source: "bounds",
       message: "Room extends beyond the layout right boundary.",
       objectType: "room",
-      objectId: room.id
+      objectId: room.id,
+      relatedObjectType: null,
+      relatedObjectId: null,
+      isGenerated: true
     }
   ]
 );
@@ -87,9 +102,14 @@ assert.deepEqual(
   [
     {
       code: "room_out_of_bounds_bottom",
+      severity: "warning",
+      source: "bounds",
       message: "Room extends beyond the layout bottom boundary.",
       objectType: "room",
-      objectId: room.id
+      objectId: room.id,
+      relatedObjectType: null,
+      relatedObjectId: null,
+      isGenerated: true
     }
   ]
 );

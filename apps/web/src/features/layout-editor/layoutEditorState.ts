@@ -3,6 +3,10 @@ import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 import type { LayoutViewportTransform } from "./layoutCoordinateSystem";
 import type { LayoutEditAuditEntry } from "./layoutEditAuditTrail";
 import {
+  validateLayoutValidationWarning,
+  type LayoutEditorValidationWarning
+} from "./layoutValidationWarningContract";
+import {
   DEFAULT_LAYOUT_BOUNDS_FEET,
   normalizeBoundsFeet,
   type LayoutBoundsFeet
@@ -23,14 +27,7 @@ export type LayoutEditorSnapMode = (typeof LAYOUT_EDITOR_SNAP_MODES)[number];
 
 export type LayoutEditorViewport = Required<LayoutViewportTransform>;
 
-export type LayoutEditorValidationWarning = {
-  code: string;
-  message: string;
-  objectType?: LayoutEditorSelectableObjectType;
-  objectId?: string;
-  relatedObjectType?: LayoutEditorSelectableObjectType;
-  relatedObjectId?: string;
-};
+export type { LayoutEditorValidationWarning } from "./layoutValidationWarningContract";
 
 export type LayoutEditorState = {
   editableLayout: EditableLayoutGeometryContract | null;
@@ -75,7 +72,7 @@ export function createLayoutEditorState(
     viewport: normalizeLayoutEditorViewport(overrides.viewport ?? DEFAULT_LAYOUT_EDITOR_VIEWPORT),
     layoutBoundsFeet: normalizeBoundsFeet(overrides.layoutBoundsFeet ?? DEFAULT_LAYOUT_BOUNDS_FEET),
     snapMode,
-    validationWarnings: [...(overrides.validationWarnings ?? [])],
+    validationWarnings: (overrides.validationWarnings ?? []).map(validateLayoutValidationWarning),
     editAuditTrail: [...(overrides.editAuditTrail ?? [])],
     isDirty: overrides.isDirty ?? false
   };

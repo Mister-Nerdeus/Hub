@@ -1,15 +1,22 @@
 import type {
   LayoutEditorSelectableObjectType,
-  LayoutEditorValidationWarning
 } from "./layoutEditorState";
+import type {
+  LayoutEditorValidationWarning,
+  LayoutValidationWarningSeverity,
+  LayoutValidationWarningSource
+} from "./layoutValidationWarningContract";
 
 export type LayoutValidationPanelWarningViewModel = {
   code: string;
+  severity: LayoutValidationWarningSeverity;
+  source: LayoutValidationWarningSource;
   message: string;
   objectType: LayoutEditorSelectableObjectType | null;
   objectId: string | null;
   relatedObjectType: LayoutEditorSelectableObjectType | null;
   relatedObjectId: string | null;
+  isGenerated: boolean;
   duplicateCount: number;
 };
 
@@ -62,11 +69,14 @@ function normalizeWarning(
 ): LayoutValidationPanelWarningViewModel {
   return {
     code: warning.code,
+    severity: warning.severity,
+    source: warning.source,
     message: warning.message,
-    objectType: warning.objectType ?? null,
-    objectId: warning.objectId ?? null,
-    relatedObjectType: warning.relatedObjectType ?? null,
-    relatedObjectId: warning.relatedObjectId ?? null,
+    objectType: warning.objectType,
+    objectId: warning.objectId,
+    relatedObjectType: warning.relatedObjectType,
+    relatedObjectId: warning.relatedObjectId,
+    isGenerated: warning.isGenerated,
     duplicateCount: 1
   };
 }
@@ -74,11 +84,14 @@ function normalizeWarning(
 function warningKey(warning: LayoutValidationPanelWarningViewModel): string {
   return [
     warning.code,
+    warning.severity,
+    warning.source,
     warning.message,
     warning.objectType ?? "",
     warning.objectId ?? "",
     warning.relatedObjectType ?? "",
-    warning.relatedObjectId ?? ""
+    warning.relatedObjectId ?? "",
+    String(warning.isGenerated)
   ].join("|");
 }
 
@@ -87,11 +100,14 @@ function compareWarningViewModels(
   right: LayoutValidationPanelWarningViewModel
 ): number {
   return (
+    left.source.localeCompare(right.source) ||
     left.code.localeCompare(right.code) ||
+    left.severity.localeCompare(right.severity) ||
     (left.objectType ?? "").localeCompare(right.objectType ?? "") ||
     (left.objectId ?? "").localeCompare(right.objectId ?? "") ||
     (left.relatedObjectType ?? "").localeCompare(right.relatedObjectType ?? "") ||
     (left.relatedObjectId ?? "").localeCompare(right.relatedObjectId ?? "") ||
+    Number(left.isGenerated) - Number(right.isGenerated) ||
     left.message.localeCompare(right.message)
   );
 }

@@ -65,35 +65,47 @@ assert.deepEqual(
   [
     {
       code: "room_overlap_hallway",
+      severity: "warning",
+      source: "collision",
       message: "Room overlaps hallway hallway-overlap.",
       objectType: "room",
       objectId: movedRoom.id,
       relatedObjectType: "hallway",
-      relatedObjectId: "hallway-overlap"
+      relatedObjectId: "hallway-overlap",
+      isGenerated: true
     },
     {
       code: "room_overlap_room",
+      severity: "warning",
+      source: "collision",
       message: "Room overlaps room room-overlap.",
       objectType: "room",
       objectId: movedRoom.id,
       relatedObjectType: "room",
-      relatedObjectId: "room-overlap"
+      relatedObjectId: "room-overlap",
+      isGenerated: true
     },
     {
       code: "room_overlap_station",
+      severity: "warning",
+      source: "collision",
       message: "Room overlaps station station-overlap.",
       objectType: "room",
       objectId: movedRoom.id,
       relatedObjectType: "station",
-      relatedObjectId: "station-overlap"
+      relatedObjectId: "station-overlap",
+      isGenerated: true
     },
     {
       code: "room_overlap_zone",
+      severity: "warning",
+      source: "collision",
       message: "Room overlaps zone zone-overlap.",
       objectType: "room",
       objectId: movedRoom.id,
       relatedObjectType: "zone",
-      relatedObjectId: "zone-overlap"
+      relatedObjectId: "zone-overlap",
+      isGenerated: true
     }
   ]
 );

@@ -21,6 +21,7 @@ import {
 import { createRoomMoveAuditEntry } from "./layoutEditAuditTrail";
 import { validateRoomMoveWarnings } from "./layoutMoveValidation";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
+import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 
 export type LayoutEditorAction =
@@ -109,7 +110,7 @@ export function layoutEditorReducer(
       }
       return {
         ...state,
-        validationWarnings: action.validationWarnings.map((warning) => ({ ...warning }))
+        validationWarnings: action.validationWarnings.map(validateLayoutValidationWarning)
       };
     case "markClean":
       return {

@@ -7,10 +7,12 @@ import type {
 } from "@nerdeus/shared";
 
 import type { LayoutRectFeet } from "./layoutCoordinateSystem";
-import type {
-  LayoutEditorSelectableObjectType,
-  LayoutEditorValidationWarning
-} from "./layoutEditorState";
+import type { LayoutEditorSelectableObjectType } from "./layoutEditorState";
+import {
+  buildLayoutValidationWarning,
+  compareLayoutValidationWarnings,
+  type LayoutEditorValidationWarning
+} from "./layoutValidationWarningContract";
 
 export const ROOM_MOVE_COLLISION_WARNING_CODES = [
   "room_overlap_room",
@@ -51,7 +53,7 @@ export function validateMovedRoomCollisions({
     warnings.push(roomCollisionWarning(movedRoom.id, target));
   }
 
-  return warnings.sort(compareWarnings);
+  return warnings.sort(compareLayoutValidationWarnings);
 }
 
 export function rectsOverlapFeet(left: LayoutRectFeet, right: LayoutRectFeet): boolean {
@@ -81,14 +83,17 @@ function roomCollisionWarning(
   target: CollisionTarget
 ): LayoutEditorValidationWarning {
   const relatedObjectType = target.objectType === "station" ? "station" : target.objectType;
-  return {
+  return buildLayoutValidationWarning({
     code: codeForCollisionTarget(relatedObjectType),
+    severity: "warning",
+    source: "collision",
     message: `Room overlaps ${relatedObjectType} ${target.id}.`,
     objectType: "room",
     objectId: movedRoomId,
     relatedObjectType,
-    relatedObjectId: target.id
-  };
+    relatedObjectId: target.id,
+    isGenerated: true
+  });
 }
 
 function codeForCollisionTarget(
@@ -106,14 +111,4 @@ function codeForCollisionTarget(
     case "door":
       throw new Error("doors are wall-relative and are not room collision targets");
   }
-}
-
-function compareWarnings(
-  left: LayoutEditorValidationWarning,
-  right: LayoutEditorValidationWarning
-): number {
-  if (left.code !== right.code) {
-    return left.code.localeCompare(right.code);
-  }
-  return (left.relatedObjectId ?? "").localeCompare(right.relatedObjectId ?? "");
 }

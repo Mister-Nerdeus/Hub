@@ -21,6 +21,8 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
             <li
               key={[
                 warning.code,
+                warning.severity,
+                warning.source,
                 warning.objectType,
                 warning.objectId,
                 warning.relatedObjectType,
@@ -30,6 +32,14 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
               <code>{warning.code}</code>
               <p>{warning.message}</p>
               <dl>
+                <div>
+                  <dt>Severity</dt>
+                  <dd>{warning.severity}</dd>
+                </div>
+                <div>
+                  <dt>Source</dt>
+                  <dd>{warning.source}</dd>
+                </div>
                 <div>
                   <dt>Object</dt>
                   <dd>{formatObjectReference(warning.objectType, warning.objectId)}</dd>

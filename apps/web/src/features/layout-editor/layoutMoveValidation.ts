@@ -1,7 +1,10 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
-import type { LayoutEditorValidationWarning } from "./layoutEditorState";
 import { validateMovedRoomCollisions } from "./layoutCollisionValidation";
+import {
+  buildLayoutValidationWarning,
+  type LayoutEditorValidationWarning
+} from "./layoutValidationWarningContract";
 
 export const ROOM_MOVE_BOUNDS_WARNING_CODES = [
   "room_out_of_bounds_left",
@@ -94,12 +97,15 @@ function roomBoundsWarning(
   code: RoomMoveBoundsWarningCode,
   roomId: string
 ): LayoutEditorValidationWarning {
-  return {
+  return buildLayoutValidationWarning({
     code,
+    severity: "warning",
+    source: "bounds",
     message: messageForRoomBoundsWarning(code),
     objectType: "room",
-    objectId: roomId
-  };
+    objectId: roomId,
+    isGenerated: true
+  });
 }
 
 function messageForRoomBoundsWarning(code: RoomMoveBoundsWarningCode): string {

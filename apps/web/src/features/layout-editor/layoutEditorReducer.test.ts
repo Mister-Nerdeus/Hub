@@ -2,6 +2,7 @@ import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEdi
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { createLayoutEditorState, type LayoutEditorState } from "./layoutEditorState";
 import { LAYOUT_SELECTION_OBJECT_TYPES } from "./layoutSelectionModel";
+import { buildLayoutValidationWarning } from "./layoutValidationWarningContract";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -54,7 +55,17 @@ const dirtySelectedState = createLayoutEditorState({
   editableLayout,
   selectedObjectId: "room-01",
   selectedObjectType: "room",
-  validationWarnings: [{ code: "old-warning", message: "old warning" }],
+  validationWarnings: [
+    buildLayoutValidationWarning({
+      code: "old-warning",
+      severity: "warning",
+      source: "unknown",
+      message: "Old warning.",
+      objectType: "room",
+      objectId: "room-01",
+      isGenerated: false
+    })
+  ],
   isDirty: true
 });
 const dirtySelectedSnapshot = JSON.stringify(dirtySelectedState);
@@ -159,7 +170,17 @@ const fineSnapState = layoutEditorReducer(stateWithLayout, {
 });
 assert.equal(fineSnapState.snapMode, "fine");
 
-const warnings = [{ code: "warn-001", message: "Door is outside selected room", objectId: "door-room-01-east" }];
+const warnings = [
+  buildLayoutValidationWarning({
+    code: "warn-001",
+    severity: "warning",
+    source: "unknown",
+    message: "Door is outside selected room.",
+    objectType: "door",
+    objectId: "door-room-01-east",
+    isGenerated: false
+  })
+];
 const warningState = layoutEditorReducer(stateWithLayout, {
   type: "setValidationWarnings",
   validationWarnings: warnings
@@ -169,7 +190,7 @@ if (firstWarning == null) {
   throw new Error("warning fixture must include one warning");
 }
 firstWarning.message = "mutated outside reducer";
-assert.equal(warningState.validationWarnings[0]?.message, "Door is outside selected room");
+assert.equal(warningState.validationWarnings[0]?.message, "Door is outside selected room.");
 assert.equal(warningState.isDirty, false);
 
 const cleanState = layoutEditorReducer(createLayoutEditorState({ editableLayout, isDirty: true }), {
@@ -228,9 +249,14 @@ const leftWarningState = layoutEditorReducer(stateWithLayout, {
 assert.deepEqual(leftWarningState.validationWarnings, [
   {
     code: "room_out_of_bounds_left",
+    severity: "warning",
+    source: "bounds",
     message: "Room extends beyond the layout left boundary.",
     objectType: "room",
-    objectId: "room-01"
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
   }
 ]);
 assert.equal(leftWarningState.editableLayout?.rooms[0]?.xFeet, -2);
@@ -244,15 +270,25 @@ const bottomRightWarningState = layoutEditorReducer(stateWithLayout, {
 assert.deepEqual(bottomRightWarningState.validationWarnings, [
   {
     code: "room_out_of_bounds_right",
+    severity: "warning",
+    source: "bounds",
     message: "Room extends beyond the layout right boundary.",
     objectType: "room",
-    objectId: "room-01"
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
   },
   {
     code: "room_out_of_bounds_bottom",
+    severity: "warning",
+    source: "bounds",
     message: "Room extends beyond the layout bottom boundary.",
     objectType: "room",
-    objectId: "room-01"
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
   }
 ]);
 assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.xFeet, 60);
@@ -267,11 +303,14 @@ const collisionWarningState = layoutEditorReducer(stateWithLayout, {
 assert.deepEqual(collisionWarningState.validationWarnings, [
   {
     code: "room_overlap_station",
+    severity: "warning",
+    source: "collision",
     message: "Room overlaps station station-primary.",
     objectType: "room",
     objectId: "room-01",
     relatedObjectType: "station",
-    relatedObjectId: "station-primary"
+    relatedObjectId: "station-primary",
+    isGenerated: true
   }
 ]);
 assert.equal(collisionWarningState.editableLayout?.rooms[0]?.xFeet, 18);

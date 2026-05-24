@@ -1,4 +1,4 @@
-import type { LayoutEditorValidationWarning } from "./layoutEditorState";
+import type { LayoutEditorValidationWarning } from "./layoutValidationWarningContract";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 
 const assert = {
@@ -27,25 +27,36 @@ assert.deepEqual(emptyViewModel, {
 const warnings: LayoutEditorValidationWarning[] = [
   {
     code: "room_overlap_station",
+    severity: "warning",
+    source: "collision",
     message: "Room overlaps station station-primary.",
     objectType: "room",
     objectId: "room-01",
     relatedObjectType: "station",
-    relatedObjectId: "station-primary"
+    relatedObjectId: "station-primary",
+    isGenerated: true
   },
   {
     code: "room_out_of_bounds_left",
+    severity: "warning",
+    source: "bounds",
     message: "Room extends beyond the layout left boundary.",
     objectType: "room",
-    objectId: "room-01"
+    objectId: "room-01",
+    relatedObjectType: null,
+    relatedObjectId: null,
+    isGenerated: true
   },
   {
     code: "room_overlap_station",
+    severity: "warning",
+    source: "collision",
     message: "Room overlaps station station-primary.",
     objectType: "room",
     objectId: "room-01",
     relatedObjectType: "station",
-    relatedObjectId: "station-primary"
+    relatedObjectId: "station-primary",
+    isGenerated: true
   }
 ];
 
@@ -55,30 +66,39 @@ assert.equal(warningViewModel.warningCount, 2);
 assert.deepEqual(
   warningViewModel.warnings.map((warning) => ({
     code: warning.code,
+    severity: warning.severity,
+    source: warning.source,
     message: warning.message,
     objectType: warning.objectType,
     objectId: warning.objectId,
     relatedObjectType: warning.relatedObjectType,
     relatedObjectId: warning.relatedObjectId,
+    isGenerated: warning.isGenerated,
     duplicateCount: warning.duplicateCount
   })),
   [
     {
       code: "room_out_of_bounds_left",
+      severity: "warning",
+      source: "bounds",
       message: "Room extends beyond the layout left boundary.",
       objectType: "room",
       objectId: "room-01",
       relatedObjectType: null,
       relatedObjectId: null,
+      isGenerated: true,
       duplicateCount: 1
     },
     {
       code: "room_overlap_station",
+      severity: "warning",
+      source: "collision",
       message: "Room overlaps station station-primary.",
       objectType: "room",
       objectId: "room-01",
       relatedObjectType: "station",
       relatedObjectId: "station-primary",
+      isGenerated: true,
       duplicateCount: 2
     }
   ]
