@@ -220,6 +220,8 @@ Issue 168 recalculates generated bounds and collision warnings from current feet
 
 Issue 169 adds a pure room-move gesture audit summary contract. Multiple low-level `move_room` audit entries can be summarized into one deterministic `room_move_drag` gesture with stable object references, start/end feet positions, total delta feet, low-level edit IDs, deterministic order, and limitations without adding undo/redo, persistence, save/load, reducer-level audit compression, path sync, or simulation rerun behavior.
 
+Issue 170 adds the shared editable layout to plan/path bridge contract. The contract maps editable rooms, doors, stations, hallways, and zones to plan object IDs plus path node and edge references with explicit mapped, missing-plan-object, missing-path-reference, and not-required statuses; it does not mutate path geometry, run pathfinding, save/load, sync paths, rerun simulation, or add recommendation behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

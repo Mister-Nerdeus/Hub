@@ -1,0 +1,68 @@
+{
+  "editableLayoutId": "editable-layout-basic",
+  "planId": "plan-basic",
+  "roomMappings": [
+    {
+      "editableObjectId": "room-01",
+      "planObjectId": "room-01",
+      "pathNodeIds": ["node-door-room-01-east"],
+      "pathEdgeIds": ["edge-room-01-hall"],
+      "mappingStatus": "mapped"
+    },
+    {
+      "editableObjectId": "room-draft",
+      "planObjectId": null,
+      "pathNodeIds": [],
+      "pathEdgeIds": [],
+      "mappingStatus": "missing_plan_object"
+    }
+  ],
+  "doorMappings": [
+    {
+      "editableObjectId": "door-room-01-east",
+      "planObjectId": "door-room-01",
+      "pathNodeIds": ["node-door-room-01-east"],
+      "pathEdgeIds": ["edge-room-01-hall"],
+      "mappingStatus": "mapped"
+    },
+    {
+      "editableObjectId": "door-hall-main-north",
+      "planObjectId": "door-hall-main-north",
+      "pathNodeIds": [],
+      "pathEdgeIds": [],
+      "mappingStatus": "missing_path_reference"
+    }
+  ],
+  "stationMappings": [
+    {
+      "editableObjectId": "station-primary",
+      "planObjectId": "station-primary",
+      "pathNodeIds": ["node-station-primary"],
+      "pathEdgeIds": ["edge-station-hall"],
+      "mappingStatus": "mapped"
+    }
+  ],
+  "hallwayMappings": [
+    {
+      "editableObjectId": "hall-main",
+      "planObjectId": "hall-main",
+      "pathNodeIds": ["node-hall-main"],
+      "pathEdgeIds": ["edge-room-01-hall", "edge-station-hall"],
+      "mappingStatus": "mapped"
+    }
+  ],
+  "zoneMappings": [
+    {
+      "editableObjectId": "zone-ems-entry",
+      "planObjectId": null,
+      "pathNodeIds": [],
+      "pathEdgeIds": [],
+      "mappingStatus": "not_required"
+    }
+  ],
+  "limitations": [
+    "Bridge contract records explicit editable layout to plan/path references only.",
+    "Path graph mutation, pathfinding changes, and simulation rerun are not performed.",
+    "Missing links are represented by mappingStatus values."
+  ]
+}

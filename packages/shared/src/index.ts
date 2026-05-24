@@ -8,6 +8,7 @@ export * from "./export/buildReportExportBundle.js";
 export * from "./export/exportBundleIntegrity.js";
 export * from "./export/parseReportExportBundle.js";
 export * from "./layout-editor/editableLayoutGeometryContract.js";
+export * from "./layout-editor/editableLayoutPlanPathBridgeContract.js";
 export * from "./layout-editor/doorPathNodeSyncContract.js";
 export * from "./layout-editor/roomMovePathSyncContract.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
