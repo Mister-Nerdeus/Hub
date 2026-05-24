@@ -1,6 +1,10 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
+import {
+  exportFloorplanJson,
+  importFloorplanJson
+} from "../floorplans/floorplanJsonImportExport";
 import { DoorShape } from "./DoorShape";
 import { buildDoorShapeViewModel } from "./doorShapeViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
@@ -108,6 +112,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [roomDimensionDraft, setRoomDimensionDraft] = useState(() =>
     createRoomInspectorDimensionDraft(findSelectedRoom(stageState))
   );
+  const [floorplanJsonText, setFloorplanJsonText] = useState("");
+  const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
@@ -204,6 +210,39 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
     };
     event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const exportActiveFloorplanJson = () => {
+    if (stageState.sourcePlan == null) {
+      setFloorplanJsonStatus("No active JSON floorplan");
+      return;
+    }
+    try {
+      const exported = exportFloorplanJson(stageState.sourcePlan);
+      setFloorplanJsonText(exported);
+      setFloorplanJsonStatus(`Exported ${stageState.sourcePlan.planId}`);
+    } catch (error) {
+      setFloorplanJsonStatus(errorMessage(error));
+    }
+  };
+  const importEditableFloorplanJson = () => {
+    try {
+      const plan = importFloorplanJson(floorplanJsonText);
+      dispatchStage({
+        type: "loadActiveFloorplan",
+        floorplan: {
+          recordId: `imported-${plan.planId}`,
+          planId: plan.planId,
+          name: plan.name,
+          sourceKind: "saved-json",
+          readOnly: false,
+          parentDefaultPlanId: null,
+          plan
+        }
+      });
+      setFloorplanJsonStatus(`Imported ${plan.planId}`);
+    } catch (error) {
+      setFloorplanJsonStatus(errorMessage(error));
+    }
   };
   const moveRoom = (roomId: string, event: PointerEvent<SVGGElement>) => {
     const drag = roomDragRef.current;
@@ -368,6 +407,22 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
           </div>
         </dl>
       </header>
+
+      <section className="layout-editor-stage__history-controls" aria-label="Floorplan JSON import and export">
+        <button type="button" onClick={exportActiveFloorplanJson}>
+          Export JSON
+        </button>
+        <button type="button" onClick={importEditableFloorplanJson}>
+          Import JSON
+        </button>
+        <textarea
+          aria-label="Floorplan JSON"
+          value={floorplanJsonText}
+          onChange={(event) => setFloorplanJsonText(event.target.value)}
+          spellCheck={false}
+        />
+        <p role="status">{floorplanJsonStatus}</p>
+      </section>
 
       <LayoutViewportToolbar
         viewport={stageState.viewport}
@@ -612,4 +667,8 @@ function pixelsDeltaToFeet(
   viewport: { pixelsPerFoot: number; zoom: number }
 ): number {
   return deltaPixels / (viewport.pixelsPerFoot * viewport.zoom);
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }

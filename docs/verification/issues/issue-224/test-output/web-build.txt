@@ -1,0 +1,18 @@
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2K
+transforming...✓ 202 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.41 kB │ gzip:   0.28 kB
+dist/assets/index-CrGXIebJ.css   43.94 kB │ gzip:   6.63 kB
+dist/assets/index-C5zUZkrU.js   605.05 kB │ gzip: 145.74 kB
+
+[32m✓ built in 182ms[39m

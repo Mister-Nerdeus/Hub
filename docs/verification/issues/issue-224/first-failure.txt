@@ -1,1 +1,5 @@
-Current-gap evidence before implementation: no committed walking baseline fixtures existed for the five default plans.
+Current-gap evidence before implementation:
+
+- Floorplan workflow had no floorplan-specific JSON import/export helper.
+- Existing plan import/export proof did not explicitly reject private source document payload keys before loading a floorplan.
+- `LayoutEditorStage` had no editor-local path to export the active JSON floorplan or import a validated JSON floorplan draft without API routes.

@@ -1,5 +1,5 @@
 # Known Gaps
 
-- Default plan geometry remains approximate and manually converted from source layout references.
-- Path edges are fixture graph placeholders, not measured walking distances.
-- This issue does not add assignment scoring, optimizer behavior, simulation changes, database seeding, PHI support, EHR support, clinical guidance, or production deployment.
+- Imported JSON floorplans load into the editor as local editable drafts only.
+- This issue does not add saved-store persistence for imported plans.
+- This issue does not add DOCX import, OCR, API persistence, database persistence, assignment scoring, optimizer behavior, simulation changes, PHI support, EHR support, clinical guidance, or production deployment.

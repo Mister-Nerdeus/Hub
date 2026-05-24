@@ -1,31 +1,60 @@
 # Issue 224 Closeout
 
 ## Summary
-Default Plan Walking Baseline Fixtures is complete within the batch boundaries. The work remains limited to default-plan import repair, path graph readiness, route preview, walking baseline fixtures, metadata annotation, and audit evidence.
+
+Added floorplan-specific JSON import/export helpers and an editor-local JSON import/export control. Imports validate through `PlanContract`, invalid JSON fails cleanly, private document payload keys are rejected recursively, and exports produce JSON plan data only.
 
 ## Files Changed
-See repository diff for the scoped source, fixture, docs, and evidence files for this issue. No PHI, EHR integration, assignment scoring, optimizer candidate generation, simulation reruns, database seeding, or production deployment was added.
+
+- `apps/web/src/features/floorplans/floorplanJsonImportExport.ts`
+- `apps/web/src/features/floorplans/floorplanJsonImportExport.test.ts`
+- `apps/web/src/features/layout-editor/LayoutEditorStage.tsx`
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `docs/verification/issues/issue-224/*`
 
 ## Commands Run
-Commands are listed in commands.txt and mapped in command-output-map.json.
+
+- `npm --workspace apps/web test`
+- `npm --workspace apps/web run build`
+- `node scripts/check-no-phi-fields.mjs`
+- `node scripts/check-docs-contracts.mjs`
 
 ## Tests Passed/Failed
-Required local gates are captured in test-output artifacts. Passing gates are reflected in the final docs gate and verifier outputs.
+
+- Passed: `npm --workspace apps/web test`
+- Passed: `npm --workspace apps/web run build`
+- Passed: `node scripts/check-no-phi-fields.mjs`
+- Passed: `node scripts/check-docs-contracts.mjs`
+- Failed: none
 
 ## Evidence
-Issue evidence artifacts are present in this directory and indexed in docs/verification/ISSUE_EVIDENCE_INDEX.json.
 
-## TypeScript/Python Parity Confirmation
-Contracts changed in TypeScript shared code only. No Python API or persistence contract mirrors were changed in this batch.
+- `first-failure.txt`
+- `json-floorplan-export-output.json`
+- `json-floorplan-import-output.json`
+- `docx-payload-rejection-output.json`
+- `command-output-map.json`
+- `test-output/web.txt`
+- `test-output/web-build.txt`
+- `test-output/no-phi.txt`
+- `test-output/docs-gate.txt`
 
 ## Non-PHI Confirmation
-The non-PHI scanner remains part of the captured gates where required. New fixtures and docs use operational-only default layout and path graph terms.
+
+No PHI fields, EHR integration, clinical safety claims, legal compliance claims, or exact-CAD claims were introduced.
+
+## DOCX Privacy Confirmation
+
+Import/export accepts and emits JSON floorplans only. It rejects source document paths, binary data, raw content, base64 content, and embedded document payloads without adding DOCX import, preview, download, or API serving.
 
 ## Non-Claims
-This issue does not claim measured walking truth, exact source DOCX geometry, clinical correctness, safety certification, EHR support, assignment scoring, optimizer behavior, database seeding, or production deployment.
+
+This issue does not add DOCX import, OCR, route/walking-truth logic, nurse assignment workflow, scoring, optimizer behavior, API persistence, database persistence, production save behavior, clinical safety claims, or exact geometry claims.
 
 ## Known Limitations
-Known limitations are documented in the issue-specific gaps artifact when applicable. Path edges remain approximate fixture graph edges.
+
+Imported JSON is loaded as an editor-local editable floorplan draft. Persisting imported plans into the saved floorplan store is not added in this issue.
 
 ## Next Recommended Issue
-225.
+
+Issue 225: Developer Proof Mode Separation.

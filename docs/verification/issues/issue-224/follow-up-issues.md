@@ -1,4 +1,4 @@
 # Follow-Up Issues
 
-- Continue with the next issue in batch order.
-- Preserve the approximate fixture graph and non-claims until later measured-distance work is explicitly scoped.
+- Continue with Issue 225 for Developer Proof Mode separation.
+- Add saved-store persistence for imported JSON only if a later issue explicitly scopes it.

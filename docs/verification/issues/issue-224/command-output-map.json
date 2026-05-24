@@ -2,21 +2,28 @@
   "issue": "224",
   "commands": [
     {
-      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/shared.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt",
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/web.txt",
       "outputs": [
-        "docs/verification/issues/issue-224/test-output/shared.txt",
-        "docs/verification/issues/issue-224/default-plan-walking-baselines-output.json",
-        "docs/verification/issues/issue-224/walking-baseline-determinism-output.json"
+        "docs/verification/issues/issue-224/test-output/web.txt",
+        "docs/verification/issues/issue-224/json-floorplan-export-output.json",
+        "docs/verification/issues/issue-224/json-floorplan-import-output.json",
+        "docs/verification/issues/issue-224/docx-payload-rejection-output.json"
       ]
     },
     {
-      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/no-phi.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/no-phi.txt",
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-224/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/no-phi.txt",
       "outputs": [
         "docs/verification/issues/issue-224/test-output/no-phi.txt"
       ]
     },
     {
-      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-217/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-218/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-219/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-220/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-221/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-222/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-223/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-225/test-output/docs-gate.txt | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt",
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-224/test-output/docs-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-224/test-output/docs-gate.txt"
       ]
