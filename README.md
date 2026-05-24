@@ -206,6 +206,8 @@ Issue 161 adds a read-only validation panel for current layout warnings, includi
 
 Issue 162 defines the deferred room move path sync contract in shared code and docs. The contract records moved room ID, feet delta, affected door IDs, affected path node IDs, affected path edge IDs, sync status, and limitations without mutating path geometry, changing pathfinding, adding UI behavior, or rerunning simulation.
 
+Issue 163 defines the deferred door path node sync contract in shared code and docs. The contract derives a wall-attached door center from current owner geometry, records explicit linked path node references and sync status, and does not mutate the path graph, move doors, change visuals, save/load, or rerun simulation.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.
