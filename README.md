@@ -196,6 +196,8 @@ Issue 156 adds the first constrained layout edit behavior: selected rooms can be
 
 Issue 157 locks room drag snap accumulation semantics: sub-snap pointer movement accumulates in feet until it crosses the active default or fine snap threshold, then emits only snapped `xFeet`/`yFeet` room movement while retaining deterministic remainder feet. It does not add bounds validation, collision validation, door sync, path sync, persistence, resize, or simulation rerun behavior.
 
+Issue 158 proves moved room-owned doors visually follow their owner room because door display rectangles are derived from current owner geometry at render time. Stored door geometry remains wall-relative and unchanged, hallway-owned doors stay tied to hallway geometry, and no path sync, door movement, persistence, or simulation rerun behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

@@ -70,6 +70,10 @@ for (const item of doorItems) {
   assert.equal(viewModel.objectType, "door");
   assert.equal(viewModel.hitTargetKey, `door:${viewModel.objectId}`);
   assert.equal(viewModel.ariaLabel.includes(viewModel.wall), true);
+  assert.equal(viewModel.ownerKind, firstDoor.ownerKind);
+  assert.equal(viewModel.ownerId, firstDoor.ownerId);
+  assert.equal(viewModel.offsetFeet, 2);
+  assert.equal(viewModel.widthFeet, 4);
   assert.deepEqual(
     {
       xPixels: viewModel.xPixels,

@@ -120,7 +120,7 @@ function buildDoorRenderItem(
     return null;
   }
 
-  const displayRectFeet = doorRectFromOwner(door, owner);
+  const displayRectFeet = deriveDoorDisplayRectFeet(door, owner);
   return buildRectRenderItem(
     "door",
     door.id,
@@ -150,7 +150,7 @@ function findDoorOwnerRect(
   };
 }
 
-function doorRectFromOwner(
+export function deriveDoorDisplayRectFeet(
   door: EditableDoorGeometry,
   owner: LayoutRectFeet
 ): LayoutRectFeet {

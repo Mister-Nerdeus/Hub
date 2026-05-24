@@ -1,3 +1,5 @@
+import type { EditableDoorGeometry } from "@nerdeus/shared";
+
 import type { LayoutObjectRenderItem } from "./layoutObjectRenderPipeline";
 
 export type DoorShapeViewModel = {
@@ -6,7 +8,11 @@ export type DoorShapeViewModel = {
   ariaLabel: string;
   hitTargetKey: string;
   label: string;
-  wall: string;
+  ownerKind: EditableDoorGeometry["ownerKind"];
+  ownerId: string;
+  wall: EditableDoorGeometry["wall"];
+  offsetFeet: number;
+  widthFeet: number;
   xPixels: number;
   yPixels: number;
   widthPixels: number;
@@ -28,7 +34,11 @@ export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShape
     ariaLabel: item.ariaLabel,
     hitTargetKey: item.hitTargetKey,
     label: source.label,
+    ownerKind: source.ownerKind,
+    ownerId: source.ownerId,
     wall: source.wall,
+    offsetFeet: source.offsetFeet,
+    widthFeet: source.widthFeet,
     xPixels,
     yPixels,
     widthPixels,

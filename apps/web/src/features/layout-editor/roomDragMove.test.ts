@@ -68,6 +68,7 @@ assert.equal(defaultRoom.roomType, originalRoom.roomType);
 assert.equal(defaultRoom.capacityType, originalRoom.capacityType);
 assert.equal(defaultRoom.isHallBed, originalRoom.isHallBed);
 assert.equal(defaultRoom.isTraumaAdjacent, originalRoom.isTraumaAdjacent);
+assert.deepEqual(movedDefault.doors, originalLayout.doors);
 
 const movedFine = moveRoomByDeltaFeet({
   layout: originalLayout,
