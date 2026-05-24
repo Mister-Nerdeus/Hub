@@ -1,0 +1,16 @@
+Issue 192 first failure capture
+
+Command context:
+- Get-Content apps/api/Dockerfile
+- Get-Content apps/web/Dockerfile
+- Get-Content docker-compose.yml
+
+Observed pre-fix state:
+- apps/api/Dockerfile copies requirements.txt and requirements-dev.txt, then installs requirements-dev.txt.
+- apps/web/Dockerfile runs npm run dev with the Vite development server.
+- docker-compose.yml points local services at apps/api/Dockerfile and apps/web/Dockerfile.
+
+Failure class:
+- Local proof Docker behavior is mixed with the only available Dockerfiles.
+- There is no production-shaped API Dockerfile that installs production requirements only.
+- There is no production-shaped web Dockerfile that serves built static assets instead of the Vite dev server.

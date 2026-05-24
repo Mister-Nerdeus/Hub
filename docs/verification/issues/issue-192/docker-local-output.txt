@@ -1,0 +1,216 @@
+docker compose config
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile.local
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile.local
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: http://localhost:8010
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+docker compose up --build -d
+ Image hub-web Building
+ Image hub-api Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 881B done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 422B done
+#2 DONE 0.1s
+
+#3 [api internal] load build definition from Dockerfile.local
+#3 transferring dockerfile: 305B done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 ...
+
+#5 [web internal] load metadata for docker.io/library/node:22-alpine
+#5 DONE 0.3s
+
+#4 [api internal] load metadata for docker.io/library/python:3.13-slim
+#4 DONE 0.3s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 127B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 38.68kB 0.0s done
+#8 DONE 0.1s
+
+#9 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#9 DONE 0.1s
+
+#10 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#10 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#10 DONE 0.1s
+
+#11 [api 2/5] WORKDIR /app
+#11 CACHED
+
+#12 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#12 CACHED
+
+#13 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#13 CACHED
+
+#7 [web internal] load build context
+#7 ...
+
+#14 [api 5/5] COPY apps/api/ ./
+#14 DONE 0.2s
+
+#7 [web internal] load build context
+#7 transferring context: 1.22MB 0.5s done
+#7 DONE 0.5s
+
+#15 [web  3/10] COPY package.json package-lock.json ./
+#15 CACHED
+
+#16 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#16 CACHED
+
+#17 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#17 CACHED
+
+#18 [web  6/10] RUN npm ci
+#18 CACHED
+
+#19 [web  2/10] WORKDIR /repo
+#19 CACHED
+
+#20 [web  7/10] COPY tsconfig.base.json ./
+#20 CACHED
+
+#21 [api] exporting to image
+#21 exporting layers 0.4s done
+#21 exporting manifest sha256:cde7c032f52a598ebb2923c9587dfaa058f48c492314db2fdc468e632f06669e 0.1s done
+#21 exporting config sha256:71e44805705c492c02a5ef0289038020f72a1890cc2ca6d18a69d323158245ec
+#21 ...
+
+#22 [web  8/10] COPY apps/web apps/web
+#22 DONE 0.2s
+
+#21 [api] exporting to image
+#21 exporting config sha256:71e44805705c492c02a5ef0289038020f72a1890cc2ca6d18a69d323158245ec 0.1s done
+#21 exporting attestation manifest sha256:a682be527e1ed7c41db042ed2ecaba34ad80bebdf447057ff1e2755cd4dfa0a9
+#21 exporting attestation manifest sha256:a682be527e1ed7c41db042ed2ecaba34ad80bebdf447057ff1e2755cd4dfa0a9 0.1s done
+#21 exporting manifest list sha256:84469d3ea6bba11d433045244e370d9cfa59c5a939065d41002062aa295fe8d2
+#21 ...
+
+#23 [web  9/10] COPY packages/shared packages/shared
+#23 DONE 0.4s
+
+#21 [api] exporting to image
+#21 exporting manifest list sha256:84469d3ea6bba11d433045244e370d9cfa59c5a939065d41002062aa295fe8d2 0.0s done
+#21 naming to docker.io/library/hub-api:latest 0.1s done
+#21 unpacking to docker.io/library/hub-api:latest
+#21 unpacking to docker.io/library/hub-api:latest 0.1s done
+#21 DONE 1.0s
+
+#24 [web 10/10] WORKDIR /repo/apps/web
+#24 DONE 0.2s
+
+#25 [web] exporting to image
+#25 ...
+
+#26 [api] resolving provenance for metadata file
+#26 DONE 0.0s
+
+#25 [web] exporting to image
+#25 exporting layers 0.5s done
+#25 exporting manifest sha256:e42938fc20af9687e826df331e4fa9f8ed7163842821e16141fca7dbe66a0c70 0.0s done
+#25 exporting config sha256:9af3cda6c6de36daea0f6a742f8f781a3cba75b7e7b207b16c2a10dbca7b3eed
+#25 exporting config sha256:9af3cda6c6de36daea0f6a742f8f781a3cba75b7e7b207b16c2a10dbca7b3eed 0.0s done
+#25 exporting attestation manifest sha256:f3bda27b5e95dd87c8b40b343f9e1f8f9cdc4e1634fd6e5646bd96de5779e83e 0.1s done
+#25 exporting manifest list sha256:8a0ed17471279e8f984e04f55dfd78836c3a0c80eb93ce3c68f0db7d026cc6f2
+#25 exporting manifest list sha256:8a0ed17471279e8f984e04f55dfd78836c3a0c80eb93ce3c68f0db7d026cc6f2 0.0s done
+#25 naming to docker.io/library/hub-web:latest done
+#25 unpacking to docker.io/library/hub-web:latest
+#25 unpacking to docker.io/library/hub-web:latest 0.2s done
+#25 DONE 0.9s
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+ Image hub-api Built
+ Image hub-web Built
+ Container hub-db-1 Running
+ Container hub-api-1 Recreate
+ Container hub-api-1 Recreated
+ Container hub-web-1 Recreate
+ Container hub-web-1 Recreated
+ Container hub-db-1 Waiting
+ Container hub-db-1 Healthy
+ Container hub-api-1 Starting
+ Container hub-api-1 Started
+ Container hub-web-1 Starting
+ Container hub-web-1 Started
+docker compose ps
+NAME        IMAGE                COMMAND                  SERVICE   CREATED         STATUS                  PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       2 seconds ago   Up Less than a second   0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        13 hours ago    Up 13 hours (healthy)   5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       1 second ago    Up Less than a second   0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
