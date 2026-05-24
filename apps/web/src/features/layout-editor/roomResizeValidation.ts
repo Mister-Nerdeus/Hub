@@ -1,5 +1,6 @@
 import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
+import { validateDoorValidityAfterRoomResize } from "./doorValidityAfterRoomResize";
 import {
   collisionTargetObjectType,
   rectsOverlapFeet,
@@ -50,9 +51,11 @@ export function validateRoomResizeWarnings({
   boundsFeet = DEFAULT_LAYOUT_BOUNDS_FEET,
   includeHallways = true
 }: ValidateRoomResizeWarningsInput): LayoutEditorValidationWarning[] {
+  const hasResizedRoom = layout.rooms.some((room) => room.id === roomId);
   return [
-    ...validateRoomResizeBounds({ layout, roomId, boundsFeet }),
-    ...validateRoomResizeCollisions({ layout, roomId, includeHallways })
+    ...(hasResizedRoom ? validateRoomResizeBounds({ layout, roomId, boundsFeet }) : []),
+    ...(hasResizedRoom ? validateRoomResizeCollisions({ layout, roomId, includeHallways }) : []),
+    ...validateDoorValidityAfterRoomResize({ layout, roomId })
   ].sort((left, right) =>
     left.code.localeCompare(right.code) ||
     (left.relatedObjectId ?? "").localeCompare(right.relatedObjectId ?? "")

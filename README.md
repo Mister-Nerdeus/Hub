@@ -230,6 +230,8 @@ Issue 173 adds deterministic resize-specific bounds warnings for resized rooms. 
 
 Issue 174 adds deterministic resize-specific collision warnings for resized rooms that overlap rooms, stations, zones, or hallways. Warning codes use `source = resize`, stale resize collision warnings clear when overlap ends, resize remains permissive, and no blocking resize, door validity handling, path sync, save/load, simulation rerun, or recommendation behavior is added.
 
+Issue 175 adds deterministic door validity warnings after room resize. Room-owned doors warn when their stored offset plus width no longer fits the resized wall length or when owner room geometry is missing; stored door geometry is not mutated, resize remains permissive, and no path sync, save/load, simulation rerun, or recommendation behavior is added.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

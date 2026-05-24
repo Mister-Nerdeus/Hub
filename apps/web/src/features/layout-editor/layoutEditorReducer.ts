@@ -190,7 +190,7 @@ function resizeRoom(
         roomId,
         boundsFeet: state.layoutBoundsFeet
       }),
-      sources: ["resize"]
+      sources: ["resize", "door_sync"]
     }),
     editAuditTrail: [
       ...state.editAuditTrail,
