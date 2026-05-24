@@ -25,6 +25,15 @@ export const DEFERRED_SOURCE_LABEL_REASON_CODES = [
   "source-label-ambiguous",
   "source-label-not-structured-yet"
 ] as const;
+export const SOURCE_MAPPING_OBJECT_TYPE_COLLECTIONS = {
+  room: "rooms",
+  hallway: "hallways",
+  door: "doors",
+  nurseStation: "nurseStations",
+  zone: "zones",
+  pathNode: "pathNodes",
+  pathEdge: "pathEdges"
+} as const;
 
 export type SourceMappingObjectType = (typeof SOURCE_MAPPING_OBJECT_TYPES)[number];
 export type SourceMappingConfidence = (typeof SOURCE_MAPPING_CONFIDENCE_LEVELS)[number];
@@ -131,22 +140,7 @@ export function validateSourceMappingAgainstPlan(
 }
 
 function collectionNameForObjectType(objectType: Exclude<SourceMappingObjectType, "annotation">): string {
-  switch (objectType) {
-    case "room":
-      return "rooms";
-    case "hallway":
-      return "hallways";
-    case "door":
-      return "doors";
-    case "nurseStation":
-      return "nurseStations";
-    case "zone":
-      return "zones";
-    case "pathNode":
-      return "pathNodes";
-    case "pathEdge":
-      return "pathEdges";
-  }
+  return SOURCE_MAPPING_OBJECT_TYPE_COLLECTIONS[objectType];
 }
 
 function validateMappedObject(

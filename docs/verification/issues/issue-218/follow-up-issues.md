@@ -1,4 +1,4 @@
 # Follow-Up Issues
 
-- Continue with the next issue in batch order.
-- Preserve the approximate fixture graph and non-claims until later measured-distance work is explicitly scoped.
+- Issue 219: JSON Floorplan Library V1.
+- Later annotation support, if needed, must update `PlanContract` before source mappings can use `objectType: "annotation"`.

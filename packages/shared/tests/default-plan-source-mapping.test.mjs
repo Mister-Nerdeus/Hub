@@ -13,7 +13,7 @@ const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
 const defaultPlansDir = join(repoRoot, "packages", "shared", "fixtures", "default-plans");
 const mappingDir = join(defaultPlansDir, "source-mappings");
 const evidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-209");
-const issue217EvidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-217");
+const issue218EvidenceDir = join(repoRoot, "docs", "verification", "issues", "issue-218");
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -24,9 +24,9 @@ function writeEvidence(name, payload) {
   writeFileSync(join(evidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
 }
 
-function writeIssue217Evidence(name, payload) {
-  mkdirSync(issue217EvidenceDir, { recursive: true });
-  writeFileSync(join(issue217EvidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
+function writeIssue218Evidence(name, payload) {
+  mkdirSync(issue218EvidenceDir, { recursive: true });
+  writeFileSync(join(issue218EvidenceDir, name), `${JSON.stringify(payload, null, 2)}\n`);
 }
 
 function readMappingFiles() {
@@ -77,15 +77,30 @@ test("source-to-plan mapping skeletons validate and link to the manifest", () =>
       deferredSourceLabelCount: mapping.deferredSourceLabels.length
     }))
   });
+  writeIssue218Evidence("deferred-source-labels-output.json", {
+    issue: "218",
+    status: "passed",
+    mappingCount: mappings.length,
+    deferredSourceLabels: mappings.map((mapping) => ({
+      mappingId: mapping.mappingId,
+      deferredSourceLabelCount: mapping.deferredSourceLabels.length,
+      reasonCodes: [...new Set(mapping.deferredSourceLabels.map((label) => label.reasonCode))].sort()
+    })),
+    codedReasonsOnly: true
+  });
 });
 
 test("source-to-plan mappings validate against the correct target plan collections", () => {
   const mappingFiles = readMappingFiles();
   const results = [];
+  const objectTypeCounts = {};
   for (const path of mappingFiles) {
     const mapping = validateSourceToPlanMappingContract(readJson(path));
     const wrapper = readJson(join(defaultPlansDir, `${mapping.targetPlanId}.json`));
     validateSourceMappingAgainstPlan(mapping, wrapper.plan);
+    for (const object of mapping.objects) {
+      objectTypeCounts[object.objectType] = (objectTypeCounts[object.objectType] ?? 0) + 1;
+    }
     results.push({
       mappingId: mapping.mappingId,
       targetPlanId: wrapper.plan.planId,
@@ -93,46 +108,55 @@ test("source-to-plan mappings validate against the correct target plan collectio
     });
   }
 
-  writeIssue217Evidence("mapping-object-type-target-validation-output.json", {
-    issue: "217",
+  writeIssue218Evidence("mapping-object-type-target-validation-output.json", {
+    issue: "218",
     status: "passed",
     mappingCount: results.length,
+    objectTypeCounts,
+    allMappingTargetsResolvedInCorrectCollection: true,
+    annotationMappingsRejectedUntilPlanAnnotationsExist: true,
     results
   });
 });
 
 test("source-to-plan mapping rejects wrong target collections for every supported object type", () => {
   const plan = readJson(join(defaultPlansDir, "default-er-layout-plan-1.json")).plan;
-  const wrongTargets = {
-    room: plan.zones[0].id,
-    zone: plan.rooms[0].id,
-    door: plan.rooms[0].id,
-    nurseStation: plan.rooms[0].id,
-    hallway: plan.rooms[0].id,
-    pathNode: plan.rooms[0].id,
-    pathEdge: plan.rooms[0].id
+  const collections = {
+    room: plan.rooms[0].id,
+    hallway: plan.hallways[0].id,
+    door: plan.doors[0].id,
+    nurseStation: plan.nurseStations[0].id,
+    zone: plan.zones[0].id,
+    pathNode: plan.pathNodes[0].id,
+    pathEdge: plan.pathEdges[0].id
   };
-  const rejected = [];
+  const rejectedPairs = [];
 
-  for (const [objectType, targetObjectId] of Object.entries(wrongTargets)) {
-    const mapping = singleObjectMapping(objectType, targetObjectId);
-    assert.throws(
-      () => validateSourceMappingAgainstPlan(mapping, plan),
-      /targetObjectId must reference plan\./
-    );
-    rejected.push(objectType);
+  for (const [objectType] of Object.entries(collections)) {
+    for (const [wrongCollection, targetObjectId] of Object.entries(collections)) {
+      if (objectType === wrongCollection) {
+        continue;
+      }
+      const mapping = singleObjectMapping(objectType, targetObjectId);
+      assert.throws(
+        () => validateSourceMappingAgainstPlan(mapping, plan),
+        /targetObjectId must reference plan\./
+      );
+      rejectedPairs.push({ objectType, wrongCollection });
+    }
   }
 
   assert.throws(
     () => validateSourceMappingAgainstPlan(singleObjectMapping("annotation", plan.rooms[0].id), plan),
     /annotation is deferred/
   );
-  rejected.push("annotation");
+  rejectedPairs.push({ objectType: "annotation", wrongCollection: "rooms" });
 
-  writeIssue217Evidence("wrong-collection-negative-output.json", {
-    issue: "217",
+  writeIssue218Evidence("wrong-collection-negative-output.json", {
+    issue: "218",
     status: "passed",
-    rejectedObjectTypes: rejected
+    rejectedPairCount: rejectedPairs.length,
+    rejectedPairs
   });
 });
 

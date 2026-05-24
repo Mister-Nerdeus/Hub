@@ -113,11 +113,15 @@ Mapping rules:
 
 - `sourcePlanId` must identify a source in the source layout manifest.
 - `targetPlanId` must identify the intended default plan ID from the same manifest source.
+- Every converted default JSON plan must have exactly one manifest entry and one source-to-plan mapping.
 - `sourceObjectId` values must be unique within a mapping.
 - `targetObjectId` values must be unique within mapped objects for a single mapping.
 - Source labels remain source text and are distinct from validated target object IDs.
 - Mapped object IDs must resolve to the collection matching `objectType`: rooms to `plan.rooms`, zones to `plan.zones`, doors to `plan.doors`, nurse stations to `plan.nurseStations`, hallways to `plan.hallways`, path nodes to `plan.pathNodes`, and path edges to `plan.pathEdges`.
 - `annotation` mappings are rejected until annotation objects exist in the plan contract.
+- Conversion completeness audits inspect the source manifest, source mappings, and converted JSON fixtures only. They do not read, render, expose, or serve DOCX files.
+- Conversion completeness summaries must identify represented rooms, hallways, doors, nurse stations, entry/EMS or hall entry, provider/pharmacy areas, trauma areas, zones, path nodes, and path edges where present in the converted JSON plan.
+- Deferred source labels must use coded `reasonCode` values and must not become free-text notes.
 - Coordinates, when present, are approximate manual coordinates only.
 - Notes and deferred reasons are coded enums, not free-text notes.
 - Mapping text must pass no-PHI checks.

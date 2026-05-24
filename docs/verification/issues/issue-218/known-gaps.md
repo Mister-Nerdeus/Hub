@@ -1,5 +1,6 @@
 # Known Gaps
 
-- Default plan geometry remains approximate and manually converted from source layout references.
-- Path edges are fixture graph placeholders, not measured walking distances.
-- This issue does not add assignment scoring, optimizer behavior, simulation changes, database seeding, PHI support, EHR support, clinical guidance, or production deployment.
+- Completeness summaries use converted JSON fixtures and source mappings only; they do not inspect DOCX file contents.
+- The audit confirms mapped object resolution and represented operational elements, not exact geometry.
+- Annotation mappings remain rejected until annotations are added to `PlanContract`.
+- Floorplan library UI is deferred to Issue 219.

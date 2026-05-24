@@ -22,6 +22,9 @@ The private DOCX source files are conversion references only. Product runtime su
 - `conversionOutputPlanId` values resolve to JSON default plan fixtures.
 - Source-to-plan mappings are validated.
 - Source-to-plan mappings are validated against the correct target plan collection for each `objectType`.
+- Source-to-JSON conversion completeness summaries are validated for all five default plans using manifest, mapping, and JSON fixture data only.
+- Wrong `objectType` to target collection pairs are rejected, including annotation mappings until plan annotations exist.
+- Deferred source labels remain coded and documented.
 - Default saved plan wrappers are validated.
 - Manifest `conversionStatus`, manifest `auditStatus`, and wrapper `importStatus` are aligned to `validated_default`.
 - Nested plans are validated through `PlanContract`.

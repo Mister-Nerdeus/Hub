@@ -1,0 +1,442 @@
+{
+  "issue": "218",
+  "status": "passed",
+  "inspectedInputs": [
+    "packages/shared/fixtures/default-plans/source-layout-manifest.json",
+    "packages/shared/fixtures/default-plans/source-mappings/*.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-*.json"
+  ],
+  "docxReadRenderedOrServed": false,
+  "defaultPlanCount": 5,
+  "allDefaultPlansHaveSourceManifestEntry": true,
+  "allDefaultPlansHaveSourceMapping": true,
+  "noExactGeometryClaim": true,
+  "summaries": [
+    {
+      "defaultPlanId": "default-er-layout-plan-1",
+      "sourcePlanId": "source-er-layout-plan-1",
+      "mappingId": "mapping-er-layout-plan-1",
+      "importStatus": "validated_default",
+      "counts": {
+        "rooms": 8,
+        "hallways": 2,
+        "doors": 8,
+        "nurseStations": 2,
+        "zones": 5,
+        "pathNodes": 15,
+        "pathEdges": 14
+      },
+      "mappedCountsByType": {
+        "zone": 3,
+        "room": 8,
+        "hallway": 1,
+        "pathNode": 1,
+        "nurseStation": 1
+      },
+      "mappedTargetIdsByType": {
+        "room": [
+          "room-01",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-level-1-trauma",
+          "space-07"
+        ],
+        "hallway": [
+          "hallway-main"
+        ],
+        "door": [],
+        "nurseStation": [
+          "station-primary"
+        ],
+        "zone": [
+          "zone-hall-ems-entry",
+          "zone-level-1-trauma",
+          "zone-provider-pharmacy"
+        ],
+        "pathNode": [
+          "node-entry-ems"
+        ],
+        "pathEdge": []
+      },
+      "coreOperationalElements": {
+        "roomsRepresented": true,
+        "hallwaysRepresented": true,
+        "doorsRepresented": true,
+        "nurseStationsRepresented": true,
+        "emsOrHallEntryRepresented": true,
+        "providerOrPharmacyRepresented": true,
+        "traumaAreaRepresented": true,
+        "zonesRepresented": true,
+        "pathNodesRepresented": true,
+        "pathEdgesRepresented": true
+      },
+      "representedObjectExamples": {
+        "entryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "emsEntryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "providerOrPharmacyZones": [
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider Pharmacy Area"
+          }
+        ],
+        "traumaZones": [
+          {
+            "id": "zone-level-1-trauma",
+            "label": "Level 1 Trauma Zone"
+          }
+        ],
+        "traumaRooms": [
+          {
+            "id": "room-level-1-trauma",
+            "label": "Level 1 Trauma"
+          }
+        ]
+      },
+      "deferredSourceLabelCount": 1,
+      "limitationCount": 3
+    },
+    {
+      "defaultPlanId": "default-er-layout-plan-2",
+      "sourcePlanId": "source-er-layout-plan-2",
+      "mappingId": "mapping-er-layout-plan-2",
+      "importStatus": "validated_default",
+      "counts": {
+        "rooms": 5,
+        "hallways": 2,
+        "doors": 5,
+        "nurseStations": 2,
+        "zones": 5,
+        "pathNodes": 12,
+        "pathEdges": 11
+      },
+      "mappedCountsByType": {
+        "zone": 3,
+        "room": 5,
+        "hallway": 2,
+        "pathNode": 1,
+        "nurseStation": 1
+      },
+      "mappedTargetIdsByType": {
+        "room": [
+          "room-01",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-level-1-trauma"
+        ],
+        "hallway": [
+          "hallway-main",
+          "hallway-north-spur"
+        ],
+        "door": [],
+        "nurseStation": [
+          "station-primary"
+        ],
+        "zone": [
+          "zone-hall-ems-entry",
+          "zone-level-1-trauma",
+          "zone-provider-pharmacy"
+        ],
+        "pathNode": [
+          "node-entry-ems"
+        ],
+        "pathEdge": []
+      },
+      "coreOperationalElements": {
+        "roomsRepresented": true,
+        "hallwaysRepresented": true,
+        "doorsRepresented": true,
+        "nurseStationsRepresented": true,
+        "emsOrHallEntryRepresented": true,
+        "providerOrPharmacyRepresented": true,
+        "traumaAreaRepresented": true,
+        "zonesRepresented": true,
+        "pathNodesRepresented": true,
+        "pathEdgesRepresented": true
+      },
+      "representedObjectExamples": {
+        "entryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "emsEntryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "providerOrPharmacyZones": [
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider Pharmacy Area"
+          }
+        ],
+        "traumaZones": [
+          {
+            "id": "zone-level-1-trauma",
+            "label": "Level 1 Trauma Zone"
+          }
+        ],
+        "traumaRooms": [
+          {
+            "id": "room-level-1-trauma",
+            "label": "Level 1 Trauma"
+          }
+        ]
+      },
+      "deferredSourceLabelCount": 1,
+      "limitationCount": 3
+    },
+    {
+      "defaultPlanId": "default-er-layout-plan-3",
+      "sourcePlanId": "source-er-layout-plan-3",
+      "mappingId": "mapping-er-layout-plan-3",
+      "importStatus": "validated_default",
+      "counts": {
+        "rooms": 3,
+        "hallways": 2,
+        "doors": 3,
+        "nurseStations": 2,
+        "zones": 4,
+        "pathNodes": 9,
+        "pathEdges": 8
+      },
+      "mappedCountsByType": {
+        "zone": 3,
+        "room": 3,
+        "hallway": 1,
+        "nurseStation": 1
+      },
+      "mappedTargetIdsByType": {
+        "room": [
+          "room-01",
+          "room-02",
+          "room-level-1-trauma"
+        ],
+        "hallway": [
+          "hallway-main"
+        ],
+        "door": [],
+        "nurseStation": [
+          "station-primary"
+        ],
+        "zone": [
+          "zone-hall-ems-entry",
+          "zone-level-1-trauma",
+          "zone-provider-pharmacy"
+        ],
+        "pathNode": [],
+        "pathEdge": []
+      },
+      "coreOperationalElements": {
+        "roomsRepresented": true,
+        "hallwaysRepresented": true,
+        "doorsRepresented": true,
+        "nurseStationsRepresented": true,
+        "emsOrHallEntryRepresented": true,
+        "providerOrPharmacyRepresented": true,
+        "traumaAreaRepresented": true,
+        "zonesRepresented": true,
+        "pathNodesRepresented": true,
+        "pathEdgesRepresented": true
+      },
+      "representedObjectExamples": {
+        "entryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "emsEntryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "providerOrPharmacyZones": [
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider Pharmacy Area"
+          }
+        ],
+        "traumaZones": [
+          {
+            "id": "zone-level-1-trauma",
+            "label": "Level 1 Trauma Zone"
+          }
+        ],
+        "traumaRooms": [
+          {
+            "id": "room-level-1-trauma",
+            "label": "Level 1 Trauma"
+          }
+        ]
+      },
+      "deferredSourceLabelCount": 1,
+      "limitationCount": 3
+    },
+    {
+      "defaultPlanId": "default-er-layout-plan-4",
+      "sourcePlanId": "source-er-layout-plan-4",
+      "mappingId": "mapping-er-layout-plan-4",
+      "importStatus": "validated_default",
+      "counts": {
+        "rooms": 4,
+        "hallways": 2,
+        "doors": 4,
+        "nurseStations": 2,
+        "zones": 5,
+        "pathNodes": 10,
+        "pathEdges": 9
+      },
+      "mappedCountsByType": {
+        "zone": 3,
+        "room": 4,
+        "hallway": 1,
+        "nurseStation": 1
+      },
+      "mappedTargetIdsByType": {
+        "room": [
+          "room-01",
+          "room-02",
+          "room-isolation-01",
+          "room-level-1-trauma"
+        ],
+        "hallway": [
+          "hallway-main"
+        ],
+        "door": [],
+        "nurseStation": [
+          "station-primary"
+        ],
+        "zone": [
+          "zone-hall-ems-entry",
+          "zone-level-1-trauma",
+          "zone-provider-pharmacy"
+        ],
+        "pathNode": [],
+        "pathEdge": []
+      },
+      "coreOperationalElements": {
+        "roomsRepresented": true,
+        "hallwaysRepresented": true,
+        "doorsRepresented": true,
+        "nurseStationsRepresented": true,
+        "emsOrHallEntryRepresented": true,
+        "providerOrPharmacyRepresented": true,
+        "traumaAreaRepresented": true,
+        "zonesRepresented": true,
+        "pathNodesRepresented": true,
+        "pathEdgesRepresented": true
+      },
+      "representedObjectExamples": {
+        "entryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "emsEntryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "providerOrPharmacyZones": [
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider Pharmacy Area"
+          }
+        ],
+        "traumaZones": [
+          {
+            "id": "zone-level-1-trauma",
+            "label": "Level 1 Trauma Zone"
+          }
+        ],
+        "traumaRooms": [
+          {
+            "id": "room-level-1-trauma",
+            "label": "Level 1 Trauma"
+          }
+        ]
+      },
+      "deferredSourceLabelCount": 1,
+      "limitationCount": 3
+    },
+    {
+      "defaultPlanId": "default-er-layout-plan-5",
+      "sourcePlanId": "source-er-layout-plan-5",
+      "mappingId": "mapping-er-layout-plan-5",
+      "importStatus": "validated_default",
+      "counts": {
+        "rooms": 4,
+        "hallways": 2,
+        "doors": 4,
+        "nurseStations": 2,
+        "zones": 5,
+        "pathNodes": 10,
+        "pathEdges": 9
+      },
+      "mappedCountsByType": {
+        "zone": 3,
+        "room": 4,
+        "hallway": 1,
+        "nurseStation": 1
+      },
+      "mappedTargetIdsByType": {
+        "room": [
+          "room-01",
+          "room-02",
+          "room-behavioral-01",
+          "room-level-1-trauma"
+        ],
+        "hallway": [
+          "hallway-main"
+        ],
+        "door": [],
+        "nurseStation": [
+          "station-primary"
+        ],
+        "zone": [
+          "zone-hall-ems-entry",
+          "zone-level-1-trauma",
+          "zone-provider-pharmacy"
+        ],
+        "pathNode": [],
+        "pathEdge": []
+      },
+      "coreOperationalElements": {
+        "roomsRepresented": true,
+        "hallwaysRepresented": true,
+        "doorsRepresented": true,
+        "nurseStationsRepresented": true,
+        "emsOrHallEntryRepresented": true,
+        "providerOrPharmacyRepresented": true,
+        "traumaAreaRepresented": true,
+        "zonesRepresented": true,
+        "pathNodesRepresented": true,
+        "pathEdgesRepresented": true
+      },
+      "representedObjectExamples": {
+        "entryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "emsEntryPathNodeIds": [
+          "node-entry-ems"
+        ],
+        "providerOrPharmacyZones": [
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider Pharmacy Area"
+          }
+        ],
+        "traumaZones": [
+          {
+            "id": "zone-level-1-trauma",
+            "label": "Level 1 Trauma Zone"
+          }
+        ],
+        "traumaRooms": [
+          {
+            "id": "room-level-1-trauma",
+            "label": "Level 1 Trauma"
+          }
+        ]
+      },
+      "deferredSourceLabelCount": 1,
+      "limitationCount": 3
+    }
+  ]
+}

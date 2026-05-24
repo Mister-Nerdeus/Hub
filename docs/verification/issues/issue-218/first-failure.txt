@@ -1,1 +1,5 @@
-Current-gap evidence before repair: default plans had path nodes but no dedicated path-node coverage audit; secondary hallways lacked explicit hallway anchor validation.
+Current-gap evidence captured before implementation:
+
+The source-to-plan contract validator could validate a mapping shape without inspecting the target JSON plan. A wrong-collection target such as `objectType: "room"` paired with a zone ID can satisfy the shape contract unless the mapping is also validated against the converted plan collections.
+
+Issue 218 closes that gap by requiring `validateSourceMappingAgainstPlan(mapping, plan)` and by adding a negative matrix across every wrong object type/target collection pair, plus annotation rejection until annotations exist in `PlanContract`.

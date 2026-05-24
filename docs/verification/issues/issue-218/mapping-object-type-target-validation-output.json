@@ -1,0 +1,41 @@
+{
+  "issue": "218",
+  "status": "passed",
+  "mappingCount": 5,
+  "objectTypeCounts": {
+    "zone": 15,
+    "room": 24,
+    "hallway": 6,
+    "pathNode": 2,
+    "nurseStation": 5
+  },
+  "allMappingTargetsResolvedInCorrectCollection": true,
+  "annotationMappingsRejectedUntilPlanAnnotationsExist": true,
+  "results": [
+    {
+      "mappingId": "mapping-er-layout-plan-1",
+      "targetPlanId": "default-er-layout-plan-1",
+      "mappedObjectCount": 14
+    },
+    {
+      "mappingId": "mapping-er-layout-plan-2",
+      "targetPlanId": "default-er-layout-plan-2",
+      "mappedObjectCount": 12
+    },
+    {
+      "mappingId": "mapping-er-layout-plan-3",
+      "targetPlanId": "default-er-layout-plan-3",
+      "mappedObjectCount": 8
+    },
+    {
+      "mappingId": "mapping-er-layout-plan-4",
+      "targetPlanId": "default-er-layout-plan-4",
+      "mappedObjectCount": 9
+    },
+    {
+      "mappingId": "mapping-er-layout-plan-5",
+      "targetPlanId": "default-er-layout-plan-5",
+      "mappedObjectCount": 9
+    }
+  ]
+}
