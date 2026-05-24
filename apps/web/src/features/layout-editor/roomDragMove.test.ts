@@ -1,5 +1,9 @@
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
-import { moveRoomByDeltaFeet, snapSizeForRoomMove } from "./roomDragMove";
+import {
+  createRoomMoveSnapAccumulator,
+  moveRoomByDeltaFeet,
+  snapSizeForRoomMove
+} from "./roomDragMove";
 
 const assert = {
   equal<T>(actual: T, expected: T): void {
@@ -34,6 +38,16 @@ if (originalRoom == null) {
 
 assert.equal(snapSizeForRoomMove("default"), 1);
 assert.equal(snapSizeForRoomMove("fine"), 0.5);
+assert.deepEqual(createRoomMoveSnapAccumulator("default"), {
+  remainderXFeet: 0,
+  remainderYFeet: 0,
+  snapSizeFeet: 1
+});
+assert.deepEqual(createRoomMoveSnapAccumulator("fine"), {
+  remainderXFeet: 0,
+  remainderYFeet: 0,
+  snapSizeFeet: 0.5
+});
 
 const movedDefault = moveRoomByDeltaFeet({
   layout: originalLayout,

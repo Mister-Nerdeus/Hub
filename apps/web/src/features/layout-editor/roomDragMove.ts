@@ -7,6 +7,10 @@ import {
   snapMoveDeltaFeet,
   type LayoutMoveDeltaFeet
 } from "./layoutSnapEngine";
+import {
+  createRoomDragSnapAccumulator,
+  type RoomDragSnapAccumulator
+} from "./roomDragSnapAccumulator";
 
 export type RoomMoveDeltaFeet = LayoutMoveDeltaFeet;
 
@@ -19,6 +23,12 @@ export type MoveRoomByDeltaFeetInput = {
 
 export function snapSizeForRoomMove(snapMode: LayoutEditorSnapMode = "default"): number {
   return snapMode === "fine" ? FINE_SNAP_SIZE_FEET : DEFAULT_SNAP_SIZE_FEET;
+}
+
+export function createRoomMoveSnapAccumulator(
+  snapMode: LayoutEditorSnapMode = "default"
+): RoomDragSnapAccumulator {
+  return createRoomDragSnapAccumulator({ snapSizeFeet: snapSizeForRoomMove(snapMode) });
 }
 
 export function moveRoomByDeltaFeet({

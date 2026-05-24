@@ -194,6 +194,8 @@ Issue 155 wires read-only stage click selection for rendered layout objects. Cli
 
 Issue 156 adds the first constrained layout edit behavior: selected rooms can be moved in feet through snapped `xFeet`/`yFeet` deltas. Width, height, metadata, doors, path graph, persistence, collision validation, and simulation outputs are not synchronized or changed in this issue.
 
+Issue 157 locks room drag snap accumulation semantics: sub-snap pointer movement accumulates in feet until it crosses the active default or fine snap threshold, then emits only snapped `xFeet`/`yFeet` room movement while retaining deterministic remainder feet. It does not add bounds validation, collision validation, door sync, path sync, persistence, resize, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

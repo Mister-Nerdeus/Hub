@@ -19,8 +19,11 @@ import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
-import { snapSizeForRoomMove } from "./roomDragMove";
-import { snapMoveDeltaFeet } from "./layoutSnapEngine";
+import { createRoomMoveSnapAccumulator } from "./roomDragMove";
+import {
+  accumulateRoomDragDelta,
+  type RoomDragSnapAccumulator
+} from "./roomDragSnapAccumulator";
 import { StationShape } from "./StationShape";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
@@ -37,6 +40,7 @@ type RoomDragState = {
   roomId: string;
   lastClientX: number;
   lastClientY: number;
+  accumulator: RoomDragSnapAccumulator;
 };
 
 const initialStageState = createLayoutEditorState({
@@ -92,7 +96,8 @@ export function LayoutEditorStage() {
     roomDragRef.current = {
       roomId,
       lastClientX: event.clientX,
-      lastClientY: event.clientY
+      lastClientY: event.clientY,
+      accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
     };
     event.currentTarget.setPointerCapture(event.pointerId);
   };
@@ -104,24 +109,24 @@ export function LayoutEditorStage() {
 
     const deltaXFeet = pixelsDeltaToFeet(event.clientX - drag.lastClientX, stageState.viewport);
     const deltaYFeet = pixelsDeltaToFeet(event.clientY - drag.lastClientY, stageState.viewport);
-    const snappedDelta = snapMoveDeltaFeet(
-      { deltaXFeet, deltaYFeet },
-      snapSizeForRoomMove(stageState.snapMode)
-    );
-    if (snappedDelta.deltaXFeet === 0 && snappedDelta.deltaYFeet === 0) {
+    const accumulation = accumulateRoomDragDelta(drag.accumulator, { deltaXFeet, deltaYFeet });
+
+    roomDragRef.current = {
+      roomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY,
+      accumulator: accumulation.accumulator
+    };
+
+    if (accumulation.emittedDelta.deltaXFeet === 0 && accumulation.emittedDelta.deltaYFeet === 0) {
       return;
     }
 
     dispatchStage({
       type: "moveRoom",
       roomId,
-      ...snappedDelta
+      ...accumulation.emittedDelta
     });
-    roomDragRef.current = {
-      roomId,
-      lastClientX: event.clientX,
-      lastClientY: event.clientY
-    };
   };
   const endRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
     if (roomDragRef.current?.roomId === roomId) {
