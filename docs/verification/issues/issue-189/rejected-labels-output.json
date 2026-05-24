@@ -1,0 +1,13 @@
+{
+  "issue": "189",
+  "status": "passed",
+  "guard": "runtime operational text",
+  "rejectedCategories": [
+    "identity-like",
+    "record-identifier",
+    "clinical-note",
+    "clinical-safety"
+  ],
+  "rejectionCode": "NO_PHI_RUNTIME_REJECTION",
+  "echoesRejectedValues": false
+}

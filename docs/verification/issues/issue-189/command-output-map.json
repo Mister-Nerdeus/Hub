@@ -1,0 +1,38 @@
+{
+  "issue": "189",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared run build; node <runtime-text-first-failure-probe>; python <runtime-text-first-failure-probe>",
+      "outputs": [
+        "docs/verification/issues/issue-189/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-189/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-189/test-output/shared.txt",
+        "docs/verification/issues/issue-189/no-phi-runtime-output.json",
+        "docs/verification/issues/issue-189/allowed-operational-labels-output.json",
+        "docs/verification/issues/issue-189/rejected-labels-output.json"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-189/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-189/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-189/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-189/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "Set-Content docs/verification/issues/issue-189/test-output/docs-gate.txt \"pending docs gate rerun\"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-189/test-output/docs-gate.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-189/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

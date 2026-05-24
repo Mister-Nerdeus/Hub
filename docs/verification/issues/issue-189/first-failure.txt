@@ -1,0 +1,58 @@
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "beforeFix": [
+    {
+      "example": "room label identity-like text",
+      "typescript": "accept"
+    },
+    {
+      "example": "plan description record-number text",
+      "typescript": "accept"
+    },
+    {
+      "example": "scenario name diagnosis-like text",
+      "typescript": "accept"
+    },
+    {
+      "example": "report title safety language",
+      "typescript": "reject",
+      "message": "operationalReport.simulationRunId is not allowed"
+    }
+  ]
+}
+{
+  "beforeFix": [
+    {
+      "example": "room label identity-like text",
+      "python": "accept"
+    },
+    {
+      "example": "plan description record-number text",
+      "python": "accept"
+    },
+    {
+      "example": "scenario name diagnosis-like text",
+      "python": "accept"
+    },
+    {
+      "example": "report title safety language",
+      "python": "reject",
+      "message": "Input should be 'operational_summary', 'nurse_workload', 'unassigned_tasks' or 'warnings'"
+    }
+  ]
+}
+{
+  "correctedReportFixtureProbe": {
+    "typescript": "reject",
+    "message": "title must remain an operational inspection summary only"
+  }
+}
+{
+  "correctedReportFixtureProbe": {
+    "python": "reject",
+    "message": "Value error, title must remain an operational inspection summary only"
+  }
+}

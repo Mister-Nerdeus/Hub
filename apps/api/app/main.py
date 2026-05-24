@@ -1,5 +1,7 @@
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.routes.plans import router as plans_router
 from app.routes.simulation import router as simulation_router
@@ -20,6 +22,19 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(_request, exc: RequestValidationError) -> JSONResponse:
+    errors = [
+        {
+            "type": error.get("type", "value_error"),
+            "loc": error.get("loc", ()),
+            "msg": error.get("msg", "Invalid request"),
+        }
+        for error in exc.errors()
+    ]
+    return JSONResponse(status_code=422, content={"detail": errors})
 
 
 @app.get("/health")

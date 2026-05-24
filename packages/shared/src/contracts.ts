@@ -1,3 +1,8 @@
+import {
+  validateOperationalRuntimeText,
+  validateOptionalOperationalRuntimeText
+} from "./no-phi/runtimeTextGuard.js";
+
 export const ROOM_TYPES = [
   "standard",
   "trauma",
@@ -848,8 +853,14 @@ export function validatePlanContract(value: unknown): PlanContract {
 
   requireLiteral(plan.schemaVersion, "1.0.0", "schemaVersion");
   requireStringMax(plan.planId, "planId", PLAN_ID_MAX_LENGTH);
-  requireStringMax(plan.name, "name", PLAN_NAME_MAX_LENGTH);
-  requireOptionalStringMax(plan.description, "description", PLAN_DESCRIPTION_MAX_LENGTH);
+  validateOperationalRuntimeText(
+    requireStringMax(plan.name, "name", PLAN_NAME_MAX_LENGTH),
+    "name"
+  );
+  validateOptionalOperationalRuntimeText(
+    requireOptionalStringMax(plan.description, "description", PLAN_DESCRIPTION_MAX_LENGTH),
+    "description"
+  );
   requireIsoDateTime(plan.createdAt, "createdAt");
   requireIsoDateTime(plan.updatedAt, "updatedAt");
   validateScale(plan.scale);
@@ -912,8 +923,11 @@ export function validatePlanBuilderDefaultsContract(
 
   requireLiteral(defaults.schemaVersion, "1.0.0", "schemaVersion");
   requireString(defaults.defaultsId, "defaultsId");
-  requireString(defaults.name, "name");
-  requireOptionalString(defaults.description, "description");
+  validateOperationalRuntimeText(requireString(defaults.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(defaults.description, "description"),
+    "description"
+  );
   requireIsoDateTime(defaults.createdAt, "createdAt");
   requireIsoDateTime(defaults.updatedAt, "updatedAt");
 
@@ -986,8 +1000,14 @@ function validatePlanSetupDefaults(
     "originY"
   ]);
 
-  const planName = requireString(planSetup.planName, `${label}.planName`);
-  const planDescription = requireOptionalString(planSetup.planDescription, `${label}.planDescription`);
+  const planName = validateOperationalRuntimeText(
+    requireString(planSetup.planName, `${label}.planName`),
+    `${label}.planName`
+  );
+  const planDescription = validateOptionalOperationalRuntimeText(
+    requireOptionalString(planSetup.planDescription, `${label}.planDescription`),
+    `${label}.planDescription`
+  );
   const pixelsPerFoot = requirePositiveNumber(planSetup.pixelsPerFoot, `${label}.pixelsPerFoot`);
   const gridSizeFeet = requirePositiveNumber(planSetup.gridSizeFeet, `${label}.gridSizeFeet`);
   const snapToGrid = requireBoolean(planSetup.snapToGrid, `${label}.snapToGrid`);
@@ -1036,7 +1056,10 @@ function validateRoomGenerationDefaults(value: unknown, label: string): RoomGene
     `${label}.defaultRoomLengthFeet`
   );
   const roomSpacingFeet = requireNonNegativeNumber(roomDefaults.roomSpacingFeet, `${label}.roomSpacingFeet`);
-  const roomLabelPrefix = requireString(roomDefaults.roomLabelPrefix, `${label}.roomLabelPrefix`);
+  const roomLabelPrefix = validateOperationalRuntimeText(
+    requireString(roomDefaults.roomLabelPrefix, `${label}.roomLabelPrefix`),
+    `${label}.roomLabelPrefix`
+  );
   const defaultRoomType = requireEnum(roomDefaults.defaultRoomType, ROOM_TYPES, `${label}.defaultRoomType`);
   const defaultMaxPatients = requirePositiveInteger(
     roomDefaults.defaultMaxPatients,
@@ -1274,7 +1297,10 @@ function validateZoneGenerationDefaults(value: unknown, label: string): ZoneGene
   const defaultZoneLabel =
     zoneDefaults.defaultZoneLabel == null
       ? ""
-      : requireOptionalString(zoneDefaults.defaultZoneLabel, `${label}.defaultZoneLabel`) ?? "";
+      : validateOptionalOperationalRuntimeText(
+          requireOptionalString(zoneDefaults.defaultZoneLabel, `${label}.defaultZoneLabel`),
+          `${label}.defaultZoneLabel`
+        ) ?? "";
   const defaultZoneType = requireEnum(
     zoneDefaults.defaultZoneType,
     ZONE_TYPES,
@@ -1322,8 +1348,11 @@ export function validateAssumptionsRegisterContract(
 
   requireLiteral(assumptions.schemaVersion, "1.0.0", "schemaVersion");
   requireString(assumptions.assumptionsId, "assumptionsId");
-  requireString(assumptions.name, "name");
-  requireOptionalString(assumptions.description, "description");
+  validateOperationalRuntimeText(requireString(assumptions.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(assumptions.description, "description"),
+    "description"
+  );
   requireIsoDateTime(assumptions.createdAt, "createdAt");
   requireIsoDateTime(assumptions.updatedAt, "updatedAt");
   validateRoomWorkloadWeights(assumptions.roomWorkloadWeights);
@@ -1347,7 +1376,7 @@ export function validateTaskTemplateContract(value: unknown): TaskTemplateContra
 
   requireLiteral(templateSet.schemaVersion, "1.0.0", "schemaVersion");
   requireString(templateSet.templateSetId, "templateSetId");
-  requireString(templateSet.name, "name");
+  validateOperationalRuntimeText(requireString(templateSet.name, "name"), "name");
   validateOperationalText(templateSet.description, "description");
   const taskTemplates = requireArray(templateSet.taskTemplates, "taskTemplates").map(
     validateCareTaskTemplate
@@ -1373,8 +1402,11 @@ export function validateDayProfileContract(value: unknown): DayProfileContract {
 
   requireLiteral(dayProfile.schemaVersion, "1.0.0", "schemaVersion");
   requireString(dayProfile.dayProfileId, "dayProfileId");
-  requireString(dayProfile.name, "name");
-  requireOptionalString(dayProfile.description, "description");
+  validateOperationalRuntimeText(requireString(dayProfile.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(dayProfile.description, "description"),
+    "description"
+  );
   const shiftLengthMinutes = requirePositiveInteger(
     dayProfile.shiftLengthMinutes,
     "shiftLengthMinutes"
@@ -1430,8 +1462,11 @@ export function validateShiftScenarioContract(
   requireString(scenario.assumptionsId, "assumptionsId");
   requireString(scenario.taskTemplateSetId, "taskTemplateSetId");
   requireString(scenario.dayProfileId, "dayProfileId");
-  requireString(scenario.name, "name");
-  requireOptionalString(scenario.description, "description");
+  validateOperationalRuntimeText(requireString(scenario.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(scenario.description, "description"),
+    "description"
+  );
   const shiftLengthMinutes = requirePositiveInteger(
     scenario.shiftLengthMinutes,
     "shiftLengthMinutes"
@@ -1588,8 +1623,11 @@ export function validateManualAssignmentContract(
   requireLiteral(assignmentSet.schemaVersion, "1.0.0", "schemaVersion");
   requireString(assignmentSet.assignmentSetId, "assignmentSetId");
   requireString(assignmentSet.planId, "planId");
-  requireString(assignmentSet.name, "name");
-  requireOptionalString(assignmentSet.description, "description");
+  validateOperationalRuntimeText(requireString(assignmentSet.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(assignmentSet.description, "description"),
+    "description"
+  );
 
   if (plan != null && assignmentSet.planId !== plan.planId) {
     throw new Error("manualAssignment.planId must match the referenced plan");
@@ -1662,8 +1700,11 @@ export function validateNurseTaskAssignmentContract(
   const scenarioId = requireString(contract.scenarioId, "scenarioId");
   const assignmentSetId = requireString(contract.assignmentSetId, "assignmentSetId");
   const generatedTaskSetId = requireString(contract.generatedTaskSetId, "generatedTaskSetId");
-  requireString(contract.name, "name");
-  requireOptionalString(contract.description, "description");
+  validateOperationalRuntimeText(requireString(contract.name, "name"), "name");
+  validateOptionalOperationalRuntimeText(
+    requireOptionalString(contract.description, "description"),
+    "description"
+  );
 
   if (scenario != null && scenarioId !== scenario.scenarioId) {
     throw new Error("nurseTaskAssignment.scenarioId must match the referenced scenario");
@@ -2493,7 +2534,7 @@ function validateRequiredReportLimitations(limitations: string[]): void {
 }
 
 function validateReportText(value: unknown, label: string): string {
-  const text = requireString(value, label);
+  const text = validateOperationalRuntimeText(requireString(value, label), label);
   const lowerText = text.toLowerCase();
   const forbiddenPhrases = [
     "safe staffing",
@@ -3068,6 +3109,7 @@ function validateOperationalText(value: unknown, label: string): string | null |
   if (text == null) {
     return text;
   }
+  validateOperationalRuntimeText(text, label);
   const lowerText = text.toLowerCase();
   const forbiddenPhrases = [
     "diagnosis",
@@ -3271,7 +3313,10 @@ function validateRoom(value: unknown, index: number): Room {
     "pathNodeId"
   ]);
   requireString(room.id, `rooms[${index}].id`);
-  requireString(room.label, `rooms[${index}].label`);
+  validateOperationalRuntimeText(
+    requireString(room.label, `rooms[${index}].label`),
+    `rooms[${index}].label`
+  );
   requireEnum(room.roomType, ROOM_TYPES, `rooms[${index}].roomType`);
   requireNumber(room.x, `rooms[${index}].x`);
   requireNumber(room.y, `rooms[${index}].y`);
@@ -3293,7 +3338,10 @@ function validateHallway(value: unknown, index: number): Hallway {
   const hallway = requireRecord(value, `hallways[${index}]`);
   requireExactKeys(hallway, `hallways[${index}]`, ["id", "label", "widthFeet", "points"]);
   requireString(hallway.id, `hallways[${index}].id`);
-  requireString(hallway.label, `hallways[${index}].label`);
+  validateOperationalRuntimeText(
+    requireString(hallway.label, `hallways[${index}].label`),
+    `hallways[${index}].label`
+  );
   requirePositiveNumber(hallway.widthFeet, `hallways[${index}].widthFeet`);
   const points = requireArray(hallway.points, `hallways[${index}].points`);
   if (points.length < 2) {
@@ -3317,7 +3365,10 @@ function validateDoor(value: unknown, index: number): Door {
     "pathNodeId"
   ]);
   requireString(door.id, `doors[${index}].id`);
-  requireString(door.label, `doors[${index}].label`);
+  validateOperationalRuntimeText(
+    requireString(door.label, `doors[${index}].label`),
+    `doors[${index}].label`
+  );
   requireString(door.roomId, `doors[${index}].roomId`);
   requireNumber(door.x, `doors[${index}].x`);
   requireNumber(door.y, `doors[${index}].y`);
@@ -3339,7 +3390,10 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
     "pathNodeId"
   ]);
   requireString(station.id, `nurseStations[${index}].id`);
-  requireString(station.label, `nurseStations[${index}].label`);
+  validateOperationalRuntimeText(
+    requireString(station.label, `nurseStations[${index}].label`),
+    `nurseStations[${index}].label`
+  );
   requireEnum(station.stationType, STATION_TYPES, `nurseStations[${index}].stationType`);
   requireNumber(station.x, `nurseStations[${index}].x`);
   requireNumber(station.y, `nurseStations[${index}].y`);
@@ -3364,7 +3418,10 @@ function validateZone(value: unknown, index: number): Zone {
     "travelPenalty"
   ]);
   requireString(zone.id, `zones[${index}].id`);
-  requireString(zone.label, `zones[${index}].label`);
+  validateOperationalRuntimeText(
+    requireString(zone.label, `zones[${index}].label`),
+    `zones[${index}].label`
+  );
   requireEnum(zone.zoneType, ZONE_TYPES, `zones[${index}].zoneType`);
   const color = requireString(zone.color, `zones[${index}].color`);
   if (!/^#[0-9a-fA-F]{6}$/.test(color)) {
@@ -3575,7 +3632,10 @@ function validateNurse(value: unknown, index: number): Nurse {
     "breakWindows"
   ]);
   const nurseId = requireString(nurse.id, `nurses[${index}].id`);
-  requireString(nurse.name, `nurses[${index}].name`);
+  validateOperationalRuntimeText(
+    requireString(nurse.name, `nurses[${index}].name`),
+    `nurses[${index}].name`
+  );
   const color = requireString(nurse.color, `nurses[${index}].color`);
   if (!/^#[0-9a-fA-F]{6}$/.test(color)) {
     throw new Error(`nurses[${index}].color must be a hex color`);

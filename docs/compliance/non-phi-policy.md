@@ -38,4 +38,12 @@ This repository must not store, generate, import, or display PHI.
 - Integrity hashes or audit trails presented as tamper-proof security, legal compliance, chain-of-custody, non-repudiation, clinical safety certification, or reviewer/user identity proof.
 - Plan-builder defaults or generated plan previews that include PHI, patient identity, diagnosis text, clinical notes, EHR imports, optimizer output, or recommendations.
 
+## Runtime Text Guard
+
+Operational labels may use synthetic terms such as Room 14, Nurse Blue, Door Room 14, Station Alpha, and Zone Fast Track.
+
+Runtime contract validation must reject obvious identity-like labels, record identifier wording, diagnosis or clinical-note wording, and clinical safety or recommendation wording. Runtime rejection messages must use deterministic categories and must not echo the rejected value in full.
+
+This guard complements the static scanner. It is not a HIPAA certification, does not detect every possible human name, and does not permit PHI.
+
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

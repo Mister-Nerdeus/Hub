@@ -100,6 +100,6 @@ test("buildScenarioComparison rejects recommendation language", () => {
         baselineReportId: "operational-summary-generated-task-set-basic",
         reports
       }),
-    /operational inspection summary/
+    /NO_PHI_RUNTIME_REJECTION/
   );
 });

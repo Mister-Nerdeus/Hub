@@ -1,0 +1,5 @@
+npm --workspace packages/shared run build; node <runtime-text-first-failure-probe>; python <runtime-text-first-failure-probe>
+npm --workspace packages/shared test *> docs/verification/issues/issue-189/test-output/shared.txt
+cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-189/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-189/test-output/no-phi.txt
+Set-Content docs/verification/issues/issue-189/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-189/test-output/docs-gate.txt -Append

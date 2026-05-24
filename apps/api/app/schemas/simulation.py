@@ -3,7 +3,7 @@ from typing import Any, Literal
 
 from pydantic import Field, model_validator
 
-from app.contracts import StrictModel
+from app.contracts import StrictModel, validate_runtime_operational_text
 
 
 PHI_LIKE_KEYS = {
@@ -357,6 +357,7 @@ def reject_forbidden_text(value: Any) -> None:
             reject_forbidden_text(child)
         return
     if isinstance(value, str):
+        validate_runtime_operational_text(value, "simulation text")
         for name, pattern in FORBIDDEN_TEXT_PATTERNS:
             if pattern.search(value):
                 raise ValueError(f"{name} language is not allowed")

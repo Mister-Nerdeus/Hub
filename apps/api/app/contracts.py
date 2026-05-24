@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator, model_validator
@@ -108,7 +109,12 @@ SAFE_INTEGER_MAX = 9007199254740991
 
 
 class StrictModel(BaseModel):
-    model_config = ConfigDict(extra="forbid", allow_inf_nan=False, strict=True)
+    model_config = ConfigDict(
+        extra="forbid",
+        allow_inf_nan=False,
+        strict=True,
+        hide_input_in_errors=True,
+    )
 
 
 class ScaleSettings(StrictModel):
@@ -140,12 +146,22 @@ class Room(StrictModel):
     nearestStationId: str | None = None
     pathNodeId: str | None = None
 
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "room.label")
+
 
 class Hallway(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
     widthFeet: float = Field(gt=0)
     points: list[Point] = Field(min_length=2)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "hallway.label")
 
 
 class Door(StrictModel):
@@ -157,6 +173,11 @@ class Door(StrictModel):
     widthFeet: float = Field(gt=0)
     pathNodeId: str | None = None
 
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "door.label")
+
 
 class NurseStation(StrictModel):
     id: str = Field(min_length=1)
@@ -167,6 +188,11 @@ class NurseStation(StrictModel):
     widthFeet: float = Field(gt=0)
     lengthFeet: float = Field(gt=0)
     pathNodeId: str = Field(min_length=1)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "nurseStation.label")
 
 
 class Zone(StrictModel):
@@ -180,6 +206,11 @@ class Zone(StrictModel):
     lengthFeet: float = Field(gt=0)
     travelBlocked: bool
     travelPenalty: float | None = Field(default=None, ge=0)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "zone.label")
 
 
 class PathNode(StrictModel):
@@ -217,6 +248,16 @@ class PlanContract(StrictModel):
     zones: list[Zone]
     pathNodes: list[PathNode]
     pathEdges: list[PathEdge]
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @field_validator("createdAt", "updatedAt")
     @classmethod
@@ -325,6 +366,16 @@ class PlanSetupDefaults(StrictModel):
     originX: float
     originY: float
 
+    @field_validator("planName")
+    @classmethod
+    def validate_plan_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "planSetup.planName")
+
+    @field_validator("planDescription")
+    @classmethod
+    def validate_plan_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "planSetup.planDescription")
+
 
 class RoomGenerationDefaults(StrictModel):
     roomCount: int = Field(gt=0)
@@ -339,6 +390,11 @@ class RoomGenerationDefaults(StrictModel):
     defaultIsolationCapable: bool
     startX: float
     startY: float
+
+    @field_validator("roomLabelPrefix")
+    @classmethod
+    def validate_room_label_prefix(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "roomDefaults.roomLabelPrefix")
 
     @model_validator(mode="after")
     def validate_room_rows(self) -> "RoomGenerationDefaults":
@@ -412,6 +468,11 @@ class ZoneGenerationDefaults(StrictModel):
     defaultZoneTravelBlocked: bool
     defaultZoneTravelPenalty: float | None = Field(default=None, ge=0)
 
+    @field_validator("defaultZoneLabel")
+    @classmethod
+    def validate_default_zone_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "zoneDefaults.defaultZoneLabel") if value else value
+
     @model_validator(mode="after")
     def validate_zone_label(self) -> "ZoneGenerationDefaults":
         if self.createDefaultZone and len(self.defaultZoneLabel) == 0:
@@ -433,6 +494,16 @@ class PlanBuilderDefaultsContract(StrictModel):
     nurseStationDefaults: NurseStationGenerationDefaults
     pathGraphDefaults: PathGraphGenerationDefaults
     zoneDefaults: ZoneGenerationDefaults
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @field_validator("createdAt", "updatedAt")
     @classmethod
@@ -568,6 +639,16 @@ class AssumptionsRegisterContract(StrictModel):
             raise ValueError("timestamp must be ISO-compatible") from exc
         return value
 
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
+
 
 class CareTaskTemplate(StrictModel):
     id: str = Field(min_length=1)
@@ -584,18 +665,7 @@ class CareTaskTemplate(StrictModel):
     @field_validator("label", "description")
     @classmethod
     def validate_operational_text(cls, value: str | None) -> str | None:
-        if value is None:
-            return value
-        forbidden_phrases = [
-            "diagnosis",
-            "clinical note",
-            "clinical order",
-            "treatment plan",
-            "real identity",
-        ]
-        if any(phrase in value.lower() for phrase in forbidden_phrases):
-            raise ValueError("task template text must remain operational-only")
-        return value
+        return validate_optional_runtime_operational_text(value, "task template text")
 
     @model_validator(mode="after")
     def validate_frequency_source(self) -> "CareTaskTemplate":
@@ -614,10 +684,15 @@ class TaskTemplateContract(StrictModel):
     description: str | None = None
     taskTemplates: list[CareTaskTemplate]
 
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
     @field_validator("description")
     @classmethod
     def validate_description(cls, value: str | None) -> str | None:
-        return CareTaskTemplate.validate_operational_text(value)
+        return validate_optional_runtime_operational_text(value, "description")
 
     @model_validator(mode="after")
     def validate_template_ids(self) -> "TaskTemplateContract":
@@ -649,6 +724,16 @@ class DayProfileContract(StrictModel):
     description: str | None = None
     shiftLengthMinutes: int = Field(gt=0)
     segments: list[DayProfileSegment] = Field(min_length=1)
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @model_validator(mode="after")
     def validate_segments(self) -> "DayProfileContract":
@@ -682,6 +767,16 @@ class ScenarioContract(StrictModel):
     timestepMinutes: int = Field(gt=0)
     seed: int = Field(ge=0, le=SAFE_INTEGER_MAX)
     roomLoads: list[RoomLoad]
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @model_validator(mode="after")
     def validate_timestep(self) -> "ScenarioContract":
@@ -721,6 +816,11 @@ class Nurse(StrictModel):
     shiftStartMinute: int = Field(ge=0)
     shiftEndMinute: int = Field(ge=0)
     breakWindows: list[BreakWindow]
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "nurse.name")
 
     @model_validator(mode="after")
     def validate_nurse(self) -> "Nurse":
@@ -765,6 +865,16 @@ class ManualAssignmentContract(StrictModel):
     description: str | None = None
     nurses: list[Nurse]
     assignments: list[Assignment]
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @model_validator(mode="after")
     def validate_assignment_set(self) -> "ManualAssignmentContract":
@@ -843,6 +953,16 @@ class NurseTaskAssignmentContract(StrictModel):
     name: str = Field(min_length=1)
     description: str | None = None
     taskAssignments: list[NurseTaskAssignment]
+
+    @field_validator("name")
+    @classmethod
+    def validate_name(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "name")
+
+    @field_validator("description")
+    @classmethod
+    def validate_description(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "description")
 
     @model_validator(mode="after")
     def validate_assignment_set(self) -> "NurseTaskAssignmentContract":
@@ -1691,7 +1811,44 @@ def validate_report_against_warnings(
             raise ValueError("report nurse warning count must match supplied warnings")
 
 
+NO_PHI_RUNTIME_REJECTION_CODE = "NO_PHI_RUNTIME_REJECTION"
+
+
+RUNTIME_TEXT_RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
+    (
+        "record identifier language",
+        re.compile(r"\b(?:m\s*r\s*n|medical record|record number|chart number|visit id|date of birth)\b", re.IGNORECASE),
+    ),
+    (
+        "identity-like placeholder name",
+        re.compile(r"\b(?:john|jane)\s+(?:smith|doe)\b", re.IGNORECASE),
+    ),
+    (
+        "clinical-note or diagnosis language",
+        re.compile(r"\b(?:diagnosis|chief complaint|clinical note|treatment plan|chest pain|patient identity|patient name)\b", re.IGNORECASE),
+    ),
+    (
+        "clinical safety or recommendation language",
+        re.compile(r"\b(?:clinically safe|safe staffing|safety certification|certified safe|recommended|should choose|best scenario)\b", re.IGNORECASE),
+    ),
+)
+
+
+def validate_runtime_operational_text(value: str, label: str) -> str:
+    for reason, pattern in RUNTIME_TEXT_RULES:
+        if pattern.search(value):
+            raise ValueError(f"{NO_PHI_RUNTIME_REJECTION_CODE}: {label} rejected for {reason}")
+    return value
+
+
+def validate_optional_runtime_operational_text(value: str | None, label: str) -> str | None:
+    if value is None:
+        return value
+    return validate_runtime_operational_text(value, label)
+
+
 def validate_report_text(value: str, label: str) -> str:
+    validate_runtime_operational_text(value, label)
     lower_value = value.lower()
     forbidden_phrases = [
         "safe staffing",

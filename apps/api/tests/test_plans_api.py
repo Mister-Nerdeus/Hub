@@ -174,6 +174,29 @@ def test_unknown_layout_field_is_rejected(client: TestClient) -> None:
     assert response.status_code == 422
 
 
+def test_runtime_no_phi_rejection_does_not_echo_room_label(client: TestClient) -> None:
+    request = plan_request()
+    rejected_label = "John" + " " + "Smith"
+    request["layout"]["rooms"][0]["label"] = rejected_label
+
+    response = client.post("/v1/plans", json=request)
+
+    assert response.status_code == 422
+    assert "NO_PHI_RUNTIME_REJECTION" in response.text
+    assert rejected_label not in response.text
+
+
+def test_runtime_no_phi_rejection_does_not_echo_plan_description(client: TestClient) -> None:
+    request = plan_request(description="M" + "RN 12345")
+    request["layout"]["description"] = request["description"]
+
+    response = client.post("/v1/plans", json=request)
+
+    assert response.status_code == 422
+    assert "NO_PHI_RUNTIME_REJECTION" in response.text
+    assert request["description"] not in response.text
+
+
 def test_overlong_description_is_rejected_before_db_write(client: TestClient) -> None:
     response = client.post(
         "/v1/plans",
