@@ -7,6 +7,8 @@ import { ScenarioComparisonProof } from "./features/comparison/ScenarioCompariso
 import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
 import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
 import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
+import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
+import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
 import { OptimizerProof } from "./features/optimization/OptimizerProof";
@@ -61,6 +63,7 @@ export function App() {
   const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
+  const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
   const [draftPlan, dispatchDraft] = useReducer(
     planDraftReducer,
     planErPodPhase2 as PlanContract
@@ -113,6 +116,7 @@ export function App() {
         </div>
       </section>
 
+      <FloorplanLibrary viewModel={floorplanLibraryViewModel} />
       <LayoutEditorStage />
       <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
       <ManualAssignmentProof viewModel={manualAssignmentViewModel} />

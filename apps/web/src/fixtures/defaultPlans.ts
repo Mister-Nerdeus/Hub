@@ -42,6 +42,8 @@ export const defaultPlanFixtures: DefaultSavedPlanFixtureContract[] = [
   defaultErLayoutPlan5
 ] as DefaultSavedPlanFixtureContract[];
 
+export const defaultFloorplanLibraryFixtures: DefaultSavedPlanFixtureContract[] = defaultPlanFixtures;
+
 export const defaultPlanRenderProofPlans: PlanContract[] = defaultPlanFixtures.map(
   (fixture) => fixture.plan
 );

@@ -1,31 +1,60 @@
 # Issue 219 Closeout
 
 ## Summary
-Default Plan Path Edge Coverage and Connectivity Audit is complete within the batch boundaries. The work remains limited to default-plan import repair, path graph readiness, route preview, walking baseline fixtures, metadata annotation, and audit evidence.
+
+Added the JSON Floorplan Library V1 surface. The library view model lists the five converted JSON default floorplans, marks each as read-only, exposes import and mapping status, and omits DOCX filenames, paths, preview links, and download links.
 
 ## Files Changed
-See repository diff for the scoped source, fixture, docs, and evidence files for this issue. No PHI, EHR integration, assignment scoring, optimizer candidate generation, simulation reruns, database seeding, or production deployment was added.
+
+- `apps/web/src/features/floorplans/FloorplanLibrary.tsx`
+- `apps/web/src/features/floorplans/floorplanLibraryViewModel.ts`
+- `apps/web/src/features/floorplans/floorplanLibraryViewModel.test.ts`
+- `apps/web/src/fixtures/defaultPlans.ts`
+- `apps/web/src/App.tsx`
+- `apps/web/src/styles.css`
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `docs/verification/issues/issue-219/*`
 
 ## Commands Run
-Commands are listed in commands.txt and mapped in command-output-map.json.
+
+- `npm --workspace apps/web test`
+- `npm --workspace apps/web run build`
+- `node scripts/check-docs-contracts.mjs`
 
 ## Tests Passed/Failed
-Required local gates are captured in test-output artifacts. Passing gates are reflected in the final docs gate and verifier outputs.
+
+- Passed: `npm --workspace apps/web test` (60 web test files).
+- Passed: `npm --workspace apps/web run build`.
+- Passed: `node scripts/check-docs-contracts.mjs`.
+- Failed final gates: none. An initial local web test iteration exposed that Node built-in types are not included in the web test TypeScript config; fixed with local test type suppression and reran successfully.
 
 ## Evidence
-Issue evidence artifacts are present in this directory and indexed in docs/verification/ISSUE_EVIDENCE_INDEX.json.
 
-## TypeScript/Python Parity Confirmation
-Contracts changed in TypeScript shared code only. No Python API or persistence contract mirrors were changed in this batch.
+- `first-failure.txt`
+- `floorplan-library-output.json`
+- `no-docx-exposure-output.json`
+- `default-json-plan-list-output.json`
+- `command-output-map.json`
+- `test-output/web.txt`
+- `test-output/web-build.txt`
+- `test-output/docs-gate.txt`
 
 ## Non-PHI Confirmation
-The non-PHI scanner remains part of the captured gates where required. New fixtures and docs use operational-only default layout and path graph terms.
+
+No PHI fields, EHR integration, clinical safety claims, legal compliance claims, or exact-CAD claims were introduced.
+
+## DOCX Privacy Confirmation
+
+The floorplan library lists JSON floorplan records only. It does not expose DOCX source filenames, paths, preview links, download links, or source document payloads.
 
 ## Non-Claims
-This issue does not claim measured walking truth, exact source DOCX geometry, clinical correctness, safety certification, EHR support, assignment scoring, optimizer behavior, database seeding, or production deployment.
+
+This issue does not open DOCX files, duplicate plans, add saved editable storage, add route or walking-truth logic, or change assignment/scoring/simulation behavior.
 
 ## Known Limitations
-Known limitations are documented in the issue-specific gaps artifact when applicable. Path edges remain approximate fixture graph edges.
+
+The library is read-only for default JSON floorplans. Open, duplicate, save, and edit workflows are deferred to later issues in the batch.
 
 ## Next Recommended Issue
-220.
+
+Issue 220: Open Default JSON Floorplan Workflow.
