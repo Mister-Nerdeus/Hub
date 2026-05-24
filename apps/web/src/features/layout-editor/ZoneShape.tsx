@@ -1,13 +1,15 @@
 import type { ZoneShapeViewModel } from "./hallwayZoneShapeViewModel";
+import { selectedClassName } from "./layoutSelectionHighlight";
 
 type ZoneShapeProps = {
   viewModel: ZoneShapeViewModel;
+  isSelected?: boolean;
 };
 
-export function ZoneShape({ viewModel }: ZoneShapeProps) {
+export function ZoneShape({ viewModel, isSelected = false }: ZoneShapeProps) {
   return (
     <g
-      className={`layout-editor-stage__zone layout-editor-stage__zone--${viewModel.zoneType}`}
+      className={`${selectedClassName("layout-editor-stage__zone", isSelected)} layout-editor-stage__zone--${viewModel.zoneType}`}
       data-hit-target-key={viewModel.hitTargetKey}
       data-zone-type={viewModel.zoneType}
       role="img"

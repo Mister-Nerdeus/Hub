@@ -188,6 +188,8 @@ Issue 152 renders read-only door SVG shapes attached to room or hallway owner wa
 
 Issue 153 renders read-only station/desk SVG shapes from editable station geometry through the shared render pipeline, including visible station labels and station type accessibility metadata. No station editing, dragging, resizing, path sync, save/load, or simulation rerun behavior is added.
 
+Issue 154 adds display-only selected styling for room, door, station, hallway, and zone shapes from existing editor selection state. It does not add click selection, drag/drop, resizing, inspector editing, path sync, save/load, or simulation rerun behavior.
+
 Hardening pause: Issues 097-106 must complete before new feature expansion. This pause covers audit indexing, TypeScript/Python contract parity, missed-task semantics, queue pause/resume deferral, optimizer candidate constraints, assignment source truth, persistence read hardening, captured command-output gates, issue-level evidence indexing, and determinism cleanup.
 
 Issue 098 establishes shared TypeScript/Python simulation contract parity fixtures before later hardening changes expand simulation semantics.

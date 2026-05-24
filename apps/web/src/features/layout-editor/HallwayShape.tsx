@@ -1,13 +1,15 @@
 import type { HallwayShapeViewModel } from "./hallwayZoneShapeViewModel";
+import { selectedClassName } from "./layoutSelectionHighlight";
 
 type HallwayShapeProps = {
   viewModel: HallwayShapeViewModel;
+  isSelected?: boolean;
 };
 
-export function HallwayShape({ viewModel }: HallwayShapeProps) {
+export function HallwayShape({ viewModel, isSelected = false }: HallwayShapeProps) {
   return (
     <g
-      className="layout-editor-stage__hallway"
+      className={selectedClassName("layout-editor-stage__hallway", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       role="img"
       aria-label={viewModel.ariaLabel}

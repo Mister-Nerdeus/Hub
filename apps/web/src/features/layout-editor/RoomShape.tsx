@@ -1,13 +1,15 @@
 import type { RoomShapeViewModel } from "./roomShapeViewModel";
+import { selectedClassName } from "./layoutSelectionHighlight";
 
 type RoomShapeProps = {
   viewModel: RoomShapeViewModel;
+  isSelected?: boolean;
 };
 
-export function RoomShape({ viewModel }: RoomShapeProps) {
+export function RoomShape({ viewModel, isSelected = false }: RoomShapeProps) {
   return (
     <g
-      className="layout-editor-stage__room"
+      className={selectedClassName("layout-editor-stage__room", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       data-room-type={viewModel.roomType}
       role="img"

@@ -1,13 +1,15 @@
 import type { StationShapeViewModel } from "./stationShapeViewModel";
+import { selectedClassName } from "./layoutSelectionHighlight";
 
 type StationShapeProps = {
   viewModel: StationShapeViewModel;
+  isSelected?: boolean;
 };
 
-export function StationShape({ viewModel }: StationShapeProps) {
+export function StationShape({ viewModel, isSelected = false }: StationShapeProps) {
   return (
     <g
-      className="layout-editor-stage__station"
+      className={selectedClassName("layout-editor-stage__station", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       data-station-type={viewModel.stationType}
       role="img"

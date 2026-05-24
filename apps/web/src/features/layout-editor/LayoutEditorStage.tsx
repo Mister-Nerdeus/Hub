@@ -13,6 +13,7 @@ import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
+import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import { RoomShape } from "./RoomShape";
@@ -128,12 +129,24 @@ export function LayoutEditorStage() {
                 <HallwayShape
                   key={item.hitTargetKey}
                   viewModel={buildHallwayShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
                 />
               ))}
               {zoneItems.map((item) => (
                 <ZoneShape
                   key={item.hitTargetKey}
                   viewModel={buildZoneShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
                 />
               ))}
             </g>
@@ -180,6 +193,12 @@ export function LayoutEditorStage() {
                 <RoomShape
                   key={item.hitTargetKey}
                   viewModel={buildRoomShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
                 />
               ))}
             </g>
@@ -188,6 +207,12 @@ export function LayoutEditorStage() {
                 <DoorShape
                   key={item.hitTargetKey}
                   viewModel={buildDoorShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
                 />
               ))}
             </g>
@@ -196,6 +221,12 @@ export function LayoutEditorStage() {
                 <StationShape
                   key={item.hitTargetKey}
                   viewModel={buildStationShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
                 />
               ))}
             </g>
