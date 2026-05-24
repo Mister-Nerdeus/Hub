@@ -1842,6 +1842,48 @@
         "docs/verification/issues/issue-226/test-output/web.txt",
         "docs/verification/issues/issue-226/test-output/web-build.txt"
       ]
+    },
+    {
+      "issue": "227",
+      "title": "Private DOCX Exposure Removal and Private Source Boundary Hard Stop",
+      "requiredEvidence": [
+        "docs/contracts/default-saved-plan-import-contract.md",
+        "docs/project/default-plan-import-status.md",
+        "docs/verification/issues/issue-227/closeout.md",
+        "docs/verification/issues/issue-227/commands.txt",
+        "docs/verification/issues/issue-227/command-output-map.json",
+        "docs/verification/issues/issue-227/first-failure.txt",
+        "docs/verification/issues/issue-227/private-source-boundary-output.json",
+        "docs/verification/issues/issue-227/docx-public-repo-negative-output.txt",
+        "docs/verification/issues/issue-227/json-floorplan-only-output.json",
+        "docs/verification/issues/issue-227/api-serving-negative-output.json",
+        "docs/verification/issues/issue-227/web-serving-negative-output.json",
+        "docs/verification/issues/issue-227/web-serving-negative-output.txt",
+        "docs/verification/issues/issue-227/manifest-private-artifact-output.json",
+        "docs/verification/issues/issue-227/known-gaps.md",
+        "docs/verification/issues/issue-227/follow-up-issues.md",
+        "docs/verification/issues/issue-227/test-output/shared.txt",
+        "docs/verification/issues/issue-227/test-output/no-phi.txt",
+        "docs/verification/issues/issue-227/test-output/private-source-gate.txt",
+        "docs/verification/issues/issue-227/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "issue": "228",
+      "title": "Application Shell and Developer/Evidence Mode Separation",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-228/closeout.md",
+        "docs/verification/issues/issue-228/commands.txt",
+        "docs/verification/issues/issue-228/command-output-map.json",
+        "docs/verification/issues/issue-228/first-failure.txt",
+        "docs/verification/issues/issue-228/app-shell-output.json",
+        "docs/verification/issues/issue-228/developer-evidence-mode-output.json",
+        "docs/verification/issues/issue-228/proof-wall-negative-output.json",
+        "docs/verification/issues/issue-228/navigation-contract-output.json",
+        "docs/verification/issues/issue-228/test-output/web.txt",
+        "docs/verification/issues/issue-228/test-output/web-build.txt",
+        "docs/verification/issues/issue-228/test-output/docs-gate.txt"
+      ]
     }
   ]
 }

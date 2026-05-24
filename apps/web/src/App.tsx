@@ -1,18 +1,4 @@
-import { useEffect, useReducer, useRef, useState } from "react";
-import type { PlanContract } from "@nerdeus/shared";
-
-import { BundleAuditProof } from "./features/bundle-audit/BundleAuditProof";
-import { createBundleAuditProofViewModel } from "./features/bundle-audit/bundleAuditViewModel";
-import { ScenarioComparisonProof } from "./features/comparison/ScenarioComparisonProof";
-import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
-import { DeveloperProofMode } from "./features/developer/DeveloperProofMode";
-import {
-  createDeveloperProofModeState,
-  createDeveloperProofModeViewModel,
-  toggleDeveloperProofMode
-} from "./features/developer/developerProofModeState";
-import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
-import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
+import { useEffect, useRef, useState } from "react";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   createActiveFloorplanSummaryViewModel,
@@ -28,120 +14,50 @@ import {
   type SavedFloorplanRecord,
   type SavedFloorplanStore
 } from "./features/floorplans/savedFloorplanStore";
-import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
-import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
-import { OptimizerProof } from "./features/optimization/OptimizerProof";
-import { createOptimizerProofViewModel } from "./features/optimization/optimizerProofViewModel";
-import { GeneratedPlanPreview } from "./features/plan-builder/GeneratedPlanPreview";
-import {
-  applyGeneratedPlanPreview,
-  createGeneratedPlanPreviewViewModel,
-  type GeneratedPlanPreviewViewModel
-} from "./features/plan-builder/generatedPlanPreviewViewModel";
-import { PlanBuilderDefaultsForm } from "./features/plan-builder/PlanBuilderDefaultsForm";
-import {
-  buildDefaults,
-  createDefaultPlanBuilderDefaultsFormState,
-  planBuilderDefaultsFormStateToContract,
-  updatePlanBuilderDefaultsFormState,
-  type PlanBuilderDefaultsFormState
-} from "./features/plan-builder/planBuilderDefaultsFormState";
-import { PlanDraftPanel } from "./features/plan-builder/PlanDraftPanel";
-import { planDraftReducer } from "./features/plan-builder/planDraftReducer";
-import { PlanRenderer } from "./features/plan-renderer/PlanRenderer";
-import { PlanImportExportPanel } from "./features/plans/PlanImportExportPanel";
-import { PlanSaveLoadPanel } from "./features/plans/PlanSaveLoadPanel";
-import { OperationalReportsProof } from "./features/reports/OperationalReportsProof";
-import { createReportProofViewModel } from "./features/reports/reportProofViewModel";
-import { OperationalOutcomeDashboardProof } from "./features/outcomes/OperationalOutcomeDashboardProof";
-import { createOperationalOutcomeDashboardViewModel } from "./features/outcomes/operationalOutcomeDashboardViewModel";
-import { RoutePreviewProof } from "./features/route-preview/RoutePreviewProof";
-import { createRoutePreviewProofViewModel } from "./features/route-preview/routePreviewProofViewModel";
-import { SimulationTimelineProof } from "./features/simulation/SimulationTimelineProof";
-import { createSimulationTimelineViewModel } from "./features/simulation/simulationTimelineViewModel";
-import { SimulationRunRetrievalProof } from "./features/simulation/SimulationRunRetrievalProof";
 import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
+import { AppShell } from "./features/app-shell/AppShell";
 import {
-  manualAssignmentBasic,
-  manualAssignmentRoomLoads
-} from "./fixtures/manualAssignmentBasic";
-import { planErPodPhase2 } from "./fixtures/planErPodPhase2";
+  APP_SECTIONS,
+  DEFAULT_APP_SECTION_ID,
+  DEVELOPER_EVIDENCE_SECTION_ID,
+  type AppSectionId
+} from "./features/app-shell/appNavigation";
+import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 
-export function App() {
+import "./styles.css";
+
+type AppProps = {
+  initialSection?: AppSectionId;
+};
+
+export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8010";
-  const manualAssignmentViewModel = createManualAssignmentViewModel(
-    planErPodPhase2,
-    manualAssignmentRoomLoads,
-    manualAssignmentBasic
-  );
-  const reportProofViewModel = createReportProofViewModel();
-  const scenarioComparisonProofViewModel = createScenarioComparisonProofViewModel();
-  const exportBundleReviewViewModel = createExportBundleReviewViewModel();
-  const bundleAuditProofViewModel = createBundleAuditProofViewModel();
-  const simulationTimelineViewModel = createSimulationTimelineViewModel();
-  const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
-  const routePreviewProofViewModel = createRoutePreviewProofViewModel();
-  const optimizerProofViewModel = createOptimizerProofViewModel();
+  const [activeSection, setActiveSection] = useState(initialSection);
+
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
   if (savedFloorplanStoreRef.current == null) {
     savedFloorplanStoreRef.current = createSavedFloorplanStore();
   }
   const savedFloorplanStore = savedFloorplanStoreRef.current;
   const [savedFloorplans, setSavedFloorplans] = useState<SavedFloorplanRecord[]>([]);
-  const floorplanLibraryViewModel = createFloorplanLibraryViewModel(
-    undefined,
-    savedFloorplans
-  );
-  const [developerProofModeState, setDeveloperProofModeState] = useState(
-    createDeveloperProofModeState
-  );
-  const developerProofModeViewModel =
-    createDeveloperProofModeViewModel(developerProofModeState);
-  const [activeFloorplanState, setActiveFloorplanState] = useState(
-    createEmptyActiveFloorplanState
-  );
+  const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
+
+  const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
-  const [draftPlan, dispatchDraft] = useReducer(
-    planDraftReducer,
-    planErPodPhase2 as PlanContract
-  );
-  const [defaultsFormState, setDefaultsFormState] = useState(
-    createDefaultPlanBuilderDefaultsFormState
-  );
-  const [generatedPreview, setGeneratedPreview] = useState<GeneratedPlanPreviewViewModel | null>(null);
-  const defaultsResult = planBuilderDefaultsFormStateToContract(defaultsFormState);
-  const validationError = defaultsResult.ok ? null : defaultsResult.error;
 
-  function updateDefaultsField<K extends keyof PlanBuilderDefaultsFormState>(
-    key: K,
-    value: PlanBuilderDefaultsFormState[K]
-  ) {
-    setDefaultsFormState((state) => updatePlanBuilderDefaultsFormState(state, key, value));
-    setGeneratedPreview(null);
+  function openDefault(planId: string) {
+    setActiveFloorplanState((state) => openDefaultFloorplan(state, planId));
   }
 
-  function generatePreview() {
-    setGeneratedPreview(createGeneratedPlanPreviewViewModel(buildDefaults(defaultsFormState)));
-  }
-
-  function applyPreview() {
-    if (generatedPreview == null) {
-      return;
-    }
-    applyGeneratedPlanPreview(generatedPreview, (plan) =>
-      dispatchDraft({ type: "replacePlan", plan })
-    );
-  }
-
-  function duplicateDefaultFloorplan(planId: string) {
+  function duplicateDefault(planId: string) {
     const duplicate = createDuplicateFloorplanViewModel(planId).copy;
     const saved = savedFloorplanStore.save(duplicate);
     setSavedFloorplans(savedFloorplanStore.list());
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
   }
 
-  function openSavedJsonFloorplan(recordId: string) {
+  function openSaved(recordId: string) {
     const saved = savedFloorplanStore.load(recordId);
     if (saved == null) {
       return;
@@ -149,7 +65,7 @@ export function App() {
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
   }
 
-  function deleteSavedJsonFloorplan(recordId: string) {
+  function deleteSaved(recordId: string) {
     savedFloorplanStore.delete(recordId);
     setSavedFloorplans(savedFloorplanStore.list());
     setActiveFloorplanState((state) =>
@@ -158,74 +74,87 @@ export function App() {
   }
 
   useEffect(() => {
-    if (window.location.hash.length > 1) {
-      const targetId = decodeURIComponent(window.location.hash.slice(1));
-      document.getElementById(targetId)?.scrollIntoView();
+    if (typeof window === "undefined" || window.location.hash.length <= 1) {
+      return;
     }
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    document.getElementById(targetId)?.scrollIntoView();
   }, []);
 
   return (
-    <main className="app-shell">
-      <section className="workspace-header" aria-labelledby="page-title">
-        <div>
-          <p className="eyebrow">Operational simulation workspace</p>
-          <h1 id="page-title">Nerdeus ER Pod Shift Simulator</h1>
-        </div>
-      </section>
+    <AppShell
+      activeSection={activeSection}
+      sections={APP_SECTIONS}
+      onSectionChange={(section) => setActiveSection(section)}
+    >
+      {activeSection === "floorplans" ? (
+        <section className="workflow-section" aria-labelledby="floorplans-title">
+          <h2 id="floorplans-title">Floorplans</h2>
+          <FloorplanLibrary
+            viewModel={floorplanLibraryViewModel}
+            onOpenDefaultPlan={openDefault}
+            onDuplicateDefaultPlan={duplicateDefault}
+            onOpenSavedPlan={openSaved}
+            onDeleteSavedPlan={deleteSaved}
+          />
+          <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
+        </section>
+      ) : null}
 
-      <FloorplanLibrary
-        viewModel={floorplanLibraryViewModel}
-        onOpenDefaultPlan={(planId) =>
-          setActiveFloorplanState((state) => openDefaultFloorplan(state, planId))
-        }
-        onDuplicateDefaultPlan={duplicateDefaultFloorplan}
-        onOpenSavedPlan={openSavedJsonFloorplan}
-        onDeleteSavedPlan={deleteSavedJsonFloorplan}
-      />
-      <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
-      <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />
-      <DeveloperProofMode
-        viewModel={developerProofModeViewModel}
-        onToggle={() =>
-          setDeveloperProofModeState((state) => toggleDeveloperProofMode(state))
-        }
-      >
-        <div className="api-pill" aria-label="Configured API base URL">
-          <span>API</span>
-          <strong>{apiBaseUrl}</strong>
-        </div>
-        <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
-        <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
-        <OperationalReportsProof viewModel={reportProofViewModel} />
-        <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />
-        <RoutePreviewProof initialViewModel={routePreviewProofViewModel} />
-        <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
-        <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
-        <BundleAuditProof viewModel={bundleAuditProofViewModel} />
-        <SimulationTimelineProof viewModel={simulationTimelineViewModel} />
-        <OptimizerProof viewModel={optimizerProofViewModel} />
-        <PlanBuilderDefaultsForm
-          state={defaultsFormState}
-          validationError={validationError}
-          onChange={updateDefaultsField}
-        />
-        <GeneratedPlanPreview
-          preview={generatedPreview}
-          onGenerate={generatePreview}
-          onApply={applyPreview}
-        />
-        <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
-        <PlanSaveLoadPanel
-          apiBaseUrl={apiBaseUrl}
-          draftPlan={draftPlan}
-          onLoadPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
-        />
-        <PlanImportExportPanel
-          draftPlan={draftPlan}
-          onImportPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
-        />
-        <PlanRenderer plan={draftPlan} />
-      </DeveloperProofMode>
-    </main>
+      {activeSection === "editor" ? (
+        <section className="workflow-section" aria-labelledby="editor-title">
+          <h2 id="editor-title">Layout editor</h2>
+          <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />
+        </section>
+      ) : null}
+
+      {activeSection === "routes" ? (
+        <section className="workflow-section" aria-labelledby="routes-title">
+          <h2 id="routes-title">Routes</h2>
+          <p className="workflow-section__placeholder">Route tools will be available in a future workflow step.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "assignments" ? (
+        <section className="workflow-section" aria-labelledby="assignments-title">
+          <h2 id="assignments-title">Assignments</h2>
+          <p className="workflow-section__placeholder">Assignment tooling will be added in the next phase.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "scenarios" ? (
+        <section className="workflow-section" aria-labelledby="scenarios-title">
+          <h2 id="scenarios-title">Scenarios</h2>
+          <p className="workflow-section__placeholder">Scenario planning workflow is pending implementation.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "simulation" ? (
+        <section className="workflow-section" aria-labelledby="simulation-title">
+          <h2 id="simulation-title">Simulation</h2>
+          <p className="workflow-section__placeholder">Simulation execution is in preview mode and will be refined in a dedicated workflow.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "reports" ? (
+        <section className="workflow-section" aria-labelledby="reports-title">
+          <h2 id="reports-title">Reports</h2>
+          <p className="workflow-section__placeholder">Reports workflow placeholder while assignments and simulation outputs remain in proof mode.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "settings" ? (
+        <section className="workflow-section" aria-labelledby="settings-title">
+          <h2 id="settings-title">Settings</h2>
+          <p className="workflow-section__placeholder">Settings and environment controls will be available in a follow-on issue.</p>
+        </section>
+      ) : null}
+
+      {activeSection === DEVELOPER_EVIDENCE_SECTION_ID ? (
+        <section className="workflow-section" aria-labelledby="developer-evidence-title">
+          <DeveloperEvidencePage apiBaseUrl={apiBaseUrl} />
+        </section>
+      ) : null}
+    </AppShell>
   );
 }

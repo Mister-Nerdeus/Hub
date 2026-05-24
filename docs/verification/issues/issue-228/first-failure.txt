@@ -1,0 +1,13 @@
+# Issue 228 First-Failure Evidence
+
+## Failure Reproduction Attempt
+
+The prior issue state rendered most proof modules from a single app surface. The failure check looked for proof-only text in the default route and the presence of proof-heavy headings outside a dedicated evidence section.
+
+## Current Regression Check Inputs
+- `App` default render must not include: "Proof-only workflow modules are preserved here only."
+- `App` default render must not include proof-only form/module heading strings (for example, "Plan builder defaults").
+- `Developer/Evidence` section should be reachable by explicit shell navigation.
+
+## Outcome
+This issue addresses that class of UI regression by routing proof modules behind the `Developer/Evidence` shell section.
