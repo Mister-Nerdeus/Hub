@@ -36,6 +36,7 @@ ZoneType = Literal[
 ZoneClass = Literal["patient_care", "staff", "entry", "support", "storage", "public", "overflow"]
 PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
 StationType = Literal["primary", "secondary", "charge", "temporary"]
+StationOperationalClass = Literal["primary", "secondary", "charge", "triage", "provider", "temporary"]
 RoomOperationalClass = Literal[
     "standard",
     "trauma",
@@ -206,6 +207,16 @@ class DoorOperationalMetadata(StrictModel):
     delayCategory: DoorDelayCategory
 
 
+class StationOperationalMetadata(StrictModel):
+    stationClass: StationOperationalClass
+    supportsChargeNurse: bool
+    supportsPrimaryNurse: bool
+    supportsProvider: bool
+    supportsTriage: bool
+    visibilityLevel: LineOfSightLevel
+    defaultWalkingOrigin: bool
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -269,7 +280,7 @@ class NurseStation(StrictModel):
     widthFeet: float = Field(gt=0)
     lengthFeet: float = Field(gt=0)
     pathNodeId: str = Field(min_length=1)
-    stationOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    stationOperationalMetadata: StationOperationalMetadata | None = None
 
     @field_validator("label")
     @classmethod

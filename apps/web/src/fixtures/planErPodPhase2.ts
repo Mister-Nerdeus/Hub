@@ -403,7 +403,16 @@ export const planErPodPhase2 = {
       "widthFeet": 14,
       "lengthFeet": 10,
       "pathNodeId": "node-station-primary",
-      "stationType": "primary"
+      "stationType": "primary",
+      "stationOperationalMetadata": {
+        "stationClass": "primary",
+        "supportsChargeNurse": true,
+        "supportsPrimaryNurse": true,
+        "supportsProvider": true,
+        "supportsTriage": false,
+        "visibilityLevel": "high",
+        "defaultWalkingOrigin": true
+      }
     }
   ],
   "zones": [

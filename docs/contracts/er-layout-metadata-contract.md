@@ -114,6 +114,24 @@ This metadata does not change pathfinding, walking calculations, fire-code analy
 
 This metadata does not mutate room geometry, simulate door state over time, certify isolation safety, or change pathfinding behavior.
 
+## Station Operational Metadata
+
+`stationOperationalMetadata` is optional on nurse stations. Station geometry remains feet-based through existing `x`, `y`, `widthFeet`, `lengthFeet`, and `pathNodeId` fields. When present, metadata must use this operational-only shape:
+
+```ts
+{
+  stationClass: "primary" | "secondary" | "charge" | "triage" | "provider" | "temporary";
+  supportsChargeNurse: boolean;
+  supportsPrimaryNurse: boolean;
+  supportsProvider: boolean;
+  supportsTriage: boolean;
+  visibilityLevel: "low" | "moderate" | "high";
+  defaultWalkingOrigin: boolean;
+}
+```
+
+This metadata must not include staff identity, staff schedules, staffing-compliance claims, visibility adequacy certification, or clinical staffing recommendations.
+
 ## Field Rules
 
 Allowed metadata field shapes:

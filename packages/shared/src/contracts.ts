@@ -58,6 +58,15 @@ export const STATION_TYPES = [
   "temporary"
 ] as const;
 
+export const STATION_OPERATIONAL_CLASSES = [
+  "primary",
+  "secondary",
+  "charge",
+  "triage",
+  "provider",
+  "temporary"
+] as const;
+
 export const ROOM_OPERATIONAL_CLASSES = [
   "standard",
   "trauma",
@@ -188,6 +197,7 @@ export type ZoneType = (typeof ZONE_TYPES)[number];
 export type ZoneClass = (typeof ZONE_CLASSES)[number];
 export type PathNodeType = (typeof PATH_NODE_TYPES)[number];
 export type StationType = (typeof STATION_TYPES)[number];
+export type StationOperationalClass = (typeof STATION_OPERATIONAL_CLASSES)[number];
 export type RoomOperationalClass = (typeof ROOM_OPERATIONAL_CLASSES)[number];
 export type RoomCapacityCategory = (typeof ROOM_CAPACITY_CATEGORIES)[number];
 export type LineOfSightLevel = (typeof LINE_OF_SIGHT_LEVELS)[number];
@@ -265,6 +275,16 @@ export type DoorOperationalMetadata = {
   delayCategory: DoorDelayCategory;
 };
 
+export type StationOperationalMetadata = {
+  stationClass: StationOperationalClass;
+  supportsChargeNurse: boolean;
+  supportsPrimaryNurse: boolean;
+  supportsProvider: boolean;
+  supportsTriage: boolean;
+  visibilityLevel: LineOfSightLevel;
+  defaultWalkingOrigin: boolean;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -313,7 +333,7 @@ export type NurseStation = {
   widthFeet: number;
   lengthFeet: number;
   pathNodeId: string;
-  stationOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  stationOperationalMetadata?: StationOperationalMetadata | null;
 };
 
 export type Zone = {
@@ -3548,7 +3568,7 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
   requirePositiveNumber(station.widthFeet, `nurseStations[${index}].widthFeet`);
   requirePositiveNumber(station.lengthFeet, `nurseStations[${index}].lengthFeet`);
   requireString(station.pathNodeId, `nurseStations[${index}].pathNodeId`);
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalStationOperationalMetadata(
     station.stationOperationalMetadata,
     `nurseStations[${index}].stationOperationalMetadata`
   );
@@ -4020,6 +4040,29 @@ function validateOptionalDoorOperationalMetadata(value: unknown, label: string):
   requireBoolean(metadata.behavioralBoundary, `${label}.behavioralBoundary`);
   requireBoolean(metadata.traumaAccess, `${label}.traumaAccess`);
   requireEnum(metadata.delayCategory, DOOR_DELAY_CATEGORIES, `${label}.delayCategory`);
+}
+
+function validateOptionalStationOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "stationClass",
+    "supportsChargeNurse",
+    "supportsPrimaryNurse",
+    "supportsProvider",
+    "supportsTriage",
+    "visibilityLevel",
+    "defaultWalkingOrigin"
+  ]);
+  requireEnum(metadata.stationClass, STATION_OPERATIONAL_CLASSES, `${label}.stationClass`);
+  requireBoolean(metadata.supportsChargeNurse, `${label}.supportsChargeNurse`);
+  requireBoolean(metadata.supportsPrimaryNurse, `${label}.supportsPrimaryNurse`);
+  requireBoolean(metadata.supportsProvider, `${label}.supportsProvider`);
+  requireBoolean(metadata.supportsTriage, `${label}.supportsTriage`);
+  requireEnum(metadata.visibilityLevel, LINE_OF_SIGHT_LEVELS, `${label}.visibilityLevel`);
+  requireBoolean(metadata.defaultWalkingOrigin, `${label}.defaultWalkingOrigin`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

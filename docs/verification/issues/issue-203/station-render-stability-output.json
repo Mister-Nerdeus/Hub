@@ -1,0 +1,19 @@
+{
+  "issue": "203",
+  "status": "passed",
+  "source": "npm --workspace apps/web test",
+  "webTestFile": "apps/web/src/features/layout-editor/stationShapeViewModel.test.ts",
+  "stationObjectId": "station-primary",
+  "hitTargetKey": "station:station-primary",
+  "stationType": "nurse_station",
+  "selectionStable": true,
+  "geometryStable": {
+    "xPixels": 216,
+    "yPixels": 0,
+    "widthPixels": 120,
+    "heightPixels": 72,
+    "labelX": 276,
+    "labelY": 36
+  },
+  "fixtureMutated": false
+}

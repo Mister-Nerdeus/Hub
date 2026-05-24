@@ -1,5 +1,6 @@
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
+import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
 
 const assert = {
@@ -69,4 +70,8 @@ assert.deepEqual(
 );
 
 assert.throws(() => buildStationShapeViewModel(roomItem), /station/);
+assert.deepEqual(selectionFromShapeClick("station", station.objectId), {
+  objectType: "station",
+  objectId: "station-primary"
+});
 assert.equal(JSON.stringify(layoutEditorProofFixture), snapshot);
