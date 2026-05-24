@@ -1,0 +1,4 @@
+python <simulation-list-first-failure-probe> *> docs/verification/issues/issue-194/first-failure.txt
+cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-194/test-output/api.txt
+Set-Content docs/verification/issues/issue-194/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-194/test-output/docs-gate.txt -Append
+node scripts/verify-local.mjs *> docs/verification/issues/issue-194/test-output/verify-local.txt

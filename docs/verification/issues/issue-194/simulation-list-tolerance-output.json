@@ -1,0 +1,23 @@
+{
+  "simulationRuns": [
+    {
+      "id": "simulation-run-list-valid",
+      "simulationRunId": "simulation-run-list-valid",
+      "scenarioId": "shift-scenario-basic",
+      "createdAt": "2026-05-24T16:26:58.290926",
+      "updatedAt": "2026-05-24T16:26:58.290926"
+    },
+    {
+      "id": "simulation-run-list-invalid",
+      "status": "invalid",
+      "code": "PERSISTED_SIMULATION_RUN_INVALID",
+      "createdAt": "2026-05-24T16:26:59.290926",
+      "updatedAt": "2026-05-24T16:26:59.290926"
+    }
+  ],
+  "pagination": {
+    "limit": 50,
+    "offset": 0,
+    "returned": 2
+  }
+}

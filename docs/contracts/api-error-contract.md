@@ -30,6 +30,24 @@ Validation responses may include a sanitized `detail.errors` array. Rejected inp
 | `NO_PHI_RUNTIME_REJECTION` | Runtime no-PHI validation rejected request text. |
 | `REQUEST_VALIDATION_FAILED` | Generic request validation failed outside body contract validation. |
 
+## Simulation Run List Tolerance
+
+`GET /v1/simulation/runs` returns valid summaries and redacted invalid summaries. An invalid persisted row must not fail the entire list and must not expose stored invalid JSON.
+
+Invalid list items use this shape:
+
+```json
+{
+  "id": "simulation-run-id",
+  "status": "invalid",
+  "code": "PERSISTED_SIMULATION_RUN_INVALID",
+  "createdAt": "2026-05-24T00:00:00+00:00",
+  "updatedAt": "2026-05-24T00:00:00+00:00"
+}
+```
+
+`GET /v1/simulation/runs/{id}` remains deterministic for invalid stored rows and returns `PERSISTED_SIMULATION_RUN_INVALID`.
+
 ## Non-Claims
 
 This contract does not add auth, new resources, PHI support, or clinical safety claims.

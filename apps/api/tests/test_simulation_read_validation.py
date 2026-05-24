@@ -1,6 +1,8 @@
 from collections.abc import Iterator
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+import json
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -13,6 +15,9 @@ from app.db import Base, get_db
 from app.main import app
 from app.models import SimulationRunRecord
 from app.schemas.simulation import persisted_simulation_run_invalid_detail
+
+ROOT = Path(__file__).resolve().parents[3]
+EVIDENCE_DIR = ROOT / "docs" / "verification" / "issues" / "issue-194"
 
 
 def valid_simulation_run(run_id: str = "simulation-run-read-validation") -> dict:
@@ -131,6 +136,47 @@ def test_valid_run_round_trips_unchanged(db_client: tuple[TestClient, sessionmak
 
     assert response.status_code == 200
     assert response.json()["simulationRun"] == payload
+
+
+def test_list_tolerates_invalid_persisted_json(
+    db_client: tuple[TestClient, sessionmaker[Session]],
+) -> None:
+    client, session_factory = db_client
+    valid_payload = valid_simulation_run("simulation-run-list-valid")
+    invalid_payload = valid_simulation_run("simulation-run-list-invalid")
+    invalid_payload["summary"]["totalTasks"] = 1
+    invalid_payload["limitations"] = ["Operational-only invalid-list-marker."]
+    timestamp = datetime.now(timezone.utc)
+    insert_stored_run(session_factory, "simulation-run-list-valid", valid_payload, timestamp)
+    insert_stored_run(
+        session_factory,
+        "simulation-run-list-invalid",
+        invalid_payload,
+        timestamp + timedelta(seconds=1),
+    )
+
+    response = client.get("/v1/simulation/runs")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["pagination"]["returned"] == 2
+    assert body["simulationRuns"][0]["simulationRunId"] == "simulation-run-list-valid"
+    invalid_summary = body["simulationRuns"][1]
+    assert invalid_summary == {
+        "id": "simulation-run-list-invalid",
+        "status": "invalid",
+        "code": "PERSISTED_SIMULATION_RUN_INVALID",
+        "createdAt": invalid_summary["createdAt"],
+        "updatedAt": invalid_summary["updatedAt"],
+    }
+    assert "simulationRun" not in invalid_summary
+    assert "invalid-list-marker" not in response.text
+
+    EVIDENCE_DIR.mkdir(parents=True, exist_ok=True)
+    (EVIDENCE_DIR / "simulation-list-tolerance-output.json").write_text(
+        f"{json.dumps(body, indent=2)}\n",
+        encoding="utf-8",
+    )
 
 
 def test_invalid_persisted_json_returns_deterministic_error(

@@ -8,8 +8,10 @@ from sqlalchemy.orm import Session
 
 from app.db import get_db
 from app.errors import (
+    PERSISTED_SIMULATION_RUN_INVALID,
     SIMULATION_RUN_ALREADY_EXISTS,
     SIMULATION_RUN_NOT_FOUND,
+    error_detail,
     api_error,
 )
 from app.models import SimulationRunRecord
@@ -62,14 +64,24 @@ def serialize_run(record: SimulationRunRecord) -> dict[str, Any]:
 
 
 def serialize_run_summary(record: SimulationRunRecord) -> dict[str, Any]:
-    simulation_run = validated_simulation_json(record)
-    return {
-        "id": record.id,
-        "simulationRunId": simulation_run["simulationRunId"],
-        "scenarioId": simulation_run["scenarioId"],
-        "createdAt": serialize_timestamp(record.created_at),
-        "updatedAt": serialize_timestamp(record.updated_at),
-    }
+    try:
+        simulation_run = validated_simulation_json(record)
+        return {
+            "id": record.id,
+            "simulationRunId": simulation_run["simulationRunId"],
+            "scenarioId": simulation_run["scenarioId"],
+            "createdAt": serialize_timestamp(record.created_at),
+            "updatedAt": serialize_timestamp(record.updated_at),
+        }
+    except HTTPException as exc:
+        detail = exc.detail if isinstance(exc.detail, dict) else error_detail(PERSISTED_SIMULATION_RUN_INVALID)
+        return {
+            "id": record.id,
+            "status": "invalid",
+            "code": detail.get("code", PERSISTED_SIMULATION_RUN_INVALID),
+            "createdAt": serialize_timestamp(record.created_at),
+            "updatedAt": serialize_timestamp(record.updated_at),
+        }
 
 
 @router.post("/validate")
