@@ -18,6 +18,7 @@ import {
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
 } from "./layoutViewportControls";
+import { validateRoomMoveBounds } from "./layoutMoveValidation";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 
@@ -168,13 +169,20 @@ function moveRoom(
     return state;
   }
 
+  const movedLayout = moveRoomByDeltaFeet({
+    layout: state.editableLayout,
+    roomId,
+    delta,
+    snapMode: state.snapMode
+  });
+
   return {
     ...state,
-    editableLayout: moveRoomByDeltaFeet({
-      layout: state.editableLayout,
+    editableLayout: movedLayout,
+    validationWarnings: validateRoomMoveBounds({
+      layout: movedLayout,
       roomId,
-      delta,
-      snapMode: state.snapMode
+      boundsFeet: state.layoutBoundsFeet
     }),
     selectedObjectType: "room",
     selectedObjectId: roomId,

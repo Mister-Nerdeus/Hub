@@ -42,6 +42,12 @@ assert.deepEqual(defaultState.viewport, {
   panXFeet: 0,
   panYFeet: 0
 });
+assert.deepEqual(defaultState.layoutBoundsFeet, {
+  xFeet: 0,
+  yFeet: 0,
+  widthFeet: 64,
+  heightFeet: 40
+});
 
 const dirtySelectedState = createLayoutEditorState({
   editableLayout,
@@ -191,8 +197,48 @@ assert.equal(roomAfterMove.label, roomBeforeMove.label);
 assert.equal(movedRoomState.selectedObjectType, "room");
 assert.equal(movedRoomState.selectedObjectId, "room-01");
 assert.equal(movedRoomState.isDirty, true);
+assert.deepEqual(movedRoomState.validationWarnings, []);
 assert.deepEqual(movedRoomState.editableLayout?.doors, editableLayout.doors);
 assert.equal(stateWithLayout.editableLayout?.rooms[0]?.xFeet, roomBeforeMove.xFeet);
+
+const leftWarningState = layoutEditorReducer(stateWithLayout, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: -2,
+  deltaYFeet: 0
+});
+assert.deepEqual(leftWarningState.validationWarnings, [
+  {
+    code: "room_out_of_bounds_left",
+    message: "Room extends beyond the layout left boundary.",
+    objectType: "room",
+    objectId: "room-01"
+  }
+]);
+assert.equal(leftWarningState.editableLayout?.rooms[0]?.xFeet, -2);
+
+const bottomRightWarningState = layoutEditorReducer(stateWithLayout, {
+  type: "moveRoom",
+  roomId: "room-01",
+  deltaXFeet: 60,
+  deltaYFeet: 36
+});
+assert.deepEqual(bottomRightWarningState.validationWarnings, [
+  {
+    code: "room_out_of_bounds_right",
+    message: "Room extends beyond the layout right boundary.",
+    objectType: "room",
+    objectId: "room-01"
+  },
+  {
+    code: "room_out_of_bounds_bottom",
+    message: "Room extends beyond the layout bottom boundary.",
+    objectType: "room",
+    objectId: "room-01"
+  }
+]);
+assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.xFeet, 60);
+assert.equal(bottomRightWarningState.editableLayout?.rooms[0]?.yFeet, 36);
 
 const fineMovedRoomState = layoutEditorReducer(
   createLayoutEditorState({ editableLayout, snapMode: "fine" }),

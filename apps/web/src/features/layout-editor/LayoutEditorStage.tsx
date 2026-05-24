@@ -14,6 +14,7 @@ import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
+import { DEFAULT_LAYOUT_BOUNDS_FEET } from "./layoutMoveValidation";
 import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import { createLayoutEditorState } from "./layoutEditorState";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
@@ -29,8 +30,8 @@ import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
-const STAGE_WIDTH_FEET = 64;
-const STAGE_HEIGHT_FEET = 40;
+const STAGE_WIDTH_FEET = DEFAULT_LAYOUT_BOUNDS_FEET.widthFeet;
+const STAGE_HEIGHT_FEET = DEFAULT_LAYOUT_BOUNDS_FEET.heightFeet;
 const STAGE_PIXELS_PER_FOOT = 12;
 const STAGE_WIDTH_PIXELS = STAGE_WIDTH_FEET * STAGE_PIXELS_PER_FOOT;
 const STAGE_HEIGHT_PIXELS = STAGE_HEIGHT_FEET * STAGE_PIXELS_PER_FOOT;
@@ -51,6 +52,7 @@ const initialStageState = createLayoutEditorState({
     panXFeet: 0,
     panYFeet: 0
   },
+  layoutBoundsFeet: DEFAULT_LAYOUT_BOUNDS_FEET,
   selectedObjectId: "room-01",
   selectedObjectType: "room",
   snapMode: "default"

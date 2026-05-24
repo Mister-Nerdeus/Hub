@@ -2,6 +2,11 @@ import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
 
 import type { LayoutViewportTransform } from "./layoutCoordinateSystem";
 import {
+  DEFAULT_LAYOUT_BOUNDS_FEET,
+  normalizeBoundsFeet,
+  type LayoutBoundsFeet
+} from "./layoutMoveValidation";
+import {
   isLayoutSelectionObjectType,
   LAYOUT_SELECTION_OBJECT_TYPES,
   type LayoutSelectionObjectType
@@ -29,6 +34,7 @@ export type LayoutEditorState = {
   selectedObjectId: string | null;
   selectedObjectType: LayoutEditorSelectableObjectType | null;
   viewport: LayoutEditorViewport;
+  layoutBoundsFeet: LayoutBoundsFeet;
   snapMode: LayoutEditorSnapMode;
   validationWarnings: readonly LayoutEditorValidationWarning[];
   isDirty: boolean;
@@ -63,6 +69,7 @@ export function createLayoutEditorState(
     selectedObjectId,
     selectedObjectType,
     viewport: normalizeLayoutEditorViewport(overrides.viewport ?? DEFAULT_LAYOUT_EDITOR_VIEWPORT),
+    layoutBoundsFeet: normalizeBoundsFeet(overrides.layoutBoundsFeet ?? DEFAULT_LAYOUT_BOUNDS_FEET),
     snapMode,
     validationWarnings: [...(overrides.validationWarnings ?? [])],
     isDirty: overrides.isDirty ?? false
