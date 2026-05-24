@@ -25,6 +25,17 @@ ZoneType = Literal[
 ]
 PathNodeType = Literal["room_door", "hallway", "station", "entry", "zone"]
 StationType = Literal["primary", "secondary", "charge", "temporary"]
+RoomOperationalClass = Literal[
+    "standard",
+    "trauma",
+    "isolation",
+    "behavioral",
+    "procedure",
+    "hall_bed",
+    "overflow",
+]
+RoomCapacityCategory = Literal["single", "double", "hall", "overflow"]
+LineOfSightLevel = Literal["low", "moderate", "high"]
 DoorWall = Literal["top", "bottom", "left", "right"]
 EdgeLengthStrategy = Literal["manhattan", "straight_line"]
 StationPlacementMode = Literal[
@@ -134,6 +145,22 @@ class OperationalMetadataPlaceholder(StrictModel):
     pass
 
 
+class RoomOperationalMetadata(StrictModel):
+    roomNumber: str | None = None
+    roomClass: RoomOperationalClass
+    capacityCategory: RoomCapacityCategory
+    traumaAdjacent: bool
+    isolationReady: bool
+    behavioralReady: bool
+    sitterCapable: bool
+    lineOfSightLevel: LineOfSightLevel
+
+    @field_validator("roomNumber")
+    @classmethod
+    def validate_room_number(cls, value: str | None) -> str | None:
+        return validate_optional_runtime_operational_text(value, "roomOperationalMetadata.roomNumber")
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -149,7 +176,7 @@ class Room(StrictModel):
     zoneId: str | None = None
     nearestStationId: str | None = None
     pathNodeId: str | None = None
-    roomOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    roomOperationalMetadata: RoomOperationalMetadata | None = None
     overflowOperationalMetadata: OperationalMetadataPlaceholder | None = None
     adjacencyOperationalMetadata: OperationalMetadataPlaceholder | None = None
 

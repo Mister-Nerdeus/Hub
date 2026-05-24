@@ -21,7 +21,26 @@ Current metadata containers:
 - `overflowOperationalMetadata` on rooms or overflow-capable spaces.
 - `adjacencyOperationalMetadata` on rooms or other explicitly documented layout objects.
 
-Issue 198 creates strict placeholder containers only. Later issues must define the exact fields before fixtures use those fields.
+Issue 198 created strict placeholder containers only. Issue 199 defines `roomOperationalMetadata`; later issues must define the exact fields for the remaining containers before fixtures use those fields.
+
+## Room Operational Metadata
+
+`roomOperationalMetadata` is optional on rooms. When present, it must use this operational-only shape:
+
+```ts
+{
+  roomNumber?: string | null;
+  roomClass: "standard" | "trauma" | "isolation" | "behavioral" | "procedure" | "hall_bed" | "overflow";
+  capacityCategory: "single" | "double" | "hall" | "overflow";
+  traumaAdjacent: boolean;
+  isolationReady: boolean;
+  behavioralReady: boolean;
+  sitterCapable: boolean;
+  lineOfSightLevel: "low" | "moderate" | "high";
+}
+```
+
+`roomNumber` is an operational label only and remains covered by the runtime no-PHI text guard. The other fields are closed enums or booleans. No free-text room metadata fields are allowed.
 
 ## Field Rules
 

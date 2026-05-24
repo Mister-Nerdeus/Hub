@@ -38,6 +38,20 @@ export const STATION_TYPES = [
   "temporary"
 ] as const;
 
+export const ROOM_OPERATIONAL_CLASSES = [
+  "standard",
+  "trauma",
+  "isolation",
+  "behavioral",
+  "procedure",
+  "hall_bed",
+  "overflow"
+] as const;
+
+export const ROOM_CAPACITY_CATEGORIES = ["single", "double", "hall", "overflow"] as const;
+
+export const LINE_OF_SIGHT_LEVELS = ["low", "moderate", "high"] as const;
+
 export const TASK_FREQUENCIES = ["none", "low", "medium", "high", "continuous"] as const;
 
 export const BURDEN_LEVELS = ["none", "low", "medium", "high", "very_high"] as const;
@@ -129,6 +143,9 @@ export type RoomType = (typeof ROOM_TYPES)[number];
 export type ZoneType = (typeof ZONE_TYPES)[number];
 export type PathNodeType = (typeof PATH_NODE_TYPES)[number];
 export type StationType = (typeof STATION_TYPES)[number];
+export type RoomOperationalClass = (typeof ROOM_OPERATIONAL_CLASSES)[number];
+export type RoomCapacityCategory = (typeof ROOM_CAPACITY_CATEGORIES)[number];
+export type LineOfSightLevel = (typeof LINE_OF_SIGHT_LEVELS)[number];
 export type TaskFrequency = (typeof TASK_FREQUENCIES)[number];
 export type BurdenLevel = (typeof BURDEN_LEVELS)[number];
 export type TurnoverLevel = (typeof TURNOVER_LEVELS)[number];
@@ -158,6 +175,17 @@ export type Point = {
 
 export type OperationalMetadataPlaceholder = Record<string, never>;
 
+export type RoomOperationalMetadata = {
+  roomNumber?: string | null;
+  roomClass: RoomOperationalClass;
+  capacityCategory: RoomCapacityCategory;
+  traumaAdjacent: boolean;
+  isolationReady: boolean;
+  behavioralReady: boolean;
+  sitterCapable: boolean;
+  lineOfSightLevel: LineOfSightLevel;
+};
+
 export type Room = {
   id: string;
   label: string;
@@ -173,7 +201,7 @@ export type Room = {
   zoneId?: string | null;
   nearestStationId?: string | null;
   pathNodeId?: string | null;
-  roomOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  roomOperationalMetadata?: RoomOperationalMetadata | null;
   overflowOperationalMetadata?: OperationalMetadataPlaceholder | null;
   adjacencyOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
@@ -3344,7 +3372,7 @@ function validateRoom(value: unknown, index: number): Room {
   requireOptionalString(room.zoneId, `rooms[${index}].zoneId`);
   requireOptionalString(room.nearestStationId, `rooms[${index}].nearestStationId`);
   requireOptionalString(room.pathNodeId, `rooms[${index}].pathNodeId`);
-  validateOptionalOperationalMetadataPlaceholder(
+  validateOptionalRoomOperationalMetadata(
     room.roomOperationalMetadata,
     `rooms[${index}].roomOperationalMetadata`
   );
@@ -3814,6 +3842,36 @@ function validatePoint(value: unknown, label: string): Point {
   requireNumber(point.x, `${label}.x`);
   requireNumber(point.y, `${label}.y`);
   return point as Point;
+}
+
+function validateOptionalRoomOperationalMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "roomNumber",
+    "roomClass",
+    "capacityCategory",
+    "traumaAdjacent",
+    "isolationReady",
+    "behavioralReady",
+    "sitterCapable",
+    "lineOfSightLevel"
+  ]);
+  if (metadata.roomNumber != null) {
+    validateOperationalRuntimeText(
+      requireString(metadata.roomNumber, `${label}.roomNumber`),
+      `${label}.roomNumber`
+    );
+  }
+  requireEnum(metadata.roomClass, ROOM_OPERATIONAL_CLASSES, `${label}.roomClass`);
+  requireEnum(metadata.capacityCategory, ROOM_CAPACITY_CATEGORIES, `${label}.capacityCategory`);
+  requireBoolean(metadata.traumaAdjacent, `${label}.traumaAdjacent`);
+  requireBoolean(metadata.isolationReady, `${label}.isolationReady`);
+  requireBoolean(metadata.behavioralReady, `${label}.behavioralReady`);
+  requireBoolean(metadata.sitterCapable, `${label}.sitterCapable`);
+  requireEnum(metadata.lineOfSightLevel, LINE_OF_SIGHT_LEVELS, `${label}.lineOfSightLevel`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

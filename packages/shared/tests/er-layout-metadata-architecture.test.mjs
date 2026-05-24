@@ -21,7 +21,6 @@ function writeEvidence(name, payload) {
 
 function withMetadataPlaceholders() {
   const plan = readFixture("plan-er-pod-phase2.json");
-  plan.rooms[0].roomOperationalMetadata = {};
   plan.rooms[0].overflowOperationalMetadata = {};
   plan.rooms[0].adjacencyOperationalMetadata = {};
   plan.hallways[0].hallwayOperationalMetadata = {};
@@ -37,7 +36,7 @@ function withMetadataPlaceholders() {
 test("ER layout metadata architecture accepts optional nested metadata placeholders", () => {
   const plan = validatePlanContract(withMetadataPlaceholders());
 
-  assert.deepEqual(plan.rooms[0].roomOperationalMetadata, {});
+  assert.equal(plan.rooms[0].roomOperationalMetadata.roomClass, "standard");
   assert.deepEqual(plan.rooms[0].overflowOperationalMetadata, {});
   assert.deepEqual(plan.rooms[0].adjacencyOperationalMetadata, {});
   assert.deepEqual(plan.hallways[0].hallwayOperationalMetadata, {});
@@ -77,7 +76,10 @@ test("ER layout metadata architecture rejects top-level sprawl and narrative met
 
   const rejectedValue = "Narrative metadata text";
   const narrativeMetadata = withMetadataPlaceholders();
-  narrativeMetadata.rooms[0].roomOperationalMetadata = { noteText: rejectedValue };
+  narrativeMetadata.rooms[0].roomOperationalMetadata = {
+    ...narrativeMetadata.rooms[0].roomOperationalMetadata,
+    noteText: rejectedValue
+  };
   assert.throws(
     () => validatePlanContract(narrativeMetadata),
     (error) => {

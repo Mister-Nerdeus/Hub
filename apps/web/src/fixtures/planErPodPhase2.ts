@@ -29,6 +29,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 10,
         "y": 14
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "01",
+        "roomClass": "standard",
+        "capacityCategory": "single",
+        "traumaAdjacent": false,
+        "isolationReady": false,
+        "behavioralReady": false,
+        "sitterCapable": false,
+        "lineOfSightLevel": "moderate"
       }
     },
     {
@@ -48,6 +58,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 27,
         "y": 16
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "02",
+        "roomClass": "trauma",
+        "capacityCategory": "single",
+        "traumaAdjacent": true,
+        "isolationReady": false,
+        "behavioralReady": false,
+        "sitterCapable": true,
+        "lineOfSightLevel": "high"
       }
     },
     {
@@ -67,6 +87,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 44,
         "y": 14
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "03",
+        "roomClass": "isolation",
+        "capacityCategory": "single",
+        "traumaAdjacent": false,
+        "isolationReady": true,
+        "behavioralReady": false,
+        "sitterCapable": false,
+        "lineOfSightLevel": "moderate"
       }
     },
     {
@@ -86,6 +116,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 60,
         "y": 14
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "04",
+        "roomClass": "behavioral",
+        "capacityCategory": "single",
+        "traumaAdjacent": false,
+        "isolationReady": false,
+        "behavioralReady": true,
+        "sitterCapable": true,
+        "lineOfSightLevel": "high"
       }
     },
     {
@@ -105,6 +145,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 10,
         "y": 34
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "05",
+        "roomClass": "procedure",
+        "capacityCategory": "single",
+        "traumaAdjacent": false,
+        "isolationReady": false,
+        "behavioralReady": false,
+        "sitterCapable": false,
+        "lineOfSightLevel": "moderate"
       }
     },
     {
@@ -124,6 +174,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 26,
         "y": 34
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "06",
+        "roomClass": "overflow",
+        "capacityCategory": "overflow",
+        "traumaAdjacent": false,
+        "isolationReady": false,
+        "behavioralReady": false,
+        "sitterCapable": false,
+        "lineOfSightLevel": "low"
       }
     },
     {
@@ -143,6 +203,16 @@ export const planErPodPhase2 = {
       "doorPoint": {
         "x": 52,
         "y": 26
+      },
+      "roomOperationalMetadata": {
+        "roomNumber": "Hall Bed 01",
+        "roomClass": "hall_bed",
+        "capacityCategory": "hall",
+        "traumaAdjacent": false,
+        "isolationReady": false,
+        "behavioralReady": false,
+        "sitterCapable": true,
+        "lineOfSightLevel": "moderate"
       }
     }
   ],

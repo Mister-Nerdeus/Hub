@@ -17,7 +17,6 @@ def load_fixture(name: str) -> dict:
 
 def with_metadata_placeholders() -> dict:
     plan = load_fixture("plan-er-pod-phase2.json")
-    plan["rooms"][0]["roomOperationalMetadata"] = {}
     plan["rooms"][0]["overflowOperationalMetadata"] = {}
     plan["rooms"][0]["adjacencyOperationalMetadata"] = {}
     plan["hallways"][0]["hallwayOperationalMetadata"] = {}
@@ -33,6 +32,7 @@ def test_er_layout_metadata_architecture_accepts_optional_nested_placeholders() 
     plan = PlanContract.model_validate(with_metadata_placeholders())
 
     assert plan.rooms[0].roomOperationalMetadata is not None
+    assert plan.rooms[0].roomOperationalMetadata.roomClass == "standard"
     assert plan.rooms[0].overflowOperationalMetadata is not None
     assert plan.rooms[0].adjacencyOperationalMetadata is not None
     assert plan.hallways[0].hallwayOperationalMetadata is not None
@@ -50,7 +50,10 @@ def test_er_layout_metadata_architecture_rejects_sprawl_and_narrative_fields() -
 
     rejected_value = "Narrative metadata text"
     narrative_metadata = with_metadata_placeholders()
-    narrative_metadata["rooms"][0]["roomOperationalMetadata"] = {"noteText": rejected_value}
+    narrative_metadata["rooms"][0]["roomOperationalMetadata"] = {
+        **narrative_metadata["rooms"][0]["roomOperationalMetadata"],
+        "noteText": rejected_value,
+    }
     with pytest.raises(ValidationError) as exc_info:
         PlanContract.model_validate(narrative_metadata)
     assert rejected_value not in str(exc_info.value)
