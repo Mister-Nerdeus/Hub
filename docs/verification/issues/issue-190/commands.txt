@@ -1,0 +1,5 @@
+Get-ChildItem packages/shared/fixtures -Directory; rg "no-phi|NO_PHI|runtime" packages/shared/tests apps/api/tests packages/shared/fixtures -n
+npm --workspace packages/shared test *> docs/verification/issues/issue-190/test-output/shared.txt
+cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-190/test-output/api.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-190/test-output/no-phi.txt
+Set-Content docs/verification/issues/issue-190/test-output/docs-gate.txt "pending docs gate rerun"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-190/test-output/docs-gate.txt -Append

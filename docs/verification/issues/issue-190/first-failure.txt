@@ -1,0 +1,23 @@
+Issue 190 first failure capture
+
+Command context:
+- Get-ChildItem packages/shared/fixtures -Directory
+- rg "no-phi|NO_PHI|runtime" packages/shared/tests apps/api/tests packages/shared/fixtures -n
+
+Observed pre-fix state:
+- packages/shared/fixtures/no-phi-negative/ does not exist.
+- packages/shared/fixtures/no-phi-positive/ does not exist.
+- Issue 189 added runtime guard tests, but not an object-specific fixture suite.
+
+Object types lacking explicit no-PHI negative fixture coverage:
+- Plan
+- Scenario
+- Manual assignment
+- Simulation run
+- Report
+- Export bundle
+- Task template
+- Day profile
+
+Failure class:
+- No local fixture suite proves that forbidden operational-label text is rejected for every major persisted or exportable object type.

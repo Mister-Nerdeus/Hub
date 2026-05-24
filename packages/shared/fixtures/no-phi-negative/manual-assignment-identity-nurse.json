@@ -1,0 +1,7 @@
+{
+  "objectType": "manualAssignment",
+  "sourceFixture": "manual-assignment-basic.json",
+  "mutationPath": ["nurses", 0, "name"],
+  "rejectedValue": "John Smith",
+  "expectedCode": "NO_PHI_RUNTIME_REJECTION"
+}

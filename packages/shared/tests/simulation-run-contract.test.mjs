@@ -76,7 +76,7 @@ test("rejects clinical/recommendation language", () => {
   const run = validRun();
   run.limitations = ["Recommended operational output"];
 
-  assert.throws(() => validateSimulationRunContract(run), /recommended/i);
+  assert.throws(() => validateSimulationRunContract(run), /NO_PHI_RUNTIME_REJECTION/);
 });
 
 test("rejects summary/event mismatch where applicable", () => {

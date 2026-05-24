@@ -4,6 +4,7 @@ import type {
   NurseTaskAssignmentContract,
   ShiftScenarioContract
 } from "../contracts.js";
+import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
 
 export type SimulationTaskEventAction =
   | "ready"
@@ -673,6 +674,7 @@ function validateNoForbiddenKeysOrText(value: unknown, label: string): void {
     return;
   }
   if (typeof value === "string") {
+    validateOperationalRuntimeText(value, label);
     for (const [name, pattern] of FORBIDDEN_TEXT_PATTERNS) {
       if (pattern.test(value)) {
         throw new Error(`${label} must not include ${name} language`);

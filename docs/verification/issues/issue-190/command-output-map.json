@@ -1,0 +1,37 @@
+{
+  "issue": "190",
+  "commands": [
+    {
+      "command": "Get-ChildItem packages/shared/fixtures -Directory; rg \"no-phi|NO_PHI|runtime\" packages/shared/tests apps/api/tests packages/shared/fixtures -n",
+      "outputs": [
+        "docs/verification/issues/issue-190/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-190/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-190/test-output/shared.txt",
+        "docs/verification/issues/issue-190/no-phi-negative-fixtures-output.json",
+        "docs/verification/issues/issue-190/no-phi-positive-fixtures-output.json"
+      ]
+    },
+    {
+      "command": "cd apps/api && python -m pytest *> ../../docs/verification/issues/issue-190/test-output/api.txt",
+      "outputs": [
+        "docs/verification/issues/issue-190/test-output/api.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-190/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-190/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "Set-Content docs/verification/issues/issue-190/test-output/docs-gate.txt \"pending docs gate rerun\"; node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-190/test-output/docs-gate.txt -Append",
+      "outputs": [
+        "docs/verification/issues/issue-190/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

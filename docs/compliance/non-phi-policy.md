@@ -46,4 +46,8 @@ Runtime contract validation must reject obvious identity-like labels, record ide
 
 This guard complements the static scanner. It is not a HIPAA certification, does not detect every possible human name, and does not permit PHI.
 
+## Object Fixture Coverage
+
+Object-specific no-PHI fixture coverage must include negative and positive runtime examples for major persisted or exportable object types: plans, scenarios, manual assignments, simulation runs, reports, export bundles, task templates, and day profiles.
+
 If a field could plausibly hold PHI, do not add it without a contract update and a scanner rule.

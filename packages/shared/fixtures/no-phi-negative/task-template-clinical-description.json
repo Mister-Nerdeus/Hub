@@ -1,0 +1,7 @@
+{
+  "objectType": "taskTemplate",
+  "sourceFixture": "task-templates-basic.json",
+  "mutationPath": ["description"],
+  "rejectedValue": "clinical note task template",
+  "expectedCode": "NO_PHI_RUNTIME_REJECTION"
+}

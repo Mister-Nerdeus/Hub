@@ -1,0 +1,7 @@
+{
+  "objectType": "simulationRun",
+  "sourceFixture": "simulation-contract-parity/valid-minimal.json",
+  "mutationPath": ["limitations", 0],
+  "rejectedValue": "record number 12345",
+  "expectedCode": "NO_PHI_RUNTIME_REJECTION"
+}

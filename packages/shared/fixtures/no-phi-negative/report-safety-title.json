@@ -1,0 +1,7 @@
+{
+  "objectType": "report",
+  "sourceFixture": "reports/operational-report-basic.json",
+  "mutationPath": ["title"],
+  "rejectedValue": "Clinically safe assignment",
+  "expectedCode": "NO_PHI_RUNTIME_REJECTION"
+}
