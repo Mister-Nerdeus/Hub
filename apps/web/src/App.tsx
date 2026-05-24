@@ -5,6 +5,12 @@ import { BundleAuditProof } from "./features/bundle-audit/BundleAuditProof";
 import { createBundleAuditProofViewModel } from "./features/bundle-audit/bundleAuditViewModel";
 import { ScenarioComparisonProof } from "./features/comparison/ScenarioComparisonProof";
 import { createScenarioComparisonProofViewModel } from "./features/comparison/scenarioComparisonViewModel";
+import { DeveloperProofMode } from "./features/developer/DeveloperProofMode";
+import {
+  createDeveloperProofModeState,
+  createDeveloperProofModeViewModel,
+  toggleDeveloperProofMode
+} from "./features/developer/developerProofModeState";
 import { ExportBundleReviewProof } from "./features/export-review/ExportBundleReviewProof";
 import { createExportBundleReviewViewModel } from "./features/export-review/exportBundleReviewViewModel";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
@@ -70,6 +76,11 @@ export function App() {
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
+  const [developerProofModeState, setDeveloperProofModeState] = useState(
+    createDeveloperProofModeState
+  );
+  const developerProofModeViewModel =
+    createDeveloperProofModeViewModel(developerProofModeState);
   const [activeFloorplanState, setActiveFloorplanState] = useState(
     createEmptyActiveFloorplanState
   );
@@ -121,10 +132,6 @@ export function App() {
           <p className="eyebrow">Operational simulation workspace</p>
           <h1 id="page-title">Nerdeus ER Pod Shift Simulator</h1>
         </div>
-        <div className="api-pill" aria-label="Configured API base URL">
-          <span>API</span>
-          <strong>{apiBaseUrl}</strong>
-        </div>
       </section>
 
       <FloorplanLibrary
@@ -135,37 +142,48 @@ export function App() {
       />
       <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
       <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />
-      <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
-      <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
-      <OperationalReportsProof viewModel={reportProofViewModel} />
-      <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />
-      <RoutePreviewProof initialViewModel={routePreviewProofViewModel} />
-      <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
-      <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
-      <BundleAuditProof viewModel={bundleAuditProofViewModel} />
-      <SimulationTimelineProof viewModel={simulationTimelineViewModel} />
-      <OptimizerProof viewModel={optimizerProofViewModel} />
-      <PlanBuilderDefaultsForm
-        state={defaultsFormState}
-        validationError={validationError}
-        onChange={updateDefaultsField}
-      />
-      <GeneratedPlanPreview
-        preview={generatedPreview}
-        onGenerate={generatePreview}
-        onApply={applyPreview}
-      />
-      <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
-      <PlanSaveLoadPanel
-        apiBaseUrl={apiBaseUrl}
-        draftPlan={draftPlan}
-        onLoadPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
-      />
-      <PlanImportExportPanel
-        draftPlan={draftPlan}
-        onImportPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
-      />
-      <PlanRenderer plan={draftPlan} />
+      <DeveloperProofMode
+        viewModel={developerProofModeViewModel}
+        onToggle={() =>
+          setDeveloperProofModeState((state) => toggleDeveloperProofMode(state))
+        }
+      >
+        <div className="api-pill" aria-label="Configured API base URL">
+          <span>API</span>
+          <strong>{apiBaseUrl}</strong>
+        </div>
+        <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />
+        <ManualAssignmentProof viewModel={manualAssignmentViewModel} />
+        <OperationalReportsProof viewModel={reportProofViewModel} />
+        <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />
+        <RoutePreviewProof initialViewModel={routePreviewProofViewModel} />
+        <ScenarioComparisonProof viewModel={scenarioComparisonProofViewModel} />
+        <ExportBundleReviewProof viewModel={exportBundleReviewViewModel} />
+        <BundleAuditProof viewModel={bundleAuditProofViewModel} />
+        <SimulationTimelineProof viewModel={simulationTimelineViewModel} />
+        <OptimizerProof viewModel={optimizerProofViewModel} />
+        <PlanBuilderDefaultsForm
+          state={defaultsFormState}
+          validationError={validationError}
+          onChange={updateDefaultsField}
+        />
+        <GeneratedPlanPreview
+          preview={generatedPreview}
+          onGenerate={generatePreview}
+          onApply={applyPreview}
+        />
+        <PlanDraftPanel plan={draftPlan} dispatch={dispatchDraft} />
+        <PlanSaveLoadPanel
+          apiBaseUrl={apiBaseUrl}
+          draftPlan={draftPlan}
+          onLoadPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
+        />
+        <PlanImportExportPanel
+          draftPlan={draftPlan}
+          onImportPlan={(plan) => dispatchDraft({ type: "replacePlan", plan })}
+        />
+        <PlanRenderer plan={draftPlan} />
+      </DeveloperProofMode>
     </main>
   );
 }

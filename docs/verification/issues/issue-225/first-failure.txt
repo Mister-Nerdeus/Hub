@@ -1,1 +1,5 @@
-Current-gap evidence before implementation: hallway and door metadata was not exposed as route-edge annotations and no stability proof existed for route selection and totals.
+Current-gap evidence before implementation:
+
+- `App.tsx` rendered simulation retrieval, assignment, reports, route preview, comparison, bundle audit, optimizer, plan builder, raw JSON, save/load, import/export, and renderer proof modules in the normal workflow.
+- The API base URL pill was visible in the normal workflow.
+- No Developer Proof Mode state or toggle existed.

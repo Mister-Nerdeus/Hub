@@ -1,31 +1,61 @@
 # Issue 225 Closeout
 
 ## Summary
-Hallway and Door Metadata Travel Annotation Adapter V1 is complete within the batch boundaries. The work remains limited to default-plan import repair, path graph readiness, route preview, walking baseline fixtures, metadata annotation, and audit evidence.
+
+Added Developer Proof Mode and moved proof-heavy panels out of the normal floorplan workflow. The default app surface now centers on the floorplan library, active floorplan summary, and editor; proof modules remain available when Developer Proof Mode is enabled.
 
 ## Files Changed
-See repository diff for the scoped source, fixture, docs, and evidence files for this issue. No PHI, EHR integration, assignment scoring, optimizer candidate generation, simulation reruns, database seeding, or production deployment was added.
+
+- `apps/web/src/App.tsx`
+- `apps/web/src/features/developer/DeveloperProofMode.tsx`
+- `apps/web/src/features/developer/developerProofModeState.ts`
+- `apps/web/src/features/developer/developerProofModeState.test.ts`
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `docs/verification/issues/issue-225/*`
 
 ## Commands Run
-Commands are listed in commands.txt and mapped in command-output-map.json.
+
+- `npm --workspace apps/web test`
+- `npm --workspace apps/web run build`
+- `node scripts/check-no-phi-fields.mjs`
+- `node scripts/check-docs-contracts.mjs`
 
 ## Tests Passed/Failed
-Required local gates are captured in test-output artifacts. Passing gates are reflected in the final docs gate and verifier outputs.
+
+- Passed: `npm --workspace apps/web test`
+- Passed: `npm --workspace apps/web run build`
+- Passed: `node scripts/check-no-phi-fields.mjs`
+- Passed: `node scripts/check-docs-contracts.mjs`
+- Failed: none
 
 ## Evidence
-Issue evidence artifacts are present in this directory and indexed in docs/verification/ISSUE_EVIDENCE_INDEX.json.
 
-## TypeScript/Python Parity Confirmation
-Contracts changed in TypeScript shared code only. No Python API or persistence contract mirrors were changed in this batch.
+- `first-failure.txt`
+- `developer-proof-mode-output.json`
+- `normal-workflow-declutter-output.json`
+- `no-docx-proof-mode-output.json`
+- `command-output-map.json`
+- `test-output/web.txt`
+- `test-output/web-build.txt`
+- `test-output/no-phi.txt`
+- `test-output/docs-gate.txt`
 
 ## Non-PHI Confirmation
-The non-PHI scanner remains part of the captured gates where required. New fixtures and docs use operational-only default layout and path graph terms.
+
+No PHI fields, EHR integration, clinical safety claims, legal compliance claims, or exact-CAD claims were introduced.
+
+## DOCX Privacy Confirmation
+
+Developer Proof Mode only gates existing JSON/proof modules. It does not expose, import, preview, download, or serve private source document files or paths.
 
 ## Non-Claims
-This issue does not claim measured walking truth, exact source DOCX geometry, clinical correctness, safety certification, EHR support, assignment scoring, optimizer behavior, database seeding, or production deployment.
+
+This issue does not remove proof code, add production navigation polish, add simulation behavior, add optimizer behavior, add route/walking-truth logic, add assignment workflow, add DOCX handling, or add API/database persistence.
 
 ## Known Limitations
-Known limitations are documented in the issue-specific gaps artifact when applicable. Path edges remain approximate fixture graph edges.
+
+Developer Proof Mode is local UI state only and is not persisted.
 
 ## Next Recommended Issue
-226.
+
+Issue 226: Floorplan Workflow Audit and Go/No-Go.
