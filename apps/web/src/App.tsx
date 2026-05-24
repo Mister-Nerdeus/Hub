@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import type { PlanContract } from "@nerdeus/shared";
 
 import { BundleAuditProof } from "./features/bundle-audit/BundleAuditProof";
@@ -17,10 +17,17 @@ import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSum
 import {
   createActiveFloorplanSummaryViewModel,
   createEmptyActiveFloorplanState,
-  openDefaultFloorplan
+  openDefaultFloorplan,
+  openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
+import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
+import {
+  createSavedFloorplanStore,
+  type SavedFloorplanRecord,
+  type SavedFloorplanStore
+} from "./features/floorplans/savedFloorplanStore";
 import { ManualAssignmentProof } from "./features/manual-assignment/ManualAssignmentProof";
 import { createManualAssignmentViewModel } from "./features/manual-assignment/manualAssignmentViewModel";
 import { OptimizerProof } from "./features/optimization/OptimizerProof";
@@ -75,7 +82,16 @@ export function App() {
   const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
-  const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
+  const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
+  if (savedFloorplanStoreRef.current == null) {
+    savedFloorplanStoreRef.current = createSavedFloorplanStore();
+  }
+  const savedFloorplanStore = savedFloorplanStoreRef.current;
+  const [savedFloorplans, setSavedFloorplans] = useState<SavedFloorplanRecord[]>([]);
+  const floorplanLibraryViewModel = createFloorplanLibraryViewModel(
+    undefined,
+    savedFloorplans
+  );
   const [developerProofModeState, setDeveloperProofModeState] = useState(
     createDeveloperProofModeState
   );
@@ -118,6 +134,29 @@ export function App() {
     );
   }
 
+  function duplicateDefaultFloorplan(planId: string) {
+    const duplicate = createDuplicateFloorplanViewModel(planId).copy;
+    const saved = savedFloorplanStore.save(duplicate);
+    setSavedFloorplans(savedFloorplanStore.list());
+    setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+  }
+
+  function openSavedJsonFloorplan(recordId: string) {
+    const saved = savedFloorplanStore.load(recordId);
+    if (saved == null) {
+      return;
+    }
+    setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+  }
+
+  function deleteSavedJsonFloorplan(recordId: string) {
+    savedFloorplanStore.delete(recordId);
+    setSavedFloorplans(savedFloorplanStore.list());
+    setActiveFloorplanState((state) =>
+      state.activeFloorplan?.recordId === recordId ? createEmptyActiveFloorplanState() : state
+    );
+  }
+
   useEffect(() => {
     if (window.location.hash.length > 1) {
       const targetId = decodeURIComponent(window.location.hash.slice(1));
@@ -139,6 +178,9 @@ export function App() {
         onOpenDefaultPlan={(planId) =>
           setActiveFloorplanState((state) => openDefaultFloorplan(state, planId))
         }
+        onDuplicateDefaultPlan={duplicateDefaultFloorplan}
+        onOpenSavedPlan={openSavedJsonFloorplan}
+        onDeleteSavedPlan={deleteSavedJsonFloorplan}
       />
       <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
       <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />

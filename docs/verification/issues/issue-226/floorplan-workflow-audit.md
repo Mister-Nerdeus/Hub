@@ -15,6 +15,7 @@ This audit reviews Issues 217-225 for the private DOCX boundary and JSON floorpl
 - Issue 223 loads active JSON floorplans in the editor, guards read-only defaults, and allows editable saved copies as drafts.
 - Issue 224 adds JSON-only floorplan import/export and rejects private document, binary, raw, base64, and embedded payloads.
 - Issue 225 hides proof-heavy modules behind Developer Proof Mode by default.
+- Post-batch review fixed the remaining app wiring gap so duplicated editable JSON copies are saved in local app state, listed in the floorplan library, openable as active editable floorplans, and deletable without API or database persistence.
 
 ## Audit Decision
 

@@ -3,9 +3,18 @@ import type { FloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
 type FloorplanLibraryProps = {
   viewModel: FloorplanLibraryViewModel;
   onOpenDefaultPlan?: (planId: string) => void;
+  onDuplicateDefaultPlan?: (planId: string) => void;
+  onOpenSavedPlan?: (recordId: string) => void;
+  onDeleteSavedPlan?: (recordId: string) => void;
 };
 
-export function FloorplanLibrary({ viewModel, onOpenDefaultPlan }: FloorplanLibraryProps) {
+export function FloorplanLibrary({
+  viewModel,
+  onOpenDefaultPlan,
+  onDuplicateDefaultPlan,
+  onOpenSavedPlan,
+  onDeleteSavedPlan
+}: FloorplanLibraryProps) {
   return (
     <section className="floorplan-library" aria-labelledby="floorplan-library-title">
       <div className="floorplan-library__header">
@@ -35,15 +44,36 @@ export function FloorplanLibrary({ viewModel, onOpenDefaultPlan }: FloorplanLibr
               </div>
               <span>{floorplan.readOnlyLabel}</span>
             </div>
-            {onOpenDefaultPlan ? (
-              <button
-                className="floorplan-library__open"
-                type="button"
-                onClick={() => onOpenDefaultPlan(floorplan.planId)}
-              >
-                Open JSON
-              </button>
-            ) : null}
+            <div className="floorplan-library__actions">
+              {floorplan.accessMode === "read-only-default" && onOpenDefaultPlan ? (
+                <button
+                  className="floorplan-library__open"
+                  type="button"
+                  onClick={() => onOpenDefaultPlan(floorplan.planId)}
+                >
+                  Open JSON
+                </button>
+              ) : null}
+              {floorplan.accessMode === "read-only-default" && onDuplicateDefaultPlan ? (
+                <button type="button" onClick={() => onDuplicateDefaultPlan(floorplan.planId)}>
+                  Duplicate JSON
+                </button>
+              ) : null}
+              {floorplan.accessMode === "editable-saved" && onOpenSavedPlan ? (
+                <button
+                  className="floorplan-library__open"
+                  type="button"
+                  onClick={() => onOpenSavedPlan(floorplan.recordId)}
+                >
+                  Open Saved JSON
+                </button>
+              ) : null}
+              {floorplan.accessMode === "editable-saved" && onDeleteSavedPlan ? (
+                <button type="button" onClick={() => onDeleteSavedPlan(floorplan.recordId)}>
+                  Delete Saved JSON
+                </button>
+              ) : null}
+            </div>
             <dl className="floorplan-library__status">
               <div>
                 <dt>Artifact</dt>
@@ -59,7 +89,7 @@ export function FloorplanLibrary({ viewModel, onOpenDefaultPlan }: FloorplanLibr
               </div>
               <div>
                 <dt>Mapping</dt>
-                <dd>{floorplan.mappingStatus}</dd>
+                <dd>{floorplan.mappingStatus ?? floorplan.parentDefaultPlanId}</dd>
               </div>
             </dl>
             <dl className="floorplan-library__counts" aria-label={`${floorplan.name} object counts`}>

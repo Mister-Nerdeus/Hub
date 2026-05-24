@@ -14,6 +14,12 @@
       ]
     },
     {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-226/test-output/web-build.txt"
+      ]
+    },
+    {
       "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/no-phi.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/no-phi.txt"
@@ -29,6 +35,18 @@
       "command": "node scripts/verify-local.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/verify-local.txt",
       "outputs": [
         "docs/verification/issues/issue-226/test-output/verify-local.txt"
+      ]
+    },
+    {
+      "command": "rg -n \"\\.docx|docs/floorplans|sourceDocumentPath\" apps/web/src apps/api/app/routes -S",
+      "outputs": [
+        "docs/verification/issues/issue-226/test-output/docx-static-scan.txt"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "outputs": [
+        "docs/verification/issues/issue-226/test-output/diff-check.txt"
       ]
     }
   ]

@@ -1,5 +1,8 @@
 npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/shared.txt
 npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/web.txt
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/web-build.txt
 node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/no-phi.txt
 node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/docs-gate.txt
 node scripts/verify-local.mjs | Tee-Object -FilePath docs/verification/issues/issue-226/test-output/verify-local.txt
+rg -n "\.docx|docs/floorplans|sourceDocumentPath" apps/web/src apps/api/app/routes -S
+git diff --check

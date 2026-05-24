@@ -7,6 +7,10 @@ Audited Issues 217-225 for the private DOCX boundary and JSON floorplan workflow
 ## Files Changed
 
 - `docs/project/floorplan-workflow-status.md`
+- `apps/web/src/App.tsx`
+- `apps/web/src/features/floorplans/FloorplanLibrary.tsx`
+- `apps/web/src/features/floorplans/floorplanLibraryViewModel.ts`
+- `apps/web/src/features/floorplans/floorplanLibraryViewModel.test.ts`
 - `docs/verification/ISSUE_EVIDENCE_INDEX.json`
 - `docs/verification/issues/issue-226/*`
 
@@ -14,22 +18,29 @@ Audited Issues 217-225 for the private DOCX boundary and JSON floorplan workflow
 
 - `npm --workspace packages/shared test`
 - `npm --workspace apps/web test`
+- `npm --workspace apps/web run build`
 - `node scripts/check-no-phi-fields.mjs`
 - `node scripts/check-docs-contracts.mjs`
 - `node scripts/verify-local.mjs`
+- `rg -n "\.docx|docs/floorplans|sourceDocumentPath" apps/web/src apps/api/app/routes -S`
+- `git diff --check`
 
 ## Tests Passed/Failed
 
 - Passed: `npm --workspace packages/shared test`
 - Passed: `npm --workspace apps/web test`
+- Passed: `npm --workspace apps/web run build`
 - Passed: `node scripts/check-no-phi-fields.mjs`
 - Passed: `node scripts/check-docs-contracts.mjs`
 - Passed: `node scripts/verify-local.mjs`
+- Passed: DOCX static scan found no web/API route exposure.
+- Passed: `git diff --check`
 - Failed: none
 
 ## Evidence
 
 - `floorplan-workflow-audit.md`
+- `post-batch-code-review-output.json`
 - `docx-privacy-boundary-summary.json`
 - `source-to-json-summary.json`
 - `floorplan-library-summary.json`
@@ -43,9 +54,12 @@ Audited Issues 217-225 for the private DOCX boundary and JSON floorplan workflow
 - `command-output-map.json`
 - `test-output/shared.txt`
 - `test-output/web.txt`
+- `test-output/web-build.txt`
 - `test-output/no-phi.txt`
 - `test-output/docs-gate.txt`
 - `test-output/verify-local.txt`
+- `test-output/docx-static-scan.txt`
+- `test-output/diff-check.txt`
 
 ## Non-PHI Confirmation
 

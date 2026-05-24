@@ -3,7 +3,9 @@ import { mkdirSync, writeFileSync } from "node:fs";
 // @ts-expect-error The web test runner executes in Node but does not include Node types.
 import { resolve } from "node:path";
 
+import { createDuplicateFloorplanViewModel } from "./duplicateFloorplanViewModel";
 import { createFloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
+import { createSavedFloorplanStore } from "./savedFloorplanStore";
 
 declare const process: { cwd(): string };
 
@@ -35,7 +37,7 @@ for (const floorplan of viewModel.floorplans) {
   if (floorplan.importStatus !== "validated_default") {
     throw new Error(`default floorplan import status must be validated_default for ${floorplan.planId}`);
   }
-  if (!floorplan.mappingStatus.startsWith("mapping-er-layout-plan-")) {
+  if (floorplan.mappingStatus == null || !floorplan.mappingStatus.startsWith("mapping-er-layout-plan-")) {
     throw new Error(`default floorplan mapping status must reference a mapping id for ${floorplan.planId}`);
   }
   if (
@@ -67,6 +69,25 @@ for (const fragment of prohibitedFragments) {
   if (serialized.includes(fragment)) {
     throw new Error(`floorplan library view model must not expose ${fragment}`);
   }
+}
+
+const savedStore = createSavedFloorplanStore();
+const savedCopy = savedStore.save(
+  createDuplicateFloorplanViewModel("default-er-layout-plan-1").copy
+);
+const savedViewModel = createFloorplanLibraryViewModel(undefined, savedStore.list());
+if (savedViewModel.totals.defaultJsonPlanCount !== 5 || savedViewModel.totals.editableSavedPlanCount !== 1) {
+  throw new Error("floorplan library must list editable saved JSON copies separately from defaults");
+}
+const savedCard = savedViewModel.floorplans.find((floorplan) => floorplan.recordId === savedCopy.recordId);
+if (savedCard == null || savedCard.accessMode !== "editable-saved") {
+  throw new Error("floorplan library must expose saved floorplan cards as editable JSON records");
+}
+if (savedCard.readOnlyLabel !== "Editable saved copy" || savedCard.parentDefaultPlanId !== "default-er-layout-plan-1") {
+  throw new Error("saved floorplan card must preserve editable status and parent default plan");
+}
+if (JSON.stringify(savedViewModel).includes(`.${"docx"}`)) {
+  throw new Error("saved floorplan cards must not expose private document extensions");
 }
 
 writeEvidence("floorplan-library-output.json", {

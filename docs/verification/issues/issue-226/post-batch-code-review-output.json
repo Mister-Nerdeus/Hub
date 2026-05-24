@@ -1,0 +1,16 @@
+{
+  "issue": "226",
+  "status": "passed",
+  "reviewScope": "Batch 217-226 private DOCX boundary and JSON floorplan workflow",
+  "findingsResolved": [
+    {
+      "finding": "Saved editable copies were implemented as a store abstraction but were not listed or opened from the normal floorplan library workflow.",
+      "resolution": "Floorplan library view model and component now include editable saved JSON copy cards with open and delete actions, and App wires duplicate-default, save-local, open-saved, and delete-saved local state."
+    }
+  ],
+  "docxPrivacyPreserved": true,
+  "apiPersistenceAdded": false,
+  "databasePersistenceAdded": false,
+  "optimizerWorkAdded": false,
+  "simulationRerunsAdded": false
+}

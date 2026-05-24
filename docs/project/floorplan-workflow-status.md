@@ -6,6 +6,8 @@ Current status: GO for the next route/walking-truth batch, scoped to validated J
 
 Private DOCX reference files remain conversion references only. Runtime workflow uses converted JSON default floorplans, duplicates defaults into editable JSON copies, stores editable copies locally, loads active JSON floorplans in the editor, supports JSON-only import/export, and separates developer proof modules behind Developer Proof Mode.
 
+Post-batch code review confirmed the duplicate/save/load path is wired into the normal floorplan library: duplicated default JSON plans become local editable saved cards that can be opened or deleted without API or database persistence.
+
 ## Boundaries
 
 - DOCX files are not product assets.
