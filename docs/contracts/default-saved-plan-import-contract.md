@@ -25,7 +25,7 @@ Source entry shape:
   sourceRevision: string;
   sourceCapturedAt: string;
   sourceFilename: string;
-  sourceDocumentPath: string;
+  sourceDocumentPath: string | null;
   sourceType: "docx-layout-reference";
   sourceVisibility: "private-reference-only";
   publicExposureAllowed: false;
@@ -46,7 +46,7 @@ Source entry shape:
 ## Rules
 
 - Source DOCX documents under `docs/floorplans/` are private conversion references only, not product assets or structured truth.
-- `sourceDocumentPath` must start with `docs/floorplans/`, end with `.docx`, and must never point into `apps/web/public`.
+- `sourceDocumentPath` must be `null` (or omitted) when source documents are not accessible from product/runtime paths.
 - Manifest entries must explicitly keep `sourceVisibility` set to `private-reference-only`.
 - Manifest entries must explicitly keep `publicExposureAllowed`, `runtimeServedByWeb`, and `runtimeServedByApi` set to `false`.
 - `conversionOutputPlanId` must resolve to an existing converted JSON default plan fixture.

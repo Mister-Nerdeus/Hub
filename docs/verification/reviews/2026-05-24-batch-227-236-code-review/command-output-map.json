@@ -1,0 +1,37 @@
+{
+  "review": "2026-05-24-batch-227-236-code-review",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/shared.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/shared.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web test *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web run build *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web-build.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web-build.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/no-phi.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/private-source-gate.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/private-source-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "docker compose config *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-compose-config.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-compose-config.txt"]
+    },
+    {
+      "command": "docker compose build web *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-build-web.txt",
+      "outputs": ["docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-build-web.txt"]
+    }
+  ]
+}

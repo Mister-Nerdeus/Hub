@@ -1,0 +1,11 @@
+{
+  "issue": "227",
+  "status": "passed",
+  "webFilesScanned": [
+    "apps/web/src",
+    "apps/web/src/features"
+  ],
+  "blockedPatterns": [".docx", "docs/floorplans", "sourceDocumentPath"],
+  "matches": [],
+  "result": "web source does not import or render DOCX artifacts or sourceDocumentPath values"
+}

@@ -1,0 +1,26 @@
+First-failure evidence:
+
+- 2026-05-24 command:
+  `Get-ChildItem -Recurse docs/floorplans -Filter *.docx`
+  Output:
+  - docs/floorplans/ER Layout_plan 1.docx
+  - docs/floorplans/ER Layout_plan 2.docx
+  - docs/floorplans/ER Layout_plan 3.docx
+  - docs/floorplans/ER Layout_plan 4.docx
+  - docs/floorplans/ER Layout_plan 5.docx
+
+- 2026-05-24 command:
+  `rg -n "\.docx|sourceDocumentPath|docs/floorplans" packages/shared/fixtures/default-plans/source-layout-manifest.json packages/shared/tests/default-plan-source-manifest.test.mjs apps/web/src apps/api/app/routes scripts`
+  Output (excerpt):
+  - packages/shared/fixtures/default-plans/source-layout-manifest.json:11: ... sourceDocumentPath: "docs/floorplans/ER Layout_plan 1.docx"
+  - ... entries 1..5 with docs/floorplans/ER Layout_plan N.docx
+  - apps/api/app/routes: no DOCX references
+  - apps/web/src: no file-path references, but scan showed manifest path values as public paths.
+
+- 2026-05-24 command:
+  `npm --workspace packages/shared test`
+  Failure before fixes:
+  - non-PHI manifest-text test rejected `sourceDocumentPath` now containing public `.docx` references; failure surfaced as
+    `NO_PHI_RUNTIME_REJECTION: manifestText[1] must be text` once source-document path contract was tightened.
+
+These outputs established the boundary violation and the need to remove source .docx artifacts and sanitize manifest fields.

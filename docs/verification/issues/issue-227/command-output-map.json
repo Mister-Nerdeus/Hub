@@ -1,0 +1,33 @@
+{
+  "issue": "227",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/shared.txt",
+      "outputs": ["docs/verification/issues/issue-227/test-output/shared.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/no-phi.txt",
+      "outputs": ["docs/verification/issues/issue-227/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/private-source-gate.txt",
+      "outputs": ["docs/verification/issues/issue-227/test-output/private-source-gate.txt"]
+    },
+    {
+      "command": "$docsGateOutput = node scripts/check-docs-contracts.mjs; $docsGateOutput | Set-Content docs/verification/issues/issue-227/test-output/docs-gate.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }",
+      "outputs": ["docs/verification/issues/issue-227/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "rg -n \"\\.docx|sourceDocumentPath|docs/floorplans\" apps/web/src apps/api/app/routes packages/shared/fixtures/default-plans/source-layout-manifest.json",
+      "outputs": ["docs/verification/issues/issue-227/web-serving-negative-output.txt"]
+    },
+    {
+      "command": "Get-ChildItem -Recurse docs/floorplans -Filter *.docx",
+      "outputs": ["docs/verification/issues/issue-227/docx-public-repo-negative-output.txt"]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *> docs/verification/issues/issue-227/test-output/verify-local.txt",
+      "outputs": ["docs/verification/issues/issue-227/test-output/verify-local.txt"]
+    }
+  ]
+}

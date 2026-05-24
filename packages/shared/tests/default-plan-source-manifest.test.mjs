@@ -93,9 +93,7 @@ function validateSourceLayoutManifest(manifest) {
     assert.equal(typeof source.sourceRevision, "string");
     assert.equal(Number.isNaN(Date.parse(source.sourceCapturedAt)), false);
     assert.equal(source.sourceFilename, `ER Layout_plan ${index + 1}.docx`);
-    assert.equal(source.sourceDocumentPath, `docs/floorplans/ER Layout_plan ${index + 1}.docx`);
-    assert.match(source.sourceDocumentPath, /^docs\/floorplans\/.+\.docx$/);
-    assert.equal(source.sourceDocumentPath.startsWith("apps/web/public"), false);
+    assert.equal(source.sourceDocumentPath, null);
     assert.equal(source.defaultPlanId, `default-er-layout-plan-${index + 1}`);
     assert.equal(source.conversionOutputPlanId, source.defaultPlanId);
     assert.equal(conversionOutputPlanIds.has(source.conversionOutputPlanId), false, "duplicate conversionOutputPlanId");
@@ -122,7 +120,9 @@ function validateSourceLayoutManifest(manifest) {
     assert.equal(hasForbiddenContentField(source), false);
 
     validateOperationalRuntimeText(source.sourceFilename, `sources[${index}].sourceFilename`);
-    validateOperationalRuntimeText(source.sourceDocumentPath, `sources[${index}].sourceDocumentPath`);
+    if (source.sourceDocumentPath != null) {
+      validateOperationalRuntimeText(source.sourceDocumentPath, `sources[${index}].sourceDocumentPath`);
+    }
     validateOperationalRuntimeText(source.defaultPlanName, `sources[${index}].defaultPlanName`);
     for (const [limitationIndex, limitation] of source.limitations.entries()) {
       validateOperationalRuntimeText(
@@ -314,7 +314,7 @@ test("source layout manifest text remains non-PHI and operational only", () => {
   const manifest = readManifest();
   const checkedTextValues = manifest.sources.flatMap((source) => [
     source.sourceFilename,
-    source.sourceDocumentPath,
+    ...(source.sourceDocumentPath == null ? [] : [source.sourceDocumentPath]),
     source.sourceArtifactId,
     source.sourceRevision,
     source.defaultPlanName,

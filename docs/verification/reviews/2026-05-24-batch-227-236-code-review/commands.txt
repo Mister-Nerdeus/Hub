@@ -1,0 +1,8 @@
+npm --workspace packages/shared test *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/shared.txt
+npm --workspace apps/web test *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web.txt
+npm --workspace apps/web run build *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/web-build.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/no-phi.txt
+node scripts/check-private-source-artifacts.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/private-source-gate.txt
+node scripts/check-docs-contracts.mjs *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docs-gate.txt
+docker compose config *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-compose-config.txt
+docker compose build web *> docs/verification/reviews/2026-05-24-batch-227-236-code-review/test-output/docker-build-web.txt

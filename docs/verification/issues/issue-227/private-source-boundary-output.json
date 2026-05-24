@@ -1,0 +1,15 @@
+{
+  "issue": "227",
+  "status": "passed",
+  "privateDocxBoundary": "enforced",
+  "checks": {
+    "privateSourceGateOutput": "docs/verification/issues/issue-227/test-output/private-source-gate.txt",
+    "manifestSourceDocumentPath": "null",
+    "docxRuntimeArtifacts": []
+  },
+  "notes": [
+    "Removed committed DOCX source artifacts from public/product repo paths.",
+    "Updated source manifest to store source-document path as null.",
+    "Added .docx ignore entry to .gitignore for future accidental commits."
+  ]
+}

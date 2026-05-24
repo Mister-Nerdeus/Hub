@@ -76,6 +76,7 @@ const commands = [
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",
   "npm --workspace apps/web run build",
+  "node scripts/check-private-source-artifacts.mjs",
   "node scripts/verify-docker-plan-api.mjs"
 ];
 

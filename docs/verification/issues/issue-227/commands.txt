@@ -1,0 +1,7 @@
+npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/shared.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/no-phi.txt
+node scripts/check-private-source-artifacts.mjs | Tee-Object -FilePath docs/verification/issues/issue-227/test-output/private-source-gate.txt
+$docsGateOutput = node scripts/check-docs-contracts.mjs; $docsGateOutput | Set-Content docs/verification/issues/issue-227/test-output/docs-gate.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+rg -n "\.docx|sourceDocumentPath|docs/floorplans" apps/web/src apps/api/app/routes packages/shared/fixtures/default-plans/source-layout-manifest.json
+Get-ChildItem -Recurse docs/floorplans -Filter *.docx
+node scripts/verify-local.mjs *> docs/verification/issues/issue-227/test-output/verify-local.txt

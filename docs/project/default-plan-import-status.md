@@ -3,7 +3,7 @@
 Status: validated default import layer.
 
 The five default ER layout fixtures are registered, mapped, wrapped as read-only default plan records, traceable to source manifest entries, and validated through local TypeScript contract tests.
-The private DOCX source files are conversion references only. Product runtime surfaces must use the converted JSON default plan fixtures and must not expose, preview, download, import, or serve DOCX source files.
+The private DOCX source files are removed from repository runtime artifact paths. Product runtime surfaces must use the converted JSON default plan fixtures and must not expose, preview, download, import, or serve DOCX source files.
 
 ## Fixture Coverage
 
@@ -18,7 +18,7 @@ The private DOCX source files are conversion references only. Product runtime su
 - Source manifest links are validated.
 - Source manifest entries explicitly mark DOCX references as `private-reference-only`.
 - Source manifest entries explicitly set `publicExposureAllowed`, `runtimeServedByWeb`, and `runtimeServedByApi` to `false`.
-- `sourceDocumentPath` values stay under `docs/floorplans/` and never point into `apps/web/public`.
+- `sourceDocumentPath` is `null` because source document files are private artifacts outside runtime paths.
 - `conversionOutputPlanId` values resolve to JSON default plan fixtures.
 - Source-to-plan mappings are validated.
 - Source-to-plan mappings are validated against the correct target plan collection for each `objectType`.
