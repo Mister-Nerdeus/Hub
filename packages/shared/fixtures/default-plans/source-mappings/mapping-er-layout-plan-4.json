@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "mappingId": "mapping-er-layout-plan-4",
+  "sourcePlanId": "source-er-layout-plan-4",
+  "targetPlanId": "default-er-layout-plan-4",
+  "objects": [
+    {
+      "sourceObjectId": "src-plan-4-trauma",
+      "sourceLabel": "Level 1 trauma",
+      "objectType": "zone",
+      "targetObjectId": "zone-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-4-main-hall",
+      "sourceLabel": "Main hall",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-main",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-visible-operational-object"
+    }
+  ],
+  "deferredSourceLabels": [
+    {
+      "sourceLabel": "unmapped-visible-label",
+      "reasonCode": "needs-human-review"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "issue": "209",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *>&1 | Tee-Object -FilePath docs/verification/issues/issue-209/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-209/test-output/shared.txt",
+        "docs/verification/issues/issue-209/source-to-plan-mapping-contract-output.json",
+        "docs/verification/issues/issue-209/mapping-skeletons-output.json",
+        "docs/verification/issues/issue-209/no-phi-mapping-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-209/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-209/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *>&1 | Tee-Object -FilePath docs/verification/issues/issue-209/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-209/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "mappingId": "mapping-er-layout-plan-1",
+  "sourcePlanId": "source-er-layout-plan-1",
+  "targetPlanId": "default-er-layout-plan-1",
+  "objects": [
+    {
+      "sourceObjectId": "src-plan-1-trauma",
+      "sourceLabel": "Level 1 trauma",
+      "objectType": "zone",
+      "targetObjectId": "zone-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hall-ems-entry",
+      "sourceLabel": "Hall EMS entry",
+      "objectType": "zone",
+      "targetObjectId": "zone-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-visible-operational-object"
+    }
+  ],
+  "deferredSourceLabels": [
+    {
+      "sourceLabel": "unmapped-visible-label",
+      "reasonCode": "needs-human-review"
+    }
+  ]
+}

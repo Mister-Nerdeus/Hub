@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "mappingId": "mapping-er-layout-plan-5",
+  "sourcePlanId": "source-er-layout-plan-5",
+  "targetPlanId": "default-er-layout-plan-5",
+  "objects": [
+    {
+      "sourceObjectId": "src-plan-5-trauma",
+      "sourceLabel": "Level 1 trauma",
+      "objectType": "zone",
+      "targetObjectId": "zone-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-5-numbered-rooms",
+      "sourceLabel": "Numbered room group",
+      "objectType": "annotation",
+      "targetObjectId": "annotation-numbered-room-group",
+      "confidence": "medium",
+      "geometryApproximation": "deferred",
+      "approximateCoordinates": null,
+      "notesCode": "source-label-grouped"
+    }
+  ],
+  "deferredSourceLabels": [
+    {
+      "sourceLabel": "unmapped-visible-label",
+      "reasonCode": "needs-human-review"
+    }
+  ]
+}

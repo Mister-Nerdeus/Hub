@@ -41,6 +41,63 @@ Source entry shape:
 - Source limitations must preserve approximation language. The drawings are visual layout references, not exact CAD geometry.
 - Manifest text remains operational-only and must pass no-PHI checks.
 
+## Source-To-Plan Mapping Contract
+
+Source mappings connect visible source labels to intended structured plan objects. They are explicit review artifacts and do not infer exact geometry.
+
+Mapping shape:
+
+```ts
+{
+  schemaVersion: "1.0.0";
+  mappingId: string;
+  sourcePlanId: string;
+  targetPlanId: string;
+  objects: SourceToPlanMappedObject[];
+  deferredSourceLabels: DeferredSourceLabel[];
+}
+```
+
+Mapped object shape:
+
+```ts
+{
+  sourceObjectId: string;
+  sourceLabel: string;
+  objectType: "room" | "hallway" | "door" | "nurseStation" | "zone" | "pathNode" | "pathEdge" | "annotation";
+  targetObjectId: string;
+  confidence: "low" | "medium" | "high";
+  geometryApproximation: "manual" | "deferred";
+  approximateCoordinates: {
+    x: number;
+    y: number;
+    widthFeet?: number | null;
+    lengthFeet?: number | null;
+  } | null;
+  notesCode: "source-label-position-approximate" | "source-visible-operational-object" | "source-label-grouped" | "source-label-deferred";
+}
+```
+
+Deferred source label shape:
+
+```ts
+{
+  sourceLabel: string;
+  reasonCode: "needs-human-review" | "source-label-ambiguous" | "source-label-not-structured-yet";
+}
+```
+
+Mapping rules:
+
+- `sourcePlanId` must identify a source in the source layout manifest.
+- `targetPlanId` must identify the intended default plan ID from the same manifest source.
+- `sourceObjectId` values must be unique within a mapping.
+- `targetObjectId` values must be unique within mapped objects for a single mapping.
+- Source labels remain source text and are distinct from validated target object IDs.
+- Coordinates, when present, are approximate manual coordinates only.
+- Notes and deferred reasons are coded enums, not free-text notes.
+- Mapping text must pass no-PHI checks.
+
 ## Non-Claims
 
 This contract does not convert layouts, perform OCR, create structured plans, add UI, seed a database, add EHR support, add PHI support, or claim exact geometry.

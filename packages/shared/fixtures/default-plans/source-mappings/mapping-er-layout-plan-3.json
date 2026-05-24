@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "mappingId": "mapping-er-layout-plan-3",
+  "sourcePlanId": "source-er-layout-plan-3",
+  "targetPlanId": "default-er-layout-plan-3",
+  "objects": [
+    {
+      "sourceObjectId": "src-plan-3-trauma",
+      "sourceLabel": "Level 1 trauma",
+      "objectType": "zone",
+      "targetObjectId": "zone-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-3-provider-pharmacy",
+      "sourceLabel": "Provider pharmacy area",
+      "objectType": "zone",
+      "targetObjectId": "zone-provider-pharmacy",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": null,
+      "notesCode": "source-visible-operational-object"
+    }
+  ],
+  "deferredSourceLabels": [
+    {
+      "sourceLabel": "unmapped-visible-label",
+      "reasonCode": "needs-human-review"
+    }
+  ]
+}
