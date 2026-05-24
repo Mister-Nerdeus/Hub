@@ -130,6 +130,10 @@ class Point(StrictModel):
     y: float
 
 
+class OperationalMetadataPlaceholder(StrictModel):
+    pass
+
+
 class Room(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -145,6 +149,9 @@ class Room(StrictModel):
     zoneId: str | None = None
     nearestStationId: str | None = None
     pathNodeId: str | None = None
+    roomOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    overflowOperationalMetadata: OperationalMetadataPlaceholder | None = None
+    adjacencyOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
     @field_validator("label")
     @classmethod
@@ -157,6 +164,7 @@ class Hallway(StrictModel):
     label: str = Field(min_length=1)
     widthFeet: float = Field(gt=0)
     points: list[Point] = Field(min_length=2)
+    hallwayOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
     @field_validator("label")
     @classmethod
@@ -172,6 +180,7 @@ class Door(StrictModel):
     y: float
     widthFeet: float = Field(gt=0)
     pathNodeId: str | None = None
+    doorOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
     @field_validator("label")
     @classmethod
@@ -188,6 +197,7 @@ class NurseStation(StrictModel):
     widthFeet: float = Field(gt=0)
     lengthFeet: float = Field(gt=0)
     pathNodeId: str = Field(min_length=1)
+    stationOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
     @field_validator("label")
     @classmethod
@@ -206,6 +216,7 @@ class Zone(StrictModel):
     lengthFeet: float = Field(gt=0)
     travelBlocked: bool
     travelPenalty: float | None = Field(default=None, ge=0)
+    zoneOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
     @field_validator("label")
     @classmethod
@@ -219,6 +230,7 @@ class PathNode(StrictModel):
     x: float
     y: float
     linkedObjectId: str | None = None
+    entryOperationalMetadata: OperationalMetadataPlaceholder | None = None
 
 
 class PathEdge(StrictModel):

@@ -156,6 +156,8 @@ export type Point = {
   y: number;
 };
 
+export type OperationalMetadataPlaceholder = Record<string, never>;
+
 export type Room = {
   id: string;
   label: string;
@@ -171,6 +173,9 @@ export type Room = {
   zoneId?: string | null;
   nearestStationId?: string | null;
   pathNodeId?: string | null;
+  roomOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  overflowOperationalMetadata?: OperationalMetadataPlaceholder | null;
+  adjacencyOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type Hallway = {
@@ -178,6 +183,7 @@ export type Hallway = {
   label: string;
   widthFeet: number;
   points: Point[];
+  hallwayOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type Door = {
@@ -188,6 +194,7 @@ export type Door = {
   y: number;
   widthFeet: number;
   pathNodeId?: string | null;
+  doorOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type NurseStation = {
@@ -199,6 +206,7 @@ export type NurseStation = {
   widthFeet: number;
   lengthFeet: number;
   pathNodeId: string;
+  stationOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type Zone = {
@@ -212,6 +220,7 @@ export type Zone = {
   lengthFeet: number;
   travelBlocked: boolean;
   travelPenalty?: number | null;
+  zoneOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type PathNode = {
@@ -220,6 +229,7 @@ export type PathNode = {
   x: number;
   y: number;
   linkedObjectId?: string | null;
+  entryOperationalMetadata?: OperationalMetadataPlaceholder | null;
 };
 
 export type PathEdge = {
@@ -3310,7 +3320,10 @@ function validateRoom(value: unknown, index: number): Room {
     "doorPoint",
     "zoneId",
     "nearestStationId",
-    "pathNodeId"
+    "pathNodeId",
+    "roomOperationalMetadata",
+    "overflowOperationalMetadata",
+    "adjacencyOperationalMetadata"
   ]);
   requireString(room.id, `rooms[${index}].id`);
   validateOperationalRuntimeText(
@@ -3331,12 +3344,30 @@ function validateRoom(value: unknown, index: number): Room {
   requireOptionalString(room.zoneId, `rooms[${index}].zoneId`);
   requireOptionalString(room.nearestStationId, `rooms[${index}].nearestStationId`);
   requireOptionalString(room.pathNodeId, `rooms[${index}].pathNodeId`);
+  validateOptionalOperationalMetadataPlaceholder(
+    room.roomOperationalMetadata,
+    `rooms[${index}].roomOperationalMetadata`
+  );
+  validateOptionalOperationalMetadataPlaceholder(
+    room.overflowOperationalMetadata,
+    `rooms[${index}].overflowOperationalMetadata`
+  );
+  validateOptionalOperationalMetadataPlaceholder(
+    room.adjacencyOperationalMetadata,
+    `rooms[${index}].adjacencyOperationalMetadata`
+  );
   return room as Room;
 }
 
 function validateHallway(value: unknown, index: number): Hallway {
   const hallway = requireRecord(value, `hallways[${index}]`);
-  requireExactKeys(hallway, `hallways[${index}]`, ["id", "label", "widthFeet", "points"]);
+  requireExactKeys(hallway, `hallways[${index}]`, [
+    "id",
+    "label",
+    "widthFeet",
+    "points",
+    "hallwayOperationalMetadata"
+  ]);
   requireString(hallway.id, `hallways[${index}].id`);
   validateOperationalRuntimeText(
     requireString(hallway.label, `hallways[${index}].label`),
@@ -3350,6 +3381,10 @@ function validateHallway(value: unknown, index: number): Hallway {
   points.forEach((point, pointIndex) =>
     validatePoint(point, `hallways[${index}].points[${pointIndex}]`)
   );
+  validateOptionalOperationalMetadataPlaceholder(
+    hallway.hallwayOperationalMetadata,
+    `hallways[${index}].hallwayOperationalMetadata`
+  );
   return hallway as Hallway;
 }
 
@@ -3362,7 +3397,8 @@ function validateDoor(value: unknown, index: number): Door {
     "x",
     "y",
     "widthFeet",
-    "pathNodeId"
+    "pathNodeId",
+    "doorOperationalMetadata"
   ]);
   requireString(door.id, `doors[${index}].id`);
   validateOperationalRuntimeText(
@@ -3374,6 +3410,10 @@ function validateDoor(value: unknown, index: number): Door {
   requireNumber(door.y, `doors[${index}].y`);
   requirePositiveNumber(door.widthFeet, `doors[${index}].widthFeet`);
   requireOptionalString(door.pathNodeId, `doors[${index}].pathNodeId`);
+  validateOptionalOperationalMetadataPlaceholder(
+    door.doorOperationalMetadata,
+    `doors[${index}].doorOperationalMetadata`
+  );
   return door as Door;
 }
 
@@ -3387,7 +3427,8 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
     "y",
     "widthFeet",
     "lengthFeet",
-    "pathNodeId"
+    "pathNodeId",
+    "stationOperationalMetadata"
   ]);
   requireString(station.id, `nurseStations[${index}].id`);
   validateOperationalRuntimeText(
@@ -3400,6 +3441,10 @@ function validateNurseStation(value: unknown, index: number): NurseStation {
   requirePositiveNumber(station.widthFeet, `nurseStations[${index}].widthFeet`);
   requirePositiveNumber(station.lengthFeet, `nurseStations[${index}].lengthFeet`);
   requireString(station.pathNodeId, `nurseStations[${index}].pathNodeId`);
+  validateOptionalOperationalMetadataPlaceholder(
+    station.stationOperationalMetadata,
+    `nurseStations[${index}].stationOperationalMetadata`
+  );
   return station as NurseStation;
 }
 
@@ -3415,7 +3460,8 @@ function validateZone(value: unknown, index: number): Zone {
     "widthFeet",
     "lengthFeet",
     "travelBlocked",
-    "travelPenalty"
+    "travelPenalty",
+    "zoneOperationalMetadata"
   ]);
   requireString(zone.id, `zones[${index}].id`);
   validateOperationalRuntimeText(
@@ -3435,6 +3481,10 @@ function validateZone(value: unknown, index: number): Zone {
   if (zone.travelPenalty != null) {
     requireNonNegativeNumber(zone.travelPenalty, `zones[${index}].travelPenalty`);
   }
+  validateOptionalOperationalMetadataPlaceholder(
+    zone.zoneOperationalMetadata,
+    `zones[${index}].zoneOperationalMetadata`
+  );
   return zone as Zone;
 }
 
@@ -3445,13 +3495,18 @@ function validatePathNode(value: unknown, index: number): PathNode {
     "nodeType",
     "x",
     "y",
-    "linkedObjectId"
+    "linkedObjectId",
+    "entryOperationalMetadata"
   ]);
   requireString(node.id, `pathNodes[${index}].id`);
   requireEnum(node.nodeType, PATH_NODE_TYPES, `pathNodes[${index}].nodeType`);
   requireNumber(node.x, `pathNodes[${index}].x`);
   requireNumber(node.y, `pathNodes[${index}].y`);
   requireOptionalString(node.linkedObjectId, `pathNodes[${index}].linkedObjectId`);
+  validateOptionalOperationalMetadataPlaceholder(
+    node.entryOperationalMetadata,
+    `pathNodes[${index}].entryOperationalMetadata`
+  );
   return node as PathNode;
 }
 
@@ -3759,6 +3814,14 @@ function validatePoint(value: unknown, label: string): Point {
   requireNumber(point.x, `${label}.x`);
   requireNumber(point.y, `${label}.y`);
   return point as Point;
+}
+
+function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, []);
 }
 
 function requireRecord(value: unknown, label: string): Record<string, unknown> {
