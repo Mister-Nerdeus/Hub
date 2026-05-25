@@ -1,0 +1,301 @@
+{
+  "issue": "279",
+  "status": "passed",
+  "matrixId": "plan-1-demo-route-matrix-v1",
+  "planId": "default-er-layout-plan-1",
+  "sourceIssue": "279",
+  "screens": [
+    {
+      "screenId": "floorplans",
+      "label": "Floorplans",
+      "appSection": "floorplans",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Plan 1 floorplan selection",
+        "Repaired Plan 1 visual parity"
+      ],
+      "nonClaimsRequired": false,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/floorplans.png",
+      "status": "covered",
+      "nonClaims": []
+    },
+    {
+      "screenId": "layout-editor",
+      "label": "Layout editor",
+      "appSection": "layout-editor",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Editable Plan 1 layout surface",
+        "Route-affecting edit warning context"
+      ],
+      "nonClaimsRequired": false,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/editor.png",
+      "status": "covered",
+      "nonClaims": []
+    },
+    {
+      "screenId": "assignments",
+      "label": "Assignments",
+      "appSection": "assignments",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Manual Plan 1 assignment state",
+        "Assignment validation and walking preview"
+      ],
+      "nonClaimsRequired": false,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/assignments.png",
+      "status": "covered",
+      "nonClaims": []
+    },
+    {
+      "screenId": "scenarios",
+      "label": "Scenarios",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Plan 1 scenario builder",
+        "Synthetic scenario profile selection"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenarios.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "assumptions",
+      "label": "Assumptions",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Grouped simulation assumptions",
+        "What this simulation does NOT claim"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/assumptions.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "scenario-controls",
+      "label": "Scenario controls",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Deterministic seed control",
+        "Duration and task template controls"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenario-controls.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "operational-summary",
+      "label": "Operational summary",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Synthetic task counts",
+        "Deferred work and walking summary"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/operational-summary.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "timeline",
+      "label": "Timeline",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Highest queue callout",
+        "Deferred task and walking load callouts"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/timeline.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "warning-explanations",
+      "label": "Warning explanations",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Warning explanation cards",
+        "Operational-only label"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/warning-explanations.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "scenario-comparison",
+      "label": "Scenario comparison",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Human-readable scenario narratives",
+        "Operational comparison only"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenario-comparison.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "proof-report",
+      "label": "Proof report",
+      "appSection": "scenarios",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Simulation proof report",
+        "Traceable deterministic proof sections"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/proof-report.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "screenId": "demo-proof-bundle",
+      "label": "Demo proof bundle",
+      "appSection": "demo",
+      "requiredForDemo": true,
+      "expectedContent": [
+        "Exportable demo proof bundle",
+        "Evidence artifact references"
+      ],
+      "nonClaimsRequired": true,
+      "screenshotRequired": true,
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/demo-proof-bundle.png",
+      "status": "covered",
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  ],
+  "requiredNonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "limitations": [
+    "Screens are Plan 1 demo proof references only.",
+    "Route matrix status tracks local demo coverage, not production readiness."
+  ],
+  "syntheticDataOnly": true,
+  "summary": {
+    "planId": "default-er-layout-plan-1",
+    "screenCount": 12,
+    "coveredScreenCount": 12,
+    "requiredScreenIds": [
+      "floorplans",
+      "layout-editor",
+      "assignments",
+      "scenarios",
+      "assumptions",
+      "scenario-controls",
+      "operational-summary",
+      "timeline",
+      "warning-explanations",
+      "scenario-comparison",
+      "proof-report",
+      "demo-proof-bundle"
+    ],
+    "missingScreenIds": [],
+    "nonClaimsRequiredScreenCount": 9,
+    "screenshotRequiredScreenCount": 12,
+    "screenshotPaths": [
+      "docs/verification/issues/issue-279/screenshots/floorplans.png",
+      "docs/verification/issues/issue-279/screenshots/editor.png",
+      "docs/verification/issues/issue-279/screenshots/assignments.png",
+      "docs/verification/issues/issue-279/screenshots/scenarios.png",
+      "docs/verification/issues/issue-279/screenshots/assumptions.png",
+      "docs/verification/issues/issue-279/screenshots/scenario-controls.png",
+      "docs/verification/issues/issue-279/screenshots/operational-summary.png",
+      "docs/verification/issues/issue-279/screenshots/timeline.png",
+      "docs/verification/issues/issue-279/screenshots/warning-explanations.png",
+      "docs/verification/issues/issue-279/screenshots/scenario-comparison.png",
+      "docs/verification/issues/issue-279/screenshots/proof-report.png",
+      "docs/verification/issues/issue-279/screenshots/demo-proof-bundle.png"
+    ]
+  }
+}

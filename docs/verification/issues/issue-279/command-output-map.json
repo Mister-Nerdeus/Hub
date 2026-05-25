@@ -1,11 +1,66 @@
 {
   "issue": "279",
   "commands": [
+    { "command": "npm --workspace packages/shared test", "outputs": ["docs/verification/issues/issue-279/test-output/shared.txt"] },
+    { "command": "npm --workspace apps/web test", "outputs": ["docs/verification/issues/issue-279/test-output/web.txt"] },
+    { "command": "npm --workspace apps/web run build", "outputs": ["docs/verification/issues/issue-279/test-output/web-build.txt"] },
+    { "command": "node scripts/check-no-phi-fields.mjs", "outputs": ["docs/verification/issues/issue-279/test-output/no-phi.txt"] },
+    { "command": "node scripts/check-docs-contracts.mjs", "outputs": ["docs/verification/issues/issue-279/test-output/docs-gate.txt"] },
     {
-      "command": "node scripts/check-floorplan-authoring.mjs --stage route-matrix --allow-partial --issue 279",
-      "outputs": [
-        "docs/verification/issues/issue-279/test-output/floorplan-authoring-gate.txt"
-      ]
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plan-1-visual-parity-gate.txt", "docs/verification/issues/issue-279/visual-parity-still-passes-output.json"]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plan-1-assignment-workflow-gate.txt", "docs/verification/issues/issue-279/assignment-workflow-still-passes-output.json"]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plan-1-scenario-simulation-gate.txt", "docs/verification/issues/issue-279/scenario-simulation-still-passes-output.json"]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plan-1-simulation-refinement-gate.txt", "docs/verification/issues/issue-279/simulation-refinement-still-passes-output.json"]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plans-2-through-5-unchanged.txt", "docs/verification/issues/issue-279/plans-2-through-5-unchanged-output.json"]
+    },
+    {
+      "command": "node scripts/check-plan-1-demo-readiness.mjs --stage screenshots-route-matrix --allow-partial --issue 279",
+      "outputs": ["docs/verification/issues/issue-279/test-output/plan-1-demo-readiness-gate.txt", "docs/verification/issues/issue-279/demo-readiness-manifest-output.json"]
     }
+  ],
+  "implementationArtifacts": [
+    "docs/verification/issues/issue-279/first-failure.txt",
+    "docs/verification/issues/issue-279/demo-route-matrix-output.json",
+    "docs/verification/issues/issue-279/demo-screen-coverage-output.json",
+    "docs/verification/issues/issue-279/demo-non-claims-screen-output.json",
+    "docs/verification/issues/issue-279/screenshot-reference-output.json",
+    "docs/verification/issues/issue-279/demo-readiness-manifest-output.json",
+    "docs/verification/issues/issue-279/visual-parity-still-passes-output.json",
+    "docs/verification/issues/issue-279/assignment-workflow-still-passes-output.json",
+    "docs/verification/issues/issue-279/scenario-simulation-still-passes-output.json",
+    "docs/verification/issues/issue-279/simulation-refinement-still-passes-output.json",
+    "docs/verification/issues/issue-279/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-279/screenshots/floorplans.png",
+    "docs/verification/issues/issue-279/screenshots/editor.png",
+    "docs/verification/issues/issue-279/screenshots/assignments.png",
+    "docs/verification/issues/issue-279/screenshots/scenarios.png",
+    "docs/verification/issues/issue-279/screenshots/assumptions.png",
+    "docs/verification/issues/issue-279/screenshots/scenario-controls.png",
+    "docs/verification/issues/issue-279/screenshots/operational-summary.png",
+    "docs/verification/issues/issue-279/screenshots/timeline.png",
+    "docs/verification/issues/issue-279/screenshots/warning-explanations.png",
+    "docs/verification/issues/issue-279/screenshots/scenario-comparison.png",
+    "docs/verification/issues/issue-279/screenshots/proof-report.png",
+    "docs/verification/issues/issue-279/screenshots/demo-proof-bundle.png",
+    "docs/verification/issues/issue-279/test-output/shared.txt",
+    "docs/verification/issues/issue-279/test-output/web.txt",
+    "docs/verification/issues/issue-279/test-output/web-build.txt",
+    "docs/verification/issues/issue-279/test-output/no-phi.txt",
+    "docs/verification/issues/issue-279/test-output/docs-gate.txt",
+    "docs/verification/issues/issue-279/test-output/plan-1-demo-readiness-gate.txt",
+    "docs/verification/issues/issue-279/test-output/plans-2-through-5-unchanged.txt"
   ]
 }

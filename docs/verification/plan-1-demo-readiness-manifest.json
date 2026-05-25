@@ -62,7 +62,23 @@
     "docs/verification/issues/issue-278/no-phi-demo-audit-output.json",
     "docs/verification/issues/issue-278/prohibited-claim-negative-output.json",
     "docs/verification/issues/issue-278/prohibited-data-field-negative-output.json",
-    "docs/verification/issues/issue-278/required-non-claims-present-output.json"
+    "docs/verification/issues/issue-278/required-non-claims-present-output.json",
+    "docs/verification/issues/issue-279/demo-route-matrix-output.json",
+    "docs/verification/issues/issue-279/demo-screen-coverage-output.json",
+    "docs/verification/issues/issue-279/demo-non-claims-screen-output.json",
+    "docs/verification/issues/issue-279/screenshot-reference-output.json",
+    "docs/verification/issues/issue-279/screenshots/floorplans.png",
+    "docs/verification/issues/issue-279/screenshots/editor.png",
+    "docs/verification/issues/issue-279/screenshots/assignments.png",
+    "docs/verification/issues/issue-279/screenshots/scenarios.png",
+    "docs/verification/issues/issue-279/screenshots/assumptions.png",
+    "docs/verification/issues/issue-279/screenshots/scenario-controls.png",
+    "docs/verification/issues/issue-279/screenshots/operational-summary.png",
+    "docs/verification/issues/issue-279/screenshots/timeline.png",
+    "docs/verification/issues/issue-279/screenshots/warning-explanations.png",
+    "docs/verification/issues/issue-279/screenshots/scenario-comparison.png",
+    "docs/verification/issues/issue-279/screenshots/proof-report.png",
+    "docs/verification/issues/issue-279/screenshots/demo-proof-bundle.png"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -87,6 +103,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "278",
+  "lastIssueUpdated": "279",
   "goNoGoStatus": "pending"
 }

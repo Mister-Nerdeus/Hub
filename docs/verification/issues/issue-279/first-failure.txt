@@ -1,7 +1,57 @@
-Issue 279 first-failure.txt
-
-Stage: route-matrix
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+{
+  "issue": "279",
+  "stage": "screenshots-route-matrix",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "manifestSummary": {
+    "manifestVersion": 1,
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 demo-readiness proof contract for synthetic operational simulation only.",
+    "requiredScreenCount": 12,
+    "requiredEvidenceArtifactCount": 46,
+    "requiredGateCount": 11,
+    "lastIssueUpdated": "278",
+    "goNoGoStatus": "pending"
+  },
+  "checks": [
+    {
+      "check": "manifest",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "screenshotsRouteMatrix",
+      "status": "failed",
+      "failureCount": 3,
+      "failures": [
+        "missing docs/verification/issues/issue-279/demo-route-matrix-output.json",
+        "missing docs/verification/issues/issue-279/demo-screen-coverage-output.json",
+        "missing docs/verification/issues/issue-279/demo-non-claims-screen-output.json"
+      ]
+    },
+    {
+      "check": "routeMatrix",
+      "status": "failed",
+      "failureCount": 1,
+      "failures": [
+        "missing docs/verification/issues/issue-279/demo-route-matrix-output.json"
+      ]
+    }
+  ],
+  "failureCount": 4,
+  "failures": [
+    "screenshotsRouteMatrix: missing docs/verification/issues/issue-279/demo-route-matrix-output.json",
+    "screenshotsRouteMatrix: missing docs/verification/issues/issue-279/demo-screen-coverage-output.json",
+    "screenshotsRouteMatrix: missing docs/verification/issues/issue-279/demo-non-claims-screen-output.json",
+    "routeMatrix: missing docs/verification/issues/issue-279/demo-route-matrix-output.json"
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

@@ -253,6 +253,37 @@ function validateRouteMatrix() {
     }
   }
   for (const screen of screens) {
+    for (const field of [
+      "screenId",
+      "label",
+      "appSection",
+      "requiredForDemo",
+      "expectedContent",
+      "nonClaimsRequired",
+      "screenshotRequired",
+      "screenshotPath",
+      "status"
+    ]) {
+      if (screen[field] == null) {
+        failures.push(`screen ${screen.screenId ?? "unknown"} missing field ${field}`);
+      }
+    }
+    if (screen.requiredForDemo !== true) {
+      failures.push(`screen ${screen.screenId} is not marked requiredForDemo`);
+    }
+    if (!Array.isArray(screen.expectedContent) || screen.expectedContent.length === 0) {
+      failures.push(`screen ${screen.screenId} missing expectedContent`);
+    }
+    if (screen.status !== "covered") {
+      failures.push(`screen ${screen.screenId} status is not covered`);
+    }
+    if (screen.nonClaimsRequired === true) {
+      for (const nonClaim of manifest?.requiredNonClaims ?? []) {
+        if (!Array.isArray(screen.nonClaims) || !screen.nonClaims.includes(nonClaim)) {
+          failures.push(`screen ${screen.screenId} missing required non-claim: ${nonClaim}`);
+        }
+      }
+    }
     if (screen.screenshotRequired === true) {
       if (typeof screen.screenshotPath !== "string" || screen.screenshotPath.length === 0) {
         failures.push(`missing screenshotPath for ${screen.screenId}`);

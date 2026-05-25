@@ -39,6 +39,7 @@ export * from "./floorplans/autoHallwayGenerator.js";
 export * from "./floorplans/autoPodBorder.js";
 export * from "./floorplans/authoringExportIntegrity.js";
 export * from "./floorplans/floorplanAuthoringRouteMatrix.js";
+export * from "./demo/plan1DemoRouteMatrix.js";
 export * from "./no-phi/runtimeTextGuard.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
 export * from "./optimization/optimizationContract.js";

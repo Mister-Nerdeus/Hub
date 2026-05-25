@@ -1,9 +1,103 @@
 {
   "issue": "279",
-  "stage": "route-matrix",
   "status": "passed",
-  "artifact": "screenshot-reference-output.json",
-  "nonPhi": true,
-  "privateSourcePayloadStored": false,
-  "pathSyncStatus": "stale_warning_when_geometry_affects_routes"
+  "screenshotCount": 12,
+  "references": [
+    {
+      "screenId": "floorplans",
+      "label": "Floorplans",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/floorplans.png",
+      "exists": true,
+      "byteLength": 19205,
+      "nonClaimsRequired": false
+    },
+    {
+      "screenId": "layout-editor",
+      "label": "Layout editor",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/editor.png",
+      "exists": true,
+      "byteLength": 20755,
+      "nonClaimsRequired": false
+    },
+    {
+      "screenId": "assignments",
+      "label": "Assignments",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/assignments.png",
+      "exists": true,
+      "byteLength": 20884,
+      "nonClaimsRequired": false
+    },
+    {
+      "screenId": "scenarios",
+      "label": "Scenarios",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenarios.png",
+      "exists": true,
+      "byteLength": 27345,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "assumptions",
+      "label": "Assumptions",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/assumptions.png",
+      "exists": true,
+      "byteLength": 28505,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "scenario-controls",
+      "label": "Scenario controls",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenario-controls.png",
+      "exists": true,
+      "byteLength": 28335,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "operational-summary",
+      "label": "Operational summary",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/operational-summary.png",
+      "exists": true,
+      "byteLength": 28910,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "timeline",
+      "label": "Timeline",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/timeline.png",
+      "exists": true,
+      "byteLength": 27122,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "warning-explanations",
+      "label": "Warning explanations",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/warning-explanations.png",
+      "exists": true,
+      "byteLength": 28959,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "scenario-comparison",
+      "label": "Scenario comparison",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/scenario-comparison.png",
+      "exists": true,
+      "byteLength": 28754,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "proof-report",
+      "label": "Proof report",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/proof-report.png",
+      "exists": true,
+      "byteLength": 27577,
+      "nonClaimsRequired": true
+    },
+    {
+      "screenId": "demo-proof-bundle",
+      "label": "Demo proof bundle",
+      "screenshotPath": "docs/verification/issues/issue-279/screenshots/demo-proof-bundle.png",
+      "exists": true,
+      "byteLength": 27863,
+      "nonClaimsRequired": true
+    }
+  ]
 }

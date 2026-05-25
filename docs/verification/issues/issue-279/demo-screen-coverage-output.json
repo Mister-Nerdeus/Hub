@@ -1,0 +1,142 @@
+{
+  "issue": "279",
+  "status": "passed",
+  "requiredScreenIds": [
+    "floorplans",
+    "layout-editor",
+    "assignments",
+    "scenarios",
+    "assumptions",
+    "scenario-controls",
+    "operational-summary",
+    "timeline",
+    "warning-explanations",
+    "scenario-comparison",
+    "proof-report",
+    "demo-proof-bundle"
+  ],
+  "coveredScreenCount": 12,
+  "missingScreenIds": [],
+  "screens": [
+    {
+      "screenId": "floorplans",
+      "label": "Floorplans",
+      "appSection": "floorplans",
+      "expectedContent": [
+        "Plan 1 floorplan selection",
+        "Repaired Plan 1 visual parity"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "layout-editor",
+      "label": "Layout editor",
+      "appSection": "layout-editor",
+      "expectedContent": [
+        "Editable Plan 1 layout surface",
+        "Route-affecting edit warning context"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "assignments",
+      "label": "Assignments",
+      "appSection": "assignments",
+      "expectedContent": [
+        "Manual Plan 1 assignment state",
+        "Assignment validation and walking preview"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "scenarios",
+      "label": "Scenarios",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Plan 1 scenario builder",
+        "Synthetic scenario profile selection"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "assumptions",
+      "label": "Assumptions",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Grouped simulation assumptions",
+        "What this simulation does NOT claim"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "scenario-controls",
+      "label": "Scenario controls",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Deterministic seed control",
+        "Duration and task template controls"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "operational-summary",
+      "label": "Operational summary",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Synthetic task counts",
+        "Deferred work and walking summary"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "timeline",
+      "label": "Timeline",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Highest queue callout",
+        "Deferred task and walking load callouts"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "warning-explanations",
+      "label": "Warning explanations",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Warning explanation cards",
+        "Operational-only label"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "scenario-comparison",
+      "label": "Scenario comparison",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Human-readable scenario narratives",
+        "Operational comparison only"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "proof-report",
+      "label": "Proof report",
+      "appSection": "scenarios",
+      "expectedContent": [
+        "Simulation proof report",
+        "Traceable deterministic proof sections"
+      ],
+      "status": "covered"
+    },
+    {
+      "screenId": "demo-proof-bundle",
+      "label": "Demo proof bundle",
+      "appSection": "demo",
+      "expectedContent": [
+        "Exportable demo proof bundle",
+        "Evidence artifact references"
+      ],
+      "status": "covered"
+    }
+  ]
+}
