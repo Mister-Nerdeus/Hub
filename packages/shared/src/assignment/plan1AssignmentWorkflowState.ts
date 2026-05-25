@@ -13,6 +13,11 @@ import {
 import { validatePlan1RoomLoads } from "./roomLoadContract.js";
 
 export type Plan1AssignmentPathSyncStatus = "fresh" | "stale_warning" | "blocked";
+const PLAN_1_ASSIGNMENT_PATH_SYNC_STATUSES: Plan1AssignmentPathSyncStatus[] = [
+  "fresh",
+  "stale_warning",
+  "blocked"
+];
 
 export type Plan1AssignmentWorkflowState = {
   planId: typeof PLAN_1_ID;
@@ -34,10 +39,17 @@ export function createPlan1AssignmentWorkflowState(input: {
   assignments: unknown[];
 }): Plan1AssignmentWorkflowState {
   const plan = validatePlan1Plan(input.plan);
+  const visualParityStatus = input.visualParityStatus ?? "valid";
+  if (visualParityStatus !== "valid") {
+    throw new Error("Plan 1 assignment workflow state requires visualParityStatus valid");
+  }
+  const pathSyncStatus = input.pathSyncStatus ?? "fresh";
+  if (!PLAN_1_ASSIGNMENT_PATH_SYNC_STATUSES.includes(pathSyncStatus)) {
+    throw new Error("Plan 1 assignment workflow state pathSyncStatus must be fresh, stale_warning, or blocked");
+  }
   const nurses = validatePlan1NurseProfiles(input.nurses, plan);
   const roomLoads = validatePlan1RoomLoads(input.roomLoads, plan);
   const assignments = validatePlan1ManualAssignments(input.assignments, plan, nurses);
-  const pathSyncStatus = input.pathSyncStatus ?? "fresh";
   const validation = validatePlan1AssignmentsForOperations({
     plan,
     nurses,
@@ -48,7 +60,7 @@ export function createPlan1AssignmentWorkflowState(input: {
 
   return {
     planId: PLAN_1_ID,
-    visualParityStatus: input.visualParityStatus ?? "valid",
+    visualParityStatus,
     pathSyncStatus,
     nurses,
     roomLoads,

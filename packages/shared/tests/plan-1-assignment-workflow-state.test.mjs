@@ -54,6 +54,31 @@ test("canonical Plan 1 assignment workflow state rejects non-Plan-1 scope", () =
   );
 });
 
+test("canonical Plan 1 assignment workflow state rejects invalid runtime statuses", () => {
+  assert.throws(
+    () =>
+      createPlan1AssignmentWorkflowState({
+        plan,
+        nurses,
+        roomLoads,
+        assignments,
+        visualParityStatus: "invalid"
+      }),
+    /visualParityStatus valid/u
+  );
+  assert.throws(
+    () =>
+      createPlan1AssignmentWorkflowState({
+        plan,
+        nurses,
+        roomLoads,
+        assignments,
+        pathSyncStatus: "unknown"
+      }),
+    /pathSyncStatus must be fresh/u
+  );
+});
+
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(fixturesDir, relativePath), "utf8"));
 }

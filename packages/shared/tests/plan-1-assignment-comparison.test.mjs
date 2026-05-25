@@ -14,6 +14,7 @@ const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const plan = validatePlanContract(readJson("default-plans/default-er-layout-plan-1.json").plan);
 const fixtures = validatePlan1AssignmentComparisonFixtures(readJson("assignments/plan-1/assignment-comparison-fixtures.json"), plan);
 const outputs = buildPlan1AssignmentComparisonOutputs({ plan, fixtures });
+const rawFixtureFile = readJson("assignments/plan-1/assignment-comparison-fixtures.json");
 
 test("comparison fixtures are deterministic and named", () => {
   assert.deepEqual(outputs.map((output) => output.fixtureId), [
@@ -35,6 +36,17 @@ test("comparison fixtures are normalized through canonical workflow state", () =
     assert.equal(fixture.workflowState.roomLoads.length, fixture.roomLoads.length);
     assert.equal(fixture.workflowState.assignments.length, fixture.assignments.length);
   }
+});
+
+test("comparison fixtures reject non-Plan-1 root metadata", () => {
+  assert.throws(
+    () => validatePlan1AssignmentComparisonFixtures({ ...rawFixtureFile, planId: "default-er-layout-plan-2" }, plan),
+    /planId must match default-er-layout-plan-1/u
+  );
+  assert.throws(
+    () => validatePlan1AssignmentComparisonFixtures({ ...rawFixtureFile, schemaVersion: "2.0.0" }, plan),
+    /schemaVersion must be 1\.0\.0/u
+  );
 });
 
 test("3-room assignment can be heavier than a 4-room assignment", () => {

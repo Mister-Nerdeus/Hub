@@ -1,0 +1,10 @@
+npm --workspace packages/shared test *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/shared.txt
+npm --workspace apps/web test *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web.txt
+npm --workspace apps/web run build *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web-build.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *> $env:TEMP\batch-241-250-review-docs-gate.txt; Copy-Item $env:TEMP\batch-241-250-review-docs-gate.txt docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docs-gate.txt
+node scripts/check-plan-1-visual-parity.mjs --stage final *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 250 *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plans-2-through-5-unchanged.txt
+node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 250 *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-assignment-workflow-gate.txt
+docker compose down *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docker-compose-down-before-verify-local.txt
+node scripts/verify-local.mjs *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/verify-local.txt

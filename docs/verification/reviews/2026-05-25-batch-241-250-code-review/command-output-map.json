@@ -1,0 +1,45 @@
+{
+  "review": "2026-05-25-batch-241-250-code-review",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/shared.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/shared.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web test *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web run build *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web-build.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/web-build.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/no-phi.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *> $env:TEMP\\batch-241-250-review-docs-gate.txt; Copy-Item $env:TEMP\\batch-241-250-review-docs-gate.txt docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-visual-parity-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 250 *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plans-2-through-5-unchanged.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plans-2-through-5-unchanged.txt"]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 250 *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-assignment-workflow-gate.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/plan-1-assignment-workflow-gate.txt"]
+    },
+    {
+      "command": "docker compose down *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docker-compose-down-before-verify-local.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/docker-compose-down-before-verify-local.txt"]
+    },
+    {
+      "command": "node scripts/verify-local.mjs *> docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/verify-local.txt",
+      "outputs": ["docs/verification/reviews/2026-05-25-batch-241-250-code-review/test-output/verify-local.txt"]
+    }
+  ]
+}

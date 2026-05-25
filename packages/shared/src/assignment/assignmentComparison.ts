@@ -10,6 +10,7 @@ import {
 } from "./plan1AssignmentWorkflowState.js";
 import { validatePlan1RoomLoads } from "./roomLoadContract.js";
 import {
+  PLAN_1_ID,
   requireArray,
   requireExactKeys,
   requireRecord,
@@ -48,6 +49,12 @@ export function validatePlan1AssignmentComparisonFixtures(
 ): Plan1AssignmentComparisonFixture[] {
   const root = requireRecord(value, "assignmentComparisonFixtures");
   requireExactKeys(root, "assignmentComparisonFixtures", ["schemaVersion", "planId", "fixtures"]);
+  if (root.schemaVersion !== "1.0.0") {
+    throw new Error("assignmentComparisonFixtures.schemaVersion must be 1.0.0");
+  }
+  if (root.planId !== PLAN_1_ID || root.planId !== plan.planId) {
+    throw new Error("assignmentComparisonFixtures.planId must match default-er-layout-plan-1");
+  }
   const fixtures = requireArray(root.fixtures, "fixtures").map((fixture, index) => {
     const label = `fixtures[${index}]`;
     const record = requireRecord(fixture, label);
