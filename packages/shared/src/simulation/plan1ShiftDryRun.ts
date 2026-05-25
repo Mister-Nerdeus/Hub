@@ -6,6 +6,13 @@ import {
 } from "../scenario/plan1ScenarioValidation.js";
 import { validatePlan1Limitations, validatePlan1NonClaims } from "../scenario/plan1SimulationAssumptions.js";
 import type { Plan1SimulationInput } from "./plan1SimulationInputContract.js";
+import type { PlanContract } from "../contracts.js";
+import type { WalkingBaselineContract } from "../pathing/walkingBaselineContract.js";
+import {
+  resolvePlan1TaskWalkingDistance,
+  type Plan1TaskWalkingDistanceOutput,
+  type Plan1TaskWalkingDistanceSummary
+} from "./plan1TaskWalkingDistance.js";
 
 export type Plan1NurseTimelineSummary = {
   nurseId: string;
@@ -44,6 +51,13 @@ export type Plan1ShiftDryRunOutput = {
   deferredTaskCount: number;
   nurseTimelineSummaries: Plan1NurseTimelineSummary[];
   roomTimelineSummaries: Plan1RoomTimelineSummary[];
+  walkingDistanceSummary: Plan1TaskWalkingDistanceSummary;
+  pathBasedTaskCount: number;
+  fallbackTaskCount: number;
+  missingRouteTaskCount: number;
+  totalPathBasedWalkingFeet: number;
+  totalFallbackWalkingFeet: number;
+  walkingWarningCodes: string[];
   warningCodes: string[];
   limitations: string[];
   nonClaims: string[];
@@ -54,16 +68,31 @@ export function runPlan1ShiftDryRun(input: {
   simulationInput: Plan1SimulationInput;
   generatedTaskSet: Plan1GeneratedTaskSet;
   dryRunId?: string;
+  plan?: PlanContract | null;
+  walkingBaseline?: WalkingBaselineContract | null;
 }): Plan1ShiftDryRunOutput {
   const before = JSON.stringify(input.simulationInput);
   if (input.simulationInput.planId !== PLAN_1_ID) {
     throw new Error("Plan 1 dry-run only accepts default-er-layout-plan-1 input");
   }
   const taskSet = validatePlan1GeneratedTaskSet(input.generatedTaskSet, input.simulationInput);
+  const walkingDistances = taskSet.tasks.map((task) =>
+    input.plan == null
+      ? fallbackWalkingDistance(input.simulationInput, task)
+      : resolvePlan1TaskWalkingDistance({
+          simulationInput: input.simulationInput,
+          task,
+          plan: input.plan,
+          walkingBaseline: input.walkingBaseline,
+          allowFallback: true
+        })
+  );
+  const walkingDistanceByTaskId = new Map(walkingDistances.map((distance) => [distance.taskId, distance]));
+  const walkingDistanceSummary = summarizeDryRunWalkingDistances(walkingDistances);
   const tasksByNurse = groupBy(taskSet.tasks, (task) => task.assignedNurseId);
   const tasksByRoom = groupBy(taskSet.tasks, (task) => task.roomId);
   const nurseTimelineSummaries = input.simulationInput.assignmentWorkflowState.nurses.map((nurse) =>
-    buildNurseTimeline(input.simulationInput, tasksByNurse.get(nurse.nurseId) ?? [], nurse.nurseId)
+    buildNurseTimeline(input.simulationInput, tasksByNurse.get(nurse.nurseId) ?? [], nurse.nurseId, walkingDistanceByTaskId)
   );
   const roomTimelineSummaries = input.simulationInput.assignmentWorkflowState.roomLoads.map((roomLoad) =>
     buildRoomTimeline(tasksByRoom.get(roomLoad.roomId) ?? [], roomLoad.roomId, input.simulationInput.durationMinutes)
@@ -73,7 +102,8 @@ export function runPlan1ShiftDryRun(input: {
   const warningCodes = [
     ...new Set([
       ...nurseTimelineSummaries.flatMap((summary) => summary.warningCodes),
-      ...roomTimelineSummaries.flatMap((summary) => summary.warningCodes)
+      ...roomTimelineSummaries.flatMap((summary) => summary.warningCodes),
+      ...walkingDistanceSummary.walkingWarningCodes
     ])
   ].sort();
   const output = {
@@ -88,6 +118,13 @@ export function runPlan1ShiftDryRun(input: {
     deferredTaskCount,
     nurseTimelineSummaries,
     roomTimelineSummaries,
+    walkingDistanceSummary,
+    pathBasedTaskCount: walkingDistanceSummary.pathBasedTaskCount,
+    fallbackTaskCount: walkingDistanceSummary.fallbackTaskCount,
+    missingRouteTaskCount: walkingDistanceSummary.missingRouteTaskCount,
+    totalPathBasedWalkingFeet: walkingDistanceSummary.totalPathBasedWalkingFeet,
+    totalFallbackWalkingFeet: walkingDistanceSummary.totalFallbackWalkingFeet,
+    walkingWarningCodes: walkingDistanceSummary.walkingWarningCodes,
     warningCodes,
     limitations: validatePlan1Limitations(input.simulationInput.limitations, "dryRun.limitations"),
     nonClaims: validatePlan1NonClaims(input.simulationInput.nonClaims, "dryRun.nonClaims"),
@@ -102,7 +139,8 @@ export function runPlan1ShiftDryRun(input: {
 function buildNurseTimeline(
   simulationInput: Plan1SimulationInput,
   tasks: Plan1GeneratedSyntheticTask[],
-  nurseId: string
+  nurseId: string,
+  walkingDistanceByTaskId: ReadonlyMap<string, Plan1TaskWalkingDistanceOutput>
 ): Plan1NurseTimelineSummary {
   const sortedTasks = [...tasks].sort((a, b) => a.scheduledStartMinute - b.scheduledStartMinute || a.taskId.localeCompare(b.taskId));
   let nextAvailableMinute = 0;
@@ -121,9 +159,7 @@ function buildNurseTimeline(
     }
     completedTaskCount += 1;
     approxBusyMinutes += task.estimatedDurationMinutes;
-    approxWalkingFeet += task.requiresWalkingRoute
-      ? Math.round(120 * simulationInput.intensityProfile.walkingFrictionMultiplier)
-      : 20;
+    approxWalkingFeet += walkingDistanceByTaskId.get(task.taskId)?.approxDistanceFeet ?? 0;
     nextAvailableMinute = startMinute + task.estimatedDurationMinutes;
   }
   const assignedOccupiedRoomCount = simulationInput.assignmentWorkflowState.assignments.filter(
@@ -138,7 +174,7 @@ function buildNurseTimeline(
     deferredTaskCount,
     assignedTaskCount: tasks.length,
     approxWalkingFeet
-  });
+  }, tasks, walkingDistanceByTaskId);
   return {
     nurseId,
     assignedTaskCount: tasks.length,
@@ -184,7 +220,9 @@ function buildNurseWarningCodes(
     deferredTaskCount: number;
     assignedTaskCount: number;
     approxWalkingFeet: number;
-  }
+  },
+  tasks: Plan1GeneratedSyntheticTask[],
+  walkingDistanceByTaskId: ReadonlyMap<string, Plan1TaskWalkingDistanceOutput>
 ): string[] {
   const warnings: string[] = [];
   const thresholds = simulationInput.assumptions.overloadThresholds;
@@ -206,7 +244,63 @@ function buildNurseWarningCodes(
   if (simulationInput.intensityProfile.traumaEventMultiplier > 1.5) {
     warnings.push("TRAUMA_WORKLOAD_NOTICE");
   }
-  return warnings.sort();
+  warnings.push(...tasks.flatMap((task) => walkingDistanceByTaskId.get(task.taskId)?.warningCodes ?? []));
+  return [...new Set(warnings)].sort();
+}
+
+function fallbackWalkingDistance(
+  simulationInput: Plan1SimulationInput,
+  task: Plan1GeneratedSyntheticTask
+): Plan1TaskWalkingDistanceOutput {
+  return {
+    taskId: task.taskId,
+    requiresWalkingRoute: task.requiresWalkingRoute,
+    roomId: task.roomId,
+    assignedNurseId: task.assignedNurseId,
+    homeStationId:
+      simulationInput.assignmentWorkflowState.nurses.find((nurse) => nurse.nurseId === task.assignedNurseId)
+        ?.homeStationId ?? null,
+    distanceSource: "fallback_constant",
+    approxDistanceFeet: task.requiresWalkingRoute
+      ? Math.round(120 * simulationInput.intensityProfile.walkingFrictionMultiplier)
+      : 20,
+    warningCodes: task.requiresWalkingRoute ? ["TASK_ROUTE_DISTANCE_FALLBACK"] : [],
+    limitations: [
+      "Plan 1 dry-run used fallback walking constants because no Plan 1 path graph input was supplied.",
+      "No optimizer, staffing guidance, clinical safety claim, or care quality claim is produced."
+    ],
+    nonClaims: validatePlan1NonClaims(simulationInput.nonClaims, "dryRun.walkingDistance.nonClaims")
+  };
+}
+
+function summarizeDryRunWalkingDistances(
+  taskWalkingDistances: Plan1TaskWalkingDistanceOutput[]
+): Plan1TaskWalkingDistanceSummary {
+  const pathBased = taskWalkingDistances.filter((distance) =>
+    ["plan_1_path_graph", "walking_baseline"].includes(distance.distanceSource)
+  );
+  const fallback = taskWalkingDistances.filter(
+    (distance) => distance.requiresWalkingRoute && distance.distanceSource === "fallback_constant"
+  );
+  const missing = taskWalkingDistances.filter((distance) =>
+    distance.warningCodes.includes("TASK_ROUTE_DISTANCE_MISSING")
+  );
+  return {
+    taskWalkingDistances,
+    pathBasedTaskCount: pathBased.length,
+    fallbackTaskCount: fallback.length,
+    missingRouteTaskCount: missing.length,
+    totalPathBasedWalkingFeet: roundPlan1Number(sum(pathBased.map((distance) => distance.approxDistanceFeet))),
+    totalFallbackWalkingFeet: roundPlan1Number(sum(fallback.map((distance) => distance.approxDistanceFeet))),
+    walkingWarningCodes: [...new Set(taskWalkingDistances.flatMap((distance) => distance.warningCodes))].sort(),
+    limitations: [
+      "Plan 1 walking distances are deterministic operational estimates.",
+      "Path graph and walking baseline distances are approximate fixture values, not measured walking truth.",
+      "Fallback distances are explicitly labeled when route lookup cannot resolve a Plan 1 path.",
+      "No optimizer, staffing guidance, clinical safety claim, or care quality claim is produced."
+    ],
+    nonClaims: [...new Set(taskWalkingDistances.flatMap((distance) => distance.nonClaims))]
+  };
 }
 
 function groupBy<T>(values: T[], keyFn: (value: T) => string): Map<string, T[]> {

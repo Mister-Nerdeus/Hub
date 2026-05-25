@@ -1,6 +1,13 @@
 import {
   buildPlan1OperationalSummary,
+  buildPlan1AssumptionViewModel,
+  buildPlan1ScenarioComparisonViewModel,
+  buildPlan1SimulationProofReport,
+  buildPlan1TimelineViewModel,
+  createPlan1BaselineScenarioControlState,
+  explainPlan1Warnings,
   runPlan1ShiftDryRun,
+  validatePlanContract,
   validatePlan1ScenarioBuilderState,
   validatePlan1ScenarioComparisonFixture,
   validatePlan1ScenarioIntensityProfiles,
@@ -8,9 +15,12 @@ import {
   validatePlan1SimulationAssumptions,
   validatePlan1SimulationInput,
   validatePlan1TaskTemplates,
+  validateWalkingBaselineContract,
   type PlanContract
 } from "@nerdeus/shared";
 
+import plan1Fixture from "../../../../../packages/shared/fixtures/default-plans/default-er-layout-plan-1.json" with { type: "json" };
+import walkingBaselineFixture from "../../../../../packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-1-walking-baseline.json" with { type: "json" };
 import assumptionsFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/assumptions-register.json" with { type: "json" };
 import comparisonFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/scenario-comparison-fixtures.json" with { type: "json" };
 import intensityProfileFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/scenario-intensity-profiles.json" with { type: "json" };
@@ -18,28 +28,59 @@ import scenarioBuilderFixture from "../../../../../packages/shared/fixtures/scen
 import simulationInputFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/simulation-input-baseline.json" with { type: "json" };
 import taskTemplateFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/task-templates.json" with { type: "json" };
 import seededTaskFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/seeded-scenario-validation-fixtures.json" with { type: "json" };
+import { Plan1AssumptionsPanel } from "./Plan1AssumptionsPanel";
 import { Plan1OperationalSummaryPanel } from "./Plan1OperationalSummaryPanel";
 import { Plan1ScenarioComparisonPanel } from "./Plan1ScenarioComparisonPanel";
+import { Plan1ScenarioControls } from "./Plan1ScenarioControls";
+import { Plan1SimulationProofReportPanel } from "./Plan1SimulationProofReportPanel";
+import { Plan1SimulationTimelinePanel } from "./Plan1SimulationTimelinePanel";
+import { Plan1WarningExplainabilityPanel } from "./Plan1WarningExplainabilityPanel";
 import "../assignments/AssignmentWorkflow.css";
 
 export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract | null }) {
   const planIsActivePlan1 = activePlan?.planId === "default-er-layout-plan-1";
+  const plan = validatePlanContract(plan1Fixture.plan);
+  const walkingBaseline = validateWalkingBaselineContract(walkingBaselineFixture);
   const assumptions = validatePlan1SimulationAssumptions(assumptionsFixture);
   const intensityProfiles = validatePlan1ScenarioIntensityProfiles(intensityProfileFixture);
   const taskTemplates = validatePlan1TaskTemplates(taskTemplateFixture);
+  const assumptionViewModel = buildPlan1AssumptionViewModel(assumptions);
   const scenarioState = validatePlan1ScenarioBuilderState(scenarioBuilderFixture, {
     assumptions,
     intensityProfiles,
     taskTemplates
   });
+  const controls = createPlan1BaselineScenarioControlState({
+    profileId: scenarioState.intensityProfileId,
+    seed: scenarioState.seed,
+    durationMinutes: scenarioState.durationMinutes,
+    taskTemplates,
+    limitations: scenarioState.limitations,
+    nonClaims: scenarioState.nonClaims
+  });
   const simulationInput = validatePlan1SimulationInput(simulationInputFixture, scenarioState);
   const generatedTaskSet = validatePlan1GeneratedTaskSet(seededTaskFixture.baselineTaskSet, simulationInput);
   const dryRun = runPlan1ShiftDryRun({
     simulationInput,
-    generatedTaskSet
+    generatedTaskSet,
+    plan,
+    walkingBaseline
   });
   const summary = buildPlan1OperationalSummary(dryRun);
   const comparison = validatePlan1ScenarioComparisonFixture(comparisonFixture);
+  const comparisonViewModel = buildPlan1ScenarioComparisonViewModel(comparison);
+  const timelineViewModel = buildPlan1TimelineViewModel(dryRun);
+  const warningExplanations = explainPlan1Warnings(dryRun.warningCodes);
+  const proofReport = buildPlan1SimulationProofReport({
+    reportId: "plan-1-simulation-proof-report-ui",
+    scenarioState,
+    assumptionsViewModel: assumptionViewModel,
+    generatedTaskSet,
+    dryRun,
+    timelineViewModel,
+    warningExplanations,
+    comparisonViewModel
+  });
 
   if (!planIsActivePlan1) {
     return (
@@ -68,8 +109,13 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
         <p>{scenarioState.limitations.join(" ")}</p>
         <p>{scenarioState.nonClaims.join(" ")}</p>
       </section>
+      <Plan1AssumptionsPanel viewModel={assumptionViewModel} />
+      <Plan1ScenarioControls controlState={controls} profiles={intensityProfiles} taskTemplates={taskTemplates} />
       <Plan1OperationalSummaryPanel summary={summary} />
-      <Plan1ScenarioComparisonPanel comparison={comparison} />
+      <Plan1SimulationTimelinePanel viewModel={timelineViewModel} />
+      <Plan1WarningExplainabilityPanel explanations={warningExplanations} />
+      <Plan1ScenarioComparisonPanel comparison={comparison} viewModel={comparisonViewModel} />
+      <Plan1SimulationProofReportPanel report={proofReport} />
     </div>
   );
 }

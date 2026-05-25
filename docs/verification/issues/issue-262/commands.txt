@@ -1,0 +1,8 @@
+npm run check:plan1-all-gates
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 262
+node scripts/check-plan-1-simulation-refinement.mjs --stage root-scripts --allow-partial --issue 262
