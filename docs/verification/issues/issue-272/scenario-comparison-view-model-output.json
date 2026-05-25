@@ -1,0 +1,254 @@
+{
+  "comparisonId": "plan-1-scenario-comparison-baseline-v1",
+  "baselineScenarioId": "scenario-typical-baseline",
+  "rows": [
+    {
+      "profileLabel": "Typical",
+      "profileId": "plan-1-typical",
+      "taskPressureDelta": 0,
+      "deferredTaskDelta": 0,
+      "walkingBurdenDelta": 0,
+      "maxQueueDepthDelta": 0,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Typical changes task pressure by 0. Deferred tasks change by 0. Walking estimate changes by 0 feet. Maximum queue depth changes by 0. Warnings represented: BUSY_MINUTES_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Busy",
+      "profileId": "plan-1-busy",
+      "taskPressureDelta": 93,
+      "deferredTaskDelta": 64,
+      "walkingBurdenDelta": 4994,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-purple",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Busy changes task pressure by 93. Deferred tasks change by 64. Walking estimate changes by 4994 feet. Maximum queue depth changes by 4. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Slammed",
+      "profileId": "plan-1-slammed",
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Slammed changes task pressure by 369. Deferred tasks change by 320. Walking estimate changes by 10204 feet. Maximum queue depth changes by 11. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Trauma heavy",
+      "profileId": "plan-1-trauma-heavy",
+      "taskPressureDelta": 112,
+      "deferredTaskDelta": 77,
+      "walkingBurdenDelta": 7100,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "TRAUMA_WORKLOAD_NOTICE",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Trauma heavy changes task pressure by 112. Deferred tasks change by 77. Walking estimate changes by 7100 feet. Maximum queue depth changes by 4. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Walking heavy",
+      "profileId": "plan-1-walking-heavy",
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Walking heavy changes task pressure by 216. Deferred tasks change by 186. Walking estimate changes by 29428 feet. Maximum queue depth changes by 9. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  ],
+  "requiredComparisons": {
+    "typicalVsSlammed": {
+      "profileLabel": "Slammed",
+      "profileId": "plan-1-slammed",
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Slammed changes task pressure by 369. Deferred tasks change by 320. Walking estimate changes by 10204 feet. Maximum queue depth changes by 11. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsWalkingHeavy": {
+      "profileLabel": "Walking heavy",
+      "profileId": "plan-1-walking-heavy",
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Walking heavy changes task pressure by 216. Deferred tasks change by 186. Walking estimate changes by 29428 feet. Maximum queue depth changes by 9. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsTraumaHeavy": {
+      "profileLabel": "Trauma heavy",
+      "profileId": "plan-1-trauma-heavy",
+      "taskPressureDelta": 112,
+      "deferredTaskDelta": 77,
+      "walkingBurdenDelta": 7100,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "TRAUMA_WORKLOAD_NOTICE",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Trauma heavy changes task pressure by 112. Deferred tasks change by 77. Walking estimate changes by 7100 feet. Maximum queue depth changes by 4. Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  },
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true
+}

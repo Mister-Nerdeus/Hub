@@ -20,7 +20,13 @@
     "docs/verification/issues/issue-271/evidence-traceability-after-output.json",
     "docs/verification/issues/issue-271/issue-scope-validation-output.json",
     "docs/verification/issues/issue-271/command-output-map-validation-output.json",
-    "docs/verification/issues/issue-271/demo-readiness-manifest-output.json"
+    "docs/verification/issues/issue-271/demo-readiness-manifest-output.json",
+    "docs/verification/issues/issue-272/demo-workflow-view-model-output.json",
+    "docs/verification/issues/issue-272/demo-guide-ui-output.json",
+    "docs/verification/issues/issue-272/demo-step-coverage-output.json",
+    "docs/verification/issues/issue-272/demo-non-claims-banner-output.json",
+    "docs/verification/issues/issue-272/developer-evidence-separation-output.json",
+    "docs/verification/issues/issue-272/screenshots/plan-1-demo-guide.png"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -45,6 +51,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "271",
+  "lastIssueUpdated": "272",
   "goNoGoStatus": "pending"
 }

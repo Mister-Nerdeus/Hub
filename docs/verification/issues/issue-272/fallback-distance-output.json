@@ -1,0 +1,27 @@
+{
+  "taskId": "scenario-typical-baseline-task-002",
+  "requiresWalkingRoute": true,
+  "roomId": "room-04",
+  "assignedNurseId": "nurse-missing",
+  "homeStationId": null,
+  "limitations": [
+    "Plan 1 walking distances are deterministic operational estimates.",
+    "Path graph and walking baseline distances are approximate fixture values, not measured walking truth.",
+    "Fallback distances are explicitly labeled when route lookup cannot resolve a Plan 1 path.",
+    "No optimizer, staffing guidance, clinical safety claim, or care quality claim is produced."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "distanceSource": "fallback_constant",
+  "approxDistanceFeet": 120,
+  "warningCodes": [
+    "TASK_ROUTE_DISTANCE_FALLBACK",
+    "TASK_ROUTE_DISTANCE_MISSING"
+  ]
+}

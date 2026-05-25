@@ -1,0 +1,288 @@
+{
+  "planId": "default-er-layout-plan-1",
+  "assumptionsId": "plan-1-simulation-assumptions-v1",
+  "mode": "read_only_proof",
+  "sections": [
+    {
+      "sectionId": "burden-score-weights",
+      "label": "Burden score weights",
+      "entries": [
+        {
+          "label": "acuity",
+          "value": "{\"low\":1,\"medium\":3,\"high\":6,\"critical\":10}"
+        },
+        {
+          "label": "behavioralRisk",
+          "value": "4"
+        },
+        {
+          "label": "burden",
+          "value": "{\"none\":0,\"low\":1,\"medium\":3,\"high\":5}"
+        },
+        {
+          "label": "fallRisk",
+          "value": "2"
+        },
+        {
+          "label": "isolation",
+          "value": "4"
+        },
+        {
+          "label": "occupiedRoom",
+          "value": "5"
+        },
+        {
+          "label": "sitter",
+          "value": "5"
+        },
+        {
+          "label": "trauma",
+          "value": "8"
+        },
+        {
+          "label": "turnover",
+          "value": "3"
+        },
+        {
+          "label": "walkingDistanceDivisorFeet",
+          "value": "40"
+        },
+        {
+          "label": "walkingTimeDivisorSeconds",
+          "value": "120"
+        },
+        {
+          "label": "warningPenalty",
+          "value": "{\"info\":1,\"warning\":5,\"blocking\":10}"
+        }
+      ]
+    },
+    {
+      "sectionId": "walking-assumptions",
+      "label": "Walking assumptions",
+      "entries": [
+        {
+          "label": "defaultTaskWalkingFeet",
+          "value": "120"
+        },
+        {
+          "label": "graphOnlyLimitation",
+          "value": "Walking estimates use repaired Plan 1 graph-derived route proof where available and do not infer unmodeled paths."
+        },
+        {
+          "label": "nonWalkingTaskFeet",
+          "value": "20"
+        },
+        {
+          "label": "source",
+          "value": "Plan 1 repaired path graph and walking baseline only"
+        }
+      ]
+    },
+    {
+      "sectionId": "task-duration-assumptions",
+      "label": "Task duration assumptions",
+      "entries": [
+        {
+          "label": "jitterInterpretation",
+          "value": "Synthetic deterministic plus-or-minus bound per generated task."
+        },
+        {
+          "label": "minimumGeneratedDurationMinutes",
+          "value": "1"
+        },
+        {
+          "label": "unit",
+          "value": "minutes"
+        }
+      ]
+    },
+    {
+      "sectionId": "task-frequency-assumptions",
+      "label": "Task frequency assumptions",
+      "entries": [
+        {
+          "label": "frequencyMultipliedByProfile",
+          "value": "true"
+        },
+        {
+          "label": "unit",
+          "value": "synthetic tasks per occupied room per hour"
+        },
+        {
+          "label": "unoccupiedRoomsGenerateAssignedTasks",
+          "value": "false"
+        }
+      ]
+    },
+    {
+      "sectionId": "scenario-intensity-assumptions",
+      "label": "Scenario intensity assumptions",
+      "entries": [
+        {
+          "label": "multipliersAreOperationalPressureInputs",
+          "value": "true"
+        },
+        {
+          "label": "notDemandForecasts",
+          "value": "true"
+        },
+        {
+          "label": "profilesAreSynthetic",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "sectionId": "queue-assumptions",
+      "label": "Queue assumptions",
+      "entries": [
+        {
+          "label": "deferWhenTaskCannotFitInShiftWindow",
+          "value": "true"
+        },
+        {
+          "label": "noPriorityReordering",
+          "value": "true"
+        },
+        {
+          "label": "queueDepthBucketMinutes",
+          "value": "30"
+        }
+      ]
+    },
+    {
+      "sectionId": "handoff-assumptions",
+      "label": "Handoff assumptions",
+      "entries": [
+        {
+          "label": "handoffDoesNotRepresentClinicalDocumentation",
+          "value": "true"
+        },
+        {
+          "label": "handoffTasksAreSyntheticOperationalTasks",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "sectionId": "interruption-assumptions",
+      "label": "Interruption assumptions",
+      "entries": [
+        {
+          "label": "interruptionsDoNotRepresentClinicalEvents",
+          "value": "true"
+        },
+        {
+          "label": "interruptionTasksAreSyntheticOperationalFriction",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "sectionId": "overload-thresholds",
+      "label": "Overload thresholds",
+      "entries": [
+        {
+          "label": "maxBusyMinutesWarning",
+          "value": "510"
+        },
+        {
+          "label": "maxDeferredTaskRatioWarning",
+          "value": "0.15"
+        },
+        {
+          "label": "maxQueueDepthWarning",
+          "value": "3"
+        },
+        {
+          "label": "maxWalkingFeetWarning",
+          "value": "3600"
+        }
+      ]
+    },
+    {
+      "sectionId": "status-semantics",
+      "label": "Status semantics",
+      "entries": [
+        {
+          "label": "passed",
+          "value": "Passed: Required checks passed with no notices.; blocks progress: no"
+        },
+        {
+          "label": "info",
+          "value": "Info: Informational notice only; does not imply warning or block progress.; blocks progress: no"
+        },
+        {
+          "label": "warning",
+          "value": "Warning: Operational modeling concern that should be reviewed but does not block deterministic fixture generation.; blocks progress: no"
+        },
+        {
+          "label": "blocking",
+          "value": "Blocking: Contract or scope violation that blocks the current stage.; blocks progress: yes"
+        }
+      ]
+    },
+    {
+      "sectionId": "limitations-and-non-claims",
+      "label": "Limitations and non-claims",
+      "entries": [
+        {
+          "label": "Limitation 1",
+          "value": "Plan 1 only."
+        },
+        {
+          "label": "Limitation 2",
+          "value": "Assumptions are synthetic operational modeling inputs."
+        },
+        {
+          "label": "Limitation 3",
+          "value": "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+        },
+        {
+          "label": "Limitation 4",
+          "value": "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+        },
+        {
+          "label": "Non-claim 1",
+          "value": "Synthetic operational modeling only."
+        },
+        {
+          "label": "Non-claim 2",
+          "value": "Not a clinical safety score."
+        },
+        {
+          "label": "Non-claim 3",
+          "value": "Not a staffing compliance recommendation."
+        },
+        {
+          "label": "Non-claim 4",
+          "value": "Not a legal compliance assessment."
+        },
+        {
+          "label": "Non-claim 5",
+          "value": "Not a patient outcome prediction."
+        },
+        {
+          "label": "Non-claim 6",
+          "value": "Not based on real patient, staff, EHR, or hospital data."
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Plan 1 only.",
+    "Assumptions are synthetic operational modeling inputs.",
+    "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+    "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true
+}

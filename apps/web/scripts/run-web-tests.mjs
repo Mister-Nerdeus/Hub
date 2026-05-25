@@ -47,7 +47,7 @@ patchRelativeImports(tempRoot);
 let failed = false;
 for (const testFile of testFiles) {
   const relativeTestPath = relative(srcRoot, testFile).replace(/\\/g, "/");
-  const compiledTestFile = join(tempRoot, relativeTestPath).replace(/\.ts$/, ".js");
+  const compiledTestFile = join(tempRoot, relativeTestPath).replace(/\.tsx?$/, ".js");
   console.log(`\n> ${relative(webRoot, testFile).replace(/\\/g, "/")}`);
   const result = spawnSync(process.execPath, [compiledTestFile], {
     cwd: webRoot,
@@ -70,7 +70,7 @@ function findTestFiles(directory) {
     const entryPath = join(directory, entry.name);
     if (entry.isDirectory()) {
       results.push(...findTestFiles(entryPath));
-    } else if (entry.isFile() && entry.name.endsWith(".test.ts")) {
+    } else if (entry.isFile() && (entry.name.endsWith(".test.ts") || entry.name.endsWith(".test.tsx"))) {
       results.push(entryPath);
     }
   }

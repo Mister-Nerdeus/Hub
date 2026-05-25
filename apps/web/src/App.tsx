@@ -24,6 +24,8 @@ import {
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
+import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
+import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
 
 import "./styles.css";
@@ -47,6 +49,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
+  const demoWorkflowViewModel = createPlan1DemoWorkflowViewModel({
+    activeSection,
+    activePlanId: activeFloorplanState.activeFloorplan?.plan.planId ?? null
+  });
 
   function openDefault(planId: string) {
     setActiveFloorplanState((state) => openDefaultFloorplan(state, planId));
@@ -75,6 +81,19 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     );
   }
 
+  function openPlan1Demo() {
+    openDefault("default-er-layout-plan-1");
+    setActiveSection("editor");
+  }
+
+  function navigateDemo(sectionId: AppSectionId, anchorId?: string) {
+    setActiveSection(sectionId);
+    if (anchorId == null) {
+      return;
+    }
+    window.setTimeout(() => document.getElementById(anchorId)?.scrollIntoView(), 0);
+  }
+
   useEffect(() => {
     if (typeof window === "undefined" || window.location.hash.length <= 1) {
       return;
@@ -89,6 +108,14 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       sections={APP_SECTIONS}
       onSectionChange={(section) => setActiveSection(section)}
     >
+      {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
+        <Plan1DemoGuide
+          viewModel={demoWorkflowViewModel}
+          onOpenPlan1={openPlan1Demo}
+          onNavigate={navigateDemo}
+        />
+      ) : null}
+
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
           <h2 id="floorplans-title">Floorplans</h2>
