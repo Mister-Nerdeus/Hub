@@ -35,36 +35,6 @@
       "notesCode": "source-visible-operational-object"
     },
     {
-      "sourceObjectId": "src-plan-1-hall-ems-entry",
-      "sourceLabel": "Hall EMS entry",
-      "objectType": "zone",
-      "targetObjectId": "zone-hall-ems-entry",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 6,
-        "y": 40,
-        "widthFeet": 24,
-        "lengthFeet": 54
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-main-hall",
-      "sourceLabel": "Main hall",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-main",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 6,
-        "y": 40,
-        "widthFeet": 110,
-        "lengthFeet": null
-      },
-      "notesCode": "source-label-position-approximate"
-    },
-    {
       "sourceObjectId": "src-plan-1-ems-entry-node",
       "sourceLabel": "EMS entry",
       "objectType": "pathNode",
@@ -76,36 +46,6 @@
         "y": 92,
         "widthFeet": null,
         "lengthFeet": null
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-primary-nurse-station",
-      "sourceLabel": "Nurse station",
-      "objectType": "nurseStation",
-      "targetObjectId": "station-primary",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 48,
-        "y": 32,
-        "widthFeet": 18,
-        "lengthFeet": 8
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-provider-pharmacy-area",
-      "sourceLabel": "Provider pharmacy area",
-      "objectType": "zone",
-      "targetObjectId": "zone-provider-pharmacy",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 92,
-        "y": 10,
-        "widthFeet": 28,
-        "lengthFeet": 20
       },
       "notesCode": "source-visible-operational-object"
     },
@@ -183,6 +123,156 @@
         "lengthFeet": 14
       },
       "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-left-nurse-station",
+      "sourceLabel": "Left nurse station",
+      "objectType": "nurseStation",
+      "targetObjectId": "station-left",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 54,
+        "y": 70,
+        "widthFeet": 18,
+        "lengthFeet": 10
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-nurse-station",
+      "sourceLabel": "Right nurse station",
+      "objectType": "nurseStation",
+      "targetObjectId": "station-right",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 126,
+        "y": 70,
+        "widthFeet": 18,
+        "lengthFeet": 10
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-provider-pharmacy-area",
+      "sourceLabel": "Provider Pharmacy Area",
+      "objectType": "zone",
+      "targetObjectId": "zone-provider-pharmacy",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 100,
+        "y": 70,
+        "widthFeet": 42,
+        "lengthFeet": 18
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-top-horizontal-hallway",
+      "sourceLabel": "Top horizontal hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-top-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 28,
+        "widthFeet": 122,
+        "lengthFeet": null
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-left-vertical-hallway",
+      "sourceLabel": "Left vertical hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-left-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": 88
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-ems-entry-hallway",
+      "sourceLabel": "EMS entry hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 56,
+        "widthFeet": 12,
+        "lengthFeet": 28
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-bottom-horizontal-hallway",
+      "sourceLabel": "Bottom horizontal hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-bottom-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 92,
+        "widthFeet": 122,
+        "lengthFeet": null
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-vertical-hallway",
+      "sourceLabel": "Right vertical hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-right-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 150,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": 64
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-upper-hallway",
+      "sourceLabel": "Right upper hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-right-upper",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 94,
+        "y": 28,
+        "widthFeet": 56,
+        "lengthFeet": null
+      },
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-ems-entry-zone",
+      "sourceLabel": "EMS entry",
+      "objectType": "zone",
+      "targetObjectId": "zone-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 10,
+        "y": 50,
+        "widthFeet": 18,
+        "lengthFeet": 34
+      },
+      "notesCode": "source-visible-operational-object"
     }
   ],
   "deferredSourceLabels": [

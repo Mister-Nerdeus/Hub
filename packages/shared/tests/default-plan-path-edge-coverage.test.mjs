@@ -58,7 +58,11 @@ test("path-edge coverage audit reports broken, isolated, disconnected, and block
   const isolatedRoomDoor = removeIncidentUsableEdges(plan1, firstRoomPathNodeId);
   cases.push(["isolated room door", isolatedRoomDoor, "REQUIRED_NODE_WITHOUT_USABLE_EDGE"]);
 
-  const isolatedStation = removeIncidentUsableEdges(readPlan(1), "node-station-primary");
+  const stationPathNodeId = plan1.nurseStations.find(
+    (station) => station.stationOperationalMetadata?.defaultWalkingOrigin
+  )?.pathNodeId;
+  assert.ok(stationPathNodeId);
+  const isolatedStation = removeIncidentUsableEdges(readPlan(1), stationPathNodeId);
   cases.push(["isolated station", isolatedStation, "REQUIRED_NODE_WITHOUT_USABLE_EDGE"]);
 
   const isolatedEntry = removeIncidentUsableEdges(readPlan(1), "node-entry-ems");

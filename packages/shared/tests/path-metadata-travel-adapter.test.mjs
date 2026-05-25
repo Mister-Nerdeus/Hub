@@ -43,9 +43,17 @@ function firstRoomPathNodeId(plan) {
   return room.pathNodeId;
 }
 
+function defaultStationPathNodeId(plan) {
+  const station = plan.nurseStations.find(
+    (entry) => entry.stationOperationalMetadata?.defaultWalkingOrigin
+  );
+  assert.ok(station?.pathNodeId);
+  return station.pathNodeId;
+}
+
 test("metadata adapter annotates route edges without changing route selection or totals", () => {
   const plan = readPlan(1);
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", firstRoomPathNodeId(plan)));
+  const route = buildRoutePreview(plan, input(plan, defaultStationPathNodeId(plan), firstRoomPathNodeId(plan)));
   const annotated = annotateRoutePreviewWithPathMetadata(plan, route);
 
   assert.deepEqual(annotated.routePreview.routeEdgeIds, route.routeEdgeIds);
@@ -80,7 +88,7 @@ test("metadata adapter handles missing metadata safely and remains deterministic
   for (const door of plan.doors) {
     door.doorOperationalMetadata = null;
   }
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", firstRoomPathNodeId(plan)));
+  const route = buildRoutePreview(plan, input(plan, defaultStationPathNodeId(plan), firstRoomPathNodeId(plan)));
   const first = annotateRoutePreviewWithPathMetadata(plan, route);
   const second = annotateRoutePreviewWithPathMetadata(plan, route);
 

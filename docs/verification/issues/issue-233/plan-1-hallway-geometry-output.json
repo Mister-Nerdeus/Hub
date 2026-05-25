@@ -1,0 +1,136 @@
+{
+  "issue": "233",
+  "planId": "default-er-layout-plan-1",
+  "requiredHallwayIds": [
+    "hallway-top-horizontal",
+    "hallway-left-vertical",
+    "hallway-ems-entry",
+    "hallway-bottom-horizontal",
+    "hallway-right-vertical",
+    "hallway-right-upper"
+  ],
+  "missingHallwayIds": [],
+  "hallwayCount": 7,
+  "hallways": [
+    {
+      "id": "hallway-main",
+      "label": "Main Hall",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 6,
+          "y": 40
+        },
+        {
+          "x": 116,
+          "y": 40
+        }
+      ],
+      "hallwayClass": "main"
+    },
+    {
+      "id": "hallway-ems-entry",
+      "label": "EMS Entry Hallway",
+      "widthFeet": 12,
+      "points": [
+        {
+          "x": 16,
+          "y": 84
+        },
+        {
+          "x": 28,
+          "y": 84
+        },
+        {
+          "x": 28,
+          "y": 56
+        }
+      ],
+      "hallwayClass": "ems"
+    },
+    {
+      "id": "hallway-top-horizontal",
+      "label": "Top Horizontal Hallway",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 28,
+          "y": 28
+        },
+        {
+          "x": 150,
+          "y": 28
+        }
+      ],
+      "hallwayClass": "main"
+    },
+    {
+      "id": "hallway-left-vertical",
+      "label": "Left Vertical Hallway",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 28,
+          "y": 28
+        },
+        {
+          "x": 28,
+          "y": 116
+        }
+      ],
+      "hallwayClass": "main"
+    },
+    {
+      "id": "hallway-bottom-horizontal",
+      "label": "Bottom Horizontal Hallway",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 28,
+          "y": 92
+        },
+        {
+          "x": 150,
+          "y": 92
+        }
+      ],
+      "hallwayClass": "main"
+    },
+    {
+      "id": "hallway-right-vertical",
+      "label": "Right Vertical Hallway",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 150,
+          "y": 28
+        },
+        {
+          "x": 150,
+          "y": 92
+        }
+      ],
+      "hallwayClass": "side"
+    },
+    {
+      "id": "hallway-right-upper",
+      "label": "Right Upper Hallway",
+      "widthFeet": 10,
+      "points": [
+        {
+          "x": 94,
+          "y": 28
+        },
+        {
+          "x": 150,
+          "y": 28
+        },
+        {
+          "x": 150,
+          "y": 50
+        }
+      ],
+      "hallwayClass": "side"
+    }
+  ]
+}

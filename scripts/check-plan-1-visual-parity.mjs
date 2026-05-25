@@ -77,6 +77,42 @@ if (issueNumber != null && issueNumber >= 232) {
     requiredStageFailures.push(`LEGACY_ROOM_STAGE_FAILURE: ${legacyRoomId}`);
   }
 }
+if (issueNumber != null && issueNumber >= 233) {
+  const hallwayCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "hallways");
+  if (hallwayCountFailure != null) {
+    requiredStageFailures.push(
+      `HALLWAY_COUNT_STAGE_FAILURE: observed ${hallwayCountFailure.observed}, required ${hallwayCountFailure.minimum}`
+    );
+  }
+  const nurseStationCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "nurseStations");
+  if (nurseStationCountFailure != null) {
+    requiredStageFailures.push(
+      `NURSE_STATION_COUNT_STAGE_FAILURE: observed ${nurseStationCountFailure.observed}, required ${nurseStationCountFailure.minimum}`
+    );
+  }
+  const providerZoneCountFailure = audit.minimumCountFailures.find(
+    (failure) => failure.category === "providerPharmacyZones"
+  );
+  if (providerZoneCountFailure != null) {
+    requiredStageFailures.push(
+      `PROVIDER_PHARMACY_ZONE_STAGE_FAILURE: observed ${providerZoneCountFailure.observed}, required ${providerZoneCountFailure.minimum}`
+    );
+  }
+  for (const failure of audit.missingRequiredObjects.filter((entry) =>
+    ["zone", "hallway", "nurse_station"].includes(entry.objectKind)
+  )) {
+    requiredStageFailures.push(`OPERATIONAL_AREA_STAGE_FAILURE: ${failure.objectKind} ${failure.sourceLabel}`);
+  }
+  for (const failure of audit.providerPharmacyModelingFailures) {
+    requiredStageFailures.push(`PROVIDER_PHARMACY_STAGE_FAILURE: ${failure}`);
+  }
+  for (const failure of audit.nurseStationCountFailures) {
+    requiredStageFailures.push(`NURSE_STATION_STAGE_FAILURE: ${failure}`);
+  }
+  for (const legacyStationId of legacyStationIdsPresent) {
+    requiredStageFailures.push(`LEGACY_STATION_STAGE_FAILURE: ${legacyStationId}`);
+  }
+}
 
 const status = failures.length === 0
   ? "passed"

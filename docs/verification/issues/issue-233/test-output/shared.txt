@@ -1,0 +1,3288 @@
+
+> @nerdeus/shared@0.1.0 test
+> npm run build && node --test tests/*.test.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+TAP version 13
+# Subtest: aggregateTaskTimeline groups generated tasks by deterministic timestep buckets
+ok 1 - aggregateTaskTimeline groups generated tasks by deterministic timestep buckets
+  ---
+  duration_ms: 5.2928
+  type: 'test'
+  ...
+# Subtest: aggregateTaskTimeline sorts task IDs and room IDs within buckets
+ok 2 - aggregateTaskTimeline sorts task IDs and room IDs within buckets
+  ---
+  duration_ms: 1.3605
+  type: 'test'
+  ...
+# Subtest: aggregateTaskTimeline validates the generated task set before aggregating
+ok 3 - aggregateTaskTimeline validates the generated task set before aggregating
+  ---
+  duration_ms: 1.8967
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage assigns covered-room tasks and validates output contract
+ok 4 - assignTasksByManualCoverage assigns covered-room tasks and validates output contract
+  ---
+  duration_ms: 172.5105
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage leaves uncovered rooms unassigned with warnings
+ok 5 - assignTasksByManualCoverage leaves uncovered rooms unassigned with warnings
+  ---
+  duration_ms: 3.2587
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage treats duplicate room coverage as invalid coverage
+ok 6 - assignTasksByManualCoverage treats duplicate room coverage as invalid coverage
+  ---
+  duration_ms: 2.7125
+  type: 'test'
+  ...
+# Subtest: assignTasksByManualCoverage leaves unknown-room tasks unassigned with warning
+ok 7 - assignTasksByManualCoverage leaves unknown-room tasks unassigned with warning
+  ---
+  duration_ms: 2.4128
+  type: 'test'
+  ...
+# Subtest: two variants produce two outputs
+ok 8 - two variants produce two outputs
+  ---
+  duration_ms: 81.4671
+  type: 'test'
+  ...
+# Subtest: duplicate variant IDs fail
+ok 9 - duplicate variant IDs fail
+  ---
+  duration_ms: 2.1496
+  type: 'test'
+  ...
+# Subtest: output order is deterministic
+ok 10 - output order is deterministic
+  ---
+  duration_ms: 70.8548
+  type: 'test'
+  ...
+# Subtest: same input produces identical output
+ok 11 - same input produces identical output
+  ---
+  duration_ms: 90.7454
+  type: 'test'
+  ...
+# Subtest: forbidden wording rejected
+ok 12 - forbidden wording rejected
+  ---
+  duration_ms: 16.629
+  type: 'test'
+  ...
+# Subtest: default scoring assumptions match exported default constants
+ok 13 - default scoring assumptions match exported default constants
+  ---
+  duration_ms: 2.4118
+  type: 'test'
+  ...
+# Subtest: parity failure names the mismatched assumption weight
+ok 14 - parity failure names the mismatched assumption weight
+  ---
+  duration_ms: 1.5965
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoadWithAssumptions matches default scoring with assumptions-basic
+ok 15 - scoreRoomLoadWithAssumptions matches default scoring with assumptions-basic
+  ---
+  duration_ms: 2.8736
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoadWithAssumptions responds to changed assumptions without changing default scoring
+ok 16 - scoreRoomLoadWithAssumptions responds to changed assumptions without changing default scoring
+  ---
+  duration_ms: 1.2738
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurdenWithAssumptions matches default scoring with assumptions-basic
+ok 17 - scoreNurseBurdenWithAssumptions matches default scoring with assumptions-basic
+  ---
+  duration_ms: 36.7462
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurdenWithAssumptions responds to changed nurse burden weights only
+ok 18 - scoreNurseBurdenWithAssumptions responds to changed nurse burden weights only
+  ---
+  duration_ms: 7.3719
+  type: 'test'
+  ...
+# Subtest: at least three candidates generated
+ok 19 - at least three candidates generated
+  ---
+  duration_ms: 24.4058
+  type: 'test'
+  ...
+# Subtest: all candidates use shared runner
+ok 20 - all candidates use shared runner
+  ---
+  duration_ms: 12.7633
+  type: 'test'
+  ...
+# Subtest: selected candidate uses deterministic tie-breaker
+ok 21 - selected candidate uses deterministic tie-breaker
+  ---
+  duration_ms: 65.9106
+  type: 'test'
+  ...
+# Subtest: same input produces identical output
+ok 22 - same input produces identical output
+  ---
+  duration_ms: 42.6429
+  type: 'test'
+  ...
+# Subtest: recommendation wording rejected by contract boundary
+ok 23 - recommendation wording rejected by contract boundary
+  ---
+  duration_ms: 12.311
+  type: 'test'
+  ...
+# Subtest: builds deterministic bridge mappings from editable layout and plan references
+ok 24 - builds deterministic bridge mappings from editable layout and plan references
+  ---
+  duration_ms: 9.5351
+  type: 'test'
+  ...
+# Subtest: uses explicit mapping tables when source IDs differ
+ok 25 - uses explicit mapping tables when source IDs differ
+  ---
+  duration_ms: 14.8871
+  type: 'test'
+  ...
+# Subtest: marks missing path references explicitly without mutating the plan
+ok 26 - marks missing path references explicitly without mutating the plan
+  ---
+  duration_ms: 9.3906
+  type: 'test'
+  ...
+# Subtest: dashboard proof data is generated by the shared builder instead of hand-authored scenario values
+ok 27 - dashboard proof data is generated by the shared builder instead of hand-authored scenario values
+  ---
+  duration_ms: 90.7076
+  type: 'test'
+  ...
+# Subtest: dashboard builder emits canonical registry metric ids
+ok 28 - dashboard builder emits canonical registry metric ids
+  ---
+  duration_ms: 43.5551
+  type: 'test'
+  ...
+# Subtest: dashboard builder derives pressure bands from the shared pressure banding summary
+ok 29 - dashboard builder derives pressure bands from the shared pressure banding summary
+  ---
+  duration_ms: 87.6075
+  type: 'test'
+  ...
+# Subtest: dashboard builder includes the shared ratio delta comparison
+ok 30 - dashboard builder includes the shared ratio delta comparison
+  ---
+  duration_ms: 56.9914
+  type: 'test'
+  ...
+# Subtest: valid bundle audit output is deterministic and validates
+ok 31 - valid bundle audit output is deterministic and validates
+  ---
+  duration_ms: 92.5231
+  type: 'test'
+  ...
+# Subtest: invalid JSON returns a failed local audit trail
+ok 32 - invalid JSON returns a failed local audit trail
+  ---
+  duration_ms: 1.8304
+  type: 'test'
+  ...
+# Subtest: invalid bundle JSON returns a failed validation step
+ok 33 - invalid bundle JSON returns a failed validation step
+  ---
+  duration_ms: 12.002
+  type: 'test'
+  ...
+# Subtest: valid bundle audit includes deterministic summary fields
+ok 34 - valid bundle audit includes deterministic summary fields
+  ---
+  duration_ms: 41.0595
+  type: 'test'
+  ...
+# Subtest: buildNurseWorkloadReport creates deterministic per-nurse workload output
+ok 35 - buildNurseWorkloadReport creates deterministic per-nurse workload output
+  ---
+  duration_ms: 16.1503
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport creates deterministic validated summary output
+ok 36 - buildOperationalSummaryReport creates deterministic validated summary output
+  ---
+  duration_ms: 83.3291
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport rejects mismatched timeline input
+ok 37 - buildOperationalSummaryReport rejects mismatched timeline input
+  ---
+  duration_ms: 18.0788
+  type: 'test'
+  ...
+# Subtest: buildOperationalSummaryReport includes required operational limitations
+ok 38 - buildOperationalSummaryReport includes required operational limitations
+  ---
+  duration_ms: 22.8371
+  type: 'test'
+  ...
+# Subtest: report export bundle fixture validates against TypeScript contract
+ok 39 - report export bundle fixture validates against TypeScript contract
+  ---
+  duration_ms: 25.8867
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle creates deterministic validated output
+ok 40 - buildReportExportBundle creates deterministic validated output
+  ---
+  duration_ms: 9.794
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle supports bundles without a comparison
+ok 41 - buildReportExportBundle supports bundles without a comparison
+  ---
+  duration_ms: 2.4619
+  type: 'test'
+  ...
+# Subtest: report export bundle contract accepts omitted optional comparison
+ok 42 - report export bundle contract accepts omitted optional comparison
+  ---
+  duration_ms: 1.1556
+  type: 'test'
+  ...
+# Subtest: report export bundle contract accepts null optional comparison
+ok 43 - report export bundle contract accepts null optional comparison
+  ---
+  duration_ms: 1.5476
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle rejects empty reports
+ok 44 - buildReportExportBundle rejects empty reports
+  ---
+  duration_ms: 1.4439
+  type: 'test'
+  ...
+# Subtest: invalid report export bundle fixtures are rejected by TypeScript contract
+ok 45 - invalid report export bundle fixtures are rejected by TypeScript contract
+  ---
+  duration_ms: 3.684
+  type: 'test'
+  ...
+# Subtest: buildReportExportBundle rejects comparison/report mismatches
+ok 46 - buildReportExportBundle rejects comparison/report mismatches
+  ---
+  duration_ms: 0.9592
+  type: 'test'
+  ...
+# Subtest: report export bundle contract rejects string numeric summary values
+ok 47 - report export bundle contract rejects string numeric summary values
+  ---
+  duration_ms: 1.1257
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison creates deterministic validated output
+ok 48 - buildScenarioComparison creates deterministic validated output
+  ---
+  duration_ms: 9.0396
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison keeps baseline first
+ok 49 - buildScenarioComparison keeps baseline first
+  ---
+  duration_ms: 1.5168
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison summary max values match comparison items
+ok 50 - buildScenarioComparison summary max values match comparison items
+  ---
+  duration_ms: 0.5809
+  type: 'test'
+  ...
+# Subtest: validateScenarioComparisonContract rejects mismatched summary max values
+ok 51 - validateScenarioComparisonContract rejects mismatched summary max values
+  ---
+  duration_ms: 1.8085
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison rejects missing baseline report
+ok 52 - buildScenarioComparison rejects missing baseline report
+  ---
+  duration_ms: 0.8383
+  type: 'test'
+  ...
+# Subtest: buildScenarioComparison rejects recommendation language
+ok 53 - buildScenarioComparison rejects recommendation language
+  ---
+  duration_ms: 19.1296
+  type: 'test'
+  ...
+# Subtest: buildUnassignedTaskReport exposes deterministic unassigned task IDs and room IDs
+ok 54 - buildUnassignedTaskReport exposes deterministic unassigned task IDs and room IDs
+  ---
+  duration_ms: 15.6041
+  type: 'test'
+  ...
+# Subtest: buildWarningReport exposes deterministic warning severity and code aggregation
+ok 55 - buildWarningReport exposes deterministic warning severity and code aggregation
+  ---
+  duration_ms: 48.7182
+  type: 'test'
+  ...
+# Subtest: plan fixture validates against TypeScript contract
+ok 56 - plan fixture validates against TypeScript contract
+  ---
+  duration_ms: 7.8583
+  type: 'test'
+  ...
+# Subtest: plan-builder defaults fixture validates against TypeScript contract
+ok 57 - plan-builder defaults fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.7585
+  type: 'test'
+  ...
+# Subtest: Phase 2 ER pod fixture validates against TypeScript contract
+ok 58 - Phase 2 ER pod fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.2081
+  type: 'test'
+  ...
+# Subtest: generated-plan-from-defaults-basic.json validates against TypeScript plan contract
+ok 59 - generated-plan-from-defaults-basic.json validates against TypeScript plan contract
+  ---
+  duration_ms: 1.0384
+  type: 'test'
+  ...
+# Subtest: generated-plan-from-defaults-no-doors.json validates against TypeScript plan contract
+ok 60 - generated-plan-from-defaults-no-doors.json validates against TypeScript plan contract
+  ---
+  duration_ms: 0.8807
+  type: 'test'
+  ...
+# Subtest: generated-plan-from-defaults-no-path-edges.json validates against TypeScript plan contract
+ok 61 - generated-plan-from-defaults-no-path-edges.json validates against TypeScript plan contract
+  ---
+  duration_ms: 0.7092
+  type: 'test'
+  ...
+# Subtest: generated-plan-from-defaults-no-stations.json validates against TypeScript plan contract
+ok 62 - generated-plan-from-defaults-no-stations.json validates against TypeScript plan contract
+  ---
+  duration_ms: 0.7283
+  type: 'test'
+  ...
+# Subtest: scenario fixture validates against TypeScript contract
+ok 63 - scenario fixture validates against TypeScript contract
+  ---
+  duration_ms: 0.9796
+  type: 'test'
+  ...
+# Subtest: room-load fixture validates against TypeScript contract and plan rooms
+ok 64 - room-load fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 58.3721
+  type: 'test'
+  ...
+# Subtest: manual assignment fixture validates against TypeScript contract and plan rooms
+ok 65 - manual assignment fixture validates against TypeScript contract and plan rooms
+  ---
+  duration_ms: 4.1764
+  type: 'test'
+  ...
+# Subtest: assumptions register fixture validates and represents current scoring constants
+ok 66 - assumptions register fixture validates and represents current scoring constants
+  ---
+  duration_ms: 2.4127
+  type: 'test'
+  ...
+# Subtest: task template fixture validates against TypeScript contract
+ok 67 - task template fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.0467
+  type: 'test'
+  ...
+# Subtest: task template boolean trigger source mismatch is rejected
+ok 68 - task template boolean trigger source mismatch is rejected
+  ---
+  duration_ms: 0.8941
+  type: 'test'
+  ...
+# Subtest: typical day profile validates against TypeScript contract
+ok 69 - typical day profile validates against TypeScript contract
+  ---
+  duration_ms: 2.1923
+  type: 'test'
+  ...
+# Subtest: slammed day profile validates against TypeScript contract
+ok 70 - slammed day profile validates against TypeScript contract
+  ---
+  duration_ms: 0.5394
+  type: 'test'
+  ...
+# Subtest: shift scenario fixture validates against TypeScript contract with references
+ok 71 - shift scenario fixture validates against TypeScript contract with references
+  ---
+  duration_ms: 2.3453
+  type: 'test'
+  ...
+# Subtest: generated operational task set fixture validates against TypeScript contract
+ok 72 - generated operational task set fixture validates against TypeScript contract
+  ---
+  duration_ms: 36.2256
+  type: 'test'
+  ...
+# Subtest: nurse task assignment fixture validates against TypeScript contract
+ok 73 - nurse task assignment fixture validates against TypeScript contract
+  ---
+  duration_ms: 25.959
+  type: 'test'
+  ...
+# Subtest: operational report fixture validates against TypeScript contract with Phase 5 context
+ok 74 - operational report fixture validates against TypeScript contract with Phase 5 context
+  ---
+  duration_ms: 5.9104
+  type: 'test'
+  ...
+# Subtest: operational report validation requires every manual assignment nurse when context is supplied
+ok 75 - operational report validation requires every manual assignment nurse when context is supplied
+  ---
+  duration_ms: 4.7739
+  type: 'test'
+  ...
+# Subtest: operational report builder outputs validate against TypeScript contract
+ok 76 - operational report builder outputs validate against TypeScript contract
+  ---
+  duration_ms: 4.8235
+  type: 'test'
+  ...
+# Subtest: scenario comparison fixture validates against TypeScript contract
+ok 77 - scenario comparison fixture validates against TypeScript contract
+  ---
+  duration_ms: 2.4414
+  type: 'test'
+  ...
+# Subtest: report export bundle fixture validates against TypeScript contract
+ok 78 - report export bundle fixture validates against TypeScript contract
+  ---
+  duration_ms: 1.7829
+  type: 'test'
+  ...
+# Subtest: report export bundle import utilities remain public and deterministic
+ok 79 - report export bundle import utilities remain public and deterministic
+  ---
+  duration_ms: 2.9711
+  type: 'test'
+  ...
+# Subtest: report export bundle integrity fixture validates against TypeScript contract
+ok 80 - report export bundle integrity fixture validates against TypeScript contract
+  ---
+  duration_ms: 55.3044
+  type: 'test'
+  ...
+# Subtest: bundle audit trail fixture validates against TypeScript contract
+ok 81 - bundle audit trail fixture validates against TypeScript contract
+  ---
+  duration_ms: 16.0293
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-door-id.json is rejected by TypeScript contract
+ok 82 - plan-duplicate-door-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 12.5802
+  type: 'test'
+  ...
+# Subtest: plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+ok 83 - plan-duplicate-path-edge-id.json is rejected by TypeScript contract
+  ---
+  duration_ms: 6.7019
+  type: 'test'
+  ...
+# Subtest: plan-bad-room-type.json is rejected by TypeScript contract
+ok 84 - plan-bad-room-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 5.0295
+  type: 'test'
+  ...
+# Subtest: plan-path-edge-missing-node.json is rejected by TypeScript contract
+ok 85 - plan-path-edge-missing-node.json is rejected by TypeScript contract
+  ---
+  duration_ms: 13.9324
+  type: 'test'
+  ...
+# Subtest: plan-extra-unknown-field.json is rejected by TypeScript contract
+ok 86 - plan-extra-unknown-field.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.6826
+  type: 'test'
+  ...
+# Subtest: plan-missing-hallways.json is rejected by TypeScript contract
+ok 87 - plan-missing-hallways.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.519
+  type: 'test'
+  ...
+# Subtest: plan-missing-room-capability.json is rejected by TypeScript contract
+ok 88 - plan-missing-room-capability.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.572
+  type: 'test'
+  ...
+# Subtest: plan-bad-station-type.json is rejected by TypeScript contract
+ok 89 - plan-bad-station-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5263
+  type: 'test'
+  ...
+# Subtest: plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+ok 90 - plan-bad-zone-travel-penalty.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.558
+  type: 'test'
+  ...
+# Subtest: plan-id-too-long.json is rejected by TypeScript contract
+ok 91 - plan-id-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4391
+  type: 'test'
+  ...
+# Subtest: plan-name-too-long.json is rejected by TypeScript contract
+ok 92 - plan-name-too-long.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4192
+  type: 'test'
+  ...
+# Subtest: plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+ok 93 - plan-door-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5077
+  type: 'test'
+  ...
+# Subtest: plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+ok 94 - plan-station-path-node-wrong-type.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4317
+  type: 'test'
+  ...
+# Subtest: plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+ok 95 - plan-room-path-node-unrelated-door.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.4923
+  type: 'test'
+  ...
+# Subtest: plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+ok 96 - plan-path-node-linked-object-mismatch.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.5013
+  type: 'test'
+  ...
+# Subtest: generated-plan-from-defaults-invalid-references.json is rejected by TypeScript contract
+ok 97 - generated-plan-from-defaults-invalid-references.json is rejected by TypeScript contract
+  ---
+  duration_ms: 0.7096
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-room-count.json is rejected by TypeScript plan-builder defaults contract
+ok 98 - plan-builder-defaults-bad-room-count.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.5134
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-room-size.json is rejected by TypeScript plan-builder defaults contract
+ok 99 - plan-builder-defaults-bad-room-size.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.4679
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-door-width.json is rejected by TypeScript plan-builder defaults contract
+ok 100 - plan-builder-defaults-bad-door-width.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.3934
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-hallway-width.json is rejected by TypeScript plan-builder defaults contract
+ok 101 - plan-builder-defaults-bad-hallway-width.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.5707
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-station-count.json is rejected by TypeScript plan-builder defaults contract
+ok 102 - plan-builder-defaults-bad-station-count.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.4327
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-path-graph-config.json is rejected by TypeScript plan-builder defaults contract
+ok 103 - plan-builder-defaults-bad-path-graph-config.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.4217
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-bad-zone-penalty.json is rejected by TypeScript plan-builder defaults contract
+ok 104 - plan-builder-defaults-bad-zone-penalty.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.4032
+  type: 'test'
+  ...
+# Subtest: plan-builder-defaults-empty-labels.json is rejected by TypeScript plan-builder defaults contract
+ok 105 - plan-builder-defaults-empty-labels.json is rejected by TypeScript plan-builder defaults contract
+  ---
+  duration_ms: 0.4163
+  type: 'test'
+  ...
+# Subtest: room-load-bad-frequency.json is rejected by TypeScript room-load contract
+ok 106 - room-load-bad-frequency.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 1.8352
+  type: 'test'
+  ...
+# Subtest: room-load-bad-burden.json is rejected by TypeScript room-load contract
+ok 107 - room-load-bad-burden.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 1.3673
+  type: 'test'
+  ...
+# Subtest: room-load-unknown-room.json is rejected by TypeScript room-load contract
+ok 108 - room-load-unknown-room.json is rejected by TypeScript room-load contract
+  ---
+  duration_ms: 1.2584
+  type: 'test'
+  ...
+# Subtest: old numeric room-load fields are rejected by TypeScript contract
+ok 109 - old numeric room-load fields are rejected by TypeScript contract
+  ---
+  duration_ms: 0.3161
+  type: 'test'
+  ...
+# Subtest: manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+ok 110 - manual-assignment-duplicate-nurse-id.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 1.4128
+  type: 'test'
+  ...
+# Subtest: manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+ok 111 - manual-assignment-room-assigned-twice.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 1.4244
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+ok 112 - manual-assignment-unknown-room.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 1.3592
+  type: 'test'
+  ...
+# Subtest: manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+ok 113 - manual-assignment-unknown-nurse.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 1.3636
+  type: 'test'
+  ...
+# Subtest: manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+ok 114 - manual-assignment-break-window-invalid.json is rejected by TypeScript manual assignment contract
+  ---
+  duration_ms: 2.1093
+  type: 'test'
+  ...
+# Subtest: assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+ok 115 - assumptions-missing-room-workload-weight.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.8245
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+ok 116 - assumptions-bad-duration.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.475
+  type: 'test'
+  ...
+# Subtest: assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+ok 117 - assumptions-bad-frequency-mapping.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 0.7783
+  type: 'test'
+  ...
+# Subtest: assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+ok 118 - assumptions-negative-placeholder.json is rejected by TypeScript assumptions contract
+  ---
+  duration_ms: 4.2023
+  type: 'test'
+  ...
+# Subtest: task-template-bad-type.json is rejected by TypeScript task template contract
+ok 119 - task-template-bad-type.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 2.431
+  type: 'test'
+  ...
+# Subtest: task-template-bad-trigger.json is rejected by TypeScript task template contract
+ok 120 - task-template-bad-trigger.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.6906
+  type: 'test'
+  ...
+# Subtest: task-template-bad-duration.json is rejected by TypeScript task template contract
+ok 121 - task-template-bad-duration.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 0.6941
+  type: 'test'
+  ...
+# Subtest: task-template-duplicate-id.json is rejected by TypeScript task template contract
+ok 122 - task-template-duplicate-id.json is rejected by TypeScript task template contract
+  ---
+  duration_ms: 1.5335
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+ok 123 - day-profile-bad-multiplier.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.5482
+  type: 'test'
+  ...
+# Subtest: day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+ok 124 - day-profile-overlapping-segments.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.3872
+  type: 'test'
+  ...
+# Subtest: day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+ok 125 - day-profile-bad-minute-range.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.4524
+  type: 'test'
+  ...
+# Subtest: day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+ok 126 - day-profile-gap-in-coverage.json is rejected by TypeScript day profile contract
+  ---
+  duration_ms: 0.3862
+  type: 'test'
+  ...
+# Subtest: shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+ok 127 - shift-scenario-missing-assumptions.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.4942
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+ok 128 - shift-scenario-bad-seed.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.3435
+  type: 'test'
+  ...
+# Subtest: shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+ok 129 - shift-scenario-bad-timestep.json is rejected by TypeScript shift scenario contract
+  ---
+  duration_ms: 0.3849
+  type: 'test'
+  ...
+# Subtest: shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+ok 130 - shift-scenario-mismatched-plan-id.json is rejected when a plan reference is supplied
+  ---
+  duration_ms: 1.0909
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-minute.json is rejected by TypeScript generated task set contract
+ok 131 - generated-task-bad-minute.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.7322
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-duration.json is rejected by TypeScript generated task set contract
+ok 132 - generated-task-bad-duration.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.6426
+  type: 'test'
+  ...
+# Subtest: generated-task-unknown-room.json is rejected by TypeScript generated task set contract
+ok 133 - generated-task-unknown-room.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.8381
+  type: 'test'
+  ...
+# Subtest: generated-task-duplicate-id.json is rejected by TypeScript generated task set contract
+ok 134 - generated-task-duplicate-id.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 0.8252
+  type: 'test'
+  ...
+# Subtest: generated-task-set-mismatched-scenario.json is rejected by TypeScript generated task set contract
+ok 135 - generated-task-set-mismatched-scenario.json is rejected by TypeScript generated task set contract
+  ---
+  duration_ms: 3.7179
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-unknown-nurse.json is rejected by TypeScript nurse task assignment contract
+ok 136 - nurse-task-assignment-unknown-nurse.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 14.8359
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-unknown-task.json is rejected by TypeScript nurse task assignment contract
+ok 137 - nurse-task-assignment-unknown-task.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.5849
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-task-assigned-twice.json is rejected by TypeScript nurse task assignment contract
+ok 138 - nurse-task-assignment-task-assigned-twice.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.5657
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-minute-mismatch.json is rejected by TypeScript nurse task assignment contract
+ok 139 - nurse-task-assignment-minute-mismatch.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.8143
+  type: 'test'
+  ...
+# Subtest: nurse-task-assignment-mismatched-scenario.json is rejected by TypeScript nurse task assignment contract
+ok 140 - nurse-task-assignment-mismatched-scenario.json is rejected by TypeScript nurse task assignment contract
+  ---
+  duration_ms: 1.869
+  type: 'test'
+  ...
+# Subtest: report-missing-summary.json is rejected by TypeScript operational report contract
+ok 141 - report-missing-summary.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.9677
+  type: 'test'
+  ...
+# Subtest: report-clinical-safety-claim.json is rejected by TypeScript operational report contract
+ok 142 - report-clinical-safety-claim.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.589
+  type: 'test'
+  ...
+# Subtest: report-unknown-nurse.json is rejected by TypeScript operational report contract
+ok 143 - report-unknown-nurse.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.6537
+  type: 'test'
+  ...
+# Subtest: report-unknown-task.json is rejected by TypeScript operational report contract
+ok 144 - report-unknown-task.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.9175
+  type: 'test'
+  ...
+# Subtest: report-count-mismatch.json is rejected by TypeScript operational report contract
+ok 145 - report-count-mismatch.json is rejected by TypeScript operational report contract
+  ---
+  duration_ms: 1.6705
+  type: 'test'
+  ...
+# Subtest: export-bundle-missing-report.json is rejected by TypeScript report export bundle contract
+ok 146 - export-bundle-missing-report.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.4991
+  type: 'test'
+  ...
+# Subtest: export-bundle-comparison-mismatch.json is rejected by TypeScript report export bundle contract
+ok 147 - export-bundle-comparison-mismatch.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.9827
+  type: 'test'
+  ...
+# Subtest: export-bundle-safety-claim.json is rejected by TypeScript report export bundle contract
+ok 148 - export-bundle-safety-claim.json is rejected by TypeScript report export bundle contract
+  ---
+  duration_ms: 0.6173
+  type: 'test'
+  ...
+# Subtest: export-bundle-integrity-bad-hash.json is rejected by TypeScript integrity contract with bundle context
+ok 149 - export-bundle-integrity-bad-hash.json is rejected by TypeScript integrity contract with bundle context
+  ---
+  duration_ms: 5.5436
+  type: 'test'
+  ...
+# Subtest: export-bundle-integrity-mismatched-export-id.json is rejected by TypeScript integrity contract with bundle context
+ok 150 - export-bundle-integrity-mismatched-export-id.json is rejected by TypeScript integrity contract with bundle context
+  ---
+  duration_ms: 1.3399
+  type: 'test'
+  ...
+# Subtest: bundle-audit-trail-missing-step.json is rejected by TypeScript bundle audit trail contract
+ok 151 - bundle-audit-trail-missing-step.json is rejected by TypeScript bundle audit trail contract
+  ---
+  duration_ms: 0.5481
+  type: 'test'
+  ...
+# Subtest: bundle-audit-trail-security-claim.json is rejected by TypeScript bundle audit trail contract
+ok 152 - bundle-audit-trail-security-claim.json is rejected by TypeScript bundle audit trail contract
+  ---
+  duration_ms: 0.5713
+  type: 'test'
+  ...
+# Subtest: bundle-audit-trail-mismatched-export-id.json is rejected by TypeScript bundle audit trail contract
+ok 153 - bundle-audit-trail-mismatched-export-id.json is rejected by TypeScript bundle audit trail contract
+  ---
+  duration_ms: 0.4511
+  type: 'test'
+  ...
+# Subtest: bundle audit trail validationStatus mismatch is rejected
+ok 154 - bundle audit trail validationStatus mismatch is rejected
+  ---
+  duration_ms: 0.734
+  type: 'test'
+  ...
+# Subtest: dashboard proof data is assembled from shared pipeline builders
+ok 155 - dashboard proof data is assembled from shared pipeline builders
+  ---
+  duration_ms: 42.364
+  type: 'test'
+  ...
+# Subtest: dashboard metric cards use canonical registry ids
+ok 156 - dashboard metric cards use canonical registry ids
+  ---
+  duration_ms: 62.1162
+  type: 'test'
+  ...
+# Subtest: dashboard pressure bands are rebuilt from unified pressure banding
+ok 157 - dashboard pressure bands are rebuilt from unified pressure banding
+  ---
+  duration_ms: 72.6635
+  type: 'test'
+  ...
+# Subtest: dashboard ratio deltas are rebuilt from operational delta comparison
+ok 158 - dashboard ratio deltas are rebuilt from operational delta comparison
+  ---
+  duration_ms: 39.9197
+  type: 'test'
+  ...
+# Subtest: editing serialized proof metric values cannot become the generated dashboard data
+ok 159 - editing serialized proof metric values cannot become the generated dashboard data
+  ---
+  duration_ms: 213.6903
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 1 validates through wrapper and PlanContract
+ok 160 - default ER layout plan 1 validates through wrapper and PlanContract
+  ---
+  duration_ms: 51.9691
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 1 source mapping targets existing plan objects
+ok 161 - default ER layout plan 1 source mapping targets existing plan objects
+  ---
+  duration_ms: 7.0649
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 1 includes visible operational source intent
+ok 162 - default ER layout plan 1 includes visible operational source intent
+  ---
+  duration_ms: 3.5479
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 2 validates through wrapper and PlanContract
+ok 163 - default ER layout plan 2 validates through wrapper and PlanContract
+  ---
+  duration_ms: 31.2527
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 2 source mapping targets existing plan objects
+ok 164 - default ER layout plan 2 source mapping targets existing plan objects
+  ---
+  duration_ms: 10.8681
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 2 keeps Plan 1 ID conventions while documenting differences
+ok 165 - default ER layout plan 2 keeps Plan 1 ID conventions while documenting differences
+  ---
+  duration_ms: 7.8239
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 3 validates through wrapper and PlanContract
+ok 166 - default ER layout plan 3 validates through wrapper and PlanContract
+  ---
+  duration_ms: 42.9572
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 3 source mapping targets existing plan objects
+ok 167 - default ER layout plan 3 source mapping targets existing plan objects
+  ---
+  duration_ms: 30.9083
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 3 documents differences from plans 1 and 2
+ok 168 - default ER layout plan 3 documents differences from plans 1 and 2
+  ---
+  duration_ms: 41.9582
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 4 validates through wrapper and PlanContract
+ok 169 - default ER layout plan 4 validates through wrapper and PlanContract
+  ---
+  duration_ms: 40.282
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 4 source mapping targets existing plan objects
+ok 170 - default ER layout plan 4 source mapping targets existing plan objects
+  ---
+  duration_ms: 6.9033
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 4 documents differences from plans 1 through 3
+ok 171 - default ER layout plan 4 documents differences from plans 1 through 3
+  ---
+  duration_ms: 18.9984
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 5 validates through wrapper and PlanContract
+ok 172 - default ER layout plan 5 validates through wrapper and PlanContract
+  ---
+  duration_ms: 21.9857
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 5 source mapping targets existing plan objects
+ok 173 - default ER layout plan 5 source mapping targets existing plan objects
+  ---
+  duration_ms: 5.2989
+  type: 'test'
+  ...
+# Subtest: default ER layout plan 5 documents differences from plans 1 through 4
+ok 174 - default ER layout plan 5 documents differences from plans 1 through 4
+  ---
+  duration_ms: 3.9906
+  type: 'test'
+  ...
+# Subtest: Issue 231 requires coordinate-frame and scaffold regions for Plan 1
+ok 175 - Issue 231 requires coordinate-frame and scaffold regions for Plan 1
+  ---
+  duration_ms: 148.864
+  type: 'test'
+  ...
+# Subtest: Issue 231 records Plan 1 scaffold delta from source-truth baseline and keeps other plans unchanged
+ok 176 - Issue 231 records Plan 1 scaffold delta from source-truth baseline and keeps other plans unchanged
+  ---
+  duration_ms: 76.5409
+  type: 'test'
+  ...
+# Subtest: all default plans pass path-edge coverage audit
+ok 177 - all default plans pass path-edge coverage audit
+  ---
+  duration_ms: 37.699
+  type: 'test'
+  ...
+# Subtest: path-edge coverage audit reports broken, isolated, disconnected, and blocked graph cases
+ok 178 - path-edge coverage audit reports broken, isolated, disconnected, and blocked graph cases
+  ---
+  duration_ms: 15.9108
+  type: 'test'
+  ...
+# Subtest: all default plans pass path-node coverage audit
+ok 179 - all default plans pass path-node coverage audit
+  ---
+  duration_ms: 106.2534
+  type: 'test'
+  ...
+# Subtest: path-node coverage audit reports broken references and wrong node types
+ok 180 - path-node coverage audit reports broken references and wrong node types
+  ---
+  duration_ms: 20.9461
+  type: 'test'
+  ...
+# Subtest: route preview builder produces default route examples for all five plans
+ok 181 - route preview builder produces default route examples for all five plans
+  ---
+  duration_ms: 114.675
+  type: 'test'
+  ...
+# Subtest: route preview builder is deterministic and does not mutate plans
+ok 182 - route preview builder is deterministic and does not mutate plans
+  ---
+  duration_ms: 15.149
+  type: 'test'
+  ...
+# Subtest: route preview builder returns structured invalid and unreachable outputs
+ok 183 - route preview builder returns structured invalid and unreachable outputs
+  ---
+  duration_ms: 7.0892
+  type: 'test'
+  ...
+# Subtest: route preview builder excludes blocked edges
+ok 184 - route preview builder excludes blocked edges
+  ---
+  duration_ms: 9.4054
+  type: 'test'
+  ...
+# Subtest: source layout manifest registers all uploaded ER layout archive references
+ok 185 - source layout manifest registers all uploaded ER layout archive references
+  ---
+  duration_ms: 30.1063
+  type: 'test'
+  ...
+# Subtest: source manifest conversion outputs resolve to JSON default plan fixtures only
+ok 186 - source manifest conversion outputs resolve to JSON default plan fixtures only
+  ---
+  duration_ms: 7.1512
+  type: 'test'
+  ...
+# Subtest: web fixtures and public assets do not expose DOCX source references
+ok 187 - web fixtures and public assets do not expose DOCX source references
+  ---
+  duration_ms: 182.2041
+  type: 'test'
+  ...
+# Subtest: API routes do not serve docs/floorplans or DOCX source files
+ok 188 - API routes do not serve docs/floorplans or DOCX source files
+  ---
+  duration_ms: 4.3011
+  type: 'test'
+  ...
+# Subtest: source layout manifest rejects duplicate IDs, missing limitations, and embedded content
+ok 189 - source layout manifest rejects duplicate IDs, missing limitations, and embedded content
+  ---
+  duration_ms: 61.5001
+  type: 'test'
+  ...
+# Subtest: source layout manifest text remains non-PHI and operational only
+ok 190 - source layout manifest text remains non-PHI and operational only
+  ---
+  duration_ms: 21.0064
+  type: 'test'
+  ...
+# Subtest: source-to-plan mapping skeletons validate and link to the manifest
+ok 191 - source-to-plan mapping skeletons validate and link to the manifest
+  ---
+  duration_ms: 23.4142
+  type: 'test'
+  ...
+# Subtest: source-to-plan mappings validate against the correct target plan collections
+ok 192 - source-to-plan mappings validate against the correct target plan collections
+  ---
+  duration_ms: 16.0401
+  type: 'test'
+  ...
+# Subtest: source-to-plan mapping rejects wrong target collections for every supported object type
+ok 193 - source-to-plan mapping rejects wrong target collections for every supported object type
+  ---
+  duration_ms: 28.5812
+  type: 'test'
+  ...
+# Subtest: source-to-plan mapping rejects duplicate source and target object IDs
+ok 194 - source-to-plan mapping rejects duplicate source and target object IDs
+  ---
+  duration_ms: 1.1979
+  type: 'test'
+  ...
+# Subtest: source-to-plan mapping rejects unknown enums
+ok 195 - source-to-plan mapping rejects unknown enums
+  ---
+  duration_ms: 1.7422
+  type: 'test'
+  ...
+# Subtest: source-to-plan mapping rejects PHI-like or clinical source labels
+ok 196 - source-to-plan mapping rejects PHI-like or clinical source labels
+  ---
+  duration_ms: 9.5312
+  type: 'test'
+  ...
+# Subtest: default plan walking baseline fixtures validate and resolve to plan path nodes
+ok 197 - default plan walking baseline fixtures validate and resolve to plan path nodes
+  ---
+  duration_ms: 9.1855
+  type: 'test'
+  ...
+# Subtest: default walking baseline fixtures are deterministic canonical outputs
+ok 198 - default walking baseline fixtures are deterministic canonical outputs
+  ---
+  duration_ms: 103.2192
+  type: 'test'
+  ...
+# Subtest: all default plan fixtures validate and link to manifest and mappings
+ok 199 - all default plan fixtures validate and link to manifest and mappings
+  ---
+  duration_ms: 149.9118
+  type: 'test'
+  ...
+# Subtest: default saved plan fixture wrapper validates nested PlanContract and registered links
+ok 200 - default saved plan fixture wrapper validates nested PlanContract and registered links
+  ---
+  duration_ms: 12.358
+  type: 'test'
+  ...
+# Subtest: default saved plan fixture rejects user namespace and mutable records
+ok 201 - default saved plan fixture rejects user namespace and mutable records
+  ---
+  duration_ms: 38.3111
+  type: 'test'
+  ...
+# Subtest: default saved plan fixture rejects missing links, limitations, and PHI-like wrapper text
+ok 202 - default saved plan fixture rejects missing links, limitations, and PHI-like wrapper text
+  ---
+  duration_ms: 42.4907
+  type: 'test'
+  ...
+# Subtest: door operational metadata validates in representative fixture doors
+ok 203 - door operational metadata validates in representative fixture doors
+  ---
+  duration_ms: 17.6341
+  type: 'test'
+  ...
+# Subtest: door operational metadata rejects invalid enum and narrative fields
+ok 204 - door operational metadata rejects invalid enum and narrative fields
+  ---
+  duration_ms: 27.0028
+  type: 'test'
+  ...
+# Subtest: door metadata preserves path-node sync references and room geometry
+ok 205 - door metadata preserves path-node sync references and room geometry
+  ---
+  duration_ms: 5.8373
+  type: 'test'
+  ...
+# Subtest: door path node sync contract derives door center from owner geometry
+ok 206 - door path node sync contract derives door center from owner geometry
+  ---
+  duration_ms: 3.2769
+  type: 'test'
+  ...
+# Subtest: door path node sync contract reports missing linked path node
+ok 207 - door path node sync contract reports missing linked path node
+  ---
+  duration_ms: 0.3639
+  type: 'test'
+  ...
+# Subtest: door path node sync contract supports pending status validation
+ok 208 - door path node sync contract supports pending status validation
+  ---
+  duration_ms: 0.2976
+  type: 'test'
+  ...
+# Subtest: duplicateDefaultPlan creates editable JSON floorplan copies for all defaults
+ok 209 - duplicateDefaultPlan creates editable JSON floorplan copies for all defaults
+  ---
+  duration_ms: 64.053
+  type: 'test'
+  ...
+# Subtest: duplicateDefaultPlan does not mutate default fixtures and rejects unsafe metadata
+ok 210 - duplicateDefaultPlan does not mutate default fixtures and rejects unsafe metadata
+  ---
+  duration_ms: 10.7989
+  type: 'test'
+  ...
+# Subtest: editable layout geometry fixture validates with feet-based editable objects
+ok 211 - editable layout geometry fixture validates with feet-based editable objects
+  ---
+  duration_ms: 8.9709
+  type: 'test'
+  ...
+# Subtest: editable layout geometry rejects negative geometry
+ok 212 - editable layout geometry rejects negative geometry
+  ---
+  duration_ms: 1.3964
+  type: 'test'
+  ...
+# Subtest: editable layout geometry rejects doors outside their wall span
+ok 213 - editable layout geometry rejects doors outside their wall span
+  ---
+  duration_ms: 1.3795
+  type: 'test'
+  ...
+# Subtest: editable layout geometry rejects pixel fields
+ok 214 - editable layout geometry rejects pixel fields
+  ---
+  duration_ms: 0.7107
+  type: 'test'
+  ...
+# Subtest: editable layout plan/path bridge contract validates explicit mappings
+ok 215 - editable layout plan/path bridge contract validates explicit mappings
+  ---
+  duration_ms: 22.6476
+  type: 'test'
+  ...
+# Subtest: editable layout plan/path bridge contract rejects extra keys
+ok 216 - editable layout plan/path bridge contract rejects extra keys
+  ---
+  duration_ms: 0.9201
+  type: 'test'
+  ...
+# Subtest: editable layout plan/path bridge contract rejects invalid mapping status
+ok 217 - editable layout plan/path bridge contract rejects invalid mapping status
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: editable layout plan/path bridge contract rejects implicit missing links
+ok 218 - editable layout plan/path bridge contract rejects implicit missing links
+  ---
+  duration_ms: 0.5538
+  type: 'test'
+  ...
+# Subtest: editable room metadata is required on every room
+ok 219 - editable room metadata is required on every room
+  ---
+  duration_ms: 5.7366
+  type: 'test'
+  ...
+# Subtest: editable room metadata validates operational room types and capacity types
+ok 220 - editable room metadata validates operational room types and capacity types
+  ---
+  duration_ms: 3.7506
+  type: 'test'
+  ...
+# Subtest: editable room metadata rejects unsupported diagnosis-oriented room type text
+ok 221 - editable room metadata rejects unsupported diagnosis-oriented room type text
+  ---
+  duration_ms: 2.8735
+  type: 'test'
+  ...
+# Subtest: editable room metadata rejects room numbers that look like identity labels
+ok 222 - editable room metadata rejects room numbers that look like identity labels
+  ---
+  duration_ms: 0.9948
+  type: 'test'
+  ...
+# Subtest: editable room metadata rejects unsupported room and capacity enum values
+ok 223 - editable room metadata rejects unsupported room and capacity enum values
+  ---
+  duration_ms: 1.048
+  type: 'test'
+  ...
+# Subtest: editable room metadata requires hall_bed room type to set isHallBed
+ok 224 - editable room metadata requires hall_bed room type to set isHallBed
+  ---
+  duration_ms: 1.191
+  type: 'test'
+  ...
+# Subtest: EMS entry metadata validates and links to trauma zone and path node
+ok 225 - EMS entry metadata validates and links to trauma zone and path node
+  ---
+  duration_ms: 30.7571
+  type: 'test'
+  ...
+# Subtest: entry metadata rejects invalid enum, narrative fields, and non-entry placement
+ok 226 - entry metadata rejects invalid enum, narrative fields, and non-entry placement
+  ---
+  duration_ms: 17.1511
+  type: 'test'
+  ...
+# Subtest: entry metadata rejects unknown zone and path-node references
+ok 227 - entry metadata rejects unknown zone and path-node references
+  ---
+  duration_ms: 5.8709
+  type: 'test'
+  ...
+# Subtest: ER layout metadata architecture accepts optional nested metadata placeholders
+ok 228 - ER layout metadata architecture accepts optional nested metadata placeholders
+  ---
+  duration_ms: 34.0102
+  type: 'test'
+  ...
+# Subtest: ER layout metadata architecture rejects top-level sprawl and narrative metadata fields
+ok 229 - ER layout metadata architecture rejects top-level sprawl and narrative metadata fields
+  ---
+  duration_ms: 4.4648
+  type: 'test'
+  ...
+# Subtest: existing ER layout fixtures continue to validate without metadata
+ok 230 - existing ER layout fixtures continue to validate without metadata
+  ---
+  duration_ms: 2.7223
+  type: 'test'
+  ...
+# Subtest: canonical ER layout fixture represents every operational metadata object
+ok 231 - canonical ER layout fixture represents every operational metadata object
+  ---
+  duration_ms: 50.1872
+  type: 'test'
+  ...
+# Subtest: canonical metadata fixture keeps special room and door semantics coherent
+ok 232 - canonical metadata fixture keeps special room and door semantics coherent
+  ---
+  duration_ms: 31.7021
+  type: 'test'
+  ...
+# Subtest: plan contract rejects special room door semantic mismatches
+ok 233 - plan contract rejects special room door semantic mismatches
+  ---
+  duration_ms: 7.8484
+  type: 'test'
+  ...
+# Subtest: entry linkedPathNodeId references another node and rejects self-reference
+ok 234 - entry linkedPathNodeId references another node and rejects self-reference
+  ---
+  duration_ms: 3.2869
+  type: 'test'
+  ...
+# Subtest: canonical JSON and integrity hash are reproducible
+ok 235 - canonical JSON and integrity hash are reproducible
+  ---
+  duration_ms: 102.6601
+  type: 'test'
+  ...
+# Subtest: canonical JSON sorts object keys recursively and preserves array order
+ok 236 - canonical JSON sorts object keys recursively and preserves array order
+  ---
+  duration_ms: 29.8127
+  type: 'test'
+  ...
+# Subtest: hashCanonicalJson emits lowercase sha256 hex
+ok 237 - hashCanonicalJson emits lowercase sha256 hex
+  ---
+  duration_ms: 14.9567
+  type: 'test'
+  ...
+# Subtest: valid integrity fixture matches the source bundle
+ok 238 - valid integrity fixture matches the source bundle
+  ---
+  duration_ms: 2.5388
+  type: 'test'
+  ...
+# Subtest: changed bundle content changes the integrity hash
+ok 239 - changed bundle content changes the integrity hash
+  ---
+  duration_ms: 6.1536
+  type: 'test'
+  ...
+# Subtest: bad hash fixture is rejected with bundle context
+ok 240 - bad hash fixture is rejected with bundle context
+  ---
+  duration_ms: 2.6034
+  type: 'test'
+  ...
+# Subtest: mismatched exportId fixture is rejected with bundle context
+ok 241 - mismatched exportId fixture is rejected with bundle context
+  ---
+  duration_ms: 1.1151
+  type: 'test'
+  ...
+# Subtest: tamper-proof security claims are rejected
+ok 242 - tamper-proof security claims are rejected
+  ---
+  duration_ms: 0.6803
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic typical output
+ok 243 - generateOperationalTasks returns deterministic typical output
+  ---
+  duration_ms: 104.7331
+  type: 'test'
+  ...
+# Subtest: generateOperationalTasks returns deterministic slammed output
+ok 244 - generateOperationalTasks returns deterministic slammed output
+  ---
+  duration_ms: 3.3954
+  type: 'test'
+  ...
+# Subtest: different seed produces controlled timing differences
+ok 245 - different seed produces controlled timing differences
+  ---
+  duration_ms: 3.9465
+  type: 'test'
+  ...
+# Subtest: slammed day profile changes generated task volume
+ok 246 - slammed day profile changes generated task volume
+  ---
+  duration_ms: 12.6055
+  type: 'test'
+  ...
+# Subtest: generated tasks validate and stay within shift bounds
+ok 247 - generated tasks validate and stay within shift bounds
+  ---
+  duration_ms: 2.0438
+  type: 'test'
+  ...
+# Subtest: generated task IDs are deterministic and do not assign work to nurses
+ok 248 - generated task IDs are deterministic and do not assign work to nurses
+  ---
+  duration_ms: 1.9052
+  type: 'test'
+  ...
+# Subtest: basic defaults generate a valid deterministic plan
+ok 249 - basic defaults generate a valid deterministic plan
+  ---
+  duration_ms: 40.0893
+  type: 'test'
+  ...
+# Subtest: door count follows autoCreateDoors
+ok 250 - door count follows autoCreateDoors
+  ---
+  duration_ms: 1.704
+  type: 'test'
+  ...
+# Subtest: station count follows defaults
+ok 251 - station count follows defaults
+  ---
+  duration_ms: 3.1297
+  type: 'test'
+  ...
+# Subtest: path edges follow autoCreatePathEdges
+ok 252 - path edges follow autoCreatePathEdges
+  ---
+  duration_ms: 2.7143
+  type: 'test'
+  ...
+# Subtest: generator rejects unsupported room auto-connect without door path nodes
+ok 253 - generator rejects unsupported room auto-connect without door path nodes
+  ---
+  duration_ms: 1.4235
+  type: 'test'
+  ...
+# Subtest: generator rejects nurse stations without station path nodes
+ok 254 - generator rejects nurse stations without station path nodes
+  ---
+  duration_ms: 0.8303
+  type: 'test'
+  ...
+# Subtest: generated references are valid and preview summary matches output
+ok 255 - generated references are valid and preview summary matches output
+  ---
+  duration_ms: 1.3851
+  type: 'test'
+  ...
+# Subtest: generated task validator is publicly exported
+ok 256 - generated task validator is publicly exported
+  ---
+  duration_ms: 40.1867
+  type: 'test'
+  ...
+# Subtest: generated task array validator remains public and rejects duplicate IDs
+ok 257 - generated task array validator remains public and rejects duplicate IDs
+  ---
+  duration_ms: 3.3517
+  type: 'test'
+  ...
+# Subtest: valid generated operational task set fixture validates with references
+ok 258 - valid generated operational task set fixture validates with references
+  ---
+  duration_ms: 2.9124
+  type: 'test'
+  ...
+# Subtest: generated task set rejects taskCount mismatch
+ok 259 - generated task set rejects taskCount mismatch
+  ---
+  duration_ms: 2.254
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-minute.json is rejected by generated task-set validator
+ok 260 - generated-task-bad-minute.json is rejected by generated task-set validator
+  ---
+  duration_ms: 2.1841
+  type: 'test'
+  ...
+# Subtest: generated-task-bad-duration.json is rejected by generated task-set validator
+ok 261 - generated-task-bad-duration.json is rejected by generated task-set validator
+  ---
+  duration_ms: 2.1394
+  type: 'test'
+  ...
+# Subtest: generated-task-unknown-room.json is rejected by generated task-set validator
+ok 262 - generated-task-unknown-room.json is rejected by generated task-set validator
+  ---
+  duration_ms: 2.006
+  type: 'test'
+  ...
+# Subtest: generated-task-duplicate-id.json is rejected by generated task-set validator
+ok 263 - generated-task-duplicate-id.json is rejected by generated task-set validator
+  ---
+  duration_ms: 21.0633
+  type: 'test'
+  ...
+# Subtest: generated-task-set-mismatched-scenario.json is rejected by generated task-set validator
+ok 264 - generated-task-set-mismatched-scenario.json is rejected by generated task-set validator
+  ---
+  duration_ms: 7.6954
+  type: 'test'
+  ...
+# Subtest: hallway operational metadata validates in representative fixture hallways
+ok 265 - hallway operational metadata validates in representative fixture hallways
+  ---
+  duration_ms: 20.4133
+  type: 'test'
+  ...
+# Subtest: hallway operational metadata rejects invalid enum and narrative fields
+ok 266 - hallway operational metadata rejects invalid enum and narrative fields
+  ---
+  duration_ms: 2.5288
+  type: 'test'
+  ...
+# Subtest: hallway metadata does not change path travel output
+ok 267 - hallway metadata does not change path travel output
+  ---
+  duration_ms: 10.5373
+  type: 'test'
+  ...
+# Subtest: layout editor architecture and interaction contracts exist with required invariants
+ok 268 - layout editor architecture and interaction contracts exist with required invariants
+  ---
+  duration_ms: 5.3674
+  type: 'test'
+  ...
+# Subtest: no-PHI negative object fixtures fail deterministically
+ok 269 - no-PHI negative object fixtures fail deterministically
+  ---
+  duration_ms: 76.51
+  type: 'test'
+  ...
+# Subtest: no-PHI positive object fixtures pass
+ok 270 - no-PHI positive object fixtures pass
+  ---
+  duration_ms: 12.9362
+  type: 'test'
+  ...
+# Subtest: runtime no-PHI text guard allows operational labels
+ok 271 - runtime no-PHI text guard allows operational labels
+  ---
+  duration_ms: 14.6954
+  type: 'test'
+  ...
+# Subtest: runtime no-PHI text guard allows operational labels after identifier expansion
+ok 272 - runtime no-PHI text guard allows operational labels after identifier expansion
+  ---
+  duration_ms: 1.9019
+  type: 'test'
+  ...
+# Subtest: runtime no-PHI text guard rejects risky labels without echoing values
+ok 273 - runtime no-PHI text guard rejects risky labels without echoing values
+  ---
+  duration_ms: 3.1592
+  type: 'test'
+  ...
+# Subtest: runtime no-PHI text guard rejects expanded identifier categories without echoing values
+ok 274 - runtime no-PHI text guard rejects expanded identifier categories without echoing values
+  ---
+  duration_ms: 1.7637
+  type: 'test'
+  ...
+# Subtest: runtime no-PHI text guard is enforced by major shared contracts
+ok 275 - runtime no-PHI text guard is enforced by major shared contracts
+  ---
+  duration_ms: 13.9246
+  type: 'test'
+  ...
+# Subtest: paused queue action is rejected
+ok 276 - paused queue action is rejected
+  ---
+  duration_ms: 2.9112
+  type: 'test'
+  ...
+# Subtest: resumed queue action is rejected
+ok 277 - resumed queue action is rejected
+  ---
+  duration_ms: 0.8618
+  type: 'test'
+  ...
+# Subtest: existing queue actions still validate
+ok 278 - existing queue actions still validate
+  ---
+  duration_ms: 0.6794
+  type: 'test'
+  ...
+# Subtest: simultaneous tasks are queued deterministically
+ok 279 - simultaneous tasks are queued deterministically
+  ---
+  duration_ms: 3.7617
+  type: 'test'
+  ...
+# Subtest: queue order is stable
+ok 280 - queue order is stable
+  ---
+  duration_ms: 0.913
+  type: 'test'
+  ...
+# Subtest: non-interruptible task is not paused
+ok 281 - non-interruptible task is not paused
+  ---
+  duration_ms: 6.9015
+  type: 'test'
+  ...
+# Subtest: interruptible marker does not imply pause action support
+ok 282 - interruptible marker does not imply pause action support
+  ---
+  duration_ms: 0.4176
+  type: 'test'
+  ...
+# Subtest: completed task releases nurse
+ok 283 - completed task releases nurse
+  ---
+  duration_ms: 4.0313
+  type: 'test'
+  ...
+# Subtest: no duplicate task execution
+ok 284 - no duplicate task execution
+  ---
+  duration_ms: 3.1662
+  type: 'test'
+  ...
+# Subtest: buildNurseTaskBurdenSummary derives nurse-level task burden from simulation events
+ok 285 - buildNurseTaskBurdenSummary derives nurse-level task burden from simulation events
+  ---
+  duration_ms: 4.4351
+  type: 'test'
+  ...
+# Subtest: buildNurseTaskBurdenSummary keeps assigned counts event-derived and nurse-scoped
+ok 286 - buildNurseTaskBurdenSummary keeps assigned counts event-derived and nurse-scoped
+  ---
+  duration_ms: 2.4656
+  type: 'test'
+  ...
+# Subtest: buildNurseWalkLayoutFrictionSummary derives deterministic walk metrics from travel events
+ok 287 - buildNurseWalkLayoutFrictionSummary derives deterministic walk metrics from travel events
+  ---
+  duration_ms: 5.5341
+  type: 'test'
+  ...
+# Subtest: buildNurseWalkLayoutFrictionSummary returns deterministic zero walk metrics when no travel events
+ok 288 - buildNurseWalkLayoutFrictionSummary returns deterministic zero walk metrics when no travel events
+  ---
+  duration_ms: 1.7416
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: balanced assignment
+ok 289 - scoreNurseBurden: balanced assignment
+  ---
+  duration_ms: 4.783
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over target ratio
+ok 290 - scoreNurseBurden: nurse over target ratio
+  ---
+  duration_ms: 1.4264
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: nurse over max ratio
+ok 291 - scoreNurseBurden: nurse over max ratio
+  ---
+  duration_ms: 1.1639
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: trauma mismatch
+ok 292 - scoreNurseBurden: trauma mismatch
+  ---
+  duration_ms: 0.4515
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: duplicate room does not score as valid coverage
+ok 293 - scoreNurseBurden: duplicate room does not score as valid coverage
+  ---
+  duration_ms: 0.8507
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count lower acuity
+ok 294 - scoreNurseBurden: same count lower acuity
+  ---
+  duration_ms: 0.5325
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: same count higher acuity
+ok 295 - scoreNurseBurden: same count higher acuity
+  ---
+  duration_ms: 0.4862
+  type: 'test'
+  ...
+# Subtest: scoreNurseBurden: unassigned occupied room warning propagates
+ok 296 - scoreNurseBurden: unassigned occupied room warning propagates
+  ---
+  duration_ms: 0.4928
+  type: 'test'
+  ...
+# Subtest: same occupied-room count with different acuity yields different burden
+ok 297 - same occupied-room count with different acuity yields different burden
+  ---
+  duration_ms: 1.03
+  type: 'test'
+  ...
+# Subtest: buildOperationalDeltaComparison output includes baseline, modified, deltas, and deterministic percent change
+ok 298 - buildOperationalDeltaComparison output includes baseline, modified, deltas, and deterministic percent change
+  ---
+  duration_ms: 5.989
+  type: 'test'
+  ...
+# Subtest: validateOperationalDeltaComparison rejects forbidden wording
+ok 299 - validateOperationalDeltaComparison rejects forbidden wording
+  ---
+  duration_ms: 1.2005
+  type: 'test'
+  ...
+# Subtest: buildOperationalDeltaComparison computes deterministic zero-baseline percent change
+ok 300 - buildOperationalDeltaComparison computes deterministic zero-baseline percent change
+  ---
+  duration_ms: 0.3941
+  type: 'test'
+  ...
+# Subtest: buildOperationalDeltaComparison rejects metric-ID mismatches
+ok 301 - buildOperationalDeltaComparison rejects metric-ID mismatches
+  ---
+  duration_ms: 0.5893
+  type: 'test'
+  ...
+# Subtest: buildOperationalDeltaComparison enforces directionality and direction results
+ok 302 - buildOperationalDeltaComparison enforces directionality and direction results
+  ---
+  duration_ms: 0.633
+  type: 'test'
+  ...
+# Subtest: buildOperationalDeltaComparison rejects metrics with different directionality
+ok 303 - buildOperationalDeltaComparison rejects metrics with different directionality
+  ---
+  duration_ms: 0.3538
+  type: 'test'
+  ...
+# Subtest: serialized lower-is-better deltas cannot claim improvement when value increases
+ok 304 - serialized lower-is-better deltas cannot claim improvement when value increases
+  ---
+  duration_ms: 2.4126
+  type: 'test'
+  ...
+# Subtest: serialized higher-is-better deltas cannot claim improvement when value decreases
+ok 305 - serialized higher-is-better deltas cannot claim improvement when value decreases
+  ---
+  duration_ms: 0.7147
+  type: 'test'
+  ...
+# Subtest: neutral deltas validate only as unchanged even when values move
+ok 306 - neutral deltas validate only as unchanged even when values move
+  ---
+  duration_ms: 0.5415
+  type: 'test'
+  ...
+# Subtest: zero absolute change validates only as unchanged
+ok 307 - zero absolute change validates only as unchanged
+  ---
+  duration_ms: 0.785
+  type: 'test'
+  ...
+# Subtest: operational metric fixture validates with full operational variable coverage
+ok 308 - operational metric fixture validates with full operational variable coverage
+  ---
+  duration_ms: 3.1156
+  type: 'test'
+  ...
+# Subtest: metrics reject clinical wording in operational labels
+ok 309 - metrics reject clinical wording in operational labels
+  ---
+  duration_ms: 1.1671
+  type: 'test'
+  ...
+# Subtest: metrics reject satisfaction wording in limitations
+ok 310 - metrics reject satisfaction wording in limitations
+  ---
+  duration_ms: 0.5069
+  type: 'test'
+  ...
+# Subtest: metrics reject recommendation wording in limitations
+ok 311 - metrics reject recommendation wording in limitations
+  ---
+  duration_ms: 0.3219
+  type: 'test'
+  ...
+# Subtest: missing directionality demonstrates no shared metric contract exists without it
+ok 312 - missing directionality demonstrates no shared metric contract exists without it
+  ---
+  duration_ms: 0.6431
+  type: 'test'
+  ...
+# Subtest: missing source demonstrates no shared metric contract exists without provenance
+ok 313 - missing source demonstrates no shared metric contract exists without provenance
+  ---
+  duration_ms: 0.3557
+  type: 'test'
+  ...
+# Subtest: operational metric registry fixture matches registered canonical definitions
+ok 314 - operational metric registry fixture matches registered canonical definitions
+  ---
+  duration_ms: 4.2211
+  type: 'test'
+  ...
+# Subtest: dashboard proof card aliases resolve to canonical metric ids
+ok 315 - dashboard proof card aliases resolve to canonical metric ids
+  ---
+  duration_ms: 0.3315
+  type: 'test'
+  ...
+# Subtest: throughput and direct-work metrics are not lower-is-better
+ok 316 - throughput and direct-work metrics are not lower-is-better
+  ---
+  duration_ms: 0.3279
+  type: 'test'
+  ...
+# Subtest: known metric registry validation rejects contradictory directionality
+ok 317 - known metric registry validation rejects contradictory directionality
+  ---
+  duration_ms: 0.9971
+  type: 'test'
+  ...
+# Subtest: unknown ad-hoc metrics can still validate outside canonical registry proof
+ok 318 - unknown ad-hoc metrics can still validate outside canonical registry proof
+  ---
+  duration_ms: 0.3389
+  type: 'test'
+  ...
+# Subtest: registered throughput reduction cannot be labeled as improvement by delta comparison
+ok 319 - registered throughput reduction cannot be labeled as improvement by delta comparison
+  ---
+  duration_ms: 0.4678
+  type: 'test'
+  ...
+# Subtest: registry entries include supported metric kinds
+ok 320 - registry entries include supported metric kinds
+  ---
+  duration_ms: 0.3872
+  type: 'test'
+  ...
+# Subtest: buildOperationalOutcomeDashboardProofData matches the shared fixture
+ok 321 - buildOperationalOutcomeDashboardProofData matches the shared fixture
+  ---
+  duration_ms: 46.8174
+  type: 'test'
+  ...
+# Subtest: dashboard proof data uses valid ratio, intensity, pressure band, and metric ids
+ok 322 - dashboard proof data uses valid ratio, intensity, pressure band, and metric ids
+  ---
+  duration_ms: 40.5283
+  type: 'test'
+  ...
+# Subtest: dashboard proof data rejects invalid shared metric ids
+ok 323 - dashboard proof data rejects invalid shared metric ids
+  ---
+  duration_ms: 156.8652
+  type: 'test'
+  ...
+# Subtest: dashboard proof data remains operational-only
+ok 324 - dashboard proof data remains operational-only
+  ---
+  duration_ms: 92.988
+  type: 'test'
+  ...
+# Subtest: valid optimizer shell contract passes
+ok 325 - valid optimizer shell contract passes
+  ---
+  duration_ms: 5.7844
+  type: 'test'
+  ...
+# Subtest: hidden score field fails
+ok 326 - hidden score field fails
+  ---
+  duration_ms: 1.539
+  type: 'test'
+  ...
+# Subtest: missing simulation score reference fails
+ok 327 - missing simulation score reference fails
+  ---
+  duration_ms: 0.3484
+  type: 'test'
+  ...
+# Subtest: recommendation wording fails
+ok 328 - recommendation wording fails
+  ---
+  duration_ms: 0.3947
+  type: 'test'
+  ...
+# Subtest: clinical safety wording fails
+ok 329 - clinical safety wording fails
+  ---
+  duration_ms: 0.3232
+  type: 'test'
+  ...
+# Subtest: manual assignment reason still validates
+ok 330 - manual assignment reason still validates
+  ---
+  duration_ms: 8.0306
+  type: 'test'
+  ...
+# Subtest: optimizer candidate uses optimizer_candidate reason
+ok 331 - optimizer candidate uses optimizer_candidate reason
+  ---
+  duration_ms: 3.0088
+  type: 'test'
+  ...
+# Subtest: optimizer candidate does not use manual room coverage reason
+ok 332 - optimizer candidate does not use manual room coverage reason
+  ---
+  duration_ms: 1.6093
+  type: 'test'
+  ...
+# Subtest: constraint adapter can preserve original manual assignment reason
+ok 333 - constraint adapter can preserve original manual assignment reason
+  ---
+  duration_ms: 2.7969
+  type: 'test'
+  ...
+# Subtest: variant runner accepts optimizer candidate assignments
+ok 334 - variant runner accepts optimizer candidate assignments
+  ---
+  duration_ms: 14.4042
+  type: 'test'
+  ...
+# Subtest: optimizer output remains deterministic
+ok 335 - optimizer output remains deterministic
+  ---
+  duration_ms: 190.8642
+  type: 'test'
+  ...
+# Subtest: all candidates appear in audit
+ok 336 - all candidates appear in audit
+  ---
+  duration_ms: 39.8241
+  type: 'test'
+  ...
+# Subtest: selected candidate matches optimizer output
+ok 337 - selected candidate matches optimizer output
+  ---
+  duration_ms: 10.7728
+  type: 'test'
+  ...
+# Subtest: missing candidate audit fails
+ok 338 - missing candidate audit fails
+  ---
+  duration_ms: 82.9065
+  type: 'test'
+  ...
+# Subtest: altered tie-breaker fails
+ok 339 - altered tie-breaker fails
+  ---
+  duration_ms: 17.0412
+  type: 'test'
+  ...
+# Subtest: forbidden wording rejected
+ok 340 - forbidden wording rejected
+  ---
+  duration_ms: 50.6342
+  type: 'test'
+  ...
+# Subtest: constraint adapter rejects unknown nurse candidates
+ok 341 - constraint adapter rejects unknown nurse candidates
+  ---
+  duration_ms: 35.0974
+  type: 'test'
+  ...
+# Subtest: constraint adapter rejects unknown task candidates
+ok 342 - constraint adapter rejects unknown task candidates
+  ---
+  duration_ms: 1.8173
+  type: 'test'
+  ...
+# Subtest: constraint adapter preserves base unassigned tasks
+ok 343 - constraint adapter preserves base unassigned tasks
+  ---
+  duration_ms: 2.2073
+  type: 'test'
+  ...
+# Subtest: constrained candidate still passes assignment validation
+ok 344 - constrained candidate still passes assignment validation
+  ---
+  duration_ms: 2.4549
+  type: 'test'
+  ...
+# Subtest: optimizer candidates preserve base unassigned tasks
+ok 345 - optimizer candidates preserve base unassigned tasks
+  ---
+  duration_ms: 72.5884
+  type: 'test'
+  ...
+# Subtest: optimizer still produces deterministic candidates through shared scoring
+ok 346 - optimizer still produces deterministic candidates through shared scoring
+  ---
+  duration_ms: 67.1312
+  type: 'test'
+  ...
+# Subtest: hardened optimizer output remains fixture-stable
+ok 347 - hardened optimizer output remains fixture-stable
+  ---
+  duration_ms: 37.2069
+  type: 'test'
+  ...
+# Subtest: hardened optimizer candidate IDs and order are stable
+ok 348 - hardened optimizer candidate IDs and order are stable
+  ---
+  duration_ms: 1.0315
+  type: 'test'
+  ...
+# Subtest: hardened optimizer candidates reference shared simulation score IDs
+ok 349 - hardened optimizer candidates reference shared simulation score IDs
+  ---
+  duration_ms: 1.0252
+  type: 'test'
+  ...
+# Subtest: generated optimizer candidates use optimizer assignment reason
+ok 350 - generated optimizer candidates use optimizer assignment reason
+  ---
+  duration_ms: 1.3877
+  type: 'test'
+  ...
+# Subtest: hardened optimizer builder byte-stable output matches fixture
+ok 351 - hardened optimizer builder byte-stable output matches fixture
+  ---
+  duration_ms: 81.6604
+  type: 'test'
+  ...
+# Subtest: current outcome builder fixtures emit only registry-aligned known metrics
+ok 352 - current outcome builder fixtures emit only registry-aligned known metrics
+  ---
+  duration_ms: 7.8921
+  type: 'test'
+  ...
+# Subtest: registered metric helper uses canonical registry directionality
+ok 353 - registered metric helper uses canonical registry directionality
+  ---
+  duration_ms: 16.2813
+  type: 'test'
+  ...
+# Subtest: dynamic metric helper derives base registry directionality from prefixes
+ok 354 - dynamic metric helper derives base registry directionality from prefixes
+  ---
+  duration_ms: 0.3652
+  type: 'test'
+  ...
+# Subtest: dynamic metric helper rejects unknown dynamic prefixes
+ok 355 - dynamic metric helper rejects unknown dynamic prefixes
+  ---
+  duration_ms: 0.7769
+  type: 'test'
+  ...
+# Subtest: registered and dynamic metric helpers enforce their ID boundaries
+ok 356 - registered and dynamic metric helpers enforce their ID boundaries
+  ---
+  duration_ms: 0.639
+  type: 'test'
+  ...
+# Subtest: throughput and direct-work dynamic prefixes remain neutral
+ok 357 - throughput and direct-work dynamic prefixes remain neutral
+  ---
+  duration_ms: 0.2691
+  type: 'test'
+  ...
+# Subtest: overflow and adjacency metadata validate in representative fixture rooms
+ok 358 - overflow and adjacency metadata validate in representative fixture rooms
+  ---
+  duration_ms: 38.7677
+  type: 'test'
+  ...
+# Subtest: overflow and adjacency metadata reject unknown references and narrative fields
+ok 359 - overflow and adjacency metadata reject unknown references and narrative fields
+  ---
+  duration_ms: 41.0832
+  type: 'test'
+  ...
+# Subtest: hall bed remains compatible with room load and manual assignment contracts
+ok 360 - hall bed remains compatible with room load and manual assignment contracts
+  ---
+  duration_ms: 6.8195
+  type: 'test'
+  ...
+# Subtest: overflow and adjacency labels remain no-PHI guarded
+ok 361 - overflow and adjacency labels remain no-PHI guarded
+  ---
+  duration_ms: 1.2974
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson parses and validates a report export bundle
+ok 362 - parseReportExportBundleJson parses and validates a report export bundle
+  ---
+  duration_ms: 8.3159
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson rejects invalid JSON clearly
+ok 363 - parseReportExportBundleJson rejects invalid JSON clearly
+  ---
+  duration_ms: 1.4369
+  type: 'test'
+  ...
+# Subtest: parseReportExportBundleJson rejects wrong schema version
+ok 364 - parseReportExportBundleJson rejects wrong schema version
+  ---
+  duration_ms: 0.6584
+  type: 'test'
+  ...
+# Subtest: summarizeReportExportBundle creates deterministic import summary
+ok 365 - summarizeReportExportBundle creates deterministic import summary
+  ---
+  duration_ms: 4.3846
+  type: 'test'
+  ...
+# Subtest: summarizeReportExportBundle sorts IDs deterministically
+ok 366 - summarizeReportExportBundle sorts IDs deterministically
+  ---
+  duration_ms: 1.6329
+  type: 'test'
+  ...
+# Subtest: metadata adapter annotates route edges without changing route selection or totals
+ok 367 - metadata adapter annotates route edges without changing route selection or totals
+  ---
+  duration_ms: 120.0803
+  type: 'test'
+  ...
+# Subtest: metadata adapter handles missing metadata safely and remains deterministic
+ok 368 - metadata adapter handles missing metadata safely and remains deterministic
+  ---
+  duration_ms: 16.4243
+  type: 'test'
+  ...
+# Subtest: simple route calculates expected travel time
+ok 369 - simple route calculates expected travel time
+  ---
+  duration_ms: 40.8423
+  type: 'test'
+  ...
+# Subtest: blocked edge is excluded
+ok 370 - blocked edge is excluded
+  ---
+  duration_ms: 3.3549
+  type: 'test'
+  ...
+# Subtest: unreachable route warns
+ok 371 - unreachable route warns
+  ---
+  duration_ms: 1.3314
+  type: 'test'
+  ...
+# Subtest: missing node fails validation
+ok 372 - missing node fails validation
+  ---
+  duration_ms: 1.3649
+  type: 'test'
+  ...
+# Subtest: simulation travel option adds travel minutes
+ok 373 - simulation travel option adds travel minutes
+  ---
+  duration_ms: 38.415
+  type: 'test'
+  ...
+# Subtest: simulation can still run with travel disabled
+ok 374 - simulation can still run with travel disabled
+  ---
+  duration_ms: 3.513
+  type: 'test'
+  ...
+# Subtest: buildPatientWaitIdleProxy adds deterministic patient-flow wait/idle proxy metrics
+ok 375 - buildPatientWaitIdleProxy adds deterministic patient-flow wait/idle proxy metrics
+  ---
+  duration_ms: 6.4207
+  type: 'test'
+  ...
+# Subtest: buildPatientWaitIdleProxy produces higher patient-flow pressure for high-delay run
+ok 376 - buildPatientWaitIdleProxy produces higher patient-flow pressure for high-delay run
+  ---
+  duration_ms: 4.362
+  type: 'test'
+  ...
+# Subtest: buildPatientWaitIdleProxy includes projected missed-task pressure when projected fields exist
+ok 377 - buildPatientWaitIdleProxy includes projected missed-task pressure when projected fields exist
+  ---
+  duration_ms: 3.798
+  type: 'test'
+  ...
+# Subtest: Issue 233 represents required Plan 1 operational zones and hallways
+ok 378 - Issue 233 represents required Plan 1 operational zones and hallways
+  ---
+  duration_ms: 92.0761
+  type: 'test'
+  ...
+# Subtest: Issue 233 models two nurse stations and keeps Provider Pharmacy out of nurse station objects
+ok 379 - Issue 233 models two nurse stations and keeps Provider Pharmacy out of nurse station objects
+  ---
+  duration_ms: 54.0713
+  type: 'test'
+  ...
+# Subtest: Issue 233 marks source-truth operational areas represented and proves Plans 2 through 5 unchanged
+ok 380 - Issue 233 marks source-truth operational areas represented and proves Plans 2 through 5 unchanged
+  ---
+  duration_ms: 40.6833
+  type: 'test'
+  ...
+# Subtest: Issue 232 rebuilds Plan 1 required room and patient-area geometry
+ok 381 - Issue 232 rebuilds Plan 1 required room and patient-area geometry
+  ---
+  duration_ms: 15.0367
+  type: 'test'
+  ...
+# Subtest: Issue 232 removes old simplified room labels and marks source-truth rooms represented
+ok 382 - Issue 232 removes old simplified room labels and marks source-truth rooms represented
+  ---
+  duration_ms: 14.0104
+  type: 'test'
+  ...
+# Subtest: Issue 232 records before counts and proves Plans 2 through 5 remain unchanged
+ok 383 - Issue 232 records before counts and proves Plans 2 through 5 remain unchanged
+  ---
+  duration_ms: 36.208
+  type: 'test'
+  ...
+# Subtest: Plan 1 source-truth JSON validates and exports required structure
+ok 384 - Plan 1 source-truth JSON validates and exports required structure
+  ---
+  duration_ms: 58.0425
+  type: 'test'
+  ...
+# Subtest: Issue 229 captures current Plan 1 object shortfall against source truth contract
+ok 385 - Issue 229 captures current Plan 1 object shortfall against source truth contract
+  ---
+  duration_ms: 39.0097
+  type: 'test'
+  ...
+# Subtest: Issue 229 encodes legacy simplified-fixture rejection rules
+ok 386 - Issue 229 encodes legacy simplified-fixture rejection rules
+  ---
+  duration_ms: 28.4068
+  type: 'test'
+  ...
+# Subtest: Plans 2-5 unchanged-proof inventory is captured
+ok 387 - Plans 2-5 unchanged-proof inventory is captured
+  ---
+  duration_ms: 12.6969
+  type: 'test'
+  ...
+# Subtest: Issue 230 emits Plan 1 source-truth gap report
+ok 388 - Issue 230 emits Plan 1 source-truth gap report
+  ---
+  duration_ms: 83.7633
+  type: 'test'
+  ...
+# Subtest: Issue 230 captures unchanged proof for plans 2 through 5
+ok 389 - Issue 230 captures unchanged proof for plans 2 through 5
+  ---
+  duration_ms: 11.8222
+  type: 'test'
+  ...
+# Subtest: Issue 231 confirms Plan 1 scaffold regions are present for future geometry repair
+ok 390 - Issue 231 confirms Plan 1 scaffold regions are present for future geometry repair
+  ---
+  duration_ms: 10.7785
+  type: 'test'
+  ...
+# Subtest: shared pressure band taxonomy exposes only low, moderate, high, and critical
+ok 391 - shared pressure band taxonomy exposes only low, moderate, high, and critical
+  ---
+  duration_ms: 2.1887
+  type: 'test'
+  ...
+# Subtest: shared pressure band validation rejects retired pressure-band labels
+ok 392 - shared pressure band validation rejects retired pressure-band labels
+  ---
+  duration_ms: 1.864
+  type: 'test'
+  ...
+# Subtest: new pressure bands validate and map deterministically across default thresholds
+ok 393 - new pressure bands validate and map deterministically across default thresholds
+  ---
+  duration_ms: 0.7853
+  type: 'test'
+  ...
+# Subtest: active outcome fixtures, dashboard fixtures, and README phase status do not use retired labels
+ok 394 - active outcome fixtures, dashboard fixtures, and README phase status do not use retired labels
+  ---
+  duration_ms: 5.219
+  type: 'test'
+  ...
+# Subtest: buildPressureBandingSummary assigns deterministic bands to operational metrics
+ok 395 - buildPressureBandingSummary assigns deterministic bands to operational metrics
+  ---
+  duration_ms: 4.4736
+  type: 'test'
+  ...
+# Subtest: buildPressureBandingSummary increases band value when the source value crosses a threshold
+ok 396 - buildPressureBandingSummary increases band value when the source value crosses a threshold
+  ---
+  duration_ms: 0.8332
+  type: 'test'
+  ...
+# Subtest: buildPressureBandingSummary rejects empty metric input
+ok 397 - buildPressureBandingSummary rejects empty metric input
+  ---
+  duration_ms: 5.436
+  type: 'test'
+  ...
+# Subtest: buildPressureBandingSummary preserves negative comparison deltas while banding from zero floor
+ok 398 - buildPressureBandingSummary preserves negative comparison deltas while banding from zero floor
+  ---
+  duration_ms: 0.4378
+  type: 'test'
+  ...
+# Subtest: all ratio fixture files exist, validate, and include stable metric IDs
+ok 399 - all ratio fixture files exist, validate, and include stable metric IDs
+  ---
+  duration_ms: 15.9103
+  type: 'test'
+  ...
+# Subtest: metric values stay monotonic across light → normal → busy → slammed for each ratio
+ok 400 - metric values stay monotonic across light → normal → busy → slammed for each ratio
+  ---
+  duration_ms: 2.5358
+  type: 'test'
+  ...
+# Subtest: 3:1 vs 4:1 pressure comparison preserves pressure growth under equivalent intensity
+ok 401 - 3:1 vs 4:1 pressure comparison preserves pressure growth under equivalent intensity
+  ---
+  duration_ms: 2.2278
+  type: 'test'
+  ...
+# Subtest: slammed scenarios are in high or critical pressure bands
+ok 402 - slammed scenarios are in high or critical pressure bands
+  ---
+  duration_ms: 1.9731
+  type: 'test'
+  ...
+# Subtest: buildRatioScenarioIntensityContract emits deterministic ratio and intensity scenarios
+ok 403 - buildRatioScenarioIntensityContract emits deterministic ratio and intensity scenarios
+  ---
+  duration_ms: 3.7725
+  type: 'test'
+  ...
+# Subtest: ratio scenario intensity validation rejects missing scenario pairs
+ok 404 - ratio scenario intensity validation rejects missing scenario pairs
+  ---
+  duration_ms: 1.8675
+  type: 'test'
+  ...
+# Subtest: ratio scenario intensity validation rejects forbidden wording
+ok 405 - ratio scenario intensity validation rejects forbidden wording
+  ---
+  duration_ms: 0.973
+  type: 'test'
+  ...
+# Subtest: ratio scenario intensity validation rejects composite multiplier drift
+ok 406 - ratio scenario intensity validation rejects composite multiplier drift
+  ---
+  duration_ms: 0.7791
+  type: 'test'
+  ...
+# Subtest: recalculates shorter walking distance from edited path node geometry
+ok 407 - recalculates shorter walking distance from edited path node geometry
+  ---
+  duration_ms: 59.063
+  type: 'test'
+  ...
+# Subtest: recalculates longer walking distance from edited path node geometry
+ok 408 - recalculates longer walking distance from edited path node geometry
+  ---
+  duration_ms: 2.6644
+  type: 'test'
+  ...
+# Subtest: recalculates unchanged walking distance deterministically
+ok 409 - recalculates unchanged walking distance deterministically
+  ---
+  duration_ms: 1.7131
+  type: 'test'
+  ...
+# Subtest: edge length rebuild uses path node geometry instead of stored edge length
+ok 410 - edge length rebuild uses path node geometry instead of stored edge length
+  ---
+  duration_ms: 0.3542
+  type: 'test'
+  ...
+# Subtest: operational summary report builder uses deterministic proof timestamp by default
+ok 411 - operational summary report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 9.7613
+  type: 'test'
+  ...
+# Subtest: operational summary report builder accepts explicit createdAt input
+ok 412 - operational summary report builder accepts explicit createdAt input
+  ---
+  duration_ms: 2.3044
+  type: 'test'
+  ...
+# Subtest: operational summary report builder rejects invalid createdAt input
+ok 413 - operational summary report builder rejects invalid createdAt input
+  ---
+  duration_ms: 5.5189
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder uses deterministic proof timestamp by default
+ok 414 - nurse workload report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 2.5109
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder accepts explicit createdAt input
+ok 415 - nurse workload report builder accepts explicit createdAt input
+  ---
+  duration_ms: 1.783
+  type: 'test'
+  ...
+# Subtest: nurse workload report builder rejects invalid createdAt input
+ok 416 - nurse workload report builder rejects invalid createdAt input
+  ---
+  duration_ms: 2.0235
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder uses deterministic proof timestamp by default
+ok 417 - unassigned task report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 1.9977
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder accepts explicit createdAt input
+ok 418 - unassigned task report builder accepts explicit createdAt input
+  ---
+  duration_ms: 1.7969
+  type: 'test'
+  ...
+# Subtest: unassigned task report builder rejects invalid createdAt input
+ok 419 - unassigned task report builder rejects invalid createdAt input
+  ---
+  duration_ms: 1.975
+  type: 'test'
+  ...
+# Subtest: warning report builder uses deterministic proof timestamp by default
+ok 420 - warning report builder uses deterministic proof timestamp by default
+  ---
+  duration_ms: 2.1153
+  type: 'test'
+  ...
+# Subtest: warning report builder accepts explicit createdAt input
+ok 421 - warning report builder accepts explicit createdAt input
+  ---
+  duration_ms: 1.5521
+  type: 'test'
+  ...
+# Subtest: warning report builder rejects invalid createdAt input
+ok 422 - warning report builder rejects invalid createdAt input
+  ---
+  duration_ms: 1.6974
+  type: 'test'
+  ...
+# Subtest: deterministic timestamp contract documents proof defaults and explicit inputs
+ok 423 - deterministic timestamp contract documents proof defaults and explicit inputs
+  ---
+  duration_ms: 0.7014
+  type: 'test'
+  ...
+# Subtest: room move path sync contract identifies affected references without mutation
+ok 424 - room move path sync contract identifies affected references without mutation
+  ---
+  duration_ms: 3.695
+  type: 'test'
+  ...
+# Subtest: room move path sync contract reports missing path references
+ok 425 - room move path sync contract reports missing path references
+  ---
+  duration_ms: 0.3734
+  type: 'test'
+  ...
+# Subtest: room move path sync contract supports not-required and pending statuses
+ok 426 - room move path sync contract supports not-required and pending statuses
+  ---
+  duration_ms: 0.3421
+  type: 'test'
+  ...
+# Subtest: room operational metadata validates in the ER pod fixture
+ok 427 - room operational metadata validates in the ER pod fixture
+  ---
+  duration_ms: 13.2696
+  type: 'test'
+  ...
+# Subtest: room operational metadata rejects invalid enum and free-text fields
+ok 428 - room operational metadata rejects invalid enum and free-text fields
+  ---
+  duration_ms: 2.0865
+  type: 'test'
+  ...
+# Subtest: room operational metadata and labels remain no-PHI guarded
+ok 429 - room operational metadata and labels remain no-PHI guarded
+  ---
+  duration_ms: 29.0256
+  type: 'test'
+  ...
+# Subtest: metadata-rich room fixture migration is deterministic
+ok 430 - metadata-rich room fixture migration is deterministic
+  ---
+  duration_ms: 4.2762
+  type: 'test'
+  ...
+# Subtest: buildRoomTurnoverBlockedTimeProxy adds deterministic room blocked-time proxy metrics
+ok 431 - buildRoomTurnoverBlockedTimeProxy adds deterministic room blocked-time proxy metrics
+  ---
+  duration_ms: 5.0743
+  type: 'test'
+  ...
+# Subtest: buildRoomTurnoverBlockedTimeProxy pressure increases with additional turnover/missed load
+ok 432 - buildRoomTurnoverBlockedTimeProxy pressure increases with additional turnover/missed load
+  ---
+  duration_ms: 3.2235
+  type: 'test'
+  ...
+# Subtest: buildRoomTurnoverBlockedTimeProxy ignores non-turnover missed tasks
+ok 433 - buildRoomTurnoverBlockedTimeProxy ignores non-turnover missed tasks
+  ---
+  duration_ms: 2.6709
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 1 only
+ok 434 - scoreRoomLoad: acuity 1 only
+  ---
+  duration_ms: 3.5334
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: acuity 5 only
+ok 435 - scoreRoomLoad: acuity 5 only
+  ---
+  duration_ms: 0.9875
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: trauma active
+ok 436 - scoreRoomLoad: trauma active
+  ---
+  duration_ms: 0.4385
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: isolation active
+ok 437 - scoreRoomLoad: isolation active
+  ---
+  duration_ms: 0.4489
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: behavioral fall sitter active
+ok 438 - scoreRoomLoad: behavioral fall sitter active
+  ---
+  duration_ms: 0.4133
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: high medication monitoring procedure
+ok 439 - scoreRoomLoad: high medication monitoring procedure
+  ---
+  duration_ms: 0.2405
+  type: 'test'
+  ...
+# Subtest: scoreRoomLoad: unoccupied room zero burden
+ok 440 - scoreRoomLoad: unoccupied room zero burden
+  ---
+  duration_ms: 0.4689
+  type: 'test'
+  ...
+# Subtest: route preview input and reachable output validate
+ok 441 - route preview input and reachable output validate
+  ---
+  duration_ms: 12.38
+  type: 'test'
+  ...
+# Subtest: unreachable and invalid route preview outputs validate with limitations
+ok 442 - unreachable and invalid route preview outputs validate with limitations
+  ---
+  duration_ms: 5.5868
+  type: 'test'
+  ...
+# Subtest: route preview validators reject missing fields, negative totals, empty limitations, and malformed warnings
+ok 443 - route preview validators reject missing fields, negative totals, empty limitations, and malformed warnings
+  ---
+  duration_ms: 18.383
+  type: 'test'
+  ...
+# Subtest: same seed produces the same float sequence
+ok 444 - same seed produces the same float sequence
+  ---
+  duration_ms: 3.1257
+  type: 'test'
+  ...
+# Subtest: different seeds produce different float sequences
+ok 445 - different seeds produce different float sequences
+  ---
+  duration_ms: 0.5903
+  type: 'test'
+  ...
+# Subtest: nextFloat returns values in [0, 1)
+ok 446 - nextFloat returns values in [0, 1)
+  ---
+  duration_ms: 0.844
+  type: 'test'
+  ...
+# Subtest: nextInt uses an exclusive upper bound
+ok 447 - nextInt uses an exclusive upper bound
+  ---
+  duration_ms: 1.2092
+  type: 'test'
+  ...
+# Subtest: pick is deterministic and rejects empty arrays
+ok 448 - pick is deterministic and rejects empty arrays
+  ---
+  duration_ms: 1.4549
+  type: 'test'
+  ...
+# Subtest: shuffle is deterministic and does not mutate input
+ok 449 - shuffle is deterministic and does not mutate input
+  ---
+  duration_ms: 1.1342
+  type: 'test'
+  ...
+# Subtest: simulation contract parity fixtures have the expected count
+ok 450 - simulation contract parity fixtures have the expected count
+  ---
+  duration_ms: 2.8282
+  type: 'test'
+  ...
+# Subtest: TypeScript validator accepts and rejects parity fixtures as expected
+ok 451 - TypeScript validator accepts and rejects parity fixtures as expected
+  ---
+  duration_ms: 47.2516
+  type: 'test'
+  ...
+# Subtest: identity-like key fixture rejection uses the simulation boundary
+ok 452 - identity-like key fixture rejection uses the simulation boundary
+  ---
+  duration_ms: 4.6325
+  type: 'test'
+  ...
+# Subtest: TypeScript validator accepts canonical nurse busy-until fixture
+ok 453 - TypeScript validator accepts canonical nurse busy-until fixture
+  ---
+  duration_ms: 1.3464
+  type: 'test'
+  ...
+# Subtest: simulation execution source has no known no-op cleanup pattern
+ok 454 - simulation execution source has no known no-op cleanup pattern
+  ---
+  duration_ms: 1.7457
+  type: 'test'
+  ...
+# Subtest: basic simulation output remains fixture-stable
+ok 455 - basic simulation output remains fixture-stable
+  ---
+  duration_ms: 61.3399
+  type: 'test'
+  ...
+# Subtest: surge simulation output is byte-stable for repeated input
+ok 456 - surge simulation output is byte-stable for repeated input
+  ---
+  duration_ms: 8.6516
+  type: 'test'
+  ...
+# Subtest: optimizer output is byte-stable for repeated input
+ok 457 - optimizer output is byte-stable for repeated input
+  ---
+  duration_ms: 41.9475
+  type: 'test'
+  ...
+# Subtest: rejects orphan queue task references
+ok 458 - rejects orphan queue task references
+  ---
+  duration_ms: 2.3753
+  type: 'test'
+  ...
+# Subtest: rejects orphan travel task references
+ok 459 - rejects orphan travel task references
+  ---
+  duration_ms: 0.5394
+  type: 'test'
+  ...
+# Subtest: rejects orphan nurse task references
+ok 460 - rejects orphan nurse task references
+  ---
+  duration_ms: 0.3861
+  type: 'test'
+  ...
+# Subtest: accepts non-task references when the task appears in the task-event stream
+ok 461 - accepts non-task references when the task appears in the task-event stream
+  ---
+  duration_ms: 0.4583
+  type: 'test'
+  ...
+# Subtest: basic simulation is deterministic
+ok 462 - basic simulation is deterministic
+  ---
+  duration_ms: 29.1768
+  type: 'test'
+  ...
+# Subtest: surge simulation is deterministic
+ok 463 - surge simulation is deterministic
+  ---
+  duration_ms: 7.3433
+  type: 'test'
+  ...
+# Subtest: task cannot complete before ready minute
+ok 464 - task cannot complete before ready minute
+  ---
+  duration_ms: 1.9129
+  type: 'test'
+  ...
+# Subtest: nurse cannot overlap tasks
+ok 465 - nurse cannot overlap tasks
+  ---
+  duration_ms: 2.5536
+  type: 'test'
+  ...
+# Subtest: unassigned tasks remain visible
+ok 466 - unassigned tasks remain visible
+  ---
+  duration_ms: 3.1749
+  type: 'test'
+  ...
+# Subtest: missed tasks are counted
+ok 467 - missed tasks are counted
+  ---
+  duration_ms: 2.3272
+  type: 'test'
+  ...
+# Subtest: delayed tasks are counted
+ok 468 - delayed tasks are counted
+  ---
+  duration_ms: 2.6424
+  type: 'test'
+  ...
+# Subtest: output validates through validateSimulationRunContract
+ok 469 - output validates through validateSimulationRunContract
+  ---
+  duration_ms: 4.3551
+  type: 'test'
+  ...
+# Subtest: rejects completed tasks without a started task event
+ok 470 - rejects completed tasks without a started task event
+  ---
+  duration_ms: 4.7495
+  type: 'test'
+  ...
+# Subtest: rejects started tasks without a ready task event
+ok 471 - rejects started tasks without a ready task event
+  ---
+  duration_ms: 1.4958
+  type: 'test'
+  ...
+# Subtest: rejects completed tasks before their started minute
+ok 472 - rejects completed tasks before their started minute
+  ---
+  duration_ms: 1.1198
+  type: 'test'
+  ...
+# Subtest: rejects started tasks before their ready minute
+ok 473 - rejects started tasks before their ready minute
+  ---
+  duration_ms: 0.5787
+  type: 'test'
+  ...
+# Subtest: rejects missed and completed terminal conflict
+ok 474 - rejects missed and completed terminal conflict
+  ---
+  duration_ms: 0.7291
+  type: 'test'
+  ...
+# Subtest: rejects unassigned and completed terminal conflict
+ok 475 - rejects unassigned and completed terminal conflict
+  ---
+  duration_ms: 0.4463
+  type: 'test'
+  ...
+# Subtest: rejects multiple terminal states
+ok 476 - rejects multiple terminal states
+  ---
+  duration_ms: 0.394
+  type: 'test'
+  ...
+# Subtest: rejects delayed tasks without a later start or miss outcome
+ok 477 - rejects delayed tasks without a later start or miss outcome
+  ---
+  duration_ms: 0.5034
+  type: 'test'
+  ...
+# Subtest: accepts coherent ready-start-delayed-completed lifecycle
+ok 478 - accepts coherent ready-start-delayed-completed lifecycle
+  ---
+  duration_ms: 1.6458
+  type: 'test'
+  ...
+# Subtest: accepts delayed task that later misses
+ok 479 - accepts delayed task that later misses
+  ---
+  duration_ms: 0.9481
+  type: 'test'
+  ...
+# Subtest: not-started missed task event requires projected timing explanation fields
+ok 480 - not-started missed task event requires projected timing explanation fields
+  ---
+  duration_ms: 7.4379
+  type: 'test'
+  ...
+# Subtest: missed not-started task exposes deterministic projected timing fields
+ok 481 - missed not-started task exposes deterministic projected timing fields
+  ---
+  duration_ms: 73.5086
+  type: 'test'
+  ...
+# Subtest: missed not-started task still emits no started events
+ok 482 - missed not-started task still emits no started events
+  ---
+  duration_ms: 1.9775
+  type: 'test'
+  ...
+# Subtest: missed not-started task still consumes no nurse busy minutes
+ok 483 - missed not-started task still consumes no nurse busy minutes
+  ---
+  duration_ms: 3.1134
+  type: 'test'
+  ...
+# Subtest: ambiguous shift-window missed reason is rejected
+ok 484 - ambiguous shift-window missed reason is rejected
+  ---
+  duration_ms: 15.6708
+  type: 'test'
+  ...
+# Subtest: not-started shift-window missed reason is accepted
+ok 485 - not-started shift-window missed reason is accepted
+  ---
+  duration_ms: 1.2691
+  type: 'test'
+  ...
+# Subtest: attempted-overrun missed reason remains deferred
+ok 486 - attempted-overrun missed reason remains deferred
+  ---
+  duration_ms: 1.9348
+  type: 'test'
+  ...
+# Subtest: missed not-started task emits no started events
+ok 487 - missed not-started task emits no started events
+  ---
+  duration_ms: 19.5807
+  type: 'test'
+  ...
+# Subtest: missed not-started task consumes no nurse busy minutes
+ok 488 - missed not-started task consumes no nurse busy minutes
+  ---
+  duration_ms: 6.5999
+  type: 'test'
+  ...
+# Subtest: missed count is derived from missed events
+ok 489 - missed count is derived from missed events
+  ---
+  duration_ms: 2.9181
+  type: 'test'
+  ...
+# Subtest: missed not-started fixture validates
+ok 490 - missed not-started fixture validates
+  ---
+  duration_ms: 0.7507
+  type: 'test'
+  ...
+# Subtest: report builds from simulation run and score
+ok 491 - report builds from simulation run and score
+  ---
+  duration_ms: 90.3381
+  type: 'test'
+  ...
+# Subtest: mismatched simulation run ID fails
+ok 492 - mismatched simulation run ID fails
+  ---
+  duration_ms: 7.8255
+  type: 'test'
+  ...
+# Subtest: fake summary totals fail
+ok 493 - fake summary totals fail
+  ---
+  duration_ms: 30.0756
+  type: 'test'
+  ...
+# Subtest: limitations are required
+ok 494 - limitations are required
+  ---
+  duration_ms: 35.9267
+  type: 'test'
+  ...
+# Subtest: forbidden wording is rejected
+ok 495 - forbidden wording is rejected
+  ---
+  duration_ms: 5.015
+  type: 'test'
+  ...
+# Subtest: validateSimulationRunContract is exported
+ok 496 - validateSimulationRunContract is exported
+  ---
+  duration_ms: 1.5995
+  type: 'test'
+  ...
+# Subtest: accepts valid minimal simulation run
+ok 497 - accepts valid minimal simulation run
+  ---
+  duration_ms: 3.5178
+  type: 'test'
+  ...
+# Subtest: rejects missing IDs
+ok 498 - rejects missing IDs
+  ---
+  duration_ms: 1.7303
+  type: 'test'
+  ...
+# Subtest: rejects invalid event minute
+ok 499 - rejects invalid event minute
+  ---
+  duration_ms: 1.2323
+  type: 'test'
+  ...
+# Subtest: rejects PHI-like keys
+ok 500 - rejects PHI-like keys
+  ---
+  duration_ms: 1.8264
+  type: 'test'
+  ...
+# Subtest: rejects clinical/recommendation language
+ok 501 - rejects clinical/recommendation language
+  ---
+  duration_ms: 1.806
+  type: 'test'
+  ...
+# Subtest: rejects summary/event mismatch where applicable
+ok 502 - rejects summary/event mismatch where applicable
+  ---
+  duration_ms: 8.2787
+  type: 'test'
+  ...
+# Subtest: simulation comparison builds deterministically
+ok 503 - simulation comparison builds deterministically
+  ---
+  duration_ms: 34.2531
+  type: 'test'
+  ...
+# Subtest: baseline remains first
+ok 504 - baseline remains first
+  ---
+  duration_ms: 20.4042
+  type: 'test'
+  ...
+# Subtest: mismatched report IDs fail
+ok 505 - mismatched report IDs fail
+  ---
+  duration_ms: 12.2225
+  type: 'test'
+  ...
+# Subtest: summary max values are derived
+ok 506 - summary max values are derived
+  ---
+  duration_ms: 11.2393
+  type: 'test'
+  ...
+# Subtest: recommendation wording rejected
+ok 507 - recommendation wording rejected
+  ---
+  duration_ms: 31.8745
+  type: 'test'
+  ...
+# Subtest: score derives from events
+ok 508 - score derives from events
+  ---
+  duration_ms: 18.481
+  type: 'test'
+  ...
+# Subtest: altered summary fails validation
+ok 509 - altered summary fails validation
+  ---
+  duration_ms: 9.4697
+  type: 'test'
+  ...
+# Subtest: surge score exceeds basic burden where expected
+ok 510 - surge score exceeds basic burden where expected
+  ---
+  duration_ms: 7.392
+  type: 'test'
+  ...
+# Subtest: repeated scoring is deterministic
+ok 511 - repeated scoring is deterministic
+  ---
+  duration_ms: 9.8251
+  type: 'test'
+  ...
+# Subtest: limitations are required
+ok 512 - limitations are required
+  ---
+  duration_ms: 9.6315
+  type: 'test'
+  ...
+# Subtest: clinical safety language is rejected
+ok 513 - clinical safety language is rejected
+  ---
+  duration_ms: 3.0887
+  type: 'test'
+  ...
+# Subtest: hardened surge simulation output remains fixture-stable
+ok 514 - hardened surge simulation output remains fixture-stable
+  ---
+  duration_ms: 12.4759
+  type: 'test'
+  ...
+# Subtest: hardened surge simulation fixture validates and includes stress outcome
+ok 515 - hardened surge simulation fixture validates and includes stress outcome
+  ---
+  duration_ms: 1.6239
+  type: 'test'
+  ...
+# Subtest: hardened surge simulation builder deep-equals committed fixture
+ok 516 - hardened surge simulation builder deep-equals committed fixture
+  ---
+  duration_ms: 3.9104
+  type: 'test'
+  ...
+# Subtest: station operational metadata validates in representative fixture stations
+ok 517 - station operational metadata validates in representative fixture stations
+  ---
+  duration_ms: 36.2505
+  type: 'test'
+  ...
+# Subtest: station operational metadata rejects invalid enum, narrative, staff, and schedule fields
+ok 518 - station operational metadata rejects invalid enum, narrative, staff, and schedule fields
+  ---
+  duration_ms: 8.6001
+  type: 'test'
+  ...
+# Subtest: station metadata preserves station path-node linkage and geometry
+ok 519 - station metadata preserves station path-node linkage and geometry
+  ---
+  duration_ms: 4.9599
+  type: 'test'
+  ...
+# Subtest: syncs linked door path node geometry from derived door center
+ok 520 - syncs linked door path node geometry from derived door center
+  ---
+  duration_ms: 4.497
+  type: 'test'
+  ...
+# Subtest: skips unlinked doors deterministically
+ok 521 - skips unlinked doors deterministically
+  ---
+  duration_ms: 0.5879
+  type: 'test'
+  ...
+# Subtest: skips owner-missing doors deterministically
+ok 522 - skips owner-missing doors deterministically
+  ---
+  duration_ms: 0.4195
+  type: 'test'
+  ...
+# Subtest: skips mapped doors when the referenced path node is missing
+ok 523 - skips mapped doors when the referenced path node is missing
+  ---
+  duration_ms: 0.3431
+  type: 'test'
+  ...
+# Subtest: syncs moved room path node by delta and recalculates owned door path nodes
+ok 524 - syncs moved room path node by delta and recalculates owned door path nodes
+  ---
+  duration_ms: 4.8627
+  type: 'test'
+  ...
+# Subtest: reports missing room path node references while still syncing room-owned doors
+ok 525 - reports missing room path node references while still syncing room-owned doors
+  ---
+  duration_ms: 0.7142
+  type: 'test'
+  ...
+# Subtest: no-op room delta returns not required and preserves path nodes
+ok 526 - no-op room delta returns not required and preserves path nodes
+  ---
+  duration_ms: 0.4176
+  type: 'test'
+  ...
+# Subtest: buildTaskTimeQueueSummary derives operational task time and queue-delay metrics from events
+ok 527 - buildTaskTimeQueueSummary derives operational task time and queue-delay metrics from events
+  ---
+  duration_ms: 5.3987
+  type: 'test'
+  ...
+# Subtest: buildTaskTimeQueueSummary uses deterministic buckets and task/nurse/travel event sources
+ok 528 - buildTaskTimeQueueSummary uses deterministic buckets and task/nurse/travel event sources
+  ---
+  duration_ms: 2.3892
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unassigned occupied room
+ok 529 - validateManualAssignment: unassigned occupied room
+  ---
+  duration_ms: 3.472
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: room assigned twice
+ok 530 - validateManualAssignment: room assigned twice
+  ---
+  duration_ms: 1.6284
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over target
+ok 531 - validateManualAssignment: nurse over target
+  ---
+  duration_ms: 1.041
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: nurse over max
+ok 532 - validateManualAssignment: nurse over max
+  ---
+  duration_ms: 0.5312
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: trauma room assigned to non-qualified nurse
+ok 533 - validateManualAssignment: trauma room assigned to non-qualified nurse
+  ---
+  duration_ms: 0.7763
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown nurse
+ok 534 - validateManualAssignment: unknown nurse
+  ---
+  duration_ms: 0.5556
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment: unknown room
+ok 535 - validateManualAssignment: unknown room
+  ---
+  duration_ms: 0.6694
+  type: 'test'
+  ...
+# Subtest: validateManualAssignment returns deterministic warning order
+ok 536 - validateManualAssignment returns deterministic warning order
+  ---
+  duration_ms: 1.0862
+  type: 'test'
+  ...
+# Subtest: path travel and simulation travel events preserve feet-based distance
+ok 537 - path travel and simulation travel events preserve feet-based distance
+  ---
+  duration_ms: 47.4275
+  type: 'test'
+  ...
+# Subtest: walk summary includes total and nurse-level walk distance feet
+ok 538 - walk summary includes total and nurse-level walk distance feet
+  ---
+  duration_ms: 14.7632
+  type: 'test'
+  ...
+# Subtest: walking baseline builder derives deterministic summaries from route previews
+ok 539 - walking baseline builder derives deterministic summaries from route previews
+  ---
+  duration_ms: 33.0411
+  type: 'test'
+  ...
+# Subtest: walking baseline counts unreachable routes and requires limitations
+ok 540 - walking baseline counts unreachable routes and requires limitations
+  ---
+  duration_ms: 3.1303
+  type: 'test'
+  ...
+# Subtest: walking baseline validator rejects inconsistent counts, distances, and missing limitations
+ok 541 - walking baseline validator rejects inconsistent counts, distances, and missing limitations
+  ---
+  duration_ms: 9.3603
+  type: 'test'
+  ...
+# Subtest: ER zone taxonomy and metadata validate in representative fixture zones
+ok 542 - ER zone taxonomy and metadata validate in representative fixture zones
+  ---
+  duration_ms: 12.276
+  type: 'test'
+  ...
+# Subtest: zone fixture migration keeps representative ER zones valid
+ok 543 - zone fixture migration keeps representative ER zones valid
+  ---
+  duration_ms: 3.7637
+  type: 'test'
+  ...
+# Subtest: zone taxonomy and metadata reject invalid enum and narrative fields
+ok 544 - zone taxonomy and metadata reject invalid enum and narrative fields
+  ---
+  duration_ms: 4.6302
+  type: 'test'
+  ...
+# Subtest: zone labels remain no-PHI guarded
+ok 545 - zone labels remain no-PHI guarded
+  ---
+  duration_ms: 2.5471
+  type: 'test'
+  ...
+1..545
+# tests 545
+# suites 0
+# pass 545
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7280.08

@@ -40,6 +40,14 @@ function firstRoomPathNodeId(plan) {
   return room.pathNodeId;
 }
 
+function defaultStationPathNodeId(plan) {
+  const station = plan.nurseStations.find(
+    (entry) => entry.stationOperationalMetadata?.defaultWalkingOrigin
+  );
+  assert.ok(station?.pathNodeId);
+  return station.pathNodeId;
+}
+
 test("route preview builder produces default route examples for all five plans", () => {
   const summaries = [];
   for (let index = 1; index <= 5; index += 1) {
@@ -151,9 +159,10 @@ test("route preview builder returns structured invalid and unreachable outputs",
 test("route preview builder excludes blocked edges", () => {
   const plan = clone(readPlan(1));
   const destinationPathNodeId = firstRoomPathNodeId(plan);
+  const originPathNodeId = defaultStationPathNodeId(plan);
   plan.pathEdges.push({
     id: "edge-blocked-shortcut",
-    fromNodeId: "node-station-primary",
+    fromNodeId: originPathNodeId,
     toNodeId: destinationPathNodeId,
     lengthFeet: 1,
     hallwayWidthFeet: 10,
@@ -163,7 +172,7 @@ test("route preview builder excludes blocked edges", () => {
     blocked: true
   });
 
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", destinationPathNodeId));
+  const route = buildRoutePreview(plan, input(plan, originPathNodeId, destinationPathNodeId));
   assert.equal(route.status, "reachable");
   assert.equal(route.routeEdgeIds.includes("edge-blocked-shortcut"), false);
   assert.equal(route.warnings.some((warning) => warning.code === "BLOCKED_EDGE_EXCLUDED"), true);

@@ -1,31 +1,31 @@
 # Plan 1 Visual Parity Status
 
-## Current status
+## Current Status
 
-- Visual parity contract is now explicit in repository artifacts.
-- Plan 1 now includes a Plan 1-wide scaffold coordinate frame and required region blocks.
-- Plan 1 now includes all required source-visible room and patient-area objects.
-- Source truth coverage is now a machine-checkable requirement for each stage.
+Issue 233 is complete. Plan 1 now has the required visible operational-area scaffold: two nurse stations, Provider Pharmacy Area as a support zone, required source-visible hallway segments, and required room-cluster zones.
 
-## Last completed issue
+## Completed
 
-- Issue 232 (room and patient-area geometry rebuild) complete.
+- Issue 229: source-truth contract and initial visual parity gate.
+- Issue 230: deterministic gap audit for the simplified fixture.
+- Issue 231: coordinate frame and scaffold regions.
+- Issue 232: required room and patient-area geometry rebuild.
+- Issue 233: zones, hallways, provider/pharmacy support zone, and two nurse stations.
 
-## Current gap summary
+## Current Counts
 
-- Issue 232 confirms required room IDs are present with approximate source-region placement.
-- Current Plan 1 room count is 23; required minimum room count is 23.
-- Legacy room markers `room-01` and `space-07` are removed.
-- Provider/pharmacy and nurse station modeling remain outstanding for Issue 233.
-- Hallway/path/door finalization remains in later issues (233+).
+- Rooms: 23
+- Nurse stations: 2
+- Hallways: 7
+- Zones: 22
+- Provider/pharmacy support zones: 1
 
-## Planned next milestones
+## Next Recommended Issue
 
-1. Issue 233: stations, hallways, and zones.
-2. Issue 234: door/access point coverage.
-3. Issue 235: path graph rebuild.
-4. Issue 236: walking baseline rebuild.
-5. Issue 237: mapping provenance repair.
-6. Issue 238: render proof.
-7. Issue 239: export integrity.
-8. Issue 240: final parity audit and GO/NO-GO.
+Issue 234: add detailed door and access-point coverage for the source-visible access ovals.
+
+## Non-Claims
+
+- Not exact CAD geometry.
+- Not measured walking truth.
+- Not clinical safety certification.
