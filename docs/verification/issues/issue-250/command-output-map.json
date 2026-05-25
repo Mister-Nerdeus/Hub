@@ -39,9 +39,18 @@
       ]
     },
     {
-      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final *> docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt",
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 250 *> docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt",
       "outputs": [
-        "docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt"
+        "docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt",
+        "docs/verification/issues/issue-250/canonical-assignment-state-summary.json",
+        "docs/verification/issues/issue-250/comparison-state-shape-output.json",
+        "docs/verification/issues/issue-250/plan-1-assignment-workflow-state-output.json"
+      ]
+    },
+    {
+      "command": "docker compose down *> docs/verification/issues/issue-250/test-output/docker-compose-down-before-verify-local.txt",
+      "outputs": [
+        "docs/verification/issues/issue-250/test-output/docker-compose-down-before-verify-local.txt"
       ]
     },
     {
@@ -51,7 +60,7 @@
       ]
     },
     {
-      "command": "$tmp=Join-Path $env:TEMP 'docs-gate-issue-250-review.txt'; node scripts/check-docs-contracts.mjs *> $tmp; Copy-Item $tmp docs/verification/issues/issue-250/test-output/docs-gate.txt",
+      "command": "$tmp=Join-Path $env:TEMP 'docs-gate-issue-250-current.txt'; node scripts/check-docs-contracts.mjs *> $tmp; Copy-Item $tmp docs/verification/issues/issue-250/test-output/docs-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-250/test-output/docs-gate.txt"
       ]
@@ -64,11 +73,14 @@
     "docs/verification/issues/issue-250/burden-score-breakdown-output.json",
     "docs/verification/issues/issue-250/burden-score-contract-output.json",
     "docs/verification/issues/issue-250/burden-score-summary.json",
+    "docs/verification/issues/issue-250/canonical-assignment-state-summary.json",
     "docs/verification/issues/issue-250/closeout.md",
     "docs/verification/issues/issue-250/command-output-map.json",
     "docs/verification/issues/issue-250/commands.txt",
     "docs/verification/issues/issue-250/comparison-fixture-output.json",
     "docs/verification/issues/issue-250/comparison-fixture-summary.json",
+    "docs/verification/issues/issue-250/comparison-state-shape-output.json",
+    "docs/verification/issues/issue-250/test-output/docker-compose-down-before-verify-local.txt",
     "docs/verification/issues/issue-250/follow-up-issues.md",
     "docs/verification/issues/issue-250/go-no-go.md",
     "docs/verification/issues/issue-250/known-gaps.md",
@@ -80,6 +92,7 @@
     "docs/verification/issues/issue-250/nurse-profile-defaults-output.json",
     "docs/verification/issues/issue-250/nurse-profile-summary.json",
     "docs/verification/issues/issue-250/plan-1-assignment-readiness-output.json",
+    "docs/verification/issues/issue-250/plan-1-assignment-workflow-state-output.json",
     "docs/verification/issues/issue-250/plan-1-assignment-workflow-audit.md",
     "docs/verification/issues/issue-250/plan-1-legacy-fixture-rejection-output.json",
     "docs/verification/issues/issue-250/plans-2-through-5-unchanged-output.json",

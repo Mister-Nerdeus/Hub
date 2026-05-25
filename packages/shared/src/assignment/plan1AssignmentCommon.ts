@@ -40,6 +40,15 @@ export const PLAN_1_WARNING_CODES = [
   "NO_ACTIVE_PLAN_1_FLOORPLAN",
   "NON_PLAN_1_ASSIGNMENT_SCOPE"
 ] as const;
+export const PLAN_1_ASSIGNMENT_CLASSIFICATIONS = [
+  "assignment_patient_care_room",
+  "assignment_support_area",
+  "assignment_staff_area",
+  "assignment_hallway",
+  "assignment_entry",
+  "assignment_scaffold_only",
+  "assignment_not_applicable"
+] as const;
 export const PLAN_1_PATIENT_CARE_ROOM_CLASSES = [
   "standard",
   "trauma",
@@ -59,6 +68,7 @@ export type Plan1AssignmentType = (typeof PLAN_1_ASSIGNMENT_TYPES)[number];
 export type Plan1AssignmentSource = (typeof PLAN_1_ASSIGNMENT_SOURCES)[number];
 export type Plan1AssignmentWarningSeverity = (typeof PLAN_1_WARNING_SEVERITIES)[number];
 export type Plan1AssignmentWarningCode = (typeof PLAN_1_WARNING_CODES)[number];
+export type Plan1AssignmentClassification = (typeof PLAN_1_ASSIGNMENT_CLASSIFICATIONS)[number];
 
 export type Plan1NurseProfile = {
   nurseId: string;

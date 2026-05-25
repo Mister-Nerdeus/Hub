@@ -2,7 +2,7 @@
 
 Status: GO for Plan 1 assignment workflow foundation.
 
-Scope is repaired Plan 1 only. The workflow uses the synthetic nurse profiles Nurse Blue, Nurse Green, Nurse Orange, and Nurse Purple; synthetic operational room-load codes; manual primary room assignments; validation warnings; nurse assignment cards; approximate graph-only walking preview; transparent operational burden scoring; and deterministic 3:1 vs 4:1 comparison fixtures.
+Scope is repaired Plan 1 only. The workflow uses one canonical Plan 1 assignment workflow state with valid visual parity status, explicit path sync status, the synthetic nurse profiles Nurse Blue, Nurse Green, Nurse Orange, and Nurse Purple; synthetic operational room-load codes; manual primary room assignments; validation warnings; nurse assignment cards; approximate graph-only walking preview; transparent operational burden scoring; and deterministic 3:1 vs 4:1 comparison fixtures.
 
 Non-claims:
 

@@ -4,7 +4,8 @@ import {
   isPlan1ScaffoldZoneId,
   makeStalePathSyncWarning,
   plan1PatientCareRoomIds,
-  validatePlan1Plan
+  validatePlan1Plan,
+  type Plan1AssignmentClassification
 } from "./plan1AssignmentCommon.js";
 
 export type Plan1AssignmentReadinessAudit = {
@@ -14,7 +15,7 @@ export type Plan1AssignmentReadinessAudit = {
   nurseStationCount: number;
   pathGraphConnected: boolean;
   walkingBaselineUnreachableRouteCount: number;
-  room17AssignmentClass: "assignment_patient_care" | "not_assignment_patient_care";
+  room17AssignmentClass: Plan1AssignmentClassification;
   providerPharmacySupportClassified: boolean;
   scaffoldZonesNonAssignment: boolean;
   stalePathSyncWarning: ReturnType<typeof makeStalePathSyncWarning>;
@@ -56,7 +57,7 @@ export function auditPlan1AssignmentReadiness(input: {
     pathGraphConnected: connected,
     walkingBaselineUnreachableRouteCount: input.walkingBaseline.unreachableRouteCount ?? 0,
     room17AssignmentClass:
-      patientCareRoomIds.has("room-17") ? "assignment_patient_care" : "not_assignment_patient_care",
+      patientCareRoomIds.has("room-17") ? "assignment_patient_care_room" : "assignment_not_applicable",
     providerPharmacySupportClassified: providerPharmacy?.zoneOperationalMetadata?.zoneClass === "support",
     scaffoldZonesNonAssignment: scaffoldZones.every((zone) => !isPlan1AssignmentZone(zone.id)),
     stalePathSyncWarning: makeStalePathSyncWarning(),

@@ -1,7 +1,7 @@
 # Issue 241 Closeout
 
 ## Summary
-Implemented or audited the Plan 1 assignment workflow stage `readiness` with synthetic operational data only.
+Implemented or audited the Plan 1 assignment workflow stage `readiness` with synthetic operational data only. The readiness evidence now includes the canonical Plan 1 assignment workflow state and the exact `assignment_patient_care_room` classification for Room 17.
 
 ## Files changed
 See the repository diff for shared assignment contracts, web assignment workflow files, fixtures, scripts, and this issue evidence folder.

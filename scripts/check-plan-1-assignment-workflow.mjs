@@ -13,6 +13,7 @@ const {
   buildPlan1AssignmentComparisonOutputs,
   buildPlan1AssignmentWalkingPreviews,
   buildPlan1NurseAssignmentSummaries,
+  createPlan1AssignmentWorkflowState,
   scorePlan1AssignmentBurden,
   validatePlan1AssignmentComparisonFixtures,
   validatePlan1AssignmentsForOperations,
@@ -57,15 +58,32 @@ const assignmentFixture = readJson("packages/shared/fixtures/assignments/plan-1/
 const comparisonFixture = readJson("packages/shared/fixtures/assignments/plan-1/assignment-comparison-fixtures.json");
 
 const readiness = auditPlan1AssignmentReadiness({ plan, walkingBaseline });
-const nurses = validatePlan1NurseProfiles(nurseFixture.nurses, plan);
-const roomLoads = validatePlan1RoomLoads(roomLoadFixture.roomLoads, plan);
-const assignments = validatePlan1ManualAssignments(assignmentFixture.assignments, plan, nurses);
+const workflowState = createPlan1AssignmentWorkflowState({
+  plan,
+  nurses: nurseFixture.nurses,
+  roomLoads: roomLoadFixture.roomLoads,
+  assignments: assignmentFixture.assignments,
+  pathSyncStatus: "fresh"
+});
+const nurses = workflowState.nurses;
+const roomLoads = workflowState.roomLoads;
+const assignments = workflowState.assignments;
 const validation = validatePlan1AssignmentsForOperations({ plan, nurses, roomLoads, assignments, stalePathSync: false });
 const walkingPreviews = buildPlan1AssignmentWalkingPreviews({ plan, nurses, assignments, stalePathSync: false });
 const summaries = buildPlan1NurseAssignmentSummaries({ plan, nurses, roomLoads, assignments, warnings: validation.warnings, walkingPreviews });
 const burdenScore = scorePlan1AssignmentBurden({ nurses, roomLoads, assignments, walkingPreviews, warnings: validation.warnings });
 const comparisonFixtures = validatePlan1AssignmentComparisonFixtures(comparisonFixture, plan);
 const comparisons = buildPlan1AssignmentComparisonOutputs({ plan, fixtures: comparisonFixtures });
+const comparisonStateShapeSummary = comparisonFixtures.map((fixture) => ({
+  fixtureId: fixture.fixtureId,
+  planId: fixture.workflowState.planId,
+  visualParityStatus: fixture.workflowState.visualParityStatus,
+  pathSyncStatus: fixture.workflowState.pathSyncStatus,
+  nurseCount: fixture.workflowState.nurses.length,
+  roomLoadCount: fixture.workflowState.roomLoads.length,
+  assignmentCount: fixture.workflowState.assignments.length,
+  syntheticDataOnly: fixture.workflowState.syntheticDataOnly
+}));
 
 const stageFailures = [];
 if (readiness.status !== "passed") {
@@ -124,6 +142,7 @@ const output = {
   status,
   mode: allowPartial ? "allow-partial" : "strict",
   readiness,
+  canonicalAssignmentWorkflowState: workflowState,
   nurseProfileSummary: {
     nurseCount: nurses.length,
     nurseIds: nurses.map((nurse) => nurse.nurseId),
@@ -154,6 +173,7 @@ const output = {
   walkingPreviewSummary: walkingPreviews,
   burdenScoreSummary: burdenScore,
   comparisonFixtureSummary: comparisons,
+  comparisonStateShapeSummary,
   failureCount: stageFailures.length,
   failures: stageFailures,
   nonClaims: [
@@ -238,37 +258,83 @@ function byComparisonId(fixtureId) {
 function writeIssueEvidence(outputValue) {
   const files = {
     "plan-1-assignment-readiness-output.json": outputValue.readiness,
+    "plan-1-assignment-workflow-state-output.json": outputValue.canonicalAssignmentWorkflowState,
     "room-17-zone-semantics-output.json": {
       room17AssignmentClass: outputValue.readiness.room17AssignmentClass,
       providerPharmacySupportClassified: outputValue.readiness.providerPharmacySupportClassified,
-      status: outputValue.readiness.room17AssignmentClass === "assignment_patient_care" ? "passed" : "failed"
+      status: outputValue.readiness.room17AssignmentClass === "assignment_patient_care_room" ? "passed" : "failed"
     },
     "scaffold-zone-classification-output.json": {
       scaffoldZonesNonAssignment: outputValue.readiness.scaffoldZonesNonAssignment,
       status: outputValue.readiness.scaffoldZonesNonAssignment ? "passed" : "failed"
     },
     "stale-path-sync-warning-output.json": outputValue.readiness.stalePathSyncWarning,
+    "canonical-assignment-state-summary.json": {
+      planId: outputValue.canonicalAssignmentWorkflowState.planId,
+      visualParityStatus: outputValue.canonicalAssignmentWorkflowState.visualParityStatus,
+      pathSyncStatus: outputValue.canonicalAssignmentWorkflowState.pathSyncStatus,
+      nurseCount: outputValue.canonicalAssignmentWorkflowState.nurses.length,
+      roomLoadCount: outputValue.canonicalAssignmentWorkflowState.roomLoads.length,
+      assignmentCount: outputValue.canonicalAssignmentWorkflowState.assignments.length,
+      validationWarningCodes: outputValue.canonicalAssignmentWorkflowState.validationWarnings.map((warning) => warning.code),
+      syntheticDataOnly: outputValue.canonicalAssignmentWorkflowState.syntheticDataOnly
+    },
     "nurse-profile-contract-output.json": outputValue.nurseProfileSummary,
     "nurse-profile-defaults-output.json": outputValue.nurseProfileSummary,
+    "nurse-profile-summary.json": outputValue.nurseProfileSummary,
     "station-reference-validation-output.json": {
       homeStationIds: outputValue.nurseProfileSummary.homeStationIds,
       status: "passed"
     },
     "room-load-contract-output.json": outputValue.roomLoadSummary,
     "room-load-defaults-output.json": outputValue.roomLoadSummary,
+    "room-load-summary.json": outputValue.roomLoadSummary,
     "manual-assignment-contract-output.json": outputValue.manualAssignmentSummary,
+    "manual-assignment-summary.json": outputValue.manualAssignmentSummary,
     "assignment-validation-output.json": outputValue.assignmentValidationSummary,
+    "assignment-validation-summary.json": outputValue.assignmentValidationSummary,
     "warning-code-coverage-output.json": warningCoverage(),
     "warning-severity-output.json": outputValue.assignmentValidationSummary,
     "nurse-assignment-summary-output.json": outputValue.nurseCardSummary,
+    "nurse-card-summary.json": outputValue.nurseCardSummary,
     "assignment-walking-preview-output.json": outputValue.walkingPreviewSummary,
+    "walking-preview-summary.json": outputValue.walkingPreviewSummary,
     "burden-score-contract-output.json": outputValue.burdenScoreSummary,
     "burden-score-breakdown-output.json": outputValue.burdenScoreSummary,
-    "comparison-fixture-output.json": outputValue.comparisonFixtureSummary
+    "burden-score-summary.json": outputValue.burdenScoreSummary,
+    "comparison-fixture-output.json": outputValue.comparisonFixtureSummary,
+    "comparison-fixture-summary.json": outputValue.comparisonFixtureSummary,
+    "comparison-state-shape-output.json": outputValue.comparisonStateShapeSummary,
+    "three-vs-four-room-burden-output.json": {
+      threeRoomFixture: byComparisonId("fixture-plan-1-walking-heavy-3-to-1"),
+      fourRoomFixture: byComparisonId("fixture-plan-1-light-4-to-1"),
+      proof:
+        byComparisonId("fixture-plan-1-walking-heavy-3-to-1").totalBurdenScore >
+        byComparisonId("fixture-plan-1-light-4-to-1").totalBurdenScore
+    },
+    "four-vs-four-different-burden-output.json": {
+      lightFourRoomFixture: byComparisonId("fixture-plan-1-light-4-to-1"),
+      heavyFourRoomFixture: byComparisonId("fixture-plan-1-heavy-4-to-1"),
+      proof:
+        byComparisonId("fixture-plan-1-heavy-4-to-1").totalBurdenScore !==
+        byComparisonId("fixture-plan-1-light-4-to-1").totalBurdenScore
+    },
+    "warning-penalty-output.json": {
+      traumaMismatchFixture: byComparisonId("fixture-plan-1-trauma-mismatch"),
+      warningCodes: byComparisonId("fixture-plan-1-trauma-mismatch").warningCodes
+    }
   };
   for (const [fileName, value] of Object.entries(files)) {
     writeJson(join(issueDir, fileName), value);
   }
+  writeText(
+    join(issueDir, "burden-score-limitations.md"),
+    `# Burden Score Limitations\n\n${outputValue.burdenScoreSummary.limitations.map((limitation) => `- ${limitation}`).join("\n")}\n`
+  );
+  writeText(
+    join(issueDir, "comparison-limitations.md"),
+    `# Comparison Limitations\n\n${outputValue.burdenScoreSummary.limitations.map((limitation) => `- ${limitation}`).join("\n")}\n`
+  );
 }
 
 function readJson(relativePath) {
@@ -278,4 +344,9 @@ function readJson(relativePath) {
 function writeJson(path, value) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function writeText(path, value) {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, value);
 }

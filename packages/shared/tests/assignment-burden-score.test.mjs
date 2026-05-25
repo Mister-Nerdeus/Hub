@@ -42,6 +42,19 @@ test("transparent burden score includes all required components", () => {
   }
 });
 
+test("transparent burden score carries required operational non-claim text", () => {
+  const result = scoreFor(assignments, roomLoads);
+  for (const text of [
+    "This is an operational comparison score only.",
+    "It is not a clinical safety score.",
+    "It is not a staffing compliance recommendation.",
+    "It is not a patient outcome prediction."
+  ]) {
+    assert.ok(result.limitations.includes(text), `${text} must be present`);
+    assert.ok(result.nurseScores.every((score) => score.limitations.includes(text)), `${text} must be present on nurse scores`);
+  }
+});
+
 test("a 3-room assignment can score higher than a 4-room assignment when load and walking are worse", () => {
   const threeHeavy = assignments.filter((assignment) => ["room-level-1-trauma", "room-17", "room-21"].includes(assignment.roomId)).map((assignment) => ({ ...assignment, nurseId: "nurse-blue" }));
   const fourLight = ["room-02", "room-03", "room-04", "room-05"].map((roomId, index) => ({ ...assignments[0], assignmentId: `light-${index}`, roomId, nurseId: "nurse-green" }));

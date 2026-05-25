@@ -5,6 +5,7 @@ export * from "./default-plans/duplicateDefaultPlan.js";
 export * from "./plan-builder/generatePlanFromDefaults.js";
 export * from "./assignment/plan1AssignmentCommon.js";
 export * from "./assignment/plan1AssignmentReadiness.js";
+export * from "./assignment/plan1AssignmentWorkflowState.js";
 export * from "./assignment/nurseProfileContract.js";
 export * from "./assignment/roomLoadContract.js";
 export * from "./assignment/manualAssignmentContract.js";

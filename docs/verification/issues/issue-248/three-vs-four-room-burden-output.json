@@ -1,6 +1,5 @@
 {
-  "status": "passed",
-  "threeRoom": {
+  "threeRoomFixture": {
     "fixtureId": "fixture-plan-1-walking-heavy-3-to-1",
     "label": "walking heavy 3 to 1",
     "nurseCount": 4,
@@ -12,12 +11,14 @@
     "walkingTotalFeet": 461,
     "warningCodes": [],
     "limitations": [
-      "Operational comparison score only.",
+      "This is an operational comparison score only.",
       "Room count alone does not determine score.",
-      "No staffing safety, legal compliance, or patient outcome claim is implied."
+      "It is not a clinical safety score.",
+      "It is not a staffing compliance recommendation.",
+      "It is not a patient outcome prediction."
     ]
   },
-  "fourRoom": {
+  "fourRoomFixture": {
     "fixtureId": "fixture-plan-1-light-4-to-1",
     "label": "light 4 to 1",
     "nurseCount": 4,
@@ -31,9 +32,12 @@
       "NURSE_OVER_TARGET_RATIO"
     ],
     "limitations": [
-      "Operational comparison score only.",
+      "This is an operational comparison score only.",
       "Room count alone does not determine score.",
-      "No staffing safety, legal compliance, or patient outcome claim is implied."
+      "It is not a clinical safety score.",
+      "It is not a staffing compliance recommendation.",
+      "It is not a patient outcome prediction."
     ]
-  }
+  },
+  "proof": true
 }

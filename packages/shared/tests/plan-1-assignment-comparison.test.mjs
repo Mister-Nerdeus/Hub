@@ -25,6 +25,18 @@ test("comparison fixtures are deterministic and named", () => {
   ]);
 });
 
+test("comparison fixtures are normalized through canonical workflow state", () => {
+  for (const fixture of fixtures) {
+    assert.equal(fixture.workflowState.planId, "default-er-layout-plan-1");
+    assert.equal(fixture.workflowState.visualParityStatus, "valid");
+    assert.equal(fixture.workflowState.pathSyncStatus, "fresh");
+    assert.equal(fixture.workflowState.syntheticDataOnly, true);
+    assert.equal(fixture.workflowState.nurses.length, fixture.nurses.length);
+    assert.equal(fixture.workflowState.roomLoads.length, fixture.roomLoads.length);
+    assert.equal(fixture.workflowState.assignments.length, fixture.assignments.length);
+  }
+});
+
 test("3-room assignment can be heavier than a 4-room assignment", () => {
   assert.ok(byId("fixture-plan-1-walking-heavy-3-to-1").totalBurdenScore > byId("fixture-plan-1-light-4-to-1").totalBurdenScore);
 });

@@ -4,7 +4,12 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { auditPlan1AssignmentReadiness, makeStalePathSyncWarning, validatePlanContract } from "../dist/index.js";
+import {
+  PLAN_1_ASSIGNMENT_CLASSIFICATIONS,
+  auditPlan1AssignmentReadiness,
+  makeStalePathSyncWarning,
+  validatePlanContract
+} from "../dist/index.js";
 
 const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const plan = validatePlanContract(readJson("default-plans/default-er-layout-plan-1.json").plan);
@@ -16,10 +21,22 @@ test("Plan 1 assignment readiness passes semantic gate", () => {
   assert.equal(audit.roomCount, 23);
   assert.equal(audit.nurseStationCount, 2);
   assert.equal(audit.walkingBaselineUnreachableRouteCount, 0);
-  assert.equal(audit.room17AssignmentClass, "assignment_patient_care");
+  assert.equal(audit.room17AssignmentClass, "assignment_patient_care_room");
   assert.equal(audit.providerPharmacySupportClassified, true);
   assert.equal(audit.scaffoldZonesNonAssignment, true);
   assert.deepEqual(audit.oldSimplifiedPlanLabelsRemaining, []);
+});
+
+test("Plan 1 assignment readiness exposes the canonical assignment classification vocabulary", () => {
+  assert.deepEqual([...PLAN_1_ASSIGNMENT_CLASSIFICATIONS], [
+    "assignment_patient_care_room",
+    "assignment_support_area",
+    "assignment_staff_area",
+    "assignment_hallway",
+    "assignment_entry",
+    "assignment_scaffold_only",
+    "assignment_not_applicable"
+  ]);
 });
 
 test("Room 17 remains assignment patient-care even when its zone is provider pharmacy support", () => {
@@ -28,7 +45,7 @@ test("Room 17 remains assignment patient-care even when its zone is provider pha
   const audit = auditPlan1AssignmentReadiness({ plan, walkingBaseline });
   assert.equal(room17Zone.zoneOperationalMetadata.zoneClass, "support");
   assert.equal(room17.roomOperationalMetadata.roomClass, "standard");
-  assert.equal(audit.room17AssignmentClass, "assignment_patient_care");
+  assert.equal(audit.room17AssignmentClass, "assignment_patient_care_room");
 });
 
 test("Room 17 readiness fails if room operational metadata is missing", () => {
@@ -37,7 +54,7 @@ test("Room 17 readiness fails if room operational metadata is missing", () => {
   room17.roomOperationalMetadata = null;
   const audit = auditPlan1AssignmentReadiness({ plan: missingMetadataPlan, walkingBaseline });
   assert.equal(audit.status, "failed");
-  assert.equal(audit.room17AssignmentClass, "not_assignment_patient_care");
+  assert.equal(audit.room17AssignmentClass, "assignment_not_applicable");
   assert.ok(audit.failures.includes("ROOM_17_ASSIGNMENT_PATIENT_CARE_CLASS_MISSING"));
 });
 

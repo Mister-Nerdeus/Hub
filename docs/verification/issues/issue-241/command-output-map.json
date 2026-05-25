@@ -30,7 +30,8 @@
     {
       "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage readiness --allow-partial --issue 241 *> docs/verification/issues/issue-241/test-output/plan-1-assignment-workflow-gate.txt",
       "outputs": [
-        "docs/verification/issues/issue-241/test-output/plan-1-assignment-workflow-gate.txt"
+        "docs/verification/issues/issue-241/test-output/plan-1-assignment-workflow-gate.txt",
+        "docs/verification/issues/issue-241/plan-1-assignment-workflow-state-output.json"
       ]
     },
     {
@@ -57,6 +58,7 @@
     "docs/verification/issues/issue-241/nurse-profile-contract-output.json",
     "docs/verification/issues/issue-241/nurse-profile-defaults-output.json",
     "docs/verification/issues/issue-241/plan-1-assignment-readiness-output.json",
+    "docs/verification/issues/issue-241/plan-1-assignment-workflow-state-output.json",
     "docs/verification/issues/issue-241/plan-1-legacy-fixture-rejection-output.json",
     "docs/verification/issues/issue-241/plans-2-through-5-unchanged-output.json",
     "docs/verification/issues/issue-241/room-17-zone-semantics-output.json",

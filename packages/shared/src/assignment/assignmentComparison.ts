@@ -4,6 +4,10 @@ import { scorePlan1AssignmentBurden } from "./assignmentBurdenScore.js";
 import { validatePlan1AssignmentsForOperations } from "./assignmentValidation.js";
 import { validatePlan1ManualAssignments } from "./manualAssignmentContract.js";
 import { validatePlan1NurseProfiles } from "./nurseProfileContract.js";
+import {
+  createPlan1AssignmentWorkflowState,
+  type Plan1AssignmentWorkflowState
+} from "./plan1AssignmentWorkflowState.js";
 import { validatePlan1RoomLoads } from "./roomLoadContract.js";
 import {
   requireArray,
@@ -21,6 +25,7 @@ export type Plan1AssignmentComparisonFixture = {
   nurses: Plan1NurseProfile[];
   roomLoads: Plan1RoomLoad[];
   assignments: Plan1ManualAssignmentRecord[];
+  workflowState: Plan1AssignmentWorkflowState;
 };
 
 export type Plan1AssignmentComparisonOutput = {
@@ -48,12 +53,22 @@ export function validatePlan1AssignmentComparisonFixtures(
     const record = requireRecord(fixture, label);
     requireExactKeys(record, label, ["fixtureId", "label", "nurses", "roomLoads", "assignments"]);
     const nurses = validatePlan1NurseProfiles(requireArray(record.nurses, `${label}.nurses`), plan);
+    const roomLoads = validatePlan1RoomLoads(requireArray(record.roomLoads, `${label}.roomLoads`), plan);
+    const assignments = validatePlan1ManualAssignments(requireArray(record.assignments, `${label}.assignments`), plan, nurses);
+    const workflowState = createPlan1AssignmentWorkflowState({
+      plan,
+      nurses,
+      roomLoads,
+      assignments,
+      pathSyncStatus: "fresh"
+    });
     return {
       fixtureId: requireString(record.fixtureId, `${label}.fixtureId`),
       label: requireString(record.label, `${label}.label`),
       nurses,
-      roomLoads: validatePlan1RoomLoads(requireArray(record.roomLoads, `${label}.roomLoads`), plan),
-      assignments: validatePlan1ManualAssignments(requireArray(record.assignments, `${label}.assignments`), plan, nurses)
+      roomLoads,
+      assignments,
+      workflowState
     };
   });
   return fixtures;
@@ -64,23 +79,24 @@ export function buildPlan1AssignmentComparisonOutputs(input: {
   fixtures: Plan1AssignmentComparisonFixture[];
 }): Plan1AssignmentComparisonOutput[] {
   return input.fixtures.map((fixture) => {
+    const state = fixture.workflowState;
     const validation = validatePlan1AssignmentsForOperations({
       plan: input.plan,
-      nurses: fixture.nurses,
-      roomLoads: fixture.roomLoads,
-      assignments: fixture.assignments,
-      stalePathSync: false
+      nurses: state.nurses,
+      roomLoads: state.roomLoads,
+      assignments: state.assignments,
+      stalePathSync: state.pathSyncStatus !== "fresh"
     });
     const walkingPreviews = buildPlan1AssignmentWalkingPreviews({
       plan: input.plan,
-      nurses: fixture.nurses,
-      assignments: fixture.assignments,
-      stalePathSync: false
+      nurses: state.nurses,
+      assignments: state.assignments,
+      stalePathSync: state.pathSyncStatus !== "fresh"
     });
     const burden = scorePlan1AssignmentBurden({
-      nurses: fixture.nurses,
-      roomLoads: fixture.roomLoads,
-      assignments: fixture.assignments,
+      nurses: state.nurses,
+      roomLoads: state.roomLoads,
+      assignments: state.assignments,
       walkingPreviews,
       warnings: validation.warnings
     });
@@ -88,9 +104,9 @@ export function buildPlan1AssignmentComparisonOutputs(input: {
     return {
       fixtureId: fixture.fixtureId,
       label: fixture.label,
-      nurseCount: fixture.nurses.length,
-      assignedRoomCount: fixture.assignments.filter((assignment) => assignment.assignmentType === "primary").length,
-      occupiedRoomCount: fixture.roomLoads.filter((roomLoad) => roomLoad.occupied).length,
+      nurseCount: state.nurses.length,
+      assignedRoomCount: state.assignments.filter((assignment) => assignment.assignmentType === "primary").length,
+      occupiedRoomCount: state.roomLoads.filter((roomLoad) => roomLoad.occupied).length,
       totalBurdenScore: burden.totalBurdenScore,
       highestNurseBurdenScore: Math.max(...scores),
       lowestNurseBurdenScore: Math.min(...scores),

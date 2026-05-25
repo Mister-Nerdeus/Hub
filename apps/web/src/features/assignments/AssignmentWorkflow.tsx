@@ -3,6 +3,7 @@ import {
   buildPlan1AssignmentComparisonOutputs,
   buildPlan1AssignmentWalkingPreviews,
   buildPlan1NurseAssignmentSummaries,
+  createPlan1AssignmentWorkflowState,
   scorePlan1AssignmentBurden,
   validatePlan1AssignmentComparisonFixtures,
   validatePlan1AssignmentsForOperations,
@@ -54,31 +55,38 @@ export function AssignmentWorkflow({ activePlan }: { activePlan?: PlanContract |
       </div>
     );
   }
-  const validation = validatePlan1AssignmentsForOperations({
+  const workflowState = createPlan1AssignmentWorkflowState({
     plan,
     nurses,
     roomLoads,
     assignments: paintState.assignments,
-    stalePathSync: false
+    pathSyncStatus: "fresh"
+  });
+  const validation = validatePlan1AssignmentsForOperations({
+    plan,
+    nurses: workflowState.nurses,
+    roomLoads: workflowState.roomLoads,
+    assignments: workflowState.assignments,
+    stalePathSync: workflowState.pathSyncStatus !== "fresh"
   });
   const walkingPreviews = buildPlan1AssignmentWalkingPreviews({
     plan,
-    nurses,
-    assignments: paintState.assignments,
-    stalePathSync: false
+    nurses: workflowState.nurses,
+    assignments: workflowState.assignments,
+    stalePathSync: workflowState.pathSyncStatus !== "fresh"
   });
   const summaries = buildPlan1NurseAssignmentSummaries({
     plan,
-    nurses,
-    roomLoads,
-    assignments: paintState.assignments,
+    nurses: workflowState.nurses,
+    roomLoads: workflowState.roomLoads,
+    assignments: workflowState.assignments,
     warnings: validation.warnings,
     walkingPreviews
   });
   const burdenScore = scorePlan1AssignmentBurden({
-    nurses,
-    roomLoads,
-    assignments: paintState.assignments,
+    nurses: workflowState.nurses,
+    roomLoads: workflowState.roomLoads,
+    assignments: workflowState.assignments,
     walkingPreviews,
     warnings: validation.warnings
   });
@@ -107,8 +115,8 @@ export function AssignmentWorkflow({ activePlan }: { activePlan?: PlanContract |
       />
       <AssignmentPaintMode
         plan={plan}
-        nurses={nurses}
-        assignments={paintState.assignments}
+        nurses={workflowState.nurses}
+        assignments={workflowState.assignments}
         selectedNurseId={paintState.selectedNurseId}
         onSelectNurse={(nurseId) => dispatch({ type: "selectNurse", nurseId })}
         onToggleRoom={(roomId) => dispatch({ type: "togglePrimaryRoom", roomId })}

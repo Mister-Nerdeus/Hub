@@ -24,9 +24,11 @@ export const PLAN_1_BURDEN_SCORE_WEIGHTS = {
 } as const;
 
 export const PLAN_1_BURDEN_SCORE_LIMITATIONS = [
-  "Operational comparison score only.",
+  "This is an operational comparison score only.",
   "Room count alone does not determine score.",
-  "No staffing safety, legal compliance, or patient outcome claim is implied."
+  "It is not a clinical safety score.",
+  "It is not a staffing compliance recommendation.",
+  "It is not a patient outcome prediction."
 ];
 
 export type Plan1NurseBurdenScore = {
