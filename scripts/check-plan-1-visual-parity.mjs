@@ -12,6 +12,7 @@ const {
   auditPlan1VisualParityGaps,
   auditDefaultPlanPathEdgeCoverage,
   auditDefaultPlanPathNodeCoverage,
+  validateSourceMappingAgainstPlan,
   validateDefaultSavedPlanFixtureContract,
   validatePlanVisualParitySourceTruthContract
 } = await import("../packages/shared/dist/index.js");
@@ -28,8 +29,11 @@ const sourceTruthRelativePath =
 const planRelativePath = "packages/shared/fixtures/default-plans/default-er-layout-plan-1.json";
 const walkingBaselineRelativePath =
   "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-1-walking-baseline.json";
+const sourceMappingRelativePath =
+  "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-1.json";
 const sourceTruth = readJson(sourceTruthRelativePath);
 const walkingBaseline = readJson(walkingBaselineRelativePath);
+const sourceMapping = readJson(sourceMappingRelativePath);
 const planFixture = validateDefaultSavedPlanFixtureContract(readJson(planRelativePath), {
   sourcePlanIds: new Set(["source-er-layout-plan-1"]),
   mappingIds: new Set(["mapping-er-layout-plan-1"])
@@ -38,6 +42,7 @@ const sourceTruthValidation = validatePlanVisualParitySourceTruthContract(source
 const audit = auditPlan1VisualParityGaps(sourceTruth, planFixture.plan, sourceTruthRelativePath);
 const pathNodeCoverage = auditDefaultPlanPathNodeCoverage(planFixture.plan);
 const pathEdgeCoverage = auditDefaultPlanPathEdgeCoverage(planFixture.plan);
+const validatedSourceMapping = validateSourceMappingAgainstPlan(sourceMapping, planFixture.plan);
 const requiredWalkingBaselineGroups = [
   "left-station-to-left-pod-rooms",
   "right-station-to-right-pod-rooms",
@@ -50,6 +55,18 @@ const walkingBaselineGroupIds = walkingBaseline.routeGroupSummaries?.map((group)
 const missingWalkingBaselineGroups = requiredWalkingBaselineGroups.filter(
   (groupId) => !walkingBaselineGroupIds.includes(groupId)
 );
+const sourceMappingTargetIds = new Set(validatedSourceMapping.objects.map((object) => object.targetObjectId));
+const requiredMappedSourceTruthTargets = sourceTruth.visibleObjects
+  .map((entry) => entry.expectedTargetId)
+  .filter((targetId) => targetId != null);
+const missingSourceMappingTargets = requiredMappedSourceTruthTargets.filter(
+  (targetId) => !sourceMappingTargetIds.has(targetId)
+);
+const provenanceHistogram = {};
+for (const object of validatedSourceMapping.objects) {
+  provenanceHistogram[object.conversionProvenance] =
+    (provenanceHistogram[object.conversionProvenance] ?? 0) + 1;
+}
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
   .filter((room) => sourceTruth.legacyFixtureRejections.unsupportedRoomIds.includes(room.id))
@@ -163,6 +180,11 @@ if (issueNumber != null && issueNumber >= 236) {
     requiredStageFailures.push(`WALKING_BASELINE_UNREACHABLE_STAGE_FAILURE: ${walkingBaseline.unreachableRouteCount}`);
   }
 }
+if (issueNumber != null && issueNumber >= 237) {
+  for (const targetId of missingSourceMappingTargets) {
+    requiredStageFailures.push(`SOURCE_MAPPING_TARGET_STAGE_FAILURE: ${targetId}`);
+  }
+}
 
 const status = failures.length === 0
   ? "passed"
@@ -200,6 +222,14 @@ const output = {
     totalRouteCount: walkingBaseline.totalRouteCount,
     reachableRouteCount: walkingBaseline.reachableRouteCount,
     unreachableRouteCount: walkingBaseline.unreachableRouteCount
+  },
+  sourceMappingSummary: {
+    mappingId: validatedSourceMapping.mappingId,
+    mappedObjectCount: validatedSourceMapping.objects.length,
+    deferredSourceLabelCount: validatedSourceMapping.deferredSourceLabels.length,
+    missingSourceTruthTargetCount: missingSourceMappingTargets.length,
+    missingSourceTruthTargets: missingSourceMappingTargets,
+    provenanceHistogram
   },
   failureCount: failures.length,
   failures,

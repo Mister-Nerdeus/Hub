@@ -180,6 +180,7 @@ function singleObjectMapping(objectType, targetObjectId) {
           widthFeet: null,
           lengthFeet: null
         },
+        conversionProvenance: "manual_approximation",
         notesCode: "source-visible-operational-object"
       }
     ],
@@ -223,6 +224,13 @@ test("source-to-plan mapping rejects unknown enums", () => {
   assert.throws(
     () => validateSourceToPlanMappingContract(unknownNotesCode),
     /objects\[0\]\.notesCode must be one of/
+  );
+
+  const unknownProvenance = readJson(join(mappingDir, "mapping-er-layout-plan-1.json"));
+  unknownProvenance.objects[0].conversionProvenance = "unknown";
+  assert.throws(
+    () => validateSourceToPlanMappingContract(unknownProvenance),
+    /objects\[0\]\.conversionProvenance must be one of/
   );
 });
 

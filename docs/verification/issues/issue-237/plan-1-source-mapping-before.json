@@ -1,0 +1,97 @@
+{
+  "issue": "237",
+  "status": "failed",
+  "missingConversionProvenanceCount": 18,
+  "missing": [
+    {
+      "sourceObjectId": "src-plan-1-trauma",
+      "targetObjectId": "zone-level-1-trauma",
+      "objectType": "zone"
+    },
+    {
+      "sourceObjectId": "src-plan-1-trauma-room",
+      "targetObjectId": "room-level-1-trauma",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-ems-entry-node",
+      "targetObjectId": "node-entry-ems",
+      "objectType": "pathNode"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-02",
+      "targetObjectId": "room-02",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-03",
+      "targetObjectId": "room-03",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-04",
+      "targetObjectId": "room-04",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-05",
+      "targetObjectId": "room-05",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-06",
+      "targetObjectId": "room-06",
+      "objectType": "room"
+    },
+    {
+      "sourceObjectId": "src-plan-1-left-nurse-station",
+      "targetObjectId": "station-left",
+      "objectType": "nurseStation"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-nurse-station",
+      "targetObjectId": "station-right",
+      "objectType": "nurseStation"
+    },
+    {
+      "sourceObjectId": "src-plan-1-provider-pharmacy-area",
+      "targetObjectId": "zone-provider-pharmacy",
+      "objectType": "zone"
+    },
+    {
+      "sourceObjectId": "src-plan-1-top-horizontal-hallway",
+      "targetObjectId": "hallway-top-horizontal",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-left-vertical-hallway",
+      "targetObjectId": "hallway-left-vertical",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-ems-entry-hallway",
+      "targetObjectId": "hallway-ems-entry",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-bottom-horizontal-hallway",
+      "targetObjectId": "hallway-bottom-horizontal",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-vertical-hallway",
+      "targetObjectId": "hallway-right-vertical",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-right-upper-hallway",
+      "targetObjectId": "hallway-right-upper",
+      "objectType": "hallway"
+    },
+    {
+      "sourceObjectId": "src-plan-1-ems-entry-zone",
+      "targetObjectId": "zone-ems-entry",
+      "objectType": "zone"
+    }
+  ]
+}

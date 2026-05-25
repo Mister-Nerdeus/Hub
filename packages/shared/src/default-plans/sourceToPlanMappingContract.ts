@@ -14,6 +14,14 @@ export const SOURCE_MAPPING_OBJECT_TYPES = [
 
 export const SOURCE_MAPPING_CONFIDENCE_LEVELS = ["low", "medium", "high"] as const;
 export const SOURCE_MAPPING_GEOMETRY_APPROXIMATIONS = ["manual", "deferred"] as const;
+export const SOURCE_MAPPING_CONVERSION_PROVENANCE_VALUES = [
+  "source_visible_mapped",
+  "source_visible_grouped",
+  "manual_approximation",
+  "conversion_inferred",
+  "generated_required_for_graph",
+  "deferred"
+] as const;
 export const SOURCE_MAPPING_NOTES_CODES = [
   "source-label-position-approximate",
   "source-visible-operational-object",
@@ -39,6 +47,8 @@ export type SourceMappingObjectType = (typeof SOURCE_MAPPING_OBJECT_TYPES)[numbe
 export type SourceMappingConfidence = (typeof SOURCE_MAPPING_CONFIDENCE_LEVELS)[number];
 export type SourceMappingGeometryApproximation =
   (typeof SOURCE_MAPPING_GEOMETRY_APPROXIMATIONS)[number];
+export type SourceMappingConversionProvenance =
+  (typeof SOURCE_MAPPING_CONVERSION_PROVENANCE_VALUES)[number];
 export type SourceMappingNotesCode = (typeof SOURCE_MAPPING_NOTES_CODES)[number];
 export type DeferredSourceLabelReasonCode = (typeof DEFERRED_SOURCE_LABEL_REASON_CODES)[number];
 
@@ -57,6 +67,7 @@ export type SourceToPlanMappedObject = {
   confidence: SourceMappingConfidence;
   geometryApproximation: SourceMappingGeometryApproximation;
   approximateCoordinates: SourceApproximateCoordinates | null;
+  conversionProvenance: SourceMappingConversionProvenance;
   notesCode: SourceMappingNotesCode;
 };
 
@@ -159,6 +170,7 @@ function validateMappedObject(
     "confidence",
     "geometryApproximation",
     "approximateCoordinates",
+    "conversionProvenance",
     "notesCode"
   ]);
 
@@ -184,6 +196,11 @@ function validateMappedObject(
     `${label}.geometryApproximation`
   );
   validateApproximateCoordinates(object.approximateCoordinates, `${label}.approximateCoordinates`);
+  requireEnum(
+    object.conversionProvenance,
+    SOURCE_MAPPING_CONVERSION_PROVENANCE_VALUES,
+    `${label}.conversionProvenance`
+  );
   requireEnum(object.notesCode, SOURCE_MAPPING_NOTES_CODES, `${label}.notesCode`);
 }
 

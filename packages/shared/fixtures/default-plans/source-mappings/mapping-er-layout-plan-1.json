@@ -5,48 +5,19 @@
   "targetPlanId": "default-er-layout-plan-1",
   "objects": [
     {
-      "sourceObjectId": "src-plan-1-trauma",
+      "sourceObjectId": "src-plan-1-room-level-1-trauma",
       "sourceLabel": "Level 1 trauma",
-      "objectType": "zone",
-      "targetObjectId": "zone-level-1-trauma",
-      "confidence": "high",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 6,
-        "y": 10,
-        "widthFeet": 24,
-        "lengthFeet": 24
-      },
-      "notesCode": "source-label-position-approximate"
-    },
-    {
-      "sourceObjectId": "src-plan-1-trauma-room",
-      "sourceLabel": "Level 1 trauma room",
       "objectType": "room",
       "targetObjectId": "room-level-1-trauma",
       "confidence": "high",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 8,
-        "y": 12,
+        "x": 18,
+        "y": 38,
         "widthFeet": 20,
         "lengthFeet": 18
       },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-ems-entry-node",
-      "sourceLabel": "EMS entry",
-      "objectType": "pathNode",
-      "targetObjectId": "node-entry-ems",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 16,
-        "y": 92,
-        "widthFeet": null,
-        "lengthFeet": null
-      },
+      "conversionProvenance": "source_visible_mapped",
       "notesCode": "source-visible-operational-object"
     },
     {
@@ -57,12 +28,13 @@
       "confidence": "medium",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 54,
-        "y": 8,
-        "widthFeet": 14,
+        "x": 42,
+        "y": 36,
+        "widthFeet": 12,
         "lengthFeet": 14
       },
-      "notesCode": "source-label-position-approximate"
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
     },
     {
       "sourceObjectId": "src-plan-1-room-03",
@@ -72,12 +44,13 @@
       "confidence": "medium",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 72,
-        "y": 8,
-        "widthFeet": 14,
+        "x": 56,
+        "y": 36,
+        "widthFeet": 12,
         "lengthFeet": 14
       },
-      "notesCode": "source-label-position-approximate"
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
     },
     {
       "sourceObjectId": "src-plan-1-room-04",
@@ -87,12 +60,13 @@
       "confidence": "medium",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 36,
+        "x": 42,
         "y": 52,
-        "widthFeet": 14,
+        "widthFeet": 12,
         "lengthFeet": 14
       },
-      "notesCode": "source-label-position-approximate"
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
     },
     {
       "sourceObjectId": "src-plan-1-room-05",
@@ -102,12 +76,29 @@
       "confidence": "medium",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 54,
+        "x": 56,
         "y": 52,
-        "widthFeet": 14,
+        "widthFeet": 12,
         "lengthFeet": 14
       },
-      "notesCode": "source-label-position-approximate"
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-14",
+      "sourceLabel": "Room 14",
+      "objectType": "room",
+      "targetObjectId": "room-14",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 34,
+        "y": 18,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
     },
     {
       "sourceObjectId": "src-plan-1-room-06",
@@ -117,16 +108,273 @@
       "confidence": "medium",
       "geometryApproximation": "manual",
       "approximateCoordinates": {
-        "x": 72,
-        "y": 52,
-        "widthFeet": 14,
+        "x": 94,
+        "y": 36,
+        "widthFeet": 12,
         "lengthFeet": 14
       },
-      "notesCode": "source-label-position-approximate"
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
     },
     {
-      "sourceObjectId": "src-plan-1-left-nurse-station",
-      "sourceLabel": "Left nurse station",
+      "sourceObjectId": "src-plan-1-room-07",
+      "sourceLabel": "Room 07",
+      "objectType": "room",
+      "targetObjectId": "room-07",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 108,
+        "y": 36,
+        "widthFeet": 12,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-08",
+      "sourceLabel": "Room 08",
+      "objectType": "room",
+      "targetObjectId": "room-08",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 94,
+        "y": 52,
+        "widthFeet": 12,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-09",
+      "sourceLabel": "Room 09",
+      "objectType": "room",
+      "targetObjectId": "room-09",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 108,
+        "y": 52,
+        "widthFeet": 12,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-10",
+      "sourceLabel": "Room 10",
+      "objectType": "room",
+      "targetObjectId": "room-10",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 124,
+        "y": 44,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-13",
+      "sourceLabel": "Room 13",
+      "objectType": "room",
+      "targetObjectId": "room-13",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 104,
+        "y": 18,
+        "widthFeet": 18,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-11",
+      "sourceLabel": "Room 11",
+      "objectType": "room",
+      "targetObjectId": "room-11",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 150,
+        "y": 22,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-12",
+      "sourceLabel": "Room 12",
+      "objectType": "room",
+      "targetObjectId": "room-12",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 150,
+        "y": 40,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-15",
+      "sourceLabel": "Room 15",
+      "objectType": "room",
+      "targetObjectId": "room-15",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 8,
+        "y": 82,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-16",
+      "sourceLabel": "Room 16",
+      "objectType": "room",
+      "targetObjectId": "room-16",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 8,
+        "y": 102,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-17",
+      "sourceLabel": "Room 17",
+      "objectType": "room",
+      "targetObjectId": "room-17",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 102,
+        "y": 76,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-19",
+      "sourceLabel": "Room 19",
+      "objectType": "room",
+      "targetObjectId": "room-19",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 34,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-20",
+      "sourceLabel": "Room 20",
+      "objectType": "room",
+      "targetObjectId": "room-20",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 52,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-21",
+      "sourceLabel": "Room 21",
+      "objectType": "room",
+      "targetObjectId": "room-21",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 70,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-22",
+      "sourceLabel": "Room 22",
+      "objectType": "room",
+      "targetObjectId": "room-22",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 88,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-23",
+      "sourceLabel": "Room 23",
+      "objectType": "room",
+      "targetObjectId": "room-23",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 106,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-room-24",
+      "sourceLabel": "Room 24",
+      "objectType": "room",
+      "targetObjectId": "room-24",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 124,
+        "y": 100,
+        "widthFeet": 14,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-station-left",
+      "sourceLabel": "Left Nurse Station",
       "objectType": "nurseStation",
       "targetObjectId": "station-left",
       "confidence": "medium",
@@ -137,11 +385,12 @@
         "widthFeet": 18,
         "lengthFeet": 10
       },
+      "conversionProvenance": "source_visible_mapped",
       "notesCode": "source-visible-operational-object"
     },
     {
-      "sourceObjectId": "src-plan-1-right-nurse-station",
-      "sourceLabel": "Right nurse station",
+      "sourceObjectId": "src-plan-1-station-right",
+      "sourceLabel": "Right Nurse Station",
       "objectType": "nurseStation",
       "targetObjectId": "station-right",
       "confidence": "medium",
@@ -152,6 +401,103 @@
         "widthFeet": 18,
         "lengthFeet": 10
       },
+      "conversionProvenance": "source_visible_mapped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-ems-entry",
+      "sourceLabel": "EMS Entry Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 84,
+        "widthFeet": 12,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-top-horizontal",
+      "sourceLabel": "Top Horizontal Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-top-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-left-vertical",
+      "sourceLabel": "Left Vertical Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-left-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-bottom-horizontal",
+      "sourceLabel": "Bottom Horizontal Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-bottom-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 92,
+        "widthFeet": 10,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-right-vertical",
+      "sourceLabel": "Right Vertical Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-right-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 150,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-hallway-right-upper",
+      "sourceLabel": "Right Upper Hallway",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-right-upper",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 94,
+        "y": 28,
+        "widthFeet": 10,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "manual_approximation",
       "notesCode": "source-visible-operational-object"
     },
     {
@@ -167,96 +513,7 @@
         "widthFeet": 42,
         "lengthFeet": 18
       },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-top-horizontal-hallway",
-      "sourceLabel": "Top horizontal hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-top-horizontal",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 28,
-        "y": 28,
-        "widthFeet": 122,
-        "lengthFeet": null
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-left-vertical-hallway",
-      "sourceLabel": "Left vertical hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-left-vertical",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 28,
-        "y": 28,
-        "widthFeet": 10,
-        "lengthFeet": 88
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-ems-entry-hallway",
-      "sourceLabel": "EMS entry hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-ems-entry",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 16,
-        "y": 56,
-        "widthFeet": 12,
-        "lengthFeet": 28
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-bottom-horizontal-hallway",
-      "sourceLabel": "Bottom horizontal hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-bottom-horizontal",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 28,
-        "y": 92,
-        "widthFeet": 122,
-        "lengthFeet": null
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-right-vertical-hallway",
-      "sourceLabel": "Right vertical hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-right-vertical",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 150,
-        "y": 28,
-        "widthFeet": 10,
-        "lengthFeet": 64
-      },
-      "notesCode": "source-visible-operational-object"
-    },
-    {
-      "sourceObjectId": "src-plan-1-right-upper-hallway",
-      "sourceLabel": "Right upper hallway",
-      "objectType": "hallway",
-      "targetObjectId": "hallway-right-upper",
-      "confidence": "medium",
-      "geometryApproximation": "manual",
-      "approximateCoordinates": {
-        "x": 94,
-        "y": 28,
-        "widthFeet": 56,
-        "lengthFeet": null
-      },
+      "conversionProvenance": "source_visible_mapped",
       "notesCode": "source-visible-operational-object"
     },
     {
@@ -272,10 +529,1519 @@
         "widthFeet": 18,
         "lengthFeet": 34
       },
+      "conversionProvenance": "source_visible_mapped",
       "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-01",
+      "sourceLabel": "Door Level 1 Trauma",
+      "objectType": "door",
+      "targetObjectId": "door-01",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 56,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-02",
+      "sourceLabel": "Door 2",
+      "objectType": "door",
+      "targetObjectId": "door-02",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 48,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-03",
+      "sourceLabel": "Door 3",
+      "objectType": "door",
+      "targetObjectId": "door-03",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-04",
+      "sourceLabel": "Door 4",
+      "objectType": "door",
+      "targetObjectId": "door-04",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 48,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-05",
+      "sourceLabel": "Door 5",
+      "objectType": "door",
+      "targetObjectId": "door-05",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-06",
+      "sourceLabel": "Door 6",
+      "objectType": "door",
+      "targetObjectId": "door-06",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 100,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-07",
+      "sourceLabel": "Door 7",
+      "objectType": "door",
+      "targetObjectId": "door-07",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 114,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-08",
+      "sourceLabel": "Door 8",
+      "objectType": "door",
+      "targetObjectId": "door-08",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 100,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-09",
+      "sourceLabel": "Door 9",
+      "objectType": "door",
+      "targetObjectId": "door-09",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 114,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-10",
+      "sourceLabel": "Door 10",
+      "objectType": "door",
+      "targetObjectId": "door-10",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 131,
+        "y": 60,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-11",
+      "sourceLabel": "Door 11",
+      "objectType": "door",
+      "targetObjectId": "door-11",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 158,
+        "y": 36,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-12",
+      "sourceLabel": "Door 12",
+      "objectType": "door",
+      "targetObjectId": "door-12",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 158,
+        "y": 54,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-13",
+      "sourceLabel": "Door 13",
+      "objectType": "door",
+      "targetObjectId": "door-13",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 113,
+        "y": 32,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-14",
+      "sourceLabel": "Door 14",
+      "objectType": "door",
+      "targetObjectId": "door-14",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 42,
+        "y": 32,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-15",
+      "sourceLabel": "Door 15",
+      "objectType": "door",
+      "targetObjectId": "door-15",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 96,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-16",
+      "sourceLabel": "Door 16",
+      "objectType": "door",
+      "targetObjectId": "door-16",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-17",
+      "sourceLabel": "Door 17",
+      "objectType": "door",
+      "targetObjectId": "door-17",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 110,
+        "y": 90,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-door-18",
+      "sourceLabel": "Door 19",
+      "objectType": "door",
+      "targetObjectId": "door-18",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 41,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "source_visible_grouped",
+      "notesCode": "source-visible-operational-object"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-entry-ems",
+      "sourceLabel": "Generated path node node-entry-ems",
+      "objectType": "pathNode",
+      "targetObjectId": "node-entry-ems",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 92,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "conversion_inferred",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hall-ems-entry",
+      "sourceLabel": "Generated path node node-hall-ems-entry",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 72,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hall-west",
+      "sourceLabel": "Generated path node node-hall-west",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hall-west",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 40,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hall-mid",
+      "sourceLabel": "Generated path node node-hall-mid",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 40,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hall-east",
+      "sourceLabel": "Generated path node node-hall-east",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 104,
+        "y": 40,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-level-1-trauma",
+      "sourceLabel": "Generated path node node-door-level-1-trauma",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-level-1-trauma",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 56,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-02",
+      "sourceLabel": "Generated path node node-door-room-02",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-02",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 48,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-03",
+      "sourceLabel": "Generated path node node-door-room-03",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-03",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-04",
+      "sourceLabel": "Generated path node node-door-room-04",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-04",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 48,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-05",
+      "sourceLabel": "Generated path node node-door-room-05",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-05",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-14",
+      "sourceLabel": "Generated path node node-door-room-14",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-14",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 42,
+        "y": 32,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-06",
+      "sourceLabel": "Generated path node node-door-room-06",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-06",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 100,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-07",
+      "sourceLabel": "Generated path node node-door-room-07",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-07",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 114,
+        "y": 50,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-08",
+      "sourceLabel": "Generated path node node-door-room-08",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-08",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 100,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-09",
+      "sourceLabel": "Generated path node node-door-room-09",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-09",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 114,
+        "y": 66,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-10",
+      "sourceLabel": "Generated path node node-door-room-10",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-10",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 131,
+        "y": 60,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-13",
+      "sourceLabel": "Generated path node node-door-room-13",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-13",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 113,
+        "y": 32,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-11",
+      "sourceLabel": "Generated path node node-door-room-11",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-11",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 158,
+        "y": 36,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-12",
+      "sourceLabel": "Generated path node node-door-room-12",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-12",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 158,
+        "y": 54,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-15",
+      "sourceLabel": "Generated path node node-door-room-15",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-15",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 96,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-16",
+      "sourceLabel": "Generated path node node-door-room-16",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-16",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 16,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-17",
+      "sourceLabel": "Generated path node node-door-room-17",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-17",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 110,
+        "y": 90,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-19",
+      "sourceLabel": "Generated path node node-door-room-19",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-19",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 41,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-20",
+      "sourceLabel": "Generated path node node-door-room-20",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-20",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 59,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-21",
+      "sourceLabel": "Generated path node node-door-room-21",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-21",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 77,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-22",
+      "sourceLabel": "Generated path node node-door-room-22",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-22",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 95,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-23",
+      "sourceLabel": "Generated path node node-door-room-23",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-23",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 113,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-door-room-24",
+      "sourceLabel": "Generated path node node-door-room-24",
+      "objectType": "pathNode",
+      "targetObjectId": "node-door-room-24",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 131,
+        "y": 116,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-station-left",
+      "sourceLabel": "Generated path node node-station-left",
+      "objectType": "pathNode",
+      "targetObjectId": "node-station-left",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 63,
+        "y": 75,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-station-right",
+      "sourceLabel": "Generated path node node-station-right",
+      "objectType": "pathNode",
+      "targetObjectId": "node-station-right",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 135,
+        "y": 75,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-zone-provider-pharmacy",
+      "sourceLabel": "Generated path node node-zone-provider-pharmacy",
+      "objectType": "pathNode",
+      "targetObjectId": "node-zone-provider-pharmacy",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 121,
+        "y": 79,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hallway-top-horizontal",
+      "sourceLabel": "Generated path node node-hallway-top-horizontal",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hallway-top-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 90,
+        "y": 28,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hallway-left-vertical",
+      "sourceLabel": "Generated path node node-hallway-left-vertical",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hallway-left-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 28,
+        "y": 72,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hallway-bottom-horizontal",
+      "sourceLabel": "Generated path node node-hallway-bottom-horizontal",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hallway-bottom-horizontal",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 90,
+        "y": 92,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hallway-right-vertical",
+      "sourceLabel": "Generated path node node-hallway-right-vertical",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hallway-right-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 150,
+        "y": 60,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-node-hallway-right-upper",
+      "sourceLabel": "Generated path node node-hallway-right-upper",
+      "objectType": "pathNode",
+      "targetObjectId": "node-hallway-right-upper",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 122,
+        "y": 28,
+        "widthFeet": null,
+        "lengthFeet": null
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-entry-hall-west",
+      "sourceLabel": "Generated path edge edge-entry-hall-west",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-entry-hall-west",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 52
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hall-ems-entry-anchor",
+      "sourceLabel": "Generated path edge edge-hall-ems-entry-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hall-ems-entry-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 20
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hall-west-mid",
+      "sourceLabel": "Generated path edge edge-hall-west-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hall-west-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 46
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hall-mid-east",
+      "sourceLabel": "Generated path edge edge-hall-mid-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hall-mid-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 42
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-trauma-hall-west",
+      "sourceLabel": "Generated path edge edge-trauma-hall-west",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-trauma-hall-west",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 28
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-02-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-02-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-02-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 24
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-03-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-03-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-03-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 10
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-04-hall-ems-entry",
+      "sourceLabel": "Generated path edge edge-room-04-hall-ems-entry",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-04-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 38
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-05-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-05-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-05-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 26
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-14-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-14-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-14-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 28
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-06-hall-east",
+      "sourceLabel": "Generated path edge edge-room-06-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-06-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-07-hall-east",
+      "sourceLabel": "Generated path edge edge-room-07-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-07-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 20
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-08-hall-east",
+      "sourceLabel": "Generated path edge edge-room-08-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-08-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 30
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-09-hall-east",
+      "sourceLabel": "Generated path edge edge-room-09-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-09-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 36
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-10-hall-east",
+      "sourceLabel": "Generated path edge edge-room-10-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-10-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 47
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-13-hall-east",
+      "sourceLabel": "Generated path edge edge-room-13-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-13-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 17
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-11-hall-east",
+      "sourceLabel": "Generated path edge edge-room-11-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-11-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 58
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-12-hall-east",
+      "sourceLabel": "Generated path edge edge-room-12-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-12-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 68
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-15-hall-ems-entry",
+      "sourceLabel": "Generated path edge edge-room-15-hall-ems-entry",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-15-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 24
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-16-hall-ems-entry",
+      "sourceLabel": "Generated path edge edge-room-16-hall-ems-entry",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-16-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 44
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-17-hall-east",
+      "sourceLabel": "Generated path edge edge-room-17-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-17-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 56
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-19-hall-ems-entry",
+      "sourceLabel": "Generated path edge edge-room-19-hall-ems-entry",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-19-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 69
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-20-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-20-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-20-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 79
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-21-hall-mid",
+      "sourceLabel": "Generated path edge edge-room-21-hall-mid",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-21-hall-mid",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 91
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-22-hall-east",
+      "sourceLabel": "Generated path edge edge-room-22-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-22-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 85
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-23-hall-east",
+      "sourceLabel": "Generated path edge edge-room-23-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-23-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 85
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-room-24-hall-east",
+      "sourceLabel": "Generated path edge edge-room-24-hall-east",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-room-24-hall-east",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 103
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-station-left-hall",
+      "sourceLabel": "Generated path edge edge-station-left-hall",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-station-left-hall",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 16
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-station-right-hall",
+      "sourceLabel": "Generated path edge edge-station-right-hall",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-station-right-hall",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 18
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-provider-pharmacy-hall",
+      "sourceLabel": "Generated path edge edge-provider-pharmacy-hall",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-provider-pharmacy-hall",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 14
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hallway-top-anchor",
+      "sourceLabel": "Generated path edge edge-hallway-top-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hallway-top-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 8
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hallway-left-anchor",
+      "sourceLabel": "Generated path edge edge-hallway-left-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hallway-left-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 10
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hallway-bottom-anchor",
+      "sourceLabel": "Generated path edge edge-hallway-bottom-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hallway-bottom-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 20
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hallway-right-anchor",
+      "sourceLabel": "Generated path edge edge-hallway-right-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hallway-right-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 10
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-hallway-right-upper-anchor",
+      "sourceLabel": "Generated path edge edge-hallway-right-upper-anchor",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-hallway-right-upper-anchor",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 8
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-ems-entry-bottom-hallway",
+      "sourceLabel": "Generated path edge edge-ems-entry-bottom-hallway",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-ems-entry-bottom-hallway",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 18
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-left-vertical-bottom-hallway",
+      "sourceLabel": "Generated path edge edge-left-vertical-bottom-hallway",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-left-vertical-bottom-hallway",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 24
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-top-hallway-right-upper",
+      "sourceLabel": "Generated path edge edge-top-hallway-right-upper",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-top-hallway-right-upper",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 34
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-right-upper-right-vertical",
+      "sourceLabel": "Generated path edge edge-right-upper-right-vertical",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-right-upper-right-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 22
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
+    },
+    {
+      "sourceObjectId": "src-plan-1-edge-bottom-hallway-right-vertical",
+      "sourceLabel": "Generated path edge edge-bottom-hallway-right-vertical",
+      "objectType": "pathEdge",
+      "targetObjectId": "edge-bottom-hallway-right-vertical",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 0,
+        "y": 0,
+        "widthFeet": null,
+        "lengthFeet": 24
+      },
+      "conversionProvenance": "generated_required_for_graph",
+      "notesCode": "source-label-position-approximate"
     }
   ],
   "deferredSourceLabels": [
+    {
+      "sourceLabel": "Grey unlabeled blocks",
+      "reasonCode": "needs-human-review"
+    },
     {
       "sourceLabel": "small unlabeled support marks",
       "reasonCode": "needs-human-review"

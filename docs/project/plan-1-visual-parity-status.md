@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Issue 236 is complete. Plan 1 walking baseline now uses the repaired path graph and required route groups for station, provider/pharmacy, EMS, bottom hallway, and right hallway route previews.
+Issue 237 is complete. Plan 1 source mapping now includes explicit conversion provenance and covers required source-truth targets, while generated graph objects are marked as generated/inferred rather than source-visible.
 
 ## Completed
 
@@ -14,17 +14,16 @@ Issue 236 is complete. Plan 1 walking baseline now uses the repaired path graph 
 - Issue 234: door/access-point coverage.
 - Issue 235: path node and path edge graph rebuild.
 - Issue 236: route preview and walking baseline rebuild.
+- Issue 237: source mapping and conversion provenance repair.
 
-## Current Counts
+## Current Mapping Counts
 
-- Route groups: 6
-- Total routes: 35
-- Reachable routes: 35
-- Unreachable routes: 0
+- Mapped objects: 127
+- Deferred source labels: 4
 
 ## Next Recommended Issue
 
-Issue 237: repair Plan 1 source mapping and conversion provenance.
+Issue 238: prove the repaired Plan 1 renders in the app from JSON fixture data.
 
 ## Non-Claims
 

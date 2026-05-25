@@ -1,0 +1,50 @@
+{
+  "issue": "237",
+  "commands": [
+    {
+      "command": "node custom first-failure source mapping provenance audit | Tee-Object -FilePath docs/verification/issues/issue-237/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-237/first-failure.txt",
+        "docs/verification/issues/issue-237/plan-1-source-mapping-before.json"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-237/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-237/test-output/shared.txt",
+        "docs/verification/issues/issue-237/plan-1-source-mapping-after.json",
+        "docs/verification/issues/issue-237/plan-1-provenance-coverage-output.json",
+        "docs/verification/issues/issue-237/plan-1-deferred-source-labels-output.json",
+        "docs/verification/issues/issue-237/plan-1-mapping-validation-output.json",
+        "docs/verification/issues/issue-237/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-237/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-237/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 237 | Tee-Object -FilePath docs/verification/issues/issue-237/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-237/test-output/plan-1-visual-parity-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-237/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-237/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-237/first-failure.txt",
+    "docs/verification/issues/issue-237/plan-1-source-mapping-before.json",
+    "docs/verification/issues/issue-237/plan-1-source-mapping-after.json",
+    "docs/verification/issues/issue-237/plan-1-provenance-coverage-output.json",
+    "docs/verification/issues/issue-237/plan-1-deferred-source-labels-output.json",
+    "docs/verification/issues/issue-237/plan-1-mapping-validation-output.json",
+    "docs/verification/issues/issue-237/plans-2-through-5-unchanged-output.json"
+  ]
+}

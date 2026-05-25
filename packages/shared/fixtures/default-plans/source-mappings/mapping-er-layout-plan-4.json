@@ -4,17 +4,155 @@
   "sourcePlanId": "source-er-layout-plan-4",
   "targetPlanId": "default-er-layout-plan-4",
   "objects": [
-    { "sourceObjectId": "src-plan-4-trauma", "sourceLabel": "Level 1 trauma", "objectType": "zone", "targetObjectId": "zone-level-1-trauma", "confidence": "high", "geometryApproximation": "manual", "approximateCoordinates": { "x": 8, "y": 12, "widthFeet": 24, "lengthFeet": 24 }, "notesCode": "source-label-position-approximate" },
-    { "sourceObjectId": "src-plan-4-trauma-room", "sourceLabel": "Level 1 trauma room", "objectType": "room", "targetObjectId": "room-level-1-trauma", "confidence": "high", "geometryApproximation": "manual", "approximateCoordinates": { "x": 10, "y": 14, "widthFeet": 20, "lengthFeet": 18 }, "notesCode": "source-visible-operational-object" },
-    { "sourceObjectId": "src-plan-4-hall-ems-entry", "sourceLabel": "Hall EMS entry", "objectType": "zone", "targetObjectId": "zone-hall-ems-entry", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 6, "y": 42, "widthFeet": 24, "lengthFeet": 50 }, "notesCode": "source-visible-operational-object" },
-    { "sourceObjectId": "src-plan-4-main-hall", "sourceLabel": "Main hall", "objectType": "hallway", "targetObjectId": "hallway-main", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 8, "y": 42, "widthFeet": 102, "lengthFeet": null }, "notesCode": "source-label-position-approximate" },
-    { "sourceObjectId": "src-plan-4-primary-nurse-station", "sourceLabel": "Nurse station", "objectType": "nurseStation", "targetObjectId": "station-primary", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 58, "y": 34, "widthFeet": 16, "lengthFeet": 8 }, "notesCode": "source-visible-operational-object" },
-    { "sourceObjectId": "src-plan-4-provider-pharmacy-area", "sourceLabel": "Provider pharmacy area", "objectType": "zone", "targetObjectId": "zone-provider-pharmacy", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 86, "y": 12, "widthFeet": 24, "lengthFeet": 18 }, "notesCode": "source-visible-operational-object" },
-    { "sourceObjectId": "src-plan-4-room-01", "sourceLabel": "Room 01", "objectType": "room", "targetObjectId": "room-01", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 44, "y": 8, "widthFeet": 14, "lengthFeet": 14 }, "notesCode": "source-label-position-approximate" },
-    { "sourceObjectId": "src-plan-4-room-02", "sourceLabel": "Room 02", "objectType": "room", "targetObjectId": "room-02", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 62, "y": 8, "widthFeet": 14, "lengthFeet": 14 }, "notesCode": "source-label-position-approximate" },
-    { "sourceObjectId": "src-plan-4-isolation-room", "sourceLabel": "Isolation room", "objectType": "room", "targetObjectId": "room-isolation-01", "confidence": "medium", "geometryApproximation": "manual", "approximateCoordinates": { "x": 46, "y": 56, "widthFeet": 16, "lengthFeet": 15 }, "notesCode": "source-visible-operational-object" }
+    {
+      "sourceObjectId": "src-plan-4-trauma",
+      "sourceLabel": "Level 1 trauma",
+      "objectType": "zone",
+      "targetObjectId": "zone-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 8,
+        "y": 12,
+        "widthFeet": 24,
+        "lengthFeet": 24
+      },
+      "notesCode": "source-label-position-approximate",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-trauma-room",
+      "sourceLabel": "Level 1 trauma room",
+      "objectType": "room",
+      "targetObjectId": "room-level-1-trauma",
+      "confidence": "high",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 10,
+        "y": 14,
+        "widthFeet": 20,
+        "lengthFeet": 18
+      },
+      "notesCode": "source-visible-operational-object",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-hall-ems-entry",
+      "sourceLabel": "Hall EMS entry",
+      "objectType": "zone",
+      "targetObjectId": "zone-hall-ems-entry",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 6,
+        "y": 42,
+        "widthFeet": 24,
+        "lengthFeet": 50
+      },
+      "notesCode": "source-visible-operational-object",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-main-hall",
+      "sourceLabel": "Main hall",
+      "objectType": "hallway",
+      "targetObjectId": "hallway-main",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 8,
+        "y": 42,
+        "widthFeet": 102,
+        "lengthFeet": null
+      },
+      "notesCode": "source-label-position-approximate",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-primary-nurse-station",
+      "sourceLabel": "Nurse station",
+      "objectType": "nurseStation",
+      "targetObjectId": "station-primary",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 58,
+        "y": 34,
+        "widthFeet": 16,
+        "lengthFeet": 8
+      },
+      "notesCode": "source-visible-operational-object",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-provider-pharmacy-area",
+      "sourceLabel": "Provider pharmacy area",
+      "objectType": "zone",
+      "targetObjectId": "zone-provider-pharmacy",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 86,
+        "y": 12,
+        "widthFeet": 24,
+        "lengthFeet": 18
+      },
+      "notesCode": "source-visible-operational-object",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-room-01",
+      "sourceLabel": "Room 01",
+      "objectType": "room",
+      "targetObjectId": "room-01",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 44,
+        "y": 8,
+        "widthFeet": 14,
+        "lengthFeet": 14
+      },
+      "notesCode": "source-label-position-approximate",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-room-02",
+      "sourceLabel": "Room 02",
+      "objectType": "room",
+      "targetObjectId": "room-02",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 62,
+        "y": 8,
+        "widthFeet": 14,
+        "lengthFeet": 14
+      },
+      "notesCode": "source-label-position-approximate",
+      "conversionProvenance": "manual_approximation"
+    },
+    {
+      "sourceObjectId": "src-plan-4-isolation-room",
+      "sourceLabel": "Isolation room",
+      "objectType": "room",
+      "targetObjectId": "room-isolation-01",
+      "confidence": "medium",
+      "geometryApproximation": "manual",
+      "approximateCoordinates": {
+        "x": 46,
+        "y": 56,
+        "widthFeet": 16,
+        "lengthFeet": 15
+      },
+      "notesCode": "source-visible-operational-object",
+      "conversionProvenance": "manual_approximation"
+    }
   ],
   "deferredSourceLabels": [
-    { "sourceLabel": "small unlabeled support marks", "reasonCode": "needs-human-review" }
+    {
+      "sourceLabel": "small unlabeled support marks",
+      "reasonCode": "needs-human-review"
+    }
   ]
 }
