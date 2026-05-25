@@ -1,0 +1,22 @@
+{
+  "passed": {
+    "label": "Passed",
+    "meaning": "Required checks passed with no notices.",
+    "blocksProgress": false
+  },
+  "info": {
+    "label": "Info",
+    "meaning": "Informational notice only; does not imply warning or block progress.",
+    "blocksProgress": false
+  },
+  "warning": {
+    "label": "Warning",
+    "meaning": "Operational modeling concern that should be reviewed but does not block deterministic fixture generation.",
+    "blocksProgress": false
+  },
+  "blocking": {
+    "label": "Blocking",
+    "meaning": "Contract or scope violation that blocks the current stage.",
+    "blocksProgress": true
+  }
+}

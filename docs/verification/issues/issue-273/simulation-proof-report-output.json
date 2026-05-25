@@ -1,0 +1,144 @@
+{
+  "reportId": "plan-1-simulation-proof-report-gate",
+  "planId": "default-er-layout-plan-1",
+  "sections": {
+    "scenarioIdentity": {
+      "scenarioId": "scenario-typical-baseline",
+      "profileId": "plan-1-typical",
+      "seed": 251001,
+      "durationMinutes": 720
+    },
+    "assumptionsSummary": {
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "sectionLabels": [
+        "Burden score weights",
+        "Walking assumptions",
+        "Task duration assumptions",
+        "Task frequency assumptions",
+        "Scenario intensity assumptions",
+        "Queue assumptions",
+        "Handoff assumptions",
+        "Interruption assumptions",
+        "Overload thresholds",
+        "Status semantics",
+        "Limitations and non-claims"
+      ]
+    },
+    "assignmentSummary": {
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 14
+    },
+    "generatedTaskSummary": {
+      "taskSetId": "scenario-typical-baseline-seed-251001-tasks",
+      "taskCount": 258,
+      "walkingTaskCount": 199
+    },
+    "dryRunSummary": {
+      "dryRunId": "scenario-typical-baseline-dry-run-v1",
+      "completedTaskCount": 246,
+      "deferredTaskCount": 12,
+      "pathBasedTaskCount": 199,
+      "fallbackTaskCount": 0,
+      "missingRouteTaskCount": 0,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY",
+        "BUSY_MINUTES_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ]
+    },
+    "timelineSummary": {
+      "totalApproxWalkingFeet": 19443,
+      "pathBasedTaskCount": 199,
+      "fallbackTaskCount": 0,
+      "missingRouteTaskCount": 0,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "nurseTimelineCount": 4,
+      "roomTimelineCount": 23,
+      "warningTimelineCount": 6
+    },
+    "warningExplanations": [
+      {
+        "warningCode": "APPROXIMATE_GRAPH_ONLY",
+        "label": "Approximate graph route",
+        "severity": "info",
+        "source": "walking",
+        "plainLanguageExplanation": "The distance comes from the Plan 1 fixture graph or walking baseline.",
+        "operationalInterpretation": "Use as deterministic operational route context, not measured walking truth.",
+        "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+      },
+      {
+        "warningCode": "BUSY_MINUTES_WARNING",
+        "label": "High busy-minute estimate",
+        "severity": "warning",
+        "source": "dry_run",
+        "plainLanguageExplanation": "A nurse timeline reached the configured busy-minute threshold.",
+        "operationalInterpretation": "Review the synthetic task load and timing assumptions for this scenario.",
+        "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+      },
+      {
+        "warningCode": "QUEUE_DEPTH_WARNING",
+        "label": "Queue depth threshold reached",
+        "severity": "warning",
+        "source": "dry_run",
+        "plainLanguageExplanation": "Queued synthetic tasks accumulated behind already scheduled work.",
+        "operationalInterpretation": "Use this as an operational pressure signal for the dry-run timeline.",
+        "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+      },
+      {
+        "warningCode": "ROOM_DEFERRED_TASKS",
+        "label": "Room has deferred tasks",
+        "severity": "warning",
+        "source": "dry_run",
+        "plainLanguageExplanation": "At least one synthetic task tied to a room falls outside the simulated duration.",
+        "operationalInterpretation": "Inspect the room timeline and task timing assumptions.",
+        "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+      },
+      {
+        "warningCode": "WALKING_LOAD_WARNING",
+        "label": "Walking load threshold reached",
+        "severity": "warning",
+        "source": "walking",
+        "plainLanguageExplanation": "Estimated walking distance reached the configured operational threshold.",
+        "operationalInterpretation": "Review route assumptions, path graph coverage, and scenario walking friction.",
+        "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+      }
+    ],
+    "scenarioComparisonSummary": {
+      "comparisonId": "plan-1-scenario-comparison-baseline-v1",
+      "rowCount": 5,
+      "plainLanguageSummaries": [
+        "Typical is the baseline for operational comparison only; it anchors synthetic task pressure, deferred synthetic work, approximate walking load, and queue-depth signal.",
+        "Busy shows higher synthetic task pressure (+93 tasks). It has more deferred synthetic work (+64 tasks). Approximate walking load changes by +4994 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+        "Slammed shows higher synthetic task pressure (+369 tasks). It has more deferred synthetic work (+320 tasks). Approximate walking load changes by +10204 feet. The queue-depth signal is larger (+11). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+        "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+        "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only."
+      ]
+    },
+    "determinismProof": {
+      "sameInputProducesSameReport": true,
+      "deterministicKey": "scenario-typical-baseline|251001|720|scenario-typical-baseline-seed-251001-tasks|scenario-typical-baseline-dry-run-v1"
+    },
+    "limitations": [
+      "Assumptions are synthetic operational modeling inputs.",
+      "Plan 1 deterministic dry-run foundation only.",
+      "Plan 1 only.",
+      "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only.",
+      "Synthetic tasks use explicit assumptions and seeded generation.",
+      "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+    ],
+    "nonClaims": [
+      "Not a clinical safety score.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not a staffing compliance recommendation.",
+      "Not based on real patient, staff, EHR, or hospital data.",
+      "Synthetic operational modeling only."
+    ]
+  },
+  "syntheticDataOnly": true
+}

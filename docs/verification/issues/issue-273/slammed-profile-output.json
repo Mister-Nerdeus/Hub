@@ -1,0 +1,27 @@
+{
+  "profileId": "plan-1-slammed",
+  "label": "Slammed",
+  "description": "Synthetic high operational pressure across volume, acuity, turnover, and interruptions.",
+  "assumptionsId": "plan-1-simulation-assumptions-v1",
+  "syntheticDataOnly": true,
+  "durationMinutes": 720,
+  "taskVolumeMultiplier": 1.75,
+  "acuityPressureMultiplier": 1.35,
+  "traumaEventMultiplier": 1.35,
+  "turnoverMultiplier": 1.6,
+  "walkingFrictionMultiplier": 1.2,
+  "interruptionMultiplier": 1.6,
+  "seedDefault": 253003,
+  "limitations": [
+    "Synthetic Plan 1 operational profile only.",
+    "Highest pressure profile in this batch for dry-run comparison."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

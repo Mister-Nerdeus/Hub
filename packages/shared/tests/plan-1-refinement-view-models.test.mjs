@@ -105,7 +105,7 @@ test("Plan 1 warning explainability covers required warning codes without claim 
 test("Plan 1 comparison view model explains required comparison rows", () => {
   const viewModel = buildPlan1ScenarioComparisonViewModel(comparison);
   assert.equal(viewModel.requiredComparisons.typicalVsSlammed.profileId, "plan-1-slammed");
-  assert.match(viewModel.requiredComparisons.typicalVsWalkingHeavy.plainLanguageSummary, /Walking estimate/u);
+  assert.match(viewModel.narratives.requiredNarratives.typical_vs_walking_heavy.summary, /higher approximate walking load/u);
   assert.equal(viewModel.nonClaims.includes("Not a patient outcome prediction."), true);
 });
 

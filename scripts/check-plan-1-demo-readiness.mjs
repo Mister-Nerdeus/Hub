@@ -60,6 +60,7 @@ if (stage === "narratives" || stage === "final") {
     "prohibited-claim-negative-output.json",
     "comparison-panel-narrative-output.json"
   ], "scenarioNarratives"));
+  checks.push(validateNarrativeContent());
 }
 if (stage === "assumptions-presentation" || stage === "final") {
   checks.push(validateIssueEvidence("274", [
@@ -259,6 +260,41 @@ function validateRouteMatrix() {
     }
   }
   return check("routeMatrix", failures);
+}
+
+function validateNarrativeContent() {
+  const relativePath = "docs/verification/issues/issue-273/scenario-narratives-output.json";
+  const output = readOptionalJson(relativePath);
+  if (output == null) {
+    return check("scenarioNarrativeContent", [`missing ${relativePath}`]);
+  }
+  const text = JSON.stringify(output);
+  const failures = [];
+  for (const phrase of [
+    "higher synthetic task pressure",
+    "more deferred synthetic work",
+    "higher approximate walking load",
+    "larger queue-depth signal",
+    "operational comparison only"
+  ]) {
+    if (!text.includes(phrase)) {
+      failures.push(`missing narrative phrase: ${phrase}`);
+    }
+  }
+  for (const prohibited of [
+    /\bunsafe\b/iu,
+    /\bsafe\b/iu,
+    /staffing compliant/iu,
+    /clinically unacceptable/iu,
+    /patient harm/iu,
+    /predicts outcomes/iu,
+    /required staffing level/iu
+  ]) {
+    if (prohibited.test(text)) {
+      failures.push(`prohibited narrative claim language present: ${prohibited}`);
+    }
+  }
+  return check("scenarioNarrativeContent", failures);
 }
 
 function summarizeManifest(value) {

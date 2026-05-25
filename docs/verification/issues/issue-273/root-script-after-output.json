@@ -1,0 +1,17 @@
+{
+  "scripts": [
+    "check:plan1-all-gates",
+    "check:plan1-assignment-workflow",
+    "check:plan1-scenario-simulation",
+    "check:plan1-simulation-refinement",
+    "check:plan1-visual-parity",
+    "check:plans-2-5-unchanged"
+  ],
+  "issueTraceabilityScoped": true,
+  "issueScope": {
+    "issue": "273",
+    "issueTraceabilityScoped": true,
+    "issueEvidenceDirectory": "docs/verification/issues/issue-273",
+    "evidenceDirectoryMatchesIssue": true
+  }
+}

@@ -26,7 +26,14 @@
     "docs/verification/issues/issue-272/demo-step-coverage-output.json",
     "docs/verification/issues/issue-272/demo-non-claims-banner-output.json",
     "docs/verification/issues/issue-272/developer-evidence-separation-output.json",
-    "docs/verification/issues/issue-272/screenshots/plan-1-demo-guide.png"
+    "docs/verification/issues/issue-272/screenshots/plan-1-demo-guide.png",
+    "docs/verification/issues/issue-273/scenario-narratives-output.json",
+    "docs/verification/issues/issue-273/typical-vs-slammed-narrative-output.json",
+    "docs/verification/issues/issue-273/typical-vs-walking-heavy-narrative-output.json",
+    "docs/verification/issues/issue-273/typical-vs-trauma-heavy-narrative-output.json",
+    "docs/verification/issues/issue-273/prohibited-claim-negative-output.json",
+    "docs/verification/issues/issue-273/comparison-panel-narrative-output.json",
+    "docs/verification/issues/issue-273/screenshots/plan-1-scenario-narratives.png"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -51,6 +58,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "272",
+  "lastIssueUpdated": "273",
   "goNoGoStatus": "pending"
 }

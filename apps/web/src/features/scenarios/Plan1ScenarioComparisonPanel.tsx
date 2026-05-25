@@ -28,26 +28,58 @@ export function Plan1ScenarioComparisonPanel({
           </tbody>
         </table>
       ) : (
-        <table>
-          <thead>
-            <tr><th>Profile</th><th>Task delta</th><th>Deferred delta</th><th>Walking delta</th><th>Queue delta</th><th>Summary</th></tr>
-          </thead>
-          <tbody>
-            {viewModel.rows.map((row) => (
-              <tr key={row.profileId}>
-                <td>{row.profileLabel}</td>
-                <td>{row.taskPressureDelta}</td>
-                <td>{row.deferredTaskDelta}</td>
-                <td>{row.walkingBurdenDelta}</td>
-                <td>{row.maxQueueDepthDelta}</td>
-                <td>{row.plainLanguageSummary}</td>
-              </tr>
+        <>
+          <div className="scenario-narrative-grid" data-scenario-narratives="plan-1">
+            {viewModel.narratives.narratives.map((narrative) => (
+              <article className="scenario-narrative-card" key={narrative.narrativeType}>
+                <h4>{narrative.title}</h4>
+                <p>{narrative.summary}</p>
+                <dl>
+                  <div>
+                    <dt>Task pressure</dt>
+                    <dd>{formatDelta(narrative.evidenceSignals.taskPressureDelta)}</dd>
+                  </div>
+                  <div>
+                    <dt>Deferred work</dt>
+                    <dd>{formatDelta(narrative.evidenceSignals.deferredTaskDelta)}</dd>
+                  </div>
+                  <div>
+                    <dt>Walking load</dt>
+                    <dd>{formatDelta(narrative.evidenceSignals.walkingBurdenDelta)} ft</dd>
+                  </div>
+                  <div>
+                    <dt>Queue signal</dt>
+                    <dd>{formatDelta(narrative.evidenceSignals.maxQueueDepthDelta)}</dd>
+                  </div>
+                </dl>
+              </article>
             ))}
-          </tbody>
-        </table>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Profile</th><th>Task delta</th><th>Deferred delta</th><th>Walking delta</th><th>Queue delta</th><th>Evidence summary</th></tr>
+            </thead>
+            <tbody>
+              {viewModel.rows.map((row) => (
+                <tr key={row.profileId}>
+                  <td>{row.profileLabel}</td>
+                  <td>{row.taskPressureDelta}</td>
+                  <td>{row.deferredTaskDelta}</td>
+                  <td>{row.walkingBurdenDelta}</td>
+                  <td>{row.maxQueueDepthDelta}</td>
+                  <td>{row.plainLanguageSummary}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
       <p>{comparison.limitations.join(" ")}</p>
       <p>{comparison.nonClaims.join(" ")}</p>
     </section>
   );
+}
+
+function formatDelta(value: number): string {
+  return value > 0 ? `+${value}` : String(value);
 }

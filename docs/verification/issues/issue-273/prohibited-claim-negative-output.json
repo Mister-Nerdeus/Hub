@@ -1,0 +1,41 @@
+{
+  "issue": "273",
+  "status": "passed",
+  "rejected": [
+    {
+      "summary": "unsafe staffing",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /\\bunsafe\\b/iu"
+    },
+    {
+      "summary": "safe",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /\\bsafe\\b/iu"
+    },
+    {
+      "summary": "staffing compliant",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /staffing compliant/iu"
+    },
+    {
+      "summary": "clinically unacceptable",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /clinically unacceptable/iu"
+    },
+    {
+      "summary": "patient harm",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /patient harm/iu"
+    },
+    {
+      "summary": "predicts outcomes",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /predicts outcomes/iu"
+    },
+    {
+      "summary": "required staffing level",
+      "status": "rejected",
+      "message": "Plan 1 scenario narrative contains prohibited claim language: /required staffing level/iu"
+    }
+  ]
+}

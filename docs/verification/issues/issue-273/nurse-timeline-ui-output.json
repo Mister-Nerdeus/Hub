@@ -1,0 +1,60 @@
+[
+  {
+    "nurseId": "nurse-blue",
+    "assignedTaskCount": 54,
+    "completedTaskCount": 53,
+    "deferredTaskCount": 1,
+    "approxBusyMinutes": 501,
+    "approxIdleMinutes": 219,
+    "approxWalkingFeet": 2954,
+    "maxQueueDepth": 1,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ]
+  },
+  {
+    "nurseId": "nurse-green",
+    "assignedTaskCount": 53,
+    "completedTaskCount": 52,
+    "deferredTaskCount": 1,
+    "approxBusyMinutes": 502,
+    "approxIdleMinutes": 218,
+    "approxWalkingFeet": 3878,
+    "maxQueueDepth": 2,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY",
+      "WALKING_LOAD_WARNING"
+    ]
+  },
+  {
+    "nurseId": "nurse-orange",
+    "assignedTaskCount": 72,
+    "completedTaskCount": 69,
+    "deferredTaskCount": 3,
+    "approxBusyMinutes": 685,
+    "approxIdleMinutes": 35,
+    "approxWalkingFeet": 5674,
+    "maxQueueDepth": 2,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY",
+      "BUSY_MINUTES_WARNING",
+      "WALKING_LOAD_WARNING"
+    ]
+  },
+  {
+    "nurseId": "nurse-purple",
+    "assignedTaskCount": 79,
+    "completedTaskCount": 72,
+    "deferredTaskCount": 7,
+    "approxBusyMinutes": 676,
+    "approxIdleMinutes": 44,
+    "approxWalkingFeet": 6937,
+    "maxQueueDepth": 4,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY",
+      "BUSY_MINUTES_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "WALKING_LOAD_WARNING"
+    ]
+  }
+]

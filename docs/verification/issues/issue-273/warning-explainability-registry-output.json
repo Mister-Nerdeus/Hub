@@ -1,0 +1,92 @@
+[
+  {
+    "warningCode": "APPROXIMATE_GRAPH_ONLY",
+    "label": "Approximate graph route",
+    "severity": "info",
+    "source": "walking",
+    "plainLanguageExplanation": "The distance comes from the Plan 1 fixture graph or walking baseline.",
+    "operationalInterpretation": "Use as deterministic operational route context, not measured walking truth.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "BUSY_MINUTES_WARNING",
+    "label": "High busy-minute estimate",
+    "severity": "warning",
+    "source": "dry_run",
+    "plainLanguageExplanation": "A nurse timeline reached the configured busy-minute threshold.",
+    "operationalInterpretation": "Review the synthetic task load and timing assumptions for this scenario.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "DEFERRED_TASK_WARNING",
+    "label": "Deferred task ratio threshold reached",
+    "severity": "warning",
+    "source": "dry_run",
+    "plainLanguageExplanation": "A nurse timeline deferred enough synthetic tasks to reach the configured ratio.",
+    "operationalInterpretation": "Inspect the deterministic timeline for schedule pressure.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "QUEUE_DEPTH_WARNING",
+    "label": "Queue depth threshold reached",
+    "severity": "warning",
+    "source": "dry_run",
+    "plainLanguageExplanation": "Queued synthetic tasks accumulated behind already scheduled work.",
+    "operationalInterpretation": "Use this as an operational pressure signal for the dry-run timeline.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "ROOM_DEFERRED_TASKS",
+    "label": "Room has deferred tasks",
+    "severity": "warning",
+    "source": "dry_run",
+    "plainLanguageExplanation": "At least one synthetic task tied to a room falls outside the simulated duration.",
+    "operationalInterpretation": "Inspect the room timeline and task timing assumptions.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "STALE_PATH_SYNC",
+    "label": "Stale path sync",
+    "severity": "warning",
+    "source": "walking",
+    "plainLanguageExplanation": "The assignment or path state reports stale path synchronization.",
+    "operationalInterpretation": "Refresh or inspect path references before using route-derived estimates for review.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "TASK_ROUTE_DISTANCE_FALLBACK",
+    "label": "Fallback walking distance used",
+    "severity": "warning",
+    "source": "walking",
+    "plainLanguageExplanation": "A task needed a route distance but used an explicitly labeled fallback constant.",
+    "operationalInterpretation": "Treat the distance as approximate until Plan 1 route lookup resolves.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "TASK_ROUTE_DISTANCE_MISSING",
+    "label": "Task route distance missing",
+    "severity": "warning",
+    "source": "walking",
+    "plainLanguageExplanation": "A task needed a route distance but no station-to-room route could be resolved.",
+    "operationalInterpretation": "Inspect home station, room path node, walking baseline, and path graph references.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "TRAUMA_WORKLOAD_NOTICE",
+    "label": "Trauma-heavy profile notice",
+    "severity": "info",
+    "source": "dry_run",
+    "plainLanguageExplanation": "The selected synthetic profile applies elevated trauma-response task volume.",
+    "operationalInterpretation": "Compare this profile against typical to understand scenario pressure.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  },
+  {
+    "warningCode": "WALKING_LOAD_WARNING",
+    "label": "Walking load threshold reached",
+    "severity": "warning",
+    "source": "walking",
+    "plainLanguageExplanation": "Estimated walking distance reached the configured operational threshold.",
+    "operationalInterpretation": "Review route assumptions, path graph coverage, and scenario walking friction.",
+    "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+  }
+]

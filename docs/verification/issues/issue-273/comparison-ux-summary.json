@@ -1,0 +1,91 @@
+{
+  "rowCount": 5,
+  "typicalVsSlammed": {
+    "profileLabel": "Slammed",
+    "profileId": "plan-1-slammed",
+    "taskPressureDelta": 369,
+    "deferredTaskDelta": 320,
+    "walkingBurdenDelta": 10204,
+    "maxQueueDepthDelta": 11,
+    "highestBurdenNurseId": "nurse-orange",
+    "warningCodeSummary": [
+      "BUSY_MINUTES_WARNING",
+      "DEFERRED_TASK_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "WALKING_LOAD_WARNING"
+    ],
+    "plainLanguageSummary": "Slammed shows higher synthetic task pressure (+369 tasks). It has more deferred synthetic work (+320 tasks). Approximate walking load changes by +10204 feet. The queue-depth signal is larger (+11). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ]
+  },
+  "typicalVsWalkingHeavy": {
+    "profileLabel": "Walking heavy",
+    "profileId": "plan-1-walking-heavy",
+    "taskPressureDelta": 216,
+    "deferredTaskDelta": 186,
+    "walkingBurdenDelta": 29428,
+    "maxQueueDepthDelta": 9,
+    "highestBurdenNurseId": "nurse-orange",
+    "warningCodeSummary": [
+      "BUSY_MINUTES_WARNING",
+      "DEFERRED_TASK_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "WALKING_LOAD_WARNING"
+    ],
+    "plainLanguageSummary": "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ]
+  },
+  "typicalVsTraumaHeavy": {
+    "profileLabel": "Trauma heavy",
+    "profileId": "plan-1-trauma-heavy",
+    "taskPressureDelta": 112,
+    "deferredTaskDelta": 77,
+    "walkingBurdenDelta": 7100,
+    "maxQueueDepthDelta": 4,
+    "highestBurdenNurseId": "nurse-orange",
+    "warningCodeSummary": [
+      "BUSY_MINUTES_WARNING",
+      "DEFERRED_TASK_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "TRAUMA_WORKLOAD_NOTICE",
+      "WALKING_LOAD_WARNING"
+    ],
+    "plainLanguageSummary": "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ]
+  }
+}

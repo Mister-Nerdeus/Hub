@@ -1,0 +1,92 @@
+[
+  {
+    "nurseId": "nurse-blue",
+    "homeStationId": "station-left",
+    "assignedRoomIds": [
+      "room-level-1-trauma",
+      "room-02",
+      "room-03"
+    ],
+    "reachableRoomCount": 3,
+    "unreachableRoomCount": 0,
+    "totalApproxDistanceFeet": 202,
+    "totalApproxTravelSeconds": 67.408,
+    "longestRoomDistanceFeet": 86,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ],
+    "limitations": [
+      "Approximate graph-only walking preview.",
+      "Not measured walking truth.",
+      "Not staffing safety guidance."
+    ]
+  },
+  {
+    "nurseId": "nurse-green",
+    "homeStationId": "station-left",
+    "assignedRoomIds": [
+      "room-04",
+      "room-06",
+      "room-07"
+    ],
+    "reachableRoomCount": 3,
+    "unreachableRoomCount": 0,
+    "totalApproxDistanceFeet": 276,
+    "totalApproxTravelSeconds": 83.364,
+    "longestRoomDistanceFeet": 104,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ],
+    "limitations": [
+      "Approximate graph-only walking preview.",
+      "Not measured walking truth.",
+      "Not staffing safety guidance."
+    ]
+  },
+  {
+    "nurseId": "nurse-orange",
+    "homeStationId": "station-right",
+    "assignedRoomIds": [
+      "room-08",
+      "room-17",
+      "room-19",
+      "room-20"
+    ],
+    "reachableRoomCount": 4,
+    "unreachableRoomCount": 0,
+    "totalApproxDistanceFeet": 400,
+    "totalApproxTravelSeconds": 120.182,
+    "longestRoomDistanceFeet": 139,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ],
+    "limitations": [
+      "Approximate graph-only walking preview.",
+      "Not measured walking truth.",
+      "Not staffing safety guidance."
+    ]
+  },
+  {
+    "nurseId": "nurse-purple",
+    "homeStationId": "station-right",
+    "assignedRoomIds": [
+      "room-21",
+      "room-22",
+      "room-23",
+      "room-24"
+    ],
+    "reachableRoomCount": 4,
+    "unreachableRoomCount": 0,
+    "totalApproxDistanceFeet": 478,
+    "totalApproxTravelSeconds": 138.864,
+    "longestRoomDistanceFeet": 151,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ],
+    "limitations": [
+      "Approximate graph-only walking preview.",
+      "Not measured walking truth.",
+      "Not staffing safety guidance."
+    ]
+  }
+]

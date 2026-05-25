@@ -1,0 +1,36 @@
+{
+  "issue": "273",
+  "status": "passed",
+  "narrative": {
+    "narrativeType": "typical_vs_slammed",
+    "title": "Typical vs slammed",
+    "profileId": "plan-1-slammed",
+    "summary": "Compared with Typical, Slammed shows higher synthetic task pressure (+369 tasks) and more deferred synthetic work (+320 tasks). The queue-depth signal is larger (+11) while approximate walking load also rises (+10204 feet). This is an operational comparison only using synthetic, seeded scenario output.",
+    "evidenceSignals": {
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ]
+    },
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  }
+}

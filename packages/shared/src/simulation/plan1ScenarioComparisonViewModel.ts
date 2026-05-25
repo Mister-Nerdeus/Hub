@@ -1,5 +1,9 @@
 import { validatePlan1Limitations, validatePlan1NonClaims } from "../scenario/plan1SimulationAssumptions.js";
 import type { Plan1ScenarioComparisonFixture, Plan1ScenarioComparisonItem } from "./plan1ScenarioComparison.js";
+import {
+  buildPlan1ScenarioNarratives,
+  type Plan1ScenarioNarrativeSet
+} from "./plan1ScenarioNarratives.js";
 
 export type Plan1ScenarioComparisonViewModelRow = {
   profileLabel: string;
@@ -26,6 +30,7 @@ export type Plan1ScenarioComparisonViewModel = {
   };
   limitations: string[];
   nonClaims: string[];
+  narratives: Plan1ScenarioNarrativeSet;
   syntheticDataOnly: true;
 };
 
@@ -46,7 +51,7 @@ export function buildPlan1ScenarioComparisonViewModel(
     throw new Error("Plan 1 comparison view model requires a typical baseline item");
   }
   const rows = comparison.items.map((item) => buildRow(item, baseline));
-  return {
+  const viewModel = {
     comparisonId: comparison.comparisonId,
     baselineScenarioId: comparison.baselineScenarioId,
     rows,
@@ -57,7 +62,11 @@ export function buildPlan1ScenarioComparisonViewModel(
     },
     limitations: validatePlan1Limitations(comparison.limitations, "comparisonViewModel.limitations"),
     nonClaims: validatePlan1NonClaims(comparison.nonClaims, "comparisonViewModel.nonClaims"),
-    syntheticDataOnly: true
+    syntheticDataOnly: true as const
+  };
+  return {
+    ...viewModel,
+    narratives: buildPlan1ScenarioNarratives(viewModel)
   };
 }
 
@@ -88,15 +97,20 @@ function summarizeRow(
   item: Plan1ScenarioComparisonItem,
   delta: Pick<Plan1ScenarioComparisonViewModelRow, "taskPressureDelta" | "deferredTaskDelta" | "walkingBurdenDelta" | "maxQueueDepthDelta">
 ): string {
+  const label = PROFILE_LABELS[item.profileId] ?? item.profileId;
+  if (delta.taskPressureDelta === 0 && delta.deferredTaskDelta === 0 && delta.walkingBurdenDelta === 0 && delta.maxQueueDepthDelta === 0) {
+    return `${label} is the baseline for operational comparison only; it anchors synthetic task pressure, deferred synthetic work, approximate walking load, and queue-depth signal.`;
+  }
   const parts = [
-    `${PROFILE_LABELS[item.profileId] ?? item.profileId} changes task pressure by ${delta.taskPressureDelta}.`,
-    `Deferred tasks change by ${delta.deferredTaskDelta}.`,
-    `Walking estimate changes by ${delta.walkingBurdenDelta} feet.`,
-    `Maximum queue depth changes by ${delta.maxQueueDepthDelta}.`
+    `${label} shows ${delta.taskPressureDelta > 0 ? "higher" : "lower or unchanged"} synthetic task pressure (${signed(delta.taskPressureDelta)} tasks).`,
+    `It has ${delta.deferredTaskDelta > 0 ? "more" : "less or unchanged"} deferred synthetic work (${signed(delta.deferredTaskDelta)} tasks).`,
+    `Approximate walking load changes by ${signed(delta.walkingBurdenDelta)} feet.`,
+    `The queue-depth signal is ${delta.maxQueueDepthDelta > 0 ? "larger" : "unchanged or lower"} (${signed(delta.maxQueueDepthDelta)}).`
   ];
   if (item.warningCodes.length > 0) {
     parts.push(`Warnings represented: ${[...item.warningCodes].sort().join(", ")}.`);
   }
+  parts.push("This is an operational comparison only.");
   return parts.join(" ");
 }
 
@@ -106,4 +120,8 @@ function requireRow(rows: Plan1ScenarioComparisonViewModelRow[], profileId: stri
     throw new Error(`Plan 1 comparison view model missing ${profileId}`);
   }
   return row;
+}
+
+function signed(value: number): string {
+  return value > 0 ? `+${value}` : String(value);
 }

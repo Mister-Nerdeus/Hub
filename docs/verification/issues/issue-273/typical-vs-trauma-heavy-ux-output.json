@@ -1,0 +1,30 @@
+{
+  "profileLabel": "Trauma heavy",
+  "profileId": "plan-1-trauma-heavy",
+  "taskPressureDelta": 112,
+  "deferredTaskDelta": 77,
+  "walkingBurdenDelta": 7100,
+  "maxQueueDepthDelta": 4,
+  "highestBurdenNurseId": "nurse-orange",
+  "warningCodeSummary": [
+    "BUSY_MINUTES_WARNING",
+    "DEFERRED_TASK_WARNING",
+    "QUEUE_DEPTH_WARNING",
+    "ROOM_DEFERRED_TASKS",
+    "TRAUMA_WORKLOAD_NOTICE",
+    "WALKING_LOAD_WARNING"
+  ],
+  "plainLanguageSummary": "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

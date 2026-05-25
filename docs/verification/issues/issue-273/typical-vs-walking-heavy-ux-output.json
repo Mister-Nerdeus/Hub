@@ -1,0 +1,29 @@
+{
+  "profileLabel": "Walking heavy",
+  "profileId": "plan-1-walking-heavy",
+  "taskPressureDelta": 216,
+  "deferredTaskDelta": 186,
+  "walkingBurdenDelta": 29428,
+  "maxQueueDepthDelta": 9,
+  "highestBurdenNurseId": "nurse-orange",
+  "warningCodeSummary": [
+    "BUSY_MINUTES_WARNING",
+    "DEFERRED_TASK_WARNING",
+    "QUEUE_DEPTH_WARNING",
+    "ROOM_DEFERRED_TASKS",
+    "WALKING_LOAD_WARNING"
+  ],
+  "plainLanguageSummary": "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

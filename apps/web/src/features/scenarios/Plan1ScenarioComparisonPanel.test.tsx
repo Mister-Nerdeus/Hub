@@ -13,6 +13,9 @@ assertComparison(source.includes("totalApproxWalkingFeet"), "comparison panel mu
 assertComparison(source.includes("comparison.limitations"), "comparison panel must render limitations");
 assertComparison(source.includes("comparison.nonClaims"), "comparison panel must render non-claims");
 assertComparison(source.includes("data-scenario-stage=\"comparison-ux\""), "comparison panel must expose stage marker");
+assertComparison(source.includes("viewModel.narratives.narratives.map"), "comparison panel must render scenario narratives");
+assertComparison(source.includes("data-scenario-narratives=\"plan-1\""), "comparison panel must expose narrative marker");
+assertComparison(source.includes("Evidence summary"), "comparison panel must preserve numeric evidence table");
 
 function assertComparison(condition: boolean, message: string) {
   if (!condition) {

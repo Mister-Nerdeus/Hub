@@ -1,0 +1,36 @@
+{
+  "issue": "273",
+  "status": "passed",
+  "narrative": {
+    "narrativeType": "typical_vs_walking_heavy",
+    "title": "Typical vs walking heavy",
+    "profileId": "plan-1-walking-heavy",
+    "summary": "Compared with Typical, Walking heavy shows higher approximate walking load (+29428 feet). It also carries higher synthetic task pressure (+216 tasks), more deferred synthetic work (+186 tasks), and a larger queue-depth signal (+9). This narrative is an operational comparison only, not a staffing or clinical recommendation.",
+    "evidenceSignals": {
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ]
+    },
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "issue": "273",
+  "stage": "narratives",
+  "status": "passed",
+  "mode": "allow-partial",
+  "manifestSummary": {
+    "manifestVersion": 1,
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 demo-readiness proof contract for synthetic operational simulation only.",
+    "requiredScreenCount": 12,
+    "requiredEvidenceArtifactCount": 17,
+    "requiredGateCount": 11,
+    "lastIssueUpdated": "273",
+    "goNoGoStatus": "pending"
+  },
+  "checks": [
+    {
+      "check": "manifest",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "scenarioNarratives",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "scenarioNarrativeContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    }
+  ],
+  "failureCount": 0,
+  "failures": [],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

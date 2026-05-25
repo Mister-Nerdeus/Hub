@@ -1,0 +1,32 @@
+{
+  "planId": "default-er-layout-plan-1",
+  "selectedProfileId": "missing-profile",
+  "seed": 1.25,
+  "durationMinutes": 0,
+  "selectedTaskTemplateIds": [
+    "task-template-rounding",
+    "task-template-rounding",
+    "missing-template"
+  ],
+  "validationStatus": "invalid",
+  "validationMessages": [
+    "Unknown Plan 1 scenario profile.",
+    "Seed must be an integer.",
+    "Duration must be a positive integer minute count.",
+    "Duplicate Plan 1 task template.",
+    "Unknown Plan 1 task template."
+  ],
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true
+}

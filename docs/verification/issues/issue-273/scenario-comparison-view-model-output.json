@@ -1,0 +1,534 @@
+{
+  "comparisonId": "plan-1-scenario-comparison-baseline-v1",
+  "baselineScenarioId": "scenario-typical-baseline",
+  "rows": [
+    {
+      "profileLabel": "Typical",
+      "profileId": "plan-1-typical",
+      "taskPressureDelta": 0,
+      "deferredTaskDelta": 0,
+      "walkingBurdenDelta": 0,
+      "maxQueueDepthDelta": 0,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Typical is the baseline for operational comparison only; it anchors synthetic task pressure, deferred synthetic work, approximate walking load, and queue-depth signal.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Busy",
+      "profileId": "plan-1-busy",
+      "taskPressureDelta": 93,
+      "deferredTaskDelta": 64,
+      "walkingBurdenDelta": 4994,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-purple",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Busy shows higher synthetic task pressure (+93 tasks). It has more deferred synthetic work (+64 tasks). Approximate walking load changes by +4994 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Slammed",
+      "profileId": "plan-1-slammed",
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Slammed shows higher synthetic task pressure (+369 tasks). It has more deferred synthetic work (+320 tasks). Approximate walking load changes by +10204 feet. The queue-depth signal is larger (+11). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Trauma heavy",
+      "profileId": "plan-1-trauma-heavy",
+      "taskPressureDelta": 112,
+      "deferredTaskDelta": 77,
+      "walkingBurdenDelta": 7100,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "TRAUMA_WORKLOAD_NOTICE",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileLabel": "Walking heavy",
+      "profileId": "plan-1-walking-heavy",
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  ],
+  "requiredComparisons": {
+    "typicalVsSlammed": {
+      "profileLabel": "Slammed",
+      "profileId": "plan-1-slammed",
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Slammed shows higher synthetic task pressure (+369 tasks). It has more deferred synthetic work (+320 tasks). Approximate walking load changes by +10204 feet. The queue-depth signal is larger (+11). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsWalkingHeavy": {
+      "profileLabel": "Walking heavy",
+      "profileId": "plan-1-walking-heavy",
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsTraumaHeavy": {
+      "profileLabel": "Trauma heavy",
+      "profileId": "plan-1-trauma-heavy",
+      "taskPressureDelta": 112,
+      "deferredTaskDelta": 77,
+      "walkingBurdenDelta": 7100,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "TRAUMA_WORKLOAD_NOTICE",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  },
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true,
+  "narratives": {
+    "comparisonId": "plan-1-scenario-comparison-baseline-v1",
+    "narratives": [
+      {
+        "narrativeType": "typical_vs_slammed",
+        "title": "Typical vs slammed",
+        "profileId": "plan-1-slammed",
+        "summary": "Compared with Typical, Slammed shows higher synthetic task pressure (+369 tasks) and more deferred synthetic work (+320 tasks). The queue-depth signal is larger (+11) while approximate walking load also rises (+10204 feet). This is an operational comparison only using synthetic, seeded scenario output.",
+        "evidenceSignals": {
+          "taskPressureDelta": 369,
+          "deferredTaskDelta": 320,
+          "walkingBurdenDelta": 10204,
+          "maxQueueDepthDelta": 11,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      {
+        "narrativeType": "typical_vs_walking_heavy",
+        "title": "Typical vs walking heavy",
+        "profileId": "plan-1-walking-heavy",
+        "summary": "Compared with Typical, Walking heavy shows higher approximate walking load (+29428 feet). It also carries higher synthetic task pressure (+216 tasks), more deferred synthetic work (+186 tasks), and a larger queue-depth signal (+9). This narrative is an operational comparison only, not a staffing or clinical recommendation.",
+        "evidenceSignals": {
+          "taskPressureDelta": 216,
+          "deferredTaskDelta": 186,
+          "walkingBurdenDelta": 29428,
+          "maxQueueDepthDelta": 9,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      {
+        "narrativeType": "typical_vs_trauma_heavy",
+        "title": "Typical vs trauma heavy",
+        "profileId": "plan-1-trauma-heavy",
+        "summary": "Compared with Typical, Trauma heavy produces higher synthetic task pressure (+112 tasks) with a trauma workload notice in the warning signal set. The same comparison shows more deferred synthetic work (+77 tasks), higher approximate walking load (+7100 feet), and a larger queue-depth signal (+4). This is an operational comparison only and stays limited to deterministic Plan 1 demo evidence.",
+        "evidenceSignals": {
+          "taskPressureDelta": 112,
+          "deferredTaskDelta": 77,
+          "walkingBurdenDelta": 7100,
+          "maxQueueDepthDelta": 4,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "TRAUMA_WORKLOAD_NOTICE",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      {
+        "narrativeType": "overall_demo_summary",
+        "title": "Overall demo summary",
+        "profileId": "plan-1-comparison-set",
+        "summary": "The Plan 1 comparison set separates synthetic workload patterns into task pressure, deferred synthetic work, approximate walking load, and queue-depth signals. Slammed is the strongest task-pressure contrast, Walking heavy is the clearest walking-load contrast, and Trauma heavy adds the trauma workload notice without changing the proof into a recommendation. All summaries are operational comparison only and use deterministic synthetic evidence.",
+        "evidenceSignals": {
+          "taskPressureDelta": 369,
+          "deferredTaskDelta": 320,
+          "walkingBurdenDelta": 29428,
+          "maxQueueDepthDelta": 11,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "TRAUMA_WORKLOAD_NOTICE",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      }
+    ],
+    "requiredNarratives": {
+      "typical_vs_slammed": {
+        "narrativeType": "typical_vs_slammed",
+        "title": "Typical vs slammed",
+        "profileId": "plan-1-slammed",
+        "summary": "Compared with Typical, Slammed shows higher synthetic task pressure (+369 tasks) and more deferred synthetic work (+320 tasks). The queue-depth signal is larger (+11) while approximate walking load also rises (+10204 feet). This is an operational comparison only using synthetic, seeded scenario output.",
+        "evidenceSignals": {
+          "taskPressureDelta": 369,
+          "deferredTaskDelta": 320,
+          "walkingBurdenDelta": 10204,
+          "maxQueueDepthDelta": 11,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      "typical_vs_walking_heavy": {
+        "narrativeType": "typical_vs_walking_heavy",
+        "title": "Typical vs walking heavy",
+        "profileId": "plan-1-walking-heavy",
+        "summary": "Compared with Typical, Walking heavy shows higher approximate walking load (+29428 feet). It also carries higher synthetic task pressure (+216 tasks), more deferred synthetic work (+186 tasks), and a larger queue-depth signal (+9). This narrative is an operational comparison only, not a staffing or clinical recommendation.",
+        "evidenceSignals": {
+          "taskPressureDelta": 216,
+          "deferredTaskDelta": 186,
+          "walkingBurdenDelta": 29428,
+          "maxQueueDepthDelta": 9,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      "typical_vs_trauma_heavy": {
+        "narrativeType": "typical_vs_trauma_heavy",
+        "title": "Typical vs trauma heavy",
+        "profileId": "plan-1-trauma-heavy",
+        "summary": "Compared with Typical, Trauma heavy produces higher synthetic task pressure (+112 tasks) with a trauma workload notice in the warning signal set. The same comparison shows more deferred synthetic work (+77 tasks), higher approximate walking load (+7100 feet), and a larger queue-depth signal (+4). This is an operational comparison only and stays limited to deterministic Plan 1 demo evidence.",
+        "evidenceSignals": {
+          "taskPressureDelta": 112,
+          "deferredTaskDelta": 77,
+          "walkingBurdenDelta": 7100,
+          "maxQueueDepthDelta": 4,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "TRAUMA_WORKLOAD_NOTICE",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      },
+      "overall_demo_summary": {
+        "narrativeType": "overall_demo_summary",
+        "title": "Overall demo summary",
+        "profileId": "plan-1-comparison-set",
+        "summary": "The Plan 1 comparison set separates synthetic workload patterns into task pressure, deferred synthetic work, approximate walking load, and queue-depth signals. Slammed is the strongest task-pressure contrast, Walking heavy is the clearest walking-load contrast, and Trauma heavy adds the trauma workload notice without changing the proof into a recommendation. All summaries are operational comparison only and use deterministic synthetic evidence.",
+        "evidenceSignals": {
+          "taskPressureDelta": 369,
+          "deferredTaskDelta": 320,
+          "walkingBurdenDelta": 29428,
+          "maxQueueDepthDelta": 11,
+          "warningCodeSummary": [
+            "BUSY_MINUTES_WARNING",
+            "DEFERRED_TASK_WARNING",
+            "QUEUE_DEPTH_WARNING",
+            "ROOM_DEFERRED_TASKS",
+            "TRAUMA_WORKLOAD_NOTICE",
+            "WALKING_LOAD_WARNING"
+          ]
+        },
+        "limitations": [
+          "Plan 1 deterministic dry-run foundation only.",
+          "Synthetic tasks use explicit assumptions and seeded generation."
+        ],
+        "nonClaims": [
+          "Synthetic operational modeling only.",
+          "Not a clinical safety score.",
+          "Not a staffing compliance recommendation.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not based on real patient, staff, EHR, or hospital data."
+        ],
+        "syntheticDataOnly": true
+      }
+    },
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  }
+}
