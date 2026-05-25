@@ -113,6 +113,17 @@ if (issueNumber != null && issueNumber >= 233) {
     requiredStageFailures.push(`LEGACY_STATION_STAGE_FAILURE: ${legacyStationId}`);
   }
 }
+if (issueNumber != null && issueNumber >= 234) {
+  const doorCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "doorsOrAccessPoints");
+  if (doorCountFailure != null) {
+    requiredStageFailures.push(
+      `DOOR_ACCESS_COUNT_STAGE_FAILURE: observed ${doorCountFailure.observed}, required ${doorCountFailure.minimum}`
+    );
+  }
+  for (const failure of audit.missingRequiredObjects.filter((entry) => entry.objectKind === "door_or_access")) {
+    requiredStageFailures.push(`DOOR_ACCESS_STAGE_FAILURE: ${failure.sourceLabel}`);
+  }
+}
 
 const status = failures.length === 0
   ? "passed"

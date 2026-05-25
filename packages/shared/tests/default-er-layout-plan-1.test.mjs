@@ -109,7 +109,7 @@ test("default ER layout plan 1 includes visible operational source intent", () =
   assert.ok(plan.rooms.some((room) => room.id === "room-level-1-trauma"));
   assert.ok(plan.rooms.filter((room) => /^room-\d\d$/.test(room.id)).length >= 6);
 
-  const traumaDoor = plan.doors.find((door) => door.id === "door-level-1-trauma");
+  const traumaDoor = plan.doors.find((door) => door.roomId === "room-level-1-trauma");
   assert.equal(traumaDoor?.doorOperationalMetadata?.doorClass, "trauma");
   assert.equal(traumaDoor?.doorOperationalMetadata?.traumaAccess, true);
   assert.equal(traumaDoor?.doorOperationalMetadata?.isolationBoundary, false);

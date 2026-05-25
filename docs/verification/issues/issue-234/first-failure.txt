@@ -1,0 +1,88 @@
+{
+  "issue": "234",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "planId": "default-er-layout-plan-1",
+  "sourceTruthValidation": {
+    "status": "passed",
+    "planId": "default-er-layout-plan-1",
+    "requiredVisibleObjects": 51,
+    "objectKindHistogram": {
+      "room": 23,
+      "zone": 1,
+      "nurse_station": 2,
+      "hallway": 6,
+      "door_or_access": 18,
+      "annotation": 1
+    },
+    "coverageStatusHistogram": {
+      "represented": 32,
+      "pending": 19
+    },
+    "minimumExpectedCounts": {
+      "rooms": 23,
+      "nurseStations": 2,
+      "providerPharmacyZones": 1,
+      "hallways": 6,
+      "doorsOrAccessPoints": 18
+    },
+    "legacyFixtureRejections": {
+      "unsupportedRoomIds": [
+        "room-01",
+        "space-07"
+      ],
+      "unsupportedStationIds": [
+        "station-provider-pharmacy"
+      ],
+      "maximumOldSimplifiedRoomCount": 8
+    },
+    "nonClaims": [
+      "Not exact CAD geometry.",
+      "Not measured walking truth.",
+      "Not clinical safety certification."
+    ]
+  },
+  "currentCounts": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "zones": 22,
+    "hallways": 7,
+    "doors": 23
+  },
+  "minimumCountFailures": [],
+  "missingRequiredObjectCount": 19,
+  "unsupportedLegacyLabels": [],
+  "legacyFixtureRejectionSummary": {
+    "legacyRoomIdsPresent": [],
+    "legacyStationIdsPresent": [],
+    "oldSimplifiedRoomCountFailure": false
+  },
+  "failureCount": 19,
+  "failures": [
+    "MISSING_door_or_access: Door/Access 01 -> door-01",
+    "MISSING_door_or_access: Door/Access 02 -> door-02",
+    "MISSING_door_or_access: Door/Access 03 -> door-03",
+    "MISSING_door_or_access: Door/Access 04 -> door-04",
+    "MISSING_door_or_access: Door/Access 05 -> door-05",
+    "MISSING_door_or_access: Door/Access 06 -> door-06",
+    "MISSING_door_or_access: Door/Access 07 -> door-07",
+    "MISSING_door_or_access: Door/Access 08 -> door-08",
+    "MISSING_door_or_access: Door/Access 09 -> door-09",
+    "MISSING_door_or_access: Door/Access 10 -> door-10",
+    "MISSING_door_or_access: Door/Access 11 -> door-11",
+    "MISSING_door_or_access: Door/Access 12 -> door-12",
+    "MISSING_door_or_access: Door/Access 13 -> door-13",
+    "MISSING_door_or_access: Door/Access 14 -> door-14",
+    "MISSING_door_or_access: Door/Access 15 -> door-15",
+    "MISSING_door_or_access: Door/Access 16 -> door-16",
+    "MISSING_door_or_access: Door/Access 17 -> door-17",
+    "MISSING_door_or_access: Door/Access 18 -> door-18",
+    "MISSING_annotation: Grey unlabeled blocks -> null"
+  ],
+  "requiredStageFailures": [],
+  "nonClaims": [
+    "Not exact CAD geometry.",
+    "Not measured walking truth.",
+    "Not clinical safety certification."
+  ]
+}

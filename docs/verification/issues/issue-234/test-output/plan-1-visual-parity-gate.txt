@@ -1,0 +1,70 @@
+{
+  "issue": "234",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "planId": "default-er-layout-plan-1",
+  "sourceTruthValidation": {
+    "status": "passed",
+    "planId": "default-er-layout-plan-1",
+    "requiredVisibleObjects": 51,
+    "objectKindHistogram": {
+      "room": 23,
+      "zone": 1,
+      "nurse_station": 2,
+      "hallway": 6,
+      "door_or_access": 18,
+      "annotation": 1
+    },
+    "coverageStatusHistogram": {
+      "represented": 50,
+      "pending": 1
+    },
+    "minimumExpectedCounts": {
+      "rooms": 23,
+      "nurseStations": 2,
+      "providerPharmacyZones": 1,
+      "hallways": 6,
+      "doorsOrAccessPoints": 18
+    },
+    "legacyFixtureRejections": {
+      "unsupportedRoomIds": [
+        "room-01",
+        "space-07"
+      ],
+      "unsupportedStationIds": [
+        "station-provider-pharmacy"
+      ],
+      "maximumOldSimplifiedRoomCount": 8
+    },
+    "nonClaims": [
+      "Not exact CAD geometry.",
+      "Not measured walking truth.",
+      "Not clinical safety certification."
+    ]
+  },
+  "currentCounts": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "zones": 22,
+    "hallways": 7,
+    "doors": 23
+  },
+  "minimumCountFailures": [],
+  "missingRequiredObjectCount": 1,
+  "unsupportedLegacyLabels": [],
+  "legacyFixtureRejectionSummary": {
+    "legacyRoomIdsPresent": [],
+    "legacyStationIdsPresent": [],
+    "oldSimplifiedRoomCountFailure": false
+  },
+  "failureCount": 1,
+  "failures": [
+    "MISSING_annotation: Grey unlabeled blocks -> null"
+  ],
+  "requiredStageFailures": [],
+  "nonClaims": [
+    "Not exact CAD geometry.",
+    "Not measured walking truth.",
+    "Not clinical safety certification."
+  ]
+}

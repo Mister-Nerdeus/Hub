@@ -1,0 +1,46 @@
+{
+  "issue": "234",
+  "commands": [
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 234 | Tee-Object -FilePath docs/verification/issues/issue-234/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-234/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-234/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-234/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-234/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-234/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 234 | Tee-Object -FilePath docs/verification/issues/issue-234/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-234/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-234/plan-1-legacy-fixture-rejection-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-234/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-234/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-234/first-failure.txt",
+    "docs/verification/issues/issue-234/plan-1-door-access-output.json",
+    "docs/verification/issues/issue-234/plan-1-door-coverage-output.json",
+    "docs/verification/issues/issue-234/plan-1-clustered-access-output.json",
+    "docs/verification/issues/issue-234/plan-1-access-deferred-output.json",
+    "docs/verification/issues/issue-234/plan-1-door-known-approximations.md",
+    "docs/verification/issues/issue-234/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-234/plan-1-legacy-fixture-rejection-output.json"
+  ]
+}
