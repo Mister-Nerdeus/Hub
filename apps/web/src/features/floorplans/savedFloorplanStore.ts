@@ -1,5 +1,6 @@
 import {
   createSafeSourceProvenance,
+  buildPlanContractFromEditableLayout,
   validateAuthoringDraftContract,
   validatePlanContract,
   validateSavedPlanRecordContract,
@@ -56,6 +57,9 @@ export function createSavedFloorplanStore(
   const records = new Map<string, SavedFloorplanRecord>();
   for (const persisted of persistence?.load() ?? []) {
     const record = webRecordFromContract(persisted);
+    if (records.has(record.savedPlanId)) {
+      throw new Error(`duplicate saved floorplan record: ${record.savedPlanId}`);
+    }
     records.set(record.savedPlanId, cloneSavedRecord(record));
   }
   let nextSequence = records.size + 1;
@@ -223,12 +227,17 @@ function assertNoForbiddenPayload(value: unknown, label: string): void {
 }
 
 function webRecordFromContract(record: SavedPlanRecordContract): SavedFloorplanRecord {
+  const plan = buildPlanContractFromEditableLayout({
+    sourcePlan: record.authoringDraft.sourcePlan,
+    editableLayout: record.authoringDraft.editableLayout,
+    planId: record.planId
+  });
   return {
     ...record,
     recordId: record.savedPlanId,
     readOnly: false,
     parentDefaultPlanId: record.sourceDefaultPlanId,
-    plan: clonePlan(record.authoringDraft.sourcePlan)
+    plan: clonePlan(plan)
   };
 }
 

@@ -1,0 +1,101 @@
+{
+  "issue": "282",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test (first failure before implementation)",
+      "outputs": [
+        "docs/verification/issues/issue-282/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/web.txt",
+        "docs/verification/issues/issue-282/save-reload-output.json",
+        "docs/verification/issues/issue-282/save-as-reload-output.json",
+        "docs/verification/issues/issue-282/multiple-version-output.json",
+        "docs/verification/issues/issue-282/edited-layout-reload-output.json",
+        "docs/verification/issues/issue-282/stale-source-plan-negative-output.json",
+        "docs/verification/issues/issue-282/duplicate-id-negative-output.json",
+        "docs/verification/issues/issue-282/private-source-payload-negative-output.json",
+        "docs/verification/issues/issue-282/default-nonmutation-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage save-reload-e2e --allow-partial --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-282/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-282/behavioral-harness-output.json",
+        "docs/verification/issues/issue-282/screenshots/save-as-reload-proof.png"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-282/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 282",
+      "outputs": [
+        "docs/verification/issues/issue-282/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/scaffold-issue-evidence-index-entry.mjs --issue 282 --title \"Save / Save As / Reload End-to-End UI Proof\" --write",
+      "outputs": [
+        "docs/verification/issues/issue-282/evidence-index-update-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-282/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

@@ -202,7 +202,22 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "282": ["first-failure.txt"],
+  "282": [
+    "first-failure.txt",
+    "save-reload-output.json",
+    "save-as-reload-output.json",
+    "multiple-version-output.json",
+    "edited-layout-reload-output.json",
+    "stale-source-plan-negative-output.json",
+    "duplicate-id-negative-output.json",
+    "private-source-payload-negative-output.json",
+    "default-nonmutation-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "283": ["first-failure.txt"],
   "284": ["first-failure.txt"],
   "285": ["first-failure.txt"],
@@ -223,7 +238,7 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const behaviorOutput = stage === "behavioral-execution" && missingModules.length === 0
+const behaviorOutput = ["behavioral-execution", "save-reload-e2e"].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
@@ -306,6 +321,9 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
     if (fileName === "first-failure.txt" && existsSync(path)) {
       continue;
     }
+    if (existsSync(path)) {
+      continue;
+    }
     if (summary.behaviorOutput != null && behaviorEvidenceFiles.has(fileName)) {
       continue;
     }
@@ -373,7 +391,8 @@ function writeBehaviorEvidence(issueDir, output) {
 
 function writeAuthoringProofFixture(stageName, output) {
   const fixtureNames = {
-    "behavioral-execution": "plan-1-authoring-behavior-fixture.json"
+    "behavioral-execution": "plan-1-authoring-behavior-fixture.json",
+    "save-reload-e2e": "plan-1-save-reload-fixture.json"
   };
   const fixtureName = fixtureNames[stageName];
   if (fixtureName == null) {
@@ -486,7 +505,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
       "auto-hallway-controls.png",
       "pod-border-view.png",
       "export-integrity-warning.png"
-    ]
+    ],
+    "282": ["save-as-reload-proof.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));

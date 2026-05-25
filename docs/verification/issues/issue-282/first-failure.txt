@@ -1,0 +1,9 @@
+Command:
+npm --workspace apps/web test
+
+Observed before implementation:
+apps/web/src/features/floorplans/savedFloorplanReloadE2E.test.ts failed with:
+loaded saved plan must use authoringDraft.editableLayout, not stale sourcePlan geometry
+
+Failure class:
+Saved records preserved the edited authoring draft, but the reloaded active plan was rebuilt from authoringDraft.sourcePlan. That allowed stale source geometry to become active instead of the edited saved layout.
