@@ -10,6 +10,8 @@ if (!existsSync(sharedDistIndex)) {
 
 const {
   auditPlan1VisualParityGaps,
+  auditDefaultPlanPathEdgeCoverage,
+  auditDefaultPlanPathNodeCoverage,
   validateDefaultSavedPlanFixtureContract,
   validatePlanVisualParitySourceTruthContract
 } = await import("../packages/shared/dist/index.js");
@@ -31,6 +33,8 @@ const planFixture = validateDefaultSavedPlanFixtureContract(readJson(planRelativ
 });
 const sourceTruthValidation = validatePlanVisualParitySourceTruthContract(sourceTruth);
 const audit = auditPlan1VisualParityGaps(sourceTruth, planFixture.plan, sourceTruthRelativePath);
+const pathNodeCoverage = auditDefaultPlanPathNodeCoverage(planFixture.plan);
+const pathEdgeCoverage = auditDefaultPlanPathEdgeCoverage(planFixture.plan);
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
   .filter((room) => sourceTruth.legacyFixtureRejections.unsupportedRoomIds.includes(room.id))
@@ -124,6 +128,18 @@ if (issueNumber != null && issueNumber >= 234) {
     requiredStageFailures.push(`DOOR_ACCESS_STAGE_FAILURE: ${failure.sourceLabel}`);
   }
 }
+if (issueNumber != null && issueNumber >= 235) {
+  if (pathNodeCoverage.status !== "passed") {
+    requiredStageFailures.push(
+      `PATH_NODE_COVERAGE_STAGE_FAILURE: ${pathNodeCoverage.gaps.map((gap) => gap.code).join(",")}`
+    );
+  }
+  if (pathEdgeCoverage.status !== "passed") {
+    requiredStageFailures.push(
+      `PATH_EDGE_COVERAGE_STAGE_FAILURE: ${pathEdgeCoverage.gaps.map((gap) => gap.code).join(",")}`
+    );
+  }
+}
 
 const status = failures.length === 0
   ? "passed"
@@ -144,6 +160,14 @@ const output = {
     legacyRoomIdsPresent,
     legacyStationIdsPresent,
     oldSimplifiedRoomCountFailure
+  },
+  pathGraphSummary: {
+    nodeCoverageStatus: pathNodeCoverage.status,
+    nodeCoverageGapCount: pathNodeCoverage.gaps.length,
+    edgeCoverageStatus: pathEdgeCoverage.status,
+    edgeCoverageGapCount: pathEdgeCoverage.gaps.length,
+    requiredOperationalNodes: pathEdgeCoverage.counts.requiredOperationalNodes,
+    connectedRequiredOperationalNodes: pathEdgeCoverage.counts.connectedRequiredOperationalNodes
   },
   failureCount: failures.length,
   failures,

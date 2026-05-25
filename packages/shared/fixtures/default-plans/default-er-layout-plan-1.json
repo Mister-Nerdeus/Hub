@@ -2387,6 +2387,61 @@
         "doorPenaltySeconds": 0,
         "turnPenaltySeconds": 0,
         "blocked": false
+      },
+      {
+        "id": "edge-ems-entry-bottom-hallway",
+        "fromNodeId": "node-hall-ems-entry",
+        "toNodeId": "node-hallway-bottom-horizontal",
+        "lengthFeet": 18,
+        "hallwayWidthFeet": 12,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-left-vertical-bottom-hallway",
+        "fromNodeId": "node-hallway-left-vertical",
+        "toNodeId": "node-hallway-bottom-horizontal",
+        "lengthFeet": 24,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-top-hallway-right-upper",
+        "fromNodeId": "node-hallway-top-horizontal",
+        "toNodeId": "node-hallway-right-upper",
+        "lengthFeet": 34,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-right-upper-right-vertical",
+        "fromNodeId": "node-hallway-right-upper",
+        "toNodeId": "node-hallway-right-vertical",
+        "lengthFeet": 22,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
+      },
+      {
+        "id": "edge-bottom-hallway-right-vertical",
+        "fromNodeId": "node-hallway-bottom-horizontal",
+        "toNodeId": "node-hallway-right-vertical",
+        "lengthFeet": 24,
+        "hallwayWidthFeet": 10,
+        "congestionFactor": 1,
+        "doorPenaltySeconds": 0,
+        "turnPenaltySeconds": 1,
+        "blocked": false
       }
     ]
   },
@@ -2398,7 +2453,8 @@
     "Plan 1 door/path links are provisional for contract validity before dedicated access and graph rebuild issues.",
     "Plan 1 zones, hallway segments, and nurse station positions are approximate feet-based visual parity objects, not exact CAD geometry.",
     "Provider/pharmacy is modeled as a support zone, not as a nurse station.",
-    "Plan 1 door/access points are approximate source-visible access markers for routing support, not exact door measurements."
+    "Plan 1 door/access points are approximate source-visible access markers for routing support, not exact door measurements.",
+    "Plan 1 path graph edges are approximate operational routing links rebuilt from the JSON geometry, not measured walking truth."
   ],
   "auditStatus": "validated_default"
 }

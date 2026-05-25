@@ -72,8 +72,13 @@ test("path-edge coverage audit reports broken, isolated, disconnected, and block
   cases.push(["disconnected hallway component", disconnectedHallway, "REQUIRED_NODE_WITHOUT_USABLE_EDGE"]);
 
   const blockedBetweenComponents = clone(readPlan(1));
+  const bridgeEdgeIds = new Set([
+    "edge-hall-west-mid",
+    "edge-ems-entry-bottom-hallway",
+    "edge-left-vertical-bottom-hallway"
+  ]);
   for (const edge of blockedBetweenComponents.pathEdges) {
-    if (edge.id === "edge-hall-west-mid") {
+    if (bridgeEdgeIds.has(edge.id)) {
       edge.blocked = true;
     }
   }
