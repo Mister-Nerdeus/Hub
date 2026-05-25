@@ -5,6 +5,7 @@ import {
   exportFloorplanJson,
   importFloorplanJson
 } from "../floorplans/floorplanJsonImportExport";
+import { editableLayoutToPlanContract } from "./editableLayoutToPlanContract";
 import { DoorShape } from "./DoorShape";
 import { buildDoorShapeViewModel } from "./doorShapeViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
@@ -215,14 +216,18 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     event.currentTarget.setPointerCapture(event.pointerId);
   };
   const exportActiveFloorplanJson = () => {
-    if (stageState.sourcePlan == null) {
+    if (stageState.sourcePlan == null || stageState.editableLayout == null) {
       setFloorplanJsonStatus("No active JSON floorplan");
       return;
     }
     try {
-      const exported = exportFloorplanJson(stageState.sourcePlan);
+      const exportResult = editableLayoutToPlanContract({
+        sourcePlan: stageState.sourcePlan,
+        editableLayout: stageState.editableLayout
+      });
+      const exported = exportFloorplanJson(exportResult.plan);
       setFloorplanJsonText(exported);
-      setFloorplanJsonStatus(`Exported ${stageState.sourcePlan.planId}`);
+      setFloorplanJsonStatus(`Exported ${exportResult.plan.planId}; door/path sync deferred`);
     } catch (error) {
       setFloorplanJsonStatus(errorMessage(error));
     }

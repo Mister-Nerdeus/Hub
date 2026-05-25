@@ -1,0 +1,154 @@
+{
+  "issue": "239",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "planId": "default-er-layout-plan-1",
+  "sourceTruthValidation": {
+    "status": "passed",
+    "planId": "default-er-layout-plan-1",
+    "requiredVisibleObjects": 51,
+    "objectKindHistogram": {
+      "room": 23,
+      "zone": 1,
+      "nurse_station": 2,
+      "hallway": 6,
+      "door_or_access": 18,
+      "annotation": 1
+    },
+    "coverageStatusHistogram": {
+      "represented": 50,
+      "pending": 1
+    },
+    "minimumExpectedCounts": {
+      "rooms": 23,
+      "nurseStations": 2,
+      "providerPharmacyZones": 1,
+      "hallways": 6,
+      "doorsOrAccessPoints": 18
+    },
+    "legacyFixtureRejections": {
+      "unsupportedRoomIds": [
+        "room-01",
+        "space-07"
+      ],
+      "unsupportedStationIds": [
+        "station-provider-pharmacy"
+      ],
+      "maximumOldSimplifiedRoomCount": 8
+    },
+    "nonClaims": [
+      "Not exact CAD geometry.",
+      "Not measured walking truth.",
+      "Not clinical safety certification."
+    ]
+  },
+  "currentCounts": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "zones": 22,
+    "hallways": 7,
+    "doors": 23
+  },
+  "minimumCountFailures": [],
+  "missingRequiredObjectCount": 1,
+  "unsupportedLegacyLabels": [],
+  "legacyFixtureRejectionSummary": {
+    "legacyRoomIdsPresent": [],
+    "legacyStationIdsPresent": [],
+    "oldSimplifiedRoomCountFailure": false
+  },
+  "pathGraphSummary": {
+    "nodeCoverageStatus": "passed",
+    "nodeCoverageGapCount": 0,
+    "edgeCoverageStatus": "passed",
+    "edgeCoverageGapCount": 0,
+    "requiredOperationalNodes": 35,
+    "connectedRequiredOperationalNodes": 35
+  },
+  "walkingBaselineSummary": {
+    "baselineId": "default-er-layout-plan-1-walking-baseline",
+    "requiredGroups": [
+      "left-station-to-left-pod-rooms",
+      "right-station-to-right-pod-rooms",
+      "ems-entry-to-trauma",
+      "provider-pharmacy-to-rooms",
+      "bottom-hallway-to-bottom-rooms",
+      "right-hallway-to-right-side-rooms"
+    ],
+    "groupIds": [
+      "bottom-hallway-to-bottom-rooms",
+      "ems-entry-to-trauma",
+      "left-station-to-left-pod-rooms",
+      "provider-pharmacy-to-rooms",
+      "right-hallway-to-right-side-rooms",
+      "right-station-to-right-pod-rooms"
+    ],
+    "missingGroups": [],
+    "totalRouteCount": 35,
+    "reachableRouteCount": 35,
+    "unreachableRouteCount": 0
+  },
+  "sourceMappingSummary": {
+    "mappingId": "mapping-er-layout-plan-1",
+    "mappedObjectCount": 127,
+    "deferredSourceLabelCount": 4,
+    "missingSourceTruthTargetCount": 0,
+    "missingSourceTruthTargets": [],
+    "provenanceHistogram": {
+      "source_visible_mapped": 27,
+      "manual_approximation": 6,
+      "source_visible_grouped": 18,
+      "conversion_inferred": 1,
+      "generated_required_for_graph": 75
+    }
+  },
+  "appRenderSummary": {
+    "requiredRenderedLabels": [
+      "Level 1 Trauma",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "Provider Pharmacy"
+    ],
+    "missingRenderedLabels": [],
+    "roomRenderCount": 23,
+    "stationRenderCount": 2,
+    "providerPharmacyZoneRenderCount": 1,
+    "oldSimplifiedLayoutPresent": false
+  },
+  "exportIntegritySummary": {
+    "exportedPlanValid": true,
+    "room14GeometryChanged": true,
+    "sourcePlanUnchanged": true,
+    "forbiddenExportFragmentsFound": []
+  },
+  "failureCount": 1,
+  "failures": [
+    "MISSING_annotation: Grey unlabeled blocks -> null"
+  ],
+  "requiredStageFailures": [],
+  "nonClaims": [
+    "Not exact CAD geometry.",
+    "Not measured walking truth.",
+    "Not clinical safety certification."
+  ]
+}

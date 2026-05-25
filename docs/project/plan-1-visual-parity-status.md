@@ -36,3 +36,9 @@ Issue 238: prove the repaired Plan 1 renders in the app from JSON fixture data.
 Status: Complete. Plan 1 renders from JSON fixture data through the app layout render pipeline with 23 room render items, 2 station render items, 1 Provider Pharmacy zone render item, required labels present, and old simplified render artifacts absent. Screenshot evidence is stored under `docs/verification/issues/issue-238/screenshots/`.
 
 GO for Issue 239: editor export integrity for edited Plan 1.
+
+## Issue 239 - Editor export integrity for edited Plan 1
+
+Status: Complete. Editor export now rebuilds a PlanContract from the current editable layout and source plan, exporting room, station, and zone geometry edits while preserving doors/path graph with explicit deferred sync evidence.
+
+GO for Issue 240: final Plan 1 visual parity audit.

@@ -1,0 +1,8 @@
+{
+  "issue": "239",
+  "status": "failed_as_expected",
+  "failureClass": "stale_source_plan_export_after_edit",
+  "currentExportBehavior": "LayoutEditorStage exports stageState.sourcePlan directly.",
+  "editedGeometryRisk": "Room geometry held in editableLayout can differ from sourcePlan and be omitted from exported JSON.",
+  "requiredFix": "Export must rebuild a PlanContract from sourcePlan plus current editable geometry without mutating the source plan."
+}

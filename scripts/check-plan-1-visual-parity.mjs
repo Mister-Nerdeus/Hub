@@ -93,17 +93,32 @@ const requiredRenderedLabels = [
   "24",
   "Provider Pharmacy"
 ];
-const renderEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-render-object-count-output.json")
+const renderEvidence = issue == null ? null : readIssueEvidenceJson(
+  issue,
+  "plan-1-render-object-count-output.json",
+  "238"
 );
-const labelRenderEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-label-render-coverage-output.json")
+const labelRenderEvidence = issue == null ? null : readIssueEvidenceJson(
+  issue,
+  "plan-1-label-render-coverage-output.json",
+  "238"
 );
-const oldRenderNegativeEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-old-render-negative-output.json")
+const oldRenderNegativeEvidence = issue == null ? null : readIssueEvidenceJson(
+  issue,
+  "plan-1-old-render-negative-output.json",
+  "238"
 );
 const renderedLabelCoverage = labelRenderEvidence?.coverage ?? {};
 const missingRenderedLabels = requiredRenderedLabels.filter((label) => renderedLabelCoverage[label] !== true);
+const exportIntegrityEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "edited-plan-export-output.json")
+);
+const sourcePlanNonmutationEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "source-plan-nonmutation-output.json")
+);
+const noDocxExportEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "no-docx-export-output.json")
+);
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
   .filter((room) => sourceTruth.legacyFixtureRejections.unsupportedRoomIds.includes(room.id))
@@ -250,6 +265,28 @@ if (issueNumber != null && issueNumber >= 238) {
     requiredStageFailures.push("APP_RENDER_OLD_LAYOUT_STAGE_FAILURE");
   }
 }
+if (issueNumber != null && issueNumber >= 239) {
+  if (exportIntegrityEvidence == null) {
+    requiredStageFailures.push("EDITOR_EXPORT_INTEGRITY_EVIDENCE_MISSING");
+  } else {
+    if (exportIntegrityEvidence.exportedPlanValid !== true) {
+      requiredStageFailures.push("EDITOR_EXPORT_PLAN_VALIDATION_STAGE_FAILURE");
+    }
+    if (exportIntegrityEvidence.room14GeometryChanged !== true) {
+      requiredStageFailures.push("EDITOR_EXPORT_ROOM_GEOMETRY_STAGE_FAILURE");
+    }
+  }
+  if (sourcePlanNonmutationEvidence == null) {
+    requiredStageFailures.push("EDITOR_EXPORT_SOURCE_NONMUTATION_EVIDENCE_MISSING");
+  } else if (sourcePlanNonmutationEvidence.sourcePlanUnchanged !== true) {
+    requiredStageFailures.push("EDITOR_EXPORT_SOURCE_MUTATION_STAGE_FAILURE");
+  }
+  if (noDocxExportEvidence == null) {
+    requiredStageFailures.push("EDITOR_EXPORT_NO_DOCX_EVIDENCE_MISSING");
+  } else if ((noDocxExportEvidence.forbiddenFragmentsFound ?? []).length > 0) {
+    requiredStageFailures.push("EDITOR_EXPORT_DOCX_EXPOSURE_STAGE_FAILURE");
+  }
+}
 
 const status = failures.length === 0
   ? "passed"
@@ -304,6 +341,12 @@ const output = {
     providerPharmacyZoneRenderCount: renderEvidence?.providerPharmacyZoneRenderCount ?? null,
     oldSimplifiedLayoutPresent: oldRenderNegativeEvidence?.oldSimplifiedLayoutPresent ?? null
   },
+  exportIntegritySummary: {
+    exportedPlanValid: exportIntegrityEvidence?.exportedPlanValid ?? null,
+    room14GeometryChanged: exportIntegrityEvidence?.room14GeometryChanged ?? null,
+    sourcePlanUnchanged: sourcePlanNonmutationEvidence?.sourcePlanUnchanged ?? null,
+    forbiddenExportFragmentsFound: noDocxExportEvidence?.forbiddenFragmentsFound ?? null
+  },
   failureCount: failures.length,
   failures,
   requiredStageFailures,
@@ -344,6 +387,18 @@ function readOptionalJson(path) {
     return null;
   }
   return JSON.parse(readFileSync(path, "utf8"));
+}
+
+function readIssueEvidenceJson(issueId, fileName, fallbackIssueId = null) {
+  const current = readOptionalJson(
+    join(repoRoot, "docs", "verification", "issues", `issue-${issueId}`, fileName)
+  );
+  if (current != null || fallbackIssueId == null || fallbackIssueId === issueId) {
+    return current;
+  }
+  return readOptionalJson(
+    join(repoRoot, "docs", "verification", "issues", `issue-${fallbackIssueId}`, fileName)
+  );
 }
 
 function writeJson(path, value) {

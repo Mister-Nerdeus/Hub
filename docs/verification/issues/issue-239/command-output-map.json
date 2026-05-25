@@ -1,0 +1,56 @@
+{
+  "issue": "239",
+  "commands": [
+    {
+      "command": "node custom first-failure stale export audit | Tee-Object -FilePath docs/verification/issues/issue-239/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-239/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/test-output/web.txt",
+        "docs/verification/issues/issue-239/stale-export-negative-output.json",
+        "docs/verification/issues/issue-239/editable-layout-to-plan-output.json",
+        "docs/verification/issues/issue-239/edited-plan-export-output.json",
+        "docs/verification/issues/issue-239/source-plan-nonmutation-output.json",
+        "docs/verification/issues/issue-239/path-sync-deferred-output.json",
+        "docs/verification/issues/issue-239/no-docx-export-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-239/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-239/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 239 | Tee-Object -FilePath docs/verification/issues/issue-239/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/test-output/plan-1-visual-parity-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-239/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-239/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-239/first-failure.txt",
+    "docs/verification/issues/issue-239/stale-export-negative-output.json",
+    "docs/verification/issues/issue-239/editable-layout-to-plan-output.json",
+    "docs/verification/issues/issue-239/edited-plan-export-output.json",
+    "docs/verification/issues/issue-239/source-plan-nonmutation-output.json",
+    "docs/verification/issues/issue-239/path-sync-deferred-output.json",
+    "docs/verification/issues/issue-239/no-docx-export-output.json"
+  ]
+}
