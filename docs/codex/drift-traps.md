@@ -23,6 +23,12 @@ Use this document when a task starts to drift beyond the project boundaries.
 - Keep coordinate origin, units, grid snapping, and `pixelsPerUnit` conversion rules explicit.
 - Keep Phase 7 comparison report-centric. Do not rename `baselineReportId` and `reportIds` back to raw scenario fields such as `baselineScenarioId` or `comparedScenarioIds`; scenario IDs remain in comparison items.
 
+## Docker Runtime Drift
+
+- Do not point public or production-shaped web traffic at `apps/web/Dockerfile.local` or the Vite development server.
+- Keep local proof Docker and production-shaped Docker separate: `docker-compose.yml` remains local-first, while `docker-compose.production.yml` must use production Dockerfiles.
+- Production-shaped web runtime must serve built static assets through nginx and proxy same-origin `/health` and `/v1/` requests to the API service.
+
 ## Evidence Drift
 
 - Do not close an issue with only a summary.
