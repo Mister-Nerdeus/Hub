@@ -11,10 +11,12 @@ import {
 import { validatePlan1RoomLoads } from "./roomLoadContract.js";
 import {
   PLAN_1_ID,
+  assertNoDuplicateStrings,
   requireArray,
   requireExactKeys,
   requireRecord,
   requireString,
+  validatePlan1AssignmentText,
   type Plan1ManualAssignmentRecord,
   type Plan1NurseProfile,
   type Plan1RoomLoad
@@ -59,6 +61,7 @@ export function validatePlan1AssignmentComparisonFixtures(
     const label = `fixtures[${index}]`;
     const record = requireRecord(fixture, label);
     requireExactKeys(record, label, ["fixtureId", "label", "nurses", "roomLoads", "assignments"]);
+    const fixtureId = requireString(record.fixtureId, `${label}.fixtureId`);
     const nurses = validatePlan1NurseProfiles(requireArray(record.nurses, `${label}.nurses`), plan);
     const roomLoads = validatePlan1RoomLoads(requireArray(record.roomLoads, `${label}.roomLoads`), plan);
     const assignments = validatePlan1ManualAssignments(requireArray(record.assignments, `${label}.assignments`), plan, nurses);
@@ -70,14 +73,15 @@ export function validatePlan1AssignmentComparisonFixtures(
       pathSyncStatus: "fresh"
     });
     return {
-      fixtureId: requireString(record.fixtureId, `${label}.fixtureId`),
-      label: requireString(record.label, `${label}.label`),
+      fixtureId,
+      label: validatePlan1AssignmentText(requireString(record.label, `${label}.label`), `${label}.label`),
       nurses,
       roomLoads,
       assignments,
       workflowState
     };
   });
+  assertNoDuplicateStrings(fixtures.map((fixture) => fixture.fixtureId), "comparison fixtureId");
   return fixtures;
 }
 

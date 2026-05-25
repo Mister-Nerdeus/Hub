@@ -49,6 +49,42 @@ test("comparison fixtures reject non-Plan-1 root metadata", () => {
   );
 });
 
+test("comparison fixtures reject duplicate IDs and PHI-like labels", () => {
+  assert.throws(
+    () =>
+      validatePlan1AssignmentComparisonFixtures(
+        {
+          ...rawFixtureFile,
+          fixtures: [
+            rawFixtureFile.fixtures[0],
+            {
+              ...rawFixtureFile.fixtures[1],
+              fixtureId: rawFixtureFile.fixtures[0].fixtureId
+            }
+          ]
+        },
+        plan
+      ),
+    /duplicate comparison fixtureId/u
+  );
+  assert.throws(
+    () =>
+      validatePlan1AssignmentComparisonFixtures(
+        {
+          ...rawFixtureFile,
+          fixtures: [
+            {
+              ...rawFixtureFile.fixtures[0],
+              label: ["M", "RN 123456"].join("")
+            }
+          ]
+        },
+        plan
+      ),
+    /NO_PHI_RUNTIME_REJECTION/u
+  );
+});
+
 test("3-room assignment can be heavier than a 4-room assignment", () => {
   assert.ok(byId("fixture-plan-1-walking-heavy-3-to-1").totalBurdenScore > byId("fixture-plan-1-light-4-to-1").totalBurdenScore);
 });

@@ -1,0 +1,13 @@
+{
+  "npm --workspace packages/shared test": "test-output/shared.txt",
+  "npm --workspace apps/web test": "test-output/web.txt",
+  "npm --workspace apps/web run build": "test-output/web-build.txt",
+  "node scripts/check-no-phi-fields.mjs": "test-output/no-phi.txt",
+  "node scripts/check-no-phi-fields.mjs first failure": "test-output/no-phi-first-failure.txt",
+  "node scripts/check-docs-contracts.mjs": "test-output/docs-gate.txt",
+  "node scripts/check-plan-1-visual-parity.mjs --stage final": "test-output/plan-1-visual-parity-gate.txt",
+  "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 250": "test-output/plans-2-through-5-unchanged.txt",
+  "node scripts/check-plan-1-assignment-workflow.mjs --stage final": "test-output/plan-1-assignment-workflow-gate.txt",
+  "docker compose down": "test-output/docker-compose-down-before-verify-local.txt",
+  "node scripts/verify-local.mjs": "test-output/verify-local.txt"
+}
