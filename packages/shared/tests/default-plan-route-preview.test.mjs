@@ -34,6 +34,12 @@ function input(plan, originPathNodeId, destinationPathNodeId) {
   };
 }
 
+function firstRoomPathNodeId(plan) {
+  const room = plan.rooms.find((entry) => entry.pathNodeId != null);
+  assert.ok(room?.pathNodeId);
+  return room.pathNodeId;
+}
+
 test("route preview builder produces default route examples for all five plans", () => {
   const summaries = [];
   for (let index = 1; index <= 5; index += 1) {
@@ -83,7 +89,7 @@ test("route preview builder produces default route examples for all five plans",
 test("route preview builder is deterministic and does not mutate plans", () => {
   const plan = readPlan(1);
   const before = JSON.stringify(plan);
-  const routeInput = input(plan, "node-entry-ems", "node-door-room-01");
+  const routeInput = input(plan, "node-entry-ems", firstRoomPathNodeId(plan));
   const first = buildRoutePreview(plan, routeInput);
   const second = buildRoutePreview(plan, routeInput);
 
@@ -105,7 +111,8 @@ test("route preview builder is deterministic and does not mutate plans", () => {
 
 test("route preview builder returns structured invalid and unreachable outputs", () => {
   const plan = readPlan(1);
-  const invalid = buildRoutePreview(plan, input(plan, "node-missing", "node-door-room-01"));
+  const destinationPathNodeId = firstRoomPathNodeId(plan);
+  const invalid = buildRoutePreview(plan, input(plan, "node-missing", destinationPathNodeId));
   assert.equal(invalid.status, "invalid");
   assert.equal(invalid.warnings.some((warning) => warning.code === "MISSING_ORIGIN_NODE"), true);
 
@@ -120,11 +127,11 @@ test("route preview builder returns structured invalid and unreachable outputs",
 
   const disconnected = clone(plan);
   disconnected.pathEdges = disconnected.pathEdges.filter(
-    (edge) => edge.fromNodeId !== "node-door-room-01" && edge.toNodeId !== "node-door-room-01"
+    (edge) => edge.fromNodeId !== destinationPathNodeId && edge.toNodeId !== destinationPathNodeId
   );
   const unreachable = buildRoutePreview(
     disconnected,
-    input(disconnected, "node-entry-ems", "node-door-room-01")
+    input(disconnected, "node-entry-ems", destinationPathNodeId)
   );
   assert.equal(unreachable.status, "unreachable");
   assert.equal(unreachable.warnings.some((warning) => warning.code === "UNREACHABLE_ROUTE"), true);
@@ -143,10 +150,11 @@ test("route preview builder returns structured invalid and unreachable outputs",
 
 test("route preview builder excludes blocked edges", () => {
   const plan = clone(readPlan(1));
+  const destinationPathNodeId = firstRoomPathNodeId(plan);
   plan.pathEdges.push({
     id: "edge-blocked-shortcut",
     fromNodeId: "node-station-primary",
-    toNodeId: "node-door-room-01",
+    toNodeId: destinationPathNodeId,
     lengthFeet: 1,
     hallwayWidthFeet: 10,
     congestionFactor: 1,
@@ -155,7 +163,7 @@ test("route preview builder excludes blocked edges", () => {
     blocked: true
   });
 
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", "node-door-room-01"));
+  const route = buildRoutePreview(plan, input(plan, "node-station-primary", destinationPathNodeId));
   assert.equal(route.status, "reachable");
   assert.equal(route.routeEdgeIds.includes("edge-blocked-shortcut"), false);
   assert.equal(route.warnings.some((warning) => warning.code === "BLOCKED_EDGE_EXCLUDED"), true);

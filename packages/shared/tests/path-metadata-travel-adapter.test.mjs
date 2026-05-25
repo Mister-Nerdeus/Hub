@@ -37,9 +37,15 @@ function input(plan, originPathNodeId, destinationPathNodeId) {
   };
 }
 
+function firstRoomPathNodeId(plan) {
+  const room = plan.rooms.find((entry) => entry.pathNodeId != null);
+  assert.ok(room?.pathNodeId);
+  return room.pathNodeId;
+}
+
 test("metadata adapter annotates route edges without changing route selection or totals", () => {
   const plan = readPlan(1);
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", "node-door-room-01"));
+  const route = buildRoutePreview(plan, input(plan, "node-station-primary", firstRoomPathNodeId(plan)));
   const annotated = annotateRoutePreviewWithPathMetadata(plan, route);
 
   assert.deepEqual(annotated.routePreview.routeEdgeIds, route.routeEdgeIds);
@@ -74,7 +80,7 @@ test("metadata adapter handles missing metadata safely and remains deterministic
   for (const door of plan.doors) {
     door.doorOperationalMetadata = null;
   }
-  const route = buildRoutePreview(plan, input(plan, "node-station-primary", "node-door-room-01"));
+  const route = buildRoutePreview(plan, input(plan, "node-station-primary", firstRoomPathNodeId(plan)));
   const first = annotateRoutePreviewWithPathMetadata(plan, route);
   const second = annotateRoutePreviewWithPathMetadata(plan, route);
 

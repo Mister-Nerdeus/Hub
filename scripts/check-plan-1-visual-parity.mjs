@@ -17,6 +17,7 @@ const {
 const args = new Set(process.argv.slice(2));
 const issueArgIndex = process.argv.indexOf("--issue");
 const issue = issueArgIndex >= 0 ? process.argv[issueArgIndex + 1] : null;
+const issueNumber = issue == null ? null : Number.parseInt(issue, 10);
 const allowCurrentFailure = args.has("--allow-current-failure");
 const allowPartial = args.has("--allow-partial");
 
@@ -61,7 +62,27 @@ if (oldSimplifiedRoomCountFailure) {
 }
 
 const mode = allowCurrentFailure ? "allow-current-failure" : allowPartial ? "allow-partial" : "strict";
-const status = failures.length === 0 ? "passed" : mode === "strict" ? "failed" : "current_failure_allowed";
+const requiredStageFailures = [];
+if (issueNumber != null && issueNumber >= 232) {
+  const roomCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "rooms");
+  if (roomCountFailure != null) {
+    requiredStageFailures.push(
+      `ROOM_COUNT_STAGE_FAILURE: observed ${roomCountFailure.observed}, required ${roomCountFailure.minimum}`
+    );
+  }
+  for (const failure of audit.missingRequiredObjects.filter((entry) => entry.objectKind === "room")) {
+    requiredStageFailures.push(`ROOM_COVERAGE_STAGE_FAILURE: ${failure.sourceLabel}`);
+  }
+  for (const legacyRoomId of legacyRoomIdsPresent) {
+    requiredStageFailures.push(`LEGACY_ROOM_STAGE_FAILURE: ${legacyRoomId}`);
+  }
+}
+
+const status = failures.length === 0
+  ? "passed"
+  : mode === "strict" || requiredStageFailures.length > 0
+    ? "failed"
+    : "current_failure_allowed";
 const output = {
   issue: issue ?? "unscoped",
   status,
@@ -79,6 +100,7 @@ const output = {
   },
   failureCount: failures.length,
   failures,
+  requiredStageFailures,
   nonClaims: sourceTruth.nonClaims
 };
 

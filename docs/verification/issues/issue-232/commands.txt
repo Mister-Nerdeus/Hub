@@ -1,0 +1,4 @@
+npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-232/test-output/shared.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-232/test-output/no-phi.txt
+node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 232 | Tee-Object -FilePath docs/verification/issues/issue-232/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-232/test-output/docs-gate.txt
