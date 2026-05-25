@@ -1,0 +1,25 @@
+{
+  "issue": "280",
+  "status": "passed",
+  "narrativeTypes": [
+    "typical_vs_slammed",
+    "typical_vs_walking_heavy",
+    "typical_vs_trauma_heavy",
+    "overall_demo_summary"
+  ],
+  "mostUsefulDemoNarrative": "typical_vs_slammed",
+  "artifacts": [
+    {
+      "path": "docs/verification/issues/issue-273/scenario-narratives-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-273/typical-vs-slammed-narrative-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-273/prohibited-claim-negative-output.json",
+      "exists": true
+    }
+  ]
+}

@@ -1,83 +1,60 @@
 {
   "issue": "280",
   "commands": [
-    {
-      "command": "npm --workspace packages/shared test",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/shared.txt"
-      ]
-    },
-    {
-      "command": "npm --workspace apps/web test",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/web.txt"
-      ]
-    },
-    {
-      "command": "npm --workspace apps/web run build",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/web-build.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-no-phi-fields.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/no-phi.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-docs-contracts.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/docs-gate.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-private-source-artifacts.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/private-source-artifacts.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-floorplan-authoring.mjs --stage final",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/floorplan-authoring-gate.txt"
-      ]
-    },
+    { "command": "npm --workspace packages/shared test", "outputs": ["docs/verification/issues/issue-280/test-output/shared.txt"] },
+    { "command": "npm --workspace apps/web test", "outputs": ["docs/verification/issues/issue-280/test-output/web.txt"] },
+    { "command": "npm --workspace apps/web run build", "outputs": ["docs/verification/issues/issue-280/test-output/web-build.txt"] },
+    { "command": "node scripts/check-no-phi-fields.mjs", "outputs": ["docs/verification/issues/issue-280/test-output/no-phi.txt"] },
+    { "command": "node scripts/check-docs-contracts.mjs", "outputs": ["docs/verification/issues/issue-280/test-output/docs-gate.txt"] },
+    { "command": "node scripts/check-plan-1-demo-no-claims.mjs --issue 280", "outputs": ["docs/verification/issues/issue-280/test-output/demo-no-claims-gate.txt"] },
     {
       "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 280",
-      "outputs": [
-        "docs/verification/issues/issue-280/visual-parity-still-passes-output.json"
-      ]
+      "outputs": ["docs/verification/issues/issue-280/test-output/plan-1-visual-parity-gate.txt", "docs/verification/issues/issue-280/visual-parity-still-passes-output.json"]
     },
     {
       "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 280",
-      "outputs": [
-        "docs/verification/issues/issue-280/assignment-workflow-still-passes-output.json"
-      ]
+      "outputs": ["docs/verification/issues/issue-280/test-output/plan-1-assignment-workflow-gate.txt", "docs/verification/issues/issue-280/assignment-workflow-still-passes-output.json"]
     },
     {
       "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 280",
-      "outputs": [
-        "docs/verification/issues/issue-280/scenario-simulation-still-passes-output.json"
-      ]
+      "outputs": ["docs/verification/issues/issue-280/test-output/plan-1-scenario-simulation-gate.txt", "docs/verification/issues/issue-280/scenario-simulation-still-passes-output.json"]
     },
     {
       "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 280",
-      "outputs": [
-        "docs/verification/issues/issue-280/simulation-refinement-still-passes-output.json"
-      ]
+      "outputs": ["docs/verification/issues/issue-280/test-output/plan-1-simulation-refinement-gate.txt", "docs/verification/issues/issue-280/simulation-refinement-still-passes-output.json"]
+    },
+    {
+      "command": "node scripts/check-plan-1-demo-readiness.mjs --stage final --issue 280",
+      "outputs": ["docs/verification/issues/issue-280/test-output/plan-1-demo-readiness-gate.txt", "docs/verification/issues/issue-280/demo-readiness-manifest-output.json"]
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 280",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/plans-2-through-5-unchanged.txt"
-      ]
+      "outputs": ["docs/verification/issues/issue-280/test-output/plans-2-through-5-unchanged.txt", "docs/verification/issues/issue-280/plans-2-through-5-unchanged-output.json"]
     },
-    {
-      "command": "node scripts/verify-local.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-280/test-output/verify-local.txt"
-      ]
-    }
+    { "command": "node scripts/verify-local.mjs", "outputs": ["docs/verification/issues/issue-280/test-output/verify-local.txt"] }
+  ],
+  "implementationArtifacts": [
+    "docs/verification/issues/issue-280/plan-1-demo-readiness-audit.md",
+    "docs/verification/issues/issue-280/traceability-summary.json",
+    "docs/verification/issues/issue-280/guided-workflow-summary.json",
+    "docs/verification/issues/issue-280/scenario-narratives-summary.json",
+    "docs/verification/issues/issue-280/assumptions-presentation-summary.json",
+    "docs/verification/issues/issue-280/timeline-warning-ux-summary.json",
+    "docs/verification/issues/issue-280/demo-seed-summary.json",
+    "docs/verification/issues/issue-280/proof-bundle-summary.json",
+    "docs/verification/issues/issue-280/no-claims-no-phi-summary.json",
+    "docs/verification/issues/issue-280/screenshot-route-matrix-summary.json",
+    "docs/verification/issues/issue-280/final-demo-readiness-manifest.json",
+    "docs/verification/issues/issue-280/go-no-go.md",
+    "docs/verification/issues/issue-280/screenshots/plan-1-demo-final.png",
+    "docs/verification/issues/issue-280/test-output/shared.txt",
+    "docs/verification/issues/issue-280/test-output/web.txt",
+    "docs/verification/issues/issue-280/test-output/web-build.txt",
+    "docs/verification/issues/issue-280/test-output/no-phi.txt",
+    "docs/verification/issues/issue-280/test-output/docs-gate.txt",
+    "docs/verification/issues/issue-280/test-output/demo-no-claims-gate.txt",
+    "docs/verification/issues/issue-280/test-output/plan-1-demo-readiness-gate.txt",
+    "docs/verification/issues/issue-280/test-output/plans-2-through-5-unchanged.txt",
+    "docs/verification/issues/issue-280/test-output/verify-local.txt"
   ]
 }

@@ -1,7 +1,5 @@
-Issue 280 known-gaps.md
+# Known Gaps
 
-Stage: final
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+- Screenshot artifacts are machine-checkable local proof images, not browser-automated pixel captures.
+- Broader UX polish can improve presentation before external demo use.
+- The proof bundle is a local review package, not a production export service.

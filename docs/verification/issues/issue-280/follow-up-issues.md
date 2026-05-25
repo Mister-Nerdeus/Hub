@@ -1,7 +1,5 @@
-Issue 280 follow-up-issues.md
+# Follow-Up Issues
 
-Stage: final
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+- Broader Plan 1 UX polish before external demo.
+- Optional browser-automated screenshot capture for future visual evidence.
+- External demo preparation checklist after local proof review.

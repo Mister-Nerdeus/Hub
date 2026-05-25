@@ -1,0 +1,35 @@
+{
+  "issue": "280",
+  "status": "passed",
+  "demoStepsCovered": [
+    "Open repaired Plan 1",
+    "Review floorplan",
+    "Review assignments",
+    "Review scenario assumptions",
+    "Run/view deterministic dry-run",
+    "Review scenario comparison",
+    "Review proof report"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/verification/issues/issue-272/demo-workflow-view-model-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-272/demo-guide-ui-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-272/demo-step-coverage-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-272/demo-non-claims-banner-output.json",
+      "exists": true
+    },
+    {
+      "path": "docs/verification/issues/issue-272/developer-evidence-separation-output.json",
+      "exists": true
+    }
+  ]
+}

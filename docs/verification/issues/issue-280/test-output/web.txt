@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 93 web test file(s).
+Discovered 97 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -39,6 +39,10 @@ Discovered 93 web test file(s).
 > src/features/comparison/scenarioComparisonViewModel.test.ts
 
 > src/features/demo/Plan1DemoGuide.test.tsx
+
+> src/features/demo/Plan1DemoProofBundlePanel.test.tsx
+
+> src/features/demo/Plan1DemoSeedPanel.test.tsx
 
 > src/features/demo/plan1DemoWorkflowViewModel.test.ts
 
@@ -190,6 +194,10 @@ Discovered 93 web test file(s).
 
 > src/features/scenarios/Plan1SimulationRefinementPanels.test.ts
 
+> src/features/scenarios/Plan1SimulationTimelinePanel.test.tsx
+
+> src/features/scenarios/Plan1WarningExplainabilityPanel.test.tsx
+
 > src/features/simulation/simulationRunRetrievalViewModel.test.ts
 
 > src/features/simulation/simulationTimelineViewModel.test.ts
@@ -198,4 +206,4 @@ Discovered 93 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 93 web test file(s).
+Executed 97 web test file(s).

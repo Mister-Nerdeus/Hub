@@ -1,7 +1,5 @@
-Issue 280 go-no-go.md
+# GO / NO-GO
 
-Stage: final
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+GO for broader UX polish before external demo.
+
+All final gates passed locally, all required Plan 1 demo evidence is traceable, the manifest is final and internally consistent, and non-PHI/no-claims rules pass.

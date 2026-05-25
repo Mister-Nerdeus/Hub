@@ -1,0 +1,150 @@
+{
+  "issue": "280",
+  "stage": "final",
+  "status": "failed",
+  "mode": "strict",
+  "manifestSummary": {
+    "manifestVersion": 1,
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 demo-readiness proof contract for synthetic operational simulation only.",
+    "requiredScreenCount": 12,
+    "requiredEvidenceArtifactCount": 62,
+    "requiredGateCount": 11,
+    "lastIssueUpdated": "279",
+    "goNoGoStatus": "pending"
+  },
+  "checks": [
+    {
+      "check": "manifest",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "traceability",
+      "status": "failed",
+      "failureCount": 9,
+      "failures": [
+        "GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-visual-parity-gate.txt",
+        "GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-assignment-workflow-gate.txt",
+        "GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-scenario-simulation-gate.txt",
+        "GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-simulation-refinement-gate.txt",
+        "REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-visual-parity-gate.txt",
+        "REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-assignment-workflow-gate.txt",
+        "REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-scenario-simulation-gate.txt",
+        "REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-simulation-refinement-gate.txt",
+        "DEMO_READINESS_MANIFEST_ISSUE_REFERENCE_MISSING: 280"
+      ]
+    },
+    {
+      "check": "guidedWorkflow",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "scenarioNarratives",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "scenarioNarrativeContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "assumptionsPresentation",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "assumptionsPresentationContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "timelineWarningUx",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "timelineWarningUxContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "demoSeedPack",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "demoSeedPackContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "proofBundle",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "proofBundleContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "noClaimsAudit",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "noClaimsAuditContent",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "screenshotsRouteMatrix",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "routeMatrix",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    }
+  ],
+  "failureCount": 9,
+  "failures": [
+    "traceability: GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-visual-parity-gate.txt",
+    "traceability: GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-assignment-workflow-gate.txt",
+    "traceability: GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-scenario-simulation-gate.txt",
+    "traceability: GATE_OUTPUT_MISSING: docs/verification/issues/issue-280/test-output/plan-1-simulation-refinement-gate.txt",
+    "traceability: REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-visual-parity-gate.txt",
+    "traceability: REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-assignment-workflow-gate.txt",
+    "traceability: REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-scenario-simulation-gate.txt",
+    "traceability: REQUIRED_TEST_OUTPUT_MISSING: test-output/plan-1-simulation-refinement-gate.txt",
+    "traceability: DEMO_READINESS_MANIFEST_ISSUE_REFERENCE_MISSING: 280"
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}
