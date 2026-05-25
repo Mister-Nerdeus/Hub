@@ -10,6 +10,8 @@ Issue 240 completes the final Plan 1 visual parity audit. The strict visual pari
 - `packages/shared/src/default-plans/planVisualParitySourceTruth.ts`
 - `packages/shared/tests/plan-1-source-truth-contract.test.mjs`
 - `scripts/check-plan-1-visual-parity.mjs`
+- `scripts/check-default-plans-2-through-5-unchanged.mjs`
+- `package.json`
 - `docs/project/plan-1-visual-parity-status.md`
 - `docs/verification/ISSUE_EVIDENCE_INDEX.json`
 - `docs/verification/issues/issue-240/*`
@@ -21,7 +23,8 @@ Issue 240 completes the final Plan 1 visual parity audit. The strict visual pari
 - `npm --workspace apps/web run build`
 - `node scripts/check-no-phi-fields.mjs`
 - `node scripts/check-docs-contracts.mjs`
-- `node scripts/check-plan-1-visual-parity.mjs`
+- `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 240`
+- `node scripts/check-plan-1-visual-parity.mjs --stage final`
 - `node scripts/verify-local.mjs`
 
 ## Tests Passed / Failed
@@ -30,7 +33,8 @@ Issue 240 completes the final Plan 1 visual parity audit. The strict visual pari
 - PASS: `npm --workspace apps/web test` executed 70 web test files.
 - PASS: `npm --workspace apps/web run build` completed successfully. Vite reported the existing large chunk warning.
 - PASS: `node scripts/check-no-phi-fields.mjs` found no PHI-like fields.
-- PASS: `node scripts/check-plan-1-visual-parity.mjs` passed with no allowance flags.
+- PASS: `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 240` proved Plans 2-5 files are unchanged against `git HEAD`.
+- PASS: `node scripts/check-plan-1-visual-parity.mjs --stage final` passed with no allowance flags.
 - PASS: `node scripts/check-docs-contracts.mjs` after evidence artifacts were present.
 - PASS: `node scripts/verify-local.mjs` after evidence artifacts were present.
 
@@ -54,6 +58,7 @@ Issue 240 completes the final Plan 1 visual parity audit. The strict visual pari
 - `test-output/web-build.txt`
 - `test-output/no-phi.txt`
 - `test-output/docs-gate.txt`
+- `test-output/plans-2-through-5-unchanged.txt`
 - `test-output/plan-1-visual-parity-gate.txt`
 - `test-output/verify-local.txt`
 

@@ -21,9 +21,31 @@ const args = new Set(process.argv.slice(2));
 const issueArgIndex = process.argv.indexOf("--issue");
 const issue = issueArgIndex >= 0 ? process.argv[issueArgIndex + 1] : null;
 const issueNumber = issue == null ? null : Number.parseInt(issue, 10);
+const stageArgIndex = process.argv.indexOf("--stage");
+const stage = stageArgIndex >= 0 ? process.argv[stageArgIndex + 1] : "final";
+const stageIssueThresholds = {
+  "source-truth": 229,
+  gap: 230,
+  scaffold: 231,
+  rooms: 232,
+  "operational-areas": 233,
+  access: 234,
+  "path-graph": 235,
+  "walking-baseline": 236,
+  mapping: 237,
+  render: 238,
+  export: 239,
+  final: 240
+};
+if (!Object.hasOwn(stageIssueThresholds, stage)) {
+  throw new Error(
+    `Unsupported --stage "${stage}". Expected one of: ${Object.keys(stageIssueThresholds).join(", ")}`
+  );
+}
 const allowCurrentFailure = args.has("--allow-current-failure");
 const allowPartial = args.has("--allow-partial");
-const effectiveIssueNumber = issueNumber ?? (!allowCurrentFailure && !allowPartial ? 240 : null);
+const stageIssueNumber = stageIssueThresholds[stage];
+const effectiveIssueNumber = issueNumber ?? stageIssueNumber;
 const evidenceIssue = issue ?? (effectiveIssueNumber == null ? null : String(effectiveIssueNumber));
 
 const sourceTruthRelativePath =
@@ -303,6 +325,7 @@ const status = failures.length === 0
     : "current_failure_allowed";
 const output = {
   issue: issue ?? "unscoped",
+  stage,
   status,
   mode,
   planId: planFixture.plan.planId,

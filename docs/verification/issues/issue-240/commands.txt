@@ -2,6 +2,7 @@ npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/is
 npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/web.txt
 npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/web-build.txt
 node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/no-phi.txt
-node scripts/check-plan-1-visual-parity.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 240 | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/plans-2-through-5-unchanged.txt
+node scripts/check-plan-1-visual-parity.mjs --stage final | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/plan-1-visual-parity-gate.txt
 node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/docs-gate.txt
 node scripts/verify-local.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/verify-local.txt

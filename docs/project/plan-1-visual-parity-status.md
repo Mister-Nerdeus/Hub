@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Issue 237 is complete. Plan 1 source mapping now includes explicit conversion provenance and covers required source-truth targets, while generated graph objects are marked as generated/inferred rather than source-visible.
+Issue 240 is complete. The final strict Plan 1 visual parity gate passes with no allowance flags, the Plan 2-5 unchanged gate exists and passes, and Plan 1 is GO for the nurse assignment workflow.
 
 ## Completed
 
@@ -23,7 +23,7 @@ Issue 237 is complete. Plan 1 source mapping now includes explicit conversion pr
 
 ## Next Recommended Issue
 
-Issue 238: prove the repaired Plan 1 renders in the app from JSON fixture data.
+Plan 2 visual parity repair, unless the user chooses to start the Plan 1 nurse assignment workflow first.
 
 ## Non-Claims
 
@@ -46,3 +46,7 @@ GO for Issue 240: final Plan 1 visual parity audit.
 ## Issue 240 - Final visual parity audit
 
 Status: Complete. Final strict visual parity gate passes with no allowance flags. GO for Plan 1 nurse assignment workflow.
+
+## Post-Audit Gate Hardening
+
+Status: Complete. Added the missing `scripts/check-default-plans-2-through-5-unchanged.mjs` gate, wired root npm scripts for Plan 1 visual parity and Plans 2-5 unchanged checks, and hardened `scripts/check-plan-1-visual-parity.mjs` so `--stage` controls staged acceptance thresholds.
