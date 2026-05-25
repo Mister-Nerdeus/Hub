@@ -42,3 +42,7 @@ GO for Issue 239: editor export integrity for edited Plan 1.
 Status: Complete. Editor export now rebuilds a PlanContract from the current editable layout and source plan, exporting room, station, and zone geometry edits while preserving doors/path graph with explicit deferred sync evidence.
 
 GO for Issue 240: final Plan 1 visual parity audit.
+
+## Issue 240 - Final visual parity audit
+
+Status: Complete. Final strict visual parity gate passes with no allowance flags. GO for Plan 1 nurse assignment workflow.

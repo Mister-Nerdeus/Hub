@@ -23,6 +23,8 @@ const issue = issueArgIndex >= 0 ? process.argv[issueArgIndex + 1] : null;
 const issueNumber = issue == null ? null : Number.parseInt(issue, 10);
 const allowCurrentFailure = args.has("--allow-current-failure");
 const allowPartial = args.has("--allow-partial");
+const effectiveIssueNumber = issueNumber ?? (!allowCurrentFailure && !allowPartial ? 240 : null);
+const evidenceIssue = issue ?? (effectiveIssueNumber == null ? null : String(effectiveIssueNumber));
 
 const sourceTruthRelativePath =
   "packages/shared/fixtures/default-plans/visual-parity/plan-1-source-truth.json";
@@ -93,31 +95,37 @@ const requiredRenderedLabels = [
   "24",
   "Provider Pharmacy"
 ];
-const renderEvidence = issue == null ? null : readIssueEvidenceJson(
-  issue,
+const renderEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
   "plan-1-render-object-count-output.json",
   "238"
 );
-const labelRenderEvidence = issue == null ? null : readIssueEvidenceJson(
-  issue,
+const labelRenderEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
   "plan-1-label-render-coverage-output.json",
   "238"
 );
-const oldRenderNegativeEvidence = issue == null ? null : readIssueEvidenceJson(
-  issue,
+const oldRenderNegativeEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
   "plan-1-old-render-negative-output.json",
   "238"
 );
 const renderedLabelCoverage = labelRenderEvidence?.coverage ?? {};
 const missingRenderedLabels = requiredRenderedLabels.filter((label) => renderedLabelCoverage[label] !== true);
-const exportIntegrityEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "edited-plan-export-output.json")
+const exportIntegrityEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
+  "edited-plan-export-output.json",
+  "239"
 );
-const sourcePlanNonmutationEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "source-plan-nonmutation-output.json")
+const sourcePlanNonmutationEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
+  "source-plan-nonmutation-output.json",
+  "239"
 );
-const noDocxExportEvidence = issue == null ? null : readOptionalJson(
-  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "no-docx-export-output.json")
+const noDocxExportEvidence = evidenceIssue == null ? null : readIssueEvidenceJson(
+  evidenceIssue,
+  "no-docx-export-output.json",
+  "239"
 );
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
@@ -151,7 +159,7 @@ if (oldSimplifiedRoomCountFailure) {
 
 const mode = allowCurrentFailure ? "allow-current-failure" : allowPartial ? "allow-partial" : "strict";
 const requiredStageFailures = [];
-if (issueNumber != null && issueNumber >= 232) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 232) {
   const roomCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "rooms");
   if (roomCountFailure != null) {
     requiredStageFailures.push(
@@ -165,7 +173,7 @@ if (issueNumber != null && issueNumber >= 232) {
     requiredStageFailures.push(`LEGACY_ROOM_STAGE_FAILURE: ${legacyRoomId}`);
   }
 }
-if (issueNumber != null && issueNumber >= 233) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 233) {
   const hallwayCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "hallways");
   if (hallwayCountFailure != null) {
     requiredStageFailures.push(
@@ -201,7 +209,7 @@ if (issueNumber != null && issueNumber >= 233) {
     requiredStageFailures.push(`LEGACY_STATION_STAGE_FAILURE: ${legacyStationId}`);
   }
 }
-if (issueNumber != null && issueNumber >= 234) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 234) {
   const doorCountFailure = audit.minimumCountFailures.find((failure) => failure.category === "doorsOrAccessPoints");
   if (doorCountFailure != null) {
     requiredStageFailures.push(
@@ -212,7 +220,7 @@ if (issueNumber != null && issueNumber >= 234) {
     requiredStageFailures.push(`DOOR_ACCESS_STAGE_FAILURE: ${failure.sourceLabel}`);
   }
 }
-if (issueNumber != null && issueNumber >= 235) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 235) {
   if (pathNodeCoverage.status !== "passed") {
     requiredStageFailures.push(
       `PATH_NODE_COVERAGE_STAGE_FAILURE: ${pathNodeCoverage.gaps.map((gap) => gap.code).join(",")}`
@@ -224,7 +232,7 @@ if (issueNumber != null && issueNumber >= 235) {
     );
   }
 }
-if (issueNumber != null && issueNumber >= 236) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 236) {
   for (const groupId of missingWalkingBaselineGroups) {
     requiredStageFailures.push(`WALKING_BASELINE_GROUP_STAGE_FAILURE: ${groupId}`);
   }
@@ -232,12 +240,12 @@ if (issueNumber != null && issueNumber >= 236) {
     requiredStageFailures.push(`WALKING_BASELINE_UNREACHABLE_STAGE_FAILURE: ${walkingBaseline.unreachableRouteCount}`);
   }
 }
-if (issueNumber != null && issueNumber >= 237) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 237) {
   for (const targetId of missingSourceMappingTargets) {
     requiredStageFailures.push(`SOURCE_MAPPING_TARGET_STAGE_FAILURE: ${targetId}`);
   }
 }
-if (issueNumber != null && issueNumber >= 238) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 238) {
   if (renderEvidence == null) {
     requiredStageFailures.push("APP_RENDER_OBJECT_COUNT_EVIDENCE_MISSING");
   } else {
@@ -265,7 +273,7 @@ if (issueNumber != null && issueNumber >= 238) {
     requiredStageFailures.push("APP_RENDER_OLD_LAYOUT_STAGE_FAILURE");
   }
 }
-if (issueNumber != null && issueNumber >= 239) {
+if (effectiveIssueNumber != null && effectiveIssueNumber >= 239) {
   if (exportIntegrityEvidence == null) {
     requiredStageFailures.push("EDITOR_EXPORT_INTEGRITY_EVIDENCE_MISSING");
   } else {

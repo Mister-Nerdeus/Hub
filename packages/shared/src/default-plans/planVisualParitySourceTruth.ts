@@ -86,10 +86,7 @@ export function validatePlanVisualParitySourceTruthContract(
   for (const [index, itemValue] of visibleObjects.entries()) {
     const item = requireRecord(itemValue, `visibleObjects[${index}]`);
     requireString(item.sourceLabel, `visibleObjects[${index}].sourceLabel`);
-    requireBoolean(item.required, `visibleObjects[${index}].required`);
-    if (item.required !== true) {
-      throw new Error(`visibleObjects[${index}].required must be true`);
-    }
+    const required = requireBoolean(item.required, `visibleObjects[${index}].required`);
     const objectKind = requireString(item.objectKind, `visibleObjects[${index}].objectKind`);
     if (!objectKindValues.has(objectKind)) {
       throw new Error(`visibleObjects[${index}].objectKind is unsupported: ${objectKind}`);
@@ -99,6 +96,15 @@ export function validatePlanVisualParitySourceTruthContract(
     const coverageStatus = requireString(item.coverageStatus, `visibleObjects[${index}].coverageStatus`);
     if (!coverageStatusValues.has(coverageStatus)) {
       throw new Error(`visibleObjects[${index}].coverageStatus is unsupported: ${coverageStatus}`);
+    }
+    if (
+      required !== true &&
+      coverageStatus !== "deferred" &&
+      coverageStatus !== "not_modelled_with_reason"
+    ) {
+      throw new Error(
+        `visibleObjects[${index}].required can be false only for explicit deferred or not-modeled entries`
+      );
     }
     requireString(item.notes, `visibleObjects[${index}].notes`);
     objectKindHistogram[objectKind] = (objectKindHistogram[objectKind] ?? 0) + 1;

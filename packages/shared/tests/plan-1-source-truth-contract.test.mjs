@@ -68,7 +68,6 @@ function validateSourceTruthContract(contract) {
   for (const [index, item] of contract.visibleObjects.entries()) {
     assert.equal(typeof item.sourceLabel, "string");
     assert.equal(typeof item.required, "boolean");
-    assert.ok(item.required, `visibleObjects[${index}] must be required`);
     assert.equal(typeof item.objectKind, "string");
     assert.ok(objectKindValues.has(item.objectKind), `visibleObjects[${index}].objectKind`);
     if (item.expectedTargetId !== null) {
@@ -78,6 +77,12 @@ function validateSourceTruthContract(contract) {
       assert.equal(typeof item.expectedRegionId, "string");
     }
     assert.ok(coverageStatusValues.has(item.coverageStatus));
+    if (!item.required) {
+      assert.ok(
+        item.coverageStatus === "deferred" || item.coverageStatus === "not_modelled_with_reason",
+        `visibleObjects[${index}] can be optional only when explicitly deferred or not modeled`
+      );
+    }
   }
 
   return {

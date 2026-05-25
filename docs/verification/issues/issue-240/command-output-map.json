@@ -1,0 +1,48 @@
+{
+  "issue": "240",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/shared.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/shared.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/web.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/web.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/web-build.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/web-build.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/no-phi.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/plan-1-visual-parity-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "node scripts/verify-local.mjs | Tee-Object -FilePath docs/verification/issues/issue-240/test-output/verify-local.txt",
+      "outputs": ["docs/verification/issues/issue-240/test-output/verify-local.txt"]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-240/plan-1-visual-parity-audit.md",
+    "docs/verification/issues/issue-240/plan-1-final-object-counts.json",
+    "docs/verification/issues/issue-240/plan-1-source-visible-coverage-summary.json",
+    "docs/verification/issues/issue-240/plan-1-render-summary.json",
+    "docs/verification/issues/issue-240/plan-1-path-graph-summary.json",
+    "docs/verification/issues/issue-240/plan-1-walking-baseline-summary.json",
+    "docs/verification/issues/issue-240/plan-1-source-mapping-summary.json",
+    "docs/verification/issues/issue-240/plan-1-export-integrity-summary.json",
+    "docs/verification/issues/issue-240/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-240/known-gaps.md",
+    "docs/verification/issues/issue-240/follow-up-issues.md",
+    "docs/verification/issues/issue-240/go-no-go.md",
+    "docs/verification/issues/issue-240/screenshots/plan-1-final-render.png"
+  ]
+}

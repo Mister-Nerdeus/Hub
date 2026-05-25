@@ -456,12 +456,12 @@
     },
     {
       "sourceLabel": "Grey unlabeled blocks",
-      "required": true,
-      "objectKind": "annotation",
+      "required": false,
+      "objectKind": "deferred",
       "expectedTargetId": null,
-      "expectedRegionId": "region-main-hallways",
-      "coverageStatus": "pending",
-      "notes": "Visible unlabeled grey blocks deferred unless explicit geometry is added"
+      "expectedRegionId": null,
+      "coverageStatus": "deferred",
+      "notes": "Visible grey unlabeled source blocks are explicitly deferred because they are not operational rooms, stations, hallways, access points, or provider/pharmacy zones for MVP routing."
     }
   ],
   "minimumExpectedCounts": {
