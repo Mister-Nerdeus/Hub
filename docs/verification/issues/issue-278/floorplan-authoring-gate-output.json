@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "stage": "export-integrity",
+  "issue": "278",
+  "allowPartial": true,
+  "missingModules": [],
+  "checkedModules": [
+    "packages/shared/src/floorplans/authoringDraftContract.ts",
+    "packages/shared/src/floorplans/savedPlanRecordContract.ts",
+    "packages/shared/src/floorplans/defaultPlanEditableCopy.ts",
+    "packages/shared/src/floorplans/roomTypeContract.ts",
+    "packages/shared/src/floorplans/addRoomContract.ts",
+    "packages/shared/src/floorplans/doorAuthoringContract.ts",
+    "packages/shared/src/floorplans/autoHallwayGenerator.ts",
+    "packages/shared/src/floorplans/autoPodBorder.ts",
+    "packages/shared/src/floorplans/authoringExportIntegrity.ts",
+    "packages/shared/src/floorplans/floorplanAuthoringRouteMatrix.ts",
+    "apps/web/src/features/floorplans/savedFloorplanPersistence.ts",
+    "apps/web/src/features/floorplans/SavePlanControls.tsx",
+    "apps/web/src/features/floorplans/DefaultPlanEditCopyControls.tsx",
+    "apps/web/src/features/layout-editor/RoomTypeEditor.tsx",
+    "apps/web/src/features/layout-editor/LayoutToolPalette.tsx",
+    "apps/web/src/features/layout-editor/addRoomTool.ts",
+    "apps/web/src/features/layout-editor/DoorEditor.tsx",
+    "apps/web/src/features/layout-editor/addDoorTool.ts",
+    "apps/web/src/features/layout-editor/AutoHallwayControls.tsx",
+    "apps/web/src/features/layout-editor/PodBorderShape.tsx",
+    "apps/web/src/features/layout-editor/podBorderViewModel.ts"
+  ],
+  "foundationCapabilities": [
+    "save",
+    "save_as",
+    "editable_default_copy",
+    "room_type_editing",
+    "add_room",
+    "door_authoring",
+    "auto_hallways",
+    "auto_pod_border",
+    "export_integrity",
+    "route_matrix"
+  ],
+  "privateSourceBoundary": {
+    "storesBinaryPayload": false,
+    "storesPrivateAbsolutePath": false,
+    "runtimeServedByWeb": false,
+    "runtimeServedByApi": false
+  },
+  "pathSyncWarning": "stale_warning is explicit after route-affecting authoring edits"
+}

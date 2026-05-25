@@ -1,4 +1,5 @@
 import type { FloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
+import { DefaultPlanEditCopyControls } from "./DefaultPlanEditCopyControls";
 
 type FloorplanLibraryProps = {
   viewModel: FloorplanLibraryViewModel;
@@ -61,9 +62,11 @@ export function FloorplanLibrary({
                 </button>
               ) : null}
               {floorplan.accessMode === "read-only-default" && onDuplicateDefaultPlan ? (
-                <button type="button" onClick={() => onDuplicateDefaultPlan(floorplan.planId)}>
-                  Duplicate JSON
-                </button>
+                <DefaultPlanEditCopyControls
+                  planId={floorplan.planId}
+                  readOnly={true}
+                  onDuplicateForEditing={onDuplicateDefaultPlan}
+                />
               ) : null}
               {floorplan.accessMode === "editable-saved" && onOpenSavedPlan ? (
                 <button

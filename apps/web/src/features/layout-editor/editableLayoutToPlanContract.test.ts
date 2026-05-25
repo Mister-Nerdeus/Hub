@@ -119,8 +119,8 @@ assert239(
   "path edges must be preserved until path sync is implemented"
 );
 assert239(
-  JSON.stringify(importedPlan.doors) === JSON.stringify(sourcePlan.doors),
-  "doors must be preserved until door sync is implemented"
+  sourcePlan.doors.every((door) => importedPlan.doors.some((exportedDoor) => exportedDoor.id === door.id)),
+  "source door IDs must be preserved unless explicitly deleted during door authoring"
 );
 
 const forbiddenFragments = [
@@ -174,7 +174,7 @@ writeEvidence("path-sync-deferred-output.json", {
   deferredSync: exportResult.deferredSync,
   pathNodesPreserved: true,
   pathEdgesPreserved: true,
-  doorsPreserved: true
+  sourceDoorIdsPreserved: true
 });
 writeEvidence("no-docx-export-output.json", {
   issue: "239",

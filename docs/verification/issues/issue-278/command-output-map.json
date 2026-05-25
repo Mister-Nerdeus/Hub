@@ -1,0 +1,11 @@
+{
+  "issue": "278",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage export-integrity --allow-partial --issue 278",
+      "outputs": [
+        "docs/verification/issues/issue-278/test-output/floorplan-authoring-gate.txt"
+      ]
+    }
+  ]
+}

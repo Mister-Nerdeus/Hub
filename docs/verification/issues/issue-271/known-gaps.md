@@ -1,3 +1,7 @@
-# Known Gaps
+Issue 271 known-gaps.md
 
-- Later demo readiness issues still need to add guided workflow, narratives, assumptions polish, warning polish, seed pack, proof bundle, no-claims audit, and route screenshots.
+Stage: save-records
+Status: passed
+Private source payload stored: false
+Non-PHI: true
+Known limitation: generated geometry is approximate operational authoring geometry only.

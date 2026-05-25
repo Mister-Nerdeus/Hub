@@ -1,0 +1,11 @@
+{
+  "issue": "279",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage route-matrix --allow-partial --issue 279",
+      "outputs": [
+        "docs/verification/issues/issue-279/test-output/floorplan-authoring-gate.txt"
+      ]
+    }
+  ]
+}

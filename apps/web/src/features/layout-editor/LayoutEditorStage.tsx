@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
+import type { AuthoringRoomType } from "@nerdeus/shared";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import {
@@ -9,6 +10,14 @@ import { editableLayoutToPlanContract } from "./editableLayoutToPlanContract";
 import { DoorShape } from "./DoorShape";
 import { buildDoorShapeViewModel } from "./doorShapeViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
+import { LayoutToolPalette, type LayoutToolMode } from "./LayoutToolPalette";
+import { buildAddRoomAction } from "./addRoomTool";
+import { buildAddDoorAction } from "./addDoorTool";
+import { RoomTypeEditor } from "./RoomTypeEditor";
+import { DoorEditor } from "./DoorEditor";
+import { AutoHallwayControls } from "./AutoHallwayControls";
+import { PodBorderShape } from "./PodBorderShape";
+import { buildPodBorderViewModel } from "./podBorderViewModel";
 import { LayoutDeltaPreviewPanel } from "./LayoutDeltaPreviewPanel";
 import { buildLayoutDeltaPreviewViewModel } from "./layoutDeltaPreviewViewModel";
 import { HallwayShape } from "./HallwayShape";
@@ -115,6 +124,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   );
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
+  const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
+  const [selectedNewRoomType, setSelectedNewRoomType] =
+    useState<AuthoringRoomType>("patient_room");
+  const [authoringSequence, setAuthoringSequence] = useState(1);
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
@@ -185,6 +198,15 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
+  const selectedDoor =
+    stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
+      ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
+      : null;
+  const podBorderViewModel = buildPodBorderViewModel({
+    layout: stageState.editableLayout,
+    sourcePlanId: stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout",
+    viewport: stageState.viewport
+  });
   const providerPharmacyZoneItems = zoneItems.filter(
     (item) => item.objectId === "zone-provider-pharmacy"
   );
@@ -231,6 +253,43 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     } catch (error) {
       setFloorplanJsonStatus(errorMessage(error));
     }
+  };
+  const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
+    if (toolMode !== "add_room" || stageState.readOnly) {
+      return;
+    }
+    const pointFeet = stagePointerToFeet(event, stageState.viewport);
+    dispatchStage(
+      buildAddRoomAction({
+        sequence: authoringSequence,
+        draft: {
+          selectedRoomType: selectedNewRoomType,
+          defaultWidthFeet: 12,
+          defaultHeightFeet: 10
+        },
+        xFeet: pointFeet.xFeet,
+        yFeet: pointFeet.yFeet
+      })
+    );
+    setAuthoringSequence((value) => value + 1);
+    setToolMode("select");
+  };
+  const addDoorToSelectedRoom = () => {
+    if (
+      stageState.readOnly ||
+      stageState.selectedObjectType !== "room" ||
+      stageState.selectedObjectId == null
+    ) {
+      return;
+    }
+    dispatchStage(
+      buildAddDoorAction({
+        sequence: authoringSequence,
+        roomId: stageState.selectedObjectId
+      })
+    );
+    setAuthoringSequence((value) => value + 1);
+    setToolMode("select");
   };
   const importEditableFloorplanJson = () => {
     try {
@@ -432,6 +491,27 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         <p role="status">{floorplanJsonStatus}</p>
       </section>
 
+      <LayoutToolPalette
+        mode={toolMode}
+        selectedRoomType={selectedNewRoomType}
+        readOnly={stageState.readOnly}
+        onModeChange={(mode) => {
+          setToolMode(mode);
+          if (mode === "add_door") {
+            addDoorToSelectedRoom();
+          }
+        }}
+        onRoomTypeChange={setSelectedNewRoomType}
+        onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
+      />
+      <AutoHallwayControls
+        readOnly={stageState.readOnly}
+        generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
+          hallway.id.startsWith("generated-hallway-")
+        ).length ?? 0}
+        onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+      />
+
       <LayoutViewportToolbar
         viewport={stageState.viewport}
         onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
@@ -457,6 +537,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             data-floorplan-source-kind={stageState.loadedFloorplan?.sourceKind ?? "proof-fixture"}
             data-validation-warning-count={stageState.validationWarnings.length}
             data-read-only={stageState.readOnly ? "true" : "false"}
+            onClick={addRoomFromStageClick}
           >
             <rect
               className="layout-editor-stage__viewport-frame"
@@ -475,6 +556,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               rx="0"
             />
             <g className="layout-editor-stage__background-objects">
+              {podBorderViewModel == null ? null : (
+                <PodBorderShape viewModel={podBorderViewModel} />
+              )}
               {hallwayItems.map((item) => (
                 <HallwayShape
                   key={item.hitTargetKey}
@@ -620,6 +704,25 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               )
             }
           />
+          <RoomTypeEditor
+            room={selectedRoom}
+            readOnly={stageState.readOnly}
+            onChangeRoomType={(roomId, roomType) =>
+              dispatchStage({ type: "editSelectedRoomType", roomId, roomType })
+            }
+          />
+          <DoorEditor
+            door={selectedDoor}
+            rooms={stageState.editableLayout?.rooms ?? []}
+            readOnly={stageState.readOnly}
+            onMoveDoor={(doorId, wall, offsetFeet) =>
+              dispatchStage({ type: "moveDoor", doorId, wall, offsetFeet })
+            }
+            onDeleteDoor={(doorId) => dispatchStage({ type: "deleteDoor", doorId })}
+            onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
+              dispatchStage({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
+            }
+          />
           <LayoutValidationPanel viewModel={validationPanelViewModel} />
           <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
         </div>
@@ -679,6 +782,19 @@ function pixelsDeltaToFeet(
   viewport: { pixelsPerFoot: number; zoom: number }
 ): number {
   return deltaPixels / (viewport.pixelsPerFoot * viewport.zoom);
+}
+
+function stagePointerToFeet(
+  event: PointerEvent<SVGSVGElement>,
+  viewport: { pixelsPerFoot: number; zoom: number; panXFeet: number; panYFeet: number }
+) {
+  const bounds = event.currentTarget.getBoundingClientRect();
+  const xPixels = event.clientX - bounds.left;
+  const yPixels = event.clientY - bounds.top;
+  return {
+    xFeet: xPixels / (viewport.pixelsPerFoot * viewport.zoom) + viewport.panXFeet,
+    yFeet: yPixels / (viewport.pixelsPerFoot * viewport.zoom) + viewport.panYFeet
+  };
 }
 
 function errorMessage(error: unknown): string {

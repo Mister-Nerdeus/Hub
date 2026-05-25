@@ -1,4 +1,16 @@
-import type { EditableLayoutGeometryContract } from "@nerdeus/shared";
+import {
+  addDoorToRoom,
+  addRoomToEditableLayout,
+  assignDoorToRoom,
+  authoringRoomTypeToEditableRoomType,
+  deleteDoor,
+  generateAutoHallways,
+  moveDoor,
+  validateAuthoringRoomType,
+  type AuthoringRoomType,
+  type EditableDoorWall,
+  type EditableLayoutGeometryContract
+} from "@nerdeus/shared";
 
 import {
   createLayoutEditorState,
@@ -27,7 +39,10 @@ import {
 } from "./layoutEditAuditTrail";
 import { applyLayoutEditEffects } from "./layoutEditEffects";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
-import { validateLayoutValidationWarning } from "./layoutValidationWarningContract";
+import {
+  buildLayoutValidationWarning,
+  validateLayoutValidationWarning
+} from "./layoutValidationWarningContract";
 import {
   recalculateWarningsForRoom,
   replaceGeneratedWarningsBySources
@@ -72,6 +87,35 @@ export type LayoutEditorAction =
       deltaYFeet: number;
     }
   | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
+  | { type: "editSelectedRoomType"; roomId: string; roomType: AuthoringRoomType }
+  | {
+      type: "addRoom";
+      roomId: string;
+      label: string;
+      roomType: AuthoringRoomType;
+      xFeet: number;
+      yFeet: number;
+      widthFeet: number;
+      heightFeet: number;
+    }
+  | {
+      type: "addDoorToRoom";
+      doorId: string;
+      roomId: string;
+      wall: EditableDoorWall;
+      offsetFeet: number;
+      widthFeet: number;
+    }
+  | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
+  | { type: "deleteDoor"; doorId: string }
+  | {
+      type: "assignDoorToRoom";
+      doorId: string;
+      roomId: string;
+      wall: EditableDoorWall;
+      offsetFeet: number;
+    }
+  | { type: "generateAutoHallways" }
   | { type: "undoLayoutEdit" }
   | { type: "redoLayoutEdit" }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
@@ -158,6 +202,57 @@ export function layoutEditorReducer(
       });
     case "editSelectedRoomDimensions":
       return editSelectedRoomDimensions(state, action.dimensions);
+    case "editSelectedRoomType":
+      return editSelectedRoomType(state, action.roomId, action.roomType);
+    case "addRoom":
+      return addRoom(state, action);
+    case "addDoorToRoom":
+      return applyDoorAuthoring(
+        state,
+        addDoorToRoom({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId,
+          roomId: action.roomId,
+          wall: action.wall,
+          offsetFeet: action.offsetFeet,
+          widthFeet: action.widthFeet
+        })
+      );
+    case "moveDoor":
+      return applyDoorAuthoring(
+        state,
+        moveDoor({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId,
+          wall: action.wall,
+          offsetFeet: action.offsetFeet
+        })
+      );
+    case "deleteDoor":
+      return applyDoorAuthoring(
+        state,
+        deleteDoor({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId
+        })
+      );
+    case "assignDoorToRoom":
+      return applyDoorAuthoring(
+        state,
+        assignDoorToRoom({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId,
+          roomId: action.roomId,
+          wall: action.wall,
+          offsetFeet: action.offsetFeet
+        })
+      );
+    case "generateAutoHallways":
+      return generateAutoHallwaysForState(state);
     case "undoLayoutEdit":
       return restoreLayoutEditHistory(state, "undo");
     case "redoLayoutEdit":
@@ -178,6 +273,155 @@ export function layoutEditorReducer(
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
   }
+}
+
+function editSelectedRoomType(
+  state: LayoutEditorState,
+  roomId: string,
+  roomTypeValue: AuthoringRoomType
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "room" || state.selectedObjectId !== roomId) {
+    return state;
+  }
+  const roomType = authoringRoomTypeToEditableRoomType(validateAuthoringRoomType(roomTypeValue));
+  const room = state.editableLayout.rooms.find((candidate) => candidate.id === roomId);
+  if (room == null) {
+    throw new Error(`unknown room: ${roomId}`);
+  }
+  if (room.roomType === roomType) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      rooms: state.editableLayout.rooms.map((candidate) =>
+        candidate.id === roomId
+          ? {
+              ...candidate,
+              roomType,
+              isHallBed: roomType === "hall_bed",
+              isTraumaAdjacent: roomType === "trauma"
+            }
+          : candidate
+      )
+    },
+    selectedObjectType: "room",
+    selectedObjectId: roomId,
+    isDirty: true
+  });
+}
+
+function addRoom(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "addRoom" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const result = addRoomToEditableLayout({
+    layout: state.editableLayout,
+    readOnly: state.readOnly,
+    roomId: action.roomId,
+    label: action.label,
+    roomType: action.roomType,
+    xFeet: action.xFeet,
+    yFeet: action.yFeet,
+    widthFeet: action.widthFeet,
+    heightFeet: action.heightFeet,
+    boundsFeet: state.layoutBoundsFeet
+  });
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: "room",
+    selectedObjectId: result.selectedRoomId,
+    validationWarnings: [
+      ...state.validationWarnings,
+      ...result.warnings.map((message, index) =>
+        buildLayoutValidationWarning({
+          code: `added_room_warning_${index + 1}`,
+          severity: "warning",
+          source: index === 0 ? "door_sync" : "path_sync",
+          message,
+          objectType: "room",
+          objectId: result.selectedRoomId,
+          isGenerated: true
+        })
+      )
+    ],
+    isDirty: true
+  });
+}
+
+function applyDoorAuthoring(
+  state: LayoutEditorState,
+  result: ReturnType<typeof addDoorToRoom>
+): LayoutEditorState {
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: result.selectedDoorId == null ? null : "door",
+    selectedObjectId: result.selectedDoorId,
+    validationWarnings: [
+      ...state.validationWarnings,
+      buildLayoutValidationWarning({
+        code: "path_sync_stale_after_door_edit",
+        severity: "warning",
+        source: "path_sync",
+        message: result.warning,
+        objectType: result.selectedDoorId == null ? null : "door",
+        objectId: result.selectedDoorId,
+        isGenerated: true
+      })
+    ],
+    isDirty: true
+  });
+}
+
+function generateAutoHallwaysForState(state: LayoutEditorState): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const result = generateAutoHallways({
+    layout: state.editableLayout,
+    sourcePlanId: state.loadedFloorplan?.planId ?? state.editableLayout.layoutId,
+    readOnly: state.readOnly,
+    boundsFeet: state.layoutBoundsFeet
+  });
+  const manualHallways = state.editableLayout.hallways.filter((hallway) =>
+    result.preservedManualHallwayIds.includes(hallway.id)
+  );
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      hallways: [...manualHallways, ...result.generatedHallwayZones]
+    },
+    validationWarnings: [
+      ...state.validationWarnings,
+      buildLayoutValidationWarning({
+        code: "generated_hallways_require_review",
+        severity: "info",
+        source: "path_sync",
+        message: "Generated hallway/public space is approximate and requires route/path review.",
+        objectType: "hallway",
+        objectId: result.generatedHallwayId,
+        isGenerated: true
+      })
+    ],
+    isDirty: true
+  });
+}
+
+function requireEditableLayout(state: LayoutEditorState): EditableLayoutGeometryContract {
+  if (state.editableLayout == null) {
+    throw new Error("editable layout is required");
+  }
+  return state.editableLayout;
 }
 
 function restoreLayoutEditHistory(

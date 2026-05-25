@@ -14,6 +14,7 @@ import {
   type SavedFloorplanRecord,
   type SavedFloorplanStore
 } from "./features/floorplans/savedFloorplanStore";
+import { createSavedFloorplanPersistence } from "./features/floorplans/savedFloorplanPersistence";
 import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
 import { AppShell } from "./features/app-shell/AppShell";
 import {
@@ -40,10 +41,16 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
   if (savedFloorplanStoreRef.current == null) {
-    savedFloorplanStoreRef.current = createSavedFloorplanStore();
+    savedFloorplanStoreRef.current = createSavedFloorplanStore(
+      typeof window === "undefined" || window.localStorage == null
+        ? null
+        : createSavedFloorplanPersistence(window.localStorage)
+    );
   }
   const savedFloorplanStore = savedFloorplanStoreRef.current;
-  const [savedFloorplans, setSavedFloorplans] = useState<SavedFloorplanRecord[]>([]);
+  const [savedFloorplans, setSavedFloorplans] = useState<SavedFloorplanRecord[]>(() =>
+    savedFloorplanStore.list()
+  );
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
 
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);

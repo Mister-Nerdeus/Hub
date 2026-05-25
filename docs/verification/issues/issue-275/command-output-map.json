@@ -1,0 +1,11 @@
+{
+  "issue": "275",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage door-authoring --allow-partial --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/floorplan-authoring-gate.txt"
+      ]
+    }
+  ]
+}

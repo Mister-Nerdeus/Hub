@@ -1,3 +1,7 @@
-# Follow-up Issues
+Issue 271 follow-up-issues.md
 
-- Issue 272: Plan 1 demo navigation and guided workflow.
+Stage: save-records
+Status: passed
+Private source payload stored: false
+Non-PHI: true
+Known limitation: generated geometry is approximate operational authoring geometry only.
