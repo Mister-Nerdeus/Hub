@@ -57,7 +57,12 @@
     "docs/verification/issues/issue-277/demo-proof-bundle-evidence-reference-output.json",
     "docs/verification/issues/issue-277/demo-proof-bundle-non-claims-output.json",
     "docs/verification/issues/issue-277/demo-proof-bundle-ui-output.json",
-    "docs/verification/issues/issue-277/screenshots/plan-1-demo-proof-bundle.png"
+    "docs/verification/issues/issue-277/screenshots/plan-1-demo-proof-bundle.png",
+    "docs/verification/issues/issue-278/no-claims-audit-output.json",
+    "docs/verification/issues/issue-278/no-phi-demo-audit-output.json",
+    "docs/verification/issues/issue-278/prohibited-claim-negative-output.json",
+    "docs/verification/issues/issue-278/prohibited-data-field-negative-output.json",
+    "docs/verification/issues/issue-278/required-non-claims-present-output.json"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -82,6 +87,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "277",
+  "lastIssueUpdated": "278",
   "goNoGoStatus": "pending"
 }

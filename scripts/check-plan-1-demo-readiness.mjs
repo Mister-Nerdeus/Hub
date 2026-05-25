@@ -110,6 +110,7 @@ if (stage === "no-claims-audit" || stage === "final") {
     "prohibited-data-field-negative-output.json",
     "required-non-claims-present-output.json"
   ], "noClaimsAudit"));
+  checks.push(validateNoClaimsAuditContent());
 }
 if (stage === "screenshots-route-matrix" || stage === "final") {
   checks.push(validateIssueEvidence("279", [
@@ -437,6 +438,32 @@ function validateProofBundleContent() {
     failures.push("missing proof bundle evidence artifact references");
   }
   return check("proofBundleContent", failures);
+}
+
+function validateNoClaimsAuditContent() {
+  const noClaimsPath = "docs/verification/issues/issue-278/no-claims-audit-output.json";
+  const noPhiPath = "docs/verification/issues/issue-278/no-phi-demo-audit-output.json";
+  const requiredNonClaimsPath = "docs/verification/issues/issue-278/required-non-claims-present-output.json";
+  const noClaims = readOptionalJson(noClaimsPath);
+  const noPhi = readOptionalJson(noPhiPath);
+  const requiredNonClaims = readOptionalJson(requiredNonClaimsPath);
+  const failures = [];
+  if (noClaims == null) {
+    failures.push(`missing ${noClaimsPath}`);
+  } else if (noClaims.status !== "passed" || noClaims.findingCount !== 0) {
+    failures.push("demo no-claims audit did not pass cleanly");
+  }
+  if (noPhi == null) {
+    failures.push(`missing ${noPhiPath}`);
+  } else if (noPhi.status !== "passed" || noPhi.findingCount !== 0) {
+    failures.push("demo no-PHI audit did not pass cleanly");
+  }
+  if (requiredNonClaims == null) {
+    failures.push(`missing ${requiredNonClaimsPath}`);
+  } else if (requiredNonClaims.status !== "passed") {
+    failures.push("required non-claims are not all present");
+  }
+  return check("noClaimsAuditContent", failures);
 }
 
 function summarizeManifest(value) {

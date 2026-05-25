@@ -1,7 +1,54 @@
-Issue 278 first-failure.txt
-
-Stage: export-integrity
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+{
+  "issue": "278",
+  "stage": "no-claims-audit",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "manifestSummary": {
+    "manifestVersion": 1,
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 demo-readiness proof contract for synthetic operational simulation only.",
+    "requiredScreenCount": 12,
+    "requiredEvidenceArtifactCount": 41,
+    "requiredGateCount": 11,
+    "lastIssueUpdated": "277",
+    "goNoGoStatus": "pending"
+  },
+  "checks": [
+    {
+      "check": "manifest",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "noClaimsAudit",
+      "status": "failed",
+      "failureCount": 6,
+      "failures": [
+        "missing docs/verification/issues/issue-278/no-claims-audit-output.json",
+        "missing docs/verification/issues/issue-278/no-phi-demo-audit-output.json",
+        "missing docs/verification/issues/issue-278/prohibited-claim-negative-output.json",
+        "missing docs/verification/issues/issue-278/prohibited-data-field-negative-output.json",
+        "missing docs/verification/issues/issue-278/required-non-claims-present-output.json",
+        "manifest does not reference issue-278"
+      ]
+    }
+  ],
+  "failureCount": 6,
+  "failures": [
+    "noClaimsAudit: missing docs/verification/issues/issue-278/no-claims-audit-output.json",
+    "noClaimsAudit: missing docs/verification/issues/issue-278/no-phi-demo-audit-output.json",
+    "noClaimsAudit: missing docs/verification/issues/issue-278/prohibited-claim-negative-output.json",
+    "noClaimsAudit: missing docs/verification/issues/issue-278/prohibited-data-field-negative-output.json",
+    "noClaimsAudit: missing docs/verification/issues/issue-278/required-non-claims-present-output.json",
+    "noClaimsAudit: manifest does not reference issue-278"
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

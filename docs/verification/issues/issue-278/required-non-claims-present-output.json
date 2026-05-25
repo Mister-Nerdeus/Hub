@@ -1,0 +1,38 @@
+{
+  "issue": "278",
+  "status": "passed",
+  "requiredNonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "coverage": [
+    {
+      "nonClaim": "Synthetic operational modeling only.",
+      "present": true
+    },
+    {
+      "nonClaim": "Not a clinical safety score.",
+      "present": true
+    },
+    {
+      "nonClaim": "Not a staffing compliance recommendation.",
+      "present": true
+    },
+    {
+      "nonClaim": "Not a legal compliance assessment.",
+      "present": true
+    },
+    {
+      "nonClaim": "Not a patient outcome prediction.",
+      "present": true
+    },
+    {
+      "nonClaim": "Not based on real patient, staff, EHR, or hospital data.",
+      "present": true
+    }
+  ]
+}

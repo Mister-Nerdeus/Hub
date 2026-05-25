@@ -1,0 +1,46 @@
+{
+  "issue": "278",
+  "status": "passed",
+  "rejectedExamples": [
+    {
+      "exampleLabel": "patient name camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "medical record abbreviation field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "birth date camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "diagnosis text camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "medication name camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "clinical order text camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "employee identifier camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "badge number camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "hospital name camel-case field",
+      "rejected": true
+    },
+    {
+      "exampleLabel": "EHR identifier camel-case field",
+      "rejected": true
+    }
+  ]
+}
