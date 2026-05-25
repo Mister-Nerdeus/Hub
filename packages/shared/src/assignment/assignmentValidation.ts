@@ -19,7 +19,7 @@ export type Plan1AssignmentValidationInput = {
 };
 
 export type Plan1AssignmentValidationResult = {
-  status: "passed" | "warning" | "blocking";
+  status: "passed" | "info" | "warning" | "blocking";
   warnings: Plan1AssignmentWarning[];
 };
 
@@ -124,8 +124,10 @@ function warning(
 function result(warnings: Plan1AssignmentWarning[]): Plan1AssignmentValidationResult {
   const status = warnings.some((entry) => entry.severity === "blocking")
     ? "blocking"
-    : warnings.length > 0
+    : warnings.some((entry) => entry.severity === "warning")
       ? "warning"
+      : warnings.some((entry) => entry.severity === "info")
+        ? "info"
       : "passed";
   return { status, warnings };
 }

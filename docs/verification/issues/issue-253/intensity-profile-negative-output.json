@@ -1,0 +1,14 @@
+{
+  "generatedTaskInvalidTemplateRejected": {
+    "rejected": true,
+    "message": "generatedTasks[0].templateId must reference a simulation input task template"
+  },
+  "simulationInputNonPlan1Rejected": {
+    "rejected": true,
+    "message": "simulationInput.planId must be default-er-layout-plan-1"
+  },
+  "scenarioStateDuplicateTemplateRejected": {
+    "rejected": true,
+    "message": "duplicate taskTemplateId values are not allowed"
+  }
+}

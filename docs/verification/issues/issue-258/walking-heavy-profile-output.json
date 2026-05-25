@@ -1,0 +1,27 @@
+{
+  "profileId": "plan-1-walking-heavy",
+  "label": "Walking Heavy",
+  "description": "Synthetic profile emphasizing walking-route friction on Plan 1 dry-run tasks.",
+  "assumptionsId": "plan-1-simulation-assumptions-v1",
+  "syntheticDataOnly": true,
+  "durationMinutes": 720,
+  "taskVolumeMultiplier": 1.15,
+  "acuityPressureMultiplier": 1.05,
+  "traumaEventMultiplier": 1,
+  "turnoverMultiplier": 1.1,
+  "walkingFrictionMultiplier": 1.8,
+  "interruptionMultiplier": 1.1,
+  "seedDefault": 255005,
+  "limitations": [
+    "Synthetic Plan 1 operational profile only.",
+    "Walking friction is graph-limited and does not represent route accuracy certification."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

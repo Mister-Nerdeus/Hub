@@ -1,0 +1,77 @@
+[
+  {
+    "nurseId": "nurse-blue",
+    "assignedTaskCount": 54,
+    "completedTaskCount": 53,
+    "deferredTaskCount": 1,
+    "approxWalkingFeet": 5160,
+    "approxBusyMinutes": 501,
+    "approxIdleMinutes": 219,
+    "maxQueueDepth": 1,
+    "burdenScoreSnapshot": {
+      "assignedOccupiedRoomCount": 3,
+      "validationWarningCount": 0,
+      "approximateOperationalBurden": 100
+    },
+    "warningCodes": [
+      "WALKING_LOAD_WARNING"
+    ]
+  },
+  {
+    "nurseId": "nurse-green",
+    "assignedTaskCount": 53,
+    "completedTaskCount": 52,
+    "deferredTaskCount": 1,
+    "approxWalkingFeet": 5040,
+    "approxBusyMinutes": 502,
+    "approxIdleMinutes": 218,
+    "maxQueueDepth": 2,
+    "burdenScoreSnapshot": {
+      "assignedOccupiedRoomCount": 3,
+      "validationWarningCount": 0,
+      "approximateOperationalBurden": 98.867
+    },
+    "warningCodes": [
+      "WALKING_LOAD_WARNING"
+    ]
+  },
+  {
+    "nurseId": "nurse-orange",
+    "assignedTaskCount": 72,
+    "completedTaskCount": 69,
+    "deferredTaskCount": 3,
+    "approxWalkingFeet": 6780,
+    "approxBusyMinutes": 685,
+    "approxIdleMinutes": 35,
+    "maxQueueDepth": 2,
+    "burdenScoreSnapshot": {
+      "assignedOccupiedRoomCount": 4,
+      "validationWarningCount": 1,
+      "approximateOperationalBurden": 135.467
+    },
+    "warningCodes": [
+      "BUSY_MINUTES_WARNING",
+      "WALKING_LOAD_WARNING"
+    ]
+  },
+  {
+    "nurseId": "nurse-purple",
+    "assignedTaskCount": 79,
+    "completedTaskCount": 72,
+    "deferredTaskCount": 7,
+    "approxWalkingFeet": 6740,
+    "approxBusyMinutes": 676,
+    "approxIdleMinutes": 44,
+    "maxQueueDepth": 4,
+    "burdenScoreSnapshot": {
+      "assignedOccupiedRoomCount": 4,
+      "validationWarningCount": 1,
+      "approximateOperationalBurden": 134.467
+    },
+    "warningCodes": [
+      "BUSY_MINUTES_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "WALKING_LOAD_WARNING"
+    ]
+  }
+]

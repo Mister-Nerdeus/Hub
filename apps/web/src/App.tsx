@@ -24,6 +24,7 @@ import {
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
+import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
 
 import "./styles.css";
 
@@ -32,7 +33,7 @@ type AppProps = {
 };
 
 export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8010";
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
   const [activeSection, setActiveSection] = useState(initialSection);
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
@@ -126,7 +127,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "scenarios" ? (
         <section className="workflow-section" aria-labelledby="scenarios-title">
           <h2 id="scenarios-title">Scenarios</h2>
-          <p className="workflow-section__placeholder">Scenario planning workflow is pending implementation.</p>
+          <Plan1ScenarioBuilder activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
         </section>
       ) : null}
 

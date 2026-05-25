@@ -1,0 +1,7 @@
+npm --workspace packages/shared test *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/shared.txt
+node scripts/check-no-phi-fields.mjs *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/no-phi.txt
+node scripts/check-docs-contracts.mjs *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/docs-gate.txt
+node scripts/check-plan-1-visual-parity.mjs --stage final --issue 256 *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 256 *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/plan-1-assignment-workflow-gate.txt
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 256 *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/plans-2-through-5-unchanged.txt
+node scripts/check-plan-1-scenario-simulation.mjs --stage seeded-validation --allow-partial --issue 256 *>&1 | Tee-Object docs/verification/issues/issue-256/test-output/plan-1-scenario-simulation-gate.txt

@@ -32,10 +32,12 @@ export async function listSimulationRuns(
   limit = 5,
   fetchImpl: typeof fetch = fetch
 ): Promise<SimulationRunListResponse> {
-  const url = new URL("/v1/simulation/runs", apiBaseUrl);
-  url.searchParams.set("limit", String(limit));
-  url.searchParams.set("offset", "0");
-  const response = await fetchImpl(url.toString());
+  const params = new URLSearchParams({
+    limit: String(limit),
+    offset: "0"
+  });
+  const apiPath = `${apiBaseUrl.replace(/\/$/, "")}/v1/simulation/runs?${params.toString()}`;
+  const response = await fetchImpl(apiPath);
   const body = await readJson(response);
 
   if (!response.ok) {

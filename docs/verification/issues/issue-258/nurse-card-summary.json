@@ -1,0 +1,236 @@
+[
+  {
+    "nurseId": "nurse-blue",
+    "displayName": "Nurse Blue",
+    "color": "#2563eb",
+    "role": "primary",
+    "homeStationLabel": "Left Nurse Station",
+    "assignedRoomIds": [
+      "room-level-1-trauma",
+      "room-02",
+      "room-03"
+    ],
+    "assignedRoomLabels": [
+      "Level 1 Trauma",
+      "2",
+      "3"
+    ],
+    "occupiedRoomCount": 3,
+    "targetPatientCount": 3,
+    "maxPatientCount": 4,
+    "roomLoadSummary": {
+      "highOrCriticalAcuityCount": 1,
+      "traumaActiveCount": 1,
+      "isolationActiveCount": 0,
+      "behavioralRiskCount": 0
+    },
+    "warningCodes": [],
+    "warningSeverities": [],
+    "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+    "walkingPreview": {
+      "nurseId": "nurse-blue",
+      "homeStationId": "station-left",
+      "assignedRoomIds": [
+        "room-level-1-trauma",
+        "room-02",
+        "room-03"
+      ],
+      "reachableRoomCount": 3,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 202,
+      "totalApproxTravelSeconds": 67.408,
+      "longestRoomDistanceFeet": 86,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    "limitations": [
+      "Operational comparison summary only.",
+      "No staffing safety guidance is implied."
+    ]
+  },
+  {
+    "nurseId": "nurse-green",
+    "displayName": "Nurse Green",
+    "color": "#059669",
+    "role": "primary",
+    "homeStationLabel": "Left Nurse Station",
+    "assignedRoomIds": [
+      "room-04",
+      "room-06",
+      "room-07"
+    ],
+    "assignedRoomLabels": [
+      "4",
+      "6",
+      "7"
+    ],
+    "occupiedRoomCount": 3,
+    "targetPatientCount": 3,
+    "maxPatientCount": 4,
+    "roomLoadSummary": {
+      "highOrCriticalAcuityCount": 0,
+      "traumaActiveCount": 0,
+      "isolationActiveCount": 0,
+      "behavioralRiskCount": 0
+    },
+    "warningCodes": [],
+    "warningSeverities": [],
+    "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+    "walkingPreview": {
+      "nurseId": "nurse-green",
+      "homeStationId": "station-left",
+      "assignedRoomIds": [
+        "room-04",
+        "room-06",
+        "room-07"
+      ],
+      "reachableRoomCount": 3,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 276,
+      "totalApproxTravelSeconds": 83.364,
+      "longestRoomDistanceFeet": 104,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    "limitations": [
+      "Operational comparison summary only.",
+      "No staffing safety guidance is implied."
+    ]
+  },
+  {
+    "nurseId": "nurse-orange",
+    "displayName": "Nurse Orange",
+    "color": "#ea580c",
+    "role": "primary",
+    "homeStationLabel": "Right Nurse Station",
+    "assignedRoomIds": [
+      "room-08",
+      "room-17",
+      "room-19",
+      "room-20"
+    ],
+    "assignedRoomLabels": [
+      "8",
+      "17",
+      "19",
+      "20"
+    ],
+    "occupiedRoomCount": 4,
+    "targetPatientCount": 3,
+    "maxPatientCount": 4,
+    "roomLoadSummary": {
+      "highOrCriticalAcuityCount": 1,
+      "traumaActiveCount": 0,
+      "isolationActiveCount": 0,
+      "behavioralRiskCount": 0
+    },
+    "warningCodes": [
+      "NURSE_OVER_TARGET_RATIO"
+    ],
+    "warningSeverities": [
+      "info"
+    ],
+    "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+    "walkingPreview": {
+      "nurseId": "nurse-orange",
+      "homeStationId": "station-right",
+      "assignedRoomIds": [
+        "room-08",
+        "room-17",
+        "room-19",
+        "room-20"
+      ],
+      "reachableRoomCount": 4,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 400,
+      "totalApproxTravelSeconds": 120.182,
+      "longestRoomDistanceFeet": 139,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    "limitations": [
+      "Operational comparison summary only.",
+      "No staffing safety guidance is implied."
+    ]
+  },
+  {
+    "nurseId": "nurse-purple",
+    "displayName": "Nurse Purple",
+    "color": "#7c3aed",
+    "role": "charge",
+    "homeStationLabel": "Right Nurse Station",
+    "assignedRoomIds": [
+      "room-21",
+      "room-22",
+      "room-23",
+      "room-24"
+    ],
+    "assignedRoomLabels": [
+      "21",
+      "22",
+      "23",
+      "24"
+    ],
+    "occupiedRoomCount": 4,
+    "targetPatientCount": 3,
+    "maxPatientCount": 4,
+    "roomLoadSummary": {
+      "highOrCriticalAcuityCount": 1,
+      "traumaActiveCount": 0,
+      "isolationActiveCount": 1,
+      "behavioralRiskCount": 1
+    },
+    "warningCodes": [
+      "NURSE_OVER_TARGET_RATIO"
+    ],
+    "warningSeverities": [
+      "info"
+    ],
+    "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+    "walkingPreview": {
+      "nurseId": "nurse-purple",
+      "homeStationId": "station-right",
+      "assignedRoomIds": [
+        "room-21",
+        "room-22",
+        "room-23",
+        "room-24"
+      ],
+      "reachableRoomCount": 4,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 478,
+      "totalApproxTravelSeconds": 138.864,
+      "longestRoomDistanceFeet": 151,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    "limitations": [
+      "Operational comparison summary only.",
+      "No staffing safety guidance is implied."
+    ]
+  }
+]

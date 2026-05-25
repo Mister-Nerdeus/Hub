@@ -1,0 +1,31 @@
+{
+  "represented": true,
+  "weights": {
+    "occupiedRoom": 5,
+    "acuity": {
+      "low": 1,
+      "medium": 3,
+      "high": 6,
+      "critical": 10
+    },
+    "trauma": 8,
+    "isolation": 4,
+    "behavioralRisk": 4,
+    "sitter": 5,
+    "fallRisk": 2,
+    "burden": {
+      "none": 0,
+      "low": 1,
+      "medium": 3,
+      "high": 5
+    },
+    "turnover": 3,
+    "walkingDistanceDivisorFeet": 40,
+    "walkingTimeDivisorSeconds": 120,
+    "warningPenalty": {
+      "info": 1,
+      "warning": 5,
+      "blocking": 10
+    }
+  }
+}

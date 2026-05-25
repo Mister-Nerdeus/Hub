@@ -1,0 +1,142 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "default-er-layout-plan-1",
+  "assumptionsId": "plan-1-simulation-assumptions-v1",
+  "profiles": [
+    {
+      "profileId": "plan-1-typical",
+      "label": "Typical",
+      "description": "Baseline synthetic operational pressure for Plan 1 dry-run fixtures.",
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "syntheticDataOnly": true,
+      "durationMinutes": 720,
+      "taskVolumeMultiplier": 1,
+      "acuityPressureMultiplier": 1,
+      "traumaEventMultiplier": 1,
+      "turnoverMultiplier": 1,
+      "walkingFrictionMultiplier": 1,
+      "interruptionMultiplier": 1,
+      "seedDefault": 251001,
+      "limitations": [
+        "Synthetic Plan 1 operational profile only.",
+        "Does not represent measured demand or future volume."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileId": "plan-1-busy",
+      "label": "Busy",
+      "description": "Synthetic elevated operational pressure with moderate interruption and turnover friction.",
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "syntheticDataOnly": true,
+      "durationMinutes": 720,
+      "taskVolumeMultiplier": 1.25,
+      "acuityPressureMultiplier": 1.1,
+      "traumaEventMultiplier": 1.1,
+      "turnoverMultiplier": 1.2,
+      "walkingFrictionMultiplier": 1.05,
+      "interruptionMultiplier": 1.2,
+      "seedDefault": 252002,
+      "limitations": [
+        "Synthetic Plan 1 operational profile only.",
+        "Multipliers are fixture inputs, not measured operational truth."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileId": "plan-1-slammed",
+      "label": "Slammed",
+      "description": "Synthetic high operational pressure across volume, acuity, turnover, and interruptions.",
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "syntheticDataOnly": true,
+      "durationMinutes": 720,
+      "taskVolumeMultiplier": 1.75,
+      "acuityPressureMultiplier": 1.35,
+      "traumaEventMultiplier": 1.35,
+      "turnoverMultiplier": 1.6,
+      "walkingFrictionMultiplier": 1.2,
+      "interruptionMultiplier": 1.6,
+      "seedDefault": 253003,
+      "limitations": [
+        "Synthetic Plan 1 operational profile only.",
+        "Highest pressure profile in this batch for dry-run comparison."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileId": "plan-1-trauma-heavy",
+      "label": "Trauma Heavy",
+      "description": "Synthetic profile emphasizing trauma-response operational workload.",
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "syntheticDataOnly": true,
+      "durationMinutes": 720,
+      "taskVolumeMultiplier": 1.25,
+      "acuityPressureMultiplier": 1.2,
+      "traumaEventMultiplier": 2,
+      "turnoverMultiplier": 1.1,
+      "walkingFrictionMultiplier": 1.1,
+      "interruptionMultiplier": 1.25,
+      "seedDefault": 254004,
+      "limitations": [
+        "Synthetic Plan 1 operational profile only.",
+        "Trauma-related workload signal is operational modeling, not clinical event modeling."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    {
+      "profileId": "plan-1-walking-heavy",
+      "label": "Walking Heavy",
+      "description": "Synthetic profile emphasizing walking-route friction on Plan 1 dry-run tasks.",
+      "assumptionsId": "plan-1-simulation-assumptions-v1",
+      "syntheticDataOnly": true,
+      "durationMinutes": 720,
+      "taskVolumeMultiplier": 1.15,
+      "acuityPressureMultiplier": 1.05,
+      "traumaEventMultiplier": 1,
+      "turnoverMultiplier": 1.1,
+      "walkingFrictionMultiplier": 1.8,
+      "interruptionMultiplier": 1.1,
+      "seedDefault": 255005,
+      "limitations": [
+        "Synthetic Plan 1 operational profile only.",
+        "Walking friction is graph-limited and does not represent route accuracy certification."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  ]
+}

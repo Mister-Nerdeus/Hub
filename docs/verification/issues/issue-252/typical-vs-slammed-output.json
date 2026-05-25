@@ -1,0 +1,64 @@
+{
+  "typical": {
+    "scenarioId": "scenario-typical-baseline",
+    "profileId": "plan-1-typical",
+    "seed": 251001,
+    "taskCount": 258,
+    "completedTaskCount": 246,
+    "deferredTaskCount": 12,
+    "totalApproxWalkingFeet": 23720,
+    "maxQueueDepth": 4,
+    "highestBurdenNurseId": "nurse-orange",
+    "warningCodes": [
+      "BUSY_MINUTES_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "WALKING_LOAD_WARNING"
+    ],
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  },
+  "slammed": {
+    "scenarioId": "scenario-slammed-baseline",
+    "profileId": "plan-1-slammed",
+    "seed": 253003,
+    "taskCount": 627,
+    "completedTaskCount": 295,
+    "deferredTaskCount": 332,
+    "totalApproxWalkingFeet": 33924,
+    "maxQueueDepth": 15,
+    "highestBurdenNurseId": "nurse-orange",
+    "warningCodes": [
+      "BUSY_MINUTES_WARNING",
+      "DEFERRED_TASK_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "WALKING_LOAD_WARNING"
+    ],
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  },
+  "proof": true
+}

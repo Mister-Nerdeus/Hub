@@ -1,0 +1,27 @@
+{
+  "profileId": "plan-1-typical",
+  "label": "Typical",
+  "description": "Baseline synthetic operational pressure for Plan 1 dry-run fixtures.",
+  "assumptionsId": "plan-1-simulation-assumptions-v1",
+  "syntheticDataOnly": true,
+  "durationMinutes": 720,
+  "taskVolumeMultiplier": 1,
+  "acuityPressureMultiplier": 1,
+  "traumaEventMultiplier": 1,
+  "turnoverMultiplier": 1,
+  "walkingFrictionMultiplier": 1,
+  "interruptionMultiplier": 1,
+  "seedDefault": 251001,
+  "limitations": [
+    "Synthetic Plan 1 operational profile only.",
+    "Does not represent measured demand or future volume."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}

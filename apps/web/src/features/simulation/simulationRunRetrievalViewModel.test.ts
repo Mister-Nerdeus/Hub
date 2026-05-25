@@ -82,6 +82,16 @@ if (!fetchCalls[0]?.endsWith("/v1/simulation/runs?limit=5&offset=0")) {
   throw new Error("simulation retrieval API should call bounded list endpoint");
 }
 
+const sameOriginFetchCalls: string[] = [];
+await listSimulationRuns("", 5, mockFetch(200, {
+  simulationRuns: [],
+  pagination: { limit: 5, offset: 0, returned: 0 }
+}, sameOriginFetchCalls));
+
+if (sameOriginFetchCalls[0] !== "/v1/simulation/runs?limit=5&offset=0") {
+  throw new Error("simulation retrieval API should support same-origin API paths");
+}
+
 const emptyResponse = await listSimulationRuns("http://localhost:8010", 5, mockFetch(200, {
   simulationRuns: [],
   pagination: { limit: 5, offset: 0, returned: 0 }

@@ -1,0 +1,26 @@
+{
+  "traumaMismatchFixture": {
+    "fixtureId": "fixture-plan-1-trauma-mismatch",
+    "label": "trauma mismatch",
+    "nurseCount": 4,
+    "assignedRoomCount": 3,
+    "occupiedRoomCount": 3,
+    "totalBurdenScore": 61.612,
+    "highestNurseBurdenScore": 39.239,
+    "lowestNurseBurdenScore": 0,
+    "walkingTotalFeet": 202,
+    "warningCodes": [
+      "TRAUMA_ROOM_WITH_NON_TRAUMA_QUALIFIED_NURSE"
+    ],
+    "limitations": [
+      "This is an operational comparison score only.",
+      "Room count alone does not determine score.",
+      "It is not a clinical safety score.",
+      "It is not a staffing compliance recommendation.",
+      "It is not a patient outcome prediction."
+    ]
+  },
+  "warningCodes": [
+    "TRAUMA_ROOM_WITH_NON_TRAUMA_QUALIFIED_NURSE"
+  ]
+}
