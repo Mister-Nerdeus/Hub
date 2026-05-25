@@ -1,7 +1,13 @@
-Issue 276 first-failure.txt
+Issue 276 first-failure evidence
 
-Stage: auto-hallways
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+Command:
+node scripts/check-plan-1-demo-readiness.mjs --stage demo-seed-pack --allow-partial --issue 276
+
+Observed before implementation:
+The demo readiness gate expected Issue 276 seed-pack evidence, but no canonical Plan 1 demo seed fixture, seed validator output, reproducibility output, expected-signal output, or seed panel output existed.
+
+Demo gap:
+A reviewer could inspect the existing scenario fixtures, but there was no single deterministic seed pack naming the typical, slammed, walking-heavy, trauma-heavy, and comparison demo cases.
+
+Required correction:
+Create the deterministic Plan 1 demo seed pack, validate reproducibility and expected signals, expose limitations and non-claims, add a demo seed panel, and update the demo readiness manifest.

@@ -1,0 +1,109 @@
+{
+  "issue": "276",
+  "status": "passed",
+  "deterministicSummary": true,
+  "firstSummary": {
+    "packId": "plan-1-demo-seed-pack-v1",
+    "planId": "default-er-layout-plan-1",
+    "seedCount": 5,
+    "demoSeedIds": [
+      "demo-plan-1-typical",
+      "demo-plan-1-slammed",
+      "demo-plan-1-walking-heavy",
+      "demo-plan-1-trauma-heavy",
+      "demo-plan-1-comparison"
+    ],
+    "profileIds": [
+      "plan-1-slammed",
+      "plan-1-trauma-heavy",
+      "plan-1-typical",
+      "plan-1-walking-heavy"
+    ],
+    "expectedSignals": [
+      "baseline synthetic task pressure",
+      "clear comparison differences",
+      "higher approximate walking load",
+      "higher synthetic task pressure",
+      "human-readable scenario narratives",
+      "larger queue-depth signal",
+      "limitations visible",
+      "limited deferred synthetic work",
+      "more deferred synthetic work",
+      "path-based walking assumptions visible",
+      "proof report available",
+      "scenario comparison difference visible",
+      "trauma workload notice visible",
+      "visible warning explanations",
+      "walking-load warning visible",
+      "warning explanations visible"
+    ],
+    "limitations": [
+      "Approximate walking load comes from Plan 1 route assumptions.",
+      "Comparison uses seeded synthetic scenario profiles only.",
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation.",
+      "Synthetic trauma-heavy profile is operational demo input only."
+    ],
+    "nonClaims": [
+      "Not a clinical safety score.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not a staffing compliance recommendation.",
+      "Not based on real patient, staff, EHR, or hospital data.",
+      "Synthetic operational modeling only."
+    ],
+    "syntheticDataOnly": true
+  },
+  "secondSummary": {
+    "packId": "plan-1-demo-seed-pack-v1",
+    "planId": "default-er-layout-plan-1",
+    "seedCount": 5,
+    "demoSeedIds": [
+      "demo-plan-1-typical",
+      "demo-plan-1-slammed",
+      "demo-plan-1-walking-heavy",
+      "demo-plan-1-trauma-heavy",
+      "demo-plan-1-comparison"
+    ],
+    "profileIds": [
+      "plan-1-slammed",
+      "plan-1-trauma-heavy",
+      "plan-1-typical",
+      "plan-1-walking-heavy"
+    ],
+    "expectedSignals": [
+      "baseline synthetic task pressure",
+      "clear comparison differences",
+      "higher approximate walking load",
+      "higher synthetic task pressure",
+      "human-readable scenario narratives",
+      "larger queue-depth signal",
+      "limitations visible",
+      "limited deferred synthetic work",
+      "more deferred synthetic work",
+      "path-based walking assumptions visible",
+      "proof report available",
+      "scenario comparison difference visible",
+      "trauma workload notice visible",
+      "visible warning explanations",
+      "walking-load warning visible",
+      "warning explanations visible"
+    ],
+    "limitations": [
+      "Approximate walking load comes from Plan 1 route assumptions.",
+      "Comparison uses seeded synthetic scenario profiles only.",
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation.",
+      "Synthetic trauma-heavy profile is operational demo input only."
+    ],
+    "nonClaims": [
+      "Not a clinical safety score.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not a staffing compliance recommendation.",
+      "Not based on real patient, staff, EHR, or hospital data.",
+      "Synthetic operational modeling only."
+    ],
+    "syntheticDataOnly": true
+  }
+}

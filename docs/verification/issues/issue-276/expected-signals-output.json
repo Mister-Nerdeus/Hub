@@ -1,0 +1,33 @@
+{
+  "issue": "276",
+  "status": "passed",
+  "requiredSignals": [
+    "higher synthetic task pressure",
+    "more deferred synthetic work",
+    "higher approximate walking load",
+    "larger queue-depth signal",
+    "proof report available"
+  ],
+  "signalCoverage": [
+    {
+      "signal": "higher synthetic task pressure",
+      "present": true
+    },
+    {
+      "signal": "more deferred synthetic work",
+      "present": true
+    },
+    {
+      "signal": "higher approximate walking load",
+      "present": true
+    },
+    {
+      "signal": "larger queue-depth signal",
+      "present": true
+    },
+    {
+      "signal": "proof report available",
+      "present": true
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "packId": "plan-1-demo-seed-pack-v1",
+  "planId": "default-er-layout-plan-1",
+  "seeds": [
+    {
+      "demoSeedId": "demo-plan-1-typical",
+      "label": "Typical workload",
+      "description": "Baseline synthetic workload for opening the demo and reviewing normal dry-run proof.",
+      "profileId": "plan-1-typical",
+      "seed": 251001,
+      "durationMinutes": 720,
+      "expectedSignals": [
+        "baseline synthetic task pressure",
+        "limited deferred synthetic work",
+        "visible warning explanations",
+        "proof report available"
+      ],
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "demoSeedId": "demo-plan-1-slammed",
+      "label": "Slammed workload",
+      "description": "High synthetic task pressure case for demonstrating larger queue-depth and deferred-work signals.",
+      "profileId": "plan-1-slammed",
+      "seed": 253003,
+      "durationMinutes": 720,
+      "expectedSignals": [
+        "higher synthetic task pressure",
+        "more deferred synthetic work",
+        "larger queue-depth signal",
+        "warning explanations visible"
+      ],
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "demoSeedId": "demo-plan-1-walking-heavy",
+      "label": "Walking-heavy workload",
+      "description": "Synthetic route-friction case for demonstrating approximate walking-load differences.",
+      "profileId": "plan-1-walking-heavy",
+      "seed": 255005,
+      "durationMinutes": 720,
+      "expectedSignals": [
+        "higher approximate walking load",
+        "path-based walking assumptions visible",
+        "walking-load warning visible",
+        "scenario comparison difference visible"
+      ],
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Approximate walking load comes from Plan 1 route assumptions."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "demoSeedId": "demo-plan-1-trauma-heavy",
+      "label": "Trauma-heavy workload",
+      "description": "Synthetic trauma-response task mix for demonstrating an operational trauma workload signal.",
+      "profileId": "plan-1-trauma-heavy",
+      "seed": 254004,
+      "durationMinutes": 720,
+      "expectedSignals": [
+        "trauma workload notice visible",
+        "higher synthetic task pressure",
+        "more deferred synthetic work",
+        "warning explanations visible"
+      ],
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic trauma-heavy profile is operational demo input only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "demoSeedId": "demo-plan-1-comparison",
+      "label": "Scenario comparison set",
+      "description": "Canonical comparison path for typical, slammed, walking-heavy, and trauma-heavy demo review.",
+      "profileId": "plan-1-typical",
+      "seed": 251001,
+      "durationMinutes": 720,
+      "expectedSignals": [
+        "clear comparison differences",
+        "human-readable scenario narratives",
+        "limitations visible",
+        "proof report available"
+      ],
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Comparison uses seeded synthetic scenario profiles only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    }
+  ]
+}

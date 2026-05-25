@@ -90,6 +90,7 @@ if (stage === "demo-seed-pack" || stage === "final") {
     "expected-signals-output.json",
     "demo-seed-panel-output.json"
   ], "demoSeedPack"));
+  checks.push(validateDemoSeedPackContent());
 }
 if (stage === "proof-bundle" || stage === "final") {
   checks.push(validateIssueEvidence("277", [
@@ -348,6 +349,49 @@ function validateTimelineWarningUxContent() {
     failures.push("missing warning card narratives");
   }
   return check("timelineWarningUxContent", failures);
+}
+
+function validateDemoSeedPackContent() {
+  const relativePath = "docs/verification/issues/issue-276/demo-seed-pack-output.json";
+  const output = readOptionalJson(relativePath);
+  if (output == null) {
+    return check("demoSeedPackContent", [`missing ${relativePath}`]);
+  }
+  const text = JSON.stringify(output);
+  const failures = [];
+  for (const seedId of [
+    "demo-plan-1-typical",
+    "demo-plan-1-slammed",
+    "demo-plan-1-walking-heavy",
+    "demo-plan-1-trauma-heavy",
+    "demo-plan-1-comparison"
+  ]) {
+    if (!text.includes(seedId)) {
+      failures.push(`missing demo seed: ${seedId}`);
+    }
+  }
+  for (const signal of [
+    "higher synthetic task pressure",
+    "more deferred synthetic work",
+    "higher approximate walking load",
+    "larger queue-depth signal",
+    "proof report available"
+  ]) {
+    if (!text.includes(signal)) {
+      failures.push(`missing expected signal: ${signal}`);
+    }
+  }
+  for (const nonClaim of [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a patient outcome prediction."
+  ]) {
+    if (!text.includes(nonClaim)) {
+      failures.push(`missing seed-pack non-claim: ${nonClaim}`);
+    }
+  }
+  return check("demoSeedPackContent", failures);
 }
 
 function summarizeManifest(value) {

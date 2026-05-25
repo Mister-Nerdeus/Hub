@@ -1,1 +1,11 @@
-node scripts/check-floorplan-authoring.mjs --stage auto-hallways --allow-partial --issue 276
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-plan-1-visual-parity.mjs --stage final --issue 276
+node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 276
+node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 276
+node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 276
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 276
+node scripts/check-plan-1-demo-readiness.mjs --stage demo-seed-pack --allow-partial --issue 276
+node scripts/check-docs-contracts.mjs

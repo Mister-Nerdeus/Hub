@@ -1,4 +1,7 @@
+import { validatePlan1DemoSeedPack } from "@nerdeus/shared";
+import demoSeedPackFixture from "../../../../../packages/shared/fixtures/demo/plan-1/plan-1-demo-seed-pack.json" with { type: "json" };
 import type { AppSectionId } from "../app-shell/appNavigation";
+import { Plan1DemoSeedPanel } from "./Plan1DemoSeedPanel";
 import type { Plan1DemoWorkflowViewModel, Plan1DemoWorkflowStep } from "./plan1DemoWorkflowViewModel";
 
 type Plan1DemoGuideProps = {
@@ -12,6 +15,8 @@ export function Plan1DemoGuide({
   onOpenPlan1,
   onNavigate
 }: Plan1DemoGuideProps) {
+  const demoSeedPack = validatePlan1DemoSeedPack(demoSeedPackFixture);
+
   return (
     <section
       className="plan-1-demo-guide"
@@ -61,6 +66,8 @@ export function Plan1DemoGuide({
           {viewModel.nextRecommendedStep.actionLabel}
         </button>
       </div>
+
+      <Plan1DemoSeedPanel seedPack={demoSeedPack} />
     </section>
   );
 

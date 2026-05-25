@@ -489,6 +489,137 @@ h1 {
   text-transform: uppercase;
 }
 
+.plan-1-demo-seed-panel {
+  background: #fbfcfd;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+.plan-1-demo-seed-panel__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+}
+
+.plan-1-demo-seed-panel__header h3 {
+  color: #111827;
+  font-size: 1rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.plan-1-demo-seed-panel__header span {
+  background: #eaf2ed;
+  border: 1px solid #b9d0c2;
+  border-radius: 999px;
+  color: #294d3a;
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 6px 8px;
+  text-transform: uppercase;
+}
+
+.plan-1-demo-seed-panel__grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.plan-1-demo-seed-card {
+  background: #ffffff;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+}
+
+.plan-1-demo-seed-card strong {
+  color: #111827;
+  display: block;
+  font-size: 0.86rem;
+  line-height: 1.25;
+  margin-bottom: 5px;
+}
+
+.plan-1-demo-seed-card p,
+.plan-1-demo-seed-card li,
+.plan-1-demo-seed-panel__notes li {
+  color: #263340;
+  font-size: 0.78rem;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.plan-1-demo-seed-card p {
+  margin: 0;
+}
+
+.plan-1-demo-seed-card dl {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.plan-1-demo-seed-card dl div {
+  background: #f7f9fb;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  min-width: 0;
+  padding: 7px;
+}
+
+.plan-1-demo-seed-card dt {
+  color: #40505f;
+  font-size: 0.66rem;
+  font-weight: 900;
+  margin: 0 0 3px;
+  text-transform: uppercase;
+}
+
+.plan-1-demo-seed-card dd {
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.plan-1-demo-seed-card ul,
+.plan-1-demo-seed-panel__notes ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.plan-1-demo-seed-panel__notes {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plan-1-demo-seed-panel__notes section {
+  background: #ffffff;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.plan-1-demo-seed-panel__notes h4 {
+  color: #111827;
+  font-size: 0.86rem;
+  margin: 0;
+}
+
 .scenario-narrative-grid {
   display: grid;
   gap: 12px;
@@ -1090,6 +1221,8 @@ h1 {
   .active-floorplan__status,
   .scenario-narrative-grid,
   .plan-1-demo-guide__steps,
+  .plan-1-demo-seed-panel__grid,
+  .plan-1-demo-seed-panel__notes,
   .plan-1-demo-guide__next {
     grid-template-columns: 1fr;
   }
