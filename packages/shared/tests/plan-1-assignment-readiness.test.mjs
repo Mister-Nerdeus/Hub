@@ -22,6 +22,25 @@ test("Plan 1 assignment readiness passes semantic gate", () => {
   assert.deepEqual(audit.oldSimplifiedPlanLabelsRemaining, []);
 });
 
+test("Room 17 remains assignment patient-care even when its zone is provider pharmacy support", () => {
+  const room17 = plan.rooms.find((room) => room.id === "room-17");
+  const room17Zone = plan.zones.find((zone) => zone.id === room17.zoneId);
+  const audit = auditPlan1AssignmentReadiness({ plan, walkingBaseline });
+  assert.equal(room17Zone.zoneOperationalMetadata.zoneClass, "support");
+  assert.equal(room17.roomOperationalMetadata.roomClass, "standard");
+  assert.equal(audit.room17AssignmentClass, "assignment_patient_care");
+});
+
+test("Room 17 readiness fails if room operational metadata is missing", () => {
+  const missingMetadataPlan = structuredClone(plan);
+  const room17 = missingMetadataPlan.rooms.find((room) => room.id === "room-17");
+  room17.roomOperationalMetadata = null;
+  const audit = auditPlan1AssignmentReadiness({ plan: missingMetadataPlan, walkingBaseline });
+  assert.equal(audit.status, "failed");
+  assert.equal(audit.room17AssignmentClass, "not_assignment_patient_care");
+  assert.ok(audit.failures.includes("ROOM_17_ASSIGNMENT_PATIENT_CARE_CLASS_MISSING"));
+});
+
 test("stale path sync warning is blocking before walking-aware routing", () => {
   const warning = makeStalePathSyncWarning();
   assert.equal(warning.code, "STALE_PATH_SYNC");

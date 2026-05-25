@@ -26,10 +26,9 @@
       ]
     },
     {
-      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 250 *> docs/verification/issues/issue-250/test-output/plan-1-visual-parity-gate.txt",
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final *> docs/verification/issues/issue-250/test-output/plan-1-visual-parity-gate.txt",
       "outputs": [
-        "docs/verification/issues/issue-250/test-output/plan-1-visual-parity-gate.txt",
-        "docs/verification/issues/issue-250/visual-parity-still-passes-output.json"
+        "docs/verification/issues/issue-250/test-output/plan-1-visual-parity-gate.txt"
       ]
     },
     {
@@ -40,7 +39,7 @@
       ]
     },
     {
-      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 250 *> docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt",
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final *> docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-250/test-output/plan-1-assignment-workflow-gate.txt"
       ]
@@ -52,7 +51,7 @@
       ]
     },
     {
-      "command": "node scripts/check-docs-contracts.mjs *> $env:TEMP\\docs-gate-issue-250.txt; Copy-Item $env:TEMP\\docs-gate-issue-250.txt docs/verification/issues/issue-250/test-output/docs-gate.txt",
+      "command": "$tmp=Join-Path $env:TEMP 'docs-gate-issue-250-review.txt'; node scripts/check-docs-contracts.mjs *> $tmp; Copy-Item $tmp docs/verification/issues/issue-250/test-output/docs-gate.txt",
       "outputs": [
         "docs/verification/issues/issue-250/test-output/docs-gate.txt"
       ]

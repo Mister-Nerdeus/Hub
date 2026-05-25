@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 78 web test file(s).
+Discovered 79 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -23,6 +23,8 @@ Discovered 78 web test file(s).
 > src/features/assignments/AssignmentValidationPanel.test.ts
 
 > src/features/assignments/AssignmentWalkingPreview.test.ts
+
+> src/features/assignments/AssignmentWorkflow.test.ts
 
 > src/features/assignments/BurdenScorePanel.test.ts
 
@@ -168,4 +170,4 @@ Discovered 78 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 78 web test file(s).
+Executed 79 web test file(s).

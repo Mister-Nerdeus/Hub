@@ -40,6 +40,15 @@ export const PLAN_1_WARNING_CODES = [
   "NO_ACTIVE_PLAN_1_FLOORPLAN",
   "NON_PLAN_1_ASSIGNMENT_SCOPE"
 ] as const;
+export const PLAN_1_PATIENT_CARE_ROOM_CLASSES = [
+  "standard",
+  "trauma",
+  "isolation",
+  "behavioral",
+  "procedure",
+  "hall_bed",
+  "overflow"
+] as const;
 
 export type Plan1SyntheticNurseId = (typeof PLAN_1_SYNTHETIC_NURSE_IDS)[number];
 export type Plan1NurseRole = (typeof PLAN_1_NURSE_ROLES)[number];
@@ -146,7 +155,14 @@ export function isPlan1SyntheticNurseId(value: string): value is Plan1SyntheticN
 }
 
 export function plan1PatientCareRoomIds(plan: PlanContract): Set<string> {
-  return new Set(plan.rooms.map((room) => room.id));
+  return new Set(
+    plan.rooms
+      .filter((room) =>
+        room.roomOperationalMetadata?.roomClass != null &&
+        (PLAN_1_PATIENT_CARE_ROOM_CLASSES as readonly string[]).includes(room.roomOperationalMetadata.roomClass)
+      )
+      .map((room) => room.id)
+  );
 }
 
 export function isPlan1ScaffoldZoneId(zoneId: string): boolean {

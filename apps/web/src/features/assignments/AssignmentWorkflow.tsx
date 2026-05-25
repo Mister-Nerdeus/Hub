@@ -24,7 +24,8 @@ import { getDefaultPlan1RoomLoads } from "./roomLoadState";
 import "./AssignmentWorkflow.css";
 
 export function AssignmentWorkflow({ activePlan }: { activePlan?: PlanContract | null }) {
-  const plan = activePlan?.planId === "default-er-layout-plan-1" ? activePlan : defaultPlan1RenderProofFixture.plan;
+  const planIsActivePlan1 = activePlan?.planId === "default-er-layout-plan-1";
+  const plan = planIsActivePlan1 ? activePlan : defaultPlan1RenderProofFixture.plan;
   const defaultNurses = useMemo(() => getDefaultPlan1SyntheticNurseProfiles(plan), [plan]);
   const defaultRoomLoads = useMemo(() => getDefaultPlan1RoomLoads(plan), [plan]);
   const [nurses, setNurses] = useState(defaultNurses);
@@ -34,6 +35,25 @@ export function AssignmentWorkflow({ activePlan }: { activePlan?: PlanContract |
     manualAssignmentReducer,
     createManualAssignmentPaintState(initialAssignments, nurses[0]?.nurseId ?? "nurse-blue")
   );
+  if (!planIsActivePlan1) {
+    const scopeValidation = validatePlan1AssignmentsForOperations({
+      plan: activePlan ?? null,
+      nurses: [],
+      roomLoads: [],
+      assignments: [],
+      stalePathSync: false
+    });
+    return (
+      <div
+        className="assignment-workflow"
+        data-plan-id={activePlan?.planId ?? ""}
+        data-assignment-stage="validation"
+        data-plan-1-scope="blocked"
+      >
+        <AssignmentValidationPanel warnings={scopeValidation.warnings} />
+      </div>
+    );
+  }
   const validation = validatePlan1AssignmentsForOperations({
     plan,
     nurses,

@@ -3,6 +3,7 @@ import {
   isPlan1AssignmentZone,
   isPlan1ScaffoldZoneId,
   makeStalePathSyncWarning,
+  plan1PatientCareRoomIds,
   validatePlan1Plan
 } from "./plan1AssignmentCommon.js";
 
@@ -29,6 +30,7 @@ export function auditPlan1AssignmentReadiness(input: {
   const room17 = plan.rooms.find((room) => room.id === "room-17");
   const providerPharmacy = plan.zones.find((zone) => zone.id === "zone-provider-pharmacy");
   const scaffoldZones = plan.zones.filter((zone) => isPlan1ScaffoldZoneId(zone.id));
+  const patientCareRoomIds = plan1PatientCareRoomIds(plan);
   const connected = pathGraphConnected(plan);
   const oldSimplifiedPlanLabelsRemaining = plan.rooms
     .map((room) => room.label)
@@ -40,7 +42,7 @@ export function auditPlan1AssignmentReadiness(input: {
     (input.walkingBaseline.unreachableRouteCount ?? 0) !== 0
       ? `PLAN_1_WALKING_BASELINE_UNREACHABLE: ${input.walkingBaseline.unreachableRouteCount ?? 0}`
       : null,
-    room17?.roomOperationalMetadata?.roomClass == null ? "ROOM_17_ASSIGNMENT_CLASS_MISSING" : null,
+    !patientCareRoomIds.has("room-17") ? "ROOM_17_ASSIGNMENT_PATIENT_CARE_CLASS_MISSING" : null,
     providerPharmacy?.zoneOperationalMetadata?.zoneClass !== "support" ? "PROVIDER_PHARMACY_SUPPORT_CLASS_MISSING" : null,
     scaffoldZones.some((zone) => isPlan1AssignmentZone(zone.id)) ? "SCAFFOLD_ZONE_ASSIGNMENT_ELIGIBLE" : null,
     oldSimplifiedPlanLabelsRemaining.length > 0 ? "OLD_SIMPLIFIED_PLAN_LABELS_REMAIN" : null
@@ -54,7 +56,7 @@ export function auditPlan1AssignmentReadiness(input: {
     pathGraphConnected: connected,
     walkingBaselineUnreachableRouteCount: input.walkingBaseline.unreachableRouteCount ?? 0,
     room17AssignmentClass:
-      room17?.roomOperationalMetadata?.roomClass != null ? "assignment_patient_care" : "not_assignment_patient_care",
+      patientCareRoomIds.has("room-17") ? "assignment_patient_care" : "not_assignment_patient_care",
     providerPharmacySupportClassified: providerPharmacy?.zoneOperationalMetadata?.zoneClass === "support",
     scaffoldZonesNonAssignment: scaffoldZones.every((zone) => !isPlan1AssignmentZone(zone.id)),
     stalePathSyncWarning: makeStalePathSyncWarning(),
