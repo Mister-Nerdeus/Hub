@@ -1,0 +1,32 @@
+{
+  "nurseTimelineCount": 4,
+  "roomTimelineCount": 23,
+  "deferredTaskSummary": {
+    "totalDeferredTaskCount": 12,
+    "roomIdsWithDeferredTasks": [
+      "room-06"
+    ],
+    "nurseIdsWithDeferredTasks": [
+      "nurse-blue",
+      "nurse-green",
+      "nurse-orange",
+      "nurse-purple"
+    ]
+  },
+  "queueDepthSummary": {
+    "maxQueueDepth": 4,
+    "nurseIdsAtMaxQueueDepth": [
+      "nurse-purple"
+    ]
+  },
+  "walkingLoadSummary": {
+    "totalApproxWalkingFeet": 19443,
+    "pathBasedTaskCount": 199,
+    "fallbackTaskCount": 0,
+    "missingRouteTaskCount": 0,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ]
+  },
+  "warningTimelineCount": 6
+}

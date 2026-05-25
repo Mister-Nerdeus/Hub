@@ -2,6 +2,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { buildIssueScopeSummary } from "./evidence/issueTraceabilityContract.mjs";
+
 const repoRoot = fileURLToPath(new URL("../", import.meta.url));
 const sharedDistIndex = join(repoRoot, "packages", "shared", "dist", "index.js");
 if (!existsSync(sharedDistIndex)) {
@@ -236,6 +238,7 @@ const output = {
   operationalSummary,
   scenarioComparisonSummary: comparison,
   rebuiltComparisonProof: rebuiltComparison.proof,
+  issueScope: buildIssueScopeSummary(repoRoot, issue),
   negativeProofs: {
     generatedTaskInvalidTemplateRejected: throwsWith(() => validatePlan1GeneratedTask({ ...firstTask, templateId: "missing" }, simulationInput)),
     simulationInputNonPlan1Rejected: throwsWith(() => validatePlan1SimulationInput({ ...simulationInput, planId: "default-er-layout-plan-2" }, scenarioState)),

@@ -2,6 +2,8 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { buildIssueScopeSummary } from "./evidence/issueTraceabilityContract.mjs";
+
 const repoRoot = fileURLToPath(new URL("../", import.meta.url));
 const sharedDistIndex = join(repoRoot, "packages", "shared", "dist", "index.js");
 if (!existsSync(sharedDistIndex)) {
@@ -258,7 +260,8 @@ const output = {
   },
   rootScriptSummary: {
     scripts: Object.keys(packageJson.scripts ?? {}).filter((name) => name.startsWith("check:plan1") || name === "check:plans-2-5-unchanged").sort(),
-    issueTraceabilityScoped: issue != null
+    issueTraceabilityScoped: issue != null,
+    issueScope: buildIssueScopeSummary(repoRoot, issue)
   },
   assumptionsUiSummary: {
     sectionCount: assumptionViewModel.sections.length,

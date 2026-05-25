@@ -1,0 +1,302 @@
+{
+  "planId": "default-er-layout-plan-1",
+  "scenarioId": "scenario-typical-baseline",
+  "durationMinutes": 720,
+  "nurseTimelineSummary": [
+    {
+      "nurseId": "nurse-blue",
+      "assignedTaskCount": 54,
+      "completedTaskCount": 53,
+      "deferredTaskCount": 1,
+      "approxBusyMinutes": 501,
+      "approxIdleMinutes": 219,
+      "approxWalkingFeet": 2954,
+      "maxQueueDepth": 1,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ]
+    },
+    {
+      "nurseId": "nurse-green",
+      "assignedTaskCount": 53,
+      "completedTaskCount": 52,
+      "deferredTaskCount": 1,
+      "approxBusyMinutes": 502,
+      "approxIdleMinutes": 218,
+      "approxWalkingFeet": 3878,
+      "maxQueueDepth": 2,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY",
+        "WALKING_LOAD_WARNING"
+      ]
+    },
+    {
+      "nurseId": "nurse-orange",
+      "assignedTaskCount": 72,
+      "completedTaskCount": 69,
+      "deferredTaskCount": 3,
+      "approxBusyMinutes": 685,
+      "approxIdleMinutes": 35,
+      "approxWalkingFeet": 5674,
+      "maxQueueDepth": 2,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY",
+        "BUSY_MINUTES_WARNING",
+        "WALKING_LOAD_WARNING"
+      ]
+    },
+    {
+      "nurseId": "nurse-purple",
+      "assignedTaskCount": 79,
+      "completedTaskCount": 72,
+      "deferredTaskCount": 7,
+      "approxBusyMinutes": 676,
+      "approxIdleMinutes": 44,
+      "approxWalkingFeet": 6937,
+      "maxQueueDepth": 4,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY",
+        "BUSY_MINUTES_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "WALKING_LOAD_WARNING"
+      ]
+    }
+  ],
+  "roomTimelineSummary": [
+    {
+      "roomId": "room-level-1-trauma",
+      "assignedTaskCount": 20,
+      "completedTaskCount": 20,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-02",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-03",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-04",
+      "assignedTaskCount": 19,
+      "completedTaskCount": 19,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-05",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-14",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-06",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 16,
+      "deferredTaskCount": 1,
+      "warningCodes": [
+        "ROOM_DEFERRED_TASKS"
+      ]
+    },
+    {
+      "roomId": "room-07",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-08",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-09",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-10",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-13",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-11",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-12",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-15",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-16",
+      "assignedTaskCount": 0,
+      "completedTaskCount": 0,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-17",
+      "assignedTaskCount": 21,
+      "completedTaskCount": 21,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-19",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-20",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-21",
+      "assignedTaskCount": 23,
+      "completedTaskCount": 23,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-22",
+      "assignedTaskCount": 17,
+      "completedTaskCount": 17,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-23",
+      "assignedTaskCount": 20,
+      "completedTaskCount": 20,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    },
+    {
+      "roomId": "room-24",
+      "assignedTaskCount": 19,
+      "completedTaskCount": 19,
+      "deferredTaskCount": 0,
+      "warningCodes": []
+    }
+  ],
+  "deferredTaskSummary": {
+    "totalDeferredTaskCount": 12,
+    "roomIdsWithDeferredTasks": [
+      "room-06"
+    ],
+    "nurseIdsWithDeferredTasks": [
+      "nurse-blue",
+      "nurse-green",
+      "nurse-orange",
+      "nurse-purple"
+    ]
+  },
+  "queueDepthSummary": {
+    "maxQueueDepth": 4,
+    "nurseIdsAtMaxQueueDepth": [
+      "nurse-purple"
+    ]
+  },
+  "walkingLoadSummary": {
+    "totalApproxWalkingFeet": 19443,
+    "pathBasedTaskCount": 199,
+    "fallbackTaskCount": 0,
+    "missingRouteTaskCount": 0,
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ]
+  },
+  "warningTimelineSummary": [
+    {
+      "warningCode": "APPROXIMATE_GRAPH_ONLY",
+      "count": 4,
+      "source": "nurse"
+    },
+    {
+      "warningCode": "BUSY_MINUTES_WARNING",
+      "count": 2,
+      "source": "nurse"
+    },
+    {
+      "warningCode": "QUEUE_DEPTH_WARNING",
+      "count": 1,
+      "source": "nurse"
+    },
+    {
+      "warningCode": "WALKING_LOAD_WARNING",
+      "count": 3,
+      "source": "nurse"
+    },
+    {
+      "warningCode": "ROOM_DEFERRED_TASKS",
+      "count": 1,
+      "source": "room"
+    },
+    {
+      "warningCode": "APPROXIMATE_GRAPH_ONLY",
+      "count": 1,
+      "source": "walking"
+    }
+  ],
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true
+}
