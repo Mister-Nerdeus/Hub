@@ -2,7 +2,7 @@
 
 ## Current Status
 
-Issue 235 is complete. Plan 1 now has connected operational path nodes and path edges for room access points, nurse stations, provider/pharmacy, EMS entry, and the required hallway network.
+Issue 236 is complete. Plan 1 walking baseline now uses the repaired path graph and required route groups for station, provider/pharmacy, EMS, bottom hallway, and right hallway route previews.
 
 ## Completed
 
@@ -13,20 +13,18 @@ Issue 235 is complete. Plan 1 now has connected operational path nodes and path 
 - Issue 233: zones, hallways, provider/pharmacy support zone, and two nurse stations.
 - Issue 234: door/access-point coverage.
 - Issue 235: path node and path edge graph rebuild.
+- Issue 236: route preview and walking baseline rebuild.
 
 ## Current Counts
 
-- Rooms: 23
-- Nurse stations: 2
-- Hallways: 7
-- Zones: 22
-- Door/access objects: 23
-- Path nodes: 36
-- Path edges: 40
+- Route groups: 6
+- Total routes: 35
+- Reachable routes: 35
+- Unreachable routes: 0
 
 ## Next Recommended Issue
 
-Issue 236: rebuild the Plan 1 route preview and walking baseline from the repaired path graph.
+Issue 237: repair Plan 1 source mapping and conversion provenance.
 
 ## Non-Claims
 

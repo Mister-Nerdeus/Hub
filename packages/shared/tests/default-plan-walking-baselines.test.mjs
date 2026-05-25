@@ -83,6 +83,10 @@ test("default walking baseline fixtures are deterministic canonical outputs", ()
 });
 
 function buildDefaultPlanWalkingBaseline(plan) {
+  if (plan.planId === "default-er-layout-plan-1") {
+    return buildPlan1WalkingBaseline(plan);
+  }
+
   const groups = [];
   const entryNode = plan.pathNodes.find((node) => node.nodeType === "entry");
   const traumaRoom = plan.rooms.find((room) => room.traumaCapable && room.pathNodeId != null);
@@ -126,6 +130,95 @@ function buildDefaultPlanWalkingBaseline(plan) {
     baselineId: `${plan.planId}-walking-baseline`,
     planId: plan.planId,
     groups
+  });
+}
+
+function buildPlan1WalkingBaseline(plan) {
+  const roomById = new Map(plan.rooms.map((room) => [room.id, room]));
+  const groups = [
+    {
+      groupId: "left-station-to-left-pod-rooms",
+      label: "Left station to left pod rooms",
+      routePreviews: roomRoutes(plan, roomById, "node-station-left", [
+        "room-level-1-trauma",
+        "room-02",
+        "room-03",
+        "room-04",
+        "room-05",
+        "room-14",
+        "room-15",
+        "room-16"
+      ])
+    },
+    {
+      groupId: "right-station-to-right-pod-rooms",
+      label: "Right station to right pod rooms",
+      routePreviews: roomRoutes(plan, roomById, "node-station-right", [
+        "room-06",
+        "room-07",
+        "room-08",
+        "room-09",
+        "room-10",
+        "room-11",
+        "room-12",
+        "room-13"
+      ])
+    },
+    {
+      groupId: "ems-entry-to-trauma",
+      label: "EMS entry to trauma",
+      routePreviews: roomRoutes(plan, roomById, "node-entry-ems", ["room-level-1-trauma"])
+    },
+    {
+      groupId: "provider-pharmacy-to-rooms",
+      label: "Provider pharmacy to rooms",
+      routePreviews: roomRoutes(plan, roomById, "node-zone-provider-pharmacy", [
+        "room-17",
+        "room-level-1-trauma",
+        "room-02",
+        "room-06",
+        "room-10",
+        "room-12",
+        "room-19",
+        "room-24"
+      ])
+    },
+    {
+      groupId: "bottom-hallway-to-bottom-rooms",
+      label: "Bottom hallway to bottom rooms",
+      routePreviews: roomRoutes(plan, roomById, "node-hallway-bottom-horizontal", [
+        "room-19",
+        "room-20",
+        "room-21",
+        "room-22",
+        "room-23",
+        "room-24"
+      ])
+    },
+    {
+      groupId: "right-hallway-to-right-side-rooms",
+      label: "Right hallway to right side rooms",
+      routePreviews: roomRoutes(plan, roomById, "node-hallway-right-vertical", [
+        "room-11",
+        "room-12",
+        "room-10",
+        "room-13"
+      ])
+    }
+  ];
+
+  return buildWalkingBaseline({
+    baselineId: `${plan.planId}-walking-baseline`,
+    planId: plan.planId,
+    groups
+  });
+}
+
+function roomRoutes(plan, roomById, originPathNodeId, roomIds) {
+  return roomIds.map((roomId) => {
+    const room = roomById.get(roomId);
+    assert.ok(room?.pathNodeId);
+    return buildRoutePreview(plan, input(plan, originPathNodeId, room.pathNodeId));
   });
 }
 

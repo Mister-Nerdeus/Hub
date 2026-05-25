@@ -4,6 +4,84 @@
   "planId": "default-er-layout-plan-1",
   "routeGroupSummaries": [
     {
+      "groupId": "bottom-hallway-to-bottom-rooms",
+      "label": "Bottom hallway to bottom rooms",
+      "routeCount": 6,
+      "reachableRouteCount": 6,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 672,
+      "totalTravelSeconds": 192.362,
+      "routes": [
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-01",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-19",
+          "status": "reachable",
+          "distanceFeet": 87,
+          "travelSeconds": 26.341,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-02",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-20",
+          "status": "reachable",
+          "distanceFeet": 99,
+          "travelSeconds": 28.295,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-03",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-21",
+          "status": "reachable",
+          "distanceFeet": 111,
+          "travelSeconds": 31.295,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-04",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-22",
+          "status": "reachable",
+          "distanceFeet": 119,
+          "travelSeconds": 33.977,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-05",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-23",
+          "status": "reachable",
+          "distanceFeet": 119,
+          "travelSeconds": 33.977,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "bottom-hallway-to-bottom-rooms-route-06",
+          "originPathNodeId": "node-hallway-bottom-horizontal",
+          "destinationPathNodeId": "node-door-room-24",
+          "status": "reachable",
+          "distanceFeet": 137,
+          "travelSeconds": 38.477,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    },
+    {
       "groupId": "ems-entry-to-trauma",
       "label": "EMS entry to trauma",
       "routeCount": 1,
@@ -27,17 +105,28 @@
       ]
     },
     {
-      "groupId": "primary-station-to-rooms",
-      "label": "Primary station to rooms",
-      "routeCount": 23,
-      "reachableRouteCount": 23,
+      "groupId": "left-station-to-left-pod-rooms",
+      "label": "Left station to left pod rooms",
+      "routeCount": 8,
+      "reachableRouteCount": 8,
       "unreachableRouteCount": 0,
       "invalidRouteCount": 0,
-      "totalDistanceFeet": 2620,
-      "totalTravelSeconds": 772.272,
+      "totalDistanceFeet": 594,
+      "totalTravelSeconds": 189.226,
       "routes": [
         {
-          "routeId": "primary-station-to-rooms-route-01",
+          "routeId": "left-station-to-left-pod-rooms-route-01",
+          "originPathNodeId": "node-station-left",
+          "destinationPathNodeId": "node-door-level-1-trauma",
+          "status": "reachable",
+          "distanceFeet": 44,
+          "travelSeconds": 16.636,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "left-station-to-left-pod-rooms-route-02",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-02",
           "status": "reachable",
@@ -48,7 +137,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-02",
+          "routeId": "left-station-to-left-pod-rooms-route-03",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-03",
           "status": "reachable",
@@ -59,7 +148,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-03",
+          "routeId": "left-station-to-left-pod-rooms-route-04",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-04",
           "status": "reachable",
@@ -70,7 +159,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-04",
+          "routeId": "left-station-to-left-pod-rooms-route-05",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-05",
           "status": "reachable",
@@ -81,95 +170,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-05",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-06",
-          "status": "reachable",
-          "distanceFeet": 98,
-          "travelSeconds": 29.591,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-06",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-07",
-          "status": "reachable",
-          "distanceFeet": 104,
-          "travelSeconds": 31.091,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-07",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-08",
-          "status": "reachable",
-          "distanceFeet": 114,
-          "travelSeconds": 33.591,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-08",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-09",
-          "status": "reachable",
-          "distanceFeet": 120,
-          "travelSeconds": 35.091,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-09",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-10",
-          "status": "reachable",
-          "distanceFeet": 131,
-          "travelSeconds": 37.841,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-10",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-11",
-          "status": "reachable",
-          "distanceFeet": 142,
-          "travelSeconds": 40.591,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-11",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-12",
-          "status": "reachable",
-          "distanceFeet": 152,
-          "travelSeconds": 43.091,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-12",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-13",
-          "status": "reachable",
-          "distanceFeet": 101,
-          "travelSeconds": 30.341,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-13",
+          "routeId": "left-station-to-left-pod-rooms-route-06",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-14",
           "status": "reachable",
@@ -180,7 +181,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-14",
+          "routeId": "left-station-to-left-pod-rooms-route-07",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-15",
           "status": "reachable",
@@ -191,7 +192,7 @@
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-15",
+          "routeId": "left-station-to-left-pod-rooms-route-08",
           "originPathNodeId": "node-station-left",
           "destinationPathNodeId": "node-door-room-16",
           "status": "reachable",
@@ -200,91 +201,259 @@
           "warningCodes": [
             "APPROXIMATE_GRAPH_ONLY"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "groupId": "provider-pharmacy-to-rooms",
+      "label": "Provider pharmacy to rooms",
+      "routeCount": 8,
+      "reachableRouteCount": 8,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 683,
+      "totalTravelSeconds": 212.75,
+      "routes": [
         {
-          "routeId": "primary-station-to-rooms-route-16",
-          "originPathNodeId": "node-station-left",
+          "routeId": "provider-pharmacy-to-rooms-route-01",
+          "originPathNodeId": "node-zone-provider-pharmacy",
           "destinationPathNodeId": "node-door-room-17",
           "status": "reachable",
-          "distanceFeet": 140,
-          "travelSeconds": 40.091,
+          "distanceFeet": 70,
+          "travelSeconds": 22.341,
           "warningCodes": [
             "APPROXIMATE_GRAPH_ONLY"
           ]
         },
         {
-          "routeId": "primary-station-to-rooms-route-17",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-19",
-          "status": "reachable",
-          "distanceFeet": 105,
-          "travelSeconds": 30.432,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-18",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-20",
-          "status": "reachable",
-          "distanceFeet": 141,
-          "travelSeconds": 40.886,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-19",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-21",
-          "status": "reachable",
-          "distanceFeet": 153,
-          "travelSeconds": 43.886,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-20",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-22",
-          "status": "reachable",
-          "distanceFeet": 169,
-          "travelSeconds": 47.341,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-21",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-23",
-          "status": "reachable",
-          "distanceFeet": 169,
-          "travelSeconds": 47.341,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-22",
-          "originPathNodeId": "node-station-left",
-          "destinationPathNodeId": "node-door-room-24",
-          "status": "reachable",
-          "distanceFeet": 187,
-          "travelSeconds": 51.841,
-          "warningCodes": [
-            "APPROXIMATE_GRAPH_ONLY"
-          ]
-        },
-        {
-          "routeId": "primary-station-to-rooms-route-23",
-          "originPathNodeId": "node-station-left",
+          "routeId": "provider-pharmacy-to-rooms-route-02",
+          "originPathNodeId": "node-zone-provider-pharmacy",
           "destinationPathNodeId": "node-door-level-1-trauma",
           "status": "reachable",
-          "distanceFeet": 44,
-          "travelSeconds": 16.636,
+          "distanceFeet": 110,
+          "travelSeconds": 33.795,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-03",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-02",
+          "status": "reachable",
+          "distanceFeet": 80,
+          "travelSeconds": 25.841,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-04",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-06",
+          "status": "reachable",
+          "distanceFeet": 28,
+          "travelSeconds": 11.841,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-05",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-10",
+          "status": "reachable",
+          "distanceFeet": 61,
+          "travelSeconds": 20.091,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-06",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-12",
+          "status": "reachable",
+          "distanceFeet": 82,
+          "travelSeconds": 25.341,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-07",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-19",
+          "status": "reachable",
+          "distanceFeet": 135,
+          "travelSeconds": 39.409,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "provider-pharmacy-to-rooms-route-08",
+          "originPathNodeId": "node-zone-provider-pharmacy",
+          "destinationPathNodeId": "node-door-room-24",
+          "status": "reachable",
+          "distanceFeet": 117,
+          "travelSeconds": 34.091,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "right-hallway-to-right-side-rooms",
+      "label": "Right hallway to right side rooms",
+      "routeCount": 4,
+      "reachableRouteCount": 4,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 230,
+      "totalTravelSeconds": 72.592,
+      "routes": [
+        {
+          "routeId": "right-hallway-to-right-side-rooms-route-01",
+          "originPathNodeId": "node-hallway-right-vertical",
+          "destinationPathNodeId": "node-door-room-11",
+          "status": "reachable",
+          "distanceFeet": 68,
+          "travelSeconds": 20.773,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-hallway-to-right-side-rooms-route-02",
+          "originPathNodeId": "node-hallway-right-vertical",
+          "destinationPathNodeId": "node-door-room-12",
+          "status": "reachable",
+          "distanceFeet": 78,
+          "travelSeconds": 23.273,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-hallway-to-right-side-rooms-route-03",
+          "originPathNodeId": "node-hallway-right-vertical",
+          "destinationPathNodeId": "node-door-room-10",
+          "status": "reachable",
+          "distanceFeet": 57,
+          "travelSeconds": 18.023,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-hallway-to-right-side-rooms-route-04",
+          "originPathNodeId": "node-hallway-right-vertical",
+          "destinationPathNodeId": "node-door-room-13",
+          "status": "reachable",
+          "distanceFeet": 27,
+          "travelSeconds": 10.523,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        }
+      ]
+    },
+    {
+      "groupId": "right-station-to-right-pod-rooms",
+      "label": "Right station to right pod rooms",
+      "routeCount": 8,
+      "reachableRouteCount": 8,
+      "unreachableRouteCount": 0,
+      "invalidRouteCount": 0,
+      "totalDistanceFeet": 434,
+      "totalTravelSeconds": 145.228,
+      "routes": [
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-01",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-06",
+          "status": "reachable",
+          "distanceFeet": 32,
+          "travelSeconds": 12.591,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-02",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-07",
+          "status": "reachable",
+          "distanceFeet": 38,
+          "travelSeconds": 14.091,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-03",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-08",
+          "status": "reachable",
+          "distanceFeet": 48,
+          "travelSeconds": 16.591,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-04",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-09",
+          "status": "reachable",
+          "distanceFeet": 54,
+          "travelSeconds": 18.091,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-05",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-10",
+          "status": "reachable",
+          "distanceFeet": 65,
+          "travelSeconds": 20.841,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-06",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-11",
+          "status": "reachable",
+          "distanceFeet": 76,
+          "travelSeconds": 23.591,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-07",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-12",
+          "status": "reachable",
+          "distanceFeet": 86,
+          "travelSeconds": 26.091,
+          "warningCodes": [
+            "APPROXIMATE_GRAPH_ONLY"
+          ]
+        },
+        {
+          "routeId": "right-station-to-right-pod-rooms-route-08",
+          "originPathNodeId": "node-station-right",
+          "destinationPathNodeId": "node-door-room-13",
+          "status": "reachable",
+          "distanceFeet": 35,
+          "travelSeconds": 13.341,
           "warningCodes": [
             "APPROXIMATE_GRAPH_ONLY"
           ]
@@ -292,12 +461,12 @@
       ]
     }
   ],
-  "totalRouteCount": 24,
-  "reachableRouteCount": 24,
+  "totalRouteCount": 35,
+  "reachableRouteCount": 35,
   "unreachableRouteCount": 0,
   "invalidRouteCount": 0,
-  "totalDistanceFeet": 2700,
-  "totalTravelSeconds": 798.09,
+  "totalDistanceFeet": 2693,
+  "totalTravelSeconds": 837.976,
   "warnings": [],
   "limitations": [
     "Walking baseline is derived from approximate route preview outputs.",

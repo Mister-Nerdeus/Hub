@@ -26,7 +26,10 @@ const allowPartial = args.has("--allow-partial");
 const sourceTruthRelativePath =
   "packages/shared/fixtures/default-plans/visual-parity/plan-1-source-truth.json";
 const planRelativePath = "packages/shared/fixtures/default-plans/default-er-layout-plan-1.json";
+const walkingBaselineRelativePath =
+  "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-1-walking-baseline.json";
 const sourceTruth = readJson(sourceTruthRelativePath);
+const walkingBaseline = readJson(walkingBaselineRelativePath);
 const planFixture = validateDefaultSavedPlanFixtureContract(readJson(planRelativePath), {
   sourcePlanIds: new Set(["source-er-layout-plan-1"]),
   mappingIds: new Set(["mapping-er-layout-plan-1"])
@@ -35,6 +38,18 @@ const sourceTruthValidation = validatePlanVisualParitySourceTruthContract(source
 const audit = auditPlan1VisualParityGaps(sourceTruth, planFixture.plan, sourceTruthRelativePath);
 const pathNodeCoverage = auditDefaultPlanPathNodeCoverage(planFixture.plan);
 const pathEdgeCoverage = auditDefaultPlanPathEdgeCoverage(planFixture.plan);
+const requiredWalkingBaselineGroups = [
+  "left-station-to-left-pod-rooms",
+  "right-station-to-right-pod-rooms",
+  "ems-entry-to-trauma",
+  "provider-pharmacy-to-rooms",
+  "bottom-hallway-to-bottom-rooms",
+  "right-hallway-to-right-side-rooms"
+];
+const walkingBaselineGroupIds = walkingBaseline.routeGroupSummaries?.map((group) => group.groupId) ?? [];
+const missingWalkingBaselineGroups = requiredWalkingBaselineGroups.filter(
+  (groupId) => !walkingBaselineGroupIds.includes(groupId)
+);
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
   .filter((room) => sourceTruth.legacyFixtureRejections.unsupportedRoomIds.includes(room.id))
@@ -140,6 +155,14 @@ if (issueNumber != null && issueNumber >= 235) {
     );
   }
 }
+if (issueNumber != null && issueNumber >= 236) {
+  for (const groupId of missingWalkingBaselineGroups) {
+    requiredStageFailures.push(`WALKING_BASELINE_GROUP_STAGE_FAILURE: ${groupId}`);
+  }
+  if ((walkingBaseline.unreachableRouteCount ?? 0) > 0) {
+    requiredStageFailures.push(`WALKING_BASELINE_UNREACHABLE_STAGE_FAILURE: ${walkingBaseline.unreachableRouteCount}`);
+  }
+}
 
 const status = failures.length === 0
   ? "passed"
@@ -168,6 +191,15 @@ const output = {
     edgeCoverageGapCount: pathEdgeCoverage.gaps.length,
     requiredOperationalNodes: pathEdgeCoverage.counts.requiredOperationalNodes,
     connectedRequiredOperationalNodes: pathEdgeCoverage.counts.connectedRequiredOperationalNodes
+  },
+  walkingBaselineSummary: {
+    baselineId: walkingBaseline.baselineId,
+    requiredGroups: requiredWalkingBaselineGroups,
+    groupIds: walkingBaselineGroupIds,
+    missingGroups: missingWalkingBaselineGroups,
+    totalRouteCount: walkingBaseline.totalRouteCount,
+    reachableRouteCount: walkingBaseline.reachableRouteCount,
+    unreachableRouteCount: walkingBaseline.unreachableRouteCount
   },
   failureCount: failures.length,
   failures,
