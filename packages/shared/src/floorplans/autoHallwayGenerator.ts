@@ -3,6 +3,7 @@ import {
   type EditableHallwayGeometry,
   type EditableLayoutGeometryContract
 } from "../layout-editor/editableLayoutGeometryContract.js";
+import { generateGridSubtractionHallways } from "./autoHallwayGridSubtraction.js";
 
 export type AutoHallwayGenerationResult = {
   generatedHallwayId: string;
@@ -22,11 +23,33 @@ export function generateAutoHallways(input: {
   sourcePlanId: string;
   readOnly: boolean;
   boundsFeet: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number };
+  generationMethod?: "grid_subtraction" | "rectangular_envelope_difference";
+  gridCellSizeFeet?: number;
 }): AutoHallwayGenerationResult {
   if (input.readOnly) {
     throw new Error("auto hallway generation is blocked for read-only default plans");
   }
   const layout = validateEditableLayoutGeometryContract(input.layout);
+  if (input.generationMethod !== "rectangular_envelope_difference") {
+    const grid = generateGridSubtractionHallways({
+      layout,
+      sourcePlanId: input.sourcePlanId,
+      boundsFeet: input.boundsFeet,
+      gridCellSizeFeet: input.gridCellSizeFeet
+    });
+    return {
+      generatedHallwayId: `generated-hallway-${input.sourcePlanId}`,
+      sourcePlanId: input.sourcePlanId,
+      boundsUsed: { ...input.boundsFeet },
+      occupiedFootprintCount: grid.occupiedCellCount,
+      publicSpaceFootprintCount: grid.publicCellCount,
+      generatedHallwayZones: grid.generatedHallwayZones,
+      preservedManualHallwayIds: grid.preservedManualHallwayIds,
+      generationMethod: grid.generationMethod,
+      limitations: grid.limitations,
+      nonClaims: grid.nonClaims
+    };
+  }
   const occupied = [...layout.rooms, ...layout.stations, ...layout.zones];
   const envelope = occupied.length === 0 ? null : envelopeFor(occupied);
   const generatedHallwayId = `generated-hallway-${input.sourcePlanId}`;

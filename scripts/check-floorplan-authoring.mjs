@@ -1,6 +1,9 @@
-import { existsSync, mkdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  runFloorplanAuthoringBehaviorHarness
+} from "../packages/shared/dist/index.js";
 
 const repoRoot = fileURLToPath(new URL("../", import.meta.url));
 const args = process.argv.slice(2);
@@ -18,7 +21,16 @@ const stageToIssue = {
   "auto-pod-border": "277",
   "export-integrity": "278",
   "route-matrix": "279",
-  final: "280"
+  final: "290",
+  "behavioral-execution": "281",
+  "save-reload-e2e": "282",
+  "room-edit-e2e": "283",
+  "door-edit-e2e": "284",
+  "hallway-v2": "285",
+  "path-sync-audit": "286",
+  "door-path-node-generation": "287",
+  "simulation-ready-export": "288",
+  "plan-2-dry-run": "289"
 };
 
 const requiredModules = [
@@ -32,6 +44,12 @@ const requiredModules = [
   "packages/shared/src/floorplans/autoPodBorder.ts",
   "packages/shared/src/floorplans/authoringExportIntegrity.ts",
   "packages/shared/src/floorplans/floorplanAuthoringRouteMatrix.ts",
+  "packages/shared/src/floorplans/floorplanAuthoringBehaviorHarness.ts",
+  "packages/shared/src/floorplans/authoringWarningContract.ts",
+  "packages/shared/src/floorplans/autoHallwayGridSubtraction.ts",
+  "packages/shared/src/floorplans/pathSyncAudit.ts",
+  "packages/shared/src/floorplans/doorPathNodeGenerator.ts",
+  "packages/shared/src/floorplans/simulationReadyExportContract.ts",
   "apps/web/src/features/floorplans/savedFloorplanPersistence.ts",
   "apps/web/src/features/floorplans/SavePlanControls.tsx",
   "apps/web/src/features/floorplans/DefaultPlanEditCopyControls.tsx",
@@ -166,7 +184,33 @@ const issueFiles = {
     "known-gaps.md",
     "follow-up-issues.md",
     "go-no-go.md"
-  ]
+  ],
+  "281": [
+    "first-failure.txt",
+    "behavioral-harness-output.json",
+    "default-copy-output.json",
+    "save-save-as-output.json",
+    "reload-output.json",
+    "edit-operation-output.json",
+    "export-operation-output.json",
+    "path-sync-status-output.json",
+    "default-nonmutation-output.json",
+    "private-source-boundary-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
+  "282": ["first-failure.txt"],
+  "283": ["first-failure.txt"],
+  "284": ["first-failure.txt"],
+  "285": ["first-failure.txt"],
+  "286": ["first-failure.txt"],
+  "287": ["first-failure.txt"],
+  "288": ["first-failure.txt"],
+  "289": ["first-failure.txt"],
+  "290": ["first-failure.txt"]
 };
 
 if (!(stage in stageToIssue)) {
@@ -179,7 +223,11 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const status = missingModules.length === 0 ? "passed" : "failed";
+const behaviorOutput = stage === "behavioral-execution" && missingModules.length === 0
+  ? runBehaviorHarness("default-er-layout-plan-1.json")
+  : null;
+const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
+const status = missingModules.length === 0 && behaviorFailures.length === 0 ? "passed" : "failed";
 
 writeIssueEvidence(issueNumber, stage, {
   status,
@@ -206,11 +254,14 @@ writeIssueEvidence(issueNumber, stage, {
     runtimeServedByWeb: false,
     runtimeServedByApi: false
   },
-  pathSyncWarning: "stale_warning is explicit after route-affecting authoring edits"
+  pathSyncWarning: "stale_warning is explicit after route-affecting authoring edits",
+  behaviorExecuted: behaviorOutput != null,
+  behaviorFailures,
+  behaviorOutput
 });
 
 if (status !== "passed") {
-  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules }, null, 2));
+  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures }, null, 2));
 }
 
 console.log(
@@ -235,8 +286,29 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
   ensureIssueScaffold(issueDir, issueNumber, stageName);
   writeJson(join(testOutputDir, "floorplan-authoring-gate.txt"), summary);
   writeJson(join(issueDir, "floorplan-authoring-gate-output.json"), summary);
+  if (summary.behaviorOutput != null) {
+    writeAuthoringProofFixture(stageName, summary.behaviorOutput);
+    writeBehaviorEvidence(issueDir, summary.behaviorOutput);
+  }
+  const behaviorEvidenceFiles = new Set([
+    "behavioral-harness-output.json",
+    "default-copy-output.json",
+    "save-save-as-output.json",
+    "reload-output.json",
+    "edit-operation-output.json",
+    "export-operation-output.json",
+    "path-sync-status-output.json",
+    "default-nonmutation-output.json",
+    "private-source-boundary-output.json"
+  ]);
   for (const fileName of issueFiles[issueNumber] ?? []) {
     const path = join(issueDir, fileName);
+    if (fileName === "first-failure.txt" && existsSync(path)) {
+      continue;
+    }
+    if (summary.behaviorOutput != null && behaviorEvidenceFiles.has(fileName)) {
+      continue;
+    }
     if (fileName.endsWith(".md") || fileName.endsWith(".txt")) {
       writeText(path, evidenceText(issueNumber, stageName, fileName, summary));
     } else {
@@ -252,6 +324,62 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
     }
   }
   writeScreenshotPlaceholders(issueDir, issueNumber);
+}
+
+function writeBehaviorEvidence(issueDir, output) {
+  writeJson(join(issueDir, "behavioral-harness-output.json"), output);
+  writeJson(join(issueDir, "default-copy-output.json"), {
+    sourceDefaultPlanId: output.sourceDefaultPlanId,
+    editableCopyId: output.editableCopyId,
+    sourceDefaultUnchanged: output.sourceDefaultUnchanged,
+    privateSourcePayloadStored: output.privateSourcePayloadStored
+  });
+  writeJson(join(issueDir, "save-save-as-output.json"), {
+    savedPlanId: output.savedPlanId,
+    saveAsPlanId: output.saveAsPlanId,
+    multipleSavedVersionsCoexist: output.savedPlanId !== output.saveAsPlanId
+  });
+  writeJson(join(issueDir, "reload-output.json"), {
+    reloadMatchedEditableLayout: output.reloadMatchedEditableLayout
+  });
+  writeJson(join(issueDir, "edit-operation-output.json"), {
+    roomTypeChanged: output.roomTypeChanged,
+    roomAdded: output.roomAdded,
+    doorAdded: output.doorAdded,
+    doorMoved: output.doorMoved,
+    hallwayGenerated: output.hallwayGenerated,
+    podBorderGenerated: output.podBorderGenerated,
+    details: output.details
+  });
+  writeJson(join(issueDir, "export-operation-output.json"), {
+    exportValidated: output.exportValidated,
+    simulationReadyExportStatus: output.details.simulationReadyExportStatus
+  });
+  writeJson(join(issueDir, "path-sync-status-output.json"), {
+    pathSyncStatus: output.pathSyncStatus,
+    generatedPathNodeCount: output.details.generatedPathNodeCount,
+    generatedPathEdgeCount: output.details.generatedPathEdgeCount
+  });
+  writeJson(join(issueDir, "default-nonmutation-output.json"), {
+    sourceDefaultUnchanged: output.sourceDefaultUnchanged,
+    sourceDefaultPlanId: output.sourceDefaultPlanId
+  });
+  writeJson(join(issueDir, "private-source-boundary-output.json"), {
+    privateSourcePayloadStored: output.privateSourcePayloadStored,
+    runtimeServedByWeb: false,
+    runtimeServedByApi: false
+  });
+}
+
+function writeAuthoringProofFixture(stageName, output) {
+  const fixtureNames = {
+    "behavioral-execution": "plan-1-authoring-behavior-fixture.json"
+  };
+  const fixtureName = fixtureNames[stageName];
+  if (fixtureName == null) {
+    return;
+  }
+  writeJson(join(repoRoot, "packages", "shared", "fixtures", "authoring-proof", fixtureName), output);
 }
 
 function ensureIssueScaffold(issueDir, issueNumber, stageName) {
@@ -310,6 +438,36 @@ Non-PHI rules still pass by design: no PHI, EHR fields, real identities, source 
 ${issueNumber === "280" ? "GO for another authoring refinement batch before DOCX/source-driven correction if richer geometry tools are needed." : `GO / NO-GO for Issue ${String(Number(issueNumber) + 1).padStart(3, "0")}: GO if local gates pass.`}
 `
   );
+}
+
+function runBehaviorHarness(fixtureName) {
+  const fixturePath = join(repoRoot, "packages", "shared", "fixtures", "default-plans", fixtureName);
+  const fixture = JSON.parse(readFileSync(fixturePath, "utf8"));
+  return runFloorplanAuthoringBehaviorHarness({ defaultFixture: fixture });
+}
+
+function behaviorAssertionFailures(output) {
+  const requiredTrueFields = [
+    "reloadMatchedEditableLayout",
+    "roomTypeChanged",
+    "roomAdded",
+    "doorAdded",
+    "doorMoved",
+    "hallwayGenerated",
+    "podBorderGenerated",
+    "exportValidated",
+    "sourceDefaultUnchanged"
+  ];
+  const failures = requiredTrueFields
+    .filter((field) => output[field] !== true)
+    .map((field) => `${field} was not true`);
+  if (output.privateSourcePayloadStored !== false) {
+    failures.push("privateSourcePayloadStored was not false");
+  }
+  if (output.pathSyncStatus !== "stale_warning") {
+    failures.push("pathSyncStatus was not stale_warning");
+  }
+  return failures;
 }
 
 function writeScreenshotPlaceholders(issueDir, issueNumber) {

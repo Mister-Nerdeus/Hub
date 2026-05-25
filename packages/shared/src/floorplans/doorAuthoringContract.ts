@@ -155,8 +155,25 @@ function validateDoorOnRoom(
 ): EditableDoorGeometry {
   const room = requireRoom(layout, door.ownerId);
   const wallLength = door.wall === "north" || door.wall === "south" ? room.widthFeet : room.heightFeet;
+  requireFinite(door.offsetFeet, "offsetFeet");
+  requirePositive(door.widthFeet, "widthFeet");
   if (door.offsetFeet < 0 || door.widthFeet <= 0 || door.offsetFeet + door.widthFeet > wallLength) {
     throw new Error("door must be on or near the room perimeter within tolerance");
   }
   return door;
+}
+
+function requireFinite(value: number, label: string): number {
+  if (!Number.isFinite(value)) {
+    throw new Error(`${label} must be a finite number`);
+  }
+  return value;
+}
+
+function requirePositive(value: number, label: string): number {
+  const finite = requireFinite(value, label);
+  if (finite <= 0) {
+    throw new Error(`${label} must be greater than 0`);
+  }
+  return finite;
 }

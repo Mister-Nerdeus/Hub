@@ -1,0 +1,8 @@
+Command:
+node scripts/check-floorplan-authoring.mjs --stage behavioral-execution --allow-partial --issue 281
+
+Observed before implementation:
+Unsupported floorplan authoring stage: behavioral-execution
+
+Failure class:
+The authoring gate could pass earlier module-presence stages, but it had no behavioral-execution stage and did not execute save, save-as, reload, room edit, door edit, hallway generation, pod border generation, export, path-sync warning, source nonmutation, or private-source-boundary proof.

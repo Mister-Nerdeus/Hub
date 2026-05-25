@@ -10,7 +10,7 @@ const result = generateAutoHallways({
 if (result.generatedHallwayZones.length === 0 || result.preservedManualHallwayIds[0] !== "hall-manual") {
   throw new Error("auto hallway must generate public space and preserve manual hallways");
 }
-if (result.generationMethod !== "rectangular_envelope_difference" || result.limitations.length === 0) {
+if (result.generationMethod !== "grid_subtraction" || result.limitations.length === 0) {
   throw new Error("auto hallway output must include method and limitations");
 }
 throws(
