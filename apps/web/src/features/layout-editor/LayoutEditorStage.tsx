@@ -184,6 +184,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
+  const providerPharmacyZoneItems = zoneItems.filter(
+    (item) => item.objectId === "zone-provider-pharmacy"
+  );
   const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
     renderItems,
     selectedObjectType: stageState.selectedObjectType,
@@ -443,6 +446,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             role="img"
             aria-label="Feet-based SVG grid stage"
             data-render-item-count={renderItems.length}
+            data-room-render-count={roomItems.length}
+            data-station-render-count={stationItems.length}
+            data-provider-pharmacy-zone-render-count={providerPharmacyZoneItems.length}
+            data-floorplan-source-kind={stageState.loadedFloorplan?.sourceKind ?? "proof-fixture"}
             data-validation-warning-count={stageState.validationWarnings.length}
             data-read-only={stageState.readOnly ? "true" : "false"}
           >

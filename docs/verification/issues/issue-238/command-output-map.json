@@ -1,0 +1,69 @@
+{
+  "issue": "238",
+  "commands": [
+    {
+      "command": "node custom first-failure app render evidence audit | Tee-Object -FilePath docs/verification/issues/issue-238/first-failure.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/first-failure.txt",
+        "docs/verification/issues/issue-238/plan-1-render-before-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/test-output/web.txt",
+        "docs/verification/issues/issue-238/plan-1-render-after-output.json",
+        "docs/verification/issues/issue-238/plan-1-label-render-coverage-output.json",
+        "docs/verification/issues/issue-238/plan-1-render-object-count-output.json",
+        "docs/verification/issues/issue-238/plan-1-old-render-negative-output.json"
+      ]
+    },
+    {
+      "command": "msedge --headless --screenshot docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.png docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.html",
+      "outputs": [
+        "docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.png"
+      ]
+    },
+    {
+      "command": "msedge --headless --screenshot docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.png docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.html",
+      "outputs": [
+        "docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.png"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 238 | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/test-output/plan-1-visual-parity-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-238/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-238/first-failure.txt",
+    "docs/verification/issues/issue-238/plan-1-render-before-output.json",
+    "docs/verification/issues/issue-238/plan-1-render-after-output.json",
+    "docs/verification/issues/issue-238/plan-1-label-render-coverage-output.json",
+    "docs/verification/issues/issue-238/plan-1-render-object-count-output.json",
+    "docs/verification/issues/issue-238/plan-1-old-render-negative-output.json",
+    "docs/verification/issues/issue-238/plan-1-visual-parity-review.md",
+    "docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.png",
+    "docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.png"
+  ]
+}

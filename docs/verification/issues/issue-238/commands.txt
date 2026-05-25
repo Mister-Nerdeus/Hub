@@ -1,0 +1,8 @@
+node custom first-failure app render evidence audit | Tee-Object -FilePath docs/verification/issues/issue-238/first-failure.txt
+npm --workspace apps/web test | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/web.txt
+msedge --headless --screenshot docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.png docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.html
+msedge --headless --screenshot docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.png docs/verification/issues/issue-238/screenshots/plan-1-before-current-render.html
+npm --workspace apps/web run build | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/web-build.txt
+node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/no-phi.txt
+node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 238 | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-238/test-output/docs-gate.txt

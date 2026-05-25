@@ -42,6 +42,15 @@ export const defaultPlanFixtures: DefaultSavedPlanFixtureContract[] = [
   defaultErLayoutPlan5
 ] as DefaultSavedPlanFixtureContract[];
 
+const defaultPlan1Fixture = defaultPlanFixtures.find(
+  (fixture) => fixture.plan.planId === "default-er-layout-plan-1"
+);
+if (defaultPlan1Fixture == null) {
+  throw new Error("default-er-layout-plan-1 fixture must be available for render proof");
+}
+
+export const defaultPlan1RenderProofFixture = defaultPlan1Fixture;
+
 export const defaultFloorplanLibraryFixtures: DefaultSavedPlanFixtureContract[] = defaultPlanFixtures;
 
 export const defaultPlanRenderProofPlans: PlanContract[] = defaultPlanFixtures.map(

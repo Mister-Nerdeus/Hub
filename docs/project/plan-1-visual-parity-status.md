@@ -30,3 +30,9 @@ Issue 238: prove the repaired Plan 1 renders in the app from JSON fixture data.
 - Not exact CAD geometry.
 - Not measured walking truth.
 - Not clinical safety certification.
+
+## Issue 238 - App render visual parity proof
+
+Status: Complete. Plan 1 renders from JSON fixture data through the app layout render pipeline with 23 room render items, 2 station render items, 1 Provider Pharmacy zone render item, required labels present, and old simplified render artifacts absent. Screenshot evidence is stored under `docs/verification/issues/issue-238/screenshots/`.
+
+GO for Issue 239: editor export integrity for edited Plan 1.

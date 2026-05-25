@@ -36,7 +36,13 @@ export function FloorplanLibrary({
 
       <div className="floorplan-library__grid">
         {viewModel.floorplans.map((floorplan) => (
-          <article className="floorplan-library__card" key={floorplan.planId}>
+          <article
+            className="floorplan-library__card"
+            key={floorplan.planId}
+            data-plan-id={floorplan.planId}
+            data-room-count={floorplan.objectCounts.rooms}
+            data-station-count={floorplan.objectCounts.nurseStations}
+          >
             <div className="floorplan-library__card-header">
               <div>
                 <h3>{floorplan.name}</h3>

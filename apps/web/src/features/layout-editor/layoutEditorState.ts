@@ -289,13 +289,20 @@ function planZoneToEditableZone(zone: PlanContract["zones"][number]): EditableZo
   return {
     objectType: "zone",
     id: zone.id,
-    label: zone.label,
+    label: mapEditableZoneLabel(zone),
     zoneType: mapEditableZoneType(zone.zoneType),
     xFeet: zone.x,
     yFeet: zone.y,
     widthFeet: zone.widthFeet,
     heightFeet: zone.lengthFeet
   };
+}
+
+function mapEditableZoneLabel(zone: PlanContract["zones"][number]): string {
+  if (zone.id === "zone-provider-pharmacy") {
+    return "Provider Pharmacy";
+  }
+  return zone.label;
 }
 
 function mapEditableRoomType(roomType: PlanContract["rooms"][number]["roomType"]): EditableRoomType {

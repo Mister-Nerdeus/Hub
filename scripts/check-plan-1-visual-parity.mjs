@@ -67,6 +67,43 @@ for (const object of validatedSourceMapping.objects) {
   provenanceHistogram[object.conversionProvenance] =
     (provenanceHistogram[object.conversionProvenance] ?? 0) + 1;
 }
+const requiredRenderedLabels = [
+  "Level 1 Trauma",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+  "17",
+  "19",
+  "20",
+  "21",
+  "22",
+  "23",
+  "24",
+  "Provider Pharmacy"
+];
+const renderEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-render-object-count-output.json")
+);
+const labelRenderEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-label-render-coverage-output.json")
+);
+const oldRenderNegativeEvidence = issue == null ? null : readOptionalJson(
+  join(repoRoot, "docs", "verification", "issues", `issue-${issue}`, "plan-1-old-render-negative-output.json")
+);
+const renderedLabelCoverage = labelRenderEvidence?.coverage ?? {};
+const missingRenderedLabels = requiredRenderedLabels.filter((label) => renderedLabelCoverage[label] !== true);
 
 const legacyRoomIdsPresent = planFixture.plan.rooms
   .filter((room) => sourceTruth.legacyFixtureRejections.unsupportedRoomIds.includes(room.id))
@@ -185,6 +222,34 @@ if (issueNumber != null && issueNumber >= 237) {
     requiredStageFailures.push(`SOURCE_MAPPING_TARGET_STAGE_FAILURE: ${targetId}`);
   }
 }
+if (issueNumber != null && issueNumber >= 238) {
+  if (renderEvidence == null) {
+    requiredStageFailures.push("APP_RENDER_OBJECT_COUNT_EVIDENCE_MISSING");
+  } else {
+    if ((renderEvidence.roomRenderCount ?? 0) < 23) {
+      requiredStageFailures.push(`APP_RENDER_ROOM_COUNT_STAGE_FAILURE: ${renderEvidence.roomRenderCount}`);
+    }
+    if ((renderEvidence.stationRenderCount ?? 0) < 2) {
+      requiredStageFailures.push(`APP_RENDER_STATION_COUNT_STAGE_FAILURE: ${renderEvidence.stationRenderCount}`);
+    }
+    if ((renderEvidence.providerPharmacyZoneRenderCount ?? 0) < 1) {
+      requiredStageFailures.push(
+        `APP_RENDER_PROVIDER_PHARMACY_ZONE_STAGE_FAILURE: ${renderEvidence.providerPharmacyZoneRenderCount}`
+      );
+    }
+  }
+  if (labelRenderEvidence == null) {
+    requiredStageFailures.push("APP_RENDER_LABEL_EVIDENCE_MISSING");
+  }
+  for (const label of missingRenderedLabels) {
+    requiredStageFailures.push(`APP_RENDER_LABEL_STAGE_FAILURE: ${label}`);
+  }
+  if (oldRenderNegativeEvidence == null) {
+    requiredStageFailures.push("APP_RENDER_OLD_LAYOUT_NEGATIVE_EVIDENCE_MISSING");
+  } else if (oldRenderNegativeEvidence.oldSimplifiedLayoutPresent !== false) {
+    requiredStageFailures.push("APP_RENDER_OLD_LAYOUT_STAGE_FAILURE");
+  }
+}
 
 const status = failures.length === 0
   ? "passed"
@@ -231,6 +296,14 @@ const output = {
     missingSourceTruthTargets: missingSourceMappingTargets,
     provenanceHistogram
   },
+  appRenderSummary: {
+    requiredRenderedLabels,
+    missingRenderedLabels,
+    roomRenderCount: renderEvidence?.roomRenderCount ?? null,
+    stationRenderCount: renderEvidence?.stationRenderCount ?? null,
+    providerPharmacyZoneRenderCount: renderEvidence?.providerPharmacyZoneRenderCount ?? null,
+    oldSimplifiedLayoutPresent: oldRenderNegativeEvidence?.oldSimplifiedLayoutPresent ?? null
+  },
   failureCount: failures.length,
   failures,
   requiredStageFailures,
@@ -264,6 +337,13 @@ if (status === "failed") {
 
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(repoRoot, relativePath), "utf8"));
+}
+
+function readOptionalJson(path) {
+  if (!existsSync(path)) {
+    return null;
+  }
+  return JSON.parse(readFileSync(path, "utf8"));
 }
 
 function writeJson(path, value) {

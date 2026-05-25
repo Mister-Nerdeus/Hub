@@ -1,0 +1,13 @@
+{
+  "issue": "238",
+  "status": "failed_as_expected",
+  "failureClass": "missing_plan_1_app_render_visual_parity_proof",
+  "missingArtifacts": [
+    "docs/verification/issues/issue-238/plan-1-render-after-output.json",
+    "docs/verification/issues/issue-238/plan-1-label-render-coverage-output.json",
+    "docs/verification/issues/issue-238/plan-1-render-object-count-output.json",
+    "docs/verification/issues/issue-238/plan-1-old-render-negative-output.json",
+    "docs/verification/issues/issue-238/screenshots/plan-1-after-updated-render.png"
+  ],
+  "notes": "Before Issue 238, there is no committed app-render evidence proving Plan 1 labels and object counts render from JSON fixture data."
+}
