@@ -72,6 +72,7 @@ export * from "./scoring/nurseBurdenScore.js";
 export * from "./scoring/roomWorkloadScore.js";
 export * from "./scenario/plan1SimulationAssumptions.js";
 export * from "./scenario/plan1AssumptionViewModel.js";
+export * from "./scenario/plan1AssumptionDisplayGroups.js";
 export * from "./scenario/plan1ScenarioIntensityProfile.js";
 export * from "./scenario/plan1TaskTemplateContract.js";
 export * from "./scenario/plan1ScenarioBuilderState.js";

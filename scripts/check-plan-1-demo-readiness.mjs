@@ -69,6 +69,7 @@ if (stage === "assumptions-presentation" || stage === "final") {
     "assumptions-non-claims-callout-output.json",
     "assumptions-reader-summary-output.md"
   ], "assumptionsPresentation"));
+  checks.push(validateAssumptionsPresentationContent());
 }
 if (stage === "timeline-warning-ux" || stage === "final") {
   checks.push(validateIssueEvidence("275", [
@@ -295,6 +296,32 @@ function validateNarrativeContent() {
     }
   }
   return check("scenarioNarrativeContent", failures);
+}
+
+function validateAssumptionsPresentationContent() {
+  const relativePath = "docs/verification/issues/issue-274/assumptions-display-groups-output.json";
+  const output = readOptionalJson(relativePath);
+  if (output == null) {
+    return check("assumptionsPresentationContent", [`missing ${relativePath}`]);
+  }
+  const text = JSON.stringify(output);
+  const failures = [];
+  for (const phrase of [
+    "What this simulation assumes",
+    "Walking and route assumptions",
+    "Task volume and duration assumptions",
+    "Queue and interruption assumptions",
+    "Warning thresholds",
+    "What this simulation does NOT claim"
+  ]) {
+    if (!text.includes(phrase)) {
+      failures.push(`missing assumptions display group: ${phrase}`);
+    }
+  }
+  if (!text.includes("Synthetic operational modeling only.")) {
+    failures.push("missing required synthetic operational non-claim");
+  }
+  return check("assumptionsPresentationContent", failures);
 }
 
 function summarizeManifest(value) {

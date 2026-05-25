@@ -1,7 +1,13 @@
-Issue 274 first-failure.txt
+Issue 274 first-failure evidence
 
-Stage: add-room-tool
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+Command:
+node scripts/check-plan-1-demo-readiness.mjs --stage assumptions-presentation --allow-partial --issue 274
+
+Observed before implementation:
+The Plan 1 demo readiness gate had no assumptions-presentation content check, the canonical demo readiness manifest did not reference Issue 274 assumptions evidence, and the assumptions UI rendered raw sections without reader-facing display groups.
+
+Failure class:
+The assumptions presentation was deterministic, but not demo-polished for a reviewer who needs to understand the synthetic operational assumptions before interpreting simulation output.
+
+Required correction:
+Add grouped assumptions display evidence, keep non-claims visible, update the demo readiness manifest, and make the assumptions-presentation demo readiness stage validate the new evidence.

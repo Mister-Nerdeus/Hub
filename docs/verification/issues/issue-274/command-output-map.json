@@ -2,10 +2,97 @@
   "issue": "274",
   "commands": [
     {
-      "command": "node scripts/check-floorplan-authoring.mjs --stage add-room-tool --allow-partial --issue 274",
+      "command": "npm --workspace packages/shared test",
       "outputs": [
-        "docs/verification/issues/issue-274/test-output/floorplan-authoring-gate.txt"
+        "docs/verification/issues/issue-274/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-274/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plan-1-assignment-workflow-gate.txt",
+        "docs/verification/issues/issue-274/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plan-1-scenario-simulation-gate.txt",
+        "docs/verification/issues/issue-274/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plan-1-simulation-refinement-gate.txt",
+        "docs/verification/issues/issue-274/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-274/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-demo-readiness.mjs --stage assumptions-presentation --allow-partial --issue 274",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/plan-1-demo-readiness-gate.txt",
+        "docs/verification/issues/issue-274/demo-readiness-manifest-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-274/test-output/docs-gate.txt"
       ]
     }
+  ],
+  "implementationArtifacts": [
+    "docs/verification/issues/issue-274/first-failure.txt",
+    "docs/verification/issues/issue-274/assumptions-display-groups-output.json",
+    "docs/verification/issues/issue-274/assumptions-polished-panel-output.json",
+    "docs/verification/issues/issue-274/assumptions-non-claims-callout-output.json",
+    "docs/verification/issues/issue-274/assumptions-reader-summary-output.md",
+    "docs/verification/issues/issue-274/demo-readiness-manifest-output.json",
+    "docs/verification/issues/issue-274/visual-parity-still-passes-output.json",
+    "docs/verification/issues/issue-274/assignment-workflow-still-passes-output.json",
+    "docs/verification/issues/issue-274/scenario-simulation-still-passes-output.json",
+    "docs/verification/issues/issue-274/simulation-refinement-still-passes-output.json",
+    "docs/verification/issues/issue-274/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-274/screenshots/plan-1-assumptions-polished.png",
+    "docs/verification/issues/issue-274/test-output/shared.txt",
+    "docs/verification/issues/issue-274/test-output/web.txt",
+    "docs/verification/issues/issue-274/test-output/web-build.txt",
+    "docs/verification/issues/issue-274/test-output/no-phi.txt",
+    "docs/verification/issues/issue-274/test-output/docs-gate.txt",
+    "docs/verification/issues/issue-274/test-output/plan-1-demo-readiness-gate.txt",
+    "docs/verification/issues/issue-274/test-output/plans-2-through-5-unchanged.txt"
   ]
 }

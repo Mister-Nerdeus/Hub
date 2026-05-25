@@ -1,0 +1,16 @@
+{
+  "issue": "274",
+  "gate": "simulationRefinement",
+  "status": "passed",
+  "stage": "final",
+  "failureCount": 0,
+  "evidence": "docs/verification/issues/issue-274/test-output/plan-1-simulation-refinement-gate.txt",
+  "nonClaims": [
+    "Not a clinical safety score.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not a staffing compliance recommendation.",
+    "Not based on real patient, staff, EHR, or hospital data.",
+    "Synthetic operational modeling only."
+  ]
+}

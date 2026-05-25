@@ -1,0 +1,683 @@
+{
+  "issue": "274",
+  "groups": [
+    {
+      "groupId": "what-this-simulation-assumes",
+      "label": "What this simulation assumes",
+      "readerSummary": "Synthetic room load, assignment, task, status, and burden inputs are fixed before reading the dry-run output.",
+      "sections": [
+        {
+          "sectionId": "burden-score-weights",
+          "label": "Burden score weights",
+          "entries": [
+            {
+              "label": "acuity",
+              "value": "{\"low\":1,\"medium\":3,\"high\":6,\"critical\":10}"
+            },
+            {
+              "label": "behavioralRisk",
+              "value": "4"
+            },
+            {
+              "label": "burden",
+              "value": "{\"none\":0,\"low\":1,\"medium\":3,\"high\":5}"
+            },
+            {
+              "label": "fallRisk",
+              "value": "2"
+            },
+            {
+              "label": "isolation",
+              "value": "4"
+            },
+            {
+              "label": "occupiedRoom",
+              "value": "5"
+            },
+            {
+              "label": "sitter",
+              "value": "5"
+            },
+            {
+              "label": "trauma",
+              "value": "8"
+            },
+            {
+              "label": "turnover",
+              "value": "3"
+            },
+            {
+              "label": "walkingDistanceDivisorFeet",
+              "value": "40"
+            },
+            {
+              "label": "walkingTimeDivisorSeconds",
+              "value": "120"
+            },
+            {
+              "label": "warningPenalty",
+              "value": "{\"info\":1,\"warning\":5,\"blocking\":10}"
+            }
+          ]
+        },
+        {
+          "sectionId": "scenario-intensity-assumptions",
+          "label": "Scenario intensity assumptions",
+          "entries": [
+            {
+              "label": "multipliersAreOperationalPressureInputs",
+              "value": "true"
+            },
+            {
+              "label": "notDemandForecasts",
+              "value": "true"
+            },
+            {
+              "label": "profilesAreSynthetic",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "sectionId": "status-semantics",
+          "label": "Status semantics",
+          "entries": [
+            {
+              "label": "passed",
+              "value": "Passed: Required checks passed with no notices.; blocks progress: no"
+            },
+            {
+              "label": "info",
+              "value": "Info: Informational notice only; does not imply warning or block progress.; blocks progress: no"
+            },
+            {
+              "label": "warning",
+              "value": "Warning: Operational modeling concern that should be reviewed but does not block deterministic fixture generation.; blocks progress: no"
+            },
+            {
+              "label": "blocking",
+              "value": "Blocking: Contract or scope violation that blocks the current stage.; blocks progress: yes"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Burden score weights: Acuity",
+          "value": "{\"low\":1,\"medium\":3,\"high\":6,\"critical\":10}"
+        },
+        {
+          "label": "Burden score weights: Behavioral Risk",
+          "value": "4"
+        },
+        {
+          "label": "Burden score weights: Burden",
+          "value": "{\"none\":0,\"low\":1,\"medium\":3,\"high\":5}"
+        },
+        {
+          "label": "Burden score weights: Fall Risk",
+          "value": "2"
+        },
+        {
+          "label": "Burden score weights: Isolation",
+          "value": "4"
+        },
+        {
+          "label": "Burden score weights: Occupied Room",
+          "value": "5"
+        },
+        {
+          "label": "Burden score weights: Sitter",
+          "value": "5"
+        },
+        {
+          "label": "Burden score weights: Trauma",
+          "value": "8"
+        },
+        {
+          "label": "Burden score weights: Turnover",
+          "value": "3"
+        },
+        {
+          "label": "Burden score weights: Walking Distance Divisor Feet",
+          "value": "40"
+        },
+        {
+          "label": "Burden score weights: Walking Time Divisor Seconds",
+          "value": "120"
+        },
+        {
+          "label": "Burden score weights: Warning Penalty",
+          "value": "{\"info\":1,\"warning\":5,\"blocking\":10}"
+        },
+        {
+          "label": "Scenario intensity assumptions: Multipliers Are Operational Pressure Inputs",
+          "value": "true"
+        },
+        {
+          "label": "Scenario intensity assumptions: Not Demand Forecasts",
+          "value": "true"
+        },
+        {
+          "label": "Scenario intensity assumptions: Profiles Are Synthetic",
+          "value": "true"
+        },
+        {
+          "label": "Status semantics: Passed",
+          "value": "Passed: Required checks passed with no notices.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Info",
+          "value": "Info: Informational notice only; does not imply warning or block progress.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Warning",
+          "value": "Warning: Operational modeling concern that should be reviewed but does not block deterministic fixture generation.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Blocking",
+          "value": "Blocking: Contract or scope violation that blocks the current stage.; blocks progress: yes"
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "groupId": "walking-and-route-assumptions",
+      "label": "Walking and route assumptions",
+      "readerSummary": "Walking estimates come from repaired Plan 1 graph and baseline proof, not measured walking truth.",
+      "sections": [
+        {
+          "sectionId": "walking-assumptions",
+          "label": "Walking assumptions",
+          "entries": [
+            {
+              "label": "defaultTaskWalkingFeet",
+              "value": "120"
+            },
+            {
+              "label": "graphOnlyLimitation",
+              "value": "Walking estimates use repaired Plan 1 graph-derived route proof where available and do not infer unmodeled paths."
+            },
+            {
+              "label": "nonWalkingTaskFeet",
+              "value": "20"
+            },
+            {
+              "label": "source",
+              "value": "Plan 1 repaired path graph and walking baseline only"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Walking assumptions: Default Task Walking Feet",
+          "value": "120"
+        },
+        {
+          "label": "Walking assumptions: Graph Only Limitation",
+          "value": "Walking estimates use repaired Plan 1 graph-derived route proof where available and do not infer unmodeled paths."
+        },
+        {
+          "label": "Walking assumptions: Non Walking Task Feet",
+          "value": "20"
+        },
+        {
+          "label": "Walking assumptions: Source",
+          "value": "Plan 1 repaired path graph and walking baseline only"
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "groupId": "task-volume-and-duration-assumptions",
+      "label": "Task volume and duration assumptions",
+      "readerSummary": "Task counts and durations come from seeded synthetic task templates and profile multipliers.",
+      "sections": [
+        {
+          "sectionId": "task-duration-assumptions",
+          "label": "Task duration assumptions",
+          "entries": [
+            {
+              "label": "jitterInterpretation",
+              "value": "Synthetic deterministic plus-or-minus bound per generated task."
+            },
+            {
+              "label": "minimumGeneratedDurationMinutes",
+              "value": "1"
+            },
+            {
+              "label": "unit",
+              "value": "minutes"
+            }
+          ]
+        },
+        {
+          "sectionId": "task-frequency-assumptions",
+          "label": "Task frequency assumptions",
+          "entries": [
+            {
+              "label": "frequencyMultipliedByProfile",
+              "value": "true"
+            },
+            {
+              "label": "unit",
+              "value": "synthetic tasks per occupied room per hour"
+            },
+            {
+              "label": "unoccupiedRoomsGenerateAssignedTasks",
+              "value": "false"
+            }
+          ]
+        },
+        {
+          "sectionId": "scenario-intensity-assumptions",
+          "label": "Scenario intensity assumptions",
+          "entries": [
+            {
+              "label": "multipliersAreOperationalPressureInputs",
+              "value": "true"
+            },
+            {
+              "label": "notDemandForecasts",
+              "value": "true"
+            },
+            {
+              "label": "profilesAreSynthetic",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Task duration assumptions: Jitter Interpretation",
+          "value": "Synthetic deterministic plus-or-minus bound per generated task."
+        },
+        {
+          "label": "Task duration assumptions: Minimum Generated Duration Minutes",
+          "value": "1"
+        },
+        {
+          "label": "Task duration assumptions: Unit",
+          "value": "minutes"
+        },
+        {
+          "label": "Task frequency assumptions: Frequency Multiplied By Profile",
+          "value": "true"
+        },
+        {
+          "label": "Task frequency assumptions: Unit",
+          "value": "synthetic tasks per occupied room per hour"
+        },
+        {
+          "label": "Task frequency assumptions: Unoccupied Rooms Generate Assigned Tasks",
+          "value": "false"
+        },
+        {
+          "label": "Scenario intensity assumptions: Multipliers Are Operational Pressure Inputs",
+          "value": "true"
+        },
+        {
+          "label": "Scenario intensity assumptions: Not Demand Forecasts",
+          "value": "true"
+        },
+        {
+          "label": "Scenario intensity assumptions: Profiles Are Synthetic",
+          "value": "true"
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "groupId": "queue-and-interruption-assumptions",
+      "label": "Queue and interruption assumptions",
+      "readerSummary": "Queue, handoff, and interruption assumptions describe dry-run operational friction only.",
+      "sections": [
+        {
+          "sectionId": "queue-assumptions",
+          "label": "Queue assumptions",
+          "entries": [
+            {
+              "label": "deferWhenTaskCannotFitInShiftWindow",
+              "value": "true"
+            },
+            {
+              "label": "noPriorityReordering",
+              "value": "true"
+            },
+            {
+              "label": "queueDepthBucketMinutes",
+              "value": "30"
+            }
+          ]
+        },
+        {
+          "sectionId": "handoff-assumptions",
+          "label": "Handoff assumptions",
+          "entries": [
+            {
+              "label": "handoffDoesNotRepresentClinicalDocumentation",
+              "value": "true"
+            },
+            {
+              "label": "handoffTasksAreSyntheticOperationalTasks",
+              "value": "true"
+            }
+          ]
+        },
+        {
+          "sectionId": "interruption-assumptions",
+          "label": "Interruption assumptions",
+          "entries": [
+            {
+              "label": "interruptionsDoNotRepresentClinicalEvents",
+              "value": "true"
+            },
+            {
+              "label": "interruptionTasksAreSyntheticOperationalFriction",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Queue assumptions: Defer When Task Cannot Fit In Shift Window",
+          "value": "true"
+        },
+        {
+          "label": "Queue assumptions: No Priority Reordering",
+          "value": "true"
+        },
+        {
+          "label": "Queue assumptions: Queue Depth Bucket Minutes",
+          "value": "30"
+        },
+        {
+          "label": "Handoff assumptions: Handoff Does Not Represent Clinical Documentation",
+          "value": "true"
+        },
+        {
+          "label": "Handoff assumptions: Handoff Tasks Are Synthetic Operational Tasks",
+          "value": "true"
+        },
+        {
+          "label": "Interruption assumptions: Interruptions Do Not Represent Clinical Events",
+          "value": "true"
+        },
+        {
+          "label": "Interruption assumptions: Interruption Tasks Are Synthetic Operational Friction",
+          "value": "true"
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "groupId": "warning-thresholds",
+      "label": "Warning thresholds",
+      "readerSummary": "Thresholds produce operational review signals and do not certify staffing or clinical adequacy.",
+      "sections": [
+        {
+          "sectionId": "overload-thresholds",
+          "label": "Overload thresholds",
+          "entries": [
+            {
+              "label": "maxBusyMinutesWarning",
+              "value": "510"
+            },
+            {
+              "label": "maxDeferredTaskRatioWarning",
+              "value": "0.15"
+            },
+            {
+              "label": "maxQueueDepthWarning",
+              "value": "3"
+            },
+            {
+              "label": "maxWalkingFeetWarning",
+              "value": "3600"
+            }
+          ]
+        },
+        {
+          "sectionId": "status-semantics",
+          "label": "Status semantics",
+          "entries": [
+            {
+              "label": "passed",
+              "value": "Passed: Required checks passed with no notices.; blocks progress: no"
+            },
+            {
+              "label": "info",
+              "value": "Info: Informational notice only; does not imply warning or block progress.; blocks progress: no"
+            },
+            {
+              "label": "warning",
+              "value": "Warning: Operational modeling concern that should be reviewed but does not block deterministic fixture generation.; blocks progress: no"
+            },
+            {
+              "label": "blocking",
+              "value": "Blocking: Contract or scope violation that blocks the current stage.; blocks progress: yes"
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Overload thresholds: Max Busy Minutes Warning",
+          "value": "510"
+        },
+        {
+          "label": "Overload thresholds: Max Deferred Task Ratio Warning",
+          "value": "0.15"
+        },
+        {
+          "label": "Overload thresholds: Max Queue Depth Warning",
+          "value": "3"
+        },
+        {
+          "label": "Overload thresholds: Max Walking Feet Warning",
+          "value": "3600"
+        },
+        {
+          "label": "Status semantics: Passed",
+          "value": "Passed: Required checks passed with no notices.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Info",
+          "value": "Info: Informational notice only; does not imply warning or block progress.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Warning",
+          "value": "Warning: Operational modeling concern that should be reviewed but does not block deterministic fixture generation.; blocks progress: no"
+        },
+        {
+          "label": "Status semantics: Blocking",
+          "value": "Blocking: Contract or scope violation that blocks the current stage.; blocks progress: yes"
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    },
+    {
+      "groupId": "what-this-simulation-does-not-claim",
+      "label": "What this simulation does NOT claim",
+      "readerSummary": "The proof stays limited to deterministic synthetic operational modeling and explicit non-claims.",
+      "sections": [
+        {
+          "sectionId": "limitations-and-non-claims",
+          "label": "Limitations and non-claims",
+          "entries": [
+            {
+              "label": "Limitation 1",
+              "value": "Plan 1 only."
+            },
+            {
+              "label": "Limitation 2",
+              "value": "Assumptions are synthetic operational modeling inputs."
+            },
+            {
+              "label": "Limitation 3",
+              "value": "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+            },
+            {
+              "label": "Limitation 4",
+              "value": "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+            },
+            {
+              "label": "Non-claim 1",
+              "value": "Synthetic operational modeling only."
+            },
+            {
+              "label": "Non-claim 2",
+              "value": "Not a clinical safety score."
+            },
+            {
+              "label": "Non-claim 3",
+              "value": "Not a staffing compliance recommendation."
+            },
+            {
+              "label": "Non-claim 4",
+              "value": "Not a legal compliance assessment."
+            },
+            {
+              "label": "Non-claim 5",
+              "value": "Not a patient outcome prediction."
+            },
+            {
+              "label": "Non-claim 6",
+              "value": "Not based on real patient, staff, EHR, or hospital data."
+            }
+          ]
+        }
+      ],
+      "entries": [
+        {
+          "label": "Limitations and non-claims: Limitation 1",
+          "value": "Plan 1 only."
+        },
+        {
+          "label": "Limitations and non-claims: Limitation 2",
+          "value": "Assumptions are synthetic operational modeling inputs."
+        },
+        {
+          "label": "Limitations and non-claims: Limitation 3",
+          "value": "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+        },
+        {
+          "label": "Limitations and non-claims: Limitation 4",
+          "value": "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 1",
+          "value": "Synthetic operational modeling only."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 2",
+          "value": "Not a clinical safety score."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 3",
+          "value": "Not a staffing compliance recommendation."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 4",
+          "value": "Not a legal compliance assessment."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 5",
+          "value": "Not a patient outcome prediction."
+        },
+        {
+          "label": "Limitations and non-claims: Non claim 6",
+          "value": "Not based on real patient, staff, EHR, or hospital data."
+        }
+      ],
+      "limitations": [
+        "Plan 1 only.",
+        "Assumptions are synthetic operational modeling inputs.",
+        "Walking assumptions are limited to repaired Plan 1 graph and baseline proof.",
+        "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ],
+      "syntheticDataOnly": true
+    }
+  ]
+}
