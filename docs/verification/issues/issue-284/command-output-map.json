@@ -1,0 +1,97 @@
+{
+  "issue": "284",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage door-edit-e2e --allow-partial --issue 284 (first failure before implementation)",
+      "outputs": [
+        "docs/verification/issues/issue-284/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/web.txt",
+        "docs/verification/issues/issue-284/add-door-e2e-output.json",
+        "docs/verification/issues/issue-284/multiple-doors-e2e-output.json",
+        "docs/verification/issues/issue-284/move-door-e2e-output.json",
+        "docs/verification/issues/issue-284/delete-door-e2e-output.json",
+        "docs/verification/issues/issue-284/assign-door-e2e-output.json",
+        "docs/verification/issues/issue-284/non-finite-door-negative-output.json",
+        "docs/verification/issues/issue-284/stale-path-sync-output.json",
+        "docs/verification/issues/issue-284/save-reload-door-output.json",
+        "docs/verification/issues/issue-284/export-door-output.json",
+        "docs/verification/issues/issue-284/default-nonmutation-output.json",
+        "docs/verification/issues/issue-284/screenshots/door-authoring-e2e.png"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-284/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage door-edit-e2e --allow-partial --issue 284",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-284/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-284/behavioral-harness-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/scaffold-issue-evidence-index-entry.mjs --issue 284 --title \"Door Add / Move / Delete End-to-End Proof\" --write",
+      "outputs": [
+        "docs/verification/issues/issue-284/evidence-index-update-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-284/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

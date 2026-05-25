@@ -235,7 +235,24 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "284": ["first-failure.txt"],
+  "284": [
+    "first-failure.txt",
+    "add-door-e2e-output.json",
+    "multiple-doors-e2e-output.json",
+    "move-door-e2e-output.json",
+    "delete-door-e2e-output.json",
+    "assign-door-e2e-output.json",
+    "non-finite-door-negative-output.json",
+    "stale-path-sync-output.json",
+    "save-reload-door-output.json",
+    "export-door-output.json",
+    "default-nonmutation-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "285": ["first-failure.txt"],
   "286": ["first-failure.txt"],
   "287": ["first-failure.txt"],
@@ -256,7 +273,7 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const behaviorOutput = ["behavioral-execution", "save-reload-e2e", "room-edit-e2e"].includes(stage) && missingModules.length === 0
+const behaviorOutput = ["behavioral-execution", "save-reload-e2e", "room-edit-e2e", "door-edit-e2e"].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
@@ -416,7 +433,8 @@ function writeAuthoringProofFixture(stageName, output) {
   const fixtureNames = {
     "behavioral-execution": "plan-1-authoring-behavior-fixture.json",
     "save-reload-e2e": "plan-1-save-reload-fixture.json",
-    "room-edit-e2e": "plan-1-room-authoring-fixture.json"
+    "room-edit-e2e": "plan-1-room-authoring-fixture.json",
+    "door-edit-e2e": "plan-1-door-authoring-fixture.json"
   };
   const fixtureName = fixtureNames[stageName];
   if (fixtureName == null) {
@@ -521,7 +539,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
       "export-integrity-warning.png"
     ],
     "282": ["save-as-reload-proof.png"],
-    "283": ["room-authoring-e2e.png"]
+    "283": ["room-authoring-e2e.png"],
+    "284": ["door-authoring-e2e.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));
