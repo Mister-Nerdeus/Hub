@@ -1,9 +1,27 @@
-import type { Plan1TimelineViewModel } from "@nerdeus/shared";
+import type { Plan1TimelineNarratives, Plan1TimelineViewModel } from "@nerdeus/shared";
 
-export function Plan1SimulationTimelinePanel({ viewModel }: { viewModel: Plan1TimelineViewModel }) {
+export function Plan1SimulationTimelinePanel({
+  narratives,
+  viewModel
+}: {
+  narratives: Plan1TimelineNarratives;
+  viewModel: Plan1TimelineViewModel;
+}) {
   return (
     <section className="assignment-panel" aria-labelledby="plan-1-timeline-title" data-scenario-stage="timeline">
       <h3 id="plan-1-timeline-title">Simulation Timeline</h3>
+      <p className="operational-only-label">{narratives.operationalOnlyLabel}</p>
+      <div className="timeline-callout-grid" data-timeline-callouts="plan-1">
+        {[narratives.highestQueueCallout, narratives.deferredTasksCallout, narratives.walkingLoadCallout].map((callout) => (
+          <article className="timeline-callout-card" key={callout.calloutId} data-timeline-callout={callout.calloutId}>
+            <span>{callout.label}</span>
+            <strong>{callout.metricValue}</strong>
+            <small>{callout.metricLabel}</small>
+            <p>{callout.summary}</p>
+            <p>{callout.detail}</p>
+          </article>
+        ))}
+      </div>
       <dl className="scenario-metric-grid">
         <div><dt>Deferred tasks</dt><dd>{viewModel.deferredTaskSummary.totalDeferredTaskCount}</dd></div>
         <div><dt>Max queue depth</dt><dd>{viewModel.queueDepthSummary.maxQueueDepth}</dd></div>
@@ -32,8 +50,11 @@ export function Plan1SimulationTimelinePanel({ viewModel }: { viewModel: Plan1Ti
       <p>{viewModel.roomTimelineSummary.filter((row) => row.deferredTaskCount > 0).length} rooms have deferred synthetic tasks.</p>
       <h4>Warning timeline summary</h4>
       <p>{viewModel.warningTimelineSummary.map((row) => `${row.warningCode}: ${row.count}`).join(", ") || "none"}</p>
-      <p>{viewModel.limitations.join(" ")}</p>
-      <p>{viewModel.nonClaims.join(" ")}</p>
+      <div className="timeline-non-claims" data-timeline-non-claims="visible">
+        <h4>Limitations and non-claims</h4>
+        <p>{viewModel.limitations.join(" ")}</p>
+        <p>{viewModel.nonClaims.join(" ")}</p>
+      </div>
     </section>
   );
 }

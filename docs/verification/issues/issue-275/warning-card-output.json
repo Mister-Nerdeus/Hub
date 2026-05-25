@@ -1,0 +1,51 @@
+{
+  "issue": "275",
+  "status": "passed",
+  "warningCards": [
+    {
+      "warningCode": "APPROXIMATE_GRAPH_ONLY",
+      "label": "Approximate graph route",
+      "severity": "info",
+      "source": "walking",
+      "explanation": "The distance comes from the Plan 1 fixture graph or walking baseline.",
+      "operationalMeaning": "Use as deterministic operational route context, not measured walking truth.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "BUSY_MINUTES_WARNING",
+      "label": "High busy-minute estimate",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "A nurse timeline reached the configured busy-minute threshold.",
+      "operationalMeaning": "Review the synthetic task load and timing assumptions for this scenario.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "QUEUE_DEPTH_WARNING",
+      "label": "Queue depth threshold reached",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "Queued synthetic tasks accumulated behind already scheduled work.",
+      "operationalMeaning": "Use this as an operational pressure signal for the dry-run timeline.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "ROOM_DEFERRED_TASKS",
+      "label": "Room has deferred tasks",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "At least one synthetic task tied to a room falls outside the simulated duration.",
+      "operationalMeaning": "Inspect the room timeline and task timing assumptions.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "WALKING_LOAD_WARNING",
+      "label": "Walking load threshold reached",
+      "severity": "warning",
+      "source": "walking",
+      "explanation": "Estimated walking distance reached the configured operational threshold.",
+      "operationalMeaning": "Review route assumptions, path graph coverage, and scenario walking friction.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    }
+  ]
+}

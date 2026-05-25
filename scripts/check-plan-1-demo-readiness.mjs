@@ -80,6 +80,7 @@ if (stage === "timeline-warning-ux" || stage === "final") {
     "warning-card-output.json",
     "prohibited-claim-negative-output.json"
   ], "timelineWarningUx"));
+  checks.push(validateTimelineWarningUxContent());
 }
 if (stage === "demo-seed-pack" || stage === "final") {
   checks.push(validateIssueEvidence("276", [
@@ -322,6 +323,31 @@ function validateAssumptionsPresentationContent() {
     failures.push("missing required synthetic operational non-claim");
   }
   return check("assumptionsPresentationContent", failures);
+}
+
+function validateTimelineWarningUxContent() {
+  const relativePath = "docs/verification/issues/issue-275/timeline-narratives-output.json";
+  const output = readOptionalJson(relativePath);
+  if (output == null) {
+    return check("timelineWarningUxContent", [`missing ${relativePath}`]);
+  }
+  const text = JSON.stringify(output);
+  const failures = [];
+  for (const phrase of [
+    "Operational-only Plan 1 timeline review",
+    "highest queue-depth signal",
+    "deferred synthetic tasks",
+    "approximate feet",
+    "Synthetic operational modeling only."
+  ]) {
+    if (!text.includes(phrase)) {
+      failures.push(`missing timeline/warning UX phrase: ${phrase}`);
+    }
+  }
+  if (!Array.isArray(output.warningCards) || output.warningCards.length === 0) {
+    failures.push("missing warning card narratives");
+  }
+  return check("timelineWarningUxContent", failures);
 }
 
 function summarizeManifest(value) {

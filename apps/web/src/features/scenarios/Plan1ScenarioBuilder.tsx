@@ -4,6 +4,7 @@ import {
   buildPlan1ScenarioComparisonViewModel,
   buildPlan1SimulationProofReport,
   buildPlan1TimelineViewModel,
+  buildPlan1TimelineNarratives,
   createPlan1BaselineScenarioControlState,
   explainPlan1Warnings,
   runPlan1ShiftDryRun,
@@ -71,6 +72,7 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
   const comparisonViewModel = buildPlan1ScenarioComparisonViewModel(comparison);
   const timelineViewModel = buildPlan1TimelineViewModel(dryRun);
   const warningExplanations = explainPlan1Warnings(dryRun.warningCodes);
+  const timelineNarratives = buildPlan1TimelineNarratives(timelineViewModel, warningExplanations);
   const proofReport = buildPlan1SimulationProofReport({
     reportId: "plan-1-simulation-proof-report-ui",
     scenarioState,
@@ -112,8 +114,8 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
       <Plan1AssumptionsPanel viewModel={assumptionViewModel} />
       <Plan1ScenarioControls controlState={controls} profiles={intensityProfiles} taskTemplates={taskTemplates} />
       <Plan1OperationalSummaryPanel summary={summary} />
-      <Plan1SimulationTimelinePanel viewModel={timelineViewModel} />
-      <Plan1WarningExplainabilityPanel explanations={warningExplanations} />
+      <Plan1SimulationTimelinePanel narratives={timelineNarratives} viewModel={timelineViewModel} />
+      <Plan1WarningExplainabilityPanel narratives={timelineNarratives} />
       <Plan1ScenarioComparisonPanel comparison={comparison} viewModel={comparisonViewModel} />
       <Plan1SimulationProofReportPanel report={proofReport} />
     </div>

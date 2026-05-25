@@ -1,7 +1,13 @@
-Issue 275 first-failure.txt
+Issue 275 first-failure evidence
 
-Stage: door-authoring
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+Command:
+node scripts/check-plan-1-demo-readiness.mjs --stage timeline-warning-ux --allow-partial --issue 275
+
+Observed before implementation:
+The demo readiness gate expected timeline/warning UX evidence for Issue 275, but no timeline narrative output, callout output, warning card output, or prohibited-claim negative output existed for the issue.
+
+UI gap:
+The timeline panel showed numeric tables and raw summaries, and the warning panel used a table. A reviewer could inspect the data, but the demo did not clearly call out the highest queue, deferred task rooms, walking load source, or warning meanings in demo-grade operational terms.
+
+Required correction:
+Add deterministic timeline narrative helpers, render queue/deferred/walking callouts, render warning explanation cards, keep non-claims visible, and update the demo readiness manifest and gate evidence for Issue 275.

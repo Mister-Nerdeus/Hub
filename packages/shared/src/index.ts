@@ -88,6 +88,7 @@ export * from "./simulation/plan1SeededTaskGenerator.js";
 export * from "./simulation/plan1ShiftDryRun.js";
 export * from "./simulation/plan1TaskWalkingDistance.js";
 export * from "./simulation/plan1TimelineViewModel.js";
+export * from "./simulation/plan1TimelineNarratives.js";
 export * from "./simulation/plan1WarningExplainability.js";
 export * from "./simulation/plan1OperationalSummary.js";
 export * from "./simulation/plan1ScenarioComparison.js";

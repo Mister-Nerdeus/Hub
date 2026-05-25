@@ -1,0 +1,88 @@
+{
+  "issue": "275",
+  "operationalOnlyLabel": "Operational-only Plan 1 timeline review",
+  "highestQueueCallout": {
+    "calloutId": "highest-queue",
+    "label": "Highest queue signal",
+    "summary": "nurse-purple had the highest queue-depth signal in this deterministic dry-run.",
+    "detail": "Use this as an operational pressure signal for synthetic task sequencing only.",
+    "metricLabel": "Max queue depth",
+    "metricValue": "4"
+  },
+  "deferredTasksCallout": {
+    "calloutId": "deferred-tasks",
+    "label": "Deferred synthetic work",
+    "summary": "room-06 had deferred synthetic tasks in this timeline.",
+    "detail": "Deferred work reflects task timing and duration assumptions inside the seeded scenario.",
+    "metricLabel": "Deferred tasks",
+    "metricValue": "12"
+  },
+  "walkingLoadCallout": {
+    "calloutId": "walking-load",
+    "label": "Approximate walking load",
+    "summary": "19443 approximate feet came from Plan 1 route assumptions.",
+    "detail": "199 path-based tasks, 0 fallback tasks, and 0 missing-route tasks are represented.",
+    "metricLabel": "Approximate feet",
+    "metricValue": "19443"
+  },
+  "warningCards": [
+    {
+      "warningCode": "APPROXIMATE_GRAPH_ONLY",
+      "label": "Approximate graph route",
+      "severity": "info",
+      "source": "walking",
+      "explanation": "The distance comes from the Plan 1 fixture graph or walking baseline.",
+      "operationalMeaning": "Use as deterministic operational route context, not measured walking truth.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "BUSY_MINUTES_WARNING",
+      "label": "High busy-minute estimate",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "A nurse timeline reached the configured busy-minute threshold.",
+      "operationalMeaning": "Review the synthetic task load and timing assumptions for this scenario.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "QUEUE_DEPTH_WARNING",
+      "label": "Queue depth threshold reached",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "Queued synthetic tasks accumulated behind already scheduled work.",
+      "operationalMeaning": "Use this as an operational pressure signal for the dry-run timeline.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "ROOM_DEFERRED_TASKS",
+      "label": "Room has deferred tasks",
+      "severity": "warning",
+      "source": "dry_run",
+      "explanation": "At least one synthetic task tied to a room falls outside the simulated duration.",
+      "operationalMeaning": "Inspect the room timeline and task timing assumptions.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    {
+      "warningCode": "WALKING_LOAD_WARNING",
+      "label": "Walking load threshold reached",
+      "severity": "warning",
+      "source": "walking",
+      "explanation": "Estimated walking distance reached the configured operational threshold.",
+      "operationalMeaning": "Review route assumptions, path graph coverage, and scenario walking friction.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    }
+  ],
+  "limitations": [
+    "Plan 1 deterministic dry-run foundation only.",
+    "Synthetic tasks use explicit assumptions and seeded generation."
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ],
+  "syntheticDataOnly": true
+}

@@ -1,0 +1,12 @@
+{
+  "issue": "275",
+  "status": "passed",
+  "callout": {
+    "calloutId": "highest-queue",
+    "label": "Highest queue signal",
+    "summary": "nurse-purple had the highest queue-depth signal in this deterministic dry-run.",
+    "detail": "Use this as an operational pressure signal for synthetic task sequencing only.",
+    "metricLabel": "Max queue depth",
+    "metricValue": "4"
+  }
+}

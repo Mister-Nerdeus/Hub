@@ -38,7 +38,14 @@
     "docs/verification/issues/issue-274/assumptions-polished-panel-output.json",
     "docs/verification/issues/issue-274/assumptions-non-claims-callout-output.json",
     "docs/verification/issues/issue-274/assumptions-reader-summary-output.md",
-    "docs/verification/issues/issue-274/screenshots/plan-1-assumptions-polished.png"
+    "docs/verification/issues/issue-274/screenshots/plan-1-assumptions-polished.png",
+    "docs/verification/issues/issue-275/timeline-narratives-output.json",
+    "docs/verification/issues/issue-275/highest-queue-callout-output.json",
+    "docs/verification/issues/issue-275/deferred-task-callout-output.json",
+    "docs/verification/issues/issue-275/walking-load-callout-output.json",
+    "docs/verification/issues/issue-275/warning-card-output.json",
+    "docs/verification/issues/issue-275/prohibited-claim-negative-output.json",
+    "docs/verification/issues/issue-275/screenshots/plan-1-timeline-warning-polish.png"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -63,6 +70,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "274",
+  "lastIssueUpdated": "275",
   "goNoGoStatus": "pending"
 }

@@ -2,10 +2,99 @@
   "issue": "275",
   "commands": [
     {
-      "command": "node scripts/check-floorplan-authoring.mjs --stage door-authoring --allow-partial --issue 275",
+      "command": "npm --workspace packages/shared test",
       "outputs": [
-        "docs/verification/issues/issue-275/test-output/floorplan-authoring-gate.txt"
+        "docs/verification/issues/issue-275/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-275/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plan-1-assignment-workflow-gate.txt",
+        "docs/verification/issues/issue-275/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plan-1-scenario-simulation-gate.txt",
+        "docs/verification/issues/issue-275/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plan-1-simulation-refinement-gate.txt",
+        "docs/verification/issues/issue-275/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-275/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-demo-readiness.mjs --stage timeline-warning-ux --allow-partial --issue 275",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/plan-1-demo-readiness-gate.txt",
+        "docs/verification/issues/issue-275/demo-readiness-manifest-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-275/test-output/docs-gate.txt"
       ]
     }
+  ],
+  "implementationArtifacts": [
+    "docs/verification/issues/issue-275/first-failure.txt",
+    "docs/verification/issues/issue-275/timeline-narratives-output.json",
+    "docs/verification/issues/issue-275/highest-queue-callout-output.json",
+    "docs/verification/issues/issue-275/deferred-task-callout-output.json",
+    "docs/verification/issues/issue-275/walking-load-callout-output.json",
+    "docs/verification/issues/issue-275/warning-card-output.json",
+    "docs/verification/issues/issue-275/prohibited-claim-negative-output.json",
+    "docs/verification/issues/issue-275/demo-readiness-manifest-output.json",
+    "docs/verification/issues/issue-275/visual-parity-still-passes-output.json",
+    "docs/verification/issues/issue-275/assignment-workflow-still-passes-output.json",
+    "docs/verification/issues/issue-275/scenario-simulation-still-passes-output.json",
+    "docs/verification/issues/issue-275/simulation-refinement-still-passes-output.json",
+    "docs/verification/issues/issue-275/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-275/screenshots/plan-1-timeline-warning-polish.png",
+    "docs/verification/issues/issue-275/test-output/shared.txt",
+    "docs/verification/issues/issue-275/test-output/web.txt",
+    "docs/verification/issues/issue-275/test-output/web-build.txt",
+    "docs/verification/issues/issue-275/test-output/no-phi.txt",
+    "docs/verification/issues/issue-275/test-output/docs-gate.txt",
+    "docs/verification/issues/issue-275/test-output/plan-1-demo-readiness-gate.txt",
+    "docs/verification/issues/issue-275/test-output/plans-2-through-5-unchanged.txt"
   ]
 }
