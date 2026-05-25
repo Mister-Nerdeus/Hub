@@ -31,8 +31,10 @@ Cloudflare is reaching an origin, but the origin is serving the Vite development
 
 - Added production nginx config for the web image.
 - Added same-origin nginx proxy rules for `/health` and `/v1/`.
+- Added exact `/v1` proxy handling so API roots do not fall through to SPA HTML.
 - Added `docker-compose.production.yml` using production Dockerfiles.
 - Updated the production API image to include Alembic config and migrations.
+- Added `scripts/check-production-docker-runtime.mjs` to verify production Docker wiring and optionally run a production-shaped smoke test.
 - Added a Codex drift trap forbidding public web traffic from using the Vite development server.
 
 ## Production-Shaped Verification
@@ -45,6 +47,7 @@ docker compose -p hub-prod-check -f docker-compose.production.yml --profile tool
 curl http://localhost:5190/
 curl http://localhost:5190/health
 curl http://localhost:5190/v1/plans
+node scripts/check-production-docker-runtime.mjs --smoke
 ```
 
 Results:

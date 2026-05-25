@@ -42,6 +42,12 @@ docker compose -f docker-compose.production.yml up --build -d
 docker compose -f docker-compose.production.yml --profile tools run --rm migrate
 ```
 
+The automated production-shaped Docker guard is:
+
+```sh
+node scripts/check-production-docker-runtime.mjs --smoke
+```
+
 `docker-compose.production.yml` uses:
 
 - `apps/api/Dockerfile.production`
