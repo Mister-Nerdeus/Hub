@@ -60,6 +60,15 @@ Each visible object entry contains:
 - `hallways`: `6`
 - `doorsOrAccessPoints`: `18`
 
+## Required Room IDs
+
+The machine-readable source-truth contract must include `requiredRoomIds` for all
+source-visible room or patient-area targets:
+
+- `room-level-1-trauma`
+- `room-02` through `room-17`, excluding unsupported `room-01` and non-source `room-18`
+- `room-19` through `room-24`
+
 ## Legacy Fixture Rejections
 
 The visual parity gate must reject the old simplified Plan 1 fixture unless a later

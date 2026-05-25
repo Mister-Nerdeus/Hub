@@ -44,6 +44,7 @@ export type PlanVisualParitySourceTruth = {
     hallways: number;
     doorsOrAccessPoints: number;
   };
+  requiredRoomIds: string[];
   legacyFixtureRejections: {
     unsupportedRoomIds: string[];
     unsupportedStationIds: string[];
@@ -59,6 +60,7 @@ export type PlanVisualParitySourceTruthValidation = {
   objectKindHistogram: Record<string, number>;
   coverageStatusHistogram: Record<string, number>;
   minimumExpectedCounts: PlanVisualParitySourceTruth["minimumExpectedCounts"];
+  requiredRoomIds: string[];
   legacyFixtureRejections: PlanVisualParitySourceTruth["legacyFixtureRejections"];
   nonClaims: string[];
 };
@@ -145,6 +147,14 @@ export function validatePlanVisualParitySourceTruthContract(
     throw new Error("minimumExpectedCounts.doorsOrAccessPoints must be at least 18");
   }
 
+  const requiredRoomIds = requireStringArray(contract.requiredRoomIds, "requiredRoomIds");
+  const requiredRoomTargets = visibleObjects
+    .map((itemValue) => itemValue as Record<string, unknown>)
+    .filter((item) => item.required === true && item.objectKind === "room")
+    .map((item) => requireOptionalString(item.expectedTargetId, "visibleObjects[].expectedTargetId"))
+    .filter((targetId): targetId is string => targetId != null);
+  requireSameStringSet(requiredRoomIds, requiredRoomTargets, "requiredRoomIds");
+
   const legacyFixtureRejections = requireRecord(
     contract.legacyFixtureRejections,
     "legacyFixtureRejections"
@@ -190,6 +200,7 @@ export function validatePlanVisualParitySourceTruthContract(
     objectKindHistogram,
     coverageStatusHistogram,
     minimumExpectedCounts: minimums,
+    requiredRoomIds,
     legacyFixtureRejections: {
       unsupportedRoomIds,
       unsupportedStationIds,
@@ -252,4 +263,19 @@ function requireStringArray(value: unknown, fieldName: string): string[] {
     throw new Error(`${fieldName} must be a string array`);
   }
   return [...value];
+}
+
+function requireSameStringSet(actual: string[], expected: string[], fieldName: string): void {
+  const actualSet = new Set(actual);
+  const expectedSet = new Set(expected);
+  const missing = [...expectedSet].filter((entry) => !actualSet.has(entry));
+  const extra = [...actualSet].filter((entry) => !expectedSet.has(entry));
+  if (actual.length !== actualSet.size) {
+    throw new Error(`${fieldName} must not contain duplicate entries`);
+  }
+  if (missing.length > 0 || extra.length > 0) {
+    throw new Error(
+      `${fieldName} must match required room visible object targets; missing=${missing.join(",")}; extra=${extra.join(",")}`
+    );
+  }
 }

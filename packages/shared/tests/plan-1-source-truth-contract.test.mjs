@@ -58,6 +58,8 @@ function validateSourceTruthContract(contract) {
   assert.ok(Array.isArray(contract.visibleObjects));
   assert.ok(contract.visibleObjects.length >= 20);
   assert.ok(contract.minimumExpectedCounts != null);
+  assert.ok(Array.isArray(contract.requiredRoomIds));
+  assert.equal(contract.requiredRoomIds.length, 23);
 
   assert.equal(typeof contract.minimumExpectedCounts.rooms, "number");
   assert.equal(typeof contract.minimumExpectedCounts.nurseStations, "number");
@@ -180,6 +182,7 @@ test("Plan 1 source-truth JSON validates and exports required structure", () => 
     coverageStatusHistogram: validation.coverageStatusHistogram,
     objectKindHistogram: validation.objectKindHistogram,
     minimumExpectedCounts: sourceTruth.minimumExpectedCounts,
+    requiredRoomIds: sharedValidation.requiredRoomIds,
     legacyFixtureRejections: sharedValidation.legacyFixtureRejections,
     objectCount: sourceTruth.visibleObjects.length
   });
@@ -190,6 +193,7 @@ test("Plan 1 source-truth JSON validates and exports required structure", () => 
     contractFile: "packages/shared/fixtures/default-plans/visual-parity/plan-1-source-truth.json",
     schemaVersion: sourceTruth.schemaVersion,
     requiredSourceVisibleLabelCount: requiredVisibleLabelList(sourceTruth).length,
+    requiredRoomIds: sourceTruth.requiredRoomIds,
     coverageStatus: "pending_only_before_repair",
     legacyFixtureRejections: sourceTruth.legacyFixtureRejections,
     nonClaims: sourceTruth.nonClaims

@@ -2,7 +2,7 @@
   "issue": "240",
   "status": "passed",
   "scope": "default Plans 2 through 5 fixture, source mapping, and walking baseline files",
-  "comparedAgainst": "git HEAD",
+  "comparedAgainst": "approved Plan 2-5 hashes plus git HEAD working-tree cleanliness",
   "trackedPaths": [
     "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
     "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-2.json",
@@ -18,6 +18,7 @@
     "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-5-walking-baseline.json"
   ],
   "changedPaths": [],
+  "hashMismatches": [],
   "missingPaths": [],
   "fixtureSummaries": [
     {
@@ -62,7 +63,7 @@
     }
   ],
   "nonClaims": [
-    "This check proves Plans 2-5 files were not changed in the working tree.",
+    "This check proves Plans 2-5 protected files match the approved batch baseline hashes.",
     "This check does not audit Plan 1 visual parity."
   ]
 }

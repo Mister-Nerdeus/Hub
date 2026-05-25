@@ -11,7 +11,7 @@
     "check:dependencies": "node scripts/check-dependency-specs.mjs",
     "check:docs": "node scripts/check-docs-contracts.mjs",
     "check:no-phi": "node scripts/check-no-phi-fields.mjs",
-    "check:plan1-visual-parity": "node scripts/check-plan-1-visual-parity.mjs --stage final",
+    "check:plan1-visual-parity": "npm --workspace packages/shared run build && node scripts/check-plan-1-visual-parity.mjs --stage final",
     "check:plans-2-5-unchanged": "node scripts/check-default-plans-2-through-5-unchanged.mjs",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "evidence:local:tracked": "npm run evidence:local -- --tracked",
