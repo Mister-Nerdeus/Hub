@@ -79,7 +79,7 @@ function validateSourceTruthContract(contract) {
     assert.ok(coverageStatusValues.has(item.coverageStatus));
     if (!item.required) {
       assert.ok(
-        item.coverageStatus === "deferred" || item.coverageStatus === "not_modelled_with_reason",
+        item.coverageStatus === "deferred" || item.coverageStatus === "not_modeled_with_reason",
         `visibleObjects[${index}] can be optional only when explicitly deferred or not modeled`
       );
     }

@@ -100,7 +100,7 @@ export function validatePlanVisualParitySourceTruthContract(
     if (
       required !== true &&
       coverageStatus !== "deferred" &&
-      coverageStatus !== "not_modelled_with_reason"
+      coverageStatus !== "not_modeled_with_reason"
     ) {
       throw new Error(
         `visibleObjects[${index}].required can be false only for explicit deferred or not-modeled entries`
