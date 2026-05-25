@@ -16,7 +16,7 @@ const result = addRoomToEditableLayout({
 if (!result.layout.rooms.some((room) => room.id === "room-added") || result.selectedRoomId !== "room-added") {
   throw new Error("added room must be selected and persisted in layout");
 }
-if (!result.warnings.some((warning) => warning.includes("no authored door"))) {
+if (!result.warnings.some((warning) => warning.code === "ROOM_MISSING_DOOR")) {
   throw new Error("added room must warn when no door exists");
 }
 throws(() => addRoomToEditableLayout({ ...argumentsFixture(), readOnly: true }), /read-only/);

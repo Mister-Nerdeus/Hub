@@ -341,14 +341,14 @@ function addRoom(
     selectedObjectId: result.selectedRoomId,
     validationWarnings: [
       ...state.validationWarnings,
-      ...result.warnings.map((message, index) =>
+      ...result.warnings.map((warning) =>
         buildLayoutValidationWarning({
-          code: `added_room_warning_${index + 1}`,
-          severity: "warning",
-          source: index === 0 ? "door_sync" : "path_sync",
-          message,
-          objectType: "room",
-          objectId: result.selectedRoomId,
+          code: warning.code,
+          severity: warning.severity,
+          source: warning.code === "ROOM_MISSING_DOOR" ? "door_sync" : "path_sync",
+          message: warning.message,
+          objectType: warning.objectType === "room" || warning.objectType === "door" ? warning.objectType : null,
+          objectId: warning.objectId,
           isGenerated: true
         })
       )

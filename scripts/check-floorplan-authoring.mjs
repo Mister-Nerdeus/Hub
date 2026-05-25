@@ -218,7 +218,23 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "283": ["first-failure.txt"],
+  "283": [
+    "first-failure.txt",
+    "room-resize-e2e-output.json",
+    "room-type-e2e-output.json",
+    "add-room-e2e-output.json",
+    "added-room-selected-output.json",
+    "room-warning-codes-output.json",
+    "save-reload-room-edit-output.json",
+    "export-room-edit-output.json",
+    "readonly-negative-output.json",
+    "default-nonmutation-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "284": ["first-failure.txt"],
   "285": ["first-failure.txt"],
   "286": ["first-failure.txt"],
@@ -227,6 +243,8 @@ const issueFiles = {
   "289": ["first-failure.txt"],
   "290": ["first-failure.txt"]
 };
+
+const strictProofIssues = new Set(["282", "283", "284", "285", "286", "287", "288", "289", "290"]);
 
 if (!(stage in stageToIssue)) {
   fail(`Unsupported floorplan authoring stage: ${stage}`);
@@ -238,11 +256,12 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const behaviorOutput = ["behavioral-execution", "save-reload-e2e"].includes(stage) && missingModules.length === 0
+const behaviorOutput = ["behavioral-execution", "save-reload-e2e", "room-edit-e2e"].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
-const status = missingModules.length === 0 && behaviorFailures.length === 0 ? "passed" : "failed";
+const evidenceFailures = requiredEvidenceFailures(issueNumber);
+const status = missingModules.length === 0 && behaviorFailures.length === 0 && evidenceFailures.length === 0 ? "passed" : "failed";
 
 writeIssueEvidence(issueNumber, stage, {
   status,
@@ -272,11 +291,12 @@ writeIssueEvidence(issueNumber, stage, {
   pathSyncWarning: "stale_warning is explicit after route-affecting authoring edits",
   behaviorExecuted: behaviorOutput != null,
   behaviorFailures,
+  evidenceFailures,
   behaviorOutput
 });
 
 if (status !== "passed") {
-  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures }, null, 2));
+  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures, evidenceFailures }, null, 2));
 }
 
 console.log(
@@ -322,6 +342,9 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
       continue;
     }
     if (existsSync(path)) {
+      continue;
+    }
+    if (strictProofIssues.has(issueNumber)) {
       continue;
     }
     if (summary.behaviorOutput != null && behaviorEvidenceFiles.has(fileName)) {
@@ -392,7 +415,8 @@ function writeBehaviorEvidence(issueDir, output) {
 function writeAuthoringProofFixture(stageName, output) {
   const fixtureNames = {
     "behavioral-execution": "plan-1-authoring-behavior-fixture.json",
-    "save-reload-e2e": "plan-1-save-reload-fixture.json"
+    "save-reload-e2e": "plan-1-save-reload-fixture.json",
+    "room-edit-e2e": "plan-1-room-authoring-fixture.json"
   };
   const fixtureName = fixtureNames[stageName];
   if (fixtureName == null) {
@@ -404,22 +428,12 @@ function writeAuthoringProofFixture(stageName, output) {
 function ensureIssueScaffold(issueDir, issueNumber, stageName) {
   mkdirSync(issueDir, { recursive: true });
   const commandsPath = join(issueDir, "commands.txt");
-  if (
-    issueNumber === "280" &&
-    existsSync(commandsPath) &&
-    statSync(commandsPath).isFile()
-  ) {
-    return;
-  }
   const command =
     stageName === "final"
       ? "node scripts/check-floorplan-authoring.mjs --stage final"
       : `node scripts/check-floorplan-authoring.mjs --stage ${stageName} --allow-partial --issue ${issueNumber}`;
-  writeText(
-    join(issueDir, "commands.txt"),
-    `${command}\n`
-  );
-  writeJson(join(issueDir, "command-output-map.json"), {
+  writeTextIfMissing(join(issueDir, "commands.txt"), `${command}\n`);
+  writeJsonIfMissing(join(issueDir, "command-output-map.json"), {
     issue: issueNumber,
     commands: [
       {
@@ -428,7 +442,7 @@ function ensureIssueScaffold(issueDir, issueNumber, stageName) {
       }
     ]
   });
-  writeText(
+  writeTextIfMissing(
     join(issueDir, "closeout.md"),
     `# Issue ${issueNumber} Closeout
 
@@ -506,7 +520,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
       "pod-border-view.png",
       "export-integrity-warning.png"
     ],
-    "282": ["save-as-reload-proof.png"]
+    "282": ["save-as-reload-proof.png"],
+    "283": ["room-authoring-e2e.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));
@@ -528,9 +543,23 @@ function writeJson(path, value) {
   writeText(path, `${JSON.stringify(value, null, 2)}\n`);
 }
 
+function writeJsonIfMissing(path, value) {
+  if (existsSync(path)) {
+    return;
+  }
+  writeJson(path, value);
+}
+
 function writeText(path, text) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, text);
+}
+
+function writeTextIfMissing(path, text) {
+  if (existsSync(path)) {
+    return;
+  }
+  writeText(path, text);
 }
 
 function writePng(path) {
@@ -550,6 +579,16 @@ function isFile(relativePath) {
 function readArg(flag) {
   const index = args.indexOf(flag);
   return index >= 0 ? args[index + 1] : null;
+}
+
+function requiredEvidenceFailures(issueNumber) {
+  if (!strictProofIssues.has(issueNumber)) {
+    return [];
+  }
+  const issueDir = join(repoRoot, "docs", "verification", "issues", `issue-${issueNumber}`);
+  return (issueFiles[issueNumber] ?? [])
+    .filter((fileName) => !existsSync(join(issueDir, fileName)))
+    .map((fileName) => `missing required behavioral evidence: ${fileName}`);
 }
 
 function fail(message) {

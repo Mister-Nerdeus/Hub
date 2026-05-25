@@ -8,6 +8,7 @@ import {
   validateAuthoringRoomType,
   type AuthoringRoomType
 } from "./roomTypeContract.js";
+import { buildAuthoringWarning, type AuthoringWarningContract } from "./authoringWarningContract.js";
 
 export type AddRoomInput = {
   layout: EditableLayoutGeometryContract;
@@ -25,7 +26,7 @@ export type AddRoomInput = {
 export type AddRoomResult = {
   layout: EditableLayoutGeometryContract;
   selectedRoomId: string;
-  warnings: string[];
+  warnings: AuthoringWarningContract[];
 };
 
 export function addRoomToEditableLayout(input: AddRoomInput): AddRoomResult {
@@ -60,8 +61,20 @@ export function addRoomToEditableLayout(input: AddRoomInput): AddRoomResult {
     layout: nextLayout,
     selectedRoomId: room.id,
     warnings: [
-      `Room ${room.id} has no authored door.`,
-      `Room ${room.id} has no synced path node; route/path sync is stale.`
+      buildAuthoringWarning({
+        code: "ROOM_MISSING_DOOR",
+        severity: "warning",
+        message: `Room ${room.id} has no authored door.`,
+        objectType: "room",
+        objectId: room.id
+      }),
+      buildAuthoringWarning({
+        code: "ROOM_MISSING_PATH_NODE",
+        severity: "warning",
+        message: `Room ${room.id} has no synced path node; route/path sync is stale.`,
+        objectType: "room",
+        objectId: room.id
+      })
     ]
   };
 }

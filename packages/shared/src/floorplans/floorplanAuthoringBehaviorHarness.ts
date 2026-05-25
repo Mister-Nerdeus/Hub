@@ -143,7 +143,7 @@ export function runFloorplanAuthoringBehaviorHarness(input: {
     pathSyncStatus: movedDoor.pathSyncStatus,
     authoringStatus: "draft_has_warnings",
     authoringWarnings: [
-      ...addRoomResult.warnings,
+      ...addRoomResult.warnings.map((warning) => warning.code),
       movedDoor.warning,
       "Generated hallway/public space and pod border require manual route review."
     ]
