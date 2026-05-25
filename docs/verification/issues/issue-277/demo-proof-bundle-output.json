@@ -1,0 +1,369 @@
+{
+  "issue": "277",
+  "status": "passed",
+  "bundle": {
+    "bundleId": "plan-1-demo-proof-bundle-v1",
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 synthetic operational demo proof bundle",
+    "sourceIssue": "277",
+    "sections": [
+      {
+        "sectionId": "demo-identity",
+        "label": "Demo identity",
+        "status": "included",
+        "details": [
+          "Plan: default-er-layout-plan-1",
+          "Scope: synthetic operational Plan 1 demo proof only.",
+          "Source issue: 277"
+        ],
+        "artifactPaths": []
+      },
+      {
+        "sectionId": "gate-status-summary",
+        "label": "Gate status summary",
+        "status": "referenced",
+        "details": [
+          "Local shared, web, build, no-PHI, docs, Plan 1, and Plans 2-5 unchanged gates are referenced as issue-scoped evidence."
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/shared.txt",
+          "docs/verification/issues/issue-277/test-output/web.txt",
+          "docs/verification/issues/issue-277/test-output/web-build.txt",
+          "docs/verification/issues/issue-277/test-output/no-phi.txt",
+          "docs/verification/issues/issue-277/test-output/docs-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-visual-parity-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-assignment-workflow-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-scenario-simulation-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-simulation-refinement-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-demo-readiness-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plans-2-through-5-unchanged.txt"
+        ]
+      },
+      {
+        "sectionId": "plan-1-visual-parity-summary",
+        "label": "Plan 1 visual parity summary",
+        "status": "referenced",
+        "details": [
+          "Plan 1 visual parity evidence is issue-scoped and referenced in the bundle."
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/plan-1-visual-parity-gate.txt"
+        ]
+      },
+      {
+        "sectionId": "assignment-workflow-summary",
+        "label": "Assignment workflow summary",
+        "status": "referenced",
+        "details": [
+          "Assignments represented: 14",
+          "Synthetic nurses represented: 4",
+          "Room loads represented: 23"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/plan-1-assignment-workflow-gate.txt"
+        ]
+      },
+      {
+        "sectionId": "scenario-simulation-summary",
+        "label": "Scenario/simulation summary",
+        "status": "included",
+        "details": [
+          "Scenario: scenario-typical-baseline",
+          "Profile: plan-1-typical",
+          "Seed: 251001",
+          "Generated tasks: 258",
+          "Deferred synthetic tasks: 12"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/plan-1-scenario-simulation-gate.txt"
+        ]
+      },
+      {
+        "sectionId": "simulation-refinement-summary",
+        "label": "Simulation refinement summary",
+        "status": "included",
+        "details": [
+          "Path-based tasks: 199",
+          "Fallback route tasks: 0",
+          "Missing route tasks: 0",
+          "Deterministic report: true"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/plan-1-simulation-refinement-gate.txt"
+        ]
+      },
+      {
+        "sectionId": "demo-seed-summary",
+        "label": "Demo seed summary",
+        "status": "included",
+        "details": [
+          "Seed pack: plan-1-demo-seed-pack-v1",
+          "Seed count: 5",
+          "Demo seeds: demo-plan-1-typical, demo-plan-1-slammed, demo-plan-1-walking-heavy, demo-plan-1-trauma-heavy, demo-plan-1-comparison",
+          "Expected signals: baseline synthetic task pressure; clear comparison differences; higher approximate walking load; higher synthetic task pressure; human-readable scenario narratives; larger queue-depth signal; limitations visible; limited deferred synthetic work; more deferred synthetic work; path-based walking assumptions visible; proof report available; scenario comparison difference visible; trauma workload notice visible; visible warning explanations; walking-load warning visible; warning explanations visible"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-276/demo-seed-pack-output.json"
+        ]
+      },
+      {
+        "sectionId": "assumptions-summary",
+        "label": "Assumptions summary",
+        "status": "included",
+        "details": [
+          "Assumptions source: plan-1-simulation-assumptions-v1",
+          "Reader sections: Burden score weights, Walking assumptions, Task duration assumptions, Task frequency assumptions, Scenario intensity assumptions, Queue assumptions, Handoff assumptions, Interruption assumptions, Overload thresholds, Status semantics, Limitations and non-claims"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-274/assumptions-display-groups-output.json"
+        ]
+      },
+      {
+        "sectionId": "warning-explanation-summary",
+        "label": "Warning explanation summary",
+        "status": "included",
+        "details": [
+          "Warning explanations: 5",
+          "Warning codes: APPROXIMATE_GRAPH_ONLY, BUSY_MINUTES_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-275/timeline-narratives-output.json"
+        ]
+      },
+      {
+        "sectionId": "scenario-comparison-summary",
+        "label": "Scenario comparison summary",
+        "status": "included",
+        "details": [
+          "Comparison: plan-1-scenario-comparison-baseline-v1",
+          "Rows: 5",
+          "Narratives: 5"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-273/scenario-narratives-output.json"
+        ]
+      },
+      {
+        "sectionId": "proof-report-summary",
+        "label": "Proof report summary",
+        "status": "included",
+        "details": [
+          "Proof report: plan-1-demo-proof-bundle-evidence-report",
+          "Proof report sections: scenarioIdentity, assumptionsSummary, assignmentSummary, generatedTaskSummary, dryRunSummary, timelineSummary, warningExplanations, scenarioComparisonSummary, determinismProof, limitations, nonClaims",
+          "Deterministic key: scenario-typical-baseline|251001|720|scenario-typical-baseline-seed-251001-tasks|scenario-typical-baseline-dry-run-v1"
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/demo-proof-bundle-output.json"
+        ]
+      },
+      {
+        "sectionId": "evidence-artifact-references",
+        "label": "Evidence artifact references",
+        "status": "referenced",
+        "details": [
+          "Artifact references: 16",
+          "All references are local verification artifacts."
+        ],
+        "artifactPaths": [
+          "docs/verification/issues/issue-277/test-output/shared.txt",
+          "docs/verification/issues/issue-277/test-output/web.txt",
+          "docs/verification/issues/issue-277/test-output/web-build.txt",
+          "docs/verification/issues/issue-277/test-output/no-phi.txt",
+          "docs/verification/issues/issue-277/test-output/docs-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-visual-parity-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-assignment-workflow-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-scenario-simulation-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-simulation-refinement-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plan-1-demo-readiness-gate.txt",
+          "docs/verification/issues/issue-277/test-output/plans-2-through-5-unchanged.txt",
+          "docs/verification/issues/issue-276/demo-seed-pack-output.json",
+          "docs/verification/issues/issue-274/assumptions-display-groups-output.json",
+          "docs/verification/issues/issue-275/timeline-narratives-output.json",
+          "docs/verification/issues/issue-273/scenario-narratives-output.json",
+          "docs/verification/issues/issue-277/demo-proof-bundle-output.json"
+        ]
+      },
+      {
+        "sectionId": "limitations",
+        "label": "Limitations",
+        "status": "included",
+        "details": [
+          "Approximate walking load comes from Plan 1 route assumptions.",
+          "Assumptions are synthetic operational modeling inputs.",
+          "Comparison uses seeded synthetic scenario profiles only.",
+          "Plan 1 deterministic dry-run foundation only.",
+          "Plan 1 only.",
+          "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only.",
+          "Synthetic tasks use explicit assumptions and seeded generation.",
+          "Synthetic trauma-heavy profile is operational demo input only.",
+          "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+        ],
+        "artifactPaths": []
+      },
+      {
+        "sectionId": "non-claims",
+        "label": "Non-claims",
+        "status": "included",
+        "details": [
+          "Not a clinical safety score.",
+          "Not a legal compliance assessment.",
+          "Not a patient outcome prediction.",
+          "Not a staffing compliance recommendation.",
+          "Not based on real patient, staff, EHR, or hospital data.",
+          "Synthetic operational modeling only."
+        ],
+        "artifactPaths": []
+      }
+    ],
+    "evidenceArtifactReferences": [
+      {
+        "artifactId": "shared-gate",
+        "label": "Shared tests",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/shared.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "web-gate",
+        "label": "Web tests",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/web.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "web-build-gate",
+        "label": "Web build",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/web-build.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "no-phi-gate",
+        "label": "No-PHI gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/no-phi.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "docs-gate",
+        "label": "Docs gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/docs-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "visual-parity-gate",
+        "label": "Plan 1 visual parity gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plan-1-visual-parity-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "assignment-workflow-gate",
+        "label": "Assignment workflow gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plan-1-assignment-workflow-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "scenario-simulation-gate",
+        "label": "Scenario simulation gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plan-1-scenario-simulation-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "simulation-refinement-gate",
+        "label": "Simulation refinement gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plan-1-simulation-refinement-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "demo-readiness-gate",
+        "label": "Demo readiness gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plan-1-demo-readiness-gate.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "plans-2-through-5-gate",
+        "label": "Plans 2-5 unchanged gate",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/test-output/plans-2-through-5-unchanged.txt",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "demo-seed-pack",
+        "label": "Demo seed pack evidence",
+        "issue": "276",
+        "path": "docs/verification/issues/issue-276/demo-seed-pack-output.json",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "assumptions-presentation",
+        "label": "Assumptions presentation evidence",
+        "issue": "274",
+        "path": "docs/verification/issues/issue-274/assumptions-display-groups-output.json",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "warning-ux",
+        "label": "Timeline and warning UX evidence",
+        "issue": "275",
+        "path": "docs/verification/issues/issue-275/timeline-narratives-output.json",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "scenario-comparison-narratives",
+        "label": "Scenario comparison narrative evidence",
+        "issue": "273",
+        "path": "docs/verification/issues/issue-273/scenario-narratives-output.json",
+        "requiredForDemo": true
+      },
+      {
+        "artifactId": "proof-report",
+        "label": "Simulation proof report evidence",
+        "issue": "277",
+        "path": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
+        "requiredForDemo": true
+      }
+    ],
+    "limitations": [
+      "Approximate walking load comes from Plan 1 route assumptions.",
+      "Assumptions are synthetic operational modeling inputs.",
+      "Comparison uses seeded synthetic scenario profiles only.",
+      "Plan 1 deterministic dry-run foundation only.",
+      "Plan 1 only.",
+      "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only.",
+      "Synthetic tasks use explicit assumptions and seeded generation.",
+      "Synthetic trauma-heavy profile is operational demo input only.",
+      "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+    ],
+    "nonClaims": [
+      "Not a clinical safety score.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not a staffing compliance recommendation.",
+      "Not based on real patient, staff, EHR, or hospital data.",
+      "Synthetic operational modeling only."
+    ],
+    "syntheticDataOnly": true
+  },
+  "sectionIds": [
+    "demo-identity",
+    "gate-status-summary",
+    "plan-1-visual-parity-summary",
+    "assignment-workflow-summary",
+    "scenario-simulation-summary",
+    "simulation-refinement-summary",
+    "demo-seed-summary",
+    "assumptions-summary",
+    "warning-explanation-summary",
+    "scenario-comparison-summary",
+    "proof-report-summary",
+    "evidence-artifact-references",
+    "limitations",
+    "non-claims"
+  ]
+}

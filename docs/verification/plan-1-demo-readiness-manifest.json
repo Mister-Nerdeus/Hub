@@ -51,7 +51,13 @@
     "docs/verification/issues/issue-276/demo-seed-reproducibility-output.json",
     "docs/verification/issues/issue-276/expected-signals-output.json",
     "docs/verification/issues/issue-276/demo-seed-panel-output.json",
-    "docs/verification/issues/issue-276/screenshots/plan-1-demo-seed-panel.png"
+    "docs/verification/issues/issue-276/screenshots/plan-1-demo-seed-panel.png",
+    "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
+    "docs/verification/issues/issue-277/demo-proof-bundle-determinism-output.json",
+    "docs/verification/issues/issue-277/demo-proof-bundle-evidence-reference-output.json",
+    "docs/verification/issues/issue-277/demo-proof-bundle-non-claims-output.json",
+    "docs/verification/issues/issue-277/demo-proof-bundle-ui-output.json",
+    "docs/verification/issues/issue-277/screenshots/plan-1-demo-proof-bundle.png"
   ],
   "requiredGates": [
     "npm --workspace packages/shared test",
@@ -76,6 +82,6 @@
   ],
   "routeMatrixPath": "docs/verification/issues/issue-279/demo-route-matrix-output.json",
   "proofBundlePath": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
-  "lastIssueUpdated": "276",
+  "lastIssueUpdated": "277",
   "goNoGoStatus": "pending"
 }

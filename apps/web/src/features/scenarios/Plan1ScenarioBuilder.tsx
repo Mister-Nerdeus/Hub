@@ -1,6 +1,8 @@
 import {
   buildPlan1OperationalSummary,
   buildPlan1AssumptionViewModel,
+  buildPlan1DemoProofBundle,
+  buildPlan1DemoSeedPackSummary,
   buildPlan1ScenarioComparisonViewModel,
   buildPlan1SimulationProofReport,
   buildPlan1TimelineViewModel,
@@ -8,6 +10,7 @@ import {
   createPlan1BaselineScenarioControlState,
   explainPlan1Warnings,
   runPlan1ShiftDryRun,
+  validatePlan1DemoSeedPack,
   validatePlanContract,
   validatePlan1ScenarioBuilderState,
   validatePlan1ScenarioComparisonFixture,
@@ -29,6 +32,8 @@ import scenarioBuilderFixture from "../../../../../packages/shared/fixtures/scen
 import simulationInputFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/simulation-input-baseline.json" with { type: "json" };
 import taskTemplateFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/task-templates.json" with { type: "json" };
 import seededTaskFixture from "../../../../../packages/shared/fixtures/scenarios/plan-1/seeded-scenario-validation-fixtures.json" with { type: "json" };
+import demoSeedPackFixture from "../../../../../packages/shared/fixtures/demo/plan-1/plan-1-demo-seed-pack.json" with { type: "json" };
+import { Plan1DemoProofBundlePanel } from "../demo/Plan1DemoProofBundlePanel";
 import { Plan1AssumptionsPanel } from "./Plan1AssumptionsPanel";
 import { Plan1OperationalSummaryPanel } from "./Plan1OperationalSummaryPanel";
 import { Plan1ScenarioComparisonPanel } from "./Plan1ScenarioComparisonPanel";
@@ -73,6 +78,7 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
   const timelineViewModel = buildPlan1TimelineViewModel(dryRun);
   const warningExplanations = explainPlan1Warnings(dryRun.warningCodes);
   const timelineNarratives = buildPlan1TimelineNarratives(timelineViewModel, warningExplanations);
+  const demoSeedSummary = buildPlan1DemoSeedPackSummary(validatePlan1DemoSeedPack(demoSeedPackFixture));
   const proofReport = buildPlan1SimulationProofReport({
     reportId: "plan-1-simulation-proof-report-ui",
     scenarioState,
@@ -82,6 +88,11 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
     timelineViewModel,
     warningExplanations,
     comparisonViewModel
+  });
+  const demoProofBundle = buildPlan1DemoProofBundle({
+    proofReport,
+    demoSeedSummary,
+    sourceIssue: "277"
   });
 
   if (!planIsActivePlan1) {
@@ -118,6 +129,7 @@ export function Plan1ScenarioBuilder({ activePlan }: { activePlan?: PlanContract
       <Plan1WarningExplainabilityPanel narratives={timelineNarratives} />
       <Plan1ScenarioComparisonPanel comparison={comparison} viewModel={comparisonViewModel} />
       <Plan1SimulationProofReportPanel report={proofReport} />
+      <Plan1DemoProofBundlePanel bundle={demoProofBundle} />
     </div>
   );
 }

@@ -1,0 +1,23 @@
+{
+  "issue": "277",
+  "status": "passed",
+  "nonClaims": [
+    "Not a clinical safety score.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not a staffing compliance recommendation.",
+    "Not based on real patient, staff, EHR, or hospital data.",
+    "Synthetic operational modeling only."
+  ],
+  "limitations": [
+    "Approximate walking load comes from Plan 1 route assumptions.",
+    "Assumptions are synthetic operational modeling inputs.",
+    "Comparison uses seeded synthetic scenario profiles only.",
+    "Plan 1 deterministic dry-run foundation only.",
+    "Plan 1 only.",
+    "Queue, handoff, interruption, and overload thresholds are dry-run foundation assumptions only.",
+    "Synthetic tasks use explicit assumptions and seeded generation.",
+    "Synthetic trauma-heavy profile is operational demo input only.",
+    "Walking assumptions are limited to repaired Plan 1 graph and baseline proof."
+  ]
+}

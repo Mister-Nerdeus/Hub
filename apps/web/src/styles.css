@@ -620,6 +620,115 @@ h1 {
   margin: 0;
 }
 
+.plan-1-demo-proof-bundle {
+  background: #ffffff;
+  border: 1px solid #c5d2dd;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.plan-1-demo-proof-bundle__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.plan-1-demo-proof-bundle__header h3 {
+  color: #111827;
+  font-size: 1.08rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.plan-1-demo-proof-bundle__header span,
+.plan-1-demo-proof-bundle__section-header span {
+  background: #eaf2ed;
+  border: 1px solid #b9d0c2;
+  border-radius: 999px;
+  color: #294d3a;
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 6px 8px;
+  text-transform: uppercase;
+}
+
+.plan-1-demo-proof-bundle__sections {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plan-1-demo-proof-bundle__section,
+.plan-1-demo-proof-bundle__references,
+.plan-1-demo-proof-bundle__notes section {
+  background: #f7f9fb;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 10px;
+}
+
+.plan-1-demo-proof-bundle__section-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.plan-1-demo-proof-bundle__section-header strong,
+.plan-1-demo-proof-bundle__references h4,
+.plan-1-demo-proof-bundle__notes h4 {
+  color: #111827;
+  font-size: 0.86rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.plan-1-demo-proof-bundle__section ul,
+.plan-1-demo-proof-bundle__references ul,
+.plan-1-demo-proof-bundle__notes ul {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.plan-1-demo-proof-bundle__section li,
+.plan-1-demo-proof-bundle__section p,
+.plan-1-demo-proof-bundle__references li,
+.plan-1-demo-proof-bundle__notes li {
+  color: #263340;
+  font-size: 0.78rem;
+  font-weight: 750;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.plan-1-demo-proof-bundle__section p {
+  margin: 0;
+}
+
+.plan-1-demo-proof-bundle__references li {
+  display: grid;
+  gap: 3px;
+}
+
+.plan-1-demo-proof-bundle__references span {
+  color: #40505f;
+}
+
+.plan-1-demo-proof-bundle__notes {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .scenario-narrative-grid {
   display: grid;
   gap: 12px;
@@ -1223,6 +1332,8 @@ h1 {
   .plan-1-demo-guide__steps,
   .plan-1-demo-seed-panel__grid,
   .plan-1-demo-seed-panel__notes,
+  .plan-1-demo-proof-bundle__sections,
+  .plan-1-demo-proof-bundle__notes,
   .plan-1-demo-guide__next {
     grid-template-columns: 1fr;
   }

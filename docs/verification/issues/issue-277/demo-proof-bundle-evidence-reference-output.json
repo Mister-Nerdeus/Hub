@@ -1,0 +1,119 @@
+{
+  "issue": "277",
+  "status": "passed",
+  "referenceCount": 16,
+  "references": [
+    {
+      "artifactId": "shared-gate",
+      "label": "Shared tests",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/shared.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "web-gate",
+      "label": "Web tests",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/web.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "web-build-gate",
+      "label": "Web build",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/web-build.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "no-phi-gate",
+      "label": "No-PHI gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/no-phi.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "docs-gate",
+      "label": "Docs gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/docs-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "visual-parity-gate",
+      "label": "Plan 1 visual parity gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plan-1-visual-parity-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "assignment-workflow-gate",
+      "label": "Assignment workflow gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plan-1-assignment-workflow-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "scenario-simulation-gate",
+      "label": "Scenario simulation gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plan-1-scenario-simulation-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "simulation-refinement-gate",
+      "label": "Simulation refinement gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plan-1-simulation-refinement-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "demo-readiness-gate",
+      "label": "Demo readiness gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plan-1-demo-readiness-gate.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "plans-2-through-5-gate",
+      "label": "Plans 2-5 unchanged gate",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/test-output/plans-2-through-5-unchanged.txt",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "demo-seed-pack",
+      "label": "Demo seed pack evidence",
+      "issue": "276",
+      "path": "docs/verification/issues/issue-276/demo-seed-pack-output.json",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "assumptions-presentation",
+      "label": "Assumptions presentation evidence",
+      "issue": "274",
+      "path": "docs/verification/issues/issue-274/assumptions-display-groups-output.json",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "warning-ux",
+      "label": "Timeline and warning UX evidence",
+      "issue": "275",
+      "path": "docs/verification/issues/issue-275/timeline-narratives-output.json",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "scenario-comparison-narratives",
+      "label": "Scenario comparison narrative evidence",
+      "issue": "273",
+      "path": "docs/verification/issues/issue-273/scenario-narratives-output.json",
+      "requiredForDemo": true
+    },
+    {
+      "artifactId": "proof-report",
+      "label": "Simulation proof report evidence",
+      "issue": "277",
+      "path": "docs/verification/issues/issue-277/demo-proof-bundle-output.json",
+      "requiredForDemo": true
+    }
+  ]
+}

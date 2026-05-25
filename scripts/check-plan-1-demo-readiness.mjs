@@ -100,6 +100,7 @@ if (stage === "proof-bundle" || stage === "final") {
     "demo-proof-bundle-non-claims-output.json",
     "demo-proof-bundle-ui-output.json"
   ], "proofBundle"));
+  checks.push(validateProofBundleContent());
 }
 if (stage === "no-claims-audit" || stage === "final") {
   checks.push(validateIssueEvidence("278", [
@@ -392,6 +393,50 @@ function validateDemoSeedPackContent() {
     }
   }
   return check("demoSeedPackContent", failures);
+}
+
+function validateProofBundleContent() {
+  const relativePath = "docs/verification/issues/issue-277/demo-proof-bundle-output.json";
+  const output = readOptionalJson(relativePath);
+  if (output == null) {
+    return check("proofBundleContent", [`missing ${relativePath}`]);
+  }
+  const text = JSON.stringify(output);
+  const failures = [];
+  for (const sectionId of [
+    "demo-identity",
+    "gate-status-summary",
+    "plan-1-visual-parity-summary",
+    "assignment-workflow-summary",
+    "scenario-simulation-summary",
+    "simulation-refinement-summary",
+    "demo-seed-summary",
+    "assumptions-summary",
+    "warning-explanation-summary",
+    "scenario-comparison-summary",
+    "proof-report-summary",
+    "evidence-artifact-references",
+    "limitations",
+    "non-claims"
+  ]) {
+    if (!text.includes(sectionId)) {
+      failures.push(`missing proof bundle section: ${sectionId}`);
+    }
+  }
+  for (const phrase of [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a patient outcome prediction."
+  ]) {
+    if (!text.includes(phrase)) {
+      failures.push(`missing proof bundle non-claim: ${phrase}`);
+    }
+  }
+  if (!Array.isArray(output.bundle?.evidenceArtifactReferences) || output.bundle.evidenceArtifactReferences.length === 0) {
+    failures.push("missing proof bundle evidence artifact references");
+  }
+  return check("proofBundleContent", failures);
 }
 
 function summarizeManifest(value) {

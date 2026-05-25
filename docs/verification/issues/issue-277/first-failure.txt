@@ -1,7 +1,52 @@
-Issue 277 first-failure.txt
-
-Stage: auto-pod-border
-Status: passed
-Private source payload stored: false
-Non-PHI: true
-Known limitation: generated geometry is approximate operational authoring geometry only.
+{
+  "issue": "277",
+  "stage": "proof-bundle",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "manifestSummary": {
+    "manifestVersion": 1,
+    "planId": "default-er-layout-plan-1",
+    "demoScope": "Plan 1 demo-readiness proof contract for synthetic operational simulation only.",
+    "requiredScreenCount": 12,
+    "requiredEvidenceArtifactCount": 35,
+    "requiredGateCount": 11,
+    "lastIssueUpdated": "276",
+    "goNoGoStatus": "pending"
+  },
+  "checks": [
+    {
+      "check": "manifest",
+      "status": "passed",
+      "failureCount": 0,
+      "failures": []
+    },
+    {
+      "check": "proofBundle",
+      "status": "failed",
+      "failureCount": 5,
+      "failures": [
+        "missing docs/verification/issues/issue-277/demo-proof-bundle-output.json",
+        "missing docs/verification/issues/issue-277/demo-proof-bundle-determinism-output.json",
+        "missing docs/verification/issues/issue-277/demo-proof-bundle-evidence-reference-output.json",
+        "missing docs/verification/issues/issue-277/demo-proof-bundle-non-claims-output.json",
+        "missing docs/verification/issues/issue-277/demo-proof-bundle-ui-output.json"
+      ]
+    }
+  ],
+  "failureCount": 5,
+  "failures": [
+    "proofBundle: missing docs/verification/issues/issue-277/demo-proof-bundle-output.json",
+    "proofBundle: missing docs/verification/issues/issue-277/demo-proof-bundle-determinism-output.json",
+    "proofBundle: missing docs/verification/issues/issue-277/demo-proof-bundle-evidence-reference-output.json",
+    "proofBundle: missing docs/verification/issues/issue-277/demo-proof-bundle-non-claims-output.json",
+    "proofBundle: missing docs/verification/issues/issue-277/demo-proof-bundle-ui-output.json"
+  ],
+  "nonClaims": [
+    "Synthetic operational modeling only.",
+    "Not a clinical safety score.",
+    "Not a staffing compliance recommendation.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not based on real patient, staff, EHR, or hospital data."
+  ]
+}
