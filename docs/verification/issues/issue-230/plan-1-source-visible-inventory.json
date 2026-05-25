@@ -1,0 +1,422 @@
+{
+  "issue": "230",
+  "planId": "default-er-layout-plan-1",
+  "sourceTruthRoomCount": 23,
+  "sourceTruthMinimumExpectedCounts": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "providerPharmacyZones": 1,
+    "hallways": 6,
+    "doorsOrAccessPoints": 18
+  },
+  "visibleObjects": [
+    {
+      "sourceLabel": "Level 1 trauma",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-level-1-trauma",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "2",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-02",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "3",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-03",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "4",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-04",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "5",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-05",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "6",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-06",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "7",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-07",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "8",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-08",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "9",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-09",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "10",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-10",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "11",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-11",
+      "expectedRegionId": "region-right-side-rooms-11-12",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "12",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-12",
+      "expectedRegionId": "region-right-side-rooms-11-12",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "13",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-13",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "14",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-14",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "15",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-15",
+      "expectedRegionId": "region-left-side-rooms-15-16",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "16",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-16",
+      "expectedRegionId": "region-left-side-rooms-15-16",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "17",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-17",
+      "expectedRegionId": "region-provider-pharmacy",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "19",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-19",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "20",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-20",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "21",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-21",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "22",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-22",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "23",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-23",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "24",
+      "objectKind": "room",
+      "required": true,
+      "expectedTargetId": "room-24",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Provider/Pharmacy Area",
+      "objectKind": "zone",
+      "required": true,
+      "expectedTargetId": "zone-provider-pharmacy",
+      "expectedRegionId": "region-provider-pharmacy",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Left nurse station",
+      "objectKind": "nurse_station",
+      "required": true,
+      "expectedTargetId": "station-left",
+      "expectedRegionId": "zone-nurse-station-core-left",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Right nurse station",
+      "objectKind": "nurse_station",
+      "required": true,
+      "expectedTargetId": "station-right",
+      "expectedRegionId": "zone-nurse-station-core-right",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Top horizontal hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-top-horizontal",
+      "expectedRegionId": "region-hallway-network",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Left vertical hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-left-vertical",
+      "expectedRegionId": "region-hallway-network",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "EMS entry hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-ems-entry",
+      "expectedRegionId": "region-ems-entry",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Bottom horizontal hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-bottom-horizontal",
+      "expectedRegionId": "region-hallway-network",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Right vertical hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-right-vertical",
+      "expectedRegionId": "region-hallway-network",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Right upper hallway",
+      "objectKind": "hallway",
+      "required": true,
+      "expectedTargetId": "hallway-right-upper",
+      "expectedRegionId": "region-hallway-network",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 01",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-01",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 02",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-02",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 03",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-03",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 04",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-04",
+      "expectedRegionId": "region-left-upper-pod-trauma-2-5-14",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 05",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-05",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 06",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-06",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 07",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-07",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 08",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-08",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 09",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-09",
+      "expectedRegionId": "region-right-upper-pod-6-10-13",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 10",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-10",
+      "expectedRegionId": "region-right-side-rooms-11-12",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 11",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-11",
+      "expectedRegionId": "region-right-side-rooms-11-12",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 12",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-12",
+      "expectedRegionId": "region-left-side-rooms-15-16",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 13",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-13",
+      "expectedRegionId": "region-left-side-rooms-15-16",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 14",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-14",
+      "expectedRegionId": "region-left-side-rooms-15-16",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 15",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-15",
+      "expectedRegionId": "region-provider-pharmacy",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 16",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-16",
+      "expectedRegionId": "region-provider-pharmacy",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 17",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-17",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Door/Access 18",
+      "objectKind": "door_or_access",
+      "required": true,
+      "expectedTargetId": "door-18",
+      "expectedRegionId": "region-bottom-rooms-19-24",
+      "coverageStatus": "pending"
+    },
+    {
+      "sourceLabel": "Grey unlabeled blocks",
+      "objectKind": "annotation",
+      "required": true,
+      "expectedTargetId": null,
+      "expectedRegionId": "region-main-hallways",
+      "coverageStatus": "pending"
+    }
+  ]
+}

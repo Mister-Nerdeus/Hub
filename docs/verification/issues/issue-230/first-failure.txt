@@ -1,0 +1,7 @@
+First-failure for Issue 230:
+Current Plan 1 fixture is still the legacy simplified layout and does not satisfy the source-truth
+required object set.
+
+- Only 8 room-like entries are present and many source-visible labels are absent.
+- Required provider/pharmacy, right-side, bottom-bank, and expanded hallway/access coverage is missing.
+- Legacy object IDs (`room-01`, `space-07`) remain present in the source-mapped payload.

@@ -1,0 +1,6 @@
+Before Issue 231, the Plan 1 fixture span was insufficient for the full source proportions:
+- Old observed bounds: xMin 6, xMax 120, yMin 6, yMax 94 (width 114 ft, height 88 ft)
+- Required scaffold regions were absent in that simplified fixture.
+- Missing required region list: region-left-upper-pod-trauma-2-5-14, region-left-side-rooms-15-16, region-right-upper-pod-6-10-13,
+  region-right-side-rooms-11-12, region-provider-pharmacy, region-bottom-rooms-19-24, region-hallway-network, region-ems-entry
+- Object shortfalls also existed (8 rooms total against minimum 23 for the source-visible room set).

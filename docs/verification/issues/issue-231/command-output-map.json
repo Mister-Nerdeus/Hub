@@ -1,0 +1,34 @@
+{
+  "issue": "231",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-231/test-output/shared.txt",
+      "outputs": ["docs/verification/issues/issue-231/test-output/shared.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-231/test-output/no-phi.txt",
+      "outputs": ["docs/verification/issues/issue-231/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-partial --issue 231 | Tee-Object -FilePath docs/verification/issues/issue-231/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-231/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-231/plan-1-partial-parity-gate-output.json",
+        "docs/verification/issues/issue-231/plan-1-legacy-fixture-rejection-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-231/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/issues/issue-231/test-output/docs-gate.txt"]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-231/plan-1-coordinate-frame-output.json",
+    "docs/verification/issues/issue-231/plan-1-scaffold-region-output.json",
+    "docs/verification/issues/issue-231/plan-1-before-object-counts.json",
+    "docs/verification/issues/issue-231/plan-1-after-scaffold-counts.json",
+    "docs/verification/issues/issue-231/plan-1-partial-parity-gate-output.json",
+    "docs/verification/issues/issue-231/plan-1-legacy-fixture-rejection-output.json",
+    "docs/verification/issues/issue-231/plans-2-through-5-unchanged-output.json"
+  ]
+}

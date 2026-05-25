@@ -1,0 +1,51 @@
+- Level 1 trauma | kind=room | target=room-level-1-trauma | status=pending
+- 2 | kind=room | target=room-02 | status=pending
+- 3 | kind=room | target=room-03 | status=pending
+- 4 | kind=room | target=room-04 | status=pending
+- 5 | kind=room | target=room-05 | status=pending
+- 6 | kind=room | target=room-06 | status=pending
+- 7 | kind=room | target=room-07 | status=pending
+- 8 | kind=room | target=room-08 | status=pending
+- 9 | kind=room | target=room-09 | status=pending
+- 10 | kind=room | target=room-10 | status=pending
+- 11 | kind=room | target=room-11 | status=pending
+- 12 | kind=room | target=room-12 | status=pending
+- 13 | kind=room | target=room-13 | status=pending
+- 14 | kind=room | target=room-14 | status=pending
+- 15 | kind=room | target=room-15 | status=pending
+- 16 | kind=room | target=room-16 | status=pending
+- 17 | kind=room | target=room-17 | status=pending
+- 19 | kind=room | target=room-19 | status=pending
+- 20 | kind=room | target=room-20 | status=pending
+- 21 | kind=room | target=room-21 | status=pending
+- 22 | kind=room | target=room-22 | status=pending
+- 23 | kind=room | target=room-23 | status=pending
+- 24 | kind=room | target=room-24 | status=pending
+- Provider/Pharmacy Area | kind=zone | target=zone-provider-pharmacy | status=pending
+- Left nurse station | kind=nurse_station | target=station-left | status=pending
+- Right nurse station | kind=nurse_station | target=station-right | status=pending
+- Top horizontal hallway | kind=hallway | target=hallway-top-horizontal | status=pending
+- Left vertical hallway | kind=hallway | target=hallway-left-vertical | status=pending
+- EMS entry hallway | kind=hallway | target=hallway-ems-entry | status=pending
+- Bottom horizontal hallway | kind=hallway | target=hallway-bottom-horizontal | status=pending
+- Right vertical hallway | kind=hallway | target=hallway-right-vertical | status=pending
+- Right upper hallway | kind=hallway | target=hallway-right-upper | status=pending
+- Door/Access 01 | kind=door_or_access | target=door-01 | status=pending
+- Door/Access 02 | kind=door_or_access | target=door-02 | status=pending
+- Door/Access 03 | kind=door_or_access | target=door-03 | status=pending
+- Door/Access 04 | kind=door_or_access | target=door-04 | status=pending
+- Door/Access 05 | kind=door_or_access | target=door-05 | status=pending
+- Door/Access 06 | kind=door_or_access | target=door-06 | status=pending
+- Door/Access 07 | kind=door_or_access | target=door-07 | status=pending
+- Door/Access 08 | kind=door_or_access | target=door-08 | status=pending
+- Door/Access 09 | kind=door_or_access | target=door-09 | status=pending
+- Door/Access 10 | kind=door_or_access | target=door-10 | status=pending
+- Door/Access 11 | kind=door_or_access | target=door-11 | status=pending
+- Door/Access 12 | kind=door_or_access | target=door-12 | status=pending
+- Door/Access 13 | kind=door_or_access | target=door-13 | status=pending
+- Door/Access 14 | kind=door_or_access | target=door-14 | status=pending
+- Door/Access 15 | kind=door_or_access | target=door-15 | status=pending
+- Door/Access 16 | kind=door_or_access | target=door-16 | status=pending
+- Door/Access 17 | kind=door_or_access | target=door-17 | status=pending
+- Door/Access 18 | kind=door_or_access | target=door-18 | status=pending
+- Grey unlabeled blocks | kind=annotation | target=deferred | status=pending

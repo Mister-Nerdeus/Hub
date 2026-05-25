@@ -28,6 +28,8 @@ export * from "./pathing/pathTravelContract.js";
 export * from "./pathing/pathTravelTime.js";
 export * from "./pathing/defaultPlanPathNodeCoverage.js";
 export * from "./pathing/defaultPlanPathEdgeCoverage.js";
+export * from "./default-plans/planVisualParitySourceTruth.js";
+export * from "./default-plans/planVisualParityAudit.js";
 export * from "./pathing/routePreviewContract.js";
 export * from "./pathing/buildRoutePreview.js";
 export * from "./pathing/walkingBaselineContract.js";

@@ -1,0 +1,42 @@
+{
+  "issue": "230",
+  "planId": "default-er-layout-plan-1",
+  "observed": {
+    "rooms": 8,
+    "nurseStations": 2,
+    "zones": 13,
+    "hallways": 2,
+    "doors": 8
+  },
+  "required": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "providerPharmacyZones": 1,
+    "hallways": 6,
+    "doorsOrAccessPoints": 18
+  },
+  "minimumCountFailures": [
+    {
+      "category": "rooms",
+      "minimum": 23,
+      "observed": 8,
+      "shortfall": 15
+    },
+    {
+      "category": "hallways",
+      "minimum": 6,
+      "observed": 2,
+      "shortfall": 4
+    },
+    {
+      "category": "doorsOrAccessPoints",
+      "minimum": 18,
+      "observed": 8,
+      "shortfall": 10
+    }
+  ],
+  "providerPharmacyModelingFailures": [],
+  "nurseStationCountFailures": [
+    "Provider/pharmacy station is mixed into visible nurse station count"
+  ]
+}

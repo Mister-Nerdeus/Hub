@@ -1,0 +1,23 @@
+{
+  "issue": "229",
+  "status": "passed",
+  "contractFile": "packages/shared/fixtures/default-plans/visual-parity/plan-1-source-truth.json",
+  "schemaVersion": "1.0.0",
+  "requiredSourceVisibleLabelCount": 51,
+  "coverageStatus": "pending_only_before_repair",
+  "legacyFixtureRejections": {
+    "unsupportedRoomIds": [
+      "room-01",
+      "space-07"
+    ],
+    "unsupportedStationIds": [
+      "station-provider-pharmacy"
+    ],
+    "maximumOldSimplifiedRoomCount": 8
+  },
+  "nonClaims": [
+    "Not exact CAD geometry.",
+    "Not measured walking truth.",
+    "Not clinical safety certification."
+  ]
+}

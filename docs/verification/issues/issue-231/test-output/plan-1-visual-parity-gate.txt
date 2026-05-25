@@ -1,0 +1,164 @@
+{
+  "issue": "231",
+  "status": "current_failure_allowed",
+  "mode": "allow-partial",
+  "planId": "default-er-layout-plan-1",
+  "sourceTruthValidation": {
+    "status": "passed",
+    "planId": "default-er-layout-plan-1",
+    "requiredVisibleObjects": 51,
+    "objectKindHistogram": {
+      "room": 23,
+      "zone": 1,
+      "nurse_station": 2,
+      "hallway": 6,
+      "door_or_access": 18,
+      "annotation": 1
+    },
+    "coverageStatusHistogram": {
+      "pending": 51
+    },
+    "minimumExpectedCounts": {
+      "rooms": 23,
+      "nurseStations": 2,
+      "providerPharmacyZones": 1,
+      "hallways": 6,
+      "doorsOrAccessPoints": 18
+    },
+    "legacyFixtureRejections": {
+      "unsupportedRoomIds": [
+        "room-01",
+        "space-07"
+      ],
+      "unsupportedStationIds": [
+        "station-provider-pharmacy"
+      ],
+      "maximumOldSimplifiedRoomCount": 8
+    },
+    "nonClaims": [
+      "Not exact CAD geometry.",
+      "Not measured walking truth.",
+      "Not clinical safety certification."
+    ]
+  },
+  "currentCounts": {
+    "rooms": 8,
+    "nurseStations": 2,
+    "zones": 13,
+    "hallways": 2,
+    "doors": 8
+  },
+  "minimumCountFailures": [
+    {
+      "category": "rooms",
+      "minimum": 23,
+      "observed": 8,
+      "shortfall": 15
+    },
+    {
+      "category": "hallways",
+      "minimum": 6,
+      "observed": 2,
+      "shortfall": 4
+    },
+    {
+      "category": "doorsOrAccessPoints",
+      "minimum": 18,
+      "observed": 8,
+      "shortfall": 10
+    }
+  ],
+  "missingRequiredObjectCount": 43,
+  "unsupportedLegacyLabels": [
+    {
+      "objectKind": "room",
+      "objectId": "room-01",
+      "label": "Room 01",
+      "roomNumber": "01",
+      "note": "legacy source object retained in current fixture"
+    },
+    {
+      "objectKind": "room",
+      "objectId": "space-07",
+      "label": "Space 07",
+      "roomNumber": "07",
+      "note": "legacy source object retained in current fixture"
+    },
+    {
+      "objectKind": "nurse_station",
+      "objectId": "station-provider-pharmacy",
+      "label": "Provider Pharmacy Work Area",
+      "roomNumber": null,
+      "note": "legacy source object retained in current fixture"
+    }
+  ],
+  "legacyFixtureRejectionSummary": {
+    "legacyRoomIdsPresent": [
+      "room-01",
+      "space-07"
+    ],
+    "legacyStationIdsPresent": [
+      "station-provider-pharmacy"
+    ],
+    "oldSimplifiedRoomCountFailure": true
+  },
+  "failureCount": 51,
+  "failures": [
+    "MINIMUM_COUNT_rooms: observed 8, required 23",
+    "MINIMUM_COUNT_hallways: observed 2, required 6",
+    "MINIMUM_COUNT_doorsOrAccessPoints: observed 8, required 18",
+    "MISSING_room: 7 -> room-07",
+    "MISSING_room: 8 -> room-08",
+    "MISSING_room: 9 -> room-09",
+    "MISSING_room: 10 -> room-10",
+    "MISSING_room: 11 -> room-11",
+    "MISSING_room: 12 -> room-12",
+    "MISSING_room: 13 -> room-13",
+    "MISSING_room: 14 -> room-14",
+    "MISSING_room: 15 -> room-15",
+    "MISSING_room: 16 -> room-16",
+    "MISSING_room: 17 -> room-17",
+    "MISSING_room: 19 -> room-19",
+    "MISSING_room: 20 -> room-20",
+    "MISSING_room: 21 -> room-21",
+    "MISSING_room: 22 -> room-22",
+    "MISSING_room: 23 -> room-23",
+    "MISSING_room: 24 -> room-24",
+    "MISSING_nurse_station: Left nurse station -> station-left",
+    "MISSING_nurse_station: Right nurse station -> station-right",
+    "MISSING_hallway: Top horizontal hallway -> hallway-top-horizontal",
+    "MISSING_hallway: Left vertical hallway -> hallway-left-vertical",
+    "MISSING_hallway: Bottom horizontal hallway -> hallway-bottom-horizontal",
+    "MISSING_hallway: Right vertical hallway -> hallway-right-vertical",
+    "MISSING_hallway: Right upper hallway -> hallway-right-upper",
+    "MISSING_door_or_access: Door/Access 01 -> door-01",
+    "MISSING_door_or_access: Door/Access 02 -> door-02",
+    "MISSING_door_or_access: Door/Access 03 -> door-03",
+    "MISSING_door_or_access: Door/Access 04 -> door-04",
+    "MISSING_door_or_access: Door/Access 05 -> door-05",
+    "MISSING_door_or_access: Door/Access 06 -> door-06",
+    "MISSING_door_or_access: Door/Access 07 -> door-07",
+    "MISSING_door_or_access: Door/Access 08 -> door-08",
+    "MISSING_door_or_access: Door/Access 09 -> door-09",
+    "MISSING_door_or_access: Door/Access 10 -> door-10",
+    "MISSING_door_or_access: Door/Access 11 -> door-11",
+    "MISSING_door_or_access: Door/Access 12 -> door-12",
+    "MISSING_door_or_access: Door/Access 13 -> door-13",
+    "MISSING_door_or_access: Door/Access 14 -> door-14",
+    "MISSING_door_or_access: Door/Access 15 -> door-15",
+    "MISSING_door_or_access: Door/Access 16 -> door-16",
+    "MISSING_door_or_access: Door/Access 17 -> door-17",
+    "MISSING_door_or_access: Door/Access 18 -> door-18",
+    "MISSING_annotation: Grey unlabeled blocks -> null",
+    "NURSE_STATION: Provider/pharmacy station is mixed into visible nurse station count",
+    "LEGACY_ROOM_PRESENT: room-01",
+    "LEGACY_ROOM_PRESENT: space-07",
+    "LEGACY_STATION_PRESENT: station-provider-pharmacy",
+    "OLD_SIMPLIFIED_ROOM_COUNT: observed 8, threshold 8"
+  ],
+  "nonClaims": [
+    "Not exact CAD geometry.",
+    "Not measured walking truth.",
+    "Not clinical safety certification."
+  ]
+}

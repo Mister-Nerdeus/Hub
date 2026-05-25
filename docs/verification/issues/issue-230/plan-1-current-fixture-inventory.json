@@ -1,0 +1,235 @@
+{
+  "issue": "230",
+  "planId": "default-er-layout-plan-1",
+  "auditMinimumCounts": {
+    "rooms": 8,
+    "nurseStations": 2,
+    "zones": 13,
+    "hallways": 2,
+    "doors": 8
+  },
+  "inventory": {
+    "planId": "default-er-layout-plan-1",
+    "createdAt": "2026-05-24T00:00:00Z",
+    "rooms": [
+      {
+        "id": "room-level-1-trauma",
+        "label": "Level 1 Trauma",
+        "roomNumber": null,
+        "zoneId": "zone-level-1-trauma",
+        "pathNodeId": "node-door-level-1-trauma",
+        "doorId": "door-room-level-1-trauma"
+      },
+      {
+        "id": "room-01",
+        "label": "Room 01",
+        "roomNumber": "01",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-01",
+        "doorId": "door-room-01"
+      },
+      {
+        "id": "room-02",
+        "label": "Room 02",
+        "roomNumber": "02",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-02",
+        "doorId": "door-room-02"
+      },
+      {
+        "id": "room-03",
+        "label": "Room 03",
+        "roomNumber": "03",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-03",
+        "doorId": "door-room-03"
+      },
+      {
+        "id": "room-04",
+        "label": "Room 04",
+        "roomNumber": "04",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-04",
+        "doorId": "door-room-04"
+      },
+      {
+        "id": "room-05",
+        "label": "Room 05",
+        "roomNumber": "05",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-05",
+        "doorId": "door-room-05"
+      },
+      {
+        "id": "room-06",
+        "label": "Room 06",
+        "roomNumber": "06",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-room-06",
+        "doorId": "door-room-06"
+      },
+      {
+        "id": "space-07",
+        "label": "Space 07",
+        "roomNumber": "07",
+        "zoneId": "zone-numbered-room-bank",
+        "pathNodeId": "node-door-space-07",
+        "doorId": "space-07"
+      }
+    ],
+    "nurseStations": [
+      {
+        "id": "station-primary",
+        "label": "Primary Nurse Station",
+        "stationType": "primary",
+        "pathNodeId": "node-station-primary"
+      },
+      {
+        "id": "station-provider-pharmacy",
+        "label": "Provider Pharmacy Work Area",
+        "stationType": "secondary",
+        "pathNodeId": "node-station-provider-pharmacy"
+      }
+    ],
+    "zones": [
+      {
+        "id": "zone-level-1-trauma",
+        "label": "Level 1 Trauma Zone",
+        "zoneType": "trauma_zone"
+      },
+      {
+        "id": "region-left-upper-pod-trauma-2-5-14",
+        "label": "Left-upper pod 2-5-14 scaffold",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "region-left-side-rooms-15-16",
+        "label": "Left-side rooms 15-16 scaffold",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "region-right-upper-pod-6-10-13",
+        "label": "Right-upper pod 6-10-13 scaffold",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "region-right-side-rooms-11-12",
+        "label": "Right-side rooms 11-12 scaffold",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "region-provider-pharmacy",
+        "label": "Provider/pharmacy scaffold",
+        "zoneType": "pharmacy"
+      },
+      {
+        "id": "region-bottom-rooms-19-24",
+        "label": "Bottom rooms 19-24 scaffold",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "region-hallway-network",
+        "label": "Hallway network scaffold",
+        "zoneType": "hallway"
+      },
+      {
+        "id": "region-ems-entry",
+        "label": "EMS entry scaffold",
+        "zoneType": "ems_entry"
+      },
+      {
+        "id": "zone-hall-ems-entry",
+        "label": "Hall EMS Entry Zone",
+        "zoneType": "ems_entry"
+      },
+      {
+        "id": "zone-numbered-room-bank",
+        "label": "Numbered Room Bank",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-provider-pharmacy",
+        "label": "Provider Pharmacy Area",
+        "zoneType": "pharmacy"
+      },
+      {
+        "id": "zone-nurse-station-core",
+        "label": "Nurse Station Core",
+        "zoneType": "staff_only"
+      }
+    ],
+    "hallways": [
+      {
+        "id": "hallway-main",
+        "label": "Main Hall",
+        "widthFeet": 10
+      },
+      {
+        "id": "hallway-ems-entry",
+        "label": "Hall EMS Entry",
+        "widthFeet": 12
+      }
+    ],
+    "doors": [
+      {
+        "id": "door-level-1-trauma",
+        "label": "Door Level 1 Trauma",
+        "roomId": "room-level-1-trauma",
+        "pathNodeId": "node-door-level-1-trauma"
+      },
+      {
+        "id": "door-room-01",
+        "label": "Door Room 01",
+        "roomId": "room-01",
+        "pathNodeId": "node-door-room-01"
+      },
+      {
+        "id": "door-room-02",
+        "label": "Door Room 02",
+        "roomId": "room-02",
+        "pathNodeId": "node-door-room-02"
+      },
+      {
+        "id": "door-room-03",
+        "label": "Door Room 03",
+        "roomId": "room-03",
+        "pathNodeId": "node-door-room-03"
+      },
+      {
+        "id": "door-room-04",
+        "label": "Door Room 04",
+        "roomId": "room-04",
+        "pathNodeId": "node-door-room-04"
+      },
+      {
+        "id": "door-room-05",
+        "label": "Door Room 05",
+        "roomId": "room-05",
+        "pathNodeId": "node-door-room-05"
+      },
+      {
+        "id": "door-room-06",
+        "label": "Door Room 06",
+        "roomId": "room-06",
+        "pathNodeId": "node-door-room-06"
+      },
+      {
+        "id": "door-space-07",
+        "label": "Door Space 07",
+        "roomId": "space-07",
+        "pathNodeId": "node-door-space-07"
+      }
+    ],
+    "pathNodes": {
+      "total": 15,
+      "entries": 1,
+      "stationNodes": 2,
+      "hallwayNodes": 4,
+      "roomDoorNodes": 8
+    },
+    "pathEdges": {
+      "total": 14,
+      "blocked": 0
+    }
+  }
+}

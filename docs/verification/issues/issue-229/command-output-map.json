@@ -1,0 +1,24 @@
+{
+  "issue": "229",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test | Tee-Object -FilePath docs/verification/issues/issue-229/test-output/shared.txt",
+      "outputs": ["docs/verification/issues/issue-229/test-output/shared.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs | Tee-Object -FilePath docs/verification/issues/issue-229/test-output/no-phi.txt",
+      "outputs": ["docs/verification/issues/issue-229/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs | Tee-Object -FilePath docs/verification/issues/issue-229/test-output/docs-gate.txt",
+      "outputs": ["docs/verification/issues/issue-229/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --allow-current-failure --issue 229 | Tee-Object -FilePath docs/verification/issues/issue-229/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-229/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-229/plan-1-legacy-fixture-rejection-output.json"
+      ]
+    }
+  ]
+}

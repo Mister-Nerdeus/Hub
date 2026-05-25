@@ -1,0 +1,36 @@
+{
+  "issue": "229",
+  "status": "passed",
+  "planId": "default-er-layout-plan-1",
+  "sourceReference": "private-visual-reference-plan-1",
+  "requiredVisibleObjects": 51,
+  "coverageStatusHistogram": {
+    "pending": 51
+  },
+  "objectKindHistogram": {
+    "room": 23,
+    "zone": 1,
+    "nurse_station": 2,
+    "hallway": 6,
+    "door_or_access": 18,
+    "annotation": 1
+  },
+  "minimumExpectedCounts": {
+    "rooms": 23,
+    "nurseStations": 2,
+    "providerPharmacyZones": 1,
+    "hallways": 6,
+    "doorsOrAccessPoints": 18
+  },
+  "legacyFixtureRejections": {
+    "unsupportedRoomIds": [
+      "room-01",
+      "space-07"
+    ],
+    "unsupportedStationIds": [
+      "station-provider-pharmacy"
+    ],
+    "maximumOldSimplifiedRoomCount": 8
+  },
+  "objectCount": 51
+}

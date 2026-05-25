@@ -1887,6 +1887,82 @@
         "docs/verification/issues/issue-228/test-output/web-build.txt",
         "docs/verification/issues/issue-228/test-output/docs-gate.txt"
       ]
+    },
+    {
+      "issue": "229",
+      "title": "Plan 1 Source Truth Contract and Visual Parity Gate",
+      "requiredEvidence": [
+        "docs/contracts/plan-1-visual-parity-contract.md",
+        "docs/project/plan-1-visual-parity-status.md",
+        "docs/verification/issues/issue-229/closeout.md",
+        "docs/verification/issues/issue-229/command-output-map.json",
+        "docs/verification/issues/issue-229/commands.txt",
+        "docs/verification/issues/issue-229/first-failure.txt",
+        "docs/verification/issues/issue-229/plan-1-source-truth-contract-output.json",
+        "docs/verification/issues/issue-229/plan-1-source-truth-validation-output.json",
+        "docs/verification/issues/issue-229/plan-1-current-object-counts.json",
+        "docs/verification/issues/issue-229/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-229/plan-1-required-visible-labels.md",
+        "docs/verification/issues/issue-229/known-gaps.md",
+        "docs/verification/issues/issue-229/follow-up-issues.md",
+        "docs/verification/issues/issue-229/test-output/shared.txt",
+        "docs/verification/issues/issue-229/test-output/no-phi.txt",
+        "docs/verification/issues/issue-229/test-output/docs-gate.txt",
+        "packages/shared/fixtures/default-plans/visual-parity/plan-1-source-truth.json",
+        "packages/shared/src/default-plans/planVisualParitySourceTruth.ts",
+        "scripts/check-plan-1-visual-parity.mjs",
+        "docs/verification/issues/issue-229/plan-1-legacy-fixture-rejection-output.json",
+        "docs/verification/issues/issue-229/test-output/plan-1-visual-parity-gate.txt"
+      ]
+    },
+    {
+      "issue": "230",
+      "title": "Plan 1 Current Fixture Gap Report",
+      "requiredEvidence": [
+        "docs/project/plan-1-visual-parity-status.md",
+        "docs/verification/issues/issue-230/closeout.md",
+        "docs/verification/issues/issue-230/command-output-map.json",
+        "docs/verification/issues/issue-230/commands.txt",
+        "docs/verification/issues/issue-230/first-failure.txt",
+        "docs/verification/issues/issue-230/plan-1-source-visible-inventory.json",
+        "docs/verification/issues/issue-230/plan-1-current-fixture-inventory.json",
+        "docs/verification/issues/issue-230/plan-1-missing-object-report.json",
+        "docs/verification/issues/issue-230/plan-1-extra-object-report.json",
+        "docs/verification/issues/issue-230/plan-1-mismatched-object-report.json",
+        "docs/verification/issues/issue-230/plan-1-minimum-count-failure-output.json",
+        "docs/verification/issues/issue-230/plan-1-provider-pharmacy-failure-output.json",
+        "docs/verification/issues/issue-230/plan-1-nurse-station-failure-output.json",
+        "docs/verification/issues/issue-230/plan-1-legacy-label-failure-output.json",
+        "docs/verification/issues/issue-230/plan-1-legacy-fixture-rejection-output.json",
+        "docs/verification/issues/issue-230/plan-1-gap-report.md",
+        "docs/verification/issues/issue-230/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-230/test-output/shared.txt",
+        "docs/verification/issues/issue-230/test-output/no-phi.txt",
+        "docs/verification/issues/issue-230/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-230/test-output/plan-1-visual-parity-gate.txt"
+      ]
+    },
+    {
+      "issue": "231",
+      "title": "Plan 1 Coordinate Frame and Layout Scaffold",
+      "requiredEvidence": [
+        "docs/project/plan-1-visual-parity-status.md",
+        "docs/verification/issues/issue-231/closeout.md",
+        "docs/verification/issues/issue-231/command-output-map.json",
+        "docs/verification/issues/issue-231/commands.txt",
+        "docs/verification/issues/issue-231/first-failure.txt",
+        "docs/verification/issues/issue-231/plan-1-coordinate-frame-output.json",
+        "docs/verification/issues/issue-231/plan-1-scaffold-region-output.json",
+        "docs/verification/issues/issue-231/plan-1-before-object-counts.json",
+        "docs/verification/issues/issue-231/plan-1-after-scaffold-counts.json",
+        "docs/verification/issues/issue-231/plan-1-partial-parity-gate-output.json",
+        "docs/verification/issues/issue-231/plan-1-legacy-fixture-rejection-output.json",
+        "docs/verification/issues/issue-231/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-231/test-output/shared.txt",
+        "docs/verification/issues/issue-231/test-output/no-phi.txt",
+        "docs/verification/issues/issue-231/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-231/test-output/plan-1-visual-parity-gate.txt"
+      ]
     }
   ]
 }
