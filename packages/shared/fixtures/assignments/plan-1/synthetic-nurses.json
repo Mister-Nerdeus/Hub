@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "planId": "default-er-layout-plan-1",
+  "nurses": [
+    {
+      "nurseId": "nurse-blue",
+      "displayName": "Nurse Blue",
+      "color": "#2563eb",
+      "role": "primary",
+      "homeStationId": "station-left",
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "traumaQualified": true,
+      "chargeQualified": false,
+      "triageQualified": false,
+      "behavioralHealthComfort": true,
+      "walkingSpeedFeetPerMinute": 250,
+      "syntheticDataOnly": true
+    },
+    {
+      "nurseId": "nurse-green",
+      "displayName": "Nurse Green",
+      "color": "#059669",
+      "role": "primary",
+      "homeStationId": "station-left",
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "triageQualified": false,
+      "behavioralHealthComfort": true,
+      "walkingSpeedFeetPerMinute": 250,
+      "syntheticDataOnly": true
+    },
+    {
+      "nurseId": "nurse-orange",
+      "displayName": "Nurse Orange",
+      "color": "#ea580c",
+      "role": "primary",
+      "homeStationId": "station-right",
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "traumaQualified": false,
+      "chargeQualified": false,
+      "triageQualified": false,
+      "behavioralHealthComfort": false,
+      "walkingSpeedFeetPerMinute": 250,
+      "syntheticDataOnly": true
+    },
+    {
+      "nurseId": "nurse-purple",
+      "displayName": "Nurse Purple",
+      "color": "#7c3aed",
+      "role": "charge",
+      "homeStationId": "station-right",
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "traumaQualified": true,
+      "chargeQualified": true,
+      "triageQualified": true,
+      "behavioralHealthComfort": true,
+      "walkingSpeedFeetPerMinute": 250,
+      "syntheticDataOnly": true
+    }
+  ]
+}

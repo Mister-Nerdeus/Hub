@@ -1,0 +1,126 @@
+{
+  "nurseScores": [
+    {
+      "nurseId": "nurse-blue",
+      "assignedOccupiedRoomCount": 3,
+      "acuityLoadPoints": 16,
+      "traumaLoadPoints": 8,
+      "isolationLoadPoints": 0,
+      "behavioralRiskPoints": 0,
+      "sitterLoadPoints": 0,
+      "fallRiskPoints": 0,
+      "medicationBurdenPoints": 7,
+      "procedureBurdenPoints": 5,
+      "turnoverBurdenPoints": 0,
+      "walkingDistancePoints": 5.05,
+      "walkingTimePoints": 0.562,
+      "warningPenaltyPoints": 0,
+      "totalBurdenScore": 56.612,
+      "limitations": [
+        "Operational comparison score only.",
+        "Room count alone does not determine score.",
+        "No staffing safety, legal compliance, or patient outcome claim is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-green",
+      "assignedOccupiedRoomCount": 3,
+      "acuityLoadPoints": 9,
+      "traumaLoadPoints": 0,
+      "isolationLoadPoints": 0,
+      "behavioralRiskPoints": 0,
+      "sitterLoadPoints": 0,
+      "fallRiskPoints": 0,
+      "medicationBurdenPoints": 3,
+      "procedureBurdenPoints": 0,
+      "turnoverBurdenPoints": 3,
+      "walkingDistancePoints": 6.9,
+      "walkingTimePoints": 0.695,
+      "warningPenaltyPoints": 0,
+      "totalBurdenScore": 37.595,
+      "limitations": [
+        "Operational comparison score only.",
+        "Room count alone does not determine score.",
+        "No staffing safety, legal compliance, or patient outcome claim is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-orange",
+      "assignedOccupiedRoomCount": 4,
+      "acuityLoadPoints": 15,
+      "traumaLoadPoints": 0,
+      "isolationLoadPoints": 0,
+      "behavioralRiskPoints": 0,
+      "sitterLoadPoints": 0,
+      "fallRiskPoints": 2,
+      "medicationBurdenPoints": 6,
+      "procedureBurdenPoints": 3,
+      "turnoverBurdenPoints": 3,
+      "walkingDistancePoints": 10,
+      "walkingTimePoints": 1.002,
+      "warningPenaltyPoints": 1,
+      "totalBurdenScore": 61.002,
+      "limitations": [
+        "Operational comparison score only.",
+        "Room count alone does not determine score.",
+        "No staffing safety, legal compliance, or patient outcome claim is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-purple",
+      "assignedOccupiedRoomCount": 4,
+      "acuityLoadPoints": 15,
+      "traumaLoadPoints": 0,
+      "isolationLoadPoints": 4,
+      "behavioralRiskPoints": 4,
+      "sitterLoadPoints": 5,
+      "fallRiskPoints": 2,
+      "medicationBurdenPoints": 6,
+      "procedureBurdenPoints": 3,
+      "turnoverBurdenPoints": 3,
+      "walkingDistancePoints": 11.95,
+      "walkingTimePoints": 1.157,
+      "warningPenaltyPoints": 1,
+      "totalBurdenScore": 76.107,
+      "limitations": [
+        "Operational comparison score only.",
+        "Room count alone does not determine score.",
+        "No staffing safety, legal compliance, or patient outcome claim is implied."
+      ]
+    }
+  ],
+  "totalBurdenScore": 231.316,
+  "assumptions": {
+    "occupiedRoom": 5,
+    "acuity": {
+      "low": 1,
+      "medium": 3,
+      "high": 6,
+      "critical": 10
+    },
+    "trauma": 8,
+    "isolation": 4,
+    "behavioralRisk": 4,
+    "sitter": 5,
+    "fallRisk": 2,
+    "burden": {
+      "none": 0,
+      "low": 1,
+      "medium": 3,
+      "high": 5
+    },
+    "turnover": 3,
+    "walkingDistanceDivisorFeet": 40,
+    "walkingTimeDivisorSeconds": 120,
+    "warningPenalty": {
+      "info": 1,
+      "warning": 5,
+      "blocking": 10
+    }
+  },
+  "limitations": [
+    "Operational comparison score only.",
+    "Room count alone does not determine score.",
+    "No staffing safety, legal compliance, or patient outcome claim is implied."
+  ]
+}

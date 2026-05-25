@@ -1,0 +1,10 @@
+{
+  "code": "STALE_PATH_SYNC",
+  "severity": "blocking",
+  "summary": "Edited geometry preserved source doors, path nodes, and path edges; walking-aware assignment routing requires path sync review before use.",
+  "deferredSync": {
+    "doors": "preserved_from_source_plan",
+    "pathNodes": "preserved_from_source_plan",
+    "pathEdges": "preserved_from_source_plan"
+  }
+}

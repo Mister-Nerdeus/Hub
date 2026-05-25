@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "planId": "default-er-layout-plan-1",
+  "roomCount": 23,
+  "nurseStationCount": 2,
+  "pathGraphConnected": true,
+  "walkingBaselineUnreachableRouteCount": 0,
+  "room17AssignmentClass": "assignment_patient_care",
+  "providerPharmacySupportClassified": true,
+  "scaffoldZonesNonAssignment": true,
+  "stalePathSyncWarning": {
+    "code": "STALE_PATH_SYNC",
+    "severity": "blocking",
+    "summary": "Edited geometry preserved source doors, path nodes, and path edges; walking-aware assignment routing requires path sync review before use.",
+    "deferredSync": {
+      "doors": "preserved_from_source_plan",
+      "pathNodes": "preserved_from_source_plan",
+      "pathEdges": "preserved_from_source_plan"
+    }
+  },
+  "oldSimplifiedPlanLabelsRemaining": [],
+  "failures": []
+}

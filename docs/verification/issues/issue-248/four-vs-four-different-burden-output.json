@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "light4": {
+    "fixtureId": "fixture-plan-1-light-4-to-1",
+    "label": "light 4 to 1",
+    "nurseCount": 4,
+    "assignedRoomCount": 4,
+    "occupiedRoomCount": 4,
+    "totalBurdenScore": 33.842,
+    "highestNurseBurdenScore": 33.842,
+    "lowestNurseBurdenScore": 0,
+    "walkingTotalFeet": 320,
+    "warningCodes": [
+      "NURSE_OVER_TARGET_RATIO"
+    ],
+    "limitations": [
+      "Operational comparison score only.",
+      "Room count alone does not determine score.",
+      "No staffing safety, legal compliance, or patient outcome claim is implied."
+    ]
+  },
+  "heavy4": {
+    "fixtureId": "fixture-plan-1-heavy-4-to-1",
+    "label": "heavy 4 to 1",
+    "nurseCount": 4,
+    "assignedRoomCount": 4,
+    "occupiedRoomCount": 4,
+    "totalBurdenScore": 106.883,
+    "highestNurseBurdenScore": 106.883,
+    "lowestNurseBurdenScore": 0,
+    "walkingTotalFeet": 506,
+    "warningCodes": [
+      "NURSE_OVER_TARGET_RATIO"
+    ],
+    "limitations": [
+      "Operational comparison score only.",
+      "Room count alone does not determine score.",
+      "No staffing safety, legal compliance, or patient outcome claim is implied."
+    ]
+  }
+}

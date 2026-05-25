@@ -1,0 +1,84 @@
+{
+  "issue": "245",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-245/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *> docs/verification/issues/issue-245/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build *> docs/verification/issues/issue-245/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-245/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 245 *> docs/verification/issues/issue-245/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-245/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 245 *> docs/verification/issues/issue-245/test-output/plans-2-through-5-unchanged.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-245/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage validation --allow-partial --issue 245 *> docs/verification/issues/issue-245/test-output/plan-1-assignment-workflow-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/plan-1-assignment-workflow-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *> $env:TEMP\\docs-gate-issue-245.txt; Copy-Item $env:TEMP\\docs-gate-issue-245.txt docs/verification/issues/issue-245/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-245/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-245/assignment-validation-output.json",
+    "docs/verification/issues/issue-245/assignment-walking-preview-output.json",
+    "docs/verification/issues/issue-245/burden-score-breakdown-output.json",
+    "docs/verification/issues/issue-245/burden-score-contract-output.json",
+    "docs/verification/issues/issue-245/closeout.md",
+    "docs/verification/issues/issue-245/command-output-map.json",
+    "docs/verification/issues/issue-245/commands.txt",
+    "docs/verification/issues/issue-245/comparison-fixture-output.json",
+    "docs/verification/issues/issue-245/first-failure.txt",
+    "docs/verification/issues/issue-245/manual-assignment-contract-output.json",
+    "docs/verification/issues/issue-245/nurse-assignment-summary-output.json",
+    "docs/verification/issues/issue-245/nurse-profile-contract-output.json",
+    "docs/verification/issues/issue-245/nurse-profile-defaults-output.json",
+    "docs/verification/issues/issue-245/plan-1-assignment-readiness-output.json",
+    "docs/verification/issues/issue-245/plan-1-legacy-fixture-rejection-output.json",
+    "docs/verification/issues/issue-245/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-245/room-17-zone-semantics-output.json",
+    "docs/verification/issues/issue-245/room-load-contract-output.json",
+    "docs/verification/issues/issue-245/room-load-defaults-output.json",
+    "docs/verification/issues/issue-245/scaffold-zone-classification-output.json",
+    "docs/verification/issues/issue-245/stale-path-sync-warning-output.json",
+    "docs/verification/issues/issue-245/station-reference-validation-output.json",
+    "docs/verification/issues/issue-245/validation-nonmutation-output.json",
+    "docs/verification/issues/issue-245/validation-panel-output.json",
+    "docs/verification/issues/issue-245/visual-parity-still-passes-output.json",
+    "docs/verification/issues/issue-245/warning-code-coverage-output.json",
+    "docs/verification/issues/issue-245/warning-severity-output.json"
+  ]
+}

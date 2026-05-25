@@ -1,0 +1,8 @@
+npm --workspace packages/shared test *> docs/verification/issues/issue-245/test-output/shared.txt
+npm --workspace apps/web test *> docs/verification/issues/issue-245/test-output/web.txt
+npm --workspace apps/web run build *> docs/verification/issues/issue-245/test-output/web-build.txt
+node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-245/test-output/no-phi.txt
+node scripts/check-plan-1-visual-parity.mjs --stage final --issue 245 *> docs/verification/issues/issue-245/test-output/plan-1-visual-parity-gate.txt
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 245 *> docs/verification/issues/issue-245/test-output/plans-2-through-5-unchanged.txt
+node scripts/check-plan-1-assignment-workflow.mjs --stage validation --allow-partial --issue 245 *> docs/verification/issues/issue-245/test-output/plan-1-assignment-workflow-gate.txt
+node scripts/check-docs-contracts.mjs *> $env:TEMP\docs-gate-issue-245.txt; Copy-Item $env:TEMP\docs-gate-issue-245.txt docs/verification/issues/issue-245/test-output/docs-gate.txt

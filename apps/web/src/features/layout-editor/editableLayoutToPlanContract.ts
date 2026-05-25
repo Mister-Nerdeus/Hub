@@ -1,4 +1,10 @@
-import { validatePlanContract, type EditableLayoutGeometryContract, type PlanContract } from "@nerdeus/shared";
+import {
+  makeStalePathSyncWarning,
+  validatePlanContract,
+  type EditableLayoutGeometryContract,
+  type PlanContract,
+  type Plan1StalePathSyncWarning
+} from "@nerdeus/shared";
 
 export type EditableLayoutToPlanContractInput = {
   sourcePlan: PlanContract;
@@ -12,6 +18,7 @@ export type EditableLayoutToPlanContractResult = {
     pathNodes: "preserved_from_source_plan";
     pathEdges: "preserved_from_source_plan";
   };
+  routingWarning: Plan1StalePathSyncWarning;
 };
 
 export function editableLayoutToPlanContract({
@@ -72,7 +79,8 @@ export function editableLayoutToPlanContract({
       doors: "preserved_from_source_plan",
       pathNodes: "preserved_from_source_plan",
       pathEdges: "preserved_from_source_plan"
-    }
+    },
+    routingWarning: makeStalePathSyncWarning()
   };
 }
 

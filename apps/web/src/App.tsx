@@ -23,6 +23,7 @@ import {
   type AppSectionId
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
+import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
 
 import "./styles.css";
 
@@ -118,7 +119,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "assignments" ? (
         <section className="workflow-section" aria-labelledby="assignments-title">
           <h2 id="assignments-title">Assignments</h2>
-          <p className="workflow-section__placeholder">Assignment tooling will be added in the next phase.</p>
+          <AssignmentWorkflow activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
         </section>
       ) : null}
 

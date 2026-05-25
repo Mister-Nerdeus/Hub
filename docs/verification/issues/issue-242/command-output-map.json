@@ -1,0 +1,84 @@
+{
+  "issue": "242",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-242/test-output/shared.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test *> docs/verification/issues/issue-242/test-output/web.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build *> docs/verification/issues/issue-242/test-output/web-build.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-242/test-output/no-phi.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 242 *> docs/verification/issues/issue-242/test-output/plan-1-visual-parity-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/plan-1-visual-parity-gate.txt",
+        "docs/verification/issues/issue-242/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 242 *> docs/verification/issues/issue-242/test-output/plans-2-through-5-unchanged.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-242/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage nurse-profiles --allow-partial --issue 242 *> docs/verification/issues/issue-242/test-output/plan-1-assignment-workflow-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/plan-1-assignment-workflow-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs *> $env:TEMP\\docs-gate-issue-242.txt; Copy-Item $env:TEMP\\docs-gate-issue-242.txt docs/verification/issues/issue-242/test-output/docs-gate.txt",
+      "outputs": [
+        "docs/verification/issues/issue-242/test-output/docs-gate.txt"
+      ]
+    }
+  ],
+  "evidenceBundle": [
+    "docs/verification/issues/issue-242/assignment-validation-output.json",
+    "docs/verification/issues/issue-242/assignment-walking-preview-output.json",
+    "docs/verification/issues/issue-242/burden-score-breakdown-output.json",
+    "docs/verification/issues/issue-242/burden-score-contract-output.json",
+    "docs/verification/issues/issue-242/closeout.md",
+    "docs/verification/issues/issue-242/command-output-map.json",
+    "docs/verification/issues/issue-242/commands.txt",
+    "docs/verification/issues/issue-242/comparison-fixture-output.json",
+    "docs/verification/issues/issue-242/first-failure.txt",
+    "docs/verification/issues/issue-242/manual-assignment-contract-output.json",
+    "docs/verification/issues/issue-242/nurse-assignment-summary-output.json",
+    "docs/verification/issues/issue-242/nurse-profile-contract-output.json",
+    "docs/verification/issues/issue-242/nurse-profile-defaults-output.json",
+    "docs/verification/issues/issue-242/nurse-profile-ui-output.json",
+    "docs/verification/issues/issue-242/plan-1-assignment-readiness-output.json",
+    "docs/verification/issues/issue-242/plan-1-legacy-fixture-rejection-output.json",
+    "docs/verification/issues/issue-242/plans-2-through-5-unchanged-output.json",
+    "docs/verification/issues/issue-242/room-17-zone-semantics-output.json",
+    "docs/verification/issues/issue-242/room-load-contract-output.json",
+    "docs/verification/issues/issue-242/room-load-defaults-output.json",
+    "docs/verification/issues/issue-242/scaffold-zone-classification-output.json",
+    "docs/verification/issues/issue-242/stale-path-sync-warning-output.json",
+    "docs/verification/issues/issue-242/station-reference-validation-output.json",
+    "docs/verification/issues/issue-242/synthetic-only-negative-output.json",
+    "docs/verification/issues/issue-242/visual-parity-still-passes-output.json",
+    "docs/verification/issues/issue-242/warning-code-coverage-output.json",
+    "docs/verification/issues/issue-242/warning-severity-output.json"
+  ]
+}
