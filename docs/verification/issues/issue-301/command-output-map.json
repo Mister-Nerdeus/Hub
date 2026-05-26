@@ -61,15 +61,15 @@
     {
       "command": "node scripts/check-corrected-plan-review.mjs --stage preflight --allow-partial --issue 301",
       "outputs": [
-        "docs/verification/issues/issue-301/test-output/corrected-plan-review-gate.txt",
-        "docs/verification/issues/issue-301/corrected-plan-review-gate-output.json"
+        "docs/verification/issues/issue-301/test-output/corrected-plan-review-preflight-gate.txt",
+        "docs/verification/issues/issue-301/corrected-plan-review-preflight-output.json"
       ]
     },
     {
       "command": "node scripts/check-corrected-plan-review.mjs --stage protocol --allow-partial --issue 301",
       "outputs": [
-        "docs/verification/issues/issue-301/test-output/corrected-plan-review-gate.txt",
-        "docs/verification/issues/issue-301/corrected-plan-review-gate-output.json"
+        "docs/verification/issues/issue-301/test-output/corrected-plan-review-protocol-gate.txt",
+        "docs/verification/issues/issue-301/corrected-plan-review-protocol-output.json"
       ]
     }
   ]

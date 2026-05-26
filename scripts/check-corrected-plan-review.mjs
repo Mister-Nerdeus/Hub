@@ -71,13 +71,22 @@ let reviewManifest = null;
 if (reviewManifestRaw != null) {
   try {
     reviewManifest = validateCorrectedPlanReviewManifest(reviewManifestRaw);
+    if (
+      stage === "preflight" &&
+      !allowPartial &&
+      sourceManifest != null &&
+      hashFile(sourceCorrectionManifestPath) !== reviewManifest.sourceCorrectionManifestHash
+    ) {
+      failures.push("sourceCorrectionManifestHash must match the current source-correction manifest");
+    }
   } catch (error) {
     failures.push(`corrected plan review manifest failed validation: ${error.message}`);
   }
 }
 
 const sourceArtifacts = validateSourceArtifacts(sourceManifest, failures);
-const reviewArtifacts = validateReviewArtifacts(reviewManifest, failures);
+const requiredReviewPlanNumbers = requiredReviewPlanNumbersForStage(stage);
+const reviewArtifacts = validateReviewArtifacts(reviewManifest, requiredReviewPlanNumbers, failures);
 const defaultFixtureStatus = defaultFixtureNonmutationStatus();
 if (!defaultFixtureStatus.sourceFixturesRemainUnchanged) {
   failures.push("Plans 2-5 default source fixtures changed");
@@ -165,12 +174,23 @@ function validateSourceArtifacts(manifest, failureList) {
   return result;
 }
 
-function validateReviewArtifacts(manifest, failureList) {
+function validateReviewArtifacts(manifest, requiredPlanNumbers, failureList) {
   const result = [];
   if (manifest == null) {
     return result;
   }
-  for (const entry of manifest.reviewedPlans) {
+  const requiredPlanIds = new Set(requiredPlanNumbers.map((planNumber) => `plan-${planNumber}`));
+  const entries = requiredPlanIds.size === 0
+    ? []
+    : manifest.reviewedPlans.filter((entry) => requiredPlanIds.has(entry.planId));
+  if (requiredPlanIds.size > 0 && entries.length !== requiredPlanIds.size) {
+    for (const planId of requiredPlanIds) {
+      if (!manifest.reviewedPlans.some((entry) => entry.planId === planId)) {
+        failureList.push(`corrected plan review manifest missing ${planId}`);
+      }
+    }
+  }
+  for (const entry of entries) {
     for (const path of [
       entry.correctedSavedCopyPath,
       entry.correctionAuditPath,
@@ -230,6 +250,12 @@ function validateRenderedEvidence(manifest, failureList) {
     if (hashFile(entry.renderedEvidencePath) !== entry.renderedEvidenceHash) {
       failureList.push(`${entry.planId} rendered evidence hash mismatch`);
     }
+    if (metadata.sourceSavedCopyHash !== hashFile(entry.correctedSavedCopyPath)) {
+      failureList.push(`${entry.planId} render metadata source saved-copy hash mismatch`);
+    }
+    if (metadata.renderedEvidenceHash !== entry.renderedEvidenceHash) {
+      failureList.push(`${entry.planId} render metadata evidence hash mismatch`);
+    }
   }
 }
 
@@ -281,6 +307,11 @@ function validateReadinessMatrix(manifest, failureList) {
   const matrix = buildCorrectedPlanReadinessMatrix(manifest);
   if (matrix.length !== 4) {
     failureList.push("readiness matrix must include Plans 2-5");
+  }
+  for (const planId of ["plan-2", "plan-3", "plan-4", "plan-5"]) {
+    if (!matrix.some((entry) => entry.planId === planId)) {
+      failureList.push(`readiness matrix missing ${planId}`);
+    }
   }
   if (matrix.some((entry) => entry.promotionCandidateStatus.length === 0)) {
     failureList.push("readiness matrix entries require promotionCandidateStatus");
@@ -385,6 +416,19 @@ function writeIssueEvidence(issueNumber, output) {
   mkdirSync(join(issueDir, "test-output"), { recursive: true });
   writeJson(join(issueDir, "corrected-plan-review-gate-output.json"), output);
   writeJson(join(issueDir, "test-output/corrected-plan-review-gate.txt"), output);
+  writeJson(join(issueDir, `corrected-plan-review-${output.stage}-output.json`), output);
+  writeJson(join(issueDir, `test-output/corrected-plan-review-${output.stage}-gate.txt`), output);
+}
+
+function requiredReviewPlanNumbersForStage(stageName) {
+  if (stageName === "preflight" || stageName === "protocol") {
+    return [];
+  }
+  const planStageMatch = stageName.match(/^plan-(\d)-review$/u);
+  if (planStageMatch != null) {
+    return [Number(planStageMatch[1])];
+  }
+  return [2, 3, 4, 5];
 }
 
 function requireFile(path, failureList) {
