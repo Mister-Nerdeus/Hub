@@ -383,9 +383,16 @@ export function writeAuditArtifacts(result, auditIssueNumber) {
 function updateManifestForCorrection(result) {
   const manifestPath = resolve(repoRoot, "docs/verification/source-plan-correction-manifest.json");
   const manifest = validateSourcePlanCorrectionManifest(JSON.parse(readFileSync(manifestPath, "utf8")));
+  const existingEntry = manifest.planCorrections.find((entry) => entry.planId === result.planId);
+  const keepExistingAudit =
+    existingEntry != null &&
+    ["route_audit_ready", "manual_visual_review_ready", "blocked_needs_authoring_refinement", "simulation_export_ready"].includes(existingEntry.correctionStage);
+  if (keepExistingAudit) {
+    return;
+  }
   const updated = {
     ...manifest,
-    lastUpdatedIssue: String(result.issueNumber),
+    lastUpdatedIssue: maxIssue(manifest.lastUpdatedIssue, result.issueNumber),
     planCorrections: manifest.planCorrections.map((entry) =>
       entry.planId === result.planId
         ? {
@@ -438,7 +445,7 @@ function updateManifestForAudit(result, audit, auditIssueNumber) {
   const manifest = validateSourcePlanCorrectionManifest(JSON.parse(readFileSync(manifestPath, "utf8")));
   const updated = {
     ...manifest,
-    lastUpdatedIssue: String(auditIssueNumber),
+    lastUpdatedIssue: maxIssue(manifest.lastUpdatedIssue, auditIssueNumber),
     planCorrections: manifest.planCorrections.map((entry) =>
       entry.planId === result.planId
         ? {
@@ -631,4 +638,8 @@ function writeText(path, value) {
 
 function sha256(value) {
   return createHash("sha256").update(value).digest("hex");
+}
+
+function maxIssue(left, right) {
+  return String(Math.max(Number(left), Number(right)));
 }
