@@ -1,0 +1,69 @@
+{
+  "issue": "311",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-source-plan-correction.mjs --stage final --issue 311",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-311/source-plan-correction-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-review.mjs --stage final --issue 311",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/corrected-plan-review-gate.txt",
+        "docs/verification/issues/issue-311/corrected-plan-review-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-route-repair.mjs --stage verify-wiring --allow-partial --issue 311",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/corrected-plan-route-repair-gate.txt",
+        "docs/verification/issues/issue-311/corrected-plan-route-repair-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 311",
+      "outputs": [
+        "docs/verification/issues/issue-311/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-311/plans-2-through-5-unchanged-output.json"
+      ]
+    }
+  ]
+}

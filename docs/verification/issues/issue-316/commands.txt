@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-corrected-plan-route-repair.mjs --stage plan-4-route-export --allow-partial --issue 316
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 316

@@ -407,6 +407,7 @@ export type PathNode = {
   y: number;
   linkedObjectId?: string | null;
   entryOperationalMetadata?: EntryOperationalMetadata | null;
+  pathRepairMetadata?: PathRepairMetadata | null;
 };
 
 export type PathEdge = {
@@ -419,6 +420,15 @@ export type PathEdge = {
   doorPenaltySeconds: number;
   turnPenaltySeconds: number;
   blocked: boolean;
+  pathRepairMetadata?: PathRepairMetadata | null;
+};
+
+export type PathRepairMetadata = {
+  repairBatch: string;
+  repairIssue: string;
+  repairAction: "generated" | "repaired";
+  repairSource: "corrected_saved_copy";
+  repairRule: "door_node_rule" | "edge_rule";
 };
 
 export type PlanContract = {
@@ -3675,7 +3685,8 @@ function validatePathNode(value: unknown, index: number): PathNode {
     "x",
     "y",
     "linkedObjectId",
-    "entryOperationalMetadata"
+    "entryOperationalMetadata",
+    "pathRepairMetadata"
   ]);
   requireString(node.id, `pathNodes[${index}].id`);
   requireEnum(node.nodeType, PATH_NODE_TYPES, `pathNodes[${index}].nodeType`);
@@ -3685,6 +3696,10 @@ function validatePathNode(value: unknown, index: number): PathNode {
   validateOptionalEntryOperationalMetadata(
     node.entryOperationalMetadata,
     `pathNodes[${index}].entryOperationalMetadata`
+  );
+  validateOptionalPathRepairMetadata(
+    node.pathRepairMetadata,
+    `pathNodes[${index}].pathRepairMetadata`
   );
   if (node.entryOperationalMetadata != null && node.nodeType !== "entry") {
     throw new Error(`pathNodes[${index}].entryOperationalMetadata is only allowed on entry nodes`);
@@ -3703,7 +3718,8 @@ function validatePathEdge(value: unknown, index: number): PathEdge {
     "congestionFactor",
     "doorPenaltySeconds",
     "turnPenaltySeconds",
-    "blocked"
+    "blocked",
+    "pathRepairMetadata"
   ]);
   requireString(edge.id, `pathEdges[${index}].id`);
   requireString(edge.fromNodeId, `pathEdges[${index}].fromNodeId`);
@@ -3714,6 +3730,10 @@ function validatePathEdge(value: unknown, index: number): PathEdge {
   requireNonNegativeNumber(edge.doorPenaltySeconds, `pathEdges[${index}].doorPenaltySeconds`);
   requireNonNegativeNumber(edge.turnPenaltySeconds, `pathEdges[${index}].turnPenaltySeconds`);
   requireBoolean(edge.blocked, `pathEdges[${index}].blocked`);
+  validateOptionalPathRepairMetadata(
+    edge.pathRepairMetadata,
+    `pathEdges[${index}].pathRepairMetadata`
+  );
   return edge as PathEdge;
 }
 
@@ -4308,6 +4328,25 @@ function validateOptionalEntryOperationalMetadata(value: unknown, label: string)
   );
   requireOptionalString(metadata.preferredTraumaZoneId, `${label}.preferredTraumaZoneId`);
   requireOptionalString(metadata.linkedPathNodeId, `${label}.linkedPathNodeId`);
+}
+
+function validateOptionalPathRepairMetadata(value: unknown, label: string): void {
+  if (value == null) {
+    return;
+  }
+  const metadata = requireRecord(value, label);
+  requireExactKeys(metadata, label, [
+    "repairBatch",
+    "repairIssue",
+    "repairAction",
+    "repairSource",
+    "repairRule"
+  ]);
+  requireString(metadata.repairBatch, `${label}.repairBatch`);
+  requireString(metadata.repairIssue, `${label}.repairIssue`);
+  requireEnum(metadata.repairAction, ["generated", "repaired"] as const, `${label}.repairAction`);
+  requireEnum(metadata.repairSource, ["corrected_saved_copy"] as const, `${label}.repairSource`);
+  requireEnum(metadata.repairRule, ["door_node_rule", "edge_rule"] as const, `${label}.repairRule`);
 }
 
 function validateOptionalOperationalMetadataPlaceholder(value: unknown, label: string): void {

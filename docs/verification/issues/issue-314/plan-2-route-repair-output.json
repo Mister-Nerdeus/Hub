@@ -1,0 +1,70 @@
+{
+  "planId": "plan-2",
+  "sourceDefaultPlanId": "default-er-layout-plan-2",
+  "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+  "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-route-repaired-saved-copy.json",
+  "routeRepairStatus": "repaired",
+  "pathSyncStatus": "fresh",
+  "beforeAudit": {
+    "roomsChecked": 6,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [
+      "plan-2-source-review-added-room"
+    ],
+    "unreachableRoomIds": [
+      "plan-2-source-review-added-room"
+    ],
+    "orphanPathNodeIds": [],
+    "danglingPathEdgeIds": [],
+    "invalidPathEdgeIds": [],
+    "nonFinitePathEdgeIds": [],
+    "nonPositivePathEdgeIds": [],
+    "blockedRequiredEdgeIds": [],
+    "stationToRoomRoutesChecked": 12,
+    "stationToRoomRoutesPassed": 10
+  },
+  "afterAudit": {
+    "roomsChecked": 6,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [],
+    "unreachableRoomIds": [],
+    "orphanPathNodeIds": [],
+    "danglingPathEdgeIds": [],
+    "invalidPathEdgeIds": [],
+    "nonFinitePathEdgeIds": [],
+    "nonPositivePathEdgeIds": [],
+    "blockedRequiredEdgeIds": [],
+    "stationToRoomRoutesChecked": 12,
+    "stationToRoomRoutesPassed": 12
+  },
+  "generatedPathNodes": [
+    {
+      "id": "repaired-node-door-plan-2-source-review-added-room",
+      "linkedRoomId": "plan-2-source-review-added-room",
+      "linkedDoorId": "plan-2-source-review-added-door",
+      "x": 127.5,
+      "y": 108,
+      "generated": true,
+      "repaired": true,
+      "repairRule": "door_node_rule"
+    }
+  ],
+  "generatedPathEdges": [
+    {
+      "id": "repaired-edge-repaired-node-door-plan-2-source-review-added-room-to-node-hall-east",
+      "fromNodeId": "repaired-node-door-plan-2-source-review-added-room",
+      "toNodeId": "node-hall-east",
+      "lengthFeet": 73.13173045949344,
+      "generated": true,
+      "repaired": true,
+      "repairRule": "edge_rule"
+    }
+  ],
+  "blockingIssues": [],
+  "warningIssues": [],
+  "limitations": [
+    "Route repair uses deterministic graph connectivity rules on corrected saved-copy JSON only.",
+    "Generated route links do not claim exact walking route truth.",
+    "No manual visual approval or default fixture promotion is claimed."
+  ]
+}

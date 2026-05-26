@@ -1,0 +1,37 @@
+{
+  "issue": "314",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-314/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-314/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-314/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-route-repair.mjs --stage plan-2-route-export --allow-partial --issue 314",
+      "outputs": [
+        "docs/verification/issues/issue-314/test-output/corrected-plan-route-repair-gate.txt",
+        "docs/verification/issues/issue-314/corrected-plan-route-repair-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 314",
+      "outputs": [
+        "docs/verification/issues/issue-314/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-314/plans-2-through-5-unchanged-output.json"
+      ]
+    }
+  ]
+}

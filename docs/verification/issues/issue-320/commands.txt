@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-source-plan-correction.mjs --stage final --issue 320
+node scripts/check-corrected-plan-review.mjs --stage final --issue 320
+node scripts/check-corrected-plan-route-repair.mjs --stage final --issue 320
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 320
+node scripts/verify-local.mjs

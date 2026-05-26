@@ -11,6 +11,17 @@ export type CorrectedPlanVisualObjectCounts = {
   pathEdges: number;
 };
 
+export type CorrectedPlanVisualDrawCounts = {
+  roomsDrawn: number;
+  hallwaysDrawn: number;
+  doorsDrawn: number;
+  stationsDrawn: number;
+  zonesDrawn: number;
+  pathNodesDrawn: number;
+  pathEdgesDrawn: number;
+  labelsDrawn: number;
+};
+
 export type CorrectedPlanMachineVisualSanityChecks = {
   nonPlaceholderDimensions: boolean;
   roomsVisible: boolean;
@@ -29,6 +40,7 @@ export type CorrectedPlanVisualRenderMetadata = {
   widthPx: number;
   heightPx: number;
   objectCounts: CorrectedPlanVisualObjectCounts;
+  drawCounts: CorrectedPlanVisualDrawCounts;
   renderedFromCorrectedSavedCopy: true;
   privateSourceScreenshotStored: false;
   exactParityClaimMade: false;
@@ -41,6 +53,7 @@ export type CorrectedPlanVisualRender = {
   heightPx: number;
   rgba: Uint8ClampedArray;
   objectCounts: CorrectedPlanVisualObjectCounts;
+  drawCounts: CorrectedPlanVisualDrawCounts;
   machineVisualSanityChecks: CorrectedPlanMachineVisualSanityChecks;
   limitations: string[];
 };
@@ -98,12 +111,24 @@ export function renderCorrectedPlanVisualEvidence(input: {
     (widthPx - marginPx * 2) / Math.max(1, bounds.maxX - bounds.minX),
     (heightPx - marginPx * 2) / Math.max(1, bounds.maxY - bounds.minY)
   );
+  const drawCounts: CorrectedPlanVisualDrawCounts = {
+    roomsDrawn: 0,
+    hallwaysDrawn: 0,
+    doorsDrawn: 0,
+    stationsDrawn: 0,
+    zonesDrawn: 0,
+    pathNodesDrawn: 0,
+    pathEdgesDrawn: 0,
+    labelsDrawn: 0
+  };
 
   for (const hallway of layout.hallways) {
     drawRect(image, widthPx, heightPx, bounds, scale, hallway, [225, 231, 239, 255], [100, 116, 139, 255]);
+    drawCounts.hallwaysDrawn += 1;
   }
   for (const zone of layout.zones) {
     drawRect(image, widthPx, heightPx, bounds, scale, zone, [209, 250, 229, 130], [20, 184, 166, 255]);
+    drawCounts.zonesDrawn += 1;
   }
   for (const edge of reviewedPlan.pathEdges) {
     const from = reviewedPlan.pathNodes.find((node) => node.id === edge.fromNodeId);
@@ -114,6 +139,7 @@ export function renderCorrectedPlanVisualEvidence(input: {
     const fromPoint = toPixel(bounds, scale, from.x, from.y);
     const toPoint = toPixel(bounds, scale, to.x, to.y);
     drawLine(image, widthPx, heightPx, fromPoint.x, fromPoint.y, toPoint.x, toPoint.y, edge.blocked ? [185, 28, 28, 255] : [30, 64, 175, 255]);
+    drawCounts.pathEdgesDrawn += 1;
   }
   for (const room of layout.rooms) {
     const fillColor = room.roomType === "trauma"
@@ -123,10 +149,14 @@ export function renderCorrectedPlanVisualEvidence(input: {
         : [241, 245, 249, 255];
     drawRect(image, widthPx, heightPx, bounds, scale, room, fillColor, [51, 65, 85, 255]);
     drawLabel(image, widthPx, heightPx, bounds, scale, room);
+    drawCounts.roomsDrawn += 1;
+    drawCounts.labelsDrawn += 1;
   }
   for (const station of layout.stations) {
     drawRect(image, widthPx, heightPx, bounds, scale, station, [254, 243, 199, 255], [146, 64, 14, 255]);
     drawLabel(image, widthPx, heightPx, bounds, scale, station);
+    drawCounts.stationsDrawn += 1;
+    drawCounts.labelsDrawn += 1;
   }
   for (const door of layout.doors) {
     const owner = layout.rooms.find((room) => room.id === door.ownerId);
@@ -137,10 +167,12 @@ export function renderCorrectedPlanVisualEvidence(input: {
     const yFeet = owner.yFeet + (door.wall === "south" ? owner.heightFeet : door.wall === "north" ? 0 : door.offsetFeet);
     const point = toPixel(bounds, scale, xFeet, yFeet);
     fill(image, widthPx, heightPx, point.x - 4, point.y - 4, 8, 8, [15, 23, 42, 255]);
+    drawCounts.doorsDrawn += 1;
   }
   for (const node of reviewedPlan.pathNodes) {
     const point = toPixel(bounds, scale, node.x, node.y);
     fill(image, widthPx, heightPx, point.x - 3, point.y - 3, 6, 6, node.nodeType === "station" ? [180, 83, 9, 255] : [37, 99, 235, 255]);
+    drawCounts.pathNodesDrawn += 1;
   }
 
   const objectCounts = {
@@ -154,11 +186,11 @@ export function renderCorrectedPlanVisualEvidence(input: {
   };
   const machineVisualSanityChecks = {
     nonPlaceholderDimensions: widthPx > 1 && heightPx > 1 && widthPx * heightPx > 20_000,
-    roomsVisible: objectCounts.rooms > 0,
-    doorsVisibleWhenPresent: objectCounts.doors === 0 || objectCounts.doors > 0,
-    pathNodesVisibleWhenPresent: objectCounts.pathNodes === 0 || objectCounts.pathNodes > 0,
-    pathEdgesVisibleWhenPresent: objectCounts.pathEdges === 0 || objectCounts.pathEdges > 0,
-    labelsRendered: objectCounts.rooms > 0 || objectCounts.nurseStations > 0
+    roomsVisible: drawCounts.roomsDrawn > 0,
+    doorsVisibleWhenPresent: objectCounts.doors === 0 || drawCounts.doorsDrawn >= objectCounts.doors,
+    pathNodesVisibleWhenPresent: objectCounts.pathNodes === 0 || drawCounts.pathNodesDrawn >= objectCounts.pathNodes,
+    pathEdgesVisibleWhenPresent: objectCounts.pathEdges === 0 || drawCounts.pathEdgesDrawn >= objectCounts.pathEdges,
+    labelsRendered: drawCounts.labelsDrawn >= objectCounts.rooms + objectCounts.nurseStations
   };
 
   return {
@@ -166,6 +198,7 @@ export function renderCorrectedPlanVisualEvidence(input: {
     heightPx,
     rgba: image,
     objectCounts,
+    drawCounts,
     machineVisualSanityChecks,
     limitations: [
       "Rendered visual evidence is generated only from corrected saved-copy JSON.",

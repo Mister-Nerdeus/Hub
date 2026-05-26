@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "planId": "plan-3",
+  "routeAudit": {
+    "roomsChecked": 4,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [
+      "plan-3-source-review-added-room"
+    ],
+    "unreachableRoomIds": [
+      "plan-3-source-review-added-room"
+    ],
+    "orphanPathNodeIds": [],
+    "danglingPathEdgeIds": [],
+    "invalidPathEdgeIds": [],
+    "nonFinitePathEdgeIds": [],
+    "nonPositivePathEdgeIds": [],
+    "blockedRequiredEdgeIds": [],
+    "stationToRoomRoutesChecked": 8,
+    "stationToRoomRoutesPassed": 6
+  }
+}

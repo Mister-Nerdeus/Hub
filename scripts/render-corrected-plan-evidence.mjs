@@ -31,6 +31,7 @@ for (const planNumber of planNumbers) {
     widthPx: render.widthPx,
     heightPx: render.heightPx,
     objectCounts: render.objectCounts,
+    drawCounts: render.drawCounts,
     renderedFromCorrectedSavedCopy: true,
     privateSourceScreenshotStored: false,
     exactParityClaimMade: false,
