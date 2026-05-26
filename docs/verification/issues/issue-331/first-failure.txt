@@ -1,0 +1,7 @@
+Before Issue 331 there was no Plan Builder UX review-flow gate, no dedicated UX review-flow manifest, and no generated web-safe snapshot for Plans 2-5.
+
+That left the web feature without a local validation spine proving:
+- manual review remains required,
+- promotion remains blocked,
+- route/export readiness is not treated as approval,
+- UI data is generated from safe manifests instead of runtime parsing docs or private-source artifacts.
