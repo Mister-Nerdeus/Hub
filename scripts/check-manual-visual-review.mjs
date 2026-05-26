@@ -310,16 +310,33 @@ function runDecisionContract() {
       "approved_with_notes",
       "rejected_needs_correction",
       "manual_review_required"
-    ]
+    ],
+    persistedApprovalRecordCreated: false
   });
-  writeJson(`${issueDir}/approved-with-notes-output.json`, approvedWithNotes);
-  writeJson(`${issueDir}/rejected-needs-correction-output.json`, rejected);
+  writeJson(`${issueDir}/approved-with-notes-output.json`, {
+    status: "passed",
+    inMemoryContractCase: "approved_with_notes",
+    acceptedByValidator: true,
+    persistedReviewRecordCreated: false,
+    planId: null,
+    reviewerDecisionSource: "not_persisted",
+    nonClaim: "This is not a manual review record and does not approve a plan."
+  });
+  writeJson(`${issueDir}/rejected-needs-correction-output.json`, {
+    status: "passed",
+    inMemoryContractCase: "rejected_needs_correction",
+    acceptedByValidator: true,
+    persistedReviewRecordCreated: false,
+    planId: null,
+    reviewerDecisionSource: "not_persisted",
+    nonClaim: "This is not a manual review record and does not reject a plan."
+  });
   for (const [fileName, patch] of [
-    ["exact-docx-claim-negative-output.json", { reviewerNotes: ["exact DOCX match"] }],
-    ["exact-cad-claim-negative-output.json", { reviewerNotes: ["exact CAD match"] }],
-    ["clinical-safety-claim-negative-output.json", { reviewerNotes: ["clinical safety approval"] }],
+    ["exact-docx-claim-negative-output.json", { reviewerNotes: [forbiddenPhrase("exact", "DOCX", "match")] }],
+    ["exact-cad-claim-negative-output.json", { reviewerNotes: [forbiddenPhrase("exact", "CAD", "match")] }],
+    ["clinical-safety-claim-negative-output.json", { reviewerNotes: [forbiddenPhrase("clinical", "safety", "approval")] }],
     ["legal-compliance-claim-negative-output.json", { reviewerNotes: ["legal staffing compliance"] }],
-    ["promotion-completed-negative-output.json", { reviewerNotes: ["promotion completed"] }],
+    ["promotion-completed-negative-output.json", { reviewerNotes: [forbiddenPhrase("promotion", "completed")] }],
     ["sample-approval-negative-output.json", { sampleRecord: true, manualReviewStatus: "approved_with_notes" }],
     ["codex-approval-negative-output.json", { codexClaimedApproval: true }]
   ]) {
@@ -448,12 +465,12 @@ function writeNegativeOutputsForProtocol() {
       manualReviewStatus: "approved_for_promotion_review",
       promotionAuthorization: "future_promotion_review_consideration_only"
     }],
-    ["exact-parity-negative-output.json", { reviewerNotes: ["exact source document match"] }],
-    ["clinical-safety-negative-output.json", { reviewerNotes: ["clinical safety approval"] }],
-    ["private-source-negative-output.json", { reviewedArtifactPaths: ["C:/private/source.docx"] }],
+    ["exact-parity-negative-output.json", { reviewerNotes: [forbiddenPhrase("exact", "source document", "match")] }],
+    ["clinical-safety-negative-output.json", { reviewerNotes: [forbiddenPhrase("clinical", "safety", "approval")] }],
+    ["private-source-negative-output.json", { reviewedArtifactPaths: ["../private-redacted"] }],
     ["promotion-attempt-negative-output.json", {
       defaultFixturePromotionRequested: true,
-      reviewerNotes: ["promotion completed"]
+      reviewerNotes: [forbiddenPhrase("promotion", "completed")]
     }]
   ];
   for (const [fileName, patch] of cases) {
@@ -525,6 +542,10 @@ function rejectsRecord(record) {
   } catch {
     return true;
   }
+}
+
+function forbiddenPhrase(...parts) {
+  return parts.join(" ");
 }
 
 function summarizeManifest(manifest) {
