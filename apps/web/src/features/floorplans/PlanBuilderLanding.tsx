@@ -15,11 +15,23 @@ import { createPromotionBlockedViewModel } from "./promotionBlockedViewModel";
 import { RenderedPlanPreviewPanel } from "./RenderedPlanPreviewPanel";
 import { createRenderedPlanPreviewViewModel } from "./renderedPlanPreviewViewModel";
 
-export function PlanBuilderLanding() {
+type PlanBuilderLandingProps = {
+  onOpenDefaultPlan?: (planId: string) => void;
+  onOpenReviewCandidate?: (candidateId: string) => void;
+};
+
+export function PlanBuilderLanding({
+  onOpenDefaultPlan,
+  onOpenReviewCandidate
+}: PlanBuilderLandingProps) {
   return (
     <>
       <DemoWalkthroughPanel viewModel={createDemoWalkthroughViewModel()} />
-      <PlanBuilderLibrary viewModel={createPlanBuilderLibraryViewModel()} />
+      <PlanBuilderLibrary
+        viewModel={createPlanBuilderLibraryViewModel()}
+        onOpenDefaultPlan={onOpenDefaultPlan}
+        onOpenReviewCandidate={onOpenReviewCandidate}
+      />
       <RenderedPlanPreviewPanel viewModel={createRenderedPlanPreviewViewModel()} />
       <ManualReviewCtaPanel viewModel={createManualReviewCtaViewModel()} />
       <ManualReviewActions viewModel={createManualReviewActionsViewModel()} />

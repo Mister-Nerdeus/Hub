@@ -1,12 +1,12 @@
 import { planBuilderReviewFlowSnapshot } from "./generated/planBuilderReviewFlowSnapshot";
+import { createOperationalDemoOperatorSnapshot } from "./operationalDemoSnapshotAdapter";
+import type { OperationalDemoOperatorPlan } from "@nerdeus/shared";
 import type { PlanReviewFlowPlanId } from "./planBuilderReviewFlowTypes";
 
 export type RenderedPlanPreviewPlanViewModel = {
   planId: PlanReviewFlowPlanId;
   displayName: string;
   safeRenderedEvidenceLabel: string;
-  renderedEvidencePath: string;
-  renderedEvidenceMetadataPath: string;
   imageSrc: string;
   renderedEvidenceHash: string;
   renderedEvidenceMetadataHash: string;
@@ -68,16 +68,28 @@ export type RenderedPlanPreviewSourcePlan = {
 };
 
 export function createRenderedPlanPreviewViewModel(): RenderedPlanPreviewViewModel {
+  const operatorSnapshot = createOperationalDemoOperatorSnapshot();
+  const sourcePlansById = new Map(
+    planBuilderReviewFlowSnapshot.plans.map((plan) => [plan.planId, plan])
+  );
+
   return {
     previewId: "plan-builder-rendered-preview-v1",
-    plans: planBuilderReviewFlowSnapshot.plans.map(createRenderedPlanPreviewPlanViewModel),
+    plans: operatorSnapshot.operatorPlans.map((operatorPlan) => {
+      const sourcePlan = sourcePlansById.get(operatorPlan.planId);
+      if (sourcePlan == null) {
+        throw new Error(`missing rendered preview source for ${operatorPlan.planId}`);
+      }
+      return createRenderedPlanPreviewPlanViewModel(sourcePlan, operatorPlan);
+    }),
     manualReviewRequiredNotice: "Manual review is required before promotion.",
     promotionBlockedNotice: "Promotion is blocked."
   };
 }
 
 export function createRenderedPlanPreviewPlanViewModel(
-  plan: RenderedPlanPreviewSourcePlan
+  plan: RenderedPlanPreviewSourcePlan,
+  safeOperatorPlan?: OperationalDemoOperatorPlan
 ): RenderedPlanPreviewPlanViewModel {
   if (!isSafeRenderedEvidenceReference(plan.renderedEvidencePath)) {
     throw new Error(`unsafe rendered evidence reference for ${plan.planId}`);
@@ -97,15 +109,15 @@ export function createRenderedPlanPreviewPlanViewModel(
 
   return {
     planId: plan.planId,
-    displayName: plan.displayName,
-    safeRenderedEvidenceLabel: plan.safeRenderedEvidenceLabel,
-    renderedEvidencePath: plan.renderedEvidencePath,
-    renderedEvidenceMetadataPath: plan.renderedEvidenceMetadataPath,
-    imageSrc: toPublicRenderedEvidenceUrl(plan.renderedEvidencePath),
+    displayName: safeOperatorPlan?.displayName ?? plan.displayName,
+    safeRenderedEvidenceLabel: safeOperatorPlan?.safeRenderedEvidenceReference.label ?? plan.safeRenderedEvidenceLabel,
+    imageSrc: toPublicRenderedEvidenceUrl(
+      safeOperatorPlan?.safeRenderedEvidenceReference.publicImageFileName ?? plan.renderedEvidencePath
+    ),
     renderedEvidenceHash: plan.renderedEvidenceHash,
     renderedEvidenceMetadataHash: plan.renderedEvidenceMetadataHash,
     canvasSummary: `${plan.renderedEvidenceMetadataSummary.widthPx} x ${plan.renderedEvidenceMetadataSummary.heightPx}px`,
-    objectCountSummary: [
+    objectCountSummary: safeOperatorPlan?.safeRenderedEvidenceReference.objectCountSummary ?? [
       `${objectCounts.rooms} rooms`,
       `${objectCounts.hallways} hallways`,
       `${objectCounts.doors} doors`,
@@ -114,7 +126,7 @@ export function createRenderedPlanPreviewPlanViewModel(
       `${objectCounts.pathNodes} path nodes`,
       `${objectCounts.pathEdges} path edges`
     ].join(", "),
-    drawCountSummary: [
+    drawCountSummary: safeOperatorPlan?.safeRenderedEvidenceReference.drawCountSummary ?? [
       `${drawCounts.roomsDrawn} rooms`,
       `${drawCounts.hallwaysDrawn} hallways`,
       `${drawCounts.doorsDrawn} doors`,

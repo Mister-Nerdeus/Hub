@@ -4,6 +4,7 @@ import {
   createActiveFloorplanSummaryViewModel,
   createEmptyActiveFloorplanState,
   openDefaultFloorplan,
+  openReviewCandidateFloorplan,
   openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
@@ -81,6 +82,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
   }
 
+  function openReviewCandidate(candidateId: string) {
+    setActiveFloorplanState((state) => openReviewCandidateFloorplan(state, candidateId));
+  }
+
   function deleteSaved(recordId: string) {
     savedFloorplanStore.delete(recordId);
     setSavedFloorplans(savedFloorplanStore.list());
@@ -127,7 +132,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
           <h2 id="floorplans-title">Floorplans</h2>
-          <PlanBuilderLanding />
+          <PlanBuilderLanding
+            onOpenDefaultPlan={openDefault}
+            onOpenReviewCandidate={openReviewCandidate}
+          />
           <FloorplanLibrary
             viewModel={floorplanLibraryViewModel}
             onOpenDefaultPlan={openDefault}
@@ -135,7 +143,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onOpenSavedPlan={openSaved}
             onDeleteSavedPlan={deleteSaved}
           />
-          <ActiveFloorplanSummary viewModel={activeFloorplanSummaryViewModel} />
+          <ActiveFloorplanSummary
+            viewModel={activeFloorplanSummaryViewModel}
+            onLaunchEditor={() => setActiveSection("editor")}
+          />
         </section>
       ) : null}
 

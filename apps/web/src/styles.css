@@ -924,6 +924,30 @@ h1 {
   padding: 6px 8px;
 }
 
+.active-floorplan__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.active-floorplan__actions button {
+  background: #244c5a;
+  border: 1px solid #183946;
+  border-radius: 6px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 900;
+  min-height: 38px;
+  padding: 8px 12px;
+}
+
+.active-floorplan__actions button:disabled {
+  background: #e8eef3;
+  border-color: #c5d2dd;
+  color: #627386;
+  cursor: not-allowed;
+}
+
 .active-floorplan__status,
 .active-floorplan__counts {
   display: grid;

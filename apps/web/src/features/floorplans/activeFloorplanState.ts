@@ -1,11 +1,16 @@
 import type { DefaultSavedPlanFixtureContract, PlanContract } from "@nerdeus/shared";
 
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
+import {
+  findReviewCandidateFloorplan,
+  type ReviewCandidateFloorplanFixture
+} from "../../fixtures/reviewCandidatePlans";
 import type { SavedFloorplanRecord } from "./savedFloorplanStore";
 
 export type ActiveFloorplanRecord =
   | ActiveDefaultFloorplanRecord
-  | ActiveSavedFloorplanRecord;
+  | ActiveSavedFloorplanRecord
+  | ActiveReviewCandidateFloorplanRecord;
 
 export type ActiveDefaultFloorplanRecord = {
   planId: string;
@@ -31,6 +36,22 @@ export type ActiveSavedFloorplanRecord = {
   plan: PlanContract;
 };
 
+export type ActiveReviewCandidateFloorplanRecord = {
+  planId: string;
+  name: string;
+  recordId: string;
+  sourceKind: "review-candidate-json";
+  readOnly: true;
+  importStatus: "validated_review_candidate";
+  mappingStatus: null;
+  parentDefaultPlanId: string;
+  candidateId: string;
+  routeExportStatus: "ready";
+  manualReviewStatus: "manual_review_required";
+  promotionStatus: "blocked";
+  plan: PlanContract;
+};
+
 export type ActiveFloorplanSelectionState = {
   selectedObjectId: string | null;
   routePreviewDraft: null;
@@ -47,10 +68,15 @@ export type ActiveFloorplanSummaryViewModel = {
   planId: string | null;
   name: string;
   readOnly: boolean;
-  sourceKind: "default-json" | "saved-json" | null;
+  sourceKind: "default-json" | "saved-json" | "review-candidate-json" | null;
+  sourceKindLabel: string;
   importStatus: string | null;
   mappingStatus: string | null;
   parentDefaultPlanId: string | null;
+  routeStatusLabel: string;
+  manualReviewStatusLabel: string;
+  promotionStatusLabel: string;
+  editorLaunchLabel: string;
   selectedObjectId: string | null;
   objectCounts: {
     rooms: number;
@@ -123,6 +149,37 @@ export function openSavedFloorplan(
   };
 }
 
+export function openReviewCandidateFloorplan(
+  state: ActiveFloorplanState,
+  candidateId: string,
+  finder: (candidateId: string) => ReviewCandidateFloorplanFixture | null = findReviewCandidateFloorplan
+): ActiveFloorplanState {
+  const candidate = finder(candidateId);
+  if (candidate == null) {
+    throw new Error(`Cannot open unknown review candidate floorplan: ${candidateId}`);
+  }
+
+  return {
+    activeFloorplan: {
+      planId: candidate.planId,
+      name: candidate.displayName,
+      recordId: candidate.savedPlanId,
+      sourceKind: "review-candidate-json",
+      readOnly: true,
+      importStatus: "validated_review_candidate",
+      mappingStatus: null,
+      parentDefaultPlanId: candidate.sourceDefaultPlanId,
+      candidateId: candidate.candidateId,
+      routeExportStatus: "ready",
+      manualReviewStatus: "manual_review_required",
+      promotionStatus: "blocked",
+      plan: clonePlan(candidate.plan)
+    },
+    selection: createEmptySelectionState(),
+    sequence: state.sequence + 1
+  };
+}
+
 export function createActiveFloorplanSummaryViewModel(
   state: ActiveFloorplanState
 ): ActiveFloorplanSummaryViewModel {
@@ -134,9 +191,14 @@ export function createActiveFloorplanSummaryViewModel(
       name: "No active floorplan",
       readOnly: false,
       sourceKind: null,
+      sourceKindLabel: "No active floorplan",
       importStatus: null,
       mappingStatus: null,
       parentDefaultPlanId: null,
+      routeStatusLabel: "No active route/export status",
+      manualReviewStatusLabel: "No active floorplan",
+      promotionStatusLabel: "No active floorplan",
+      editorLaunchLabel: "Open a floorplan first",
       selectedObjectId: state.selection.selectedObjectId,
       objectCounts: null
     };
@@ -148,9 +210,14 @@ export function createActiveFloorplanSummaryViewModel(
     name: floorplan.name,
     readOnly: floorplan.readOnly,
     sourceKind: floorplan.sourceKind,
+    sourceKindLabel: sourceKindLabel(floorplan),
     importStatus: floorplan.importStatus,
     mappingStatus: floorplan.mappingStatus,
     parentDefaultPlanId: floorplan.parentDefaultPlanId,
+    routeStatusLabel: routeStatusLabel(floorplan),
+    manualReviewStatusLabel: manualReviewStatusLabel(floorplan),
+    promotionStatusLabel: promotionStatusLabel(floorplan),
+    editorLaunchLabel: "Launch editor from active floorplan",
     selectedObjectId: state.selection.selectedObjectId,
     objectCounts: {
       rooms: floorplan.plan.rooms.length,
@@ -164,9 +231,39 @@ export function createActiveFloorplanSummaryViewModel(
   };
 }
 
+function sourceKindLabel(floorplan: ActiveFloorplanRecord): string {
+  if (floorplan.sourceKind === "review-candidate-json") {
+    return "Route-repaired review candidate";
+  }
+  if (floorplan.sourceKind === "saved-json") {
+    return "Saved editable copy";
+  }
+  return "Read-only default fixture";
+}
+
+function routeStatusLabel(floorplan: ActiveFloorplanRecord): string {
+  return floorplan.sourceKind === "review-candidate-json"
+    ? "Route/export ready"
+    : "Route/export not evaluated for active copy";
+}
+
+function manualReviewStatusLabel(floorplan: ActiveFloorplanRecord): string {
+  return floorplan.sourceKind === "review-candidate-json"
+    ? "Manual review required"
+    : "Manual review not claimed";
+}
+
+function promotionStatusLabel(_floorplan: ActiveFloorplanRecord): string {
+  return "Promotion blocked";
+}
+
 function createEmptySelectionState(): ActiveFloorplanSelectionState {
   return {
     selectedObjectId: null,
     routePreviewDraft: null
   };
+}
+
+function clonePlan(plan: PlanContract): PlanContract {
+  return JSON.parse(JSON.stringify(plan)) as PlanContract;
 }

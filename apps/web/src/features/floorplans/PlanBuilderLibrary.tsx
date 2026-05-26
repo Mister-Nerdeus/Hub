@@ -5,9 +5,29 @@ import { createPlanStatusBadges } from "./planStatusViewModel";
 
 type PlanBuilderLibraryProps = {
   viewModel: PlanBuilderLibraryViewModel;
+  onOpenDefaultPlan?: (planId: string) => void;
+  onOpenReviewCandidate?: (candidateId: string) => void;
 };
 
-export function PlanBuilderLibrary({ viewModel }: PlanBuilderLibraryProps) {
+export function PlanBuilderLibrary({
+  viewModel,
+  onOpenDefaultPlan,
+  onOpenReviewCandidate
+}: PlanBuilderLibraryProps) {
+  function handleAction(item: PlanBuilderLibraryViewModel["sections"][number]["items"][number], kind: string) {
+    if (item.categoryId === "default-fixtures" && kind === "open-plan") {
+      onOpenDefaultPlan?.(item.planId);
+      return;
+    }
+    if (
+      (item.categoryId === "corrected-saved-copies" ||
+        item.categoryId === "route-repaired-review-candidates") &&
+      (kind === "open-plan" || kind === "open-saved-copy")
+    ) {
+      onOpenReviewCandidate?.(item.planId);
+    }
+  }
+
   return (
     <section className="plan-builder-library" aria-labelledby="plan-builder-library-title">
       <div className="plan-builder-library__header">
@@ -64,7 +84,11 @@ export function PlanBuilderLibrary({ viewModel }: PlanBuilderLibraryProps) {
                   </dl>
                   <div className="plan-builder-library__actions" aria-label={`${item.displayName} actions`}>
                     {item.actions.map((action) => (
-                      <button type="button" key={`${item.id}:${action.kind}`}>
+                      <button
+                        type="button"
+                        key={`${item.id}:${action.kind}`}
+                        onClick={() => handleAction(item, action.kind)}
+                      >
                         {action.label}
                       </button>
                     ))}

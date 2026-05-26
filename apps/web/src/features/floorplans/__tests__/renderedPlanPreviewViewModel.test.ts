@@ -32,6 +32,9 @@ for (const plan of viewModel.plans) {
   if (!plan.renderedEvidenceHash || !plan.renderedEvidenceMetadataHash) {
     throw new Error(`${plan.planId} preview must expose rendered evidence hashes`);
   }
+  if (/docs\/verification|docs\/manual-review|packages\/shared/u.test(JSON.stringify(plan))) {
+    throw new Error(`${plan.planId} preview view model must not expose raw evidence paths`);
+  }
   if (/exact (?:CAD|source document) (?:match|parity)/i.test(JSON.stringify(plan))) {
     throw new Error(`${plan.planId} preview must not claim exact source-document parity`);
   }
@@ -83,7 +86,7 @@ for (const plan of viewModel.plans) {
     issue: "336",
     status: "passed",
     planId: plan.planId,
-    renderedEvidencePath: plan.renderedEvidencePath,
+    imageSrc: plan.imageSrc,
     renderedEvidenceHash: plan.renderedEvidenceHash,
     manualReviewRequired: plan.manualReviewRequired,
     promotionBlocked: plan.promotionBlocked

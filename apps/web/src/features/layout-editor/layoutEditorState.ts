@@ -49,7 +49,7 @@ export type LayoutEditorFloorplanInput = {
   recordId: string;
   planId: string;
   name: string;
-  sourceKind: "default-json" | "saved-json";
+  sourceKind: "default-json" | "saved-json" | "review-candidate-json";
   readOnly: boolean;
   parentDefaultPlanId: string | null;
   plan: PlanContract;
@@ -59,7 +59,7 @@ export type LayoutEditorLoadedFloorplan = {
   recordId: string;
   planId: string;
   name: string;
-  sourceKind: "default-json" | "saved-json";
+  sourceKind: "default-json" | "saved-json" | "review-candidate-json";
   readOnly: boolean;
   parentDefaultPlanId: string | null;
 };

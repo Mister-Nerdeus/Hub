@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 120 web test file(s).
+Discovered 121 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -51,6 +51,8 @@ Discovered 120 web test file(s).
 > src/features/export-review/exportBundleReviewViewModel.test.ts
 
 > src/features/floorplans/DefaultPlanEditCopyControls.test.tsx
+
+> src/features/floorplans/PlanBuilderLibrary.test.tsx
 
 > src/features/floorplans/SavePlanControls.test.tsx
 
@@ -252,4 +254,4 @@ Discovered 120 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 120 web test file(s).
+Executed 121 web test file(s).

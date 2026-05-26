@@ -2,9 +2,10 @@ import type { ActiveFloorplanSummaryViewModel } from "./activeFloorplanState";
 
 type ActiveFloorplanSummaryProps = {
   viewModel: ActiveFloorplanSummaryViewModel;
+  onLaunchEditor?: () => void;
 };
 
-export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProps) {
+export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloorplanSummaryProps) {
   return (
     <section className="active-floorplan" aria-labelledby="active-floorplan-title">
       <div className="active-floorplan__header">
@@ -18,6 +19,11 @@ export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProp
           <span>None</span>
         )}
       </div>
+      <div className="active-floorplan__actions">
+        <button type="button" disabled={!viewModel.hasActiveFloorplan} onClick={onLaunchEditor}>
+          {viewModel.editorLaunchLabel}
+        </button>
+      </div>
 
       {viewModel.hasActiveFloorplan && viewModel.objectCounts != null ? (
         <>
@@ -28,7 +34,7 @@ export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProp
             </div>
             <div>
               <dt>Source</dt>
-              <dd>{viewModel.sourceKind}</dd>
+              <dd>{viewModel.sourceKindLabel}</dd>
             </div>
             <div>
               <dt>Import</dt>
@@ -37,6 +43,18 @@ export function ActiveFloorplanSummary({ viewModel }: ActiveFloorplanSummaryProp
             <div>
               <dt>Mapping</dt>
               <dd>{viewModel.mappingStatus ?? viewModel.parentDefaultPlanId}</dd>
+            </div>
+            <div>
+              <dt>Route/export</dt>
+              <dd>{viewModel.routeStatusLabel}</dd>
+            </div>
+            <div>
+              <dt>Review</dt>
+              <dd>{viewModel.manualReviewStatusLabel}</dd>
+            </div>
+            <div>
+              <dt>Promotion</dt>
+              <dd>{viewModel.promotionStatusLabel}</dd>
             </div>
           </dl>
           <dl className="active-floorplan__counts" aria-label="Active floorplan object counts">
