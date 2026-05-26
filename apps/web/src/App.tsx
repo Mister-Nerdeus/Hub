@@ -27,6 +27,7 @@ import {
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
+import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAssignmentWorkspace";
 import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
@@ -168,6 +169,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
         <section className="workflow-section" aria-labelledby="assignments-title">
           <h2 id="assignments-title">Assignments</h2>
           <AssignmentWorkflow activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
+        </section>
+      ) : null}
+
+      {activeSection === "manual-assignment" ? (
+        <section className="workflow-section" aria-labelledby="manual-assignment-section-title">
+          <h2 id="manual-assignment-section-title">Manual Assignment</h2>
+          <ManualAssignmentWorkspace />
         </section>
       ) : null}
 

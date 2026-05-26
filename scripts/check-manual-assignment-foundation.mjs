@@ -94,6 +94,11 @@ function runStage(currentStage) {
     manifest.assignmentStateStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "assignment-ui") {
+    runAssignmentUi();
+    manifest.assignmentUiStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -306,6 +311,51 @@ function runAssignmentState() {
   });
 }
 
+function runAssignmentUi() {
+  const requiredFiles = [
+    "apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx",
+    "apps/web/src/features/manual-assignment/ManualAssignmentRoomList.tsx",
+    "apps/web/src/features/manual-assignment/NurseAssignmentCards.tsx",
+    "apps/web/src/features/manual-assignment/AssignmentColorLegend.tsx",
+    "apps/web/src/features/manual-assignment/manualAssignmentWorkspaceViewModel.ts",
+    "apps/web/src/features/manual-assignment/__tests__/manualAssignmentWorkspace.test.tsx",
+    "apps/web/src/App.tsx",
+    "apps/web/src/features/app-shell/appNavigation.ts",
+    "scripts/check-manual-assignment-ui.mjs"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing assignment UI file ${file}`);
+  }
+  const workspace = readText("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx");
+  const roomList = readText("apps/web/src/features/manual-assignment/ManualAssignmentRoomList.tsx");
+  const nurseCards = readText("apps/web/src/features/manual-assignment/NurseAssignmentCards.tsx");
+  const viewModel = readText("apps/web/src/features/manual-assignment/manualAssignmentWorkspaceViewModel.ts");
+  const app = readText("apps/web/src/App.tsx");
+  const nav = readText("apps/web/src/features/app-shell/appNavigation.ts");
+  const combined = `${workspace}\n${roomList}\n${nurseCards}\n${viewModel}\n${app}\n${nav}`;
+
+  for (const text of [
+    "setActiveManualAssignmentNurse",
+    "assignRoomToNurse",
+    "reassignRoomToNurse",
+    "clearManualAssignments",
+    "unassignRoom",
+    "assignedColor",
+    "unassignedOccupied",
+    "manual-assignment"
+  ]) {
+    if (!combined.includes(text)) failures.push(`assignment UI missing ${text}`);
+  }
+  if (/best assignment|recommend|optimi[sz]er/u.test(combined)) {
+    failures.push("assignment UI must not contain optimizer or recommendation behavior");
+  }
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: stageFailures().length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+}
+
 function runNurseProfiles() {
   const requiredFiles = [
     "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
@@ -439,6 +489,17 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 385"
     ];
   }
+  if (String(issueNumber) === "386") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-ui.mjs --issue 386",
+      "node scripts/check-manual-assignment-foundation.mjs --stage assignment-ui --allow-partial --issue 386",
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 386"
+    ];
+  }
   return [
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
@@ -458,6 +519,7 @@ function mappedOutputForCommand(command, issueNumber) {
   if (command.includes("check:real-browser-proof")) return `${base}/real-browser-proof-gate.txt`;
   if (command.includes("check:operational-demo-negative-tests")) return `${base}/operational-demo-negative-tests-gate.txt`;
   if (command.includes("check:canonical-gates")) return `${base}/canonical-gates.txt`;
+  if (command.includes("check-manual-assignment-ui")) return `${base}/manual-assignment-ui-gate.txt`;
   if (command.includes("check-manual-assignment-foundation") || command.includes("check:manual-assignment-foundation")) return `${base}/manual-assignment-foundation-gate.txt`;
   if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   if (command.includes("check-default-plans-2-through-5-unchanged")) return `${base}/plans-2-through-5-unchanged.txt`;

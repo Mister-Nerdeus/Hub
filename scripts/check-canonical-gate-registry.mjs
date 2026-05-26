@@ -28,7 +28,8 @@ const requiredGateIds = [
   "default-plans-2-5-unchanged",
   "canonical-gates",
   "manual-assignment-foundation-preflight",
-  "manual-assignment-contracts"
+  "manual-assignment-contracts",
+  "manual-assignment-ui"
 ];
 const newIssue381Scripts = [
   "check:product-identity",
@@ -37,7 +38,8 @@ const newIssue381Scripts = [
   "check:operational-demo-negative-tests",
   "check:canonical-gates",
   "check:manual-assignment-foundation",
-  "check:manual-assignment-contracts"
+  "check:manual-assignment-contracts",
+  "check:manual-assignment-ui"
 ];
 const sharedBuildRequiredScripts = [
   "check:operational-demo-ux",
@@ -51,7 +53,8 @@ const sharedBuildRequiredScripts = [
   "check:human-review-intake",
   "check:human-review-governance-hardening",
   "check:manual-assignment-foundation",
-  "check:manual-assignment-contracts"
+  "check:manual-assignment-contracts",
+  "check:manual-assignment-ui"
 ];
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });

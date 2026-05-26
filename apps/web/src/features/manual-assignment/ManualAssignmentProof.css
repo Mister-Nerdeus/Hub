@@ -291,16 +291,192 @@
   font-weight: 900;
 }
 
+.manual-assignment-workspace {
+  display: grid;
+  gap: 16px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.manual-assignment-workspace__header,
+.manual-assignment-workspace__panel {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.manual-assignment-workspace__header,
+.manual-assignment-workspace__panel-header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.manual-assignment-workspace h2,
+.manual-assignment-workspace h3,
+.manual-nurse-card h3 {
+  color: #111827;
+  margin: 0;
+}
+
+.manual-assignment-workspace__metrics,
+.assignment-color-legend {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.manual-assignment-workspace__metrics span,
+.assignment-color-legend__item {
+  background: #f5f7fa;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  color: #263340;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 7px 9px;
+}
+
+.assignment-color-legend__item,
+.manual-room-card__nurse,
+.manual-nurse-selector__button,
+.manual-nurse-card__header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.assignment-color-legend__swatch,
+.manual-room-card__swatch,
+.manual-nurse-card__swatch,
+.manual-nurse-selector__button span {
+  border-radius: 999px;
+  display: block;
+  flex: 0 0 12px;
+  height: 12px;
+  width: 12px;
+}
+
+.manual-assignment-workspace__grid {
+  align-items: start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+}
+
+.manual-nurse-selector,
+.manual-room-list,
+.manual-nurse-card-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.manual-nurse-selector {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.manual-nurse-selector__button,
+.manual-assignment-workspace__panel-header button,
+.manual-room-card__unassign-button {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #263340;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.manual-nurse-selector__button--selected {
+  background: #edf6f2;
+  box-shadow: inset 0 0 0 2px #111827;
+}
+
+.manual-assignment-workspace__note {
+  color: #526171;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 10px 0 0;
+}
+
+.manual-room-card,
+.manual-nurse-card {
+  border: 2px solid #d8e0e8;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.manual-room-card--unassigned {
+  background: #fff7ed;
+  border-color: #ea580c;
+}
+
+.manual-room-card__assign-button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: grid;
+  gap: 6px;
+  padding: 0;
+  text-align: left;
+}
+
+.manual-room-card__title {
+  color: #111827;
+  font-size: 0.95rem;
+  font-weight: 900;
+}
+
+.manual-room-card__meta,
+.manual-room-card__status,
+.manual-room-card__nurse,
+.manual-nurse-card p,
+.manual-nurse-card li {
+  color: #40505f;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.manual-nurse-card ul {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.manual-nurse-card li {
+  background: #f7f9fb;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  padding: 6px 8px;
+}
+
 @media (max-width: 920px) {
   .manual-assignment-proof__grid,
-  .manual-assignment-proof__cards {
+  .manual-assignment-proof__cards,
+  .manual-assignment-workspace__grid,
+  .manual-nurse-selector {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 680px) {
   .manual-assignment-proof__header,
-  .manual-assignment-proof__section-header {
+  .manual-assignment-proof__section-header,
+  .manual-assignment-workspace__header,
+  .manual-assignment-workspace__panel-header {
+    align-items: stretch;
     flex-direction: column;
   }
 

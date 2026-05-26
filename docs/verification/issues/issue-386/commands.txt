@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-manual-assignment-ui.mjs --issue 386
+node scripts/check-manual-assignment-foundation.mjs --stage assignment-ui --allow-partial --issue 386
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 386

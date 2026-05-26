@@ -135,6 +135,12 @@
       "packageScript": "check:manual-assignment-contracts",
       "command": "npm run check:manual-assignment-contracts -- --issue ${manualAssignmentIssue}",
       "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-ui",
+      "packageScript": "check:manual-assignment-ui",
+      "command": "npm run check:manual-assignment-ui -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
     }
   ]
 }
