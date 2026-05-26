@@ -1,6 +1,6 @@
 # Project Charter
 
-The Nerdeus ER Pod Shift Simulator models operational workload in an ER pod using abstract layouts, room load, nurse assignments, scoring, and later seeded simulation.
+The ER Pod Shift Simulator models operational workload in an ER pod using abstract layouts, room load, nurse assignments, scoring, and later seeded simulation.
 
 ## Goals
 

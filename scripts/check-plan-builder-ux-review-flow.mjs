@@ -184,14 +184,14 @@ function validateManifestAndSnapshotHashConsistency() {
       actual: manifest.uiSnapshotHash
     },
     {
-      label: "snapshot.generatedFrom.manualVisualReviewManifestHash",
+      label: "snapshot.generatedFromManifests.manualVisualReviewManifestHash",
       expected: actualManualVisualReviewManifestHash,
-      actual: snapshot?.generatedFrom?.manualVisualReviewManifestHash
+      actual: snapshotManifestHash("manual-visual-review")
     },
     {
-      label: "snapshot.generatedFrom.routeRepairManifestHash",
+      label: "snapshot.generatedFromManifests.routeRepairManifestHash",
       expected: actualRouteRepairManifestHash,
-      actual: snapshot?.generatedFrom?.routeRepairManifestHash
+      actual: snapshotManifestHash("corrected-plan-route-repair")
     }
   ];
   for (const check of checks) {
@@ -215,7 +215,7 @@ function validateManifestAndSnapshotHashConsistency() {
   });
   writeJson(`${issueDir}/ui-snapshot-hash-consistency-output.json`, {
     status: hashConsistencyFailures.filter((failure) => failure.startsWith("snapshot.")).length === 0 ? "passed" : "failed",
-    generatedFrom: snapshot?.generatedFrom ?? null,
+    generatedFromManifests: snapshot?.generatedFromManifests ?? null,
     actualManualVisualReviewManifestHash,
     actualRouteRepairManifestHash
   });
@@ -225,6 +225,10 @@ function validateManifestAndSnapshotHashConsistency() {
     routeRepairManifestHash: actualRouteRepairManifestHash,
     uiSnapshotHash: actualUiSnapshotHash
   });
+}
+
+function snapshotManifestHash(manifestName) {
+  return snapshot?.generatedFromManifests?.find((entry) => entry.manifestName === manifestName)?.sha256;
 }
 
 function runValidationSpine() {
@@ -601,8 +605,8 @@ function runFinal() {
 }
 
 function validateSnapshot(value) {
-  if (value?.batch !== "331-340" || !Array.isArray(value?.plans)) {
-    failures.push("safe UI snapshot must be batch 331-340 and contain plans");
+  if (value?.originBatch !== "331-340" || value?.currentConsumerBatch !== "371-380" || !Array.isArray(value?.plans)) {
+    failures.push("safe UI snapshot must declare origin batch 331-340, current consumer batch 371-380, and contain plans");
     return;
   }
   for (const planId of planIds) {

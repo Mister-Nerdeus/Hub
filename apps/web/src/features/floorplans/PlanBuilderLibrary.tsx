@@ -15,6 +15,7 @@ export function PlanBuilderLibrary({
   onOpenReviewCandidate
 }: PlanBuilderLibraryProps) {
   function handleAction(item: PlanBuilderLibraryViewModel["sections"][number]["items"][number], kind: string) {
+    const action = item.actions.find((candidate) => candidate.kind === kind);
     if (item.categoryId === "default-fixtures" && kind === "open-plan") {
       onOpenDefaultPlan?.(item.planId);
       return;
@@ -25,6 +26,10 @@ export function PlanBuilderLibrary({
       (kind === "open-plan" || kind === "open-saved-copy")
     ) {
       onOpenReviewCandidate?.(item.planId);
+      return;
+    }
+    if (action != null && "safeHref" in action) {
+      window.open(action.safeHref, "_blank", "noopener,noreferrer");
     }
   }
 
@@ -88,6 +93,7 @@ export function PlanBuilderLibrary({
                         type="button"
                         key={`${item.id}:${action.kind}`}
                         onClick={() => handleAction(item, action.kind)}
+                        data-artifact-href={"safeHref" in action ? action.safeHref : undefined}
                       >
                         {action.label}
                       </button>

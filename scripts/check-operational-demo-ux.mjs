@@ -118,7 +118,7 @@ function runSafeSnapshot() {
   requireFile("packages/shared/src/floorplans/operationalDemoSnapshot.ts");
   requireFile("apps/web/src/features/floorplans/operationalDemoSnapshotAdapter.ts");
   const source = readText("packages/shared/src/floorplans/operationalDemoSnapshot.ts");
-  for (const phrase of ["assertNoOperatorLeakage", "includeDeveloperEvidence", "productDisplayName must be ER Pod Shift Simulator"]) {
+  for (const phrase of ["assertNoOperatorLeakage", "includeDeveloperEvidence", "shared product identity"]) {
     if (!source.includes(phrase)) failures.push(`safe snapshot contract missing ${phrase}`);
   }
   writeJson(`${issueDir}/snapshot-contract-output.json`, { status: "passed", contractPath: "packages/shared/src/floorplans/operationalDemoSnapshot.ts" });
@@ -136,7 +136,7 @@ function runAppShell() {
   requireFile("apps/web/src/features/app-shell/appNavigation.ts");
   const shell = readText("apps/web/src/features/app-shell/AppShell.tsx");
   const nav = readText("apps/web/src/features/app-shell/appNavigation.ts");
-  if (!shell.includes(productName) || shell.includes("Nerdeus ER Pod Shift Simulator")) failures.push("app shell product title is incorrect");
+  if (!shell.includes("PRODUCT_DISPLAY_NAME") || shell.includes("Nerdeus ER Pod Shift Simulator")) failures.push("app shell product title is incorrect");
   for (const phrase of ["Manual review required", "Promotion blocked", "Synthetic operational modeling only"]) {
     if (!shell.includes(phrase)) failures.push(`app shell missing banner phrase ${phrase}`);
   }

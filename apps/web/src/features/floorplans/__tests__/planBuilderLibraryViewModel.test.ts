@@ -30,7 +30,7 @@ for (const required of [
 }
 
 const reviewCandidates = viewModel.sections.find((section) => section.id === "route-repaired-review-candidates")?.items ?? [];
-if (reviewCandidates.length !== 4 || reviewCandidates.some((item) => item.promotionStatus !== "blocked")) {
+if (reviewCandidates.length !== 4 || reviewCandidates.some((item) => item.promotionStatusLabel !== "Promotion blocked")) {
   throw new Error("route-repaired candidates must list Plans 2-5 with promotion blocked");
 }
 

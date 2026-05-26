@@ -1,4 +1,5 @@
 export * from "./contracts.js";
+export * from "./product/productIdentity.js";
 export * from "./default-plans/sourceToPlanMappingContract.js";
 export * from "./default-plans/defaultSavedPlanFixtureContract.js";
 export * from "./default-plans/duplicateDefaultPlan.js";

@@ -81,7 +81,9 @@ manualManifest = summarizeManifest({
   lastUpdatedIssue: issue,
   routeRepairManifestHash: hashFile(routeManifestPath)
 });
-writeJson(manualManifestPath, validateManualVisualReviewManifest(manualManifest));
+if (stage !== "final") {
+  writeJson(manualManifestPath, validateManualVisualReviewManifest(manualManifest));
+}
 writeJson(`${issueDir}/manifest-update-output.json`, {
   status: "passed",
   manifestPath: manualManifestPath,

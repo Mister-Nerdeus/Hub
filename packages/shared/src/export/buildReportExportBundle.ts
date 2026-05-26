@@ -9,6 +9,7 @@ import {
   validateReportExportBundleContract,
   validateScenarioComparisonContract
 } from "../contracts.js";
+import { PRODUCT_DISPLAY_NAME } from "../product/productIdentity.js";
 
 export type ReportExportBundleBuilderInput = {
   exportId: string;
@@ -29,7 +30,7 @@ export const REPORT_EXPORT_BUNDLE_LIMITATIONS = [
 ];
 
 export const REPORT_EXPORT_BUNDLE_METADATA: ReportExportBundleMetadata = {
-  appName: "ER Pod Shift Simulator",
+  appName: PRODUCT_DISPLAY_NAME,
   appVersion: "0.1.0",
   generatedBy: "local-proof",
   source: "synthetic-operational-data"

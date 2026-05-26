@@ -51,7 +51,16 @@ export function ManualReviewCtaPanel({ viewModel }: ManualReviewCtaPanelProps) {
               </div>
             </dl>
             <div className="manual-review-cta__actions">
-              {plan.actions.map((action) => <button type="button" key={action}>{action}</button>)}
+              {plan.actions.map((action) => (
+                <button
+                  type="button"
+                  key={action.safeArtifactId}
+                  data-artifact-href={action.safeHref}
+                  onClick={() => window.open(action.safeHref, "_blank", "noopener,noreferrer")}
+                >
+                  {action.label}
+                </button>
+              ))}
             </div>
           </article>
         ))}

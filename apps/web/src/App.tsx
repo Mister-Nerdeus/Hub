@@ -39,7 +39,7 @@ type AppProps = {
 
 export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
-  const [activeSection, setActiveSection] = useState(initialSection);
+  const [activeSection, setActiveSection] = useState(() => readInitialSection(initialSection));
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
   if (savedFloorplanStoreRef.current == null) {
@@ -206,4 +206,12 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       ) : null}
     </AppShell>
   );
+}
+
+function readInitialSection(fallback: AppSectionId): AppSectionId {
+  if (typeof window === "undefined") {
+    return fallback;
+  }
+  const candidate = new URLSearchParams(window.location.search).get("section");
+  return APP_SECTIONS.some((section) => section.id === candidate) ? candidate as AppSectionId : fallback;
 }

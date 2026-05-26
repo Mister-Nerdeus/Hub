@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PRODUCT_DISPLAY_NAME } from "@nerdeus/shared";
 import type { AppSection, AppSectionId } from "./appNavigation";
 
 import "./appShell.css";
@@ -21,7 +22,7 @@ export function AppShell({
       <section className="workspace-header" aria-labelledby="page-title">
         <div>
           <p className="eyebrow">Operational demo workspace</p>
-          <h1 id="page-title">ER Pod Shift Simulator</h1>
+          <h1 id="page-title">{PRODUCT_DISPLAY_NAME}</h1>
           <p className="workspace-header__subtitle">
             Synthetic operational modeling only. Manual review required; promotion blocked.
           </p>

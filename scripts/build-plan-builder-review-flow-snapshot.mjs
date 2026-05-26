@@ -81,14 +81,22 @@ const plans = manualManifest.reviewedPlans.map((entry) => {
 
 const snapshot = {
   snapshotVersion: "1.0.0",
-  batch: "331-340",
-  lastUpdatedIssue: issue,
-  generatedFrom: {
-    manualVisualReviewManifestPath: manualManifestPath,
-    manualVisualReviewManifestHash: hashFile(manualManifestPath),
-    routeRepairManifestPath,
-    routeRepairManifestHash: hashFile(routeRepairManifestPath)
-  },
+  originBatch: "331-340",
+  lastValidatedByIssue: issue,
+  currentConsumerBatch: "371-380",
+  generatedAt: "2026-05-26T00:00:00Z",
+  generatedFromManifests: [
+    {
+      manifestName: "manual-visual-review",
+      path: manualManifestPath,
+      sha256: hashFile(manualManifestPath)
+    },
+    {
+      manifestName: "corrected-plan-route-repair",
+      path: routeRepairManifestPath,
+      sha256: hashFile(routeRepairManifestPath)
+    }
+  ],
   governance: {
     manualReviewRequired: true,
     promotionStatus: "blocked",

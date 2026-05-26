@@ -399,8 +399,8 @@ function strictHashConsistency() {
     uxManualVisualReviewManifestHash: uxManifest.manualVisualReviewManifestHash,
     uxRouteRepairManifestHash: uxManifest.routeRepairManifestHash,
     uxUiSnapshotHash: uxManifest.uiSnapshotHash,
-    snapshotManualVisualReviewManifestHash: snapshot.generatedFrom?.manualVisualReviewManifestHash,
-    snapshotRouteRepairManifestHash: snapshot.generatedFrom?.routeRepairManifestHash
+    snapshotManualVisualReviewManifestHash: snapshotManifestHash("manual-visual-review"),
+    snapshotRouteRepairManifestHash: snapshotManifestHash("corrected-plan-route-repair")
   };
   const mismatches = [
     ["intake.manualVisualReviewManifestHash", referenceHashes.intakeManualVisualReviewManifestHash, actualHashes.manualVisualReviewManifestHash],
@@ -409,11 +409,15 @@ function strictHashConsistency() {
     ["ux.manualVisualReviewManifestHash", referenceHashes.uxManualVisualReviewManifestHash, actualHashes.manualVisualReviewManifestHash],
     ["ux.routeRepairManifestHash", referenceHashes.uxRouteRepairManifestHash, actualHashes.routeRepairManifestHash],
     ["ux.uiSnapshotHash", referenceHashes.uxUiSnapshotHash, actualHashes.uiSnapshotHash],
-    ["snapshot.generatedFrom.manualVisualReviewManifestHash", referenceHashes.snapshotManualVisualReviewManifestHash, actualHashes.manualVisualReviewManifestHash],
-    ["snapshot.generatedFrom.routeRepairManifestHash", referenceHashes.snapshotRouteRepairManifestHash, actualHashes.routeRepairManifestHash]
+    ["snapshot.generatedFromManifests.manualVisualReviewManifestHash", referenceHashes.snapshotManualVisualReviewManifestHash, actualHashes.manualVisualReviewManifestHash],
+    ["snapshot.generatedFromManifests.routeRepairManifestHash", referenceHashes.snapshotRouteRepairManifestHash, actualHashes.routeRepairManifestHash]
   ].filter(([, actual, expected]) => actual !== expected)
     .map(([label, actual, expected]) => ({ label, actual: actual ?? null, expected }));
   return { status: mismatches.length === 0 ? "passed" : "failed", actualHashes, referenceHashes, mismatches };
+}
+
+function snapshotManifestHash(manifestName) {
+  return snapshot.generatedFromManifests?.find((entry) => entry.manifestName === manifestName)?.sha256;
 }
 
 function buildProof() {

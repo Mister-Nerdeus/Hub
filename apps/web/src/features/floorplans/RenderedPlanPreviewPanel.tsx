@@ -36,11 +36,11 @@ export function RenderedPlanPreviewPanel({ viewModel }: RenderedPlanPreviewPanel
                 </div>
                 <div>
                   <dt>Hash</dt>
-                  <dd>{plan.renderedEvidenceHash}</dd>
+                  <dd>{plan.evidenceVerificationLabel}</dd>
                 </div>
                 <div>
                   <dt>Metadata</dt>
-                  <dd>{plan.renderedEvidenceMetadataHash}</dd>
+                  <dd>{plan.metadataVerificationLabel}</dd>
                 </div>
                 <div>
                   <dt>Canvas</dt>

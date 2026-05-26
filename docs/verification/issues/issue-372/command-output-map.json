@@ -1,0 +1,47 @@
+{
+  "issue": "372",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-product-identity-contract.mjs --issue 372",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/product-identity-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-product-naming.mjs --issue 372",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/product-naming-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-operational-demo-repair.mjs --stage product-identity --allow-partial --issue 372",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/operational-demo-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 372",
+      "outputs": [
+        "docs/verification/issues/issue-372/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

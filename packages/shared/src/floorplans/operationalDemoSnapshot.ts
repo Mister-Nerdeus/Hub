@@ -1,4 +1,6 @@
-export const OPERATIONAL_DEMO_PRODUCT_DISPLAY_NAME = "ER Pod Shift Simulator" as const;
+import { PRODUCT_DISPLAY_NAME } from "../product/productIdentity.js";
+
+export const OPERATIONAL_DEMO_PRODUCT_DISPLAY_NAME = PRODUCT_DISPLAY_NAME;
 
 export type OperationalDemoPlanId = "plan-2" | "plan-3" | "plan-4" | "plan-5";
 export type OperationalDemoRouteStatus = "ready" | "blocked";
@@ -111,7 +113,7 @@ export function buildOperationalDemoSnapshot(
 ): OperationalDemoSnapshot {
   const productDisplayName = options.productDisplayName ?? OPERATIONAL_DEMO_PRODUCT_DISPLAY_NAME;
   if (productDisplayName !== OPERATIONAL_DEMO_PRODUCT_DISPLAY_NAME) {
-    throw new Error("productDisplayName must be ER Pod Shift Simulator");
+    throw new Error("productDisplayName must match the shared product identity");
   }
 
   const operatorPlans = options.plans.map(buildOperatorPlan);

@@ -257,8 +257,8 @@ function checkHashConsistency(candidateManifest = manifest) {
     ["uxManifest.manualVisualReviewManifestHash", uxManifest.manualVisualReviewManifestHash, hashFile(manualVisualReviewManifestPath)],
     ["uxManifest.routeRepairManifestHash", uxManifest.routeRepairManifestHash, hashFile(routeRepairManifestPath)],
     ["uxManifest.uiSnapshotHash", uxManifest.uiSnapshotHash, hashFile(uiSnapshotPath)],
-    ["snapshot.generatedFrom.manualVisualReviewManifestHash", snapshot.generatedFrom?.manualVisualReviewManifestHash, hashFile(manualVisualReviewManifestPath)],
-    ["snapshot.generatedFrom.routeRepairManifestHash", snapshot.generatedFrom?.routeRepairManifestHash, hashFile(routeRepairManifestPath)]
+    ["snapshot.generatedFromManifests.manualVisualReviewManifestHash", snapshotManifestHash("manual-visual-review"), hashFile(manualVisualReviewManifestPath)],
+    ["snapshot.generatedFromManifests.routeRepairManifestHash", snapshotManifestHash("corrected-plan-route-repair"), hashFile(routeRepairManifestPath)]
   ];
   if (candidateManifest != null) {
     checks.unshift(
@@ -271,6 +271,10 @@ function checkHashConsistency(candidateManifest = manifest) {
     .filter(([, actual, expected]) => actual !== expected)
     .map(([label, actual, expected]) => ({ label, actual: actual ?? null, expected }));
   return { status: mismatches.length === 0 ? "passed" : "failed", mismatches };
+}
+
+function snapshotManifestHash(manifestName) {
+  return snapshot.generatedFromManifests?.find((entry) => entry.manifestName === manifestName)?.sha256;
 }
 
 function runHashConsistency() {

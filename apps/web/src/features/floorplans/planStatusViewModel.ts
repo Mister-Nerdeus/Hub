@@ -29,16 +29,16 @@ export type PlanLibraryFilterViewModel = {
 
 export function createPlanStatusBadges(item: PlanBuilderLibraryItemViewModel): PlanStatusBadgeViewModel[] {
   const badges: PlanStatusBadgeViewModel[] = [];
-  if (item.routeStatus === "ready") {
+  if (item.routeStatusLabel === "Route ready") {
     badges.push({ kind: "route-ready", label: "Route Ready", tone: "ready" });
   }
-  if (item.simulationExportStatus === "simulation_ready") {
+  if (item.simulationExportStatusLabel === "Simulation-ready export") {
     badges.push({ kind: "simulation-ready", label: "Simulation Ready", tone: "ready" });
   }
-  if (item.manualReviewStatus === "manual_review_required") {
+  if (item.manualReviewStatusLabel === "Manual review required") {
     badges.push({ kind: "manual-review-required", label: "Manual Review Required", tone: "attention" });
   }
-  if (item.promotionStatus === "blocked") {
+  if (item.promotionStatusLabel === "Promotion blocked") {
     badges.push({ kind: "promotion-blocked", label: "Promotion Blocked", tone: "blocked" });
   }
   if (item.categoryId === "default-fixtures") {
@@ -52,22 +52,22 @@ export function createPlanLibraryFilters(items: PlanBuilderLibraryItemViewModel[
     {
       id: "needs-manual-review",
       label: "Needs Manual Review",
-      itemCount: items.filter((item) => item.manualReviewStatus === "manual_review_required").length
+      itemCount: items.filter((item) => item.manualReviewStatusLabel === "Manual review required").length
     },
     {
       id: "route-ready",
       label: "Route Ready",
-      itemCount: items.filter((item) => item.routeStatus === "ready").length
+      itemCount: items.filter((item) => item.routeStatusLabel === "Route ready").length
     },
     {
       id: "simulation-ready",
       label: "Simulation Ready",
-      itemCount: items.filter((item) => item.simulationExportStatus === "simulation_ready").length
+      itemCount: items.filter((item) => item.simulationExportStatusLabel === "Simulation-ready export").length
     },
     {
       id: "promotion-blocked",
       label: "Promotion Blocked",
-      itemCount: items.filter((item) => item.promotionStatus === "blocked").length
+      itemCount: items.filter((item) => item.promotionStatusLabel === "Promotion blocked").length
     },
     {
       id: "default-fixtures",

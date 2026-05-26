@@ -4,6 +4,7 @@ import {
   manualReviewForbiddenScope,
   manualReviewPromotionDisabledCopy
 } from "./manualReviewCtaCopy";
+import { buildReviewArtifactAction, type ReviewArtifactAction } from "./reviewArtifactLinks";
 
 export type ManualReviewCtaPlanViewModel = {
   planId: string;
@@ -12,7 +13,7 @@ export type ManualReviewCtaPlanViewModel = {
   simulationExportLabel: string;
   manualReviewStatusLabel: string;
   promotionStatusLabel: string;
-  actions: readonly string[];
+  actions: readonly ReviewArtifactAction[];
 };
 
 export type ManualReviewCtaViewModel = {
@@ -40,10 +41,10 @@ export function createManualReviewCtaViewModel(): ManualReviewCtaViewModel {
       manualReviewStatusLabel: plan.manualReviewStatusLabel,
       promotionStatusLabel: plan.promotionStatusLabel,
       actions: [
-        plan.safeReviewPacketReference.actionLabel,
-        plan.safeReviewTemplateReference.actionLabel,
-        "View rendered preview",
-        "View route/export status"
+        buildReviewArtifactAction(plan.planId, "review-packet", plan.safeReviewPacketReference.actionLabel),
+        buildReviewArtifactAction(plan.planId, "review-template", plan.safeReviewTemplateReference.actionLabel),
+        buildReviewArtifactAction(plan.planId, "rendered-preview", "View rendered preview"),
+        buildReviewArtifactAction(plan.planId, "developer-evidence", "View route/export status")
       ]
     }))
   };

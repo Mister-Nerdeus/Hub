@@ -25,6 +25,7 @@ test("final human review hash references match actual local artifacts", () => {
   assert.equal(ux.manualVisualReviewManifestHash, hashFile("docs/verification/manual-visual-review-manifest.json"));
   assert.equal(ux.routeRepairManifestHash, hashFile("docs/verification/corrected-plan-route-repair-manifest.json"));
   assert.equal(ux.uiSnapshotHash, hashFile("apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.json"));
-  assert.equal(snapshot.generatedFrom.manualVisualReviewManifestHash, hashFile("docs/verification/manual-visual-review-manifest.json"));
-  assert.equal(snapshot.generatedFrom.routeRepairManifestHash, hashFile("docs/verification/corrected-plan-route-repair-manifest.json"));
+  const sources = new Map(snapshot.generatedFromManifests.map((entry) => [entry.manifestName, entry.sha256]));
+  assert.equal(sources.get("manual-visual-review"), hashFile("docs/verification/manual-visual-review-manifest.json"));
+  assert.equal(sources.get("corrected-plan-route-repair"), hashFile("docs/verification/corrected-plan-route-repair-manifest.json"));
 });

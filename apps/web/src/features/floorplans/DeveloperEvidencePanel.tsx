@@ -36,6 +36,10 @@ export function DeveloperEvidencePanel({ viewModel }: DeveloperEvidencePanelProp
                   <dt>Render hash</dt>
                   <dd>{entry.renderedEvidenceHash}</dd>
                 </div>
+                <div>
+                  <dt>Metadata hash</dt>
+                  <dd>{entry.renderedEvidenceMetadataHash}</dd>
+                </div>
               </dl>
             </article>
           ))}

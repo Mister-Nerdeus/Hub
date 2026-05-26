@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-product-identity-contract.mjs --issue 372
+node scripts/check-product-naming.mjs --issue 372
+node scripts/check-operational-demo-repair.mjs --stage product-identity --allow-partial --issue 372
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 372

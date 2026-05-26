@@ -1,0 +1,41 @@
+{
+  "issue": "371",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-product-naming.mjs --issue 371",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/product-naming-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-operational-demo-repair.mjs --stage browser-title --allow-partial --issue 371",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/operational-demo-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 371",
+      "outputs": [
+        "docs/verification/issues/issue-371/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

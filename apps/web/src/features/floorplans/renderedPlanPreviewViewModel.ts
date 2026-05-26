@@ -8,8 +8,8 @@ export type RenderedPlanPreviewPlanViewModel = {
   displayName: string;
   safeRenderedEvidenceLabel: string;
   imageSrc: string;
-  renderedEvidenceHash: string;
-  renderedEvidenceMetadataHash: string;
+  evidenceVerificationLabel: "Evidence verified";
+  metadataVerificationLabel: "Metadata verified";
   canvasSummary: string;
   objectCountSummary: string;
   drawCountSummary: string;
@@ -114,8 +114,8 @@ export function createRenderedPlanPreviewPlanViewModel(
     imageSrc: toPublicRenderedEvidenceUrl(
       safeOperatorPlan?.safeRenderedEvidenceReference.publicImageFileName ?? plan.renderedEvidencePath
     ),
-    renderedEvidenceHash: plan.renderedEvidenceHash,
-    renderedEvidenceMetadataHash: plan.renderedEvidenceMetadataHash,
+    evidenceVerificationLabel: "Evidence verified",
+    metadataVerificationLabel: "Metadata verified",
     canvasSummary: `${plan.renderedEvidenceMetadataSummary.widthPx} x ${plan.renderedEvidenceMetadataSummary.heightPx}px`,
     objectCountSummary: safeOperatorPlan?.safeRenderedEvidenceReference.objectCountSummary ?? [
       `${objectCounts.rooms} rooms`,

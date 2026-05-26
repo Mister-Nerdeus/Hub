@@ -1,13 +1,21 @@
 export const planBuilderReviewFlowSnapshot = {
   "snapshotVersion": "1.0.0",
-  "batch": "331-340",
-  "lastUpdatedIssue": "370",
-  "generatedFrom": {
-    "manualVisualReviewManifestPath": "docs/verification/manual-visual-review-manifest.json",
-    "manualVisualReviewManifestHash": "7158c74bc527328d78a3931c8979a010541ca7943f2e8d1a58e6b6e657c3406c",
-    "routeRepairManifestPath": "docs/verification/corrected-plan-route-repair-manifest.json",
-    "routeRepairManifestHash": "b27a7eb8486b4dd026ec8cc9badd133585fe6749e13bd7fa7d9af6f9adf75bfd"
-  },
+  "originBatch": "331-340",
+  "lastValidatedByIssue": "380",
+  "currentConsumerBatch": "371-380",
+  "generatedAt": "2026-05-26T00:00:00Z",
+  "generatedFromManifests": [
+    {
+      "manifestName": "manual-visual-review",
+      "path": "docs/verification/manual-visual-review-manifest.json",
+      "sha256": "f074acc0d1c08c10a960ab45e9b8246c5e58cc6dabdfb32f579c5c47de7c56a6"
+    },
+    {
+      "manifestName": "corrected-plan-route-repair",
+      "path": "docs/verification/corrected-plan-route-repair-manifest.json",
+      "sha256": "b27a7eb8486b4dd026ec8cc9badd133585fe6749e13bd7fa7d9af6f9adf75bfd"
+    }
+  ],
   "governance": {
     "manualReviewRequired": true,
     "promotionStatus": "blocked",

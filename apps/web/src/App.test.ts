@@ -24,7 +24,7 @@ const appEvidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
 
 assert228(appSource.includes("<AppShell"), "default app render should include app shell");
-assert228(appShellSource.includes("ER Pod Shift Simulator"), "shell should provide app header");
+assert228(appShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
 assert228(!appShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
 assert228(appSource.includes("Floorplans"), "default mode must expose Floorplans section");
 assert228(appSource.includes("DEVELOPER_EVIDENCE_SECTION_ID"), "developer/evidence mode section should be available in shell navigation");

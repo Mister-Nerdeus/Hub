@@ -29,8 +29,11 @@ for (const plan of viewModel.plans) {
   if (!plan.manualReviewRequired || !plan.promotionBlocked) {
     throw new Error(`${plan.planId} preview must keep manual review required and promotion blocked`);
   }
-  if (!plan.renderedEvidenceHash || !plan.renderedEvidenceMetadataHash) {
-    throw new Error(`${plan.planId} preview must expose rendered evidence hashes`);
+  if (plan.evidenceVerificationLabel !== "Evidence verified" || plan.metadataVerificationLabel !== "Metadata verified") {
+    throw new Error(`${plan.planId} preview must expose safe verification labels`);
+  }
+  if (/[a-f0-9]{64}/u.test(JSON.stringify(plan))) {
+    throw new Error(`${plan.planId} operator preview view model must not expose raw hashes`);
   }
   if (/docs\/verification|docs\/manual-review|packages\/shared/u.test(JSON.stringify(plan))) {
     throw new Error(`${plan.planId} preview view model must not expose raw evidence paths`);
@@ -87,7 +90,7 @@ for (const plan of viewModel.plans) {
     status: "passed",
     planId: plan.planId,
     imageSrc: plan.imageSrc,
-    renderedEvidenceHash: plan.renderedEvidenceHash,
+    evidenceVerificationLabel: plan.evidenceVerificationLabel,
     manualReviewRequired: plan.manualReviewRequired,
     promotionBlocked: plan.promotionBlocked
   });

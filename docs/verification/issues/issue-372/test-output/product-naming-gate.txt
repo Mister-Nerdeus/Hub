@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "372",
+  "productDisplayName": "ER Pod Shift Simulator",
+  "forbiddenProductDisplayName": "Nerdeus ER Pod Shift Simulator",
+  "statusPath": "docs/verification/product-naming-status.json",
+  "scannedFileCount": 11241,
+  "scannedRoots": [
+    "apps/web/index.html",
+    "apps/web/public/**",
+    "apps/web/src/**",
+    "packages/shared/src/**",
+    "docs/manual-review/**",
+    "docs/demo/**",
+    "docs/project/**",
+    "docs/verification/**/*.md",
+    "docs/verification/**/*.json",
+    "package.json"
+  ],
+  "forbiddenMatches": [],
+  "uncontrolledLiteralMatches": [],
+  "negativeFixtureOutput": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "forbidden product-facing name"
+  },
+  "allowedDomainOutput": {
+    "status": "passed",
+    "allowedReferences": [
+      "hub.nerdeus.com",
+      "erpod.nerdeus.com"
+    ],
+    "reason": "domain/deployment references do not use the forbidden product-facing display name"
+  },
+  "historicalOutput": {
+    "status": "passed",
+    "historicalReferences": [
+      "apps/web/src/App.test.ts",
+      "apps/web/src/features/floorplans/__tests__/appShellNavigation.test.tsx",
+      "docs/verification/issues/issue-000A/closeout.md",
+      "docs/verification/issues/issue-061/export-bundle-output.json",
+      "docs/verification/issues/issue-062/comparison-proof-output.json",
+      "docs/verification/issues/issue-063/export-bundle-output.json",
+      "docs/verification/issues/issue-070/integrity-output.json",
+      "docs/verification/issues/issue-074/integrity-output.json",
+      "docs/verification/issues/issue-363/app-shell-before-output.json",
+      "docs/verification/issues/issue-370/app-shell-before-output.json",
+      "docs/verification/issues/issue-371/product-naming-gate-output.json",
+      "docs/verification/issues/issue-371/product-naming-status-output.json",
+      "docs/verification/issues/issue-372/product-identity-contract-output.json",
+      "docs/verification/issues/issue-380/app-shell-before-output.json",
+      "docs/verification/issues/issue-380/product-identity-contract-output.json",
+      "docs/verification/issues/issue-380/product-naming-gate-output.json",
+      "docs/verification/issues/issue-380/product-naming-status-output.json",
+      "docs/verification/operational-demo-repair-manifest.json",
+      "docs/verification/product-naming-status.json",
+      "packages/shared/src/product/productIdentity.ts"
+    ]
+  },
+  "failures": []
+}
