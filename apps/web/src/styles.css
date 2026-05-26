@@ -597,6 +597,110 @@ h1 {
   color: #1e293b;
 }
 
+.manual-review-helper {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.manual-review-helper__header,
+.promotion-blocked-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.manual-review-helper__header h3,
+.manual-review-helper__plan h4,
+.promotion-blocked-banner h3 {
+  margin: 0;
+}
+
+.manual-review-helper__header p,
+.manual-review-helper__plan > p {
+  margin: 0.25rem 0 0;
+  color: #475569;
+}
+
+.manual-review-helper__header strong {
+  color: #334155;
+}
+
+.manual-review-helper__grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.manual-review-helper__plan {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.manual-review-helper__state,
+.manual-review-helper__fields {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  margin: 0;
+}
+
+.manual-review-helper__state div,
+.manual-review-helper__field {
+  display: grid;
+  gap: 0.25rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.75rem;
+  background: #f8fafc;
+}
+
+.manual-review-helper__state dt,
+.manual-review-helper__field span {
+  color: #64748b;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.manual-review-helper__state dd,
+.manual-review-helper__field strong {
+  margin: 0;
+  color: #1e293b;
+}
+
+.manual-review-helper__field p {
+  margin: 0;
+  color: #475569;
+}
+
+.promotion-blocked-banner {
+  margin-top: 1.25rem;
+  border: 1px solid #f1b9c4;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff1f2;
+}
+
+.promotion-blocked-banner ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  color: #7f1d1d;
+}
+
+.promotion-blocked-banner button {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.55rem 0.8rem;
+  color: #64748b;
+  background: #f8fafc;
+  cursor: not-allowed;
+}
+
 .plan-builder-library__card dl {
   display: grid;
   gap: 8px;
@@ -1741,5 +1845,10 @@ h1 {
 
   .manual-review-actions__header strong {
     white-space: normal;
+  }
+
+  .manual-review-helper__header,
+  .promotion-blocked-banner {
+    display: grid;
   }
 }

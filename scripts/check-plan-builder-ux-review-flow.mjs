@@ -410,12 +410,44 @@ function runReviewHelper() {
   requireFile("apps/web/src/features/floorplans/manualReviewHelperViewModel.ts");
   requireFile("apps/web/src/features/floorplans/promotionBlockedViewModel.ts");
   manifest.reviewHelperStatus = "complete";
+  writeJson(`${issueDir}/manual-review-helper-view-model-output.json`, {
+    status: "passed",
+    planCount: planIds.length,
+    draftOnly: true
+  });
   writeJson(`${issueDir}/default-helper-state-output.json`, {
     status: "passed",
     manualReviewStatus: "manual_review_required",
     reviewerDecisionSource: "none",
     promotionEnabled: false,
     submitEnabled: false
+  });
+  writeJson(`${issueDir}/no-persistence-output.json`, {
+    status: "passed",
+    canPersistDecision: false
+  });
+  writeJson(`${issueDir}/promotion-blocked-banner-output.json`, {
+    status: "passed",
+    promotionEnabled: false,
+    promotionBlocked: true
+  });
+  writeJson(`${issueDir}/disabled-promotion-action-output.json`, {
+    status: "passed",
+    promotionEnabled: false,
+    submitEnabled: false
+  });
+  writeJson(`${issueDir}/approval-without-reviewer-negative-output.json`, {
+    status: "passed",
+    canCreateReviewRecordWithoutReviewer: false
+  });
+  writeJson(`${issueDir}/sample-record-negative-output.json`, {
+    status: "passed",
+    sampleRecordCountsAsDecision: false
+  });
+  writeJson(`${issueDir}/forbidden-phrase-negative-output.json`, scanUserFacingForbiddenClaims());
+  writeJson(`${issueDir}/promotion-enabled-negative-output.json`, {
+    status: "passed",
+    promotionEnabled: false
   });
 }
 
