@@ -4,6 +4,8 @@ import type { ManualAssignmentViewModel } from "./manualAssignmentViewModel";
 import { manualAssignmentDemoNurses, manualAssignmentPlaceholderCounts } from "./manualAssignmentDemoState";
 import { NurseProfilePanel } from "./NurseProfilePanel";
 import { createNurseProfileViewModel } from "./nurseProfileViewModel";
+import { syntheticManualAssignmentRoomLoads } from "@nerdeus/shared";
+import { RoomLoadEditorPanel } from "./RoomLoadEditorPanel";
 
 type ManualAssignmentProofProps = {
   viewModel: ManualAssignmentViewModel;
@@ -39,6 +41,7 @@ export function ManualAssignmentProof({ viewModel }: ManualAssignmentProofProps)
       </div>
 
       <NurseProfilePanel nurses={nurseProfiles} />
+      <RoomLoadEditorPanel roomLoads={syntheticManualAssignmentRoomLoads} />
 
       <div className="manual-assignment-proof__grid">
         <section className="manual-assignment-proof__panel" aria-labelledby="assignment-cards-title">

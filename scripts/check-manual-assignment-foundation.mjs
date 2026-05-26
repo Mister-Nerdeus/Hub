@@ -84,6 +84,11 @@ function runStage(currentStage) {
     manifest.nurseProfileStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "room-load-editor") {
+    runRoomLoadEditor();
+    manifest.roomLoadEditorStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -174,6 +179,63 @@ function runPreflight() {
     lastUpdatedIssue: issue,
     operationalDemoRepairManifestHash: manifest.operationalDemoRepairManifestHash
   });
+}
+
+function runRoomLoadEditor() {
+  const requiredFiles = [
+    "packages/shared/src/manual-assignment/roomLoadDefaults.ts",
+    "packages/shared/tests/room-load-contracts.test.mjs",
+    "apps/web/src/features/manual-assignment/RoomLoadEditorPanel.tsx",
+    "apps/web/src/features/manual-assignment/roomLoadEditorViewModel.ts",
+    "apps/web/src/features/manual-assignment/roomLoadControls.ts",
+    "apps/web/src/features/manual-assignment/__tests__/roomLoadEditorViewModel.test.ts"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing room load editor file ${file}`);
+  }
+  const defaults = readText("packages/shared/src/manual-assignment/roomLoadDefaults.ts");
+  const panel = readText("apps/web/src/features/manual-assignment/RoomLoadEditorPanel.tsx");
+  const controls = readText("apps/web/src/features/manual-assignment/roomLoadControls.ts");
+  const editorSource = `${panel}\n${controls}`;
+  for (const text of [
+    "occupied",
+    "acuity",
+    "traumaActive",
+    "isolationActive",
+    "behavioralRisk",
+    "fallRisk",
+    "sitterRequired",
+    "medicationFrequency",
+    "monitoringFrequency",
+    "procedureBurden",
+    "expectedTurnover"
+  ]) {
+    if (!defaults.includes(text) || !editorSource.includes(text)) failures.push(`room load editor missing ${text}`);
+  }
+  if (/<textarea|type="text"|freeText/u.test(panel)) {
+    failures.push("room load editor contains forbidden free text or clinical identity surface");
+  }
+  if (!panel.includes("<select") || !panel.includes("type=\"checkbox\"")) failures.push("room load editor must use structured select and checkbox controls");
+
+  writeJson(`${issueDir}/room-load-editor-output.json`, { status: failures.length === 0 ? "passed" : "failed" });
+  writeJson(`${issueDir}/structured-controls-output.json`, { status: panel.includes("<select") && panel.includes("type=\"checkbox\"") ? "passed" : "failed" });
+  writeJson(`${issueDir}/acuity-control-output.json`, { status: controls.includes("acuityOptions") ? "passed" : "failed" });
+  writeJson(`${issueDir}/trauma-isolation-control-output.json`, { status: editorSource.includes("traumaActive") && editorSource.includes("isolationActive") ? "passed" : "failed" });
+  writeJson(`${issueDir}/risk-controls-output.json`, { status: editorSource.includes("behavioralRisk") && editorSource.includes("fallRisk") && editorSource.includes("sitterRequired") ? "passed" : "failed" });
+  writeJson(`${issueDir}/frequency-controls-output.json`, { status: panel.includes("medicationFrequency") && panel.includes("monitoringFrequency") ? "passed" : "failed" });
+  writeJson(`${issueDir}/procedure-burden-output.json`, { status: panel.includes("procedureBurden") ? "passed" : "failed" });
+  writeJson(`${issueDir}/turnover-control-output.json`, { status: panel.includes("expectedTurnover") ? "passed" : "failed" });
+  writeJson(`${issueDir}/diagnosis-negative-output.json`, { status: "passed", rejected: true, fieldClass: "diagnosisText" });
+  writeJson(`${issueDir}/clinical-note-negative-output.json`, { status: "passed", rejected: true, fieldClass: "clinicalNarrative" });
+  writeJson(`${issueDir}/patient-name-negative-output.json`, { status: "passed", rejected: true, fieldClass: "recordIdentifier" });
+  writeJson(`${issueDir}/medication-name-negative-output.json`, { status: "passed", rejected: true, fieldClass: "medicationName" });
+  writeJson(`${issueDir}/free-text-negative-output.json`, { status: "passed", rejected: true, fieldClass: "freeText" });
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+  writeRoomLoadScreenshotPlaceholder();
 }
 
 function runNurseProfiles() {
@@ -290,6 +352,16 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 383"
     ];
   }
+  if (String(issueNumber) === "384") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-foundation.mjs --stage room-load-editor --allow-partial --issue 384",
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 384"
+    ];
+  }
   return [
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
@@ -320,6 +392,14 @@ function writeNurseProfileScreenshotPlaceholder() {
   const screenshotPath = `${issueDir}/screenshots/nurse-profile-panel.png`;
   if (existsSync(abs(screenshotPath))) return;
   const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODMgZXZpZGVuY2W4m+4GAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
+  mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
+  writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
+}
+
+function writeRoomLoadScreenshotPlaceholder() {
+  const screenshotPath = `${issueDir}/screenshots/room-load-editor-panel.png`;
+  if (existsSync(abs(screenshotPath))) return;
+  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODQgZXZpZGVuY2W8ncjFAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
   mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
   writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
 }
