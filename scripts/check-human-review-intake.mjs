@@ -54,22 +54,9 @@ const dashboard = buildDashboard(manifest);
 const promotionRecheck = buildPromotionRecheck(manifest);
 
 writeJson(intakeManifestPath, manifest);
-writeJson(`${issueDir}/human-review-intake-gate-output.json`, {
-  status: failures.length === 0 ? "passed" : "failed",
-  stage,
-  issue,
-  allowPartial,
-  manifestPath: intakeManifestPath,
-  failures
-});
-writeJson(`${issueDir}/test-output/human-review-intake-gate.txt`, {
-  status: failures.length === 0 ? "passed" : "failed",
-  stage,
-  issue,
-  failures
-});
 
 runStage();
+writeGateOutput();
 writeCommonEvidence();
 writeIssueCloseoutAndIndex();
 
@@ -111,6 +98,7 @@ function buildManifest() {
     entry.manualReviewStatus === "approved_for_promotion_review" ||
     entry.manualReviewStatus === "approved_with_notes"
   ).length;
+  const allPlansDryRunReady = entries.every((entry) => entry.promotionReadinessDryRunStatus === "dry_run_ready");
   const hashConsistencyPassed = checkHashConsistency().status === "passed";
   return {
     manifestVersion: "1.0.0",
@@ -130,11 +118,11 @@ function buildManifest() {
     dashboardStatus: statusFromStage("review-dashboard", "complete", previousManifest?.dashboardStatus ?? "missing"),
     promotionDryRunRecheckStatus: statusFromStage(
       "promotion-dry-run-recheck",
-      validApprovalCount === planIds.length ? "passed" : "blocked",
+      allPlansDryRunReady ? "passed" : "blocked",
       previousManifest?.promotionDryRunRecheckStatus ?? "not_run"
     ),
     manualApprovalStatus: validApprovalCount === 0 ? "missing" : validApprovalCount === planIds.length ? "complete" : "partial",
-    promotionStatus: "blocked",
+    promotionStatus: allPlansDryRunReady ? "dry_run_only" : "blocked",
     privateSourceBoundaryStatus: "passed",
     noPhiStatus: "passed",
     defaultFixtureMutationStatus: "unchanged",
@@ -198,10 +186,11 @@ function buildEntry(manualEntry) {
       reviewerDecisionSource: record.reviewerDecisionSource,
       reviewerIdentityStatus: "present",
       reviewerAuthorityStatus: "authorized",
-      promotionReadinessDryRunStatus: manualEntry.routeReadinessStatus === "ready" &&
+      promotionReadinessDryRunStatus: isApprovalStatus(record.manualReviewStatus) &&
+        manualEntry.routeReadinessStatus === "ready" &&
         manualEntry.simulationReadyExportStatus === "simulation_ready"
         ? "dry_run_ready"
-        : "blocked_by_route_export",
+        : isApprovalStatus(record.manualReviewStatus) ? "blocked_by_route_export" : "blocked_missing_manual_review",
       blockingIssues: record.manualReviewStatus === "rejected_needs_correction"
         ? ["submitted human review rejected this plan for correction"]
         : [],
@@ -218,6 +207,10 @@ function buildEntry(manualEntry) {
   } catch (error) {
     return invalidEntry(base, submittedPath, recordHash, [error.message]);
   }
+}
+
+function isApprovalStatus(status) {
+  return status === "approved_for_promotion_review" || status === "approved_with_notes";
 }
 
 function invalidEntry(base, submittedPath, submittedHash, problems) {
@@ -663,9 +656,30 @@ function buildDashboard(value) {
 function buildPromotionRecheck(value) {
   const plans = value.reviewedPlans.map((entry) => {
     const blockingReasons = [...entry.blockingIssues];
-    if (!["approved_for_promotion_review", "approved_with_notes"].includes(entry.manualReviewStatus)) {
+    const approved = isApprovalStatus(entry.manualReviewStatus);
+    if (!approved) {
       blockingReasons.push("missing valid structured human approval");
     }
+    if (entry.reviewerIdentityStatus !== "present" && entry.submittedReviewRecordPath != null) {
+      blockingReasons.push("reviewer identity is not valid");
+    }
+    if (entry.reviewerAuthorityStatus !== "authorized" && entry.submittedReviewRecordPath != null) {
+      blockingReasons.push("reviewer authority is not valid");
+    }
+    if (entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready") {
+      blockingReasons.push("route/export readiness is blocked");
+    }
+    const dryRunStatus = entry.privateSourcePayloadStored
+      ? "blocked_by_boundary"
+      : entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready"
+        ? "blocked_by_route_export"
+        : entry.manualReviewStatus === "blocked_invalid_review_record" ||
+          entry.reviewerIdentityStatus === "invalid" ||
+          entry.reviewerAuthorityStatus === "unauthorized"
+          ? "blocked_invalid_review_record"
+          : approved
+            ? entry.promotionReadinessDryRunStatus
+            : "blocked_missing_manual_review";
     return {
       planId: entry.planId,
       manualReviewStatus: entry.manualReviewStatus,
@@ -674,7 +688,7 @@ function buildPromotionRecheck(value) {
       attestationStatus: entry.submittedReviewRecordPath == null ? "not_required_until_record_exists" : "present",
       routeExportStatus: `${entry.routeReadinessStatus}/${entry.simulationReadyExportStatus}`,
       boundaryStatus: "passed",
-      dryRunStatus: entry.promotionReadinessDryRunStatus,
+      dryRunStatus,
       canPromote: false,
       blockingReasons: [...new Set(blockingReasons)]
     };
@@ -684,9 +698,26 @@ function buildPromotionRecheck(value) {
     batch: "341-350",
     dryRunOnly: true,
     promotionStatus: value.promotionStatus,
-    allPlansDryRunReady: plans.every((plan) => plan.dryRunStatus === "dry_run_ready"),
+    allPlansDryRunReady: plans.every((plan) => plan.dryRunStatus === "dry_run_ready" && plan.blockingReasons.length === 0),
     plans
   };
+}
+
+function writeGateOutput() {
+  writeJson(`${issueDir}/human-review-intake-gate-output.json`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    stage,
+    issue,
+    allowPartial,
+    manifestPath: intakeManifestPath,
+    failures
+  });
+  writeJson(`${issueDir}/test-output/human-review-intake-gate.txt`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    stage,
+    issue,
+    failures
+  });
 }
 
 function renderDashboardMarkdown(value) {

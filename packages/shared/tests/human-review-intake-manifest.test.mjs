@@ -111,3 +111,78 @@ test("human review intake manifest rejects sample, Codex approval, promotion, an
     /allowed submitted review record path/u
   );
 });
+
+test("human review intake manifest rejects inconsistent submitted decision state", () => {
+  const submittedPath = "docs/manual-review/submitted/plan-2-review-record.json";
+  const approvedEntry = entry({
+    planId: "plan-2",
+    submittedReviewRecordPath: submittedPath,
+    submittedReviewRecordHash: sha,
+    manualReviewStatus: "approved_for_promotion_review",
+    reviewerDecisionSource: "explicit_manual_artifact",
+    reviewerIdentityStatus: "present",
+    reviewerAuthorityStatus: "authorized",
+    promotionReadinessDryRunStatus: "dry_run_ready"
+  });
+  assert.equal(validateHumanReviewIntakeManifest(manifest({
+    reviewedPlans: [
+      approvedEntry,
+      entry({ planId: "plan-3" }),
+      entry({ planId: "plan-4" }),
+      entry({ planId: "plan-5" })
+    ]
+  })).reviewedPlans[0].promotionReadinessDryRunStatus, "dry_run_ready");
+
+  assert.throws(
+    () => validateHumanReviewIntakeManifest(manifest({
+      reviewedPlans: [
+        { ...approvedEntry, reviewerDecisionSource: "none" },
+        entry({ planId: "plan-3" }),
+        entry({ planId: "plan-4" }),
+        entry({ planId: "plan-5" })
+      ]
+    })),
+    /reviewerDecisionSource/u
+  );
+  assert.throws(
+    () => validateHumanReviewIntakeManifest(manifest({
+      reviewedPlans: [
+        { ...approvedEntry, reviewerIdentityStatus: "not_present" },
+        entry({ planId: "plan-3" }),
+        entry({ planId: "plan-4" }),
+        entry({ planId: "plan-5" })
+      ]
+    })),
+    /reviewer identity/u
+  );
+  assert.throws(
+    () => validateHumanReviewIntakeManifest(manifest({
+      reviewedPlans: [
+        {
+          ...approvedEntry,
+          manualReviewStatus: "rejected_needs_correction",
+          promotionReadinessDryRunStatus: "dry_run_ready"
+        },
+        entry({ planId: "plan-3" }),
+        entry({ planId: "plan-4" }),
+        entry({ planId: "plan-5" })
+      ]
+    })),
+    /dry_run_ready/u
+  );
+  assert.throws(
+    () => validateHumanReviewIntakeManifest(manifest({
+      reviewedPlans: [
+        {
+          ...approvedEntry,
+          manualReviewStatus: "blocked_invalid_review_record",
+          reviewerDecisionSource: "explicit_manual_artifact"
+        },
+        entry({ planId: "plan-3" }),
+        entry({ planId: "plan-4" }),
+        entry({ planId: "plan-5" })
+      ]
+    })),
+    /blocked_invalid_review_record/u
+  );
+});

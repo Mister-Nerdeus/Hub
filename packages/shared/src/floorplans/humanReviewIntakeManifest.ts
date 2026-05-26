@@ -125,6 +125,43 @@ export function validateHumanReviewIntakeManifest(value: unknown): HumanReviewIn
       ) {
         throw new Error(`${entry.planId} missing submitted record must remain manual_review_required`);
       }
+    } else {
+      const approved =
+        entry.manualReviewStatus === "approved_for_promotion_review" ||
+        entry.manualReviewStatus === "approved_with_notes";
+      const rejected = entry.manualReviewStatus === "rejected_needs_correction";
+      if (entry.manualReviewStatus === "manual_review_required") {
+        throw new Error(`${entry.planId} submitted record must include a submitted decision status`);
+      }
+      if (approved || rejected) {
+        if (entry.reviewerDecisionSource === "none") {
+          throw new Error(`${entry.planId} submitted decision requires explicit reviewerDecisionSource`);
+        }
+        if (entry.reviewerIdentityStatus !== "present") {
+          throw new Error(`${entry.planId} submitted decision requires present reviewer identity`);
+        }
+        if (entry.reviewerAuthorityStatus !== "authorized") {
+          throw new Error(`${entry.planId} submitted decision requires authorized reviewer authority`);
+        }
+      }
+      if (entry.manualReviewStatus === "blocked_invalid_review_record") {
+        if (
+          entry.reviewerDecisionSource !== "none" ||
+          entry.reviewerIdentityStatus !== "invalid" ||
+          entry.reviewerAuthorityStatus !== "unauthorized" ||
+          entry.promotionReadinessDryRunStatus !== "blocked_invalid_review_record"
+        ) {
+          throw new Error(`${entry.planId} invalid submitted record must remain blocked_invalid_review_record`);
+        }
+      }
+      if (entry.promotionReadinessDryRunStatus === "dry_run_ready") {
+        if (!approved) {
+          throw new Error(`${entry.planId} dry_run_ready requires an approved submitted decision`);
+        }
+        if (entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready") {
+          throw new Error(`${entry.planId} dry_run_ready requires route/export readiness`);
+        }
+      }
     }
   }
 

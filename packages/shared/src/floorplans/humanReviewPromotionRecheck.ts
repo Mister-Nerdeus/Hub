@@ -27,9 +27,11 @@ export function buildHumanReviewPromotionRecheck(
 ): HumanReviewPromotionRecheck {
   const plans: HumanReviewPromotionRecheckPlan[] = manifest.reviewedPlans.map((entry) => {
     const blockingReasons = [...entry.blockingIssues];
+    const approved =
+      entry.manualReviewStatus === "approved_for_promotion_review" ||
+      entry.manualReviewStatus === "approved_with_notes";
     if (
-      entry.manualReviewStatus !== "approved_for_promotion_review" &&
-      entry.manualReviewStatus !== "approved_with_notes"
+      !approved
     ) {
       blockingReasons.push("missing valid structured human approval");
     }
@@ -45,6 +47,18 @@ export function buildHumanReviewPromotionRecheck(
     if (manifest.privateSourceBoundaryStatus !== "passed" || manifest.noPhiStatus !== "passed") {
       blockingReasons.push("boundary or no-PHI status is blocked");
     }
+    const dryRunStatus: HumanReviewPromotionRecheckPlan["dryRunStatus"] =
+      manifest.privateSourceBoundaryStatus !== "passed" || manifest.noPhiStatus !== "passed"
+        ? "blocked_by_boundary"
+        : entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready"
+          ? "blocked_by_route_export"
+          : entry.manualReviewStatus === "blocked_invalid_review_record" ||
+            entry.reviewerIdentityStatus === "invalid" ||
+            entry.reviewerAuthorityStatus === "unauthorized"
+            ? "blocked_invalid_review_record"
+            : approved
+              ? entry.promotionReadinessDryRunStatus
+              : "blocked_missing_manual_review";
     return {
       planId: entry.planId,
       manualReviewStatus: entry.manualReviewStatus,
@@ -57,7 +71,7 @@ export function buildHumanReviewPromotionRecheck(
           : "missing_or_invalid") as HumanReviewPromotionRecheckPlan["attestationStatus"],
       routeExportStatus: `${entry.routeReadinessStatus}/${entry.simulationReadyExportStatus}`,
       boundaryStatus: manifest.privateSourceBoundaryStatus === "passed" && manifest.noPhiStatus === "passed" ? "passed" : "failed",
-      dryRunStatus: entry.promotionReadinessDryRunStatus,
+      dryRunStatus,
       canPromote: false as const,
       blockingReasons: [...new Set(blockingReasons)]
     };
@@ -67,7 +81,7 @@ export function buildHumanReviewPromotionRecheck(
     batch: "341-350",
     dryRunOnly: true,
     promotionStatus: manifest.promotionStatus,
-    allPlansDryRunReady: plans.every((plan) => plan.dryRunStatus === "dry_run_ready"),
+    allPlansDryRunReady: plans.every((plan) => plan.dryRunStatus === "dry_run_ready" && plan.blockingReasons.length === 0),
     plans
   };
 }
