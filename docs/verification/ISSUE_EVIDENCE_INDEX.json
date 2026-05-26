@@ -4769,6 +4769,47 @@
         "packages/shared/tests/plan-3-correction-audit.test.mjs",
         "docs/verification/source-plan-correction-manifest.json"
       ]
+    },
+    {
+      "issue": "296",
+      "title": "Plan 4 Saved-Copy Source Correction Pass 1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-296/closeout.md",
+        "docs/verification/issues/issue-296/commands.txt",
+        "docs/verification/issues/issue-296/command-output-map.json",
+        "docs/verification/issues/issue-296/first-failure.txt",
+        "docs/verification/issues/issue-296/plan-4-corrected-copy-output.json",
+        "docs/verification/issues/issue-296/plan-4-correction-diff-output.json",
+        "docs/verification/issues/issue-296/plan-4-room-change-output.json",
+        "docs/verification/issues/issue-296/plan-4-door-change-output.json",
+        "docs/verification/issues/issue-296/plan-4-hallway-border-output.json",
+        "docs/verification/issues/issue-296/plan-4-rendered-visual-output.json",
+        "docs/verification/issues/issue-296/plan-4-private-source-boundary-output.json",
+        "docs/verification/issues/issue-296/plan-4-simulation-ready-export-attempt-output.json",
+        "docs/verification/issues/issue-296/plan-4-source-fixture-nonmutation-output.json",
+        "docs/verification/issues/issue-296/correction-manifest-update-output.json",
+        "docs/verification/issues/issue-296/visual-parity-still-passes-output.json",
+        "docs/verification/issues/issue-296/assignment-workflow-still-passes-output.json",
+        "docs/verification/issues/issue-296/scenario-simulation-still-passes-output.json",
+        "docs/verification/issues/issue-296/simulation-refinement-still-passes-output.json",
+        "docs/verification/issues/issue-296/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-296/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-296/source-plan-correction-gate-output.json",
+        "docs/verification/issues/issue-296/screenshots/plan-4-corrected-copy-pass-1.png",
+        "docs/verification/issues/issue-296/test-output/shared.txt",
+        "docs/verification/issues/issue-296/test-output/web.txt",
+        "docs/verification/issues/issue-296/test-output/web-build.txt",
+        "docs/verification/issues/issue-296/test-output/no-phi.txt",
+        "docs/verification/issues/issue-296/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-296/test-output/private-source-artifacts.txt",
+        "docs/verification/issues/issue-296/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-296/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-296/test-output/plans-2-through-5-unchanged.txt",
+        "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+        "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-notes.md",
+        "packages/shared/tests/plan-4-source-correction.test.mjs",
+        "docs/verification/source-plan-correction-manifest.json"
+      ]
     }
   ]
 }
