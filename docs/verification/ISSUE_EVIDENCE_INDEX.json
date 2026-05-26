@@ -4732,6 +4732,43 @@
         "packages/shared/tests/source-correction-test-helpers.mjs",
         "docs/verification/source-plan-correction-manifest.json"
       ]
+    },
+    {
+      "issue": "295",
+      "title": "Plan 3 Visual / Route / Export Audit",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-295/closeout.md",
+        "docs/verification/issues/issue-295/commands.txt",
+        "docs/verification/issues/issue-295/command-output-map.json",
+        "docs/verification/issues/issue-295/first-failure.txt",
+        "docs/verification/issues/issue-295/plan-3-visual-audit-output.json",
+        "docs/verification/issues/issue-295/plan-3-route-audit-output.json",
+        "docs/verification/issues/issue-295/plan-3-path-sync-output.json",
+        "docs/verification/issues/issue-295/plan-3-simulation-ready-export-output.json",
+        "docs/verification/issues/issue-295/plan-3-private-source-audit-output.json",
+        "docs/verification/issues/issue-295/plan-3-promotion-recommendation-output.json",
+        "docs/verification/issues/issue-295/correction-manifest-update-output.json",
+        "docs/verification/issues/issue-295/visual-parity-still-passes-output.json",
+        "docs/verification/issues/issue-295/assignment-workflow-still-passes-output.json",
+        "docs/verification/issues/issue-295/scenario-simulation-still-passes-output.json",
+        "docs/verification/issues/issue-295/simulation-refinement-still-passes-output.json",
+        "docs/verification/issues/issue-295/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-295/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-295/source-plan-correction-gate-output.json",
+        "docs/verification/issues/issue-295/screenshots/plan-3-visual-route-audit.png",
+        "docs/verification/issues/issue-295/test-output/shared.txt",
+        "docs/verification/issues/issue-295/test-output/web.txt",
+        "docs/verification/issues/issue-295/test-output/web-build.txt",
+        "docs/verification/issues/issue-295/test-output/no-phi.txt",
+        "docs/verification/issues/issue-295/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-295/test-output/private-source-artifacts.txt",
+        "docs/verification/issues/issue-295/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-295/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-295/test-output/plans-2-through-5-unchanged.txt",
+        "packages/shared/fixtures/source-corrections/plan-3/plan-3-correction-audit.json",
+        "packages/shared/tests/plan-3-correction-audit.test.mjs",
+        "docs/verification/source-plan-correction-manifest.json"
+      ]
     }
   ]
 }
