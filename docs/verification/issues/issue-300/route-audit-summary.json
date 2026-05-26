@@ -1,0 +1,32 @@
+{
+  "issue": "300",
+  "status": "passed",
+  "routeAuditStatus": {
+    "plan-2": "route_access_blocked",
+    "plan-3": "route_access_blocked",
+    "plan-4": "route_access_blocked",
+    "plan-5": "route_access_blocked"
+  },
+  "blockingIssues": {
+    "plan-2": [
+      "ROOM_MISSING_PATH_NODE",
+      "PATH_GRAPH_UNREACHABLE_ROOM",
+      "SIMULATION_READY_EXPORT_BLOCKED"
+    ],
+    "plan-3": [
+      "ROOM_MISSING_PATH_NODE",
+      "PATH_GRAPH_UNREACHABLE_ROOM",
+      "SIMULATION_READY_EXPORT_BLOCKED"
+    ],
+    "plan-4": [
+      "ROOM_MISSING_PATH_NODE",
+      "PATH_GRAPH_UNREACHABLE_ROOM",
+      "SIMULATION_READY_EXPORT_BLOCKED"
+    ],
+    "plan-5": [
+      "ROOM_MISSING_PATH_NODE",
+      "PATH_GRAPH_UNREACHABLE_ROOM",
+      "SIMULATION_READY_EXPORT_BLOCKED"
+    ]
+  }
+}

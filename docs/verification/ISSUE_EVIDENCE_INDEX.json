@@ -4925,6 +4925,50 @@
         "packages/shared/tests/plan-5-correction-audit.test.mjs",
         "docs/verification/source-plan-correction-manifest.json"
       ]
+    },
+    {
+      "issue": "300",
+      "title": "Source-Driven Plan Correction GO / NO-GO",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-300/closeout.md",
+        "docs/verification/issues/issue-300/commands.txt",
+        "docs/verification/issues/issue-300/command-output-map.json",
+        "docs/verification/issues/issue-300/first-failure.txt",
+        "docs/verification/issues/issue-300/source-plan-correction-audit.md",
+        "docs/verification/issues/issue-300/correction-manifest-summary.json",
+        "docs/verification/issues/issue-300/plan-2-correction-summary.json",
+        "docs/verification/issues/issue-300/plan-3-correction-summary.json",
+        "docs/verification/issues/issue-300/plan-4-correction-summary.json",
+        "docs/verification/issues/issue-300/plan-5-correction-summary.json",
+        "docs/verification/issues/issue-300/visual-evidence-summary.json",
+        "docs/verification/issues/issue-300/route-audit-summary.json",
+        "docs/verification/issues/issue-300/simulation-ready-export-summary.json",
+        "docs/verification/issues/issue-300/private-source-boundary-summary.json",
+        "docs/verification/issues/issue-300/source-fixture-nonmutation-summary.json",
+        "docs/verification/issues/issue-300/promotion-readiness-summary.json",
+        "docs/verification/issues/issue-300/visual-parity-still-passes-output.json",
+        "docs/verification/issues/issue-300/assignment-workflow-still-passes-output.json",
+        "docs/verification/issues/issue-300/scenario-simulation-still-passes-output.json",
+        "docs/verification/issues/issue-300/simulation-refinement-still-passes-output.json",
+        "docs/verification/issues/issue-300/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-300/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-300/source-plan-correction-gate-output.json",
+        "docs/verification/issues/issue-300/known-gaps.md",
+        "docs/verification/issues/issue-300/follow-up-issues.md",
+        "docs/verification/issues/issue-300/go-no-go.md",
+        "docs/verification/issues/issue-300/test-output/shared.txt",
+        "docs/verification/issues/issue-300/test-output/web.txt",
+        "docs/verification/issues/issue-300/test-output/web-build.txt",
+        "docs/verification/issues/issue-300/test-output/no-phi.txt",
+        "docs/verification/issues/issue-300/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-300/test-output/private-source-artifacts.txt",
+        "docs/verification/issues/issue-300/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-300/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-300/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-300/test-output/verify-local.txt",
+        "docs/project/source-plan-correction-status.md",
+        "docs/verification/source-plan-correction-manifest.json"
+      ]
     }
   ]
 }
