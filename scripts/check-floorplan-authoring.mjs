@@ -316,7 +316,20 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "289": ["first-failure.txt"],
+  "289": [
+    "first-failure.txt",
+    "plan-2-editable-copy-output.json",
+    "plan-2-authoring-dry-run-output.json",
+    "plan-2-save-reload-output.json",
+    "plan-2-source-nonmutation-output.json",
+    "plan-2-private-source-boundary-output.json",
+    "plan-2-simulation-ready-export-attempt-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "290": ["first-failure.txt"]
 };
 
@@ -339,9 +352,10 @@ const behaviorOutput = [
   "door-edit-e2e",
   "path-sync-audit",
   "door-path-node-generation",
-  "simulation-ready-export"
+  "simulation-ready-export",
+  "plan-2-dry-run"
 ].includes(stage) && missingModules.length === 0
-  ? runBehaviorHarness("default-er-layout-plan-1.json")
+  ? runBehaviorHarness(stage === "plan-2-dry-run" ? "default-er-layout-plan-2.json" : "default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
 const evidenceFailures = requiredEvidenceFailures(issueNumber);
@@ -611,7 +625,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
     "285": ["auto-hallway-grid-subtraction.png"],
     "286": ["path-sync-status-panel.png"],
     "287": ["door-path-node-sync-controls.png"],
-    "288": ["simulation-ready-export-panel.png"]
+    "288": ["simulation-ready-export-panel.png"],
+    "289": ["plan-2-authoring-dry-run.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));

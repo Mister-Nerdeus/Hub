@@ -1,0 +1,15 @@
+{
+  "issue": "289",
+  "status": "passed",
+  "exportStatus": "blocked_path_sync",
+  "blockingIssues": [
+    "ROOM_MISSING_PATH_NODE",
+    "PATH_GRAPH_UNREACHABLE_ROOM",
+    "SIMULATION_READY_EXPORT_BLOCKED"
+  ],
+  "warningIssues": [
+    "PATH_SYNC_STALE"
+  ],
+  "pathSyncStatus": "stale_warning",
+  "simulationReadyPlanPresent": false
+}
