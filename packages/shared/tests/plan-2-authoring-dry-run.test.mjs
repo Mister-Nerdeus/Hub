@@ -154,6 +154,7 @@ const summary = {
   sourcePlan2Unchanged: sourceUnchanged,
   privateSourcePayloadStored: false,
   simulationReadyExportStatus: exportAttempt.status,
+  exactDocxParityClaimMade: false,
   exportedRoomCount: exportedPlan.rooms.length,
   exportedDoorCount: exportedPlan.doors.length,
   limitations: [

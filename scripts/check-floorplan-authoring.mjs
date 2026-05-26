@@ -63,6 +63,34 @@ const requiredModules = [
   "apps/web/src/features/layout-editor/podBorderViewModel.ts"
 ];
 
+const behaviorStages = new Set([
+  "behavioral-execution",
+  "save-reload-e2e",
+  "room-edit-e2e",
+  "door-edit-e2e",
+  "hallway-v2",
+  "path-sync-audit",
+  "door-path-node-generation",
+  "simulation-ready-export",
+  "plan-2-dry-run",
+  "final"
+]);
+
+const stageProofFixtures = {
+  "behavioral-execution": "packages/shared/fixtures/authoring-proof/plan-1-authoring-behavior-fixture.json",
+  "save-reload-e2e": "packages/shared/fixtures/authoring-proof/plan-1-save-reload-fixture.json",
+  "room-edit-e2e": "packages/shared/fixtures/authoring-proof/plan-1-room-authoring-fixture.json",
+  "door-edit-e2e": "packages/shared/fixtures/authoring-proof/plan-1-door-authoring-fixture.json",
+  "hallway-v2": "packages/shared/fixtures/authoring-proof/plan-1-hallway-v2-fixture.json",
+  "path-sync-audit": "packages/shared/fixtures/authoring-proof/plan-1-path-sync-fixture.json",
+  "door-path-node-generation": "packages/shared/fixtures/authoring-proof/plan-1-door-path-node-fixture.json",
+  "simulation-ready-export": "packages/shared/fixtures/authoring-proof/plan-1-simulation-ready-export-fixture.json",
+  "plan-2-dry-run": "packages/shared/fixtures/authoring-proof/plan-2-authoring-dry-run.json"
+};
+
+const requiredAuthoringProofFixtures = Object.values(stageProofFixtures);
+const behaviorManifestPath = "docs/verification/floorplan-authoring-behavior-manifest.json";
+
 const issueFiles = {
   "271": [
     "first-failure.txt",
@@ -220,6 +248,7 @@ const issueFiles = {
   ],
   "283": [
     "first-failure.txt",
+    "authoring-warning-contract-output.json",
     "room-resize-e2e-output.json",
     "room-type-e2e-output.json",
     "add-room-e2e-output.json",
@@ -258,6 +287,8 @@ const issueFiles = {
     "grid-subtraction-output.json",
     "interior-hallway-output.json",
     "occupied-cell-exclusion-output.json",
+    "station-support-exclusion-output.json",
+    "blocked-zone-exclusion-output.json",
     "manual-hallway-preservation-output.json",
     "generated-tag-output.json",
     "deterministic-generation-output.json",
@@ -344,6 +375,7 @@ const issueFiles = {
     "plan-2-dry-run-summary.json",
     "no-docx-source-exposure-summary.json",
     "source-fixture-nonmutation-summary.json",
+    "behavior-manifest-summary.json",
     "visual-parity-still-passes-output.json",
     "assignment-workflow-still-passes-output.json",
     "scenario-simulation-still-passes-output.json",
@@ -367,24 +399,21 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const behaviorOutput = [
-  "behavioral-execution",
-  "save-reload-e2e",
-  "room-edit-e2e",
-  "door-edit-e2e",
-  "path-sync-audit",
-  "door-path-node-generation",
-  "simulation-ready-export",
-  "plan-2-dry-run",
-  "final"
-].includes(stage) && missingModules.length === 0
+const behaviorOutput = behaviorStages.has(stage) && missingModules.length === 0
   ? runBehaviorHarness(stage === "plan-2-dry-run" ? "default-er-layout-plan-2.json" : "default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
+const fixtureFailures = requiredFixtureFailures(stage);
+const manifestFailures = requiredManifestFailures(stage, issueNumber);
 const evidenceFailures = requiredEvidenceFailures(issueNumber);
 const finalAuditFailures = stage === "final" && issueNumber === "290" ? finalAuditAssertionFailures() : [];
 const status =
-  missingModules.length === 0 && behaviorFailures.length === 0 && evidenceFailures.length === 0 && finalAuditFailures.length === 0
+  missingModules.length === 0 &&
+  behaviorFailures.length === 0 &&
+  fixtureFailures.length === 0 &&
+  manifestFailures.length === 0 &&
+  evidenceFailures.length === 0 &&
+  finalAuditFailures.length === 0
     ? "passed"
     : "failed";
 
@@ -416,13 +445,15 @@ writeIssueEvidence(issueNumber, stage, {
   pathSyncWarning: "stale_warning is explicit after route-affecting authoring edits",
   behaviorExecuted: behaviorOutput != null,
   behaviorFailures,
+  fixtureFailures,
+  manifestFailures,
   evidenceFailures,
   finalAuditFailures,
   behaviorOutput
 });
 
 if (status !== "passed") {
-  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures, evidenceFailures, finalAuditFailures }, null, 2));
+  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures, fixtureFailures, manifestFailures, evidenceFailures, finalAuditFailures }, null, 2));
 }
 
 console.log(
@@ -435,6 +466,8 @@ console.log(
       checkedModuleCount: requiredModules.length,
       behaviorExecuted: behaviorOutput != null,
       behaviorSummary: behaviorOutput == null ? null : behaviorProofSummary(behaviorOutput),
+      proofFixturesValidated: fixtureFailures.length === 0,
+      behaviorManifestValidated: manifestFailures.length === 0,
       finalAuditValidated: stage === "final" && issueNumber === "290",
       finalAuditFailureCount: finalAuditFailures.length,
       evidenceDir: `docs/verification/issues/issue-${issueNumber}`
@@ -453,7 +486,7 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
   writeJson(join(issueDir, "floorplan-authoring-gate-output.json"), summary);
   if (summary.behaviorOutput != null && stageName !== "final") {
     writeAuthoringProofFixture(stageName, summary.behaviorOutput);
-    writeBehaviorEvidence(issueDir, summary.behaviorOutput);
+    writeBehaviorEvidence(issueDir, issueNumber, summary.behaviorOutput);
   }
   const behaviorEvidenceFiles = new Set([
     "behavioral-harness-output.json",
@@ -497,23 +530,23 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
   writeScreenshotPlaceholders(issueDir, issueNumber);
 }
 
-function writeBehaviorEvidence(issueDir, output) {
-  writeJson(join(issueDir, "behavioral-harness-output.json"), output);
-  writeJson(join(issueDir, "default-copy-output.json"), {
+function writeBehaviorEvidence(issueDir, issueNumber, output) {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "behavioral-harness-output.json", output);
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "default-copy-output.json", {
     sourceDefaultPlanId: output.sourceDefaultPlanId,
     editableCopyId: output.editableCopyId,
     sourceDefaultUnchanged: output.sourceDefaultUnchanged,
     privateSourcePayloadStored: output.privateSourcePayloadStored
   });
-  writeJson(join(issueDir, "save-save-as-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "save-save-as-output.json", {
     savedPlanId: output.savedPlanId,
     saveAsPlanId: output.saveAsPlanId,
     multipleSavedVersionsCoexist: output.savedPlanId !== output.saveAsPlanId
   });
-  writeJson(join(issueDir, "reload-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "reload-output.json", {
     reloadMatchedEditableLayout: output.reloadMatchedEditableLayout
   });
-  writeJson(join(issueDir, "edit-operation-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "edit-operation-output.json", {
     roomTypeChanged: output.roomTypeChanged,
     roomAdded: output.roomAdded,
     doorAdded: output.doorAdded,
@@ -522,24 +555,32 @@ function writeBehaviorEvidence(issueDir, output) {
     podBorderGenerated: output.podBorderGenerated,
     details: output.details
   });
-  writeJson(join(issueDir, "export-operation-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "export-operation-output.json", {
     exportValidated: output.exportValidated,
     simulationReadyExportStatus: output.details.simulationReadyExportStatus
   });
-  writeJson(join(issueDir, "path-sync-status-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "path-sync-status-output.json", {
     pathSyncStatus: output.pathSyncStatus,
     generatedPathNodeCount: output.details.generatedPathNodeCount,
     generatedPathEdgeCount: output.details.generatedPathEdgeCount
   });
-  writeJson(join(issueDir, "default-nonmutation-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "default-nonmutation-output.json", {
     sourceDefaultUnchanged: output.sourceDefaultUnchanged,
     sourceDefaultPlanId: output.sourceDefaultPlanId
   });
-  writeJson(join(issueDir, "private-source-boundary-output.json"), {
+  writeBehaviorJsonIfExpected(issueDir, issueNumber, "private-source-boundary-output.json", {
     privateSourcePayloadStored: output.privateSourcePayloadStored,
     runtimeServedByWeb: false,
     runtimeServedByApi: false
   });
+}
+
+function writeBehaviorJsonIfExpected(issueDir, issueNumber, fileName, payload) {
+  const path = join(issueDir, fileName);
+  const expected = (issueFiles[issueNumber] ?? []).includes(fileName) || existsSync(path);
+  if (expected) {
+    writeJson(path, payload);
+  }
 }
 
 function writeAuthoringProofFixture(stageName, output) {
@@ -670,7 +711,8 @@ function finalAuditAssertionFailures() {
     "simulation-ready-export-summary.json",
     "plan-2-dry-run-summary.json",
     "no-docx-source-exposure-summary.json",
-    "source-fixture-nonmutation-summary.json"
+    "source-fixture-nonmutation-summary.json",
+    "behavior-manifest-summary.json"
   ];
 
   const summaries = new Map();
@@ -801,6 +843,17 @@ function finalAuditAssertionFailures() {
     requireTrue(sourceNonmutation.sourceFixturesRemainUnchanged, "source-fixture-nonmutation-summary.json did not prove source fixture nonmutation", failures);
   }
 
+  const manifestSummary = summaries.get("behavior-manifest-summary.json");
+  if (manifestSummary != null) {
+    if (manifestSummary.manifestPath !== behaviorManifestPath) {
+      failures.push("behavior-manifest-summary.json must reference the behavior manifest path");
+    }
+    requireTrue(manifestSummary.manifestValidated, "behavior-manifest-summary.json did not prove manifest validation", failures);
+    if (manifestSummary.lastUpdatedIssue !== "290") {
+      failures.push("behavior-manifest-summary.json must mark Issue 290 as latest update");
+    }
+  }
+
   return failures;
 }
 
@@ -921,6 +974,211 @@ function requiredEvidenceFailures(issueNumber) {
   return (issueFiles[issueNumber] ?? [])
     .filter((fileName) => !existsSync(join(issueDir, fileName)))
     .map((fileName) => `missing required behavioral evidence: ${fileName}`);
+}
+
+function requiredFixtureFailures(stageName) {
+  if (!behaviorStages.has(stageName)) {
+    return [];
+  }
+  const stageNames = stageName === "final" ? Object.keys(stageProofFixtures) : [stageName];
+  return stageNames.flatMap((name) => {
+    const relativePath = stageProofFixtures[name];
+    if (relativePath == null) {
+      return [];
+    }
+    const absolutePath = join(repoRoot, relativePath);
+    if (!existsSync(absolutePath)) {
+      return [`missing required behavioral proof fixture: ${relativePath}`];
+    }
+    let fixture;
+    try {
+      fixture = JSON.parse(readFileSync(absolutePath, "utf8"));
+    } catch (error) {
+      return [`invalid behavioral proof fixture JSON: ${relativePath}: ${error.message}`];
+    }
+    return validateStageProofFixture(name, relativePath, fixture);
+  });
+}
+
+function validateStageProofFixture(stageName, relativePath, fixture) {
+  const failures = [];
+  const prefix = `${relativePath}:`;
+  if (["behavioral-execution", "save-reload-e2e", "room-edit-e2e", "door-edit-e2e"].includes(stageName)) {
+    for (const field of [
+      "sourceDefaultPlanId",
+      "editableCopyId",
+      "savedPlanId",
+      "saveAsPlanId",
+      "reloadMatchedEditableLayout",
+      "roomTypeChanged",
+      "roomAdded",
+      "doorAdded",
+      "doorMoved",
+      "hallwayGenerated",
+      "podBorderGenerated",
+      "exportValidated",
+      "pathSyncStatus",
+      "sourceDefaultUnchanged",
+      "privateSourcePayloadStored"
+    ]) {
+      if (!(field in fixture)) {
+        failures.push(`${prefix} missing harness field ${field}`);
+      }
+    }
+    failures.push(...behaviorAssertionFailures(fixture).map((failure) => `${prefix} ${failure}`));
+  }
+  if (stageName === "save-reload-e2e" && fixture.savedPlanId === fixture.saveAsPlanId) {
+    failures.push(`${prefix} savedPlanId and saveAsPlanId must differ`);
+  }
+  if (stageName === "hallway-v2") {
+    if (fixture.generationMethod !== "grid_subtraction") {
+      failures.push(`${prefix} generationMethod must be grid_subtraction`);
+    }
+    if (!Number.isInteger(fixture.occupiedCellCount) || !Number.isInteger(fixture.publicCellCount)) {
+      failures.push(`${prefix} occupiedCellCount and publicCellCount must be integers`);
+    }
+    if (!Array.isArray(fixture.generatedHallwayZones) || fixture.generatedHallwayZones.length === 0) {
+      failures.push(`${prefix} generatedHallwayZones must be non-empty`);
+    }
+    requireNonEmptyArray(fixture.limitations, `${prefix} limitations`, failures);
+    requireNonEmptyArray(fixture.nonClaims, `${prefix} nonClaims`, failures);
+  }
+  if (stageName === "path-sync-audit") {
+    const audit = fixture.audit;
+    if (audit?.pathSyncStatus !== "stale_warning") {
+      failures.push(`${prefix} audit.pathSyncStatus must be stale_warning`);
+    }
+    if (!Array.isArray(audit?.blockingIssues) || !audit.blockingIssues.includes("SIMULATION_READY_EXPORT_BLOCKED")) {
+      failures.push(`${prefix} audit.blockingIssues must include SIMULATION_READY_EXPORT_BLOCKED`);
+    }
+  }
+  if (stageName === "door-path-node-generation") {
+    if (!Number.isInteger(fixture.generatedNodeCount) || fixture.generatedNodeCount < 1) {
+      failures.push(`${prefix} generatedNodeCount must be positive`);
+    }
+    if (!Number.isInteger(fixture.generatedEdgeCount) || fixture.generatedEdgeCount < 1) {
+      failures.push(`${prefix} generatedEdgeCount must be positive`);
+    }
+    if (!Array.isArray(fixture.generatedNodes) || !fixture.generatedNodes.every((node) => node.generated === true)) {
+      failures.push(`${prefix} generatedNodes must be tagged generated nodes`);
+    }
+    if (!Array.isArray(fixture.manualReviewWarnings) || !fixture.manualReviewWarnings.includes("MANUAL_PATH_REVIEW_REQUIRED")) {
+      failures.push(`${prefix} manual review warning is required`);
+    }
+  }
+  if (stageName === "simulation-ready-export") {
+    const exportResult = fixture.exportResult;
+    if (exportResult?.status !== "simulation_ready") {
+      failures.push(`${prefix} exportResult.status must be simulation_ready`);
+    }
+    if (exportResult?.simulationReadyPlan == null) {
+      failures.push(`${prefix} exportResult.simulationReadyPlan is required`);
+    }
+    if (exportResult?.pathSyncStatus !== "fresh") {
+      failures.push(`${prefix} exportResult.pathSyncStatus must be fresh`);
+    }
+    if (exportResult?.privateSourcePayloadStored !== false) {
+      failures.push(`${prefix} privateSourcePayloadStored must be false`);
+    }
+  }
+  if (stageName === "plan-2-dry-run") {
+    for (const field of [
+      "roomMoved",
+      "roomTypeChanged",
+      "roomAdded",
+      "doorAdded",
+      "hallwayGenerated",
+      "podBorderGenerated",
+      "saveReloadMatched",
+      "sourcePlan2Unchanged"
+    ]) {
+      if (fixture[field] !== true) {
+        failures.push(`${prefix} ${field} must be true`);
+      }
+    }
+    if (fixture.privateSourcePayloadStored !== false) {
+      failures.push(`${prefix} privateSourcePayloadStored must be false`);
+    }
+    if (fixture.simulationReadyExportStatus == null) {
+      failures.push(`${prefix} simulationReadyExportStatus is required`);
+    }
+    if (fixture.exactDocxParityClaimMade !== false) {
+      failures.push(`${prefix} exactDocxParityClaimMade must be false`);
+    }
+  }
+  return failures;
+}
+
+function requiredManifestFailures(stageName, issueNumber) {
+  if (stageName !== "final" && issueNumber !== "290") {
+    return [];
+  }
+  const absolutePath = join(repoRoot, behaviorManifestPath);
+  if (!existsSync(absolutePath)) {
+    return [`missing required behavior manifest: ${behaviorManifestPath}`];
+  }
+  let manifest;
+  try {
+    manifest = JSON.parse(readFileSync(absolutePath, "utf8"));
+  } catch (error) {
+    return [`invalid behavior manifest JSON: ${error.message}`];
+  }
+  const failures = [];
+  for (const field of [
+    "manifestVersion",
+    "batch",
+    "lastUpdatedIssue",
+    "behavioralStages",
+    "authoringFixtures",
+    "defaultFixtureMutationStatus",
+    "privateSourceExposureStatus",
+    "simulationReadyExportStatus",
+    "goNoGoStatus"
+  ]) {
+    if (manifest[field] == null) {
+      failures.push(`behavior manifest missing field ${field}`);
+    }
+  }
+  if (manifest.batch !== "281-290") {
+    failures.push("behavior manifest batch must be 281-290");
+  }
+  if (manifest.lastUpdatedIssue !== "290") {
+    failures.push("behavior manifest lastUpdatedIssue must be 290");
+  }
+  const stages = Array.isArray(manifest.behavioralStages) ? manifest.behavioralStages : [];
+  const stageNames = new Set(stages.map((entry) => entry.stage));
+  for (const expectedStage of Object.keys(stageProofFixtures)) {
+    if (!stageNames.has(expectedStage)) {
+      failures.push(`behavior manifest missing stage ${expectedStage}`);
+    }
+  }
+  for (const fixturePath of requiredAuthoringProofFixtures) {
+    if (!JSON.stringify(manifest.authoringFixtures ?? {}).includes(fixturePath)) {
+      failures.push(`behavior manifest missing fixture ${fixturePath}`);
+    }
+  }
+  if (manifest.defaultFixtureMutationStatus?.sourceFixturesRemainUnchanged !== true) {
+    failures.push("behavior manifest must prove source fixtures remain unchanged");
+  }
+  if (manifest.privateSourceExposureStatus?.privateSourcePayloadStored !== false) {
+    failures.push("behavior manifest must prove private source payload is absent");
+  }
+  if (manifest.privateSourceExposureStatus?.runtimeDocxExposure !== false) {
+    failures.push("behavior manifest must prove runtime DOCX exposure is absent");
+  }
+  if (manifest.simulationReadyExportStatus?.validExportStatus !== "simulation_ready") {
+    failures.push("behavior manifest must include valid simulation_ready export status");
+  }
+  if (manifest.goNoGoStatus?.decision == null) {
+    failures.push("behavior manifest must include explicit GO/NO-GO decision");
+  }
+  return failures;
+}
+
+function requireNonEmptyArray(value, label, failures) {
+  if (!Array.isArray(value) || value.length === 0) {
+    failures.push(`${label} must be a non-empty array`);
+  }
 }
 
 function fail(message) {

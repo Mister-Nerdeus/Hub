@@ -5,8 +5,15 @@ GO to begin DOCX/source-driven default plan correction. Issue 290 audited Issues
 
 ## Files Changed
 - `scripts/check-floorplan-authoring.mjs`
+- `packages/shared/tests/auto-hallway-grid-subtraction.test.mjs`
+- `packages/shared/tests/door-authoring-e2e.test.mjs`
+- `packages/shared/tests/room-authoring-e2e.test.mjs`
+- `packages/shared/tests/plan-2-authoring-dry-run.test.mjs`
 - `docs/project/floorplan-authoring-status.md`
+- `docs/verification/floorplan-authoring-behavior-manifest.json`
 - `docs/verification/ISSUE_EVIDENCE_INDEX.json`
+- `packages/shared/fixtures/authoring-proof/`
+- `packages/shared/fixtures/authoring-dry-runs/plan-2/`
 - `docs/verification/issues/issue-290/`
 
 ## Commands Run
@@ -57,6 +64,8 @@ Failed first by design:
 - `docs/verification/issues/issue-290/plan-2-dry-run-summary.json`
 - `docs/verification/issues/issue-290/no-docx-source-exposure-summary.json`
 - `docs/verification/issues/issue-290/source-fixture-nonmutation-summary.json`
+- `docs/verification/issues/issue-290/behavior-manifest-summary.json`
+- `docs/verification/floorplan-authoring-behavior-manifest.json`
 - `docs/verification/issues/issue-290/go-no-go.md`
 - `docs/verification/issues/issue-290/test-output/`
 

@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import {
   AUTHORING_WARNING_CODES,
   addRoomToEditableLayout,
@@ -7,6 +9,8 @@ import {
   validateEditableLayoutGeometryContract
 } from "../dist/index.js";
 import { testEditableLayout, testPlan, throws } from "./authoring-test-helpers.mjs";
+
+const issueDir = resolve(process.cwd(), "../..", "docs/verification/issues/issue-283");
 
 const requiredWarningCodes = [
   "ROOM_MISSING_DOOR",
@@ -25,6 +29,14 @@ for (const code of requiredWarningCodes) {
     throw new Error(`warning code did not validate: ${code}`);
   }
 }
+
+writeJson("authoring-warning-contract-output.json", {
+  issue: "283",
+  status: "passed",
+  warningCodes: requiredWarningCodes,
+  severityValues: ["info", "warning", "blocking"],
+  objectTypes: ["room", "door", "pathNode", "pathEdge", "plan"]
+});
 
 const resizedLayout = validateEditableLayoutGeometryContract({
   ...testEditableLayout,
@@ -126,3 +138,9 @@ throws(
     }),
   /roomType must be one of/
 );
+
+function writeJson(name, payload) {
+  const target = resolve(issueDir, name);
+  mkdirSync(dirname(target), { recursive: true });
+  writeFileSync(target, `${JSON.stringify(payload, null, 2)}\n`);
+}

@@ -1,0 +1,24 @@
+{
+  "issue": "283",
+  "status": "passed",
+  "warningCodes": [
+    "ROOM_MISSING_DOOR",
+    "ROOM_MISSING_PATH_NODE",
+    "PATH_SYNC_STALE",
+    "ROOM_OUTSIDE_BOUNDS",
+    "ROOM_TYPE_INVALID",
+    "READONLY_AUTHORING_BLOCKED"
+  ],
+  "severityValues": [
+    "info",
+    "warning",
+    "blocking"
+  ],
+  "objectTypes": [
+    "room",
+    "door",
+    "pathNode",
+    "pathEdge",
+    "plan"
+  ]
+}

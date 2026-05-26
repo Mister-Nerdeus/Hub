@@ -1,0 +1,113 @@
+{
+  "manifestVersion": "1.0.0",
+  "batch": "281-290",
+  "lastUpdatedIssue": "290",
+  "behavioralStages": [
+    {
+      "issue": "281",
+      "stage": "behavioral-execution",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-authoring-behavior-fixture.json"
+    },
+    {
+      "issue": "282",
+      "stage": "save-reload-e2e",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-save-reload-fixture.json"
+    },
+    {
+      "issue": "283",
+      "stage": "room-edit-e2e",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-room-authoring-fixture.json"
+    },
+    {
+      "issue": "284",
+      "stage": "door-edit-e2e",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-door-authoring-fixture.json"
+    },
+    {
+      "issue": "285",
+      "stage": "hallway-v2",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-hallway-v2-fixture.json",
+      "generationMethod": "grid_subtraction"
+    },
+    {
+      "issue": "286",
+      "stage": "path-sync-audit",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-path-sync-fixture.json",
+      "pathSyncStatus": "stale_warning"
+    },
+    {
+      "issue": "287",
+      "stage": "door-path-node-generation",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-door-path-node-fixture.json",
+      "generationScope": "prototype"
+    },
+    {
+      "issue": "288",
+      "stage": "simulation-ready-export",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-1-simulation-ready-export-fixture.json",
+      "validExportStatus": "simulation_ready"
+    },
+    {
+      "issue": "289",
+      "stage": "plan-2-dry-run",
+      "status": "passed",
+      "proofFixture": "packages/shared/fixtures/authoring-proof/plan-2-authoring-dry-run.json",
+      "dryRunFixture": "packages/shared/fixtures/authoring-dry-runs/plan-2/plan-2-authoring-dry-run.json"
+    }
+  ],
+  "authoringFixtures": {
+    "required": [
+      "packages/shared/fixtures/authoring-proof/plan-1-authoring-behavior-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-save-reload-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-room-authoring-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-door-authoring-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-hallway-v2-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-path-sync-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-door-path-node-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-1-simulation-ready-export-fixture.json",
+      "packages/shared/fixtures/authoring-proof/plan-2-authoring-dry-run.json"
+    ],
+    "dryRuns": [
+      "packages/shared/fixtures/authoring-dry-runs/plan-2/plan-2-authoring-dry-run.json"
+    ]
+  },
+  "defaultFixtureMutationStatus": {
+    "sourceFixturesRemainUnchanged": true,
+    "plans2Through5ChangedPaths": [],
+    "hashMismatches": [],
+    "plan2DryRunSourceUnchanged": true
+  },
+  "privateSourceExposureStatus": {
+    "privateSourcePayloadStored": false,
+    "runtimeDocxExposure": false,
+    "repoDocxFiles": [],
+    "webSourceMatches": [],
+    "apiRouteMatches": []
+  },
+  "simulationReadyExportStatus": {
+    "validExportStatus": "simulation_ready",
+    "blockedStatusesProven": [
+      "blocked_path_sync",
+      "blocked_invalid_geometry",
+      "blocked_private_source_payload",
+      "draft_has_warnings"
+    ],
+    "pathSyncRequiredFreshForValidExport": true
+  },
+  "goNoGoStatus": {
+    "decision": "GO to begin DOCX/source-driven default plan correction",
+    "evidence": "docs/verification/issues/issue-290/go-no-go.md",
+    "knownLimitations": [
+      "Generated hallway/public-space geometry is approximate operational authoring geometry only.",
+      "Door-to-path-node generation is prototype route-sync preparation and does not claim exact route truth."
+    ]
+  }
+}

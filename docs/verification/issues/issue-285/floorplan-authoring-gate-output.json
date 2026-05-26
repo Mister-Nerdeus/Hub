@@ -52,8 +52,36 @@
     "runtimeServedByApi": false
   },
   "pathSyncWarning": "stale_warning is explicit after route-affecting authoring edits",
-  "behaviorExecuted": false,
+  "behaviorExecuted": true,
   "behaviorFailures": [],
+  "fixtureFailures": [],
+  "manifestFailures": [],
   "evidenceFailures": [],
-  "behaviorOutput": null
+  "finalAuditFailures": [],
+  "behaviorOutput": {
+    "sourceDefaultPlanId": "default-er-layout-plan-1",
+    "editableCopyId": "default-er-layout-plan-1-authoring-copy",
+    "savedPlanId": "saved-default-er-layout-plan-1-authoring-copy-001",
+    "saveAsPlanId": "saved-default-er-layout-plan-1-authoring-copy-002",
+    "reloadMatchedEditableLayout": true,
+    "roomTypeChanged": true,
+    "roomAdded": true,
+    "doorAdded": true,
+    "doorMoved": true,
+    "hallwayGenerated": true,
+    "podBorderGenerated": true,
+    "exportValidated": true,
+    "pathSyncStatus": "stale_warning",
+    "sourceDefaultUnchanged": true,
+    "privateSourcePayloadStored": false,
+    "details": {
+      "roomIdEdited": "room-level-1-trauma",
+      "addedRoomId": "room-authoring-proof-added",
+      "addedDoorId": "door-authoring-proof-added",
+      "generatedHallwayCount": 8,
+      "generatedPathNodeCount": 24,
+      "generatedPathEdgeCount": 18,
+      "simulationReadyExportStatus": "blocked_path_sync"
+    }
+  }
 }

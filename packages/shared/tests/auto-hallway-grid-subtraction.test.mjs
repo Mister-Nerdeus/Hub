@@ -74,6 +74,52 @@ if (!small.warnings.includes("BOUNDS_TOO_SMALL_FOR_GRID_SUBTRACTION")) {
   throw new Error("small bounds must return a warning");
 }
 
+const stationSupportBlockedLayout = {
+  ...testEditableLayout,
+  rooms: [],
+  doors: [],
+  stations: [
+    {
+      objectType: "station",
+      id: "station-support-proof",
+      label: "Support Station",
+      stationType: "nurse_station",
+      xFeet: 0,
+      yFeet: 0,
+      widthFeet: 4,
+      heightFeet: 4
+    }
+  ],
+  zones: [
+    {
+      objectType: "zone",
+      id: "zone-blocked-proof",
+      label: "Blocked Operational Zone",
+      zoneType: "provider_pharmacy",
+      xFeet: 4,
+      yFeet: 0,
+      widthFeet: 4,
+      heightFeet: 4
+    }
+  ],
+  hallways: []
+};
+const stationSupportBlocked = generateGridSubtractionHallways({
+  layout: stationSupportBlockedLayout,
+  sourcePlanId: "grid-proof-zones",
+  boundsFeet: { xFeet: 0, yFeet: 0, widthFeet: 12, heightFeet: 4 },
+  gridCellSizeFeet: 4
+});
+if (stationSupportBlocked.occupiedCellCount !== 2 || stationSupportBlocked.publicCellCount !== 1) {
+  throw new Error("station/support and blocked-zone cells must be excluded from generated public space");
+}
+if (stationSupportBlocked.generatedHallwayZones.some((hallway) =>
+  rectsOverlap(hallway, stationSupportBlockedLayout.stations[0]) ||
+  rectsOverlap(hallway, stationSupportBlockedLayout.zones[0])
+)) {
+  throw new Error("generated hallway rectangles must not overlap station/support or blocked zones");
+}
+
 const autoResult = generateAutoHallways({
   layout: layoutWithInteriorPublicSpace,
   sourcePlanId: "grid-proof",
@@ -134,6 +180,21 @@ writeJson("occupied-cell-exclusion-output.json", {
   occupiedCellCount: result.occupiedCellCount,
   generatedHallwaysOverlapRooms: false
 });
+writeJson("station-support-exclusion-output.json", {
+  issue: "285",
+  status: "passed",
+  occupiedCellCount: stationSupportBlocked.occupiedCellCount,
+  publicCellCount: stationSupportBlocked.publicCellCount,
+  stationSupportCellsExcluded: true,
+  generatedHallwaysOverlapStationOrSupportZone: false
+});
+writeJson("blocked-zone-exclusion-output.json", {
+  issue: "285",
+  status: "passed",
+  blockedZoneId: "zone-blocked-proof",
+  blockedZoneCellsExcluded: true,
+  generatedHallwaysOverlapBlockedZones: false
+});
 writeJson("manual-hallway-preservation-output.json", {
   issue: "285",
   status: "passed",
@@ -180,11 +241,17 @@ writeJsonToAbsolute(fixturePath, {
 
 function rectsOverlapAnyRoom(hallway, rooms) {
   return rooms.some((room) => (
-    hallway.xFeet < room.xFeet + room.widthFeet &&
-    hallway.xFeet + hallway.widthFeet > room.xFeet &&
-    hallway.yFeet < room.yFeet + room.heightFeet &&
-    hallway.yFeet + hallway.heightFeet > room.yFeet
+    rectsOverlap(hallway, room)
   ));
+}
+
+function rectsOverlap(left, right) {
+  return (
+    left.xFeet < right.xFeet + right.widthFeet &&
+    left.xFeet + left.widthFeet > right.xFeet &&
+    left.yFeet < right.yFeet + right.heightFeet &&
+    left.yFeet + left.heightFeet > right.yFeet
+  );
 }
 
 function writeJson(name, payload) {

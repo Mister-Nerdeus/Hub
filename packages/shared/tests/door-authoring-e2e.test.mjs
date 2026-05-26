@@ -95,8 +95,12 @@ if (exported.doors.find((door) => door.id === "door-authored-two")?.roomId !== "
 
 throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: Number.NaN }), /finite number/);
 throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: Number.POSITIVE_INFINITY }), /finite number/);
+throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: Number.NEGATIVE_INFINITY }), /finite number/);
 throws(() => addDoorToRoom({ ...doorInput(), widthFeet: Number.NaN }), /finite number/);
+throws(() => addDoorToRoom({ ...doorInput(), widthFeet: Number.POSITIVE_INFINITY }), /finite number/);
 throws(() => addDoorToRoom({ ...doorInput(), widthFeet: 0 }), /greater than 0/);
+throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: -1 }), /perimeter/);
+throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: 14, widthFeet: 3 }), /perimeter/);
 throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: 99 }), /perimeter/);
 throws(() => addDoorToRoom({ ...doorInput(), readOnly: true }), /read-only default plans/);
 
