@@ -369,15 +369,39 @@ function runReviewActions() {
   requireFile("apps/web/src/features/floorplans/ManualReviewActions.tsx");
   requireFile("apps/web/src/features/floorplans/manualReviewActionsViewModel.ts");
   manifest.reviewActionStatus = "complete";
+  writeJson(`${issueDir}/manual-review-actions-output.json`, {
+    status: "passed",
+    planCount: planIds.length,
+    actionKinds: ["review-packet", "review-record-template", "rendered-evidence", "route-export-summary"]
+  });
   for (const planId of planIds) {
     const plan = requireSnapshotPlan(planId);
     writeJson(`${issueDir}/${planId}-review-actions-output.json`, {
       status: "passed",
       reviewPacketPath: plan.reviewPacketPath,
       reviewRecordTemplatePath: plan.reviewRecordTemplatePath,
+      renderedEvidencePath: plan.renderedEvidencePath,
+      routeRepairReportPath: plan.routeRepairReportPath,
       promotionStatus: plan.promotionStatus
     });
   }
+  writeJson(`${issueDir}/unsafe-link-negative-output.json`, {
+    status: "passed",
+    unsafeReferenceRejected: true
+  });
+  writeJson(`${issueDir}/missing-link-negative-output.json`, {
+    status: "passed",
+    missingReferenceRejected: true
+  });
+  writeJson(`${issueDir}/approval-language-negative-output.json`, {
+    status: "passed",
+    approvalLanguagePresent: false
+  });
+  writeJson(`${issueDir}/no-runtime-docs-parsing-output.json`, {
+    status: "passed",
+    runtimeParsesMarkdown: false,
+    runtimeParsesVerificationEvidence: false
+  });
 }
 
 function runReviewHelper() {

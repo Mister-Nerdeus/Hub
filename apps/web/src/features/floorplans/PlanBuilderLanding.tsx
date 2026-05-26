@@ -1,3 +1,5 @@
+import { ManualReviewActions } from "./ManualReviewActions";
+import { createManualReviewActionsViewModel } from "./manualReviewActionsViewModel";
 import { PlanBuilderLibrary } from "./PlanBuilderLibrary";
 import { createPlanBuilderLibraryViewModel } from "./planBuilderLibraryViewModel";
 import { RenderedPlanPreviewPanel } from "./RenderedPlanPreviewPanel";
@@ -8,6 +10,7 @@ export function PlanBuilderLanding() {
     <>
       <PlanBuilderLibrary viewModel={createPlanBuilderLibraryViewModel()} />
       <RenderedPlanPreviewPanel viewModel={createRenderedPlanPreviewViewModel()} />
+      <ManualReviewActions viewModel={createManualReviewActionsViewModel()} />
     </>
   );
 }

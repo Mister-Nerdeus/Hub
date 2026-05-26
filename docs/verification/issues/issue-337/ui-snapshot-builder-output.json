@@ -1,0 +1,45 @@
+{
+  "issue": "337",
+  "status": "passed",
+  "snapshotJsonPath": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.json",
+  "snapshotJsonHash": "a19328041077b3da3a14a0ab24b18cc525d2094a333a5853769dab062f0c1d53",
+  "snapshotTsPath": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.ts",
+  "snapshotTsHash": "39c41618fa50bd4b76feddf8615478e8f91cfa347262293b9377aef2a6999642",
+  "planCount": 4,
+  "manualReviewStatuses": [
+    [
+      "plan-2",
+      "manual_review_required"
+    ],
+    [
+      "plan-3",
+      "manual_review_required"
+    ],
+    [
+      "plan-4",
+      "manual_review_required"
+    ],
+    [
+      "plan-5",
+      "manual_review_required"
+    ]
+  ],
+  "promotionStatuses": [
+    [
+      "plan-2",
+      "blocked"
+    ],
+    [
+      "plan-3",
+      "blocked"
+    ],
+    [
+      "plan-4",
+      "blocked"
+    ],
+    [
+      "plan-5",
+      "blocked"
+    ]
+  ]
+}
