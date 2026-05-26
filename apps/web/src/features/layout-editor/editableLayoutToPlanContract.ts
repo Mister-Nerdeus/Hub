@@ -97,7 +97,9 @@ export function editableLayoutToPlanContract({
             label: hallway.label,
             widthFeet: Math.min(hallway.widthFeet, hallway.heightFeet),
             points,
-            hallwayOperationalMetadata: null
+            hallwayOperationalMetadata: hallway.id.startsWith("generated-hallway-")
+              ? generatedHallwayOperationalMetadata()
+              : null
           }
         : {
             ...sourceHallway,
@@ -146,6 +148,18 @@ export function editableLayoutToPlanContract({
       pathEdges: "preserved_from_source_plan"
     },
     routingWarning: makeStalePathSyncWarning()
+  };
+}
+
+function generatedHallwayOperationalMetadata(): NonNullable<PlanContract["hallways"][number]["hallwayOperationalMetadata"]> {
+  return {
+    hallwayClass: "side",
+    allowsBedMovement: false,
+    allowsPublicTraffic: true,
+    staffOnly: false,
+    congestionLevel: "moderate",
+    bottleneck: false,
+    throughRoute: true
   };
 }
 

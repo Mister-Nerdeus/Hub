@@ -11,11 +11,16 @@ export type AutoHallwayGenerationResult = {
   boundsUsed: { xFeet: number; yFeet: number; widthFeet: number; heightFeet: number };
   occupiedFootprintCount: number;
   publicSpaceFootprintCount: number;
+  gridCellSizeFeet: number | null;
+  occupiedCellCount: number;
+  publicCellCount: number;
+  mergedPublicRegionCount: number;
   generatedHallwayZones: EditableHallwayGeometry[];
   preservedManualHallwayIds: string[];
   generationMethod: "grid_subtraction" | "rectangular_envelope_difference" | "manual_seeded_generation";
   limitations: string[];
   nonClaims: string[];
+  warnings: string[];
 };
 
 export function generateAutoHallways(input: {
@@ -43,11 +48,16 @@ export function generateAutoHallways(input: {
       boundsUsed: { ...input.boundsFeet },
       occupiedFootprintCount: grid.occupiedCellCount,
       publicSpaceFootprintCount: grid.publicCellCount,
+      gridCellSizeFeet: grid.gridCellSizeFeet,
+      occupiedCellCount: grid.occupiedCellCount,
+      publicCellCount: grid.publicCellCount,
+      mergedPublicRegionCount: grid.mergedPublicRegionCount,
       generatedHallwayZones: grid.generatedHallwayZones,
       preservedManualHallwayIds: grid.preservedManualHallwayIds,
       generationMethod: grid.generationMethod,
       limitations: grid.limitations,
-      nonClaims: grid.nonClaims
+      nonClaims: grid.nonClaims,
+      warnings: grid.warnings
     };
   }
   const occupied = [...layout.rooms, ...layout.stations, ...layout.zones];
@@ -63,6 +73,10 @@ export function generateAutoHallways(input: {
     boundsUsed: { ...input.boundsFeet },
     occupiedFootprintCount: occupied.length,
     publicSpaceFootprintCount: generatedHallwayZones.length,
+    gridCellSizeFeet: null,
+    occupiedCellCount: occupied.length,
+    publicCellCount: generatedHallwayZones.length,
+    mergedPublicRegionCount: generatedHallwayZones.length,
     generatedHallwayZones,
     preservedManualHallwayIds: layout.hallways
       .filter((hallway) => !hallway.id.startsWith("generated-hallway-"))
@@ -72,7 +86,8 @@ export function generateAutoHallways(input: {
       "Generated hallways are approximate operational public-space rectangles.",
       "Manual review is required before treating route/path sync as fresh."
     ],
-    nonClaims: ["Generated hallway geometry is not an exact CAD reconstruction."]
+    nonClaims: ["Generated hallway geometry is not an exact CAD reconstruction."],
+    warnings: []
   };
 }
 

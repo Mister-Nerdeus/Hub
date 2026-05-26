@@ -253,7 +253,23 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "285": ["first-failure.txt"],
+  "285": [
+    "first-failure.txt",
+    "grid-subtraction-output.json",
+    "interior-hallway-output.json",
+    "occupied-cell-exclusion-output.json",
+    "manual-hallway-preservation-output.json",
+    "generated-tag-output.json",
+    "deterministic-generation-output.json",
+    "saved-draft-grid-hallway-output.json",
+    "export-grid-hallway-output.json",
+    "limitations-output.md",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "286": ["first-failure.txt"],
   "287": ["first-failure.txt"],
   "288": ["first-failure.txt"],
@@ -540,7 +556,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
     ],
     "282": ["save-as-reload-proof.png"],
     "283": ["room-authoring-e2e.png"],
-    "284": ["door-authoring-e2e.png"]
+    "284": ["door-authoring-e2e.png"],
+    "285": ["auto-hallway-grid-subtraction.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));

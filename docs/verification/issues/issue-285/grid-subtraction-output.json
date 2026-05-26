@@ -1,0 +1,31 @@
+{
+  "issue": "285",
+  "status": "passed",
+  "generationMethod": "grid_subtraction",
+  "gridCellSizeFeet": 4,
+  "occupiedCellCount": 8,
+  "publicCellCount": 4,
+  "mergedPublicRegionCount": 1,
+  "generatedHallwayZones": [
+    {
+      "objectType": "hallway",
+      "id": "generated-hallway-grid-proof-grid-01",
+      "label": "Generated public space 1",
+      "xFeet": 8,
+      "yFeet": 0,
+      "widthFeet": 8,
+      "heightFeet": 8
+    }
+  ],
+  "preservedManualHallwayIds": [
+    "hall-manual"
+  ],
+  "limitations": [
+    "Generated hallways are approximate operational public-space rectangles.",
+    "Grid subtraction uses coarse cells and occupied-safe rectangle merging; manual review is required."
+  ],
+  "nonClaims": [
+    "Generated hallway geometry is not an exact CAD reconstruction."
+  ],
+  "warnings": []
+}
