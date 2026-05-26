@@ -375,13 +375,18 @@ const behaviorOutput = [
   "path-sync-audit",
   "door-path-node-generation",
   "simulation-ready-export",
-  "plan-2-dry-run"
+  "plan-2-dry-run",
+  "final"
 ].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness(stage === "plan-2-dry-run" ? "default-er-layout-plan-2.json" : "default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
 const evidenceFailures = requiredEvidenceFailures(issueNumber);
-const status = missingModules.length === 0 && behaviorFailures.length === 0 && evidenceFailures.length === 0 ? "passed" : "failed";
+const finalAuditFailures = stage === "final" && issueNumber === "290" ? finalAuditAssertionFailures() : [];
+const status =
+  missingModules.length === 0 && behaviorFailures.length === 0 && evidenceFailures.length === 0 && finalAuditFailures.length === 0
+    ? "passed"
+    : "failed";
 
 writeIssueEvidence(issueNumber, stage, {
   status,
@@ -412,11 +417,12 @@ writeIssueEvidence(issueNumber, stage, {
   behaviorExecuted: behaviorOutput != null,
   behaviorFailures,
   evidenceFailures,
+  finalAuditFailures,
   behaviorOutput
 });
 
 if (status !== "passed") {
-  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures, evidenceFailures }, null, 2));
+  fail(JSON.stringify({ status, stage, issue: issueNumber, missingModules, behaviorFailures, evidenceFailures, finalAuditFailures }, null, 2));
 }
 
 console.log(
@@ -427,6 +433,10 @@ console.log(
       issue: issueNumber,
       allowPartial,
       checkedModuleCount: requiredModules.length,
+      behaviorExecuted: behaviorOutput != null,
+      behaviorSummary: behaviorOutput == null ? null : behaviorProofSummary(behaviorOutput),
+      finalAuditValidated: stage === "final" && issueNumber === "290",
+      finalAuditFailureCount: finalAuditFailures.length,
       evidenceDir: `docs/verification/issues/issue-${issueNumber}`
     },
     null,
@@ -441,7 +451,7 @@ function writeIssueEvidence(issueNumber, stageName, summary) {
   ensureIssueScaffold(issueDir, issueNumber, stageName);
   writeJson(join(testOutputDir, "floorplan-authoring-gate.txt"), summary);
   writeJson(join(issueDir, "floorplan-authoring-gate-output.json"), summary);
-  if (summary.behaviorOutput != null) {
+  if (summary.behaviorOutput != null && stageName !== "final") {
     writeAuthoringProofFixture(stageName, summary.behaviorOutput);
     writeBehaviorEvidence(issueDir, summary.behaviorOutput);
   }
@@ -622,6 +632,201 @@ function behaviorAssertionFailures(output) {
     failures.push("pathSyncStatus was not stale_warning");
   }
   return failures;
+}
+
+function behaviorProofSummary(output) {
+  return {
+    sourceDefaultPlanId: output.sourceDefaultPlanId,
+    editableCopyId: output.editableCopyId,
+    reloadMatchedEditableLayout: output.reloadMatchedEditableLayout,
+    roomTypeChanged: output.roomTypeChanged,
+    roomAdded: output.roomAdded,
+    doorAdded: output.doorAdded,
+    doorMoved: output.doorMoved,
+    hallwayGenerated: output.hallwayGenerated,
+    podBorderGenerated: output.podBorderGenerated,
+    exportValidated: output.exportValidated,
+    pathSyncStatus: output.pathSyncStatus,
+    sourceDefaultUnchanged: output.sourceDefaultUnchanged,
+    privateSourcePayloadStored: output.privateSourcePayloadStored
+  };
+}
+
+function finalAuditAssertionFailures() {
+  const issueDir = join(repoRoot, "docs", "verification", "issues", "issue-290");
+  if (!existsSync(issueDir)) {
+    return ["issue-290 evidence directory is missing"];
+  }
+
+  const failures = [];
+  const requiredPassedJson = [
+    "authoring-gate-execution-summary.json",
+    "save-reload-e2e-summary.json",
+    "room-authoring-e2e-summary.json",
+    "door-authoring-e2e-summary.json",
+    "hallway-v2-summary.json",
+    "path-sync-audit-summary.json",
+    "door-path-node-generation-summary.json",
+    "simulation-ready-export-summary.json",
+    "plan-2-dry-run-summary.json",
+    "no-docx-source-exposure-summary.json",
+    "source-fixture-nonmutation-summary.json"
+  ];
+
+  const summaries = new Map();
+  for (const fileName of requiredPassedJson) {
+    const summary = readJsonEvidence(join(issueDir, fileName), failures);
+    if (summary != null) {
+      summaries.set(fileName, summary);
+      if (summary.status !== "passed") {
+        failures.push(`${fileName} status was not passed`);
+      }
+      if (summary.privateSourcePayloadStored === true) {
+        failures.push(`${fileName} stores private source payload`);
+      }
+    }
+  }
+
+  const gateSummary = summaries.get("authoring-gate-execution-summary.json");
+  if (gateSummary != null) {
+    if (gateSummary.finalGateRequiresNoAllowPartial !== true) {
+      failures.push("authoring-gate-execution-summary.json does not require final gate without --allow-partial");
+    }
+    if (!Array.isArray(gateSummary.auditedStages) || gateSummary.auditedStages.length !== 9) {
+      failures.push("authoring-gate-execution-summary.json must audit Issues 281-289");
+    } else {
+      const expectedStages = new Set([
+        "behavioral-execution",
+        "save-reload-e2e",
+        "room-edit-e2e",
+        "door-edit-e2e",
+        "hallway-v2",
+        "path-sync-audit",
+        "door-path-node-generation",
+        "simulation-ready-export",
+        "plan-2-dry-run"
+      ]);
+      for (const stageSummary of gateSummary.auditedStages) {
+        if (stageSummary.status !== "passed") {
+          failures.push(`audited stage ${stageSummary.stage} did not pass`);
+        }
+        expectedStages.delete(stageSummary.stage);
+      }
+      for (const missingStage of expectedStages) {
+        failures.push(`audited stage missing: ${missingStage}`);
+      }
+    }
+  }
+
+  const saveReload = summaries.get("save-reload-e2e-summary.json");
+  if (saveReload != null) {
+    requireTrue(saveReload.saveReloadPersistsEditedLayout, "save-reload-e2e-summary.json did not prove edited layout reload", failures);
+    requireTrue(saveReload.saveAsReloadable, "save-reload-e2e-summary.json did not prove Save As reload", failures);
+    requireTrue(saveReload.staleSourcePlanNegativeCovered, "save-reload-e2e-summary.json did not cover stale source negative", failures);
+  }
+
+  const hallway = summaries.get("hallway-v2-summary.json");
+  if (hallway != null) {
+    if (hallway.generationMethod !== "grid_subtraction") {
+      failures.push("hallway-v2-summary.json must prove grid_subtraction generation");
+    }
+    if (!Array.isArray(hallway.generatedHallwayZones) || hallway.generatedHallwayZones.length === 0) {
+      failures.push("hallway-v2-summary.json must include generated hallway zones");
+    }
+  }
+
+  const pathSync = summaries.get("path-sync-audit-summary.json");
+  if (pathSync != null) {
+    if (pathSync.pathSyncStatus !== "stale_warning") {
+      failures.push("path-sync-audit-summary.json must expose stale_warning status");
+    }
+    if (!Array.isArray(pathSync.blockingIssues) || !pathSync.blockingIssues.includes("SIMULATION_READY_EXPORT_BLOCKED")) {
+      failures.push("path-sync-audit-summary.json must include SIMULATION_READY_EXPORT_BLOCKED");
+    }
+  }
+
+  const doorPathNodes = summaries.get("door-path-node-generation-summary.json");
+  if (doorPathNodes != null) {
+    if (!Number.isInteger(doorPathNodes.generatedNodeCount) || doorPathNodes.generatedNodeCount < 1) {
+      failures.push("door-path-node-generation-summary.json must include generated nodes");
+    }
+    if (!Number.isInteger(doorPathNodes.generatedEdgeCount) || doorPathNodes.generatedEdgeCount < 1) {
+      failures.push("door-path-node-generation-summary.json must include generated edges");
+    }
+    requireTrue(doorPathNodes.existingNodesPreserved, "door-path-node-generation-summary.json did not prove existing node preservation", failures);
+    if (doorPathNodes.exactRouteTruthClaimMade !== false) {
+      failures.push("door-path-node-generation-summary.json must not claim exact route truth");
+    }
+  }
+
+  const simulationReady = summaries.get("simulation-ready-export-summary.json");
+  if (simulationReady != null) {
+    if (simulationReady.exportStatus !== "simulation_ready") {
+      failures.push("simulation-ready-export-summary.json must include a valid simulation_ready export");
+    }
+    requireTrue(simulationReady.simulationReadyPlanPresent, "simulation-ready-export-summary.json has no simulation-ready plan", failures);
+    if (simulationReady.pathSyncStatus !== "fresh") {
+      failures.push("simulation-ready-export-summary.json must require fresh path sync");
+    }
+  }
+
+  const plan2 = summaries.get("plan-2-dry-run-summary.json");
+  if (plan2 != null) {
+    for (const field of ["roomMoved", "roomTypeChanged", "roomAdded", "doorAdded", "hallwayGenerated", "podBorderGenerated", "saveReloadMatched", "sourcePlan2Unchanged"]) {
+      requireTrue(plan2[field], `plan-2-dry-run-summary.json did not prove ${field}`, failures);
+    }
+    if (plan2.simulationReadyExportStatus == null) {
+      failures.push("plan-2-dry-run-summary.json must include explicit simulation-ready export attempt status");
+    }
+    if (plan2.exactDocxParityClaimMade !== false) {
+      failures.push("plan-2-dry-run-summary.json must not claim exact DOCX parity");
+    }
+  }
+
+  const noDocx = summaries.get("no-docx-source-exposure-summary.json");
+  if (noDocx != null) {
+    requireEmptyArray(noDocx.repoDocxFiles, "no-docx-source-exposure-summary.json found repo DOCX files", failures);
+    requireEmptyArray(noDocx.webSourceMatches, "no-docx-source-exposure-summary.json found web source exposure", failures);
+    requireEmptyArray(noDocx.apiRouteMatches, "no-docx-source-exposure-summary.json found API route exposure", failures);
+    if (noDocx.runtimeDocxExposure !== false) {
+      failures.push("no-docx-source-exposure-summary.json must prove no runtime DOCX exposure");
+    }
+  }
+
+  const sourceNonmutation = summaries.get("source-fixture-nonmutation-summary.json");
+  if (sourceNonmutation != null) {
+    requireEmptyArray(sourceNonmutation.plans2Through5ChangedPaths, "source-fixture-nonmutation-summary.json has changed Plans 2-5 paths", failures);
+    requireEmptyArray(sourceNonmutation.hashMismatches, "source-fixture-nonmutation-summary.json has Plans 2-5 hash mismatches", failures);
+    requireTrue(sourceNonmutation.plan2DryRunSourceUnchanged, "source-fixture-nonmutation-summary.json did not prove Plan 2 dry-run source nonmutation", failures);
+    requireTrue(sourceNonmutation.sourceFixturesRemainUnchanged, "source-fixture-nonmutation-summary.json did not prove source fixture nonmutation", failures);
+  }
+
+  return failures;
+}
+
+function readJsonEvidence(path, failures) {
+  if (!existsSync(path)) {
+    failures.push(`missing required audit summary: ${path}`);
+    return null;
+  }
+  try {
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch (error) {
+    failures.push(`invalid JSON evidence: ${path}: ${error.message}`);
+    return null;
+  }
+}
+
+function requireTrue(value, message, failures) {
+  if (value !== true) {
+    failures.push(message);
+  }
+}
+
+function requireEmptyArray(value, message, failures) {
+  if (!Array.isArray(value) || value.length !== 0) {
+    failures.push(message);
+  }
 }
 
 function writeScreenshotPlaceholders(issueDir, issueNumber) {
