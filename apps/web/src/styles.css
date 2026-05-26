@@ -414,6 +414,111 @@ h1 {
   color: #263340;
 }
 
+.rendered-plan-preview {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.rendered-plan-preview__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.rendered-plan-preview__header h3,
+.rendered-plan-preview__content h4 {
+  margin: 0;
+}
+
+.rendered-plan-preview__header p {
+  margin: 0.25rem 0 0;
+  color: #475569;
+}
+
+.rendered-plan-preview__header strong {
+  color: #9f1239;
+  white-space: nowrap;
+}
+
+.rendered-plan-preview__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.rendered-plan-preview__item {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid #d7dee8;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.rendered-plan-preview__image-frame {
+  display: grid;
+  place-items: center;
+  min-height: 11rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.rendered-plan-preview__image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.rendered-plan-preview__image-frame img:not([hidden]) + p {
+  display: none;
+}
+
+.rendered-plan-preview__image-frame p {
+  margin: 0;
+  padding: 1rem;
+  color: #475569;
+  text-align: center;
+}
+
+.rendered-plan-preview__content {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rendered-plan-preview__content dl {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.rendered-plan-preview__content dl div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.rendered-plan-preview__content dt {
+  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.rendered-plan-preview__content dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #1e293b;
+}
+
+.rendered-plan-preview__content ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  color: #475569;
+}
+
 .plan-builder-library__card dl {
   display: grid;
   gap: 8px;
@@ -1542,5 +1647,13 @@ h1 {
   .plan-builder-library__card dl,
   .active-floorplan__counts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rendered-plan-preview__header {
+    display: grid;
+  }
+
+  .rendered-plan-preview__header strong {
+    white-space: normal;
   }
 }

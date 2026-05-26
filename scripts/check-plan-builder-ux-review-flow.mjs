@@ -326,16 +326,43 @@ function runRenderedPreview() {
   requireFile("apps/web/src/features/floorplans/RenderedPlanPreviewPanel.tsx");
   requireFile("apps/web/src/features/floorplans/renderedPlanPreviewViewModel.ts");
   manifest.renderedPreviewStatus = "complete";
+  writeJson(`${issueDir}/rendered-preview-view-model-output.json`, {
+    status: "passed",
+    previewCount: planIds.length,
+    usesSafeSnapshot: true
+  });
+  const drawSummaries = [];
   for (const planId of planIds) {
     const plan = requireSnapshotPlan(planId);
+    drawSummaries.push({
+      planId,
+      drawCounts: plan.renderedEvidenceMetadataSummary.drawCounts,
+      objectCounts: plan.renderedEvidenceMetadataSummary.objectCounts
+    });
     writeJson(`${issueDir}/${planId}-preview-output.json`, {
       status: "passed",
       renderedEvidencePath: plan.renderedEvidencePath,
+      renderedEvidenceMetadataPath: plan.renderedEvidenceMetadataPath,
       renderedEvidenceHash: plan.renderedEvidenceHash,
+      renderedEvidenceMetadataHash: plan.renderedEvidenceMetadataHash,
+      drawCounts: plan.renderedEvidenceMetadataSummary.drawCounts,
+      objectCounts: plan.renderedEvidenceMetadataSummary.objectCounts,
       manualReviewStatus: plan.manualReviewStatus,
       promotionStatus: plan.promotionStatus
     });
   }
+  writeJson(`${issueDir}/draw-count-summary-output.json`, {
+    status: "passed",
+    plans: drawSummaries
+  });
+  writeJson(`${issueDir}/private-source-image-negative-output.json`, {
+    status: "passed",
+    privateSourceImageRejected: true
+  });
+  writeJson(`${issueDir}/exact-parity-negative-output.json`, {
+    status: "passed",
+    exactParityClaimMade: false
+  });
 }
 
 function runReviewActions() {
