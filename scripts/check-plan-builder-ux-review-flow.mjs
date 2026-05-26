@@ -190,11 +190,33 @@ function runOperatorRunbook() {
   }
   manifest.operatorRunbookStatus = "complete";
   manifest.reviewPacketIndexStatus = "complete";
+  writeText(`${issueDir}/manual-review-runbook-output.md`, readText(runbookPath));
+  writeText(`${issueDir}/review-packet-index-output.md`, readText(indexPath));
+  for (const planId of planIds) {
+    const plan = requireSnapshotPlan(planId);
+    writeJson(`${issueDir}/${planId}-index-entry-output.json`, {
+      status: "passed",
+      planId,
+      reviewPacketPath: plan.reviewPacketPath,
+      reviewRecordTemplatePath: plan.reviewRecordTemplatePath,
+      renderedEvidencePath: plan.renderedEvidencePath,
+      manualReviewStatus: plan.manualReviewStatus,
+      routeReadinessStatus: plan.routeReadinessStatus,
+      simulationReadyExportStatus: plan.simulationReadyExportStatus,
+      promotionStatus: plan.promotionStatus
+    });
+  }
   writeJson(`${issueDir}/promotion-blocked-language-output.json`, {
     status: "passed",
     containsPromotionBlockedLanguage: /promotion is blocked/i.test(combined)
   });
   writeJson(`${issueDir}/forbidden-claims-negative-output.json`, scanTextForForbiddenClaims(combined));
+  writeJson(`${issueDir}/ui-snapshot-update-output.json`, {
+    status: "passed",
+    snapshotPath,
+    snapshotHash: hashFile(snapshotPath),
+    lastUpdatedIssue: snapshot?.lastUpdatedIssue ?? null
+  });
 }
 
 function runUxDataContract() {
