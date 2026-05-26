@@ -1,0 +1,86 @@
+{
+  "issue": "292",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage final --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-292/floorplan-authoring-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-292/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-source-plan-correction.mjs --stage plan-2-correction --allow-partial --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-292/source-plan-correction-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 292",
+      "outputs": [
+        "docs/verification/issues/issue-292/simulation-refinement-still-passes-output.json"
+      ]
+    }
+  ]
+}

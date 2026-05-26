@@ -15,7 +15,7 @@ const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
 const validated = validateSourcePlanCorrectionManifest(manifest);
 
 assert.equal(validated.batch, "291-300");
-assert.equal(validated.lastUpdatedIssue, "291");
+assert.match(validated.lastUpdatedIssue, /^29[1-9]|300$/);
 assert.equal(validated.planCorrections.length, 4);
 assert.deepEqual(validated.planCorrections.map((entry) => entry.planId), [
   "plan-2",

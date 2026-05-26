@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "291-300",
-  "lastUpdatedIssue": "291",
+  "lastUpdatedIssue": "292",
   "correctionScope": "source-driven plan correction through corrected saved editable copies only",
   "sourcePrivacyStatus": "private source reference only; no source payload, filename, private path, OCR dump, raw source text, or private-source screenshot stored",
   "defaultFixtureMutationStatus": "Plans 2-5 default source fixtures must remain unchanged",
@@ -13,18 +13,19 @@
       "correctionNotesPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-notes.md",
       "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-audit.json",
       "visualEvidencePath": "docs/verification/issues/issue-292/screenshots/plan-2-corrected-copy-pass-1.png",
-      "correctionStage": "not_started",
+      "correctionStage": "visual_audit_ready",
       "privateSourcePayloadStored": false,
       "sourceFixtureUnchanged": true,
-      "routeAuditStatus": "not_started",
-      "simulationReadyExportStatus": "not_started",
+      "routeAuditStatus": "pending_audit",
+      "simulationReadyExportStatus": "blocked_path_sync",
       "promotionStatus": "not_requested",
-      "promotionCandidateStatus": "not_candidate",
+      "promotionCandidateStatus": "blocked_by_route_audit",
       "limitations": [
-        "Source correction has not started.",
-        "Promotion is out of scope for Batch 291-300."
+        "Manual private-reference correction pass only.",
+        "No exact CAD or exact DOCX parity claim.",
+        "Route/path sync requires audit before promotion review."
       ],
-      "goNoGo": "NO-GO until corrected saved copy and audits exist"
+      "goNoGo": "GO for Issue 293 audit"
     },
     {
       "planId": "plan-3",
@@ -87,14 +88,20 @@
       "goNoGo": "NO-GO until corrected saved copy and audits exist"
     }
   ],
-  "visualEvidence": {},
-  "routeAuditStatus": {},
-  "simulationReadyExportStatus": {},
+  "visualEvidence": {
+    "plan-2": "docs/verification/issues/issue-292/screenshots/plan-2-corrected-copy-pass-1.png"
+  },
+  "routeAuditStatus": {
+    "plan-2": "pending_audit"
+  },
+  "simulationReadyExportStatus": {
+    "plan-2": "blocked_path_sync"
+  },
   "promotionStatus": {
     "plan-2": "not_requested",
     "plan-3": "not_requested",
     "plan-4": "not_requested",
     "plan-5": "not_requested"
   },
-  "goNoGoStatus": "NO-GO until corrected saved copies and audits are complete"
+  "goNoGoStatus": "Issue 292 corrected saved copy ready for audit"
 }

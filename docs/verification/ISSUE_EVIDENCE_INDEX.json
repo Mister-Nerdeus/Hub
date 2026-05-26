@@ -4611,6 +4611,48 @@
         "packages/shared/tests/source-plan-correction-manifest.test.mjs",
         "scripts/check-source-plan-correction.mjs"
       ]
+    },
+    {
+      "issue": "292",
+      "title": "Plan 2 Saved-Copy Source Correction Pass 1",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-292/closeout.md",
+        "docs/verification/issues/issue-292/commands.txt",
+        "docs/verification/issues/issue-292/command-output-map.json",
+        "docs/verification/issues/issue-292/first-failure.txt",
+        "docs/verification/issues/issue-292/plan-2-corrected-copy-output.json",
+        "docs/verification/issues/issue-292/plan-2-correction-diff-output.json",
+        "docs/verification/issues/issue-292/plan-2-room-change-output.json",
+        "docs/verification/issues/issue-292/plan-2-door-change-output.json",
+        "docs/verification/issues/issue-292/plan-2-hallway-border-output.json",
+        "docs/verification/issues/issue-292/plan-2-rendered-visual-output.json",
+        "docs/verification/issues/issue-292/plan-2-private-source-boundary-output.json",
+        "docs/verification/issues/issue-292/plan-2-simulation-ready-export-attempt-output.json",
+        "docs/verification/issues/issue-292/plan-2-source-fixture-nonmutation-output.json",
+        "docs/verification/issues/issue-292/correction-manifest-update-output.json",
+        "docs/verification/issues/issue-292/visual-parity-still-passes-output.json",
+        "docs/verification/issues/issue-292/assignment-workflow-still-passes-output.json",
+        "docs/verification/issues/issue-292/scenario-simulation-still-passes-output.json",
+        "docs/verification/issues/issue-292/simulation-refinement-still-passes-output.json",
+        "docs/verification/issues/issue-292/floorplan-authoring-gate-output.json",
+        "docs/verification/issues/issue-292/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-292/source-plan-correction-gate-output.json",
+        "docs/verification/issues/issue-292/screenshots/plan-2-corrected-copy-pass-1.png",
+        "docs/verification/issues/issue-292/test-output/shared.txt",
+        "docs/verification/issues/issue-292/test-output/web.txt",
+        "docs/verification/issues/issue-292/test-output/web-build.txt",
+        "docs/verification/issues/issue-292/test-output/no-phi.txt",
+        "docs/verification/issues/issue-292/test-output/docs-gate.txt",
+        "docs/verification/issues/issue-292/test-output/private-source-artifacts.txt",
+        "docs/verification/issues/issue-292/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-292/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-292/test-output/plans-2-through-5-unchanged.txt",
+        "packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+        "packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-notes.md",
+        "packages/shared/tests/plan-2-source-correction.test.mjs",
+        "packages/shared/tests/source-correction-test-helpers.mjs",
+        "docs/verification/source-plan-correction-manifest.json"
+      ]
     }
   ]
 }

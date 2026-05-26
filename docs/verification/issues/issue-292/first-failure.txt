@@ -1,0 +1,25 @@
+{
+  "status": "failed",
+  "stage": "plan-2-correction",
+  "issue": "292",
+  "allowPartial": true,
+  "protocolPaths": [
+    "docs/source-correction/source-correction-protocol.md",
+    "docs/source-correction/private-source-boundary.md",
+    "docs/verification/source-plan-correction-manifest.json",
+    "packages/shared/src/floorplans/sourcePlanCorrectionManifest.ts"
+  ],
+  "manifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "manifestValidated": true,
+  "defaultFixtureMutationStatus": {
+    "sourceFixturesRemainUnchanged": true,
+    "hashMismatches": []
+  },
+  "failures": [
+    "missing required file: packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+    "missing required file: packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-notes.md",
+    "missing required file: docs/verification/issues/issue-292/screenshots/plan-2-corrected-copy-pass-1.png",
+    "invalid JSON packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json: ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\packages\\shared\\fixtures\\source-corrections\\plan-2\\plan-2-corrected-saved-copy.json'"
+  ],
+  "evidenceDir": "docs/verification/issues/issue-292"
+}

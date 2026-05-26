@@ -1,0 +1,282 @@
+{
+  "issue": "292",
+  "stage": "final",
+  "status": "passed",
+  "mode": "strict",
+  "pathWalkingSummary": {
+    "pathBasedTaskCount": 199,
+    "fallbackTaskCount": 0,
+    "missingRouteTaskCount": 0,
+    "totalPathBasedWalkingFeet": 19352,
+    "totalFallbackWalkingFeet": 0,
+    "walkingWarningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ]
+  },
+  "rootScriptSummary": {
+    "scripts": [
+      "check:plan1-all-gates",
+      "check:plan1-assignment-workflow",
+      "check:plan1-scenario-simulation",
+      "check:plan1-simulation-refinement",
+      "check:plan1-visual-parity",
+      "check:plans-2-5-unchanged"
+    ],
+    "issueTraceabilityScoped": true,
+    "issueScope": {
+      "issue": "292",
+      "issueTraceabilityScoped": true,
+      "issueEvidenceDirectory": "docs/verification/issues/issue-292",
+      "evidenceDirectoryMatchesIssue": true
+    }
+  },
+  "assumptionsUiSummary": {
+    "sectionCount": 11,
+    "sectionLabels": [
+      "Burden score weights",
+      "Walking assumptions",
+      "Task duration assumptions",
+      "Task frequency assumptions",
+      "Scenario intensity assumptions",
+      "Queue assumptions",
+      "Handoff assumptions",
+      "Interruption assumptions",
+      "Overload thresholds",
+      "Status semantics",
+      "Limitations and non-claims"
+    ],
+    "nonClaimsVisible": true,
+    "mode": "read_only_proof"
+  },
+  "scenarioControlsSummary": {
+    "selectedProfileId": "plan-1-typical",
+    "seed": 251001,
+    "durationMinutes": 720,
+    "selectedTaskTemplateCount": 10,
+    "validationStatus": "valid",
+    "negativeValidationMessages": [
+      "Unknown Plan 1 scenario profile.",
+      "Seed must be an integer.",
+      "Duration must be a positive integer minute count.",
+      "Duplicate Plan 1 task template.",
+      "Unknown Plan 1 task template."
+    ]
+  },
+  "pathWalkingIntegrationSummary": {
+    "pathBasedTaskCount": 199,
+    "fallbackTaskCount": 0,
+    "missingRouteTaskCount": 0,
+    "totalPathBasedWalkingFeet": 19352,
+    "totalFallbackWalkingFeet": 0,
+    "walkingWarningCodes": [
+      "APPROXIMATE_GRAPH_ONLY"
+    ],
+    "deterministic": true
+  },
+  "timelineSummary": {
+    "nurseTimelineCount": 4,
+    "roomTimelineCount": 23,
+    "deferredTaskSummary": {
+      "totalDeferredTaskCount": 12,
+      "roomIdsWithDeferredTasks": [
+        "room-06"
+      ],
+      "nurseIdsWithDeferredTasks": [
+        "nurse-blue",
+        "nurse-green",
+        "nurse-orange",
+        "nurse-purple"
+      ]
+    },
+    "queueDepthSummary": {
+      "maxQueueDepth": 4,
+      "nurseIdsAtMaxQueueDepth": [
+        "nurse-purple"
+      ]
+    },
+    "walkingLoadSummary": {
+      "totalApproxWalkingFeet": 19443,
+      "pathBasedTaskCount": 199,
+      "fallbackTaskCount": 0,
+      "missingRouteTaskCount": 0,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ]
+    },
+    "warningTimelineCount": 6
+  },
+  "warningExplainabilitySummary": {
+    "warningCodesCovered": [
+      "APPROXIMATE_GRAPH_ONLY",
+      "BUSY_MINUTES_WARNING",
+      "DEFERRED_TASK_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "STALE_PATH_SYNC",
+      "TASK_ROUTE_DISTANCE_FALLBACK",
+      "TASK_ROUTE_DISTANCE_MISSING",
+      "TRAUMA_WORKLOAD_NOTICE",
+      "WALKING_LOAD_WARNING"
+    ],
+    "example": {
+      "warningCode": "APPROXIMATE_GRAPH_ONLY",
+      "label": "Approximate graph route",
+      "severity": "info",
+      "source": "walking",
+      "plainLanguageExplanation": "The distance comes from the Plan 1 fixture graph or walking baseline.",
+      "operationalInterpretation": "Use as deterministic operational route context, not measured walking truth.",
+      "nonClaim": "Operational modeling notice only; no guidance or prediction is implied."
+    },
+    "rejectedClaimLanguage": true
+  },
+  "comparisonUxSummary": {
+    "rowCount": 5,
+    "typicalVsSlammed": {
+      "profileLabel": "Slammed",
+      "profileId": "plan-1-slammed",
+      "taskPressureDelta": 369,
+      "deferredTaskDelta": 320,
+      "walkingBurdenDelta": 10204,
+      "maxQueueDepthDelta": 11,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Slammed shows higher synthetic task pressure (+369 tasks). It has more deferred synthetic work (+320 tasks). Approximate walking load changes by +10204 feet. The queue-depth signal is larger (+11). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsWalkingHeavy": {
+      "profileLabel": "Walking heavy",
+      "profileId": "plan-1-walking-heavy",
+      "taskPressureDelta": 216,
+      "deferredTaskDelta": 186,
+      "walkingBurdenDelta": 29428,
+      "maxQueueDepthDelta": 9,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Walking heavy shows higher synthetic task pressure (+216 tasks). It has more deferred synthetic work (+186 tasks). Approximate walking load changes by +29428 feet. The queue-depth signal is larger (+9). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    },
+    "typicalVsTraumaHeavy": {
+      "profileLabel": "Trauma heavy",
+      "profileId": "plan-1-trauma-heavy",
+      "taskPressureDelta": 112,
+      "deferredTaskDelta": 77,
+      "walkingBurdenDelta": 7100,
+      "maxQueueDepthDelta": 4,
+      "highestBurdenNurseId": "nurse-orange",
+      "warningCodeSummary": [
+        "BUSY_MINUTES_WARNING",
+        "DEFERRED_TASK_WARNING",
+        "QUEUE_DEPTH_WARNING",
+        "ROOM_DEFERRED_TASKS",
+        "TRAUMA_WORKLOAD_NOTICE",
+        "WALKING_LOAD_WARNING"
+      ],
+      "plainLanguageSummary": "Trauma heavy shows higher synthetic task pressure (+112 tasks). It has more deferred synthetic work (+77 tasks). Approximate walking load changes by +7100 feet. The queue-depth signal is larger (+4). Warnings represented: BUSY_MINUTES_WARNING, DEFERRED_TASK_WARNING, QUEUE_DEPTH_WARNING, ROOM_DEFERRED_TASKS, TRAUMA_WORKLOAD_NOTICE, WALKING_LOAD_WARNING. This is an operational comparison only.",
+      "limitations": [
+        "Plan 1 deterministic dry-run foundation only.",
+        "Synthetic tasks use explicit assumptions and seeded generation."
+      ],
+      "nonClaims": [
+        "Synthetic operational modeling only.",
+        "Not a clinical safety score.",
+        "Not a staffing compliance recommendation.",
+        "Not a legal compliance assessment.",
+        "Not a patient outcome prediction.",
+        "Not based on real patient, staff, EHR, or hospital data."
+      ]
+    }
+  },
+  "proofReportSummary": {
+    "reportId": "plan-1-simulation-proof-report-gate",
+    "sectionNames": [
+      "scenarioIdentity",
+      "assumptionsSummary",
+      "assignmentSummary",
+      "generatedTaskSummary",
+      "dryRunSummary",
+      "timelineSummary",
+      "warningExplanations",
+      "scenarioComparisonSummary",
+      "determinismProof",
+      "limitations",
+      "nonClaims"
+    ],
+    "deterministic": true,
+    "nonClaimsIncluded": true
+  },
+  "operationalSummary": {
+    "scenarioId": "scenario-typical-baseline",
+    "profileId": "plan-1-typical",
+    "taskCount": 258,
+    "completedTaskCount": 246,
+    "deferredTaskCount": 12,
+    "totalApproxWalkingFeet": 19443,
+    "averageApproxBusyMinutes": 591,
+    "maxQueueDepth": 4,
+    "highestBurdenNurseId": "nurse-purple",
+    "warningCodes": [
+      "APPROXIMATE_GRAPH_ONLY",
+      "BUSY_MINUTES_WARNING",
+      "QUEUE_DEPTH_WARNING",
+      "ROOM_DEFERRED_TASKS",
+      "WALKING_LOAD_WARNING"
+    ],
+    "limitations": [
+      "Plan 1 deterministic dry-run foundation only.",
+      "Synthetic tasks use explicit assumptions and seeded generation."
+    ],
+    "nonClaims": [
+      "Synthetic operational modeling only.",
+      "Not a clinical safety score.",
+      "Not a staffing compliance recommendation.",
+      "Not a legal compliance assessment.",
+      "Not a patient outcome prediction.",
+      "Not based on real patient, staff, EHR, or hospital data."
+    ],
+    "syntheticDataOnly": true
+  },
+  "failureCount": 0,
+  "failures": [],
+  "nonClaims": [
+    "Not a clinical safety score.",
+    "Not a legal compliance assessment.",
+    "Not a patient outcome prediction.",
+    "Not a staffing compliance recommendation.",
+    "Not based on real patient, staff, EHR, or hospital data.",
+    "Synthetic operational modeling only."
+  ]
+}
