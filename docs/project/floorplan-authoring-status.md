@@ -1,22 +1,21 @@
 # Floorplan Authoring Status
 
-Status: foundation implemented for saved editable authoring drafts.
+Status: GO to begin DOCX/source-driven default plan correction.
 
-Implemented authoring capabilities:
+## Proven
 
-- Duplicate read-only default plans into editable saved authoring records.
-- Save and Save As contract-valid authoring drafts with unique saved IDs.
-- Persist saved authoring records through browser-safe storage.
-- Edit room type on editable copies.
-- Add rooms and warn when door/path sync is incomplete.
-- Add, move, reassign, and delete room doors while marking path sync stale.
-- Generate approximate hallway/public-space rectangles while preserving manual hallways.
-- Generate an approximate pod border from layout extents.
-- Export authored geometry with explicit stale path sync warnings.
+- Save, Save As, and reload use saved editable layout state.
+- Room resize, type edit, and add-room behavior persist through save/reload/export proof.
+- Door add, move, delete, reassign, validation, and stale path-sync behavior are proven.
+- Hallway V2 grid-subtraction public-space generation is deterministic and tagged.
+- Route access audit identifies missing doors, missing path nodes, unreachable rooms, and stale path sync.
+- Door-to-path-node generation prototype creates deterministic tagged nodes and edges where possible.
+- Simulation-ready export validates or blocks with explicit reasons.
+- Plan 2 dry run edits only a saved copy and leaves the source fixture unchanged.
 
-Boundaries:
+## Boundaries
 
-- No private DOCX/source binary, embedded source payload, or private absolute path is stored.
-- Generated geometry is approximate operational geometry only, not CAD.
-- This foundation does not add optimizer behavior or simulation model behavior.
-- Plans 2-5 source geometry remains protected by the unchanged gate.
+- No PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, or clinical notes.
+- No optimizer behavior and no new simulation scoring/model behavior.
+- No DOCX/source payload exposure as runtime/public assets.
+- Generated geometry remains approximate operational authoring geometry only.

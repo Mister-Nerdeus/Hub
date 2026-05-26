@@ -1,0 +1,70 @@
+{
+  "issue": "290",
+  "status": "passed",
+  "finalGateCommand": "node scripts/check-floorplan-authoring.mjs --stage final",
+  "finalGateRequiresNoAllowPartial": true,
+  "auditedStages": [
+    {
+      "issue": "281",
+      "stage": "behavioral-execution",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "282",
+      "stage": "save-reload-e2e",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "283",
+      "stage": "room-edit-e2e",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "284",
+      "stage": "door-edit-e2e",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "285",
+      "stage": "hallway-v2",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "286",
+      "stage": "path-sync-audit",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "287",
+      "stage": "door-path-node-generation",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "288",
+      "stage": "simulation-ready-export",
+      "status": "passed",
+      "allowPartial": true
+    },
+    {
+      "issue": "289",
+      "stage": "plan-2-dry-run",
+      "status": "passed",
+      "allowPartial": true
+    }
+  ],
+  "behavioralHarnessExecutedInBatch": true,
+  "finalGateEvidenceModel": "requires issue-290 audit artifacts plus prior behavioral gate evidence",
+  "privateSourcePayloadStored": false,
+  "nonClaims": [
+    "Authoring behavior proof only.",
+    "No optimizer behavior.",
+    "No new simulation scoring/model behavior."
+  ]
+}

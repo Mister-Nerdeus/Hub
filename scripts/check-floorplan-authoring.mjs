@@ -8,7 +8,7 @@ import {
 const repoRoot = fileURLToPath(new URL("../", import.meta.url));
 const args = process.argv.slice(2);
 const stage = readArg("--stage") ?? "final";
-const issue = readArg("--issue") ?? (stage === "final" ? "280" : "000");
+const issue = readArg("--issue") ?? (stage === "final" ? "290" : "000");
 const allowPartial = args.includes("--allow-partial");
 
 const stageToIssue = {
@@ -330,7 +330,29 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "290": ["first-failure.txt"]
+  "290": [
+    "first-failure.txt",
+    "authoring-behavioral-audit.md",
+    "authoring-gate-execution-summary.json",
+    "save-reload-e2e-summary.json",
+    "room-authoring-e2e-summary.json",
+    "door-authoring-e2e-summary.json",
+    "hallway-v2-summary.json",
+    "path-sync-audit-summary.json",
+    "door-path-node-generation-summary.json",
+    "simulation-ready-export-summary.json",
+    "plan-2-dry-run-summary.json",
+    "no-docx-source-exposure-summary.json",
+    "source-fixture-nonmutation-summary.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json",
+    "known-gaps.md",
+    "follow-up-issues.md",
+    "go-no-go.md"
+  ]
 };
 
 const strictProofIssues = new Set(["282", "283", "284", "285", "286", "287", "288", "289", "290"]);
