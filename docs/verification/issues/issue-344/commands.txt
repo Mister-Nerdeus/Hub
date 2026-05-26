@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-human-review-intake.mjs --stage plan-2-intake --allow-partial --issue 344
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 344
