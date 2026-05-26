@@ -1110,7 +1110,7 @@ function validateStageProofFixture(stageName, relativePath, fixture) {
 }
 
 function requiredManifestFailures(stageName, issueNumber) {
-  if (stageName !== "final" && issueNumber !== "290") {
+  if (!behaviorStages.has(stageName) && issueNumber !== "290") {
     return [];
   }
   const absolutePath = join(repoRoot, behaviorManifestPath);

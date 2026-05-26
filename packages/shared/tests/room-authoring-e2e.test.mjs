@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   AUTHORING_WARNING_CODES,
   addRoomToEditableLayout,
@@ -10,7 +11,9 @@ import {
 } from "../dist/index.js";
 import { testEditableLayout, testPlan, throws } from "./authoring-test-helpers.mjs";
 
-const issueDir = resolve(process.cwd(), "../..", "docs/verification/issues/issue-283");
+const testDir = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(testDir, "../../..");
+const issueDir = resolve(repoRoot, "docs/verification/issues/issue-283");
 
 const requiredWarningCodes = [
   "ROOM_MISSING_DOOR",

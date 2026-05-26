@@ -1,0 +1,6 @@
+Review reproduced two hardening gaps after Batch 281-290:
+
+1. The new shared evidence-writing tests resolved fixture/evidence paths from process.cwd(), which allowed direct repo-root test execution to write outside the intended package fixture directory.
+2. The floorplan authoring gate validated the behavior manifest for the final stage but did not require it for each Issue 281-290 behavior stage.
+
+Both gaps were fixed before closeout.

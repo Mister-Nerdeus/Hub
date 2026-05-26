@@ -1,5 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   buildPlanContractFromEditableLayout,
   generateAutoHallways,
@@ -8,9 +9,12 @@ import {
 } from "../dist/index.js";
 import { testAuthoringDraft, testEditableLayout, testPlan } from "./authoring-test-helpers.mjs";
 
-const issueDir = resolve(process.cwd(), "../..", "docs/verification/issues/issue-285");
+const testDir = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(testDir, "../../..");
+const sharedRoot = resolve(testDir, "..");
+const issueDir = resolve(repoRoot, "docs/verification/issues/issue-285");
 const fixturePath = resolve(
-  process.cwd(),
+  sharedRoot,
   "fixtures/authoring-proof/plan-1-hallway-v2-fixture.json"
 );
 

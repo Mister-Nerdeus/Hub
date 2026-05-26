@@ -1,5 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   addDoorToRoom,
   addRoomToEditableLayout,
@@ -13,16 +14,19 @@ import {
   validateSimulationReadyExport
 } from "../dist/index.js";
 
-const issueDir = resolve(process.cwd(), "../..", "docs/verification/issues/issue-289");
+const testDir = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(testDir, "../../..");
+const sharedRoot = resolve(testDir, "..");
+const issueDir = resolve(repoRoot, "docs/verification/issues/issue-289");
 const dryRunFixturePath = resolve(
-  process.cwd(),
+  sharedRoot,
   "fixtures/authoring-dry-runs/plan-2/plan-2-authoring-dry-run.json"
 );
 const authoringProofFixturePath = resolve(
-  process.cwd(),
+  sharedRoot,
   "fixtures/authoring-proof/plan-2-authoring-dry-run.json"
 );
-const plan2Path = resolve(process.cwd(), "fixtures/default-plans/default-er-layout-plan-2.json");
+const plan2Path = resolve(sharedRoot, "fixtures/default-plans/default-er-layout-plan-2.json");
 
 const beforeSource = readFileSync(plan2Path, "utf8");
 const defaultFixture = validateDefaultSavedPlanFixtureContract(JSON.parse(beforeSource));
