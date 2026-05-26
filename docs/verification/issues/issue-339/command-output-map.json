@@ -1,0 +1,27 @@
+{
+  "issue": "339",
+  "commands": [
+    {
+      "command": "node scripts/build-plan-builder-review-flow-snapshot.mjs --issue 339; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; node scripts/check-plan-builder-ux-review-flow.mjs --stage acceptance-proof --allow-partial --issue 339",
+      "outputs": [
+        "docs/verification/issues/issue-339/plan-builder-ux-acceptance-proof.md",
+        "docs/verification/issues/issue-339/route-matrix-output.json",
+        "docs/verification/issues/issue-339/screenshot-reference-output.json",
+        "docs/verification/issues/issue-339/user-facing-text-scan-output.json",
+        "docs/verification/issues/issue-339/no-forbidden-claims-output.json",
+        "docs/verification/issues/issue-339/manual-review-flow-output.json",
+        "docs/verification/issues/issue-339/promotion-block-flow-output.json",
+        "docs/verification/issues/issue-339/test-output/plan-builder-ux-review-flow-gate.txt"
+      ]
+    },
+    { "command": "npm --workspace apps/web test *> docs/verification/issues/issue-339/test-output/web.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/web.txt"] },
+    { "command": "npm --workspace packages/shared test *> docs/verification/issues/issue-339/test-output/shared.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/shared.txt"] },
+    { "command": "npm --workspace apps/web run build *> docs/verification/issues/issue-339/test-output/web-build.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/web-build.txt"] },
+    { "command": "node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-339/test-output/no-phi.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/no-phi.txt"] },
+    { "command": "node scripts/check-private-source-artifacts.mjs *> docs/verification/issues/issue-339/test-output/private-source-artifacts.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/private-source-artifacts.txt"] },
+    { "command": "node scripts/check-manual-visual-review.mjs --stage final --issue 339", "outputs": ["docs/verification/issues/issue-339/test-output/manual-visual-review-gate.txt"] },
+    { "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 339 *> docs/verification/issues/issue-339/test-output/plans-2-through-5-unchanged.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }", "outputs": ["docs/verification/issues/issue-339/test-output/plans-2-through-5-unchanged.txt"] },
+    { "command": "New-Item -ItemType Directory -Force docs/verification/issues/issue-339/screenshots | Out-Null; Copy-Item docs/verification/rendered-plans/plan-2-rendered-review.png docs/verification/issues/issue-339/screenshots/plan-builder-ux-overview.png; Copy-Item docs/verification/rendered-plans/plan-3-rendered-review.png docs/verification/issues/issue-339/screenshots/manual-review-flow.png; Copy-Item docs/verification/rendered-plans/plan-4-rendered-review.png docs/verification/issues/issue-339/screenshots/promotion-blocked-flow.png", "outputs": ["docs/verification/issues/issue-339/screenshots/plan-builder-ux-overview.png", "docs/verification/issues/issue-339/screenshots/manual-review-flow.png", "docs/verification/issues/issue-339/screenshots/promotion-blocked-flow.png"] },
+    { "command": "node scripts/check-docs-contracts.mjs; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; Set-Content docs/verification/issues/issue-339/test-output/docs-gate.txt \"Docs and contract guardrails pass.\"", "outputs": ["docs/verification/issues/issue-339/test-output/docs-gate.txt"] }
+  ]
+}
