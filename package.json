@@ -36,6 +36,7 @@
     "check:operational-demo-negative-tests": "npm --workspace packages/shared run build && node scripts/check-operational-demo-negative-tests.mjs --issue 380",
     "check:canonical-gates": "node scripts/check-canonical-gate-registry.mjs",
     "check:manual-assignment-foundation": "npm --workspace packages/shared run build && node scripts/check-manual-assignment-foundation.mjs --stage preflight --allow-partial --issue 381",
+    "check:manual-assignment-contracts": "npm --workspace packages/shared run build && node scripts/check-manual-assignment-contracts.mjs --issue 382",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "evidence:local:tracked": "npm run evidence:local -- --tracked",
     "validate:plan": "npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs",

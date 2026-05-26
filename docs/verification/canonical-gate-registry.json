@@ -129,6 +129,12 @@
       "packageScript": "check:manual-assignment-foundation",
       "command": "npm run check:manual-assignment-foundation -- --stage preflight --allow-partial --issue ${manualAssignmentIssue}",
       "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-contracts",
+      "packageScript": "check:manual-assignment-contracts",
+      "command": "npm run check:manual-assignment-contracts -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
     }
   ]
 }

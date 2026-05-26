@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "value": {
+    "code": "TRAUMA_QUALIFICATION_MISMATCH",
+    "severity": "warning",
+    "summary": "Trauma-active room is assigned to a nurse without trauma qualification.",
+    "nurseIds": [
+      "nurse-green"
+    ],
+    "roomIds": [
+      "room-102"
+    ],
+    "visibleComponents": [
+      "traumaActive",
+      "traumaQualified"
+    ],
+    "syntheticDataOnly": true
+  }
+}

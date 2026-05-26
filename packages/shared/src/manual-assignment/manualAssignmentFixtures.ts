@@ -1,0 +1,123 @@
+import type { ManualAssignmentSet } from "./manualAssignmentContracts.js";
+
+export const syntheticManualAssignmentFixture: ManualAssignmentSet = {
+  assignmentSetId: "manual-assignment-foundation-basic",
+  nurses: [
+    {
+      nurseId: "nurse-blue",
+      displayLabel: "Nurse Blue",
+      color: "#2563eb",
+      role: "primary",
+      targetPatientCount: 4,
+      maxPatientCount: 5,
+      traumaQualified: true,
+      psychQualified: false,
+      chargeQualified: false,
+      active: true,
+      syntheticDataOnly: true
+    },
+    {
+      nurseId: "nurse-green",
+      displayLabel: "Nurse Green",
+      color: "#16a34a",
+      role: "primary",
+      targetPatientCount: 4,
+      maxPatientCount: 5,
+      traumaQualified: false,
+      psychQualified: true,
+      chargeQualified: false,
+      active: true,
+      syntheticDataOnly: true
+    }
+  ],
+  roomLoads: [
+    {
+      roomId: "room-101",
+      occupied: true,
+      acuity: 3,
+      traumaActive: false,
+      isolationActive: false,
+      behavioralRisk: false,
+      fallRisk: true,
+      sitterRequired: false,
+      medicationFrequency: "medium",
+      monitoringFrequency: "medium",
+      procedureBurden: "low",
+      expectedTurnover: "low",
+      syntheticDataOnly: true
+    },
+    {
+      roomId: "room-102",
+      occupied: true,
+      acuity: 4,
+      traumaActive: true,
+      isolationActive: false,
+      behavioralRisk: false,
+      fallRisk: false,
+      sitterRequired: false,
+      medicationFrequency: "high",
+      monitoringFrequency: "high",
+      procedureBurden: "medium",
+      expectedTurnover: "medium",
+      syntheticDataOnly: true
+    }
+  ],
+  assignments: [
+    {
+      assignmentId: "assignment-room-101-blue",
+      roomId: "room-101",
+      nurseId: "nurse-blue",
+      primary: true,
+      syntheticDataOnly: true
+    },
+    {
+      assignmentId: "assignment-room-102-green",
+      roomId: "room-102",
+      nurseId: "nurse-green",
+      primary: true,
+      syntheticDataOnly: true
+    }
+  ],
+  warnings: [
+    {
+      code: "TRAUMA_QUALIFICATION_MISMATCH",
+      severity: "warning",
+      summary: "Trauma-active room is assigned to a nurse without trauma qualification.",
+      nurseIds: ["nurse-green"],
+      roomIds: ["room-102"],
+      visibleComponents: ["traumaActive", "traumaQualified"],
+      syntheticDataOnly: true
+    }
+  ],
+  burdenScores: [
+    {
+      nurseId: "nurse-blue",
+      assignedRoomCount: 1,
+      occupiedRoomCount: 1,
+      acuityBurden: 4,
+      traumaBurden: 0,
+      specialBurden: 2,
+      walkingBurden: 0,
+      roomSpreadPenalty: 0,
+      overRatioPenalty: 0,
+      totalBurden: 6,
+      visibleComponents: ["assignedRoomCount", "acuityBurden", "specialBurden"],
+      syntheticDataOnly: true
+    },
+    {
+      nurseId: "nurse-green",
+      assignedRoomCount: 1,
+      occupiedRoomCount: 1,
+      acuityBurden: 7,
+      traumaBurden: 8,
+      specialBurden: 6,
+      walkingBurden: 0,
+      roomSpreadPenalty: 0,
+      overRatioPenalty: 0,
+      totalBurden: 21,
+      visibleComponents: ["assignedRoomCount", "acuityBurden", "traumaBurden", "specialBurden"],
+      syntheticDataOnly: true
+    }
+  ],
+  syntheticDataOnly: true
+};

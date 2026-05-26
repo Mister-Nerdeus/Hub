@@ -1,0 +1,53 @@
+{
+  "issue": "382",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-contracts.mjs --issue 382",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/manual-assignment-contracts-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-foundation.mjs --stage contracts --allow-partial --issue 382",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/manual-assignment-foundation-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-gate-registry.mjs --issue 382",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/canonical-gates.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 382",
+      "outputs": [
+        "docs/verification/issues/issue-382/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "assignmentSetId": "manual-assignment-invalid-reference",
+  "nurses": [
+    {
+      "nurseId": "nurse-blue",
+      "displayLabel": "Nurse Blue",
+      "color": "#2563eb",
+      "role": "primary",
+      "targetPatientCount": 4,
+      "maxPatientCount": 5,
+      "traumaQualified": true,
+      "psychQualified": false,
+      "chargeQualified": false,
+      "active": true,
+      "syntheticDataOnly": true
+    }
+  ],
+  "roomLoads": [
+    {
+      "roomId": "room-101",
+      "occupied": true,
+      "acuity": 3,
+      "traumaActive": false,
+      "isolationActive": false,
+      "behavioralRisk": false,
+      "fallRisk": true,
+      "sitterRequired": false,
+      "medicationFrequency": "medium",
+      "monitoringFrequency": "medium",
+      "procedureBurden": "low",
+      "expectedTurnover": "low",
+      "syntheticDataOnly": true
+    }
+  ],
+  "assignments": [
+    {
+      "assignmentId": "assignment-unsupported-room",
+      "roomId": "room-999",
+      "nurseId": "nurse-blue",
+      "primary": true,
+      "syntheticDataOnly": true
+    }
+  ],
+  "warnings": [],
+  "burdenScores": [],
+  "syntheticDataOnly": true
+}
