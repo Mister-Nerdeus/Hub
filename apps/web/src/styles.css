@@ -261,6 +261,137 @@ h1 {
   padding: 14px 14px 14px 34px;
 }
 
+.plan-builder-library {
+  display: grid;
+  gap: 16px;
+  margin: 0 auto 18px;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.plan-builder-library__header,
+.plan-builder-library__section,
+.plan-builder-library__limitations {
+  background: #ffffff;
+  border: 1px solid #c5d2dd;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.plan-builder-library__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 18px;
+  justify-content: space-between;
+}
+
+.plan-builder-library h2,
+.plan-builder-library h3,
+.plan-builder-library h4 {
+  color: #111827;
+  margin: 0;
+}
+
+.plan-builder-library h2 {
+  font-size: 1.3rem;
+}
+
+.plan-builder-library h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.plan-builder-library h4 {
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.plan-builder-library__notices {
+  background: #fff7e6;
+  border: 1px solid #e5c673;
+  border-radius: 6px;
+  display: grid;
+  gap: 5px;
+  max-width: 420px;
+  padding: 10px;
+}
+
+.plan-builder-library__notices strong,
+.plan-builder-library__notices span,
+.plan-builder-library__empty,
+.plan-builder-library__card p,
+.plan-builder-library__limitations li {
+  color: #263340;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.plan-builder-library__grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.plan-builder-library__card {
+  background: #f7f9fb;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+}
+
+.plan-builder-library__card p {
+  margin: 0;
+}
+
+.plan-builder-library__card dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+}
+
+.plan-builder-library__card dl div {
+  background: #ffffff;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  min-width: 0;
+  padding: 8px;
+}
+
+.plan-builder-library dt {
+  color: #40505f;
+  font-size: 0.66rem;
+  font-weight: 900;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.plan-builder-library dd {
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.plan-builder-library code {
+  color: #263340;
+  font-size: 0.76rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.plan-builder-library__limitations {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 34px;
+}
+
 .active-floorplan {
   background: #ffffff;
   border: 1px solid #cfd8e3;
@@ -1325,6 +1456,7 @@ h1 {
 
   .simulation-proof__grid,
   .optimizer-proof__grid,
+  .plan-builder-library__grid,
   .floorplan-library__grid,
   .floorplan-library__status,
   .active-floorplan__status,
@@ -1339,6 +1471,7 @@ h1 {
   }
 
   .floorplan-library__counts,
+  .plan-builder-library__card dl,
   .active-floorplan__counts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

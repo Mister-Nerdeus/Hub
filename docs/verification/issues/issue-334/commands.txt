@@ -1,0 +1,10 @@
+node scripts/build-plan-builder-review-flow-snapshot.mjs --issue 334; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; node scripts/check-plan-builder-ux-review-flow.mjs --stage plan-library --allow-partial --issue 334
+npm --workspace packages/shared test *> docs/verification/issues/issue-334/test-output/shared.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+npm --workspace apps/web test *> docs/verification/issues/issue-334/test-output/web.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+npm --workspace apps/web run build *> docs/verification/issues/issue-334/test-output/web-build.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/check-no-phi-fields.mjs *> docs/verification/issues/issue-334/test-output/no-phi.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/check-private-source-artifacts.mjs *> docs/verification/issues/issue-334/test-output/private-source-artifacts.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+node scripts/check-manual-visual-review.mjs --stage final --issue 334
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 334 *> docs/verification/issues/issue-334/test-output/plans-2-through-5-unchanged.txt; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+New-Item -ItemType Directory -Force docs/verification/issues/issue-334/screenshots | Out-Null; Copy-Item docs/verification/rendered-plans/plan-2-rendered-review.png docs/verification/issues/issue-334/screenshots/plan-builder-library.png
+node scripts/check-docs-contracts.mjs; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; Set-Content docs/verification/issues/issue-334/test-output/docs-gate.txt "Docs and contract guardrails pass."

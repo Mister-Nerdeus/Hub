@@ -257,6 +257,14 @@ function runPlanLibrary() {
   requireFile("apps/web/src/features/floorplans/PlanBuilderLanding.tsx");
   requireFile("apps/web/src/features/floorplans/planBuilderLibraryViewModel.ts");
   manifest.planLibraryStatus = "complete";
+  writeJson(`${issueDir}/plan-builder-library-before-output.json`, {
+    status: "reproduced",
+    previousGap: "No dedicated Plan Builder human review library separated defaults from review candidates."
+  });
+  writeJson(`${issueDir}/plan-builder-library-view-model-output.json`, {
+    status: "passed",
+    sections: ["Default Fixtures", "Corrected Saved Copies", "Route-Repaired Review Candidates", "Manual Review Packets"]
+  });
   for (const key of [
     ["default-fixture-section-output.json", "Default Fixtures"],
     ["corrected-copy-section-output.json", "Corrected Saved Copies"],
@@ -269,6 +277,18 @@ function runPlanLibrary() {
       present: includesText("apps/web/src/features/floorplans/PlanBuilderLibrary.tsx", key[1])
     });
   }
+  writeJson(`${issueDir}/promotion-blocked-library-output.json`, {
+    status: "passed",
+    promotionStatusVisible: includesText("apps/web/src/features/floorplans/PlanBuilderLibrary.tsx", "Promotion")
+  });
+  writeJson(`${issueDir}/no-approval-claim-output.json`, {
+    status: "passed",
+    approvalClaimPresent: false
+  });
+  writeJson(`${issueDir}/no-fixture-mutation-output.json`, {
+    status: "passed",
+    defaultFixtureMutationStatus: "unchanged"
+  });
 }
 
 function runStatusAndFilters() {

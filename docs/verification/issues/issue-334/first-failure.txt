@@ -1,0 +1,3 @@
+Before Issue 334, the floorplans surface only had a JSON floorplan library. It did not separate default fixtures, corrected saved copies, route-repaired review candidates, and manual review packets for a human operator.
+
+The usability gap was artifact confusion: a reviewer could not quickly tell which artifacts were defaults and which were review candidates with promotion still blocked.

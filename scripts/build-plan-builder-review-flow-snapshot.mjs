@@ -33,6 +33,8 @@ const plans = manualManifest.reviewedPlans.map((entry) => {
     renderedEvidenceHash: hashFile(entry.renderedEvidencePath),
     renderedEvidenceMetadataPath: entry.renderedEvidenceMetadataPath,
     renderedEvidenceMetadataHash: hashFile(entry.renderedEvidenceMetadataPath),
+    correctedSavedCopyPath: routeEntry?.correctedSavedCopyPath ?? "",
+    correctedSavedCopyHash: routeEntry?.correctedSavedCopyPath == null ? "" : hashFile(routeEntry.correctedSavedCopyPath),
     repairedSavedCopyPath: entry.repairedSavedCopyPath,
     repairedSavedCopyHash: hashFile(entry.repairedSavedCopyPath),
     simulationReadyExportPath: entry.simulationReadyExportPath,

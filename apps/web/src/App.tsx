@@ -9,6 +9,7 @@ import {
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
+import { PlanBuilderLanding } from "./features/floorplans/PlanBuilderLanding";
 import {
   createSavedFloorplanStore,
   type SavedFloorplanRecord,
@@ -126,6 +127,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
           <h2 id="floorplans-title">Floorplans</h2>
+          <PlanBuilderLanding />
           <FloorplanLibrary
             viewModel={floorplanLibraryViewModel}
             onOpenDefaultPlan={openDefault}

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "recomputedFromCorrectedSavedCopy": true,
+  "routeAudit": {
+    "roomsChecked": 6,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [
+      "plan-2-source-review-added-room"
+    ],
+    "unreachableRoomIds": [
+      "plan-2-source-review-added-room"
+    ],
+    "orphanPathNodeIds": [],
+    "danglingPathEdgeIds": [],
+    "invalidPathEdgeIds": [],
+    "nonFinitePathEdgeIds": [],
+    "nonPositivePathEdgeIds": [],
+    "blockedRequiredEdgeIds": [],
+    "stationToRoomRoutesChecked": 12,
+    "stationToRoomRoutesPassed": 10
+  }
+}
