@@ -1,0 +1,154 @@
+{
+  "issue": "288",
+  "status": "passed",
+  "exportResult": {
+    "status": "simulation_ready",
+    "planId": "editable-authoring-plan",
+    "sourceDraftId": "draft-authoring-test",
+    "simulationReadyPlan": {
+      "schemaVersion": "1.0.0",
+      "planId": "editable-authoring-plan",
+      "name": "Editable Authoring Plan",
+      "description": "Synthetic operational test plan.",
+      "createdAt": "2026-05-25T00:00:00Z",
+      "updatedAt": "2026-05-25T00:00:00Z",
+      "scale": {
+        "unit": "feet",
+        "pixelsPerUnit": 12,
+        "gridSizeFeet": 1,
+        "snapToGrid": true,
+        "origin": "top-left"
+      },
+      "rooms": [
+        {
+          "id": "room-01",
+          "label": "Room 01",
+          "roomType": "standard",
+          "x": 10,
+          "y": 10,
+          "widthFeet": 12,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": null,
+          "zoneId": null,
+          "nearestStationId": "station-01",
+          "pathNodeId": "node-room-01-door",
+          "roomOperationalMetadata": null,
+          "overflowOperationalMetadata": null,
+          "adjacencyOperationalMetadata": null
+        }
+      ],
+      "hallways": [
+        {
+          "id": "hall-manual",
+          "label": "Manual hallway",
+          "widthFeet": 8,
+          "points": [
+            {
+              "x": 10,
+              "y": 24
+            },
+            {
+              "x": 50,
+              "y": 24
+            },
+            {
+              "x": 50,
+              "y": 32
+            },
+            {
+              "x": 10,
+              "y": 32
+            }
+          ],
+          "hallwayOperationalMetadata": null
+        }
+      ],
+      "doors": [
+        {
+          "id": "door-room-01",
+          "label": "Door Room 01",
+          "roomId": "room-01",
+          "x": 16,
+          "y": 20,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        }
+      ],
+      "nurseStations": [
+        {
+          "id": "station-01",
+          "label": "Station 01",
+          "stationType": "primary",
+          "x": 30,
+          "y": 10,
+          "widthFeet": 8,
+          "lengthFeet": 6,
+          "pathNodeId": "node-station-01",
+          "stationOperationalMetadata": null
+        }
+      ],
+      "zones": [],
+      "pathNodes": [
+        {
+          "id": "node-station-01",
+          "nodeType": "station",
+          "x": 34,
+          "y": 13,
+          "linkedObjectId": "station-01",
+          "entryOperationalMetadata": null
+        },
+        {
+          "id": "node-room-01-door",
+          "nodeType": "room_door",
+          "x": 16,
+          "y": 20,
+          "linkedObjectId": "door-room-01",
+          "entryOperationalMetadata": null
+        }
+      ],
+      "pathEdges": [
+        {
+          "id": "edge-station-room",
+          "fromNodeId": "node-station-01",
+          "toNodeId": "node-room-01-door",
+          "lengthFeet": 10,
+          "hallwayWidthFeet": 8,
+          "congestionFactor": 1,
+          "doorPenaltySeconds": 0,
+          "turnPenaltySeconds": 0,
+          "blocked": false
+        }
+      ]
+    },
+    "blockingIssues": [],
+    "warningIssues": [],
+    "pathSyncStatus": "fresh",
+    "routeAccessSummary": {
+      "pathSyncStatus": "fresh",
+      "roomCount": 1,
+      "roomsWithDoorCount": 1,
+      "roomsWithPathNodeCount": 1,
+      "roomsMissingDoor": [],
+      "roomsMissingPathNode": [],
+      "unreachableRoomIds": [],
+      "blockingIssues": [],
+      "warningIssues": [],
+      "simulationReady": true,
+      "limitations": [
+        "Route access audit verifies graph connectivity and missing links; it does not claim exact walking route truth."
+      ]
+    },
+    "privateSourcePayloadStored": false,
+    "limitations": [
+      "Simulation-ready validation confirms contract shape and route access only; no clinical safety claim is made."
+    ]
+  },
+  "blockedPathSyncStatus": "blocked_path_sync",
+  "invalidGeometryStatus": "blocked_invalid_geometry",
+  "privateSourceStatus": "blocked_private_source_payload",
+  "draftWarningStatus": "draft_has_warnings"
+}

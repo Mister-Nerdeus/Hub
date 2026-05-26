@@ -1,0 +1,42 @@
+{
+  "issue": "288",
+  "status": "passed",
+  "readyRouteAccessSummary": {
+    "pathSyncStatus": "fresh",
+    "roomCount": 1,
+    "roomsWithDoorCount": 1,
+    "roomsWithPathNodeCount": 1,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [],
+    "unreachableRoomIds": [],
+    "blockingIssues": [],
+    "warningIssues": [],
+    "simulationReady": true,
+    "limitations": [
+      "Route access audit verifies graph connectivity and missing links; it does not claim exact walking route truth."
+    ]
+  },
+  "warningRouteAccessSummary": {
+    "pathSyncStatus": "fresh",
+    "roomCount": 1,
+    "roomsWithDoorCount": 1,
+    "roomsWithPathNodeCount": 0,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [
+      "room-01"
+    ],
+    "unreachableRoomIds": [
+      "room-01"
+    ],
+    "blockingIssues": [
+      "ROOM_MISSING_PATH_NODE",
+      "PATH_GRAPH_UNREACHABLE_ROOM"
+    ],
+    "warningIssues": [],
+    "simulationReady": false,
+    "limitations": [
+      "Route access audit verifies graph connectivity and missing links; it does not claim exact walking route truth."
+    ]
+  },
+  "warningExportStatus": "draft_has_warnings"
+}

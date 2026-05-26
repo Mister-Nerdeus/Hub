@@ -2,9 +2,12 @@ import { useEffect, useReducer, useRef, useState, type PointerEvent } from "reac
 import {
   auditPathSyncStatus,
   generateDoorPathNodes,
+  validateSimulationReadyExport,
+  type AuthoringDraftContract,
   type AuthoringRoomType,
   type DoorPathNodeGenerationResult,
-  type PathSyncAuditResult
+  type PathSyncAuditResult,
+  type SimulationReadyExportResult
 } from "@nerdeus/shared";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
@@ -59,6 +62,7 @@ import {
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
 import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
+import { SimulationReadyExportPanel } from "./SimulationReadyExportPanel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import {
   DEFAULT_LAYOUT_MAJOR_GRID_FEET,
@@ -139,6 +143,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [authoringSequence, setAuthoringSequence] = useState(1);
   const [doorPathNodeGenerationResult, setDoorPathNodeGenerationResult] =
     useState<DoorPathNodeGenerationResult | null>(null);
+  const [simulationReadyExportResult, setSimulationReadyExportResult] =
+    useState<SimulationReadyExportResult | null>(null);
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
@@ -158,6 +164,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
   useEffect(() => {
     setDoorPathNodeGenerationResult(null);
+    setSimulationReadyExportResult(null);
   }, [stageState.editableLayout, stageState.sourcePlan]);
   useEffect(() => {
     if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
@@ -315,6 +322,16 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       editableLayout: stageState.editableLayout,
       replaceGenerated: true
     }));
+  };
+  const validateSimulationReadyExportFromStage = () => {
+    if (stageState.readOnly) {
+      return;
+    }
+    const draft = buildStageAuthoringDraft(stageState);
+    if (draft == null) {
+      return;
+    }
+    setSimulationReadyExportResult(validateSimulationReadyExport({ authoringDraft: draft }));
   };
   const importEditableFloorplanJson = () => {
     try {
@@ -543,6 +560,11 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
         warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
         onGenerate={generateDoorPathNodesFromStage}
+      />
+      <SimulationReadyExportPanel
+        result={simulationReadyExportResult}
+        disabled={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+        onValidateExport={validateSimulationReadyExportFromStage}
       />
 
       <LayoutViewportToolbar
@@ -805,44 +827,52 @@ function createInitialStageState() {
 }
 
 function buildStagePathSyncAudit(state: LayoutEditorState): PathSyncAuditResult | null {
-  if (state.sourcePlan == null || state.editableLayout == null) {
+  const draft = buildStageAuthoringDraft(state);
+  if (draft == null) {
     return null;
   }
   try {
     const exported = editableLayoutToPlanContract({
-      sourcePlan: state.sourcePlan,
-      editableLayout: state.editableLayout
+      sourcePlan: draft.sourcePlan,
+      editableLayout: draft.editableLayout
     });
     return auditPathSyncStatus({
-      authoringDraft: {
-        draftId: `editor-draft-${state.loadedFloorplan?.recordId ?? state.sourcePlan.planId}`,
-        sourceDefaultPlanId: state.loadedFloorplan?.parentDefaultPlanId ?? state.sourcePlan.planId,
-        planId: state.sourcePlan.planId,
-        displayName: state.loadedFloorplan?.name ?? state.sourcePlan.name,
-        versionLabel: "editor-preview",
-        editableLayout: state.editableLayout,
-        sourcePlan: state.sourcePlan,
-        authoringStatus: state.isDirty ? "draft_has_warnings" : "draft_valid",
-        pathSyncStatus: state.isDirty ? "stale_warning" : "fresh",
-        authoringWarnings: state.isDirty ? ["PATH_SYNC_STALE"] : [],
-        sourceProvenance: {
-          sourceReferenceId: state.sourcePlan.planId,
-          sourceKind: state.loadedFloorplan?.sourceKind === "default-json" ? "default_fixture" : "manual_authoring",
-          sourceVisibility: "runtime-safe-json",
-          publicExposureAllowed: false,
-          runtimeServedByWeb: false,
-          runtimeServedByApi: false,
-          notes: ["Safe provenance only; no private source payload is stored."]
-        },
-        createdAt: "2026-05-25T00:00:00Z",
-        updatedAt: "2026-05-25T00:00:00Z",
-        syntheticDataOnly: true
-      },
+      authoringDraft: draft,
       plan: exported.plan
     });
   } catch {
     return null;
   }
+}
+
+function buildStageAuthoringDraft(state: LayoutEditorState): AuthoringDraftContract | null {
+  if (state.sourcePlan == null || state.editableLayout == null) {
+    return null;
+  }
+  return {
+    draftId: `editor-draft-${state.loadedFloorplan?.recordId ?? state.sourcePlan.planId}`,
+    sourceDefaultPlanId: state.loadedFloorplan?.parentDefaultPlanId ?? state.sourcePlan.planId,
+    planId: state.sourcePlan.planId,
+    displayName: state.loadedFloorplan?.name ?? state.sourcePlan.name,
+    versionLabel: "editor-preview",
+    editableLayout: state.editableLayout,
+    sourcePlan: state.sourcePlan,
+    authoringStatus: state.isDirty ? "draft_has_warnings" : "draft_valid",
+    pathSyncStatus: state.isDirty ? "stale_warning" : "fresh",
+    authoringWarnings: state.isDirty ? ["PATH_SYNC_STALE"] : [],
+    sourceProvenance: {
+      sourceReferenceId: state.sourcePlan.planId,
+      sourceKind: state.loadedFloorplan?.sourceKind === "default-json" ? "default_fixture" : "manual_authoring",
+      sourceVisibility: "runtime-safe-json",
+      publicExposureAllowed: false,
+      runtimeServedByWeb: false,
+      runtimeServedByApi: false,
+      notes: ["Safe provenance only; no private source payload is stored."]
+    },
+    createdAt: "2026-05-25T00:00:00Z",
+    updatedAt: "2026-05-25T00:00:00Z",
+    syntheticDataOnly: true
+  };
 }
 
 function getBrowserLocalDraftStorage(): LayoutLocalDraftStorage | null {

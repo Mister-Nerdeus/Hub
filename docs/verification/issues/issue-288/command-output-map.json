@@ -1,0 +1,99 @@
+{
+  "issue": "288",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage simulation-ready-export --allow-partial --issue 288 (first failure before implementation)",
+      "outputs": [
+        "docs/verification/issues/issue-288/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/shared.txt",
+        "docs/verification/issues/issue-288/simulation-ready-export-output.json",
+        "docs/verification/issues/issue-288/blocked-path-sync-output.json",
+        "docs/verification/issues/issue-288/invalid-geometry-block-output.json",
+        "docs/verification/issues/issue-288/private-source-block-output.json",
+        "docs/verification/issues/issue-288/route-access-summary-output.json",
+        "docs/verification/issues/issue-288/validated-plan-contract-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/web.txt",
+        "docs/verification/issues/issue-288/export-panel-output.json",
+        "docs/verification/issues/issue-288/screenshots/simulation-ready-export-panel.png"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-288/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage simulation-ready-export --allow-partial --issue 288",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-288/floorplan-authoring-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/scaffold-issue-evidence-index-entry.mjs --issue 288 --title \"Authoring Draft to Simulation-Ready Export Gate\" --write",
+      "outputs": [
+        "docs/verification/issues/issue-288/evidence-index-update-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-288/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

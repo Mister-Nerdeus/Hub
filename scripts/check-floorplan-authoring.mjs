@@ -301,7 +301,21 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "288": ["first-failure.txt"],
+  "288": [
+    "first-failure.txt",
+    "simulation-ready-export-output.json",
+    "blocked-path-sync-output.json",
+    "invalid-geometry-block-output.json",
+    "private-source-block-output.json",
+    "route-access-summary-output.json",
+    "export-panel-output.json",
+    "validated-plan-contract-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "289": ["first-failure.txt"],
   "290": ["first-failure.txt"]
 };
@@ -324,7 +338,8 @@ const behaviorOutput = [
   "room-edit-e2e",
   "door-edit-e2e",
   "path-sync-audit",
-  "door-path-node-generation"
+  "door-path-node-generation",
+  "simulation-ready-export"
 ].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
@@ -595,7 +610,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
     "284": ["door-authoring-e2e.png"],
     "285": ["auto-hallway-grid-subtraction.png"],
     "286": ["path-sync-status-panel.png"],
-    "287": ["door-path-node-sync-controls.png"]
+    "287": ["door-path-node-sync-controls.png"],
+    "288": ["simulation-ready-export-panel.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));
