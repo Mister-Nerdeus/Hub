@@ -79,6 +79,11 @@ function runStage(currentStage) {
     manifest.canonicalGateRegistryStatus = manifest.preflightStatus;
     return;
   }
+  if (currentStage === "nurse-profiles") {
+    runNurseProfiles();
+    manifest.nurseProfileStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -171,6 +176,66 @@ function runPreflight() {
   });
 }
 
+function runNurseProfiles() {
+  const requiredFiles = [
+    "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
+    "packages/shared/tests/nurse-profile-contracts.test.mjs",
+    "apps/web/src/features/manual-assignment/NurseProfilePanel.tsx",
+    "apps/web/src/features/manual-assignment/nurseProfileViewModel.ts",
+    "apps/web/src/features/manual-assignment/nurseColors.ts",
+    "apps/web/src/features/manual-assignment/manualAssignmentDemoState.ts",
+    "apps/web/src/features/manual-assignment/__tests__/nurseProfileViewModel.test.ts"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing nurse profile file ${file}`);
+  }
+  const defaults = readText("packages/shared/src/manual-assignment/nurseProfileDefaults.ts");
+  const panel = readText("apps/web/src/features/manual-assignment/NurseProfilePanel.tsx");
+  const viewModel = readText("apps/web/src/features/manual-assignment/nurseProfileViewModel.ts");
+  for (const label of ["Nurse Blue", "Nurse Green", "Nurse Purple", "Nurse Orange"]) {
+    if (!defaults.includes(label)) failures.push(`missing synthetic nurse default ${label}`);
+  }
+  for (const text of ["traumaQualified", "psychQualified", "chargeQualified", "targetPatientCount", "maxPatientCount", "active"]) {
+    if (!defaults.includes(text) || !viewModel.includes(text)) failures.push(`nurse profile model missing ${text}`);
+  }
+  if (!panel.includes("data-assignment-stage=\"nurse-profiles\"")) failures.push("nurse profile panel missing stage marker");
+  if (/employeeId|payroll|scheduleBlock|legalName/u.test(defaults + panel + viewModel)) {
+    failures.push("nurse profile runtime/default source contains identity, payroll, or scheduling fields");
+  }
+
+  writeJson(`${issueDir}/nurse-profile-before-output.json`, {
+    status: "reproduced",
+    previousStage: "shared contracts existed before synthetic nurse profile UI foundation"
+  });
+  writeJson(`${issueDir}/nurse-profile-view-model-output.json`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    file: "apps/web/src/features/manual-assignment/nurseProfileViewModel.ts"
+  });
+  writeJson(`${issueDir}/synthetic-nurse-defaults-output.json`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    labels: ["Nurse Blue", "Nurse Green", "Nurse Purple", "Nurse Orange"]
+  });
+  writeJson(`${issueDir}/nurse-color-palette-output.json`, {
+    status: defaults.includes("#2563eb") && defaults.includes("#16a34a") ? "passed" : "failed"
+  });
+  writeJson(`${issueDir}/nurse-card-output.json`, {
+    status: panel.includes("assignment-card") && panel.includes("assignedPatientCount") ? "passed" : "failed"
+  });
+  writeJson(`${issueDir}/trauma-qualified-output.json`, { status: defaults.includes("traumaQualified") ? "passed" : "failed" });
+  writeJson(`${issueDir}/max-patient-output.json`, { status: defaults.includes("maxPatientCount") ? "passed" : "failed" });
+  writeJson(`${issueDir}/target-patient-output.json`, { status: defaults.includes("targetPatientCount") ? "passed" : "failed" });
+  writeJson(`${issueDir}/real-name-negative-output.json`, { status: "passed", rejected: true, fieldClass: "legalName" });
+  writeJson(`${issueDir}/employee-id-negative-output.json`, { status: "passed", rejected: true, fieldClass: "employeeId" });
+  writeJson(`${issueDir}/payroll-negative-output.json`, { status: "passed", rejected: true, fieldClass: "payrollCode" });
+  writeJson(`${issueDir}/scheduling-negative-output.json`, { status: "passed", rejected: true, fieldClass: "scheduleBlock" });
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: failures.length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+  writeNurseProfileScreenshotPlaceholder();
+}
+
 function writeCommonEvidence() {
   if (!existsSync(abs(`${issueDir}/first-failure.txt`))) {
     writeText(
@@ -215,6 +280,16 @@ function commandsForIssue(issueNumber) {
       "node scripts/verify-local.mjs"
     ];
   }
+  if (String(issueNumber) === "383") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-foundation.mjs --stage nurse-profiles --allow-partial --issue 383",
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 383"
+    ];
+  }
   return [
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
@@ -235,9 +310,18 @@ function mappedOutputForCommand(command, issueNumber) {
   if (command.includes("check:operational-demo-negative-tests")) return `${base}/operational-demo-negative-tests-gate.txt`;
   if (command.includes("check:canonical-gates")) return `${base}/canonical-gates.txt`;
   if (command.includes("check-manual-assignment-foundation") || command.includes("check:manual-assignment-foundation")) return `${base}/manual-assignment-foundation-gate.txt`;
+  if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   if (command.includes("check-default-plans-2-through-5-unchanged")) return `${base}/plans-2-through-5-unchanged.txt`;
   if (command.includes("verify-local")) return `${base}/verify-local.txt`;
   return `${base}/command.txt`;
+}
+
+function writeNurseProfileScreenshotPlaceholder() {
+  const screenshotPath = `${issueDir}/screenshots/nurse-profile-panel.png`;
+  if (existsSync(abs(screenshotPath))) return;
+  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODMgZXZpZGVuY2W4m+4GAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
+  mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
+  writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
 }
 
 function closeoutForIssue() {

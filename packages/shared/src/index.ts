@@ -19,6 +19,7 @@ export * from "./assignment/validateManualAssignment.js";
 export * from "./manual-assignment/manualAssignmentContracts.js";
 export * from "./manual-assignment/manualAssignmentValidation.js";
 export * from "./manual-assignment/manualAssignmentFixtures.js";
+export * from "./manual-assignment/nurseProfileDefaults.js";
 export * from "./comparison/buildScenarioComparison.js";
 export * from "./comparison/simulationScenarioComparison.js";
 export * from "./export/buildBundleAudit.js";

@@ -1,12 +1,20 @@
 import "./ManualAssignmentProof.css";
 
 import type { ManualAssignmentViewModel } from "./manualAssignmentViewModel";
+import { manualAssignmentDemoNurses, manualAssignmentPlaceholderCounts } from "./manualAssignmentDemoState";
+import { NurseProfilePanel } from "./NurseProfilePanel";
+import { createNurseProfileViewModel } from "./nurseProfileViewModel";
 
 type ManualAssignmentProofProps = {
   viewModel: ManualAssignmentViewModel;
 };
 
 export function ManualAssignmentProof({ viewModel }: ManualAssignmentProofProps) {
+  const nurseProfiles = createNurseProfileViewModel(
+    manualAssignmentDemoNurses,
+    manualAssignmentPlaceholderCounts
+  );
+
   return (
     <section className="manual-assignment-proof" aria-labelledby="manual-assignment-title">
       <div className="manual-assignment-proof__header">
@@ -29,6 +37,8 @@ export function ManualAssignmentProof({ viewModel }: ManualAssignmentProofProps)
           </div>
         </dl>
       </div>
+
+      <NurseProfilePanel nurses={nurseProfiles} />
 
       <div className="manual-assignment-proof__grid">
         <section className="manual-assignment-proof__panel" aria-labelledby="assignment-cards-title">

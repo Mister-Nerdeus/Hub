@@ -116,6 +116,29 @@
   margin: 3px 0 0;
 }
 
+.assignment-card dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.assignment-card dt {
+  color: #526171;
+  font-size: 0.68rem;
+  font-weight: 900;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+}
+
+.assignment-card dd {
+  color: #111827;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .assignment-card ul,
 .warning-list,
 .unassigned-list {
