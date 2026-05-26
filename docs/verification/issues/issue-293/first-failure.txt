@@ -1,0 +1,23 @@
+{
+  "status": "failed",
+  "stage": "plan-2-audit",
+  "issue": "293",
+  "allowPartial": true,
+  "protocolPaths": [
+    "docs/source-correction/source-correction-protocol.md",
+    "docs/source-correction/private-source-boundary.md",
+    "docs/verification/source-plan-correction-manifest.json",
+    "packages/shared/src/floorplans/sourcePlanCorrectionManifest.ts"
+  ],
+  "manifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "manifestValidated": true,
+  "defaultFixtureMutationStatus": {
+    "sourceFixturesRemainUnchanged": true,
+    "hashMismatches": []
+  },
+  "failures": [
+    "missing required file: packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-audit.json",
+    "invalid JSON packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-audit.json: ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\packages\\shared\\fixtures\\source-corrections\\plan-2\\plan-2-correction-audit.json'"
+  ],
+  "evidenceDir": "docs/verification/issues/issue-293"
+}
