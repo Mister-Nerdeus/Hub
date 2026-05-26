@@ -1,0 +1,13 @@
+node scripts/check-floorplan-authoring.mjs --stage path-sync-audit --allow-partial --issue 286 (first failure before implementation)
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-plan-1-visual-parity.mjs --stage final --issue 286
+node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 286
+node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 286
+node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 286
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 286
+node scripts/check-floorplan-authoring.mjs --stage path-sync-audit --allow-partial --issue 286
+node scripts/scaffold-issue-evidence-index-entry.mjs --issue 286 --title "Path Sync Status Panel and Route Access Audit" --write --force
+node scripts/check-docs-contracts.mjs

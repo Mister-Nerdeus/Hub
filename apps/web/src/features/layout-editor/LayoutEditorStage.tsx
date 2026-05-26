@@ -1,5 +1,9 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
-import type { AuthoringRoomType } from "@nerdeus/shared";
+import {
+  auditPathSyncStatus,
+  type AuthoringRoomType,
+  type PathSyncAuditResult
+} from "@nerdeus/shared";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
 import {
@@ -46,10 +50,12 @@ import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
 import { selectionFromShapeClick } from "./layoutStageSelectionEvents";
 import {
   createLayoutEditorState,
-  type LayoutEditorFloorplanInput
+  type LayoutEditorFloorplanInput,
+  type LayoutEditorState
 } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
 import {
   DEFAULT_LAYOUT_MAJOR_GRID_FEET,
@@ -187,6 +193,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     isDirty: stageState.isDirty,
     editAuditTrail: stageState.editAuditTrail
   });
+  const pathSyncAudit = buildStagePathSyncAudit(stageState);
   const renderItems = stageState.editableLayout == null
     ? []
     : buildLayoutObjectRenderPipeline({
@@ -723,6 +730,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               dispatchStage({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
             }
           />
+          <PathSyncStatusPanel audit={pathSyncAudit} />
           <LayoutValidationPanel viewModel={validationPanelViewModel} />
           <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
         </div>
@@ -768,6 +776,47 @@ function createInitialStageState() {
     selectedObjectType: firstRoom == null ? null : "room",
     selectedObjectId: firstRoom?.id ?? null
   });
+}
+
+function buildStagePathSyncAudit(state: LayoutEditorState): PathSyncAuditResult | null {
+  if (state.sourcePlan == null || state.editableLayout == null) {
+    return null;
+  }
+  try {
+    const exported = editableLayoutToPlanContract({
+      sourcePlan: state.sourcePlan,
+      editableLayout: state.editableLayout
+    });
+    return auditPathSyncStatus({
+      authoringDraft: {
+        draftId: `editor-draft-${state.loadedFloorplan?.recordId ?? state.sourcePlan.planId}`,
+        sourceDefaultPlanId: state.loadedFloorplan?.parentDefaultPlanId ?? state.sourcePlan.planId,
+        planId: state.sourcePlan.planId,
+        displayName: state.loadedFloorplan?.name ?? state.sourcePlan.name,
+        versionLabel: "editor-preview",
+        editableLayout: state.editableLayout,
+        sourcePlan: state.sourcePlan,
+        authoringStatus: state.isDirty ? "draft_has_warnings" : "draft_valid",
+        pathSyncStatus: state.isDirty ? "stale_warning" : "fresh",
+        authoringWarnings: state.isDirty ? ["PATH_SYNC_STALE"] : [],
+        sourceProvenance: {
+          sourceReferenceId: state.sourcePlan.planId,
+          sourceKind: state.loadedFloorplan?.sourceKind === "default-json" ? "default_fixture" : "manual_authoring",
+          sourceVisibility: "runtime-safe-json",
+          publicExposureAllowed: false,
+          runtimeServedByWeb: false,
+          runtimeServedByApi: false,
+          notes: ["Safe provenance only; no private source payload is stored."]
+        },
+        createdAt: "2026-05-25T00:00:00Z",
+        updatedAt: "2026-05-25T00:00:00Z",
+        syntheticDataOnly: true
+      },
+      plan: exported.plan
+    });
+  } catch {
+    return null;
+  }
 }
 
 function getBrowserLocalDraftStorage(): LayoutLocalDraftStorage | null {

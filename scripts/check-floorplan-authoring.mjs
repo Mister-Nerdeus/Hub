@@ -270,7 +270,21 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "286": ["first-failure.txt"],
+  "286": [
+    "first-failure.txt",
+    "path-sync-audit-output.json",
+    "route-access-output.json",
+    "missing-door-output.json",
+    "missing-path-node-output.json",
+    "unreachable-room-output.json",
+    "simulation-ready-block-output.json",
+    "path-sync-panel-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "287": ["first-failure.txt"],
   "288": ["first-failure.txt"],
   "289": ["first-failure.txt"],
@@ -289,7 +303,13 @@ if (stage !== "final" && !allowPartial) {
 const expectedIssue = stageToIssue[stage];
 const issueNumber = issue === "000" ? expectedIssue : issue;
 const missingModules = requiredModules.filter((path) => !isFile(path));
-const behaviorOutput = ["behavioral-execution", "save-reload-e2e", "room-edit-e2e", "door-edit-e2e"].includes(stage) && missingModules.length === 0
+const behaviorOutput = [
+  "behavioral-execution",
+  "save-reload-e2e",
+  "room-edit-e2e",
+  "door-edit-e2e",
+  "path-sync-audit"
+].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
 const behaviorFailures = behaviorOutput == null ? [] : behaviorAssertionFailures(behaviorOutput);
@@ -557,7 +577,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
     "282": ["save-as-reload-proof.png"],
     "283": ["room-authoring-e2e.png"],
     "284": ["door-authoring-e2e.png"],
-    "285": ["auto-hallway-grid-subtraction.png"]
+    "285": ["auto-hallway-grid-subtraction.png"],
+    "286": ["path-sync-status-panel.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));

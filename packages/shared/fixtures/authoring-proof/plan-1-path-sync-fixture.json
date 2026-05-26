@@ -1,0 +1,39 @@
+{
+  "issue": "286",
+  "status": "passed",
+  "audit": {
+    "pathSyncStatus": "stale_warning",
+    "roomCount": 1,
+    "roomsWithDoorCount": 1,
+    "roomsWithPathNodeCount": 1,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [],
+    "unreachableRoomIds": [],
+    "blockingIssues": [
+      "SIMULATION_READY_EXPORT_BLOCKED"
+    ],
+    "warningIssues": [
+      "PATH_SYNC_STALE"
+    ],
+    "simulationReady": false,
+    "limitations": [
+      "Route access audit verifies graph connectivity and missing links; it does not claim exact walking route truth."
+    ]
+  },
+  "routeAccess": {
+    "pathSyncStatus": "fresh",
+    "roomCount": 1,
+    "roomsWithDoorCount": 1,
+    "roomsWithPathNodeCount": 1,
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [],
+    "unreachableRoomIds": [],
+    "blockingIssues": [],
+    "warningIssues": [],
+    "simulationReady": true,
+    "limitations": [
+      "Route access audit verifies graph connectivity and missing links; it does not claim exact walking route truth."
+    ]
+  },
+  "blockedExportStatus": "blocked_path_sync"
+}

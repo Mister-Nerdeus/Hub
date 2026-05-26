@@ -1,0 +1,26 @@
+{
+  "issue": "286",
+  "status": "passed",
+  "pathSyncStatus": "stale_warning",
+  "blockingIssues": [
+    "ROOM_MISSING_DOOR",
+    "ROOM_MISSING_PATH_NODE",
+    "PATH_GRAPH_UNREACHABLE_ROOM",
+    "SIMULATION_READY_EXPORT_BLOCKED"
+  ],
+  "warningIssues": [
+    "PATH_SYNC_STALE"
+  ],
+  "roomsMissingDoor": [
+    "room-without-door"
+  ],
+  "roomsMissingPathNode": [
+    "room-without-path"
+  ],
+  "unreachableRoomIds": [
+    "room-unreachable"
+  ],
+  "simulationReady": false,
+  "visibleInEditorPanel": true,
+  "visibleSimulationReadyText": "Simulation-ready export blocked"
+}
