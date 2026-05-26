@@ -440,7 +440,9 @@ function buildProof() {
       Object.hasOwn(dashboard, "submittedReviewRecordSummary") &&
       dashboard.sourceManifestPresent === true &&
       !Object.hasOwn(dashboard, "sourceManifestStatus"),
-    commandOutputEvidence: !readText("scripts/check-human-review-intake.mjs").includes("Pending captured output for:"),
+    commandOutputEvidence: !/writeText\(outputPath,\s*`Pending captured output for:/u.test(
+      readText("scripts/check-human-review-intake.mjs")
+    ),
     noFixtureMutation: intakeManifest.defaultFixtureMutationStatus === "unchanged",
     promotionBlocked: intakeManifest.promotionStatus === "blocked" &&
       intakeManifest.reviewedPlans.every((entry) => entry.canPromote === false)
@@ -464,21 +466,28 @@ function renderProofMarkdown(proof) {
 }
 
 function validateMappedCommandOutputs(issueNumber) {
-  const mapPath = `${issueDir}/command-output-map.json`;
-  const outputs = existsSync(abs(mapPath))
-    ? readJson(mapPath).commands.flatMap((entry) => entry.outputs ?? [])
-    : commandsForIssue(issueNumber).map((command) => mappedOutputForCommand(command, issueNumber));
-  const missing = outputs.filter((outputPath) => !existsSync(abs(outputPath))).map((outputPath) => ({ outputPath }));
-  const placeholders = outputs.filter((outputPath) =>
+  const outputs = commandsForIssue(issueNumber).map((command) => mappedOutputForCommand(command, issueNumber));
+  const filteredOutputs = outputs.filter((outputPath) => !isCurrentGateOutput(outputPath, issueNumber));
+  const missing = filteredOutputs.filter((outputPath) => !existsSync(abs(outputPath))).map((outputPath) => ({ outputPath }));
+  const empty = filteredOutputs.filter((outputPath) =>
+    existsSync(abs(outputPath)) && statSync(abs(outputPath)).size === 0
+  ).map((outputPath) => ({ outputPath }));
+  const placeholders = filteredOutputs.filter((outputPath) =>
     existsSync(abs(outputPath)) && /Pending captured output for:/u.test(readText(outputPath))
   ).map((outputPath) => ({ outputPath }));
   return {
-    status: missing.length === 0 && placeholders.length === 0 ? "passed" : "failed",
+    status: missing.length === 0 && empty.length === 0 && placeholders.length === 0 ? "passed" : "failed",
     issue: issueNumber,
-    checkedOutputs: outputs,
+    checkedOutputs: filteredOutputs,
+    skippedCurrentGateOutput: outputs.filter((outputPath) => isCurrentGateOutput(outputPath, issueNumber)),
     missing,
+    empty,
     placeholders
   };
+}
+
+function isCurrentGateOutput(outputPath, issueNumber) {
+  return outputPath === `docs/verification/issues/issue-${issueNumber}/test-output/human-review-governance-hardening-gate.txt`;
 }
 
 function expectRejected(description, buildInvalidCase, expectedMessagePattern) {

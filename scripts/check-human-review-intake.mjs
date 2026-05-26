@@ -65,9 +65,9 @@ const promotionRecheck = buildHumanReviewPromotionRecheck(manifest);
 
 runStage();
 validateCandidateManifest();
-writeGateOutput();
 writeCommonEvidence();
 writeIssueCloseoutAndIndex();
+writeGateOutput();
 
 if (failures.length > 0) {
   writeFailureEvidence();
@@ -701,20 +701,39 @@ function mappedOutputForCommand(command, issueNumber) {
 
 function ensureMappedOutputsExist(commands, issueNumber) {
   const missing = [];
+  const empty = [];
+  const placeholders = [];
   for (const command of commands) {
     const outputPath = mappedOutputForCommand(command, issueNumber);
+    if (isCurrentGateOutput(outputPath, issueNumber)) {
+      continue;
+    }
     if (!existsSync(abs(outputPath))) {
       missing.push({ command, outputPath });
+      continue;
+    }
+    if (statSync(abs(outputPath)).size === 0) {
+      empty.push({ command, outputPath });
+      continue;
+    }
+    if (/Pending captured output for:/u.test(readText(outputPath))) {
+      placeholders.push({ command, outputPath });
     }
   }
-  if (missing.length > 0) {
+  if (missing.length > 0 || empty.length > 0 || placeholders.length > 0) {
     writeJson(`${issueDir}/missing-command-output.json`, {
       status: "failed",
-      reason: "Required command output must be captured by running commands with explicit redirection.",
-      missing
+      reason: "Required command output must be captured by running commands with explicit redirection and must be non-empty.",
+      missing,
+      empty,
+      placeholders
     });
-    failures.push(`missing required command output: ${missing.map((entry) => entry.outputPath).join(", ")}`);
+    failures.push(`invalid required command output: ${[...missing, ...empty, ...placeholders].map((entry) => entry.outputPath).join(", ")}`);
   }
+}
+
+function isCurrentGateOutput(outputPath, issueNumber) {
+  return outputPath === `docs/verification/issues/issue-${issueNumber}/test-output/human-review-intake-gate.txt`;
 }
 
 function closeoutForIssue(issueNumber) {

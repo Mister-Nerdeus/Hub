@@ -23,6 +23,11 @@ function valueFor(envFile, key, fallback) {
   return process.env[key] ?? envFile[key] ?? fallback;
 }
 
+function currentGovernanceIssue() {
+  const manifest = JSON.parse(readFileSync("docs/verification/human-review-governance-hardening-manifest.json", "utf8"));
+  return manifest.lastUpdatedIssue ?? "360";
+}
+
 function assertComposePortsAreEnvDriven() {
   const compose = readFileSync("docker-compose.yml", "utf8");
   const hardCodedApiPort = /^\s*-\s*["']?\d+:8000["']?\s*$/m.test(compose);
@@ -52,6 +57,7 @@ const corsOrigins = valueFor(
   "CORS_ORIGINS",
   `${webUrl},http://localhost:5173,http://localhost:5174`
 );
+const governanceIssue = currentGovernanceIssue();
 
 if (viteApiBaseUrl !== apiUrl) {
   throw new Error(`VITE_API_BASE_URL must be ${apiUrl}, got ${viteApiBaseUrl}`);
@@ -75,9 +81,10 @@ const commands = [
   "node scripts/check-source-plan-correction.mjs --stage final",
   "node scripts/check-corrected-plan-review.mjs --stage final",
   "node scripts/check-corrected-plan-route-repair.mjs --stage final",
-  "node scripts/check-manual-visual-review.mjs --stage final",
-  "node scripts/check-plan-builder-ux-review-flow.mjs --stage final",
-  "node scripts/check-human-review-intake.mjs --stage final",
+  `node scripts/check-manual-visual-review.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-plan-builder-ux-review-flow.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-human-review-intake.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-human-review-governance-hardening.mjs --stage final --issue ${governanceIssue}`,
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",
