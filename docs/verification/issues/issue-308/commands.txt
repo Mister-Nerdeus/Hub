@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-corrected-plan-review.mjs --stage private-source-final --allow-partial --issue 308

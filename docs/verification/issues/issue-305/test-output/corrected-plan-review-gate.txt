@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "stage": "plan-4-review",
+  "issue": "305",
+  "allowPartial": true,
+  "sourceCorrectionManifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "reviewManifestPath": "docs/verification/corrected-plan-review-manifest.json",
+  "sourceArtifacts": [
+    {
+      "planId": "plan-2",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-audit.json"
+    },
+    {
+      "planId": "plan-3",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-corrected-saved-copy.json",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-correction-audit.json"
+    },
+    {
+      "planId": "plan-4",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-audit.json"
+    },
+    {
+      "planId": "plan-5",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-corrected-saved-copy.json",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-correction-audit.json"
+    }
+  ],
+  "reviewArtifacts": [
+    {
+      "planId": "plan-2",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-2-rendered-review.png",
+      "promotionCandidateStatus": "blocked_by_export_status"
+    },
+    {
+      "planId": "plan-3",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-3-rendered-review.png",
+      "promotionCandidateStatus": "blocked_by_export_status"
+    },
+    {
+      "planId": "plan-4",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-4-rendered-review.png",
+      "promotionCandidateStatus": "blocked_by_export_status"
+    },
+    {
+      "planId": "plan-5",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-5-rendered-review.png",
+      "promotionCandidateStatus": "blocked_by_export_status"
+    }
+  ],
+  "defaultFixtureMutationStatus": {
+    "sourceFixturesRemainUnchanged": true,
+    "hashMismatches": []
+  },
+  "failures": [],
+  "evidenceDir": "docs/verification/issues/issue-305"
+}

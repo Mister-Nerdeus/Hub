@@ -1,0 +1,49 @@
+{
+  "planId": "plan-4",
+  "sourceDefaultPlanId": "default-er-layout-plan-4",
+  "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+  "correctedSavedCopyHash": "a762fdb8e3a6048745a3cc9f0adedc8441c5987ad03610e50269ab4b01150a0f",
+  "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-audit.json",
+  "correctionAuditHash": "eac6867d86154b707384b80abce6603c0fdd010b3bb217c9a4b7aceb26db2280",
+  "renderedEvidencePath": "docs/verification/rendered-plans/plan-4-rendered-review.png",
+  "renderedEvidenceHash": "b41e41b5f7a84dcf009783f9206ace82da5ff0bc1fbac9fdbe80fa0e8b81a583",
+  "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-4-rendered-review.metadata.json",
+  "machineVisualSanityStatus": "passed",
+  "manualVisualReviewStatus": "manual_review_required",
+  "routeAuditStatus": "blocked",
+  "simulationReadyExportStatus": "blocked_path_sync",
+  "privateSourcePayloadStored": false,
+  "exactParityClaimMade": false,
+  "sourceFixtureUnchanged": true,
+  "promotionCandidateStatus": "blocked_by_export_status",
+  "routeAudit": {
+    "roomsMissingDoor": [],
+    "roomsMissingPathNode": [
+      "plan-4-source-review-added-room"
+    ],
+    "unreachableRoomIds": [
+      "plan-4-source-review-added-room"
+    ],
+    "orphanPathNodeIds": [],
+    "invalidPathEdgeIds": [],
+    "nonFinitePathEdgeIds": [],
+    "blockedRequiredEdgeIds": [],
+    "stationToRoomRoutesChecked": 8,
+    "stationToRoomRoutesPassed": 8,
+    "pathSyncStatus": "stale_warning"
+  },
+  "blockingIssues": [
+    "ROOM_MISSING_PATH_NODE",
+    "PATH_GRAPH_UNREACHABLE_ROOM",
+    "SIMULATION_READY_EXPORT_BLOCKED"
+  ],
+  "warningIssues": [
+    "PATH_SYNC_STALE"
+  ],
+  "limitations": [
+    "Machine visual sanity does not claim manual visual approval.",
+    "Route audit uses the corrected saved copy and reviewed export, not the stale default fixture.",
+    "No promotion occurs in Batch 301-310."
+  ],
+  "goNoGo": "GO for another corrected-plan review/correction pass"
+}

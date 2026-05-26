@@ -1,0 +1,34 @@
+{
+  "planId": "plan-4",
+  "sourceSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+  "sourceSavedCopyHash": "a762fdb8e3a6048745a3cc9f0adedc8441c5987ad03610e50269ab4b01150a0f",
+  "renderedEvidencePath": "docs/verification/rendered-plans/plan-4-rendered-review.png",
+  "renderedEvidenceHash": "b41e41b5f7a84dcf009783f9206ace82da5ff0bc1fbac9fdbe80fa0e8b81a583",
+  "widthPx": 1200,
+  "heightPx": 900,
+  "objectCounts": {
+    "rooms": 5,
+    "hallways": 23,
+    "doors": 5,
+    "nurseStations": 2,
+    "zones": 5,
+    "pathNodes": 10,
+    "pathEdges": 9
+  },
+  "renderedFromCorrectedSavedCopy": true,
+  "privateSourceScreenshotStored": false,
+  "exactParityClaimMade": false,
+  "machineVisualSanityChecks": {
+    "nonPlaceholderDimensions": true,
+    "roomsVisible": true,
+    "doorsVisibleWhenPresent": true,
+    "pathNodesVisibleWhenPresent": true,
+    "pathEdgesVisibleWhenPresent": true,
+    "labelsRendered": true
+  },
+  "limitations": [
+    "Rendered visual evidence is generated only from corrected saved-copy JSON.",
+    "Machine visual sanity evidence does not claim human visual approval.",
+    "The render does not claim exact CAD or exact DOCX parity."
+  ]
+}

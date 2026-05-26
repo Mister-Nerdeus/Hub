@@ -1,0 +1,22 @@
+{
+  "manifestVersion": "1.0.0",
+  "batch": "301-310",
+  "lastUpdatedIssue": "310",
+  "sourceCorrectionManifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "sourceCorrectionManifestHash": "2999eb7eb6610a4a9df1c4736d0f58db67dcce4912564d69deefdcafd291bfbe",
+  "reviewedPlans": [
+    "plan-2",
+    "plan-3",
+    "plan-4",
+    "plan-5"
+  ],
+  "preflightStatus": "passed",
+  "renderedEvidenceStatus": "complete",
+  "machineVisualSanityStatus": "complete",
+  "routeAuditStatus": "complete",
+  "simulationReadyExportStatus": "complete",
+  "privateSourceBoundaryStatus": "passed",
+  "defaultFixtureMutationStatus": "unchanged",
+  "promotionStatus": "blocked",
+  "goNoGoStatus": "GO for another corrected-plan review/correction pass; promotion remains blocked pending explicit manual approval"
+}

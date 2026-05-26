@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 307
+node scripts/check-corrected-plan-review.mjs --stage route-export-matrix --allow-partial --issue 307

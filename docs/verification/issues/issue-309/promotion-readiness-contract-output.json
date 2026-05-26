@@ -1,0 +1,20 @@
+{
+  "planId": "plan-2",
+  "currentDefaultFixturePath": "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
+  "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+  "correctedSavedCopyHash": "6914bac25d815da73c352b9c97bbf8a4af39ead20bf499ddda0a5ce0533e8b17",
+  "renderedEvidencePresent": true,
+  "machineVisualSanityPassed": true,
+  "manualVisualReviewApproved": false,
+  "routeAuditPassedOrAccepted": false,
+  "simulationReadyExportAccepted": false,
+  "privateSourceBoundaryPassed": true,
+  "noPhiPassed": true,
+  "rollbackPlanPath": "docs/plan-review/default-fixture-promotion-protocol.md",
+  "rollbackPlanHash": "2999eb7eb6610a4a9df1c4736d0f58db67dcce4912564d69deefdcafd291bfbe",
+  "promotionAllowed": false,
+  "blockingReasons": [
+    "manual visual review approval is required",
+    "route/export status is blocked"
+  ]
+}

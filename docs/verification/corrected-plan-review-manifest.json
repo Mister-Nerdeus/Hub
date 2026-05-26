@@ -1,0 +1,150 @@
+{
+  "manifestVersion": "1.0.0",
+  "batch": "301-310",
+  "lastUpdatedIssue": "310",
+  "sourceCorrectionManifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "sourceCorrectionManifestHash": "2999eb7eb6610a4a9df1c4736d0f58db67dcce4912564d69deefdcafd291bfbe",
+  "reviewedPlans": [
+    {
+      "planId": "plan-2",
+      "sourceDefaultPlanId": "default-er-layout-plan-2",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-corrected-saved-copy.json",
+      "correctedSavedCopyHash": "6914bac25d815da73c352b9c97bbf8a4af39ead20bf499ddda0a5ce0533e8b17",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-correction-audit.json",
+      "correctionAuditHash": "430d9d086b56859c1f1b4f16ffb995ff5d340787bbd82da02fbc4db6623d141f",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-2-rendered-review.png",
+      "renderedEvidenceHash": "9829500cb5f82337181accb73b942eb8692d83b3dc4ef3c8dd187707a25f5641",
+      "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-2-rendered-review.metadata.json",
+      "machineVisualSanityStatus": "passed",
+      "manualVisualReviewStatus": "manual_review_required",
+      "routeAuditStatus": "blocked",
+      "simulationReadyExportStatus": "blocked_path_sync",
+      "privateSourcePayloadStored": false,
+      "exactParityClaimMade": false,
+      "sourceFixtureUnchanged": true,
+      "promotionCandidateStatus": "blocked_by_export_status",
+      "blockingIssues": [
+        "ROOM_MISSING_PATH_NODE",
+        "PATH_GRAPH_UNREACHABLE_ROOM",
+        "SIMULATION_READY_EXPORT_BLOCKED"
+      ],
+      "warningIssues": [
+        "PATH_SYNC_STALE"
+      ],
+      "limitations": [
+        "Machine visual sanity does not claim manual visual approval.",
+        "Route audit uses the corrected saved copy and reviewed export, not the stale default fixture.",
+        "No promotion occurs in Batch 301-310."
+      ],
+      "goNoGo": "GO for another corrected-plan review/correction pass"
+    },
+    {
+      "planId": "plan-3",
+      "sourceDefaultPlanId": "default-er-layout-plan-3",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-corrected-saved-copy.json",
+      "correctedSavedCopyHash": "159fd89fbba6697507a664d27a7d5d4b86d7a31fef1372fd3f8b0bebb2459725",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-correction-audit.json",
+      "correctionAuditHash": "58a4aad69f2786c8ca4891539c9b177820810b1a130659177ba612dd4180dd60",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-3-rendered-review.png",
+      "renderedEvidenceHash": "d392f9e9621260299fd65a6d20c7e3a2064aff5effdefab797f43b3ca75be8fe",
+      "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-3-rendered-review.metadata.json",
+      "machineVisualSanityStatus": "passed",
+      "manualVisualReviewStatus": "manual_review_required",
+      "routeAuditStatus": "blocked",
+      "simulationReadyExportStatus": "blocked_path_sync",
+      "privateSourcePayloadStored": false,
+      "exactParityClaimMade": false,
+      "sourceFixtureUnchanged": true,
+      "promotionCandidateStatus": "blocked_by_export_status",
+      "blockingIssues": [
+        "ROOM_MISSING_PATH_NODE",
+        "PATH_GRAPH_UNREACHABLE_ROOM",
+        "SIMULATION_READY_EXPORT_BLOCKED"
+      ],
+      "warningIssues": [
+        "PATH_SYNC_STALE"
+      ],
+      "limitations": [
+        "Machine visual sanity does not claim manual visual approval.",
+        "Route audit uses the corrected saved copy and reviewed export, not the stale default fixture.",
+        "No promotion occurs in Batch 301-310."
+      ],
+      "goNoGo": "GO for another corrected-plan review/correction pass"
+    },
+    {
+      "planId": "plan-4",
+      "sourceDefaultPlanId": "default-er-layout-plan-4",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+      "correctedSavedCopyHash": "a762fdb8e3a6048745a3cc9f0adedc8441c5987ad03610e50269ab4b01150a0f",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-audit.json",
+      "correctionAuditHash": "eac6867d86154b707384b80abce6603c0fdd010b3bb217c9a4b7aceb26db2280",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-4-rendered-review.png",
+      "renderedEvidenceHash": "b41e41b5f7a84dcf009783f9206ace82da5ff0bc1fbac9fdbe80fa0e8b81a583",
+      "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-4-rendered-review.metadata.json",
+      "machineVisualSanityStatus": "passed",
+      "manualVisualReviewStatus": "manual_review_required",
+      "routeAuditStatus": "blocked",
+      "simulationReadyExportStatus": "blocked_path_sync",
+      "privateSourcePayloadStored": false,
+      "exactParityClaimMade": false,
+      "sourceFixtureUnchanged": true,
+      "promotionCandidateStatus": "blocked_by_export_status",
+      "blockingIssues": [
+        "ROOM_MISSING_PATH_NODE",
+        "PATH_GRAPH_UNREACHABLE_ROOM",
+        "SIMULATION_READY_EXPORT_BLOCKED"
+      ],
+      "warningIssues": [
+        "PATH_SYNC_STALE"
+      ],
+      "limitations": [
+        "Machine visual sanity does not claim manual visual approval.",
+        "Route audit uses the corrected saved copy and reviewed export, not the stale default fixture.",
+        "No promotion occurs in Batch 301-310."
+      ],
+      "goNoGo": "GO for another corrected-plan review/correction pass"
+    },
+    {
+      "planId": "plan-5",
+      "sourceDefaultPlanId": "default-er-layout-plan-5",
+      "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-corrected-saved-copy.json",
+      "correctedSavedCopyHash": "830f8a343078728216e821cafdb3815a0453bf0ae6b7f0b802de9e80017a50d1",
+      "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-correction-audit.json",
+      "correctionAuditHash": "2ff19087726f53c583140205751b0058c8c9e5e8dbd396c566ae95f855e42e59",
+      "renderedEvidencePath": "docs/verification/rendered-plans/plan-5-rendered-review.png",
+      "renderedEvidenceHash": "b72d9b2bed6da9b80def581f74f2f94c37770c36ce37800f53e7a32289d3bb3e",
+      "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-5-rendered-review.metadata.json",
+      "machineVisualSanityStatus": "passed",
+      "manualVisualReviewStatus": "manual_review_required",
+      "routeAuditStatus": "blocked",
+      "simulationReadyExportStatus": "blocked_path_sync",
+      "privateSourcePayloadStored": false,
+      "exactParityClaimMade": false,
+      "sourceFixtureUnchanged": true,
+      "promotionCandidateStatus": "blocked_by_export_status",
+      "blockingIssues": [
+        "ROOM_MISSING_PATH_NODE",
+        "PATH_GRAPH_UNREACHABLE_ROOM",
+        "SIMULATION_READY_EXPORT_BLOCKED"
+      ],
+      "warningIssues": [
+        "PATH_SYNC_STALE"
+      ],
+      "limitations": [
+        "Machine visual sanity does not claim manual visual approval.",
+        "Route audit uses the corrected saved copy and reviewed export, not the stale default fixture.",
+        "No promotion occurs in Batch 301-310."
+      ],
+      "goNoGo": "GO for another corrected-plan review/correction pass"
+    }
+  ],
+  "preflightStatus": "passed",
+  "renderedEvidenceStatus": "complete",
+  "machineVisualSanityStatus": "complete",
+  "routeAuditStatus": "complete",
+  "simulationReadyExportStatus": "complete",
+  "privateSourceBoundaryStatus": "passed",
+  "defaultFixtureMutationStatus": "unchanged",
+  "promotionStatus": "blocked",
+  "goNoGoStatus": "GO for another corrected-plan review/correction pass; promotion remains blocked pending explicit manual approval"
+}

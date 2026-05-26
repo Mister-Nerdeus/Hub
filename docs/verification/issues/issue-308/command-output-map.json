@@ -1,0 +1,42 @@
+{
+  "issue": "308",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-review.mjs --stage private-source-final --allow-partial --issue 308",
+      "outputs": [
+        "docs/verification/issues/issue-308/test-output/corrected-plan-review-gate.txt",
+        "docs/verification/issues/issue-308/corrected-plan-review-gate-output.json"
+      ]
+    }
+  ]
+}

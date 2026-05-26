@@ -13,6 +13,9 @@ const manifestPath = join(
 
 const repoPaths = {
   docsFloorplans: join(repoRoot, "docs", "floorplans"),
+  correctedSourceCorrections: join(repoRoot, "packages", "shared", "fixtures", "source-corrections"),
+  correctedReviewManifest: join(repoRoot, "docs", "verification", "corrected-plan-review-manifest.json"),
+  correctedRenderedPlans: join(repoRoot, "docs", "verification", "rendered-plans"),
   webPublic: join(repoRoot, "apps", "web", "public"),
   webSource: join(repoRoot, "apps", "web", "src"),
   apiRoutes: join(repoRoot, "apps", "api", "app", "routes")
@@ -28,7 +31,8 @@ const evidence = {
   },
   repoDocxFiles: [],
   webSourceMatches: [],
-  apiRouteMatches: []
+  apiRouteMatches: [],
+  correctedPlanReviewMatches: []
 };
 
 const prohibitedWebPatterns = [
@@ -61,6 +65,12 @@ const apiMatches = scanTextFiles(repoPaths.apiRoutes, prohibitedApiPatterns);
 if (apiMatches.length > 0) {
   evidence.apiRouteMatches = apiMatches;
   failures.push("API routes contain DOCX or source-document serving patterns");
+}
+
+const correctedMatches = scanCorrectedPlanReviewArtifacts();
+if (correctedMatches.length > 0) {
+  evidence.correctedPlanReviewMatches = correctedMatches;
+  failures.push("Corrected-plan review artifacts contain forbidden private-source data or exact-parity claims");
 }
 
 validateSourceManifest();
@@ -205,6 +215,46 @@ function scanTextFiles(directory, patterns) {
   return [...new Set(matches)].sort();
 }
 
+function scanCorrectedPlanReviewArtifacts() {
+  const roots = [
+    repoPaths.correctedSourceCorrections,
+    repoPaths.correctedRenderedPlans,
+    repoPaths.correctedReviewManifest
+  ];
+  const patterns = [
+    /\.(?:docx|DOCX)\b/,
+    /[A-Za-z]:[\\/][^\s"]+/u,
+    /\bsourceFilename\b|\bsource filename:/i,
+    /\bocr(?:Dump|Text)\b|OCR dump:/i,
+    /\brawSourceText\b|raw source text:/i,
+    /\bprivateSourceScreenshotStored\s*:\s*true\b|private-source screenshot:/i,
+    /exact (?:CAD|DOCX) parity (?:achieved|confirmed|passed|approved)/i
+  ];
+  const matches = [];
+  for (const rootPath of roots) {
+    if (!existsSync(rootPath)) {
+      continue;
+    }
+    const files = statSync(rootPath).isFile() ? [rootPath] : listFiles(rootPath);
+    for (const file of files) {
+      if (file.toLowerCase().endsWith(".png")) {
+        continue;
+      }
+      const text = readFileMaybe(file);
+      if (text == null) {
+        continue;
+      }
+      for (const pattern of patterns) {
+        if (pattern.test(text)) {
+          matches.push(repoRelativePath(file));
+          break;
+        }
+      }
+    }
+  }
+  return [...new Set(matches)].sort();
+}
+
 function listFiles(directory) {
   const paths = [];
   for (const dirent of readdirSync(directory, { withFileTypes: true })) {
@@ -230,10 +280,11 @@ function readFileMaybe(path) {
   }
 }
 
-// Optional evidence export for CI artifacts.
-const evidencePath = join(repoRoot, "docs/verification/issues/issue-227", "private-source-check-output.json");
-try {
-  writeFileSync(evidencePath, `${JSON.stringify(evidence, null, 2)}\n`);
-} catch {
-  // No-op if issue directory is not present yet.
+const evidencePath = process.env.PRIVATE_SOURCE_EVIDENCE_PATH;
+if (evidencePath != null && evidencePath.length > 0) {
+  try {
+    writeFileSync(join(repoRoot, evidencePath), `${JSON.stringify(evidence, null, 2)}\n`);
+  } catch {
+    // No-op if the optional evidence target is not writable.
+  }
 }

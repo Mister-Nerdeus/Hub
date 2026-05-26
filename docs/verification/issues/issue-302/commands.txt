@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-corrected-plan-review.mjs --stage rendered-evidence --allow-partial --issue 302
