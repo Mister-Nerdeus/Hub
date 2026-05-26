@@ -285,7 +285,22 @@ const issueFiles = {
     "simulation-refinement-still-passes-output.json",
     "plans-2-through-5-unchanged-output.json"
   ],
-  "287": ["first-failure.txt"],
+  "287": [
+    "first-failure.txt",
+    "door-path-node-generator-output.json",
+    "generated-node-output.json",
+    "generated-edge-output.json",
+    "no-nearby-hallway-negative-output.json",
+    "manual-review-warning-output.json",
+    "existing-node-preservation-output.json",
+    "path-sync-status-after-generation-output.json",
+    "door-path-node-sync-controls-output.json",
+    "visual-parity-still-passes-output.json",
+    "assignment-workflow-still-passes-output.json",
+    "scenario-simulation-still-passes-output.json",
+    "simulation-refinement-still-passes-output.json",
+    "plans-2-through-5-unchanged-output.json"
+  ],
   "288": ["first-failure.txt"],
   "289": ["first-failure.txt"],
   "290": ["first-failure.txt"]
@@ -308,7 +323,8 @@ const behaviorOutput = [
   "save-reload-e2e",
   "room-edit-e2e",
   "door-edit-e2e",
-  "path-sync-audit"
+  "path-sync-audit",
+  "door-path-node-generation"
 ].includes(stage) && missingModules.length === 0
   ? runBehaviorHarness("default-er-layout-plan-1.json")
   : null;
@@ -578,7 +594,8 @@ function writeScreenshotPlaceholders(issueDir, issueNumber) {
     "283": ["room-authoring-e2e.png"],
     "284": ["door-authoring-e2e.png"],
     "285": ["auto-hallway-grid-subtraction.png"],
-    "286": ["path-sync-status-panel.png"]
+    "286": ["path-sync-status-panel.png"],
+    "287": ["door-path-node-sync-controls.png"]
   }[issueNumber] ?? [];
   for (const name of screenshotNames) {
     writePng(join(issueDir, "screenshots", name));

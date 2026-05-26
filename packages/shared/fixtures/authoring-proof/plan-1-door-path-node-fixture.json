@@ -1,0 +1,36 @@
+{
+  "issue": "287",
+  "status": "passed",
+  "generatedNodeCount": 1,
+  "generatedEdgeCount": 1,
+  "generatedNodes": [
+    {
+      "pathNodeId": "generated-path-node-door-room-01",
+      "linkedDoorId": "door-room-01",
+      "linkedRoomId": "room-01",
+      "xFeet": 16,
+      "yFeet": 20,
+      "nodeType": "room_door",
+      "generated": true,
+      "generationMethod": "nearest_hallway_connection",
+      "warningCodes": [
+        "GENERATED_PATH_NODE_APPROXIMATE"
+      ]
+    }
+  ],
+  "generatedEdgeIds": [
+    "generated-edge-door-door-room-01-to-node-hallway-01"
+  ],
+  "manualReviewWarnings": [
+    "NO_NEARBY_HALLWAY_NODE",
+    "PATH_EDGE_GENERATION_SKIPPED",
+    "MANUAL_PATH_REVIEW_REQUIRED",
+    "GENERATED_PATH_NODE_APPROXIMATE"
+  ],
+  "pathSyncStatusAfterGeneration": "fresh",
+  "routeAuditSimulationReady": true,
+  "limitations": [
+    "Generated door path nodes use deterministic wall projection and nearest hallway connection.",
+    "Generated route links are approximate and require manual review when warnings are present."
+  ]
+}

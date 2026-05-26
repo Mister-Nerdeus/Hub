@@ -39,8 +39,14 @@ export function generateDoorPathNodes(input: {
   const layout = validateEditableLayoutGeometryContract(input.editableLayout);
   const maxDistance = input.maxHallwayConnectionDistanceFeet ?? 40;
   const generatedNodeIds = new Set(layout.doors.map((door) => nodeIdForDoor(door.id)));
+  const generatedDoorIds = new Set(layout.doors.map((door) => door.id));
+  const removedGeneratedNodeIds = new Set<string>();
   const preservedPathNodes = sourcePlan.pathNodes.filter((node) => {
-    if (input.replaceGenerated === true && generatedNodeIds.has(node.id)) {
+    if (
+      input.replaceGenerated === true &&
+      (generatedNodeIds.has(node.id) || (node.nodeType === "room_door" && generatedDoorIds.has(node.linkedObjectId ?? "")))
+    ) {
+      removedGeneratedNodeIds.add(node.id);
       return false;
     }
     return true;
@@ -48,10 +54,10 @@ export function generateDoorPathNodes(input: {
   const preservedExistingNodeIds = preservedPathNodes.map((node) => node.id).sort();
   const nextNodes: PathNode[] = [...preservedPathNodes];
   const nextEdges: PathEdge[] = [...sourcePlan.pathEdges.filter((edge) => {
-    if (input.replaceGenerated !== true) {
-      return true;
-    }
-    return !edge.id.startsWith("generated-edge-door-");
+    return input.replaceGenerated !== true ||
+      (!edge.id.startsWith("generated-edge-door-") &&
+        !removedGeneratedNodeIds.has(edge.fromNodeId) &&
+        !removedGeneratedNodeIds.has(edge.toNodeId));
   })];
   const generatedNodes: GeneratedDoorPathNode[] = [];
   const generatedEdgeIds: string[] = [];
@@ -136,7 +142,9 @@ export function generateDoorPathNodes(input: {
     generatedEdgeIds,
     preservedExistingNodeIds,
     warningCodes: unique(warnings),
-    pathSyncStatus: warnings.includes("MANUAL_PATH_REVIEW_REQUIRED") ? "stale_warning" : "fresh",
+    pathSyncStatus: warnings.includes("MANUAL_PATH_REVIEW_REQUIRED") || !generatedNodesReachRouteGraph(nextNodes, nextEdges, generatedNodes)
+      ? "stale_warning"
+      : "fresh",
     limitations: [
       "Generated door path nodes use deterministic wall projection and nearest hallway connection.",
       "Generated route links are approximate and require manual review when warnings are present."
@@ -183,6 +191,46 @@ function sortNodes(nodes: PathNode[]): PathNode[] {
 
 function sortEdges(edges: PathEdge[]): PathEdge[] {
   return [...edges].sort((left, right) => left.id.localeCompare(right.id));
+}
+
+function generatedNodesReachRouteGraph(
+  nodes: PathNode[],
+  edges: PathEdge[],
+  generatedNodes: GeneratedDoorPathNode[]
+): boolean {
+  const generatedNodeIds = new Set(generatedNodes.map((node) => node.pathNodeId));
+  if (generatedNodeIds.size === 0) {
+    return true;
+  }
+  const adjacency = new Map<string, Set<string>>();
+  for (const node of nodes) {
+    adjacency.set(node.id, new Set());
+  }
+  for (const edge of edges) {
+    if (edge.blocked) {
+      continue;
+    }
+    adjacency.get(edge.fromNodeId)?.add(edge.toNodeId);
+    adjacency.get(edge.toNodeId)?.add(edge.fromNodeId);
+  }
+  const seedIds = nodes
+    .filter((node) => node.nodeType === "station" || node.nodeType === "hallway")
+    .map((node) => node.id);
+  const reachable = new Set(seedIds);
+  const queue = [...seedIds];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (current == null) {
+      continue;
+    }
+    for (const next of adjacency.get(current) ?? []) {
+      if (!reachable.has(next)) {
+        reachable.add(next);
+        queue.push(next);
+      }
+    }
+  }
+  return [...generatedNodeIds].every((nodeId) => reachable.has(nodeId));
 }
 
 function unique<T>(values: T[]): T[] {

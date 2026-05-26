@@ -1,0 +1,19 @@
+{
+  "issue": "287",
+  "status": "passed",
+  "generatedNodes": [
+    {
+      "pathNodeId": "generated-path-node-door-room-01",
+      "linkedDoorId": "door-room-01",
+      "linkedRoomId": "room-01",
+      "xFeet": 16,
+      "yFeet": 20,
+      "nodeType": "room_door",
+      "generated": true,
+      "generationMethod": "nearest_hallway_connection",
+      "warningCodes": [
+        "GENERATED_PATH_NODE_APPROXIMATE"
+      ]
+    }
+  ]
+}

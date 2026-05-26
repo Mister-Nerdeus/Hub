@@ -1,0 +1,17 @@
+{
+  "issue": "287",
+  "status": "passed",
+  "generatedNodeCount": 1,
+  "generatedEdgeCount": 1,
+  "deterministic": true,
+  "generationMethods": [
+    "nearest_hallway_connection"
+  ],
+  "warningCodes": [
+    "GENERATED_PATH_NODE_APPROXIMATE"
+  ],
+  "limitations": [
+    "Generated door path nodes use deterministic wall projection and nearest hallway connection.",
+    "Generated route links are approximate and require manual review when warnings are present."
+  ]
+}

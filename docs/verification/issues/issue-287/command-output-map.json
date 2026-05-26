@@ -1,0 +1,94 @@
+{
+  "issue": "287",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage door-path-node-generation --allow-partial --issue 287 (first failure before implementation)",
+      "outputs": [
+        "docs/verification/issues/issue-287/first-failure.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/shared.txt",
+        "docs/verification/issues/issue-287/door-path-node-generator-output.json",
+        "docs/verification/issues/issue-287/generated-node-output.json",
+        "docs/verification/issues/issue-287/generated-edge-output.json",
+        "docs/verification/issues/issue-287/no-nearby-hallway-negative-output.json",
+        "docs/verification/issues/issue-287/manual-review-warning-output.json",
+        "docs/verification/issues/issue-287/existing-node-preservation-output.json",
+        "docs/verification/issues/issue-287/path-sync-status-after-generation-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/web.txt",
+        "docs/verification/issues/issue-287/door-path-node-sync-controls-output.json",
+        "docs/verification/issues/issue-287/screenshots/door-path-node-sync-controls.png"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/visual-parity-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/simulation-refinement-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-287/plans-2-through-5-unchanged-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-authoring.mjs --stage door-path-node-generation --allow-partial --issue 287",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-287/floorplan-authoring-gate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/scaffold-issue-evidence-index-entry.mjs --issue 287 --title \"Door-to-Path Node Generation Prototype\" --write --force",
+      "outputs": [
+        "docs/verification/issues/issue-287/evidence-index-update-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-287/test-output/docs-gate.txt"
+      ]
+    }
+  ]
+}

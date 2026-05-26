@@ -1,7 +1,9 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
 import {
   auditPathSyncStatus,
+  generateDoorPathNodes,
   type AuthoringRoomType,
+  type DoorPathNodeGenerationResult,
   type PathSyncAuditResult
 } from "@nerdeus/shared";
 
@@ -19,6 +21,7 @@ import { buildAddRoomAction } from "./addRoomTool";
 import { buildAddDoorAction } from "./addDoorTool";
 import { RoomTypeEditor } from "./RoomTypeEditor";
 import { DoorEditor } from "./DoorEditor";
+import { DoorPathNodeSyncControls } from "./DoorPathNodeSyncControls";
 import { AutoHallwayControls } from "./AutoHallwayControls";
 import { PodBorderShape } from "./PodBorderShape";
 import { buildPodBorderViewModel } from "./podBorderViewModel";
@@ -134,6 +137,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
+  const [doorPathNodeGenerationResult, setDoorPathNodeGenerationResult] =
+    useState<DoorPathNodeGenerationResult | null>(null);
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
@@ -151,6 +156,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   useEffect(() => {
     setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedRoom));
   }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
+  useEffect(() => {
+    setDoorPathNodeGenerationResult(null);
+  }, [stageState.editableLayout, stageState.sourcePlan]);
   useEffect(() => {
     if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
       return;
@@ -297,6 +305,16 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     );
     setAuthoringSequence((value) => value + 1);
     setToolMode("select");
+  };
+  const generateDoorPathNodesFromStage = () => {
+    if (stageState.sourcePlan == null || stageState.editableLayout == null || stageState.readOnly) {
+      return;
+    }
+    setDoorPathNodeGenerationResult(generateDoorPathNodes({
+      sourcePlan: stageState.sourcePlan,
+      editableLayout: stageState.editableLayout,
+      replaceGenerated: true
+    }));
   };
   const importEditableFloorplanJson = () => {
     try {
@@ -517,6 +535,14 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
           hallway.id.startsWith("generated-hallway-")
         ).length ?? 0}
         onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+      />
+      <DoorPathNodeSyncControls
+        readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+        generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
+        generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
+        pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
+        warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
+        onGenerate={generateDoorPathNodesFromStage}
       />
 
       <LayoutViewportToolbar
