@@ -11,6 +11,7 @@ const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/operational-demo-ux-manifest.json";
 const productName = "ER Pod Shift Simulator";
 const planIds = ["plan-2", "plan-3", "plan-4", "plan-5"];
+const usesRealBrowserProof = Number(issue) >= 378;
 const statusKeyByStage = {
   preflight: null,
   "safe-snapshot": "safeSnapshotStatus",
@@ -271,7 +272,9 @@ function runDemoProof() {
     "- Tablet/narrow proof captured locally.",
     "- Mobile-ish proof captured locally.",
     "",
-    "Screenshots are local evidence placeholders for this batch; Codex does not claim manual visual approval.",
+    usesRealBrowserProof
+      ? "Screenshots are browser-rendered local proof; Codex does not claim manual visual approval."
+      : "Screenshots are local evidence placeholders for this batch; Codex does not claim manual visual approval.",
     ""
   ].join("\n"));
   writeText(`${issueDir}/demo-walkthrough-output.md`, readText("docs/demo/operational-demo-walkthrough.md"));
@@ -612,6 +615,7 @@ function scanForbiddenClaims() {
 }
 
 function writePlaceholderPng(path) {
+  if (usesRealBrowserProof) return;
   if (existsSync(abs(path))) return;
   const onePixelPng = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=";
   writeBuffer(path, Buffer.from(onePixelPng, "base64"));

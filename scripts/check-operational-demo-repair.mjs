@@ -148,8 +148,19 @@ function runStage(currentStage) {
     if (!existsSync(abs("docs/verification/operational-demo-screenshot-manifest.json"))) failures.push("real browser screenshot manifest is missing");
     else {
       const proof = readJson("docs/verification/operational-demo-screenshot-manifest.json");
+      if (String(proof.issue) !== String(issue)) failures.push("browser proof manifest does not match current issue");
       if (proof.source !== "browser-rendered-app") failures.push("browser proof source is not browser-rendered-app");
       if ((proof.screenshots ?? []).length < 10) failures.push("browser proof must contain all required screenshots");
+      for (const screenshot of proof.screenshots ?? []) {
+        if (!existsSync(abs(screenshot.path))) {
+          failures.push(`browser proof screenshot is missing: ${screenshot.path}`);
+          continue;
+        }
+        const png = readPngInfo(screenshot.path);
+        if (png.width < 300 || png.height < 300 || png.byteLength < 5000) {
+          failures.push(`browser proof screenshot is placeholder-sized: ${screenshot.path}`);
+        }
+      }
     }
     for (const file of ["placeholder-screenshot-before-output.json", "app-shell-screenshot-proof-output.json", "plan-library-screenshot-proof-output.json", "active-floorplan-screenshot-proof-output.json", "rendered-preview-screenshot-proof-output.json", "manual-review-cta-screenshot-proof-output.json", "developer-evidence-screenshot-proof-output.json", "responsive-proof-output.json"]) {
       writeJson(`${issueDir}/${file}`, { status: "passed" });
@@ -397,6 +408,16 @@ function listFiles(relativeRoot) {
 
 function hashFile(path) {
   return createHash("sha256").update(readFileSync(abs(path))).digest("hex");
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") throw new Error(`${path} is not a PNG`);
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    byteLength: buffer.byteLength
+  };
 }
 
 function readArg(flag) {

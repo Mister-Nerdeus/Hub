@@ -1,18 +1,20 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
 const issue = readArg("--issue") ?? "378";
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/operational-demo-screenshot-manifest.json";
+const issueManifestPath = `${issueDir}/screenshot-manifest-output.json`;
 const failures = [];
+let selectedManifestPath = manifestPath;
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
 
-if (!existsSync(abs(manifestPath))) {
+if (!existsSync(abs(manifestPath)) && !existsSync(abs(issueManifestPath))) {
   failures.push("missing operational demo screenshot manifest");
 } else {
-  const manifest = readJson(manifestPath);
+  const manifest = readSelectedManifest();
   if (manifest.source !== "browser-rendered-app") failures.push("screenshot manifest must be browser-rendered-app");
   if (manifest.productDisplayName !== "ER Pod Shift Simulator") failures.push("screenshot manifest product title is incorrect");
   for (const screenshot of manifest.screenshots ?? []) {
@@ -32,10 +34,17 @@ if (!existsSync(abs(manifestPath))) {
   if ((manifest.screenshots ?? []).length < 10) failures.push("expected at least 10 browser proof screenshots");
 }
 
+for (const screenshotPath of listPngFiles(`${issueDir}/screenshots`)) {
+  const png = readPngInfo(screenshotPath);
+  if (png.width < 300 || png.height < 300 || png.byteLength < 5000) {
+    failures.push(`placeholder-like issue screenshot rejected: ${screenshotPath}`);
+  }
+}
+
 const output = {
   status: failures.length === 0 ? "passed" : "failed",
   issue,
-  manifestPath,
+  manifestPath: selectedManifestPath,
   placeholderNegative: { status: "passed", rejected: true, reason: "1x1 or tiny PNGs fail width/height/byte checks" },
   failures
 };
@@ -57,6 +66,51 @@ function readPngInfo(path) {
     height: buffer.readUInt32BE(20),
     byteLength: buffer.byteLength
   };
+}
+
+function readSelectedManifest() {
+  const globalManifest = existsSync(abs(manifestPath)) ? readJson(manifestPath) : null;
+  if (String(issue) === "380") {
+    selectedManifestPath = manifestPath;
+    if (globalManifest == null) {
+      failures.push("missing final operational demo screenshot manifest");
+      return {};
+    }
+    if (String(globalManifest.issue) !== String(issue)) {
+      failures.push(`final screenshot manifest issue ${globalManifest.issue} does not match requested issue ${issue}`);
+    }
+    return globalManifest;
+  }
+  if (globalManifest != null && String(globalManifest.issue) === String(issue)) {
+    selectedManifestPath = manifestPath;
+    return globalManifest;
+  }
+  if (existsSync(abs(issueManifestPath))) {
+    const issueManifest = readJson(issueManifestPath);
+    selectedManifestPath = issueManifestPath;
+    if (String(issueManifest.issue) !== String(issue)) {
+      failures.push(`screenshot manifest issue ${issueManifest.issue} does not match requested issue ${issue}`);
+    }
+    return issueManifest;
+  }
+  failures.push(`screenshot manifest issue ${globalManifest?.issue} does not match requested issue ${issue}`);
+  return globalManifest ?? {};
+}
+
+function listPngFiles(path) {
+  const root = abs(path);
+  if (!existsSync(root)) return [];
+  const files = [];
+  walk(root);
+  return files.map((file) => file.replace(repoRoot, "").replace(/\\/g, "/").replace(/^\/+/, ""));
+
+  function walk(currentPath) {
+    for (const entry of readdirSync(currentPath, { withFileTypes: true })) {
+      const entryPath = join(currentPath, entry.name);
+      if (entry.isDirectory()) walk(entryPath);
+      else if (entry.isFile() && entry.name.endsWith(".png")) files.push(entryPath);
+    }
+  }
 }
 
 function readArg(flag) {
