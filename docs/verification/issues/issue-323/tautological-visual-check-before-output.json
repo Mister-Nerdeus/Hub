@@ -1,0 +1,5 @@
+{
+  "status": "reproduced",
+  "previousCheck": "objectCounts.doors === 0 || objectCounts.doors > 0",
+  "replacement": "drawCounts.doorsDrawn >= objectCounts.doors"
+}

@@ -49,6 +49,7 @@ if (stage === "final" && allowPartial) {
 
 const issueDir = `docs/verification/issues/issue-${issue}`;
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
+const finalProtectedHashesBefore = stage === "final" ? collectProtectedArtifactHashes() : null;
 
 const reviewManifest = readJson(reviewManifestPath);
 try {
@@ -73,11 +74,6 @@ const planStageMatch = stage.match(/^plan-(\d)-route-export$/u);
 if (planStageMatch != null) {
   runPlanRouteExport(Number(planStageMatch[1]));
 }
-if (stage === "final") {
-  for (const planNumber of planNumbers) {
-    runPlanRouteExport(planNumber);
-  }
-}
 if (stage === "cross-plan-matrix" || stage === "final") {
   runCrossPlanMatrix();
 }
@@ -86,17 +82,39 @@ if (stage === "boundary-and-promotion-block" || stage === "final") {
 }
 if (stage === "final") {
   runFinalAudit();
+  const finalProtectedHashesAfter = collectProtectedArtifactHashes();
+  const mutationCheck = compareHashMaps(finalProtectedHashesBefore, finalProtectedHashesAfter);
+  writeJson(`${issueDir}/final-gate-mutation-before-output.json`, {
+    status: "passed",
+    hashes: finalProtectedHashesBefore
+  });
+  writeJson(`${issueDir}/final-gate-mutation-after-output.json`, {
+    status: mutationCheck.changedPaths.length === 0 ? "passed" : "failed",
+    hashes: finalProtectedHashesAfter,
+    changedPaths: mutationCheck.changedPaths
+  });
+  writeJson(`${issueDir}/final-gate-validate-only-output.json`, {
+    status: mutationCheck.changedPaths.length === 0 ? "passed" : "failed",
+    protectedArtifactCount: Object.keys(finalProtectedHashesAfter).length,
+    changedPaths: mutationCheck.changedPaths
+  });
+  if (mutationCheck.changedPaths.length > 0) {
+    failures.push(`final route repair mutated protected artifacts: ${mutationCheck.changedPaths.join(", ")}`);
+  }
 }
 
 routeManifest.lastUpdatedIssue = issue;
 routeManifest = summarizeManifest(routeManifest);
-writeJson(routeManifestPath, validateCorrectedPlanRouteRepairManifest(routeManifest));
+if (stage !== "final") {
+  writeJson(routeManifestPath, validateCorrectedPlanRouteRepairManifest(routeManifest));
+}
 writeJson(`${issueDir}/manifest-update-output.json`, {
   status: "passed",
   manifestPath: routeManifestPath,
   lastUpdatedIssue: issue,
   repairedPlanCount: routeManifest.repairedPlans.length,
-  goNoGoStatus: routeManifest.goNoGoStatus
+  goNoGoStatus: routeManifest.goNoGoStatus,
+  validateOnly: stage === "final"
 });
 
 const output = {
@@ -475,6 +493,24 @@ function runFinalAudit() {
     if (entry == null) {
       continue;
     }
+    requireFile(entry.repairedSavedCopyPath);
+    requireFile(entry.routeRepairReportPath);
+    if (entry.simulationReadyExportPath != null) {
+      requireFile(entry.simulationReadyExportPath);
+    }
+    if (hashFile(entry.repairedSavedCopyPath) !== entry.repairedSavedCopyHash) {
+      failures.push(`${planId} repaired saved-copy hash does not match manifest`);
+    }
+    if (hashFile(entry.routeRepairReportPath) !== entry.routeRepairReportHash) {
+      failures.push(`${planId} route repair report hash does not match manifest`);
+    }
+    if (
+      entry.simulationReadyExportPath != null &&
+      entry.simulationReadyExportHash != null &&
+      hashFile(entry.simulationReadyExportPath) !== entry.simulationReadyExportHash
+    ) {
+      failures.push(`${planId} simulation-ready export hash does not match manifest`);
+    }
     const repairedCopy = validateSourceCorrectedSavedCopy(readJson(entry.repairedSavedCopyPath));
     const repairedPlan = buildReviewedPlanFromCorrectedSavedCopy(repairedCopy);
     const recomputedAudit = auditCorrectedPlanRouteReadiness({ correctedSavedCopy: repairedCopy, reviewedPlan: repairedPlan });
@@ -527,6 +563,49 @@ function runFinalAudit() {
   writeText(`${issueDir}/known-gaps.md`, "# Known Gaps\n\n- Manual visual approval has not been claimed.\n- Default fixture promotion remains blocked.\n");
   writeText(`${issueDir}/follow-up-issues.md`, "# Follow-Up Issues\n\n- Run manual visual review on repaired rendered evidence before any promotion-review batch.\n");
   writeText(`${issueDir}/go-no-go.md`, `# GO / NO-GO\n\n${goNoGo}\n`);
+}
+
+function collectProtectedArtifactHashes() {
+  const hashes = {};
+  const manifest = existsSync(abs(routeManifestPath)) ? readJson(routeManifestPath) : { repairedPlans: [] };
+  const protectedPaths = new Set([
+    routeManifestPath,
+    reviewManifestPath,
+    ...planNumbers.flatMap((planNumber) => {
+      const planId = `plan-${planNumber}`;
+      return [
+        `packages/shared/fixtures/source-corrections/${planId}/${planId}-route-repaired-saved-copy.json`,
+        `packages/shared/fixtures/source-corrections/${planId}/${planId}-route-repair-report.json`,
+        `packages/shared/fixtures/source-corrections/${planId}/${planId}-export-unlock-report.json`,
+        `packages/shared/fixtures/source-corrections/${planId}/${planId}-simulation-ready-export.json`,
+        `docs/verification/rendered-plans/${planId}-rendered-review.png`,
+        `docs/verification/rendered-plans/${planId}-rendered-review.metadata.json`
+      ];
+    })
+  ]);
+  for (const entry of Array.isArray(manifest.repairedPlans) ? manifest.repairedPlans : []) {
+    for (const key of [
+      "repairedSavedCopyPath",
+      "routeRepairReportPath",
+      "simulationReadyExportPath"
+    ]) {
+      if (typeof entry[key] === "string") {
+        protectedPaths.add(entry[key]);
+      }
+    }
+  }
+  for (const path of [...protectedPaths].sort()) {
+    hashes[path] = existsSync(abs(path)) ? hashFile(path) : null;
+  }
+  return hashes;
+}
+
+function compareHashMaps(before, after) {
+  const paths = new Set([...Object.keys(before ?? {}), ...Object.keys(after ?? {})]);
+  const changedPaths = [...paths]
+    .filter((path) => before?.[path] !== after?.[path])
+    .sort();
+  return { changedPaths };
 }
 
 function writeNegativeAuditOutputs(corrected, reviewedPlan, baseAudit) {

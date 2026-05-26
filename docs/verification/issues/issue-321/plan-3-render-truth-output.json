@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "planId": "plan-3",
+  "objectCounts": {
+    "rooms": 4,
+    "hallways": 21,
+    "doors": 4,
+    "nurseStations": 2,
+    "zones": 4,
+    "pathNodes": 9,
+    "pathEdges": 8
+  },
+  "drawCounts": {
+    "roomsDrawn": 4,
+    "hallwaysDrawn": 21,
+    "doorsDrawn": 4,
+    "stationsDrawn": 2,
+    "zonesDrawn": 4,
+    "pathNodesDrawn": 9,
+    "pathEdgesDrawn": 8,
+    "labelsDrawn": 6
+  },
+  "truth": {
+    "doorsVisibleWhenPresent": true,
+    "pathNodesVisibleWhenPresent": true,
+    "pathEdgesVisibleWhenPresent": true,
+    "renderedFromCorrectedSavedCopy": true,
+    "privateSourceScreenshotStored": true,
+    "exactParityClaimMade": true
+  }
+}

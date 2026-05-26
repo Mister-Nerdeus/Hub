@@ -15,6 +15,9 @@ const repoPaths = {
   docsFloorplans: join(repoRoot, "docs", "floorplans"),
   correctedSourceCorrections: join(repoRoot, "packages", "shared", "fixtures", "source-corrections"),
   correctedReviewManifest: join(repoRoot, "docs", "verification", "corrected-plan-review-manifest.json"),
+  manualReviewManifest: join(repoRoot, "docs", "verification", "manual-visual-review-manifest.json"),
+  manualReviewDocs: join(repoRoot, "docs", "manual-review"),
+  promotionDryRunDocs: join(repoRoot, "docs", "promotion-dry-run"),
   correctedRenderedPlans: join(repoRoot, "docs", "verification", "rendered-plans"),
   webPublic: join(repoRoot, "apps", "web", "public"),
   webSource: join(repoRoot, "apps", "web", "src"),
@@ -219,7 +222,10 @@ function scanCorrectedPlanReviewArtifacts() {
   const roots = [
     repoPaths.correctedSourceCorrections,
     repoPaths.correctedRenderedPlans,
-    repoPaths.correctedReviewManifest
+    repoPaths.correctedReviewManifest,
+    repoPaths.manualReviewManifest,
+    repoPaths.manualReviewDocs,
+    repoPaths.promotionDryRunDocs
   ];
   const patterns = [
     /\.(?:docx|DOCX)\b/,

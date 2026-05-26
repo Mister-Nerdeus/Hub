@@ -1,0 +1,40 @@
+{
+  "recordVersion": "1.0.0",
+  "planId": "plan-2",
+  "sourceDefaultPlanId": "default-er-layout-plan-2",
+  "reviewRecordKind": "manual_visual_review_decision",
+  "sampleRecord": false,
+  "codexClaimedApproval": false,
+  "reviewerDecisionSource": "explicit_manual_artifact",
+  "manualReviewStatus": "approved_with_notes",
+  "reviewScope": "operational_layout_plausibility_only",
+  "promotionAuthorization": "future_promotion_review_consideration_only",
+  "defaultFixturePromotionRequested": false,
+  "reviewedArtifactPaths": [
+    "docs/manual-review/plan-2-review-packet.md",
+    "docs/verification/rendered-plans/plan-2-rendered-review.png",
+    "docs/verification/rendered-plans/plan-2-rendered-review.metadata.json"
+  ],
+  "reviewDimensions": {
+    "roomPlacementPlausibility": "accepted",
+    "doorPlacementPlausibility": "accepted",
+    "hallwayPathConnectivityPlausibility": "accepted",
+    "stationPlacementPlausibility": "accepted",
+    "labelsReadability": "accepted",
+    "knownLimitationsAccepted": "accepted"
+  },
+  "blockingIssues": [],
+  "reviewerNotes": [
+    "Accepted with operational layout notes."
+  ],
+  "limitations": [
+    "Manual review is limited to operational layout plausibility.",
+    "Default fixture promotion remains blocked."
+  ],
+  "nonClaims": [
+    "No clinical certification.",
+    "No staffing compliance determination.",
+    "No private-source comparison approval.",
+    "No default fixture promotion."
+  ]
+}

@@ -22,6 +22,7 @@
     "check:corrected-plan-review": "npm --workspace packages/shared run build && node scripts/check-corrected-plan-review.mjs --stage final",
     "check:corrected-plan-route-repair": "npm --workspace packages/shared run build && node scripts/check-corrected-plan-route-repair.mjs --stage final",
     "check:corrected-plan-route-repair:wiring": "npm --workspace packages/shared run build && node scripts/check-corrected-plan-route-repair.mjs --stage verify-wiring --allow-partial",
+    "check:manual-visual-review": "npm --workspace packages/shared run build && node scripts/check-manual-visual-review.mjs --stage final",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "evidence:local:tracked": "npm run evidence:local -- --tracked",
     "validate:plan": "npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs",

@@ -1,0 +1,23 @@
+{
+  "planId": "plan-4",
+  "status": "blocked_missing_manual_review",
+  "defaultFixturePath": "packages/shared/fixtures/default-plans/default-er-layout-plan-4.json",
+  "defaultFixtureHash": "5f22083f41f3b54987dffa02bd530d13af81d634b9e510d3a689d81cb81932b2",
+  "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-route-repaired-saved-copy.json",
+  "repairedSavedCopyHash": "b770537770866239f0fec0371ea542678f0b7de60493abd9ed795160e9820d40",
+  "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-simulation-ready-export.json",
+  "simulationReadyExportHash": "5c647d9e40c4cc631f37a0c563bc2290c521e7a2a6d745f48ea9d4774e719744",
+  "manualReviewStatus": "manual_review_required",
+  "blockingReasons": [
+    "missing explicit manual visual review approval",
+    "reviewer decision source is none"
+  ],
+  "rollbackRequirements": [
+    "Record default fixture hash before any future promotion-review batch.",
+    "Record repaired saved-copy hash before any future promotion-review batch.",
+    "Keep rollback command plan separate from dry-run evidence.",
+    "Do not mutate default fixtures during dry run."
+  ],
+  "dryRunOnly": true,
+  "defaultFixtureMutated": false
+}
