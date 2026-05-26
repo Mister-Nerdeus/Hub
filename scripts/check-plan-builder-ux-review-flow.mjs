@@ -736,7 +736,7 @@ function scanUserFacingForbiddenClaims() {
     if (file.includes("/__tests__/") || file.includes("/generated/")) {
       continue;
     }
-    if (!file.endsWith(".tsx")) {
+    if (!file.endsWith(".tsx") && !file.endsWith(".ts")) {
       continue;
     }
     const text = readText(file);

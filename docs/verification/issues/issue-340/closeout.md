@@ -6,6 +6,7 @@ Completed the final Plan Builder UX review-flow audit. The batch is GO for expli
 
 ## Files Changed
 
+- `scripts/check-plan-builder-ux-review-flow.mjs`
 - `docs/project/plan-builder-ux-review-flow-status.md`
 - `docs/verification/issues/issue-340/`
 - `docs/verification/ISSUE_EVIDENCE_INDEX.json`
@@ -34,6 +35,8 @@ Completed the final Plan Builder UX review-flow audit. The batch is GO for expli
 
 ## Evidence Artifacts
 
+- `code-review-follow-up-output.json`
+- `docker-update-output.json`
 - `plan-builder-ux-review-flow-final-audit.md`
 - `plan-builder-ux-review-flow-manifest-summary.json`
 - `safe-ui-snapshot-summary.json`

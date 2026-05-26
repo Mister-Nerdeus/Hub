@@ -1,0 +1,17 @@
+{
+  "issue": "340",
+  "status": "passed",
+  "reviewScope": "Batch 331-340 Plan Builder UX review-flow implementation",
+  "findingResolved": {
+    "summary": "User-facing forbidden-claim scanning only covered TSX files.",
+    "resolution": "Scanner now includes non-test, non-generated TS view model files as well as TSX components.",
+    "file": "scripts/check-plan-builder-ux-review-flow.mjs"
+  },
+  "governanceStatus": {
+    "manualReviewRequired": true,
+    "promotionBlocked": true,
+    "defaultFixturesUnchanged": true,
+    "codexClaimedApproval": false,
+    "sampleRecordCountsAsApproval": false
+  }
+}
