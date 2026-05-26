@@ -1,4 +1,7 @@
 import type { PlanBuilderLibraryViewModel } from "./planBuilderLibraryViewModel";
+import { PlanLibraryFilters } from "./PlanLibraryFilters";
+import { PlanStatusBadge } from "./PlanStatusBadge";
+import { createPlanStatusBadges } from "./planStatusViewModel";
 
 type PlanBuilderLibraryProps = {
   viewModel: PlanBuilderLibraryViewModel;
@@ -17,6 +20,7 @@ export function PlanBuilderLibrary({ viewModel }: PlanBuilderLibraryProps) {
           <span>{viewModel.manualReviewRequiredNotice}</span>
         </div>
       </div>
+      <PlanLibraryFilters filters={viewModel.filters} />
 
       {viewModel.sections.map((section) => (
         <section className="plan-builder-library__section" key={section.id} aria-labelledby={`${section.id}-title`}>
@@ -30,6 +34,11 @@ export function PlanBuilderLibrary({ viewModel }: PlanBuilderLibraryProps) {
                   <div>
                     <h4>{item.displayName}</h4>
                     <p>{item.artifactLabel}</p>
+                  </div>
+                  <div className="plan-builder-library__badges" aria-label={`${item.displayName} statuses`}>
+                    {createPlanStatusBadges(item).map((badge) => (
+                      <PlanStatusBadge badge={badge} key={badge.kind} />
+                    ))}
                   </div>
                   <dl>
                     <div>

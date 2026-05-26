@@ -1,5 +1,6 @@
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
 import { createPlanBuilderReviewFlowViewModel } from "./planBuilderReviewFlowViewModel";
+import { createPlanLibraryFilters, sortPlanLibraryItemsForReview, type PlanLibraryFilterViewModel } from "./planStatusViewModel";
 
 export type PlanBuilderLibraryCategoryId =
   | "default-fixtures"
@@ -32,6 +33,7 @@ export type PlanBuilderLibrarySectionViewModel = {
 export type PlanBuilderLibraryViewModel = {
   libraryId: "plan-builder-human-review-library-v1";
   sections: PlanBuilderLibrarySectionViewModel[];
+  filters: PlanLibraryFilterViewModel[];
   promotionBlockedNotice: string;
   manualReviewRequiredNotice: string;
   limitations: string[];
@@ -101,34 +103,38 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     notice: "Open as a reference; it is not a review record."
   }));
 
+  const sections = [
+    {
+      id: "default-fixtures" as const,
+      title: "Default Fixtures",
+      emptyText: "No default fixtures found.",
+      items: defaultItems
+    },
+    {
+      id: "corrected-saved-copies" as const,
+      title: "Corrected Saved Copies",
+      emptyText: "No corrected saved copies found.",
+      items: correctedItems
+    },
+    {
+      id: "route-repaired-review-candidates" as const,
+      title: "Route-Repaired Review Candidates",
+      emptyText: "No route-repaired review candidates found.",
+      items: sortPlanLibraryItemsForReview(repairedItems)
+    },
+    {
+      id: "manual-review-packets" as const,
+      title: "Manual Review Packets",
+      emptyText: "No manual review packets found.",
+      items: packetItems
+    }
+  ];
+  const allItems = sections.flatMap((section) => section.items);
+
   return {
     libraryId: "plan-builder-human-review-library-v1",
-    sections: [
-      {
-        id: "default-fixtures",
-        title: "Default Fixtures",
-        emptyText: "No default fixtures found.",
-        items: defaultItems
-      },
-      {
-        id: "corrected-saved-copies",
-        title: "Corrected Saved Copies",
-        emptyText: "No corrected saved copies found.",
-        items: correctedItems
-      },
-      {
-        id: "route-repaired-review-candidates",
-        title: "Route-Repaired Review Candidates",
-        emptyText: "No route-repaired review candidates found.",
-        items: repairedItems
-      },
-      {
-        id: "manual-review-packets",
-        title: "Manual Review Packets",
-        emptyText: "No manual review packets found.",
-        items: packetItems
-      }
-    ],
+    sections,
+    filters: createPlanLibraryFilters(allItems),
     promotionBlockedNotice: "Promotion blocked until a structured human review record exists.",
     manualReviewRequiredNotice: "Manual review is required before promotion.",
     limitations: [

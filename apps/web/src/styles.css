@@ -333,6 +333,36 @@ h1 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.plan-library-filters {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.plan-library-filters button {
+  background: #ffffff;
+  border: 1px solid #c5d2dd;
+  border-radius: 6px;
+  color: #263340;
+  cursor: pointer;
+  display: grid;
+  gap: 4px;
+  min-height: 58px;
+  padding: 8px;
+  text-align: left;
+}
+
+.plan-library-filters span {
+  font-size: 0.72rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.plan-library-filters strong {
+  color: #111827;
+  font-size: 1rem;
+}
+
 .plan-builder-library__card {
   background: #f7f9fb;
   border: 1px solid #d8e0e8;
@@ -345,6 +375,43 @@ h1 {
 
 .plan-builder-library__card p {
   margin: 0;
+}
+
+.plan-builder-library__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.plan-status-badge {
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  padding: 5px 7px;
+}
+
+.plan-status-badge--ready {
+  background: #e6f4ea;
+  border: 1px solid #a9d2b5;
+  color: #24543a;
+}
+
+.plan-status-badge--attention {
+  background: #fff7e6;
+  border: 1px solid #e5c673;
+  color: #5c4413;
+}
+
+.plan-status-badge--blocked {
+  background: #fdecec;
+  border: 1px solid #e3a2a2;
+  color: #7a1f1f;
+}
+
+.plan-status-badge--neutral {
+  background: #edf3f8;
+  border: 1px solid #c9d9e8;
+  color: #263340;
 }
 
 .plan-builder-library__card dl {
@@ -1457,6 +1524,7 @@ h1 {
   .simulation-proof__grid,
   .optimizer-proof__grid,
   .plan-builder-library__grid,
+  .plan-library-filters,
   .floorplan-library__grid,
   .floorplan-library__status,
   .active-floorplan__status,

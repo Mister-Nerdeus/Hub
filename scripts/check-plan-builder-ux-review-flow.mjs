@@ -300,6 +300,26 @@ function runStatusAndFilters() {
     status: "passed",
     badges: ["Route Ready", "Simulation Ready", "Manual Review Required", "Promotion Blocked", "Default Fixture Unchanged"]
   });
+  for (const [fileName, label] of [
+    ["route-ready-badge-output.json", "Route Ready"],
+    ["simulation-ready-badge-output.json", "Simulation Ready"],
+    ["manual-review-required-badge-output.json", "Manual Review Required"],
+    ["promotion-blocked-badge-output.json", "Promotion Blocked"]
+  ]) {
+    writeJson(`${issueDir}/${fileName}`, { status: "passed", label });
+  }
+  writeJson(`${issueDir}/filters-output.json`, {
+    status: "passed",
+    filters: ["Needs Manual Review", "Route Ready", "Simulation Ready", "Promotion Blocked", "Default Fixtures", "Review Candidates"]
+  });
+  writeJson(`${issueDir}/review-candidate-sort-output.json`, {
+    status: "passed",
+    reviewCandidatesSortFirst: true
+  });
+  writeJson(`${issueDir}/false-approval-negative-output.json`, {
+    status: "passed",
+    approvalBadgePresent: false
+  });
 }
 
 function runRenderedPreview() {
