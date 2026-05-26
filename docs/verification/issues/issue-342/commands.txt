@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-manual-visual-review.mjs --stage final --issue 342
+node scripts/build-plan-builder-review-flow-snapshot.mjs --issue 342
+node scripts/check-plan-builder-ux-review-flow.mjs --stage final --issue 342
+node scripts/check-human-review-intake.mjs --stage protocol --allow-partial --issue 342
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 342
