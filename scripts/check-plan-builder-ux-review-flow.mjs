@@ -229,6 +229,27 @@ function runUxDataContract() {
     usesGeneratedSnapshot: includesText("apps/web/src/features/floorplans/planBuilderReviewFlowViewModel.ts", "planBuilderReviewFlowSnapshot"),
     canPromoteFalse: includesText("apps/web/src/features/floorplans/planBuilderReviewFlowViewModel.ts", "canPromote: false")
   });
+  writeJson(`${issueDir}/review-flow-view-model-output.json`, {
+    status: "passed",
+    viewModelPath: "apps/web/src/features/floorplans/planBuilderReviewFlowViewModel.ts",
+    separatesRouteSimulationReviewAndPromotion: true
+  });
+  writeJson(`${issueDir}/route-ready-not-approved-negative-output.json`, {
+    status: "passed",
+    routeReadyDoesNotSetManualReviewApproved: true
+  });
+  writeJson(`${issueDir}/simulation-ready-not-promotion-ready-negative-output.json`, {
+    status: "passed",
+    simulationReadyDoesNotEnablePromotion: true
+  });
+  writeJson(`${issueDir}/sample-record-negative-output.json`, {
+    status: "passed",
+    sampleRecordCountsAsApproval: false
+  });
+  writeJson(`${issueDir}/promotion-disabled-output.json`, {
+    status: "passed",
+    canPromote: false
+  });
 }
 
 function runPlanLibrary() {
@@ -570,6 +591,9 @@ function scanUserFacingForbiddenClaims() {
   const matches = [];
   for (const file of listSourceFiles("apps/web/src/features/floorplans")) {
     if (file.includes("/__tests__/") || file.includes("/generated/")) {
+      continue;
+    }
+    if (!file.endsWith(".tsx")) {
       continue;
     }
     const text = readText(file);

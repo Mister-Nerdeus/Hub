@@ -100,7 +100,7 @@ const snapshot = {
 
 assertSafeSnapshot(snapshot);
 writeJson(snapshotJsonPath, snapshot);
-writeText(snapshotTsPath, buildSnapshotTs());
+writeText(snapshotTsPath, buildSnapshotTs(snapshot));
 
 const output = {
   issue,
@@ -129,13 +129,11 @@ writeJson(`${issueDir}/ui-snapshot-safe-fields-output.json`, {
 });
 console.log(JSON.stringify(output, null, 2));
 
-function buildSnapshotTs() {
-  return `import snapshotJson from "./planBuilderReviewFlowSnapshot.json";
+function buildSnapshotTs(value) {
+  return `export const planBuilderReviewFlowSnapshot = ${JSON.stringify(value, null, 2)} as const;
 
-export type PlanBuilderReviewFlowSnapshot = typeof snapshotJson;
+export type PlanBuilderReviewFlowSnapshot = typeof planBuilderReviewFlowSnapshot;
 export type PlanBuilderReviewFlowSnapshotPlan = PlanBuilderReviewFlowSnapshot["plans"][number];
-
-export const planBuilderReviewFlowSnapshot: PlanBuilderReviewFlowSnapshot = snapshotJson;
 `;
 }
 

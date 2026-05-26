@@ -1,0 +1,3 @@
+Before Issue 333, Plan Builder components did not have a typed review-flow view model that separated route readiness, simulation readiness, manual review state, and promotion state.
+
+The usability risk was that UI code could accidentally treat route/export readiness as approval or simulation readiness as promotion readiness.
