@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "stage": "plan-5-audit",
+  "issue": "299",
+  "allowPartial": true,
+  "protocolPaths": [
+    "docs/source-correction/source-correction-protocol.md",
+    "docs/source-correction/private-source-boundary.md",
+    "docs/verification/source-plan-correction-manifest.json",
+    "packages/shared/src/floorplans/sourcePlanCorrectionManifest.ts"
+  ],
+  "manifestPath": "docs/verification/source-plan-correction-manifest.json",
+  "manifestValidated": true,
+  "defaultFixtureMutationStatus": {
+    "sourceFixturesRemainUnchanged": true,
+    "hashMismatches": []
+  },
+  "failures": [],
+  "evidenceDir": "docs/verification/issues/issue-299"
+}
