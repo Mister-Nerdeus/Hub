@@ -45,6 +45,7 @@ export * from "./floorplans/pathSyncAudit.js";
 export * from "./floorplans/doorPathNodeGenerator.js";
 export * from "./floorplans/simulationReadyExportContract.js";
 export * from "./floorplans/floorplanAuthoringBehaviorHarness.js";
+export * from "./floorplans/sourcePlanCorrectionManifest.js";
 export * from "./demo/plan1DemoRouteMatrix.js";
 export * from "./no-phi/runtimeTextGuard.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";

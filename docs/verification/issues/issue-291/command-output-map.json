@@ -38,9 +38,10 @@
       ]
     },
     {
-      "command": "node scripts/check-floorplan-authoring.mjs --stage final",
+      "command": "node scripts/check-floorplan-authoring.mjs --stage final --issue 291",
       "outputs": [
-        "docs/verification/issues/issue-291/test-output/floorplan-authoring-gate.txt"
+        "docs/verification/issues/issue-291/test-output/floorplan-authoring-gate.txt",
+        "docs/verification/issues/issue-291/floorplan-authoring-gate-output.json"
       ]
     },
     {
@@ -51,21 +52,34 @@
       ]
     },
     {
-      "command": "docker compose config",
+      "command": "node scripts/check-source-plan-correction.mjs --stage protocol --allow-partial --issue 291",
       "outputs": [
-        "docs/verification/issues/issue-291/test-output/docker-compose-config.txt"
+        "docs/verification/issues/issue-291/test-output/source-plan-correction-gate.txt",
+        "docs/verification/issues/issue-291/source-plan-correction-gate-output.json"
       ]
     },
     {
-      "command": "docker compose down",
+      "command": "node scripts/check-plan-1-visual-parity.mjs --stage final --issue 291",
       "outputs": [
-        "docs/verification/issues/issue-291/test-output/docker-compose-down-before-verify-local.txt"
+        "docs/verification/issues/issue-291/visual-parity-still-passes-output.json"
       ]
     },
     {
-      "command": "node scripts/verify-local.mjs",
+      "command": "node scripts/check-plan-1-assignment-workflow.mjs --stage final --issue 291",
       "outputs": [
-        "docs/verification/issues/issue-291/test-output/verify-local.txt"
+        "docs/verification/issues/issue-291/assignment-workflow-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-scenario-simulation.mjs --stage final --issue 291",
+      "outputs": [
+        "docs/verification/issues/issue-291/scenario-simulation-still-passes-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-plan-1-simulation-refinement.mjs --stage final --issue 291",
+      "outputs": [
+        "docs/verification/issues/issue-291/simulation-refinement-still-passes-output.json"
       ]
     }
   ]

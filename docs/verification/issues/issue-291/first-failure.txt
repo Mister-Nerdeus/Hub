@@ -1,6 +1,18 @@
-Review reproduced two hardening gaps after Batch 281-290:
+node:internal/modules/cjs/loader:1404
+  throw err;
+  ^
 
-1. The new shared evidence-writing tests resolved fixture/evidence paths from process.cwd(), which allowed direct repo-root test execution to write outside the intended package fixture directory.
-2. The floorplan authoring gate validated the behavior manifest for the final stage but did not require it for each Issue 281-290 behavior stage.
+Error: Cannot find module 'C:\Projects\Hub\scripts\check-source-plan-correction.mjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1401:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1057:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1062:22)
+    at Function._load (node:internal/modules/cjs/loader:1211:37)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
 
-Both gaps were fixed before closeout.
+Node.js v22.16.0
