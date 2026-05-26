@@ -28,6 +28,7 @@ Use this document when a task starts to drift beyond the project boundaries.
 - Do not point public or production-shaped web traffic at `apps/web/Dockerfile.local` or the Vite development server.
 - Keep local proof Docker and production-shaped Docker separate: `docker-compose.yml` remains local-first, while `docker-compose.production.yml` must use production Dockerfiles.
 - Production-shaped web runtime must serve built static assets through nginx and proxy same-origin `/health` and `/v1/` requests to the API service.
+- If `https://hub.nerdeus.com/` contains `/@vite/client`, `/@react-refresh`, `/src/main.tsx`, or `/node_modules/.vite`, treat the live site as misdeployed even when `/health` works. Run `node scripts/check-live-site-runtime.mjs` and redeploy the origin with `docker-compose.production.yml` or an equivalent nginx/static-assets runtime before closing.
 
 ## Evidence Drift
 
