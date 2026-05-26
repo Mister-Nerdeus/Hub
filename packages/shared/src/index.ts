@@ -61,6 +61,7 @@ export * from "./floorplans/humanReviewIntakeManifest.js";
 export * from "./floorplans/humanReviewIntakeDashboard.js";
 export * from "./floorplans/humanReviewPromotionRecheck.js";
 export * from "./floorplans/defaultFixturePromotionReadiness.js";
+export * from "./floorplans/operationalDemoSnapshot.js";
 export * from "./demo/plan1DemoRouteMatrix.js";
 export * from "./no-phi/runtimeTextGuard.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";

@@ -621,7 +621,7 @@ function commandsForIssue(issueNumber) {
     "358": "node scripts/check-human-review-intake.mjs --stage final --issue 358",
     "359": "node scripts/check-human-review-intake.mjs --stage final --issue 359",
     "360": "node scripts/check-human-review-intake.mjs --stage final --issue 360"
-  }[issueNumber];
+  }[issueNumber] ?? `node scripts/check-human-review-intake.mjs --stage final --issue ${issueNumber}`;
   if (issueNumber === "341") {
     return [
       ...common,

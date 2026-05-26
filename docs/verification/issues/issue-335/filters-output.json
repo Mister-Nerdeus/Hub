@@ -1,11 +1,36 @@
 {
+  "issue": "335",
   "status": "passed",
   "filters": [
-    "Needs Manual Review",
-    "Route Ready",
-    "Simulation Ready",
-    "Promotion Blocked",
-    "Default Fixtures",
-    "Review Candidates"
+    {
+      "id": "needs-manual-review",
+      "label": "Needs Manual Review",
+      "itemCount": 12
+    },
+    {
+      "id": "route-ready",
+      "label": "Route Ready",
+      "itemCount": 12
+    },
+    {
+      "id": "simulation-ready",
+      "label": "Simulation Ready",
+      "itemCount": 12
+    },
+    {
+      "id": "promotion-blocked",
+      "label": "Promotion Blocked",
+      "itemCount": 12
+    },
+    {
+      "id": "default-fixtures",
+      "label": "Default Fixtures",
+      "itemCount": 5
+    },
+    {
+      "id": "review-candidates",
+      "label": "Review Candidates",
+      "itemCount": 4
+    }
   ]
 }

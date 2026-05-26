@@ -2,11 +2,11 @@
   "issue": "230",
   "planId": "default-er-layout-plan-1",
   "auditMinimumCounts": {
-    "rooms": 8,
+    "rooms": 23,
     "nurseStations": 2,
-    "zones": 13,
-    "hallways": 2,
-    "doors": 8
+    "zones": 22,
+    "hallways": 7,
+    "doors": 23
   },
   "inventory": {
     "planId": "default-er-layout-plan-1",
@@ -21,74 +21,194 @@
         "doorId": "door-room-level-1-trauma"
       },
       {
-        "id": "room-01",
-        "label": "Room 01",
-        "roomNumber": "01",
-        "zoneId": "zone-numbered-room-bank",
-        "pathNodeId": "node-door-room-01",
-        "doorId": "door-room-01"
-      },
-      {
         "id": "room-02",
-        "label": "Room 02",
-        "roomNumber": "02",
-        "zoneId": "zone-numbered-room-bank",
+        "label": "2",
+        "roomNumber": "2",
+        "zoneId": "zone-left-pod-rooms-2-5-14",
         "pathNodeId": "node-door-room-02",
         "doorId": "door-room-02"
       },
       {
         "id": "room-03",
-        "label": "Room 03",
-        "roomNumber": "03",
-        "zoneId": "zone-numbered-room-bank",
+        "label": "3",
+        "roomNumber": "3",
+        "zoneId": "zone-left-pod-rooms-2-5-14",
         "pathNodeId": "node-door-room-03",
         "doorId": "door-room-03"
       },
       {
         "id": "room-04",
-        "label": "Room 04",
-        "roomNumber": "04",
-        "zoneId": "zone-numbered-room-bank",
+        "label": "4",
+        "roomNumber": "4",
+        "zoneId": "zone-left-pod-rooms-2-5-14",
         "pathNodeId": "node-door-room-04",
         "doorId": "door-room-04"
       },
       {
         "id": "room-05",
-        "label": "Room 05",
-        "roomNumber": "05",
-        "zoneId": "zone-numbered-room-bank",
+        "label": "5",
+        "roomNumber": "5",
+        "zoneId": "zone-left-pod-rooms-2-5-14",
         "pathNodeId": "node-door-room-05",
         "doorId": "door-room-05"
       },
       {
+        "id": "room-14",
+        "label": "14",
+        "roomNumber": "14",
+        "zoneId": "zone-left-pod-rooms-2-5-14",
+        "pathNodeId": "node-door-room-14",
+        "doorId": "door-room-14"
+      },
+      {
         "id": "room-06",
-        "label": "Room 06",
-        "roomNumber": "06",
-        "zoneId": "zone-numbered-room-bank",
+        "label": "6",
+        "roomNumber": "6",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
         "pathNodeId": "node-door-room-06",
         "doorId": "door-room-06"
       },
       {
-        "id": "space-07",
-        "label": "Space 07",
-        "roomNumber": "07",
-        "zoneId": "zone-numbered-room-bank",
-        "pathNodeId": "node-door-space-07",
-        "doorId": "space-07"
+        "id": "room-07",
+        "label": "7",
+        "roomNumber": "7",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
+        "pathNodeId": "node-door-room-07",
+        "doorId": "door-room-07"
+      },
+      {
+        "id": "room-08",
+        "label": "8",
+        "roomNumber": "8",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
+        "pathNodeId": "node-door-room-08",
+        "doorId": "door-room-08"
+      },
+      {
+        "id": "room-09",
+        "label": "9",
+        "roomNumber": "9",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
+        "pathNodeId": "node-door-room-09",
+        "doorId": "door-room-09"
+      },
+      {
+        "id": "room-10",
+        "label": "10",
+        "roomNumber": "10",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
+        "pathNodeId": "node-door-room-10",
+        "doorId": "door-room-10"
+      },
+      {
+        "id": "room-13",
+        "label": "13",
+        "roomNumber": "13",
+        "zoneId": "zone-right-pod-rooms-6-10-13",
+        "pathNodeId": "node-door-room-13",
+        "doorId": "door-room-13"
+      },
+      {
+        "id": "room-11",
+        "label": "11",
+        "roomNumber": "11",
+        "zoneId": "zone-right-side-rooms-11-12",
+        "pathNodeId": "node-door-room-11",
+        "doorId": "door-room-11"
+      },
+      {
+        "id": "room-12",
+        "label": "12",
+        "roomNumber": "12",
+        "zoneId": "zone-right-side-rooms-11-12",
+        "pathNodeId": "node-door-room-12",
+        "doorId": "door-room-12"
+      },
+      {
+        "id": "room-15",
+        "label": "15",
+        "roomNumber": "15",
+        "zoneId": "zone-left-side-rooms-15-16",
+        "pathNodeId": "node-door-room-15",
+        "doorId": "door-room-15"
+      },
+      {
+        "id": "room-16",
+        "label": "16",
+        "roomNumber": "16",
+        "zoneId": "zone-left-side-rooms-15-16",
+        "pathNodeId": "node-door-room-16",
+        "doorId": "door-room-16"
+      },
+      {
+        "id": "room-17",
+        "label": "17",
+        "roomNumber": "17",
+        "zoneId": "zone-provider-pharmacy",
+        "pathNodeId": "node-door-room-17",
+        "doorId": "door-room-17"
+      },
+      {
+        "id": "room-19",
+        "label": "19",
+        "roomNumber": "19",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-19",
+        "doorId": "door-room-19"
+      },
+      {
+        "id": "room-20",
+        "label": "20",
+        "roomNumber": "20",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-20",
+        "doorId": "door-room-20"
+      },
+      {
+        "id": "room-21",
+        "label": "21",
+        "roomNumber": "21",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-21",
+        "doorId": "door-room-21"
+      },
+      {
+        "id": "room-22",
+        "label": "22",
+        "roomNumber": "22",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-22",
+        "doorId": "door-room-22"
+      },
+      {
+        "id": "room-23",
+        "label": "23",
+        "roomNumber": "23",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-23",
+        "doorId": "door-room-23"
+      },
+      {
+        "id": "room-24",
+        "label": "24",
+        "roomNumber": "24",
+        "zoneId": "zone-bottom-rooms-19-24",
+        "pathNodeId": "node-door-room-24",
+        "doorId": "door-room-24"
       }
     ],
     "nurseStations": [
       {
-        "id": "station-primary",
-        "label": "Primary Nurse Station",
+        "id": "station-left",
+        "label": "Left Nurse Station",
         "stationType": "primary",
-        "pathNodeId": "node-station-primary"
+        "pathNodeId": "node-station-left"
       },
       {
-        "id": "station-provider-pharmacy",
-        "label": "Provider Pharmacy Work Area",
+        "id": "station-right",
+        "label": "Right Nurse Station",
         "stationType": "secondary",
-        "pathNodeId": "node-station-provider-pharmacy"
+        "pathNodeId": "node-station-right"
       }
     ],
     "zones": [
@@ -156,6 +276,51 @@
         "id": "zone-nurse-station-core",
         "label": "Nurse Station Core",
         "zoneType": "staff_only"
+      },
+      {
+        "id": "zone-left-side-rooms-15-16",
+        "label": "Left Side Rooms 15-16",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-left-pod-rooms-2-5-14",
+        "label": "Left Pod Rooms 2-5 and 14",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-right-pod-rooms-6-10-13",
+        "label": "Right Pod Rooms 6-10 and 13",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-right-side-rooms-11-12",
+        "label": "Right Side Rooms 11-12",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-bottom-rooms-19-24",
+        "label": "Bottom Rooms 19-24",
+        "zoneType": "provider_area"
+      },
+      {
+        "id": "zone-ems-entry",
+        "label": "EMS Entry",
+        "zoneType": "ems_entry"
+      },
+      {
+        "id": "zone-main-hallways",
+        "label": "Main Hallway Network",
+        "zoneType": "hallway"
+      },
+      {
+        "id": "zone-nurse-station-core-left",
+        "label": "Left Nurse Station Core",
+        "zoneType": "staff_only"
+      },
+      {
+        "id": "zone-nurse-station-core-right",
+        "label": "Right Nurse Station Core",
+        "zoneType": "staff_only"
       }
     ],
     "hallways": [
@@ -166,69 +331,184 @@
       },
       {
         "id": "hallway-ems-entry",
-        "label": "Hall EMS Entry",
+        "label": "EMS Entry Hallway",
         "widthFeet": 12
+      },
+      {
+        "id": "hallway-top-horizontal",
+        "label": "Top Horizontal Hallway",
+        "widthFeet": 10
+      },
+      {
+        "id": "hallway-left-vertical",
+        "label": "Left Vertical Hallway",
+        "widthFeet": 10
+      },
+      {
+        "id": "hallway-bottom-horizontal",
+        "label": "Bottom Horizontal Hallway",
+        "widthFeet": 10
+      },
+      {
+        "id": "hallway-right-vertical",
+        "label": "Right Vertical Hallway",
+        "widthFeet": 10
+      },
+      {
+        "id": "hallway-right-upper",
+        "label": "Right Upper Hallway",
+        "widthFeet": 10
       }
     ],
     "doors": [
       {
-        "id": "door-level-1-trauma",
+        "id": "door-01",
         "label": "Door Level 1 Trauma",
         "roomId": "room-level-1-trauma",
         "pathNodeId": "node-door-level-1-trauma"
       },
       {
-        "id": "door-room-01",
-        "label": "Door Room 01",
-        "roomId": "room-01",
-        "pathNodeId": "node-door-room-01"
-      },
-      {
-        "id": "door-room-02",
-        "label": "Door Room 02",
+        "id": "door-02",
+        "label": "Door 2",
         "roomId": "room-02",
         "pathNodeId": "node-door-room-02"
       },
       {
-        "id": "door-room-03",
-        "label": "Door Room 03",
+        "id": "door-03",
+        "label": "Door 3",
         "roomId": "room-03",
         "pathNodeId": "node-door-room-03"
       },
       {
-        "id": "door-room-04",
-        "label": "Door Room 04",
+        "id": "door-04",
+        "label": "Door 4",
         "roomId": "room-04",
         "pathNodeId": "node-door-room-04"
       },
       {
-        "id": "door-room-05",
-        "label": "Door Room 05",
+        "id": "door-05",
+        "label": "Door 5",
         "roomId": "room-05",
         "pathNodeId": "node-door-room-05"
       },
       {
-        "id": "door-room-06",
-        "label": "Door Room 06",
+        "id": "door-06",
+        "label": "Door 6",
         "roomId": "room-06",
         "pathNodeId": "node-door-room-06"
       },
       {
-        "id": "door-space-07",
-        "label": "Door Space 07",
-        "roomId": "space-07",
-        "pathNodeId": "node-door-space-07"
+        "id": "door-07",
+        "label": "Door 7",
+        "roomId": "room-07",
+        "pathNodeId": "node-door-room-07"
+      },
+      {
+        "id": "door-08",
+        "label": "Door 8",
+        "roomId": "room-08",
+        "pathNodeId": "node-door-room-08"
+      },
+      {
+        "id": "door-09",
+        "label": "Door 9",
+        "roomId": "room-09",
+        "pathNodeId": "node-door-room-09"
+      },
+      {
+        "id": "door-10",
+        "label": "Door 10",
+        "roomId": "room-10",
+        "pathNodeId": "node-door-room-10"
+      },
+      {
+        "id": "door-11",
+        "label": "Door 11",
+        "roomId": "room-11",
+        "pathNodeId": "node-door-room-11"
+      },
+      {
+        "id": "door-12",
+        "label": "Door 12",
+        "roomId": "room-12",
+        "pathNodeId": "node-door-room-12"
+      },
+      {
+        "id": "door-13",
+        "label": "Door 13",
+        "roomId": "room-13",
+        "pathNodeId": "node-door-room-13"
+      },
+      {
+        "id": "door-14",
+        "label": "Door 14",
+        "roomId": "room-14",
+        "pathNodeId": "node-door-room-14"
+      },
+      {
+        "id": "door-15",
+        "label": "Door 15",
+        "roomId": "room-15",
+        "pathNodeId": "node-door-room-15"
+      },
+      {
+        "id": "door-16",
+        "label": "Door 16",
+        "roomId": "room-16",
+        "pathNodeId": "node-door-room-16"
+      },
+      {
+        "id": "door-17",
+        "label": "Door 17",
+        "roomId": "room-17",
+        "pathNodeId": "node-door-room-17"
+      },
+      {
+        "id": "door-18",
+        "label": "Door 19",
+        "roomId": "room-19",
+        "pathNodeId": "node-door-room-19"
+      },
+      {
+        "id": "door-19",
+        "label": "Door 20",
+        "roomId": "room-20",
+        "pathNodeId": "node-door-room-20"
+      },
+      {
+        "id": "door-20",
+        "label": "Door 21",
+        "roomId": "room-21",
+        "pathNodeId": "node-door-room-21"
+      },
+      {
+        "id": "door-21",
+        "label": "Door 22",
+        "roomId": "room-22",
+        "pathNodeId": "node-door-room-22"
+      },
+      {
+        "id": "door-22",
+        "label": "Door 23",
+        "roomId": "room-23",
+        "pathNodeId": "node-door-room-23"
+      },
+      {
+        "id": "door-23",
+        "label": "Door 24",
+        "roomId": "room-24",
+        "pathNodeId": "node-door-room-24"
       }
     ],
     "pathNodes": {
-      "total": 15,
+      "total": 36,
       "entries": 1,
       "stationNodes": 2,
-      "hallwayNodes": 4,
-      "roomDoorNodes": 8
+      "hallwayNodes": 9,
+      "roomDoorNodes": 23
     },
     "pathEdges": {
-      "total": 14,
+      "total": 40,
       "blocked": 0
     }
   }

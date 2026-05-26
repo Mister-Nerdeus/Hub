@@ -25,12 +25,12 @@ export function ManualReviewActions({ viewModel }: ManualReviewActionsProps) {
                   <h5>{action.label}</h5>
                   <dl>
                     <div>
-                      <dt>Path</dt>
-                      <dd>{action.repoRelativePath}</dd>
+                      <dt>Action</dt>
+                      <dd>{action.label}</dd>
                     </div>
                     <div>
-                      <dt>Hash</dt>
-                      <dd>{action.hash}</dd>
+                      <dt>Evidence</dt>
+                      <dd>{action.kind}</dd>
                     </div>
                     <div>
                       <dt>Status</dt>

@@ -43,25 +43,32 @@ export function PlanBuilderLibrary({ viewModel }: PlanBuilderLibraryProps) {
                   <dl>
                     <div>
                       <dt>Route</dt>
-                      <dd>{item.routeStatus}</dd>
+                      <dd>{item.routeStatusLabel}</dd>
                     </div>
                     <div>
                       <dt>Export</dt>
-                      <dd>{item.simulationExportStatus}</dd>
+                      <dd>{item.simulationExportStatusLabel}</dd>
                     </div>
                     <div>
                       <dt>Review</dt>
-                      <dd>{item.manualReviewStatus}</dd>
+                      <dd>{item.manualReviewStatusLabel}</dd>
                     </div>
                     <div>
                       <dt>Promotion</dt>
-                      <dd>{item.promotionStatus}</dd>
+                      <dd>{item.promotionStatusLabel}</dd>
                     </div>
                     <div>
                       <dt>Verified</dt>
                       <dd>{item.lastVerifiedIssue}</dd>
                     </div>
                   </dl>
+                  <div className="plan-builder-library__actions" aria-label={`${item.displayName} actions`}>
+                    {item.actions.map((action) => (
+                      <button type="button" key={`${item.id}:${action.kind}`}>
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
                   {item.repoRelativePath == null ? null : <code>{item.repoRelativePath}</code>}
                   <p>{item.notice}</p>
                 </article>

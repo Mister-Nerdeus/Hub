@@ -1,7 +1,13 @@
 {
+  "issue": "338",
   "status": "passed",
-  "manualReviewStatus": "manual_review_required",
-  "reviewerDecisionSource": "none",
-  "promotionEnabled": false,
-  "submitEnabled": false
+  "defaultState": {
+    "manualReviewStatus": "manual_review_required",
+    "reviewerDecisionSource": "none",
+    "promotionAuthorization": "none",
+    "promotionEnabled": false,
+    "submitEnabled": false,
+    "canPersistDecision": false,
+    "canCreateReviewRecord": false
+  }
 }

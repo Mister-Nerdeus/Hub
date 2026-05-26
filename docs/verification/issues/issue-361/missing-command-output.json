@@ -1,0 +1,20 @@
+{
+  "status": "failed",
+  "reason": "Required command output must be captured by running commands with explicit redirection and must be non-empty.",
+  "missing": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputPath": "docs/verification/issues/issue-361/test-output/shared.txt"
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputPath": "docs/verification/issues/issue-361/test-output/web.txt"
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputPath": "docs/verification/issues/issue-361/test-output/web-build.txt"
+    }
+  ],
+  "empty": [],
+  "placeholders": []
+}

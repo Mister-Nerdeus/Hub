@@ -35,10 +35,6 @@ export function RenderedPlanPreviewPanel({ viewModel }: RenderedPlanPreviewPanel
                   <dd>{plan.safeRenderedEvidenceLabel}</dd>
                 </div>
                 <div>
-                  <dt>Path</dt>
-                  <dd>{plan.renderedEvidencePath}</dd>
-                </div>
-                <div>
                   <dt>Hash</dt>
                   <dd>{plan.renderedEvidenceHash}</dd>
                 </div>
@@ -75,6 +71,7 @@ export function RenderedPlanPreviewPanel({ viewModel }: RenderedPlanPreviewPanel
                   <dd>Promotion blocked</dd>
                 </div>
               </dl>
+              <p>{plan.limitationSummary}</p>
               <ul>
                 {plan.limitations.map((limitation) => (
                   <li key={limitation}>{limitation}</li>

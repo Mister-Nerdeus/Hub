@@ -3,11 +3,13 @@
   "status": "passed",
   "mappingCount": 5,
   "objectTypeCounts": {
-    "zone": 15,
-    "room": 24,
-    "hallway": 6,
-    "pathNode": 2,
-    "nurseStation": 5
+    "room": 39,
+    "nurseStation": 6,
+    "hallway": 11,
+    "zone": 14,
+    "door": 18,
+    "pathNode": 37,
+    "pathEdge": 40
   },
   "allMappingTargetsResolvedInCorrectCollection": true,
   "annotationMappingsRejectedUntilPlanAnnotationsExist": true,
@@ -15,7 +17,7 @@
     {
       "mappingId": "mapping-er-layout-plan-1",
       "targetPlanId": "default-er-layout-plan-1",
-      "mappedObjectCount": 14
+      "mappedObjectCount": 127
     },
     {
       "mappingId": "mapping-er-layout-plan-2",

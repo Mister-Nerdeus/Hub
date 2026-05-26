@@ -1,36 +1,12 @@
 {
   "issue": "230",
   "planId": "default-er-layout-plan-1",
-  "count": 25,
+  "count": 27,
   "report": [
-    {
-      "objectKind": "room",
-      "objectId": "room-01",
-      "label": "Room 01",
-      "roomNumber": "01"
-    },
-    {
-      "objectKind": "room",
-      "objectId": "space-07",
-      "label": "Space 07",
-      "roomNumber": "07"
-    },
     {
       "objectKind": "hallway",
       "objectId": "hallway-main",
       "label": "Main Hall",
-      "roomNumber": null
-    },
-    {
-      "objectKind": "nurse_station",
-      "objectId": "station-primary",
-      "label": "Primary Nurse Station",
-      "roomNumber": null
-    },
-    {
-      "objectKind": "nurse_station",
-      "objectId": "station-provider-pharmacy",
-      "label": "Provider Pharmacy Work Area",
       "roomNumber": null
     },
     {
@@ -106,51 +82,87 @@
       "roomNumber": null
     },
     {
-      "objectKind": "door_or_access",
-      "objectId": "door-level-1-trauma",
-      "label": "Door Level 1 Trauma",
+      "objectKind": "zone",
+      "objectId": "zone-left-side-rooms-15-16",
+      "label": "Left Side Rooms 15-16",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-left-pod-rooms-2-5-14",
+      "label": "Left Pod Rooms 2-5 and 14",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-right-pod-rooms-6-10-13",
+      "label": "Right Pod Rooms 6-10 and 13",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-right-side-rooms-11-12",
+      "label": "Right Side Rooms 11-12",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-bottom-rooms-19-24",
+      "label": "Bottom Rooms 19-24",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-ems-entry",
+      "label": "EMS Entry",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-main-hallways",
+      "label": "Main Hallway Network",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-nurse-station-core-left",
+      "label": "Left Nurse Station Core",
+      "roomNumber": null
+    },
+    {
+      "objectKind": "zone",
+      "objectId": "zone-nurse-station-core-right",
+      "label": "Right Nurse Station Core",
       "roomNumber": null
     },
     {
       "objectKind": "door_or_access",
-      "objectId": "door-room-01",
-      "label": "Door Room 01",
+      "objectId": "door-19",
+      "label": "Door 20",
       "roomNumber": null
     },
     {
       "objectKind": "door_or_access",
-      "objectId": "door-room-02",
-      "label": "Door Room 02",
+      "objectId": "door-20",
+      "label": "Door 21",
       "roomNumber": null
     },
     {
       "objectKind": "door_or_access",
-      "objectId": "door-room-03",
-      "label": "Door Room 03",
+      "objectId": "door-21",
+      "label": "Door 22",
       "roomNumber": null
     },
     {
       "objectKind": "door_or_access",
-      "objectId": "door-room-04",
-      "label": "Door Room 04",
+      "objectId": "door-22",
+      "label": "Door 23",
       "roomNumber": null
     },
     {
       "objectKind": "door_or_access",
-      "objectId": "door-room-05",
-      "label": "Door Room 05",
-      "roomNumber": null
-    },
-    {
-      "objectKind": "door_or_access",
-      "objectId": "door-room-06",
-      "label": "Door Room 06",
-      "roomNumber": null
-    },
-    {
-      "objectKind": "door_or_access",
-      "objectId": "door-space-07",
-      "label": "Door Space 07",
+      "objectId": "door-23",
+      "label": "Door 24",
       "roomNumber": null
     }
   ]

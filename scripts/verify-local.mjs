@@ -24,6 +24,15 @@ function valueFor(envFile, key, fallback) {
 }
 
 function currentGovernanceIssue() {
+  if (existsSync("docs/verification/operational-demo-ux-manifest.json")) {
+    const manifest = JSON.parse(readFileSync("docs/verification/operational-demo-ux-manifest.json", "utf8"));
+    return manifest.lastUpdatedIssue ?? "370";
+  }
+  const manifest = JSON.parse(readFileSync("docs/verification/human-review-governance-hardening-manifest.json", "utf8"));
+  return manifest.lastUpdatedIssue ?? "360";
+}
+
+function currentHumanReviewGovernanceIssue() {
   const manifest = JSON.parse(readFileSync("docs/verification/human-review-governance-hardening-manifest.json", "utf8"));
   return manifest.lastUpdatedIssue ?? "360";
 }
@@ -58,6 +67,7 @@ const corsOrigins = valueFor(
   `${webUrl},http://localhost:5173,http://localhost:5174`
 );
 const governanceIssue = currentGovernanceIssue();
+const humanReviewGovernanceIssue = currentHumanReviewGovernanceIssue();
 
 if (viteApiBaseUrl !== apiUrl) {
   throw new Error(`VITE_API_BASE_URL must be ${apiUrl}, got ${viteApiBaseUrl}`);
@@ -84,7 +94,9 @@ const commands = [
   `node scripts/check-manual-visual-review.mjs --stage final --issue ${governanceIssue}`,
   `node scripts/check-plan-builder-ux-review-flow.mjs --stage final --issue ${governanceIssue}`,
   `node scripts/check-human-review-intake.mjs --stage final --issue ${governanceIssue}`,
-  `node scripts/check-human-review-governance-hardening.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-human-review-governance-hardening.mjs --stage final --issue ${humanReviewGovernanceIssue}`,
+  `node scripts/check-product-naming.mjs --issue ${governanceIssue}`,
+  `node scripts/check-operational-demo-ux.mjs --stage final --issue ${governanceIssue}`,
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",

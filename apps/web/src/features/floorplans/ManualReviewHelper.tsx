@@ -22,15 +22,15 @@ export function ManualReviewHelper({ viewModel }: ManualReviewHelperProps) {
             <dl className="manual-review-helper__state">
               <div>
                 <dt>Manual Review Status</dt>
-                <dd>{plan.defaultState.manualReviewStatus}</dd>
+                <dd>Manual review required</dd>
               </div>
               <div>
                 <dt>Reviewer Source</dt>
-                <dd>{plan.defaultState.reviewerDecisionSource}</dd>
+                <dd>No structured reviewer record</dd>
               </div>
               <div>
                 <dt>Promotion Authorization</dt>
-                <dd>{plan.defaultState.promotionAuthorization}</dd>
+                <dd>Promotion blocked</dd>
               </div>
             </dl>
             <div className="manual-review-helper__fields">

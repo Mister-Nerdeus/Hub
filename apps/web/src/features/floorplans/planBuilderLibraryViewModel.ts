@@ -1,6 +1,13 @@
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
+import { createOperationalDemoOperatorSnapshot } from "./operationalDemoSnapshotAdapter";
 import { createPlanBuilderReviewFlowViewModel } from "./planBuilderReviewFlowViewModel";
 import { createPlanLibraryFilters, sortPlanLibraryItemsForReview, type PlanLibraryFilterViewModel } from "./planStatusViewModel";
+import {
+  manualReviewStatusLabel,
+  promotionStatusLabel,
+  routeStatusLabel,
+  simulationExportStatusLabel
+} from "./statusLabels";
 
 export type PlanBuilderLibraryCategoryId =
   | "default-fixtures"
@@ -18,9 +25,17 @@ export type PlanBuilderLibraryItemViewModel = {
   simulationExportStatus: "simulation_ready" | "blocked" | "not_applicable";
   manualReviewStatus: "manual_review_required" | "not_applicable";
   promotionStatus: "blocked" | "not_applicable";
+  routeStatusLabel: string;
+  simulationExportStatusLabel: string;
+  manualReviewStatusLabel: string;
+  promotionStatusLabel: string;
   lastVerifiedIssue: string;
   repoRelativePath: string | null;
   notice: string;
+  actions: {
+    label: string;
+    kind: "open-plan" | "open-saved-copy" | "open-review-packet" | "open-review-template" | "view-evidence";
+  }[];
 };
 
 export type PlanBuilderLibrarySectionViewModel = {
@@ -41,6 +56,7 @@ export type PlanBuilderLibraryViewModel = {
 
 export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel {
   const reviewFlow = createPlanBuilderReviewFlowViewModel();
+  const safeSnapshot = createOperationalDemoOperatorSnapshot();
   const snapshotPlans = reviewFlow.plans;
 
   const defaultItems = defaultFloorplanLibraryFixtures.map((fixture) => ({
@@ -53,24 +69,34 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     simulationExportStatus: "not_applicable" as const,
     manualReviewStatus: "not_applicable" as const,
     promotionStatus: "not_applicable" as const,
+    routeStatusLabel: routeStatusLabel("not_applicable"),
+    simulationExportStatusLabel: simulationExportStatusLabel("not_applicable"),
+    manualReviewStatusLabel: manualReviewStatusLabel("not_applicable"),
+    promotionStatusLabel: promotionStatusLabel("not_applicable"),
     lastVerifiedIssue: "333",
     repoRelativePath: null,
-    notice: "Default fixture unchanged."
+    notice: "Default fixture unchanged.",
+    actions: [{ label: "Open Plan", kind: "open-plan" as const }]
   }));
 
-  const correctedItems = snapshotPlans.map((plan) => ({
+  const correctedItems = safeSnapshot.operatorPlans.map((plan) => ({
     id: `${plan.planId}:corrected`,
     planId: plan.planId,
     displayName: plan.displayName,
-    artifactLabel: "Corrected saved copy",
+    artifactLabel: "Saved editable copy",
     categoryId: "corrected-saved-copies" as const,
     routeStatus: "ready" as const,
     simulationExportStatus: "simulation_ready" as const,
     manualReviewStatus: "manual_review_required" as const,
     promotionStatus: "blocked" as const,
-    lastVerifiedIssue: "334",
-    repoRelativePath: plan.artifactReferences.renderedEvidencePath,
-    notice: "Review candidate only; default fixture unchanged."
+    routeStatusLabel: plan.routeReadinessLabel,
+    simulationExportStatusLabel: plan.simulationExportLabel,
+    manualReviewStatusLabel: plan.manualReviewStatusLabel,
+    promotionStatusLabel: plan.promotionStatusLabel,
+    lastVerifiedIssue: "362",
+    repoRelativePath: null,
+    notice: "Review candidate only; default fixture unchanged.",
+    actions: [{ label: "Open Saved Copy", kind: "open-saved-copy" as const }]
   }));
 
   const repairedItems = snapshotPlans.map((plan) => ({
@@ -83,24 +109,40 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     simulationExportStatus: plan.simulationReady ? "simulation_ready" as const : "blocked" as const,
     manualReviewStatus: "manual_review_required" as const,
     promotionStatus: "blocked" as const,
-    lastVerifiedIssue: "334",
-    repoRelativePath: plan.artifactReferences.renderedEvidencePath,
-    notice: "Route/export ready, still pending human review."
+    routeStatusLabel: routeStatusLabel(plan.routeReady ? "ready" : "blocked"),
+    simulationExportStatusLabel: simulationExportStatusLabel(plan.simulationReady ? "simulation_ready" : "blocked"),
+    manualReviewStatusLabel: manualReviewStatusLabel("manual_review_required"),
+    promotionStatusLabel: promotionStatusLabel("blocked"),
+    lastVerifiedIssue: "362",
+    repoRelativePath: null,
+    notice: "Route/export ready, still pending human review.",
+    actions: [
+      { label: "Open as Active Floorplan", kind: "open-plan" as const },
+      { label: "View Evidence", kind: "view-evidence" as const }
+    ]
   }));
 
-  const packetItems = snapshotPlans.map((plan) => ({
+  const packetItems = safeSnapshot.operatorPlans.map((plan) => ({
     id: `${plan.planId}:packet`,
     planId: plan.planId,
     displayName: plan.displayName,
     artifactLabel: "Manual review packet",
     categoryId: "manual-review-packets" as const,
-    routeStatus: plan.routeReady ? "ready" as const : "blocked" as const,
-    simulationExportStatus: plan.simulationReady ? "simulation_ready" as const : "blocked" as const,
+    routeStatus: "ready" as const,
+    simulationExportStatus: "simulation_ready" as const,
     manualReviewStatus: "manual_review_required" as const,
     promotionStatus: "blocked" as const,
-    lastVerifiedIssue: "334",
-    repoRelativePath: plan.artifactReferences.reviewPacketPath,
-    notice: "Open as a reference; it is not a review record."
+    routeStatusLabel: plan.routeReadinessLabel,
+    simulationExportStatusLabel: plan.simulationExportLabel,
+    manualReviewStatusLabel: plan.manualReviewStatusLabel,
+    promotionStatusLabel: plan.promotionStatusLabel,
+    lastVerifiedIssue: "362",
+    repoRelativePath: null,
+    notice: "Open as a reference; it is not a review record.",
+    actions: [
+      { label: plan.safeReviewPacketReference.actionLabel, kind: "open-review-packet" as const },
+      { label: plan.safeReviewTemplateReference.actionLabel, kind: "open-review-template" as const }
+    ]
   }));
 
   const sections = [
@@ -112,8 +154,8 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     },
     {
       id: "corrected-saved-copies" as const,
-      title: "Corrected Saved Copies",
-      emptyText: "No corrected saved copies found.",
+      title: "Saved Editable Copies",
+      emptyText: "No saved editable copies found.",
       items: correctedItems
     },
     {

@@ -1,0 +1,41 @@
+{
+  "issue": "367",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-operational-demo-ux.mjs --stage rendered-preview --allow-partial --issue 367",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/operational-demo-ux-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 367",
+      "outputs": [
+        "docs/verification/issues/issue-367/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

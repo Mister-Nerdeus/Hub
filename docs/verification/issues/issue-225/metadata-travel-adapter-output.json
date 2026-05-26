@@ -4,7 +4,7 @@
   "annotationCount": 2,
   "annotations": [
     {
-      "routeEdgeId": "edge-station-primary-hall-mid",
+      "routeEdgeId": "edge-station-left-hall",
       "hallwayId": "hallway-main",
       "hallwayClass": "main",
       "congestionLevel": "moderate",
@@ -18,14 +18,14 @@
       ]
     },
     {
-      "routeEdgeId": "edge-room-01-hall-mid",
+      "routeEdgeId": "edge-trauma-hall-west",
       "hallwayId": "hallway-main",
       "hallwayClass": "main",
       "congestionLevel": "moderate",
       "bottleneck": false,
-      "doorId": "door-room-01",
-      "doorClass": null,
-      "delayCategory": null,
+      "doorId": "door-01",
+      "doorClass": "trauma",
+      "delayCategory": "low",
       "limitations": [
         "Metadata annotations are descriptive fixture metadata only.",
         "Annotations do not change route selection, distance, travel time, scoring, simulation, or optimizer behavior."

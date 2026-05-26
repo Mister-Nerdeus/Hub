@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "matrix": [
+    {
+      "planId": "plan-2",
+      "routeClassification": "route_ready",
+      "exportClassification": "simulation_ready",
+      "promotionClassification": "manual_review_candidate",
+      "pathSyncFresh": true,
+      "blockers": [],
+      "proof": {
+        "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-route-repaired-saved-copy.json",
+        "routeRepairReportPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-route-repair-report.json",
+        "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-2/plan-2-simulation-ready-export.json",
+        "routeAuditPassed": true,
+        "simulationReadyExportValid": true
+      }
+    },
+    {
+      "planId": "plan-3",
+      "routeClassification": "route_ready",
+      "exportClassification": "simulation_ready",
+      "promotionClassification": "manual_review_candidate",
+      "pathSyncFresh": true,
+      "blockers": [],
+      "proof": {
+        "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-route-repaired-saved-copy.json",
+        "routeRepairReportPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-route-repair-report.json",
+        "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-simulation-ready-export.json",
+        "routeAuditPassed": true,
+        "simulationReadyExportValid": true
+      }
+    },
+    {
+      "planId": "plan-4",
+      "routeClassification": "route_ready",
+      "exportClassification": "simulation_ready",
+      "promotionClassification": "manual_review_candidate",
+      "pathSyncFresh": true,
+      "blockers": [],
+      "proof": {
+        "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-route-repaired-saved-copy.json",
+        "routeRepairReportPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-route-repair-report.json",
+        "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-simulation-ready-export.json",
+        "routeAuditPassed": true,
+        "simulationReadyExportValid": true
+      }
+    },
+    {
+      "planId": "plan-5",
+      "routeClassification": "route_ready",
+      "exportClassification": "simulation_ready",
+      "promotionClassification": "manual_review_candidate",
+      "pathSyncFresh": true,
+      "blockers": [],
+      "proof": {
+        "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-route-repaired-saved-copy.json",
+        "routeRepairReportPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-route-repair-report.json",
+        "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-5/plan-5-simulation-ready-export.json",
+        "routeAuditPassed": true,
+        "simulationReadyExportValid": true
+      }
+    }
+  ]
+}

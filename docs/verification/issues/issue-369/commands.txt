@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-product-naming.mjs --issue 369
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-operational-demo-ux.mjs --stage developer-evidence --allow-partial --issue 369
+node scripts/check-operational-demo-ux.mjs --stage demo-proof --allow-partial --issue 369
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 369

@@ -1,0 +1,22 @@
+{
+  "status": "failed",
+  "issue": "370",
+  "checkedOutputs": [
+    "docs/verification/issues/issue-370/test-output/shared.txt",
+    "docs/verification/issues/issue-370/test-output/web.txt",
+    "docs/verification/issues/issue-370/test-output/web-build.txt",
+    "docs/verification/issues/issue-370/test-output/no-phi.txt",
+    "docs/verification/issues/issue-370/test-output/private-source-artifacts.txt",
+    "docs/verification/issues/issue-370/test-output/human-review-intake-gate.txt"
+  ],
+  "skippedCurrentGateOutput": [
+    "docs/verification/issues/issue-370/test-output/human-review-governance-hardening-gate.txt"
+  ],
+  "missing": [
+    {
+      "outputPath": "docs/verification/issues/issue-370/test-output/human-review-intake-gate.txt"
+    }
+  ],
+  "empty": [],
+  "placeholders": []
+}

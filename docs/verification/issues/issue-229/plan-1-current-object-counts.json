@@ -2,14 +2,14 @@
   "issue": "229",
   "planId": "default-er-layout-plan-1",
   "observedCounts": {
-    "rooms": 8,
+    "rooms": 23,
     "nurseStations": 2,
-    "zones": 13,
-    "hallways": 2,
-    "doors": 8,
-    "doorOrAccessPoints": 8,
-    "pathNodes": 15,
-    "pathEdges": 14
+    "zones": 22,
+    "hallways": 7,
+    "doors": 23,
+    "doorOrAccessPoints": 23,
+    "pathNodes": 36,
+    "pathEdges": 40
   },
   "minimumExpectedCounts": {
     "rooms": 23,
@@ -19,13 +19,13 @@
     "doorsOrAccessPoints": 18
   },
   "minimumShortfall": {
-    "rooms": 15,
+    "rooms": 0,
     "nurseStations": 0,
     "zonesProvider": 0,
-    "hallways": 4,
-    "doorsOrAccessPoints": 10
+    "hallways": -1,
+    "doorsOrAccessPoints": -5
   },
-  "hasContractShortfall": true,
+  "hasContractShortfall": false,
   "roomRequiredLabelCount": 23,
   "requiredSourceLabels": [
     "Level 1 trauma",
@@ -80,8 +80,8 @@
     "Door/Access 18",
     "Grey unlabeled blocks"
   ],
-  "hasLegacyRoom01": true,
-  "hasLegacySpace07": true,
+  "hasLegacyRoom01": false,
+  "hasLegacySpace07": false,
   "legacyFixtureRejections": {
     "unsupportedRoomIds": [
       "room-01",

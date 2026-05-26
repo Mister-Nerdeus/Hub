@@ -26,6 +26,8 @@
     "check:plan-builder-ux-review-flow": "npm --workspace packages/shared run build && node scripts/check-plan-builder-ux-review-flow.mjs --stage final",
     "check:human-review-intake": "npm --workspace packages/shared run build && node scripts/check-human-review-intake.mjs --stage final",
     "check:human-review-governance-hardening": "npm --workspace packages/shared run build && node scripts/check-human-review-governance-hardening.mjs --stage final",
+    "check:product-naming": "node scripts/check-product-naming.mjs",
+    "check:operational-demo-ux": "npm --workspace packages/shared run build && node scripts/check-operational-demo-ux.mjs --stage final",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "evidence:local:tracked": "npm run evidence:local -- --tracked",
     "validate:plan": "npm --workspace @nerdeus/shared run build && node scripts/validate-plan-contract.mjs",

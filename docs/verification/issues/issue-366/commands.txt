@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-product-naming.mjs --issue 366
+node scripts/check-operational-demo-ux.mjs --stage editor-controls --allow-partial --issue 366
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 366

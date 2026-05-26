@@ -1,0 +1,3 @@
+- Manual visual approval is not recorded.
+- Promotion remains blocked.
+- Screenshots are local responsive proof, not human visual approval.

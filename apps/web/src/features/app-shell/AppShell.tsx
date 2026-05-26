@@ -20,8 +20,16 @@ export function AppShell({
     <main className="app-shell">
       <section className="workspace-header" aria-labelledby="page-title">
         <div>
-          <p className="eyebrow">Operational simulation workspace</p>
-          <h1 id="page-title">Nerdeus ER Pod Shift Simulator</h1>
+          <p className="eyebrow">Operational demo workspace</p>
+          <h1 id="page-title">ER Pod Shift Simulator</h1>
+          <p className="workspace-header__subtitle">
+            Synthetic operational modeling only. Manual review required; promotion blocked.
+          </p>
+        </div>
+        <div className="workspace-header__state-banner" role="status">
+          <span>Manual review required</span>
+          <span>Promotion blocked</span>
+          <span>Synthetic operational modeling only</span>
         </div>
       </section>
 

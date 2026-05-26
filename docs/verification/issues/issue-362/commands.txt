@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-operational-demo-ux.mjs --stage safe-snapshot --allow-partial --issue 362
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 362

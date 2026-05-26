@@ -209,7 +209,7 @@ export const phase8ExportBundleJsonText = `{
     "No API endpoint, persistence behavior, PDF export, or file download behavior is included."
   ],
   "metadata": {
-    "appName": "Nerdeus ER Pod Shift Simulator",
+    "appName": "ER Pod Shift Simulator",
     "appVersion": "0.1.0",
     "generatedBy": "local-proof",
     "source": "synthetic-operational-data"

@@ -18,48 +18,165 @@
       "mappingId": "mapping-er-layout-plan-1",
       "importStatus": "validated_default",
       "counts": {
-        "rooms": 8,
-        "hallways": 2,
-        "doors": 8,
+        "rooms": 23,
+        "hallways": 7,
+        "doors": 23,
         "nurseStations": 2,
-        "zones": 5,
-        "pathNodes": 15,
-        "pathEdges": 14
+        "zones": 22,
+        "pathNodes": 36,
+        "pathEdges": 40
       },
       "mappedCountsByType": {
-        "zone": 3,
-        "room": 8,
-        "hallway": 1,
-        "pathNode": 1,
-        "nurseStation": 1
+        "room": 23,
+        "nurseStation": 2,
+        "hallway": 6,
+        "zone": 2,
+        "door": 18,
+        "pathNode": 36,
+        "pathEdge": 40
       },
       "mappedTargetIdsByType": {
         "room": [
-          "room-01",
           "room-02",
           "room-03",
           "room-04",
           "room-05",
           "room-06",
-          "room-level-1-trauma",
-          "space-07"
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-14",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24",
+          "room-level-1-trauma"
         ],
         "hallway": [
-          "hallway-main"
+          "hallway-bottom-horizontal",
+          "hallway-ems-entry",
+          "hallway-left-vertical",
+          "hallway-right-upper",
+          "hallway-right-vertical",
+          "hallway-top-horizontal"
         ],
-        "door": [],
+        "door": [
+          "door-01",
+          "door-02",
+          "door-03",
+          "door-04",
+          "door-05",
+          "door-06",
+          "door-07",
+          "door-08",
+          "door-09",
+          "door-10",
+          "door-11",
+          "door-12",
+          "door-13",
+          "door-14",
+          "door-15",
+          "door-16",
+          "door-17",
+          "door-18"
+        ],
         "nurseStation": [
-          "station-primary"
+          "station-left",
+          "station-right"
         ],
         "zone": [
-          "zone-hall-ems-entry",
-          "zone-level-1-trauma",
+          "zone-ems-entry",
           "zone-provider-pharmacy"
         ],
         "pathNode": [
-          "node-entry-ems"
+          "node-door-level-1-trauma",
+          "node-door-room-02",
+          "node-door-room-03",
+          "node-door-room-04",
+          "node-door-room-05",
+          "node-door-room-06",
+          "node-door-room-07",
+          "node-door-room-08",
+          "node-door-room-09",
+          "node-door-room-10",
+          "node-door-room-11",
+          "node-door-room-12",
+          "node-door-room-13",
+          "node-door-room-14",
+          "node-door-room-15",
+          "node-door-room-16",
+          "node-door-room-17",
+          "node-door-room-19",
+          "node-door-room-20",
+          "node-door-room-21",
+          "node-door-room-22",
+          "node-door-room-23",
+          "node-door-room-24",
+          "node-entry-ems",
+          "node-hall-east",
+          "node-hall-ems-entry",
+          "node-hall-mid",
+          "node-hall-west",
+          "node-hallway-bottom-horizontal",
+          "node-hallway-left-vertical",
+          "node-hallway-right-upper",
+          "node-hallway-right-vertical",
+          "node-hallway-top-horizontal",
+          "node-station-left",
+          "node-station-right",
+          "node-zone-provider-pharmacy"
         ],
-        "pathEdge": []
+        "pathEdge": [
+          "edge-bottom-hallway-right-vertical",
+          "edge-ems-entry-bottom-hallway",
+          "edge-entry-hall-west",
+          "edge-hall-ems-entry-anchor",
+          "edge-hall-mid-east",
+          "edge-hall-west-mid",
+          "edge-hallway-bottom-anchor",
+          "edge-hallway-left-anchor",
+          "edge-hallway-right-anchor",
+          "edge-hallway-right-upper-anchor",
+          "edge-hallway-top-anchor",
+          "edge-left-vertical-bottom-hallway",
+          "edge-provider-pharmacy-hall",
+          "edge-right-upper-right-vertical",
+          "edge-room-02-hall-mid",
+          "edge-room-03-hall-mid",
+          "edge-room-04-hall-ems-entry",
+          "edge-room-05-hall-mid",
+          "edge-room-06-hall-east",
+          "edge-room-07-hall-east",
+          "edge-room-08-hall-east",
+          "edge-room-09-hall-east",
+          "edge-room-10-hall-east",
+          "edge-room-11-hall-east",
+          "edge-room-12-hall-east",
+          "edge-room-13-hall-east",
+          "edge-room-14-hall-mid",
+          "edge-room-15-hall-ems-entry",
+          "edge-room-16-hall-ems-entry",
+          "edge-room-17-hall-east",
+          "edge-room-19-hall-ems-entry",
+          "edge-room-20-hall-mid",
+          "edge-room-21-hall-mid",
+          "edge-room-22-hall-east",
+          "edge-room-23-hall-east",
+          "edge-room-24-hall-east",
+          "edge-station-left-hall",
+          "edge-station-right-hall",
+          "edge-top-hallway-right-upper",
+          "edge-trauma-hall-west"
+        ]
       },
       "coreOperationalElements": {
         "roomsRepresented": true,
@@ -82,6 +199,10 @@
         ],
         "providerOrPharmacyZones": [
           {
+            "id": "region-provider-pharmacy",
+            "label": "Provider/pharmacy scaffold"
+          },
+          {
             "id": "zone-provider-pharmacy",
             "label": "Provider Pharmacy Area"
           }
@@ -99,8 +220,8 @@
           }
         ]
       },
-      "deferredSourceLabelCount": 1,
-      "limitationCount": 3
+      "deferredSourceLabelCount": 4,
+      "limitationCount": 9
     },
     {
       "defaultPlanId": "default-er-layout-plan-2",

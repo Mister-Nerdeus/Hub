@@ -1,0 +1,2 @@
+- Conduct explicit structured human/manual review.
+- Continue manual assignment workflow foundation after review boundaries remain clear.

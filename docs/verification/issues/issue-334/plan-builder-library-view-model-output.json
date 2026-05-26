@@ -1,9 +1,23 @@
 {
+  "issue": "334",
   "status": "passed",
+  "libraryId": "plan-builder-human-review-library-v1",
   "sections": [
-    "Default Fixtures",
-    "Corrected Saved Copies",
-    "Route-Repaired Review Candidates",
-    "Manual Review Packets"
+    {
+      "id": "default-fixtures",
+      "itemCount": 5
+    },
+    {
+      "id": "corrected-saved-copies",
+      "itemCount": 4
+    },
+    {
+      "id": "route-repaired-review-candidates",
+      "itemCount": 4
+    },
+    {
+      "id": "manual-review-packets",
+      "itemCount": 4
+    }
   ]
 }

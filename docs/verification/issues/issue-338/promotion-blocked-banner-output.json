@@ -1,5 +1,15 @@
 {
+  "issue": "338",
   "status": "passed",
-  "promotionEnabled": false,
-  "promotionBlocked": true
+  "banner": {
+    "bannerId": "plan-builder-promotion-blocked-v1",
+    "title": "Promotion Blocked",
+    "messages": [
+      "Promotion is blocked until an explicit structured human visual review record exists.",
+      "Route/export readiness is not manual review.",
+      "Default fixtures are unchanged.",
+      "Promotion-review requires a separate future batch."
+    ],
+    "promotionEnabled": false
+  }
 }
