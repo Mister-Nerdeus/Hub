@@ -29,6 +29,7 @@ Use this document when a task starts to drift beyond the project boundaries.
 - Keep local proof Docker and production-shaped Docker separate: `docker-compose.yml` remains local-first, while `docker-compose.production.yml` must use production Dockerfiles.
 - Production-shaped web runtime must serve built static assets through nginx and proxy same-origin `/health` and `/v1/` requests to the API service.
 - If `https://hub.nerdeus.com/` contains `/@vite/client`, `/@react-refresh`, `/src/main.tsx`, or `/node_modules/.vite`, treat the live site as misdeployed even when `/health` works. Run `node scripts/check-live-site-runtime.mjs` and redeploy the origin with `docker-compose.production.yml` or an equivalent nginx/static-assets runtime before closing.
+- Do not describe `https://hub.nerdeus.com/` as fixed from local Docker proof alone. A local `node scripts/check-production-docker-runtime.mjs --smoke` pass proves the repository's production-shaped Docker path; the public site is fixed only after `node scripts/check-live-site-runtime.mjs --url https://hub.nerdeus.com/` passes against the public domain.
 
 ## Evidence Drift
 

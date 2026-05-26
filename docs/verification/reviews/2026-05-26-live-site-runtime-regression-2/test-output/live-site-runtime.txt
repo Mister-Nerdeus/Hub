@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "liveSiteUrl": "https://hub.nerdeus.com/",
+  "root": {
+    "status": 200,
+    "viteDevRuntimeDetected": true,
+    "detectedDevFragments": [
+      "/@vite/client",
+      "/@react-refresh",
+      "/src/main.tsx"
+    ],
+    "productionAssetDetected": false
+  },
+  "health": {
+    "status": 200,
+    "apiHealthOk": true
+  },
+  "plans": {
+    "status": 200,
+    "plansArrayReturned": true
+  },
+  "failures": [
+    "root must not serve Vite development runtime references",
+    "root must reference built production web assets"
+  ]
+}

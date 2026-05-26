@@ -1,0 +1,4 @@
+node scripts/check-live-site-runtime.mjs --url https://hub.nerdeus.com/
+node scripts/check-production-docker-runtime.mjs --smoke
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
