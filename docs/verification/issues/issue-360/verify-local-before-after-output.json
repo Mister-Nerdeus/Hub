@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "requiredVerifyCommands": [
+    "node scripts/check-plan-builder-ux-review-flow.mjs --stage final",
+    "node scripts/check-human-review-intake.mjs --stage final"
+  ],
+  "missingVerifyCommands": []
+}

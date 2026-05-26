@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-human-review-intake.mjs --stage final --issue 359
+node scripts/check-human-review-governance-hardening.mjs --stage proof-audit --allow-partial --issue 359

@@ -1,0 +1,2 @@
+- No submitted structured human review records are present for Plans 2 through 5.
+- Promotion remains blocked and dry-run only.

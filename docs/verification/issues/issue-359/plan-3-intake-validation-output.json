@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "plan": {
+    "planId": "plan-3",
+    "sourceDefaultPlanId": "default-er-layout-plan-3",
+    "reviewPacketPath": "docs/manual-review/plan-3-review-packet.md",
+    "reviewRecordTemplatePath": "docs/manual-review/plan-3-review-record.template.json",
+    "renderedEvidencePath": "docs/verification/rendered-plans/plan-3-rendered-review.png",
+    "renderedEvidenceMetadataPath": "docs/verification/rendered-plans/plan-3-rendered-review.metadata.json",
+    "repairedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-route-repaired-saved-copy.json",
+    "simulationReadyExportPath": "packages/shared/fixtures/source-corrections/plan-3/plan-3-simulation-ready-export.json",
+    "manualReviewStatus": "manual_review_required",
+    "reviewerDecisionSource": "none",
+    "reviewerIdentityStatus": "not_required_until_record_exists",
+    "reviewerAuthorityStatus": "not_required_until_record_exists",
+    "routeReadinessStatus": "ready",
+    "simulationReadyExportStatus": "simulation_ready",
+    "promotionReadinessDryRunStatus": "blocked_missing_manual_review",
+    "codexClaimedApproval": false,
+    "sampleRecordCountsAsApproval": false,
+    "exactParityClaimMade": false,
+    "privateSourcePayloadStored": false,
+    "sourceFixtureUnchanged": true,
+    "canPromote": false,
+    "blockingIssues": [
+      "missing submitted structured human review record"
+    ],
+    "warningIssues": [],
+    "reviewerNotes": [],
+    "limitations": [
+      "No structured submitted human review record is present.",
+      "Manual review is required before promotion-review consideration.",
+      "Promotion remains dry-run only and blocked."
+    ],
+    "goNoGo": "NO-GO for promotion-review; waiting on structured human review record."
+  }
+}

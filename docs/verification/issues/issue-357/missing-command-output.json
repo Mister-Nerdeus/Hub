@@ -1,0 +1,26 @@
+{
+  "status": "failed",
+  "reason": "Required command output must be captured by running commands with explicit redirection.",
+  "missing": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputPath": "docs/verification/issues/issue-357/test-output/shared.txt"
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputPath": "docs/verification/issues/issue-357/test-output/web.txt"
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputPath": "docs/verification/issues/issue-357/test-output/web-build.txt"
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputPath": "docs/verification/issues/issue-357/test-output/no-phi.txt"
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputPath": "docs/verification/issues/issue-357/test-output/private-source-artifacts.txt"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "planId": "plan-4",
+  "manualReviewStatus": "manual_review_required",
+  "identityStatus": "not_required_until_record_exists",
+  "authorityStatus": "not_required_until_record_exists",
+  "attestationStatus": "not_required_until_record_exists",
+  "routeExportStatus": "ready/simulation_ready",
+  "boundaryStatus": "passed",
+  "dryRunStatus": "blocked_missing_manual_review",
+  "canPromote": false,
+  "blockingReasons": [
+    "missing submitted structured human review record",
+    "missing valid structured human approval"
+  ]
+}

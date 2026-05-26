@@ -1,7 +1,10 @@
 # Human Review Intake Dashboard
 
-Status-only dashboard. It does not approve visual correctness and does not promote default fixtures.
+Status-only dashboard for structured human review intake. It does not approve visual correctness and does not promote default fixtures.
 
+Intake status: missing
+Submitted review records: 0 present, 4 missing, 0 invalid
+Source manifest present: yes
 Promotion status: blocked
 All required approvals valid: no
 

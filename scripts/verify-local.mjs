@@ -76,6 +76,8 @@ const commands = [
   "node scripts/check-corrected-plan-review.mjs --stage final",
   "node scripts/check-corrected-plan-route-repair.mjs --stage final",
   "node scripts/check-manual-visual-review.mjs --stage final",
+  "node scripts/check-plan-builder-ux-review-flow.mjs --stage final",
+  "node scripts/check-human-review-intake.mjs --stage final",
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",

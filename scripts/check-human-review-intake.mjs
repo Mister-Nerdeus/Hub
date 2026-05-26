@@ -1,6 +1,15 @@
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import {
+  buildHumanReviewIntakeDashboard,
+  buildHumanReviewPromotionRecheck,
+  renderHumanReviewIntakeDashboardMarkdown,
+  validateHumanReviewIntakeManifest,
+  validateReviewerAttestations,
+  validateReviewerIdentity,
+  validateSubmittedHumanReviewRecord
+} from "../packages/shared/dist/index.js";
 
 const repoRoot = process.cwd();
 const args = process.argv.slice(2);
@@ -30,6 +39,7 @@ const stages = new Set([
   "final"
 ]);
 const failures = [];
+const canonicalWrites = [];
 
 if (!stages.has(stage)) {
   fail(`Unsupported human review intake stage: ${stage}`);
@@ -50,19 +60,20 @@ const manualManifest = readJson(manualVisualReviewManifestPath);
 const uxManifest = readJson(uxManifestPath);
 const snapshot = readJson(uiSnapshotPath);
 const manifest = buildManifest();
-const dashboard = buildDashboard(manifest);
-const promotionRecheck = buildPromotionRecheck(manifest);
-
-writeJson(intakeManifestPath, manifest);
+const dashboard = buildHumanReviewIntakeDashboard(manifest);
+const promotionRecheck = buildHumanReviewPromotionRecheck(manifest);
 
 runStage();
+validateCandidateManifest();
 writeGateOutput();
 writeCommonEvidence();
 writeIssueCloseoutAndIndex();
 
 if (failures.length > 0) {
+  writeFailureEvidence();
   fail(JSON.stringify({ status: "failed", stage, issue, failures }, null, 2));
 }
+writeCanonicalArtifacts();
 console.log(JSON.stringify({ status: "passed", stage, issue, manifestPath: intakeManifestPath }, null, 2));
 
 function runStage() {
@@ -99,7 +110,7 @@ function buildManifest() {
     entry.manualReviewStatus === "approved_with_notes"
   ).length;
   const allPlansDryRunReady = entries.every((entry) => entry.promotionReadinessDryRunStatus === "dry_run_ready");
-  const hashConsistencyPassed = checkHashConsistency().status === "passed";
+  const hashConsistencyPassed = checkHashConsistency(null).status === "passed";
   return {
     manifestVersion: "1.0.0",
     batch: "341-350",
@@ -173,7 +184,9 @@ function buildEntry(manualEntry) {
   }
   const recordHash = hashFile(submittedPath);
   try {
-    const record = validateSubmittedRecord(readJson(submittedPath), planId);
+    const record = validateSubmittedHumanReviewRecord(readJson(submittedPath), planId);
+    validateReviewerIdentity(record.reviewerIdentity);
+    validateReviewerAttestations(record.reviewerAttestations);
     const artifactProblems = validateReviewedArtifacts(record, manualEntry);
     if (artifactProblems.length > 0) {
       return invalidEntry(base, submittedPath, recordHash, artifactProblems);
@@ -228,116 +241,6 @@ function invalidEntry(base, submittedPath, submittedHash, problems) {
   };
 }
 
-function validateSubmittedRecord(record, expectedPlanId) {
-  requireExactKeys(record, "submittedReviewRecord", [
-    "recordVersion",
-    "planId",
-    "reviewRecordKind",
-    "sampleRecord",
-    "codexClaimedApproval",
-    "reviewerDecisionSource",
-    "reviewerIdentity",
-    "reviewedAt",
-    "reviewMethod",
-    "manualReviewStatus",
-    "reviewScope",
-    "promotionAuthorization",
-    "defaultFixturePromotionRequested",
-    "reviewedArtifactPaths",
-    "reviewDimensions",
-    "reviewerAttestations",
-    "blockingIssues",
-    "reviewerNotes",
-    "limitations",
-    "nonClaims"
-  ]);
-  if (record.recordVersion !== "1.0.0") throw new Error("recordVersion must be 1.0.0");
-  if (record.planId !== expectedPlanId) throw new Error(`record planId must match ${expectedPlanId}`);
-  if (record.reviewRecordKind !== "human_visual_review_decision") throw new Error("reviewRecordKind must be human_visual_review_decision");
-  if (record.sampleRecord !== false) throw new Error("sample records cannot count as approval");
-  if (record.codexClaimedApproval !== false) throw new Error("Codex approval cannot count as human review");
-  if (!["explicit_manual_artifact", "operator_entered_structured_decision"].includes(record.reviewerDecisionSource)) {
-    throw new Error("reviewerDecisionSource must be explicit structured source");
-  }
-  validateReviewerIdentity(record.reviewerIdentity);
-  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/u.test(record.reviewedAt) || Number.isNaN(Date.parse(record.reviewedAt))) {
-    throw new Error("reviewedAt must be an ISO 8601 UTC timestamp");
-  }
-  if (!["manual_packet_review", "rendered_preview_review", "operator_entered_structured_decision"].includes(record.reviewMethod)) {
-    throw new Error("reviewMethod is invalid");
-  }
-  if (!["approved_for_promotion_review", "approved_with_notes", "rejected_needs_correction"].includes(record.manualReviewStatus)) {
-    throw new Error("manualReviewStatus is invalid for a submitted review record");
-  }
-  if (record.reviewScope !== "operational_layout_plausibility_only") throw new Error("reviewScope must be operational_layout_plausibility_only");
-  if (!["none", "future_promotion_review_consideration_only"].includes(record.promotionAuthorization)) {
-    throw new Error("promotionAuthorization is invalid");
-  }
-  if (record.defaultFixturePromotionRequested !== false) throw new Error("default fixture promotion must not be requested");
-  validateReviewDimensions(record.reviewDimensions);
-  validateAttestations(record.reviewerAttestations);
-  assertStringArray(record.reviewedArtifactPaths, "reviewedArtifactPaths");
-  assertStringArray(record.blockingIssues, "blockingIssues");
-  assertStringArray(record.reviewerNotes, "reviewerNotes");
-  assertStringArray(record.limitations, "limitations");
-  assertStringArray(record.nonClaims, "nonClaims");
-  assertNoForbiddenClaims(record);
-  if (record.manualReviewStatus === "approved_for_promotion_review" &&
-    record.reviewerIdentity.reviewerAuthorityScope !== "promotion_review_consideration") {
-    throw new Error("approved_for_promotion_review requires promotion_review_consideration authority");
-  }
-  return record;
-}
-
-function validateReviewerIdentity(identity) {
-  requireExactKeys(identity, "reviewerIdentity", ["reviewerHandle", "reviewerRole", "reviewerAuthorityScope"]);
-  if (!/^[a-z][a-z0-9_-]{2,31}$/u.test(identity.reviewerHandle)) {
-    throw new Error("reviewerHandle must be a safe pseudonymous handle");
-  }
-  if (/@/u.test(identity.reviewerHandle) || /^[a-z]{2,}[-_]?\d{3,}$/iu.test(identity.reviewerHandle) ||
-    /\b(?:employee|staff|badge|id)[-_]?\d+\b/iu.test(identity.reviewerHandle) ||
-    ["anonymous", "anon", "unknown", "reviewer", "human"].includes(String(identity.reviewerHandle).toLowerCase())) {
-    throw new Error("reviewerHandle must not be anonymous, an email, or an employee identifier");
-  }
-  if (!["owner", "operator", "layout_reviewer", "project_reviewer"].includes(identity.reviewerRole)) {
-    throw new Error("reviewerRole is invalid");
-  }
-  if (!["operational_layout_review_only", "promotion_review_consideration"].includes(identity.reviewerAuthorityScope)) {
-    throw new Error("reviewerAuthorityScope is invalid");
-  }
-}
-
-function validateReviewDimensions(dimensions) {
-  requireExactKeys(dimensions, "reviewDimensions", [
-    "roomPlacementPlausibility",
-    "doorPlacementPlausibility",
-    "hallwayPathConnectivityPlausibility",
-    "stationPlacementPlausibility",
-    "labelsReadability",
-    "knownLimitationsAccepted"
-  ]);
-  for (const value of Object.values(dimensions)) {
-    if (!["accepted", "accepted_with_notes", "needs_correction"].includes(value)) {
-      throw new Error("reviewDimensions values are invalid");
-    }
-  }
-}
-
-function validateAttestations(attestations) {
-  requireExactKeys(attestations, "reviewerAttestations", [
-    "operationalLayoutOnly",
-    "noClinicalSafetyApproval",
-    "noStaffingComplianceApproval",
-    "noLegalComplianceApproval",
-    "noExactCadOrDocxParityClaim",
-    "noDefaultFixturePromotion",
-    "noPrivateSourceComparisonClaim"
-  ]);
-  for (const [key, value] of Object.entries(attestations)) {
-    if (value !== true) throw new Error(`${key} attestation must be true`);
-  }
-}
-
 function validateReviewedArtifacts(record, manualEntry) {
   const required = [
     manualEntry.reviewPacketPath,
@@ -349,7 +252,7 @@ function validateReviewedArtifacts(record, manualEntry) {
   return required.filter((path) => !record.reviewedArtifactPaths.includes(path)).map((path) => `reviewedArtifactPaths missing ${path}`);
 }
 
-function checkHashConsistency() {
+function checkHashConsistency(candidateManifest = manifest) {
   const checks = [
     ["uxManifest.manualVisualReviewManifestHash", uxManifest.manualVisualReviewManifestHash, hashFile(manualVisualReviewManifestPath)],
     ["uxManifest.routeRepairManifestHash", uxManifest.routeRepairManifestHash, hashFile(routeRepairManifestPath)],
@@ -357,6 +260,13 @@ function checkHashConsistency() {
     ["snapshot.generatedFrom.manualVisualReviewManifestHash", snapshot.generatedFrom?.manualVisualReviewManifestHash, hashFile(manualVisualReviewManifestPath)],
     ["snapshot.generatedFrom.routeRepairManifestHash", snapshot.generatedFrom?.routeRepairManifestHash, hashFile(routeRepairManifestPath)]
   ];
+  if (candidateManifest != null) {
+    checks.unshift(
+      ["manifest.manualVisualReviewManifestHash", candidateManifest.manualVisualReviewManifestHash, hashFile(manualVisualReviewManifestPath)],
+      ["manifest.planBuilderUxReviewFlowManifestHash", candidateManifest.planBuilderUxReviewFlowManifestHash, hashFile(uxManifestPath)],
+      ["manifest.uiSnapshotHash", candidateManifest.uiSnapshotHash, hashFile(uiSnapshotPath)]
+    );
+  }
   const mismatches = checks
     .filter(([, actual, expected]) => actual !== expected)
     .map(([label, actual, expected]) => ({ label, actual: actual ?? null, expected }));
@@ -491,10 +401,10 @@ function runPlanIntake(planId) {
 }
 
 function runDashboard() {
-  writeJson(dashboardPath, dashboard);
-  writeText(dashboardMdPath, renderDashboardMarkdown(dashboard));
+  queueCanonicalJson(dashboardPath, dashboard);
+  queueCanonicalText(dashboardMdPath, renderHumanReviewIntakeDashboardMarkdown(dashboard));
   writeJson(`${issueDir}/human-review-dashboard-output.json`, dashboard);
-  writeText(`${issueDir}/human-review-dashboard-md-output.md`, readText(dashboardMdPath));
+  writeText(`${issueDir}/human-review-dashboard-md-output.md`, renderHumanReviewIntakeDashboardMarkdown(dashboard));
   for (const planId of planIds) {
     writeJson(`${issueDir}/${planId}-dashboard-output.json`, dashboard.plans.find((plan) => plan.planId === planId));
   }
@@ -514,7 +424,7 @@ function runDashboard() {
 }
 
 function runPromotionRecheck() {
-  writeJson(promotionRecheckPath, promotionRecheck);
+  queueCanonicalJson(promotionRecheckPath, promotionRecheck);
   writeJson(`${issueDir}/promotion-dry-run-recheck-output.json`, promotionRecheck);
   for (const planId of planIds) {
     writeJson(`${issueDir}/${planId}-promotion-recheck-output.json`, promotionRecheck.plans.find((plan) => plan.planId === planId));
@@ -587,6 +497,39 @@ function runFinalAudit() {
   ].join("\n"));
 }
 
+function validateCandidateManifest() {
+  try {
+    validateHumanReviewIntakeManifest(manifest);
+  } catch (error) {
+    failures.push(`candidate manifest validation failed: ${error.message}`);
+  }
+}
+
+function queueCanonicalJson(path, value) {
+  canonicalWrites.push(() => writeJson(path, value));
+}
+
+function queueCanonicalText(path, value) {
+  canonicalWrites.push(() => writeText(path, value));
+}
+
+function writeCanonicalArtifacts() {
+  writeJson(intakeManifestPath, manifest);
+  for (const write of canonicalWrites) {
+    write();
+  }
+}
+
+function writeFailureEvidence() {
+  writeJson(`${issueDir}/failed-validation-no-canonical-write-output.json`, {
+    status: "passed",
+    canonicalManifestPath: intakeManifestPath,
+    canonicalManifestHashBefore: previousManifest == null ? null : hashFile(intakeManifestPath),
+    canonicalManifestWriteDeferred: true,
+    failures
+  });
+}
+
 function writeCommonEvidence() {
   if (!existsSync(abs(`${issueDir}/first-failure.txt`))) {
     writeText(`${issueDir}/first-failure.txt`, firstFailureText(issue));
@@ -623,86 +566,6 @@ function firstFailureText(issueNumber) {
   return `${messages[issueNumber] ?? "Initial gap reproduced for human review intake governance."}\n`;
 }
 
-function buildDashboard(value) {
-  const plans = value.reviewedPlans.map((entry) => {
-    const submittedRecordStatus = entry.submittedReviewRecordPath == null ? "missing" : "present";
-    return {
-      planId: entry.planId,
-      submittedRecordStatus,
-      recordValidationStatus: submittedRecordStatus === "missing"
-        ? "missing"
-        : entry.manualReviewStatus === "blocked_invalid_review_record" ? "invalid" : "valid",
-      reviewerIdentityStatus: entry.reviewerIdentityStatus,
-      reviewerAuthorityStatus: entry.reviewerAuthorityStatus,
-      manualReviewStatus: entry.manualReviewStatus,
-      promotionReadinessDryRunStatus: entry.promotionReadinessDryRunStatus,
-      canPromote: false,
-      blockingIssues: entry.blockingIssues
-    };
-  });
-  return {
-    dashboardVersion: "1.0.0",
-    batch: "341-350",
-    sourceManifestStatus: value.intakeStatus,
-    promotionStatus: value.promotionStatus,
-    allRequiredApprovalsValid: plans.every((plan) =>
-      plan.recordValidationStatus === "valid" &&
-      ["approved_for_promotion_review", "approved_with_notes"].includes(plan.manualReviewStatus)
-    ),
-    plans
-  };
-}
-
-function buildPromotionRecheck(value) {
-  const plans = value.reviewedPlans.map((entry) => {
-    const blockingReasons = [...entry.blockingIssues];
-    const approved = isApprovalStatus(entry.manualReviewStatus);
-    if (!approved) {
-      blockingReasons.push("missing valid structured human approval");
-    }
-    if (entry.reviewerIdentityStatus !== "present" && entry.submittedReviewRecordPath != null) {
-      blockingReasons.push("reviewer identity is not valid");
-    }
-    if (entry.reviewerAuthorityStatus !== "authorized" && entry.submittedReviewRecordPath != null) {
-      blockingReasons.push("reviewer authority is not valid");
-    }
-    if (entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready") {
-      blockingReasons.push("route/export readiness is blocked");
-    }
-    const dryRunStatus = entry.privateSourcePayloadStored
-      ? "blocked_by_boundary"
-      : entry.routeReadinessStatus !== "ready" || entry.simulationReadyExportStatus !== "simulation_ready"
-        ? "blocked_by_route_export"
-        : entry.manualReviewStatus === "blocked_invalid_review_record" ||
-          entry.reviewerIdentityStatus === "invalid" ||
-          entry.reviewerAuthorityStatus === "unauthorized"
-          ? "blocked_invalid_review_record"
-          : approved
-            ? entry.promotionReadinessDryRunStatus
-            : "blocked_missing_manual_review";
-    return {
-      planId: entry.planId,
-      manualReviewStatus: entry.manualReviewStatus,
-      identityStatus: entry.reviewerIdentityStatus,
-      authorityStatus: entry.reviewerAuthorityStatus,
-      attestationStatus: entry.submittedReviewRecordPath == null ? "not_required_until_record_exists" : "present",
-      routeExportStatus: `${entry.routeReadinessStatus}/${entry.simulationReadyExportStatus}`,
-      boundaryStatus: "passed",
-      dryRunStatus,
-      canPromote: false,
-      blockingReasons: [...new Set(blockingReasons)]
-    };
-  });
-  return {
-    recheckVersion: "1.0.0",
-    batch: "341-350",
-    dryRunOnly: true,
-    promotionStatus: value.promotionStatus,
-    allPlansDryRunReady: plans.every((plan) => plan.dryRunStatus === "dry_run_ready" && plan.blockingReasons.length === 0),
-    plans
-  };
-}
-
 function writeGateOutput() {
   writeJson(`${issueDir}/human-review-intake-gate-output.json`, {
     status: failures.length === 0 ? "passed" : "failed",
@@ -712,31 +575,6 @@ function writeGateOutput() {
     manifestPath: intakeManifestPath,
     failures
   });
-  writeJson(`${issueDir}/test-output/human-review-intake-gate.txt`, {
-    status: failures.length === 0 ? "passed" : "failed",
-    stage,
-    issue,
-    failures
-  });
-}
-
-function renderDashboardMarkdown(value) {
-  const lines = [
-    "# Human Review Intake Dashboard",
-    "",
-    "Status-only dashboard. It does not approve visual correctness and does not promote default fixtures.",
-    "",
-    `Promotion status: ${value.promotionStatus}`,
-    `All required approvals valid: ${value.allRequiredApprovalsValid ? "yes" : "no"}`,
-    "",
-    "| Plan | Submitted record | Record validation | Manual review | Identity | Authority | Promotion dry run | Blocking issues |",
-    "| --- | --- | --- | --- | --- | --- | --- | --- |"
-  ];
-  for (const plan of value.plans) {
-    lines.push(`| ${plan.planId} | ${plan.submittedRecordStatus} | ${plan.recordValidationStatus} | ${plan.manualReviewStatus} | ${plan.reviewerIdentityStatus} | ${plan.reviewerAuthorityStatus} | ${plan.promotionReadinessDryRunStatus} | ${plan.blockingIssues.join("; ") || "none"} |`);
-  }
-  lines.push("");
-  return `${lines.join("\n")}\n`;
 }
 
 function writeIssueCloseoutAndIndex() {
@@ -772,7 +610,17 @@ function commandsForIssue(issueNumber) {
     "347": "node scripts/check-human-review-intake.mjs --stage plan-5-intake --allow-partial --issue 347",
     "348": "node scripts/check-human-review-intake.mjs --stage review-dashboard --allow-partial --issue 348",
     "349": "node scripts/check-human-review-intake.mjs --stage promotion-dry-run-recheck --allow-partial --issue 349",
-    "350": "node scripts/check-human-review-intake.mjs --stage final --issue 350"
+    "350": "node scripts/check-human-review-intake.mjs --stage final --issue 350",
+    "351": "node scripts/check-human-review-intake.mjs --stage final --issue 351",
+    "352": "node scripts/check-human-review-intake.mjs --stage final --issue 352",
+    "353": "node scripts/check-human-review-intake.mjs --stage final --issue 353",
+    "354": "node scripts/check-human-review-intake.mjs --stage final --issue 354",
+    "355": "node scripts/check-human-review-intake.mjs --stage final --issue 355",
+    "356": "node scripts/check-human-review-intake.mjs --stage final --issue 356",
+    "357": "node scripts/check-human-review-intake.mjs --stage final --issue 357",
+    "358": "node scripts/check-human-review-intake.mjs --stage final --issue 358",
+    "359": "node scripts/check-human-review-intake.mjs --stage final --issue 359",
+    "360": "node scripts/check-human-review-intake.mjs --stage final --issue 360"
   }[issueNumber];
   if (issueNumber === "341") {
     return [
@@ -817,6 +665,12 @@ function commandsForIssue(issueNumber) {
       "node scripts/verify-local.mjs"
     ];
   }
+  if (Number(issueNumber) >= 351) {
+    return [
+      ...common,
+      stageCommand
+    ];
+  }
   return [
     ...common,
     stageCommand,
@@ -839,17 +693,27 @@ function mappedOutputForCommand(command, issueNumber) {
   if (command.includes("build-plan-builder-review-flow-snapshot")) return `${base}/ui-snapshot-builder.txt`;
   if (command.includes("check-plan-builder-ux-review-flow")) return `${base}/plan-builder-ux-review-flow-gate.txt`;
   if (command.includes("check-human-review-intake")) return `${base}/human-review-intake-gate.txt`;
+  if (command.includes("check-human-review-governance-hardening")) return `${base}/human-review-governance-hardening-gate.txt`;
   if (command.includes("check-default-plans-2-through-5-unchanged")) return `${base}/plans-2-through-5-unchanged.txt`;
   if (command.includes("verify-local")) return `${base}/verify-local.txt`;
   return `${base}/command.txt`;
 }
 
 function ensureMappedOutputsExist(commands, issueNumber) {
+  const missing = [];
   for (const command of commands) {
     const outputPath = mappedOutputForCommand(command, issueNumber);
     if (!existsSync(abs(outputPath))) {
-      writeText(outputPath, `Pending captured output for: ${command}\n`);
+      missing.push({ command, outputPath });
     }
+  }
+  if (missing.length > 0) {
+    writeJson(`${issueDir}/missing-command-output.json`, {
+      status: "failed",
+      reason: "Required command output must be captured by running commands with explicit redirection.",
+      missing
+    });
+    failures.push(`missing required command output: ${missing.map((entry) => entry.outputPath).join(", ")}`);
   }
 }
 
@@ -948,43 +812,6 @@ function listFiles(relativeRoot) {
 
 function statusFromStage(stageName, completeValue, fallback) {
   return stage === stageName || stage === "final" ? completeValue : fallback;
-}
-
-function assertNoForbiddenClaims(value) {
-  const text = JSON.stringify(value);
-  const forbidden = [
-    /\bexact\s+(?:docx|cad|source(?:\s|-)?document)\s+(?:match|parity)\b/iu,
-    /\bclinical\s+safety\s+(?:approval|approved|certification|certified)\b/iu,
-    /\blegal\s+staffing\s+compliance\b/iu,
-    /\bpromotion\s+(?:completed|complete|done|performed|applied)\b/iu,
-    /\bsample\s+(?:approval|approved)\b/iu,
-    /\bcodex\s+(?:approval|approved|claimed approval)\b/iu,
-    /[A-Za-z]:[\\/][^\s"]+/u,
-    /\.docx\b/iu,
-    /\b(?:employeeId|staffId|badgeId|hospitalId)\b/u,
-    /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/iu
-  ];
-  const match = forbidden.find((pattern) => pattern.test(text));
-  if (match != null) throw new Error(`submitted record contains forbidden claim or identifier: ${match}`);
-}
-
-function requireExactKeys(value, label, allowedKeys) {
-  if (value == null || typeof value !== "object" || Array.isArray(value)) {
-    throw new Error(`${label} must be an object`);
-  }
-  const allowed = new Set(allowedKeys);
-  for (const key of Object.keys(value)) {
-    if (!allowed.has(key)) throw new Error(`${label}.${key} is not allowed`);
-  }
-  for (const key of allowedKeys) {
-    if (!(key in value)) throw new Error(`${label}.${key} is required`);
-  }
-}
-
-function assertStringArray(value, label) {
-  if (!Array.isArray(value) || value.some((entry) => typeof entry !== "string")) {
-    throw new Error(`${label} must be a string array`);
-  }
 }
 
 function requireFile(path) {

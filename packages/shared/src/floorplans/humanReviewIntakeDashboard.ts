@@ -15,7 +15,14 @@ export type HumanReviewIntakeDashboardPlan = {
 export type HumanReviewIntakeDashboard = {
   dashboardVersion: string;
   batch: "341-350";
-  sourceManifestStatus: string;
+  intakeStatus: string;
+  submittedReviewRecordSummary: {
+    missing: number;
+    present: number;
+    valid: number;
+    invalid: number;
+  };
+  sourceManifestPresent: true;
   promotionStatus: "blocked" | "dry_run_only";
   allRequiredApprovalsValid: boolean;
   plans: HumanReviewIntakeDashboardPlan[];
@@ -47,7 +54,14 @@ export function buildHumanReviewIntakeDashboard(
   return {
     dashboardVersion: "1.0.0",
     batch: "341-350",
-    sourceManifestStatus: manifest.intakeStatus,
+    intakeStatus: manifest.intakeStatus,
+    submittedReviewRecordSummary: {
+      missing: plans.filter((plan) => plan.submittedRecordStatus === "missing").length,
+      present: plans.filter((plan) => plan.submittedRecordStatus === "present").length,
+      valid: plans.filter((plan) => plan.recordValidationStatus === "valid").length,
+      invalid: plans.filter((plan) => plan.recordValidationStatus === "invalid").length
+    },
+    sourceManifestPresent: true,
     promotionStatus: manifest.promotionStatus,
     allRequiredApprovalsValid: plans.every(
       (plan) =>
@@ -67,6 +81,9 @@ export function renderHumanReviewIntakeDashboardMarkdown(
     "",
     "Status-only dashboard for structured human review intake. It does not approve visual correctness and does not promote default fixtures.",
     "",
+    `Intake status: ${dashboard.intakeStatus}`,
+    `Submitted review records: ${dashboard.submittedReviewRecordSummary.present} present, ${dashboard.submittedReviewRecordSummary.missing} missing, ${dashboard.submittedReviewRecordSummary.invalid} invalid`,
+    "Source manifest present: yes",
     `Promotion status: ${dashboard.promotionStatus}`,
     `All required approvals valid: ${dashboard.allRequiredApprovalsValid ? "yes" : "no"}`,
     "",

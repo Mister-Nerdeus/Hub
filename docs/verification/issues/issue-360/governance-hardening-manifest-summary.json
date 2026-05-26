@@ -1,0 +1,99 @@
+{
+  "manifestVersion": "1.0.0",
+  "batch": "351-360",
+  "lastUpdatedIssue": "360",
+  "humanReviewIntakeManifestPath": "docs/verification/human-review-intake-manifest.json",
+  "humanReviewIntakeManifestHash": "a7b6a56ec56d8f887ebda24a4289d591b0d544c365b637533ba84bed1a661bc3",
+  "manualVisualReviewManifestPath": "docs/verification/manual-visual-review-manifest.json",
+  "manualVisualReviewManifestHash": "b02a5355c65794d1c6ee99b9d6e3df323d874cde64c41bd2fc36ac57c7aac0ad",
+  "planBuilderUxReviewFlowManifestPath": "docs/verification/plan-builder-ux-review-flow-manifest.json",
+  "planBuilderUxReviewFlowManifestHash": "f73602f5cdc19a3a464864466bc49a260f0e18a9b675975676284eb6dbbe65e3",
+  "uiSnapshotPath": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.json",
+  "uiSnapshotHash": "06168052bc6ee140a19aa87363bc5329caa2b2b8eb96203cce683ccaabebefca",
+  "reviewedPlans": [
+    {
+      "planId": "plan-2",
+      "humanReviewIntakeStatus": "manual_review_required",
+      "reviewerIdentityStatus": "not_required_until_record_exists",
+      "reviewerAuthorityStatus": "not_required_until_record_exists",
+      "promotionReadinessDryRunStatus": "blocked_missing_manual_review",
+      "canPromote": false,
+      "sourceFixtureUnchanged": true,
+      "codexClaimedApproval": false,
+      "sampleRecordCountsAsApproval": false,
+      "exactParityClaimMade": false,
+      "privateSourcePayloadStored": false,
+      "blockingIssues": [
+        "missing submitted structured human review record"
+      ],
+      "goNoGo": "NO-GO for promotion-review; waiting on structured human review record."
+    },
+    {
+      "planId": "plan-3",
+      "humanReviewIntakeStatus": "manual_review_required",
+      "reviewerIdentityStatus": "not_required_until_record_exists",
+      "reviewerAuthorityStatus": "not_required_until_record_exists",
+      "promotionReadinessDryRunStatus": "blocked_missing_manual_review",
+      "canPromote": false,
+      "sourceFixtureUnchanged": true,
+      "codexClaimedApproval": false,
+      "sampleRecordCountsAsApproval": false,
+      "exactParityClaimMade": false,
+      "privateSourcePayloadStored": false,
+      "blockingIssues": [
+        "missing submitted structured human review record"
+      ],
+      "goNoGo": "NO-GO for promotion-review; waiting on structured human review record."
+    },
+    {
+      "planId": "plan-4",
+      "humanReviewIntakeStatus": "manual_review_required",
+      "reviewerIdentityStatus": "not_required_until_record_exists",
+      "reviewerAuthorityStatus": "not_required_until_record_exists",
+      "promotionReadinessDryRunStatus": "blocked_missing_manual_review",
+      "canPromote": false,
+      "sourceFixtureUnchanged": true,
+      "codexClaimedApproval": false,
+      "sampleRecordCountsAsApproval": false,
+      "exactParityClaimMade": false,
+      "privateSourcePayloadStored": false,
+      "blockingIssues": [
+        "missing submitted structured human review record"
+      ],
+      "goNoGo": "NO-GO for promotion-review; waiting on structured human review record."
+    },
+    {
+      "planId": "plan-5",
+      "humanReviewIntakeStatus": "manual_review_required",
+      "reviewerIdentityStatus": "not_required_until_record_exists",
+      "reviewerAuthorityStatus": "not_required_until_record_exists",
+      "promotionReadinessDryRunStatus": "blocked_missing_manual_review",
+      "canPromote": false,
+      "sourceFixtureUnchanged": true,
+      "codexClaimedApproval": false,
+      "sampleRecordCountsAsApproval": false,
+      "exactParityClaimMade": false,
+      "privateSourcePayloadStored": false,
+      "blockingIssues": [
+        "missing submitted structured human review record"
+      ],
+      "goNoGo": "NO-GO for promotion-review; waiting on structured human review record."
+    }
+  ],
+  "verifyWiringStatus": "passed",
+  "writeAfterValidateStatus": "passed",
+  "sharedReviewValidatorStatus": "passed",
+  "sharedPromotionRecheckStatus": "passed",
+  "realNegativeProofStatus": "passed",
+  "hashConsistencyFinalStatus": "passed",
+  "dashboardLanguageStatus": "passed",
+  "commandOutputEvidenceStatus": "passed",
+  "proofAuditStatus": "passed",
+  "manualApprovalStatus": "missing",
+  "promotionStatus": "blocked",
+  "privateSourceBoundaryStatus": "passed",
+  "noPhiStatus": "passed",
+  "defaultFixtureMutationStatus": "unchanged",
+  "forbiddenClaimStatus": "passed",
+  "goNoGoStatus": "GO for Operational Demo Polish while promotion remains blocked"
+}

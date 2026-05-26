@@ -10,7 +10,13 @@ test("human review intake dashboard distinguishes missing records and promotion 
   assert.equal(dashboard.plans[0].recordValidationStatus, "missing");
   assert.equal(dashboard.plans[0].manualReviewStatus, "manual_review_required");
   assert.equal(dashboard.allRequiredApprovalsValid, false);
+  assert.equal(dashboard.intakeStatus, "partial");
+  assert.equal(dashboard.sourceManifestPresent, true);
+  assert.equal(dashboard.sourceManifestStatus, undefined);
+  assert.equal(dashboard.submittedReviewRecordSummary.missing, 4);
   const markdown = renderHumanReviewIntakeDashboardMarkdown(dashboard);
+  assert.match(markdown, /Intake status: partial/u);
+  assert.match(markdown, /Source manifest present: yes/u);
   assert.match(markdown, /Promotion status: blocked/u);
   assert.match(markdown, /plan-2/u);
 });
