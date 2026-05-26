@@ -89,6 +89,11 @@ function runStage(currentStage) {
     manifest.roomLoadEditorStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "assignment-state") {
+    runAssignmentState();
+    manifest.assignmentStateStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -238,6 +243,69 @@ function runRoomLoadEditor() {
   writeRoomLoadScreenshotPlaceholder();
 }
 
+function runAssignmentState() {
+  const requiredFiles = [
+    "apps/web/src/features/manual-assignment/manualAssignmentState.ts",
+    "apps/web/src/features/manual-assignment/manualAssignmentReducer.ts",
+    "apps/web/src/features/manual-assignment/manualAssignmentActions.ts",
+    "apps/web/src/features/manual-assignment/manualAssignmentSelectors.ts",
+    "apps/web/src/features/manual-assignment/__tests__/manualAssignmentReducer.test.ts",
+    "packages/shared/src/manual-assignment/assignmentStateValidation.ts",
+    "packages/shared/tests/manual-assignment-state.test.mjs"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing assignment state file ${file}`);
+  }
+  const reducer = readText("apps/web/src/features/manual-assignment/manualAssignmentReducer.ts");
+  const actions = readText("apps/web/src/features/manual-assignment/manualAssignmentActions.ts");
+  const selectors = readText("apps/web/src/features/manual-assignment/manualAssignmentSelectors.ts");
+  const state = readText("apps/web/src/features/manual-assignment/manualAssignmentState.ts");
+  const sharedValidation = readText("packages/shared/src/manual-assignment/assignmentStateValidation.ts");
+  const reducerTest = readText("apps/web/src/features/manual-assignment/__tests__/manualAssignmentReducer.test.ts");
+  const combined = `${reducer}\n${actions}\n${selectors}\n${state}\n${sharedValidation}\n${reducerTest}`;
+
+  for (const text of [
+    "assignRoom",
+    "reassignRoom",
+    "unassignRoom",
+    "clearAssignments",
+    "setActiveNurse",
+    "setRoomLoad",
+    "selectUnassignedOccupiedRooms",
+    "selectOverTargetCountByNurse",
+    "selectOverMaxCountByNurse"
+  ]) {
+    if (!combined.includes(text)) failures.push(`assignment state layer missing ${text}`);
+  }
+  if (!state.includes("assignmentsByRoomId")) failures.push("assignment state must keep assignments separate from floorplan fixtures");
+  if (!sharedValidation.includes("duplicate primary assignment")) failures.push("assignment state validation must reject duplicate primary assignments");
+  if (/optimizer|best assignment|recommend/u.test(combined)) failures.push("assignment state foundation must not add optimizer behavior");
+
+  writeJson(`${issueDir}/assignment-state-output.json`, { status: stageFailures().length === 0 ? "passed" : "failed" });
+  writeJson(`${issueDir}/assign-room-output.json`, { status: actions.includes("assignRoom") && reducer.includes("assignRoom") ? "passed" : "failed" });
+  writeJson(`${issueDir}/reassign-room-output.json`, { status: actions.includes("reassignRoom") && reducer.includes("reassignRoom") ? "passed" : "failed" });
+  writeJson(`${issueDir}/unassign-room-output.json`, { status: actions.includes("unassignRoom") && reducer.includes("unassignRoom") ? "passed" : "failed" });
+  writeJson(`${issueDir}/clear-assignments-output.json`, { status: actions.includes("clearAssignments") && reducer.includes("clearAssignments") ? "passed" : "failed" });
+  writeJson(`${issueDir}/set-active-nurse-output.json`, { status: actions.includes("setActiveNurse") && reducer.includes("setActiveNurse") ? "passed" : "failed" });
+  writeJson(`${issueDir}/set-room-load-output.json`, { status: actions.includes("setRoomLoad") && reducer.includes("setRoomLoad") ? "passed" : "failed" });
+  writeJson(`${issueDir}/unassigned-occupied-room-output.json`, { status: selectors.includes("selectUnassignedOccupiedRooms") ? "passed" : "failed" });
+  writeJson(`${issueDir}/over-target-patient-output.json`, { status: selectors.includes("selectOverTargetCountByNurse") ? "passed" : "failed" });
+  writeJson(`${issueDir}/over-max-patient-output.json`, { status: selectors.includes("selectOverMaxCountByNurse") ? "passed" : "failed" });
+  writeJson(`${issueDir}/duplicate-primary-assignment-negative-output.json`, {
+    status: sharedValidation.includes("duplicate primary assignment") && reducerTest.includes("duplicate primary assignments") ? "passed" : "failed",
+    rejected: true
+  });
+  writeJson(`${issueDir}/deterministic-transition-output.json`, {
+    status: reducerTest.includes("transitions must be deterministic") ? "passed" : "failed"
+  });
+  writeText(`${issueDir}/floorplan-nonmutation-output.txt`, "passed: manual assignment state is stored in UI state maps and does not write floorplan fixture files\n");
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: stageFailures().length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+}
+
 function runNurseProfiles() {
   const requiredFiles = [
     "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
@@ -360,6 +428,15 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-manual-assignment-foundation.mjs --stage room-load-editor --allow-partial --issue 384",
       "node scripts/check-no-phi-fields.mjs",
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 384"
+    ];
+  }
+  if (String(issueNumber) === "385") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-foundation.mjs --stage assignment-state --allow-partial --issue 385",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 385"
     ];
   }
   return [

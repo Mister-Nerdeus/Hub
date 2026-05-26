@@ -1,0 +1,1 @@
+Reproduced the pre-Issue-385 gap: manual assignment contracts, nurse profiles, and room-load controls existed, but there was no deterministic reducer-backed assignment state for assign, reassign, unassign, clear, active nurse selection, room-load replacement, or over-target/over-max selectors.
