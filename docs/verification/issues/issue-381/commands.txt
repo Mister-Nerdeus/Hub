@@ -1,0 +1,12 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:product-naming
+npm run check:product-identity
+npm run check:operational-demo-repair
+npm run check:real-browser-proof
+npm run check:operational-demo-negative-tests
+npm run check:canonical-gates
+npm run check:manual-assignment-foundation -- --stage preflight --allow-partial --issue 381
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 381
+node scripts/verify-local.mjs

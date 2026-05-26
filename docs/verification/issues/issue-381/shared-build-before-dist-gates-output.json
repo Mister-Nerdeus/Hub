@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "scripts": {
+    "check:operational-demo-repair": "npm --workspace packages/shared run build && node scripts/check-operational-demo-repair.mjs --stage final",
+    "check:operational-demo-negative-tests": "npm --workspace packages/shared run build && node scripts/check-operational-demo-negative-tests.mjs --issue 380",
+    "check:manual-assignment-foundation": "npm --workspace packages/shared run build && node scripts/check-manual-assignment-foundation.mjs --stage preflight --allow-partial --issue 381"
+  }
+}

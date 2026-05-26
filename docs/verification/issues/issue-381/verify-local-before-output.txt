@@ -23,67 +23,19 @@ function valueFor(envFile, key, fallback) {
   return process.env[key] ?? envFile[key] ?? fallback;
 }
 
-function manifestIssue(path, fallback) {
-  if (existsSync(path)) {
-    const manifest = JSON.parse(readFileSync(path, "utf8"));
-    return manifest.lastUpdatedIssue ?? fallback;
-  }
-  return fallback;
-}
-
-function currentManualAssignmentIssue() {
-  if (existsSync("docs/verification/manual-assignment-foundation-manifest.json")) {
-    return manifestIssue("docs/verification/manual-assignment-foundation-manifest.json", "381");
-  }
-  if (existsSync("docs/verification/operational-demo-repair-manifest.json")) {
-    return manifestIssue("docs/verification/operational-demo-repair-manifest.json", "380");
-  }
+function currentGovernanceIssue() {
   if (existsSync("docs/verification/operational-demo-ux-manifest.json")) {
-    return manifestIssue("docs/verification/operational-demo-ux-manifest.json", "370");
+    const manifest = JSON.parse(readFileSync("docs/verification/operational-demo-ux-manifest.json", "utf8"));
+    return manifest.lastUpdatedIssue ?? "370";
   }
-  return manifestIssue("docs/verification/human-review-governance-hardening-manifest.json", "360");
-}
-
-function currentOperationalDemoRepairIssue() {
-  return manifestIssue("docs/verification/operational-demo-repair-manifest.json", "380");
-}
-
-function currentOperationalDemoUxIssue() {
-  return manifestIssue("docs/verification/operational-demo-ux-manifest.json", "370");
+  const manifest = JSON.parse(readFileSync("docs/verification/human-review-governance-hardening-manifest.json", "utf8"));
+  return manifest.lastUpdatedIssue ?? "360";
 }
 
 function currentHumanReviewGovernanceIssue() {
-  return manifestIssue("docs/verification/human-review-governance-hardening-manifest.json", "360");
+  const manifest = JSON.parse(readFileSync("docs/verification/human-review-governance-hardening-manifest.json", "utf8"));
+  return manifest.lastUpdatedIssue ?? "360";
 }
-
-function loadCanonicalGateRegistry() {
-  const registryPath = "docs/verification/canonical-gate-registry.json";
-  if (!existsSync(registryPath)) {
-    throw new Error(`Missing canonical gate registry: ${registryPath}`);
-  }
-  const registry = JSON.parse(readFileSync(registryPath, "utf8"));
-  if (!Array.isArray(registry.gates)) {
-    throw new Error("Canonical gate registry must contain a gates array");
-  }
-  return registry;
-}
-
-function interpolateCommand(command, values) {
-  return command.replace(/\$\{([A-Za-z0-9_]+)\}/g, (_, key) => {
-    if (!Object.hasOwn(values, key)) {
-      throw new Error(`Unknown canonical gate command placeholder: ${key}`);
-    }
-    return values[key];
-  });
-}
-
-const canonicalGateDiscoveryStrings = [
-  "node scripts/check-plan-builder-ux-review-flow.mjs --stage final",
-  "node scripts/check-human-review-intake.mjs --stage final",
-  "check-source-plan-correction.mjs --stage final",
-  "check-corrected-plan-review.mjs --stage final",
-  "check-corrected-plan-route-repair.mjs --stage final"
-];
 
 function assertComposePortsAreEnvDriven() {
   const compose = readFileSync("docker-compose.yml", "utf8");
@@ -114,9 +66,7 @@ const corsOrigins = valueFor(
   "CORS_ORIGINS",
   `${webUrl},http://localhost:5173,http://localhost:5174`
 );
-const manualAssignmentIssue = currentManualAssignmentIssue();
-const operationalDemoRepairIssue = currentOperationalDemoRepairIssue();
-const operationalDemoUxIssue = currentOperationalDemoUxIssue();
+const governanceIssue = currentGovernanceIssue();
 const humanReviewGovernanceIssue = currentHumanReviewGovernanceIssue();
 
 if (viteApiBaseUrl !== apiUrl) {
@@ -129,21 +79,24 @@ if (!corsOrigins.split(",").map((origin) => origin.trim()).includes(webUrl)) {
 
 assertComposePortsAreEnvDriven();
 
-const canonicalCommands = loadCanonicalGateRegistry().gates.map((gate) =>
-  interpolateCommand(gate.command, {
-    manualAssignmentIssue,
-    operationalDemoRepairIssue,
-    operationalDemoUxIssue,
-    humanReviewGovernanceIssue
-  })
-);
-
 const commands = [
   "docker compose config",
   "docker compose up --build -d",
   "docker compose ps",
   "docker compose --profile tools run --rm migrate",
-  ...canonicalCommands,
+  "node scripts/check-no-phi-fields.mjs",
+  "node scripts/check-dependency-specs.mjs",
+  "node scripts/check-docs-contracts.mjs",
+  "node scripts/check-simulation-contract-parity.mjs",
+  "node scripts/check-source-plan-correction.mjs --stage final",
+  "node scripts/check-corrected-plan-review.mjs --stage final",
+  "node scripts/check-corrected-plan-route-repair.mjs --stage final",
+  `node scripts/check-manual-visual-review.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-plan-builder-ux-review-flow.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-human-review-intake.mjs --stage final --issue ${governanceIssue}`,
+  `node scripts/check-human-review-governance-hardening.mjs --stage final --issue ${humanReviewGovernanceIssue}`,
+  `node scripts/check-product-naming.mjs --issue ${governanceIssue}`,
+  `node scripts/check-operational-demo-ux.mjs --stage final --issue ${governanceIssue}`,
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",

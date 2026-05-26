@@ -1,0 +1,4 @@
+Reproduced Issue 381 preflight gap before code changes:
+- package.json lacked first-class check:product-identity, check:operational-demo-repair, check:real-browser-proof, check:operational-demo-negative-tests, check:canonical-gates, and check:manual-assignment-foundation scripts.
+- scripts/verify-local.mjs directly ran the older operational-demo UX gate and did not load a canonical gate registry.
+- docs/verification/canonical-gate-registry.json did not exist.

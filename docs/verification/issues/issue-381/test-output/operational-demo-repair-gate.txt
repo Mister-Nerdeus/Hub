@@ -1,0 +1,17 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:operational-demo-repair
+> npm --workspace packages/shared run build && node scripts/check-operational-demo-repair.mjs --stage final
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "380",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/operational-demo-repair-manifest.json",
+  "goNoGoStatus": "GO for Manual Assignment Workflow Foundation. NO-GO for promotion; manual visual approval remains required.",
+  "failures": []
+}

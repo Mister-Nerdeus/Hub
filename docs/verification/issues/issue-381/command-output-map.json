@@ -1,0 +1,77 @@
+{
+  "issue": "381",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:product-naming",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/product-naming-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:product-identity",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/product-identity-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:operational-demo-repair",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/operational-demo-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:real-browser-proof",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/real-browser-proof-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:operational-demo-negative-tests",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/operational-demo-negative-tests-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:canonical-gates",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/canonical-gates.txt"
+      ]
+    },
+    {
+      "command": "npm run check:manual-assignment-foundation -- --stage preflight --allow-partial --issue 381",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/manual-assignment-foundation-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 381",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-381/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}
