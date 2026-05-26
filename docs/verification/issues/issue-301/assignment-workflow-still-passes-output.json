@@ -1,0 +1,1306 @@
+{
+  "issue": "301",
+  "stage": "final",
+  "status": "passed",
+  "mode": "strict",
+  "readiness": {
+    "status": "passed",
+    "planId": "default-er-layout-plan-1",
+    "roomCount": 23,
+    "nurseStationCount": 2,
+    "pathGraphConnected": true,
+    "walkingBaselineUnreachableRouteCount": 0,
+    "room17AssignmentClass": "assignment_patient_care_room",
+    "providerPharmacySupportClassified": true,
+    "scaffoldZonesNonAssignment": true,
+    "stalePathSyncWarning": {
+      "code": "STALE_PATH_SYNC",
+      "severity": "blocking",
+      "summary": "Edited geometry preserved source doors, path nodes, and path edges; walking-aware assignment routing requires path sync review before use.",
+      "deferredSync": {
+        "doors": "preserved_from_source_plan",
+        "pathNodes": "preserved_from_source_plan",
+        "pathEdges": "preserved_from_source_plan"
+      }
+    },
+    "oldSimplifiedPlanLabelsRemaining": [],
+    "failures": []
+  },
+  "canonicalAssignmentWorkflowState": {
+    "planId": "default-er-layout-plan-1",
+    "visualParityStatus": "valid",
+    "pathSyncStatus": "fresh",
+    "nurses": [
+      {
+        "nurseId": "nurse-blue",
+        "displayName": "Nurse Blue",
+        "color": "#2563eb",
+        "role": "primary",
+        "homeStationId": "station-left",
+        "targetPatientCount": 3,
+        "maxPatientCount": 4,
+        "traumaQualified": true,
+        "chargeQualified": false,
+        "triageQualified": false,
+        "behavioralHealthComfort": true,
+        "walkingSpeedFeetPerMinute": 250,
+        "syntheticDataOnly": true
+      },
+      {
+        "nurseId": "nurse-green",
+        "displayName": "Nurse Green",
+        "color": "#059669",
+        "role": "primary",
+        "homeStationId": "station-left",
+        "targetPatientCount": 3,
+        "maxPatientCount": 4,
+        "traumaQualified": false,
+        "chargeQualified": false,
+        "triageQualified": false,
+        "behavioralHealthComfort": true,
+        "walkingSpeedFeetPerMinute": 250,
+        "syntheticDataOnly": true
+      },
+      {
+        "nurseId": "nurse-orange",
+        "displayName": "Nurse Orange",
+        "color": "#ea580c",
+        "role": "primary",
+        "homeStationId": "station-right",
+        "targetPatientCount": 3,
+        "maxPatientCount": 4,
+        "traumaQualified": false,
+        "chargeQualified": false,
+        "triageQualified": false,
+        "behavioralHealthComfort": false,
+        "walkingSpeedFeetPerMinute": 250,
+        "syntheticDataOnly": true
+      },
+      {
+        "nurseId": "nurse-purple",
+        "displayName": "Nurse Purple",
+        "color": "#7c3aed",
+        "role": "charge",
+        "homeStationId": "station-right",
+        "targetPatientCount": 3,
+        "maxPatientCount": 4,
+        "traumaQualified": true,
+        "chargeQualified": true,
+        "triageQualified": true,
+        "behavioralHealthComfort": true,
+        "walkingSpeedFeetPerMinute": 250,
+        "syntheticDataOnly": true
+      }
+    ],
+    "roomLoads": [
+      {
+        "roomId": "room-level-1-trauma",
+        "occupied": true,
+        "acuityLevel": "critical",
+        "traumaActive": true,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "high",
+        "medicationBurden": "high",
+        "procedureBurden": "high",
+        "turnoverExpected": false,
+        "notesCode": "trauma_ready",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-02",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-03",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-04",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": true,
+        "notesCode": "high_turnover",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-05",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-14",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-06",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-07",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-08",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-09",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-10",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-13",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-11",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-12",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-15",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-16",
+        "occupied": false,
+        "acuityLevel": "low",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "none",
+        "medicationBurden": "none",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-17",
+        "occupied": true,
+        "acuityLevel": "high",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "medium",
+        "medicationBurden": "medium",
+        "procedureBurden": "medium",
+        "turnoverExpected": true,
+        "notesCode": "high_turnover",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-19",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-20",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": true,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-21",
+        "occupied": true,
+        "acuityLevel": "high",
+        "traumaActive": false,
+        "isolationActive": true,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "high",
+        "medicationBurden": "medium",
+        "procedureBurden": "medium",
+        "turnoverExpected": false,
+        "notesCode": "isolation_workflow",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-22",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": true,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "none",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-23",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": true,
+        "sitterRequired": true,
+        "fallRisk": false,
+        "monitoringIntensity": "medium",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": false,
+        "notesCode": "behavioral_watch",
+        "syntheticDataOnly": true
+      },
+      {
+        "roomId": "room-24",
+        "occupied": true,
+        "acuityLevel": "medium",
+        "traumaActive": false,
+        "isolationActive": false,
+        "behavioralRisk": false,
+        "sitterRequired": false,
+        "fallRisk": false,
+        "monitoringIntensity": "low",
+        "medicationBurden": "low",
+        "procedureBurden": "none",
+        "turnoverExpected": true,
+        "notesCode": "high_turnover",
+        "syntheticDataOnly": true
+      }
+    ],
+    "assignments": [
+      {
+        "assignmentId": "plan-1-manual-baseline-01",
+        "roomId": "room-level-1-trauma",
+        "nurseId": "nurse-blue",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-02",
+        "roomId": "room-02",
+        "nurseId": "nurse-blue",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-03",
+        "roomId": "room-03",
+        "nurseId": "nurse-blue",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-04",
+        "roomId": "room-04",
+        "nurseId": "nurse-green",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-05",
+        "roomId": "room-06",
+        "nurseId": "nurse-green",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-06",
+        "roomId": "room-07",
+        "nurseId": "nurse-green",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-07",
+        "roomId": "room-08",
+        "nurseId": "nurse-orange",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-08",
+        "roomId": "room-17",
+        "nurseId": "nurse-orange",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-09",
+        "roomId": "room-19",
+        "nurseId": "nurse-orange",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-10",
+        "roomId": "room-20",
+        "nurseId": "nurse-orange",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-11",
+        "roomId": "room-21",
+        "nurseId": "nurse-purple",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-12",
+        "roomId": "room-22",
+        "nurseId": "nurse-purple",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-13",
+        "roomId": "room-23",
+        "nurseId": "nurse-purple",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      },
+      {
+        "assignmentId": "plan-1-manual-baseline-14",
+        "roomId": "room-24",
+        "nurseId": "nurse-purple",
+        "assignmentType": "primary",
+        "startMinute": 0,
+        "endMinute": null,
+        "source": "fixture",
+        "syntheticDataOnly": true
+      }
+    ],
+    "validationWarnings": [
+      {
+        "code": "NURSE_OVER_TARGET_RATIO",
+        "severity": "info",
+        "summary": "Nurse profile is above its synthetic target occupied-room count.",
+        "nurseIds": [
+          "nurse-orange"
+        ],
+        "roomIds": []
+      },
+      {
+        "code": "NURSE_OVER_TARGET_RATIO",
+        "severity": "info",
+        "summary": "Nurse profile is above its synthetic target occupied-room count.",
+        "nurseIds": [
+          "nurse-purple"
+        ],
+        "roomIds": []
+      }
+    ],
+    "syntheticDataOnly": true
+  },
+  "nurseProfileSummary": {
+    "nurseCount": 4,
+    "nurseIds": [
+      "nurse-blue",
+      "nurse-green",
+      "nurse-orange",
+      "nurse-purple"
+    ],
+    "displayNames": [
+      "Nurse Blue",
+      "Nurse Green",
+      "Nurse Orange",
+      "Nurse Purple"
+    ],
+    "homeStationIds": [
+      "station-left",
+      "station-left",
+      "station-right",
+      "station-right"
+    ]
+  },
+  "roomLoadSummary": {
+    "roomLoadCount": 23,
+    "occupiedRoomCount": 14,
+    "unoccupiedRoomCount": 9
+  },
+  "manualAssignmentSummary": {
+    "assignmentCount": 14,
+    "assignedRoomIds": [
+      "room-level-1-trauma",
+      "room-02",
+      "room-03",
+      "room-04",
+      "room-06",
+      "room-07",
+      "room-08",
+      "room-17",
+      "room-19",
+      "room-20",
+      "room-21",
+      "room-22",
+      "room-23",
+      "room-24"
+    ]
+  },
+  "assignmentValidationSummary": {
+    "status": "info",
+    "warningCodes": [
+      "NURSE_OVER_TARGET_RATIO"
+    ],
+    "highestSeverity": "info"
+  },
+  "nurseCardSummary": [
+    {
+      "nurseId": "nurse-blue",
+      "displayName": "Nurse Blue",
+      "color": "#2563eb",
+      "role": "primary",
+      "homeStationLabel": "Left Nurse Station",
+      "assignedRoomIds": [
+        "room-level-1-trauma",
+        "room-02",
+        "room-03"
+      ],
+      "assignedRoomLabels": [
+        "Level 1 Trauma",
+        "2",
+        "3"
+      ],
+      "occupiedRoomCount": 3,
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "roomLoadSummary": {
+        "highOrCriticalAcuityCount": 1,
+        "traumaActiveCount": 1,
+        "isolationActiveCount": 0,
+        "behavioralRiskCount": 0
+      },
+      "warningCodes": [],
+      "warningSeverities": [],
+      "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+      "walkingPreview": {
+        "nurseId": "nurse-blue",
+        "homeStationId": "station-left",
+        "assignedRoomIds": [
+          "room-level-1-trauma",
+          "room-02",
+          "room-03"
+        ],
+        "reachableRoomCount": 3,
+        "unreachableRoomCount": 0,
+        "totalApproxDistanceFeet": 202,
+        "totalApproxTravelSeconds": 67.408,
+        "longestRoomDistanceFeet": 86,
+        "warningCodes": [
+          "APPROXIMATE_GRAPH_ONLY"
+        ],
+        "limitations": [
+          "Approximate graph-only walking preview.",
+          "Not measured walking truth.",
+          "Not staffing safety guidance."
+        ]
+      },
+      "limitations": [
+        "Operational comparison summary only.",
+        "No staffing safety guidance is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-green",
+      "displayName": "Nurse Green",
+      "color": "#059669",
+      "role": "primary",
+      "homeStationLabel": "Left Nurse Station",
+      "assignedRoomIds": [
+        "room-04",
+        "room-06",
+        "room-07"
+      ],
+      "assignedRoomLabels": [
+        "4",
+        "6",
+        "7"
+      ],
+      "occupiedRoomCount": 3,
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "roomLoadSummary": {
+        "highOrCriticalAcuityCount": 0,
+        "traumaActiveCount": 0,
+        "isolationActiveCount": 0,
+        "behavioralRiskCount": 0
+      },
+      "warningCodes": [],
+      "warningSeverities": [],
+      "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+      "walkingPreview": {
+        "nurseId": "nurse-green",
+        "homeStationId": "station-left",
+        "assignedRoomIds": [
+          "room-04",
+          "room-06",
+          "room-07"
+        ],
+        "reachableRoomCount": 3,
+        "unreachableRoomCount": 0,
+        "totalApproxDistanceFeet": 276,
+        "totalApproxTravelSeconds": 83.364,
+        "longestRoomDistanceFeet": 104,
+        "warningCodes": [
+          "APPROXIMATE_GRAPH_ONLY"
+        ],
+        "limitations": [
+          "Approximate graph-only walking preview.",
+          "Not measured walking truth.",
+          "Not staffing safety guidance."
+        ]
+      },
+      "limitations": [
+        "Operational comparison summary only.",
+        "No staffing safety guidance is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-orange",
+      "displayName": "Nurse Orange",
+      "color": "#ea580c",
+      "role": "primary",
+      "homeStationLabel": "Right Nurse Station",
+      "assignedRoomIds": [
+        "room-08",
+        "room-17",
+        "room-19",
+        "room-20"
+      ],
+      "assignedRoomLabels": [
+        "8",
+        "17",
+        "19",
+        "20"
+      ],
+      "occupiedRoomCount": 4,
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "roomLoadSummary": {
+        "highOrCriticalAcuityCount": 1,
+        "traumaActiveCount": 0,
+        "isolationActiveCount": 0,
+        "behavioralRiskCount": 0
+      },
+      "warningCodes": [
+        "NURSE_OVER_TARGET_RATIO"
+      ],
+      "warningSeverities": [
+        "info"
+      ],
+      "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+      "walkingPreview": {
+        "nurseId": "nurse-orange",
+        "homeStationId": "station-right",
+        "assignedRoomIds": [
+          "room-08",
+          "room-17",
+          "room-19",
+          "room-20"
+        ],
+        "reachableRoomCount": 4,
+        "unreachableRoomCount": 0,
+        "totalApproxDistanceFeet": 400,
+        "totalApproxTravelSeconds": 120.182,
+        "longestRoomDistanceFeet": 139,
+        "warningCodes": [
+          "APPROXIMATE_GRAPH_ONLY"
+        ],
+        "limitations": [
+          "Approximate graph-only walking preview.",
+          "Not measured walking truth.",
+          "Not staffing safety guidance."
+        ]
+      },
+      "limitations": [
+        "Operational comparison summary only.",
+        "No staffing safety guidance is implied."
+      ]
+    },
+    {
+      "nurseId": "nurse-purple",
+      "displayName": "Nurse Purple",
+      "color": "#7c3aed",
+      "role": "charge",
+      "homeStationLabel": "Right Nurse Station",
+      "assignedRoomIds": [
+        "room-21",
+        "room-22",
+        "room-23",
+        "room-24"
+      ],
+      "assignedRoomLabels": [
+        "21",
+        "22",
+        "23",
+        "24"
+      ],
+      "occupiedRoomCount": 4,
+      "targetPatientCount": 3,
+      "maxPatientCount": 4,
+      "roomLoadSummary": {
+        "highOrCriticalAcuityCount": 1,
+        "traumaActiveCount": 0,
+        "isolationActiveCount": 1,
+        "behavioralRiskCount": 1
+      },
+      "warningCodes": [
+        "NURSE_OVER_TARGET_RATIO"
+      ],
+      "warningSeverities": [
+        "info"
+      ],
+      "walkingPreviewPlaceholder": "Walking-aware preview added in Issue 247.",
+      "walkingPreview": {
+        "nurseId": "nurse-purple",
+        "homeStationId": "station-right",
+        "assignedRoomIds": [
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "reachableRoomCount": 4,
+        "unreachableRoomCount": 0,
+        "totalApproxDistanceFeet": 478,
+        "totalApproxTravelSeconds": 138.864,
+        "longestRoomDistanceFeet": 151,
+        "warningCodes": [
+          "APPROXIMATE_GRAPH_ONLY"
+        ],
+        "limitations": [
+          "Approximate graph-only walking preview.",
+          "Not measured walking truth.",
+          "Not staffing safety guidance."
+        ]
+      },
+      "limitations": [
+        "Operational comparison summary only.",
+        "No staffing safety guidance is implied."
+      ]
+    }
+  ],
+  "walkingPreviewSummary": [
+    {
+      "nurseId": "nurse-blue",
+      "homeStationId": "station-left",
+      "assignedRoomIds": [
+        "room-level-1-trauma",
+        "room-02",
+        "room-03"
+      ],
+      "reachableRoomCount": 3,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 202,
+      "totalApproxTravelSeconds": 67.408,
+      "longestRoomDistanceFeet": 86,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    {
+      "nurseId": "nurse-green",
+      "homeStationId": "station-left",
+      "assignedRoomIds": [
+        "room-04",
+        "room-06",
+        "room-07"
+      ],
+      "reachableRoomCount": 3,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 276,
+      "totalApproxTravelSeconds": 83.364,
+      "longestRoomDistanceFeet": 104,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    {
+      "nurseId": "nurse-orange",
+      "homeStationId": "station-right",
+      "assignedRoomIds": [
+        "room-08",
+        "room-17",
+        "room-19",
+        "room-20"
+      ],
+      "reachableRoomCount": 4,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 400,
+      "totalApproxTravelSeconds": 120.182,
+      "longestRoomDistanceFeet": 139,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    },
+    {
+      "nurseId": "nurse-purple",
+      "homeStationId": "station-right",
+      "assignedRoomIds": [
+        "room-21",
+        "room-22",
+        "room-23",
+        "room-24"
+      ],
+      "reachableRoomCount": 4,
+      "unreachableRoomCount": 0,
+      "totalApproxDistanceFeet": 478,
+      "totalApproxTravelSeconds": 138.864,
+      "longestRoomDistanceFeet": 151,
+      "warningCodes": [
+        "APPROXIMATE_GRAPH_ONLY"
+      ],
+      "limitations": [
+        "Approximate graph-only walking preview.",
+        "Not measured walking truth.",
+        "Not staffing safety guidance."
+      ]
+    }
+  ],
+  "burdenScoreSummary": {
+    "nurseScores": [
+      {
+        "nurseId": "nurse-blue",
+        "assignedOccupiedRoomCount": 3,
+        "acuityLoadPoints": 16,
+        "traumaLoadPoints": 8,
+        "isolationLoadPoints": 0,
+        "behavioralRiskPoints": 0,
+        "sitterLoadPoints": 0,
+        "fallRiskPoints": 0,
+        "medicationBurdenPoints": 7,
+        "procedureBurdenPoints": 5,
+        "turnoverBurdenPoints": 0,
+        "walkingDistancePoints": 5.05,
+        "walkingTimePoints": 0.562,
+        "warningPenaltyPoints": 0,
+        "totalBurdenScore": 56.612,
+        "limitations": [
+          "This is an operational comparison score only.",
+          "Room count alone does not determine score.",
+          "It is not a clinical safety score.",
+          "It is not a staffing compliance recommendation.",
+          "It is not a patient outcome prediction."
+        ]
+      },
+      {
+        "nurseId": "nurse-green",
+        "assignedOccupiedRoomCount": 3,
+        "acuityLoadPoints": 9,
+        "traumaLoadPoints": 0,
+        "isolationLoadPoints": 0,
+        "behavioralRiskPoints": 0,
+        "sitterLoadPoints": 0,
+        "fallRiskPoints": 0,
+        "medicationBurdenPoints": 3,
+        "procedureBurdenPoints": 0,
+        "turnoverBurdenPoints": 3,
+        "walkingDistancePoints": 6.9,
+        "walkingTimePoints": 0.695,
+        "warningPenaltyPoints": 0,
+        "totalBurdenScore": 37.595,
+        "limitations": [
+          "This is an operational comparison score only.",
+          "Room count alone does not determine score.",
+          "It is not a clinical safety score.",
+          "It is not a staffing compliance recommendation.",
+          "It is not a patient outcome prediction."
+        ]
+      },
+      {
+        "nurseId": "nurse-orange",
+        "assignedOccupiedRoomCount": 4,
+        "acuityLoadPoints": 15,
+        "traumaLoadPoints": 0,
+        "isolationLoadPoints": 0,
+        "behavioralRiskPoints": 0,
+        "sitterLoadPoints": 0,
+        "fallRiskPoints": 2,
+        "medicationBurdenPoints": 6,
+        "procedureBurdenPoints": 3,
+        "turnoverBurdenPoints": 3,
+        "walkingDistancePoints": 10,
+        "walkingTimePoints": 1.002,
+        "warningPenaltyPoints": 1,
+        "totalBurdenScore": 61.002,
+        "limitations": [
+          "This is an operational comparison score only.",
+          "Room count alone does not determine score.",
+          "It is not a clinical safety score.",
+          "It is not a staffing compliance recommendation.",
+          "It is not a patient outcome prediction."
+        ]
+      },
+      {
+        "nurseId": "nurse-purple",
+        "assignedOccupiedRoomCount": 4,
+        "acuityLoadPoints": 15,
+        "traumaLoadPoints": 0,
+        "isolationLoadPoints": 4,
+        "behavioralRiskPoints": 4,
+        "sitterLoadPoints": 5,
+        "fallRiskPoints": 2,
+        "medicationBurdenPoints": 6,
+        "procedureBurdenPoints": 3,
+        "turnoverBurdenPoints": 3,
+        "walkingDistancePoints": 11.95,
+        "walkingTimePoints": 1.157,
+        "warningPenaltyPoints": 1,
+        "totalBurdenScore": 76.107,
+        "limitations": [
+          "This is an operational comparison score only.",
+          "Room count alone does not determine score.",
+          "It is not a clinical safety score.",
+          "It is not a staffing compliance recommendation.",
+          "It is not a patient outcome prediction."
+        ]
+      }
+    ],
+    "totalBurdenScore": 231.316,
+    "assumptions": {
+      "occupiedRoom": 5,
+      "acuity": {
+        "low": 1,
+        "medium": 3,
+        "high": 6,
+        "critical": 10
+      },
+      "trauma": 8,
+      "isolation": 4,
+      "behavioralRisk": 4,
+      "sitter": 5,
+      "fallRisk": 2,
+      "burden": {
+        "none": 0,
+        "low": 1,
+        "medium": 3,
+        "high": 5
+      },
+      "turnover": 3,
+      "walkingDistanceDivisorFeet": 40,
+      "walkingTimeDivisorSeconds": 120,
+      "warningPenalty": {
+        "info": 1,
+        "warning": 5,
+        "blocking": 10
+      }
+    },
+    "limitations": [
+      "This is an operational comparison score only.",
+      "Room count alone does not determine score.",
+      "It is not a clinical safety score.",
+      "It is not a staffing compliance recommendation.",
+      "It is not a patient outcome prediction."
+    ]
+  },
+  "comparisonFixtureSummary": [
+    {
+      "fixtureId": "fixture-plan-1-balanced-3-to-1",
+      "label": "balanced 3 to 1",
+      "nurseCount": 4,
+      "assignedRoomCount": 3,
+      "occupiedRoomCount": 3,
+      "totalBurdenScore": 36.412,
+      "highestNurseBurdenScore": 36.412,
+      "lowestNurseBurdenScore": 0,
+      "walkingTotalFeet": 232,
+      "warningCodes": [],
+      "limitations": [
+        "This is an operational comparison score only.",
+        "Room count alone does not determine score.",
+        "It is not a clinical safety score.",
+        "It is not a staffing compliance recommendation.",
+        "It is not a patient outcome prediction."
+      ]
+    },
+    {
+      "fixtureId": "fixture-plan-1-light-4-to-1",
+      "label": "light 4 to 1",
+      "nurseCount": 4,
+      "assignedRoomCount": 4,
+      "occupiedRoomCount": 4,
+      "totalBurdenScore": 33.842,
+      "highestNurseBurdenScore": 33.842,
+      "lowestNurseBurdenScore": 0,
+      "walkingTotalFeet": 320,
+      "warningCodes": [
+        "NURSE_OVER_TARGET_RATIO"
+      ],
+      "limitations": [
+        "This is an operational comparison score only.",
+        "Room count alone does not determine score.",
+        "It is not a clinical safety score.",
+        "It is not a staffing compliance recommendation.",
+        "It is not a patient outcome prediction."
+      ]
+    },
+    {
+      "fixtureId": "fixture-plan-1-heavy-4-to-1",
+      "label": "heavy 4 to 1",
+      "nurseCount": 4,
+      "assignedRoomCount": 4,
+      "occupiedRoomCount": 4,
+      "totalBurdenScore": 106.883,
+      "highestNurseBurdenScore": 106.883,
+      "lowestNurseBurdenScore": 0,
+      "walkingTotalFeet": 506,
+      "warningCodes": [
+        "NURSE_OVER_TARGET_RATIO"
+      ],
+      "limitations": [
+        "This is an operational comparison score only.",
+        "Room count alone does not determine score.",
+        "It is not a clinical safety score.",
+        "It is not a staffing compliance recommendation.",
+        "It is not a patient outcome prediction."
+      ]
+    },
+    {
+      "fixtureId": "fixture-plan-1-walking-heavy-3-to-1",
+      "label": "walking heavy 3 to 1",
+      "nurseCount": 4,
+      "assignedRoomCount": 3,
+      "occupiedRoomCount": 3,
+      "totalBurdenScore": 51.605,
+      "highestNurseBurdenScore": 51.605,
+      "lowestNurseBurdenScore": 0,
+      "walkingTotalFeet": 461,
+      "warningCodes": [],
+      "limitations": [
+        "This is an operational comparison score only.",
+        "Room count alone does not determine score.",
+        "It is not a clinical safety score.",
+        "It is not a staffing compliance recommendation.",
+        "It is not a patient outcome prediction."
+      ]
+    },
+    {
+      "fixtureId": "fixture-plan-1-trauma-mismatch",
+      "label": "trauma mismatch",
+      "nurseCount": 4,
+      "assignedRoomCount": 3,
+      "occupiedRoomCount": 3,
+      "totalBurdenScore": 61.612,
+      "highestNurseBurdenScore": 39.239,
+      "lowestNurseBurdenScore": 0,
+      "walkingTotalFeet": 202,
+      "warningCodes": [
+        "TRAUMA_ROOM_WITH_NON_TRAUMA_QUALIFIED_NURSE"
+      ],
+      "limitations": [
+        "This is an operational comparison score only.",
+        "Room count alone does not determine score.",
+        "It is not a clinical safety score.",
+        "It is not a staffing compliance recommendation.",
+        "It is not a patient outcome prediction."
+      ]
+    }
+  ],
+  "comparisonStateShapeSummary": [
+    {
+      "fixtureId": "fixture-plan-1-balanced-3-to-1",
+      "planId": "default-er-layout-plan-1",
+      "visualParityStatus": "valid",
+      "pathSyncStatus": "fresh",
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 3,
+      "syntheticDataOnly": true
+    },
+    {
+      "fixtureId": "fixture-plan-1-light-4-to-1",
+      "planId": "default-er-layout-plan-1",
+      "visualParityStatus": "valid",
+      "pathSyncStatus": "fresh",
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 4,
+      "syntheticDataOnly": true
+    },
+    {
+      "fixtureId": "fixture-plan-1-heavy-4-to-1",
+      "planId": "default-er-layout-plan-1",
+      "visualParityStatus": "valid",
+      "pathSyncStatus": "fresh",
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 4,
+      "syntheticDataOnly": true
+    },
+    {
+      "fixtureId": "fixture-plan-1-walking-heavy-3-to-1",
+      "planId": "default-er-layout-plan-1",
+      "visualParityStatus": "valid",
+      "pathSyncStatus": "fresh",
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 3,
+      "syntheticDataOnly": true
+    },
+    {
+      "fixtureId": "fixture-plan-1-trauma-mismatch",
+      "planId": "default-er-layout-plan-1",
+      "visualParityStatus": "valid",
+      "pathSyncStatus": "fresh",
+      "nurseCount": 4,
+      "roomLoadCount": 23,
+      "assignmentCount": 3,
+      "syntheticDataOnly": true
+    }
+  ],
+  "failureCount": 0,
+  "failures": [],
+  "nonClaims": [
+    "Plan 1 assignment outputs are operational comparison aids only.",
+    "No optimizer, full shift simulation, staffing safety certification, EHR workflow, PHI, or patient identity is introduced."
+  ]
+}

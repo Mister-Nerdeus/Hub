@@ -1,6 +1,7 @@
 import {
   assertNoForbiddenSourcePayload,
   validateAuthoringDraftContract,
+  validateSourceProvenance,
   type AuthoringDraftContract,
   type SourceProvenance
 } from "./authoringDraftContract.js";
@@ -150,12 +151,16 @@ export function validateSourceCorrectedSavedCopy(value: unknown): SourceCorrecte
   ]);
 
   const authoringDraft = validateAuthoringDraftContract(record.authoringDraft);
+  const sourceProvenance = validateSourceProvenance(record.sourceProvenance);
   const metadata = validateCorrectionMetadata(record.correctionMetadata);
   if (metadata.exactParityClaimMade !== false) {
     throw new Error("correctionMetadata.exactParityClaimMade must be false");
   }
   if (authoringDraft.sourceProvenance.publicExposureAllowed) {
     throw new Error("corrected saved copy must keep source material private");
+  }
+  if (JSON.stringify(sourceProvenance) !== JSON.stringify(authoringDraft.sourceProvenance)) {
+    throw new Error("sourceProvenance must match authoringDraft.sourceProvenance");
   }
 
   const savedPlanId = requireString(record.savedPlanId, "savedPlanId");
@@ -180,7 +185,7 @@ export function validateSourceCorrectedSavedCopy(value: unknown): SourceCorrecte
     displayName,
     versionLabel,
     authoringDraft,
-    sourceProvenance: authoringDraft.sourceProvenance,
+    sourceProvenance,
     correctionMetadata: metadata,
     syntheticDataOnly: requireLiteral(record.syntheticDataOnly, true, "syntheticDataOnly")
   };

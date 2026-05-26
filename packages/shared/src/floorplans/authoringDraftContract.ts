@@ -141,7 +141,7 @@ export function assertNoForbiddenSourcePayload(value: unknown, label: string): v
   }
 }
 
-function validateSourceProvenance(value: unknown): SourceProvenance {
+export function validateSourceProvenance(value: unknown): SourceProvenance {
   const provenance = requireRecord(value, "sourceProvenance");
   requireExactKeys(provenance, "sourceProvenance", [
     "sourceReferenceId",
