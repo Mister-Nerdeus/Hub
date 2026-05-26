@@ -8,6 +8,7 @@ const manualManifestPath = "docs/verification/manual-visual-review-manifest.json
 const routeRepairManifestPath = "docs/verification/corrected-plan-route-repair-manifest.json";
 const snapshotJsonPath = "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.json";
 const snapshotTsPath = "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.ts";
+const uxManifestPath = "docs/verification/plan-builder-ux-review-flow-manifest.json";
 const issueDir = `docs/verification/issues/issue-${issue}`;
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
@@ -103,6 +104,7 @@ const snapshot = {
 assertSafeSnapshot(snapshot);
 writeJson(snapshotJsonPath, snapshot);
 writeText(snapshotTsPath, buildSnapshotTs(snapshot));
+updateUxManifest();
 
 const output = {
   issue,
@@ -111,6 +113,8 @@ const output = {
   snapshotJsonHash: hashFile(snapshotJsonPath),
   snapshotTsPath,
   snapshotTsHash: hashFile(snapshotTsPath),
+  uxManifestPath,
+  uxManifestHash: hashFile(uxManifestPath),
   planCount: plans.length,
   manualReviewStatuses: plans.map((plan) => [plan.planId, plan.manualReviewStatus]),
   promotionStatuses: plans.map((plan) => [plan.planId, plan.promotionStatus])
@@ -130,6 +134,20 @@ writeJson(`${issueDir}/ui-snapshot-safe-fields-output.json`, {
   safePlanFields: Object.keys(plans[0] ?? {}).sort()
 });
 console.log(JSON.stringify(output, null, 2));
+
+function updateUxManifest() {
+  if (!existsSync(abs(uxManifestPath))) {
+    return;
+  }
+  const uxManifest = readJson(uxManifestPath);
+  writeJson(uxManifestPath, {
+    ...uxManifest,
+    lastUpdatedIssue: issue,
+    manualVisualReviewManifestHash: hashFile(manualManifestPath),
+    routeRepairManifestHash: hashFile(routeRepairManifestPath),
+    uiSnapshotHash: hashFile(snapshotJsonPath)
+  });
+}
 
 function buildSnapshotTs(value) {
   return `export const planBuilderReviewFlowSnapshot = ${JSON.stringify(value, null, 2)} as const;

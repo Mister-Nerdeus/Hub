@@ -1,10 +1,10 @@
 export const planBuilderReviewFlowSnapshot = {
   "snapshotVersion": "1.0.0",
   "batch": "331-340",
-  "lastUpdatedIssue": "340",
+  "lastUpdatedIssue": "341",
   "generatedFrom": {
     "manualVisualReviewManifestPath": "docs/verification/manual-visual-review-manifest.json",
-    "manualVisualReviewManifestHash": "1930c7bde0902b9db7085f9541b4ed1f0df5c2cbe6d9d28c2efe25f0365da57a",
+    "manualVisualReviewManifestHash": "794ccc74761c6c8bb5158eb478faf3e860b506f5dbe8af9f35b21e608f99333d",
     "routeRepairManifestPath": "docs/verification/corrected-plan-route-repair-manifest.json",
     "routeRepairManifestHash": "b27a7eb8486b4dd026ec8cc9badd133585fe6749e13bd7fa7d9af6f9adf75bfd"
   },

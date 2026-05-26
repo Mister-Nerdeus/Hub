@@ -1,0 +1,48 @@
+COMMAND: node scripts/build-plan-builder-review-flow-snapshot.mjs --issue 341
+{
+  "issue": "341",
+  "status": "passed",
+  "snapshotJsonPath": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.json",
+  "snapshotJsonHash": "471afb20ea09080f30abcb05777ac3775b6da7857eb42ec71c1d7a386ccd5c2a",
+  "snapshotTsPath": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.ts",
+  "snapshotTsHash": "21645c4af61d8260aeef0e0ac1b133a8de6f40742b007b15174a2b2f3b8b6aa2",
+  "uxManifestPath": "docs/verification/plan-builder-ux-review-flow-manifest.json",
+  "uxManifestHash": "7ed2fa3e54340686a356b4382f9b4537111ec0e82c045f15454dd485d05afffc",
+  "planCount": 4,
+  "manualReviewStatuses": [
+    [
+      "plan-2",
+      "manual_review_required"
+    ],
+    [
+      "plan-3",
+      "manual_review_required"
+    ],
+    [
+      "plan-4",
+      "manual_review_required"
+    ],
+    [
+      "plan-5",
+      "manual_review_required"
+    ]
+  ],
+  "promotionStatuses": [
+    [
+      "plan-2",
+      "blocked"
+    ],
+    [
+      "plan-3",
+      "blocked"
+    ],
+    [
+      "plan-4",
+      "blocked"
+    ],
+    [
+      "plan-5",
+      "blocked"
+    ]
+  ]
+}

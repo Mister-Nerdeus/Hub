@@ -44,6 +44,7 @@ mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
 
 const manifest = loadOrCreateManifest();
 const snapshot = existsSync(abs(snapshotPath)) ? readJson(snapshotPath) : null;
+const hashConsistencyFailures = [];
 
 runCommonValidation();
 
@@ -74,14 +75,24 @@ const updatedManifest = summarizeManifest({
   defaultFixtureMutationStatus: "unchanged"
 });
 
-writeJson(manifestPath, updatedManifest);
-writeJson(`${issueDir}/manifest-update-output.json`, {
-  status: "passed",
-  manifestPath,
-  lastUpdatedIssue: issue,
-  uiSnapshotHash: updatedManifest.uiSnapshotHash,
-  goNoGoStatus: updatedManifest.goNoGoStatus
-});
+if (hashConsistencyFailures.length === 0 && failures.length === 0) {
+  writeJson(manifestPath, updatedManifest);
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: "passed",
+    manifestPath,
+    lastUpdatedIssue: issue,
+    uiSnapshotHash: updatedManifest.uiSnapshotHash,
+    goNoGoStatus: updatedManifest.goNoGoStatus
+  });
+} else {
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: "blocked",
+    manifestPath,
+    lastUpdatedIssue: manifest.lastUpdatedIssue,
+    hashConsistencyFailures,
+    failures
+  });
+}
 
 const output = {
   status: failures.length === 0 ? "passed" : "failed",
@@ -113,6 +124,7 @@ function runCommonValidation() {
   if (snapshot != null) {
     validateSnapshot(snapshot);
   }
+  validateManifestAndSnapshotHashConsistency();
   writeJson(`${issueDir}/source-manifest-hash-output.json`, {
     status: "passed",
     manualVisualReviewManifestPath: manualManifestPath,
@@ -148,6 +160,70 @@ function runCommonValidation() {
   writeJson(`${issueDir}/no-fixture-mutation-output.json`, {
     status: "passed",
     defaultFixtureMutationStatus: "unchanged"
+  });
+}
+
+function validateManifestAndSnapshotHashConsistency() {
+  const actualManualVisualReviewManifestHash = hashFile(manualManifestPath);
+  const actualRouteRepairManifestHash = hashFile(routeRepairManifestPath);
+  const actualUiSnapshotHash = existsSync(abs(snapshotPath)) ? hashFile(snapshotPath) : zeroHash();
+  const checks = [
+    {
+      label: "uxManifest.manualVisualReviewManifestHash",
+      expected: actualManualVisualReviewManifestHash,
+      actual: manifest.manualVisualReviewManifestHash
+    },
+    {
+      label: "uxManifest.routeRepairManifestHash",
+      expected: actualRouteRepairManifestHash,
+      actual: manifest.routeRepairManifestHash
+    },
+    {
+      label: "uxManifest.uiSnapshotHash",
+      expected: actualUiSnapshotHash,
+      actual: manifest.uiSnapshotHash
+    },
+    {
+      label: "snapshot.generatedFrom.manualVisualReviewManifestHash",
+      expected: actualManualVisualReviewManifestHash,
+      actual: snapshot?.generatedFrom?.manualVisualReviewManifestHash
+    },
+    {
+      label: "snapshot.generatedFrom.routeRepairManifestHash",
+      expected: actualRouteRepairManifestHash,
+      actual: snapshot?.generatedFrom?.routeRepairManifestHash
+    }
+  ];
+  for (const check of checks) {
+    if (check.actual !== check.expected) {
+      const message = `${check.label} is stale: expected ${check.expected}, got ${check.actual ?? "missing"}`;
+      hashConsistencyFailures.push(message);
+      failures.push(message);
+    }
+  }
+  writeJson(`${issueDir}/ux-manifest-hash-consistency-output.json`, {
+    status: hashConsistencyFailures.filter((failure) => failure.startsWith("uxManifest.")).length === 0 ? "passed" : "failed",
+    manualVisualReviewManifestPath: manualManifestPath,
+    actualManualVisualReviewManifestHash,
+    routeRepairManifestPath,
+    actualRouteRepairManifestHash,
+    uiSnapshotPath: snapshotPath,
+    actualUiSnapshotHash,
+    uxManifestManualVisualReviewManifestHash: manifest.manualVisualReviewManifestHash,
+    uxManifestRouteRepairManifestHash: manifest.routeRepairManifestHash,
+    uxManifestUiSnapshotHash: manifest.uiSnapshotHash
+  });
+  writeJson(`${issueDir}/ui-snapshot-hash-consistency-output.json`, {
+    status: hashConsistencyFailures.filter((failure) => failure.startsWith("snapshot.")).length === 0 ? "passed" : "failed",
+    generatedFrom: snapshot?.generatedFrom ?? null,
+    actualManualVisualReviewManifestHash,
+    actualRouteRepairManifestHash
+  });
+  writeJson(`${issueDir}/actual-source-hash-output.json`, {
+    status: "passed",
+    manualVisualReviewManifestHash: actualManualVisualReviewManifestHash,
+    routeRepairManifestHash: actualRouteRepairManifestHash,
+    uiSnapshotHash: actualUiSnapshotHash
   });
 }
 
