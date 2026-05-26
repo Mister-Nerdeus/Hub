@@ -1,0 +1,10 @@
+COMMAND: node scripts/check-corrected-plan-route-repair.mjs --stage final --issue 350
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "350",
+  "allowPartial": false,
+  "routeManifestPath": "docs/verification/corrected-plan-route-repair-manifest.json",
+  "repairedPlanCount": 4,
+  "failures": []
+}
