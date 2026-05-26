@@ -199,9 +199,12 @@ export function isFreshPathSyncEligible(audit: CorrectedPlanRouteAudit): boolean
   return audit.roomsMissingDoor.length === 0 &&
     audit.roomsMissingPathNode.length === 0 &&
     audit.unreachableRoomIds.length === 0 &&
+    audit.orphanPathNodeIds.length === 0 &&
     audit.danglingPathEdgeIds.length === 0 &&
+    audit.invalidPathEdgeIds.length === 0 &&
     audit.nonFinitePathEdgeIds.length === 0 &&
     audit.nonPositivePathEdgeIds.length === 0 &&
+    audit.blockedRequiredEdgeIds.length === 0 &&
     audit.stationToRoomRoutesChecked === audit.stationToRoomRoutesPassed;
 }
 

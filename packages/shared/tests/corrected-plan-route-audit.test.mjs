@@ -55,6 +55,7 @@ test("negative blocker classes are recomputed from graph data", () => {
     ]
   };
   assert.deepEqual(auditRouteGraph(corrected, dangling).danglingPathEdgeIds, ["edge-dangling-negative"]);
+  assert.equal(isFreshPathSyncEligible(auditRouteGraph(corrected, dangling)), false);
 
   const nonFinite = {
     ...reviewedPlan,
@@ -88,10 +89,12 @@ test("negative blocker classes are recomputed from graph data", () => {
     ]
   };
   assert.equal(auditRouteGraph(corrected, orphan).orphanPathNodeIds.includes("node-orphan-negative"), true);
+  assert.equal(isFreshPathSyncEligible(auditRouteGraph(corrected, orphan)), false);
 
   const blocked = {
     ...reviewedPlan,
     pathEdges: reviewedPlan.pathEdges.map((edge) => ({ ...edge, blocked: true }))
   };
   assert.equal(auditRouteGraph(corrected, blocked).unreachableRoomIds.length > 0, true);
+  assert.equal(isFreshPathSyncEligible(auditRouteGraph(corrected, blocked)), false);
 });

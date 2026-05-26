@@ -168,6 +168,7 @@ function runVerifyWiring() {
 }
 
 function runProtocol() {
+  const failureCountBeforeProtocol = failures.length;
   requireFile("docs/plan-review/corrected-plan-route-repair-protocol.md");
   const protocol = readFileSync(abs("docs/plan-review/corrected-plan-route-repair-protocol.md"), "utf8");
   for (const required of [
@@ -182,12 +183,12 @@ function runProtocol() {
       failures.push(`route repair protocol missing ${required}`);
     }
   }
-  routeManifest.routeRepairProtocolStatus = "passed";
+  routeManifest.routeRepairProtocolStatus = failures.length === failureCountBeforeProtocol ? "passed" : "failed";
   const corrected = loadCorrectedCopy(2);
   const reviewedPlan = buildReviewedPlanFromCorrectedSavedCopy(corrected);
   const baseAudit = auditRouteGraph(corrected, reviewedPlan);
   writeJson(`${issueDir}/route-repair-protocol-output.md`, {
-    status: "passed",
+    status: routeManifest.routeRepairProtocolStatus,
     protocolPath: "docs/plan-review/corrected-plan-route-repair-protocol.md"
   });
   writeJson(`${issueDir}/route-audit-engine-output.json`, {

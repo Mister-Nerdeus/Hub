@@ -82,3 +82,34 @@ test("route export matrix classifies ready and blocked plans", () => {
   assert.equal(matrix[1].exportClassification, "export_blocked");
   assert.deepEqual(matrix[1].blockers, ["PATH_SYNC_NOT_FRESH"]);
 });
+
+test("route export matrix blocks incomplete route audits even with an export artifact", () => {
+  const matrix = buildCorrectedPlanRouteExportMatrix({
+    manifestVersion: "1.0.0",
+    batch: "311-320",
+    lastUpdatedIssue: "318",
+    correctedPlanReviewManifestPath: "docs/verification/corrected-plan-review-manifest.json",
+    correctedPlanReviewManifestHash: sha,
+    repairedPlans: [
+      entry("plan-2", {
+        routeAudit: {
+          ...cleanAudit,
+          roomsMissingDoor: ["room-without-door"]
+        }
+      })
+    ],
+    verifyWiringStatus: "passed",
+    routeRepairProtocolStatus: "passed",
+    routeAuditExecutionStatus: "partial",
+    routeReadinessStatus: "partial",
+    simulationReadyExportExecutionStatus: "partial",
+    simulationReadyExportReadinessStatus: "partial",
+    renderedEvidenceTruthStatus: "passed",
+    privateSourceBoundaryStatus: "passed",
+    defaultFixtureMutationStatus: "unchanged",
+    promotionStatus: "blocked",
+    goNoGoStatus: "GO for matrix proof"
+  });
+  assert.equal(matrix[0].routeClassification, "route_blocked");
+  assert.equal(matrix[0].proof.routeAuditPassed, false);
+});

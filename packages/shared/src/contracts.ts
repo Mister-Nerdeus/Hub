@@ -3679,7 +3679,7 @@ function validateZone(value: unknown, index: number): Zone {
 
 function validatePathNode(value: unknown, index: number): PathNode {
   const node = requireRecord(value, `pathNodes[${index}]`);
-  requireExactKeys(node, `pathNodes[${index}]`, [
+  requireOnlyKeys(node, `pathNodes[${index}]`, [
     "id",
     "nodeType",
     "x",
@@ -3709,7 +3709,7 @@ function validatePathNode(value: unknown, index: number): PathNode {
 
 function validatePathEdge(value: unknown, index: number): PathEdge {
   const edge = requireRecord(value, `pathEdges[${index}]`);
-  requireExactKeys(edge, `pathEdges[${index}]`, [
+  requireOnlyKeys(edge, `pathEdges[${index}]`, [
     "id",
     "fromNodeId",
     "toNodeId",
@@ -4365,6 +4365,10 @@ function requireRecord(value: unknown, label: string): Record<string, unknown> {
 }
 
 function requireExactKeys(value: Record<string, unknown>, label: string, allowedKeys: string[]): void {
+  requireOnlyKeys(value, label, allowedKeys);
+}
+
+function requireOnlyKeys(value: Record<string, unknown>, label: string, allowedKeys: string[]): void {
   const allowed = new Set(allowedKeys);
   for (const key of Object.keys(value)) {
     if (!allowed.has(key)) {

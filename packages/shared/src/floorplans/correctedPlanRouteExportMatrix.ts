@@ -29,16 +29,21 @@ export function buildCorrectedPlanRouteExportMatrix(
   return manifest.repairedPlans
     .map((plan) => {
       const routeAuditPassed = plan.routeAudit.roomsMissingPathNode.length === 0 &&
+        plan.routeAudit.roomsMissingDoor.length === 0 &&
         plan.routeAudit.unreachableRoomIds.length === 0 &&
+        plan.routeAudit.orphanPathNodeIds.length === 0 &&
         plan.routeAudit.danglingPathEdgeIds.length === 0 &&
+        plan.routeAudit.invalidPathEdgeIds.length === 0 &&
         plan.routeAudit.nonFinitePathEdgeIds.length === 0 &&
         plan.routeAudit.nonPositivePathEdgeIds.length === 0 &&
+        plan.routeAudit.blockedRequiredEdgeIds.length === 0 &&
         plan.routeAudit.stationToRoomRoutesChecked === plan.routeAudit.stationToRoomRoutesPassed;
       const simulationReadyExportValid = plan.pathSyncStatus === "fresh" &&
         plan.simulationReadyExportStatus === "simulation_ready" &&
         plan.simulationReadyExportPath != null &&
         plan.simulationReadyExportHash != null &&
-        plan.privateSourcePayloadStored === false;
+        plan.privateSourcePayloadStored === false &&
+        plan.exactParityClaimMade === false;
       const promotionClassification = plan.promotionCandidateStatus === "manual_review_candidate"
         ? "manual_review_candidate"
         : plan.promotionCandidateStatus === "future_promotion_review_candidate"

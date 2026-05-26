@@ -1,0 +1,82 @@
+{
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/docs-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/private-source-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-source-plan-correction.mjs --stage final --issue 320",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/source-plan-correction-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-review.mjs --stage final --issue 320",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/corrected-plan-review-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-corrected-plan-route-repair.mjs --stage final --issue 320",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/corrected-plan-route-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 320",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/verify-local.txt"
+      ]
+    },
+    {
+      "command": "docker compose ps",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/docker-compose-ps.txt"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "outputs": [
+        "docs/verification/reviews/2026-05-26-batch-311-320-code-review/test-output/git-diff-check.txt"
+      ]
+    }
+  ]
+}
