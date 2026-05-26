@@ -1,0 +1,34 @@
+{
+  "planId": "plan-4",
+  "correctedSavedCopyPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-corrected-saved-copy.json",
+  "sourceFixtureUnchanged": true,
+  "privateSourcePayloadStored": false,
+  "exactParityClaimMade": false,
+  "visualAuditStatus": "rendered_visual_exists",
+  "visualEvidencePath": "docs/verification/issues/issue-296/screenshots/plan-4-corrected-copy-pass-1.png",
+  "routeAuditStatus": "route_access_blocked",
+  "roomsMissingDoor": [],
+  "roomsMissingPathNode": [
+    "plan-4-source-review-added-room"
+  ],
+  "unreachableRoomIds": [
+    "plan-4-source-review-added-room"
+  ],
+  "pathSyncStatus": "stale_warning",
+  "simulationReadyExportStatus": "blocked_path_sync",
+  "blockingIssues": [
+    "ROOM_MISSING_PATH_NODE",
+    "PATH_GRAPH_UNREACHABLE_ROOM",
+    "SIMULATION_READY_EXPORT_BLOCKED"
+  ],
+  "warningIssues": [
+    "PATH_SYNC_STALE"
+  ],
+  "promotionRecommendation": "blocked_needs_authoring_fix",
+  "promotionCandidateStatus": "blocked_by_export_status",
+  "limitations": [
+    "Audit uses the corrected saved copy, not the default source fixture.",
+    "Route audit does not claim exact walking route truth.",
+    "Promotion is not performed in this batch."
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "291-300",
-  "lastUpdatedIssue": "296",
+  "lastUpdatedIssue": "297",
   "correctionScope": "source-driven plan correction through corrected saved editable copies only",
   "sourcePrivacyStatus": "private source reference only; no source payload, filename, private path, OCR dump, raw source text, or private-source screenshot stored",
   "defaultFixtureMutationStatus": "Plans 2-5 default source fixtures must remain unchanged",
@@ -55,19 +55,19 @@
       "correctionNotesPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-notes.md",
       "correctionAuditPath": "packages/shared/fixtures/source-corrections/plan-4/plan-4-correction-audit.json",
       "visualEvidencePath": "docs/verification/issues/issue-296/screenshots/plan-4-corrected-copy-pass-1.png",
-      "correctionStage": "visual_audit_ready",
+      "correctionStage": "blocked_needs_authoring_refinement",
       "privateSourcePayloadStored": false,
       "sourceFixtureUnchanged": true,
-      "routeAuditStatus": "pending_audit",
+      "routeAuditStatus": "route_access_blocked",
       "simulationReadyExportStatus": "blocked_path_sync",
       "promotionStatus": "not_requested",
-      "promotionCandidateStatus": "blocked_by_route_audit",
+      "promotionCandidateStatus": "blocked_by_export_status",
       "limitations": [
-        "Manual private-reference correction pass only.",
-        "No exact CAD or exact DOCX parity claim.",
-        "Route/path sync requires audit before promotion review."
+        "Audit uses the corrected saved copy, not the default source fixture.",
+        "Route audit does not claim exact walking route truth.",
+        "Promotion is not performed in this batch."
       ],
-      "goNoGo": "GO for Issue 297 audit"
+      "goNoGo": "GO for another source-correction pass"
     },
     {
       "planId": "plan-5",
@@ -98,7 +98,7 @@
   "routeAuditStatus": {
     "plan-2": "route_access_blocked",
     "plan-3": "route_access_blocked",
-    "plan-4": "pending_audit"
+    "plan-4": "route_access_blocked"
   },
   "simulationReadyExportStatus": {
     "plan-2": "blocked_path_sync",
@@ -111,5 +111,5 @@
     "plan-4": "not_requested",
     "plan-5": "not_requested"
   },
-  "goNoGoStatus": "Issue 295 plan-3 audit complete"
+  "goNoGoStatus": "Issue 297 plan-4 audit complete"
 }
