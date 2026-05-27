@@ -1085,7 +1085,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
                     onDuplicateRoom={() => dispatchStage({ type: "duplicateSelectedObject" })}
-                    onDeleteRoom={() => undefined}
+                    onDeleteRoom={() => dispatchStage({ type: "deleteSelectedRoom" })}
                   />
                 ) : canvasObjectPopoverViewModel.objectType === "door" ? (
                   <DoorQuickEditPopover
@@ -1155,15 +1155,58 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 ) : canvasObjectPopoverViewModel.objectType === "station" ? (
                   <StationQuickEditPopover
                     viewModel={stationQuickEditViewModel}
-                    onStationTypeChange={() => undefined}
+                    onStationLabelChange={(label) => {
+                      if (stationQuickEditViewModel.stationId != null) {
+                        dispatchStage({
+                          type: "editSelectedStation",
+                          stationId: stationQuickEditViewModel.stationId,
+                          label
+                        });
+                      }
+                    }}
+                    onStationTypeChange={(stationType) => {
+                      if (stationQuickEditViewModel.stationId != null) {
+                        dispatchStage({
+                          type: "editSelectedStation",
+                          stationId: stationQuickEditViewModel.stationId,
+                          stationType
+                        });
+                      }
+                    }}
                     onPresentationStyle={() => setEditorMode("presentation")}
                     onMoveResize={() => setToolMode("select")}
                   />
                 ) : canvasObjectPopoverViewModel.objectType === "hallway" || canvasObjectPopoverViewModel.objectType === "zone" ? (
                   <HallwayZoneQuickEditPopover
                     viewModel={hallwayZoneQuickEditViewModel}
-                    onLabelChange={() => undefined}
-                    onZoneTypeChange={() => undefined}
+                    onLabelChange={(label) => {
+                      if (hallwayZoneQuickEditViewModel.objectId == null) {
+                        return;
+                      }
+                      if (hallwayZoneQuickEditViewModel.status === "hallway") {
+                        dispatchStage({
+                          type: "editSelectedHallwayLabel",
+                          hallwayId: hallwayZoneQuickEditViewModel.objectId,
+                          label
+                        });
+                      }
+                      if (hallwayZoneQuickEditViewModel.status === "zone") {
+                        dispatchStage({
+                          type: "editSelectedZone",
+                          zoneId: hallwayZoneQuickEditViewModel.objectId,
+                          label
+                        });
+                      }
+                    }}
+                    onZoneTypeChange={(zoneType) => {
+                      if (hallwayZoneQuickEditViewModel.objectId != null) {
+                        dispatchStage({
+                          type: "editSelectedZone",
+                          zoneId: hallwayZoneQuickEditViewModel.objectId,
+                          zoneType
+                        });
+                      }
+                    }}
                     onTogglePresentationVisibility={() => setEditorMode("presentation")}
                   />
                 ) : null}

@@ -10,7 +10,9 @@ import {
   validateAuthoringRoomType,
   type AuthoringRoomType,
   type EditableDoorWall,
-  type EditableLayoutGeometryContract
+  type EditableLayoutGeometryContract,
+  type EditableStationType,
+  type EditableZoneType
 } from "@nerdeus/shared";
 
 import {
@@ -99,6 +101,7 @@ export type LayoutEditorAction =
       widthFeet: number;
       heightFeet: number;
     }
+  | { type: "deleteSelectedRoom" }
   | {
       type: "addDoorToRoom";
       doorId: string;
@@ -116,6 +119,19 @@ export type LayoutEditorAction =
       roomId: string;
       wall: EditableDoorWall;
       offsetFeet: number;
+    }
+  | {
+      type: "editSelectedStation";
+      stationId: string;
+      label?: string;
+      stationType?: EditableStationType;
+    }
+  | { type: "editSelectedHallwayLabel"; hallwayId: string; label: string }
+  | {
+      type: "editSelectedZone";
+      zoneId: string;
+      label?: string;
+      zoneType?: EditableZoneType;
     }
   | { type: "generateAutoHallways" }
   | { type: "duplicateSelectedObject" }
@@ -209,6 +225,8 @@ export function layoutEditorReducer(
       return editSelectedRoomType(state, action.roomId, action.roomType);
     case "addRoom":
       return addRoom(state, action);
+    case "deleteSelectedRoom":
+      return deleteSelectedRoom(state);
     case "addDoorToRoom":
       return applyDoorAuthoring(
         state,
@@ -265,6 +283,12 @@ export function layoutEditorReducer(
           offsetFeet: action.offsetFeet
         })
       );
+    case "editSelectedStation":
+      return editSelectedStation(state, action);
+    case "editSelectedHallwayLabel":
+      return editSelectedHallwayLabel(state, action.hallwayId, action.label);
+    case "editSelectedZone":
+      return editSelectedZone(state, action);
     case "generateAutoHallways":
       return generateAutoHallwaysForState(state);
     case "duplicateSelectedObject":
@@ -373,6 +397,46 @@ function addRoom(
   });
 }
 
+function deleteSelectedRoom(state: LayoutEditorState): LayoutEditorState {
+  if (
+    state.readOnly ||
+    state.editableLayout == null ||
+    state.selectedObjectType !== "room" ||
+    state.selectedObjectId == null
+  ) {
+    return state;
+  }
+  const roomId = state.selectedObjectId;
+  if (!state.editableLayout.rooms.some((room) => room.id === roomId)) {
+    return state;
+  }
+  const removedDoorIds = new Set(
+    state.editableLayout.doors
+      .filter((door) => door.ownerKind === "room" && door.ownerId === roomId)
+      .map((door) => door.id)
+  );
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      rooms: state.editableLayout.rooms.filter((room) => room.id !== roomId),
+      doors: state.editableLayout.doors.filter((door) => !removedDoorIds.has(door.id))
+    },
+    selectedObjectType: null,
+    selectedObjectId: null,
+    validationWarnings: state.validationWarnings.filter((warning) => {
+      if (warning.objectType === "room" && warning.objectId === roomId) {
+        return false;
+      }
+      if (warning.objectType === "door" && warning.objectId != null && removedDoorIds.has(warning.objectId)) {
+        return false;
+      }
+      return true;
+    }),
+    isDirty: true
+  });
+}
+
 function applyDoorAuthoring(
   state: LayoutEditorState,
   result: ReturnType<typeof addDoorToRoom>
@@ -433,6 +497,109 @@ function generateAutoHallwaysForState(state: LayoutEditorState): LayoutEditorSta
   });
 }
 
+function editSelectedStation(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "editSelectedStation" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "station" || state.selectedObjectId !== action.stationId) {
+    return state;
+  }
+  const label = normalizeEditableLabel(action.label);
+  const updatedLayout = {
+    ...state.editableLayout,
+    stations: state.editableLayout.stations.map((station) =>
+      station.id === action.stationId
+        ? {
+            ...station,
+            label: label ?? station.label,
+            stationType: action.stationType ?? station.stationType
+          }
+        : station
+    )
+  };
+  if (JSON.stringify(updatedLayout.stations) === JSON.stringify(state.editableLayout.stations)) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: updatedLayout,
+    selectedObjectType: "station",
+    selectedObjectId: action.stationId,
+    isDirty: true
+  });
+}
+
+function editSelectedHallwayLabel(
+  state: LayoutEditorState,
+  hallwayId: string,
+  labelValue: string
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "hallway" || state.selectedObjectId !== hallwayId) {
+    return state;
+  }
+  const label = normalizeEditableLabel(labelValue);
+  if (label == null) {
+    return state;
+  }
+  const updatedLayout = {
+    ...state.editableLayout,
+    hallways: state.editableLayout.hallways.map((hallway) =>
+      hallway.id === hallwayId ? { ...hallway, label } : hallway
+    )
+  };
+  if (JSON.stringify(updatedLayout.hallways) === JSON.stringify(state.editableLayout.hallways)) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: updatedLayout,
+    selectedObjectType: "hallway",
+    selectedObjectId: hallwayId,
+    isDirty: true
+  });
+}
+
+function editSelectedZone(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "editSelectedZone" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "zone" || state.selectedObjectId !== action.zoneId) {
+    return state;
+  }
+  const label = normalizeEditableLabel(action.label);
+  const updatedLayout = {
+    ...state.editableLayout,
+    zones: state.editableLayout.zones.map((zone) =>
+      zone.id === action.zoneId
+        ? {
+            ...zone,
+            label: label ?? zone.label,
+            zoneType: action.zoneType ?? zone.zoneType
+          }
+        : zone
+    )
+  };
+  if (JSON.stringify(updatedLayout.zones) === JSON.stringify(state.editableLayout.zones)) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: updatedLayout,
+    selectedObjectType: "zone",
+    selectedObjectId: action.zoneId,
+    isDirty: true
+  });
+}
+
 function duplicateSelectedObject(state: LayoutEditorState): LayoutEditorState {
   if (state.readOnly || state.editableLayout == null || state.selectedObjectId == null) {
     return state;
@@ -457,6 +624,14 @@ function duplicateSelectedObject(state: LayoutEditorState): LayoutEditorState {
     selectedObjectId: result.duplicatedObjectId,
     isDirty: true
   });
+}
+
+function normalizeEditableLabel(value: string | undefined): string | null {
+  if (value === undefined) {
+    return null;
+  }
+  const label = value.trim();
+  return label.length === 0 ? null : label;
 }
 
 function requireEditableLayout(state: LayoutEditorState): EditableLayoutGeometryContract {

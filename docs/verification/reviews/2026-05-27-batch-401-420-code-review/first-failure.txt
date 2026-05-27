@@ -1,0 +1,5 @@
+The first captured shared test run was executed in parallel with the web test run and failed with a transient dist export race:
+
+SyntaxError: The requested module './nurseBurdenScore.js' does not provide an export named 'NURSE_BURDEN_PENALTIES'
+
+The shared test suite was rerun by itself and passed. Preserved output: test-output/shared-parallel-first-failure.txt.

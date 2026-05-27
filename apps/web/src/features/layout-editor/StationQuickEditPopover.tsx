@@ -3,6 +3,7 @@ import type { StationQuickEditViewModel } from "./stationQuickEditViewModel";
 
 export type StationQuickEditPopoverProps = {
   viewModel: StationQuickEditViewModel;
+  onStationLabelChange: (label: string) => void;
   onStationTypeChange: (stationType: EditableStationType) => void;
   onPresentationStyle: () => void;
   onMoveResize: () => void;
@@ -12,6 +13,7 @@ const STATION_TYPES: readonly EditableStationType[] = ["nurse_station", "desk"];
 
 export function StationQuickEditPopover({
   viewModel,
+  onStationLabelChange,
   onStationTypeChange,
   onPresentationStyle,
   onMoveResize
@@ -23,7 +25,15 @@ export function StationQuickEditPopover({
     <div className="station-quick-edit-popover" data-station-quick-edit="ready">
       <label>
         Station label
-        <input value={viewModel.label} readOnly />
+        <input
+          value={viewModel.label}
+          readOnly={viewModel.readOnly}
+          onChange={(event) => {
+            if (event.currentTarget.value.trim().length > 0) {
+              onStationLabelChange(event.currentTarget.value);
+            }
+          }}
+        />
       </label>
       <label>
         Station type

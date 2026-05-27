@@ -26,7 +26,11 @@ export function HallwayZoneQuickEditPopover({
         <input
           value={viewModel.label}
           readOnly={viewModel.readOnly}
-          onChange={(event) => onLabelChange(event.currentTarget.value)}
+          onChange={(event) => {
+            if (event.currentTarget.value.trim().length > 0) {
+              onLabelChange(event.currentTarget.value);
+            }
+          }}
         />
       </label>
       {viewModel.status === "zone" && viewModel.zoneType != null ? (

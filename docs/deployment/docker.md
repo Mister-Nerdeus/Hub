@@ -60,3 +60,7 @@ Production-shaped web host ports stay environment-driven:
 ## Non-Claims
 
 These Dockerfiles do not deploy the app, add auth, configure DNS, or certify production readiness.
+
+## Batch 401-420 Editor Review Note
+
+The editor usability and canvas popup changes remain within the existing Docker build paths. The web images copy `apps/web` and `packages/shared`, so shared editor helpers such as layout object duplication are included without adding dependencies or changing runtime services.

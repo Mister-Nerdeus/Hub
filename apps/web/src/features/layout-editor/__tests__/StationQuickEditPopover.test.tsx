@@ -29,6 +29,7 @@ if (!readOnly.readOnly || readOnly.presentationStyle !== "presentation") {
 const calls: string[] = [];
 const element = StationQuickEditPopover({
   viewModel: editable,
+  onStationLabelChange: () => calls.push("label"),
   onStationTypeChange: () => calls.push("type"),
   onPresentationStyle: () => calls.push("style"),
   onMoveResize: () => calls.push("resize")
@@ -42,6 +43,10 @@ if (element.props["data-station-quick-edit"] !== "ready") {
 }
 
 const children = element.props.children;
+children[0].props.children[1].props.onChange({ currentTarget: { value: "Station 02" } });
+if (calls.at(-1) !== "label") throw new Error("station label callback missing");
+children[1].props.children[1].props.onChange({ currentTarget: { value: "desk" } });
+if (calls.at(-1) !== "type") throw new Error("station type callback missing");
 children[2].props.children[0].props.onClick();
 if (calls.at(-1) !== "style") throw new Error("presentation style callback missing");
 children[2].props.children[1].props.onClick();

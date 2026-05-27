@@ -281,7 +281,14 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/editorCommandBarViewModel.ts", "proceedDisabled: true");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onValidate={validateSimulationReadyExportFromStage}");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onResetView={() => dispatchStage({ type: \"resetViewport\" })}");
-    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onAddObject={() => setToolMode(\"add_room\")}");
+    if (
+      !stageSource.includes("onAddObject={() => setToolMode(\"add_room\")}") &&
+      !stageSource.includes("onAddObject={() => setAddObjectMenuOpen((value) => !value)}")
+    ) {
+      failures.push(
+        "apps/web/src/features/layout-editor/LayoutEditorStage.tsx missing command bar Add Object launcher wiring"
+      );
+    }
     requireText("apps/web/src/features/layout-editor/SimulationReadyExportPanel.tsx", "showValidateButton");
     requireFile("apps/web/src/features/layout-editor/__tests__/editorCommandBar.test.tsx");
     assertPng(`${stageEvidenceDir(currentStage)}/screenshots/editor-command-bar.png`);

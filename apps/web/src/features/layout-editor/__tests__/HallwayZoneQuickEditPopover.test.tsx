@@ -59,6 +59,10 @@ if (element.type !== "div") {
 if (element.props["data-hallway-zone-quick-edit"] !== "hallway") {
   throw new Error("HallwayZoneQuickEditPopover must expose selected object state");
 }
+element.props.children[0].props.children[1].props.onChange({ currentTarget: { value: "Main Hall" } });
+if (calls.at(-1) !== "label") {
+  throw new Error("hallway label callback missing");
+}
 element.props.children[3].props.onClick();
 if (calls.at(-1) !== "visibility") {
   throw new Error("presentation visibility callback missing");

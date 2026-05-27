@@ -129,7 +129,9 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/RoomQuickEditPopover.tsx", "RoomQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/roomQuickEditViewModel.ts", "buildRoomQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "RoomQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "deleteSelectedRoom");
     requireText("apps/web/src/features/layout-editor/__tests__/RoomQuickEditPopover.test.tsx", "delete/duplicate controls must be protected");
+    requireText("apps/web/src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts", "room quick edit delete must remove the selected room");
     assertPng(`${stageEvidenceDir(currentStage)}/screenshots/room-quick-edit-popover.png`);
     writeJson(`${issueDir}/room-popover-output.json`, {
       status: "passed",
@@ -199,7 +201,9 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/StationQuickEditPopover.tsx", "StationQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/stationQuickEditViewModel.ts", "buildStationQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "StationQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "editSelectedStation");
     requireText("apps/web/src/features/layout-editor/__tests__/StationQuickEditPopover.test.tsx", "read-only");
+    requireText("apps/web/src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts", "station quick edit reducer must update label and type");
     assertPng(`${stageEvidenceDir(currentStage)}/screenshots/station-quick-edit-popover.png`);
     writeJson(`${issueDir}/station-popover-output.json`, {
       status: "passed",
@@ -225,7 +229,10 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/HallwayZoneQuickEditPopover.tsx", "HallwayZoneQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/hallwayZoneQuickEditViewModel.ts", "buildHallwayZoneQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "HallwayZoneQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "editSelectedHallwayLabel");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "editSelectedZone");
     requireText("apps/web/src/features/layout-editor/__tests__/HallwayZoneQuickEditPopover.test.tsx", "validation status");
+    requireText("apps/web/src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts", "zone quick edit reducer must update label and type");
     assertPng(`${stageEvidenceDir(currentStage)}/screenshots/hallway-zone-quick-edit-popover.png`);
     writeJson(`${issueDir}/hallway-zone-popover-output.json`, {
       status: "passed",
