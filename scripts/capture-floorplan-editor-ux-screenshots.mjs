@@ -104,6 +104,9 @@ try {
       screenshots.push(await captureCase(cdp, "validation-drawer-expanded.png", "validation drawer expanded", 1440, 1200));
     } else if (issue === "407") {
       writeJson(`${issueDir}/dom-assertion-sidecar-output.json`, await collectViewportFitAssertions(cdp));
+    } else if (issue === "408") {
+      await clickIfPresent(cdp, "Advanced");
+      screenshots.push(await captureCase(cdp, "primary-nav-with-advanced.png", "primary nav with advanced", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

@@ -21,6 +21,7 @@ export function AppShell({
   children
 }: AppShellProps) {
   const primarySections = sections.filter((section) => section.group === "primary");
+  const advancedSections = sections.filter((section) => section.group === "advanced");
   const futureSections = sections.filter((section) => section.group === "future");
 
   return (
@@ -52,6 +53,22 @@ export function AppShell({
             {section.label}
           </button>
         ))}
+        <details className="app-nav__advanced-tools">
+          <summary>Advanced</summary>
+          <div className="app-nav__advanced-list" aria-label="Advanced navigation">
+            {advancedSections.map((section) => (
+              <button
+                key={section.id}
+                type="button"
+                className={`app-nav__button app-nav__button--advanced ${section.id === activeSection ? "app-nav__button--active" : ""}`}
+                aria-pressed={section.id === activeSection}
+                onClick={() => onSectionChange(section.id)}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
+        </details>
         <details className="app-nav__future-tools">
           <summary>Future Tools</summary>
           <div className="app-nav__future-list" aria-label="Future tools navigation">

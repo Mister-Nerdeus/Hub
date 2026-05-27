@@ -9,7 +9,7 @@
   align-items: center;
   display: grid;
   gap: 8px;
-  grid-template-columns: repeat(5, minmax(0, auto)) minmax(150px, 1fr);
+  grid-template-columns: repeat(4, minmax(0, auto)) minmax(110px, auto) minmax(150px, 1fr);
   margin: 0 auto;
   max-width: 1180px;
   width: 100%;
@@ -42,11 +42,24 @@
   color: #53616f;
 }
 
+.app-nav__button--advanced {
+  color: #243342;
+}
+
+.app-nav__advanced-tools,
 .app-nav__future-tools {
-  justify-self: end;
   position: relative;
 }
 
+.app-nav__advanced-tools {
+  justify-self: start;
+}
+
+.app-nav__future-tools {
+  justify-self: end;
+}
+
+.app-nav__advanced-tools summary,
 .app-nav__future-tools summary {
   background: #f8fafc;
   border: 1px solid #cfd8e3;
@@ -59,10 +72,12 @@
   padding: 8px 12px;
 }
 
+.app-nav__advanced-tools summary::-webkit-details-marker,
 .app-nav__future-tools summary::-webkit-details-marker {
   display: none;
 }
 
+.app-nav__advanced-list,
 .app-nav__future-list {
   background: #ffffff;
   border: 1px solid #cfd8e3;
@@ -76,6 +91,11 @@
   right: 0;
   top: calc(100% + 6px);
   z-index: 4;
+}
+
+.app-nav__advanced-list {
+  left: 0;
+  right: auto;
 }
 
 .workflow-content {
@@ -110,10 +130,12 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  .app-nav__advanced-tools,
   .app-nav__future-tools {
     justify-self: stretch;
   }
 
+  .app-nav__advanced-list,
   .app-nav__future-list {
     position: static;
   }

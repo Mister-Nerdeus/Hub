@@ -415,8 +415,47 @@ function runStage(currentStage) {
     });
   }
   if (currentStage === "advanced-nav") {
-    requireText("apps/web/src/features/app-shell/appNavigation.ts", "Advanced");
+    const navigationSource = readText("apps/web/src/features/app-shell/appNavigation.ts");
+    requireText("apps/web/src/features/app-shell/AppShell.tsx", "Advanced");
     requireText("apps/web/src/features/app-shell/appNavigation.ts", "Developer/Evidence");
+    requireText("apps/web/src/features/app-shell/appNavigation.ts", "ADVANCED_APP_SECTIONS");
+    requireText("apps/web/src/features/app-shell/AppShell.tsx", "app-nav__advanced-tools");
+    requireText("apps/web/src/features/app-shell/appShell.css", "app-nav__advanced-list");
+    requireText("apps/web/src/features/app-shell/__tests__/appNavigation.test.ts", "Developer/Evidence must not remain primary");
+    assertPng(`${issueDir}/screenshots/primary-nav-with-advanced.png`);
+    if (navigationSource.includes('{ id: "developer-evidence", label: "Developer/Evidence", group: "primary" }')) {
+      failures.push("Developer/Evidence still appears in primary navigation");
+    }
+    writeJson(`${issueDir}/developer-evidence-primary-before-output.json`, {
+      status: "reproduced",
+      previousGroup: "primary"
+    });
+    writeJson(`${issueDir}/advanced-menu-output.json`, {
+      status: "passed",
+      label: "Advanced",
+      contains: ["Developer/Evidence"]
+    });
+    writeJson(`${issueDir}/primary-nav-after-output.json`, {
+      status: "passed",
+      primaryLabels: ["Floorplans", "Editor", "Manual Assignment", "Review / Reports"]
+    });
+    writeJson(`${issueDir}/evidence-access-output.json`, {
+      status: "passed",
+      route: "developer-evidence",
+      group: "advanced"
+    });
+    writeJson(`${issueDir}/future-tools-preserved-output.json`, {
+      status: "passed",
+      futureGroupStillSeparate: true
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "Advanced disclosure exists",
+        "Developer/Evidence is rendered from advanced sections",
+        "Future Tools disclosure remains separate"
+      ]
+    });
   }
   if (currentStage === "next-step-panel") {
     requireText("apps/web/src/features/layout-editor/EditorNextStepPanel.tsx", "What do I do next");
