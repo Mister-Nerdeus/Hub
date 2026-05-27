@@ -75,8 +75,9 @@ function runStage(currentStage) {
   if (currentStage === "countdowns") {
     const viewModel = readText("apps/web/src/features/demo-pin/demoPinViewModel.ts");
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
-    add("cooldown countdown copy exists", viewModel.includes("Cooldown") && viewModel.includes("secondsRemaining"), "demoPinViewModel.ts");
-    add("lockout countdown copy exists", viewModel.includes("Lockout") && viewModel.includes("lockoutRemainingMs"), "demoPinViewModel.ts");
+    const workspaceViewModel = readText("apps/web/src/features/demo-pin/workspaceAccessViewModel.ts");
+    add("cooldown countdown copy exists", workspaceViewModel.includes("Try again in") && workspaceViewModel.includes("secondsRemaining"), "workspaceAccessViewModel.ts");
+    add("lockout countdown copy exists", workspaceViewModel.includes("Try again in") && workspaceViewModel.includes("lockoutRemainingMs"), "workspaceAccessViewModel.ts");
     add("countdown is visible in status", gate.includes("viewModel.countdownLabel") && gate.includes("role=\"status\""), "DemoPinGate.tsx");
   }
   if (currentStage === "lockout-proof") {
@@ -180,7 +181,7 @@ Completed PIN cooldown/lockout stage: ${stage}.
 - ${manifestPath}
 
 ## Known Limitations
-- PIN 2026 remains a demo-only gate, not production authentication, real security, or PHI protection.
+- The workspace access gate remains controlled review-flow only, not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, clinical safety certification, hidden scoring, optimizer behavior, or full-shift simulation was added.

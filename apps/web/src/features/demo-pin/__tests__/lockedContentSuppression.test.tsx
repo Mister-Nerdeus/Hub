@@ -25,6 +25,6 @@ for (const hiddenText of [
   "data-protected-action-id"
 ]) {
   if (lockedScreenSource.includes(hiddenText)) {
-    throw new Error(`locked PIN screen must not include app/demo content: ${hiddenText}`);
+    throw new Error(`locked access screen must not include app content: ${hiddenText}`);
   }
 }

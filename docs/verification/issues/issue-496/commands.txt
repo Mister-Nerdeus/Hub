@@ -1,0 +1,6 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-access-code-no-leak.mjs --stage allowlist --allow-partial --issue 496
+node scripts/check-access-code-no-leak.mjs --stage visible-ui --allow-partial --issue 496
+node scripts/check-access-code-no-leak.mjs --stage product-evidence --allow-partial --issue 496
+node scripts/check-no-phi-fields.mjs

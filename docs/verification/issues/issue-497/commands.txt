@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-visible-access-copy.mjs --stage forbidden-visible-term --allow-partial --issue 497
+node scripts/check-access-code-no-leak.mjs --stage visible-ui --allow-partial --issue 497
+node scripts/check-no-phi-fields.mjs

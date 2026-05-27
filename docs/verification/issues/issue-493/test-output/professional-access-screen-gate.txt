@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "stage": "workspace-access-view-model",
+  "issue": "493",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "workspace access view model exists",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "view model owns professional labels",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "components consume view model fields",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+    },
+    {
+      "name": "view model does not emit internal code",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "view model does not emit internal visible terms",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    }
+  ]
+}

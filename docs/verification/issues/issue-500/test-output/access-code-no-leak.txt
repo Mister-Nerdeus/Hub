@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "500",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "visible UI source does not contain the internal code",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    },
+    {
+      "name": "product evidence does not contain the internal code",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    },
+    {
+      "name": "access-code literal appears only in allowlisted internal files",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    }
+  ]
+}

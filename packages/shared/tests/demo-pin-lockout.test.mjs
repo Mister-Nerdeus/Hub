@@ -9,7 +9,7 @@ import {
   submitDemoPinAttempt
 } from "../dist/index.js";
 
-test("three wrong PIN attempts trigger a 3-minute lockout", () => {
+test("three wrong access-code attempts trigger a 3-minute lockout", () => {
   const first = submitDemoPinAttempt(createDemoPinAttemptState(), "0000", 1_000);
   const second = submitDemoPinAttempt(first.state, "0000", 1_000 + DEMO_PIN_COOLDOWN_MS + 1);
   const thirdAt = 1_000 + DEMO_PIN_COOLDOWN_MS * 2 + 2;

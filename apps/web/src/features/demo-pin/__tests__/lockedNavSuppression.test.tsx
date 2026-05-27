@@ -23,7 +23,7 @@ for (const hiddenText of [
   "Future Tools"
 ]) {
   if (lockedScreenSource.includes(hiddenText)) {
-    throw new Error(`locked PIN screen must not include navigation text: ${hiddenText}`);
+    throw new Error(`locked access screen must not include navigation text: ${hiddenText}`);
   }
 }
 

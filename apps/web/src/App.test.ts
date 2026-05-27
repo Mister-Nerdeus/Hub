@@ -23,8 +23,8 @@ const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8"
 const appEvidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx"), "utf8");
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
 
-assert228(appSource.includes("<DemoPinEntryScreen"), "default app render should start with the PIN entry screen");
-assert228(appSource.includes("if (!demoPinState.unlocked)"), "app shell should be gated behind PIN unlock");
+assert228(appSource.includes("<DemoPinEntryScreen"), "default app render should start with the workspace access screen");
+assert228(appSource.includes("if (!demoPinState.unlocked)"), "app shell should be gated behind workspace access");
 assert228(appShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
 assert228(!appShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
 assert228(appSource.includes("Canonical ER Pod Floorplan"), "unlocked mode must expose canonical floorplan section");

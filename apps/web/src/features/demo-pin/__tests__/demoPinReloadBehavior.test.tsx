@@ -8,7 +8,7 @@ import {
 const storage = createMemoryStorage();
 const unlocked = submitDemoPin(updateDemoPinInput(createInitialDemoPinUiState(storage, 1_000), "2026"), storage, 1_000);
 if (!unlocked.unlocked) {
-  throw new Error("PIN 2026 must unlock");
+  throw new Error("correct internal access code must unlock");
 }
 const restored = createInitialDemoPinUiState(storage, 2_000);
 if (!restored.unlocked) {

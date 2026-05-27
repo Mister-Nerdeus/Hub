@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "allowlist",
+  "issue": "496",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "access-code literal appears only in allowlisted internal files",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    }
+  ]
+}

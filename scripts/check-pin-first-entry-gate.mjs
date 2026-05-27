@@ -84,8 +84,8 @@ function runStage(currentStage) {
     const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
     add("standalone main element", entry.includes("<main") && entry.includes("data-app-lock-state=\"locked\""), "DemoPinEntryScreen.tsx");
-    add("product name visible", entry.includes("PRODUCT_DISPLAY_NAME"), "DemoPinEntryScreen.tsx");
-    add("demo-only disclaimer visible", entry.includes("Demo-only PIN screen"), "DemoPinEntryScreen.tsx");
+    add("product name visible", entry.includes("productDisplayName") || entry.includes("PRODUCT_DISPLAY_NAME"), "DemoPinEntryScreen.tsx");
+    add("controlled review-flow disclaimer visible", entry.includes("viewModel.caveat") || entry.includes("Demo-only PIN screen"), "DemoPinEntryScreen.tsx");
     add("no production auth claim", !/secure access|production auth enabled|protects real data/iu.test(entry), "DemoPinEntryScreen.tsx");
     add("accessible status and label", gate.includes("role=\"status\"") && gate.includes("aria-label={viewModel.inputLabel}"), "DemoPinGate.tsx");
   }
@@ -181,7 +181,7 @@ Completed PIN-first entry gate stage: ${stage}.
 - ${manifestPath}
 
 ## Known Limitations
-- PIN 2026 is demo-only and is not production authentication, real security, or PHI protection.
+- The workspace access gate is controlled review-flow only and is not production authentication, real security, or PHI protection.
 - Manual review remains required and promotion remains blocked.
 
 ## Non-PHI Confirmation

@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "stage": "identifier-migration-plan",
+  "issue": "499",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "identifier migration plan exists",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes WorkspaceAccessGate",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes WorkspaceAccessEntryScreen",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes workspaceAccessState",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes workspaceAccessPolicy",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes check-workspace-access-gate",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes Safe Migration Order",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    }
+  ]
+}

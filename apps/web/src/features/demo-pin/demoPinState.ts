@@ -1,5 +1,6 @@
 import {
   createDemoPinAttemptState,
+  formatAccessWait,
   getDemoPinAttemptAvailability,
   secondsRemaining,
   submitDemoPinAttempt,
@@ -27,7 +28,7 @@ const initialNowMs = 0;
 export const initialDemoPinUiState: DemoPinUiState = {
   state: "locked",
   input: "",
-  message: "Enter demo PIN 2026 to open the operational workspace.",
+  message: "Workspace access is required to continue.",
   unlocked: false,
   attemptState: createDemoPinAttemptState(),
   nowMs: initialNowMs
@@ -42,7 +43,7 @@ export function createInitialDemoPinUiState(
     return {
       state: "unlocked",
       input: "",
-      message: "Demo workspace restored for this browser session.",
+      message: "Workspace access granted for this session.",
       unlocked: true,
       attemptState: createDemoPinAttemptState(),
       nowMs
@@ -94,7 +95,7 @@ export function clearDemoPinUnlock(
   return {
     state: "cleared",
     input: "",
-    message: "Demo proceed unlock cleared.",
+    message: "Workspace access is required to continue.",
     unlocked: false,
     attemptState: createDemoPinAttemptState(),
     nowMs
@@ -116,10 +117,10 @@ function messageForAvailability(
   availability: ReturnType<typeof getDemoPinAttemptAvailability>
 ): string {
   if (availability.reason === "lockout") {
-    return `Demo PIN entry is locked. Try again in ${secondsRemaining(availability.lockoutRemainingMs)} seconds.`;
+    return `Too many attempts. Try again in ${formatAccessWait(availability.lockoutRemainingMs)}.`;
   }
   if (availability.reason === "cooldown") {
-    return `Wait ${secondsRemaining(availability.cooldownRemainingMs)} seconds before another demo PIN attempt.`;
+    return `Please wait ${secondsRemaining(availability.cooldownRemainingMs)} seconds before trying again.`;
   }
   return fallback;
 }

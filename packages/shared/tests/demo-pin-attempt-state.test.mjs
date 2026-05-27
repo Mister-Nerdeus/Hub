@@ -10,7 +10,7 @@ import {
   submitDemoPinAttempt
 } from "../dist/index.js";
 
-test("demo PIN attempt state starts unlocked for submission but not app access", () => {
+test("access attempt state starts open for submission but not app access", () => {
   const state = createDemoPinAttemptState();
   assert.equal(state.wrongAttemptCount, 0);
   assert.equal(state.lastAttemptAtMs, null);
@@ -27,7 +27,7 @@ test("wrong attempts are counted in local demo state", () => {
   assert.equal(result.state.lastAttemptAtMs, 1000);
 });
 
-test("PIN 2026 unlocks and resets attempt state", () => {
+test("correct internal code unlocks and resets attempt state", () => {
   const wrong = submitDemoPinAttempt(createDemoPinAttemptState(), "0000", 1000);
   const afterCooldown = wrong.state.cooldownUntilMs + 1;
   const result = submitDemoPinAttempt(wrong.state, "2026", afterCooldown);

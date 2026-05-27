@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "stage": "attempt-message-cleanup",
+  "issue": "495",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "attempt messaging includes Access code not accepted. Try again in 15 seconds.",
+      "passed": true,
+      "detail": "Access code not accepted. Try again in 15 seconds."
+    },
+    {
+      "name": "attempt messaging includes Please wait",
+      "passed": true,
+      "detail": "Please wait"
+    },
+    {
+      "name": "attempt messaging includes Too many attempts. Try again in",
+      "passed": true,
+      "detail": "Too many attempts. Try again in"
+    },
+    {
+      "name": "attempt messaging includes Workspace access granted for this session.",
+      "passed": true,
+      "detail": "Workspace access granted for this session."
+    },
+    {
+      "name": "cooldown remains 15 seconds",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "lockout remains 180 seconds",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    }
+  ]
+}

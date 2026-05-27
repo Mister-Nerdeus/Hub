@@ -122,7 +122,7 @@ export function submitDemoPinAttempt(
     return buildResult(
       "empty_pin",
       false,
-      "Enter the demo PIN to proceed.",
+      "Workspace access is required to continue.",
       nextState,
       getDemoPinAttemptAvailability(nextState, nowMs)
     );
@@ -133,7 +133,7 @@ export function submitDemoPinAttempt(
     return buildResult(
       "unlocked",
       true,
-      "Demo workspace unlocked for this browser session.",
+      "Workspace access granted for this session.",
       nextState,
       getDemoPinAttemptAvailability(nextState, nowMs)
     );
@@ -152,8 +152,8 @@ export function submitDemoPinAttempt(
   const status = lockoutUntilMs == null ? "wrong_pin" : "lockout_blocked";
   const message =
     lockoutUntilMs == null
-      ? "Wrong demo PIN. Wait 15 seconds before trying again."
-      : "Three wrong demo PIN attempts. Wait 3 minutes before trying again.";
+      ? "Access code not accepted. Try again in 15 seconds."
+      : "Too many attempts. Try again in 3 minutes.";
 
   return buildResult(status, false, message, nextState, nextAvailability);
 }
@@ -179,11 +179,20 @@ function messageForStatus(
   availability: DemoPinAttemptAvailability
 ): string {
   if (status === "lockout_blocked") {
-    return `Demo PIN entry is locked. Try again in ${secondsRemaining(availability.lockoutRemainingMs)} seconds.`;
+    return `Too many attempts. Try again in ${formatAccessWait(availability.lockoutRemainingMs)}.`;
   }
-  return `Wait ${secondsRemaining(availability.cooldownRemainingMs)} seconds before another demo PIN attempt.`;
+  return `Please wait ${secondsRemaining(availability.cooldownRemainingMs)} seconds before trying again.`;
 }
 
 export function secondsRemaining(milliseconds: number): number {
   return Math.max(0, Math.ceil(milliseconds / 1000));
+}
+
+export function formatAccessWait(milliseconds: number): string {
+  const seconds = secondsRemaining(milliseconds);
+  if (seconds >= 60 && seconds % 60 === 0) {
+    const minutes = seconds / 60;
+    return `${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
+  }
+  return `${seconds} ${seconds === 1 ? "second" : "seconds"}`;
 }

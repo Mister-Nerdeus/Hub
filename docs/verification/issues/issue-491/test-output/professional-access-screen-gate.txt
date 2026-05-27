@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "stage": "no-visible-access-code",
+  "issue": "491",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "visible access-screen source does not contain internal access code",
+      "passed": true,
+      "detail": "access source files"
+    }
+  ]
+}

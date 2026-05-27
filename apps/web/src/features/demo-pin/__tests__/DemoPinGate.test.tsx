@@ -18,34 +18,34 @@ const gateSource = readFileSync(resolve(repoRoot, "apps/web/src/features/demo-pi
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
 
 if (!gateSource.includes("demo-pin-gate") || !gateSource.includes("type=\"password\"")) {
-  throw new Error("DemoPinGate must visibly render a PIN input");
+  throw new Error("DemoPinGate must visibly render an access-code input");
 }
 if (gateSource.includes("data-protected-action-id") || gateSource.includes("Protected demo actions")) {
-  throw new Error("locked PIN gate must not render protected workflow actions before unlock");
+  throw new Error("locked access gate must not render protected workflow actions before unlock");
 }
 if (!appSource.includes("<DemoPinEntryScreen")) {
-  throw new Error("App must mount the standalone demo PIN entry screen before AppShell");
+  throw new Error("App must mount the standalone workspace access screen before AppShell");
 }
 
 const wrong = submitDemoPin(updateDemoPinInput(initialDemoPinUiState, "0000"));
 if (wrong.unlocked || wrong.state !== "wrong_pin") {
-  throw new Error("wrong PIN must fail visibly");
+  throw new Error("wrong access code must fail visibly");
 }
 
 const unlocked = submitDemoPin(updateDemoPinInput(initialDemoPinUiState, "2026"));
 if (!unlocked.unlocked || unlocked.state !== "unlocked") {
-  throw new Error("PIN 2026 must unlock protected actions");
+  throw new Error("correct internal access code must unlock protected actions");
 }
 
 const cleared = clearDemoPinUnlock();
 if (cleared.unlocked || cleared.state !== "cleared") {
-  throw new Error("clear must reset demo PIN unlock");
+  throw new Error("clear must reset workspace access unlock");
 }
 
 const vm = createDemoPinGateViewModel(unlocked);
 if (!vm.protectedActions.every((action) => action.disabled === false)) {
-  throw new Error("protected demo actions must unlock after PIN 2026");
+  throw new Error("protected actions must unlock after the correct internal access code");
 }
-if (/secure access|production auth enabled|protects real data/iu.test(vm.copy)) {
-  throw new Error("PIN copy must not claim production auth, real security, or data protection");
+if (/secure access|production auth enabled|protects real data|Demo PIN/iu.test(vm.copy)) {
+  throw new Error("access copy must not claim production auth, real security, or reveal the internal code");
 }

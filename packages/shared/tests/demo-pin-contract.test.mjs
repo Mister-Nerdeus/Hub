@@ -10,14 +10,14 @@ import {
   validateDemoPin
 } from "../dist/index.js";
 
-test("demo PIN contract stays demo-only", () => {
+test("access contract stays review-flow only", () => {
   assert.equal(DEMO_PIN_CODE, "2026");
   assert.equal(demoPinContract.demoOnly, true);
-  assert.match(demoPinContract.copy, /Demo proceed gate only/u);
+  assert.match(demoPinContract.copy, /Controlled review flow only/u);
   assert.doesNotThrow(() => assertDemoPinContractHasNoClaims());
 });
 
-test("PIN 2026 unlocks and wrong or empty PIN fails", () => {
+test("correct internal code unlocks and wrong or empty input fails", () => {
   assert.deepEqual(validateDemoPin("2026"), { ok: true, state: "unlocked" });
   assert.deepEqual(validateDemoPin("0000"), { ok: false, state: "wrong_pin", reason: "wrong_pin" });
   assert.deepEqual(validateDemoPin(""), { ok: false, state: "cleared", reason: "empty_pin" });

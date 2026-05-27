@@ -23,8 +23,8 @@ export function DemoPinGate({
       data-demo-pin-countdown={viewModel.countdownLabel == null ? "none" : "visible"}
     >
       <div className="demo-pin-gate__copy">
-        <p className="eyebrow">Demo-only entry gate</p>
-        <h2 id="demo-pin-gate-title">{viewModel.title}</h2>
+        <p className="eyebrow">{viewModel.eyebrow}</p>
+        <h2 id="demo-pin-gate-title">{viewModel.accessTitle}</h2>
         <p>{viewModel.copy}</p>
       </div>
       <form

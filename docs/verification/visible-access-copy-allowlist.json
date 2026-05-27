@@ -1,0 +1,19 @@
+{
+  "manifestVersion": "1.0.0",
+  "description": "Internal paths and identifiers that may retain legacy access-gate naming while visible copy stays professional.",
+  "allowedIdentifierPaths": [
+    "apps/web/src/features/demo-pin/",
+    "packages/shared/src/demo-pin/",
+    "packages/shared/tests/",
+    "scripts/",
+    "docs/verification/access-code-allowlist.json",
+    "docs/verification/visible-access-copy-allowlist.json"
+  ],
+  "forbiddenVisibleFragments": [
+    "Demo PIN",
+    "Demo-only",
+    "demo-only",
+    "Relock Demo",
+    "trial"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "visible-ui",
+  "issue": "499",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "visible UI source does not contain the internal code",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    }
+  ]
+}

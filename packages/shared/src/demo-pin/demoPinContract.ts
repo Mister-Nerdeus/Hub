@@ -1,7 +1,7 @@
 export const DEMO_PIN_CODE = "2026" as const;
 
 export const DEMO_PIN_COPY =
-  "Demo proceed gate only. Not production authentication or real data protection." as const;
+  "Controlled review flow only. Not a production security system." as const;
 
 export const DEMO_PIN_STATE_IDS = ["locked", "wrong_pin", "unlocked", "cleared"] as const;
 export type DemoPinStateId = (typeof DEMO_PIN_STATE_IDS)[number];

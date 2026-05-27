@@ -2327,30 +2327,50 @@ h1 {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  padding: 32px 16px;
-  background: #eef4f7;
+  padding: 40px 18px;
+  background:
+    linear-gradient(135deg, rgba(247, 250, 252, 0.96), rgba(231, 238, 244, 0.96)),
+    #edf2f6;
+  color: #17212b;
 }
 
 .demo-pin-entry-screen__panel {
-  width: min(720px, 100%);
+  width: min(560px, 100%);
   display: grid;
-  gap: 16px;
+  gap: 14px;
+  border: 1px solid #d8e0e7;
+  border-top: 4px solid #2f6f73;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 18px 48px rgba(28, 42, 55, 0.14);
+  padding: clamp(24px, 4vw, 36px);
 }
 
 .demo-pin-entry-screen__panel h1 {
   margin: 0;
-  font-size: clamp(2rem, 6vw, 3.4rem);
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  line-height: 1.05;
+}
+
+.demo-pin-entry-screen__subtitle {
+  margin: 0;
+  color: #334958;
+  font-size: 1.02rem;
+  font-weight: 650;
 }
 
 .demo-pin-entry-screen__disclaimer {
   margin: 0;
   max-width: 60ch;
-  color: #405261;
+  border-left: 3px solid #9aa9b4;
+  padding-left: 12px;
+  color: #50606e;
+  font-size: 0.94rem;
 }
 
 .demo-pin-entry-screen .demo-pin-gate {
   margin: 0;
-  background: #ffffff;
+  background: #f8fafb;
 }
 
 .demo-relock-button {
@@ -2368,40 +2388,78 @@ h1 {
 
 .demo-pin-gate {
   display: grid;
-  grid-template-columns: minmax(220px, 1.2fr) minmax(220px, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 18px;
   align-items: start;
-  border: 1px solid #c8d1da;
-  background: #f8fafc;
-  padding: 16px;
+  border: 1px solid #d8e0e7;
+  border-radius: 8px;
+  background: #f8fafb;
+  padding: 18px;
   margin-bottom: 16px;
 }
 
 .demo-pin-gate__copy h2 {
   margin: 0 0 8px;
-  font-size: 1.1rem;
+  font-size: 1.24rem;
+  line-height: 1.2;
+}
+
+.demo-pin-gate__copy p {
+  margin: 0;
+  color: #455766;
 }
 
 .demo-pin-gate__form {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
   align-items: end;
 }
 
 .demo-pin-gate__form label {
   display: grid;
-  gap: 4px;
+  gap: 6px;
+  color: #253746;
+  font-weight: 700;
 }
 
 .demo-pin-gate__form input {
   min-width: 0;
-  padding: 8px;
+  min-height: 42px;
+  border: 1px solid #b9c6d0;
+  border-radius: 6px;
+  background: #ffffff;
+  padding: 9px 10px;
+  font: inherit;
 }
 
 .demo-pin-gate__form input:disabled {
   background: #eef2f5;
   color: #556575;
+}
+
+.demo-pin-gate__form button {
+  min-height: 42px;
+  border-radius: 6px;
+  border: 1px solid #8fa0ac;
+  background: #ffffff;
+  color: #1f303f;
+  padding: 9px 14px;
+  font: inherit;
+  font-weight: 750;
+}
+
+.demo-pin-gate__form button[type="submit"] {
+  border-color: #2f6f73;
+  background: #2f6f73;
+  color: #ffffff;
+}
+
+.demo-pin-gate__form button:disabled {
+  border-color: #c8d1da;
+  background: #dfe6eb;
+  color: #6a7782;
+  cursor: not-allowed;
 }
 
 .demo-pin-gate__status {
@@ -2410,6 +2468,15 @@ h1 {
   gap: 8px;
   margin: 8px 0 0;
   font-weight: 600;
+  color: #243746;
+}
+
+.demo-pin-gate__status span {
+  border: 1px solid #d4dde5;
+  border-radius: 999px;
+  background: #ffffff;
+  padding: 5px 8px;
+  font-size: 0.88rem;
 }
 
 .demo-pin-gate__actions {

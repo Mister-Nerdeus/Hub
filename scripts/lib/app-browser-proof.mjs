@@ -72,7 +72,7 @@ export async function withBrowserRenderedApp(options, callback) {
 
 export async function enterDemoPin(browser, pin) {
   return browser.evaluate(`(() => {
-    const input = document.querySelector('input[aria-label="Demo PIN"]');
+    const input = document.querySelector('input[aria-label="Access code"], input[aria-label="Demo PIN"]');
     if (input == null) return false;
     Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value').set.call(input, ${JSON.stringify(pin)});
     input.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: ${JSON.stringify(pin)} }));

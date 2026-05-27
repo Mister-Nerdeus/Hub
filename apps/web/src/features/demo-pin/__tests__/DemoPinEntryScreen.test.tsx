@@ -12,12 +12,12 @@ const entrySource = readFileSync(
   "utf8"
 );
 
-if (!entrySource.includes("demo-pin-entry-screen") || !entrySource.includes("PRODUCT_DISPLAY_NAME")) {
+if (!entrySource.includes("demo-pin-entry-screen") || !entrySource.includes("productDisplayName")) {
   throw new Error("DemoPinEntryScreen must render standalone product landing copy");
 }
 
-if (!entrySource.includes("not production") || !entrySource.includes("PHI protection")) {
-  throw new Error("DemoPinEntryScreen must carry demo-only non-security copy");
+if (!entrySource.includes("viewModel.caveat")) {
+  throw new Error("DemoPinEntryScreen must carry centralized non-auth copy");
 }
 
 if (!/if \(!demoPinState\.unlocked\)[\s\S]*<DemoPinEntryScreen/.test(appSource)) {

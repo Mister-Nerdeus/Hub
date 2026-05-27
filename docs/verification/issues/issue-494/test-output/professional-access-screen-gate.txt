@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "stage": "professional-layout",
+  "issue": "494",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "layout includes .demo-pin-entry-screen__panel",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes box-shadow",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes border-radius: 8px",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes .demo-pin-gate__form button[type=\"submit\"]",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes @media (max-width: 760px)",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "entry screen remains standalone locked main",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    }
+  ]
+}

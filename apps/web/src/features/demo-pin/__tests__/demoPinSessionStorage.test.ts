@@ -12,7 +12,7 @@ if (record?.unlocked !== true || record.unlockedAtMs !== 1234) {
   throw new Error("session unlock must persist unlocked boolean and timestamp");
 }
 if (storage.getItem(getDemoPinSessionStorageKey())?.includes("2026")) {
-  throw new Error("session unlock must not store the PIN");
+  throw new Error("session unlock must not store the access-code input");
 }
 clearDemoPinSessionUnlock(storage);
 if (readDemoPinSessionUnlock(storage) != null) {

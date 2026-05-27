@@ -1,0 +1,27 @@
+{
+  "manifestVersion": "1.0.0",
+  "description": "Internal files allowed to contain the workspace access-code literal for validation or tests.",
+  "allowedPaths": [
+    "packages/shared/src/demo-pin/demoPinContract.ts",
+    "packages/shared/src/demo-pin/demoPinValidation.ts",
+    "packages/shared/src/demo-pin/demoPinAttemptPolicy.ts",
+    "packages/shared/tests/demo-pin-contract.test.mjs",
+    "packages/shared/tests/demo-pin-cooldown.test.mjs",
+    "packages/shared/tests/demo-pin-lockout.test.mjs",
+    "packages/shared/tests/demo-pin-attempt-state.test.mjs",
+    "packages/shared/tests/demo-pin-messaging.test.mjs",
+    "apps/web/src/features/demo-pin/__tests__/DemoPinGate.test.tsx",
+    "apps/web/src/features/demo-pin/__tests__/demoPinReloadBehavior.test.tsx",
+    "apps/web/src/features/demo-pin/__tests__/demoPinSessionStorage.test.ts",
+    "apps/web/src/features/demo-pin/__tests__/WorkspaceAccessMessaging.test.tsx",
+    "scripts/lib/app-browser-proof.mjs",
+    "scripts/check-demo-pin-gate.mjs",
+    "scripts/check-demo-pin-no-secrets.mjs",
+    "scripts/check-pin-first-entry-gate.mjs",
+    "scripts/check-pin-rate-limit-lockout.mjs",
+    "scripts/check-pin-session-policy.mjs",
+    "scripts/capture-pin-first-entry-visual-proof.mjs",
+    "scripts/capture-pin-lockout-visual-proof.mjs",
+    "scripts/capture-scope-pin-ui-visual-proof.mjs"
+  ]
+}

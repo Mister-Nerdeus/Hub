@@ -1,0 +1,41 @@
+{
+  "issue": "496",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-access-code-no-leak.mjs --stage allowlist --allow-partial --issue 496",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/access-code-no-leak.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-access-code-no-leak.mjs --stage visible-ui --allow-partial --issue 496",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/access-code-no-leak.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-access-code-no-leak.mjs --stage product-evidence --allow-partial --issue 496",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/access-code-no-leak.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-496/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

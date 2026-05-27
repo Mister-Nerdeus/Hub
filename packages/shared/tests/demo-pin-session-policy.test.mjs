@@ -3,7 +3,7 @@ import { test } from "node:test";
 
 import { demoPinSessionPolicy } from "../dist/index.js";
 
-test("demo PIN session policy is session-only and stores no PIN input", () => {
+test("workspace access session policy is session-only and stores no access-code input", () => {
   assert.equal(demoPinSessionPolicy.storageKind, "sessionStorage");
   assert.equal(demoPinSessionPolicy.persistence, "current_browser_session_only");
   assert.equal(demoPinSessionPolicy.demoOnly, true);

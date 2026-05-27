@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "stage": "professional-copy",
+  "issue": "492",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "professional copy includes Workspace Access",
+      "passed": true,
+      "detail": "Workspace Access"
+    },
+    {
+      "name": "professional copy includes Private operational workspace",
+      "passed": true,
+      "detail": "Private operational workspace"
+    },
+    {
+      "name": "professional copy includes Access Required",
+      "passed": true,
+      "detail": "Access Required"
+    },
+    {
+      "name": "professional copy includes Access code",
+      "passed": true,
+      "detail": "Access code"
+    },
+    {
+      "name": "professional copy includes Continue",
+      "passed": true,
+      "detail": "Continue"
+    },
+    {
+      "name": "professional copy includes Reset",
+      "passed": true,
+      "detail": "Reset"
+    },
+    {
+      "name": "professional copy includes Controlled review flow only. Not a production security system.",
+      "passed": true,
+      "detail": "Controlled review flow only. Not a production security system."
+    },
+    {
+      "name": "copy avoids positive auth/security/PHI-protection claims",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

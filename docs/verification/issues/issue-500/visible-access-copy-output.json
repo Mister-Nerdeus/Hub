@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "500",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "locked access visible copy avoids internal terms",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    },
+    {
+      "name": "professional workspace access copy is present",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "professional copy avoids positive auth/security/PHI-protection claims",
+      "passed": true,
+      "detail": {
+        "findingCount": 0
+      }
+    }
+  ]
+}

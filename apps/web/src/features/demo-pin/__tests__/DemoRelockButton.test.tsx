@@ -9,8 +9,8 @@ const repoRoot = resolve(process.cwd(), "../..");
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
 
-if (!appShellSource.includes("Relock Demo") && !appShellSource.includes("DemoRelockButton")) {
-  throw new Error("AppShell must expose a Relock Demo action after unlock");
+if (!appShellSource.includes("DemoRelockButton")) {
+  throw new Error("AppShell must expose a workspace relock action after unlock");
 }
 if (!appSource.includes("clearDemoPinUnlock(getSessionStorage())")) {
   throw new Error("Relock must clear session unlock state");

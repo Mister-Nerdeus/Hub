@@ -5,7 +5,7 @@ type DemoRelockButtonProps = {
 export function DemoRelockButton({ onRelock }: DemoRelockButtonProps) {
   return (
     <button className="demo-relock-button" type="button" onClick={onRelock}>
-      Relock Demo
+      Lock Workspace
     </button>
   );
 }
