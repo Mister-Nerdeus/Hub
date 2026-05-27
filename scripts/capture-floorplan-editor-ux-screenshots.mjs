@@ -66,6 +66,13 @@ try {
       screenshots.push(await captureCase(cdp, "door-access-markers.png", "door access markers", 1440, 1200));
       await selectDoorIfPresent(cdp);
       screenshots.push(await captureCase(cdp, "selected-door-marker.png", "selected door marker", 1440, 1200));
+    } else if (issue === "396") {
+      await selectDoorIfPresent(cdp);
+      screenshots.push(await captureCase(cdp, "door-tools-panel.png", "door tools panel", 1440, 1200));
+      await clickIfPresent(cdp, "Opposite");
+      screenshots.push(await captureCase(cdp, "door-switched-wall.png", "door switched wall", 1440, 1200));
+      await clickIfPresent(cdp, "Center");
+      screenshots.push(await captureCase(cdp, "centered-door.png", "centered door", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-door-authoring-tools.mjs --issue 396
+node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 396 --port 4196 --debug-port 9396
+node scripts/check-floorplan-editor-ux.mjs --stage door-tools --allow-partial --issue 396
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 396

@@ -107,6 +107,7 @@ export type LayoutEditorAction =
       widthFeet: number;
     }
   | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
+  | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "deleteDoor"; doorId: string }
   | {
       type: "assignDoorToRoom";
@@ -220,6 +221,17 @@ export function layoutEditorReducer(
         })
       );
     case "moveDoor":
+      return applyDoorAuthoring(
+        state,
+        moveDoor({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId,
+          wall: action.wall,
+          offsetFeet: action.offsetFeet
+        })
+      );
+    case "doorToolMove":
       return applyDoorAuthoring(
         state,
         moveDoor({

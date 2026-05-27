@@ -13990,6 +13990,44 @@
         "docs/verification/issues/issue-395/test-output/web.txt",
         "docs/verification/issues/issue-395/vertical-door-marker-output.json"
       ]
+    },
+    {
+      "issue": "396",
+      "title": "Floorplan Editor UX Issue 396",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-396/adjacent-room-output.json",
+        "docs/verification/issues/issue-396/center-door-output.json",
+        "docs/verification/issues/issue-396/clamp-offset-output.json",
+        "docs/verification/issues/issue-396/closeout.md",
+        "docs/verification/issues/issue-396/command-output-map.json",
+        "docs/verification/issues/issue-396/commands.txt",
+        "docs/verification/issues/issue-396/default-fixture-nonmutation-output.txt",
+        "docs/verification/issues/issue-396/door-authoring-tools-gate-output.json",
+        "docs/verification/issues/issue-396/door-tools-before-output.json",
+        "docs/verification/issues/issue-396/first-failure.txt",
+        "docs/verification/issues/issue-396/floorplan-editor-ux-gate-output.json",
+        "docs/verification/issues/issue-396/invalid-door-warning-output.json",
+        "docs/verification/issues/issue-396/manifest-update-output.json",
+        "docs/verification/issues/issue-396/move-to-wall-output.json",
+        "docs/verification/issues/issue-396/no-fixture-mutation-output.txt",
+        "docs/verification/issues/issue-396/nudge-door-output.json",
+        "docs/verification/issues/issue-396/opposite-wall-output.json",
+        "docs/verification/issues/issue-396/path-sync-stale-output.json",
+        "docs/verification/issues/issue-396/plans-2-through-5-unchanged-output.json",
+        "docs/verification/issues/issue-396/preserve-offset-output.json",
+        "docs/verification/issues/issue-396/screenshot-manifest-output.json",
+        "docs/verification/issues/issue-396/screenshots/centered-door.png",
+        "docs/verification/issues/issue-396/screenshots/door-switched-wall.png",
+        "docs/verification/issues/issue-396/screenshots/door-tools-panel.png",
+        "docs/verification/issues/issue-396/screenshots/editor-edit-mode.png",
+        "docs/verification/issues/issue-396/test-output/door-authoring-tools-gate.txt",
+        "docs/verification/issues/issue-396/test-output/floorplan-editor-ux-gate.txt",
+        "docs/verification/issues/issue-396/test-output/plans-2-through-5-unchanged.txt",
+        "docs/verification/issues/issue-396/test-output/shared.txt",
+        "docs/verification/issues/issue-396/test-output/web-build.txt",
+        "docs/verification/issues/issue-396/test-output/web.txt",
+        "docs/verification/issues/issue-396/undo-redo-door-edit-output.json"
+      ]
     }
   ]
 }

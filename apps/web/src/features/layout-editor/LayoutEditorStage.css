@@ -586,6 +586,75 @@
   padding: 4px 8px;
 }
 
+.door-editor {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.door-editor h3 {
+  color: #111827;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.door-editor header p:last-child {
+  color: #53616f;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 4px 0 0;
+}
+
+.door-editor__group {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.door-editor__group strong {
+  color: #243447;
+  font-size: 0.78rem;
+  min-width: 110px;
+}
+
+.door-editor button,
+.door-editor select {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 6px 8px;
+}
+
+.door-editor button {
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.door-editor button:disabled,
+.door-editor select:disabled {
+  color: #8a96a3;
+  cursor: not-allowed;
+}
+
+.door-editor__group--danger button {
+  border-color: #b42318;
+  color: #8f1d14;
+}
+
+.door-editor__warning {
+  color: #8f1d14;
+  font-size: 0.8rem;
+  font-weight: 900;
+  margin: 0;
+}
+
 .layout-assignment-legend {
   background: #ffffff;
   border: 1px solid #c4d0dc;
