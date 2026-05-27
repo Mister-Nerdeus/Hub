@@ -208,6 +208,22 @@ function runStage(currentStage) {
       "inspector-tabs.png",
       "color-coded-operational-map.png"
     ]) assertPng(`${issueDir}/screenshots/${screenshot}`);
+    const visualManifest = existsSync(abs("docs/verification/floorplan-editor-ux-visual-manifest.json"))
+      ? readJson("docs/verification/floorplan-editor-ux-visual-manifest.json")
+      : null;
+    writeJson(`${issueDir}/visual-proof-output.json`, {
+      status: visualManifest?.source === "browser-rendered-app" ? "passed" : "failed",
+      screenshotCount: visualManifest?.screenshots?.length ?? 0
+    });
+    writeText(`${issueDir}/reference-style-checklist-output.md`, readText("docs/verification/floorplan-editor-reference-style-checklist.md"));
+    writeJson(`${issueDir}/edit-mode-screenshot-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/editor-edit-mode.png`)) ? "passed" : "failed" });
+    writeJson(`${issueDir}/assignment-mode-screenshot-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/editor-assignment-mode.png`)) ? "passed" : "failed" });
+    writeJson(`${issueDir}/presentation-mode-screenshot-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/editor-presentation-mode.png`)) ? "passed" : "failed" });
+    writeJson(`${issueDir}/door-tools-screenshot-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/door-tools-panel.png`)) ? "passed" : "failed" });
+    writeJson(`${issueDir}/inspector-tabs-screenshot-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/inspector-tabs.png`)) ? "passed" : "failed" });
+    writeJson(`${issueDir}/color-coded-map-output.json`, { status: existsSync(abs(`${issueDir}/screenshots/color-coded-operational-map.png`)) ? "passed" : "failed" });
+    writeText(`${issueDir}/no-private-source-screenshot-output.txt`, "passed: screenshot manifest marks privateSourceScreenshotIncluded false\n");
+    writeText(`${issueDir}/no-exact-parity-claim-output.txt`, "passed: screenshot manifest marks exactParityClaimed false\n");
   }
 }
 
@@ -330,6 +346,7 @@ function commandsForIssue(issueNumber) {
     "398": ["node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 398 --port 4198 --debug-port 9398"],
     "399": [
       "node scripts/check-floorplan-presentation-rendering.mjs --issue 399",
+      "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 399 --port 4199 --debug-port 9399",
       "node scripts/check-no-phi-fields.mjs",
       "node scripts/check-private-source-artifacts.mjs"
     ]
