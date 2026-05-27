@@ -52,6 +52,8 @@ export * from "./floorplans/doorAuthoringContract.js";
 export * from "./floorplans/doorAuthoringTools.js";
 export * from "./floorplans/doorAdjacency.js";
 export * from "./floorplans/doorPlacementValidity.js";
+export * from "./floorplans/floorplanValidation.js";
+export * from "./floorplans/pathNodeRules.js";
 export * from "./floorplans/doorWidthTools.js";
 export * from "./floorplans/doorWallSnapGuides.js";
 export * from "./floorplans/roomAlignmentTools.js";

@@ -9,7 +9,8 @@ import {
   type EditableDoorGeometry,
   type EditableDoorWall,
   type EditableHallwayGeometry,
-  type EditableRoomGeometry
+  type EditableRoomGeometry,
+  isDoorEligibleRoomType
 } from "@nerdeus/shared";
 import { AdjacentDoorCandidateSelector } from "./AdjacentDoorCandidateSelector";
 import { buildAdjacentDoorCandidateViewModel } from "./adjacentDoorCandidateViewModel";
@@ -52,6 +53,7 @@ export function DoorEditor({
     return null;
   }
   const ownerRoom = rooms.find((room) => room.id === door.ownerId) ?? null;
+  const doorToolsDisabled = readOnly || ownerRoom == null || !isDoorEligibleRoomType(ownerRoom.roomType);
   const viewModel = buildDoorEditorViewModel({ door, rooms });
   const adjacentCandidateViewModel = buildAdjacentDoorCandidateViewModel({ door, rooms, hallways, readOnly });
   const placementValidityViewModel = buildDoorPlacementValidityViewModel({ door, rooms, hallways });
@@ -92,7 +94,7 @@ export function DoorEditor({
         <select
           aria-label="Door wall"
           value={door.wall}
-          disabled={readOnly}
+          disabled={doorToolsDisabled}
           onChange={(event) => applyWallMove(event.currentTarget.value as EditableDoorWall)}
         >
           {WALLS.map((wall) => (
@@ -101,19 +103,19 @@ export function DoorEditor({
             </option>
           ))}
         </select>
-        <button type="button" disabled={readOnly} onClick={applyOpposite}>
+        <button type="button" disabled={doorToolsDisabled} onClick={applyOpposite}>
           Opposite
         </button>
       </div>
       <div className="door-editor__group" aria-label="Position">
         <strong>Position</strong>
-        <button type="button" disabled={readOnly} onClick={() => applyNudge(-1)}>
+        <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(-1)}>
           Nudge -
         </button>
-        <button type="button" disabled={readOnly} onClick={() => applyNudge(1)}>
+        <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(1)}>
           Nudge +
         </button>
-        <button type="button" disabled={readOnly} onClick={applyCenter}>
+        <button type="button" disabled={doorToolsDisabled} onClick={applyCenter}>
           Center
         </button>
       </div>

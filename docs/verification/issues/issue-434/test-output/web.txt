@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 169 web test file(s).
+Discovered 180 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -58,9 +58,19 @@ Discovered 169 web test file(s).
 
 > src/features/floorplans/SavePlanControls.test.tsx
 
+> src/features/floorplans/__tests__/CanonicalFloorplanHeader.test.tsx
+
+> src/features/floorplans/__tests__/DeleteSavedFloorplanDialog.test.tsx
+
+> src/features/floorplans/__tests__/FloorplanLibrary.test.tsx
+
+> src/features/floorplans/__tests__/activeFloorplanDeleteCleanup.test.ts
+
 > src/features/floorplans/__tests__/activeFloorplanViewModel.test.ts
 
 > src/features/floorplans/__tests__/appShellNavigation.test.tsx
+
+> src/features/floorplans/__tests__/canonicalFloorplanViewModel.test.ts
 
 > src/features/floorplans/__tests__/demoWalkthroughViewModel.test.ts
 
@@ -71,6 +81,8 @@ Discovered 169 web test file(s).
 > src/features/floorplans/__tests__/editorGeometryNonMutation.test.ts
 
 > src/features/floorplans/__tests__/floorplanLandingSummary.test.tsx
+
+> src/features/floorplans/__tests__/legacyFloorplanReferenceList.test.tsx
 
 > src/features/floorplans/__tests__/manualReviewActionsViewModel.test.ts
 
@@ -156,7 +168,11 @@ Discovered 169 web test file(s).
 
 > src/features/layout-editor/__tests__/RoomQuickEditPopover.test.tsx
 
+> src/features/layout-editor/__tests__/RoomShapeStorageSolidWall.test.tsx
+
 > src/features/layout-editor/__tests__/StationQuickEditPopover.test.tsx
+
+> src/features/layout-editor/__tests__/StationShape.test.tsx
 
 > src/features/layout-editor/__tests__/clickToPlaceObject.test.ts
 
@@ -192,7 +208,13 @@ Discovered 169 web test file(s).
 
 > src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts
 
+> src/features/layout-editor/__tests__/roomPresentationStyles.test.ts
+
+> src/features/layout-editor/__tests__/solidWallNoDoorUi.test.tsx
+
 > src/features/layout-editor/__tests__/stationPresentationShape.test.tsx
+
+> src/features/layout-editor/__tests__/stationPresentationStyle.test.ts
 
 > src/features/layout-editor/__tests__/validationDrawer.test.tsx
 
@@ -350,4 +372,4 @@ Discovered 169 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 169 web test file(s).
+Executed 180 web test file(s).

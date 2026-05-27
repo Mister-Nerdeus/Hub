@@ -19,7 +19,9 @@ const ROOM_TYPE_OPTIONS: readonly EditableRoomType[] = [
   "behavioral",
   "hall_bed",
   "procedure",
-  "overflow"
+  "overflow",
+  "storage",
+  "solid_wall"
 ];
 
 export function RoomQuickEditPopover({
@@ -75,7 +77,12 @@ export function RoomQuickEditPopover({
         <button type="button" disabled={viewModel.readOnly} onClick={onAssignNurse}>
           Assign nurse
         </button>
-        <button type="button" disabled={viewModel.readOnly} onClick={onAddDoor}>
+        <button
+          type="button"
+          disabled={viewModel.addDoorDisabled}
+          title={viewModel.addDoorDisabledReason ?? undefined}
+          onClick={onAddDoor}
+        >
           Add door
         </button>
         <button type="button" disabled={viewModel.duplicateDisabled} onClick={onDuplicateRoom}>

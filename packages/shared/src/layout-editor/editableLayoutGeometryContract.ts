@@ -311,6 +311,9 @@ function validateDoorWallSpans(
     if (owner == null) {
       throw new Error(`door ${door.id} ownerId must reference a ${door.ownerKind}`);
     }
+    if (door.ownerKind === "room" && "roomType" in owner && owner.roomType === "solid_wall") {
+      throw new Error(`door ${door.id} must not reference solid_wall room ${owner.id}`);
+    }
     const wallLengthFeet = door.wall === "north" || door.wall === "south"
       ? owner.widthFeet
       : owner.heightFeet;

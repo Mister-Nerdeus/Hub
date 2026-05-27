@@ -1,1 +1,1 @@
-Reproduced missing ER activity preset contract.
+First local failure: shared tests failed because generated path-node replacement skipped the canonical storage room path node. Fix: solid-wall path-node generation is blocked while existing storage path-node behavior is preserved until Issue 438. Subsequent shared test pass is recorded in test-output/shared.txt.

@@ -6,6 +6,7 @@ import {
   type EditableRoomGeometry
 } from "../layout-editor/editableLayoutGeometryContract.js";
 import type { AuthoringWarningCode } from "./authoringWarningContract.js";
+import { canCreateRoomDoorPathNode } from "./pathNodeRules.js";
 
 export type GeneratedDoorPathNode = {
   pathNodeId: string;
@@ -67,6 +68,12 @@ export function generateDoorPathNodes(input: {
   for (const door of layout.doors) {
     const room = layout.rooms.find((candidate) => candidate.id === door.ownerId);
     if (room == null) {
+      continue;
+    }
+    if (
+      room.roomType === "solid_wall" ||
+      (!canCreateRoomDoorPathNode(room) && room.roomType !== "storage")
+    ) {
       continue;
     }
     const existing = nextNodes.find((node) => node.linkedObjectId === door.id || node.id === nodeIdForDoor(door.id));

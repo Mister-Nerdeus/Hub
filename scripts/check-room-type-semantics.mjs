@@ -97,6 +97,22 @@ if (stage === "gray-presentation" || stage === "visual-dom-proof" || stage === "
   add("manifest marks solid wall gray", manifest.solidWallGreysOut === true, manifest.solidWallGreysOut);
 }
 
+if (stage === "solid-wall-no-doors" || stage === "legacy-invalid-layouts" || stage === "final") {
+  const editableContract = fs.readFileSync("packages/shared/src/layout-editor/editableLayoutGeometryContract.ts", "utf8");
+  const authoring = fs.readFileSync("packages/shared/src/floorplans/doorAuthoringContract.ts", "utf8");
+  const placement = fs.readFileSync("packages/shared/src/floorplans/doorPlacementValidity.ts", "utf8");
+  const pathRules = fs.readFileSync("packages/shared/src/floorplans/pathNodeRules.ts", "utf8");
+  const quickEdit = fs.readFileSync("apps/web/src/features/layout-editor/RoomQuickEditPopover.tsx", "utf8");
+  const quickEditVm = fs.readFileSync("apps/web/src/features/layout-editor/roomQuickEditViewModel.ts", "utf8");
+  add("editable import validation rejects solid wall doors", editableContract.includes("must not reference solid_wall"), "editableLayoutGeometryContract.ts");
+  add("door authoring rejects ineligible room types", authoring.includes("isDoorEligibleRoomType"), "doorAuthoringContract.ts");
+  add("door placement validity flags ineligible owner", placement.includes("owner_room_door_ineligible"), "doorPlacementValidity.ts");
+  add("path node rules block ineligible room types", pathRules.includes("isPathNodeEligibleRoomType"), "pathNodeRules.ts");
+  add("RoomQuickEdit disables Add Door", quickEdit.includes("viewModel.addDoorDisabled"), "RoomQuickEditPopover.tsx");
+  add("RoomQuickEdit view model has solid wall reason", quickEditVm.includes("cannot accept doors"), "roomQuickEditViewModel.ts");
+  add("manifest marks solid wall door validation implemented", manifest.solidWallDoorValidationStatus === "implemented", manifest.solidWallDoorValidationStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }

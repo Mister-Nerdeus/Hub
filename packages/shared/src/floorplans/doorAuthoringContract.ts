@@ -4,6 +4,7 @@ import {
   type EditableDoorWall,
   type EditableLayoutGeometryContract
 } from "../layout-editor/editableLayoutGeometryContract.js";
+import { isDoorEligibleRoomType } from "./roomTypeRules.js";
 
 export type DoorAuthoringResult = {
   layout: EditableLayoutGeometryContract;
@@ -174,6 +175,9 @@ function requireRoom(layout: EditableLayoutGeometryContract, roomId: string) {
   const room = layout.rooms.find((candidate) => candidate.id === roomId);
   if (room == null) {
     throw new Error("door roomId must reference a valid room");
+  }
+  if (!isDoorEligibleRoomType(room.roomType)) {
+    throw new Error(`door roomId must reference a door-eligible room; ${room.roomType} cannot accept doors`);
   }
   return room;
 }

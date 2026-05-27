@@ -4,10 +4,12 @@ import type {
 } from "../layout-editor/editableLayoutGeometryContract.js";
 import { detectDoorAdjacency } from "./doorAdjacency.js";
 import { wallLengthFeet } from "./doorGeometryUtils.js";
+import { isDoorEligibleRoomType } from "./roomTypeRules.js";
 
 export type DoorPlacementValidityReason =
   | "owner_room_found"
   | "owner_room_missing"
+  | "owner_room_door_ineligible"
   | "offset_within_wall_bounds"
   | "offset_outside_wall_bounds"
   | "width_fits_wall"
@@ -36,6 +38,11 @@ export function validateDoorPlacement(input: {
     return { status: "invalid", doorId: input.door.id, reasonCodes, warnings };
   }
   reasonCodes.push("owner_room_found");
+  if (!isDoorEligibleRoomType(ownerRoom.roomType)) {
+    reasonCodes.push("owner_room_door_ineligible");
+    warnings.push(`${ownerRoom.roomType} cannot accept doors.`);
+    return { status: "invalid", doorId: input.door.id, reasonCodes, warnings };
+  }
 
   const wallLength = wallLengthFeet(ownerRoom, input.door.wall);
   if (input.door.widthFeet <= wallLength) {

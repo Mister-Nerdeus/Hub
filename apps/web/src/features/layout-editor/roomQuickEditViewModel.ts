@@ -1,4 +1,9 @@
-import type { EditableRoomGeometry, EditableRoomType } from "@nerdeus/shared";
+import {
+  isDoorEligibleRoomType,
+  isNurseAssignableRoomType,
+  type EditableRoomGeometry,
+  type EditableRoomType
+} from "@nerdeus/shared";
 
 export type RoomQuickEditViewModel = {
   status: "missing" | "ready";
@@ -9,6 +14,10 @@ export type RoomQuickEditViewModel = {
   widthFeet: number | null;
   heightFeet: number | null;
   readOnly: boolean;
+  assignNurseDisabled: boolean;
+  assignNurseDisabledReason: string | null;
+  addDoorDisabled: boolean;
+  addDoorDisabledReason: string | null;
   deleteDisabled: boolean;
   duplicateDisabled: boolean;
 };
@@ -30,10 +39,16 @@ export function buildRoomQuickEdit({
       widthFeet: null,
       heightFeet: null,
       readOnly: true,
+      assignNurseDisabled: true,
+      assignNurseDisabledReason: null,
+      addDoorDisabled: true,
+      addDoorDisabledReason: null,
       deleteDisabled: true,
       duplicateDisabled: true
     };
   }
+  const assignable = isNurseAssignableRoomType(room.roomType);
+  const doorEligible = isDoorEligibleRoomType(room.roomType);
   return {
     status: "ready",
     roomId: room.id,
@@ -43,6 +58,10 @@ export function buildRoomQuickEdit({
     widthFeet: room.widthFeet,
     heightFeet: room.heightFeet,
     readOnly,
+    assignNurseDisabled: readOnly || !assignable,
+    assignNurseDisabledReason: assignable ? null : `${room.roomType} is excluded from nurse assignment.`,
+    addDoorDisabled: readOnly || !doorEligible,
+    addDoorDisabledReason: doorEligible ? null : "Solid wall / blocked area cannot accept doors.",
     deleteDisabled: readOnly,
     duplicateDisabled: readOnly
   };
