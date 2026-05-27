@@ -1,5 +1,6 @@
-npm --workspace packages/shared test
-npm --workspace apps/web test
-npm --workspace apps/web run build
+npm run verify
+node scripts/check-professional-access-screen.mjs --stage final --issue 500
 node scripts/check-access-code-no-leak.mjs --stage final --issue 500
+node scripts/check-visible-access-copy.mjs --stage final --issue 500
 node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 500

@@ -2,21 +2,15 @@
   "issue": "500",
   "commands": [
     {
-      "command": "npm --workspace packages/shared test",
+      "command": "npm run verify",
       "outputs": [
-        "docs/verification/issues/issue-500/test-output/shared.txt"
+        "docs/verification/issues/issue-500/test-output/verify-local.txt"
       ]
     },
     {
-      "command": "npm --workspace apps/web test",
+      "command": "node scripts/check-professional-access-screen.mjs --stage final --issue 500",
       "outputs": [
-        "docs/verification/issues/issue-500/test-output/web.txt"
-      ]
-    },
-    {
-      "command": "npm --workspace apps/web run build",
-      "outputs": [
-        "docs/verification/issues/issue-500/test-output/web-build.txt"
+        "docs/verification/issues/issue-500/test-output/professional-access-screen-gate.txt"
       ]
     },
     {
@@ -26,9 +20,21 @@
       ]
     },
     {
+      "command": "node scripts/check-visible-access-copy.mjs --stage final --issue 500",
+      "outputs": [
+        "docs/verification/issues/issue-500/test-output/visible-access-copy.txt"
+      ]
+    },
+    {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-500/test-output/no-phi.txt"
+        "docs/verification/issues/issue-500/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 500",
+      "outputs": [
+        "docs/verification/issues/issue-500/no-fixture-mutation-output.txt"
       ]
     }
   ]
