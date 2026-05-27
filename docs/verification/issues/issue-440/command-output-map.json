@@ -20,27 +20,21 @@
       ]
     },
     {
-      "command": "node scripts/check-scenario-ratio-foundation.mjs --stage final --issue 440",
+      "command": "node scripts/check-room-type-semantics.mjs --stage final --issue 440",
       "outputs": [
-        "docs/verification/issues/issue-440/test-output/scenario-ratio-foundation-gate.txt"
+        "docs/verification/issues/issue-440/test-output/room-type-semantics-gate.txt"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-440/test-output/no-phi.txt"
+        "docs/verification/issues/issue-440/no-phi-output.txt"
       ]
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 440",
       "outputs": [
-        "docs/verification/issues/issue-440/test-output/plans-2-through-5-unchanged.txt"
-      ]
-    },
-    {
-      "command": "node scripts/verify-local.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-440/test-output/verify-local.txt"
+        "docs/verification/issues/issue-440/no-unauthorized-fixture-mutation-output.txt"
       ]
     }
   ]

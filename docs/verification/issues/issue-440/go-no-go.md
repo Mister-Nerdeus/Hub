@@ -1,1 +1,3 @@
-GO for Scenario Simulation Foundation.
+# GO / NO-GO
+
+GO for One-Floorplan Scenario Seed + Ratio Comparison Foundation.
