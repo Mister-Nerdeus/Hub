@@ -1,0 +1,246 @@
+ Image hub-api-production Building 
+ Image hub-web-production Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.production
+#2 transferring dockerfile: 354B 0.0s done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.production
+#3 transferring dockerfile: 651B done
+#3 DONE 0.0s
+
+#4 [auth] library/python:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [auth] library/node:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/node:22-alpine
+#6 ...
+
+#7 [auth] library/nginx:pull token for registry-1.docker.io
+#7 DONE 0.0s
+
+#8 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
+#8 ...
+
+#6 [web internal] load metadata for docker.io/library/node:22-alpine
+#6 DONE 1.4s
+
+#8 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
+#8 DONE 1.4s
+
+#9 [web internal] load .dockerignore
+#9 transferring context: 295B done
+#9 DONE 0.0s
+
+#10 [web internal] load build context
+#10 ...
+
+#11 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#11 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#11 DONE 0.1s
+
+#12 [web build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#12 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#12 DONE 0.1s
+
+#10 [web internal] load build context
+#10 ...
+
+#9 [api internal] load .dockerignore
+#9 transferring context: 295B done
+#9 DONE 0.0s
+
+#13 [api internal] load metadata for docker.io/library/python:3.13-slim
+#13 DONE 3.3s
+
+#10 [web internal] load build context
+#10 transferring context: 7.74MB 1.8s done
+#10 DONE 1.9s
+
+#14 [web build  2/10] WORKDIR /repo
+#14 CACHED
+
+#15 [web build  3/10] COPY package.json package-lock.json ./
+#15 CACHED
+
+#16 [web build  4/10] COPY apps/web/package.json apps/web/package.json
+#16 CACHED
+
+#17 [web build  5/10] COPY packages/shared/package.json packages/shared/package.json
+#17 CACHED
+
+#18 [api 1/7] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#18 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#18 DONE 0.1s
+
+#19 [api internal] load build context
+#19 transferring context: 313.65kB 0.2s done
+#19 DONE 0.2s
+
+#20 [api 2/7] WORKDIR /app
+#20 CACHED
+
+#21 [api 4/7] RUN pip install --no-cache-dir -r requirements.txt
+#21 CACHED
+
+#22 [api 3/7] COPY apps/api/requirements.txt ./
+#22 CACHED
+
+#23 [api 5/7] COPY apps/api/app ./app
+#23 CACHED
+
+#24 [api 6/7] COPY apps/api/alembic.ini ./alembic.ini
+#24 CACHED
+
+#25 [api 7/7] COPY apps/api/alembic ./alembic
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 exporting manifest sha256:3953efc573a64841b1335f945f4166d22b9ba5d65d1429e9e461189f23ce08fb done
+#26 exporting config sha256:e56cab3c10e2b742ea007bbc658f40286cc6d3171e3c3f0a0b7c27930e6aa7f2 done
+#26 exporting attestation manifest sha256:131c3838cfaef079e4ef464a1747399f1824df56b7c793d7e6af83ebd6e2a168 0.0s done
+#26 exporting manifest list sha256:0504b4ec9a92196d5e87443983ad9b8652eb397685d1d42e0d6d002ab9d42570
+#26 exporting manifest list sha256:0504b4ec9a92196d5e87443983ad9b8652eb397685d1d42e0d6d002ab9d42570 0.0s done
+#26 naming to docker.io/library/hub-api-production:latest done
+#26 unpacking to docker.io/library/hub-api-production:latest 0.0s done
+#26 DONE 0.2s
+
+#27 [web build  6/10] RUN npm ci
+#27 ...
+
+#28 [api] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#27 [web build  6/10] RUN npm ci
+#27 3.497 
+#27 3.497 added 27 packages, and audited 30 packages in 3s
+#27 3.497 
+#27 3.497 9 packages are looking for funding
+#27 3.498   run `npm fund` for details
+#27 3.498 
+#27 3.498 found 0 vulnerabilities
+#27 3.499 npm notice
+#27 3.499 npm notice New major version of npm available! 10.9.8 -> 11.15.0
+#27 3.499 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.15.0
+#27 3.499 npm notice To update run: npm install -g npm@11.15.0
+#27 3.499 npm notice
+#27 DONE 3.7s
+
+#29 [web build  7/10] COPY tsconfig.base.json ./
+#29 DONE 0.1s
+
+#30 [web build  8/10] COPY apps/web apps/web
+#30 DONE 0.1s
+
+#31 [web build  9/10] COPY packages/shared packages/shared
+#31 DONE 0.2s
+
+#32 [web build 10/10] RUN npm --workspace apps/web run build
+#32 0.372 
+#32 0.372 > @nerdeus/web@0.1.0 build
+#32 0.372 > npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+#32 0.372 
+#32 0.514 
+#32 0.514 > @nerdeus/shared@0.1.0 build
+#32 0.514 > tsc -p tsconfig.json
+#32 0.514 
+#32 10.06 vite v8.0.14 building client environment for production...
+#32 10.07 [2K
+transforming...✓ 404 modules transformed.
+#32 10.36 rendering chunks...
+#32 10.46 computing gzip size...
+#32 10.47 dist/index.html                     0.40 kB │ gzip:   0.27 kB
+#32 10.47 dist/assets/index-BwLT0x30.css     78.36 kB │ gzip:  11.21 kB
+#32 10.47 dist/assets/index-Bv3Trrws.js   1,221.53 kB │ gzip: 233.25 kB
+#32 10.47 
+#32 10.47 ✓ built in 412ms
+#32 10.47 [plugin builtin:vite-reporter] 
+#32 10.47 (!) Some chunks are larger than 500 kB after minification. Consider:
+#32 10.47 - Using dynamic import() to code-split the application
+#32 10.47 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+#32 10.47 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+#32 DONE 10.5s
+
+#11 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#11 CACHED
+
+#33 [web stage-1 2/3] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
+#33 DONE 0.1s
+
+#34 [web stage-1 3/3] COPY apps/web/nginx.production.conf /etc/nginx/conf.d/default.conf
+#34 DONE 0.1s
+
+#35 [web] exporting to image
+#35 exporting layers
+#35 exporting layers 0.2s done
+#35 exporting manifest sha256:e0568b515de7374e547aaa9be9d2153f6b3590dede158debdb32360f5e8897e6 0.0s done
+#35 exporting config sha256:d45e99623ddb009f287335ab65c58a4bdbd67bd117395723b49804e0e3d5552b 0.0s done
+#35 exporting attestation manifest sha256:d19bab1f801112c4cbb41fd1161c3f06089f5b9ed5a41b9f92ff18ed0d11b769 0.0s done
+#35 exporting manifest list sha256:e38901f56c5bc02f90946727db01335c1c879f57ef2883bc5c3ae7ee3e6c5ac6
+#35 exporting manifest list sha256:e38901f56c5bc02f90946727db01335c1c879f57ef2883bc5c3ae7ee3e6c5ac6 0.0s done
+#35 naming to docker.io/library/hub-web-production:latest done
+#35 unpacking to docker.io/library/hub-web-production:latest 0.1s done
+#35 DONE 0.4s
+
+#36 [web] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image hub-api-production Built 
+ Image hub-web-production Built 
+ Network hub-production-runtime-check_default Creating 
+ Network hub-production-runtime-check_default Created 
+ Volume hub-production-runtime-check_hub-postgres-data Creating 
+ Volume hub-production-runtime-check_hub-postgres-data Created 
+ Container hub-production-runtime-check-db-1 Creating 
+ Container hub-production-runtime-check-db-1 Created 
+ Container hub-production-runtime-check-api-1 Creating 
+ Container hub-production-runtime-check-api-1 Created 
+ Container hub-production-runtime-check-web-1 Creating 
+ Container hub-production-runtime-check-web-1 Created 
+ Container hub-production-runtime-check-db-1 Starting 
+ Container hub-production-runtime-check-db-1 Started 
+ Container hub-production-runtime-check-db-1 Waiting 
+ Container hub-production-runtime-check-db-1 Healthy 
+ Container hub-production-runtime-check-api-1 Starting 
+ Container hub-production-runtime-check-api-1 Started 
+ Container hub-production-runtime-check-web-1 Starting 
+ Container hub-production-runtime-check-web-1 Started 
+ Container hub-production-runtime-check-db-1 Running 
+ Container hub-production-runtime-check-db-1 Waiting 
+ Container hub-production-runtime-check-db-1 Healthy 
+ Container hub-production-runtime-check-migrate-run-5d69fbcbab06 Creating 
+ Container hub-production-runtime-check-migrate-run-5d69fbcbab06 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_base, Create base plan persistence table.
+INFO  [alembic.runtime.migration] Running upgrade 0001_base -> 0002_align_plan_layout_json, Align plan table to layout_json persistence.
+INFO  [alembic.runtime.migration] Running upgrade 0002_align_plan_layout_json -> 0003_simulation_runs, Add simulation run persistence.
+ Container hub-production-runtime-check-web-1 Stopping 
+ Container hub-production-runtime-check-web-1 Stopped 
+ Container hub-production-runtime-check-web-1 Removing 
+ Container hub-production-runtime-check-web-1 Removed 
+ Container hub-production-runtime-check-api-1 Stopping 
+ Container hub-production-runtime-check-api-1 Stopped 
+ Container hub-production-runtime-check-api-1 Removing 
+ Container hub-production-runtime-check-api-1 Removed 
+ Container hub-production-runtime-check-db-1 Stopping 
+ Container hub-production-runtime-check-db-1 Stopped 
+ Container hub-production-runtime-check-db-1 Removing 
+ Container hub-production-runtime-check-db-1 Removed 
+ Network hub-production-runtime-check_default Removing 
+ Volume hub-production-runtime-check_hub-postgres-data Removing 
+ Volume hub-production-runtime-check_hub-postgres-data Removed 
+ Network hub-production-runtime-check_default Removed 
+{
+  "status": "passed",
+  "smoke": "passed",
+  "composeFile": "docker-compose.production.yml",
+  "nginxFile": "apps/web/nginx.production.conf",
+  "webDockerfile": "apps/web/Dockerfile.production",
+  "apiDockerfile": "apps/api/Dockerfile.production"
+}

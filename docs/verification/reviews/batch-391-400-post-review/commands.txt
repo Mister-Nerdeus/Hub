@@ -1,0 +1,31 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-product-naming.mjs --issue 400
+node scripts/check-floorplan-operational-map-style.mjs --issue 400
+node scripts/check-floorplan-editor-ux.mjs --stage final --issue 400
+node scripts/check-floorplan-presentation-rendering.mjs --issue 400
+node scripts/check-door-authoring-tools.mjs --issue 400
+node scripts/check-layout-assignment-overlay.mjs --issue 400
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 400
+node scripts/check-production-docker-runtime.mjs --smoke
+node scripts/check-live-site-runtime.mjs --url https://hub.nerdeus.com/
+docker ps --format "table {{.Names}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}"
+docker compose ps
+docker compose down
+$env:WEB_HOST_PORT='5180'; docker compose -f docker-compose.production.yml up --build -d
+$env:WEB_HOST_PORT='5180'; docker compose -f docker-compose.production.yml --profile tools run --rm migrate
+docker compose -f docker-compose.production.yml ps
+Invoke-WebRequest -UseBasicParsing http://localhost:5180/
+Invoke-WebRequest -UseBasicParsing http://localhost:5180/health
+Invoke-WebRequest -UseBasicParsing http://localhost:5180/v1/plans
+node scripts/check-live-site-runtime.mjs --url https://hub.nerdeus.com/
+git diff --check
+node scripts/check-product-naming.mjs --issue 400
+node scripts/check-no-phi-fields.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-live-site-runtime.mjs --url https://hub.nerdeus.com/
+git diff --check
