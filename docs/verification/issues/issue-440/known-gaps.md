@@ -1,0 +1,3 @@
+- Full-shift scenario execution has not started.
+- Outcome rows are placeholders only.
+- No manual visual approval is claimed.

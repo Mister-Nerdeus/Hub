@@ -32,6 +32,7 @@ import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAs
 import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
+import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 
 import "./styles.css";
 
@@ -192,6 +193,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "scenarios" ? (
         <section className="workflow-section" aria-labelledby="scenarios-title">
           <h2 id="scenarios-title">Scenarios</h2>
+          <ScenarioRatioComparisonPanel />
           <Plan1ScenarioBuilder activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
         </section>
       ) : null}
