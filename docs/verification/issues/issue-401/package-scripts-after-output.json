@@ -1,0 +1,7 @@
+{
+  "check:floorplan-editor-ux": "npm --workspace packages/shared run build && node scripts/check-floorplan-editor-ux.mjs --stage final",
+  "check:floorplan-operational-map-style": "node scripts/check-floorplan-operational-map-style.mjs",
+  "check:floorplan-presentation-rendering": "npm --workspace packages/shared run build && node scripts/check-floorplan-presentation-rendering.mjs",
+  "check:door-authoring-tools": "npm --workspace packages/shared run build && node scripts/check-door-authoring-tools.mjs",
+  "check:layout-assignment-overlay": "npm --workspace packages/shared run build && node scripts/check-layout-assignment-overlay.mjs"
+}

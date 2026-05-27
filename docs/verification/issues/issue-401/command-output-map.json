@@ -1,0 +1,77 @@
+{
+  "issue": "401",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:floorplan-editor-ux",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/floorplan-editor-ux-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:floorplan-operational-map-style",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/floorplan-operational-map-style-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:floorplan-presentation-rendering",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/floorplan-presentation-rendering-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:door-authoring-tools",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/door-authoring-tools-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:layout-assignment-overlay",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/layout-assignment-overlay-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-gate-registry.mjs --issue 401",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/canonical-gates.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-usability-repair.mjs --stage canonical-gates --allow-partial --issue 401",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/editor-usability-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 401",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-401/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}

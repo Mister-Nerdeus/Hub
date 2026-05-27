@@ -1,6 +1,6 @@
 {
   "registryVersion": "1.0.0",
-  "lastUpdatedIssue": "401",
+  "lastUpdatedIssue": "381",
   "productDisplayName": "ER Pod Shift Simulator",
   "verifyLocalEnforcesRegistry": true,
   "gates": [
@@ -147,36 +147,6 @@
       "packageScript": "check:manual-assignment-burden",
       "command": "npm run check:manual-assignment-burden -- --issue ${manualAssignmentIssue}",
       "category": "manual-assignment-foundation"
-    },
-    {
-      "id": "floorplan-editor-ux",
-      "packageScript": "check:floorplan-editor-ux",
-      "command": "npm run check:floorplan-editor-ux -- --issue 400",
-      "category": "floorplan-editor-ux"
-    },
-    {
-      "id": "floorplan-operational-map-style",
-      "packageScript": "check:floorplan-operational-map-style",
-      "command": "npm run check:floorplan-operational-map-style -- --issue 400",
-      "category": "floorplan-editor-ux"
-    },
-    {
-      "id": "floorplan-presentation-rendering",
-      "packageScript": "check:floorplan-presentation-rendering",
-      "command": "npm run check:floorplan-presentation-rendering -- --issue 400",
-      "category": "floorplan-editor-ux"
-    },
-    {
-      "id": "door-authoring-tools",
-      "packageScript": "check:door-authoring-tools",
-      "command": "npm run check:door-authoring-tools -- --issue 400",
-      "category": "floorplan-editor-ux"
-    },
-    {
-      "id": "layout-assignment-overlay",
-      "packageScript": "check:layout-assignment-overlay",
-      "command": "npm run check:layout-assignment-overlay -- --issue 400",
-      "category": "floorplan-editor-ux"
     }
   ]
 }

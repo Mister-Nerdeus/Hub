@@ -1,0 +1,18 @@
+COMMAND: npm run check:floorplan-editor-ux
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:floorplan-editor-ux
+> npm --workspace packages/shared run build && node scripts/check-floorplan-editor-ux.mjs --stage final
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "400",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/floorplan-editor-ux-manifest.json",
+  "goNoGoStatus": "GO for Manual Assignment Refinement and Scenario Builder Foundation. NO-GO for promotion; manual visual approval remains required.",
+  "failures": []
+}

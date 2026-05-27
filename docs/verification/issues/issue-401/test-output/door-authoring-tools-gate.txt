@@ -1,0 +1,13 @@
+COMMAND: npm run check:door-authoring-tools
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:door-authoring-tools
+> npm --workspace packages/shared run build && node scripts/check-door-authoring-tools.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "issue": "396"
+}

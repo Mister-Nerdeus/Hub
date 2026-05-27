@@ -1,0 +1,13 @@
+COMMAND: npm run check:layout-assignment-overlay
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:layout-assignment-overlay
+> npm --workspace packages/shared run build && node scripts/check-layout-assignment-overlay.mjs
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "issue": "394"
+}

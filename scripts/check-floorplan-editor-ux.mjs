@@ -4,7 +4,7 @@ import { dirname, join } from "node:path";
 const repoRoot = process.cwd();
 const args = process.argv.slice(2);
 const stage = readArg("--stage") ?? "final";
-const issue = readArg("--issue") ?? "391";
+const issue = readArg("--issue") ?? (stage === "final" ? "400" : "391");
 const allowPartial = args.includes("--allow-partial");
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/floorplan-editor-ux-manifest.json";

@@ -32,8 +32,10 @@ function manifestIssue(path, fallback) {
 }
 
 function currentManualAssignmentIssue() {
+  const stableManualAssignmentIssue = "390";
   if (existsSync("docs/verification/manual-assignment-foundation-manifest.json")) {
-    return manifestIssue("docs/verification/manual-assignment-foundation-manifest.json", "381");
+    const issue = manifestIssue("docs/verification/manual-assignment-foundation-manifest.json", stableManualAssignmentIssue);
+    return Number(issue) < Number(stableManualAssignmentIssue) ? stableManualAssignmentIssue : issue;
   }
   if (existsSync("docs/verification/operational-demo-repair-manifest.json")) {
     return manifestIssue("docs/verification/operational-demo-repair-manifest.json", "380");
@@ -54,6 +56,14 @@ function currentOperationalDemoUxIssue() {
 
 function currentHumanReviewGovernanceIssue() {
   return manifestIssue("docs/verification/human-review-governance-hardening-manifest.json", "360");
+}
+
+function currentFloorplanEditorUxIssue() {
+  return manifestIssue("docs/verification/floorplan-editor-ux-manifest.json", "400");
+}
+
+function currentEditorUsabilityRepairIssue() {
+  return manifestIssue("docs/verification/editor-usability-repair-manifest.json", "401");
 }
 
 function loadCanonicalGateRegistry() {
@@ -118,6 +128,8 @@ const manualAssignmentIssue = currentManualAssignmentIssue();
 const operationalDemoRepairIssue = currentOperationalDemoRepairIssue();
 const operationalDemoUxIssue = currentOperationalDemoUxIssue();
 const humanReviewGovernanceIssue = currentHumanReviewGovernanceIssue();
+const floorplanEditorUxIssue = currentFloorplanEditorUxIssue();
+const editorUsabilityRepairIssue = currentEditorUsabilityRepairIssue();
 
 if (viteApiBaseUrl !== apiUrl) {
   throw new Error(`VITE_API_BASE_URL must be ${apiUrl}, got ${viteApiBaseUrl}`);
@@ -134,7 +146,9 @@ const canonicalCommands = loadCanonicalGateRegistry().gates.map((gate) =>
     manualAssignmentIssue,
     operationalDemoRepairIssue,
     operationalDemoUxIssue,
-    humanReviewGovernanceIssue
+    humanReviewGovernanceIssue,
+    floorplanEditorUxIssue,
+    editorUsabilityRepairIssue
   })
 );
 

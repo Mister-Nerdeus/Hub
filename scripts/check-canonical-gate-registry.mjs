@@ -30,7 +30,12 @@ const requiredGateIds = [
   "manual-assignment-foundation-preflight",
   "manual-assignment-contracts",
   "manual-assignment-ui",
-  "manual-assignment-burden"
+  "manual-assignment-burden",
+  "floorplan-editor-ux",
+  "floorplan-operational-map-style",
+  "floorplan-presentation-rendering",
+  "door-authoring-tools",
+  "layout-assignment-overlay"
 ];
 const newIssue381Scripts = [
   "check:product-identity",
@@ -41,7 +46,12 @@ const newIssue381Scripts = [
   "check:manual-assignment-foundation",
   "check:manual-assignment-contracts",
   "check:manual-assignment-ui",
-  "check:manual-assignment-burden"
+  "check:manual-assignment-burden",
+  "check:floorplan-editor-ux",
+  "check:floorplan-operational-map-style",
+  "check:floorplan-presentation-rendering",
+  "check:door-authoring-tools",
+  "check:layout-assignment-overlay"
 ];
 const sharedBuildRequiredScripts = [
   "check:operational-demo-ux",
@@ -57,7 +67,11 @@ const sharedBuildRequiredScripts = [
   "check:manual-assignment-foundation",
   "check:manual-assignment-contracts",
   "check:manual-assignment-ui",
-  "check:manual-assignment-burden"
+  "check:manual-assignment-burden",
+  "check:floorplan-editor-ux",
+  "check:floorplan-presentation-rendering",
+  "check:door-authoring-tools",
+  "check:layout-assignment-overlay"
 ];
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
@@ -96,6 +110,29 @@ const missingPackageScriptNegative = captureValidationFailure(
   ),
   /check:operational-demo-repair/u
 );
+const missingFloorplanGateNegative = {
+  status: "passed",
+  checks: requiredGateIds
+    .filter((id) => [
+      "floorplan-editor-ux",
+      "floorplan-operational-map-style",
+      "floorplan-presentation-rendering",
+      "door-authoring-tools",
+      "layout-assignment-overlay"
+    ].includes(id))
+    .map((id) => captureValidationFailure(
+      () => validateRegistry(
+        { ...registry, gates: registry.gates.filter((gate) => gate.id !== id) },
+        packageJson,
+        verifyLocalSource
+      ),
+      new RegExp(id, "u")
+    ))
+};
+if (missingFloorplanGateNegative.checks.some((check) => check.status !== "passed")) {
+  missingFloorplanGateNegative.status = "failed";
+  failures.push("missing floorplan gate negative test did not reject every removed gate");
+}
 
 const output = {
   status: failures.length === 0 ? "passed" : "failed",
@@ -106,12 +143,14 @@ const output = {
   missingRepairNegative,
   missingCanonicalGateNegative,
   missingPackageScriptNegative,
+  missingFloorplanGateNegative,
   failures
 };
 
 writeJson(`${issueDir}/canonical-gate-registry-output.json`, output);
 writeJson(`${issueDir}/missing-repair-gates-negative-output.json`, missingRepairNegative);
 writeJson(`${issueDir}/missing-canonical-gate-negative-output.json`, missingCanonicalGateNegative);
+writeJson(`${issueDir}/missing-floorplan-gate-negative-output.json`, missingFloorplanGateNegative);
 writeJson(`${issueDir}/canonical-gate-registry-update-output.json`, {
   status: output.status,
   registryPath,
@@ -173,7 +212,11 @@ function validateRegistry(candidateRegistry, candidatePackageJson, candidateVeri
     "docs/verification/manual-assignment-foundation-manifest.json",
     "docs/verification/operational-demo-repair-manifest.json",
     "docs/verification/operational-demo-ux-manifest.json",
-    "docs/verification/human-review-governance-hardening-manifest.json"
+    "docs/verification/human-review-governance-hardening-manifest.json",
+    "docs/verification/floorplan-editor-ux-manifest.json",
+    "floorplanEditorUxIssue",
+    "docs/verification/editor-usability-repair-manifest.json",
+    "editorUsabilityRepairIssue"
   ]) {
     if (!candidateVerifyLocalSource.includes(requiredText)) {
       errors.push(`verify-local missing registry/governance wiring: ${requiredText}`);

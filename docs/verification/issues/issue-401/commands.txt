@@ -1,0 +1,12 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:floorplan-editor-ux
+npm run check:floorplan-operational-map-style
+npm run check:floorplan-presentation-rendering
+npm run check:door-authoring-tools
+npm run check:layout-assignment-overlay
+node scripts/check-canonical-gate-registry.mjs --issue 401
+node scripts/check-editor-usability-repair.mjs --stage canonical-gates --allow-partial --issue 401
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 401
+node scripts/verify-local.mjs
