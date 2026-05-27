@@ -25,6 +25,8 @@ export function RoomShape({
     <g
       className={`${selectedClassName("layout-editor-stage__room", isSelected)} ${viewModel.presentationActive ? buildRoomPresentationClass(viewModel) : ""}`}
       data-hit-target-key={viewModel.hitTargetKey}
+      data-layout-object-type="room"
+      data-layout-object-id={viewModel.objectId}
       data-room-type={viewModel.roomType}
       data-assignment-state={viewModel.assignmentLabel ?? "none"}
       data-burden-level={viewModel.burdenLevel ?? "none"}
@@ -33,7 +35,14 @@ export function RoomShape({
       data-resize-handles={isSelected ? "display-only" : undefined}
       role="img"
       aria-label={viewModel.ariaLabel}
+      tabIndex={0}
       onClick={() => onSelect?.("room", viewModel.objectId)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect?.("room", viewModel.objectId);
+        }
+      }}
       onPointerDown={(event) => onMoveStart?.(viewModel.objectId, event)}
       onPointerMove={(event) => onMove?.(viewModel.objectId, event)}
       onPointerUp={(event) => onMoveEnd?.(viewModel.objectId, event)}

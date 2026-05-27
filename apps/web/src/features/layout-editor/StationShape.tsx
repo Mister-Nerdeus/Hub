@@ -13,10 +13,19 @@ export function StationShape({ viewModel, isSelected = false, presentation = fal
     <g
       className={selectedClassName("layout-editor-stage__station", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
+      data-layout-object-type="station"
+      data-layout-object-id={viewModel.objectId}
       data-station-type={viewModel.stationType}
       role="img"
       aria-label={viewModel.ariaLabel}
+      tabIndex={0}
       onClick={() => onSelect?.("station", viewModel.objectId)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect?.("station", viewModel.objectId);
+        }
+      }}
     >
       {presentation ? (
         <path className="layout-editor-stage__station-presentation" d={viewModel.presentationPath} />

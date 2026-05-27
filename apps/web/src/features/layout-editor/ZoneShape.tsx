@@ -12,10 +12,19 @@ export function ZoneShape({ viewModel, isSelected = false, onSelect }: ZoneShape
     <g
       className={`${selectedClassName("layout-editor-stage__zone", isSelected)} layout-editor-stage__zone--${viewModel.zoneType}`}
       data-hit-target-key={viewModel.hitTargetKey}
+      data-layout-object-type="zone"
+      data-layout-object-id={viewModel.objectId}
       data-zone-type={viewModel.zoneType}
       role="img"
       aria-label={viewModel.ariaLabel}
+      tabIndex={0}
       onClick={() => onSelect?.("zone", viewModel.objectId)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect?.("zone", viewModel.objectId);
+        }
+      }}
     >
       <rect
         x={viewModel.xPixels}

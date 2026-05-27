@@ -1,0 +1,41 @@
+{
+  "issue": "419",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canvas-popup-editing.mjs --stage accessibility --allow-partial --issue 419",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/canvas-popup-editing-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 419",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-419/test-output/private-source-artifacts.txt"
+      ]
+    }
+  ]
+}

@@ -15,6 +15,14 @@ export function CanvasObjectPopover({ viewModel, onClose, children }: CanvasObje
     popoverRef.current?.focus();
   }, [viewModel.objectType, viewModel.objectId]);
 
+  const closeAndReturnFocus = () => {
+    onClose();
+    if (typeof window === "undefined") {
+      return;
+    }
+    window.setTimeout(() => focusPopoverAnchor(viewModel), 0);
+  };
+
   return (
     <foreignObject
       x={viewModel.xPixels}
@@ -34,13 +42,13 @@ export function CanvasObjectPopover({ viewModel, onClose, children }: CanvasObje
         onKeyDown={(event) => {
           if (event.key === "Escape") {
             event.stopPropagation();
-            onClose();
+            closeAndReturnFocus();
           }
         }}
       >
         <header>
           <strong>{viewModel.title}</strong>
-          <button type="button" aria-label="Close object popover" onClick={onClose}>
+          <button type="button" aria-label="Close object popover" onClick={closeAndReturnFocus}>
             Close
           </button>
         </header>
@@ -48,4 +56,19 @@ export function CanvasObjectPopover({ viewModel, onClose, children }: CanvasObje
       </div>
     </foreignObject>
   );
+}
+
+function focusPopoverAnchor(viewModel: CanvasObjectPopoverViewModel): void {
+  const selector = [
+    `[data-layout-object-type="${escapeSelectorValue(viewModel.objectType)}"]`,
+    `[data-layout-object-id="${escapeSelectorValue(viewModel.objectId)}"]`
+  ].join("");
+  const anchor = document.querySelector(selector);
+  if (anchor instanceof HTMLElement || anchor instanceof SVGElement) {
+    anchor.focus();
+  }
+}
+
+function escapeSelectorValue(value: string): string {
+  return value.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 }

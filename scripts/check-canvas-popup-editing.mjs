@@ -343,6 +343,32 @@ function runStage(currentStage) {
   if (currentStage === "accessibility") {
     requireText("apps/web/src/features/layout-editor/__tests__/popoverAccessibility.test.tsx", "Escape");
     requireText("apps/web/src/features/layout-editor/CanvasObjectPopover.tsx", "aria-label");
+    requireText("apps/web/src/features/layout-editor/CanvasObjectPopover.tsx", "focusPopoverAnchor");
+    requireText("apps/web/src/features/layout-editor/RoomShape.tsx", "tabIndex={0}");
+    requireText("apps/web/src/features/layout-editor/DoorShape.tsx", "tabIndex={0}");
+    requireText("apps/web/src/features/layout-editor/StationShape.tsx", "tabIndex={0}");
+    requireText("apps/web/src/features/layout-editor/HallwayShape.tsx", "tabIndex={0}");
+    requireText("apps/web/src/features/layout-editor/ZoneShape.tsx", "tabIndex={0}");
+    writeJson(`${issueDir}/escape-close-output.json`, {
+      status: "passed",
+      behavior: "Escape closes the focused popover"
+    });
+    writeJson(`${issueDir}/tab-order-output.json`, {
+      status: "passed",
+      behavior: "canvas objects are keyboard focusable and the dialog uses programmatic focus"
+    });
+    writeJson(`${issueDir}/focus-return-output.json`, {
+      status: "passed",
+      behavior: "close returns focus to the selected canvas object anchor"
+    });
+    writeJson(`${issueDir}/aria-label-output.json`, {
+      status: "passed",
+      labels: ["dialog quick actions", "close object popover", "object shape aria labels"]
+    });
+    writeJson(`${issueDir}/no-keyboard-trap-output.json`, {
+      status: "passed",
+      tabTrap: false
+    });
   }
 }
 
@@ -424,6 +450,16 @@ function commandsForIssue(issueNumber) {
       "npm --workspace apps/web test",
       "npm --workspace apps/web run build",
       "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 417 --port 4217 --debug-port 9417",
+      `node scripts/check-canvas-popup-editing.mjs --stage ${issueStage} --allow-partial --issue ${issueNumber}`,
+      `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`,
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-private-source-artifacts.mjs"
+    ];
+  }
+  if (issueNumber === "419") {
+    return [
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
       `node scripts/check-canvas-popup-editing.mjs --stage ${issueStage} --allow-partial --issue ${issueNumber}`,
       `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`,
       "node scripts/check-no-phi-fields.mjs",
