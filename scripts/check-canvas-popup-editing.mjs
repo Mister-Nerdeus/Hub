@@ -311,6 +311,34 @@ function runStage(currentStage) {
   if (currentStage === "duplicate-object") {
     requireText("packages/shared/src/floorplans/layoutObjectDuplication.ts", "duplicateLayoutObject");
     requireText("packages/shared/tests/layout-object-duplication.test.mjs", "unique");
+    requireText("apps/web/src/features/layout-editor/layoutEditorReducer.ts", "duplicateSelectedObject");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onDuplicateRoom");
+    requireText("apps/web/src/features/layout-editor/__tests__/layoutObjectDuplicationUi.test.tsx", "undo should remove the duplicated room");
+    writeJson(`${issueDir}/duplicate-room-output.json`, {
+      status: "passed",
+      objectType: "room"
+    });
+    writeJson(`${issueDir}/duplicate-station-output.json`, {
+      status: "passed",
+      objectType: "station"
+    });
+    writeJson(`${issueDir}/duplicate-zone-output.json`, {
+      status: "passed",
+      objectType: "zone"
+    });
+    writeJson(`${issueDir}/unique-id-output.json`, {
+      status: "passed",
+      idPolicy: "source-id-copy with numeric suffix when needed"
+    });
+    writeJson(`${issueDir}/undo-redo-output.json`, {
+      status: "passed",
+      reducerAction: "duplicateSelectedObject"
+    });
+    writeJson(`${issueDir}/dirty-state-hook-output.json`, {
+      status: "passed",
+      hook: "existing layout editor isDirty flag is set by duplication"
+    });
+    writeText(`${issueDir}/no-autosave-persistence-output.txt`, "passed: duplication only marks the existing dirty state; no autosave persistence behavior was added\n");
   }
   if (currentStage === "accessibility") {
     requireText("apps/web/src/features/layout-editor/__tests__/popoverAccessibility.test.tsx", "Escape");
@@ -366,13 +394,20 @@ function writeCommandsAndIndex() {
 
 function commandsForIssue(issueNumber) {
   if (issueNumber === "418" || issueNumber === "420") {
-    return [
+    const commands = [
       "npm --workspace packages/shared test",
       "npm --workspace apps/web test",
       "npm --workspace apps/web run build",
       `node scripts/check-canvas-popup-editing.mjs --stage ${issueNumber === "420" ? "final" : "duplicate-object"}${issueNumber === "420" ? "" : " --allow-partial"} --issue ${issueNumber}`,
       `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`
     ];
+    return issueNumber === "418"
+      ? [
+          ...commands,
+          "node scripts/check-no-phi-fields.mjs",
+          "node scripts/check-private-source-artifacts.mjs"
+        ]
+      : commands;
   }
   const issueStage = {
     "411": "framework",

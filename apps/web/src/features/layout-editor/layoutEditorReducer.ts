@@ -4,6 +4,7 @@ import {
   assignDoorToRoom,
   authoringRoomTypeToEditableRoomType,
   deleteDoor,
+  duplicateLayoutObject,
   generateAutoHallways,
   moveDoor,
   validateAuthoringRoomType,
@@ -117,6 +118,7 @@ export type LayoutEditorAction =
       offsetFeet: number;
     }
   | { type: "generateAutoHallways" }
+  | { type: "duplicateSelectedObject" }
   | { type: "undoLayoutEdit" }
   | { type: "redoLayoutEdit" }
   | { type: "setValidationWarnings"; validationWarnings: LayoutEditorValidationWarning[] }
@@ -265,6 +267,8 @@ export function layoutEditorReducer(
       );
     case "generateAutoHallways":
       return generateAutoHallwaysForState(state);
+    case "duplicateSelectedObject":
+      return duplicateSelectedObject(state);
     case "undoLayoutEdit":
       return restoreLayoutEditHistory(state, "undo");
     case "redoLayoutEdit":
@@ -425,6 +429,32 @@ function generateAutoHallwaysForState(state: LayoutEditorState): LayoutEditorSta
         isGenerated: true
       })
     ],
+    isDirty: true
+  });
+}
+
+function duplicateSelectedObject(state: LayoutEditorState): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null || state.selectedObjectId == null) {
+    return state;
+  }
+  if (
+    state.selectedObjectType !== "room" &&
+    state.selectedObjectType !== "station" &&
+    state.selectedObjectType !== "zone"
+  ) {
+    return state;
+  }
+  const result = duplicateLayoutObject({
+    layout: state.editableLayout,
+    readOnly: state.readOnly,
+    objectType: state.selectedObjectType,
+    objectId: state.selectedObjectId
+  });
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: result.objectType,
+    selectedObjectId: result.duplicatedObjectId,
     isDirty: true
   });
 }

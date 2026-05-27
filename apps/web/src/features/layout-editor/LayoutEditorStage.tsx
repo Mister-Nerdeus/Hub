@@ -1084,7 +1084,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                     }}
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
-                    onDuplicateRoom={() => undefined}
+                    onDuplicateRoom={() => dispatchStage({ type: "duplicateSelectedObject" })}
                     onDeleteRoom={() => undefined}
                   />
                 ) : canvasObjectPopoverViewModel.objectType === "door" ? (
