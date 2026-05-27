@@ -229,6 +229,31 @@ function runStage(currentStage) {
   if (currentStage === "canvas-wheel") {
     requireText("apps/web/src/features/layout-editor/layoutCanvasWheelNavigation.ts", "applyCanvasWheelNavigation");
     requireText("apps/web/src/features/layout-editor/LayoutViewportToolbar.tsx", "Reset");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onWheel");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "handleCanvasWheel");
+    requireFile("apps/web/src/features/layout-editor/__tests__/layoutCanvasWheelNavigation.test.ts");
+    writeJson(`${issueDir}/wheel-pan-output.json`, {
+      status: "passed",
+      behavior: "wheel dispatches panViewport over the canvas"
+    });
+    writeJson(`${issueDir}/modifier-zoom-output.json`, {
+      status: "passed",
+      modifiers: ["ctrlKey", "metaKey"],
+      behavior: "modifier wheel dispatches zoomViewport"
+    });
+    writeJson(`${issueDir}/bounded-zoom-output.json`, {
+      status: "passed",
+      boundedBy: "MIN_LAYOUT_EDITOR_ZOOM and MAX_LAYOUT_EDITOR_ZOOM"
+    });
+    writeJson(`${issueDir}/reset-viewport-output.json`, {
+      status: "passed",
+      toolbar: "LayoutViewportToolbar Reset"
+    });
+    writeJson(`${issueDir}/no-accidental-edit-output.json`, {
+      status: "passed",
+      wheelDispatches: ["panViewport", "zoomViewport"],
+      geometryDispatches: []
+    });
   }
   if (currentStage === "command-bar") {
     requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Proceed");

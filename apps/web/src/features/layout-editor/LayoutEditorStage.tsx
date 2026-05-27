@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelEvent } from "react";
 import {
   auditPathSyncStatus,
   generateDoorPathNodes,
@@ -98,6 +98,7 @@ import {
   canvasPointerDeltaToPanFeet,
   isCanvasPanBackgroundTarget
 } from "./layoutCanvasPan";
+import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -522,6 +523,28 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
   };
+  const handleCanvasWheel = (event: WheelEvent<SVGSVGElement>) => {
+    event.preventDefault();
+    const navigation = applyCanvasWheelNavigation({
+      deltaX: event.deltaX,
+      deltaY: event.deltaY,
+      shiftKey: event.shiftKey,
+      ctrlKey: event.ctrlKey,
+      metaKey: event.metaKey,
+      viewport: stageState.viewport
+    });
+    if (navigation.type === "zoom") {
+      dispatchStage({ type: "zoomViewport", direction: navigation.direction });
+      return;
+    }
+    if (navigation.deltaXFeet !== 0 || navigation.deltaYFeet !== 0) {
+      dispatchStage({
+        type: "panViewport",
+        deltaXFeet: navigation.deltaXFeet,
+        deltaYFeet: navigation.deltaYFeet
+      });
+    }
+  };
 
   return (
     <section
@@ -663,6 +686,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             onPointerMove={moveCanvasPan}
             onPointerUp={endCanvasPan}
             onPointerCancel={endCanvasPan}
+            onWheel={handleCanvasWheel}
           >
             <rect
               className="layout-editor-stage__viewport-frame"

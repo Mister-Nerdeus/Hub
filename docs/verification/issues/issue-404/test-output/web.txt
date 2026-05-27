@@ -1,0 +1,310 @@
+COMMAND: npm --workspace apps/web test
+
+> @nerdeus/web@0.1.0 test
+> node scripts/run-web-tests.mjs
+
+Discovered 147 web test file(s).
+
+> npm --workspace @nerdeus/shared run build
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+
+> node C:\Projects\Hub\node_modules\typescript\bin\tsc -p C:\Projects\Hub\node_modules\.cache\nerdeus-web-tests\tsconfig.web-tests.json
+
+> src/App.test.ts
+
+> src/features/app-shell/AppShell.test.ts
+
+> src/features/app-shell/__tests__/appNavigation.test.ts
+
+> src/features/assignments/AssignmentComparisonPanel.test.ts
+
+> src/features/assignments/AssignmentPaintMode.test.ts
+
+> src/features/assignments/AssignmentValidationPanel.test.ts
+
+> src/features/assignments/AssignmentWalkingPreview.test.ts
+
+> src/features/assignments/AssignmentWorkflow.test.ts
+
+> src/features/assignments/BurdenScorePanel.test.ts
+
+> src/features/assignments/NurseAssignmentCards.test.ts
+
+> src/features/assignments/NurseProfilePanel.test.ts
+
+> src/features/assignments/RoomLoadEditor.test.ts
+
+> src/features/bundle-audit/bundleAuditViewModel.test.ts
+
+> src/features/comparison/scenarioComparisonViewModel.test.ts
+
+> src/features/demo/Plan1DemoGuide.test.tsx
+
+> src/features/demo/Plan1DemoProofBundlePanel.test.tsx
+
+> src/features/demo/Plan1DemoSeedPanel.test.tsx
+
+> src/features/demo/plan1DemoWorkflowViewModel.test.ts
+
+> src/features/developer/developerProofModeState.test.ts
+
+> src/features/export-review/exportBundleReviewViewModel.test.ts
+
+> src/features/floorplans/DefaultPlanEditCopyControls.test.tsx
+
+> src/features/floorplans/PlanBuilderLibrary.test.tsx
+
+> src/features/floorplans/SavePlanControls.test.tsx
+
+> src/features/floorplans/__tests__/activeFloorplanViewModel.test.ts
+
+> src/features/floorplans/__tests__/appShellNavigation.test.tsx
+
+> src/features/floorplans/__tests__/demoWalkthroughViewModel.test.ts
+
+> src/features/floorplans/__tests__/developerEvidenceViewModel.test.ts
+
+> src/features/floorplans/__tests__/editorControlViewModel.test.ts
+
+> src/features/floorplans/__tests__/editorGeometryNonMutation.test.ts
+
+> src/features/floorplans/__tests__/floorplanLandingSummary.test.tsx
+
+> src/features/floorplans/__tests__/manualReviewActionsViewModel.test.ts
+
+> src/features/floorplans/__tests__/manualReviewCtaActions.test.tsx
+
+> src/features/floorplans/__tests__/manualReviewCtaViewModel.test.ts
+
+> src/features/floorplans/__tests__/manualReviewHelperViewModel.test.ts
+
+> src/features/floorplans/__tests__/operationalDemoNegativeCases.test.ts
+
+> src/features/floorplans/__tests__/operationalDemoSnapshotAdapter.test.ts
+
+> src/features/floorplans/__tests__/operatorModeEvidenceContainment.test.ts
+
+> src/features/floorplans/__tests__/operatorSnapshotConsumption.test.ts
+
+> src/features/floorplans/__tests__/operatorStatusLabels.test.ts
+
+> src/features/floorplans/__tests__/planBuilderLibraryViewModel.test.ts
+
+> src/features/floorplans/__tests__/planBuilderReviewFlowViewModel.test.ts
+
+> src/features/floorplans/__tests__/planStatusViewModel.test.ts
+
+> src/features/floorplans/__tests__/promotionBlockedViewModel.test.ts
+
+> src/features/floorplans/__tests__/renderedPlanPreviewViewModel.test.ts
+
+> src/features/floorplans/__tests__/renderedPreviewEvidenceContainment.test.tsx
+
+> src/features/floorplans/__tests__/reviewArtifactLinks.test.ts
+
+> src/features/floorplans/activeFloorplanState.test.ts
+
+> src/features/floorplans/duplicateFloorplanViewModel.test.ts
+
+> src/features/floorplans/floorplanJsonImportExport.test.ts
+
+> src/features/floorplans/floorplanLibraryViewModel.test.ts
+
+> src/features/floorplans/savedFloorplanPersistence.test.ts
+
+> src/features/floorplans/savedFloorplanReloadE2E.test.ts
+
+> src/features/floorplans/savedFloorplanStore.test.ts
+
+> src/features/layout-editor/AutoHallwayControls.test.tsx
+
+> src/features/layout-editor/DoorEditor.test.tsx
+
+> src/features/layout-editor/DoorPathNodeSyncControls.test.tsx
+
+> src/features/layout-editor/LayoutToolPalette.test.tsx
+
+> src/features/layout-editor/PathSyncStatusPanel.test.tsx
+
+> src/features/layout-editor/RoomTypeEditor.test.tsx
+
+> src/features/layout-editor/SimulationReadyExportPanel.test.tsx
+
+> src/features/layout-editor/__tests__/DoorEditor.test.tsx
+
+> src/features/layout-editor/__tests__/doorAccessMarker.test.tsx
+
+> src/features/layout-editor/__tests__/editorViewportLayout.test.tsx
+
+> src/features/layout-editor/__tests__/hallwayArrowViewModel.test.ts
+
+> src/features/layout-editor/__tests__/layoutAssignmentOverlay.test.ts
+
+> src/features/layout-editor/__tests__/layoutCanvasPan.test.ts
+
+> src/features/layout-editor/__tests__/layoutCanvasWheelNavigation.test.ts
+
+> src/features/layout-editor/__tests__/layoutDoorTools.test.ts
+
+> src/features/layout-editor/__tests__/layoutEditorMode.test.tsx
+
+> src/features/layout-editor/__tests__/layoutInspectorTabs.test.tsx
+
+> src/features/layout-editor/__tests__/layoutRoomPresentationViewModel.test.ts
+
+> src/features/layout-editor/__tests__/stationPresentationShape.test.tsx
+
+> src/features/layout-editor/doorAuthoringE2E.test.ts
+
+> src/features/layout-editor/doorFollowsMovedRoom.test.ts
+
+> src/features/layout-editor/doorShapeViewModel.test.ts
+
+> src/features/layout-editor/doorValidityAfterRoomResize.test.ts
+
+> src/features/layout-editor/editableLayoutToPlanContract.test.ts
+
+> src/features/layout-editor/hallwayZoneShapeViewModel.test.ts
+
+> src/features/layout-editor/layoutCollisionValidation.test.ts
+
+> src/features/layout-editor/layoutCoordinateSystem.test.ts
+
+> src/features/layout-editor/layoutDeltaPreviewViewModel.test.ts
+
+> src/features/layout-editor/layoutEditAuditTrail.test.ts
+
+> src/features/layout-editor/layoutEditEffects.test.ts
+
+> src/features/layout-editor/layoutEditGestureAuditContract.test.ts
+
+> src/features/layout-editor/layoutEditorActiveFloorplanLoad.test.ts
+
+> src/features/layout-editor/layoutEditorReducer.test.ts
+
+> src/features/layout-editor/layoutGridViewModel.test.ts
+
+> src/features/layout-editor/layoutInspectorSelectionSync.test.ts
+
+> src/features/layout-editor/layoutInspectorViewModel.test.ts
+
+> src/features/layout-editor/layoutLocalDraftPersistence.test.ts
+
+> src/features/layout-editor/layoutMoveValidation.test.ts
+
+> src/features/layout-editor/layoutObjectRenderPipeline.test.ts
+
+> src/features/layout-editor/layoutSelectionHighlight.test.ts
+
+> src/features/layout-editor/layoutSelectionModel.test.ts
+
+> src/features/layout-editor/layoutSnapEngine.test.ts
+
+> src/features/layout-editor/layoutStageSelectionEvents.test.ts
+
+> src/features/layout-editor/layoutUndoRedoHistory.test.ts
+
+> src/features/layout-editor/layoutValidationPanelViewModel.test.ts
+
+> src/features/layout-editor/layoutValidationSeverityDisplay.test.ts
+
+> src/features/layout-editor/layoutValidationWarningContract.test.ts
+
+> src/features/layout-editor/layoutViewportControls.test.ts
+
+> src/features/layout-editor/layoutWarningRecalculation.test.ts
+
+> src/features/layout-editor/plan1AppRenderVisualParity.test.ts
+
+> src/features/layout-editor/roomAuthoringE2E.test.ts
+
+> src/features/layout-editor/roomDragMove.test.ts
+
+> src/features/layout-editor/roomDragSnapAccumulator.test.ts
+
+> src/features/layout-editor/roomInspectorDimensionDraft.test.ts
+
+> src/features/layout-editor/roomInspectorDimensionEdit.test.ts
+
+> src/features/layout-editor/roomResizeCollisionValidation.test.ts
+
+> src/features/layout-editor/roomResizeGeometry.test.ts
+
+> src/features/layout-editor/roomResizeHandlesViewModel.test.ts
+
+> src/features/layout-editor/roomResizeInteraction.test.ts
+
+> src/features/layout-editor/roomResizeValidation.test.ts
+
+> src/features/layout-editor/roomShapeViewModel.test.ts
+
+> src/features/layout-editor/stationShapeViewModel.test.ts
+
+> src/features/manual-assignment/__tests__/fourPatientComparisonViewModel.test.ts
+
+> src/features/manual-assignment/__tests__/manualAssignmentReducer.test.ts
+
+> src/features/manual-assignment/__tests__/manualAssignmentWorkspace.test.tsx
+
+> src/features/manual-assignment/__tests__/manualBurdenViewModel.test.ts
+
+> src/features/manual-assignment/__tests__/nurseProfileViewModel.test.ts
+
+> src/features/manual-assignment/__tests__/roomLoadEditorViewModel.test.ts
+
+> src/features/manual-assignment/__tests__/walkingBurdenViewModel.test.ts
+
+> src/features/manual-assignment/manualAssignmentViewModel.test.ts
+
+> src/features/optimization/optimizerProofViewModel.test.ts
+
+> src/features/outcomes/operationalOutcomeDashboardViewModel.test.ts
+
+> src/features/plan-builder/generatedPlanPreviewViewModel.test.ts
+
+> src/features/plan-builder/planBuilderAdvancedDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderDefaultsFormState.test.ts
+
+> src/features/plan-builder/planBuilderValidation.test.ts
+
+> src/features/plan-builder/planDraftReducer.test.ts
+
+> src/features/plan-renderer/defaultPlansRender.test.ts
+
+> src/features/plan-renderer/planRenderGeometry.test.ts
+
+> src/features/plans/planApi.test.ts
+
+> src/features/plans/planImportExport.test.ts
+
+> src/features/reports/reportProofViewModel.test.ts
+
+> src/features/route-preview/routePreviewProofViewModel.test.ts
+
+> src/features/scenarios/Plan1AssumptionsPanel.test.tsx
+
+> src/features/scenarios/Plan1OperationalSummaryPanel.test.tsx
+
+> src/features/scenarios/Plan1ScenarioBuilder.test.tsx
+
+> src/features/scenarios/Plan1ScenarioComparisonPanel.test.tsx
+
+> src/features/scenarios/Plan1SimulationRefinementPanels.test.ts
+
+> src/features/scenarios/Plan1SimulationTimelinePanel.test.tsx
+
+> src/features/scenarios/Plan1WarningExplainabilityPanel.test.tsx
+
+> src/features/simulation/simulationRunRetrievalViewModel.test.ts
+
+> src/features/simulation/simulationTimelineViewModel.test.ts
+
+> src/fixtures/layout-editor/layoutEditorProofFixture.test.ts
+
+> src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
+
+Executed 147 web test file(s).
