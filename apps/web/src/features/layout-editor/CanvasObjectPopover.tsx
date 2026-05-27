@@ -1,12 +1,14 @@
 import { useEffect, useRef } from "react";
+import type { ReactNode } from "react";
 import type { CanvasObjectPopoverViewModel } from "./canvasObjectPopoverViewModel";
 
 export type CanvasObjectPopoverProps = {
   viewModel: CanvasObjectPopoverViewModel;
   onClose: () => void;
+  children?: ReactNode;
 };
 
-export function CanvasObjectPopover({ viewModel, onClose }: CanvasObjectPopoverProps) {
+export function CanvasObjectPopover({ viewModel, onClose, children }: CanvasObjectPopoverProps) {
   const popoverRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -42,8 +44,7 @@ export function CanvasObjectPopover({ viewModel, onClose }: CanvasObjectPopoverP
             Close
           </button>
         </header>
-        <p>Quick actions appear here.</p>
-        <button type="button">Open inspector</button>
+        {children ?? <p>Selected object.</p>}
       </div>
     </foreignObject>
   );

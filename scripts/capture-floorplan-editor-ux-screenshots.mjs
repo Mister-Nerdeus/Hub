@@ -112,6 +112,9 @@ try {
     } else if (issue === "411") {
       await selectRoomIfPresent(cdp);
       screenshots.push(await captureCase(cdp, "canvas-object-popover.png", "canvas object popover", 1440, 1200));
+    } else if (issue === "412") {
+      await selectRoomIfPresent(cdp);
+      screenshots.push(await captureCase(cdp, "room-quick-edit-popover.png", "room quick edit popover", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

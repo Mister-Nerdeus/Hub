@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelEvent } from "react";
 import {
   auditPathSyncStatus,
+  editableRoomTypeToAuthoringRoomType,
   generateDoorPathNodes,
   validateSimulationReadyExport,
   type AuthoringDraftContract,
@@ -105,6 +106,8 @@ import {
 import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
 import { CanvasObjectPopover } from "./CanvasObjectPopover";
 import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
+import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
+import { buildRoomQuickEdit } from "./roomQuickEditViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -287,6 +290,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         renderItems
       })
     : null;
+  const roomQuickEditViewModel = buildRoomQuickEdit({
+    room: selectedRoom,
+    readOnly: stageState.readOnly
+  });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -889,7 +896,42 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               <CanvasObjectPopover
                 viewModel={canvasObjectPopoverViewModel}
                 onClose={() => setCanvasPopoverOpen(false)}
-              />
+              >
+                {canvasObjectPopoverViewModel.objectType === "room" ? (
+                  <RoomQuickEditPopover
+                    viewModel={roomQuickEditViewModel}
+                    onRoomTypeChange={(roomType) => {
+                      if (roomQuickEditViewModel.roomId != null) {
+                        dispatchStage({
+                          type: "editSelectedRoomType",
+                          roomId: roomQuickEditViewModel.roomId,
+                          roomType: editableRoomTypeToAuthoringRoomType(roomType)
+                        });
+                      }
+                    }}
+                    onWidthStep={(deltaFeet) => {
+                      if (roomQuickEditViewModel.widthFeet != null) {
+                        dispatchStage({
+                          type: "editSelectedRoomDimensions",
+                          dimensions: { widthFeet: roomQuickEditViewModel.widthFeet + deltaFeet }
+                        });
+                      }
+                    }}
+                    onHeightStep={(deltaFeet) => {
+                      if (roomQuickEditViewModel.heightFeet != null) {
+                        dispatchStage({
+                          type: "editSelectedRoomDimensions",
+                          dimensions: { heightFeet: roomQuickEditViewModel.heightFeet + deltaFeet }
+                        });
+                      }
+                    }}
+                    onAssignNurse={() => setEditorMode("assignment")}
+                    onAddDoor={addDoorToSelectedRoom}
+                    onDuplicateRoom={() => undefined}
+                    onDeleteRoom={() => undefined}
+                  />
+                ) : null}
+              </CanvasObjectPopover>
             )}
           </svg>
         </div>

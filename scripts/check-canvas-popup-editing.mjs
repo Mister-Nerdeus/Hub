@@ -117,6 +117,45 @@ function runStage(currentStage) {
   if (currentStage === "room-popover") {
     requireText("apps/web/src/features/layout-editor/RoomQuickEditPopover.tsx", "RoomQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/roomQuickEditViewModel.ts", "buildRoomQuickEdit");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "RoomQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/__tests__/RoomQuickEditPopover.test.tsx", "delete/duplicate controls must be protected");
+    assertPng(`${issueDir}/screenshots/room-quick-edit-popover.png`);
+    writeJson(`${issueDir}/room-popover-output.json`, {
+      status: "passed",
+      component: "RoomQuickEditPopover"
+    });
+    writeJson(`${issueDir}/room-label-control-output.json`, {
+      status: "passed",
+      control: "Room number / label"
+    });
+    writeJson(`${issueDir}/room-type-control-output.json`, {
+      status: "passed",
+      control: "Room type"
+    });
+    writeJson(`${issueDir}/room-size-control-output.json`, {
+      status: "passed",
+      controls: ["width step", "height step"]
+    });
+    writeJson(`${issueDir}/assign-nurse-shortcut-output.json`, {
+      status: "passed",
+      shortcut: "Assign nurse"
+    });
+    writeJson(`${issueDir}/add-door-shortcut-output.json`, {
+      status: "passed",
+      shortcut: "Add door"
+    });
+    writeJson(`${issueDir}/duplicate-room-output.json`, {
+      status: "passed",
+      shortcut: "Duplicate room"
+    });
+    writeJson(`${issueDir}/delete-room-readonly-protection-output.json`, {
+      status: "passed",
+      readOnlyDisablesDelete: true
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: ["data-room-quick-edit=ready"]
+    });
   }
   if (currentStage === "door-popover") {
     requireText("apps/web/src/features/layout-editor/DoorQuickEditPopover.tsx", "DoorQuickEditPopover");

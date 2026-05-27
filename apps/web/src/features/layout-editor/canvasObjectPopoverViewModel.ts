@@ -18,7 +18,7 @@ export type BuildCanvasObjectPopoverInput = {
 };
 
 const POPOVER_WIDTH_PIXELS = 230;
-const POPOVER_HEIGHT_PIXELS = 128;
+const POPOVER_HEIGHT_PIXELS = 290;
 
 export function buildCanvasObjectPopover({
   selectedObjectType,
