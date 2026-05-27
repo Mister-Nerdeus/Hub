@@ -63,6 +63,23 @@ if (stage === "room-type-contract" || stage === "final") {
   add("central solid wall rules block travel", /solid_wall:[\s\S]*travelBlocking:\s*true/.test(rules), "roomTypeRules.ts");
 }
 
+if (stage === "trauma-storage-correction" || stage === "final") {
+  const fixture = readJson("packages/shared/fixtures/default-plans/default-er-layout-plan-1.json");
+  const room = fixture.plan.rooms.find((candidate) => candidate.id === "room-14");
+  const trauma = fixture.plan.rooms.find((candidate) => candidate.id === "room-level-1-trauma");
+  add("canonical Trauma One rear object exists", room != null, "room-14");
+  add("canonical Level 1 Trauma exists", trauma != null, "room-level-1-trauma");
+  if (room != null) {
+    add("room-14 is storage", room.roomType === "storage", room.roomType);
+    add("room-14 geometry x preserved", room.x === 34, room.x);
+    add("room-14 geometry y preserved", room.y === 18, room.y);
+    add("room-14 geometry width preserved", room.widthFeet === 16, room.widthFeet);
+    add("room-14 geometry length preserved", room.lengthFeet === 14, room.lengthFeet);
+    add("room-14 metadata class is storage", room.roomOperationalMetadata?.roomClass === "storage", room.roomOperationalMetadata?.roomClass);
+  }
+  add("manifest marks trauma storage implemented", manifest.canonicalTraumaStorageStatus === "implemented", manifest.canonicalTraumaStorageStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }

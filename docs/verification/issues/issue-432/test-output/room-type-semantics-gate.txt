@@ -1,0 +1,133 @@
+{
+  "stage": "trauma-storage-correction",
+  "issue": "432",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "canonical Trauma One rear object exists",
+      "passed": true,
+      "detail": "room-14"
+    },
+    {
+      "name": "canonical Level 1 Trauma exists",
+      "passed": true,
+      "detail": "room-level-1-trauma"
+    },
+    {
+      "name": "room-14 is storage",
+      "passed": true,
+      "detail": "storage"
+    },
+    {
+      "name": "room-14 geometry x preserved",
+      "passed": true,
+      "detail": 34
+    },
+    {
+      "name": "room-14 geometry y preserved",
+      "passed": true,
+      "detail": 18
+    },
+    {
+      "name": "room-14 geometry width preserved",
+      "passed": true,
+      "detail": 16
+    },
+    {
+      "name": "room-14 geometry length preserved",
+      "passed": true,
+      "detail": 14
+    },
+    {
+      "name": "room-14 metadata class is storage",
+      "passed": true,
+      "detail": "storage"
+    },
+    {
+      "name": "manifest marks trauma storage implemented",
+      "passed": true,
+      "detail": "implemented"
+    }
+  ]
+}

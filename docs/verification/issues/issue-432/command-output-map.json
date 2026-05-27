@@ -3,39 +3,33 @@
   "commands": [
     {
       "command": "npm --workspace packages/shared test",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/shared.txt"
-      ]
+      "output": "docs/verification/issues/issue-432/test-output/shared.txt",
+      "status": "passed"
     },
     {
       "command": "npm --workspace apps/web test",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/web.txt"
-      ]
+      "output": "docs/verification/issues/issue-432/test-output/web.txt",
+      "status": "passed"
     },
     {
       "command": "npm --workspace apps/web run build",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/web-build.txt"
-      ]
+      "output": "docs/verification/issues/issue-432/test-output/web-build.txt",
+      "status": "passed"
     },
     {
-      "command": "node scripts/check-scenario-ratio-foundation.mjs --stage nurse-ratio-contract --allow-partial --issue 432",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/scenario-ratio-foundation-gate.txt"
-      ]
+      "command": "node scripts/check-room-type-semantics.mjs --stage trauma-storage-correction --allow-partial --issue 432",
+      "output": "docs/verification/issues/issue-432/test-output/room-type-semantics-gate.txt",
+      "status": "passed"
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/no-phi.txt"
-      ]
+      "output": "docs/verification/issues/issue-432/no-phi-output.txt",
+      "status": "passed"
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 432",
-      "outputs": [
-        "docs/verification/issues/issue-432/test-output/plans-2-through-5-unchanged.txt"
-      ]
+      "output": "docs/verification/issues/issue-432/no-unauthorized-fixture-mutation-output.txt",
+      "status": "passed"
     }
   ]
 }
