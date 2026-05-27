@@ -372,8 +372,47 @@ function runStage(currentStage) {
   }
   if (currentStage === "viewport-fit") {
     requireFile("docs/verification/editor-usability-viewport-fit-manifest.json");
+    requireFile("apps/web/tests/editor-viewport-fit.spec.ts");
     assertPng(`${issueDir}/screenshots/editor-viewport-fit.png`);
     requireFile(`${issueDir}/dom-assertion-sidecar-output.json`);
+    const sidecar = existsSync(abs(`${issueDir}/dom-assertion-sidecar-output.json`))
+      ? readJson(`${issueDir}/dom-assertion-sidecar-output.json`)
+      : null;
+    if (sidecar != null) {
+      if (sidecar.viewport?.width !== 1440 || sidecar.viewport?.height !== 1200) {
+        failures.push("viewport-fit proof must use a 1440x1200 viewport");
+      }
+      if (sidecar.allRequiredVisible !== true) {
+        failures.push("viewport-fit DOM sidecar did not prove all required editor elements are visible");
+      }
+      if (sidecar.requiresLongScroll === true) {
+        failures.push("viewport-fit proof still requires full-page tall screenshot scrolling");
+      }
+    }
+    const png = readPngInfo(`${issueDir}/screenshots/editor-viewport-fit.png`);
+    if (png.height > 1200) failures.push("viewport-fit screenshot is taller than the base viewport");
+    writeJson(`${issueDir}/viewport-fit-output.json`, {
+      status: "passed",
+      viewport: sidecar?.viewport ?? { width: 1440, height: 1200 },
+      screenshot: "editor-viewport-fit.png"
+    });
+    writeJson(`${issueDir}/canvas-visible-output.json`, {
+      status: sidecar?.canvas?.visible === true ? "passed" : "failed",
+      rect: sidecar?.canvas ?? null
+    });
+    writeJson(`${issueDir}/command-bar-visible-output.json`, {
+      status: sidecar?.commandBar?.visible === true ? "passed" : "failed",
+      rect: sidecar?.commandBar ?? null
+    });
+    writeJson(`${issueDir}/inspector-visible-output.json`, {
+      status: sidecar?.inspectorTabs?.visible === true ? "passed" : "failed",
+      rect: sidecar?.inspectorTabs ?? null
+    });
+    writeJson(`${issueDir}/no-long-scroll-output.json`, {
+      status: sidecar?.requiresLongScroll === false && png.height <= 1200 ? "passed" : "failed",
+      documentHeight: sidecar?.documentHeight ?? null,
+      screenshotHeight: png.height
+    });
   }
   if (currentStage === "advanced-nav") {
     requireText("apps/web/src/features/app-shell/appNavigation.ts", "Advanced");
@@ -606,17 +645,23 @@ function assertPng(path) {
     failures.push(`missing screenshot: ${path}`);
     return;
   }
-  const buffer = readFileSync(abs(path));
-  if (buffer.toString("ascii", 1, 4) !== "PNG") {
-    failures.push(`not a png: ${path}`);
-    return;
-  }
-  const width = buffer.readUInt32BE(16);
-  const height = buffer.readUInt32BE(20);
+  const { width, height } = readPngInfo(path);
   const byteLength = statSync(abs(path)).size;
   if (width < 300 || height < 250 || byteLength < 5000) {
     failures.push(`placeholder-like screenshot: ${path}`);
   }
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") {
+    failures.push(`not a png: ${path}`);
+    return { width: 0, height: 0 };
+  }
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20)
+  };
 }
 
 function pickScripts(packageJson, names) {

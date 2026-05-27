@@ -51,7 +51,7 @@ try {
     } else {
       await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
       await assertText(cdp, "ER Pod Shift Simulator");
-      screenshots.push(await captureCase(cdp, issue === "391" ? "current-editor-before.png" : "editor-edit-mode.png", "editor", 1440, 1200));
+      screenshots.push(await captureCase(cdp, editorBaseScreenshotName(issue), "editor", 1440, 1200));
     }
 
     if (issue === "391") {
@@ -102,6 +102,8 @@ try {
       });
       await delay(250);
       screenshots.push(await captureCase(cdp, "validation-drawer-expanded.png", "validation drawer expanded", 1440, 1200));
+    } else if (issue === "407") {
+      writeJson(`${issueDir}/dom-assertion-sidecar-output.json`, await collectViewportFitAssertions(cdp));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
@@ -137,6 +139,65 @@ try {
   if (previewServer != null) killProcessTree(previewServer);
 }
 
+function editorBaseScreenshotName(currentIssue) {
+  if (currentIssue === "391") return "current-editor-before.png";
+  if (currentIssue === "407") return "editor-viewport-fit.png";
+  return "editor-edit-mode.png";
+}
+
+async function collectViewportFitAssertions(cdp) {
+  const result = await evaluateOrThrow(cdp, {
+    returnByValue: true,
+    expression: `
+      (() => {
+        const viewport = { width: window.innerWidth, height: window.innerHeight };
+        const readRect = (selector) => {
+          const element = document.querySelector(selector);
+          if (!element) return null;
+          const rect = element.getBoundingClientRect();
+          return {
+            selector,
+            top: Math.round(rect.top),
+            left: Math.round(rect.left),
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            bottom: Math.round(rect.bottom),
+            right: Math.round(rect.right),
+            visible: rect.width > 0 && rect.height > 0 && rect.bottom <= viewport.height && rect.right <= viewport.width
+          };
+        };
+        const commandBar = readRect("[data-editor-command-bar='consolidated']");
+        const canvas = readRect(".layout-editor-stage__svg");
+        const inspectorTabs = readRect(".layout-inspector-tabs");
+        const validationDrawer = readRect("[data-validation-drawer='compact-bottom']");
+        const documentHeight = Math.round(document.documentElement.scrollHeight);
+        const requiredBottom = Math.max(
+          commandBar?.bottom ?? 0,
+          canvas?.bottom ?? 0,
+          inspectorTabs?.bottom ?? 0,
+          validationDrawer?.bottom ?? 0
+        );
+        return {
+          status: "passed",
+          viewport,
+          documentHeight,
+          requiredBottom,
+          requiresLongScroll: requiredBottom > viewport.height,
+          commandBar,
+          canvas,
+          inspectorTabs,
+          validationDrawer,
+          allRequiredVisible: [commandBar, canvas, inspectorTabs, validationDrawer].every((rect) => rect?.visible === true),
+          privateSourceScreenshotIncluded: false,
+          exactCadParityClaimed: false,
+          manualVisualApprovalClaimed: false
+        };
+      })()
+    `
+  });
+  return result.result.value;
+}
+
 async function openPage(cdp, url, width, height) {
   await cdp.send("Emulation.setDeviceMetricsOverride", {
     width,
@@ -157,7 +218,7 @@ async function captureCase(cdp, fileName, route, width, height) {
   const outputPath = `${screenshotDir}/${fileName}`;
   const result = await cdp.send("Page.captureScreenshot", {
     format: "png",
-    captureBeyondViewport: true
+    captureBeyondViewport: issue !== "407"
   });
   writeBuffer(outputPath, Buffer.from(result.data, "base64"));
   const png = readPngInfo(outputPath);

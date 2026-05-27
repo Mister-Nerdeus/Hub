@@ -638,27 +638,34 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               onRoomTypeChange={setSelectedNewRoomType}
               onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
             />
-            <AutoHallwayControls
-              readOnly={stageState.readOnly}
-              generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
-                hallway.id.startsWith("generated-hallway-")
-              ).length ?? 0}
-              onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
-            />
-            <DoorPathNodeSyncControls
-              readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
-              generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
-              generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
-              pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
-              warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
-              onGenerate={generateDoorPathNodesFromStage}
-            />
-            <SimulationReadyExportPanel
-              result={simulationReadyExportResult}
-              disabled={validationDisabled}
-              onValidateExport={validateSimulationReadyExportFromStage}
-              showValidateButton={false}
-            />
+            <details className="layout-editor-stage__advanced-tools">
+              <summary>Advanced tools</summary>
+              <div className="layout-editor-stage__advanced-tools-body">
+                <AutoHallwayControls
+                  readOnly={stageState.readOnly}
+                  generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
+                    hallway.id.startsWith("generated-hallway-")
+                  ).length ?? 0}
+                  onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+                />
+                <DoorPathNodeSyncControls
+                  readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+                  generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
+                  generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
+                  pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
+                  warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
+                  onGenerate={generateDoorPathNodesFromStage}
+                />
+                {simulationReadyExportResult == null ? null : (
+                  <SimulationReadyExportPanel
+                    result={simulationReadyExportResult}
+                    disabled={validationDisabled}
+                    onValidateExport={validateSimulationReadyExportFromStage}
+                    showValidateButton={false}
+                  />
+                )}
+              </div>
+            </details>
           </>
         ) : null}
 
