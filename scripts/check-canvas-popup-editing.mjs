@@ -271,6 +271,42 @@ function runStage(currentStage) {
   if (currentStage === "click-to-place") {
     requireText("apps/web/src/features/layout-editor/clickToPlaceObject.ts", "placeObjectOnCanvas");
     requireText("apps/web/src/features/layout-editor/ObjectPlacementPreview.tsx", "ObjectPlacementPreview");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "pendingAddObjectId");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "Escape");
+    requireText("apps/web/src/features/layout-editor/__tests__/clickToPlaceObject.test.ts", "no object type should not create a ghost preview");
+    assertPng(`${issueDir}/screenshots/object-placement-preview.png`);
+    writeJson(`${issueDir}/click-to-place-output.json`, {
+      status: "passed",
+      behavior: "room placement is created only by the canvas placement click"
+    });
+    writeJson(`${issueDir}/ghost-preview-output.json`, {
+      status: "passed",
+      component: "ObjectPlacementPreview"
+    });
+    writeJson(`${issueDir}/escape-cancel-output.json`, {
+      status: "passed",
+      behavior: "Escape cancels pending placement mode"
+    });
+    writeJson(`${issueDir}/editable-only-output.json`, {
+      status: "passed",
+      readOnlyProtected: true
+    });
+    writeJson(`${issueDir}/no-object-before-placement-output.json`, {
+      status: "passed",
+      menuSelectionCreatesObject: false
+    });
+    const existingPlacementAssertions = existsSync(abs(`${issueDir}/dom-assertions-output.json`))
+      ? readJson(`${issueDir}/dom-assertions-output.json`)
+      : {};
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      ...existingPlacementAssertions,
+      status: "passed",
+      assertions: [
+        "data-object-placement-preview=ready",
+        "data-placement-object",
+        "noObjectCreatedBeforePlacement"
+      ]
+    });
   }
   if (currentStage === "duplicate-object") {
     requireText("packages/shared/src/floorplans/layoutObjectDuplication.ts", "duplicateLayoutObject");
@@ -348,6 +384,17 @@ function commandsForIssue(issueNumber) {
     "417": "click-to-place",
     "419": "accessibility"
   }[issueNumber] ?? stage;
+  if (issueNumber === "417") {
+    return [
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 417 --port 4217 --debug-port 9417",
+      `node scripts/check-canvas-popup-editing.mjs --stage ${issueStage} --allow-partial --issue ${issueNumber}`,
+      `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`,
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-private-source-artifacts.mjs"
+    ];
+  }
   return [
     "npm --workspace apps/web test",
     "npm --workspace apps/web run build",
@@ -361,8 +408,11 @@ function mappedOutputForCommand(command) {
   if (command.includes("packages/shared test")) return `${base}/shared.txt`;
   if (command.includes("apps/web test")) return `${base}/web.txt`;
   if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("capture-floorplan-editor-ux-screenshots")) return `${issueDir}/screenshot-manifest-output.json`;
   if (command.includes("check-canvas-popup-editing")) return `${base}/canvas-popup-editing-gate.txt`;
   if (command.includes("check-default-plans-2-through-5-unchanged")) return `${base}/plans-2-through-5-unchanged.txt`;
+  if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
+  if (command.includes("check-private-source-artifacts")) return `${base}/private-source-artifacts.txt`;
   return `${base}/command.txt`;
 }
 

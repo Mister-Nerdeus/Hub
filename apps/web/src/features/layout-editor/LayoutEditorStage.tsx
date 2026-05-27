@@ -125,6 +125,11 @@ import {
   buildAddObjectMenuViewModel,
   type AddObjectMenuItemId
 } from "./addObjectMenuViewModel";
+import {
+  buildObjectPlacementPreview,
+  placeObjectOnCanvas
+} from "./clickToPlaceObject";
+import { ObjectPlacementPreview } from "./ObjectPlacementPreview";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -187,7 +192,12 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [addObjectMenuOpen, setAddObjectMenuOpen] = useState(false);
+  const [pendingAddObjectId, setPendingAddObjectId] = useState<AddObjectMenuItemId | null>(null);
   const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
+  const [placementPreviewPoint, setPlacementPreviewPoint] = useState<{
+    xFeet: number;
+    yFeet: number;
+  } | null>(null);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -220,6 +230,22 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     setDoorPathNodeGenerationResult(null);
     setSimulationReadyExportResult(null);
   }, [stageState.editableLayout, stageState.sourcePlan]);
+  useEffect(() => {
+    if (pendingAddObjectId == null) {
+      return;
+    }
+    const cancelPlacement = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+      setPendingAddObjectId(null);
+      setPendingAddObjectLabel(null);
+      setPlacementPreviewPoint(null);
+      setToolMode("select");
+    };
+    document.addEventListener("keydown", cancelPlacement);
+    return () => document.removeEventListener("keydown", cancelPlacement);
+  }, [pendingAddObjectId]);
   useEffect(() => {
     if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
       return;
@@ -333,6 +359,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     validationWarningCount: stageState.validationWarnings.length
   });
   const addObjectMenuViewModel = buildAddObjectMenuViewModel();
+  const objectPlacementPreviewViewModel = buildObjectPlacementPreview({
+    objectType: stageState.readOnly ? null : pendingAddObjectId,
+    pointFeet: placementPreviewPoint
+  });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -374,10 +404,22 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     }
   };
   const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
-    if (toolMode !== "add_room" || stageState.readOnly) {
+    const placementAction = placeObjectOnCanvas({
+      objectType: pendingAddObjectId,
+      readOnly: stageState.readOnly,
+      target: event.target
+    });
+    if (placementAction === "blocked") {
       if (isCanvasPanBackgroundTarget(event.target)) {
         setCanvasPopoverOpen(false);
       }
+      return;
+    }
+    if (placementAction === "future-object") {
+      setPlacementPreviewPoint(stagePointerToFeet(event, stageState.viewport));
+      return;
+    }
+    if (toolMode !== "add_room") {
       return;
     }
     const pointFeet = stagePointerToFeet(event, stageState.viewport);
@@ -394,6 +436,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       })
     );
     setAuthoringSequence((value) => value + 1);
+    setPendingAddObjectId(null);
+    setPendingAddObjectLabel(null);
+    setPlacementPreviewPoint(null);
     setToolMode("select");
   };
   const addDoorToSelectedRoom = () => {
@@ -414,8 +459,13 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     setToolMode("select");
   };
   const selectAddObjectMenuItem = (itemId: AddObjectMenuItemId) => {
+    if (stageState.readOnly) {
+      return;
+    }
     const item = addObjectMenuViewModel.items.find((candidate) => candidate.id === itemId);
+    setPendingAddObjectId(itemId);
     setPendingAddObjectLabel(item?.placementModeLabel ?? null);
+    setPlacementPreviewPoint(null);
     setAddObjectMenuOpen(false);
     if (itemId === "room") {
       setToolMode("add_room");
@@ -612,6 +662,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     event.currentTarget.setPointerCapture(event.pointerId);
   };
   const moveCanvasPan = (event: PointerEvent<SVGSVGElement>) => {
+    if (pendingAddObjectId != null && !stageState.readOnly) {
+      setPlacementPreviewPoint(stagePointerToFeet(event, stageState.viewport));
+    }
     const pan = canvasPanRef.current;
     if (pan == null) {
       return;
@@ -824,6 +877,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
+            data-placement-object={pendingAddObjectId ?? "none"}
             onClick={addRoomFromStageClick}
             onPointerDown={startCanvasPan}
             onPointerMove={moveCanvasPan}
@@ -989,6 +1043,12 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 onResizeEnd={endRoomResize}
               />
             ) : null}
+            {objectPlacementPreviewViewModel == null ? null : (
+              <ObjectPlacementPreview
+                viewModel={objectPlacementPreviewViewModel}
+                viewport={stageState.viewport}
+              />
+            )}
             {canvasObjectPopoverViewModel == null ? null : (
               <CanvasObjectPopover
                 viewModel={canvasObjectPopoverViewModel}

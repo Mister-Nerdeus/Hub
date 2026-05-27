@@ -362,6 +362,26 @@
   cursor: grabbing;
 }
 
+.object-placement-preview {
+  pointer-events: none;
+}
+
+.object-placement-preview rect {
+  fill: rgba(139, 183, 216, 0.22);
+  stroke: #0f766e;
+  stroke-dasharray: 8 5;
+  stroke-width: 2;
+}
+
+.object-placement-preview text {
+  fill: #0f3f3a;
+  font-size: 13px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3px;
+}
+
 .canvas-object-popover-shell {
   overflow: visible;
   pointer-events: auto;

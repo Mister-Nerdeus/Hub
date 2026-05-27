@@ -127,6 +127,13 @@ try {
     } else if (issue === "416") {
       await clickIfPresent(cdp, "Add Object");
       screenshots.push(await captureCase(cdp, "add-object-menu.png", "add object menu", 1440, 1200));
+    } else if (issue === "417") {
+      const beforePlacementCount = await collectPlacementCount(cdp);
+      await clickIfPresent(cdp, "Add Object");
+      await clickIfPresent(cdp, "Room");
+      const assertions = await collectPlacementPreviewAssertions(cdp, beforePlacementCount);
+      writeJson(`${issueDir}/dom-assertions-output.json`, assertions);
+      screenshots.push(await captureCase(cdp, "object-placement-preview.png", "object placement preview", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
@@ -211,6 +218,41 @@ async function collectViewportFitAssertions(cdp) {
           inspectorTabs,
           validationDrawer,
           allRequiredVisible: [commandBar, canvas, inspectorTabs, validationDrawer].every((rect) => rect?.visible === true),
+          privateSourceScreenshotIncluded: false,
+          exactCadParityClaimed: false,
+          manualVisualApprovalClaimed: false
+        };
+      })()
+    `
+  });
+  return result.result.value;
+}
+
+async function collectPlacementCount(cdp) {
+  const result = await evaluateOrThrow(cdp, {
+    returnByValue: true,
+    expression: `document.querySelectorAll(".layout-editor-stage__room").length`
+  });
+  return result.result.value;
+}
+
+async function collectPlacementPreviewAssertions(cdp, beforePlacementCount) {
+  const result = await evaluateOrThrow(cdp, {
+    returnByValue: true,
+    expression: `
+      (() => {
+        const preview = document.querySelector("[data-object-placement-preview='ready']");
+        const svg = document.querySelector(".layout-editor-stage__svg");
+        const roomCount = document.querySelectorAll(".layout-editor-stage__room").length;
+        return {
+          status: preview && svg ? "passed" : "failed",
+          previewPresent: preview != null,
+          placementObject: svg?.getAttribute("data-placement-object") ?? null,
+          previewType: preview?.getAttribute("data-object-placement-type") ?? null,
+          roomCountBeforePlacement: ${Number(beforePlacementCount)},
+          roomCountAfterPlacementIntent: roomCount,
+          noObjectCreatedBeforePlacement: roomCount === ${Number(beforePlacementCount)},
+          readOnly: svg?.getAttribute("data-read-only") ?? null,
           privateSourceScreenshotIncluded: false,
           exactCadParityClaimed: false,
           manualVisualApprovalClaimed: false
