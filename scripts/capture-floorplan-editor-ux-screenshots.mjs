@@ -118,6 +118,9 @@ try {
     } else if (issue === "413") {
       await selectDoorIfPresent(cdp);
       screenshots.push(await captureCase(cdp, "door-quick-edit-popover.png", "door quick edit popover", 1440, 1200));
+    } else if (issue === "414") {
+      await selectStationIfPresent(cdp);
+      screenshots.push(await captureCase(cdp, "station-quick-edit-popover.png", "station quick edit popover", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
@@ -287,6 +290,19 @@ async function selectRoomIfPresent(cdp) {
       (() => {
         const room = document.querySelector(".layout-editor-stage__room");
         if (room) room.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      })()
+    `
+  });
+  await delay(250);
+}
+
+async function selectStationIfPresent(cdp) {
+  await evaluateOrThrow(cdp, {
+    awaitPromise: true,
+    expression: `
+      (() => {
+        const station = document.querySelector(".layout-editor-stage__station");
+        if (station) station.dispatchEvent(new MouseEvent("click", { bubbles: true }));
       })()
     `
   });

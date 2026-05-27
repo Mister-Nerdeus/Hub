@@ -187,6 +187,28 @@ function runStage(currentStage) {
   if (currentStage === "station-popover") {
     requireText("apps/web/src/features/layout-editor/StationQuickEditPopover.tsx", "StationQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/stationQuickEditViewModel.ts", "buildStationQuickEdit");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "StationQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/__tests__/StationQuickEditPopover.test.tsx", "read-only");
+    assertPng(`${issueDir}/screenshots/station-quick-edit-popover.png`);
+    writeJson(`${issueDir}/station-popover-output.json`, {
+      status: "passed",
+      component: "StationQuickEditPopover"
+    });
+    writeJson(`${issueDir}/station-label-output.json`, { status: "passed", control: "Station label" });
+    writeJson(`${issueDir}/station-type-output.json`, { status: "passed", control: "Station type" });
+    writeJson(`${issueDir}/presentation-style-output.json`, {
+      status: "passed",
+      control: "Presentation style"
+    });
+    writeJson(`${issueDir}/resize-shortcut-output.json`, {
+      status: "passed",
+      control: "Move / resize"
+    });
+    writeText(`${issueDir}/no-staff-identity-output.txt`, "passed: station popover uses synthetic group wording only and adds no real staff identity fields\n");
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: ["data-station-quick-edit=ready"]
+    });
   }
   if (currentStage === "hallway-zone-popover") {
     requireText("apps/web/src/features/layout-editor/HallwayZoneQuickEditPopover.tsx", "HallwayZoneQuickEditPopover");

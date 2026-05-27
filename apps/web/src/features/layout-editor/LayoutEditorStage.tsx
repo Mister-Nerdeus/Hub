@@ -116,6 +116,8 @@ import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
 import { buildRoomQuickEdit } from "./roomQuickEditViewModel";
 import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
 import { buildDoorQuickEdit } from "./doorQuickEditViewModel";
+import { StationQuickEditPopover } from "./StationQuickEditPopover";
+import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -188,6 +190,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const canvasPanRef = useRef<CanvasPanState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
+  const selectedStation = findSelectedStation(stageState);
   useEffect(() => {
     if (activeFloorplan == null) {
       return;
@@ -306,6 +309,11 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     door: selectedDoor,
     rooms: stageState.editableLayout?.rooms ?? [],
     readOnly: stageState.readOnly
+  });
+  const stationQuickEditViewModel = buildStationQuickEdit({
+    station: selectedStation,
+    readOnly: stageState.readOnly,
+    presentation: editorMode === "presentation"
   });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
@@ -1039,6 +1047,13 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                       }
                     }}
                   />
+                ) : canvasObjectPopoverViewModel.objectType === "station" ? (
+                  <StationQuickEditPopover
+                    viewModel={stationQuickEditViewModel}
+                    onStationTypeChange={() => undefined}
+                    onPresentationStyle={() => setEditorMode("presentation")}
+                    onMoveResize={() => setToolMode("select")}
+                  />
                 ) : null}
               </CanvasObjectPopover>
             )}
@@ -1140,6 +1155,21 @@ function findSelectedRoom(state: {
     return null;
   }
   return state.editableLayout.rooms.find((room) => room.id === state.selectedObjectId) ?? null;
+}
+
+function findSelectedStation(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "station" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.stations.find((station) => station.id === state.selectedObjectId) ?? null;
 }
 
 function createInitialStageState() {
