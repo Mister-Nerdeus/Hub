@@ -124,6 +124,9 @@ try {
     } else if (issue === "415") {
       await selectZoneIfPresent(cdp);
       screenshots.push(await captureCase(cdp, "hallway-zone-quick-edit-popover.png", "hallway zone quick edit popover", 1440, 1200));
+    } else if (issue === "416") {
+      await clickIfPresent(cdp, "Add Object");
+      screenshots.push(await captureCase(cdp, "add-object-menu.png", "add object menu", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

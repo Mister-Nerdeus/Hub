@@ -120,6 +120,11 @@ import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
 import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
+import { AddObjectMenu } from "./AddObjectMenu";
+import {
+  buildAddObjectMenuViewModel,
+  type AddObjectMenuItemId
+} from "./addObjectMenuViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -181,6 +186,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
+  const [addObjectMenuOpen, setAddObjectMenuOpen] = useState(false);
+  const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -325,6 +332,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     readOnly: stageState.readOnly,
     validationWarningCount: stageState.validationWarnings.length
   });
+  const addObjectMenuViewModel = buildAddObjectMenuViewModel();
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -403,6 +411,20 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       })
     );
     setAuthoringSequence((value) => value + 1);
+    setToolMode("select");
+  };
+  const selectAddObjectMenuItem = (itemId: AddObjectMenuItemId) => {
+    const item = addObjectMenuViewModel.items.find((candidate) => candidate.id === itemId);
+    setPendingAddObjectLabel(item?.placementModeLabel ?? null);
+    setAddObjectMenuOpen(false);
+    if (itemId === "room") {
+      setToolMode("add_room");
+      return;
+    }
+    if (itemId === "door") {
+      setToolMode("add_door");
+      return;
+    }
     setToolMode("select");
   };
   const generateDoorPathNodesFromStage = () => {
@@ -698,9 +720,22 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         onImportJson={importEditableFloorplanJson}
         onValidate={validateSimulationReadyExportFromStage}
         onResetView={() => dispatchStage({ type: "resetViewport" })}
-        onAddObject={() => setToolMode("add_room")}
+        onAddObject={() => setAddObjectMenuOpen((value) => !value)}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
       />
+
+      {addObjectMenuOpen ? (
+        <AddObjectMenu
+          viewModel={addObjectMenuViewModel}
+          readOnly={stageState.readOnly}
+          onSelect={selectAddObjectMenuItem}
+        />
+      ) : null}
+      {pendingAddObjectLabel == null ? null : (
+        <p className="layout-editor-stage__placement-mode" role="status">
+          {pendingAddObjectLabel}
+        </p>
+      )}
 
       <EditorNextStepPanel viewModel={nextStepViewModel} />
 

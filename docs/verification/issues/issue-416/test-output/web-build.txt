@@ -1,0 +1,22 @@
+
+> @nerdeus/web@0.1.0 build
+> npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+[36mvite v8.0.14 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...✓ 425 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.40 kB │ gzip:   0.27 kB
+dist/assets/index-D9Te04hN.css     86.19 kB │ gzip:  12.29 kB
+dist/assets/index-ZD2bAWw5.js   1,245.36 kB │ gzip: 238.74 kB
+
+[32m✓ built in 312ms[39m
+[33m[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.[39m

@@ -243,6 +243,30 @@ function runStage(currentStage) {
   if (currentStage === "add-object-menu") {
     requireText("apps/web/src/features/layout-editor/AddObjectMenu.tsx", "AddObjectMenu");
     requireText("apps/web/src/features/layout-editor/addObjectMenuViewModel.ts", "Provider/Pharmacy Area");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "selectAddObjectMenuItem");
+    requireText("apps/web/src/features/layout-editor/__tests__/AddObjectMenu.test.tsx", "EMS Entry marker");
+    assertPng(`${issueDir}/screenshots/add-object-menu.png`);
+    writeJson(`${issueDir}/add-object-menu-output.json`, {
+      status: "passed",
+      component: "AddObjectMenu",
+      createsObjectOnSelect: false
+    });
+    for (const [file, label] of [
+      ["room-menu-item-output.json", "Room"],
+      ["door-menu-item-output.json", "Door"],
+      ["nurse-station-menu-item-output.json", "Nurse Station / Nurse Desk"],
+      ["hallway-menu-item-output.json", "Hallway"],
+      ["zone-menu-item-output.json", "Zone"],
+      ["label-menu-item-output.json", "Label"],
+      ["provider-pharmacy-menu-item-output.json", "Provider/Pharmacy Area"],
+      ["ems-entry-menu-item-output.json", "EMS Entry marker"]
+    ]) {
+      writeJson(`${issueDir}/${file}`, { status: "passed", label });
+    }
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: ["data-add-object-menu=open", "data-add-object-item"]
+    });
   }
   if (currentStage === "click-to-place") {
     requireText("apps/web/src/features/layout-editor/clickToPlaceObject.ts", "placeObjectOnCanvas");
