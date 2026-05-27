@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "protected-actions",
+  "issue": "448",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "protected action helper exists",
+      "passed": true,
+      "detail": "protectedDemoActions.ts"
+    },
+    {
+      "name": "edit working copy gated",
+      "passed": true,
+      "detail": "FloorplanLibrary.tsx"
+    },
+    {
+      "name": "manual assignment proceed gated",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    }
+  ]
+}

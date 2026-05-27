@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "operator-label-cleanup",
+  "issue": "446",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "Open JSON removed from main card",
+      "passed": true,
+      "detail": "FloorplanLibrary.tsx"
+    },
+    {
+      "name": "Edit Working Copy label exists",
+      "passed": true,
+      "detail": "DefaultPlanEditCopyControls.tsx"
+    },
+    {
+      "name": "raw evidence details behind disclosure",
+      "passed": true,
+      "detail": "FloorplanEvidenceDetails.tsx"
+    }
+  ]
+}

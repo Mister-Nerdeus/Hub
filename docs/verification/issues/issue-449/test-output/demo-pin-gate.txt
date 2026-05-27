@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "stage": "pin-visual-proof",
+  "issue": "449",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "PIN visual proof assertions exist",
+      "passed": true,
+      "detail": "docs/verification/scope-pin-ui-dom-assertions.json"
+    },
+    {
+      "name": "PIN gate visible in app proof",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "wrong PIN visible in app proof",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "PIN unlocked visible in app proof",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "no auth/security/data-protection claim",
+      "passed": true,
+      "detail": {
+        "productDisplayNameVisible": true,
+        "canonicalPlanVisible": true,
+        "plan1VisibleMainUi": true,
+        "plan2VisibleMainUi": false,
+        "plan3VisibleMainUi": false,
+        "plan4VisibleMainUi": false,
+        "plan5VisibleMainUi": false,
+        "legacyPlansVisibleAdvanced": true,
+        "pinGateVisible": true,
+        "pinLockedStateVisible": true,
+        "wrongPinStateVisible": true,
+        "pinUnlockedStateVisible": true,
+        "pinDemoOnlyCopyVisible": true,
+        "productionAuthClaimVisible": false,
+        "securityClaimVisible": false,
+        "phiLikeTextVisible": false,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false,
+        "staticHtmlOnlyProof": false
+      }
+    }
+  ]
+}

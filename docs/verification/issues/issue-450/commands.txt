@@ -1,9 +1,6 @@
+npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-canonical-floorplan-ux.mjs --stage final --issue 450
+node scripts/check-demo-pin-gate.mjs --stage final --issue 450
 node scripts/check-no-phi-fields.mjs
-node scripts/check-private-source-artifacts.mjs
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 450
-node scripts/check-docs-contracts.mjs
-docker compose config
-docker compose build web

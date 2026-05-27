@@ -5,13 +5,15 @@ type FloorplanLandingSummaryProps = {
   onOpenEditor: () => void;
   onOpenManualAssignment: () => void;
   onFocusLibrary?: () => void;
+  demoPinUnlocked?: boolean;
 };
 
 export function FloorplanLandingSummary({
   activeFloorplan,
   onOpenEditor,
   onOpenManualAssignment,
-  onFocusLibrary
+  onFocusLibrary,
+  demoPinUnlocked = true
 }: FloorplanLandingSummaryProps) {
   return (
     <section className="floorplan-landing-summary" aria-labelledby="floorplan-landing-summary-title">
@@ -29,8 +31,8 @@ export function FloorplanLandingSummary({
         <button type="button" disabled={!activeFloorplan.hasActiveFloorplan} onClick={onOpenEditor}>
           Open Editor
         </button>
-        <button type="button" onClick={onOpenManualAssignment}>
-          Open Manual Assignment
+        <button type="button" disabled={!demoPinUnlocked} onClick={onOpenManualAssignment}>
+          Proceed to Manual Assignment
         </button>
         <button type="button" onClick={onFocusLibrary}>
           Floorplan Library

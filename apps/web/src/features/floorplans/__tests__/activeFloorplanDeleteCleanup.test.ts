@@ -13,8 +13,8 @@ const inactiveSaved = store.save(createDuplicateFloorplanViewModel("default-er-l
 
 const activeState = openSavedFloorplan(createEmptyActiveFloorplanState(), activeSaved);
 const cleaned = cleanupActiveFloorplanAfterSavedDelete(activeState, activeSaved.recordId);
-if (cleaned.activeFloorplan !== null || cleaned.sequence !== 0) {
-  throw new Error("deleting the active saved floorplan must clear active state");
+if (cleaned.activeFloorplan?.planId !== "default-er-layout-plan-1" || cleaned.sequence !== 0) {
+  throw new Error("deleting the active saved floorplan must restore the canonical Plan 1 state");
 }
 
 const preserved = cleanupActiveFloorplanAfterSavedDelete(activeState, inactiveSaved.recordId);

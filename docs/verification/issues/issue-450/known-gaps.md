@@ -1,2 +1,2 @@
-- Manual visual approval is not claimed.
-- Full-shift simulation remains not started.
+- Manual visual approval remains required.
+- Full scenario-ratio execution remains assigned to 451-460.

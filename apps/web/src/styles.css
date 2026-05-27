@@ -2320,6 +2320,67 @@ h1 {
   vertical-align: top;
 }
 
+.demo-pin-gate {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) minmax(220px, 1fr);
+  gap: 16px;
+  align-items: start;
+  border: 1px solid #c8d1da;
+  background: #f8fafc;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.demo-pin-gate__copy h2 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+}
+
+.demo-pin-gate__form {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 8px;
+  align-items: end;
+}
+
+.demo-pin-gate__form label {
+  display: grid;
+  gap: 4px;
+}
+
+.demo-pin-gate__form input {
+  min-width: 0;
+  padding: 8px;
+}
+
+.demo-pin-gate__status {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+  font-weight: 600;
+}
+
+.demo-pin-gate__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legacy-floorplan-fixtures ul {
+  display: grid;
+  gap: 8px;
+  padding-left: 18px;
+}
+
+.legacy-floorplan-fixtures li {
+  display: grid;
+  gap: 4px;
+}
+
 @media (max-width: 760px) {
   .workspace-header {
     flex-direction: column;
@@ -2404,6 +2465,11 @@ h1 {
   .demo-walkthrough ol,
   .manual-review-cta dl,
   .floorplan-evidence-panel dl {
+    grid-template-columns: 1fr;
+  }
+
+  .demo-pin-gate,
+  .demo-pin-gate__form {
     grid-template-columns: 1fr;
   }
 }

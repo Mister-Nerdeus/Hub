@@ -1,7 +1,12 @@
 {
   "issue": "448",
-  "stage": "presentation-desk-mode",
   "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/shared.txt"
+      ]
+    },
     {
       "command": "npm --workspace apps/web test",
       "outputs": [
@@ -15,9 +20,15 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage presentation-desk-mode --allow-partial --issue 448",
+      "command": "node scripts/check-demo-pin-gate.mjs --stage pin-ui --allow-partial --issue 448",
       "outputs": [
-        "docs/verification/issues/issue-448/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-448/test-output/demo-pin-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/no-phi.txt"
       ]
     },
     {

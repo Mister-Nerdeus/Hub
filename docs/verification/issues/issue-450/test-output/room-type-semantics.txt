@@ -1,0 +1,611 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:room-type-semantics
+> npm --workspace packages/shared run build && node scripts/check-room-type-semantics.mjs --stage final
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "stage": "final",
+  "issue": "unknown",
+  "allowPartial": false,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "contracts include storage",
+      "passed": true,
+      "detail": "contracts.ts"
+    },
+    {
+      "name": "contracts include solid_wall",
+      "passed": true,
+      "detail": "contracts.ts"
+    },
+    {
+      "name": "editable contract includes storage",
+      "passed": true,
+      "detail": "editableLayoutGeometryContract.ts"
+    },
+    {
+      "name": "editable contract includes solid_wall",
+      "passed": true,
+      "detail": "editableLayoutGeometryContract.ts"
+    },
+    {
+      "name": "central storage rules exclude assignment",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central storage rules exclude ratio",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central storage rules exclude room load",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block doors",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block path nodes",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block travel",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "canonical Trauma One rear object exists",
+      "passed": true,
+      "detail": "room-14"
+    },
+    {
+      "name": "canonical Level 1 Trauma exists",
+      "passed": true,
+      "detail": "room-level-1-trauma"
+    },
+    {
+      "name": "room-14 is storage",
+      "passed": true,
+      "detail": "storage"
+    },
+    {
+      "name": "room-14 geometry x preserved",
+      "passed": true,
+      "detail": 34
+    },
+    {
+      "name": "room-14 geometry y preserved",
+      "passed": true,
+      "detail": 18
+    },
+    {
+      "name": "room-14 geometry width preserved",
+      "passed": true,
+      "detail": 16
+    },
+    {
+      "name": "room-14 geometry length preserved",
+      "passed": true,
+      "detail": 14
+    },
+    {
+      "name": "room-14 metadata class is storage",
+      "passed": true,
+      "detail": "storage"
+    },
+    {
+      "name": "manifest marks trauma storage implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "storage gray style exists",
+      "passed": true,
+      "detail": "roomPresentationStyles.ts"
+    },
+    {
+      "name": "solid wall gray style exists",
+      "passed": true,
+      "detail": "roomPresentationStyles.ts"
+    },
+    {
+      "name": "RoomShape exposes muted DOM state",
+      "passed": true,
+      "detail": "RoomShape.tsx"
+    },
+    {
+      "name": "RoomShape blocks assignment color for muted types",
+      "passed": true,
+      "detail": "RoomShape.tsx"
+    },
+    {
+      "name": "legend includes storage",
+      "passed": true,
+      "detail": "PresentationLegend.tsx"
+    },
+    {
+      "name": "legend includes solid wall",
+      "passed": true,
+      "detail": "PresentationLegend.tsx"
+    },
+    {
+      "name": "assignment overlay skips muted types",
+      "passed": true,
+      "detail": "layoutAssignmentOverlayViewModel.ts"
+    },
+    {
+      "name": "manifest marks gray presentation implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "manifest marks storage gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "manifest marks solid wall gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "editable import validation rejects solid wall doors",
+      "passed": true,
+      "detail": "editableLayoutGeometryContract.ts"
+    },
+    {
+      "name": "door authoring rejects ineligible room types",
+      "passed": true,
+      "detail": "doorAuthoringContract.ts"
+    },
+    {
+      "name": "door placement validity flags ineligible owner",
+      "passed": true,
+      "detail": "doorPlacementValidity.ts"
+    },
+    {
+      "name": "path node rules block ineligible room types",
+      "passed": true,
+      "detail": "pathNodeRules.ts"
+    },
+    {
+      "name": "RoomQuickEdit disables Add Door",
+      "passed": true,
+      "detail": "RoomQuickEditPopover.tsx"
+    },
+    {
+      "name": "RoomQuickEdit view model has solid wall reason",
+      "passed": true,
+      "detail": "roomQuickEditViewModel.ts"
+    },
+    {
+      "name": "manifest marks solid wall door validation implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "Plan 1 assignment validation uses room type rules",
+      "passed": true,
+      "detail": "assignmentValidation.ts"
+    },
+    {
+      "name": "generic manual assignment validation uses room type rules",
+      "passed": true,
+      "detail": "validateManualAssignment.ts"
+    },
+    {
+      "name": "manual assignment reducer rejects ineligible room types",
+      "passed": true,
+      "detail": "manualAssignmentReducer.ts"
+    },
+    {
+      "name": "manual workspace exposes disabled reasons",
+      "passed": true,
+      "detail": "manualAssignmentWorkspaceViewModel.ts"
+    },
+    {
+      "name": "capacity helper excludes non-ratio room types",
+      "passed": true,
+      "detail": "capacityRoomEligibility.ts"
+    },
+    {
+      "name": "manifest marks assignment exclusion implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "manifest marks capacity ratio exclusion implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "room-load eligibility helper uses room type rules",
+      "passed": true,
+      "detail": "roomLoadValidation.ts"
+    },
+    {
+      "name": "Plan 1 room-load validation rejects ineligible rooms",
+      "passed": true,
+      "detail": "roomLoadContract.ts"
+    },
+    {
+      "name": "generic room-load validation rejects ineligible rooms",
+      "passed": true,
+      "detail": "contracts.ts"
+    },
+    {
+      "name": "scenario seed room target selector filters room-load eligible rooms",
+      "passed": true,
+      "detail": "scenarioSeedContract.ts"
+    },
+    {
+      "name": "assignment room-load editor exposes storage disabled reason",
+      "passed": true,
+      "detail": "RoomLoadEditor.tsx"
+    },
+    {
+      "name": "semantic room-load editor exposes solid wall disabled reason",
+      "passed": true,
+      "detail": "roomLoadEditorViewModel.ts"
+    },
+    {
+      "name": "Plan 1 room-load fixture excludes Trauma One storage",
+      "passed": true,
+      "detail": "room-loads-baseline.json"
+    },
+    {
+      "name": "manifest marks room load exclusion implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "legacy validation quarantines solid wall with doors",
+      "passed": true,
+      "detail": "legacyLayoutValidation.ts"
+    },
+    {
+      "name": "legacy validation quarantines solid wall path nodes",
+      "passed": true,
+      "detail": "legacyLayoutValidation.ts"
+    },
+    {
+      "name": "legacy validation quarantines storage room loads",
+      "passed": true,
+      "detail": "legacyLayoutValidation.ts"
+    },
+    {
+      "name": "legacy validation quarantines storage assignments",
+      "passed": true,
+      "detail": "legacyLayoutValidation.ts"
+    },
+    {
+      "name": "legacy validation quarantines non-patient ratio counts",
+      "passed": true,
+      "detail": "legacyLayoutValidation.ts"
+    },
+    {
+      "name": "manifest marks legacy invalid layouts implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "visual proof storage room exists",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "visual proof solid wall exists",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "visual proof storage rendered gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall rendered gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof storage legend visible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall legend visible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall has zero door markers",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof storage has zero nurse overlays",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof solid wall has zero nurse overlays",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof has no exact parity claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual proof has no PHI-like text",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual proof has no simulation output",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "manifest marks visual DOM proof implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "Add Object includes Patient Care Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "Add Object includes Storage Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "Add Object includes Solid Wall / Blocked Area",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "primary menu excludes ambiguous generic Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "placement maps storage room to storage semantics",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "placement maps solid wall to solid_wall semantics",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "click placement routes explicit room types to add-room reducer",
+      "passed": true,
+      "detail": "clickToPlaceObject.ts"
+    },
+    {
+      "name": "placement preview uses semantic room styles",
+      "passed": true,
+      "detail": "clickToPlaceObject.ts"
+    },
+    {
+      "name": "preview applies semantic fill and stroke",
+      "passed": true,
+      "detail": "ObjectPlacementPreview.tsx"
+    },
+    {
+      "name": "stage sets selected room type from menu",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "name": "shared creation emits storage semantics",
+      "passed": true,
+      "detail": "layoutObjectCreation.ts"
+    },
+    {
+      "name": "solid-wall placement avoids door/path warnings",
+      "passed": true,
+      "detail": "addRoomContract.ts"
+    },
+    {
+      "name": "manifest marks add object placement implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "solid wall path-node creation uses room-type rules",
+      "passed": true,
+      "detail": "pathNodeRules.ts"
+    },
+    {
+      "name": "path graph validation blocks solid wall room path nodes",
+      "passed": true,
+      "detail": "pathGraphValidation.ts"
+    },
+    {
+      "name": "path graph validation blocks solid wall door path nodes",
+      "passed": true,
+      "detail": "pathGraphValidation.ts"
+    },
+    {
+      "name": "storage excluded from patient-care route destinations",
+      "passed": true,
+      "detail": "walkingDistanceEligibility.ts"
+    },
+    {
+      "name": "door path node generator skips non-path-node-eligible room types",
+      "passed": true,
+      "detail": "doorPathNodeGenerator.ts"
+    },
+    {
+      "name": "walking burden filters non-patient room types",
+      "passed": true,
+      "detail": "walkingBurden.ts"
+    },
+    {
+      "name": "path-node editor view model uses patient-care routing destinations",
+      "passed": true,
+      "detail": "pathNodeEditorViewModel.ts"
+    },
+    {
+      "name": "manifest marks path graph blocking implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "roomTypeSemanticsStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "canonicalTraumaStorageStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "grayPresentationStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "solidWallDoorValidationStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "assignmentExclusionStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "capacityRatioExclusionStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "roomLoadExclusionStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "addObjectPlacementStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "pathGraphBlockingStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "legacyInvalidLayoutStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "visualDomProofStatus complete",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "go/no-go ready",
+      "passed": true,
+      "detail": "go_for_one_floorplan_scenario_seed_ratio_comparison_foundation"
+    }
+  ]
+}

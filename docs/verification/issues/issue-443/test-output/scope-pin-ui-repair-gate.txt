@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "single-floorplan-main-ui",
+  "issue": "443",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "main view model filters canonical default",
+      "passed": true,
+      "detail": "floorplanLibraryViewModel.ts"
+    },
+    {
+      "name": "main copy uses canonical title",
+      "passed": true,
+      "detail": "FloorplanLibrary.tsx"
+    },
+    {
+      "name": "Plan 2 absent from main UI model output",
+      "passed": true,
+      "detail": "probe"
+    }
+  ]
+}

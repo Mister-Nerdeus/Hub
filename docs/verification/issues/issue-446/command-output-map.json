@@ -1,6 +1,5 @@
 {
   "issue": "446",
-  "stage": "nurse-desk-shape",
   "commands": [
     {
       "command": "npm --workspace apps/web test",
@@ -15,9 +14,15 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage nurse-desk-shape --allow-partial --issue 446",
+      "command": "node scripts/check-scope-pin-ui-repair.mjs --stage operator-label-cleanup --allow-partial --issue 446",
       "outputs": [
-        "docs/verification/issues/issue-446/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-446/test-output/scope-pin-ui-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-446/test-output/no-phi.txt"
       ]
     },
     {

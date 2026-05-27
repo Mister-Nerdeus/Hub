@@ -13,7 +13,7 @@ function assert(condition: boolean, message: string) {
   if (!condition) throw new Error(message);
 }
 
-for (const text of ["Current floorplan", "Open Editor", "Open Manual Assignment", "Floorplan Library"]) {
+for (const text of ["Current floorplan", "Open Editor", "Proceed to Manual Assignment", "Floorplan Library"]) {
   assert(summary.includes(text), `landing summary missing ${text}`);
 }
 

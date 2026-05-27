@@ -90,6 +90,8 @@ export * from "./floorplans/humanReviewPromotionRecheck.js";
 export * from "./floorplans/defaultFixturePromotionReadiness.js";
 export * from "./floorplans/operationalDemoSnapshot.js";
 export * from "./demo/plan1DemoRouteMatrix.js";
+export * from "./demo-pin/demoPinContract.js";
+export * from "./demo-pin/demoPinValidation.js";
 export * from "./no-phi/runtimeTextGuard.js";
 export * from "./optimization/baselineAssignmentOptimizer.js";
 export * from "./optimization/optimizationContract.js";

@@ -88,9 +88,7 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
             </div>
           </dl>
         </>
-      ) : (
-        <p className="active-floorplan__empty">No JSON floorplan open.</p>
-      )}
+      ) : null}
     </section>
   );
 }

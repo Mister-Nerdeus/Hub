@@ -1,4 +1,5 @@
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-canonical-floorplan-ux.mjs --stage legacy-default-containment --allow-partial --issue 442
+node scripts/check-scope-pin-ui-repair.mjs --stage scenario-ratio-range-repair --allow-partial --issue 442
+node scripts/check-no-phi-fields.mjs
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 442

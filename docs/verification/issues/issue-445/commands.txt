@@ -1,4 +1,7 @@
+npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-canonical-floorplan-ux.mjs --stage canonical-header --allow-partial --issue 445
+npm run check:room-type-semantics
+node scripts/check-scope-pin-ui-repair.mjs --stage canonical-plan-default-open --allow-partial --issue 445
+node scripts/check-no-phi-fields.mjs
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 445

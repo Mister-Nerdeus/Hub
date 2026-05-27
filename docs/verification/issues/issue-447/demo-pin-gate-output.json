@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "stage": "pin-contract",
+  "issue": "447",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "PIN literal exists",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    },
+    {
+      "name": "protected action IDs exist",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    },
+    {
+      "name": "wrong PIN validation exists",
+      "passed": true,
+      "detail": "demoPinValidation.ts"
+    },
+    {
+      "name": "no forbidden claim in copy",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    }
+  ]
+}

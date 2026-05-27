@@ -36,6 +36,16 @@ import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
+import { DemoPinGate } from "./features/demo-pin/DemoPinGate";
+import {
+  clearDemoPinUnlock,
+  initialDemoPinUiState,
+  submitDemoPin,
+  updateDemoPinInput
+} from "./features/demo-pin/demoPinState";
+import { createDemoPinGateViewModel } from "./features/demo-pin/demoPinViewModel";
+import { LegacyFloorplanFixturesPanel } from "./features/floorplans/LegacyFloorplanFixturesPanel";
+import { createLegacyFloorplanFixturesPanelViewModel } from "./features/floorplans/legacyFloorplanFixturesViewModel";
 
 import "./styles.css";
 
@@ -46,6 +56,7 @@ type AppProps = {
 export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
   const [activeSection, setActiveSection] = useState(() => readInitialSection(initialSection));
+  const [demoPinState, setDemoPinState] = useState(initialDemoPinUiState);
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
   if (savedFloorplanStoreRef.current == null) {
@@ -60,6 +71,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     savedFloorplanStore.list()
   );
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
+  const demoPinGateViewModel = createDemoPinGateViewModel(demoPinState);
+  const legacyFloorplanFixturesPanelViewModel = createLegacyFloorplanFixturesPanelViewModel();
 
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
   const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
@@ -135,11 +148,20 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       onSectionChange={(section) => setActiveSection(section)}
     >
       {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
-        <Plan1DemoGuide
-          viewModel={demoWorkflowViewModel}
-          onOpenPlan1={openPlan1Demo}
-          onNavigate={navigateDemo}
-        />
+        <>
+          <DemoPinGate
+            viewModel={demoPinGateViewModel}
+            value={demoPinState.input}
+            onChange={(value) => setDemoPinState((state) => updateDemoPinInput(state, value))}
+            onUnlock={() => setDemoPinState((state) => submitDemoPin(state))}
+            onClear={() => setDemoPinState(clearDemoPinUnlock())}
+          />
+          <Plan1DemoGuide
+            viewModel={demoWorkflowViewModel}
+            onOpenPlan1={openPlan1Demo}
+            onNavigate={navigateDemo}
+          />
+        </>
       ) : null}
 
       {activeSection === "floorplans" ? (
@@ -150,6 +172,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onOpenEditor={() => setActiveSection("editor")}
             onOpenManualAssignment={() => setActiveSection("manual-assignment")}
             onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
+            demoPinUnlocked={demoPinState.unlocked}
           />
           <CanonicalFloorplanHeader viewModel={canonicalFloorplanHeaderViewModel} />
           {floorplanStatusMessage == null ? null : (
@@ -165,9 +188,11 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onDuplicateDefaultPlan={duplicateDefault}
             onOpenSavedPlan={openSaved}
             onDeleteSavedPlan={deleteSaved}
+            demoPinUnlocked={demoPinState.unlocked}
           />
           <details className="floorplan-demo-proof">
             <summary>Advanced / Evidence</summary>
+            <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
             <PlanBuilderLanding
               onOpenDefaultPlan={openDefault}
               onOpenReviewCandidate={openReviewCandidate}

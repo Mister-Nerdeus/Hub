@@ -1,31 +1,27 @@
 # Issue 441 Closeout
 
 ## Summary
-Canonical floorplan UX stage canonical-product-view passed local verification for Issue 441.
+Completed scope/PIN/one-floorplan repair stage: room-type-gate-canonical.
 
-## Files changed
-- Product floorplan UX, nurse desk presentation, local canonical UX gate, and issue evidence artifacts as applicable for this issue slice.
+## Files Changed
+- See git diff and evidence index for local artifacts.
 
-## Commands run
+## Commands Run
 - See commands.txt and command-output-map.json.
 
-## Tests passed/failed
-- Web tests: passed when captured in test-output/web.txt.
-- Web build: passed when captured in test-output/web-build.txt.
-- Canonical floorplan UX gate: passed for this issue stage.
-- Plans 2-5 unchanged gate: passed when captured in test-output/plans-2-through-5-unchanged.txt.
+## Tests Passed/Failed
+- Local command outputs are captured under test-output.
 
-## Evidence artifacts
+## Evidence Artifacts
 - docs/verification/issues/issue-441
-- docs/verification/canonical-floorplan-ux-manifest.json
+- docs/verification/scope-pin-ui-repair-manifest.json
 
-## Known limitations
+## Known Limitations
 - Manual visual approval is not claimed.
-- Full-shift simulation remains not started.
-- Optimizer behavior remains outside this batch.
+- Full simulation and optimizer behavior remain out of scope.
 
-## Non-PHI confirmation
-- Non-PHI rules still pass; no PHI, real patient identity, hospital identifiers, EHR integration, clinical safety certification, or staffing compliance certification was added.
+## Non-PHI Confirmation
+- Non-PHI rules still pass; this work adds no PHI, EHR integration, real identity fields, clinical safety certification, hidden scoring, optimizer behavior, or full-shift simulation.
 
 ## GO / NO-GO
 GO for Issue 442.

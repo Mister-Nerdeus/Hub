@@ -2,6 +2,7 @@ import type { FloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
 import { DefaultPlanEditCopyControls } from "./DefaultPlanEditCopyControls";
 import { DeleteSavedFloorplanDialog } from "./DeleteSavedFloorplanDialog";
 import { createDeleteSavedFloorplanDialogViewModel } from "./deleteSavedFloorplanViewModel";
+import { FloorplanEvidenceDetails } from "./FloorplanEvidenceDetails";
 import { useState } from "react";
 
 type FloorplanLibraryProps = {
@@ -10,6 +11,7 @@ type FloorplanLibraryProps = {
   onDuplicateDefaultPlan?: (planId: string) => void;
   onOpenSavedPlan?: (recordId: string) => void;
   onDeleteSavedPlan?: (recordId: string) => void;
+  demoPinUnlocked?: boolean;
 };
 
 export function FloorplanLibrary({
@@ -17,7 +19,8 @@ export function FloorplanLibrary({
   onOpenDefaultPlan,
   onDuplicateDefaultPlan,
   onOpenSavedPlan,
-  onDeleteSavedPlan
+  onDeleteSavedPlan,
+  demoPinUnlocked = true
 }: FloorplanLibraryProps) {
   const [pendingDeleteRecordId, setPendingDeleteRecordId] = useState<string | null>(null);
   const pendingDeleteFloorplan = pendingDeleteRecordId == null
@@ -72,13 +75,14 @@ export function FloorplanLibrary({
                   type="button"
                   onClick={() => onOpenDefaultPlan(floorplan.planId)}
                 >
-                  Open JSON
+                  Open Floorplan
                 </button>
               ) : null}
               {floorplan.accessMode === "read-only-default" && onDuplicateDefaultPlan ? (
                 <DefaultPlanEditCopyControls
                   planId={floorplan.planId}
                   readOnly={true}
+                  protectedActionUnlocked={demoPinUnlocked}
                   onDuplicateForEditing={onDuplicateDefaultPlan}
                 />
               ) : null}
@@ -88,7 +92,7 @@ export function FloorplanLibrary({
                   type="button"
                   onClick={() => onOpenSavedPlan(floorplan.recordId)}
                 >
-                  Open Saved JSON
+                  Open Saved Floorplan
                 </button>
               ) : null}
               {floorplan.accessMode === "editable-saved" && onDeleteSavedPlan ? (
@@ -100,7 +104,7 @@ export function FloorplanLibrary({
             <dl className="floorplan-library__status">
               <div>
                 <dt>Artifact</dt>
-                <dd>{floorplan.artifactType}</dd>
+                <dd>Floorplan source</dd>
               </div>
               <div>
                 <dt>Source</dt>
@@ -108,11 +112,11 @@ export function FloorplanLibrary({
               </div>
               <div>
                 <dt>Import</dt>
-                <dd>{floorplan.importStatus}</dd>
+                <dd>{floorplan.importStatus === "validated_default" ? "Validated default" : floorplan.importStatus}</dd>
               </div>
               <div>
                 <dt>Mapping</dt>
-                <dd>{floorplan.mappingStatus ?? floorplan.parentDefaultPlanId}</dd>
+                <dd>{floorplan.mappingStatus == null ? floorplan.parentDefaultPlanId : "Mapping reference"}</dd>
               </div>
             </dl>
             <dl className="floorplan-library__counts" aria-label={`${floorplan.name} object counts`}>
@@ -136,15 +140,8 @@ export function FloorplanLibrary({
                 <dt>Zones</dt>
                 <dd>{floorplan.objectCounts.zones}</dd>
               </div>
-              <div>
-                <dt>Nodes</dt>
-                <dd>{floorplan.objectCounts.pathNodes}</dd>
-              </div>
-              <div>
-                <dt>Edges</dt>
-                <dd>{floorplan.objectCounts.pathEdges}</dd>
-              </div>
             </dl>
+            <FloorplanEvidenceDetails floorplan={floorplan} />
             <ul className="floorplan-library__limitations">
               {floorplan.limitationsSummary.map((limitation) => (
                 <li key={limitation}>{limitation}</li>

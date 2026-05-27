@@ -7,7 +7,7 @@ type LegacyFloorplanReferenceListProps = {
 export function LegacyFloorplanReferenceList({ floorplans }: LegacyFloorplanReferenceListProps) {
   return (
     <section className="legacy-floorplan-reference" aria-labelledby="legacy-floorplan-reference-title">
-      <h3 id="legacy-floorplan-reference-title">Legacy Floorplan References</h3>
+      <h3 id="legacy-floorplan-reference-title">Legacy Floorplan Fixtures</h3>
       <p>Legacy fixtures are retained for verification only.</p>
       <p>The product uses one canonical floorplan.</p>
       <ul>
@@ -20,7 +20,7 @@ export function LegacyFloorplanReferenceList({ floorplans }: LegacyFloorplanRefe
           >
             <span>{floorplan.name}</span>
             <span>{floorplan.planId}</span>
-            <span>{floorplan.readOnlyLabel}</span>
+            <span>Legacy fixture - not used for current scenario/ratio comparison workflow.</span>
           </li>
         ))}
       </ul>

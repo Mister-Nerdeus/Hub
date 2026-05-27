@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "canonical-plan-default-open",
+  "issue": "445",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "default state opens canonical plan",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "active canonical field exists",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "scenario seed references Plan 1",
+      "passed": true,
+      "detail": "scenarioSeedContract.ts"
+    }
+  ]
+}

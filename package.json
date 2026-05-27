@@ -44,6 +44,7 @@
     "check:floorplan-presentation-rendering": "npm --workspace packages/shared run build && node scripts/check-floorplan-presentation-rendering.mjs",
     "check:door-authoring-tools": "npm --workspace packages/shared run build && node scripts/check-door-authoring-tools.mjs",
     "check:layout-assignment-overlay": "npm --workspace packages/shared run build && node scripts/check-layout-assignment-overlay.mjs",
+    "check:room-type-semantics": "npm --workspace packages/shared run build && node scripts/check-room-type-semantics.mjs --stage final",
     "check:scenario-ratio-foundation": "npm --workspace packages/shared run build && node scripts/check-scenario-ratio-foundation.mjs --stage final",
     "evidence:local": "node scripts/generate-local-evidence-pack.mjs",
     "evidence:local:tracked": "npm run evidence:local -- --tracked",

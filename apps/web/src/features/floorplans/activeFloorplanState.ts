@@ -6,6 +6,7 @@ import {
   type ReviewCandidateFloorplanFixture
 } from "../../fixtures/reviewCandidatePlans";
 import type { SavedFloorplanRecord } from "./savedFloorplanStore";
+import { CANONICAL_FLOORPLAN_ID } from "./canonicalFloorplanViewModel";
 
 export type ActiveFloorplanRecord =
   | ActiveDefaultFloorplanRecord
@@ -59,6 +60,7 @@ export type ActiveFloorplanSelectionState = {
 
 export type ActiveFloorplanState = {
   activeFloorplan: ActiveFloorplanRecord | null;
+  activeCanonicalFloorplanId: typeof CANONICAL_FLOORPLAN_ID;
   selection: ActiveFloorplanSelectionState;
   sequence: number;
 };
@@ -90,11 +92,15 @@ export type ActiveFloorplanSummaryViewModel = {
 };
 
 export function createEmptyActiveFloorplanState(): ActiveFloorplanState {
-  return {
-    activeFloorplan: null,
-    selection: createEmptySelectionState(),
-    sequence: 0
-  };
+  return openDefaultFloorplan(
+    {
+      activeFloorplan: null,
+      activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
+      selection: createEmptySelectionState(),
+      sequence: -1
+    },
+    CANONICAL_FLOORPLAN_ID
+  );
 }
 
 export function openDefaultFloorplan(
@@ -119,6 +125,7 @@ export function openDefaultFloorplan(
       parentDefaultPlanId: null,
       plan: fixture.plan
     },
+    activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
   };
@@ -144,6 +151,7 @@ export function openSavedFloorplan(
       parentDefaultPlanId: record.parentDefaultPlanId,
       plan: record.plan
     },
+    activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
   };
@@ -184,6 +192,7 @@ export function openReviewCandidateFloorplan(
       promotionStatus: "blocked",
       plan: clonePlan(candidate.plan)
     },
+    activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
   };
@@ -197,17 +206,17 @@ export function createActiveFloorplanSummaryViewModel(
     return {
       hasActiveFloorplan: false,
       planId: null,
-      name: "No active floorplan",
+      name: "Canonical Plan 1 ready",
       readOnly: false,
       sourceKind: null,
-      sourceKindLabel: "No active floorplan",
+      sourceKindLabel: "Canonical default",
       importStatus: null,
       mappingStatus: null,
       parentDefaultPlanId: null,
-      routeStatusLabel: "No active route/export status",
-      manualReviewStatusLabel: "No active floorplan",
-      promotionStatusLabel: "No active floorplan",
-      editorLaunchLabel: "Open a floorplan first",
+      routeStatusLabel: "Route/export not evaluated for active copy",
+      manualReviewStatusLabel: "Manual review not claimed",
+      promotionStatusLabel: "Promotion blocked",
+      editorLaunchLabel: "Open canonical floorplan",
       selectedObjectId: state.selection.selectedObjectId,
       objectCounts: null
     };

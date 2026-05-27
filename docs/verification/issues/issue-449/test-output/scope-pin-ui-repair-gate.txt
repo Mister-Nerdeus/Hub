@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "stage": "visual-proof",
+  "issue": "449",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "DOM assertions exist",
+      "passed": true,
+      "detail": "docs/verification/scope-pin-ui-dom-assertions.json"
+    },
+    {
+      "name": "visual assertion productDisplayNameVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion canonicalPlanVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion plan1VisibleMainUi",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion plan2VisibleMainUi",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion plan3VisibleMainUi",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion plan4VisibleMainUi",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion plan5VisibleMainUi",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion legacyPlansVisibleAdvanced",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion pinGateVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion pinLockedStateVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion wrongPinStateVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion pinUnlockedStateVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion pinDemoOnlyCopyVisible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual assertion productionAuthClaimVisible",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion securityClaimVisible",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion phiLikeTextVisible",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion simulationOutputVisible",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion optimizerOutputVisible",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual assertion staticHtmlOnlyProof",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

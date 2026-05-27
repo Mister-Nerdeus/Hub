@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "stage": "room-type-gate-canonical",
+  "issue": "441",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-room-type-semantics.mjs --stage final"
+    },
+    {
+      "name": "registry includes room-type-semantics",
+      "passed": true,
+      "detail": [
+        "no-phi",
+        "dependency-specs",
+        "docs-contracts",
+        "simulation-contract-parity",
+        "product-naming",
+        "product-identity",
+        "source-plan-correction",
+        "corrected-plan-review",
+        "corrected-plan-route-repair",
+        "manual-visual-review",
+        "plan-builder-ux-review-flow",
+        "human-review-intake",
+        "human-review-governance-hardening",
+        "operational-demo-ux",
+        "operational-demo-repair",
+        "real-browser-proof",
+        "operational-demo-negative-tests",
+        "private-source-artifacts",
+        "default-plans-2-5-unchanged",
+        "canonical-gates",
+        "manual-assignment-foundation-preflight",
+        "manual-assignment-contracts",
+        "manual-assignment-ui",
+        "manual-assignment-burden",
+        "floorplan-editor-ux",
+        "floorplan-operational-map-style",
+        "floorplan-presentation-rendering",
+        "door-authoring-tools",
+        "layout-assignment-overlay",
+        "room-type-semantics"
+      ]
+    },
+    {
+      "name": "verify-local expands registry commands",
+      "passed": true,
+      "detail": "scripts/verify-local.mjs"
+    }
+  ]
+}

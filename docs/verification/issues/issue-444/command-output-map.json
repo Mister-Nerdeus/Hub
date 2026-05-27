@@ -1,6 +1,5 @@
 {
   "issue": "444",
-  "stage": "active-cleanup",
   "commands": [
     {
       "command": "npm --workspace apps/web test",
@@ -15,9 +14,15 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage active-cleanup --allow-partial --issue 444",
+      "command": "node scripts/check-scope-pin-ui-repair.mjs --stage legacy-plans-advanced --allow-partial --issue 444",
       "outputs": [
-        "docs/verification/issues/issue-444/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-444/test-output/scope-pin-ui-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-444/test-output/no-phi.txt"
       ]
     },
     {

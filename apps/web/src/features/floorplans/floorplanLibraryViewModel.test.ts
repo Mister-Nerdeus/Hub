@@ -36,7 +36,7 @@ for (const floorplan of viewModel.floorplans) {
   if (floorplan.artifactType !== "json-floorplan") {
     throw new Error(`floorplan library must expose JSON artifacts only for ${floorplan.planId}`);
   }
-  if (floorplan.accessMode !== "read-only-default" || floorplan.readOnlyLabel !== "Canonical read-only default") {
+  if (floorplan.accessMode !== "read-only-default" || floorplan.readOnlyLabel !== "Locked canonical fixture") {
     throw new Error(`canonical default floorplan must be read-only for ${floorplan.planId}`);
   }
   if (floorplan.importStatus !== "validated_default") {
@@ -102,7 +102,7 @@ const savedCard = savedViewModel.floorplans.find((floorplan) => floorplan.record
 if (savedCard == null || savedCard.accessMode !== "editable-saved") {
   throw new Error("floorplan library must expose saved floorplan cards as editable JSON records");
 }
-if (savedCard.readOnlyLabel !== "Editable saved copy" || savedCard.parentDefaultPlanId !== "default-er-layout-plan-1") {
+if (savedCard.readOnlyLabel !== "Editable working copy" || savedCard.parentDefaultPlanId !== "default-er-layout-plan-1") {
   throw new Error("saved floorplan card must preserve editable status and parent default plan");
 }
 if (JSON.stringify(savedViewModel).includes(`.${"docx"}`)) {

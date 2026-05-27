@@ -1,4 +1,4 @@
-import type { DefaultSavedPlanFixtureContract } from "@nerdeus/shared";
+import { PRODUCT_DISPLAY_NAME, type DefaultSavedPlanFixtureContract } from "@nerdeus/shared";
 
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
 import type { ActiveFloorplanSummaryViewModel } from "./activeFloorplanState";
@@ -9,9 +9,10 @@ export const CANONICAL_FLOORPLAN_ID = "default-er-layout-plan-1";
 export type DefaultFloorplanClassification = "canonical-default" | "legacy-default";
 
 export type CanonicalFloorplanProductViewModel = {
-  productDisplayName: "ER Pod Shift Simulator";
+  productDisplayName: typeof PRODUCT_DISPLAY_NAME;
   floorplanModelStatus: "single_canonical_floorplan";
   canonicalPlanId: string;
+  activeCanonicalFloorplanId: typeof CANONICAL_FLOORPLAN_ID;
   canonicalPlanName: string;
   visibleDefaultPlanIds: string[];
   legacyDefaultPlanIds: string[];
@@ -38,14 +39,15 @@ export function createCanonicalFloorplanProductViewModel(
     .sort();
 
   return {
-    productDisplayName: "ER Pod Shift Simulator",
+    productDisplayName: PRODUCT_DISPLAY_NAME,
     floorplanModelStatus: "single_canonical_floorplan",
     canonicalPlanId: canonical.plan.planId,
+    activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     canonicalPlanName: canonical.plan.name,
     visibleDefaultPlanIds: [canonical.plan.planId],
     legacyDefaultPlanIds,
     legacyContainmentCopy: "Legacy fixtures are retained for verification only.",
-    productCopy: "The product uses one canonical floorplan."
+    productCopy: "This workspace uses one canonical ER pod floorplan. Scenario and ratio comparisons layer onto this floorplan."
   };
 }
 
@@ -72,8 +74,8 @@ export function createCanonicalFloorplanHeaderViewModel(options: {
     activeFloorplanName: active.hasActiveFloorplan ? active.name : "Canonical default ready",
     activeFloorplanStatus: active.hasActiveFloorplan
       ? `Active map: ${active.name}`
-      : "Active map: no saved copy selected",
-    editableCopyStatus: isEditableCopy ? "Editable saved copy active" : "Canonical read-only default available",
+      : "Active map: default-er-layout-plan-1",
+    editableCopyStatus: isEditableCopy ? "Editable working copy active" : "Locked canonical fixture available",
     savedCopyCount: options.savedFloorplans.length,
     ratioLayeringCopy: "4:1 / 3:1 scenarios use this same floorplan.",
     operationalApproximationCopy: "Operational approximation only.",

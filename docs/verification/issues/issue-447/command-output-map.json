@@ -1,7 +1,12 @@
 {
   "issue": "447",
-  "stage": "nurse-desk-label",
   "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-447/test-output/shared.txt"
+      ]
+    },
     {
       "command": "npm --workspace apps/web test",
       "outputs": [
@@ -15,9 +20,9 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage nurse-desk-label --allow-partial --issue 447",
+      "command": "node scripts/check-demo-pin-gate.mjs --stage pin-contract --allow-partial --issue 447",
       "outputs": [
-        "docs/verification/issues/issue-447/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-447/test-output/demo-pin-gate.txt"
       ]
     },
     {

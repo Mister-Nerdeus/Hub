@@ -65,11 +65,11 @@ export function createFloorplanLibraryViewModel(
         : "developer-reference" as const,
       isCanonicalProductFloorplan: fixture.plan.planId === CANONICAL_FLOORPLAN_ID,
       readOnlyLabel: classifyDefaultFloorplan(fixture) === "canonical-default"
-        ? "Canonical read-only default"
+        ? "Locked canonical fixture"
         : "Protected legacy reference",
       sourceDerivedStatus: classifyDefaultFloorplan(fixture) === "canonical-default"
-        ? "Canonical source-derived JSON default"
-        : "Legacy source-derived JSON reference fixture",
+        ? "Floorplan source"
+        : "Legacy floorplan source reference fixture",
       importStatus: fixture.importStatus,
       mappingStatus: fixture.mappingId,
       parentDefaultPlanId: null,
@@ -93,9 +93,9 @@ export function createFloorplanLibraryViewModel(
     defaultClassification: null,
     productVisibility: "normal-product" as const,
     isCanonicalProductFloorplan: false,
-    readOnlyLabel: "Editable saved copy",
-    sourceDerivedStatus: "Editable JSON copy",
-    importStatus: "validated_saved",
+    readOnlyLabel: "Editable working copy",
+    sourceDerivedStatus: "Floorplan source",
+    importStatus: "Validated saved",
     mappingStatus: null,
     parentDefaultPlanId: record.parentDefaultPlanId,
     objectCounts: {
@@ -134,9 +134,9 @@ export function createFloorplanLibraryViewModel(
       protectedLegacyDefaultPlanCount: legacyDefaultFloorplans.length
     },
     limitationsSummary: [
-      "The product uses one canonical floorplan.",
-      "JSON floorplans are approximate operational layouts.",
-      "Default floorplans are read-only; duplicated copies are editable local JSON records."
+      "This workspace uses one canonical ER pod floorplan. Scenario and ratio comparisons layer onto this floorplan.",
+      "Floorplans are approximate operational layouts.",
+      "Default floorplans are locked; working copies are editable local records."
     ]
   };
 }

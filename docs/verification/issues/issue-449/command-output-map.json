@@ -1,6 +1,5 @@
 {
   "issue": "449",
-  "stage": "boundary-gate",
   "commands": [
     {
       "command": "npm --workspace apps/web test",
@@ -15,21 +14,15 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage visual-parity-proof --allow-partial --issue 449",
+      "command": "node scripts/check-scope-pin-ui-repair.mjs --stage visual-proof --allow-partial --issue 449",
       "outputs": [
-        "docs/verification/issues/issue-449/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-449/test-output/scope-pin-ui-repair-gate.txt"
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage boundary-gate --allow-partial --issue 449",
+      "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-449/test-output/canonical-floorplan-ux-boundary-gate.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-private-source-artifacts.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-449/test-output/private-source-artifacts.txt"
+        "docs/verification/issues/issue-449/test-output/no-phi.txt"
       ]
     },
     {

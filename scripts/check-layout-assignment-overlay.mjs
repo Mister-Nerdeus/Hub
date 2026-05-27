@@ -15,6 +15,7 @@ const files = [
   "apps/web/src/features/layout-editor/RoomShape.tsx",
   "apps/web/src/features/layout-editor/roomShapeViewModel.ts",
   "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+  "apps/web/src/features/layout-editor/PresentationLegend.tsx",
   "apps/web/src/features/manual-assignment/manualAssignmentWorkspaceViewModel.ts"
 ];
 for (const file of files) if (!existsSync(abs(file))) failures.push(`missing ${file}`);

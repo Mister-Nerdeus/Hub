@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "stage": "scenario-ratio-range-repair",
+  "issue": "442",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "scenario ratio batch moved",
+      "passed": true,
+      "detail": "451-460"
+    },
+    {
+      "name": "scope batch owns 441-450",
+      "passed": true,
+      "detail": "441-450"
+    },
+    {
+      "name": "drift repair note exists",
+      "passed": true,
+      "detail": "docs/project/evidence-range-drift-repair.md"
+    },
+    {
+      "name": "no duplicate manifest ranges",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

@@ -1,7 +1,12 @@
 {
   "issue": "445",
-  "stage": "canonical-header",
   "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-445/test-output/shared.txt"
+      ]
+    },
     {
       "command": "npm --workspace apps/web test",
       "outputs": [
@@ -15,9 +20,21 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage canonical-header --allow-partial --issue 445",
+      "command": "npm run check:room-type-semantics",
       "outputs": [
-        "docs/verification/issues/issue-445/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-445/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scope-pin-ui-repair.mjs --stage canonical-plan-default-open --allow-partial --issue 445",
+      "outputs": [
+        "docs/verification/issues/issue-445/test-output/scope-pin-ui-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-445/test-output/no-phi.txt"
       ]
     },
     {

@@ -35,7 +35,8 @@ const requiredGateIds = [
   "floorplan-operational-map-style",
   "floorplan-presentation-rendering",
   "door-authoring-tools",
-  "layout-assignment-overlay"
+  "layout-assignment-overlay",
+  "room-type-semantics"
 ];
 const newIssue381Scripts = [
   "check:product-identity",
@@ -51,7 +52,8 @@ const newIssue381Scripts = [
   "check:floorplan-operational-map-style",
   "check:floorplan-presentation-rendering",
   "check:door-authoring-tools",
-  "check:layout-assignment-overlay"
+  "check:layout-assignment-overlay",
+  "check:room-type-semantics"
 ];
 const sharedBuildRequiredScripts = [
   "check:operational-demo-ux",
@@ -96,6 +98,27 @@ const missingCanonicalGateNegative = captureValidationFailure(
     verifyLocalSource
   ),
   /canonical-gates/u
+);
+const missingRoomTypeGateNegative = captureValidationFailure(
+  () => validateRegistry(
+    { ...registry, gates: registry.gates.filter((gate) => gate.id !== "room-type-semantics") },
+    packageJson,
+    verifyLocalSource
+  ),
+  /room-type-semantics/u
+);
+const missingRoomTypePackageScriptNegative = captureValidationFailure(
+  () => validateRegistry(
+    registry,
+    {
+      ...packageJson,
+      scripts: Object.fromEntries(
+        Object.entries(packageJson.scripts).filter(([name]) => name !== "check:room-type-semantics")
+      )
+    },
+    verifyLocalSource
+  ),
+  /check:room-type-semantics/u
 );
 const missingPackageScriptNegative = captureValidationFailure(
   () => validateRegistry(
@@ -142,6 +165,8 @@ const output = {
   requiredGateIds,
   missingRepairNegative,
   missingCanonicalGateNegative,
+  missingRoomTypeGateNegative,
+  missingRoomTypePackageScriptNegative,
   missingPackageScriptNegative,
   missingFloorplanGateNegative,
   failures
@@ -150,7 +175,9 @@ const output = {
 writeJson(`${issueDir}/canonical-gate-registry-output.json`, output);
 writeJson(`${issueDir}/missing-repair-gates-negative-output.json`, missingRepairNegative);
 writeJson(`${issueDir}/missing-canonical-gate-negative-output.json`, missingCanonicalGateNegative);
+writeJson(`${issueDir}/missing-room-type-gate-negative-output.json`, missingRoomTypeGateNegative);
 writeJson(`${issueDir}/missing-floorplan-gate-negative-output.json`, missingFloorplanGateNegative);
+writeJson(`${issueDir}/missing-room-type-package-script-negative-output.json`, missingRoomTypePackageScriptNegative);
 writeJson(`${issueDir}/canonical-gate-registry-update-output.json`, {
   status: output.status,
   registryPath,

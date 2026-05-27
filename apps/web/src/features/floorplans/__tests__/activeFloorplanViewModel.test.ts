@@ -6,8 +6,8 @@ import {
 import { createOperationalActiveFloorplanViewModel } from "../activeFloorplanViewModel";
 
 const empty = createOperationalActiveFloorplanViewModel(createEmptyActiveFloorplanState());
-if (empty.hasActiveFloorplan || empty.editorLaunchLabel !== "Open a floorplan first") {
-  throw new Error("empty active floorplan state should not imply active editor launch");
+if (!empty.hasActiveFloorplan || empty.planId !== "default-er-layout-plan-1") {
+  throw new Error("empty active floorplan state should default to canonical Plan 1");
 }
 
 const activeState = openDefaultFloorplan(createEmptyActiveFloorplanState(), "default-er-layout-plan-2");

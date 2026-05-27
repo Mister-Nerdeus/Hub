@@ -1,1 +1,1 @@
-- Continue with simulation foundation only after maintaining local-first evidence gates.
+- 451-460: One-Floorplan Scenario Seed + Ratio Comparison Foundation.

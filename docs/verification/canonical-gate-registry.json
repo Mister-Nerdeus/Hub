@@ -1,6 +1,6 @@
 {
   "registryVersion": "1.0.0",
-  "lastUpdatedIssue": "401",
+  "lastUpdatedIssue": "441",
   "productDisplayName": "ER Pod Shift Simulator",
   "verifyLocalEnforcesRegistry": true,
   "gates": [
@@ -177,6 +177,12 @@
       "packageScript": "check:layout-assignment-overlay",
       "command": "npm run check:layout-assignment-overlay -- --issue 400",
       "category": "floorplan-editor-ux"
+    },
+    {
+      "id": "room-type-semantics",
+      "packageScript": "check:room-type-semantics",
+      "command": "npm run check:room-type-semantics",
+      "category": "truth-loop"
     }
   ]
 }

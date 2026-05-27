@@ -1,6 +1,5 @@
 {
   "issue": "442",
-  "stage": "legacy-default-containment",
   "commands": [
     {
       "command": "npm --workspace apps/web test",
@@ -15,9 +14,15 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage legacy-default-containment --allow-partial --issue 442",
+      "command": "node scripts/check-scope-pin-ui-repair.mjs --stage scenario-ratio-range-repair --allow-partial --issue 442",
       "outputs": [
-        "docs/verification/issues/issue-442/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-442/test-output/scope-pin-ui-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-442/test-output/no-phi.txt"
       ]
     },
     {

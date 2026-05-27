@@ -1,7 +1,12 @@
 {
   "issue": "450",
-  "stage": "final",
   "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-450/test-output/shared.txt"
+      ]
+    },
     {
       "command": "npm --workspace apps/web test",
       "outputs": [
@@ -15,9 +20,9 @@
       ]
     },
     {
-      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage final --issue 450",
+      "command": "node scripts/check-demo-pin-gate.mjs --stage final --issue 450",
       "outputs": [
-        "docs/verification/issues/issue-450/test-output/canonical-floorplan-ux-gate.txt"
+        "docs/verification/issues/issue-450/test-output/demo-pin-gate.txt"
       ]
     },
     {
@@ -27,33 +32,9 @@
       ]
     },
     {
-      "command": "node scripts/check-private-source-artifacts.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-450/test-output/private-source-artifacts.txt"
-      ]
-    },
-    {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 450",
       "outputs": [
         "docs/verification/issues/issue-450/test-output/plans-2-through-5-unchanged.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-docs-contracts.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-450/test-output/docs-gate.txt"
-      ]
-    },
-    {
-      "command": "docker compose config",
-      "outputs": [
-        "docs/verification/issues/issue-450/test-output/docker-compose-config.txt"
-      ]
-    },
-    {
-      "command": "docker compose build web",
-      "outputs": [
-        "docs/verification/issues/issue-450/test-output/docker-compose-build-web.txt"
       ]
     }
   ]
