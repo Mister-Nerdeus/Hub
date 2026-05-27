@@ -1,19 +1,14 @@
 # Issue 383 Closeout
 
 ## Summary
-Synthetic manual-assignment nurse profile defaults, color palette, view model, and profile panel were added.
+Manual assignment foundation stage nurse-profiles was checked.
 
 ## Files Changed
-- packages/shared/src/manual-assignment/nurseProfileDefaults.ts
-- packages/shared/tests/nurse-profile-contracts.test.mjs
-- apps/web/src/features/manual-assignment/NurseProfilePanel.tsx
-- apps/web/src/features/manual-assignment/nurseProfileViewModel.ts
-- apps/web/src/features/manual-assignment/nurseColors.ts
-- apps/web/src/features/manual-assignment/manualAssignmentDemoState.ts
-- apps/web/src/features/manual-assignment/__tests__/nurseProfileViewModel.test.ts
-- apps/web/src/features/manual-assignment/ManualAssignmentProof.tsx
-- apps/web/src/features/manual-assignment/ManualAssignmentProof.css
+- package.json
+- scripts/verify-local.mjs
+- scripts/check-canonical-gate-registry.mjs
 - scripts/check-manual-assignment-foundation.mjs
+- docs/verification/canonical-gate-registry.json
 - docs/verification/manual-assignment-foundation-manifest.json
 - docs/verification/issues/issue-383
 
@@ -31,10 +26,10 @@ Synthetic manual-assignment nurse profile defaults, color palette, view model, a
 ## Known Limitations
 - Manual visual approval is not claimed.
 - Promotion remains blocked.
-- Nurse assignment counts are placeholders until assignment state is added.
+- Manual assignment implementation begins only after this preflight.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass; nurse profiles are synthetic display profiles only, with no real identities, employee IDs, HR/payroll data, scheduling behavior, optimizer behavior, or clinical safety claims.
+- Non-PHI rules still pass; this stage added gate wiring and evidence only, with no PHI, EHR data, real patient identity, optimizer behavior, full-shift simulation, or clinical safety claims.
 
 ## GO / NO-GO
 GO for Issue 384.

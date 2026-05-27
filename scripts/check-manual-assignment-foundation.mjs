@@ -364,6 +364,9 @@ function runAssignmentUi() {
   if (/best assignment|recommend|optimi[sz]er/u.test(combined)) {
     failures.push("assignment UI must not contain optimizer or recommendation behavior");
   }
+  for (const screenshotName of ["manual-assignment-workspace.png", "color-coded-assignment.png", "unassigned-rooms.png"]) {
+    assertBrowserRenderedScreenshot(`${issueDir}/screenshots/${screenshotName}`);
+  }
   writeJson(`${issueDir}/manifest-update-output.json`, {
     status: stageFailures().length === 0 ? "passed" : "failed",
     manifestPath,
@@ -447,6 +450,9 @@ function runBurdenWarnings() {
   if (/best assignment|recommend|optimi[sz]er|shift timeline|certifies|safe staffing/u.test(combined)) {
     failures.push("burden warning stage must not contain optimizer, full-shift, safety, or staffing certification behavior");
   }
+  for (const screenshotName of ["nurse-burden-table.png", "assignment-warnings-panel.png"]) {
+    assertBrowserRenderedScreenshot(`${issueDir}/screenshots/${screenshotName}`);
+  }
   writeJson(`${issueDir}/manifest-update-output.json`, {
     status: stageFailures().length === 0 ? "passed" : "failed",
     manifestPath,
@@ -495,7 +501,7 @@ function runComparisonProof() {
   writeText(`${issueDir}/no-clinical-claim-output.txt`, "passed: comparison proof is synthetic operational burden comparison only\n");
   writeText(`${issueDir}/no-staffing-compliance-claim-output.txt`, "passed: comparison proof does not claim staffing compliance\n");
   writeText(`${issueDir}/no-phi-output.txt`, "passed: comparison proof uses synthetic operational room and nurse IDs only\n");
-  writeScreenshotPlaceholder(`${issueDir}/screenshots/four-patient-comparison-panel.png`);
+  assertBrowserRenderedScreenshot(`${issueDir}/screenshots/four-patient-comparison-panel.png`);
   writeJson(`${issueDir}/manifest-update-output.json`, {
     status: stageFailures().length === 0 ? "passed" : "failed",
     manifestPath,
@@ -708,25 +714,36 @@ function mappedOutputForCommand(command, issueNumber) {
 
 function writeNurseProfileScreenshotPlaceholder() {
   const screenshotPath = `${issueDir}/screenshots/nurse-profile-panel.png`;
-  if (existsSync(abs(screenshotPath))) return;
-  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODMgZXZpZGVuY2W4m+4GAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
-  mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
-  writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
+  assertBrowserRenderedScreenshot(screenshotPath);
 }
 
 function writeRoomLoadScreenshotPlaceholder() {
   const screenshotPath = `${issueDir}/screenshots/room-load-editor-panel.png`;
-  if (existsSync(abs(screenshotPath))) return;
-  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODQgZXZpZGVuY2W8ncjFAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
-  mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
-  writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
+  assertBrowserRenderedScreenshot(screenshotPath);
 }
 
-function writeScreenshotPlaceholder(path) {
-  if (existsSync(abs(path))) return;
-  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAHUlEQVR42u3BMQEAAADCoPVPbQwfoAAAAAAAAAAA8G0B2AAB6d5APQAAAABJRU5ErkJggg==";
-  mkdirSync(dirname(abs(path)), { recursive: true });
-  writeFileSync(abs(path), Buffer.from(transparentPng, "base64"));
+function assertBrowserRenderedScreenshot(path) {
+  if (!existsSync(abs(path))) {
+    failures.push(`missing browser-rendered manual assignment screenshot ${path}; run node scripts/capture-manual-assignment-screenshots.mjs --issue ${issue}`);
+    return;
+  }
+  const png = readPngInfo(path);
+  if (png.width < 300 || png.height < 300 || png.byteLength < 5000) {
+    failures.push(`placeholder-like manual assignment screenshot rejected: ${path}`);
+  }
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") {
+    failures.push(`${path} is not a PNG`);
+    return { width: 0, height: 0, byteLength: 0 };
+  }
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    byteLength: statSync(abs(path)).size
+  };
 }
 
 function closeoutForIssue() {

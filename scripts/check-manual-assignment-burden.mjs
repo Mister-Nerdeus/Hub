@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -138,15 +138,33 @@ function runBurdenWarningChecks() {
   writeJson(`${issueDir}/warning-unassigned-room-output.json`, { status: warnings.includes("UNASSIGNED_OCCUPIED_ROOM") ? "passed" : "failed" });
   writeJson(`${issueDir}/score-explanation-output.json`, { status: table.includes("explanation") && scoring.includes("visibleComponents") ? "passed" : "failed" });
   writeText(`${issueDir}/no-clinical-claim-output.txt`, "passed: burden scoring is labeled as editable operational assumptions and does not certify care or staffing\n");
-  writeScreenshotPlaceholder(`${issueDir}/screenshots/nurse-burden-table.png`);
-  writeScreenshotPlaceholder(`${issueDir}/screenshots/assignment-warnings-panel.png`);
+  for (const screenshotName of ["nurse-burden-table.png", "assignment-warnings-panel.png"]) {
+    assertBrowserRenderedScreenshot(`${issueDir}/screenshots/${screenshotName}`);
+  }
 }
 
-function writeScreenshotPlaceholder(path) {
-  if (existsSync(abs(path))) return;
-  mkdirSync(dirname(abs(path)), { recursive: true });
-  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAHUlEQVR42u3BMQEAAADCoPVPbQwfoAAAAAAAAAAA8G0B2AAB6d5APQAAAABJRU5ErkJggg==";
-  writeFileSync(abs(path), Buffer.from(transparentPng, "base64"));
+function assertBrowserRenderedScreenshot(path) {
+  if (!existsSync(abs(path))) {
+    failures.push(`missing browser-rendered manual assignment screenshot ${path}; run node scripts/capture-manual-assignment-screenshots.mjs --issue ${issue}`);
+    return;
+  }
+  const png = readPngInfo(path);
+  if (png.width < 300 || png.height < 300 || png.byteLength < 5000) {
+    failures.push(`placeholder-like manual assignment screenshot rejected: ${path}`);
+  }
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") {
+    failures.push(`${path} is not a PNG`);
+    return { width: 0, height: 0, byteLength: 0 };
+  }
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    byteLength: statSync(abs(path)).size
+  };
 }
 
 function updateEvidenceIndex() {

@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -94,9 +94,9 @@ writeJson(`${issueDir}/no-optimizer-negative-output.json`, {
   rejected: true
 });
 writeText(`${issueDir}/no-fixture-mutation-output.txt`, "passed: manual assignment UI uses reducer state and synthetic fixtures without writing default floorplan fixtures\n");
-writeScreenshotPlaceholder(`${issueDir}/screenshots/manual-assignment-workspace.png`);
-writeScreenshotPlaceholder(`${issueDir}/screenshots/color-coded-assignment.png`);
-writeScreenshotPlaceholder(`${issueDir}/screenshots/unassigned-rooms.png`);
+for (const screenshotName of ["manual-assignment-workspace.png", "color-coded-assignment.png", "unassigned-rooms.png"]) {
+  assertBrowserRenderedScreenshot(`${issueDir}/screenshots/${screenshotName}`);
+}
 
 const output = {
   status: failures.length === 0 ? "passed" : "failed",
@@ -147,10 +147,28 @@ function listFiles(relativeRoot) {
   }
 }
 
-function writeScreenshotPlaceholder(path) {
-  if (existsSync(abs(path))) return;
-  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAHUlEQVR42u3BMQEAAADCoPVPbQwfoAAAAAAAAAAA8G0B2AAB6d5APQAAAABJRU5ErkJggg==";
-  writeFileSync(abs(path), Buffer.from(transparentPng, "base64"));
+function assertBrowserRenderedScreenshot(path) {
+  if (!existsSync(abs(path))) {
+    failures.push(`missing browser-rendered manual assignment screenshot ${path}; run node scripts/capture-manual-assignment-screenshots.mjs --issue ${issue}`);
+    return;
+  }
+  const png = readPngInfo(path);
+  if (png.width < 300 || png.height < 300 || png.byteLength < 5000) {
+    failures.push(`placeholder-like manual assignment screenshot rejected: ${path}`);
+  }
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") {
+    failures.push(`${path} is not a PNG`);
+    return { width: 0, height: 0, byteLength: 0 };
+  }
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    byteLength: statSync(abs(path)).size
+  };
 }
 
 function readArg(flag) {

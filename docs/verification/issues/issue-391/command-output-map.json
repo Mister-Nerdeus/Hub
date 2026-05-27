@@ -1,0 +1,80 @@
+{
+  "issue": "391",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": ["docs/verification/issues/issue-391/test-output/shared.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": ["docs/verification/issues/issue-391/test-output/web.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": ["docs/verification/issues/issue-391/test-output/web-build.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": ["docs/verification/issues/issue-391/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-private-source-artifacts.mjs",
+      "outputs": ["docs/verification/issues/issue-391/test-output/private-source-artifacts.txt"]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-ui.mjs --issue 386",
+      "outputs": ["docs/verification/issues/issue-391/test-output/manual-assignment-ui-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-burden.mjs --issue 388",
+      "outputs": ["docs/verification/issues/issue-391/test-output/manual-assignment-burden-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-real-browser-proof.mjs --issue 390",
+      "outputs": ["docs/verification/issues/issue-391/test-output/real-browser-proof-issue390.txt"]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-foundation.mjs --stage final --issue 390",
+      "outputs": [
+        "docs/verification/issues/issue-391/test-output/manual-assignment-foundation-gate.txt",
+        "docs/verification/issues/issue-391/test-output/manual-assignment-foundation-gate-post-verify.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-gate-registry.mjs --issue 390",
+      "outputs": ["docs/verification/issues/issue-391/test-output/canonical-gates.txt"]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 391",
+      "outputs": ["docs/verification/issues/issue-391/test-output/plans-2-through-5-unchanged.txt"]
+    },
+    {
+      "command": "node scripts/check-product-naming.mjs --issue 391",
+      "outputs": ["docs/verification/issues/issue-391/test-output/product-naming-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-product-identity-contract.mjs --issue 391",
+      "outputs": ["docs/verification/issues/issue-391/test-output/product-identity-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-contracts.mjs --issue 391",
+      "outputs": ["docs/verification/issues/issue-391/test-output/manual-assignment-contracts-gate.txt"]
+    },
+    {
+      "command": "node scripts/capture-manual-assignment-screenshots.mjs --issue 390 --base-url http://127.0.0.1:5180 --debug-port 9322",
+      "outputs": ["docs/verification/issues/issue-391/manual-assignment-screenshot-manifest-output.json"]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": ["docs/verification/issues/issue-391/test-output/verify-local.txt"]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": ["docs/verification/issues/issue-391/test-output/docs-gate.txt"]
+    },
+    {
+      "command": "git diff --check",
+      "outputs": ["docs/verification/issues/issue-391/test-output/git-diff-check.txt"]
+    }
+  ]
+}
