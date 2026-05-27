@@ -146,6 +146,34 @@ if (stage === "room-load-exclusion" || stage === "legacy-invalid-layouts" || sta
   add("manifest marks room load exclusion implemented", manifest.roomLoadExclusionStatus === "implemented", manifest.roomLoadExclusionStatus);
 }
 
+if (stage === "legacy-invalid-layouts" || stage === "final") {
+  const legacyValidation = fs.readFileSync("packages/shared/src/floorplans/legacyLayoutValidation.ts", "utf8");
+  add("legacy validation quarantines solid wall with doors", legacyValidation.includes("SOLID_WALL_WITH_DOOR"), "legacyLayoutValidation.ts");
+  add("legacy validation quarantines solid wall path nodes", legacyValidation.includes("SOLID_WALL_WITH_PATH_NODE"), "legacyLayoutValidation.ts");
+  add("legacy validation quarantines storage room loads", legacyValidation.includes("STORAGE_WITH_ROOM_LOAD"), "legacyLayoutValidation.ts");
+  add("legacy validation quarantines storage assignments", legacyValidation.includes("STORAGE_WITH_NURSE_ASSIGNMENT"), "legacyLayoutValidation.ts");
+  add("legacy validation quarantines non-patient ratio counts", legacyValidation.includes("NON_PATIENT_ROOM_COUNTED_IN_RATIO"), "legacyLayoutValidation.ts");
+  add("manifest marks legacy invalid layouts implemented", manifest.legacyInvalidLayoutStatus === "implemented", manifest.legacyInvalidLayoutStatus);
+}
+
+if (stage === "visual-dom-proof" || stage === "final") {
+  const assertionsPath = "docs/verification/storage-solid-wall-dom-assertions.json";
+  const assertions = JSON.parse(fs.readFileSync(assertionsPath, "utf8"));
+  add("visual proof storage room exists", assertions.storageRoomCount > 0, assertions.storageRoomCount);
+  add("visual proof solid wall exists", assertions.solidWallCount > 0, assertions.solidWallCount);
+  add("visual proof storage rendered gray", assertions.storageRenderedGray === true, assertions.storageRenderedGray);
+  add("visual proof solid wall rendered gray", assertions.solidWallRenderedGray === true, assertions.solidWallRenderedGray);
+  add("visual proof storage legend visible", assertions.storageLegendVisible === true, assertions.storageLegendVisible);
+  add("visual proof solid wall legend visible", assertions.solidWallLegendVisible === true, assertions.solidWallLegendVisible);
+  add("visual proof solid wall has zero door markers", assertions.solidWallDoorMarkers === 0, assertions.solidWallDoorMarkers);
+  add("visual proof storage has zero nurse overlays", assertions.storageNurseColorOverlay === 0, assertions.storageNurseColorOverlay);
+  add("visual proof solid wall has zero nurse overlays", assertions.solidWallNurseColorOverlay === 0, assertions.solidWallNurseColorOverlay);
+  add("visual proof has no exact parity claim", assertions.exactParityClaimVisible === false, assertions.exactParityClaimVisible);
+  add("visual proof has no PHI-like text", assertions.phiLikeTextVisible === false, assertions.phiLikeTextVisible);
+  add("visual proof has no simulation output", assertions.simulationOutputVisible === false, assertions.simulationOutputVisible);
+  add("manifest marks visual DOM proof implemented", manifest.visualDomProofStatus === "implemented", manifest.visualDomProofStatus);
+}
+
 if (stage === "add-object-placement" || stage === "final") {
   const menu = fs.readFileSync("apps/web/src/features/layout-editor/addObjectMenuViewModel.ts", "utf8");
   const clickToPlace = fs.readFileSync("apps/web/src/features/layout-editor/clickToPlaceObject.ts", "utf8");

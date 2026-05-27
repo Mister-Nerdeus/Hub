@@ -1,0 +1,11 @@
+{
+  "issue": "439",
+  "status": "passed",
+  "findings": [
+    {
+      "code": "STORAGE_WITH_ROOM_LOAD",
+      "roomId": "room-storage",
+      "message": "Storage is excluded from room-load inputs."
+    }
+  ]
+}

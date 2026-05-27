@@ -1,0 +1,27 @@
+{
+  "issue": "439",
+  "status": "passed",
+  "validationStatus": "quarantined",
+  "findingCodes": [
+    "SOLID_WALL_WITH_DOOR",
+    "SOLID_WALL_WITH_PATH_NODE",
+    "SOLID_WALL_WITH_PATH_NODE",
+    "STORAGE_WITH_ROOM_LOAD",
+    "SOLID_WALL_WITH_ROOM_LOAD",
+    "STORAGE_WITH_NURSE_ASSIGNMENT",
+    "SOLID_WALL_WITH_NURSE_ASSIGNMENT",
+    "NON_PATIENT_ROOM_COUNTED_IN_RATIO",
+    "NON_PATIENT_ROOM_COUNTED_IN_RATIO"
+  ],
+  "quarantineMessages": [
+    "Solid wall / blocked area cannot have doors.",
+    "Solid wall / blocked area cannot have path nodes.",
+    "Solid wall / blocked area cannot have path nodes.",
+    "Storage is excluded from room-load inputs.",
+    "Solid wall / blocked area is excluded from room-load inputs.",
+    "Storage is excluded from nurse assignment.",
+    "Solid wall / blocked area is excluded from nurse assignment.",
+    "storage is excluded from capacity and ratio math.",
+    "solid_wall is excluded from capacity and ratio math."
+  ]
+}

@@ -1,6 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-scenario-ratio-foundation.mjs --stage boundary-gate --allow-partial --issue 439
+node scripts/capture-storage-solid-wall-visual-proof.mjs --issue 439
+node scripts/check-room-type-semantics.mjs --stage legacy-invalid-layouts --allow-partial --issue 439
+node scripts/check-room-type-semantics.mjs --stage visual-dom-proof --allow-partial --issue 439
 node scripts/check-no-phi-fields.mjs
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 439

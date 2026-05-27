@@ -1,0 +1,203 @@
+{
+  "stage": "visual-dom-proof",
+  "issue": "439",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "storage gray style exists",
+      "passed": true,
+      "detail": "roomPresentationStyles.ts"
+    },
+    {
+      "name": "solid wall gray style exists",
+      "passed": true,
+      "detail": "roomPresentationStyles.ts"
+    },
+    {
+      "name": "RoomShape exposes muted DOM state",
+      "passed": true,
+      "detail": "RoomShape.tsx"
+    },
+    {
+      "name": "RoomShape blocks assignment color for muted types",
+      "passed": true,
+      "detail": "RoomShape.tsx"
+    },
+    {
+      "name": "legend includes storage",
+      "passed": true,
+      "detail": "PresentationLegend.tsx"
+    },
+    {
+      "name": "legend includes solid wall",
+      "passed": true,
+      "detail": "PresentationLegend.tsx"
+    },
+    {
+      "name": "assignment overlay skips muted types",
+      "passed": true,
+      "detail": "layoutAssignmentOverlayViewModel.ts"
+    },
+    {
+      "name": "manifest marks gray presentation implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "manifest marks storage gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "manifest marks solid wall gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof storage room exists",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "visual proof solid wall exists",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "visual proof storage rendered gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall rendered gray",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof storage legend visible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall legend visible",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "visual proof solid wall has zero door markers",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof storage has zero nurse overlays",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof solid wall has zero nurse overlays",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "name": "visual proof has no exact parity claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual proof has no PHI-like text",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "visual proof has no simulation output",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "manifest marks visual DOM proof implemented",
+      "passed": true,
+      "detail": "implemented"
+    }
+  ]
+}
