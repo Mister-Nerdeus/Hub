@@ -230,6 +230,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     inspectorCollapsed,
     validationWarningCount: stageState.validationWarnings.length
   });
+  const validationDisabled = stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null;
   const deltaPreviewViewModel = buildLayoutDeltaPreviewViewModel({
     isDirty: stageState.isDirty,
     editAuditTrail: stageState.editAuditTrail
@@ -585,6 +586,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         redoDisabled={stageState.history.future.length === 0}
         jsonStatus={floorplanJsonStatus}
         validationSummary={viewportLayoutViewModel.validationSummary}
+        validationDisabled={validationDisabled}
         inspectorCollapsed={inspectorCollapsed}
         onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
         onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
@@ -600,6 +602,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         }}
         onExportJson={exportActiveFloorplanJson}
         onImportJson={importEditableFloorplanJson}
+        onValidate={validateSimulationReadyExportFromStage}
+        onResetView={() => dispatchStage({ type: "resetViewport" })}
+        onAddObject={() => setToolMode("add_room")}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
       />
 
@@ -647,8 +652,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             />
             <SimulationReadyExportPanel
               result={simulationReadyExportResult}
-              disabled={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+              disabled={validationDisabled}
               onValidateExport={validateSimulationReadyExportFromStage}
+              showValidateButton={false}
             />
           </>
         ) : null}
@@ -661,7 +667,6 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
           onPanSouth={() => dispatchStage(panViewportAction("south"))}
           onPanWest={() => dispatchStage(panViewportAction("west"))}
           onPanEast={() => dispatchStage(panViewportAction("east"))}
-          onReset={() => dispatchStage({ type: "resetViewport" })}
         />
       </div>
 

@@ -4,18 +4,22 @@ export type SimulationReadyExportPanelProps = {
   result: SimulationReadyExportResult | null;
   disabled: boolean;
   onValidateExport: () => void;
+  showValidateButton?: boolean;
 };
 
 export function SimulationReadyExportPanel({
   result,
   disabled,
-  onValidateExport
+  onValidateExport,
+  showValidateButton = true
 }: SimulationReadyExportPanelProps) {
   return (
     <section className="simulation-ready-export-panel" aria-label="Simulation-ready export">
-      <button type="button" disabled={disabled} onClick={onValidateExport}>
-        Validate simulation-ready export
-      </button>
+      {showValidateButton ? (
+        <button type="button" disabled={disabled} onClick={onValidateExport}>
+          Validate simulation-ready export
+        </button>
+      ) : null}
       <p role="status">{result?.status ?? "not validated"}</p>
       {result == null ? null : (
         <dl>

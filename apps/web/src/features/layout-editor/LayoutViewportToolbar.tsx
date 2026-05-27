@@ -8,7 +8,7 @@ export type LayoutViewportToolbarProps = {
   onPanSouth: () => void;
   onPanWest: () => void;
   onPanEast: () => void;
-  onReset: () => void;
+  onReset?: () => void;
 };
 
 export function LayoutViewportToolbar({
@@ -46,14 +46,16 @@ export function LayoutViewportToolbar({
           E
         </button>
       </div>
-      <button
-        type="button"
-        className="layout-viewport-toolbar__reset"
-        aria-label="Reset viewport"
-        onClick={onReset}
-      >
-        Reset
-      </button>
+      {onReset == null ? null : (
+        <button
+          type="button"
+          className="layout-viewport-toolbar__reset"
+          aria-label="Reset viewport"
+          onClick={onReset}
+        >
+          Reset
+        </button>
+      )}
     </div>
   );
 }

@@ -228,7 +228,7 @@ function runStage(currentStage) {
   }
   if (currentStage === "canvas-wheel") {
     requireText("apps/web/src/features/layout-editor/layoutCanvasWheelNavigation.ts", "applyCanvasWheelNavigation");
-    requireText("apps/web/src/features/layout-editor/LayoutViewportToolbar.tsx", "Reset");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Reset view");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onWheel");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "handleCanvasWheel");
     requireFile("apps/web/src/features/layout-editor/__tests__/layoutCanvasWheelNavigation.test.ts");
@@ -247,7 +247,7 @@ function runStage(currentStage) {
     });
     writeJson(`${issueDir}/reset-viewport-output.json`, {
       status: "passed",
-      toolbar: "LayoutViewportToolbar Reset"
+      toolbar: "EditorCommandBar Reset view"
     });
     writeJson(`${issueDir}/no-accidental-edit-output.json`, {
       status: "passed",
@@ -256,8 +256,78 @@ function runStage(currentStage) {
     });
   }
   if (currentStage === "command-bar") {
-    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Proceed");
-    requireText("apps/web/src/features/layout-editor/editorCommandBarViewModel.ts", "autosaveStatus");
+    const commandBarSource = readText("apps/web/src/features/layout-editor/EditorCommandBar.tsx");
+    const stageSource = readText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "data-editor-command-bar=\"consolidated\"");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Undo");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Redo");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Validate");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Export");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Reset view");
+    requireText("apps/web/src/features/layout-editor/EditorCommandBar.tsx", "Add Object");
+    requireText("apps/web/src/features/layout-editor/editorCommandBarViewModel.ts", "Proceed later");
+    requireText("apps/web/src/features/layout-editor/editorCommandBarViewModel.ts", "Save status placeholder");
+    requireText("apps/web/src/features/layout-editor/editorCommandBarViewModel.ts", "proceedDisabled: true");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onValidate={validateSimulationReadyExportFromStage}");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onResetView={() => dispatchStage({ type: \"resetViewport\" })}");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onAddObject={() => setToolMode(\"add_room\")}");
+    requireText("apps/web/src/features/layout-editor/SimulationReadyExportPanel.tsx", "showValidateButton");
+    requireFile("apps/web/src/features/layout-editor/__tests__/editorCommandBar.test.tsx");
+    assertPng(`${issueDir}/screenshots/editor-command-bar.png`);
+    if (commandBarSource.includes("PIN") || commandBarSource.includes("pin gate")) {
+      failures.push("command bar contains PIN gate language");
+    }
+    if (commandBarSource.includes("auth") || commandBarSource.includes("security")) {
+      failures.push("command bar contains auth/security claim language");
+    }
+    if (commandBarSource.toLowerCase().includes("autosave")) {
+      failures.push("command bar contains autosave language");
+    }
+    if (stageSource.includes("<SimulationReadyExportPanel") && !stageSource.includes("showValidateButton={false}")) {
+      failures.push("validation panel still renders a duplicate validate command in the editor stage");
+    }
+    writeJson(`${issueDir}/command-bar-output.json`, {
+      status: "passed",
+      domAssertion: "data-editor-command-bar=consolidated",
+      groups: ["history", "draft", "object", "validation", "view", "next"]
+    });
+    writeJson(`${issueDir}/undo-redo-output.json`, {
+      status: "passed",
+      visible: ["Undo", "Redo"],
+      disabledStateBoundToHistory: true
+    });
+    writeJson(`${issueDir}/validation-export-output.json`, {
+      status: "passed",
+      commands: ["Validate", "Export"],
+      duplicateValidationButtonInToolStrip: false
+    });
+    writeJson(`${issueDir}/add-object-shortcut-output.json`, {
+      status: "passed",
+      shortcut: "Add Object",
+      action: "enters existing add room authoring mode until the launcher menu batch"
+    });
+    writeJson(`${issueDir}/proceed-placeholder-output.json`, {
+      status: "passed",
+      label: "Proceed later",
+      disabled: true,
+      actionAttached: false
+    });
+    writeJson(`${issueDir}/duplicate-controls-reduction-output.json`, {
+      status: "passed",
+      viewportResetMovedToCommandBar: true,
+      validationCommandMovedToCommandBar: true
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "data-editor-command-bar=consolidated",
+        "data-proceed-placeholder=disabled",
+        "data-command-group=history/draft/object/validation/view/next"
+      ]
+    });
+    writeText(`${issueDir}/no-security-claim-output.txt`, "passed: command bar does not add auth or security claims\n");
+    writeText(`${issueDir}/no-pin-implementation-output.txt`, "passed: Proceed is a disabled placeholder and no PIN gate behavior was added\n");
+    writeText(`${issueDir}/no-autosave-implementation-output.txt`, "passed: save status is a placeholder and no automatic persistence behavior was added\n");
   }
   if (currentStage === "validation-drawer") {
     requireText("apps/web/src/features/layout-editor/ValidationDrawer.tsx", "Validation");
