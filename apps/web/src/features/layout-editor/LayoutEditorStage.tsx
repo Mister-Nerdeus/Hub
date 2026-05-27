@@ -2,7 +2,6 @@ import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelE
 import {
   auditPathSyncStatus,
   applyDoorWidthPreset,
-  assignDoorToAdjacentRoom,
   editableRoomTypeToAuthoringRoomType,
   centerDoorOnWall,
   decreaseDoorWidth,
@@ -551,15 +550,6 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const computeDoorOpposite = () => {
     const ownerRoom = selectedDoorOwnerRoom();
     return selectedDoor == null || ownerRoom == null ? null : moveToOppositeWall({ door: selectedDoor, room: ownerRoom });
-  };
-  const computeDoorAdjacent = () => {
-    if (selectedDoor == null || stageState.editableLayout == null) {
-      return null;
-    }
-    return assignDoorToAdjacentRoom({
-      layout: stageState.editableLayout,
-      door: selectedDoor
-    });
   };
   const computeDoorWidthUpdate = (direction: "increase" | "decrease" | number) => {
     const ownerRoom = selectedDoorOwnerRoom();
@@ -1217,18 +1207,6 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                         dispatchStage({
                           type: "moveDoor",
                           doorId: doorQuickEditViewModel.doorId,
-                          wall: next.wall,
-                          offsetFeet: next.offsetFeet
-                        });
-                      }
-                    }}
-                    onAdjacent={() => {
-                      const next = computeDoorAdjacent();
-                      if (next != null && doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
-                          type: "assignDoorToRoom",
-                          doorId: doorQuickEditViewModel.doorId,
-                          roomId: next.roomId,
                           wall: next.wall,
                           offsetFeet: next.offsetFeet
                         });

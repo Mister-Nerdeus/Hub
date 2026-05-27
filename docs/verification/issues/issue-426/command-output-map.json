@@ -20,6 +20,12 @@
       ]
     },
     {
+      "command": "node scripts/capture-geometry-repair-screenshots.mjs --issue 426",
+      "outputs": [
+        "docs/verification/issues/issue-426/screenshot-manifest-output.json"
+      ]
+    },
+    {
       "command": "node scripts/check-geometry-repair-tools.mjs --stage wall-snap-guides --allow-partial --issue 426",
       "outputs": [
         "docs/verification/issues/issue-426/test-output/geometry-repair-gate.txt"

@@ -7,7 +7,6 @@ export type DoorQuickEditPopoverProps = {
   onNudge: (deltaFeet: number) => void;
   onCenter: () => void;
   onOpposite: () => void;
-  onAdjacent: () => void;
   onAdjacentCandidate?: (roomId: string, wall: EditableDoorWall, offsetFeet: number) => void;
   onWidthDecrease?: () => void;
   onWidthIncrease?: () => void;
@@ -23,7 +22,6 @@ export function DoorQuickEditPopover({
   onNudge,
   onCenter,
   onOpposite,
-  onAdjacent,
   onAdjacentCandidate = () => undefined,
   onWidthDecrease = () => undefined,
   onWidthIncrease = () => undefined,
@@ -66,9 +64,6 @@ export function DoorQuickEditPopover({
       </div>
       <div className="door-quick-edit-popover__row">
         <span>{viewModel.adjacentCandidateCount} adjacent candidates</span>
-        <button type="button" disabled={viewModel.readOnly || !viewModel.canUseAdjacent} onClick={onAdjacent}>
-          Adjacent
-        </button>
         <button type="button" disabled={viewModel.deleteDisabled} onClick={onDeleteDoor}>
           Delete door
         </button>

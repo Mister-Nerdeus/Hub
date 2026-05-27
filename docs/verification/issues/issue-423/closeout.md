@@ -13,6 +13,7 @@ See repository diff for implementation files and this issue evidence folder.
 - `npm --workspace packages/shared test`
 - `npm --workspace apps/web test`
 - `npm --workspace apps/web run build`
+- `node scripts/capture-geometry-repair-screenshots.mjs --issue 423`
 - `node scripts/check-geometry-repair-tools.mjs --stage adjacent-candidate-ui --allow-partial --issue 423`
 - `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 423`
 

@@ -1,5 +1,4 @@
 import {
-  assignDoorToAdjacentRoom,
   applyDoorWidthPreset,
   centerDoorOnWall,
   decreaseDoorWidth,
@@ -78,23 +77,6 @@ export function DoorEditor({
     const next = moveToOppositeWall({ door, room: ownerRoom });
     onMoveDoor(door.id, next.wall, next.offsetFeet);
   };
-  const applyAdjacent = () => {
-    const next = assignDoorToAdjacentRoom({
-      layout: {
-        schemaVersion: "1.0.0",
-        layoutId: "door-editor-adjacent-preview",
-        units: "feet",
-        rooms,
-        doors: [door],
-        stations: [],
-        hallways,
-        zones: [],
-        limitations: []
-      },
-      door
-    });
-    if (next != null) onAssignDoorToRoom(door.id, next.roomId, next.wall, next.offsetFeet);
-  };
   const applyWidthResult = (next: { widthFeet: number; offsetFeet: number }) => {
     onUpdateDoorWidth(door.id, door.wall, next.offsetFeet, next.widthFeet);
   };
@@ -137,21 +119,7 @@ export function DoorEditor({
       </div>
       <div className="door-editor__group" aria-label="Owner / Adjacent room">
         <strong>Owner / Adjacent room</strong>
-        <select
-          aria-label="Door room"
-          value={door.ownerId}
-          disabled={readOnly}
-          onChange={(event) => onAssignDoorToRoom(door.id, event.currentTarget.value, door.wall, door.offsetFeet)}
-        >
-          {rooms.map((room) => (
-            <option key={room.id} value={room.id}>
-              {room.label}
-            </option>
-          ))}
-        </select>
-        <button type="button" disabled={readOnly || viewModel?.canUseAdjacentRoom !== true} onClick={applyAdjacent}>
-          Adjacent
-        </button>
+        <span>{viewModel?.ownerRoomLabel}</span>
       </div>
       <AdjacentDoorCandidateSelector
         viewModel={adjacentCandidateViewModel}

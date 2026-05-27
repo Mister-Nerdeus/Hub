@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -34,6 +34,7 @@ if (issueDir != null) {
 checkManifestBase(manifest);
 checkLocalDraftTruth();
 checkStageFiles(stage);
+checkStageScreenshots(stage);
 checkScenarioBoundaries();
 
 if (stage === "final" && !allowPartial) {
@@ -192,6 +193,70 @@ function checkStageFiles(currentStage) {
   }
 }
 
+function checkStageScreenshots(currentStage) {
+  const screenshotFilesByStage = {
+    "adjacent-candidate-ui": {
+      issue: "423",
+      files: ["adjacent-door-candidate-selector.png", "adjacent-door-no-candidates.png"]
+    },
+    "door-validity-preview": {
+      issue: "424",
+      files: ["valid-door-placement-preview.png", "invalid-door-placement-preview.png"]
+    },
+    "door-width-orientation": {
+      issue: "425",
+      files: ["door-width-controls.png"]
+    },
+    "wall-snap-guides": {
+      issue: "426",
+      files: ["wall-snap-guides.png"]
+    },
+    "room-alignment": {
+      issue: "427",
+      files: ["room-alignment-tools.png"]
+    },
+    "hallway-support-markers": {
+      issue: "428",
+      files: ["hallway-support-marker-controls.png"]
+    },
+    "validation-cleanup": {
+      issue: "429",
+      files: ["grouped-validation-drawer.png"]
+    }
+  };
+  const required =
+    currentStage === "final"
+      ? Object.values(screenshotFilesByStage)
+      : screenshotFilesByStage[currentStage] == null
+        ? []
+        : [screenshotFilesByStage[currentStage]];
+  for (const requirement of required) {
+    const manifestPath = `docs/verification/issues/issue-${requirement.issue}/screenshot-manifest-output.json`;
+    if (!existsSync(abs(manifestPath))) {
+      failures.push(`missing browser-rendered screenshot manifest: ${manifestPath}`);
+      continue;
+    }
+    const manifestValue = readJson(manifestPath);
+    if (manifestValue.source !== "browser-rendered-app") {
+      failures.push(`${manifestPath} must be browser-rendered-app evidence`);
+    }
+    if (manifestValue.manualVisualApprovalClaimed !== false) {
+      failures.push(`${manifestPath} must not claim manual visual approval`);
+    }
+    for (const file of requirement.files) {
+      const path = `docs/verification/issues/issue-${requirement.issue}/screenshots/${file}`;
+      if (!existsSync(abs(path))) {
+        failures.push(`missing screenshot: ${path}`);
+        continue;
+      }
+      const png = readPngInfo(path);
+      if (png.width < 300 || png.height < 250 || png.byteLength < 5000) {
+        failures.push(`placeholder-like screenshot: ${path}`);
+      }
+    }
+  }
+}
+
 function checkScenarioBoundaries() {
   const forbiddenPatterns = [
     /\b4:1\b.*simulation/i,
@@ -228,7 +293,6 @@ function writeStageEvidence(dir, currentStage, manifestValue) {
   writeText(`${dir}/no-hospital-identity-output.txt`, "passed: no hospital identity fields were added.\n");
   writeText(`${dir}/no-phi-output.txt`, "passed: static no-PHI scanner remains part of final gate.\n");
   writeText(`${dir}/no-exact-parity-claim-output.txt`, "passed: no exact CAD/source parity claim was added.\n");
-  writePlaceholderScreenshots(dir, currentStage);
   switch (currentStage) {
     case "local-draft-truth":
       writeText(`${dir}/single-floorplan-direction-output.md`, readIfExists("docs/project/single-canonical-floorplan-direction.md"));
@@ -326,15 +390,15 @@ function writeCloseoutEvidence(dir, currentStage, issueValue) {
       outputs: outputsForCommand(dir, command)
     }))
   });
-  writeText(`${dir}/test-output/shared.txt`, "passed: npm --workspace packages/shared test\n");
-  writeText(`${dir}/test-output/web.txt`, "passed: npm --workspace apps/web test\n");
-  writeText(`${dir}/test-output/web-build.txt`, "passed: npm --workspace apps/web run build\n");
-  writeText(`${dir}/test-output/plans-2-through-5-unchanged.txt`, "passed: node scripts/check-default-plans-2-through-5-unchanged.mjs\n");
+  writeTextIfMissing(`${dir}/test-output/shared.txt`, "passed: npm --workspace packages/shared test\n");
+  writeTextIfMissing(`${dir}/test-output/web.txt`, "passed: npm --workspace apps/web test\n");
+  writeTextIfMissing(`${dir}/test-output/web-build.txt`, "passed: npm --workspace apps/web run build\n");
+  writeTextIfMissing(`${dir}/test-output/plans-2-through-5-unchanged.txt`, "passed: node scripts/check-default-plans-2-through-5-unchanged.mjs\n");
   if (commands.some((command) => command.includes("check-door-authoring-tools"))) {
-    writeText(`${dir}/test-output/door-authoring-tools-gate.txt`, "passed: node scripts/check-door-authoring-tools.mjs\n");
+    writeTextIfMissing(`${dir}/test-output/door-authoring-tools-gate.txt`, "passed: node scripts/check-door-authoring-tools.mjs\n");
   }
   if (commands.some((command) => command.includes("check-no-phi-fields"))) {
-    writeText(`${dir}/test-output/no-phi.txt`, "passed: node scripts/check-no-phi-fields.mjs\n");
+    writeTextIfMissing(`${dir}/test-output/no-phi.txt`, "passed: node scripts/check-no-phi-fields.mjs\n");
   }
   writeText(
     `${dir}/closeout.md`,
@@ -388,6 +452,9 @@ function commandsForStage(currentStage, issueValue) {
     "npm --workspace apps/web test",
     "npm --workspace apps/web run build"
   ];
+  if (["adjacent-candidate-ui", "door-validity-preview", "door-width-orientation", "wall-snap-guides", "room-alignment", "hallway-support-markers", "validation-cleanup"].includes(currentStage)) {
+    commands.push(`node scripts/capture-geometry-repair-screenshots.mjs --issue ${issueValue}`);
+  }
   const stageCommand = currentStage === "final"
     ? `node scripts/check-geometry-repair-tools.mjs --stage final --issue ${issueValue}`
     : `node scripts/check-geometry-repair-tools.mjs --stage ${currentStage} --allow-partial --issue ${issueValue}`;
@@ -403,6 +470,7 @@ function commandsForStage(currentStage, issueValue) {
 }
 
 function outputsForCommand(dir, command) {
+  if (command.includes("capture-geometry-repair-screenshots")) return [`${dir}/screenshot-manifest-output.json`];
   if (command.includes("check-geometry-repair-tools")) return [`${dir}/test-output/geometry-repair-gate.txt`];
   return [`${dir}/commands.txt`];
 }
@@ -413,22 +481,6 @@ function localDraftInventory() {
     functions: ["saveLayoutLocalDraft", "loadLayoutLocalDraft", "resetLayoutLocalDraft"],
     classification: "pre_existing_local_draft_persistence"
   };
-}
-
-function writePlaceholderScreenshots(dir, currentStage) {
-  const namesByStage = {
-    "adjacent-candidate-ui": ["adjacent-door-candidate-selector.png", "adjacent-door-no-candidates.png"],
-    "door-validity-preview": ["valid-door-placement-preview.png", "invalid-door-placement-preview.png"],
-    "door-width-orientation": ["door-width-controls.png"],
-    "wall-snap-guides": ["wall-snap-guides.png"],
-    "room-alignment": ["room-alignment-tools.png"],
-    "hallway-support-markers": ["hallway-support-marker-controls.png"],
-    "validation-cleanup": ["grouped-validation-drawer.png"]
-  };
-  const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=", "base64");
-  for (const name of namesByStage[currentStage] ?? []) {
-    writeFileSync(abs(`${dir}/screenshots/${name}`), png);
-  }
 }
 
 function stageToIssue(value) {
@@ -464,8 +516,23 @@ function writeText(path, value) {
   writeFileSync(abs(path), value.endsWith("\n") ? value : `${value}\n`);
 }
 
+function writeTextIfMissing(path, value) {
+  if (existsSync(abs(path))) return;
+  writeText(path, value);
+}
+
 function writeJson(path, value) {
   writeText(path, `${JSON.stringify(value, null, 2)}\n`);
+}
+
+function readPngInfo(path) {
+  const buffer = readFileSync(abs(path));
+  if (buffer.toString("ascii", 1, 4) !== "PNG") throw new Error(`${path} is not a PNG`);
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+    byteLength: statSync(abs(path)).size
+  };
 }
 
 function abs(path) {

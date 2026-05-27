@@ -142,6 +142,9 @@ function hallwayCandidateForRoom(
     return null;
   }
   const overlapFeet = overlapLengthFeet(ownerSegment, targetSegment);
+  if (overlapFeet <= 0) {
+    return null;
+  }
   return {
     roomId: room.id,
     roomLabel: room.label,

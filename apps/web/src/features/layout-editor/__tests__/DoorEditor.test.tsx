@@ -13,3 +13,9 @@ for (const label of ["Wall", "Position", "Owner / Adjacent room", "Danger zone"]
 }
 if (!source.includes("centerDoorOnWall")) throw new Error("DoorEditor should use centerDoorOnWall helper");
 if (!source.includes("validateDoorPlacementWarning")) throw new Error("DoorEditor should show validation warning");
+if (source.includes("assignDoorToAdjacentRoom")) {
+  throw new Error("DoorEditor must not silently assign the first adjacent candidate");
+}
+if (source.includes('aria-label="Door room"')) {
+  throw new Error("DoorEditor must not expose all-room reassignment outside geometry-valid candidates");
+}

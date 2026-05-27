@@ -45,6 +45,21 @@ test("detects hallway-adjacent room relationship", () => {
   assert.equal(result.candidates[0].hallwayId, "hall-01");
 });
 
+test("rejects hallway rooms that touch the same hallway without wall overlap", () => {
+  const layout = {
+    ...layoutWithRooms([
+      room("owner", "Owner", 0, 0),
+      room("same-hall-but-not-overlapping", "Same hallway but not overlapping", 20, 14)
+    ], "south"),
+    hallways: [
+      { objectType: "hallway", id: "hall-01", label: "Hall 01", xFeet: 0, yFeet: 10, widthFeet: 40, heightFeet: 4 }
+    ]
+  };
+  const result = detectDoorAdjacency({ layout, door: layout.doors[0] });
+  assert.equal(result.status, "no_candidates");
+  assert.ok(result.reasonCodes.includes("owner_wall_has_hallway_only"));
+});
+
 test("does not select first non-owner room when geometry does not match", () => {
   const layout = layoutWithRooms([
     room("owner", "Owner", 0, 10),

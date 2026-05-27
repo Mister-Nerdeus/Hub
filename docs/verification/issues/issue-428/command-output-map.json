@@ -20,6 +20,12 @@
       ]
     },
     {
+      "command": "node scripts/capture-geometry-repair-screenshots.mjs --issue 428",
+      "outputs": [
+        "docs/verification/issues/issue-428/screenshot-manifest-output.json"
+      ]
+    },
+    {
       "command": "node scripts/check-geometry-repair-tools.mjs --stage hallway-support-markers --allow-partial --issue 428",
       "outputs": [
         "docs/verification/issues/issue-428/test-output/geometry-repair-gate.txt"

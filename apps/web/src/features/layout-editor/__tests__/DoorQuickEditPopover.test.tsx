@@ -37,7 +37,6 @@ const element = DoorQuickEditPopover({
   onNudge: () => calls.push("nudge"),
   onCenter: () => calls.push("center"),
   onOpposite: () => calls.push("opposite"),
-  onAdjacent: () => calls.push("adjacent"),
   onAdjacentCandidate: () => calls.push("candidate"),
   onWidthDecrease: () => calls.push("width-decrease"),
   onWidthIncrease: () => calls.push("width-increase"),
@@ -60,13 +59,15 @@ if (calls.at(-1) !== "center") throw new Error("center callback missing");
 children[1].props.children[4].props.onClick();
 if (calls.at(-1) !== "opposite") throw new Error("opposite callback missing");
 children[2].props.children[1].props.onClick();
-if (calls.at(-1) !== "adjacent") throw new Error("adjacent callback missing");
-children[2].props.children[2].props.onClick();
 if (calls.at(-1) !== "delete") throw new Error("delete callback missing");
 children[3].props.children[1].props.onChange({ currentTarget: { value: "room-02" } });
 if (calls.at(-1) !== "candidate") throw new Error("candidate callback missing");
 children[4].props.children[1].props.onClick();
 if (calls.at(-1) !== "width-decrease") throw new Error("width decrease callback missing");
+
+if (JSON.stringify(element).includes("Adjacent")) {
+  throw new Error("quick edit must not expose automatic adjacent reassignment");
+}
 
 function room(id: string, label: string, xFeet: number, yFeet: number): EditableRoomGeometry {
   return {

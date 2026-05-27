@@ -20,6 +20,12 @@
       ]
     },
     {
+      "command": "node scripts/capture-geometry-repair-screenshots.mjs --issue 427",
+      "outputs": [
+        "docs/verification/issues/issue-427/screenshot-manifest-output.json"
+      ]
+    },
+    {
       "command": "node scripts/check-geometry-repair-tools.mjs --stage room-alignment --allow-partial --issue 427",
       "outputs": [
         "docs/verification/issues/issue-427/test-output/geometry-repair-gate.txt"
