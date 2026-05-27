@@ -147,8 +147,49 @@ function runStage(currentStage) {
 
   if (currentStage === "canvas-layout") {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "EditorCommandBar");
-    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "layout-editor-stage__canvas-shell");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "inspectorCollapsed");
+    requireText("apps/web/src/features/layout-editor/editorViewportLayoutViewModel.ts", "data-canvas-layout");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "max-width: 1480px");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "layout-editor-stage__workspace--inspector-collapsed");
     requireFile("apps/web/src/features/layout-editor/editorViewportLayoutViewModel.ts");
+    requireFile("apps/web/src/features/layout-editor/__tests__/editorViewportLayout.test.tsx");
+    assertPng(`${issueDir}/screenshots/editor-before-layout.png`);
+    assertPng(`${issueDir}/screenshots/editor-larger-canvas.png`);
+    writeJson(`${issueDir}/editor-layout-before-output.json`, {
+      status: "reproduced",
+      previousMaxWidthPixels: 1180,
+      previousTopControls: ["history", "JSON import/export", "mode", "tool palette", "viewport"]
+    });
+    writeJson(`${issueDir}/editor-layout-after-output.json`, {
+      status: "passed",
+      maxWidthPixels: 1480,
+      commandBar: "compact",
+      jsonMovedToDrawer: true
+    });
+    writeJson(`${issueDir}/canvas-size-output.json`, {
+      status: "passed",
+      canvasLayout: "dominant",
+      workspaceColumns: "minmax(0, 1fr) minmax(240px, 300px)"
+    });
+    writeJson(`${issueDir}/dead-space-reduction-output.json`, {
+      status: "passed",
+      topGapPixels: 10,
+      headerTitleSizeRem: 1.12
+    });
+    writeJson(`${issueDir}/inspector-collapse-output.json`, {
+      status: "passed",
+      control: "Hide inspector",
+      collapsedClass: "layout-editor-stage__workspace--inspector-collapsed"
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "data-canvas-layout=dominant",
+        "data-inspector-state expanded/collapsed",
+        "data-command-bar=compact",
+        "data-editor-command-bar=compact"
+      ]
+    });
   }
   if (currentStage === "background-pan") {
     requireText("apps/web/src/features/layout-editor/layoutCanvasPan.ts", "canStartCanvasPan");
