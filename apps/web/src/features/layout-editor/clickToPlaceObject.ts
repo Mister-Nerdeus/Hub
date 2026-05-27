@@ -1,5 +1,7 @@
 import type { AddObjectMenuItemId } from "./addObjectMenuViewModel";
+import { isRoomPlacementMenuItem } from "./addObjectMenuViewModel";
 import type { LayoutPointFeet } from "./layoutCoordinateSystem";
+import { getRoomPresentationStyle } from "./roomPresentationStyles";
 
 export type ObjectPlacementPreviewViewModel = {
   objectType: AddObjectMenuItemId;
@@ -8,6 +10,8 @@ export type ObjectPlacementPreviewViewModel = {
   yFeet: number;
   widthFeet: number;
   heightFeet: number;
+  fill: string;
+  stroke: string;
 };
 
 export function buildObjectPlacementPreview({
@@ -28,7 +32,8 @@ export function buildObjectPlacementPreview({
     xFeet: point.xFeet,
     yFeet: point.yFeet,
     widthFeet: size.widthFeet,
-    heightFeet: size.heightFeet
+    heightFeet: size.heightFeet,
+    ...placementStyle(objectType)
   };
 }
 
@@ -43,7 +48,7 @@ export function placeObjectOnCanvas({
 }): "blocked" | "place-room" | "future-object" {
   if (readOnly || objectType == null) return "blocked";
   if (target != null && !isCanvasPlacementTarget(target)) return "blocked";
-  return objectType === "room" ? "place-room" : "future-object";
+  return isRoomPlacementMenuItem(objectType) ? "place-room" : "future-object";
 }
 
 export function isCanvasPlacementTarget(target: EventTarget | null): boolean {
@@ -75,11 +80,34 @@ function defaultPlacementSize(objectType: AddObjectMenuItemId): { widthFeet: num
       return { widthFeet: 10, heightFeet: 8 };
     case "label":
       return { widthFeet: 8, heightFeet: 2 };
-    case "room":
+    case "patient_care_room":
+    case "storage_room":
+    case "solid_wall":
       return { widthFeet: 12, heightFeet: 10 };
   }
 }
 
 function placementLabel(objectType: AddObjectMenuItemId): string {
-  return objectType.replace(/_/g, " ");
+  switch (objectType) {
+    case "patient_care_room":
+      return "Patient care room";
+    case "storage_room":
+      return "Storage room";
+    case "solid_wall":
+      return "Solid wall / blocked area";
+    default:
+      return objectType.replace(/_/g, " ");
+  }
+}
+
+function placementStyle(objectType: AddObjectMenuItemId): { fill: string; stroke: string } {
+  if (objectType === "storage_room") {
+    const style = getRoomPresentationStyle("storage");
+    return { fill: style.fill, stroke: style.stroke };
+  }
+  if (objectType === "solid_wall") {
+    const style = getRoomPresentationStyle("solid_wall");
+    return { fill: style.fill, stroke: style.stroke };
+  }
+  return { fill: "rgba(139, 183, 216, 0.22)", stroke: "#0f766e" };
 }

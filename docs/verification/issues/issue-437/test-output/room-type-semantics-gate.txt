@@ -1,0 +1,153 @@
+{
+  "stage": "add-object-placement",
+  "issue": "437",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "Add Object includes Patient Care Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "Add Object includes Storage Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "Add Object includes Solid Wall / Blocked Area",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "primary menu excludes ambiguous generic Room",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "placement maps storage room to storage semantics",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "placement maps solid wall to solid_wall semantics",
+      "passed": true,
+      "detail": "addObjectMenuViewModel.ts"
+    },
+    {
+      "name": "click placement routes explicit room types to add-room reducer",
+      "passed": true,
+      "detail": "clickToPlaceObject.ts"
+    },
+    {
+      "name": "placement preview uses semantic room styles",
+      "passed": true,
+      "detail": "clickToPlaceObject.ts"
+    },
+    {
+      "name": "preview applies semantic fill and stroke",
+      "passed": true,
+      "detail": "ObjectPlacementPreview.tsx"
+    },
+    {
+      "name": "stage sets selected room type from menu",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "name": "shared creation emits storage semantics",
+      "passed": true,
+      "detail": "layoutObjectCreation.ts"
+    },
+    {
+      "name": "solid-wall placement avoids door/path warnings",
+      "passed": true,
+      "detail": "addRoomContract.ts"
+    },
+    {
+      "name": "manifest marks add object placement implemented",
+      "passed": true,
+      "detail": "implemented"
+    }
+  ]
+}

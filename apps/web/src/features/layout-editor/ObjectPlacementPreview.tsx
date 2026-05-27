@@ -29,6 +29,7 @@ export function ObjectPlacementPreview({ viewModel, viewport }: ObjectPlacementP
         width={rect.widthPixels}
         height={rect.heightPixels}
         rx="4"
+        style={{ fill: viewModel.fill, stroke: viewModel.stroke }}
       />
       <text x={rect.xPixels + 8} y={rect.yPixels + 18}>
         {viewModel.label}

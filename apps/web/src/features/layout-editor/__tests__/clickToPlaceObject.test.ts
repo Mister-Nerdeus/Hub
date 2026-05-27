@@ -14,12 +14,12 @@ if (emptyPreview !== null) {
 }
 
 const roomPreview = buildObjectPlacementPreview({
-  objectType: "room",
+  objectType: "patient_care_room",
   pointFeet: { xFeet: 12, yFeet: 9 }
 });
 if (
   roomPreview == null ||
-  roomPreview.label !== "room" ||
+  roomPreview.label !== "Patient care room" ||
   roomPreview.xFeet !== 12 ||
   roomPreview.yFeet !== 9 ||
   roomPreview.widthFeet !== 12 ||
@@ -36,14 +36,20 @@ if (defaultPreview == null || defaultPreview.xFeet !== 18 || defaultPreview.yFee
   throw new Error("ghost preview should have a stable default point before pointer movement");
 }
 
-if (placeObjectOnCanvas({ objectType: "room", readOnly: true }) !== "blocked") {
+if (placeObjectOnCanvas({ objectType: "patient_care_room", readOnly: true }) !== "blocked") {
   throw new Error("read-only layouts must block click-to-place");
 }
 if (placeObjectOnCanvas({ objectType: null, readOnly: false }) !== "blocked") {
   throw new Error("missing placement mode must not create an object");
 }
-if (placeObjectOnCanvas({ objectType: "room", readOnly: false }) !== "place-room") {
+if (placeObjectOnCanvas({ objectType: "patient_care_room", readOnly: false }) !== "place-room") {
   throw new Error("room placement should be routed to the existing add-room reducer");
+}
+if (placeObjectOnCanvas({ objectType: "storage_room", readOnly: false }) !== "place-room") {
+  throw new Error("storage placement should be routed to the existing add-room reducer");
+}
+if (placeObjectOnCanvas({ objectType: "solid_wall", readOnly: false }) !== "place-room") {
+  throw new Error("solid-wall placement should be routed to the existing add-room reducer");
 }
 if (placeObjectOnCanvas({ objectType: "hallway", readOnly: false }) !== "future-object") {
   throw new Error("non-room placement should remain a non-mutating future placement intent");
@@ -65,6 +71,6 @@ if (previewElement.type !== "g") {
 if (previewElement.props["data-object-placement-preview"] !== "ready") {
   throw new Error("ObjectPlacementPreview must expose a DOM assertion marker");
 }
-if (previewElement.props["data-object-placement-type"] !== "room") {
+if (previewElement.props["data-object-placement-type"] !== "patient_care_room") {
   throw new Error("ObjectPlacementPreview should expose the pending object type");
 }

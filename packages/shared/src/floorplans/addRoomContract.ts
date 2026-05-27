@@ -3,12 +3,10 @@ import {
   type EditableLayoutGeometryContract,
   type EditableRoomGeometry
 } from "../layout-editor/editableLayoutGeometryContract.js";
-import {
-  authoringRoomTypeToEditableRoomType,
-  validateAuthoringRoomType,
-  type AuthoringRoomType
-} from "./roomTypeContract.js";
+import { isDoorEligibleRoomType, isPathNodeEligibleRoomType } from "./roomTypeRules.js";
+import { type AuthoringRoomType } from "./roomTypeContract.js";
 import { buildAuthoringWarning, type AuthoringWarningContract } from "./authoringWarningContract.js";
+import { createEditableLayoutRoomObject } from "./layoutObjectCreation.js";
 
 export type AddRoomInput = {
   layout: EditableLayoutGeometryContract;
@@ -37,21 +35,7 @@ export function addRoomToEditableLayout(input: AddRoomInput): AddRoomResult {
   if (layout.rooms.some((room) => room.id === input.roomId)) {
     throw new Error("room ID must be unique");
   }
-  const roomType = validateAuthoringRoomType(input.roomType);
-  const room: EditableRoomGeometry = {
-    objectType: "room",
-    id: requireString(input.roomId, "roomId"),
-    label: requireString(input.label, "label"),
-    roomNumber: input.label,
-    roomType: authoringRoomTypeToEditableRoomType(roomType),
-    capacityType: roomType === "hallway" ? "hall" : "single",
-    isHallBed: roomType === "hallway",
-    isTraumaAdjacent: roomType === "trauma_room",
-    xFeet: requireFinite(input.xFeet, "xFeet"),
-    yFeet: requireFinite(input.yFeet, "yFeet"),
-    widthFeet: requirePositive(input.widthFeet, "widthFeet"),
-    heightFeet: requirePositive(input.heightFeet, "heightFeet")
-  };
+  const room = createEditableLayoutRoomObject(input);
   assertWithinBounds(room, input.boundsFeet);
   const nextLayout = validateEditableLayoutGeometryContract({
     ...layout,
@@ -60,23 +44,31 @@ export function addRoomToEditableLayout(input: AddRoomInput): AddRoomResult {
   return {
     layout: nextLayout,
     selectedRoomId: room.id,
-    warnings: [
-      buildAuthoringWarning({
-        code: "ROOM_MISSING_DOOR",
-        severity: "warning",
-        message: `Room ${room.id} has no authored door.`,
-        objectType: "room",
-        objectId: room.id
-      }),
-      buildAuthoringWarning({
-        code: "ROOM_MISSING_PATH_NODE",
-        severity: "warning",
-        message: `Room ${room.id} has no synced path node; route/path sync is stale.`,
-        objectType: "room",
-        objectId: room.id
-      })
-    ]
+    warnings: buildPlacementWarnings(room)
   };
+}
+
+function buildPlacementWarnings(room: Pick<EditableRoomGeometry, "id" | "roomType">): AuthoringWarningContract[] {
+  const warnings: AuthoringWarningContract[] = [];
+  if (isDoorEligibleRoomType(room.roomType)) {
+    warnings.push(buildAuthoringWarning({
+      code: "ROOM_MISSING_DOOR",
+      severity: "warning",
+      message: `Room ${room.id} has no authored door.`,
+      objectType: "room",
+      objectId: room.id
+    }));
+  }
+  if (isPathNodeEligibleRoomType(room.roomType)) {
+    warnings.push(buildAuthoringWarning({
+      code: "ROOM_MISSING_PATH_NODE",
+      severity: "warning",
+      message: `Room ${room.id} has no synced path node; route/path sync is stale.`,
+      objectType: "room",
+      objectId: room.id
+    }));
+  }
+  return warnings;
 }
 
 function assertWithinBounds(
@@ -91,26 +83,4 @@ function assertWithinBounds(
   ) {
     throw new Error("room must be within layout bounds");
   }
-}
-
-function requireString(value: string, label: string): string {
-  if (typeof value !== "string" || value.length === 0) {
-    throw new Error(`${label} must be a non-empty string`);
-  }
-  return value;
-}
-
-function requireFinite(value: number, label: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value)) {
-    throw new Error(`${label} must be a finite number`);
-  }
-  return value;
-}
-
-function requirePositive(value: number, label: string): number {
-  const finite = requireFinite(value, label);
-  if (finite <= 0) {
-    throw new Error(`${label} must be greater than 0`);
-  }
-  return finite;
 }

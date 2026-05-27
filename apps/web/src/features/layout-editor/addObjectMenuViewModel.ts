@@ -1,5 +1,7 @@
 export type AddObjectMenuItemId =
-  | "room"
+  | "patient_care_room"
+  | "storage_room"
+  | "solid_wall"
   | "door"
   | "nurse_station"
   | "hallway"
@@ -21,7 +23,9 @@ export type AddObjectMenuViewModel = {
 export function buildAddObjectMenuViewModel(): AddObjectMenuViewModel {
   return {
     items: [
-      { id: "room", label: "Room", placementModeLabel: "Place room" },
+      { id: "patient_care_room", label: "Patient Care Room", placementModeLabel: "Place patient care room" },
+      { id: "storage_room", label: "Storage Room", placementModeLabel: "Place storage room" },
+      { id: "solid_wall", label: "Solid Wall / Blocked Area", placementModeLabel: "Place solid wall / blocked area" },
       { id: "door", label: "Door", placementModeLabel: "Place door" },
       { id: "nurse_station", label: "Nurse Station / Nurse Desk", placementModeLabel: "Place station" },
       { id: "hallway", label: "Hallway", placementModeLabel: "Place hallway" },
@@ -31,4 +35,15 @@ export function buildAddObjectMenuViewModel(): AddObjectMenuViewModel {
       { id: "ems_entry", label: "EMS Entry marker", placementModeLabel: "Place EMS entry marker" }
     ]
   };
+}
+
+export function isRoomPlacementMenuItem(itemId: AddObjectMenuItemId): boolean {
+  return itemId === "patient_care_room" || itemId === "storage_room" || itemId === "solid_wall";
+}
+
+export function roomTypeForPlacementMenuItem(itemId: AddObjectMenuItemId): "patient_room" | "storage" | "solid_wall" | null {
+  if (itemId === "patient_care_room") return "patient_room";
+  if (itemId === "storage_room") return "storage";
+  if (itemId === "solid_wall") return "solid_wall";
+  return null;
 }

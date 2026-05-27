@@ -16,11 +16,17 @@ export function buildAddRoomAction(input: {
   return {
     type: "addRoom" as const,
     roomId,
-    label: `Authored Room ${String(input.sequence).padStart(3, "0")}`,
+    label: `${labelPrefix(input.draft.selectedRoomType)} ${String(input.sequence).padStart(3, "0")}`,
     roomType: input.draft.selectedRoomType,
     xFeet: input.xFeet,
     yFeet: input.yFeet,
     widthFeet: input.draft.defaultWidthFeet,
     heightFeet: input.draft.defaultHeightFeet
   };
+}
+
+function labelPrefix(roomType: AuthoringRoomType): string {
+  if (roomType === "storage") return "Storage Room";
+  if (roomType === "solid_wall") return "Solid Wall";
+  return "Care Room";
 }

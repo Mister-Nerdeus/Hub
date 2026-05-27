@@ -3,33 +3,27 @@
   "commands": [
     {
       "command": "npm --workspace packages/shared test",
-      "outputs": [
-        "docs/verification/issues/issue-437/test-output/shared.txt"
-      ]
+      "output": "docs/verification/issues/issue-437/test-output/shared.txt"
     },
     {
       "command": "npm --workspace apps/web test",
-      "outputs": [
-        "docs/verification/issues/issue-437/test-output/web.txt"
-      ]
+      "output": "docs/verification/issues/issue-437/test-output/web.txt"
     },
     {
       "command": "npm --workspace apps/web run build",
-      "outputs": [
-        "docs/verification/issues/issue-437/test-output/web-build.txt"
-      ]
+      "output": "docs/verification/issues/issue-437/test-output/web-build.txt"
     },
     {
-      "command": "node scripts/check-scenario-ratio-foundation.mjs --stage comparison-view-model --allow-partial --issue 437",
-      "outputs": [
-        "docs/verification/issues/issue-437/test-output/scenario-ratio-foundation-gate.txt"
-      ]
+      "command": "node scripts/check-room-type-semantics.mjs --stage add-object-placement --allow-partial --issue 437",
+      "output": "docs/verification/issues/issue-437/test-output/room-type-semantics-gate.txt"
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "output": "docs/verification/issues/issue-437/no-phi-output.txt"
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 437",
-      "outputs": [
-        "docs/verification/issues/issue-437/test-output/plans-2-through-5-unchanged.txt"
-      ]
+      "output": "docs/verification/issues/issue-437/no-unauthorized-fixture-mutation-output.txt"
     }
   ]
 }

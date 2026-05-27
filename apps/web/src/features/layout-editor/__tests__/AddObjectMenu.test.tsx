@@ -4,7 +4,9 @@ import { buildAddObjectMenuViewModel } from "../addObjectMenuViewModel";
 const viewModel = buildAddObjectMenuViewModel();
 const labels = viewModel.items.map((item) => item.label);
 for (const label of [
-  "Room",
+  "Patient Care Room",
+  "Storage Room",
+  "Solid Wall / Blocked Area",
   "Door",
   "Nurse Station / Nurse Desk",
   "Hallway",
@@ -34,10 +36,10 @@ if (element.props["data-add-object-menu"] !== "open") {
 
 const buttons = element.props.children;
 buttons[0].props.onClick();
-if (selected.at(-1) !== "room") {
-  throw new Error("Room menu item should enter room placement mode");
+if (selected.at(-1) !== "patient_care_room") {
+  throw new Error("Patient Care Room menu item should enter room placement mode");
 }
-buttons[6].props.onClick();
+buttons[8].props.onClick();
 if (selected.at(-1) !== "provider_pharmacy") {
   throw new Error("Provider/Pharmacy Area menu item should be selectable");
 }

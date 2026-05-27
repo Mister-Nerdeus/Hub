@@ -133,6 +133,8 @@ import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
 import { AddObjectMenu } from "./AddObjectMenu";
 import {
   buildAddObjectMenuViewModel,
+  isRoomPlacementMenuItem,
+  roomTypeForPlacementMenuItem,
   type AddObjectMenuItemId
 } from "./addObjectMenuViewModel";
 import {
@@ -500,7 +502,11 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     setPendingAddObjectLabel(item?.placementModeLabel ?? null);
     setPlacementPreviewPoint(null);
     setAddObjectMenuOpen(false);
-    if (itemId === "room") {
+    if (isRoomPlacementMenuItem(itemId)) {
+      const nextRoomType = roomTypeForPlacementMenuItem(itemId);
+      if (nextRoomType != null) {
+        setSelectedNewRoomType(nextRoomType);
+      }
       setToolMode("add_room");
       return;
     }

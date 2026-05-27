@@ -48,6 +48,7 @@ export * from "./floorplans/defaultPlanEditableCopy.js";
 export * from "./floorplans/roomTypeContract.js";
 export * from "./floorplans/roomTypeRules.js";
 export * from "./floorplans/addRoomContract.js";
+export * from "./floorplans/layoutObjectCreation.js";
 export * from "./floorplans/layoutObjectDuplication.js";
 export * from "./floorplans/doorAuthoringContract.js";
 export * from "./floorplans/doorAuthoringTools.js";

@@ -146,6 +146,28 @@ if (stage === "room-load-exclusion" || stage === "legacy-invalid-layouts" || sta
   add("manifest marks room load exclusion implemented", manifest.roomLoadExclusionStatus === "implemented", manifest.roomLoadExclusionStatus);
 }
 
+if (stage === "add-object-placement" || stage === "final") {
+  const menu = fs.readFileSync("apps/web/src/features/layout-editor/addObjectMenuViewModel.ts", "utf8");
+  const clickToPlace = fs.readFileSync("apps/web/src/features/layout-editor/clickToPlaceObject.ts", "utf8");
+  const preview = fs.readFileSync("apps/web/src/features/layout-editor/ObjectPlacementPreview.tsx", "utf8");
+  const stageSource = fs.readFileSync("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "utf8");
+  const creation = fs.readFileSync("packages/shared/src/floorplans/layoutObjectCreation.ts", "utf8");
+  const addRoomContract = fs.readFileSync("packages/shared/src/floorplans/addRoomContract.ts", "utf8");
+  add("Add Object includes Patient Care Room", menu.includes("Patient Care Room"), "addObjectMenuViewModel.ts");
+  add("Add Object includes Storage Room", menu.includes("Storage Room"), "addObjectMenuViewModel.ts");
+  add("Add Object includes Solid Wall / Blocked Area", menu.includes("Solid Wall / Blocked Area"), "addObjectMenuViewModel.ts");
+  add("primary menu excludes ambiguous generic Room", !/label:\s*"Room"/.test(menu), "addObjectMenuViewModel.ts");
+  add("placement maps storage room to storage semantics", menu.includes('return "storage"'), "addObjectMenuViewModel.ts");
+  add("placement maps solid wall to solid_wall semantics", menu.includes('return "solid_wall"'), "addObjectMenuViewModel.ts");
+  add("click placement routes explicit room types to add-room reducer", clickToPlace.includes("isRoomPlacementMenuItem"), "clickToPlaceObject.ts");
+  add("placement preview uses semantic room styles", clickToPlace.includes("getRoomPresentationStyle"), "clickToPlaceObject.ts");
+  add("preview applies semantic fill and stroke", preview.includes("viewModel.fill") && preview.includes("viewModel.stroke"), "ObjectPlacementPreview.tsx");
+  add("stage sets selected room type from menu", stageSource.includes("roomTypeForPlacementMenuItem"), "LayoutEditorStage.tsx");
+  add("shared creation emits storage semantics", creation.includes('return "storage"') || creation.includes("authoringRoomTypeToEditableRoomType"), "layoutObjectCreation.ts");
+  add("solid-wall placement avoids door/path warnings", addRoomContract.includes("isDoorEligibleRoomType") && addRoomContract.includes("isPathNodeEligibleRoomType"), "addRoomContract.ts");
+  add("manifest marks add object placement implemented", manifest.addObjectPlacementStatus === "implemented", manifest.addObjectPlacementStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }
