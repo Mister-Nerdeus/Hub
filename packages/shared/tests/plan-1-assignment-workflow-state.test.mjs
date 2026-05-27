@@ -23,7 +23,7 @@ test("canonical Plan 1 assignment workflow state validates synthetic fixtures", 
   assert.equal(state.pathSyncStatus, "fresh");
   assert.equal(state.syntheticDataOnly, true);
   assert.equal(state.nurses.length, 4);
-  assert.equal(state.roomLoads.length, 23);
+  assert.equal(state.roomLoads.length, 22);
   assert.equal(state.assignments.length, assignments.length);
   assert.ok(Array.isArray(state.validationWarnings));
 });

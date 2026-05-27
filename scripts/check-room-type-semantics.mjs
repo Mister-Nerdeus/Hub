@@ -128,6 +128,24 @@ if (stage === "assignment-exclusion" || stage === "capacity-ratio-exclusion" || 
   add("manifest marks capacity ratio exclusion implemented", manifest.capacityRatioExclusionStatus === "implemented", manifest.capacityRatioExclusionStatus);
 }
 
+if (stage === "room-load-exclusion" || stage === "legacy-invalid-layouts" || stage === "final") {
+  const roomLoadValidation = fs.readFileSync("packages/shared/src/scenarios/roomLoadValidation.ts", "utf8");
+  const roomLoadContract = fs.readFileSync("packages/shared/src/assignment/roomLoadContract.ts", "utf8");
+  const contracts = fs.readFileSync("packages/shared/src/contracts.ts", "utf8");
+  const scenarioSeed = fs.readFileSync("packages/shared/src/scenarios/scenarioSeedContract.ts", "utf8");
+  const assignmentEditor = fs.readFileSync("apps/web/src/features/assignments/RoomLoadEditor.tsx", "utf8");
+  const semanticEditorVm = fs.readFileSync("apps/web/src/features/room-loads/roomLoadEditorViewModel.ts", "utf8");
+  const fixture = readJson("packages/shared/fixtures/assignments/plan-1/room-loads-baseline.json");
+  add("room-load eligibility helper uses room type rules", roomLoadValidation.includes("isRoomLoadEligibleRoomType"), "roomLoadValidation.ts");
+  add("Plan 1 room-load validation rejects ineligible rooms", roomLoadContract.includes("assertRoomLoadsEligibleForPlan"), "roomLoadContract.ts");
+  add("generic room-load validation rejects ineligible rooms", contracts.includes("excluded from room-load inputs"), "contracts.ts");
+  add("scenario seed room target selector filters room-load eligible rooms", scenarioSeed.includes("selectScenarioSeedRoomLoadRoomIds"), "scenarioSeedContract.ts");
+  add("assignment room-load editor exposes storage disabled reason", assignmentEditor.includes("Storage is excluded from room-load inputs."), "RoomLoadEditor.tsx");
+  add("semantic room-load editor exposes solid wall disabled reason", semanticEditorVm.includes("Solid wall / blocked area is excluded from room-load inputs."), "roomLoadEditorViewModel.ts");
+  add("Plan 1 room-load fixture excludes Trauma One storage", !fixture.roomLoads.some((roomLoad) => roomLoad.roomId === "room-14"), "room-loads-baseline.json");
+  add("manifest marks room load exclusion implemented", manifest.roomLoadExclusionStatus === "implemented", manifest.roomLoadExclusionStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }

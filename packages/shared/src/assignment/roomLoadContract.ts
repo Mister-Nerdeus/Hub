@@ -1,4 +1,5 @@
 import type { PlanContract } from "../contracts.js";
+import { assertRoomLoadsEligibleForPlan } from "../scenarios/roomLoadValidation.js";
 import {
   PLAN_1_ACUITY_LEVELS,
   PLAN_1_BURDEN_LEVELS,
@@ -41,6 +42,7 @@ export function validatePlan1RoomLoad(value: unknown, plan: PlanContract, index 
   if (!roomIdsForPlan(validatedPlan).has(roomId)) {
     throw new Error(`${label}.roomId must reference a Plan 1 room`);
   }
+  assertRoomLoadsEligibleForPlan([{ roomId }], validatedPlan);
   return {
     roomId,
     occupied: requireBoolean(record.occupied, `${label}.occupied`),
@@ -61,6 +63,7 @@ export function validatePlan1RoomLoad(value: unknown, plan: PlanContract, index 
 
 export function validatePlan1RoomLoads(values: unknown[], plan: PlanContract): Plan1RoomLoad[] {
   const roomLoads = values.map((value, index) => validatePlan1RoomLoad(value, plan, index));
+  assertRoomLoadsEligibleForPlan(roomLoads, validatePlan1Plan(plan));
   assertNoDuplicateStrings(roomLoads.map((roomLoad) => roomLoad.roomId), "roomId");
   return roomLoads;
 }

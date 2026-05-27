@@ -1,0 +1,10 @@
+{
+  "issue": 436,
+  "status": "passed",
+  "helper": "filterEligibleRoomLoads",
+  "excludedRoomTypes": [
+    "storage",
+    "solid_wall"
+  ],
+  "fixtureExcludesStorage": true
+}

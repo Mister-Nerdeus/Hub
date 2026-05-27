@@ -128,6 +128,7 @@ export * from "./scenario/plan1ScenarioValidation.js";
 export * from "./scenarios/scenarioSeedContract.js";
 export * from "./scenarios/scenarioSeedFixtures.js";
 export * from "./scenarios/scenarioSeedValidation.js";
+export * from "./scenarios/roomLoadValidation.js";
 export * from "./scenarios/nurseRatioContract.js";
 export * from "./scenarios/nurseRatioFixtures.js";
 export * from "./scenarios/nurseRatioValidation.js";

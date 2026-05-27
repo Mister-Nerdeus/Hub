@@ -9,7 +9,7 @@ import {
   type Plan1NurseProfile,
   type Plan1RoomLoad
 } from "./plan1AssignmentCommon.js";
-import { isNurseAssignableRoomType } from "../floorplans/roomTypeRules.js";
+import { isNurseAssignableRoomType, isRoomLoadEligibleRoomType } from "../floorplans/roomTypeRules.js";
 
 export type Plan1AssignmentValidationInput = {
   plan: PlanContract | null;
@@ -93,6 +93,11 @@ export function validatePlan1AssignmentsForOperations(
   for (const roomLoad of input.roomLoads) {
     if (!validRoomIds.has(roomLoad.roomId)) {
       warnings.push(warning("INVALID_ROOM_REFERENCE", "blocking", "Room load references a room outside repaired Plan 1.", [], [roomLoad.roomId]));
+      continue;
+    }
+    const loadedRoom = roomById.get(roomLoad.roomId);
+    if (loadedRoom != null && !isRoomLoadEligibleRoomType(loadedRoom.roomType)) {
+      warnings.push(warning("INVALID_ROOM_REFERENCE", "blocking", "Room load references a non-patient room type excluded from room-load inputs.", [], [roomLoad.roomId]));
       continue;
     }
     if (roomLoad.occupied && !assignedPrimaryRoomIds.has(roomLoad.roomId)) {

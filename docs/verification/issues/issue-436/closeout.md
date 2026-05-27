@@ -1,32 +1,25 @@
-# Issue 436 Closeout
+# Issue 436 Closeout - Room Load Editor and Scenario Seed Exclusion
 
-## Summary
-Completed scenario-ratio foundation stage outcome-placeholders.
+Status: GO for Issue 437.
 
-## Files Changed
-- Scenario-ratio shared contracts, fixtures, validators, tests, web view model/UI shell, gate, manifest, and local evidence artifacts.
+## Files changed
+- Shared room-load eligibility and validation now use centralized room-type semantics.
+- Plan 1 synthetic room-load fixtures exclude canonical storage.
+- Room-load UI helpers expose disabled reasons for storage and solid-wall objects.
 
-## Commands Run
-- See commands.txt and command-output-map.json.
+## Commands run
+See commands.txt and command-output-map.json.
 
-## Tests Passed/Failed
-- Local command outputs are captured under test-output.
+## Tests passed/failed
+Passed: shared test, web test, web build, room-load semantics gate, no-PHI check, Plans 2-5 unchanged check.
+Initial failure is recorded in first-failure.txt and fixed.
 
-## Evidence Artifacts
-- docs/verification/scenario-ratio-foundation-manifest.json
-- docs/verification/issues/issue-436
+## Evidence artifacts
+See the JSON outputs in this directory and screenshots/.
 
-## Known Limitations
-- Full-shift simulation remains not started.
-- Outcome rows are placeholders only.
-- No manual visual approval is claimed.
-- Promotion remains blocked.
+## Known limitations
+Browser screenshots are generated local evidence for disabled room-load states, not manual visual approval. This issue did not execute scenario seeds or simulations.
 
-## Non-PHI Confirmation
-- Non-PHI rules still pass; the batch uses synthetic operational data only and adds no real identity fields, source-system integration, optimizer behavior, clinical safety scoring, or staffing compliance certification.
+## Non-PHI confirmation
+No PHI, EHR data, real patient data, real nurse names, employee IDs, hospital identifiers, medication names, diagnosis text, or clinical notes were introduced.
 
-## GO / NO-GO
-GO for Issue 437.
-
-## Next Recommended Issue
-Issue 437.

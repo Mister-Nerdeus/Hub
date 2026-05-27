@@ -1,4 +1,10 @@
-import type { Plan1AcuityLevel, Plan1BurdenLevel, Plan1RoomLoad, PlanContract } from "@nerdeus/shared";
+import {
+  getRoomTypeRule,
+  type Plan1AcuityLevel,
+  type Plan1BurdenLevel,
+  type Plan1RoomLoad,
+  type PlanContract
+} from "@nerdeus/shared";
 
 const acuityLevels: Plan1AcuityLevel[] = ["low", "medium", "high", "critical"];
 const burdenLevels: Plan1BurdenLevel[] = ["none", "low", "medium", "high"];
@@ -19,10 +25,20 @@ export function RoomLoadEditor({
       <div className="assignment-room-grid">
         {plan.rooms.map((room) => {
           const load = loadByRoomId.get(room.id);
+          const disabledReason =
+            room.roomType === "storage"
+              ? "Storage is excluded from room-load inputs."
+              : room.roomType === "solid_wall"
+                ? "Solid wall / blocked area is excluded from room-load inputs."
+                : getRoomTypeRule(room.roomType).roomLoadEligible
+                  ? null
+                  : "Room type is excluded from room-load inputs.";
           return (
-            <div className="assignment-room-load" key={room.id} data-room-id={room.id}>
+            <div className="assignment-room-load" key={room.id} data-room-id={room.id} data-room-type={room.roomType}>
               <strong>{room.label}</strong>
-              {load == null ? null : (
+              {disabledReason != null ? (
+                <p data-room-load-disabled-reason={room.roomType}>{disabledReason}</p>
+              ) : load == null ? null : (
                 <>
                   <label>
                     <input

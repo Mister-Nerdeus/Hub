@@ -1,1 +1,3 @@
-Reproduced missing placeholder-only outcome metric contract.
+Initial shared test run failed after room-load eligibility was enforced.
+Failures: assignment-comparison fixture still contained room-14 room-load entries; solid-wall negative test cloned a room with a mismatched pathNodeId.
+Fix: removed room-14 from Plan 1 assignment comparison room-load fixtures and set the synthetic solid-wall proof room pathNodeId/doorPoint to null.

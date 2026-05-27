@@ -66,5 +66,5 @@ test("Plan 1 assignment validation rejects canonical storage assignment and room
   });
   assert.equal(result.status, "blocking");
   assert.equal(result.warnings.some((warning) => warning.summary.includes("excluded from nurse assignment")), true);
-  assert.equal(result.warnings.some((warning) => warning.summary.includes("excluded from nurse assignment")), true);
+  assert.equal(result.warnings.some((warning) => warning.summary.includes("excluded from room-load inputs")), true);
 });

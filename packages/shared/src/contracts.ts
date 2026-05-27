@@ -2,6 +2,7 @@ import {
   validateOperationalRuntimeText,
   validateOptionalOperationalRuntimeText
 } from "./no-phi/runtimeTextGuard.js";
+import { isRoomLoadEligibleRoomType } from "./floorplans/roomTypeRules.js";
 
 export const ROOM_TYPES = [
   "standard",
@@ -1797,10 +1798,14 @@ export function validateRoomLoads(value: unknown, plan?: PlanContract): RoomLoad
   );
 
   if (plan != null) {
-    const roomIds = new Set(plan.rooms.map((room) => room.id));
+    const roomById = new Map(plan.rooms.map((room) => [room.id, room]));
     roomLoads.forEach((roomLoad, index) => {
-      if (!roomIds.has(roomLoad.roomId)) {
+      const room = roomById.get(roomLoad.roomId);
+      if (room == null) {
         throw new Error(`roomLoads[${index}].roomId references an unknown room`);
+      }
+      if (!isRoomLoadEligibleRoomType(room.roomType)) {
+        throw new Error(`roomLoads[${index}].roomId references a room excluded from room-load inputs`);
       }
     });
   }

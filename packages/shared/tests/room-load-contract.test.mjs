@@ -10,9 +10,10 @@ const fixturesDir = fileURLToPath(new URL("../fixtures/", import.meta.url));
 const plan = validatePlanContract(readJson("default-plans/default-er-layout-plan-1.json").plan);
 const roomLoads = readJson("assignments/plan-1/room-loads-baseline.json").roomLoads;
 
-test("validates one synthetic room-load record for every Plan 1 room", () => {
+test("validates one synthetic room-load record for every Plan 1 patient-care room", () => {
   const validated = validatePlan1RoomLoads(roomLoads, plan);
-  assert.equal(validated.length, 23);
+  assert.equal(validated.length, 22);
+  assert.equal(validated.some((roomLoad) => roomLoad.roomId === "room-14"), false);
   assert.ok(validated.some((roomLoad) => roomLoad.occupied));
   assert.ok(validated.some((roomLoad) => !roomLoad.occupied));
 });

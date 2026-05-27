@@ -1,0 +1,9 @@
+{
+  "issue": 436,
+  "status": "passed",
+  "negativeCases": [
+    "storage room load rejected by validatePlan1RoomLoads",
+    "solid_wall room load rejected by validatePlan1RoomLoads",
+    "generic validateRoomLoads(plan) rejects non-patient room loads"
+  ]
+}
