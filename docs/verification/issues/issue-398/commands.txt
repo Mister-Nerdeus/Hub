@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 398 --port 4198 --debug-port 9398
+node scripts/check-floorplan-editor-ux.mjs --stage inspector-tabs --allow-partial --issue 398
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 398

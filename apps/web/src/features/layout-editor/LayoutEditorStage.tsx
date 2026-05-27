@@ -90,6 +90,7 @@ import { StationShape } from "./StationShape";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { HallwayArrowOverlay } from "./HallwayArrowOverlay";
 import { buildHallwayArrowViewModels } from "./hallwayArrowViewModel";
+import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
@@ -768,8 +769,56 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
           </svg>
         </div>
         <div className="layout-editor-stage__side-panels">
-          {editorMode === "assignment" || editorMode === "presentation" ? (
-            <aside className="layout-assignment-legend" aria-label="Assignment color legend">
+          <LayoutInspectorTabs
+            selectedObjectType={stageState.selectedObjectType}
+            room={
+              <>
+                <LayoutInspectorPanel
+                  viewModel={inspectorViewModel}
+                  roomDimensionDraft={roomDimensionDraft}
+                  onChangeRoomDimensionDraft={(field, value) =>
+                    setRoomDimensionDraft((draft) =>
+                      updateRoomInspectorDimensionDraft(draft, field, value)
+                    )
+                  }
+                  onCommitRoomDimensionDraft={(field) => {
+                    const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
+                    setRoomDimensionDraft(result.draft);
+                    if (result.status === "valid") {
+                      dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
+                    }
+                  }}
+                  onCancelRoomDimensionDraft={(field) =>
+                    setRoomDimensionDraft((draft) =>
+                      cancelRoomInspectorDimensionDraftField(draft, selectedRoom, field)
+                    )
+                  }
+                />
+                <RoomTypeEditor
+                  room={selectedRoom}
+                  readOnly={stageState.readOnly}
+                  onChangeRoomType={(roomId, roomType) =>
+                    dispatchStage({ type: "editSelectedRoomType", roomId, roomType })
+                  }
+                />
+              </>
+            }
+            door={
+              <DoorEditor
+                door={selectedDoor}
+                rooms={stageState.editableLayout?.rooms ?? []}
+                readOnly={stageState.readOnly}
+                onMoveDoor={(doorId, wall, offsetFeet) =>
+                  dispatchStage({ type: "moveDoor", doorId, wall, offsetFeet })
+                }
+                onDeleteDoor={(doorId) => dispatchStage({ type: "deleteDoor", doorId })}
+                onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
+                  dispatchStage({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
+                }
+              />
+            }
+            assignment={
+              <aside className="layout-assignment-legend" aria-label="Assignment color legend">
               <h3>Assignment Colors</h3>
               <ul>
                 {assignmentOverlay.legend.map((item) => (
@@ -783,51 +832,16 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                   Unassigned occupied
                 </li>
               </ul>
-            </aside>
-          ) : null}
-          <LayoutInspectorPanel
-            viewModel={inspectorViewModel}
-            roomDimensionDraft={roomDimensionDraft}
-            onChangeRoomDimensionDraft={(field, value) =>
-              setRoomDimensionDraft((draft) =>
-                updateRoomInspectorDimensionDraft(draft, field, value)
-              )
+              </aside>
             }
-            onCommitRoomDimensionDraft={(field) => {
-              const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
-              setRoomDimensionDraft(result.draft);
-              if (result.status === "valid") {
-                dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
-              }
-            }}
-            onCancelRoomDimensionDraft={(field) =>
-              setRoomDimensionDraft((draft) =>
-                cancelRoomInspectorDimensionDraftField(draft, selectedRoom, field)
-              )
+            validation={
+              <>
+                <PathSyncStatusPanel audit={pathSyncAudit} />
+                <LayoutValidationPanel viewModel={validationPanelViewModel} />
+                <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
+              </>
             }
           />
-          <RoomTypeEditor
-            room={selectedRoom}
-            readOnly={stageState.readOnly}
-            onChangeRoomType={(roomId, roomType) =>
-              dispatchStage({ type: "editSelectedRoomType", roomId, roomType })
-            }
-          />
-          <DoorEditor
-            door={selectedDoor}
-            rooms={stageState.editableLayout?.rooms ?? []}
-            readOnly={stageState.readOnly}
-            onMoveDoor={(doorId, wall, offsetFeet) =>
-              dispatchStage({ type: "moveDoor", doorId, wall, offsetFeet })
-            }
-            onDeleteDoor={(doorId) => dispatchStage({ type: "deleteDoor", doorId })}
-            onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
-              dispatchStage({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
-            }
-          />
-          <PathSyncStatusPanel audit={pathSyncAudit} />
-          <LayoutValidationPanel viewModel={validationPanelViewModel} />
-          <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
         </div>
       </div>
     </section>

@@ -1,0 +1,23 @@
+import type { LayoutEditorSelectableObjectType } from "./layoutEditorState";
+
+export type LayoutInspectorTabId = "room" | "door" | "assignment" | "validation";
+
+export type LayoutInspectorTab = {
+  id: LayoutInspectorTabId;
+  label: string;
+};
+
+export const LAYOUT_INSPECTOR_TABS: LayoutInspectorTab[] = [
+  { id: "room", label: "Room" },
+  { id: "door", label: "Door" },
+  { id: "assignment", label: "Assignment" },
+  { id: "validation", label: "Validation" }
+];
+
+export function defaultInspectorTabForSelection(
+  selectedObjectType: LayoutEditorSelectableObjectType | null
+): LayoutInspectorTabId {
+  if (selectedObjectType === "door") return "door";
+  if (selectedObjectType === "room") return "room";
+  return "validation";
+}

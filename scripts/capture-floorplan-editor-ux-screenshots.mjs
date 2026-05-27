@@ -79,6 +79,15 @@ try {
       screenshots.push(await captureCase(cdp, "hallway-arrows.png", "hallway arrows", 1440, 1200));
       screenshots.push(await captureCase(cdp, "nurse-station-presentation-shapes.png", "nurse station presentation", 1440, 1200));
       screenshots.push(await captureCase(cdp, "provider-pharmacy-presentation.png", "provider pharmacy presentation", 1440, 1200));
+    } else if (issue === "398") {
+      await clickIfPresent(cdp, "Room");
+      screenshots.push(await captureCase(cdp, "inspector-room-tab.png", "inspector room tab", 1440, 1200));
+      await clickIfPresent(cdp, "Door");
+      screenshots.push(await captureCase(cdp, "inspector-door-tab.png", "inspector door tab", 1440, 1200));
+      await clickIfPresent(cdp, "Assignment");
+      screenshots.push(await captureCase(cdp, "inspector-assignment-tab.png", "inspector assignment tab", 1440, 1200));
+      await clickIfPresent(cdp, "Validation");
+      screenshots.push(await captureCase(cdp, "inspector-validation-tab.png", "inspector validation tab", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

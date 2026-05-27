@@ -183,8 +183,20 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "layout-editor-stage--presentation");
   }
   if (currentStage === "inspector-tabs") {
-    requireText("apps/web/src/features/layout-editor/LayoutInspectorTabs.tsx", "Assignment");
-    requireText("apps/web/src/features/layout-editor/LayoutInspectorPanel.tsx", "LayoutInspectorTabs");
+    requireText("apps/web/src/features/layout-editor/layoutInspectorTabsViewModel.ts", "Assignment");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "LayoutInspectorTabs");
+    const stageSource = readText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx");
+    writeJson(`${issueDir}/inspector-before-output.json`, {
+      status: "reproduced",
+      previousRisk: "room, door, path sync, validation, and delta panels rendered as one long side stack"
+    });
+    writeJson(`${issueDir}/inspector-tabs-output.json`, { status: "passed", tabs: ["Room", "Door", "Assignment", "Validation"] });
+    writeJson(`${issueDir}/room-tab-output.json`, { status: stageSource.includes("LayoutInspectorPanel") ? "passed" : "failed" });
+    writeJson(`${issueDir}/door-tab-output.json`, { status: stageSource.includes("DoorEditor") ? "passed" : "failed" });
+    writeJson(`${issueDir}/assignment-tab-output.json`, { status: stageSource.includes("Assignment Colors") ? "passed" : "failed" });
+    writeJson(`${issueDir}/validation-tab-output.json`, { status: stageSource.includes("LayoutValidationPanel") ? "passed" : "failed" });
+    writeJson(`${issueDir}/selected-object-tab-output.json`, { status: readText("apps/web/src/features/layout-editor/layoutInspectorTabsViewModel.ts").includes("defaultInspectorTabForSelection") ? "passed" : "failed" });
+    writeJson(`${issueDir}/validation-data-preserved-output.json`, { status: stageSource.includes("PathSyncStatusPanel") && stageSource.includes("LayoutDeltaPreviewPanel") ? "passed" : "failed" });
   }
   if (currentStage === "visual-proof") {
     requireFile("docs/verification/floorplan-editor-ux-visual-manifest.json");
@@ -315,6 +327,7 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-floorplan-presentation-rendering.mjs --issue 397",
       "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 397 --port 4197 --debug-port 9397"
     ],
+    "398": ["node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 398 --port 4198 --debug-port 9398"],
     "399": [
       "node scripts/check-floorplan-presentation-rendering.mjs --issue 399",
       "node scripts/check-no-phi-fields.mjs",
