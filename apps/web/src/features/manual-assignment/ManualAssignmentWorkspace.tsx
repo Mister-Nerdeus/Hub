@@ -11,8 +11,11 @@ import {
 import { manualAssignmentReducer } from "./manualAssignmentReducer";
 import { createManualAssignmentInitialState } from "./manualAssignmentState";
 import { AssignmentColorLegend } from "./AssignmentColorLegend";
+import { AssignmentWarningsPanel } from "./AssignmentWarningsPanel";
 import { ManualAssignmentRoomList } from "./ManualAssignmentRoomList";
 import { NurseAssignmentCards } from "./NurseAssignmentCards";
+import { NurseBurdenTable } from "./NurseBurdenTable";
+import { createManualBurdenViewModel } from "./manualBurdenViewModel";
 import { createManualAssignmentWorkspaceViewModel } from "./manualAssignmentWorkspaceViewModel";
 
 export function ManualAssignmentWorkspace() {
@@ -22,6 +25,7 @@ export function ManualAssignmentWorkspace() {
   );
   const [state, dispatch] = useReducer(manualAssignmentReducer, initialState);
   const viewModel = createManualAssignmentWorkspaceViewModel(state);
+  const burdenViewModel = createManualBurdenViewModel(state);
 
   function assignSelectedNurse(roomId: string) {
     if (viewModel.activeNurseId == null) return;
@@ -88,6 +92,16 @@ export function ManualAssignmentWorkspace() {
           <NurseAssignmentCards cards={viewModel.nurseCards} />
         </section>
       </div>
+
+      <section className="manual-assignment-workspace__panel" aria-labelledby="manual-burden-title">
+        <h3 id="manual-burden-title">Burden Components</h3>
+        <NurseBurdenTable rows={burdenViewModel.burdenRows} />
+      </section>
+
+      <section className="manual-assignment-workspace__panel" aria-labelledby="manual-warnings-title">
+        <h3 id="manual-warnings-title">Warnings</h3>
+        <AssignmentWarningsPanel warnings={burdenViewModel.warnings} />
+      </section>
     </section>
   );
 }

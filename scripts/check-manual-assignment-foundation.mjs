@@ -104,6 +104,11 @@ function runStage(currentStage) {
     manifest.walkingBurdenStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "burden-warnings") {
+    runBurdenWarnings();
+    manifest.burdenWarningStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -397,6 +402,53 @@ function runWalkingBurden() {
   });
 }
 
+function runBurdenWarnings() {
+  const requiredFiles = [
+    "packages/shared/src/manual-assignment/manualBurdenScoring.ts",
+    "packages/shared/src/manual-assignment/manualAssignmentWarnings.ts",
+    "packages/shared/src/manual-assignment/manualBurdenWeights.ts",
+    "packages/shared/tests/manual-burden-scoring.test.mjs",
+    "packages/shared/tests/manual-assignment-warnings.test.mjs",
+    "apps/web/src/features/manual-assignment/manualBurdenViewModel.ts",
+    "apps/web/src/features/manual-assignment/NurseBurdenTable.tsx",
+    "apps/web/src/features/manual-assignment/AssignmentWarningsPanel.tsx",
+    "apps/web/src/features/manual-assignment/__tests__/manualBurdenViewModel.test.ts"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing burden warning file ${file}`);
+  }
+  const scoring = readText("packages/shared/src/manual-assignment/manualBurdenScoring.ts");
+  const warnings = readText("packages/shared/src/manual-assignment/manualAssignmentWarnings.ts");
+  const table = readText("apps/web/src/features/manual-assignment/NurseBurdenTable.tsx");
+  const panel = readText("apps/web/src/features/manual-assignment/AssignmentWarningsPanel.tsx");
+  const combined = `${scoring}\n${warnings}\n${table}\n${panel}`;
+  for (const text of [
+    "acuityBurden",
+    "traumaBurden",
+    "specialBurden",
+    "walkingBurden",
+    "roomSpreadPenalty",
+    "overRatioPenalty",
+    "totalBurden",
+    "visibleComponents",
+    "OVER_TARGET_RATIO",
+    "OVER_MAX_RATIO",
+    "TRAUMA_QUALIFICATION_MISMATCH",
+    "HIGH_ACUITY_CLUSTER",
+    "UNASSIGNED_OCCUPIED_ROOM"
+  ]) {
+    if (!combined.includes(text)) failures.push(`burden warning stage missing ${text}`);
+  }
+  if (/best assignment|recommend|optimi[sz]er|shift timeline|certifies|safe staffing/u.test(combined)) {
+    failures.push("burden warning stage must not contain optimizer, full-shift, safety, or staffing certification behavior");
+  }
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: stageFailures().length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+}
+
 function runNurseProfiles() {
   const requiredFiles = [
     "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
@@ -549,6 +601,17 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-manual-assignment-burden.mjs --issue 387",
       "node scripts/check-manual-assignment-foundation.mjs --stage walking-burden --allow-partial --issue 387",
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 387"
+    ];
+  }
+  if (String(issueNumber) === "388") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-burden.mjs --issue 388",
+      "node scripts/check-manual-assignment-foundation.mjs --stage burden-warnings --allow-partial --issue 388",
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 388"
     ];
   }
   return [
