@@ -1,1 +1,1 @@
-Reproduced missing one-floorplan scenario seed contract and gate.
+First local failure: npm --workspace packages/shared test failed because packages/shared/tests/room-type-contract.test.mjs expected 10 authoring room types. Fix: updated the assertion to 11 after adding solid_wall. Subsequent shared test pass is recorded in test-output/shared.txt.

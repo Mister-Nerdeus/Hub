@@ -6,7 +6,7 @@ import {
 } from "../dist/index.js";
 import { throws } from "./authoring-test-helpers.mjs";
 
-if (AUTHORING_ROOM_TYPES.length !== 10) {
+if (AUTHORING_ROOM_TYPES.length !== 11) {
   throw new Error("authoring room type list must include required values");
 }
 if (authoringRoomTypeToEditableRoomType("provider_pharmacy") === "trauma") {

@@ -9,7 +9,9 @@ export const EDITABLE_ROOM_TYPES = [
   "behavioral",
   "procedure",
   "overflow",
-  "hall_bed"
+  "hall_bed",
+  "storage",
+  "solid_wall"
 ] as const;
 export const EDITABLE_ROOM_CAPACITY_TYPES = ["single", "double", "hall", "flex"] as const;
 export const EDITABLE_STATION_TYPES = ["nurse_station", "desk"] as const;
@@ -173,6 +175,9 @@ function validateRoom(value: unknown, index: number): EditableRoomGeometry {
   const isHallBed = requireBoolean(room.isHallBed, `rooms[${index}].isHallBed`);
   if (roomType === "hall_bed" && !isHallBed) {
     throw new Error(`rooms[${index}].isHallBed must be true when roomType is hall_bed`);
+  }
+  if (roomType !== "hall_bed" && isHallBed) {
+    throw new Error(`rooms[${index}].isHallBed must be false unless roomType is hall_bed`);
   }
 
   return {

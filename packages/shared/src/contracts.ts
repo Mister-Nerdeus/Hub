@@ -10,7 +10,9 @@ export const ROOM_TYPES = [
   "psych",
   "hall_bed",
   "procedure",
-  "overflow"
+  "overflow",
+  "storage",
+  "solid_wall"
 ] as const;
 
 export const ZONE_TYPES = [
@@ -74,7 +76,9 @@ export const ROOM_OPERATIONAL_CLASSES = [
   "behavioral",
   "procedure",
   "hall_bed",
-  "overflow"
+  "overflow",
+  "storage",
+  "solid_wall"
 ] as const;
 
 export const ROOM_CAPACITY_CATEGORIES = ["single", "double", "hall", "overflow"] as const;

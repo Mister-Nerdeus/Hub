@@ -11,6 +11,7 @@ export const AUTHORING_ROOM_TYPES = [
   "hallway",
   "public_space",
   "storage",
+  "solid_wall",
   "unknown"
 ] as const;
 
@@ -29,6 +30,10 @@ export function authoringRoomTypeToEditableRoomType(value: AuthoringRoomType): E
       return "trauma";
     case "hallway":
       return "hall_bed";
+    case "storage":
+      return "storage";
+    case "solid_wall":
+      return "solid_wall";
     case "unknown":
       return "overflow";
     default:
@@ -42,6 +47,10 @@ export function editableRoomTypeToAuthoringRoomType(value: EditableRoomType): Au
       return "trauma_room";
     case "hall_bed":
       return "hallway";
+    case "storage":
+      return "storage";
+    case "solid_wall":
+      return "solid_wall";
     default:
       return "patient_room";
   }
@@ -53,6 +62,10 @@ export function authoringRoomTypeToPlanRoomType(value: AuthoringRoomType): RoomT
       return "trauma";
     case "hallway":
       return "hall_bed";
+    case "storage":
+      return "storage";
+    case "solid_wall":
+      return "solid_wall";
     case "unknown":
       return "overflow";
     default:

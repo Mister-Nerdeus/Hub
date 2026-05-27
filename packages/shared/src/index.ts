@@ -45,6 +45,7 @@ export * from "./floorplans/authoringDraftContract.js";
 export * from "./floorplans/savedPlanRecordContract.js";
 export * from "./floorplans/defaultPlanEditableCopy.js";
 export * from "./floorplans/roomTypeContract.js";
+export * from "./floorplans/roomTypeRules.js";
 export * from "./floorplans/addRoomContract.js";
 export * from "./floorplans/layoutObjectDuplication.js";
 export * from "./floorplans/doorAuthoringContract.js";

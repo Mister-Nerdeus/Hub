@@ -22,7 +22,9 @@ const roomTypeLabels: Record<Room["roomType"], string> = {
   psych: "Psych",
   hall_bed: "Hall bed",
   procedure: "Procedure",
-  overflow: "Overflow"
+  overflow: "Overflow",
+  storage: "Storage",
+  solid_wall: "Solid wall / blocked area"
 };
 
 export function PlanRenderer({ plan }: PlanRendererProps) {

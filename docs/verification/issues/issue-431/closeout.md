@@ -1,32 +1,34 @@
-# Issue 431 Closeout
+# Issue 431 Closeout - Room Type Semantics Contract
 
-## Summary
-Completed scenario-ratio foundation stage scenario-seed.
+## Files changed
+- packages/shared/src/contracts.ts
+- packages/shared/src/layout-editor/editableLayoutGeometryContract.ts
+- packages/shared/src/floorplans/roomTypeContract.ts
+- packages/shared/src/floorplans/roomTypeRules.ts
+- packages/shared/src/index.ts
+- packages/shared/tests/room-type-contract.test.mjs
+- packages/shared/tests/room-type-rules.test.mjs
+- apps/web/src/features/plan-renderer/PlanRenderer.tsx
+- scripts/check-room-type-semantics.mjs
+- docs/verification/room-type-semantics-manifest.json
+- docs/verification/issues/issue-431/*
+- docs/verification/ISSUE_EVIDENCE_INDEX.json
 
-## Files Changed
-- Scenario-ratio shared contracts, fixtures, validators, tests, web view model/UI shell, gate, manifest, and local evidence artifacts.
+## Commands run
+See commands.txt and command-output-map.json.
 
-## Commands Run
-- See commands.txt and command-output-map.json.
+## Tests passed/failed
+Passed: shared tests, web tests, web build, room-type-contract semantic gate, no-PHI scan, default plans 2-5 unchanged gate.
+First failure is documented in first-failure.txt and was fixed.
 
-## Tests Passed/Failed
-- Local command outputs are captured under test-output.
+## Evidence artifacts
+All required Issue 431 artifacts are under docs/verification/issues/issue-431/.
 
-## Evidence Artifacts
-- docs/verification/scenario-ratio-foundation-manifest.json
-- docs/verification/issues/issue-431
+## Known limitations
+This issue only establishes centralized semantics. Trauma One storage correction, gray presentation, door enforcement, assignment/capacity/room-load exclusion wiring, path blocking, and browser DOM proof remain for Issues 432-439.
 
-## Known Limitations
-- Full-shift simulation remains not started.
-- Outcome rows are placeholders only.
-- No manual visual approval is claimed.
-- Promotion remains blocked.
+## Non-PHI confirmation
+PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, production authentication, optimizer behavior, or new simulation behavior was added.
 
-## Non-PHI Confirmation
-- Non-PHI rules still pass; the batch uses synthetic operational data only and adds no real identity fields, source-system integration, optimizer behavior, clinical safety scoring, or staffing compliance certification.
-
-## GO / NO-GO
+## GO / NO-GO for Issue 432
 GO for Issue 432.
-
-## Next Recommended Issue
-Issue 432.

@@ -1,0 +1,138 @@
+{
+  "stage": "room-type-contract",
+  "issue": "431",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "contracts include storage",
+      "passed": true,
+      "detail": "contracts.ts"
+    },
+    {
+      "name": "contracts include solid_wall",
+      "passed": true,
+      "detail": "contracts.ts"
+    },
+    {
+      "name": "editable contract includes storage",
+      "passed": true,
+      "detail": "editableLayoutGeometryContract.ts"
+    },
+    {
+      "name": "editable contract includes solid_wall",
+      "passed": true,
+      "detail": "editableLayoutGeometryContract.ts"
+    },
+    {
+      "name": "central storage rules exclude assignment",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central storage rules exclude ratio",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central storage rules exclude room load",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block doors",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block path nodes",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "central solid wall rules block travel",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    }
+  ]
+}
