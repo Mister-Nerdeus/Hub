@@ -620,6 +620,119 @@
   text-align: right;
 }
 
+.layout-validation-panel__drawer-hint {
+  color: #53616f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.validation-drawer {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.validation-drawer details {
+  display: grid;
+}
+
+.validation-drawer summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  padding: 9px 12px;
+}
+
+.validation-drawer summary span {
+  color: #243447;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.validation-drawer summary strong {
+  align-items: center;
+  background: #f3f0e8;
+  border: 1px solid #c8b98f;
+  border-radius: 999px;
+  color: #3c3322;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-width: 26px;
+  padding: 4px 8px;
+}
+
+.validation-drawer__body {
+  border-top: 1px solid #d9e1e8;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  padding: 12px;
+}
+
+.validation-drawer__summary,
+.validation-drawer__groups {
+  display: grid;
+  gap: 8px;
+}
+
+.validation-drawer__summary article,
+.validation-drawer__groups section {
+  background: #f8fafc;
+  border: 1px solid #d9e1e8;
+  border-radius: 6px;
+  padding: 9px;
+}
+
+.validation-drawer code {
+  color: #243447;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.validation-drawer p,
+.validation-drawer span,
+.validation-drawer li {
+  color: #111827;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.validation-drawer p {
+  margin: 4px 0 0;
+}
+
+.validation-drawer h4 {
+  color: #111827;
+  font-size: 0.86rem;
+  line-height: 1.2;
+  margin: 0 0 7px;
+}
+
+.validation-drawer ol {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.validation-drawer li {
+  display: grid;
+  gap: 3px;
+}
+
+.validation-drawer__empty {
+  border-top: 1px solid #d9e1e8;
+  margin: 0;
+  padding: 12px;
+}
+
 .layout-delta-preview-panel {
   background: #ffffff;
   border: 1px solid #c4d0dc;

@@ -61,6 +61,8 @@ import {
 } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import { ValidationDrawer } from "./ValidationDrawer";
+import { buildValidationDrawerViewModel } from "./validationDrawerViewModel";
 import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
 import { SimulationReadyExportPanel } from "./SimulationReadyExportPanel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
@@ -226,6 +228,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const validationPanelViewModel = buildLayoutValidationPanelViewModel({
     warnings: stageState.validationWarnings
   });
+  const validationDrawerViewModel = buildValidationDrawerViewModel(validationPanelViewModel);
   const viewportLayoutViewModel = buildEditorViewportLayoutViewModel({
     inspectorCollapsed,
     validationWarningCount: stageState.validationWarnings.length
@@ -923,7 +926,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             validation={
               <>
                 <PathSyncStatusPanel audit={pathSyncAudit} />
-                <LayoutValidationPanel viewModel={validationPanelViewModel} />
+                <LayoutValidationPanel viewModel={validationPanelViewModel} maxVisibleWarnings={2} />
                 <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />
               </>
             }
@@ -931,6 +934,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         </div>
         )}
       </div>
+      <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
   );
 }

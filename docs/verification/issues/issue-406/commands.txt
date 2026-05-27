@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-usability-repair.mjs --stage validation-drawer --allow-partial --issue 406
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 406

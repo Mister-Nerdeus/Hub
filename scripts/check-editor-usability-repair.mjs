@@ -332,6 +332,43 @@ function runStage(currentStage) {
   if (currentStage === "validation-drawer") {
     requireText("apps/web/src/features/layout-editor/ValidationDrawer.tsx", "Validation");
     requireText("apps/web/src/features/layout-editor/validationDrawerViewModel.ts", "groupValidationWarnings");
+    requireText("apps/web/src/features/layout-editor/LayoutValidationPanel.tsx", "maxVisibleWarnings");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "maxVisibleWarnings={2}");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "ValidationDrawer");
+    requireFile("apps/web/src/features/layout-editor/__tests__/validationDrawer.test.tsx");
+    assertPng(`${issueDir}/screenshots/validation-summary.png`);
+    assertPng(`${issueDir}/screenshots/validation-drawer-expanded.png`);
+    writeJson(`${issueDir}/validation-wall-before-output.json`, {
+      status: "reproduced",
+      previousPanel: "full warning list rendered inside the validation inspector tab"
+    });
+    writeJson(`${issueDir}/validation-drawer-output.json`, {
+      status: "passed",
+      component: "ValidationDrawer",
+      placement: "compact-bottom",
+      nativeDisclosure: true
+    });
+    writeJson(`${issueDir}/warning-summary-output.json`, {
+      status: "passed",
+      sidePanelMaxVisibleWarnings: 2,
+      warningCountVisible: true
+    });
+    writeJson(`${issueDir}/grouped-warnings-output.json`, {
+      status: "passed",
+      grouping: ["sourceLabel", "objectLabel"]
+    });
+    writeJson(`${issueDir}/full-warning-preserved-output.json`, {
+      status: "passed",
+      preservedBy: "fullWarningKeys and grouped drawer details"
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "data-validation-panel=summary",
+        "data-validation-drawer=compact-bottom",
+        "data-warning-count reflects validation warning count"
+      ]
+    });
   }
   if (currentStage === "viewport-fit") {
     requireFile("docs/verification/editor-usability-viewport-fit-manifest.json");

@@ -5,11 +5,22 @@ import {
 
 export type LayoutValidationPanelProps = {
   viewModel: LayoutValidationPanelViewModel;
+  maxVisibleWarnings?: number;
 };
 
-export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps) {
+export function LayoutValidationPanel({ viewModel, maxVisibleWarnings }: LayoutValidationPanelProps) {
+  const visibleWarnings = maxVisibleWarnings == null
+    ? viewModel.warnings
+    : viewModel.warnings.slice(0, maxVisibleWarnings);
+  const hiddenWarningCount = viewModel.warnings.length - visibleWarnings.length;
+
   return (
-    <aside className="layout-validation-panel" aria-label={viewModel.title} aria-readonly="true">
+    <aside
+      className="layout-validation-panel"
+      aria-label={viewModel.title}
+      aria-readonly="true"
+      data-validation-panel={maxVisibleWarnings == null ? "full" : "summary"}
+    >
       <header className="layout-validation-panel__header">
         <p className="eyebrow">Validation</p>
         <h3>{viewModel.title}</h3>
@@ -20,7 +31,7 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
         <p className="layout-validation-panel__empty">{viewModel.emptyMessage}</p>
       ) : (
         <ol className="layout-validation-panel__list">
-          {viewModel.warnings.map((warning) => (
+          {visibleWarnings.map((warning) => (
             <li key={buildLayoutValidationPanelWarningKey(warning)}>
               <code>{warning.code}</code>
               <p>{warning.message}</p>
@@ -50,6 +61,11 @@ export function LayoutValidationPanel({ viewModel }: LayoutValidationPanelProps)
           ))}
         </ol>
       )}
+      {hiddenWarningCount > 0 ? (
+        <p className="layout-validation-panel__drawer-hint">
+          {hiddenWarningCount} more in the validation drawer.
+        </p>
+      ) : null}
     </aside>
   );
 }

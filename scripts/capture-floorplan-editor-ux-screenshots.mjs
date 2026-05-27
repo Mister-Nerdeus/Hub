@@ -88,6 +88,20 @@ try {
       screenshots.push(await captureCase(cdp, "inspector-assignment-tab.png", "inspector assignment tab", 1440, 1200));
       await clickIfPresent(cdp, "Validation");
       screenshots.push(await captureCase(cdp, "inspector-validation-tab.png", "inspector validation tab", 1440, 1200));
+    } else if (issue === "406") {
+      await clickIfPresent(cdp, "Validation");
+      screenshots.push(await captureCase(cdp, "validation-summary.png", "validation summary", 1440, 1200));
+      await evaluateOrThrow(cdp, {
+        awaitPromise: true,
+        expression: `
+          (() => {
+            const details = document.querySelector(".validation-drawer details");
+            if (details) details.setAttribute("open", "");
+          })()
+        `
+      });
+      await delay(250);
+      screenshots.push(await captureCase(cdp, "validation-drawer-expanded.png", "validation drawer expanded", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
