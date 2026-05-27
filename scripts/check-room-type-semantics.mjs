@@ -168,6 +168,23 @@ if (stage === "add-object-placement" || stage === "final") {
   add("manifest marks add object placement implemented", manifest.addObjectPlacementStatus === "implemented", manifest.addObjectPlacementStatus);
 }
 
+if (stage === "path-graph-blocking" || stage === "final") {
+  const pathNodeRules = fs.readFileSync("packages/shared/src/floorplans/pathNodeRules.ts", "utf8");
+  const pathGraphValidation = fs.readFileSync("packages/shared/src/floorplans/pathGraphValidation.ts", "utf8");
+  const walkingEligibility = fs.readFileSync("packages/shared/src/floorplans/walkingDistanceEligibility.ts", "utf8");
+  const doorPathGenerator = fs.readFileSync("packages/shared/src/floorplans/doorPathNodeGenerator.ts", "utf8");
+  const walkingBurden = fs.readFileSync("packages/shared/src/manual-assignment/walkingBurden.ts", "utf8");
+  const pathNodeViewModel = fs.readFileSync("apps/web/src/features/layout-editor/pathNodeEditorViewModel.ts", "utf8");
+  add("solid wall path-node creation uses room-type rules", pathNodeRules.includes("isPathNodeEligibleRoomType"), "pathNodeRules.ts");
+  add("path graph validation blocks solid wall room path nodes", pathGraphValidation.includes("SOLID_WALL_ROOM_PATH_NODE"), "pathGraphValidation.ts");
+  add("path graph validation blocks solid wall door path nodes", pathGraphValidation.includes("SOLID_WALL_DOOR_PATH_NODE"), "pathGraphValidation.ts");
+  add("storage excluded from patient-care route destinations", walkingEligibility.includes("isPatientCareRoutingDestinationRoomType") && walkingEligibility.includes("isBurdenScoreEligibleRoomType"), "walkingDistanceEligibility.ts");
+  add("door path node generator skips non-path-node-eligible room types", doorPathGenerator.includes("!canCreateRoomDoorPathNode(room)"), "doorPathNodeGenerator.ts");
+  add("walking burden filters non-patient room types", walkingBurden.includes("isWalkingDistanceEligibleRoomLocation"), "walkingBurden.ts");
+  add("path-node editor view model uses patient-care routing destinations", pathNodeViewModel.includes("buildPatientCareRoutingDestinations"), "pathNodeEditorViewModel.ts");
+  add("manifest marks path graph blocking implemented", manifest.pathGraphBlockingStatus === "implemented", manifest.pathGraphBlockingStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }

@@ -4,6 +4,7 @@ import {
   type AuthoringDraftContract
 } from "./authoringDraftContract.js";
 import type { AuthoringWarningCode } from "./authoringWarningContract.js";
+import { isPatientCareRoutingDestinationRoomType } from "./walkingDistanceEligibility.js";
 
 export type PathSyncAuditResult = {
   pathSyncStatus: AuthoringDraftContract["pathSyncStatus"];
@@ -25,10 +26,15 @@ export function auditPathSyncStatus(input: {
 }): PathSyncAuditResult {
   const draft = validateAuthoringDraftContract(input.authoringDraft);
   const plan = validatePlanContract(input.plan ?? draft.sourcePlan);
-  const roomIds = draft.editableLayout.rooms.map((room) => room.id).sort();
+  const roomIds = draft.editableLayout.rooms
+    .filter((room) => isPatientCareRoutingDestinationRoomType(room.roomType))
+    .map((room) => room.id)
+    .sort();
+  const routeEligibleRoomIds = new Set(roomIds);
   const roomsWithDoor = new Set(
     draft.editableLayout.doors
       .filter((door) => door.ownerKind === "room")
+      .filter((door) => routeEligibleRoomIds.has(door.ownerId))
       .map((door) => door.ownerId)
   );
   const pathNodeIds = new Set(plan.pathNodes.map((node) => node.id));
@@ -40,7 +46,7 @@ export function auditPathSyncStatus(input: {
   for (const node of plan.pathNodes) {
     if (node.nodeType === "room_door" && node.linkedObjectId != null) {
       const door = plan.doors.find((candidate) => candidate.id === node.linkedObjectId);
-      if (door != null) {
+      if (door != null && routeEligibleRoomIds.has(door.roomId)) {
         roomsWithPathNode.add(door.roomId);
       }
     }

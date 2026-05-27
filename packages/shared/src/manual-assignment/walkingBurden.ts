@@ -1,3 +1,6 @@
+import type { SemanticRoomType } from "../floorplans/roomTypeRules.js";
+import { isWalkingDistanceEligibleRoomLocation } from "../floorplans/walkingDistanceEligibility.js";
+
 export type ManualWalkingPoint = {
   x: number;
   y: number;
@@ -17,6 +20,7 @@ export type ManualWalkingPathEdge = {
 export type ManualWalkingRoomLocation = ManualWalkingPoint & {
   roomId: string;
   pathNodeId?: string;
+  roomType?: SemanticRoomType;
 };
 
 export type ManualWalkingStationLocation = ManualWalkingPoint & {
@@ -53,6 +57,7 @@ export type ManualNurseWalkingBurdenSummary = {
   estimatedWalkingBurdenUnits: number;
   usedGraphDistance: boolean;
   fallbackDistanceCount: number;
+  excludedRoomIds: string[];
   visibleComponents: string[];
   syntheticDataOnly: true;
 };
@@ -71,7 +76,12 @@ export function calculateManualAssignmentWalkingBurden(
     const assignments = [...(assignmentsByNurse.get(nurse.nurseId) ?? [])].sort((left, right) =>
       left.roomId.localeCompare(right.roomId)
     );
-    const assignedRooms = assignments.map((assignment) => roomsById.get(assignment.roomId)).filter(isRoomLocation);
+    const roomCandidates = assignments.map((assignment) => roomsById.get(assignment.roomId)).filter(isRoomLocation);
+    const assignedRooms = roomCandidates.filter(isWalkingDistanceEligibleRoomLocation);
+    const excludedRoomIds = roomCandidates
+      .filter((room) => !isWalkingDistanceEligibleRoomLocation(room))
+      .map((room) => room.roomId)
+      .sort();
     const stationDistances = assignedRooms.map((room) => resolveManualWalkingDistance(input.station, room, input));
     const roomPairDistances = buildRoomPairs(assignedRooms).map(([left, right]) =>
       resolveManualWalkingDistance(left, right, input)
@@ -94,6 +104,7 @@ export function calculateManualAssignmentWalkingBurden(
       estimatedWalkingBurdenUnits,
       usedGraphDistance: allDistances.some((distance) => distance.method === "path-graph"),
       fallbackDistanceCount,
+      excludedRoomIds,
       visibleComponents: [
         `assigned rooms ${assignedRooms.length}`,
         `station distance ${stationToRoomDistance}`,

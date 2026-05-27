@@ -25,3 +25,18 @@ if (!summary.usedGraphDistance || summary.fallbackDistanceCount !== 0) {
 if (summary.roomToRoomSpread <= 0 || !summary.displaySummary.includes("walk units")) {
   throw new Error("walking burden view model must expose room spread and walk units");
 }
+
+const nonPatientState = {
+  ...assignedState,
+  roomTypesByRoomId: {
+    "room-101": "standard",
+    "room-103": "storage"
+  } as const
+};
+const nonPatientSummary = createWalkingBurdenSummaryByNurse(nonPatientState)["nurse-blue"];
+if (!nonPatientSummary || nonPatientSummary.assignedRoomCount !== 1) {
+  throw new Error("walking burden view model must exclude storage from assigned walking rooms");
+}
+if (!nonPatientSummary.excludedRoomIds.includes("room-103")) {
+  throw new Error("walking burden view model must report excluded non-patient walking rooms");
+}

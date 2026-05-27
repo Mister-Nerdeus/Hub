@@ -1,0 +1,128 @@
+{
+  "stage": "path-graph-blocking",
+  "issue": "438",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "solid wall path-node creation uses room-type rules",
+      "passed": true,
+      "detail": "pathNodeRules.ts"
+    },
+    {
+      "name": "path graph validation blocks solid wall room path nodes",
+      "passed": true,
+      "detail": "pathGraphValidation.ts"
+    },
+    {
+      "name": "path graph validation blocks solid wall door path nodes",
+      "passed": true,
+      "detail": "pathGraphValidation.ts"
+    },
+    {
+      "name": "storage excluded from patient-care route destinations",
+      "passed": true,
+      "detail": "walkingDistanceEligibility.ts"
+    },
+    {
+      "name": "door path node generator skips non-path-node-eligible room types",
+      "passed": true,
+      "detail": "doorPathNodeGenerator.ts"
+    },
+    {
+      "name": "walking burden filters non-patient room types",
+      "passed": true,
+      "detail": "walkingBurden.ts"
+    },
+    {
+      "name": "path-node editor view model uses patient-care routing destinations",
+      "passed": true,
+      "detail": "pathNodeEditorViewModel.ts"
+    },
+    {
+      "name": "manifest marks path graph blocking implemented",
+      "passed": true,
+      "detail": "implemented"
+    }
+  ]
+}

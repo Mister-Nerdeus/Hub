@@ -39,7 +39,11 @@ export function createWalkingBurdenSummaryByNurse(
       nurseId: assignment.nurseId,
       roomId: assignment.roomId
     })),
-    ...demoWalkingLayout
+    ...demoWalkingLayout,
+    rooms: demoWalkingLayout.rooms.map((room) => ({
+      ...room,
+      roomType: state.roomTypesByRoomId?.[room.roomId]
+    }))
   });
 
   return Object.fromEntries(

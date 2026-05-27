@@ -39,13 +39,28 @@ export function generateDoorPathNodes(input: {
   const sourcePlan = validatePlanContract(input.sourcePlan);
   const layout = validateEditableLayoutGeometryContract(input.editableLayout);
   const maxDistance = input.maxHallwayConnectionDistanceFeet ?? 40;
+  const layoutRoomsById = new Map(layout.rooms.map((room) => [room.id, room]));
+  const nonRoutableDoorIds = new Set(
+    layout.doors
+      .filter((door) => {
+        const room = layoutRoomsById.get(door.ownerId);
+        return room != null && !canCreateRoomDoorPathNode(room);
+      })
+      .map((door) => door.id)
+  );
+  const nonRoutableRoomIds = new Set(
+    [...layoutRoomsById.values()]
+      .filter((room) => !canCreateRoomDoorPathNode(room))
+      .map((room) => room.id)
+  );
   const generatedNodeIds = new Set(layout.doors.map((door) => nodeIdForDoor(door.id)));
   const generatedDoorIds = new Set(layout.doors.map((door) => door.id));
   const removedGeneratedNodeIds = new Set<string>();
   const preservedPathNodes = sourcePlan.pathNodes.filter((node) => {
     if (
       input.replaceGenerated === true &&
-      (generatedNodeIds.has(node.id) || (node.nodeType === "room_door" && generatedDoorIds.has(node.linkedObjectId ?? "")))
+      (generatedNodeIds.has(node.id) ||
+        (node.nodeType === "room_door" && (generatedDoorIds.has(node.linkedObjectId ?? "") || nonRoutableDoorIds.has(node.linkedObjectId ?? ""))))
     ) {
       removedGeneratedNodeIds.add(node.id);
       return false;
@@ -70,10 +85,7 @@ export function generateDoorPathNodes(input: {
     if (room == null) {
       continue;
     }
-    if (
-      room.roomType === "solid_wall" ||
-      (!canCreateRoomDoorPathNode(room) && room.roomType !== "storage")
-    ) {
+    if (!canCreateRoomDoorPathNode(room)) {
       continue;
     }
     const existing = nextNodes.find((node) => node.linkedObjectId === door.id || node.id === nodeIdForDoor(door.id));
@@ -132,9 +144,12 @@ export function generateDoorPathNodes(input: {
     ...sourcePlan,
     doors: sourcePlan.doors.map((door) => ({
       ...door,
-      pathNodeId: generatedDoorNodeByDoorId.get(door.id) ?? door.pathNodeId ?? null
+      pathNodeId: nonRoutableDoorIds.has(door.id) ? null : generatedDoorNodeByDoorId.get(door.id) ?? door.pathNodeId ?? null
     })),
     rooms: sourcePlan.rooms.map((room) => {
+      if (nonRoutableRoomIds.has(room.id)) {
+        return { ...room, pathNodeId: null };
+      }
       const door = sourcePlan.doors.find((candidate) => candidate.roomId === room.id);
       const nodeId = door == null ? room.pathNodeId ?? null : generatedDoorNodeByDoorId.get(door.id) ?? room.pathNodeId ?? null;
       return { ...room, pathNodeId: nodeId };

@@ -165,6 +165,7 @@ function walking(
     estimatedWalkingBurdenUnits,
     usedGraphDistance: true,
     fallbackDistanceCount: 0,
+    excludedRoomIds: [],
     visibleComponents: [`station distance ${stationToRoomDistance}`, `room spread ${roomToRoomSpread}`],
     syntheticDataOnly: true
   };
