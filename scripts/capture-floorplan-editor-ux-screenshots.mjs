@@ -57,6 +57,11 @@ try {
     if (issue === "391") {
       await openPage(cdp, referenceTargetDataUrl(), 1200, 900);
       screenshots.push(await captureCase(cdp, "reference-style-target.png", "synthetic-reference-target", 1200, 900));
+    } else if (issue === "394") {
+      await clickIfPresent(cdp, "Assignment View");
+      screenshots.push(await captureCase(cdp, "assignment-color-overlay.png", "assignment color overlay", 1440, 1200));
+      screenshots.push(await captureCase(cdp, "unassigned-room-highlight.png", "unassigned room highlight", 1440, 1200));
+      screenshots.push(await captureCase(cdp, "warning-room-outline.png", "warning room outline", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

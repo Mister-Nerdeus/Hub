@@ -25,6 +25,10 @@ export function RoomShape({
       className={selectedClassName("layout-editor-stage__room", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       data-room-type={viewModel.roomType}
+      data-assignment-state={viewModel.assignmentLabel ?? "none"}
+      data-burden-level={viewModel.burdenLevel ?? "none"}
+      data-warning-state={viewModel.warningState ?? "none"}
+      data-unassigned-occupied={viewModel.unassignedOccupied ? "true" : "false"}
       data-resize-handles={isSelected ? "display-only" : undefined}
       role="img"
       aria-label={viewModel.ariaLabel}
@@ -39,6 +43,7 @@ export function RoomShape({
         y={viewModel.yPixels}
         width={viewModel.widthPixels}
         height={viewModel.heightPixels}
+        style={viewModel.assignmentColor == null ? undefined : { fill: viewModel.assignmentColor }}
       />
       <text x={viewModel.labelX} y={viewModel.labelY}>{viewModel.roomNumber}</text>
     </g>

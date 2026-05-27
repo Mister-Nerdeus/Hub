@@ -80,6 +80,7 @@ import {
 } from "./roomResizeHandlesViewModel";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
+import { createSyntheticLayoutAssignmentOverlay } from "./layoutAssignmentOverlayViewModel";
 import { createRoomMoveSnapAccumulator } from "./roomDragMove";
 import {
   accumulateRoomDragDelta,
@@ -235,6 +236,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const providerPharmacyZoneItems = zoneItems.filter(
     (item) => item.objectId === "zone-provider-pharmacy"
   );
+  const assignmentOverlay = createSyntheticLayoutAssignmentOverlay(stageState.editableLayout);
   const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
     renderItems,
     selectedObjectType: stageState.selectedObjectType,
@@ -701,7 +703,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               {roomItems.map((item) => (
                 <RoomShape
                   key={item.hitTargetKey}
-                  viewModel={buildRoomShapeViewModel(item)}
+                  viewModel={buildRoomShapeViewModel(item, {
+                    mode: editorMode,
+                    assignment: assignmentOverlay.roomsById[item.objectId] ?? null
+                  })}
                   isSelected={isLayoutObjectSelected({
                     objectType: item.objectType,
                     objectId: item.objectId,
@@ -756,6 +761,23 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
           </svg>
         </div>
         <div className="layout-editor-stage__side-panels">
+          {editorMode === "assignment" || editorMode === "presentation" ? (
+            <aside className="layout-assignment-legend" aria-label="Assignment color legend">
+              <h3>Assignment Colors</h3>
+              <ul>
+                {assignmentOverlay.legend.map((item) => (
+                  <li key={item.label}>
+                    <span style={{ backgroundColor: item.color }} />
+                    {item.label}
+                  </li>
+                ))}
+                <li>
+                  <span className="layout-assignment-legend__unassigned" />
+                  Unassigned occupied
+                </li>
+              </ul>
+            </aside>
+          ) : null}
           <LayoutInspectorPanel
             viewModel={inspectorViewModel}
             roomDimensionDraft={roomDimensionDraft}

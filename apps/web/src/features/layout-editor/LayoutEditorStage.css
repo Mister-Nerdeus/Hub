@@ -219,6 +219,21 @@
   stroke-width: 1.5;
 }
 
+.layout-editor-stage--assignment .layout-editor-stage__room[data-assignment-state]:not([data-assignment-state="none"]) rect,
+.layout-editor-stage--presentation .layout-editor-stage__room[data-assignment-state]:not([data-assignment-state="none"]) rect {
+  fill-opacity: 0.8;
+}
+
+.layout-editor-stage__room[data-unassigned-occupied="true"] rect {
+  fill: #ffe1a8;
+  stroke-dasharray: 6 4;
+}
+
+.layout-editor-stage__room[data-warning-state="warning"] rect {
+  stroke: #b42318;
+  stroke-width: 3;
+}
+
 .layout-editor-stage__room text {
   dominant-baseline: middle;
   fill: #111827;
@@ -557,6 +572,51 @@
   font-size: 0.72rem;
   font-weight: 900;
   padding: 4px 8px;
+}
+
+.layout-assignment-legend {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.layout-assignment-legend h3 {
+  color: #111827;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.layout-assignment-legend ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layout-assignment-legend li {
+  align-items: center;
+  color: #243447;
+  display: flex;
+  font-size: 0.82rem;
+  font-weight: 900;
+  gap: 8px;
+}
+
+.layout-assignment-legend span {
+  border: 1px solid #243447;
+  border-radius: 999px;
+  display: inline-block;
+  height: 14px;
+  width: 24px;
+}
+
+.layout-assignment-legend__unassigned {
+  background: #ffe1a8;
+  border-style: dashed !important;
 }
 
 @media (max-width: 760px) {

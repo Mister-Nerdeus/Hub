@@ -300,6 +300,7 @@ function commandsForIssue(issueNumber) {
     "393": ["node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 393 --port 4193 --debug-port 9393"],
     "394": [
       "node scripts/check-layout-assignment-overlay.mjs --issue 394",
+      "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 394 --port 4194 --debug-port 9394",
       "node scripts/check-no-phi-fields.mjs"
     ],
     "395": ["node scripts/check-floorplan-presentation-rendering.mjs --issue 395"],

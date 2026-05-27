@@ -57,6 +57,16 @@ export type ManualAssignmentColorLegendItem = {
   color: string;
 };
 
+export function createManualAssignmentColorLegend(
+  nurses: ManualAssignmentState["nurses"]
+): ManualAssignmentColorLegendItem[] {
+  return nurses.map((nurse) => ({
+    nurseId: nurse.nurseId,
+    displayLabel: nurse.displayLabel,
+    color: nurse.color
+  }));
+}
+
 export function createManualAssignmentWorkspaceViewModel(
   state: ManualAssignmentState
 ): ManualAssignmentWorkspaceViewModel {
@@ -105,11 +115,7 @@ export function createManualAssignmentWorkspaceViewModel(
       roomSpread: walkingByNurse[nurse.nurseId]?.roomToRoomSpread ?? 0,
       walkingBurdenUnits: walkingByNurse[nurse.nurseId]?.estimatedWalkingBurdenUnits ?? 0
     })),
-    colorLegend: state.nurses.map((nurse) => ({
-      nurseId: nurse.nurseId,
-      displayLabel: nurse.displayLabel,
-      color: nurse.color
-    })),
+    colorLegend: createManualAssignmentColorLegend(state.nurses),
     assignedRoomCount: selectManualAssignments(state).length,
     unassignedOccupiedRoomCount: unassignedOccupiedRoomIds.size
   };

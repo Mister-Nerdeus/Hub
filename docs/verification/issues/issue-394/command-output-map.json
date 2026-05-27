@@ -1,0 +1,53 @@
+{
+  "issue": "394",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-assignment-overlay.mjs --issue 394",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/layout-assignment-overlay-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 394 --port 4194 --debug-port 9394",
+      "outputs": [
+        "docs/verification/issues/issue-394/screenshot-manifest-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-ux.mjs --stage assignment-overlay --allow-partial --issue 394",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/floorplan-editor-ux-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 394",
+      "outputs": [
+        "docs/verification/issues/issue-394/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}
