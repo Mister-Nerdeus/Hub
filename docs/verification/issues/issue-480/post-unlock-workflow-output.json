@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "480",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "unlock sets canonical section",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "floorplan route is canonical named",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "Plan 1 active by default",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "demo guide is inside details",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "operator workflow appears before demoted guide in source",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "seed pack is inside evidence details",
+      "passed": true,
+      "detail": "Plan1DemoGuide.tsx"
+    },
+    {
+      "name": "scenario seed pack panel exists",
+      "passed": true,
+      "detail": "ScenarioSeedPackPanel.tsx"
+    },
+    {
+      "name": "button label Review Floorplan",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Edit Working Copy",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Manual Assignment",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Scenario Comparison",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "no browser default only action copy",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "unlocked visual assertions exist",
+      "passed": true,
+      "detail": "docs/verification/post-unlock-workflow-dom-assertions.json"
+    },
+    {
+      "name": "canonical workflow first",
+      "passed": true,
+      "detail": {
+        "issue": "480",
+        "renderedAppProof": true,
+        "canonicalWorkflowVisible": true,
+        "canonicalFloorplanHeadingVisible": true,
+        "plan1OnlyInMainWorkflow": true,
+        "demoGuideSecondary": true,
+        "seedPackSecondary": true,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false
+      }
+    },
+    {
+      "name": "demo guide secondary",
+      "passed": true,
+      "detail": {
+        "issue": "480",
+        "renderedAppProof": true,
+        "canonicalWorkflowVisible": true,
+        "canonicalFloorplanHeadingVisible": true,
+        "plan1OnlyInMainWorkflow": true,
+        "demoGuideSecondary": true,
+        "seedPackSecondary": true,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false
+      }
+    },
+    {
+      "name": "no optimizer output",
+      "passed": true,
+      "detail": {
+        "issue": "480",
+        "renderedAppProof": true,
+        "canonicalWorkflowVisible": true,
+        "canonicalFloorplanHeadingVisible": true,
+        "plan1OnlyInMainWorkflow": true,
+        "demoGuideSecondary": true,
+        "seedPackSecondary": true,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false
+      }
+    }
+  ]
+}

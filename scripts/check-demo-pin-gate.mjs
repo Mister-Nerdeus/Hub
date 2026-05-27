@@ -61,7 +61,7 @@ function checkPinUi() {
   const app = readText("apps/web/src/App.tsx");
   add("DemoPinGate component exists", gate.includes("demo-pin-gate-title"), "DemoPinGate.tsx");
   add("PIN input exists", gate.includes("type=\"password\"") && gate.includes("inputMode=\"numeric\""), "DemoPinGate.tsx");
-  add("DemoPinGate mounted in app", app.includes("<DemoPinGate"), "App.tsx");
+  add("DemoPinGate mounted through PIN-first entry screen", app.includes("<DemoPinEntryScreen"), "App.tsx");
   manifest.demoPinUiStatus = checks.at(-3)?.passed && checks.at(-2)?.passed && checks.at(-1)?.passed ? "passed" : "missing";
   manifest.pinGateVisible = true;
   writeJson(`${issueDir}/pin-ui-render-output.json`, { status: manifest.demoPinUiStatus, visible: true });

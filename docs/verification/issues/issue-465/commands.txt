@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/capture-pin-first-entry-visual-proof.mjs --issue 465
+node scripts/check-pin-first-entry-gate.mjs --stage visual-proof --allow-partial --issue 465
+node scripts/check-no-phi-fields.mjs

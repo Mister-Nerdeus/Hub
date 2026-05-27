@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "stage": "pin-landing-ux",
+  "issue": "464",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "standalone main element",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "product name visible",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "demo-only disclaimer visible",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "no production auth claim",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "accessible status and label",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
+    }
+  ]
+}

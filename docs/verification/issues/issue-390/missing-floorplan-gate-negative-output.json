@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/floorplan-editor-ux/u",
+      "actualError": "missing canonical gate: floorplan-editor-ux"
+    },
+    {
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/floorplan-operational-map-style/u",
+      "actualError": "missing canonical gate: floorplan-operational-map-style"
+    },
+    {
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/floorplan-presentation-rendering/u",
+      "actualError": "missing canonical gate: floorplan-presentation-rendering"
+    },
+    {
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/door-authoring-tools/u",
+      "actualError": "missing canonical gate: door-authoring-tools"
+    },
+    {
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/layout-assignment-overlay/u",
+      "actualError": "missing canonical gate: layout-assignment-overlay"
+    }
+  ]
+}

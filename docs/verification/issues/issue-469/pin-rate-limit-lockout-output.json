@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "countdowns",
+  "issue": "469",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "cooldown countdown copy exists",
+      "passed": true,
+      "detail": "demoPinViewModel.ts"
+    },
+    {
+      "name": "lockout countdown copy exists",
+      "passed": true,
+      "detail": "demoPinViewModel.ts"
+    },
+    {
+      "name": "countdown is visible in status",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
+    }
+  ]
+}

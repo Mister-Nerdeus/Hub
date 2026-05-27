@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "stage": "hide-shell-before-unlock",
+  "issue": "462",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "locked screen hides Floorplans",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Editor",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Manual Assignment",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Review / Reports",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Advanced",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Future Tools",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    }
+  ]
+}

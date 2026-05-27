@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
@@ -13,7 +13,6 @@ import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplan
 import { FloorplanLandingSummary } from "./features/floorplans/FloorplanLandingSummary";
 import { CanonicalFloorplanHeader } from "./features/floorplans/CanonicalFloorplanHeader";
 import { createCanonicalFloorplanHeaderViewModel } from "./features/floorplans/canonicalFloorplanHeaderViewModel";
-import { PlanBuilderLanding } from "./features/floorplans/PlanBuilderLanding";
 import {
   createSavedFloorplanStore,
   type SavedFloorplanRecord,
@@ -35,14 +34,16 @@ import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
-import { DemoPinGate } from "./features/demo-pin/DemoPinGate";
+import { DemoPinEntryScreen } from "./features/demo-pin/DemoPinEntryScreen";
 import {
   clearDemoPinUnlock,
-  initialDemoPinUiState,
+  createInitialDemoPinUiState,
   submitDemoPin,
+  tickDemoPinState,
   updateDemoPinInput
 } from "./features/demo-pin/demoPinState";
 import { createDemoPinGateViewModel } from "./features/demo-pin/demoPinViewModel";
+import { useDemoPinTimer } from "./features/demo-pin/useDemoPinTimer";
 import { LegacyFloorplanFixturesPanel } from "./features/floorplans/LegacyFloorplanFixturesPanel";
 import { createLegacyFloorplanFixturesPanelViewModel } from "./features/floorplans/legacyFloorplanFixturesViewModel";
 
@@ -55,7 +56,9 @@ type AppProps = {
 export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
   const [activeSection, setActiveSection] = useState(() => readInitialSection(initialSection));
-  const [demoPinState, setDemoPinState] = useState(initialDemoPinUiState);
+  const [demoPinState, setDemoPinState] = useState(() =>
+    createInitialDemoPinUiState(getSessionStorage(), Date.now())
+  );
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
   if (savedFloorplanStoreRef.current == null) {
@@ -136,36 +139,57 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     document.getElementById(targetId)?.scrollIntoView();
   }, []);
 
+  const tickDemoPin = useCallback(() => {
+    setDemoPinState((state) => tickDemoPinState(state));
+  }, []);
+  useDemoPinTimer(!demoPinState.unlocked, tickDemoPin);
+
+  function submitDemoPinEntry() {
+    setDemoPinState((state) => {
+      const nextState = submitDemoPin(state, getSessionStorage());
+      if (nextState.unlocked) {
+        setActiveSection(DEFAULT_APP_SECTION_ID);
+      }
+      return nextState;
+    });
+  }
+
+  function clearDemoPinEntry() {
+    setDemoPinState(clearDemoPinUnlock(getSessionStorage()));
+  }
+
+  function relockDemo() {
+    setDemoPinState(clearDemoPinUnlock(getSessionStorage()));
+    setActiveSection(DEFAULT_APP_SECTION_ID);
+  }
+
+  if (!demoPinState.unlocked) {
+    return (
+      <DemoPinEntryScreen
+        viewModel={demoPinGateViewModel}
+        value={demoPinState.input}
+        onChange={(value) => setDemoPinState((state) => updateDemoPinInput(state, value))}
+        onUnlock={submitDemoPinEntry}
+        onClear={clearDemoPinEntry}
+      />
+    );
+  }
+
   return (
     <AppShell
       activeSection={activeSection}
       sections={APP_SECTIONS}
       onSectionChange={(section) => setActiveSection(section)}
+      onRelockDemo={relockDemo}
     >
-      {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
-        <>
-          <DemoPinGate
-            viewModel={demoPinGateViewModel}
-            value={demoPinState.input}
-            onChange={(value) => setDemoPinState((state) => updateDemoPinInput(state, value))}
-            onUnlock={() => setDemoPinState((state) => submitDemoPin(state))}
-            onClear={() => setDemoPinState(clearDemoPinUnlock())}
-          />
-          <Plan1DemoGuide
-            viewModel={demoWorkflowViewModel}
-            onOpenPlan1={openPlan1Demo}
-            onNavigate={navigateDemo}
-          />
-        </>
-      ) : null}
-
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
-          <h2 id="floorplans-title">Floorplans</h2>
+          <h2 id="floorplans-title">Canonical ER Pod Floorplan</h2>
           <FloorplanLandingSummary
             activeFloorplan={activeFloorplanSummaryViewModel}
             onOpenEditor={() => setActiveSection("editor")}
             onOpenManualAssignment={() => setActiveSection("manual-assignment")}
+            onOpenScenarioComparison={() => setActiveSection("scenarios")}
             onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
             demoPinUnlocked={demoPinState.unlocked}
           />
@@ -188,9 +212,19 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           <details className="floorplan-demo-proof">
             <summary>Advanced / Evidence</summary>
             <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
-            <PlanBuilderLanding onOpenDefaultPlan={openDefault} />
           </details>
         </section>
+      ) : null}
+
+      {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
+        <details className="plan-1-demo-guide-demoted">
+          <summary>Plan 1 Demo Guide</summary>
+          <Plan1DemoGuide
+            viewModel={demoWorkflowViewModel}
+            onOpenPlan1={openPlan1Demo}
+            onNavigate={navigateDemo}
+          />
+        </details>
       ) : null}
 
       {activeSection === "editor" ? (
@@ -265,4 +299,8 @@ function readInitialSection(fallback: AppSectionId): AppSectionId {
   }
   const candidate = new URLSearchParams(window.location.search).get("section");
   return APP_SECTIONS.some((section) => section.id === candidate) ? candidate as AppSectionId : fallback;
+}
+
+function getSessionStorage(): Storage | null {
+  return typeof window === "undefined" ? null : window.sessionStorage;
 }

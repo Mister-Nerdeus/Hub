@@ -1,0 +1,83 @@
+{
+  "issue": "490",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "npm run check:demo-pin-gate",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/demo-pin-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-pin-first-entry-gate.mjs --stage final --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/pin-first-entry-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-pin-rate-limit-lockout.mjs --stage final --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/pin-rate-limit-lockout.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-post-unlock-workflow.mjs --stage final --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/post-unlock-workflow.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-preflight.mjs --stage final --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/scenario-preflight.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-gate-registry.mjs --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/canonical-gates.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 490",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-490/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-one-floorplan-main-ui-global.mjs --stage developer-evidence-cleanup --allow-partial --issue 482
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 482

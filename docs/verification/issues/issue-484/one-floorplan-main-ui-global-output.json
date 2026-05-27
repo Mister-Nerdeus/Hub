@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "active-floorplan-guard",
+  "issue": "484",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "legacy default cannot open as active",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "saved copy must come from canonical floorplan",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    }
+  ]
+}

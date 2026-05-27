@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "stage": "session-storage",
+  "issue": "472",
+  "checks": [
+    {
+      "name": "session storage helper exists",
+      "passed": true,
+      "detail": "demoPinSessionStorage.ts"
+    },
+    {
+      "name": "stores unlocked boolean and timestamp",
+      "passed": true,
+      "detail": "demoPinSessionStorage.ts"
+    },
+    {
+      "name": "does not store PIN value",
+      "passed": true,
+      "detail": "demoPinSessionStorage.ts"
+    }
+  ]
+}

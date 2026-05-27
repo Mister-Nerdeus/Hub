@@ -1,0 +1,29 @@
+{
+  "issue": "479",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-479/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-479/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-post-unlock-workflow.mjs --stage workflow-button-cleanup --allow-partial --issue 479",
+      "outputs": [
+        "docs/verification/issues/issue-479/test-output/post-unlock-workflow.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-479/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

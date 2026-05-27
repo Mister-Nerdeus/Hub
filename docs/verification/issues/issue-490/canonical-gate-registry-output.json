@@ -1,0 +1,110 @@
+{
+  "status": "passed",
+  "issue": "490",
+  "registryPath": "docs/verification/canonical-gate-registry.json",
+  "gateCount": 36,
+  "requiredGateIds": [
+    "no-phi",
+    "dependency-specs",
+    "docs-contracts",
+    "simulation-contract-parity",
+    "product-naming",
+    "product-identity",
+    "source-plan-correction",
+    "corrected-plan-review",
+    "corrected-plan-route-repair",
+    "manual-visual-review",
+    "plan-builder-ux-review-flow",
+    "human-review-intake",
+    "human-review-governance-hardening",
+    "operational-demo-ux",
+    "operational-demo-repair",
+    "real-browser-proof",
+    "operational-demo-negative-tests",
+    "private-source-artifacts",
+    "default-plans-2-5-unchanged",
+    "canonical-gates",
+    "manual-assignment-foundation-preflight",
+    "manual-assignment-contracts",
+    "manual-assignment-ui",
+    "manual-assignment-burden",
+    "floorplan-editor-ux",
+    "floorplan-operational-map-style",
+    "floorplan-presentation-rendering",
+    "door-authoring-tools",
+    "layout-assignment-overlay",
+    "room-type-semantics",
+    "demo-pin-gate",
+    "pin-first-entry-gate",
+    "pin-rate-limit-lockout",
+    "post-unlock-workflow",
+    "one-floorplan-main-ui-global",
+    "scenario-preflight"
+  ],
+  "missingRepairNegative": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "/operational-demo-repair/u",
+    "actualError": "missing canonical gate: operational-demo-repair"
+  },
+  "missingCanonicalGateNegative": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "/canonical-gates/u",
+    "actualError": "missing canonical gate: canonical-gates"
+  },
+  "missingRoomTypeGateNegative": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "/room-type-semantics/u",
+    "actualError": "missing canonical gate: room-type-semantics"
+  },
+  "missingRoomTypePackageScriptNegative": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "/check:room-type-semantics/u",
+    "actualError": "package.json missing script check:room-type-semantics for room-type-semantics"
+  },
+  "missingPackageScriptNegative": {
+    "status": "passed",
+    "rejected": true,
+    "expectedReason": "/check:operational-demo-repair/u",
+    "actualError": "package.json missing script check:operational-demo-repair for operational-demo-repair"
+  },
+  "missingFloorplanGateNegative": {
+    "status": "passed",
+    "checks": [
+      {
+        "status": "passed",
+        "rejected": true,
+        "expectedReason": "/floorplan-editor-ux/u",
+        "actualError": "missing canonical gate: floorplan-editor-ux"
+      },
+      {
+        "status": "passed",
+        "rejected": true,
+        "expectedReason": "/floorplan-operational-map-style/u",
+        "actualError": "missing canonical gate: floorplan-operational-map-style"
+      },
+      {
+        "status": "passed",
+        "rejected": true,
+        "expectedReason": "/floorplan-presentation-rendering/u",
+        "actualError": "missing canonical gate: floorplan-presentation-rendering"
+      },
+      {
+        "status": "passed",
+        "rejected": true,
+        "expectedReason": "/door-authoring-tools/u",
+        "actualError": "missing canonical gate: door-authoring-tools"
+      },
+      {
+        "status": "passed",
+        "rejected": true,
+        "expectedReason": "/layout-assignment-overlay/u",
+        "actualError": "missing canonical gate: layout-assignment-overlay"
+      }
+    ]
+  },
+  "failures": []
+}

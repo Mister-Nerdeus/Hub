@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "stage": "workflow-button-cleanup",
+  "issue": "479",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "button label Review Floorplan",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Edit Working Copy",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Manual Assignment",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "button label Scenario Comparison",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "no browser default only action copy",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    }
+  ]
+}

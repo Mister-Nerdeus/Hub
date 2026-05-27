@@ -1,0 +1,29 @@
+{
+  "issue": "476",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-476/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-476/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-post-unlock-workflow.mjs --stage unlock-routing --allow-partial --issue 476",
+      "outputs": [
+        "docs/verification/issues/issue-476/test-output/post-unlock-workflow.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-476/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

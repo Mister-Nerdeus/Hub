@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-pin-first-entry-gate.mjs --stage pre-app-gate --allow-partial --issue 461
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 461

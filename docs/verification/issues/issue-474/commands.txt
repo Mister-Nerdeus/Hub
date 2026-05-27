@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-pin-session-policy.mjs --stage reload-behavior --issue 474
+node scripts/check-no-phi-fields.mjs

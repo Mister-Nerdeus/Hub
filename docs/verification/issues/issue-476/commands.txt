@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-post-unlock-workflow.mjs --stage unlock-routing --allow-partial --issue 476
+node scripts/check-no-phi-fields.mjs

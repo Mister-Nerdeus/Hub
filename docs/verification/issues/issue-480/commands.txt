@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/capture-post-unlock-workflow-proof.mjs --issue 480
+node scripts/check-post-unlock-workflow.mjs --stage final --issue 480
+node scripts/check-no-phi-fields.mjs

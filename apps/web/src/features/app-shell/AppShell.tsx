@@ -4,6 +4,7 @@ import {
   type AppSection,
   type AppSectionId
 } from "./appNavigation";
+import { DemoRelockButton } from "../demo-pin/DemoRelockButton";
 
 import "./appShell.css";
 
@@ -11,6 +12,7 @@ type AppShellProps = {
   activeSection: AppSectionId;
   sections: readonly AppSection[];
   onSectionChange: (sectionId: AppSectionId) => void;
+  onRelockDemo?: () => void;
   children: ReactNode;
 };
 
@@ -18,6 +20,7 @@ export function AppShell({
   activeSection,
   sections,
   onSectionChange,
+  onRelockDemo,
   children
 }: AppShellProps) {
   const primarySections = sections.filter((section) => section.group === "primary");
@@ -38,6 +41,7 @@ export function AppShell({
           <span>Manual review required</span>
           <span>Promotion blocked</span>
           <span>Synthetic operational modeling only</span>
+          {onRelockDemo == null ? null : <DemoRelockButton onRelock={onRelockDemo} />}
         </div>
       </section>
 

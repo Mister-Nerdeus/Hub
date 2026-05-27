@@ -1,0 +1,186 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "490",
+  "allowPartial": false,
+  "goNoGoStatus": "GO for One-Floorplan Scenario Seed + Ratio Comparison Foundation.",
+  "checks": [
+    {
+      "name": "scenario-ratio manifest remains 451-460",
+      "passed": true,
+      "detail": "451-460"
+    },
+    {
+      "name": "scenario-ratio lastUpdatedIssue repaired",
+      "passed": true,
+      "detail": "486"
+    },
+    {
+      "name": "scenario status contract only",
+      "passed": true,
+      "detail": {
+        "manifestVersion": "1.0.0",
+        "batch": "451-460",
+        "lastUpdatedIssue": "486",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "floorplanModelStatus": "single_canonical_floorplan",
+        "scenarioSeedContractStatus": "passed",
+        "nurseRatioContractStatus": "passed",
+        "assignmentTemplateStatus": "passed",
+        "erActivityPresetStatus": "passed",
+        "patientLoadAcuityPatternStatus": "passed",
+        "outcomeMetricPlaceholderStatus": "passed",
+        "comparisonViewModelStatus": "passed",
+        "comparisonUiShellStatus": "passed",
+        "scenarioBoundaryGateStatus": "passed",
+        "fourToOneScenarioStatus": "contract_only",
+        "threeToOneScenarioStatus": "contract_only",
+        "fullShiftSimulationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "manualApprovalStatus": "missing",
+        "promotionStatus": "blocked",
+        "privateSourceBoundaryStatus": "passed",
+        "noPhiStatus": "passed",
+        "defaultFixtureMutationStatus": "unchanged",
+        "goNoGoStatus": "pending/current under 451-460; scenario execution remains contract-only."
+      }
+    },
+    {
+      "name": "check:demo-pin-gate script exists",
+      "passed": true,
+      "detail": "package.json"
+    },
+    {
+      "name": "demo-pin-gate in registry",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes room-type-semantics",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes demo-pin-gate",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes pin-first-entry-gate",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes pin-rate-limit-lockout",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes post-unlock-workflow",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes one-floorplan-main-ui-global",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes scenario-preflight",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "scenario work remains contract-only",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scannedFiles": [
+          "apps/web/src/features/scenarios/scenarioComparisonViewModel.ts",
+          "apps/web/src/features/scenarios/scenarioRatioComparisonCopy.ts",
+          "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
+          "apps/web/src/features/scenarios/ScenarioSeedPackPanel.tsx",
+          "packages/shared/src/scenarios/acuityPatternContract.ts",
+          "packages/shared/src/scenarios/assignmentScenarioTemplateContract.ts",
+          "packages/shared/src/scenarios/assignmentScenarioTemplateFixtures.ts",
+          "packages/shared/src/scenarios/assignmentScenarioTemplateValidation.ts",
+          "packages/shared/src/scenarios/erActivityPresetContract.ts",
+          "packages/shared/src/scenarios/erActivityPresetFixtures.ts",
+          "packages/shared/src/scenarios/erActivityPresetValidation.ts",
+          "packages/shared/src/scenarios/nurseRatioContract.ts",
+          "packages/shared/src/scenarios/nurseRatioFixtures.ts",
+          "packages/shared/src/scenarios/nurseRatioValidation.ts",
+          "packages/shared/src/scenarios/outcomeMetricPlaceholderContract.ts",
+          "packages/shared/src/scenarios/outcomeMetricPlaceholderFixtures.ts",
+          "packages/shared/src/scenarios/outcomeMetricPlaceholderValidation.ts",
+          "packages/shared/src/scenarios/patientLoadAcuityFixtures.ts",
+          "packages/shared/src/scenarios/patientLoadAcuityValidation.ts",
+          "packages/shared/src/scenarios/patientLoadPatternContract.ts",
+          "packages/shared/src/scenarios/roomLoadValidation.ts",
+          "packages/shared/src/scenarios/scenarioSeedContract.ts",
+          "packages/shared/src/scenarios/scenarioSeedFixtures.ts",
+          "packages/shared/src/scenarios/scenarioSeedValidation.ts",
+          "packages/shared/src/scenarios/scenarioValidationUtils.ts"
+        ],
+        "findings": []
+      }
+    },
+    {
+      "name": "pinFirstEntryGateStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "preUnlockNavSuppressionStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "preUnlockContentSuppressionStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "pinCooldownStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "pinLockoutStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "postUnlockWorkflowStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "oneFloorplanGlobalGateStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "scenarioContractOnlyFreezeStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "manual approval remains missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion remains blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    }
+  ]
+}

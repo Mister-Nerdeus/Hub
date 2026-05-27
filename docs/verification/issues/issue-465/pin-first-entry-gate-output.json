@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "stage": "visual-proof",
+  "issue": "465",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "visual DOM assertions exist",
+      "passed": true,
+      "detail": "docs/verification/pin-first-entry-dom-assertions.json"
+    },
+    {
+      "name": "locked screenshot PIN only",
+      "passed": true,
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false
+      }
+    },
+    {
+      "name": "locked shell hidden",
+      "passed": true,
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false
+      }
+    },
+    {
+      "name": "locked demo guide hidden",
+      "passed": true,
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false
+      }
+    },
+    {
+      "name": "unlocked shell visible",
+      "passed": true,
+      "detail": {
+        "appShellVisible": true,
+        "canonicalPlan1WorkflowVisible": true,
+        "navigationVisible": true,
+        "demoGuideDemoted": true
+      }
+    }
+  ]
+}

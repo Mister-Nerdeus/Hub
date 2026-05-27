@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "stage": "verify-local-gates",
+  "issue": "488",
+  "allowPartial": true,
+  "goNoGoStatus": "not_ready",
+  "checks": [
+    {
+      "name": "verify-local registry includes room-type-semantics",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes demo-pin-gate",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes pin-first-entry-gate",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes pin-rate-limit-lockout",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes post-unlock-workflow",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes one-floorplan-main-ui-global",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    },
+    {
+      "name": "verify-local registry includes scenario-preflight",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    }
+  ]
+}

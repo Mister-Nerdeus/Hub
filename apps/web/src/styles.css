@@ -468,7 +468,8 @@ h1 {
   margin-top: 6px;
 }
 
-.floorplan-landing-summary__actions {
+.floorplan-landing-summary__actions,
+.primary-workflow-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -476,6 +477,7 @@ h1 {
 }
 
 .floorplan-landing-summary__actions button,
+.primary-workflow-actions button,
 .floorplan-demo-proof summary {
   background: #ffffff;
   border: 1px solid #9aaabc;
@@ -487,7 +489,8 @@ h1 {
   padding: 8px 12px;
 }
 
-.floorplan-landing-summary__actions button:disabled {
+.floorplan-landing-summary__actions button:disabled,
+.primary-workflow-actions button:disabled {
   color: #8a96a3;
   cursor: not-allowed;
 }
@@ -2320,6 +2323,49 @@ h1 {
   vertical-align: top;
 }
 
+.demo-pin-entry-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  background: #eef4f7;
+}
+
+.demo-pin-entry-screen__panel {
+  width: min(720px, 100%);
+  display: grid;
+  gap: 16px;
+}
+
+.demo-pin-entry-screen__panel h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+}
+
+.demo-pin-entry-screen__disclaimer {
+  margin: 0;
+  max-width: 60ch;
+  color: #405261;
+}
+
+.demo-pin-entry-screen .demo-pin-gate {
+  margin: 0;
+  background: #ffffff;
+}
+
+.demo-relock-button {
+  border: 1px solid #8aa0b2;
+  background: #ffffff;
+  color: #243443;
+}
+
+.plan-1-demo-guide-demoted {
+  margin-bottom: 16px;
+  border: 1px solid #d4dde5;
+  background: #f8fafc;
+  padding: 12px;
+}
+
 .demo-pin-gate {
   display: grid;
   grid-template-columns: minmax(220px, 1.2fr) minmax(220px, 1fr);
@@ -2353,8 +2399,14 @@ h1 {
   padding: 8px;
 }
 
+.demo-pin-gate__form input:disabled {
+  background: #eef2f5;
+  color: #556575;
+}
+
 .demo-pin-gate__status {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin: 8px 0 0;
   font-weight: 600;

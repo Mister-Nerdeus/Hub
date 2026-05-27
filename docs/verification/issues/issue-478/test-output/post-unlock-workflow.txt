@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "seed-pack-demotion",
+  "issue": "478",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "seed pack is inside evidence details",
+      "passed": true,
+      "detail": "Plan1DemoGuide.tsx"
+    },
+    {
+      "name": "scenario seed pack panel exists",
+      "passed": true,
+      "detail": "ScenarioSeedPackPanel.tsx"
+    }
+  ]
+}

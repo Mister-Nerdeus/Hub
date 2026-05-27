@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "stage": "three-strike-lockout",
+  "issue": "468",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "three wrong attempts lock for 180 seconds",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 3,
+        "lastAttemptAtMs": 31002,
+        "cooldownUntilMs": null,
+        "lockoutUntilMs": 211002
+      }
+    },
+    {
+      "name": "attempt during lockout rejected",
+      "passed": true,
+      "detail": {
+        "status": "lockout_blocked",
+        "unlocked": false,
+        "message": "Demo PIN entry is locked. Try again in 1 seconds.",
+        "state": {
+          "wrongAttemptCount": 3,
+          "lastAttemptAtMs": 31002,
+          "cooldownUntilMs": null,
+          "lockoutUntilMs": 211002
+        },
+        "availability": {
+          "canSubmit": false,
+          "reason": "lockout",
+          "cooldownRemainingMs": 0,
+          "lockoutRemainingMs": 1,
+          "normalizedState": {
+            "wrongAttemptCount": 3,
+            "lastAttemptAtMs": 31002,
+            "cooldownUntilMs": null,
+            "lockoutUntilMs": 211002
+          }
+        }
+      }
+    },
+    {
+      "name": "lockout expiration resets wrong count",
+      "passed": true,
+      "detail": {
+        "canSubmit": true,
+        "reason": null,
+        "cooldownRemainingMs": 0,
+        "lockoutRemainingMs": 0,
+        "normalizedState": {
+          "wrongAttemptCount": 0,
+          "lastAttemptAtMs": 31002,
+          "cooldownUntilMs": null,
+          "lockoutUntilMs": null
+        }
+      }
+    }
+  ]
+}

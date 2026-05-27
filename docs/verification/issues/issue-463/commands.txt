@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-pin-first-entry-gate.mjs --stage hide-demo-content-before-unlock --allow-partial --issue 463
+node scripts/check-no-phi-fields.mjs

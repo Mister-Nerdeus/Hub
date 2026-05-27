@@ -34,6 +34,7 @@ import { OperationalOutcomeDashboardProof } from "../outcomes/OperationalOutcome
 import { createOperationalOutcomeDashboardViewModel } from "../outcomes/operationalOutcomeDashboardViewModel";
 import { LegacyFloorplanReferenceList } from "../floorplans/LegacyFloorplanReferenceList";
 import { createFloorplanLibraryViewModel } from "../floorplans/floorplanLibraryViewModel";
+import { PlanBuilderLanding } from "../floorplans/PlanBuilderLanding";
 import { RoutePreviewProof } from "../route-preview/RoutePreviewProof";
 import { createRoutePreviewProofViewModel } from "../route-preview/routePreviewProofViewModel";
 import { OperationalReportsProof } from "../reports/OperationalReportsProof";
@@ -115,6 +116,7 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
           "Legacy floorplan references",
           <LegacyFloorplanReferenceList floorplans={floorplanLibraryViewModel.legacyDefaultFloorplans} />
         )}
+        {evidenceSection("Plan builder landing", <PlanBuilderLanding />)}
         {evidenceSection("Manual assignment", <ManualAssignmentProof viewModel={manualAssignmentViewModel} />)}
         {evidenceSection("Operational reports", <OperationalReportsProof viewModel={reportProofViewModel} />)}
         {evidenceSection("Operational outcomes", <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />)}

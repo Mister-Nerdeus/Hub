@@ -23,16 +23,17 @@ const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8"
 const appEvidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx"), "utf8");
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
 
-assert228(appSource.includes("<AppShell"), "default app render should include app shell");
+assert228(appSource.includes("<DemoPinEntryScreen"), "default app render should start with the PIN entry screen");
+assert228(appSource.includes("if (!demoPinState.unlocked)"), "app shell should be gated behind PIN unlock");
 assert228(appShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
 assert228(!appShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
-assert228(appSource.includes("Floorplans"), "default mode must expose Floorplans section");
+assert228(appSource.includes("Canonical ER Pod Floorplan"), "unlocked mode must expose canonical floorplan section");
 assert228(appSource.includes("DEVELOPER_EVIDENCE_SECTION_ID"), "developer/evidence mode section should be available in shell navigation");
 assert228(appShellSource.includes("app-nav"), "shell should include navigation container");
 
 assert228(!appSource.includes("Proof-only workflow modules are preserved here only."), "default mode should hide proof-only intro text outside dev mode");
 assert228(!appSource.includes("Plan builder defaults"), "default mode should not embed proof module names");
-assert228(!appSource.includes("Manual assignment"), "default mode should not embed proof module names");
+assert228(!appSource.includes("Manual assignment proof"), "default mode should not embed proof module names");
 
 assert228(appEvidenceSource.includes("Proof-only workflow modules are preserved here only."), "developer/evidence mode should expose proof-only intro");
 assert228(appEvidenceSource.includes("Plan builder defaults"), "developer/evidence mode should expose plan builder form");

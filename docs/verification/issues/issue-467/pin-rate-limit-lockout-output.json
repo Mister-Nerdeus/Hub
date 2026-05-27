@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "stage": "cooldown",
+  "issue": "467",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "wrong attempt creates 15-second cooldown",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 1,
+        "lastAttemptAtMs": 1000,
+        "cooldownUntilMs": 16000,
+        "lockoutUntilMs": null
+      }
+    },
+    {
+      "name": "correct PIN cannot bypass cooldown",
+      "passed": true,
+      "detail": {
+        "status": "cooldown_blocked",
+        "unlocked": false,
+        "message": "Wait 14 seconds before another demo PIN attempt.",
+        "state": {
+          "wrongAttemptCount": 1,
+          "lastAttemptAtMs": 1000,
+          "cooldownUntilMs": 16000,
+          "lockoutUntilMs": null
+        },
+        "availability": {
+          "canSubmit": false,
+          "reason": "cooldown",
+          "cooldownRemainingMs": 14000,
+          "lockoutRemainingMs": 0,
+          "normalizedState": {
+            "wrongAttemptCount": 1,
+            "lastAttemptAtMs": 1000,
+            "cooldownUntilMs": 16000,
+            "lockoutUntilMs": null
+          }
+        }
+      }
+    },
+    {
+      "name": "cooldown expires deterministically",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 1,
+        "lastAttemptAtMs": 1000,
+        "cooldownUntilMs": 16000,
+        "lockoutUntilMs": null
+      }
+    }
+  ]
+}

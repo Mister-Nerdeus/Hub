@@ -141,6 +141,9 @@ export function openSavedFloorplan(
   if (record.readOnly !== false) {
     throw new Error(`Cannot open read-only saved JSON floorplan: ${record.recordId}`);
   }
+  if (record.parentDefaultPlanId !== CANONICAL_FLOORPLAN_ID) {
+    throw new Error(`Cannot open saved copy from non-canonical floorplan: ${record.parentDefaultPlanId}`);
+  }
 
   return {
     activeFloorplan: {

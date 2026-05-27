@@ -1,0 +1,35 @@
+{
+  "issue": "469",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-469/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-469/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-469/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-pin-rate-limit-lockout.mjs --stage countdowns --allow-partial --issue 469",
+      "outputs": [
+        "docs/verification/issues/issue-469/test-output/pin-rate-limit-lockout.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-469/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

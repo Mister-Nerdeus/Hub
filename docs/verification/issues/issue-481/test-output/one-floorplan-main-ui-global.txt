@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "global-main-ui-absence",
+  "issue": "481",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "main library filters canonical defaults only",
+      "passed": true,
+      "detail": "floorplanLibraryViewModel.ts"
+    },
+    {
+      "name": "Plans 2-5 are developer references",
+      "passed": true,
+      "detail": "floorplanLibraryViewModel.ts"
+    }
+  ]
+}

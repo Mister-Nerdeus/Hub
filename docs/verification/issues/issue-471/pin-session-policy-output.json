@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "stage": "session-policy",
+  "issue": "471",
+  "checks": [
+    {
+      "name": "session policy doc exists",
+      "passed": true,
+      "detail": "demo-pin-session-policy.md"
+    },
+    {
+      "name": "policy uses sessionStorage",
+      "passed": true,
+      "detail": "demoPinSessionPolicy.ts"
+    },
+    {
+      "name": "policy forbids PIN/auth/PHI storage",
+      "passed": true,
+      "detail": "demoPinSessionPolicy.ts"
+    }
+  ]
+}

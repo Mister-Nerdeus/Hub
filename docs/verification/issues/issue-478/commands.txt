@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-post-unlock-workflow.mjs --stage seed-pack-demotion --allow-partial --issue 478
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "stage": "hide-demo-content-before-unlock",
+  "issue": "463",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "locked screen hides Plan 1 Demo Guide",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides seed pack",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Scenario Comparison",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides proof report",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "locked screen hides Developer/Evidence",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "stage": "attempt-state",
+  "issue": "466",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "attempt state starts clean",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 0,
+        "lastAttemptAtMs": null,
+        "cooldownUntilMs": null,
+        "lockoutUntilMs": null
+      }
+    },
+    {
+      "name": "state tracks last attempt",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "local demo state only",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    }
+  ]
+}

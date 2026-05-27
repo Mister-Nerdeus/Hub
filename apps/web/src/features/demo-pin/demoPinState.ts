@@ -1,46 +1,125 @@
-import { validateDemoPin, type DemoPinStateId } from "@nerdeus/shared";
+import {
+  createDemoPinAttemptState,
+  getDemoPinAttemptAvailability,
+  secondsRemaining,
+  submitDemoPinAttempt,
+  type DemoPinAttemptState,
+  type DemoPinStateId
+} from "@nerdeus/shared";
+
+import {
+  clearDemoPinSessionUnlock,
+  readDemoPinSessionUnlock,
+  writeDemoPinSessionUnlock
+} from "./demoPinSessionStorage";
 
 export type DemoPinUiState = {
   state: DemoPinStateId;
   input: string;
   message: string;
   unlocked: boolean;
+  attemptState: DemoPinAttemptState;
+  nowMs: number;
 };
+
+const initialNowMs = 0;
 
 export const initialDemoPinUiState: DemoPinUiState = {
   state: "locked",
   input: "",
-  message: "Protected demo actions are locked.",
-  unlocked: false
+  message: "Enter demo PIN 2026 to open the operational workspace.",
+  unlocked: false,
+  attemptState: createDemoPinAttemptState(),
+  nowMs: initialNowMs
 };
+
+export function createInitialDemoPinUiState(
+  storage: Storage | null | undefined,
+  nowMs = Date.now()
+): DemoPinUiState {
+  const sessionUnlock = readDemoPinSessionUnlock(storage);
+  if (sessionUnlock?.unlocked === true) {
+    return {
+      state: "unlocked",
+      input: "",
+      message: "Demo workspace restored for this browser session.",
+      unlocked: true,
+      attemptState: createDemoPinAttemptState(),
+      nowMs
+    };
+  }
+  return {
+    ...initialDemoPinUiState,
+    nowMs
+  };
+}
 
 export function updateDemoPinInput(state: DemoPinUiState, input: string): DemoPinUiState {
   return { ...state, input };
 }
 
-export function submitDemoPin(state: DemoPinUiState): DemoPinUiState {
-  const result = validateDemoPin(state.input);
-  if (result.ok) {
+export function submitDemoPin(
+  state: DemoPinUiState,
+  storage: Storage | null | undefined = undefined,
+  nowMs = Date.now()
+): DemoPinUiState {
+  const result = submitDemoPinAttempt(state.attemptState, state.input, nowMs);
+  if (result.unlocked) {
+    writeDemoPinSessionUnlock(storage, nowMs);
     return {
       state: "unlocked",
       input: "",
-      message: "Demo proceed actions unlocked.",
-      unlocked: true
+      message: result.message,
+      unlocked: true,
+      attemptState: result.state,
+      nowMs
     };
   }
+  const stateId = result.status === "empty_pin" ? "cleared" : "wrong_pin";
   return {
-    state: result.state,
+    state: stateId,
     input: "",
-    message: result.reason === "empty_pin" ? "Enter the demo PIN to proceed." : "Wrong demo PIN.",
-    unlocked: false
+    message: result.message,
+    unlocked: false,
+    attemptState: result.state,
+    nowMs
   };
 }
 
-export function clearDemoPinUnlock(): DemoPinUiState {
+export function clearDemoPinUnlock(
+  storage: Storage | null | undefined = undefined,
+  nowMs = Date.now()
+): DemoPinUiState {
+  clearDemoPinSessionUnlock(storage);
   return {
     state: "cleared",
     input: "",
     message: "Demo proceed unlock cleared.",
-    unlocked: false
+    unlocked: false,
+    attemptState: createDemoPinAttemptState(),
+    nowMs
   };
+}
+
+export function tickDemoPinState(state: DemoPinUiState, nowMs = Date.now()): DemoPinUiState {
+  const availability = getDemoPinAttemptAvailability(state.attemptState, nowMs);
+  return {
+    ...state,
+    attemptState: availability.normalizedState,
+    nowMs,
+    message: state.unlocked ? state.message : messageForAvailability(state.message, availability)
+  };
+}
+
+function messageForAvailability(
+  fallback: string,
+  availability: ReturnType<typeof getDemoPinAttemptAvailability>
+): string {
+  if (availability.reason === "lockout") {
+    return `Demo PIN entry is locked. Try again in ${secondsRemaining(availability.lockoutRemainingMs)} seconds.`;
+  }
+  if (availability.reason === "cooldown") {
+    return `Wait ${secondsRemaining(availability.cooldownRemainingMs)} seconds before another demo PIN attempt.`;
+  }
+  return fallback;
 }

@@ -36,7 +36,13 @@ const requiredGateIds = [
   "floorplan-presentation-rendering",
   "door-authoring-tools",
   "layout-assignment-overlay",
-  "room-type-semantics"
+  "room-type-semantics",
+  "demo-pin-gate",
+  "pin-first-entry-gate",
+  "pin-rate-limit-lockout",
+  "post-unlock-workflow",
+  "one-floorplan-main-ui-global",
+  "scenario-preflight"
 ];
 const newIssue381Scripts = [
   "check:product-identity",
@@ -53,7 +59,13 @@ const newIssue381Scripts = [
   "check:floorplan-presentation-rendering",
   "check:door-authoring-tools",
   "check:layout-assignment-overlay",
-  "check:room-type-semantics"
+  "check:room-type-semantics",
+  "check:demo-pin-gate",
+  "check:pin-first-entry-gate",
+  "check:pin-rate-limit-lockout",
+  "check:post-unlock-workflow",
+  "check:one-floorplan-main-ui-global",
+  "check:scenario-preflight"
 ];
 const sharedBuildRequiredScripts = [
   "check:operational-demo-ux",
@@ -73,7 +85,13 @@ const sharedBuildRequiredScripts = [
   "check:floorplan-editor-ux",
   "check:floorplan-presentation-rendering",
   "check:door-authoring-tools",
-  "check:layout-assignment-overlay"
+  "check:layout-assignment-overlay",
+  "check:demo-pin-gate",
+  "check:pin-first-entry-gate",
+  "check:pin-rate-limit-lockout",
+  "check:post-unlock-workflow",
+  "check:one-floorplan-main-ui-global",
+  "check:scenario-preflight"
 ];
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });

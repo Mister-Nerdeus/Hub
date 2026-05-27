@@ -67,7 +67,10 @@ export function Plan1DemoGuide({
         </button>
       </div>
 
-      <Plan1DemoSeedPanel seedPack={demoSeedPack} />
+      <details className="plan-1-demo-guide__seed-pack" data-seed-pack-placement="developer-evidence">
+        <summary>Developer evidence seed pack</summary>
+        <Plan1DemoSeedPanel seedPack={demoSeedPack} />
+      </details>
     </section>
   );
 

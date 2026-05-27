@@ -183,6 +183,42 @@
       "packageScript": "check:room-type-semantics",
       "command": "npm run check:room-type-semantics",
       "category": "truth-loop"
+    },
+    {
+      "id": "demo-pin-gate",
+      "packageScript": "check:demo-pin-gate",
+      "command": "npm run check:demo-pin-gate",
+      "category": "truth-loop"
+    },
+    {
+      "id": "pin-first-entry-gate",
+      "packageScript": "check:pin-first-entry-gate",
+      "command": "npm run check:pin-first-entry-gate",
+      "category": "pin-first-entry"
+    },
+    {
+      "id": "pin-rate-limit-lockout",
+      "packageScript": "check:pin-rate-limit-lockout",
+      "command": "npm run check:pin-rate-limit-lockout",
+      "category": "pin-first-entry"
+    },
+    {
+      "id": "post-unlock-workflow",
+      "packageScript": "check:post-unlock-workflow",
+      "command": "npm run check:post-unlock-workflow",
+      "category": "pin-first-entry"
+    },
+    {
+      "id": "one-floorplan-main-ui-global",
+      "packageScript": "check:one-floorplan-main-ui-global",
+      "command": "npm run check:one-floorplan-main-ui-global",
+      "category": "truth-loop"
+    },
+    {
+      "id": "scenario-preflight",
+      "packageScript": "check:scenario-preflight",
+      "command": "npm run check:scenario-preflight",
+      "category": "truth-loop"
     }
   ]
 }

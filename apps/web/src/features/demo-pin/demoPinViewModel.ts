@@ -1,6 +1,8 @@
 import {
   DEMO_PIN_COPY,
   DEMO_PROTECTED_ACTION_IDS,
+  getDemoPinAttemptAvailability,
+  secondsRemaining,
   type DemoProtectedActionId
 } from "@nerdeus/shared";
 
@@ -21,6 +23,10 @@ export type DemoPinGateViewModel = {
   clearLabel: "Clear";
   message: string;
   unlocked: boolean;
+  canSubmit: boolean;
+  inputDisabled: boolean;
+  countdownLabel: string | null;
+  wrongAttemptCount: number;
   protectedActions: DemoProtectedActionViewModel[];
 };
 
@@ -32,6 +38,13 @@ const protectedActionLabels: Record<DemoProtectedActionId, string> = {
 };
 
 export function createDemoPinGateViewModel(state: DemoPinUiState): DemoPinGateViewModel {
+  const availability = getDemoPinAttemptAvailability(state.attemptState, state.nowMs);
+  const countdownLabel = availability.reason === "lockout"
+    ? `Lockout ${secondsRemaining(availability.lockoutRemainingMs)} seconds remaining`
+    : availability.reason === "cooldown"
+      ? `Cooldown ${secondsRemaining(availability.cooldownRemainingMs)} seconds remaining`
+      : null;
+
   return {
     title: "Demo PIN Gate",
     copy: DEMO_PIN_COPY,
@@ -41,6 +54,10 @@ export function createDemoPinGateViewModel(state: DemoPinUiState): DemoPinGateVi
     clearLabel: "Clear",
     message: state.message,
     unlocked: state.unlocked,
+    canSubmit: availability.canSubmit,
+    inputDisabled: availability.reason === "lockout",
+    countdownLabel,
+    wrongAttemptCount: availability.normalizedState.wrongAttemptCount,
     protectedActions: DEMO_PROTECTED_ACTION_IDS.map((actionId) => ({
       actionId,
       label: protectedActionLabels[actionId],

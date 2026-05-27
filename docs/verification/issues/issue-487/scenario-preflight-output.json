@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "demo-pin-canonical",
+  "issue": "487",
+  "allowPartial": true,
+  "goNoGoStatus": "not_ready",
+  "checks": [
+    {
+      "name": "check:demo-pin-gate script exists",
+      "passed": true,
+      "detail": "package.json"
+    },
+    {
+      "name": "demo-pin-gate in registry",
+      "passed": true,
+      "detail": "canonical-gate-registry.json"
+    }
+  ]
+}

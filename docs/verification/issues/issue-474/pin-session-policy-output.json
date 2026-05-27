@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "stage": "reload-behavior",
+  "issue": "474",
+  "checks": [
+    {
+      "name": "initial state reads session storage",
+      "passed": true,
+      "detail": "demoPinState.ts"
+    },
+    {
+      "name": "submit writes session unlock",
+      "passed": true,
+      "detail": "demoPinState.ts"
+    },
+    {
+      "name": "reload behavior test exists",
+      "passed": true,
+      "detail": "demoPinReloadBehavior.test.tsx"
+    }
+  ]
+}

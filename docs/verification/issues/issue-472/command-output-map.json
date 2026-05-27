@@ -1,0 +1,29 @@
+{
+  "issue": "472",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-472/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-472/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-pin-session-policy.mjs --stage session-storage --issue 472",
+      "outputs": [
+        "docs/verification/issues/issue-472/test-output/pin-session-policy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-472/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

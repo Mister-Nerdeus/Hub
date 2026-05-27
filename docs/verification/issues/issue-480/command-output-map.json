@@ -1,0 +1,35 @@
+{
+  "issue": "480",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-480/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-480/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/capture-post-unlock-workflow-proof.mjs --issue 480",
+      "outputs": [
+        "docs/verification/issues/issue-480/test-output/post-unlock-visual-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-post-unlock-workflow.mjs --stage final --issue 480",
+      "outputs": [
+        "docs/verification/issues/issue-480/test-output/post-unlock-workflow.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-480/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "issue": "481",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-481/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-481/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-one-floorplan-main-ui-global.mjs --stage global-main-ui-absence --allow-partial --issue 481",
+      "outputs": [
+        "docs/verification/issues/issue-481/test-output/one-floorplan-main-ui-global.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-481/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 481",
+      "outputs": [
+        "docs/verification/issues/issue-481/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}
