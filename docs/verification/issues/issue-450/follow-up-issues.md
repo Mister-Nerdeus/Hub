@@ -1,0 +1,1 @@
+- Continue with simulation foundation only after maintaining local-first evidence gates.

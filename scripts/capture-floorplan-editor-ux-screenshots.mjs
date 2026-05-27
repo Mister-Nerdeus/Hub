@@ -43,7 +43,35 @@ try {
   const cdp = await connectCdp(websocketUrl);
   try {
     const screenshots = [];
-    if (issue === "392") {
+    if (["441", "442", "443", "444", "445"].includes(issue)) {
+      await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
+      await assertText(cdp, "ER Pod Shift Simulator");
+      screenshots.push(await captureCanonicalFloorplanUxCase(cdp, issue));
+    } else if (issue === "449") {
+      await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
+      await assertText(cdp, "Canonical ER Pod Floorplan");
+      await clickIfPresent(cdp, "Open JSON");
+      await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
+      await clickIfPresent(cdp, "Presentation View");
+      screenshots.push(await captureCase(cdp, "canonical-floorplan-presentation-proof.png", "canonical presentation proof", 1440, 1200));
+      const assertions = await collectCanonicalFloorplanProofAssertions(cdp);
+      writeJson(`${issueDir}/dom-assertion-sidecar-output.json`, assertions);
+      writeJson("docs/verification/canonical-floorplan-visual-proof-manifest.json", {
+        manifestVersion: "1.0.0",
+        issue,
+        productDisplayName: "ER Pod Shift Simulator",
+        source: "browser-rendered-app",
+        screenshots,
+        assertions,
+        exactParityClaimed: false,
+        manualVisualApprovalClaimed: false,
+        privateSourceScreenshotIncluded: false
+      });
+    } else if (["446", "447", "448"].includes(issue)) {
+      await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
+      await assertText(cdp, "ER Pod Shift Simulator");
+      screenshots.push(await captureCanonicalDeskCase(cdp, issue));
+    } else if (issue === "392") {
       await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
       await assertText(cdp, "ER Pod Shift Simulator");
       screenshots.push(await captureCase(cdp, "simplified-navigation.png", "floorplans navigation", 1440, 1200));
@@ -134,7 +162,7 @@ try {
       const assertions = await collectPlacementPreviewAssertions(cdp, beforePlacementCount);
       writeJson(`${issueDir}/dom-assertions-output.json`, assertions);
       screenshots.push(await captureCase(cdp, "object-placement-preview.png", "object placement preview", 1440, 1200));
-    } else if (issue !== "392") {
+    } else if (issue !== "392" && !(Number(issue) >= 441 && Number(issue) <= 449)) {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
       await clickIfPresent(cdp, "Presentation View");
@@ -159,7 +187,12 @@ try {
       screenshots
     };
     writeJson(`${issueDir}/screenshot-manifest-output.json`, manifest);
-    if (Number(issue) >= 399) writeJson("docs/verification/floorplan-editor-ux-visual-manifest.json", manifest);
+    if (Number(issue) >= 441 && Number(issue) <= 449) {
+      writeJson(`${issueDir}/canonical-floorplan-screenshot-manifest-output.json`, manifest);
+    }
+    if (Number(issue) >= 399 && Number(issue) < 441) {
+      writeJson("docs/verification/floorplan-editor-ux-visual-manifest.json", manifest);
+    }
     console.log(JSON.stringify({ status: "passed", issue, screenshotCount: screenshots.length }, null, 2));
   } finally {
     cdp.close();
@@ -167,6 +200,75 @@ try {
 } finally {
   killProcessTree(chrome);
   if (previewServer != null) killProcessTree(previewServer);
+}
+
+async function captureCanonicalFloorplanUxCase(cdp, currentIssue) {
+  if (currentIssue === "441") {
+    return captureCase(cdp, "canonical-floorplan-product-view.png", "canonical floorplan product view", 1440, 1200);
+  }
+  if (currentIssue === "442") {
+    const productScreenshot = await captureCase(cdp, "legacy-defaults-hidden-product-view.png", "legacy hidden product view", 1440, 1200);
+    await openPage(cdp, `${baseUrl}/?section=developer-evidence#developer-evidence-title`, 1440, 1200);
+    await assertText(cdp, "Legacy fixtures are retained for verification only.");
+    await captureCase(cdp, "legacy-defaults-developer-reference.png", "legacy defaults developer reference", 1440, 1200);
+    return productScreenshot;
+  }
+  if (currentIssue === "443") {
+    await clickIfPresent(cdp, "Duplicate/Edit Copy");
+    await clickLastIfPresent(cdp, "Delete saved copy");
+    await assertText(cdp, "Delete this saved floorplan copy?");
+    return captureCase(cdp, "delete-saved-floorplan-dialog.png", "delete saved floorplan dialog", 1440, 1200);
+  }
+  if (currentIssue === "444") {
+    await clickIfPresent(cdp, "Duplicate/Edit Copy");
+    await clickIfPresent(cdp, "Delete saved copy");
+    await clickLastIfPresent(cdp, "Delete saved copy");
+    await delay(800);
+    await assertText(cdp, "Saved copy deleted. Canonical floorplan remains available.");
+    return captureCase(cdp, "saved-floorplan-deleted-message.png", "saved floorplan deleted message", 1440, 1200);
+  }
+  return captureCase(cdp, "canonical-floorplan-header.png", "canonical floorplan header", 1440, 1200);
+}
+
+async function captureCanonicalDeskCase(cdp, currentIssue) {
+  if (currentIssue === "448") {
+    const editScreenshot = await captureCase(cdp, "edit-mode-station-geometry.png", "edit mode station geometry", 1440, 1200);
+    await clickIfPresent(cdp, "Presentation View");
+    await assertText(cdp, "Nurses station");
+    await captureCase(cdp, "presentation-mode-nurse-desk.png", "presentation mode nurse desk", 1440, 1200);
+    return editScreenshot;
+  }
+  await clickIfPresent(cdp, "Presentation View");
+  await assertText(cdp, "Nurses station");
+  if (currentIssue === "446") {
+    return captureCase(cdp, "nurse-desk-curved-shape.png", "nurse desk curved shape", 1440, 1200);
+  }
+  return captureCase(cdp, "nurse-desk-label-plate.png", "nurse desk label plate", 1440, 1200);
+}
+
+async function collectCanonicalFloorplanProofAssertions(cdp) {
+  const result = await evaluateOrThrow(cdp, {
+    returnByValue: true,
+    expression: `
+      (() => {
+        const desk = document.querySelector("[data-presentation-style='curved_desk']");
+        const label = [...document.querySelectorAll(".layout-editor-stage__station-label-plate-text")]
+          .map((node) => node.textContent.trim())
+          .find((text) => text === "Nurses station");
+        return {
+          status: desk && label ? "passed" : "failed",
+          curvedDeskPathPresent: desk != null,
+          nurseDeskLabelPlatePresent: label === "Nurses station",
+          doorMarkersPresent: document.querySelectorAll(".layout-editor-stage__door-marker-capsule").length > 0,
+          hallwayArrowsPresent: document.querySelectorAll(".layout-editor-stage__hallway-arrow").length > 0,
+          privateSourceScreenshotIncluded: false,
+          exactCadParityClaimed: false,
+          manualVisualApprovalClaimed: false
+        };
+      })()
+    `
+  });
+  return result.result.value;
 }
 
 function editorBaseScreenshotName(currentIssue) {
@@ -312,6 +414,20 @@ async function clickIfPresent(cdp, text) {
         const button = [...document.querySelectorAll("button")]
           .find((candidate) => candidate.textContent.includes(${JSON.stringify(text)}));
         if (button) button.click();
+      })()
+    `
+  });
+  await delay(250);
+}
+
+async function clickLastIfPresent(cdp, text) {
+  await evaluateOrThrow(cdp, {
+    awaitPromise: true,
+    expression: `
+      (() => {
+        const buttons = [...document.querySelectorAll("button")]
+          .filter((candidate) => candidate.textContent.includes(${JSON.stringify(text)}));
+        buttons.at(-1)?.click();
       })()
     `
   });

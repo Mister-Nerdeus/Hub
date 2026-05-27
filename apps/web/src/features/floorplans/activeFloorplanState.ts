@@ -149,6 +149,15 @@ export function openSavedFloorplan(
   };
 }
 
+export function cleanupActiveFloorplanAfterSavedDelete(
+  state: ActiveFloorplanState,
+  deletedRecordId: string
+): ActiveFloorplanState {
+  return state.activeFloorplan?.sourceKind === "saved-json" && state.activeFloorplan.recordId === deletedRecordId
+    ? createEmptyActiveFloorplanState()
+    : state;
+}
+
 export function openReviewCandidateFloorplan(
   state: ActiveFloorplanState,
   candidateId: string,

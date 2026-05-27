@@ -1,0 +1,30 @@
+{
+  "issue": "448",
+  "stage": "presentation-desk-mode",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-ux.mjs --stage presentation-desk-mode --allow-partial --issue 448",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/canonical-floorplan-ux-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 448",
+      "outputs": [
+        "docs/verification/issues/issue-448/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

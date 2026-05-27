@@ -1,0 +1,2 @@
+- Manual visual approval is not claimed.
+- Full-shift simulation remains not started.

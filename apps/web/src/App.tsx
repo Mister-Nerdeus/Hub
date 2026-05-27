@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
+  cleanupActiveFloorplanAfterSavedDelete,
   createActiveFloorplanSummaryViewModel,
   createEmptyActiveFloorplanState,
   openDefaultFloorplan,
@@ -11,6 +12,8 @@ import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplica
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
 import { FloorplanLandingSummary } from "./features/floorplans/FloorplanLandingSummary";
+import { CanonicalFloorplanHeader } from "./features/floorplans/CanonicalFloorplanHeader";
+import { createCanonicalFloorplanHeaderViewModel } from "./features/floorplans/canonicalFloorplanHeaderViewModel";
 import { PlanBuilderLanding } from "./features/floorplans/PlanBuilderLanding";
 import {
   createSavedFloorplanStore,
@@ -59,8 +62,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
 
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
+  const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
+  const canonicalFloorplanHeaderViewModel = createCanonicalFloorplanHeaderViewModel({
+    activeFloorplan: activeFloorplanSummaryViewModel,
+    savedFloorplans
+  });
   const demoWorkflowViewModel = createPlan1DemoWorkflowViewModel({
     activeSection,
     activePlanId: activeFloorplanState.activeFloorplan?.plan.planId ?? null
@@ -68,6 +76,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
 
   function openDefault(planId: string) {
     setActiveFloorplanState((state) => openDefaultFloorplan(state, planId));
+    setFloorplanStatusMessage(null);
   }
 
   function duplicateDefault(planId: string) {
@@ -75,6 +84,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     const saved = savedFloorplanStore.save(duplicate);
     setSavedFloorplans(savedFloorplanStore.list());
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+    setFloorplanStatusMessage(null);
   }
 
   function openSaved(recordId: string) {
@@ -83,6 +93,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       return;
     }
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+    setFloorplanStatusMessage(null);
   }
 
   function openReviewCandidate(candidateId: string) {
@@ -92,9 +103,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   function deleteSaved(recordId: string) {
     savedFloorplanStore.delete(recordId);
     setSavedFloorplans(savedFloorplanStore.list());
-    setActiveFloorplanState((state) =>
-      state.activeFloorplan?.recordId === recordId ? createEmptyActiveFloorplanState() : state
-    );
+    setActiveFloorplanState((state) => cleanupActiveFloorplanAfterSavedDelete(state, recordId));
+    setFloorplanStatusMessage("Saved copy deleted. Canonical floorplan remains available.");
   }
 
   function openPlan1Demo() {
@@ -141,6 +151,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onOpenManualAssignment={() => setActiveSection("manual-assignment")}
             onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
           />
+          <CanonicalFloorplanHeader viewModel={canonicalFloorplanHeaderViewModel} />
+          {floorplanStatusMessage == null ? null : (
+            <p className="floorplan-status-message" role="status">{floorplanStatusMessage}</p>
+          )}
           <ActiveFloorplanSummary
             viewModel={activeFloorplanSummaryViewModel}
             onLaunchEditor={() => setActiveSection("editor")}

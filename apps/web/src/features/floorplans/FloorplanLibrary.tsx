@@ -1,5 +1,8 @@
 import type { FloorplanLibraryViewModel } from "./floorplanLibraryViewModel";
 import { DefaultPlanEditCopyControls } from "./DefaultPlanEditCopyControls";
+import { DeleteSavedFloorplanDialog } from "./DeleteSavedFloorplanDialog";
+import { createDeleteSavedFloorplanDialogViewModel } from "./deleteSavedFloorplanViewModel";
+import { useState } from "react";
 
 type FloorplanLibraryProps = {
   viewModel: FloorplanLibraryViewModel;
@@ -16,21 +19,33 @@ export function FloorplanLibrary({
   onOpenSavedPlan,
   onDeleteSavedPlan
 }: FloorplanLibraryProps) {
+  const [pendingDeleteRecordId, setPendingDeleteRecordId] = useState<string | null>(null);
+  const pendingDeleteFloorplan = pendingDeleteRecordId == null
+    ? null
+    : viewModel.floorplans.find((floorplan) => floorplan.recordId === pendingDeleteRecordId) ?? null;
+  const pendingDeleteViewModel = pendingDeleteFloorplan == null
+    ? null
+    : createDeleteSavedFloorplanDialogViewModel(pendingDeleteFloorplan);
+
   return (
     <section className="floorplan-library" aria-labelledby="floorplan-library-title">
       <div className="floorplan-library__header">
         <div>
           <p className="eyebrow">Floorplans</p>
-          <h2 id="floorplan-library-title">JSON Floorplan Library</h2>
+          <h2 id="floorplan-library-title">{viewModel.title}</h2>
         </div>
         <dl className="floorplan-library__totals" aria-label="Floorplan library totals">
           <div>
-            <dt>Defaults</dt>
-            <dd>{viewModel.totals.defaultJsonPlanCount}</dd>
+            <dt>Canonical</dt>
+            <dd>{viewModel.totals.canonicalDefaultPlanCount}</dd>
           </div>
           <div>
             <dt>Saved</dt>
             <dd>{viewModel.totals.editableSavedPlanCount}</dd>
+          </div>
+          <div>
+            <dt>Legacy refs</dt>
+            <dd>{viewModel.totals.protectedLegacyDefaultPlanCount}</dd>
           </div>
         </dl>
       </div>
@@ -39,8 +54,11 @@ export function FloorplanLibrary({
         {viewModel.floorplans.map((floorplan) => (
           <article
             className="floorplan-library__card"
-            key={floorplan.planId}
+            key={floorplan.recordId}
             data-plan-id={floorplan.planId}
+            data-record-id={floorplan.recordId}
+            data-default-classification={floorplan.defaultClassification ?? "saved-copy"}
+            data-product-visibility={floorplan.productVisibility}
             data-room-count={floorplan.objectCounts.rooms}
             data-station-count={floorplan.objectCounts.nurseStations}
           >
@@ -78,8 +96,8 @@ export function FloorplanLibrary({
                 </button>
               ) : null}
               {floorplan.accessMode === "editable-saved" && onDeleteSavedPlan ? (
-                <button type="button" onClick={() => onDeleteSavedPlan(floorplan.recordId)}>
-                  Delete Saved JSON
+                <button type="button" onClick={() => setPendingDeleteRecordId(floorplan.recordId)}>
+                  Delete saved copy
                 </button>
               ) : null}
             </div>
@@ -145,6 +163,16 @@ export function FloorplanLibrary({
           <li key={limitation}>{limitation}</li>
         ))}
       </ul>
+      {pendingDeleteViewModel == null || onDeleteSavedPlan == null ? null : (
+        <DeleteSavedFloorplanDialog
+          viewModel={pendingDeleteViewModel}
+          onCancel={() => setPendingDeleteRecordId(null)}
+          onConfirm={(recordId) => {
+            onDeleteSavedPlan(recordId);
+            setPendingDeleteRecordId(null);
+          }}
+        />
+      )}
     </section>
   );
 }

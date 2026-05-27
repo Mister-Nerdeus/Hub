@@ -1,0 +1,74 @@
+ Image hub-web Building 
+ Image hub-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 422B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
+#5 DONE 0.0s
+
+#6 [ 1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 3.18MB 1.5s done
+#7 DONE 1.5s
+
+#8 [ 2/10] WORKDIR /repo
+#8 CACHED
+
+#9 [ 3/10] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [ 4/10] COPY apps/web/package.json apps/web/package.json
+#10 CACHED
+
+#11 [ 5/10] COPY packages/shared/package.json packages/shared/package.json
+#11 CACHED
+
+#12 [ 6/10] RUN npm ci
+#12 CACHED
+
+#13 [ 7/10] COPY tsconfig.base.json ./
+#13 CACHED
+
+#14 [ 8/10] COPY apps/web apps/web
+#14 DONE 0.2s
+
+#15 [ 9/10] COPY packages/shared packages/shared
+#15 DONE 0.2s
+
+#16 [10/10] WORKDIR /repo/apps/web
+#16 DONE 0.1s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.3s done
+#17 exporting manifest sha256:79327c59937d2bd9475eed6ee021d2ea61224195fdc6c44bff15a81823e7a481 0.0s done
+#17 exporting config sha256:fb2ae8d3a6557a4a61eda7c73878dfa5dbfd80c59862e271e7acf5511e6558f1 0.0s done
+#17 exporting attestation manifest sha256:859ab75fddf4d2ef7804c17cef91a4ccdc146adbbbefeec244b45c4f56ef684d 0.0s done
+#17 exporting manifest list sha256:8467bccb2628ee588a197815ce8bd42686695a2568b18cc31c2e0ce7dd809aaf
+#17 exporting manifest list sha256:8467bccb2628ee588a197815ce8bd42686695a2568b18cc31c2e0ce7dd809aaf 0.0s done
+#17 naming to docker.io/library/hub-web:latest done
+#17 unpacking to docker.io/library/hub-web:latest
+#17 unpacking to docker.io/library/hub-web:latest 0.3s done
+#17 DONE 0.7s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image hub-web Built 

@@ -69,6 +69,15 @@ assert.deepEqual(
   }
 );
 
+assert.equal(station.presentationStyle, "curved_desk");
+if (!station.presentationPath.includes("Q") || station.presentationPath.includes("L 216 0")) {
+  throw new Error("station presentation path must be a shallow curved desk band, not the edit rectangle");
+}
+assert.equal(station.labelPlate.label, "Nurses station");
+if (station.labelPlate.widthPixels <= 0 || station.labelPlate.heightPixels <= 0) {
+  throw new Error("station label plate geometry must be populated");
+}
+
 assert.throws(() => buildStationShapeViewModel(roomItem), /station/);
 assert.deepEqual(selectionFromShapeClick("station", station.objectId), {
   objectType: "station",

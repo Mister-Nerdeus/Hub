@@ -1,4 +1,11 @@
 import type { LayoutObjectRenderItem } from "./layoutObjectRenderPipeline";
+import {
+  buildCurvedDeskPresentationPath,
+  createStationLabelPlate,
+  stationPresentationStyleForType,
+  type StationLabelPlateViewModel,
+  type StationPresentationStyle
+} from "./stationPresentationStyle";
 
 export type StationShapeViewModel = {
   objectType: "station";
@@ -13,7 +20,9 @@ export type StationShapeViewModel = {
   heightPixels: number;
   labelX: number;
   labelY: number;
+  presentationStyle: StationPresentationStyle;
   presentationPath: string;
+  labelPlate: StationLabelPlateViewModel;
 };
 
 export function buildStationShapeViewModel(item: LayoutObjectRenderItem): StationShapeViewModel {
@@ -25,7 +34,7 @@ export function buildStationShapeViewModel(item: LayoutObjectRenderItem): Statio
     throw new Error("station render item requires station source geometry");
   }
   const { xPixels, yPixels, widthPixels, heightPixels } = item.displayRectPixels;
-  const radius = Math.min(widthPixels, heightPixels) / 2;
+  const presentationStyle = stationPresentationStyleForType(source.stationType);
   return {
     objectType: "station",
     objectId: item.objectId,
@@ -39,14 +48,14 @@ export function buildStationShapeViewModel(item: LayoutObjectRenderItem): Statio
     heightPixels,
     labelX: xPixels + widthPixels / 2,
     labelY: yPixels + heightPixels / 2,
-    presentationPath: [
-      `M ${xPixels} ${yPixels + heightPixels}`,
-      `L ${xPixels} ${yPixels + radius}`,
-      `Q ${xPixels} ${yPixels} ${xPixels + radius} ${yPixels}`,
-      `L ${xPixels + widthPixels - radius} ${yPixels}`,
-      `Q ${xPixels + widthPixels} ${yPixels} ${xPixels + widthPixels} ${yPixels + radius}`,
-      `L ${xPixels + widthPixels} ${yPixels + heightPixels}`,
-      "Z"
-    ].join(" ")
+    presentationStyle,
+    presentationPath: buildCurvedDeskPresentationPath({ xPixels, yPixels, widthPixels, heightPixels }),
+    labelPlate: createStationLabelPlate({
+      xPixels,
+      yPixels,
+      widthPixels,
+      heightPixels,
+      label: source.stationType === "nurse_station" ? "Nurses station" : source.label
+    })
   };
 }

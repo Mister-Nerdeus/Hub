@@ -1,0 +1,40 @@
+{
+  "manifestVersion": "1.0.0",
+  "issue": "449",
+  "productDisplayName": "ER Pod Shift Simulator",
+  "source": "browser-rendered-app",
+  "screenshots": [
+    {
+      "fileName": "canonical-floorplan-presentation-proof.png",
+      "path": "docs/verification/issues/issue-449/screenshots/canonical-floorplan-presentation-proof.png",
+      "route": "canonical presentation proof",
+      "viewport": {
+        "width": 1440,
+        "height": 1200
+      },
+      "capturedAt": "2026-05-27T00:00:00Z",
+      "source": "browser-rendered-app",
+      "privateSourceScreenshotIncluded": false,
+      "exactParityClaimed": false,
+      "manualVisualApprovalClaimed": false,
+      "png": {
+        "width": 1440,
+        "height": 2761,
+        "byteLength": 219274
+      }
+    }
+  ],
+  "assertions": {
+    "status": "passed",
+    "curvedDeskPathPresent": true,
+    "nurseDeskLabelPlatePresent": true,
+    "doorMarkersPresent": true,
+    "hallwayArrowsPresent": true,
+    "privateSourceScreenshotIncluded": false,
+    "exactCadParityClaimed": false,
+    "manualVisualApprovalClaimed": false
+  },
+  "exactParityClaimed": false,
+  "manualVisualApprovalClaimed": false,
+  "privateSourceScreenshotIncluded": false
+}

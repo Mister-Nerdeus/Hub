@@ -32,6 +32,8 @@ import { PlanImportExportPanel } from "../plans/PlanImportExportPanel";
 import { PlanSaveLoadPanel } from "../plans/PlanSaveLoadPanel";
 import { OperationalOutcomeDashboardProof } from "../outcomes/OperationalOutcomeDashboardProof";
 import { createOperationalOutcomeDashboardViewModel } from "../outcomes/operationalOutcomeDashboardViewModel";
+import { LegacyFloorplanReferenceList } from "../floorplans/LegacyFloorplanReferenceList";
+import { createFloorplanLibraryViewModel } from "../floorplans/floorplanLibraryViewModel";
 import { RoutePreviewProof } from "../route-preview/RoutePreviewProof";
 import { createRoutePreviewProofViewModel } from "../route-preview/routePreviewProofViewModel";
 import { OperationalReportsProof } from "../reports/OperationalReportsProof";
@@ -61,6 +63,7 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
   const operationalOutcomeDashboardViewModel = createOperationalOutcomeDashboardViewModel();
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
+  const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
 
   const [draftPlan, dispatchDraft] = useReducer(planDraftReducer, planErPodPhase2 as PlanContract);
   const [defaultsFormState, setDefaultsFormState] = useState(createDefaultPlanBuilderDefaultsFormState);
@@ -108,6 +111,10 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
       <p className="developer-evidence__intro">Proof-only workflow modules are preserved here only.</p>
       <div className="developer-evidence__grid">
         {evidenceSection("Simulation API retrieval", <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />)}
+        {evidenceSection(
+          "Legacy floorplan references",
+          <LegacyFloorplanReferenceList floorplans={floorplanLibraryViewModel.legacyDefaultFloorplans} />
+        )}
         {evidenceSection("Manual assignment", <ManualAssignmentProof viewModel={manualAssignmentViewModel} />)}
         {evidenceSection("Operational reports", <OperationalReportsProof viewModel={reportProofViewModel} />)}
         {evidenceSection("Operational outcomes", <OperationalOutcomeDashboardProof viewModel={operationalOutcomeDashboardViewModel} />)}

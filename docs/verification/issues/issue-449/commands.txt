@@ -1,0 +1,6 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canonical-floorplan-ux.mjs --stage visual-parity-proof --allow-partial --issue 449
+node scripts/check-canonical-floorplan-ux.mjs --stage boundary-gate --allow-partial --issue 449
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 449

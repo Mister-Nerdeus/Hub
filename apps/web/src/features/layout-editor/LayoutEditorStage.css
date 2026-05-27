@@ -712,6 +712,12 @@
   stroke-width: 3;
 }
 
+.layout-editor-stage__station--selected .layout-editor-stage__station-presentation,
+.layout-editor-stage__station--selected .layout-editor-stage__station-label-plate {
+  stroke: #0f62fe;
+  stroke-width: 3;
+}
+
 .layout-editor-stage__door--selected .layout-editor-stage__door-marker-capsule {
   filter: drop-shadow(0 0 4px rgba(15, 98, 254, 0.9));
   stroke: #0f62fe;
@@ -1432,9 +1438,32 @@
 
 .layout-editor-stage__station-presentation {
   cursor: pointer;
-  fill: #f6ead3;
-  stroke: #6b5a2b;
+  fill: #f8f5ed;
+  stroke: #111827;
+  stroke-linejoin: round;
   stroke-width: 2;
+}
+
+.layout-editor-stage__station-hit-target {
+  cursor: pointer;
+  fill: transparent;
+  pointer-events: all;
+  stroke: transparent;
+}
+
+.layout-editor-stage__station-label-plate {
+  fill: #ffffff;
+  stroke: #111827;
+  stroke-width: 1.4;
+}
+
+.layout-editor-stage__station-label-plate-text {
+  dominant-baseline: middle;
+  fill: #111827;
+  font-size: 8px;
+  font-weight: 900;
+  pointer-events: none;
+  text-anchor: middle;
 }
 
 .layout-editor-stage__hallway-arrow {

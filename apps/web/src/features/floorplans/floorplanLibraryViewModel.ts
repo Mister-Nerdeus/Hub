@@ -1,6 +1,11 @@
 import type { DefaultSavedPlanFixtureContract } from "@nerdeus/shared";
 
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
+import {
+  CANONICAL_FLOORPLAN_ID,
+  classifyDefaultFloorplan,
+  type DefaultFloorplanClassification
+} from "./canonicalFloorplanViewModel";
 import type { SavedFloorplanRecord } from "./savedFloorplanStore";
 
 export type FloorplanLibraryCardViewModel = {
@@ -9,6 +14,9 @@ export type FloorplanLibraryCardViewModel = {
   recordId: string;
   artifactType: "json-floorplan";
   accessMode: "read-only-default" | "editable-saved";
+  defaultClassification: DefaultFloorplanClassification | null;
+  productVisibility: "normal-product" | "developer-reference";
+  isCanonicalProductFloorplan: boolean;
   readOnlyLabel: string;
   sourceDerivedStatus: string;
   importStatus: string;
@@ -27,11 +35,15 @@ export type FloorplanLibraryCardViewModel = {
 };
 
 export type FloorplanLibraryViewModel = {
-  libraryId: "json-floorplan-library-v1";
+  libraryId: "canonical-er-pod-floorplan-library-v1";
+  title: "Canonical ER Pod Floorplan";
   floorplans: FloorplanLibraryCardViewModel[];
+  legacyDefaultFloorplans: FloorplanLibraryCardViewModel[];
   totals: {
+    canonicalDefaultPlanCount: number;
     defaultJsonPlanCount: number;
     editableSavedPlanCount: number;
+    protectedLegacyDefaultPlanCount: number;
   };
   limitationsSummary: string[];
 };
@@ -47,8 +59,17 @@ export function createFloorplanLibraryViewModel(
       recordId: fixture.defaultPlanRecordId,
       artifactType: "json-floorplan" as const,
       accessMode: "read-only-default" as const,
-      readOnlyLabel: "Read-only default",
-      sourceDerivedStatus: "Source-derived JSON default",
+      defaultClassification: classifyDefaultFloorplan(fixture),
+      productVisibility: classifyDefaultFloorplan(fixture) === "canonical-default"
+        ? "normal-product" as const
+        : "developer-reference" as const,
+      isCanonicalProductFloorplan: fixture.plan.planId === CANONICAL_FLOORPLAN_ID,
+      readOnlyLabel: classifyDefaultFloorplan(fixture) === "canonical-default"
+        ? "Canonical read-only default"
+        : "Protected legacy reference",
+      sourceDerivedStatus: classifyDefaultFloorplan(fixture) === "canonical-default"
+        ? "Canonical source-derived JSON default"
+        : "Legacy source-derived JSON reference fixture",
       importStatus: fixture.importStatus,
       mappingStatus: fixture.mappingId,
       parentDefaultPlanId: null,
@@ -69,6 +90,9 @@ export function createFloorplanLibraryViewModel(
     recordId: record.recordId,
     artifactType: "json-floorplan" as const,
     accessMode: "editable-saved" as const,
+    defaultClassification: null,
+    productVisibility: "normal-product" as const,
+    isCanonicalProductFloorplan: false,
     readOnlyLabel: "Editable saved copy",
     sourceDerivedStatus: "Editable JSON copy",
     importStatus: "validated_saved",
@@ -88,18 +112,30 @@ export function createFloorplanLibraryViewModel(
       `Parent default plan: ${record.parentDefaultPlanId}`
     ]
   }));
-  const floorplans = [...defaultFloorplans, ...savedFloorplans].sort((left, right) =>
+  const canonicalDefaultFloorplans = defaultFloorplans.filter(
+    (floorplan) => floorplan.defaultClassification === "canonical-default"
+  );
+  const legacyDefaultFloorplans = defaultFloorplans.filter(
+    (floorplan) => floorplan.defaultClassification === "legacy-default"
+  );
+  const floorplans = [...canonicalDefaultFloorplans, ...savedFloorplans].sort((left, right) =>
     left.recordId.localeCompare(right.recordId)
   );
 
   return {
-    libraryId: "json-floorplan-library-v1",
+    libraryId: "canonical-er-pod-floorplan-library-v1",
+    title: "Canonical ER Pod Floorplan",
     floorplans,
+    legacyDefaultFloorplans,
     totals: {
-      defaultJsonPlanCount: defaultFloorplans.length,
-      editableSavedPlanCount: savedFloorplans.length
+      canonicalDefaultPlanCount: canonicalDefaultFloorplans.length,
+      defaultJsonPlanCount: canonicalDefaultFloorplans.length,
+      editableSavedPlanCount: savedFloorplans.length,
+      protectedLegacyDefaultPlanCount: legacyDefaultFloorplans.length
     },
     limitationsSummary: [
+      "The product uses one canonical floorplan.",
+      "Plan 2-5 legacy fixtures are retained for verification only.",
       "JSON floorplans are approximate operational layouts.",
       "Default floorplans are read-only; duplicated copies are editable local JSON records."
     ]
