@@ -22,57 +22,67 @@
     {
       "name": "locked screen hides Floorplans",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Editor",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Manual Assignment",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Review / Reports",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Advanced",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Future Tools",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+    },
+    {
+      "name": "locked screen hides protected action list",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Plan 1 Demo Guide",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides seed pack",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Scenario Comparison",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+    },
+    {
+      "name": "locked screen hides Ratio Comparison",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides proof report",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Developer/Evidence",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
     },
     {
       "name": "standalone main element",
@@ -105,6 +115,32 @@
       "detail": "docs/verification/pin-first-entry-dom-assertions.json"
     },
     {
+      "name": "visual proof is browser-rendered app",
+      "passed": true,
+      "detail": {
+        "issue": "465",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "locked": {
+          "pinOnly": true,
+          "appShellVisible": false,
+          "navigationVisible": false,
+          "demoGuideVisible": false,
+          "seedPackVisible": false,
+          "floorplanContentVisible": false,
+          "protectedActionsVisible": false,
+          "forbiddenLockedContentVisible": false
+        },
+        "unlocked": {
+          "appShellVisible": true,
+          "canonicalPlan1WorkflowVisible": true,
+          "navigationVisible": true,
+          "demoGuideDemoted": true
+        }
+      }
+    },
+    {
       "name": "locked screenshot PIN only",
       "passed": true,
       "detail": {
@@ -113,7 +149,9 @@
         "navigationVisible": false,
         "demoGuideVisible": false,
         "seedPackVisible": false,
-        "floorplanContentVisible": false
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
       }
     },
     {
@@ -125,7 +163,9 @@
         "navigationVisible": false,
         "demoGuideVisible": false,
         "seedPackVisible": false,
-        "floorplanContentVisible": false
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
       }
     },
     {
@@ -137,7 +177,9 @@
         "navigationVisible": false,
         "demoGuideVisible": false,
         "seedPackVisible": false,
-        "floorplanContentVisible": false
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
       }
     },
     {
@@ -148,6 +190,22 @@
         "canonicalPlan1WorkflowVisible": true,
         "navigationVisible": true,
         "demoGuideDemoted": true
+      }
+    },
+    {
+      "name": "locked PIN visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-465/screenshots/locked-pin-only.png",
+        "bytes": 36004
+      }
+    },
+    {
+      "name": "unlocked canonical workflow visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-465/screenshots/unlocked-canonical-workflow.png",
+        "bytes": 154336
       }
     }
   ]

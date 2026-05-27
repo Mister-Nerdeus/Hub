@@ -50,11 +50,27 @@
       "detail": "docs/verification/one-floorplan-main-ui-dom-assertions.json"
     },
     {
+      "name": "one-floorplan proof is browser-rendered app",
+      "passed": true,
+      "detail": {
+        "issue": "485",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "plan1OnlyInMainUi": true,
+        "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
+        "planBuilderLandingOnlyInDeveloperEvidence": true,
+        "activeWorkflowFloorplanId": "default-er-layout-plan-1"
+      }
+    },
+    {
       "name": "Plan 1 only in main UI",
       "passed": true,
       "detail": {
         "issue": "485",
+        "source": "browser-rendered-app",
         "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
         "plan1OnlyInMainUi": true,
         "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
         "planBuilderLandingOnlyInDeveloperEvidence": true,
@@ -66,11 +82,21 @@
       "passed": true,
       "detail": {
         "issue": "485",
+        "source": "browser-rendered-app",
         "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
         "plan1OnlyInMainUi": true,
         "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
         "planBuilderLandingOnlyInDeveloperEvidence": true,
         "activeWorkflowFloorplanId": "default-er-layout-plan-1"
+      }
+    },
+    {
+      "name": "one-floorplan main UI visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-485/screenshots/one-floorplan-main-ui.png",
+        "bytes": 183304
       }
     }
   ]

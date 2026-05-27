@@ -10,15 +10,21 @@ const entrySource = readFileSync(
   resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx"),
   "utf8"
 );
+const gateSource = readFileSync(resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinGate.tsx"), "utf8");
+const lockedScreenSource = `${entrySource}\n${gateSource}`;
 
 for (const hiddenText of [
   "Plan 1 Demo Guide",
   "seed pack",
   "Scenario Comparison",
+  "Ratio Comparison",
+  "Manual Assignment",
   "proof report",
-  "Developer/Evidence"
+  "Developer/Evidence",
+  "Protected demo actions",
+  "data-protected-action-id"
 ]) {
-  if (entrySource.includes(hiddenText)) {
+  if (lockedScreenSource.includes(hiddenText)) {
     throw new Error(`locked PIN screen must not include app/demo content: ${hiddenText}`);
   }
 }

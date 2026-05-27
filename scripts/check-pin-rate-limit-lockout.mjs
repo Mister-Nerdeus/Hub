@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import {
   DEMO_PIN_COOLDOWN_MS,
@@ -84,10 +84,15 @@ function runStage(currentStage) {
     add("lockout proof assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
     if (existsSync(abs(assertionsPath))) {
       const assertions = readJson(assertionsPath);
+      const visualIssueDir = `docs/verification/issues/issue-${assertions.issue ?? issue}`;
+      add("lockout proof is browser-rendered app", assertions.source === "browser-rendered-app" && assertions.staticHtmlOnlyProof === false, assertions);
       add("cooldown visible in proof", assertions.cooldownVisible === true, assertions);
       add("lockout visible in proof", assertions.lockoutVisible === true, assertions);
       add("post-lockout unlock works", assertions.postLockoutUnlockVisible === true, assertions);
       add("no app content leaked during lockout", assertions.appContentVisibleDuringLockout === false, assertions);
+      for (const screenshot of ["wrong-pin-cooldown.png", "three-strike-lockout.png", "post-lockout-unlock.png"]) {
+        assertPng(`${visualIssueDir}/screenshots/${screenshot}`, `${screenshot} visual proof`);
+      }
     }
   }
 }
@@ -199,6 +204,12 @@ function updateEvidenceIndex() {
 
 function add(name, passed, detail) {
   checks.push({ name, passed, detail });
+}
+
+function assertPng(path, label) {
+  const fullPath = abs(path);
+  const passed = existsSync(fullPath) && statSync(fullPath).size >= 5000;
+  add(`${label} screenshot is browser-sized`, passed, { path, bytes: existsSync(fullPath) ? statSync(fullPath).size : 0 });
 }
 
 function listFiles(relativeRoot) {

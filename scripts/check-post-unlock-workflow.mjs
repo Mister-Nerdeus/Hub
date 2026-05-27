@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -69,9 +69,12 @@ function runStage(currentStage) {
     add("unlocked visual assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
     if (existsSync(abs(assertionsPath))) {
       const assertions = readJson(assertionsPath);
+      const visualIssueDir = `docs/verification/issues/issue-${assertions.issue ?? issue}`;
+      add("post-unlock proof is browser-rendered app", assertions.source === "browser-rendered-app" && assertions.staticHtmlOnlyProof === false, assertions);
       add("canonical workflow first", assertions.canonicalWorkflowVisible === true, assertions);
       add("demo guide secondary", assertions.demoGuideSecondary === true, assertions);
       add("no optimizer output", assertions.optimizerOutputVisible === false, assertions);
+      assertPng(`${visualIssueDir}/screenshots/post-unlock-canonical-workflow.png`, "post-unlock workflow visual proof");
     }
   }
 }
@@ -173,6 +176,12 @@ function updateEvidenceIndex() {
 
 function add(name, passed, detail) {
   checks.push({ name, passed, detail });
+}
+
+function assertPng(path, label) {
+  const fullPath = abs(path);
+  const passed = existsSync(fullPath) && statSync(fullPath).size >= 5000;
+  add(`${label} screenshot is browser-sized`, passed, { path, bytes: existsSync(fullPath) ? statSync(fullPath).size : 0 });
 }
 
 function listFiles(relativeRoot) {

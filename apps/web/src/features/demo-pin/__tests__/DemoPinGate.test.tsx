@@ -20,6 +20,9 @@ const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8"
 if (!gateSource.includes("demo-pin-gate") || !gateSource.includes("type=\"password\"")) {
   throw new Error("DemoPinGate must visibly render a PIN input");
 }
+if (gateSource.includes("data-protected-action-id") || gateSource.includes("Protected demo actions")) {
+  throw new Error("locked PIN gate must not render protected workflow actions before unlock");
+}
 if (!appSource.includes("<DemoPinEntryScreen")) {
   throw new Error("App must mount the standalone demo PIN entry screen before AppShell");
 }

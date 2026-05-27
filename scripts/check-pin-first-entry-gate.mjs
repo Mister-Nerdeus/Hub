@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -65,14 +65,19 @@ function runStage(currentStage) {
   }
   if (currentStage === "hide-shell-before-unlock") {
     const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
+    const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
+    const lockedScreen = `${entry}\n${gate}`;
     for (const hidden of ["Floorplans", "Editor", "Manual Assignment", "Review / Reports", "Advanced", "Future Tools"]) {
-      add(`locked screen hides ${hidden}`, !entry.includes(hidden), "DemoPinEntryScreen.tsx");
+      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
     }
+    add("locked screen hides protected action list", !lockedScreen.includes("Protected demo actions") && !lockedScreen.includes("data-protected-action-id"), "DemoPinGate.tsx");
   }
   if (currentStage === "hide-demo-content-before-unlock") {
     const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
-    for (const hidden of ["Plan 1 Demo Guide", "seed pack", "Scenario Comparison", "proof report", "Developer/Evidence"]) {
-      add(`locked screen hides ${hidden}`, !entry.includes(hidden), "DemoPinEntryScreen.tsx");
+    const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
+    const lockedScreen = `${entry}\n${gate}`;
+    for (const hidden of ["Plan 1 Demo Guide", "seed pack", "Scenario Comparison", "Ratio Comparison", "proof report", "Developer/Evidence"]) {
+      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
     }
   }
   if (currentStage === "pin-landing-ux") {
@@ -89,10 +94,14 @@ function runStage(currentStage) {
     add("visual DOM assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
     if (existsSync(abs(assertionsPath))) {
       const assertions = readJson(assertionsPath);
+      const visualIssueDir = `docs/verification/issues/issue-${assertions.issue ?? issue}`;
+      add("visual proof is browser-rendered app", assertions.source === "browser-rendered-app" && assertions.staticHtmlOnlyProof === false, assertions);
       add("locked screenshot PIN only", assertions.locked.pinOnly === true, assertions.locked);
       add("locked shell hidden", assertions.locked.appShellVisible === false, assertions.locked);
       add("locked demo guide hidden", assertions.locked.demoGuideVisible === false, assertions.locked);
       add("unlocked shell visible", assertions.unlocked.appShellVisible === true, assertions.unlocked);
+      assertPng(`${visualIssueDir}/screenshots/locked-pin-only.png`, "locked PIN visual proof");
+      assertPng(`${visualIssueDir}/screenshots/unlocked-canonical-workflow.png`, "unlocked canonical workflow visual proof");
     }
   }
 }
@@ -197,6 +206,12 @@ function updateEvidenceIndex() {
 
 function add(name, passed, detail) {
   checks.push({ name, passed, detail });
+}
+
+function assertPng(path, label) {
+  const fullPath = abs(path);
+  const passed = existsSync(fullPath) && statSync(fullPath).size >= 5000;
+  add(`${label} screenshot is browser-sized`, passed, { path, bytes: existsSync(fullPath) ? statSync(fullPath).size : 0 });
 }
 
 function listFiles(relativeRoot) {

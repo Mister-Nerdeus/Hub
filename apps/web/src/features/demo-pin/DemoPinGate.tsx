@@ -53,15 +53,6 @@ export function DemoPinGate({
         <span>{viewModel.message}</span>
         {viewModel.countdownLabel == null ? null : <span>{viewModel.countdownLabel}</span>}
       </p>
-      <ul className="demo-pin-gate__actions" aria-label="Protected demo actions">
-        {viewModel.protectedActions.map((action) => (
-          <li key={action.actionId}>
-            <button type="button" data-protected-action-id={action.actionId} disabled={action.disabled}>
-              {action.label}
-            </button>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

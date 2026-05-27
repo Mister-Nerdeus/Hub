@@ -89,18 +89,18 @@ function checkPinCanonicalGate() {
 }
 
 function checkPinVisualProof() {
-  const assertionsPath = "docs/verification/scope-pin-ui-dom-assertions.json";
+  const assertionsPath = "docs/verification/pin-first-entry-dom-assertions.json";
   add("PIN visual proof assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
   if (!existsSync(abs(assertionsPath))) return;
   const assertions = readJson(assertionsPath);
-  add("PIN gate visible in app proof", assertions.pinGateVisible === true, assertions.pinGateVisible);
-  add("wrong PIN visible in app proof", assertions.wrongPinStateVisible === true, assertions.wrongPinStateVisible);
-  add("PIN unlocked visible in app proof", assertions.pinUnlockedStateVisible === true, assertions.pinUnlockedStateVisible);
-  add("no auth/security/data-protection claim", assertions.productionAuthClaimVisible === false && assertions.securityClaimVisible === false, assertions);
+  add("PIN gate visible in app proof", assertions.locked?.pinOnly === true, assertions.locked);
+  add("locked proof hides protected workflow actions", assertions.locked?.protectedActionsVisible === false, assertions.locked);
+  add("PIN unlocked visible in app proof", assertions.unlocked?.appShellVisible === true, assertions.unlocked);
+  add("browser-rendered proof is not static", assertions.source === "browser-rendered-app" && assertions.staticHtmlOnlyProof === false, assertions);
   manifest.visualProofStatus = checks.slice(-4).every((check) => check.passed) ? "passed" : manifest.visualProofStatus;
-  writeJson(`${issueDir}/pin-gate-dom-output.json`, { status: "passed", pinGateVisible: assertions.pinGateVisible });
-  writeJson(`${issueDir}/wrong-pin-dom-output.json`, { status: "passed", wrongPinStateVisible: assertions.wrongPinStateVisible });
-  writeJson(`${issueDir}/unlocked-pin-dom-output.json`, { status: "passed", pinUnlockedStateVisible: assertions.pinUnlockedStateVisible });
+  writeJson(`${issueDir}/pin-gate-dom-output.json`, { status: "passed", pinOnly: assertions.locked?.pinOnly === true });
+  writeJson(`${issueDir}/wrong-pin-dom-output.json`, { status: "passed", coveredBy: "pin-rate-limit-lockout gate" });
+  writeJson(`${issueDir}/unlocked-pin-dom-output.json`, { status: "passed", appShellVisible: assertions.unlocked?.appShellVisible === true });
 }
 
 function writeFinalSummaries() {

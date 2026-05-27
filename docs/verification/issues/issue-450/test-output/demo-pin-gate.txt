@@ -35,7 +35,7 @@
       "detail": "DemoPinGate.tsx"
     },
     {
-      "name": "DemoPinGate mounted in app",
+      "name": "DemoPinGate mounted through PIN-first entry screen",
       "passed": true,
       "detail": "App.tsx"
     },
@@ -62,46 +62,70 @@
     {
       "name": "PIN visual proof assertions exist",
       "passed": true,
-      "detail": "docs/verification/scope-pin-ui-dom-assertions.json"
+      "detail": "docs/verification/pin-first-entry-dom-assertions.json"
     },
     {
       "name": "PIN gate visible in app proof",
       "passed": true,
-      "detail": true
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
+      }
     },
     {
-      "name": "wrong PIN visible in app proof",
+      "name": "locked proof hides protected workflow actions",
       "passed": true,
-      "detail": true
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
+      }
     },
     {
       "name": "PIN unlocked visible in app proof",
       "passed": true,
-      "detail": true
+      "detail": {
+        "appShellVisible": true,
+        "canonicalPlan1WorkflowVisible": true,
+        "navigationVisible": true,
+        "demoGuideDemoted": true
+      }
     },
     {
-      "name": "no auth/security/data-protection claim",
+      "name": "browser-rendered proof is not static",
       "passed": true,
       "detail": {
-        "productDisplayNameVisible": true,
-        "canonicalPlanVisible": true,
-        "plan1VisibleMainUi": true,
-        "plan2VisibleMainUi": false,
-        "plan3VisibleMainUi": false,
-        "plan4VisibleMainUi": false,
-        "plan5VisibleMainUi": false,
-        "legacyPlansVisibleAdvanced": true,
-        "pinGateVisible": true,
-        "pinLockedStateVisible": true,
-        "wrongPinStateVisible": true,
-        "pinUnlockedStateVisible": true,
-        "pinDemoOnlyCopyVisible": true,
-        "productionAuthClaimVisible": false,
-        "securityClaimVisible": false,
-        "phiLikeTextVisible": false,
-        "simulationOutputVisible": false,
-        "optimizerOutputVisible": false,
-        "staticHtmlOnlyProof": false
+        "issue": "465",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "locked": {
+          "pinOnly": true,
+          "appShellVisible": false,
+          "navigationVisible": false,
+          "demoGuideVisible": false,
+          "seedPackVisible": false,
+          "floorplanContentVisible": false,
+          "protectedActionsVisible": false,
+          "forbiddenLockedContentVisible": false
+        },
+        "unlocked": {
+          "appShellVisible": true,
+          "canonicalPlan1WorkflowVisible": true,
+          "navigationVisible": true,
+          "demoGuideDemoted": true
+        }
       }
     }
   ]

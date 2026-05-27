@@ -11,6 +11,8 @@ const entrySource = readFileSync(
   resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx"),
   "utf8"
 );
+const gateSource = readFileSync(resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinGate.tsx"), "utf8");
+const lockedScreenSource = `${entrySource}\n${gateSource}`;
 
 for (const hiddenText of [
   "Floorplans",
@@ -20,7 +22,7 @@ for (const hiddenText of [
   "Advanced",
   "Future Tools"
 ]) {
-  if (entrySource.includes(hiddenText)) {
+  if (lockedScreenSource.includes(hiddenText)) {
     throw new Error(`locked PIN screen must not include navigation text: ${hiddenText}`);
   }
 }

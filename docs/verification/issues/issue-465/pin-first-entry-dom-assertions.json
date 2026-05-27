@@ -1,13 +1,17 @@
 {
   "issue": "465",
+  "source": "browser-rendered-app",
   "renderedAppProof": true,
+  "staticHtmlOnlyProof": false,
   "locked": {
     "pinOnly": true,
     "appShellVisible": false,
     "navigationVisible": false,
     "demoGuideVisible": false,
     "seedPackVisible": false,
-    "floorplanContentVisible": false
+    "floorplanContentVisible": false,
+    "protectedActionsVisible": false,
+    "forbiddenLockedContentVisible": false
   },
   "unlocked": {
     "appShellVisible": true,

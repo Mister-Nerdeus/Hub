@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const repoRoot = process.cwd();
@@ -68,8 +68,11 @@ function runStage(currentStage) {
     add("one-floorplan assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
     if (existsSync(abs(assertionsPath))) {
       const assertions = readJson(assertionsPath);
+      const visualIssueDir = `docs/verification/issues/issue-${assertions.issue ?? issue}`;
+      add("one-floorplan proof is browser-rendered app", assertions.source === "browser-rendered-app" && assertions.staticHtmlOnlyProof === false, assertions);
       add("Plan 1 only in main UI", assertions.plan1OnlyInMainUi === true, assertions);
       add("Plans 2-5 only in advanced evidence", assertions.plansTwoThroughFiveOnlyInAdvancedEvidence === true, assertions);
+      assertPng(`${visualIssueDir}/screenshots/one-floorplan-main-ui.png`, "one-floorplan main UI visual proof");
     }
   }
 }
@@ -173,6 +176,12 @@ function updateEvidenceIndex() {
 
 function add(name, passed, detail) {
   checks.push({ name, passed, detail });
+}
+
+function assertPng(path, label) {
+  const fullPath = abs(path);
+  const passed = existsSync(fullPath) && statSync(fullPath).size >= 5000;
+  add(`${label} screenshot is browser-sized`, passed, { path, bytes: existsSync(fullPath) ? statSync(fullPath).size : 0 });
 }
 
 function listFiles(relativeRoot) {

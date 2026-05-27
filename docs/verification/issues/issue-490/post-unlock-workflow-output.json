@@ -70,11 +70,30 @@
       "detail": "docs/verification/post-unlock-workflow-dom-assertions.json"
     },
     {
+      "name": "post-unlock proof is browser-rendered app",
+      "passed": true,
+      "detail": {
+        "issue": "480",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "canonicalWorkflowVisible": true,
+        "canonicalFloorplanHeadingVisible": true,
+        "plan1OnlyInMainWorkflow": true,
+        "demoGuideSecondary": true,
+        "seedPackSecondary": true,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false
+      }
+    },
+    {
       "name": "canonical workflow first",
       "passed": true,
       "detail": {
         "issue": "480",
+        "source": "browser-rendered-app",
         "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
         "canonicalWorkflowVisible": true,
         "canonicalFloorplanHeadingVisible": true,
         "plan1OnlyInMainWorkflow": true,
@@ -89,7 +108,9 @@
       "passed": true,
       "detail": {
         "issue": "480",
+        "source": "browser-rendered-app",
         "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
         "canonicalWorkflowVisible": true,
         "canonicalFloorplanHeadingVisible": true,
         "plan1OnlyInMainWorkflow": true,
@@ -104,7 +125,9 @@
       "passed": true,
       "detail": {
         "issue": "480",
+        "source": "browser-rendered-app",
         "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
         "canonicalWorkflowVisible": true,
         "canonicalFloorplanHeadingVisible": true,
         "plan1OnlyInMainWorkflow": true,
@@ -112,6 +135,14 @@
         "seedPackSecondary": true,
         "simulationOutputVisible": false,
         "optimizerOutputVisible": false
+      }
+    },
+    {
+      "name": "post-unlock workflow visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-480/screenshots/post-unlock-canonical-workflow.png",
+        "bytes": 154336
       }
     }
   ]
