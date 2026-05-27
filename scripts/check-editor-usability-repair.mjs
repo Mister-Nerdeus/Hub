@@ -22,6 +22,17 @@ const stageStatusKey = {
   "next-step-panel": "nextStepPanelStatus"
 };
 const finalStages = Object.keys(stageStatusKey);
+const stageIssueByStage = {
+  "canonical-gates": "401",
+  "canvas-layout": "402",
+  "background-pan": "403",
+  "canvas-wheel": "404",
+  "command-bar": "405",
+  "validation-drawer": "406",
+  "viewport-fit": "407",
+  "advanced-nav": "408",
+  "next-step-panel": "409"
+};
 const floorplanGateIds = [
   "floorplan-editor-ux",
   "floorplan-operational-map-style",
@@ -153,8 +164,8 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "layout-editor-stage__workspace--inspector-collapsed");
     requireFile("apps/web/src/features/layout-editor/editorViewportLayoutViewModel.ts");
     requireFile("apps/web/src/features/layout-editor/__tests__/editorViewportLayout.test.tsx");
-    assertPng(`${issueDir}/screenshots/editor-before-layout.png`);
-    assertPng(`${issueDir}/screenshots/editor-larger-canvas.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/editor-before-layout.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/editor-larger-canvas.png`);
     writeJson(`${issueDir}/editor-layout-before-output.json`, {
       status: "reproduced",
       previousMaxWidthPixels: 1180,
@@ -197,7 +208,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "isCanvasPanBackgroundTarget");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "cursor: grab");
     requireFile("apps/web/src/features/layout-editor/__tests__/layoutCanvasPan.test.ts");
-    assertPng(`${issueDir}/screenshots/background-pan-canvas.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/background-pan-canvas.png`);
     writeJson(`${issueDir}/background-pan-output.json`, {
       status: "passed",
       startTarget: "data-canvas-pan-background",
@@ -273,7 +284,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "onAddObject={() => setToolMode(\"add_room\")}");
     requireText("apps/web/src/features/layout-editor/SimulationReadyExportPanel.tsx", "showValidateButton");
     requireFile("apps/web/src/features/layout-editor/__tests__/editorCommandBar.test.tsx");
-    assertPng(`${issueDir}/screenshots/editor-command-bar.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/editor-command-bar.png`);
     if (commandBarSource.includes("PIN") || commandBarSource.includes("pin gate")) {
       failures.push("command bar contains PIN gate language");
     }
@@ -336,8 +347,8 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "maxVisibleWarnings={2}");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "ValidationDrawer");
     requireFile("apps/web/src/features/layout-editor/__tests__/validationDrawer.test.tsx");
-    assertPng(`${issueDir}/screenshots/validation-summary.png`);
-    assertPng(`${issueDir}/screenshots/validation-drawer-expanded.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/validation-summary.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/validation-drawer-expanded.png`);
     writeJson(`${issueDir}/validation-wall-before-output.json`, {
       status: "reproduced",
       previousPanel: "full warning list rendered inside the validation inspector tab"
@@ -373,10 +384,11 @@ function runStage(currentStage) {
   if (currentStage === "viewport-fit") {
     requireFile("docs/verification/editor-usability-viewport-fit-manifest.json");
     requireFile("apps/web/tests/editor-viewport-fit.spec.ts");
-    assertPng(`${issueDir}/screenshots/editor-viewport-fit.png`);
-    requireFile(`${issueDir}/dom-assertion-sidecar-output.json`);
-    const sidecar = existsSync(abs(`${issueDir}/dom-assertion-sidecar-output.json`))
-      ? readJson(`${issueDir}/dom-assertion-sidecar-output.json`)
+    const viewportEvidenceDir = stageEvidenceDir(currentStage);
+    assertPng(`${viewportEvidenceDir}/screenshots/editor-viewport-fit.png`);
+    requireFile(`${viewportEvidenceDir}/dom-assertion-sidecar-output.json`);
+    const sidecar = existsSync(abs(`${viewportEvidenceDir}/dom-assertion-sidecar-output.json`))
+      ? readJson(`${viewportEvidenceDir}/dom-assertion-sidecar-output.json`)
       : null;
     if (sidecar != null) {
       if (sidecar.viewport?.width !== 1440 || sidecar.viewport?.height !== 1200) {
@@ -389,7 +401,9 @@ function runStage(currentStage) {
         failures.push("viewport-fit proof still requires full-page tall screenshot scrolling");
       }
     }
-    const png = readPngInfo(`${issueDir}/screenshots/editor-viewport-fit.png`);
+    const png = existsSync(abs(`${viewportEvidenceDir}/screenshots/editor-viewport-fit.png`))
+      ? readPngInfo(`${viewportEvidenceDir}/screenshots/editor-viewport-fit.png`)
+      : { width: 0, height: 0 };
     if (png.height > 1200) failures.push("viewport-fit screenshot is taller than the base viewport");
     writeJson(`${issueDir}/viewport-fit-output.json`, {
       status: "passed",
@@ -422,7 +436,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/app-shell/AppShell.tsx", "app-nav__advanced-tools");
     requireText("apps/web/src/features/app-shell/appShell.css", "app-nav__advanced-list");
     requireText("apps/web/src/features/app-shell/__tests__/appNavigation.test.ts", "Developer/Evidence must not remain primary");
-    assertPng(`${issueDir}/screenshots/primary-nav-with-advanced.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/primary-nav-with-advanced.png`);
     if (navigationSource.includes('{ id: "developer-evidence", label: "Developer/Evidence", group: "primary" }')) {
       failures.push("Developer/Evidence still appears in primary navigation");
     }
@@ -462,7 +476,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/editorNextStepViewModel.ts", "buildEditorNextStep");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "EditorNextStepPanel");
     requireText("apps/web/src/features/layout-editor/__tests__/editorNextStepViewModel.test.ts", "Open a floorplan.");
-    assertPng(`${issueDir}/screenshots/editor-next-step-panel.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/editor-next-step-panel.png`);
     writeJson(`${issueDir}/next-step-panel-output.json`, {
       status: "passed",
       component: "EditorNextStepPanel",
@@ -585,6 +599,17 @@ function commandsForIssue(issueNumber) {
       "node scripts/verify-local.mjs"
     ];
   }
+  if (issueNumber === "410") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-editor-usability-repair.mjs --stage final --issue 410",
+      "node scripts/check-canonical-gate-registry.mjs --issue 410",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 410",
+      "node scripts/verify-local.mjs"
+    ];
+  }
   const issueStage = {
     "402": "canvas-layout",
     "403": "background-pan",
@@ -684,6 +709,11 @@ function listIssueFiles(issueNumber) {
       else if (entry.isFile()) output.push(entryPath.replace(repoRoot, "").replace(/\\/g, "/").replace(/^\/+/, ""));
     }
   }
+}
+
+function stageEvidenceDir(currentStage) {
+  if (stage !== "final") return issueDir;
+  return `docs/verification/issues/issue-${stageIssueByStage[currentStage] ?? issue}`;
 }
 
 function loadManifest() {

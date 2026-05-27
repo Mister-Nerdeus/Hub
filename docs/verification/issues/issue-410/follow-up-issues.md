@@ -1,0 +1,1 @@
+- Continue with popup editing only after all local Issue 401-409 gates pass.

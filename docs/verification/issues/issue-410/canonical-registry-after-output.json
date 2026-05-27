@@ -1,0 +1,182 @@
+{
+  "registryVersion": "1.0.0",
+  "lastUpdatedIssue": "401",
+  "productDisplayName": "ER Pod Shift Simulator",
+  "verifyLocalEnforcesRegistry": true,
+  "gates": [
+    {
+      "id": "no-phi",
+      "packageScript": "check:no-phi",
+      "command": "npm run check:no-phi",
+      "category": "non-phi"
+    },
+    {
+      "id": "dependency-specs",
+      "packageScript": "check:dependencies",
+      "command": "npm run check:dependencies",
+      "category": "dependency"
+    },
+    {
+      "id": "docs-contracts",
+      "packageScript": "check:docs",
+      "command": "npm run check:docs",
+      "category": "evidence"
+    },
+    {
+      "id": "simulation-contract-parity",
+      "packageScript": "check:simulation-contract-parity",
+      "command": "npm run check:simulation-contract-parity",
+      "category": "contract"
+    },
+    {
+      "id": "product-naming",
+      "packageScript": "check:product-naming",
+      "command": "npm run check:product-naming -- --issue ${manualAssignmentIssue}",
+      "category": "product-identity"
+    },
+    {
+      "id": "product-identity",
+      "packageScript": "check:product-identity",
+      "command": "npm run check:product-identity -- --issue ${manualAssignmentIssue}",
+      "category": "product-identity"
+    },
+    {
+      "id": "source-plan-correction",
+      "packageScript": "check:source-plan-correction",
+      "command": "npm run check:source-plan-correction",
+      "category": "repair"
+    },
+    {
+      "id": "corrected-plan-review",
+      "packageScript": "check:corrected-plan-review",
+      "command": "npm run check:corrected-plan-review",
+      "category": "repair"
+    },
+    {
+      "id": "corrected-plan-route-repair",
+      "packageScript": "check:corrected-plan-route-repair",
+      "command": "npm run check:corrected-plan-route-repair",
+      "category": "repair"
+    },
+    {
+      "id": "manual-visual-review",
+      "packageScript": "check:manual-visual-review",
+      "command": "npm run check:manual-visual-review -- --issue ${operationalDemoRepairIssue}",
+      "category": "manual-review-boundary"
+    },
+    {
+      "id": "plan-builder-ux-review-flow",
+      "packageScript": "check:plan-builder-ux-review-flow",
+      "command": "npm run check:plan-builder-ux-review-flow -- --issue ${operationalDemoRepairIssue}",
+      "category": "manual-review-boundary"
+    },
+    {
+      "id": "human-review-intake",
+      "packageScript": "check:human-review-intake",
+      "command": "npm run check:human-review-intake -- --issue ${operationalDemoRepairIssue}",
+      "category": "manual-review-boundary"
+    },
+    {
+      "id": "human-review-governance-hardening",
+      "packageScript": "check:human-review-governance-hardening",
+      "command": "npm run check:human-review-governance-hardening -- --issue ${humanReviewGovernanceIssue}",
+      "category": "manual-review-boundary"
+    },
+    {
+      "id": "operational-demo-ux",
+      "packageScript": "check:operational-demo-ux",
+      "command": "npm run check:operational-demo-ux -- --issue ${operationalDemoUxIssue}",
+      "category": "operational-demo"
+    },
+    {
+      "id": "operational-demo-repair",
+      "packageScript": "check:operational-demo-repair",
+      "command": "npm run check:operational-demo-repair",
+      "category": "operational-demo-repair"
+    },
+    {
+      "id": "real-browser-proof",
+      "packageScript": "check:real-browser-proof",
+      "command": "npm run check:real-browser-proof",
+      "category": "operational-demo-repair"
+    },
+    {
+      "id": "operational-demo-negative-tests",
+      "packageScript": "check:operational-demo-negative-tests",
+      "command": "npm run check:operational-demo-negative-tests",
+      "category": "operational-demo-repair"
+    },
+    {
+      "id": "private-source-artifacts",
+      "packageScript": "check:private-source-artifacts",
+      "command": "npm run check:private-source-artifacts",
+      "category": "private-source-boundary"
+    },
+    {
+      "id": "default-plans-2-5-unchanged",
+      "packageScript": "check:plans-2-5-unchanged",
+      "command": "npm run check:plans-2-5-unchanged -- --issue ${manualAssignmentIssue}",
+      "category": "fixture-nonmutation"
+    },
+    {
+      "id": "canonical-gates",
+      "packageScript": "check:canonical-gates",
+      "command": "npm run check:canonical-gates -- --issue ${manualAssignmentIssue}",
+      "category": "truth-loop"
+    },
+    {
+      "id": "manual-assignment-foundation-preflight",
+      "packageScript": "check:manual-assignment-foundation",
+      "command": "npm run check:manual-assignment-foundation -- --stage preflight --allow-partial --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-contracts",
+      "packageScript": "check:manual-assignment-contracts",
+      "command": "npm run check:manual-assignment-contracts -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-ui",
+      "packageScript": "check:manual-assignment-ui",
+      "command": "npm run check:manual-assignment-ui -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-burden",
+      "packageScript": "check:manual-assignment-burden",
+      "command": "npm run check:manual-assignment-burden -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "floorplan-editor-ux",
+      "packageScript": "check:floorplan-editor-ux",
+      "command": "npm run check:floorplan-editor-ux -- --issue 400",
+      "category": "floorplan-editor-ux"
+    },
+    {
+      "id": "floorplan-operational-map-style",
+      "packageScript": "check:floorplan-operational-map-style",
+      "command": "npm run check:floorplan-operational-map-style -- --issue 400",
+      "category": "floorplan-editor-ux"
+    },
+    {
+      "id": "floorplan-presentation-rendering",
+      "packageScript": "check:floorplan-presentation-rendering",
+      "command": "npm run check:floorplan-presentation-rendering -- --issue 400",
+      "category": "floorplan-editor-ux"
+    },
+    {
+      "id": "door-authoring-tools",
+      "packageScript": "check:door-authoring-tools",
+      "command": "npm run check:door-authoring-tools -- --issue 400",
+      "category": "floorplan-editor-ux"
+    },
+    {
+      "id": "layout-assignment-overlay",
+      "packageScript": "check:layout-assignment-overlay",
+      "command": "npm run check:layout-assignment-overlay -- --issue 400",
+      "category": "floorplan-editor-ux"
+    }
+  ]
+}

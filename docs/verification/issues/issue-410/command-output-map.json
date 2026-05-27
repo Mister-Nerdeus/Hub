@@ -1,0 +1,47 @@
+{
+  "issue": "410",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-usability-repair.mjs --stage final --issue 410",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/editor-usability-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-gate-registry.mjs --issue 410",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/canonical-gates.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 410",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-410/test-output/verify-local.txt"
+      ]
+    }
+  ]
+}
