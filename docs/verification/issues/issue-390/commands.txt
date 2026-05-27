@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-manual-assignment-foundation.mjs --stage final --issue 390

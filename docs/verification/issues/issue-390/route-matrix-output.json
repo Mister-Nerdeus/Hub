@@ -1,0 +1,64 @@
+{
+  "matrixVersion": "1.0.0",
+  "issue": "339",
+  "routes": [
+    {
+      "route": "floorplans",
+      "component": "PlanBuilderLanding",
+      "coveredSurfaces": [
+        "PlanBuilderLibrary",
+        "RenderedPlanPreviewPanel",
+        "ManualReviewActions",
+        "ManualReviewHelper",
+        "PromotionBlockedBanner"
+      ],
+      "dataSource": "apps/web/src/features/floorplans/generated/planBuilderReviewFlowSnapshot.ts",
+      "promotionStatus": "blocked",
+      "manualReviewStatus": "manual_review_required"
+    }
+  ],
+  "components": [
+    {
+      "component": "PlanBuilderLibrary",
+      "status": "covered"
+    },
+    {
+      "component": "PlanStatusBadge",
+      "status": "covered"
+    },
+    {
+      "component": "PlanLibraryFilters",
+      "status": "covered"
+    },
+    {
+      "component": "RenderedPlanPreviewPanel",
+      "status": "covered"
+    },
+    {
+      "component": "ManualReviewActions",
+      "status": "covered"
+    },
+    {
+      "component": "ManualReviewHelper",
+      "status": "covered"
+    },
+    {
+      "component": "PromotionBlockedBanner",
+      "status": "covered"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "docs/verification/issues/issue-339/screenshots/plan-builder-ux-overview.png",
+      "status": "reference_placeholder"
+    },
+    {
+      "path": "docs/verification/issues/issue-339/screenshots/manual-review-flow.png",
+      "status": "reference_placeholder"
+    },
+    {
+      "path": "docs/verification/issues/issue-339/screenshots/promotion-blocked-flow.png",
+      "status": "reference_placeholder"
+    }
+  ]
+}

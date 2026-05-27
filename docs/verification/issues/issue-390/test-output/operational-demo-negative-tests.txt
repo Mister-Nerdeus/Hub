@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "issue": "390",
+  "validatorBacked": true,
+  "results": [
+    {
+      "file": "forbidden-browser-title-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/forbidden browser title/u",
+      "actualError": "forbidden browser title"
+    },
+    {
+      "file": "unsafe-rendered-path-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/safe repo-relative/u",
+      "actualError": "renderedEvidencePath is not a safe repo-relative evidence path"
+    },
+    {
+      "file": "private-source-image-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/safe repo-relative/u",
+      "actualError": "renderedEvidencePath is not a safe repo-relative evidence path"
+    },
+    {
+      "file": "raw-hash-operator-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/raw hash/u",
+      "actualError": "raw hash in operator payload"
+    },
+    {
+      "file": "approval-claim-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/manual review or promotion/u",
+      "actualError": "plan-2 violates manual review or promotion boundaries"
+    },
+    {
+      "file": "promotion-enabled-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/manual review or promotion/u",
+      "actualError": "plan-2 violates manual review or promotion boundaries"
+    },
+    {
+      "file": "sample-approval-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/manual review or promotion/u",
+      "actualError": "plan-2 violates manual review or promotion boundaries"
+    },
+    {
+      "file": "raw-manifest-leak-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/raw proof manifest/u",
+      "actualError": "raw proof manifest leakage"
+    },
+    {
+      "file": "label-only-negative-proof-negative-output.json",
+      "status": "passed",
+      "rejected": true,
+      "expectedReason": "/label-only/u",
+      "actualError": "label-only negative proof"
+    }
+  ],
+  "failures": []
+}

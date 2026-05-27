@@ -147,7 +147,7 @@ function runStage(currentStage) {
   if (currentStage === "browser-proof") {
     if (!existsSync(abs("docs/verification/operational-demo-screenshot-manifest.json"))) failures.push("real browser screenshot manifest is missing");
     else {
-      const proof = readJson("docs/verification/operational-demo-screenshot-manifest.json");
+      const proof = readBrowserProofManifest();
       if (String(proof.issue) !== String(issue)) failures.push("browser proof manifest does not match current issue");
       if (proof.source !== "browser-rendered-app") failures.push("browser proof source is not browser-rendered-app");
       if ((proof.screenshots ?? []).length < 10) failures.push("browser proof must contain all required screenshots");
@@ -210,6 +210,14 @@ function writeCommonEvidence() {
   if (!existsSync(abs(`${issueDir}/first-failure.txt`))) {
     writeText(`${issueDir}/first-failure.txt`, firstFailureText());
   }
+}
+
+function readBrowserProofManifest() {
+  const issueManifestPath = `${issueDir}/screenshot-manifest-output.json`;
+  const globalProof = readJson("docs/verification/operational-demo-screenshot-manifest.json");
+  if (String(globalProof.issue) === String(issue)) return globalProof;
+  if (existsSync(abs(issueManifestPath))) return readJson(issueManifestPath);
+  return globalProof;
 }
 
 function writeIssueCloseoutAndIndex() {

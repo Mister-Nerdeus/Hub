@@ -1,0 +1,1 @@
+- Begin Manual Assignment Workflow Foundation only if final local gates pass.
