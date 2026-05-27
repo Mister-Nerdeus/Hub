@@ -30,6 +30,19 @@ if (!readOnly.deleteDisabled) {
   throw new Error("door delete must be protected for read-only layouts");
 }
 
+const solidWallRooms: EditableRoomGeometry[] = [
+  { ...room("solid-wall-01", "Solid wall", 0, 10), roomType: "solid_wall" },
+  room("room-03", "Room 03", 0, 0)
+];
+const solidWallDoor = { ...door, ownerId: "solid-wall-01" };
+const solidWallDoorViewModel = buildDoorQuickEdit({ door: solidWallDoor, rooms: solidWallRooms, readOnly: false });
+if (solidWallDoorViewModel.readOnly !== true || solidWallDoorViewModel.canUseAdjacent !== false) {
+  throw new Error("solid-wall door quick edit tools must be disabled");
+}
+if (solidWallDoorViewModel.noCandidateReason !== "Solid wall / blocked area cannot accept doors.") {
+  throw new Error("solid-wall door quick edit must explain why tools are disabled");
+}
+
 const calls: string[] = [];
 const element = DoorQuickEditPopover({
   viewModel: editable,

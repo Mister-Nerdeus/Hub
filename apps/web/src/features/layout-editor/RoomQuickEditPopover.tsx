@@ -74,7 +74,12 @@ export function RoomQuickEditPopover({
         </button>
       </div>
       <div className="room-quick-edit-popover__actions">
-        <button type="button" disabled={viewModel.readOnly} onClick={onAssignNurse}>
+        <button
+          type="button"
+          disabled={viewModel.assignNurseDisabled}
+          title={viewModel.assignNurseDisabledReason ?? undefined}
+          onClick={onAssignNurse}
+        >
           Assign nurse
         </button>
         <button

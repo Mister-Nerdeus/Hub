@@ -3,7 +3,8 @@ import {
   type EditableDoorGeometry,
   type EditableDoorWall,
   type EditableHallwayGeometry,
-  type EditableRoomGeometry
+  type EditableRoomGeometry,
+  isDoorEligibleRoomType
 } from "@nerdeus/shared";
 import type { AdjacentDoorCandidateItem } from "./adjacentDoorCandidateViewModel";
 
@@ -47,6 +48,10 @@ export function buildDoorQuickEdit({
       deleteDisabled: true
     };
   }
+  const ownerRoom = door.ownerKind === "room"
+    ? rooms.find((room) => room.id === door.ownerId) ?? null
+    : null;
+  const ownerDoorEligible = ownerRoom == null || isDoorEligibleRoomType(ownerRoom.roomType);
   const adjacency = detectDoorAdjacency({
     layout: {
       schemaVersion: "1.0.0",
@@ -70,17 +75,22 @@ export function buildDoorQuickEdit({
     disabled: false as const
   }));
   const adjacentCandidateCount = adjacentCandidates.length;
+  const toolsReadOnly = readOnly || !ownerDoorEligible;
   return {
     status: "ready",
     doorId: door.id,
     label: door.label,
     wall: door.wall,
     offsetFeet: door.offsetFeet,
-    readOnly,
+    readOnly: toolsReadOnly,
     adjacentCandidateCount,
     canUseAdjacent: adjacentCandidateCount > 0,
     adjacentCandidates,
-    noCandidateReason: adjacentCandidateCount === 0 ? adjacency.reasonCodes.join(", ") : null,
+    noCandidateReason: !ownerDoorEligible
+      ? "Solid wall / blocked area cannot accept doors."
+      : adjacentCandidateCount === 0
+        ? adjacency.reasonCodes.join(", ")
+        : null,
     deleteDisabled: readOnly
   };
 }

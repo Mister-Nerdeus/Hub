@@ -4,6 +4,7 @@ import test from "node:test";
 import {
   addDoorToRoom,
   canCreateRoomDoorPathNode,
+  detectDoorAdjacency,
   validateDoorPlacement,
   validateEditableLayoutGeometryContract,
   validateNoSolidWallDoorReferences
@@ -129,4 +130,35 @@ test("solid-wall validation reports quarantinable door references", () => {
     }]
   });
   assert.deepEqual(issues.map((issue) => issue.code), ["SOLID_WALL_DOOR_REFERENCE"]);
+});
+
+test("door adjacency excludes solid-wall candidates and solid-wall owners", () => {
+  const adjacentSolidWallLayout = {
+    ...baseLayout,
+    rooms: [
+      { ...patientRoom, id: "room-owner", label: "Owner room", xFeet: 0, yFeet: 10 },
+      { ...solidWallRoom, id: "solid-wall-adjacent", label: "Blocked area", xFeet: 0, yFeet: 0 }
+    ],
+    doors: []
+  };
+  const door = {
+    objectType: "door",
+    id: "door-owner",
+    label: "Door owner",
+    ownerKind: "room",
+    ownerId: "room-owner",
+    wall: "north",
+    offsetFeet: 1,
+    widthFeet: 3
+  };
+  const normalOwner = detectDoorAdjacency({ layout: adjacentSolidWallLayout, door });
+  assert.equal(normalOwner.status, "no_candidates");
+  assert.equal(normalOwner.candidates.some((candidate) => candidate.roomId === "solid-wall-adjacent"), false);
+
+  const solidWallOwner = detectDoorAdjacency({
+    layout: adjacentSolidWallLayout,
+    door: { ...door, ownerId: "solid-wall-adjacent", wall: "south" }
+  });
+  assert.equal(solidWallOwner.status, "no_candidates");
+  assert.deepEqual(solidWallOwner.reasonCodes, ["owner_room_door_ineligible"]);
 });

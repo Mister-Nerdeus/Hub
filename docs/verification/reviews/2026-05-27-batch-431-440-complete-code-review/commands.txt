@@ -1,0 +1,12 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-room-type-semantics.mjs --stage final --issue 440
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 440
+docker compose config
+docker compose -f docker-compose.production.yml config
+$env:PRODUCTION_DOCKER_SMOKE_PORT='5198'; node scripts/check-production-docker-runtime.mjs --smoke; Remove-Item Env:PRODUCTION_DOCKER_SMOKE_PORT
+node scripts/check-docs-contracts.mjs
+node scripts/check-issue-evidence-index.mjs
+git diff --check

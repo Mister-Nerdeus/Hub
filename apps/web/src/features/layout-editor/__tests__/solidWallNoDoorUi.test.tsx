@@ -39,6 +39,9 @@ const element = RoomQuickEditPopover({
 });
 
 const actionButtons = element.props.children[3].props.children;
+if (actionButtons[0].props.disabled !== true) {
+  throw new Error("Assign nurse button must render disabled for solid walls");
+}
 if (actionButtons[1].props.disabled !== true) {
   throw new Error("Add Door button must render disabled for solid walls");
 }

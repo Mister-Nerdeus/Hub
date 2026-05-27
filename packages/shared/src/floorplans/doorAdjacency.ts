@@ -13,12 +13,14 @@ import {
   overlapLengthFeet,
   wallLengthFeet
 } from "./doorGeometryUtils.js";
+import { isDoorEligibleRoomType } from "./roomTypeRules.js";
 
 export type DoorAdjacencyRelationshipType = "shared_wall" | "near_touching" | "hallway_adjacent";
 
 export type DoorAdjacencyReasonCode =
   | "owner_not_found"
   | "owner_not_room"
+  | "owner_room_door_ineligible"
   | "candidate_shared_wall"
   | "candidate_near_touching"
   | "candidate_hallway_adjacent"
@@ -58,9 +60,12 @@ export function detectDoorAdjacency(input: {
   if (ownerRoom == null) {
     return noCandidates(input.door, null, ["owner_not_found"]);
   }
+  if (!isDoorEligibleRoomType(ownerRoom.roomType)) {
+    return noCandidates(input.door, ownerRoom.id, ["owner_room_door_ineligible"]);
+  }
 
   const directCandidates = input.layout.rooms
-    .filter((room) => room.id !== ownerRoom.id)
+    .filter((room) => room.id !== ownerRoom.id && isDoorEligibleRoomType(room.roomType))
     .map((room) => candidateForRoom(ownerRoom, room, input.door))
     .filter((candidate): candidate is DoorAdjacencyCandidate => candidate != null);
 
@@ -69,7 +74,7 @@ export function detectDoorAdjacency(input: {
     .filter((hallway) => rectTouchesWall(ownerRoom, hallway, input.door.wall))
     .flatMap((hallway) =>
       input.layout.rooms
-        .filter((room) => room.id !== ownerRoom.id && !directCandidateIds.has(room.id))
+        .filter((room) => room.id !== ownerRoom.id && !directCandidateIds.has(room.id) && isDoorEligibleRoomType(room.roomType))
         .map((room) => hallwayCandidateForRoom(ownerRoom, room, hallway, input.door))
         .filter((candidate): candidate is DoorAdjacencyCandidate => candidate != null)
     );

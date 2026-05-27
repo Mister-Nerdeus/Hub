@@ -44,6 +44,14 @@ if (assigned.assignmentsByRoomId["storage-01"] != null) {
   throw new Error("storage must not receive manual nurse assignment state");
 }
 
+const updatedLoad = manualAssignmentReducer(state, {
+  type: "setRoomLoad",
+  roomLoad: { ...roomLoad, acuity: 5 }
+});
+if (updatedLoad.roomLoadsByRoomId["storage-01"]?.acuity === 5) {
+  throw new Error("storage must not receive manual room-load state changes");
+}
+
 const viewModel = createManualAssignmentWorkspaceViewModel(state);
 if (viewModel.roomCards[0]?.assignmentDisabled !== true) {
   throw new Error("storage room card must disable assignment controls");
