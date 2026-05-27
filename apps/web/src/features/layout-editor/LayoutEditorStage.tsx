@@ -64,6 +64,8 @@ import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelView
 import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
 import { SimulationReadyExportPanel } from "./SimulationReadyExportPanel";
 import { LayoutViewportToolbar } from "./LayoutViewportToolbar";
+import { LayoutEditorModeToolbar } from "./LayoutEditorModeToolbar";
+import { DEFAULT_LAYOUT_EDITOR_MODE, type LayoutEditorMode } from "./layoutEditorMode";
 import {
   DEFAULT_LAYOUT_MAJOR_GRID_FEET,
   DEFAULT_LAYOUT_MINOR_GRID_FEET,
@@ -138,6 +140,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
+  const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -533,39 +536,44 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         <p role="status">{floorplanJsonStatus}</p>
       </section>
 
-      <LayoutToolPalette
-        mode={toolMode}
-        selectedRoomType={selectedNewRoomType}
-        readOnly={stageState.readOnly}
-        onModeChange={(mode) => {
-          setToolMode(mode);
-          if (mode === "add_door") {
-            addDoorToSelectedRoom();
-          }
-        }}
-        onRoomTypeChange={setSelectedNewRoomType}
-        onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
-      />
-      <AutoHallwayControls
-        readOnly={stageState.readOnly}
-        generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
-          hallway.id.startsWith("generated-hallway-")
-        ).length ?? 0}
-        onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
-      />
-      <DoorPathNodeSyncControls
-        readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
-        generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
-        generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
-        pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
-        warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
-        onGenerate={generateDoorPathNodesFromStage}
-      />
-      <SimulationReadyExportPanel
-        result={simulationReadyExportResult}
-        disabled={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
-        onValidateExport={validateSimulationReadyExportFromStage}
-      />
+      <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
+      {editorMode === "edit" ? (
+        <>
+          <LayoutToolPalette
+            mode={toolMode}
+            selectedRoomType={selectedNewRoomType}
+            readOnly={stageState.readOnly}
+            onModeChange={(mode) => {
+              setToolMode(mode);
+              if (mode === "add_door") {
+                addDoorToSelectedRoom();
+              }
+            }}
+            onRoomTypeChange={setSelectedNewRoomType}
+            onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
+          />
+          <AutoHallwayControls
+            readOnly={stageState.readOnly}
+            generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
+              hallway.id.startsWith("generated-hallway-")
+            ).length ?? 0}
+            onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+          />
+          <DoorPathNodeSyncControls
+            readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+            generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
+            generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
+            pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
+            warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
+            onGenerate={generateDoorPathNodesFromStage}
+          />
+          <SimulationReadyExportPanel
+            result={simulationReadyExportResult}
+            disabled={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+            onValidateExport={validateSimulationReadyExportFromStage}
+          />
+        </>
+      ) : null}
 
       <LayoutViewportToolbar
         viewport={stageState.viewport}
@@ -581,7 +589,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       <div className="layout-editor-stage__workspace">
         <div className="layout-editor-stage__shell" data-proof-only="true">
           <svg
-            className="layout-editor-stage__svg"
+            className={`layout-editor-stage__svg layout-editor-stage--${editorMode}`}
             viewBox={STAGE_VIEW_BOX}
             role="img"
             aria-label="Feet-based SVG grid stage"
@@ -592,6 +600,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             data-floorplan-source-kind={stageState.loadedFloorplan?.sourceKind ?? "proof-fixture"}
             data-validation-warning-count={stageState.validationWarnings.length}
             data-read-only={stageState.readOnly ? "true" : "false"}
+            data-editor-mode={editorMode}
             onClick={addRoomFromStageClick}
           >
             <rect
@@ -641,7 +650,16 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 />
               ))}
             </g>
-            <g>
+            <g
+              className="layout-editor-stage__grid"
+              data-grid-state={
+                editorMode === "edit"
+                  ? "visible"
+                  : editorMode === "assignment"
+                    ? "muted"
+                    : "hidden"
+              }
+            >
               {grid.verticalLines.map((line) => (
                 <line
                   key={line.id}
@@ -727,14 +745,14 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 />
               ))}
             </g>
-            {roomResizeHandlesViewModel == null ? null : (
+            {editorMode === "edit" && roomResizeHandlesViewModel != null ? (
               <RoomResizeHandles
                 viewModel={roomResizeHandlesViewModel}
                 onResizeStart={startRoomResize}
                 onResize={resizeRoom}
                 onResizeEnd={endRoomResize}
               />
-            )}
+            ) : null}
           </svg>
         </div>
         <div className="layout-editor-stage__side-panels">

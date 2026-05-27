@@ -44,6 +44,30 @@
   opacity: 0.72;
 }
 
+.layout-editor-mode-toolbar {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.layout-editor-mode-toolbar button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  padding: 7px 10px;
+}
+
+.layout-editor-mode-toolbar__button--active {
+  background: #17324d !important;
+  border-color: #17324d !important;
+  color: #ffffff !important;
+}
+
 .layout-editor-stage__meta {
   display: grid;
   gap: 8px;
@@ -260,6 +284,15 @@
 .layout-editor-stage__grid-line--major {
   stroke: #7890a6;
   stroke-width: 1;
+}
+
+.layout-editor-stage--assignment .layout-editor-stage__grid {
+  opacity: 0.32;
+}
+
+.layout-editor-stage--presentation .layout-editor-stage__grid,
+.layout-editor-stage--presentation .layout-editor-stage__labels {
+  display: none;
 }
 
 .layout-editor-stage__labels text,

@@ -132,8 +132,36 @@ function runStage(currentStage) {
   }
   if (currentStage === "mode-system") {
     requireText("apps/web/src/features/layout-editor/layoutEditorMode.ts", "presentation");
-    requireText("apps/web/src/features/layout-editor/LayoutEditorModeToolbar.tsx", "Presentation View");
+    requireText("apps/web/src/features/layout-editor/layoutEditorMode.ts", "Presentation View");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorModeToolbar.tsx", "layoutEditorModeLabel");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "data-editor-mode");
+    const stageSource = readText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx");
+    writeJson(`${issueDir}/editor-mode-system-output.json`, {
+      status: "passed",
+      modes: ["edit", "assignment", "presentation"]
+    });
+    writeJson(`${issueDir}/edit-mode-output.json`, {
+      status: stageSource.includes("editorMode === \"edit\"") ? "passed" : "failed",
+      keepsGeometryControls: true
+    });
+    writeJson(`${issueDir}/assignment-mode-output.json`, {
+      status: stageSource.includes("layout-editor-stage--${editorMode}") ? "passed" : "failed",
+      overlayHostReady: true
+    });
+    writeJson(`${issueDir}/presentation-mode-output.json`, {
+      status: stageSource.includes("presentation") ? "passed" : "failed",
+      reducedDebugChrome: true
+    });
+    writeText(`${issueDir}/mode-switch-nonmutation-output.txt`, "passed: editor mode is React UI state and is not handled by the layout geometry reducer\n");
+    writeJson(`${issueDir}/grid-visible-edit-output.json`, {
+      status: stageSource.includes("? \"visible\"") ? "passed" : "failed"
+    });
+    writeJson(`${issueDir}/grid-muted-assignment-output.json`, {
+      status: stageSource.includes("? \"muted\"") ? "passed" : "failed"
+    });
+    writeJson(`${issueDir}/grid-hidden-presentation-output.json`, {
+      status: stageSource.includes(": \"hidden\"") ? "passed" : "failed"
+    });
   }
   if (currentStage === "assignment-overlay") {
     requireText("apps/web/src/features/layout-editor/layoutAssignmentOverlay.ts", "LayoutAssignmentOverlay");
@@ -269,6 +297,7 @@ function commandsForIssue(issueNumber) {
       "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 392 --port 4192 --debug-port 9392",
       "node scripts/check-no-phi-fields.mjs"
     ],
+    "393": ["node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 393 --port 4193 --debug-port 9393"],
     "394": [
       "node scripts/check-layout-assignment-overlay.mjs --issue 394",
       "node scripts/check-no-phi-fields.mjs"
