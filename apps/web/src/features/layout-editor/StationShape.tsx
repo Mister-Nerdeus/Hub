@@ -36,11 +36,22 @@ export function StationShape({ viewModel, isSelected = false, presentation = fal
             width={viewModel.widthPixels}
             height={viewModel.heightPixels}
           />
-          <path
-            className="layout-editor-stage__station-presentation"
-            data-presentation-style={viewModel.presentationStyle}
-            d={viewModel.presentationPath}
-          />
+          {viewModel.presentationStyle === "curved_desk" ? (
+            <path
+              className="layout-editor-stage__station-presentation"
+              data-presentation-style={viewModel.presentationStyle}
+              d={viewModel.presentationPath}
+            />
+          ) : (
+            <rect
+              className="layout-editor-stage__station-presentation"
+              data-presentation-style={viewModel.presentationStyle}
+              x={viewModel.xPixels}
+              y={viewModel.yPixels}
+              width={viewModel.widthPixels}
+              height={viewModel.heightPixels}
+            />
+          )}
           <rect
             className="layout-editor-stage__station-label-plate"
             x={viewModel.labelPlate.xPixels}

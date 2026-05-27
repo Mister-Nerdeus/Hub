@@ -18,7 +18,7 @@ export type StationLabelPlateViewModel = {
 };
 
 export function stationPresentationStyleForType(stationType: string): StationPresentationStyle {
-  return stationType === "nurse_station" ? "curved_desk" : "rectangle";
+  return isNurseDeskStationType(stationType) ? "curved_desk" : "rectangle";
 }
 
 export function buildCurvedDeskPresentationPath(rect: StationRectPixels): string {
@@ -58,4 +58,8 @@ export function createStationLabelPlate(rect: StationRectPixels & { label: strin
 
 function round(value: number): number {
   return Math.round(value * 100) / 100;
+}
+
+function isNurseDeskStationType(stationType: string): boolean {
+  return stationType === "nurse_station" || stationType === "primary" || stationType === "secondary";
 }

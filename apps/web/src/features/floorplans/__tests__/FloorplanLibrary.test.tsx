@@ -17,6 +17,12 @@ if (!source.includes("Canonical ER Pod Floorplan") && !source.includes("viewMode
 if (source.includes("<dt>Defaults</dt>")) {
   throw new Error("FloorplanLibrary normal totals must not present Defaults: 5");
 }
+if (source.includes("<dt>Legacy refs</dt>")) {
+  throw new Error("FloorplanLibrary normal totals must not advertise legacy references");
+}
+if (JSON.stringify(viewModel.floorplans).includes("default-er-layout-plan-2")) {
+  throw new Error("FloorplanLibrary normal cards must not include legacy Plan 2");
+}
 if (viewModel.floorplans.length !== 1 || viewModel.floorplans[0]?.planId !== "default-er-layout-plan-1") {
   throw new Error("FloorplanLibrary view model must expose only the canonical default in product mode");
 }

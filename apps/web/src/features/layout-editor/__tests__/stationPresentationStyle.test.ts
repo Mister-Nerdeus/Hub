@@ -7,6 +7,12 @@ import {
 if (stationPresentationStyleForType("nurse_station") !== "curved_desk") {
   throw new Error("nurse station presentation style must be curved_desk");
 }
+if (stationPresentationStyleForType("primary") !== "curved_desk") {
+  throw new Error("canonical primary nurse stations must use curved_desk presentation style");
+}
+if (stationPresentationStyleForType("secondary") !== "curved_desk") {
+  throw new Error("canonical secondary nurse stations must use curved_desk presentation style");
+}
 if (stationPresentationStyleForType("other_station") !== "rectangle") {
   throw new Error("non-nurse station presentation style must fall back to rectangle");
 }

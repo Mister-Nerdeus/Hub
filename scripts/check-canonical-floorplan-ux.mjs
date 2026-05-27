@@ -89,6 +89,8 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/floorplans/canonicalFloorplanViewModel.ts", "CANONICAL_FLOORPLAN_ID");
     requireText("apps/web/src/features/floorplans/floorplanLibraryViewModel.ts", "canonical-default");
     requireText("apps/web/src/features/floorplans/FloorplanLibrary.tsx", "viewModel.title");
+    rejectText("apps/web/src/features/floorplans/FloorplanLibrary.tsx", "<dt>Legacy refs</dt>");
+    rejectText("apps/web/src/features/floorplans/floorplanLibraryViewModel.ts", "Plan 2-5 legacy fixtures are retained for verification only.");
     const viewModel = readText("apps/web/src/features/floorplans/floorplanLibraryViewModel.ts");
     writeJson(`${issueDir}/multi-default-ui-before-output.json`, {
       status: "reproduced",
@@ -211,6 +213,8 @@ function runStage(currentStage) {
 
   if (currentStage === "nurse-desk-shape") {
     requireText("apps/web/src/features/layout-editor/stationPresentationStyle.ts", "curved_desk");
+    requireText("apps/web/src/features/layout-editor/stationPresentationStyle.ts", "stationType === \"primary\"");
+    requireText("apps/web/src/features/layout-editor/stationPresentationStyle.ts", "stationType === \"secondary\"");
     requireText("apps/web/src/features/layout-editor/stationPresentationStyle.ts", "buildCurvedDeskPresentationPath");
     requireText("apps/web/src/features/layout-editor/StationShape.tsx", "data-presentation-style");
     writeJson(`${issueDir}/current-station-shape-before-output.json`, {
@@ -284,6 +288,7 @@ function runStage(currentStage) {
   }
 
   if (currentStage === "visual-parity-proof") {
+    requireFile("apps/web/tests/canonical-floorplan-visual-proof.spec.ts");
     requireFile("docs/verification/canonical-floorplan-visual-proof-manifest.json");
     assertPng(`${screenshotEvidenceDir(currentStage)}/screenshots/canonical-floorplan-presentation-proof.png`);
     writeJson(`${issueDir}/visual-proof-output.json`, {
@@ -314,6 +319,8 @@ function runStage(currentStage) {
   if (currentStage === "boundary-gate") {
     requireText("apps/web/src/features/floorplans/floorplanLibraryViewModel.ts", "protectedLegacyDefaultPlanCount");
     requireText("apps/web/src/features/floorplans/deleteSavedFloorplanViewModel.ts", "accessMode === \"editable-saved\"");
+    rejectText("apps/web/src/features/floorplans/FloorplanLibrary.tsx", "<dt>Legacy refs</dt>");
+    requireFile("apps/web/tests/canonical-floorplan-visual-proof.spec.ts");
     writeJson(`${issueDir}/boundary-gate-output.json`, {
       status: "passed",
       normalProductDefaultCount: 1,
@@ -593,6 +600,13 @@ function requireText(path, text) {
   requireFile(path);
   if (existsSync(abs(path)) && !readText(path).includes(text)) {
     failures.push(`${path} missing ${text}`);
+  }
+}
+
+function rejectText(path, text) {
+  requireFile(path);
+  if (existsSync(abs(path)) && readText(path).includes(text)) {
+    failures.push(`${path} must not include ${text}`);
   }
 }
 

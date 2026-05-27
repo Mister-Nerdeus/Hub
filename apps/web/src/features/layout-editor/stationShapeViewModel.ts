@@ -55,7 +55,7 @@ export function buildStationShapeViewModel(item: LayoutObjectRenderItem): Statio
       yPixels,
       widthPixels,
       heightPixels,
-      label: source.stationType === "nurse_station" ? "Nurses station" : source.label
+      label: presentationStyle === "curved_desk" ? "Nurses station" : source.label
     })
   };
 }

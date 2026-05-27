@@ -61,6 +61,24 @@ if (!textContent(editMode).includes("Primary nurse station")) {
   throw new Error("edit mode must preserve the editable station label");
 }
 
+const rectangularPresentation = StationShape({
+  viewModel: {
+    ...viewModel,
+    objectId: "station-desk",
+    stationType: "desk",
+    presentationStyle: "rectangle",
+    labelPlate: {
+      ...viewModel.labelPlate,
+      label: "Desk"
+    }
+  },
+  presentation: true
+});
+const rectangularPresentationShape = findByClass(rectangularPresentation, "layout-editor-stage__station-presentation");
+if (rectangularPresentationShape?.type !== "rect") {
+  throw new Error("rectangle presentation style must render a rectangle instead of the curved desk path");
+}
+
 type TestElement = {
   type?: unknown;
   props?: {

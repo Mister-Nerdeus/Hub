@@ -43,10 +43,6 @@ export function FloorplanLibrary({
             <dt>Saved</dt>
             <dd>{viewModel.totals.editableSavedPlanCount}</dd>
           </div>
-          <div>
-            <dt>Legacy refs</dt>
-            <dd>{viewModel.totals.protectedLegacyDefaultPlanCount}</dd>
-          </div>
         </dl>
       </div>
 

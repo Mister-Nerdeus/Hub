@@ -46,7 +46,7 @@ try {
     if (["441", "442", "443", "444", "445"].includes(issue)) {
       await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
       await assertText(cdp, "ER Pod Shift Simulator");
-      screenshots.push(await captureCanonicalFloorplanUxCase(cdp, issue));
+      screenshots.push(...asScreenshotArray(await captureCanonicalFloorplanUxCase(cdp, issue)));
     } else if (issue === "449") {
       await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
       await assertText(cdp, "Canonical ER Pod Floorplan");
@@ -70,7 +70,7 @@ try {
     } else if (["446", "447", "448"].includes(issue)) {
       await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
       await assertText(cdp, "ER Pod Shift Simulator");
-      screenshots.push(await captureCanonicalDeskCase(cdp, issue));
+      screenshots.push(...asScreenshotArray(await captureCanonicalDeskCase(cdp, issue)));
     } else if (issue === "392") {
       await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
       await assertText(cdp, "ER Pod Shift Simulator");
@@ -210,8 +210,8 @@ async function captureCanonicalFloorplanUxCase(cdp, currentIssue) {
     const productScreenshot = await captureCase(cdp, "legacy-defaults-hidden-product-view.png", "legacy hidden product view", 1440, 1200);
     await openPage(cdp, `${baseUrl}/?section=developer-evidence#developer-evidence-title`, 1440, 1200);
     await assertText(cdp, "Legacy fixtures are retained for verification only.");
-    await captureCase(cdp, "legacy-defaults-developer-reference.png", "legacy defaults developer reference", 1440, 1200);
-    return productScreenshot;
+    const developerScreenshot = await captureCase(cdp, "legacy-defaults-developer-reference.png", "legacy defaults developer reference", 1440, 1200);
+    return [productScreenshot, developerScreenshot];
   }
   if (currentIssue === "443") {
     await clickIfPresent(cdp, "Duplicate/Edit Copy");
@@ -235,8 +235,8 @@ async function captureCanonicalDeskCase(cdp, currentIssue) {
     const editScreenshot = await captureCase(cdp, "edit-mode-station-geometry.png", "edit mode station geometry", 1440, 1200);
     await clickIfPresent(cdp, "Presentation View");
     await assertText(cdp, "Nurses station");
-    await captureCase(cdp, "presentation-mode-nurse-desk.png", "presentation mode nurse desk", 1440, 1200);
-    return editScreenshot;
+    const presentationScreenshot = await captureCase(cdp, "presentation-mode-nurse-desk.png", "presentation mode nurse desk", 1440, 1200);
+    return [editScreenshot, presentationScreenshot];
   }
   await clickIfPresent(cdp, "Presentation View");
   await assertText(cdp, "Nurses station");
@@ -244,6 +244,10 @@ async function captureCanonicalDeskCase(cdp, currentIssue) {
     return captureCase(cdp, "nurse-desk-curved-shape.png", "nurse desk curved shape", 1440, 1200);
   }
   return captureCase(cdp, "nurse-desk-label-plate.png", "nurse desk label plate", 1440, 1200);
+}
+
+function asScreenshotArray(value) {
+  return Array.isArray(value) ? value : [value];
 }
 
 async function collectCanonicalFloorplanProofAssertions(cdp) {

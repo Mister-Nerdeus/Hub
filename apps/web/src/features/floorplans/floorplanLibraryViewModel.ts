@@ -135,7 +135,6 @@ export function createFloorplanLibraryViewModel(
     },
     limitationsSummary: [
       "The product uses one canonical floorplan.",
-      "Plan 2-5 legacy fixtures are retained for verification only.",
       "JSON floorplans are approximate operational layouts.",
       "Default floorplans are read-only; duplicated copies are editable local JSON records."
     ]

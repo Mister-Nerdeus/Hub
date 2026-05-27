@@ -167,7 +167,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onDeleteSavedPlan={deleteSaved}
           />
           <details className="floorplan-demo-proof">
-            <summary>Demo / Proof</summary>
+            <summary>Advanced / Evidence</summary>
             <PlanBuilderLanding
               onOpenDefaultPlan={openDefault}
               onOpenReviewCandidate={openReviewCandidate}
