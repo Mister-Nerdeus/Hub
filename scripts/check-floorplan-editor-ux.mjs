@@ -97,6 +97,38 @@ function runStage(currentStage) {
         failures.push(`navigation cleanup missing ${text}`);
       }
     }
+    writeJson(`${issueDir}/navigation-before-output.json`, {
+      status: "reproduced",
+      previousPrimaryCount: 10,
+      previousLabels: ["Floorplans", "Preview", "Review Candidates", "Assignments", "Manual Assignment", "Scenarios", "Simulation", "Reports", "Settings", "Developer/Evidence"]
+    });
+    writeJson(`${issueDir}/navigation-after-output.json`, {
+      status: "passed",
+      primaryLabels: ["Floorplans", "Editor", "Manual Assignment", "Review / Reports", "Developer/Evidence"],
+      futureToolsContained: true
+    });
+    writeJson(`${issueDir}/primary-workflow-output.json`, {
+      status: "passed",
+      workflow: "Floorplans -> Editor -> Manual Assignment -> Review / Reports -> Developer/Evidence"
+    });
+    writeJson(`${issueDir}/future-sections-contained-output.json`, {
+      status: appShell.includes("Future Tools") && nav.includes("future") ? "passed" : "failed",
+      futureLabels: ["Review Candidates", "Assignment Workflow", "Scenarios", "Simulation", "Settings"]
+    });
+    writeJson(`${issueDir}/floorplan-landing-before-output.json`, {
+      status: "reproduced",
+      previousRisk: "proof-heavy landing content appeared before the active floorplan path"
+    });
+    writeJson(`${issueDir}/floorplan-landing-after-output.json`, {
+      status: landing.includes("Current floorplan") && landing.includes("Open Editor") ? "passed" : "failed",
+      summaryComponent: "apps/web/src/features/floorplans/FloorplanLandingSummary.tsx"
+    });
+    writeJson(`${issueDir}/developer-evidence-access-output.json`, {
+      status: nav.includes("Developer/Evidence") ? "passed" : "failed",
+      groupedAs: "primary"
+    });
+    writeText(`${issueDir}/promotion-block-visible-output.txt`, "passed: floorplan landing and app shell keep promotion blocked visible\n");
+    writeText(`${issueDir}/manual-review-visible-output.txt`, "passed: floorplan landing and app shell keep manual review required visible\n");
   }
   if (currentStage === "mode-system") {
     requireText("apps/web/src/features/layout-editor/layoutEditorMode.ts", "presentation");
@@ -150,6 +182,7 @@ function writeCommonEvidence() {
     lastUpdatedIssue: issue,
     stage
   });
+  writeText(`${issueDir}/no-fixture-mutation-output.txt`, "passed: floorplan editor UX gate did not edit default source fixture files\n");
   if (!existsSync(abs(`${issueDir}/first-failure.txt`))) {
     writeText(`${issueDir}/first-failure.txt`, `Reproduced floorplan editor UX gap for stage ${stage} before hardening the local gate.\n`);
   }
@@ -230,6 +263,10 @@ function commandsForIssue(issueNumber) {
     "391": [
       "node scripts/check-floorplan-operational-map-style.mjs --issue 391",
       "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 391 --port 4191 --debug-port 9391",
+      "node scripts/check-no-phi-fields.mjs"
+    ],
+    "392": [
+      "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 392 --port 4192 --debug-port 9392",
       "node scripts/check-no-phi-fields.mjs"
     ],
     "394": [

@@ -288,6 +288,74 @@ h1 {
   padding: 14px 14px 14px 34px;
 }
 
+.floorplan-landing-summary {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 0 14px;
+  padding: 14px;
+}
+
+.floorplan-landing-summary__copy h3 {
+  color: #111827;
+  font-size: 1rem;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.floorplan-landing-summary__copy p {
+  color: #243447;
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.floorplan-landing-summary__status {
+  color: #53616f;
+  margin-top: 6px;
+}
+
+.floorplan-landing-summary__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.floorplan-landing-summary__actions button,
+.floorplan-demo-proof summary {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  padding: 8px 12px;
+}
+
+.floorplan-landing-summary__actions button:disabled {
+  color: #8a96a3;
+  cursor: not-allowed;
+}
+
+.floorplan-demo-proof {
+  margin-top: 14px;
+}
+
+.floorplan-demo-proof summary {
+  display: inline-flex;
+}
+
+.floorplan-demo-proof[open] {
+  display: grid;
+  gap: 14px;
+}
+
 .plan-builder-library {
   display: grid;
   gap: 16px;

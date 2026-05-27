@@ -10,6 +10,7 @@ import {
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
+import { FloorplanLandingSummary } from "./features/floorplans/FloorplanLandingSummary";
 import { PlanBuilderLanding } from "./features/floorplans/PlanBuilderLanding";
 import {
   createSavedFloorplanStore,
@@ -133,9 +134,15 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
           <h2 id="floorplans-title">Floorplans</h2>
-          <PlanBuilderLanding
-            onOpenDefaultPlan={openDefault}
-            onOpenReviewCandidate={openReviewCandidate}
+          <FloorplanLandingSummary
+            activeFloorplan={activeFloorplanSummaryViewModel}
+            onOpenEditor={() => setActiveSection("editor")}
+            onOpenManualAssignment={() => setActiveSection("manual-assignment")}
+            onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
+          />
+          <ActiveFloorplanSummary
+            viewModel={activeFloorplanSummaryViewModel}
+            onLaunchEditor={() => setActiveSection("editor")}
           />
           <FloorplanLibrary
             viewModel={floorplanLibraryViewModel}
@@ -144,10 +151,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onOpenSavedPlan={openSaved}
             onDeleteSavedPlan={deleteSaved}
           />
-          <ActiveFloorplanSummary
-            viewModel={activeFloorplanSummaryViewModel}
-            onLaunchEditor={() => setActiveSection("editor")}
-          />
+          <details className="floorplan-demo-proof">
+            <summary>Demo / Proof</summary>
+            <PlanBuilderLanding
+              onOpenDefaultPlan={openDefault}
+              onOpenReviewCandidate={openReviewCandidate}
+            />
+          </details>
         </section>
       ) : null}
 

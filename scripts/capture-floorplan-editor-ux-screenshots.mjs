@@ -43,14 +43,21 @@ try {
   const cdp = await connectCdp(websocketUrl);
   try {
     const screenshots = [];
-    await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
-    await assertText(cdp, "ER Pod Shift Simulator");
-    screenshots.push(await captureCase(cdp, issue === "391" ? "current-editor-before.png" : "editor-edit-mode.png", "editor", 1440, 1200));
+    if (issue === "392") {
+      await openPage(cdp, `${baseUrl}/?section=floorplans#floorplans-title`, 1440, 1200);
+      await assertText(cdp, "ER Pod Shift Simulator");
+      screenshots.push(await captureCase(cdp, "simplified-navigation.png", "floorplans navigation", 1440, 1200));
+      screenshots.push(await captureCase(cdp, "floorplan-landing-clean.png", "floorplan landing", 1440, 1200));
+    } else {
+      await openPage(cdp, `${baseUrl}/?section=editor#layout-editor-stage-title`, 1440, 1200);
+      await assertText(cdp, "ER Pod Shift Simulator");
+      screenshots.push(await captureCase(cdp, issue === "391" ? "current-editor-before.png" : "editor-edit-mode.png", "editor", 1440, 1200));
+    }
 
     if (issue === "391") {
       await openPage(cdp, referenceTargetDataUrl(), 1200, 900);
       screenshots.push(await captureCase(cdp, "reference-style-target.png", "synthetic-reference-target", 1200, 900));
-    } else {
+    } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
       await clickIfPresent(cdp, "Presentation View");
@@ -75,7 +82,7 @@ try {
       screenshots
     };
     writeJson(`${issueDir}/screenshot-manifest-output.json`, manifest);
-    if (issue !== "391") writeJson("docs/verification/floorplan-editor-ux-visual-manifest.json", manifest);
+    if (Number(issue) >= 399) writeJson("docs/verification/floorplan-editor-ux-visual-manifest.json", manifest);
     console.log(JSON.stringify({ status: "passed", issue, screenshotCount: screenshots.length }, null, 2));
   } finally {
     cdp.close();

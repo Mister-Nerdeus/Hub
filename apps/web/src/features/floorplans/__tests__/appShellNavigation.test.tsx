@@ -14,6 +14,6 @@ if (shell.includes("Nerdeus ER Pod Shift Simulator")) throw new Error("app shell
 for (const phrase of ["Manual review required", "Promotion blocked", "Synthetic operational modeling only"]) {
   if (!shell.includes(phrase)) throw new Error(`app shell missing ${phrase}`);
 }
-for (const label of ["Floorplans", "Review Candidates", "Preview", "Developer/Evidence"]) {
+for (const label of ["Floorplans", "Review Candidates", "Editor", "Review / Reports", "Developer/Evidence"]) {
   if (!nav.includes(label)) throw new Error(`navigation missing ${label}`);
 }

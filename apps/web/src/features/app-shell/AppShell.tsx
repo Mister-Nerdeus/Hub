@@ -1,6 +1,9 @@
 import type { ReactNode } from "react";
 import { PRODUCT_DISPLAY_NAME } from "@nerdeus/shared";
-import type { AppSection, AppSectionId } from "./appNavigation";
+import {
+  type AppSection,
+  type AppSectionId
+} from "./appNavigation";
 
 import "./appShell.css";
 
@@ -17,6 +20,9 @@ export function AppShell({
   onSectionChange,
   children
 }: AppShellProps) {
+  const primarySections = sections.filter((section) => section.group === "primary");
+  const futureSections = sections.filter((section) => section.group === "future");
+
   return (
     <main className="app-shell">
       <section className="workspace-header" aria-labelledby="page-title">
@@ -34,18 +40,34 @@ export function AppShell({
         </div>
       </section>
 
-      <nav className="app-nav" aria-label="Primary workspace navigation">
-        {sections.map((section) => (
+      <nav className="app-nav" aria-label="Primary workflow navigation">
+        {primarySections.map((section) => (
           <button
             key={section.id}
             type="button"
-            className={`app-nav__button ${section.id === activeSection ? "app-nav__button--active" : ""}`}
+            className={`app-nav__button app-nav__button--primary ${section.id === activeSection ? "app-nav__button--active" : ""}`}
             aria-pressed={section.id === activeSection}
             onClick={() => onSectionChange(section.id)}
           >
             {section.label}
           </button>
         ))}
+        <details className="app-nav__future-tools">
+          <summary>Future Tools</summary>
+          <div className="app-nav__future-list" aria-label="Future tools navigation">
+            {futureSections.map((section) => (
+              <button
+                key={section.id}
+                type="button"
+                className={`app-nav__button app-nav__button--future ${section.id === activeSection ? "app-nav__button--active" : ""}`}
+                aria-pressed={section.id === activeSection}
+                onClick={() => onSectionChange(section.id)}
+              >
+                {section.label}
+              </button>
+            ))}
+          </div>
+        </details>
       </nav>
 
       <section className="workflow-content" aria-live="polite">

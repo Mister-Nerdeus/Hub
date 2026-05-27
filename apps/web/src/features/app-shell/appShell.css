@@ -6,11 +6,13 @@
 }
 
 .app-nav {
-  display: flex;
-  flex-wrap: wrap;
+  align-items: center;
+  display: grid;
   gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, auto)) minmax(150px, 1fr);
   margin: 0 auto;
   max-width: 1180px;
+  width: 100%;
 }
 
 .app-nav__button {
@@ -30,6 +32,50 @@
   color: #ffffff;
   outline: 2px solid #8bb7d8;
   outline-offset: 2px;
+}
+
+.app-nav__button--primary {
+  min-height: 40px;
+}
+
+.app-nav__button--future {
+  color: #53616f;
+}
+
+.app-nav__future-tools {
+  justify-self: end;
+  position: relative;
+}
+
+.app-nav__future-tools summary {
+  background: #f8fafc;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #435362;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  list-style: none;
+  padding: 8px 12px;
+}
+
+.app-nav__future-tools summary::-webkit-details-marker {
+  display: none;
+}
+
+.app-nav__future-list {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  box-shadow: 0 18px 40px rgba(17, 24, 39, 0.12);
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 4;
 }
 
 .workflow-content {
@@ -57,4 +103,18 @@
   font-size: 0.9rem;
   line-height: 1.4;
   margin: 0;
+}
+
+@media (max-width: 760px) {
+  .app-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .app-nav__future-tools {
+    justify-self: stretch;
+  }
+
+  .app-nav__future-list {
+    position: static;
+  }
 }
