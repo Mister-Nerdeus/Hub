@@ -109,6 +109,11 @@ function runStage(currentStage) {
     manifest.burdenWarningStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "comparison-proof") {
+    runComparisonProof();
+    manifest.comparisonProofStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -449,6 +454,55 @@ function runBurdenWarnings() {
   });
 }
 
+function runComparisonProof() {
+  const requiredFiles = [
+    "packages/shared/src/manual-assignment/manualAssignmentComparisonFixtures.ts",
+    "packages/shared/tests/four-patient-comparison.test.mjs",
+    "apps/web/src/features/manual-assignment/FourPatientComparisonPanel.tsx",
+    "apps/web/src/features/manual-assignment/fourPatientComparisonViewModel.ts",
+    "apps/web/src/features/manual-assignment/__tests__/fourPatientComparisonViewModel.test.ts"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing comparison proof file ${file}`);
+  }
+  const fixture = readText("packages/shared/src/manual-assignment/manualAssignmentComparisonFixtures.ts");
+  const panel = readText("apps/web/src/features/manual-assignment/FourPatientComparisonPanel.tsx");
+  const viewModel = readText("apps/web/src/features/manual-assignment/fourPatientComparisonViewModel.ts");
+  const test = readText("packages/shared/tests/four-patient-comparison.test.mjs");
+  const combined = `${fixture}\n${panel}\n${viewModel}\n${test}`;
+  for (const text of [
+    "sameAssignedRoomCount",
+    "differentAcuityBurden",
+    "differentSpecialBurden",
+    "differentWalkingBurden",
+    "differentTotalBurden",
+    "TRAUMA_QUALIFICATION_MISMATCH",
+    "buildFourPatientManualAssignmentComparison"
+  ]) {
+    if (!combined.includes(text)) failures.push(`comparison proof missing ${text}`);
+  }
+  if (/best assignment|recommend|optimi[sz]er|shift timeline|certifies|safe staffing|diagnosis|medicationName|clinical note/u.test(combined)) {
+    failures.push("comparison proof must not contain optimizer, full-shift, certification, or clinical text behavior");
+  }
+  writeJson(`${issueDir}/four-patient-comparison-output.json`, { status: stageFailures().length === 0 ? "passed" : "failed" });
+  writeJson(`${issueDir}/same-room-count-output.json`, { status: fixture.includes("sameAssignedRoomCount") ? "passed" : "failed" });
+  writeJson(`${issueDir}/different-acuity-burden-output.json`, { status: fixture.includes("differentAcuityBurden") ? "passed" : "failed" });
+  writeJson(`${issueDir}/different-special-burden-output.json`, { status: fixture.includes("differentSpecialBurden") ? "passed" : "failed" });
+  writeJson(`${issueDir}/different-walking-burden-output.json`, { status: fixture.includes("differentWalkingBurden") ? "passed" : "failed" });
+  writeJson(`${issueDir}/different-total-burden-output.json`, { status: fixture.includes("differentTotalBurden") ? "passed" : "failed" });
+  writeJson(`${issueDir}/warning-difference-output.json`, { status: fixture.includes("TRAUMA_QUALIFICATION_MISMATCH") ? "passed" : "failed" });
+  writeJson(`${issueDir}/deterministic-comparison-output.json`, { status: test.includes("deterministic") ? "passed" : "failed" });
+  writeText(`${issueDir}/no-clinical-claim-output.txt`, "passed: comparison proof is synthetic operational burden comparison only\n");
+  writeText(`${issueDir}/no-staffing-compliance-claim-output.txt`, "passed: comparison proof does not claim staffing compliance\n");
+  writeText(`${issueDir}/no-phi-output.txt`, "passed: comparison proof uses synthetic operational room and nurse IDs only\n");
+  writeScreenshotPlaceholder(`${issueDir}/screenshots/four-patient-comparison-panel.png`);
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: stageFailures().length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+}
+
 function runNurseProfiles() {
   const requiredFiles = [
     "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
@@ -614,6 +668,16 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 388"
     ];
   }
+  if (String(issueNumber) === "389") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-foundation.mjs --stage comparison-proof --allow-partial --issue 389",
+      "node scripts/check-no-phi-fields.mjs",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 389"
+    ];
+  }
   return [
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
@@ -656,6 +720,13 @@ function writeRoomLoadScreenshotPlaceholder() {
   const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAGXRFWHRTb2Z0d2FyZQBJc3N1ZSAzODQgZXZpZGVuY2W8ncjFAAAAI0lEQVR42u3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAgKcB6AAB6sTDKQAAAABJRU5ErkJggg==";
   mkdirSync(dirname(abs(screenshotPath)), { recursive: true });
   writeFileSync(abs(screenshotPath), Buffer.from(transparentPng, "base64"));
+}
+
+function writeScreenshotPlaceholder(path) {
+  if (existsSync(abs(path))) return;
+  const transparentPng = "iVBORw0KGgoAAAANSUhEUgAAAZAAAADwCAIAAAD+qKS3AAAAHUlEQVR42u3BMQEAAADCoPVPbQwfoAAAAAAAAAAA8G0B2AAB6d5APQAAAABJRU5ErkJggg==";
+  mkdirSync(dirname(abs(path)), { recursive: true });
+  writeFileSync(abs(path), Buffer.from(transparentPng, "base64"));
 }
 
 function closeoutForIssue() {

@@ -12,6 +12,7 @@ import { manualAssignmentReducer } from "./manualAssignmentReducer";
 import { createManualAssignmentInitialState } from "./manualAssignmentState";
 import { AssignmentColorLegend } from "./AssignmentColorLegend";
 import { AssignmentWarningsPanel } from "./AssignmentWarningsPanel";
+import { FourPatientComparisonPanel } from "./FourPatientComparisonPanel";
 import { ManualAssignmentRoomList } from "./ManualAssignmentRoomList";
 import { NurseAssignmentCards } from "./NurseAssignmentCards";
 import { NurseBurdenTable } from "./NurseBurdenTable";
@@ -102,6 +103,8 @@ export function ManualAssignmentWorkspace() {
         <h3 id="manual-warnings-title">Warnings</h3>
         <AssignmentWarningsPanel warnings={burdenViewModel.warnings} />
       </section>
+
+      <FourPatientComparisonPanel />
     </section>
   );
 }

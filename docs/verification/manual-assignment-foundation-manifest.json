@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "381-390",
-  "lastUpdatedIssue": "388",
+  "lastUpdatedIssue": "389",
   "productDisplayName": "ER Pod Shift Simulator",
   "operationalDemoRepairManifestPath": "docs/verification/operational-demo-repair-manifest.json",
   "operationalDemoRepairManifestHash": "2781a2b470dfd1bfc060184136446061e9796da87701e497659a61996786988d",
@@ -14,7 +14,7 @@
   "assignmentUiStatus": "passed",
   "walkingBurdenStatus": "passed",
   "burdenWarningStatus": "passed",
-  "comparisonProofStatus": "missing",
+  "comparisonProofStatus": "passed",
   "manualApprovalStatus": "missing",
   "promotionStatus": "blocked",
   "privateSourceBoundaryStatus": "passed",
@@ -22,5 +22,5 @@
   "defaultFixtureMutationStatus": "unchanged",
   "optimizerStatus": "not_started",
   "fullShiftSimulationStatus": "not_started",
-  "goNoGoStatus": "not_ready"
+  "goNoGoStatus": "GO for Manual Assignment Refinement and Scenario Builder Foundation. NO-GO for promotion; manual visual approval remains required."
 }

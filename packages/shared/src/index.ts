@@ -26,6 +26,7 @@ export * from "./manual-assignment/walkingBurden.js";
 export * from "./manual-assignment/manualBurdenWeights.js";
 export * from "./manual-assignment/manualBurdenScoring.js";
 export * from "./manual-assignment/manualAssignmentWarnings.js";
+export * from "./manual-assignment/manualAssignmentComparisonFixtures.js";
 export * from "./comparison/buildScenarioComparison.js";
 export * from "./comparison/simulationScenarioComparison.js";
 export * from "./export/buildBundleAudit.js";

@@ -545,11 +545,71 @@
   line-height: 1.35;
 }
 
+.four-patient-comparison {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+}
+
+.four-patient-comparison h3,
+.four-patient-comparison h4 {
+  color: #111827;
+  margin: 0;
+}
+
+.four-patient-comparison__grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.four-patient-comparison__card {
+  border: 1px solid #d8e0e8;
+  border-radius: 8px;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+}
+
+.four-patient-comparison dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+}
+
+.four-patient-comparison dt {
+  color: #526171;
+  font-size: 0.68rem;
+  font-weight: 900;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+}
+
+.four-patient-comparison dd {
+  color: #111827;
+  font-size: 0.88rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.four-patient-comparison__warnings {
+  color: #40505f;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+}
+
 @media (max-width: 920px) {
   .manual-assignment-proof__grid,
   .manual-assignment-proof__cards,
   .manual-assignment-workspace__grid,
-  .manual-nurse-selector {
+  .manual-nurse-selector,
+  .four-patient-comparison__grid {
     grid-template-columns: 1fr;
   }
 }
