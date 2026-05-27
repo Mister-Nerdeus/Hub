@@ -252,8 +252,14 @@
 }
 
 .layout-editor-stage__viewport-frame {
+  cursor: grab;
   fill: #ffffff;
   stroke: none;
+}
+
+.layout-editor-stage__svg[data-canvas-pan="grabbing"],
+.layout-editor-stage__svg[data-canvas-pan="grabbing"] .layout-editor-stage__viewport-frame {
+  cursor: grabbing;
 }
 
 .layout-editor-stage__workspace-boundary {

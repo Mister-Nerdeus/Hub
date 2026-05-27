@@ -94,6 +94,10 @@ import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
+import {
+  canvasPointerDeltaToPanFeet,
+  isCanvasPanBackgroundTarget
+} from "./layoutCanvasPan";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -111,6 +115,11 @@ type RoomDragState = {
 type RoomResizeState = {
   roomId: string;
   handle: RoomResizeHandle;
+  lastClientX: number;
+  lastClientY: number;
+};
+
+type CanvasPanState = {
   lastClientX: number;
   lastClientY: number;
 };
@@ -148,6 +157,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
+  const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -157,6 +167,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     useState<SimulationReadyExportResult | null>(null);
   const roomDragRef = useRef<RoomDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
+  const canvasPanRef = useRef<CanvasPanState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
   useEffect(() => {
     if (activeFloorplan == null) {
@@ -470,6 +481,47 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
   };
+  const startCanvasPan = (event: PointerEvent<SVGSVGElement>) => {
+    if (toolMode !== "select" || !isCanvasPanBackgroundTarget(event.target)) {
+      return;
+    }
+    event.preventDefault();
+    canvasPanRef.current = {
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    setCanvasPanActive(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const moveCanvasPan = (event: PointerEvent<SVGSVGElement>) => {
+    const pan = canvasPanRef.current;
+    if (pan == null) {
+      return;
+    }
+    event.preventDefault();
+    const delta = canvasPointerDeltaToPanFeet({
+      deltaClientX: event.clientX - pan.lastClientX,
+      deltaClientY: event.clientY - pan.lastClientY,
+      pixelsPerFoot: stageState.viewport.pixelsPerFoot,
+      zoom: stageState.viewport.zoom
+    });
+    canvasPanRef.current = {
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    if (delta.deltaXFeet !== 0 || delta.deltaYFeet !== 0) {
+      dispatchStage({ type: "panViewport", ...delta });
+    }
+  };
+  const endCanvasPan = (event: PointerEvent<SVGSVGElement>) => {
+    if (canvasPanRef.current != null) {
+      canvasPanRef.current = null;
+      setCanvasPanActive(false);
+    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
 
   return (
     <section
@@ -605,10 +657,16 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             data-validation-warning-count={stageState.validationWarnings.length}
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
+            data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             onClick={addRoomFromStageClick}
+            onPointerDown={startCanvasPan}
+            onPointerMove={moveCanvasPan}
+            onPointerUp={endCanvasPan}
+            onPointerCancel={endCanvasPan}
           >
             <rect
               className="layout-editor-stage__viewport-frame"
+              data-canvas-pan-background="true"
               x="0"
               y="0"
               width={STAGE_WIDTH_PIXELS}

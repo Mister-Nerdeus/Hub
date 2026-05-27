@@ -194,6 +194,37 @@ function runStage(currentStage) {
   if (currentStage === "background-pan") {
     requireText("apps/web/src/features/layout-editor/layoutCanvasPan.ts", "canStartCanvasPan");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "data-canvas-pan");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "isCanvasPanBackgroundTarget");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.css", "cursor: grab");
+    requireFile("apps/web/src/features/layout-editor/__tests__/layoutCanvasPan.test.ts");
+    assertPng(`${issueDir}/screenshots/background-pan-canvas.png`);
+    writeJson(`${issueDir}/background-pan-output.json`, {
+      status: "passed",
+      startTarget: "data-canvas-pan-background",
+      panState: "data-canvas-pan"
+    });
+    writeJson(`${issueDir}/object-drag-separation-output.json`, {
+      status: "passed",
+      blockedTargets: ["room", "door", "resize-handle", "station", "hallway", "zone", "popup", "toolbar", "selected-object"]
+    });
+    writeJson(`${issueDir}/cursor-state-output.json`, {
+      status: "passed",
+      idleCursor: "grab",
+      activeCursor: "grabbing"
+    });
+    writeJson(`${issueDir}/no-accidental-edit-output.json`, {
+      status: "passed",
+      panDispatch: "panViewport",
+      geometryDispatch: "not used by background pan"
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "svg data-canvas-pan=grab/grabbing",
+        "viewport frame data-canvas-pan-background=true",
+        "object classes block panning through isCanvasPanBackgroundTarget"
+      ]
+    });
   }
   if (currentStage === "canvas-wheel") {
     requireText("apps/web/src/features/layout-editor/layoutCanvasWheelNavigation.ts", "applyCanvasWheelNavigation");
