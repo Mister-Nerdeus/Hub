@@ -103,6 +103,8 @@ import {
   isCanvasPanBackgroundTarget
 } from "./layoutCanvasPan";
 import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
+import { CanvasObjectPopover } from "./CanvasObjectPopover";
+import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -163,6 +165,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
+  const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -277,6 +280,13 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     selectedObjectType: stageState.selectedObjectType,
     selectedObjectId: stageState.selectedObjectId
   });
+  const canvasObjectPopoverViewModel = canvasPopoverOpen
+    ? buildCanvasObjectPopover({
+        selectedObjectType: stageState.selectedObjectType,
+        selectedObjectId: stageState.selectedObjectId,
+        renderItems
+      })
+    : null;
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -285,6 +295,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       type: "selectObject",
       ...selectionFromShapeClick(objectType, objectId)
     });
+    setCanvasPopoverOpen(true);
   };
   const startRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
     selectStageObject("room", roomId);
@@ -318,6 +329,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   };
   const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
     if (toolMode !== "add_room" || stageState.readOnly) {
+      if (isCanvasPanBackgroundTarget(event.target)) {
+        setCanvasPopoverOpen(false);
+      }
       return;
     }
     const pointFeet = stagePointerToFeet(event, stageState.viewport);
@@ -871,6 +885,12 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 onResizeEnd={endRoomResize}
               />
             ) : null}
+            {canvasObjectPopoverViewModel == null ? null : (
+              <CanvasObjectPopover
+                viewModel={canvasObjectPopoverViewModel}
+                onClose={() => setCanvasPopoverOpen(false)}
+              />
+            )}
           </svg>
         </div>
         {inspectorCollapsed ? null : (

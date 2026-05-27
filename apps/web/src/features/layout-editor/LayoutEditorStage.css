@@ -323,6 +323,61 @@
   cursor: grabbing;
 }
 
+.canvas-object-popover-shell {
+  overflow: visible;
+  pointer-events: auto;
+}
+
+.canvas-object-popover {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 8px;
+  box-shadow: 0 14px 28px rgba(17, 24, 39, 0.16);
+  box-sizing: border-box;
+  color: #111827;
+  display: grid;
+  gap: 8px;
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+}
+
+.canvas-object-popover:focus {
+  outline: 2px solid #8bb7d8;
+  outline-offset: 2px;
+}
+
+.canvas-object-popover header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.canvas-object-popover strong {
+  font-size: 0.82rem;
+  overflow-wrap: anywhere;
+}
+
+.canvas-object-popover p {
+  color: #435362;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.canvas-object-popover button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 5px 8px;
+}
+
 .layout-editor-stage__workspace-boundary {
   fill: none;
   stroke: #2f4659;

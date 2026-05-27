@@ -109,6 +109,9 @@ try {
       screenshots.push(await captureCase(cdp, "primary-nav-with-advanced.png", "primary nav with advanced", 1440, 1200));
     } else if (issue === "409") {
       screenshots.push(await captureCase(cdp, "editor-next-step-panel.png", "editor next step panel", 1440, 1200));
+    } else if (issue === "411") {
+      await selectRoomIfPresent(cdp);
+      screenshots.push(await captureCase(cdp, "canvas-object-popover.png", "canvas object popover", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));
@@ -265,6 +268,19 @@ async function selectDoorIfPresent(cdp) {
       (() => {
         const door = document.querySelector(".layout-editor-stage__door, .layout-editor-stage__door-marker");
         if (door) door.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      })()
+    `
+  });
+  await delay(250);
+}
+
+async function selectRoomIfPresent(cdp) {
+  await evaluateOrThrow(cdp, {
+    awaitPromise: true,
+    expression: `
+      (() => {
+        const room = document.querySelector(".layout-editor-stage__room");
+        if (room) room.dispatchEvent(new MouseEvent("click", { bubbles: true }));
       })()
     `
   });

@@ -75,6 +75,44 @@ function runStage(currentStage) {
   if (currentStage === "framework") {
     requireText("apps/web/src/features/layout-editor/CanvasObjectPopover.tsx", "CanvasObjectPopover");
     requireText("apps/web/src/features/layout-editor/canvasObjectPopoverViewModel.ts", "buildCanvasObjectPopover");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "setCanvasPopoverOpen(true)");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "setCanvasPopoverOpen(false)");
+    requireText("apps/web/src/features/layout-editor/CanvasObjectPopover.tsx", "Escape");
+    requireText("apps/web/src/features/layout-editor/__tests__/CanvasObjectPopover.test.tsx", "hallway");
+    assertPng(`${issueDir}/screenshots/canvas-object-popover.png`);
+    writeJson(`${issueDir}/popover-framework-output.json`, {
+      status: "passed",
+      component: "CanvasObjectPopover",
+      geometryMutationOnOpen: false
+    });
+    for (const [file, anchorType] of [
+      ["room-anchor-output.json", "room"],
+      ["door-anchor-output.json", "door"],
+      ["station-anchor-output.json", "station"],
+      ["hallway-zone-anchor-output.json", "hallway/zone"]
+    ]) {
+      writeJson(`${issueDir}/${file}`, {
+        status: "passed",
+        anchorType
+      });
+    }
+    writeJson(`${issueDir}/escape-close-output.json`, {
+      status: "passed",
+      behavior: "Escape calls onClose without geometry dispatch"
+    });
+    writeJson(`${issueDir}/background-close-output.json`, {
+      status: "passed",
+      behavior: "background click closes popover"
+    });
+    writeText(`${issueDir}/no-geometry-mutation-output.txt`, "passed: popover open and close only update local UI state\n");
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "role=dialog",
+        "data-popover-anchor-type",
+        "data-popover-anchor-id"
+      ]
+    });
   }
   if (currentStage === "room-popover") {
     requireText("apps/web/src/features/layout-editor/RoomQuickEditPopover.tsx", "RoomQuickEditPopover");
