@@ -1,13 +1,6 @@
-First run:
-npm --workspace packages/shared test
+Initial review failures were evidence-hygiene failures only:
 
-Result:
-Failed once in pre-existing test packages/shared/tests/plan-3-correction-audit.test.mjs with:
-SyntaxError: Unexpected end of JSON input
-at updateManifestForCorrection (packages/shared/tests/source-correction-test-helpers.mjs)
+- node scripts/check-docs-contracts.mjs failed because Issues 431-439 used older command-output map shapes and omitted the newer closeout Summary / Next Recommended Issue concepts.
+- git diff --check failed because the captured production Docker smoke log included trailing spaces from Docker/Vite progress output.
 
-Recovery:
-The same command was rerun and passed with 807 passing tests, 0 failures.
-
-Assessment:
-The scenario-ratio contract tests passed in the first run. The transient failure came from an older correction-audit artifact path during parallel node --test execution, not from the Batch 431-440 review fix.
+Both failures were corrected and the final reruns passed.

@@ -1,5 +1,8 @@
 # Issue 438 Closeout - Path Graph and Travel Blocking Rules
 
+## Summary
+Path graph and walking-distance eligibility now treat solid walls as blocking and exclude storage from patient-care routing.
+
 ## Result
 GO for Issue 439.
 
@@ -62,3 +65,6 @@ Storage and solid-wall semantics now flow through centralized path and walking e
 
 ## Non-PHI Confirmation
 The no-PHI gate passed. This issue added no PHI, no EHR data, no real patient identity, no real nurse names, no employee IDs, no real hospital identifiers, no medication names, no diagnosis text, and no clinical notes.
+
+## Next Recommended Issue
+Issue 439.

@@ -2,16 +2,18 @@
 
 ## Fixed
 
-- `apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx`: placeholder outcome rows had an unreachable fallback that could render `Computed`. This conflicted with the batch boundary that outcome rows remain placeholders only. The panel now always renders the placeholder display value, and the UI shell source test blocks reintroducing computed outcome copy.
+- Evidence hygiene: Issues 431-439 used older command-output map shapes and closeout headings that failed the hardened docs contract. The closeouts now include the required `Summary` and `Next Recommended Issue` concepts, command maps use the current `commands[].outputs[]` shape, and mapped outputs are represented in `docs/verification/ISSUE_EVIDENCE_INDEX.json`.
+- Review evidence hygiene: the production Docker smoke log contained trailing whitespace from Docker/Vite progress output. The captured log was normalized and `git diff --check` now passes.
 
 ## Docker Review
 
 - Local compose config passed.
 - Production compose config passed.
-- Production Docker runtime contract passed without Dockerfile changes.
-- Aggregate local verifier rebuilt and exercised the local Docker runtime successfully.
+- Production Docker runtime smoke passed with production Dockerfiles, migrations, nginx static asset serving, `/health`, `/v1`, and `/v1/plans` route probes.
+- No Dockerfile or compose-file source edit was required.
 
 ## Residual Risk
 
-- The issue 438 screenshot remains deterministic local evidence and is not a human visual approval artifact.
-- Existing pre-batch simulation and optimizer modules are still present elsewhere in the repo. The batch 431-440 boundary gate remains scoped to the scenario-ratio foundation files.
+- Browser screenshots and DOM proof are local verification artifacts, not human visual approval.
+- Promotion remains blocked.
+- Scenario execution, ER activity preset execution, full-shift simulation, and optimizer behavior remain not started.

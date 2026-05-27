@@ -1,5 +1,8 @@
 # Issue 436 Closeout - Room Load Editor and Scenario Seed Exclusion
 
+## Summary
+Storage and solid walls were excluded from room-load inputs and future scenario seed RoomLoad target generation.
+
 Status: GO for Issue 437.
 
 ## Files changed
@@ -23,3 +26,5 @@ Browser screenshots are generated local evidence for disabled room-load states, 
 ## Non-PHI confirmation
 No PHI, EHR data, real patient data, real nurse names, employee IDs, hospital identifiers, medication names, diagnosis text, or clinical notes were introduced.
 
+## Next Recommended Issue
+Issue 437.

@@ -1,5 +1,8 @@
 # Issue 434 Closeout - Solid Wall No-Door Enforcement
 
+## Summary
+Solid-wall door authoring, validation, rendering, and path-node creation were blocked while preserving normal room door behavior.
+
 ## Files changed
 - packages/shared/src/layout-editor/editableLayoutGeometryContract.ts
 - packages/shared/src/floorplans/doorAuthoringContract.ts
@@ -36,3 +39,6 @@ PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, prod
 
 ## GO / NO-GO for Issue 435
 GO for Issue 435.
+
+## Next Recommended Issue
+Issue 435.

@@ -1,5 +1,8 @@
 # Issue 432 Closeout - Canonical Trauma One Storage Correction
 
+## Summary
+The documented Trauma One rear object was reclassified as storage with geometry preserved and the correction documented.
+
 ## Files changed
 - packages/shared/fixtures/default-plans/default-er-layout-plan-1.json
 - packages/shared/tests/canonical-trauma-storage.test.mjs
@@ -27,3 +30,6 @@ PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, prod
 
 ## GO / NO-GO for Issue 433
 GO for Issue 433.
+
+## Next Recommended Issue
+Issue 433.

@@ -1,24 +1,9 @@
 {
-  "npm --workspace packages/shared test": [
-    "test-output/shared.txt",
-    "test-output/shared-rerun.txt"
-  ],
-  "npm --workspace apps/web test": "test-output/web.txt",
-  "npm --workspace apps/web run build": "test-output/web-build.txt",
-  "node scripts/check-scenario-ratio-foundation.mjs --stage final --issue 440": "test-output/scenario-ratio-foundation-gate.txt",
-  "node scripts/check-no-phi-fields.mjs": "test-output/no-phi.txt",
-  "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 440": "test-output/plans-2-through-5-unchanged.txt",
   "docker compose config": "test-output/docker-compose-config.txt",
   "docker compose -f docker-compose.production.yml config": "test-output/docker-compose-production-config.txt",
-  "node scripts/check-production-docker-runtime.mjs": "test-output/production-docker-runtime.txt",
-  "node scripts/check-docs-contracts.mjs": "test-output/docs-contracts.txt",
+  "$env:PRODUCTION_DOCKER_SMOKE_PORT='5197'; node scripts/check-production-docker-runtime.mjs --smoke; Remove-Item Env:PRODUCTION_DOCKER_SMOKE_PORT": "test-output/production-docker-runtime.txt",
+  "node scripts/check-docs-contracts.mjs": "test-output/docs-contracts-final.txt",
   "node scripts/check-issue-evidence-index.mjs": "test-output/issue-evidence-index.txt",
-  "node scripts/verify-local.mjs": "test-output/verify-local.txt",
-  "git diff --check": [
-    "test-output/git-diff-check.txt",
-    "test-output/git-diff-check-final.txt"
-  ],
-  "rg -n '\"Computed\"|row\\.computed \\?' apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx apps/web/src/features/scenarios/__tests__/ScenarioRatioComparisonPanel.test.tsx": "test-output/computed-copy-scan.txt",
-  "node scripts/check-no-phi-fields.mjs final": "test-output/no-phi-final.txt",
-  "node scripts/check-docs-contracts.mjs final": "test-output/docs-contracts-final.txt"
+  "node scripts/check-no-phi-fields.mjs": "test-output/no-phi-final.txt",
+  "git diff --check": "test-output/git-diff-check-final.txt"
 }

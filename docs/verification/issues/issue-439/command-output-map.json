@@ -3,35 +3,51 @@
   "commands": [
     {
       "command": "npm --workspace packages/shared test",
-      "output": "docs/verification/issues/issue-439/test-output/shared.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/shared.txt"
+      ]
     },
     {
       "command": "npm --workspace apps/web test",
-      "output": "docs/verification/issues/issue-439/test-output/web.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/web.txt"
+      ]
     },
     {
       "command": "npm --workspace apps/web run build",
-      "output": "docs/verification/issues/issue-439/test-output/web-build.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/web-build.txt"
+      ]
     },
     {
       "command": "node scripts/capture-storage-solid-wall-visual-proof.mjs --issue 439",
-      "output": "docs/verification/issues/issue-439/test-output/browser-proof.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/browser-proof.txt"
+      ]
     },
     {
       "command": "node scripts/check-room-type-semantics.mjs --stage legacy-invalid-layouts --allow-partial --issue 439",
-      "output": "docs/verification/issues/issue-439/test-output/legacy-invalid-layouts-gate.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/legacy-invalid-layouts-gate.txt"
+      ]
     },
     {
       "command": "node scripts/check-room-type-semantics.mjs --stage visual-dom-proof --allow-partial --issue 439",
-      "output": "docs/verification/issues/issue-439/test-output/visual-dom-proof-gate.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/test-output/visual-dom-proof-gate.txt"
+      ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
-      "output": "docs/verification/issues/issue-439/no-phi-output.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/no-phi-output.txt"
+      ]
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 439",
-      "output": "docs/verification/issues/issue-439/no-unauthorized-fixture-mutation-output.txt"
+      "outputs": [
+        "docs/verification/issues/issue-439/no-unauthorized-fixture-mutation-output.txt"
+      ]
     }
   ]
 }

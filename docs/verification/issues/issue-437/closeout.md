@@ -1,5 +1,8 @@
 # Issue 437 Closeout - Add Object Menu Type-Specific Placement
 
+## Summary
+The Add Object path now creates explicit patient-care, storage, and solid-wall semantics at placement time.
+
 ## Result
 GO for Issue 438.
 
@@ -65,3 +68,6 @@ The primary Add Object path now separates patient-care, storage, and solid-wall 
 
 ## Non-PHI Confirmation
 The no-PHI gate passed. This issue added no PHI, no EHR data, no real patient identity, no real nurse names, no employee IDs, no real hospital identifiers, no medication names, no diagnosis text, and no clinical notes.
+
+## Next Recommended Issue
+Issue 438.

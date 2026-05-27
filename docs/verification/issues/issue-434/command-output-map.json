@@ -3,33 +3,39 @@
   "commands": [
     {
       "command": "npm --workspace packages/shared test",
-      "output": "docs/verification/issues/issue-434/test-output/shared.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/test-output/shared.txt"
+      ]
     },
     {
       "command": "npm --workspace apps/web test",
-      "output": "docs/verification/issues/issue-434/test-output/web.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/test-output/web.txt"
+      ]
     },
     {
       "command": "npm --workspace apps/web run build",
-      "output": "docs/verification/issues/issue-434/test-output/web-build.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/test-output/web-build.txt"
+      ]
     },
     {
       "command": "node scripts/check-room-type-semantics.mjs --stage solid-wall-no-doors --allow-partial --issue 434",
-      "output": "docs/verification/issues/issue-434/test-output/room-type-semantics-gate.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/test-output/room-type-semantics-gate.txt"
+      ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
-      "output": "docs/verification/issues/issue-434/no-phi-output.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/no-phi-output.txt"
+      ]
     },
     {
       "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 434",
-      "output": "docs/verification/issues/issue-434/no-unauthorized-fixture-mutation-output.txt",
-      "status": "passed"
+      "outputs": [
+        "docs/verification/issues/issue-434/no-unauthorized-fixture-mutation-output.txt"
+      ]
     }
   ]
 }

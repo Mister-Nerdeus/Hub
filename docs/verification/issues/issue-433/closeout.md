@@ -1,5 +1,8 @@
 # Issue 433 Closeout - Storage and Solid-Wall Gray Presentation Rules
 
+## Summary
+Storage and solid-wall presentation rules were centralized and rendered as muted gray in editor and presentation contexts.
+
 ## Files changed
 - apps/web/src/features/layout-editor/roomPresentationStyles.ts
 - apps/web/src/features/layout-editor/PresentationLegend.tsx
@@ -33,3 +36,6 @@ PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, prod
 
 ## GO / NO-GO for Issue 434
 GO for Issue 434.
+
+## Next Recommended Issue
+Issue 434.

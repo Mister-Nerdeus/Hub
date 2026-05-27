@@ -1,5 +1,8 @@
 # Issue 435 Closeout - Storage / Solid-Wall Assignment and Capacity Exclusion
 
+## Summary
+Storage and solid walls were excluded from nurse assignment and capacity/ratio calculations.
+
 ## Files changed
 - packages/shared/src/assignment/assignmentValidation.ts
 - packages/shared/src/assignment/validateManualAssignment.ts
@@ -35,3 +38,6 @@ PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, prod
 
 ## GO / NO-GO for Issue 436
 GO for Issue 436.
+
+## Next Recommended Issue
+Issue 436.

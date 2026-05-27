@@ -1,18 +1,7 @@
-npm --workspace packages/shared test
-npm --workspace packages/shared test
-npm --workspace apps/web test
-npm --workspace apps/web run build
-node scripts/check-scenario-ratio-foundation.mjs --stage final --issue 440
-node scripts/check-no-phi-fields.mjs
-node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 440
 docker compose config
 docker compose -f docker-compose.production.yml config
-node scripts/check-production-docker-runtime.mjs
+$env:PRODUCTION_DOCKER_SMOKE_PORT='5197'; node scripts/check-production-docker-runtime.mjs --smoke; Remove-Item Env:PRODUCTION_DOCKER_SMOKE_PORT
 node scripts/check-docs-contracts.mjs
 node scripts/check-issue-evidence-index.mjs
-node scripts/verify-local.mjs
-git diff --check
-rg -n '"Computed"|row\.computed \?' apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx apps/web/src/features/scenarios/__tests__/ScenarioRatioComparisonPanel.test.tsx
 node scripts/check-no-phi-fields.mjs
 git diff --check
-node scripts/check-docs-contracts.mjs

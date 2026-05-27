@@ -1,5 +1,8 @@
 # Issue 431 Closeout - Room Type Semantics Contract
 
+## Summary
+Centralized storage and solid-wall room-type semantics were established without changing canonical geometry.
+
 ## Files changed
 - packages/shared/src/contracts.ts
 - packages/shared/src/layout-editor/editableLayoutGeometryContract.ts
@@ -32,3 +35,6 @@ PASS: node scripts/check-no-phi-fields.mjs passed. No PHI, EHR integration, prod
 
 ## GO / NO-GO for Issue 432
 GO for Issue 432.
+
+## Next Recommended Issue
+Issue 432.

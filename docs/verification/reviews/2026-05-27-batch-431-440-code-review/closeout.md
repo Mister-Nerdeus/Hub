@@ -1,9 +1,13 @@
 # Batch 431-440 Code Review Closeout
 
+## Summary
+
+The post-batch review found evidence-contract issues, not storage/solid-wall implementation defects. The evidence maps, closeout headings, and review Docker proof were corrected; Docker production smoke passed.
+
 ## Files Changed
 
-- `apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx`
-- `apps/web/src/features/scenarios/__tests__/ScenarioRatioComparisonPanel.test.tsx`
+- `docs/verification/issues/issue-431` through `docs/verification/issues/issue-439` closeout and command-output map metadata
+- `docs/verification/ISSUE_EVIDENCE_INDEX.json`
 - `docs/verification/reviews/2026-05-27-batch-431-440-code-review/*`
 
 ## Commands Run
@@ -12,49 +16,35 @@ See `commands.txt` and `command-output-map.json`.
 
 ## Tests Passed
 
-- `npm --workspace packages/shared test` passed on rerun with 807 passing tests.
-- `npm --workspace apps/web test`
-- `npm --workspace apps/web run build`
-- `node scripts/check-scenario-ratio-foundation.mjs --stage final --issue 440`
-- `node scripts/check-no-phi-fields.mjs`
-- `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 440`
 - `docker compose config`
 - `docker compose -f docker-compose.production.yml config`
-- `node scripts/check-production-docker-runtime.mjs`
+- `node scripts/check-production-docker-runtime.mjs --smoke`
 - `node scripts/check-docs-contracts.mjs`
 - `node scripts/check-issue-evidence-index.mjs`
-- `node scripts/verify-local.mjs`
+- `node scripts/check-no-phi-fields.mjs`
 - `git diff --check`
 
 ## Tests Failed Then Recovered
 
-- The first `npm --workspace packages/shared test` run failed in an older Plan 3 correction audit test with `SyntaxError: Unexpected end of JSON input`. The same command passed on rerun. See `first-failure.txt`.
+- `node scripts/check-docs-contracts.mjs` initially failed on evidence-contract metadata for Issues 431-439, then passed after normalization.
+- `git diff --check` initially failed on trailing whitespace in captured Docker output, then passed after log cleanup.
 
 ## Evidence Artifacts
 
-- `test-output/shared.txt`
-- `test-output/shared-rerun.txt`
-- `test-output/web.txt`
-- `test-output/web-build.txt`
-- `test-output/scenario-ratio-foundation-gate.txt`
-- `test-output/no-phi.txt`
-- `test-output/no-phi-final.txt`
-- `test-output/plans-2-through-5-unchanged.txt`
 - `test-output/docker-compose-config.txt`
 - `test-output/docker-compose-production-config.txt`
 - `test-output/production-docker-runtime.txt`
-- `test-output/verify-local.txt`
-- `test-output/git-diff-check.txt`
+- `test-output/docs-contracts-final.txt`
+- `test-output/issue-evidence-index.txt`
+- `test-output/no-phi-final.txt`
 - `test-output/git-diff-check-final.txt`
 
 ## Known Limitations
 
 - No human visual approval is claimed.
-- Issue 438 screenshot evidence remains deterministic local evidence, not a browser-rendered human approval artifact.
-- Full-shift scenario execution remains not started.
-- Outcome rows remain placeholders only.
-- No optimizer behavior, clinical safety scoring, staffing certification, EHR integration, PHI, or floorplan promotion was introduced.
-- No Dockerfile changes were required; Docker was validated through compose config, production runtime contract, and aggregate local runtime verification.
+- Promotion remains blocked.
+- Scenario execution, ER activity preset execution, full-shift simulation, and optimizer behavior remain not started.
+- No Dockerfile or compose-file source edit was required.
 
 ## Non-PHI Confirmation
 
