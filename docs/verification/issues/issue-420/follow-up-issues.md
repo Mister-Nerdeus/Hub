@@ -1,0 +1,1 @@
+- Continue with geometry repair only after all local Issue 411-419 gates pass.

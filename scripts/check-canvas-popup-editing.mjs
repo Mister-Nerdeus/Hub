@@ -21,6 +21,17 @@ const stageStatusKey = {
   "duplicate-object": "duplicationStatus",
   accessibility: "accessibilityStatus"
 };
+const stageEvidenceIssue = {
+  framework: "411",
+  "room-popover": "412",
+  "door-popover": "413",
+  "station-popover": "414",
+  "hallway-zone-popover": "415",
+  "add-object-menu": "416",
+  "click-to-place": "417",
+  "duplicate-object": "418",
+  accessibility: "419"
+};
 const finalStages = Object.keys(stageStatusKey);
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
@@ -45,7 +56,7 @@ for (const currentStage of stagesToRun) {
 }
 manifest.lastUpdatedIssue = issue;
 manifest.goNoGoStatus = finalStages.every((name) => manifest[stageStatusKey[name]] === "passed")
-  ? "GO for Door/Wall/Hallway Geometry Repair. NO-GO for promotion; manual visual approval remains required."
+  ? "GO for Door/Wall/Hallway Geometry Repair. GO for additional popup repair. NO-GO for promotion; manual visual approval remains required."
   : "not_ready";
 writeJson(manifestPath, manifest);
 
@@ -79,7 +90,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "setCanvasPopoverOpen(false)");
     requireText("apps/web/src/features/layout-editor/CanvasObjectPopover.tsx", "Escape");
     requireText("apps/web/src/features/layout-editor/__tests__/CanvasObjectPopover.test.tsx", "hallway");
-    assertPng(`${issueDir}/screenshots/canvas-object-popover.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/canvas-object-popover.png`);
     writeJson(`${issueDir}/popover-framework-output.json`, {
       status: "passed",
       component: "CanvasObjectPopover",
@@ -119,7 +130,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/roomQuickEditViewModel.ts", "buildRoomQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "RoomQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/__tests__/RoomQuickEditPopover.test.tsx", "delete/duplicate controls must be protected");
-    assertPng(`${issueDir}/screenshots/room-quick-edit-popover.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/room-quick-edit-popover.png`);
     writeJson(`${issueDir}/room-popover-output.json`, {
       status: "passed",
       component: "RoomQuickEditPopover"
@@ -162,7 +173,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/doorQuickEditViewModel.ts", "buildDoorQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "DoorQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/__tests__/DoorQuickEditPopover.test.tsx", "door delete must be protected");
-    assertPng(`${issueDir}/screenshots/door-quick-edit-popover.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/door-quick-edit-popover.png`);
     writeJson(`${issueDir}/door-popover-output.json`, {
       status: "passed",
       component: "DoorQuickEditPopover"
@@ -189,7 +200,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/stationQuickEditViewModel.ts", "buildStationQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "StationQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/__tests__/StationQuickEditPopover.test.tsx", "read-only");
-    assertPng(`${issueDir}/screenshots/station-quick-edit-popover.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/station-quick-edit-popover.png`);
     writeJson(`${issueDir}/station-popover-output.json`, {
       status: "passed",
       component: "StationQuickEditPopover"
@@ -215,7 +226,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/hallwayZoneQuickEditViewModel.ts", "buildHallwayZoneQuickEdit");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "HallwayZoneQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/__tests__/HallwayZoneQuickEditPopover.test.tsx", "validation status");
-    assertPng(`${issueDir}/screenshots/hallway-zone-quick-edit-popover.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/hallway-zone-quick-edit-popover.png`);
     writeJson(`${issueDir}/hallway-zone-popover-output.json`, {
       status: "passed",
       component: "HallwayZoneQuickEditPopover"
@@ -245,7 +256,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/addObjectMenuViewModel.ts", "Provider/Pharmacy Area");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "selectAddObjectMenuItem");
     requireText("apps/web/src/features/layout-editor/__tests__/AddObjectMenu.test.tsx", "EMS Entry marker");
-    assertPng(`${issueDir}/screenshots/add-object-menu.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/add-object-menu.png`);
     writeJson(`${issueDir}/add-object-menu-output.json`, {
       status: "passed",
       component: "AddObjectMenu",
@@ -274,7 +285,7 @@ function runStage(currentStage) {
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "pendingAddObjectId");
     requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "Escape");
     requireText("apps/web/src/features/layout-editor/__tests__/clickToPlaceObject.test.ts", "no object type should not create a ghost preview");
-    assertPng(`${issueDir}/screenshots/object-placement-preview.png`);
+    assertPng(`${stageEvidenceDir(currentStage)}/screenshots/object-placement-preview.png`);
     writeJson(`${issueDir}/click-to-place-output.json`, {
       status: "passed",
       behavior: "room placement is created only by the canvas placement click"
@@ -427,7 +438,7 @@ function commandsForIssue(issueNumber) {
       `node scripts/check-canvas-popup-editing.mjs --stage ${issueNumber === "420" ? "final" : "duplicate-object"}${issueNumber === "420" ? "" : " --allow-partial"} --issue ${issueNumber}`,
       `node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`
     ];
-    return issueNumber === "418"
+    return issueNumber === "418" || issueNumber === "420"
       ? [
           ...commands,
           "node scripts/check-no-phi-fields.mjs",
@@ -485,6 +496,13 @@ function mappedOutputForCommand(command) {
   if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   if (command.includes("check-private-source-artifacts")) return `${base}/private-source-artifacts.txt`;
   return `${base}/command.txt`;
+}
+
+function stageEvidenceDir(currentStage) {
+  if (stage !== "final") {
+    return issueDir;
+  }
+  return `docs/verification/issues/issue-${stageEvidenceIssue[currentStage] ?? issue}`;
 }
 
 function closeoutForIssue() {
