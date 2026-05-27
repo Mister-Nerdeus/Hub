@@ -17,6 +17,13 @@ export type DoorShapeViewModel = {
   yPixels: number;
   widthPixels: number;
   heightPixels: number;
+  orientation: "horizontal" | "vertical";
+  markerX: number;
+  markerY: number;
+  markerWidthPixels: number;
+  markerHeightPixels: number;
+  hitSlopPixels: number;
+  invalid: boolean;
 };
 
 export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShapeViewModel {
@@ -28,6 +35,13 @@ export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShape
     throw new Error("door render item requires door source geometry");
   }
   const { xPixels, yPixels, widthPixels, heightPixels } = item.displayRectPixels;
+  const orientation = widthPixels >= heightPixels ? "horizontal" : "vertical";
+  const markerThickness = Math.max(10, Math.min(widthPixels, heightPixels) + 8);
+  const markerLength = Math.max(22, Math.max(widthPixels, heightPixels));
+  const markerWidthPixels = orientation === "horizontal" ? markerLength : markerThickness;
+  const markerHeightPixels = orientation === "horizontal" ? markerThickness : markerLength;
+  const markerX = xPixels + widthPixels / 2 - markerWidthPixels / 2;
+  const markerY = yPixels + heightPixels / 2 - markerHeightPixels / 2;
   return {
     objectType: "door",
     objectId: item.objectId,
@@ -42,6 +56,13 @@ export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShape
     xPixels,
     yPixels,
     widthPixels,
-    heightPixels
+    heightPixels,
+    orientation,
+    markerX,
+    markerY,
+    markerWidthPixels,
+    markerHeightPixels,
+    hitSlopPixels: 6,
+    invalid: source.widthFeet <= 0 || source.offsetFeet < 0
   };
 }

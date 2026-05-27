@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-floorplan-presentation-rendering.mjs --issue 395
+node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 395 --port 4195 --debug-port 9395
+node scripts/check-floorplan-editor-ux.mjs --stage door-markers --allow-partial --issue 395
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 395

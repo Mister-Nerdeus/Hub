@@ -62,6 +62,10 @@ try {
       screenshots.push(await captureCase(cdp, "assignment-color-overlay.png", "assignment color overlay", 1440, 1200));
       screenshots.push(await captureCase(cdp, "unassigned-room-highlight.png", "unassigned room highlight", 1440, 1200));
       screenshots.push(await captureCase(cdp, "warning-room-outline.png", "warning room outline", 1440, 1200));
+    } else if (issue === "395") {
+      screenshots.push(await captureCase(cdp, "door-access-markers.png", "door access markers", 1440, 1200));
+      await selectDoorIfPresent(cdp);
+      screenshots.push(await captureCase(cdp, "selected-door-marker.png", "selected door marker", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

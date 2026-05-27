@@ -76,7 +76,9 @@ assert.deepEqual(roomDoorAfter.displayRectFeet, {
 assert.deepEqual(roomDoorViewModelAfter, {
   ...roomDoorViewModelBefore,
   xPixels: roomDoorViewModelBefore.xPixels + 48,
-  yPixels: roomDoorViewModelBefore.yPixels - 24
+  yPixels: roomDoorViewModelBefore.yPixels - 24,
+  markerX: roomDoorViewModelBefore.markerX + 48,
+  markerY: roomDoorViewModelBefore.markerY - 24
 });
 assert.deepEqual(hallwayDoorAfter.displayRectFeet, hallwayDoorBefore.displayRectFeet);
 assert.deepEqual(
