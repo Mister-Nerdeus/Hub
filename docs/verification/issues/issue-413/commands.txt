@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canvas-popup-editing.mjs --stage door-popover --allow-partial --issue 413
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 413

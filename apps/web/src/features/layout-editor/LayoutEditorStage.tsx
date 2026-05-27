@@ -1,12 +1,18 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelEvent } from "react";
 import {
   auditPathSyncStatus,
+  assignDoorToAdjacentRoom,
   editableRoomTypeToAuthoringRoomType,
+  centerDoorOnWall,
   generateDoorPathNodes,
+  moveToOppositeWall,
+  moveToWall,
+  nudgeDoor,
   validateSimulationReadyExport,
   type AuthoringDraftContract,
   type AuthoringRoomType,
   type DoorPathNodeGenerationResult,
+  type EditableDoorWall,
   type PathSyncAuditResult,
   type SimulationReadyExportResult
 } from "@nerdeus/shared";
@@ -108,6 +114,8 @@ import { CanvasObjectPopover } from "./CanvasObjectPopover";
 import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
 import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
 import { buildRoomQuickEdit } from "./roomQuickEditViewModel";
+import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
+import { buildDoorQuickEdit } from "./doorQuickEditViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -294,6 +302,11 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     room: selectedRoom,
     readOnly: stageState.readOnly
   });
+  const doorQuickEditViewModel = buildDoorQuickEdit({
+    door: selectedDoor,
+    rooms: stageState.editableLayout?.rooms ?? [],
+    readOnly: stageState.readOnly
+  });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
     objectId: string
@@ -393,6 +406,37 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       return;
     }
     setSimulationReadyExportResult(validateSimulationReadyExport({ authoringDraft: draft }));
+  };
+  const selectedDoorOwnerRoom = () => {
+    if (selectedDoor == null || stageState.editableLayout == null) {
+      return null;
+    }
+    return stageState.editableLayout.rooms.find((room) => room.id === selectedDoor.ownerId) ?? null;
+  };
+  const computeDoorWallMove = (wall: EditableDoorWall) => {
+    const ownerRoom = selectedDoorOwnerRoom();
+    return selectedDoor == null || ownerRoom == null ? null : moveToWall({ door: selectedDoor, room: ownerRoom, wall });
+  };
+  const computeDoorNudge = (deltaFeet: number) => {
+    const ownerRoom = selectedDoorOwnerRoom();
+    return selectedDoor == null || ownerRoom == null ? null : nudgeDoor({ door: selectedDoor, room: ownerRoom, deltaFeet });
+  };
+  const computeDoorCenter = () => {
+    const ownerRoom = selectedDoorOwnerRoom();
+    return selectedDoor == null || ownerRoom == null ? null : centerDoorOnWall({ door: selectedDoor, room: ownerRoom });
+  };
+  const computeDoorOpposite = () => {
+    const ownerRoom = selectedDoorOwnerRoom();
+    return selectedDoor == null || ownerRoom == null ? null : moveToOppositeWall({ door: selectedDoor, room: ownerRoom });
+  };
+  const computeDoorAdjacent = () => {
+    if (selectedDoor == null || stageState.editableLayout == null) {
+      return null;
+    }
+    return assignDoorToAdjacentRoom({
+      layout: stageState.editableLayout,
+      door: selectedDoor
+    });
   };
   const importEditableFloorplanJson = () => {
     try {
@@ -929,6 +973,71 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                     onAddDoor={addDoorToSelectedRoom}
                     onDuplicateRoom={() => undefined}
                     onDeleteRoom={() => undefined}
+                  />
+                ) : canvasObjectPopoverViewModel.objectType === "door" ? (
+                  <DoorQuickEditPopover
+                    viewModel={doorQuickEditViewModel}
+                    onWallChange={(wall) => {
+                      const next = computeDoorWallMove(wall);
+                      if (next != null && doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "moveDoor",
+                          doorId: doorQuickEditViewModel.doorId,
+                          wall: next.wall,
+                          offsetFeet: next.offsetFeet
+                        });
+                      }
+                    }}
+                    onNudge={(deltaFeet) => {
+                      const next = computeDoorNudge(deltaFeet);
+                      if (next != null && doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "moveDoor",
+                          doorId: doorQuickEditViewModel.doorId,
+                          wall: next.wall,
+                          offsetFeet: next.offsetFeet
+                        });
+                      }
+                    }}
+                    onCenter={() => {
+                      const next = computeDoorCenter();
+                      if (next != null && doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "moveDoor",
+                          doorId: doorQuickEditViewModel.doorId,
+                          wall: next.wall,
+                          offsetFeet: next.offsetFeet
+                        });
+                      }
+                    }}
+                    onOpposite={() => {
+                      const next = computeDoorOpposite();
+                      if (next != null && doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "moveDoor",
+                          doorId: doorQuickEditViewModel.doorId,
+                          wall: next.wall,
+                          offsetFeet: next.offsetFeet
+                        });
+                      }
+                    }}
+                    onAdjacent={() => {
+                      const next = computeDoorAdjacent();
+                      if (next != null && doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "assignDoorToRoom",
+                          doorId: doorQuickEditViewModel.doorId,
+                          roomId: next.roomId,
+                          wall: next.wall,
+                          offsetFeet: next.offsetFeet
+                        });
+                      }
+                    }}
+                    onDeleteDoor={() => {
+                      if (doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({ type: "deleteDoor", doorId: doorQuickEditViewModel.doorId });
+                      }
+                    }}
                   />
                 ) : null}
               </CanvasObjectPopover>

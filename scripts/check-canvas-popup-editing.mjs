@@ -160,6 +160,29 @@ function runStage(currentStage) {
   if (currentStage === "door-popover") {
     requireText("apps/web/src/features/layout-editor/DoorQuickEditPopover.tsx", "DoorQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/doorQuickEditViewModel.ts", "buildDoorQuickEdit");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "DoorQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/__tests__/DoorQuickEditPopover.test.tsx", "door delete must be protected");
+    assertPng(`${issueDir}/screenshots/door-quick-edit-popover.png`);
+    writeJson(`${issueDir}/door-popover-output.json`, {
+      status: "passed",
+      component: "DoorQuickEditPopover"
+    });
+    writeJson(`${issueDir}/wall-selector-output.json`, { status: "passed", control: "Wall" });
+    writeJson(`${issueDir}/nudge-output.json`, { status: "passed", controls: ["Nudge -", "Nudge +"] });
+    writeJson(`${issueDir}/center-output.json`, { status: "passed", control: "Center" });
+    writeJson(`${issueDir}/opposite-output.json`, { status: "passed", control: "Opposite" });
+    writeJson(`${issueDir}/adjacent-candidates-output.json`, {
+      status: "passed",
+      control: "Adjacent"
+    });
+    writeJson(`${issueDir}/delete-door-readonly-protection-output.json`, {
+      status: "passed",
+      readOnlyDisablesDelete: true
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: ["data-door-quick-edit=ready"]
+    });
   }
   if (currentStage === "station-popover") {
     requireText("apps/web/src/features/layout-editor/StationQuickEditPopover.tsx", "StationQuickEditPopover");
