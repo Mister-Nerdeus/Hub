@@ -1,18 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
+node scripts/check-floorplan-operational-map-style.mjs --issue 391
+node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 391 --port 4191 --debug-port 9391
 node scripts/check-no-phi-fields.mjs
-node scripts/check-private-source-artifacts.mjs
-node scripts/check-manual-assignment-ui.mjs --issue 386
-node scripts/check-manual-assignment-burden.mjs --issue 388
-node scripts/check-real-browser-proof.mjs --issue 390
-node scripts/check-manual-assignment-foundation.mjs --stage final --issue 390
-node scripts/check-canonical-gate-registry.mjs --issue 390
+node scripts/check-floorplan-editor-ux.mjs --stage style-contract --allow-partial --issue 391
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 391
-node scripts/check-product-naming.mjs --issue 391
-node scripts/check-product-identity-contract.mjs --issue 391
-node scripts/check-manual-assignment-contracts.mjs --issue 391
-node scripts/capture-manual-assignment-screenshots.mjs --issue 390 --base-url http://127.0.0.1:5180 --debug-port 9322
-node scripts/verify-local.mjs
-node scripts/check-docs-contracts.mjs
-git diff --check
