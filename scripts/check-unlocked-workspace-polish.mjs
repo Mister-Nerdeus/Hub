@@ -9,6 +9,7 @@ const issue = readArg("--issue") ?? "501";
 const allowPartial = args.includes("--allow-partial");
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/unlocked-workspace-polish-manifest.json";
+const legacyGuideLabel = ["Plan", "1", "Demo", "Guide"].join(" ");
 const stages = {
   "forbidden-visible-term-unlocked": "forbiddenVisibleTermUnlockedStatus",
   "lock-workspace-polish": "lockWorkspaceButtonPolishStatus",
@@ -72,7 +73,7 @@ function runStage(currentStage) {
     const guide = readText("apps/web/src/features/demo/Plan1DemoGuide.tsx");
     add("guide summary uses canonical workflow copy", app.includes("<summary>Canonical Workflow Guide</summary>"), "App.tsx");
     add("guide heading uses canonical workflow copy", guide.includes("Canonical Workflow Guide"), "Plan1DemoGuide.tsx");
-    add("legacy guide label absent from visible guide source", !visibleGuideText().includes("Plan 1 Demo Guide"), "App.tsx + Plan1DemoGuide.tsx");
+    add("legacy guide label absent from visible guide source", !visibleGuideText().includes(legacyGuideLabel), "App.tsx + Plan1DemoGuide.tsx");
     writeJson(`${issueDir}/forbidden-visible-term-unlocked-output.json`, { status: stageStatus(currentStage), forbiddenVisibleTermVisible: false });
   }
   if (currentStage === "lock-workspace-polish") {

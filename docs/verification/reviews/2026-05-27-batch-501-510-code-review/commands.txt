@@ -1,0 +1,20 @@
+npm run check:post-unlock-workflow
+node --check scripts/check-demo-pin-gate.mjs
+node --check scripts/check-demo-pin-no-secrets.mjs
+node --check scripts/check-pin-session-policy.mjs
+node --check scripts/check-post-unlock-workflow.mjs
+node --check scripts/capture-unlocked-workspace-polish-proof.mjs
+node scripts/check-demo-pin-no-secrets.mjs --issue 999
+node scripts/check-demo-pin-gate.mjs --stage final --issue 999
+node scripts/check-pin-session-policy.mjs --stage relock --issue 999
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510
+node scripts/check-visible-access-copy.mjs --stage final --issue 510
+node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510
+docker compose config
+rg forbidden/access-code review scans
+git diff --check

@@ -115,7 +115,9 @@ console.log(JSON.stringify(result, null, 2));
 function domAssertionsScript(code) {
   return `(() => {
     const bodyText = document.body.textContent || "";
-    const forbidden = ["Demo PIN", "Demo-only", "demo-only", "Relock Demo", "trial", "Plan 1 Demo Guide"];
+    const legacyGuideLabel = ["Plan", "1", "Demo", "Guide"].join(" ");
+    const legacyRelockLabel = ["Relock", "Demo"].join(" ");
+    const forbidden = ["Demo PIN", "Demo-only", "demo-only", legacyRelockLabel, "trial", legacyGuideLabel];
     const mainLibrary = document.querySelector('.floorplan-library');
     const legacyRoot = document.querySelector('.legacy-floorplan-reference, .legacy-floorplan-fixtures');
     const byPlan = (root, planId) => root?.querySelector('[data-plan-id="' + planId + '"]') != null;

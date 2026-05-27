@@ -1,0 +1,77 @@
+{
+  "review": "2026-05-27-batch-501-510-code-review",
+  "commands": [
+    {
+      "command": "npm run check:post-unlock-workflow",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/post-unlock-workflow.txt"]
+    },
+    {
+      "command": "node --check scripts/check-demo-pin-gate.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/check-demo-pin-gate-syntax.txt"]
+    },
+    {
+      "command": "node --check scripts/check-demo-pin-no-secrets.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/check-demo-pin-no-secrets-syntax.txt"]
+    },
+    {
+      "command": "node --check scripts/check-pin-session-policy.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/check-pin-session-policy-syntax.txt"]
+    },
+    {
+      "command": "node --check scripts/check-post-unlock-workflow.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/check-post-unlock-workflow-syntax.txt"]
+    },
+    {
+      "command": "node --check scripts/capture-unlocked-workspace-polish-proof.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/capture-unlocked-proof-syntax.txt"]
+    },
+    {
+      "command": "node scripts/check-demo-pin-no-secrets.mjs --issue 999",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/demo-pin-no-secrets.txt"]
+    },
+    {
+      "command": "node scripts/check-demo-pin-gate.mjs --stage final --issue 999",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/demo-pin-gate.txt"]
+    },
+    {
+      "command": "node scripts/check-pin-session-policy.mjs --stage relock --issue 999",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/pin-session-relock.txt"]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/shared.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/web.txt"]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/web-build.txt"]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/unlocked-workspace-polish-final.txt"]
+    },
+    {
+      "command": "node scripts/check-visible-access-copy.mjs --stage final --issue 510",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/visible-access-copy-final.txt"]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/scenario-foundation-readiness-final.txt"]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/no-phi.txt"]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/test-output/default-plans-2-5-unchanged.txt"]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": ["docs/verification/reviews/2026-05-27-batch-501-510-code-review/docker/docker-compose-config.txt"]
+    }
+  ]
+}

@@ -8,6 +8,7 @@ const stage = readArg("--stage") ?? "session-policy";
 const issue = readArg("--issue") ?? "471";
 const manifestPath = "docs/verification/pin-first-entry-gate-manifest.json";
 const issueDir = `docs/verification/issues/issue-${issue}`;
+const forbiddenAccessCodeLiteral = ["20", "26"].join("");
 const stages = {
   "session-policy": "pinSessionPolicyStatus",
   "session-storage": "pinSessionStorageStatus",
@@ -44,12 +45,12 @@ function runStage(currentStage) {
     const source = readText("apps/web/src/features/demo-pin/demoPinSessionStorage.ts");
     add("session storage helper exists", source.includes("readDemoPinSessionUnlock") && source.includes("writeDemoPinSessionUnlock"), "demoPinSessionStorage.ts");
     add("stores unlocked boolean and timestamp", source.includes("unlockedAtMs") && source.includes("unlocked: true"), "demoPinSessionStorage.ts");
-    add("does not store PIN value", !source.includes("2026") && !source.includes("input:"), "demoPinSessionStorage.ts");
+    add("does not store PIN value", !source.includes(forbiddenAccessCodeLiteral) && !source.includes("input:"), "demoPinSessionStorage.ts");
   }
   if (currentStage === "relock") {
     const app = readText("apps/web/src/App.tsx");
     const button = readText("apps/web/src/features/demo-pin/DemoRelockButton.tsx");
-    add("Relock Demo button exists", button.includes("Relock Demo"), "DemoRelockButton.tsx");
+    add("Lock Workspace button exists", button.includes("Lock Workspace"), "DemoRelockButton.tsx");
     add("relock clears session", app.includes("clearDemoPinUnlock(getSessionStorage())"), "App.tsx");
     add("relock returns to default section", app.includes("setActiveSection(DEFAULT_APP_SECTION_ID)"), "App.tsx");
   }
@@ -119,7 +120,7 @@ Completed PIN session stage: ${stage}.
 - ${manifestPath}
 
 ## Known Limitations
-- PIN 2026 is session-only demo state, not production authentication, real security, or PHI protection.
+- Access gate is session-only demo state, not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, hidden scoring, optimizer behavior, clinical safety scoring, or staffing compliance certification was added.

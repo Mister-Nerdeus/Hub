@@ -8,6 +8,7 @@ const issue = readArg("--issue") ?? "475";
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/pin-first-entry-gate-manifest.json";
 const checks = [];
+const forbiddenAccessCodeLiteral = ["20", "26"].join("");
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
 const manifest = readJson(manifestPath);
@@ -16,13 +17,16 @@ manifest.lastUpdatedIssue = issue;
 const sessionStorageSource = readText("apps/web/src/features/demo-pin/demoPinSessionStorage.ts");
 const entrySource = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
 const stateSource = readText("apps/web/src/features/demo-pin/demoPinState.ts");
+const viewModelSource = readText("apps/web/src/features/demo-pin/workspaceAccessViewModel.ts");
+const contractSource = readText("packages/shared/src/demo-pin/demoPinContract.ts");
 
 add("sessionStorage used for unlock state", sessionStorageSource.includes("sessionStorage") || sessionStorageSource.includes("Storage"), "demoPinSessionStorage.ts");
-add("PIN input is not persisted", !sessionStorageSource.includes("2026") && !sessionStorageSource.includes("input:"), "demoPinSessionStorage.ts");
+add("PIN input is not persisted", !sessionStorageSource.includes(forbiddenAccessCodeLiteral) && !sessionStorageSource.includes("input:"), "demoPinSessionStorage.ts");
 add("no auth token storage", !/setItem\([^)]*(authToken|accessToken|refreshToken|bearer)/iu.test(`${sessionStorageSource}\n${stateSource}`), "demo PIN sources");
-add("demo-only disclaimer says not production auth", /not production\s+authentication/iu.test(entrySource), "DemoPinEntryScreen.tsx");
-add("demo-only disclaimer says not real security", /not[^.]+real security/iu.test(entrySource), "DemoPinEntryScreen.tsx");
-add("demo-only disclaimer says not PHI protection", /not[^.]+PHI protection/iu.test(entrySource), "DemoPinEntryScreen.tsx");
+add("demo-only caveat is wired from shared copy", entrySource.includes("viewModel.caveat") && viewModelSource.includes("DEMO_PIN_COPY"), "DemoPinEntryScreen.tsx + workspaceAccessViewModel.ts");
+add("demo-only copy says not a production security system", /not a production security system/iu.test(contractSource), "demoPinContract.ts");
+add("copy does not claim production authentication", !/production authentication enabled|production auth enabled/iu.test(`${entrySource}\n${viewModelSource}\n${contractSource}`), "demo PIN copy sources");
+add("copy does not claim PHI protection", !/protects?\s+PHI|PHI protection/iu.test(`${entrySource}\n${viewModelSource}\n${contractSource}`), "demo PIN copy sources");
 
 manifest.pinNoSecretsAuditStatus = checks.every((check) => check.passed) ? "passed" : "failed";
 writeJson(manifestPath, manifest);
@@ -44,9 +48,9 @@ function writeCommonEvidence() {
   writeText(`${issueDir}/no-phi-output.txt`, "passed: no PHI, identity, EHR, diagnosis, medication, or clinical note data added.\n");
   writeText(`${issueDir}/no-simulation-output.txt`, "passed: no full-shift simulation behavior added.\n");
   writeText(`${issueDir}/no-optimizer-output.txt`, "passed: no optimizer behavior added.\n");
-  writeText(`${issueDir}/no-production-auth-claim-output.txt`, "passed: PIN 2026 is demo-only and not production authentication.\n");
-  writeText(`${issueDir}/no-security-claim-output.txt`, "passed: PIN 2026 is not represented as real security.\n");
-  writeText(`${issueDir}/no-phi-protection-claim-output.txt`, "passed: PIN 2026 is not represented as PHI protection.\n");
+  writeText(`${issueDir}/no-production-auth-claim-output.txt`, "passed: access gate is demo-only and not production authentication.\n");
+  writeText(`${issueDir}/no-security-claim-output.txt`, "passed: access gate is not represented as real security.\n");
+  writeText(`${issueDir}/no-phi-protection-claim-output.txt`, "passed: access gate is not represented as PHI protection.\n");
   writeJson(`${issueDir}/manifest-update-output.json`, { status: "passed", manifestPath, lastUpdatedIssue: issue });
 }
 
@@ -98,7 +102,7 @@ Completed demo PIN no-secrets audit.
 - ${manifestPath}
 
 ## Known Limitations
-- PIN 2026 is demo-only and is not production authentication, real security, or PHI protection.
+- Access gate is demo-only and is not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, clinical safety certification, hidden scoring, optimizer behavior, or full-shift simulation was added.

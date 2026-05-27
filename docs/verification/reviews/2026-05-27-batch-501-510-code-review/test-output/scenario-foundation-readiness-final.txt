@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "510",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "professional access final gate passed",
+      "passed": true,
+      "detail": "professional-access-screen-manifest.json"
+    },
+    {
+      "name": "access code not visible in professional manifest",
+      "passed": true,
+      "detail": "professional-access-screen-manifest.json"
+    },
+    {
+      "name": "PIN-first gate passed",
+      "passed": true,
+      "detail": "pin-first-entry-gate-manifest.json"
+    },
+    {
+      "name": "cooldown and lockout gates passed",
+      "passed": true,
+      "detail": "pin-first-entry-gate-manifest.json"
+    },
+    {
+      "name": "access code is not stored in current evidence manifest",
+      "passed": true,
+      "detail": "pin-first-entry-gate-manifest.json"
+    },
+    {
+      "name": "singular floorplan navigation ready",
+      "passed": true,
+      "detail": "appNavigation.ts"
+    },
+    {
+      "name": "Plans 2-5 remain out of main UI",
+      "passed": true,
+      "detail": "docs/verification/unlocked-workspace-polish-manifest.json"
+    },
+    {
+      "name": "Plans 2-5 remain Advanced/Evidence only",
+      "passed": true,
+      "detail": "docs/verification/unlocked-workspace-polish-manifest.json"
+    },
+    {
+      "name": "storage semantics gate source remains present",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
+    },
+    {
+      "name": "scenario manifest has no full-shift simulation",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "scenario manifest has no optimizer",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "scenario source has no execution or optimizer behavior",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scannedFiles": [
+          "apps/web/src/features/scenarios/scenarioComparisonViewModel.ts",
+          "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
+          "apps/web/src/features/scenarios/scenarioRatioComparisonCopy.ts"
+        ],
+        "findings": []
+      }
+    },
+    {
+      "name": "4:1 scenario is contract-only",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "3:1 scenario is contract-only",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "outcome metrics remain placeholders",
+      "passed": true,
+      "detail": "scenarioComparisonViewModel.ts"
+    }
+  ]
+}

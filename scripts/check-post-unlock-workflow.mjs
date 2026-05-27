@@ -49,7 +49,7 @@ function runStage(currentStage) {
     add("Plan 1 active by default", readText("apps/web/src/features/floorplans/activeFloorplanState.ts").includes("CANONICAL_FLOORPLAN_ID"), "activeFloorplanState.ts");
   }
   if (currentStage === "demo-guide-demotion") {
-    add("demo guide is inside details", app.includes("plan-1-demo-guide-demoted") && app.includes("<summary>Plan 1 Demo Guide</summary>"), "App.tsx");
+    add("workflow guide is inside details", app.includes("plan-1-demo-guide-demoted") && app.includes("<summary>Canonical Workflow Guide</summary>"), "App.tsx");
     add("operator workflow appears before demoted guide in source", app.indexOf("Canonical ER Pod Floorplan") < app.indexOf("plan-1-demo-guide-demoted"), "App.tsx");
   }
   if (currentStage === "seed-pack-demotion") {

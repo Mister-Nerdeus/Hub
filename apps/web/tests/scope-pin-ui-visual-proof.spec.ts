@@ -6,6 +6,6 @@ export const scopePinUiVisualProofCases = [
   "Plans 2-5 visible in Advanced/Evidence only",
   "demo PIN gate locked state visible",
   "wrong PIN rejected visibly",
-  "PIN 2026 unlocks protected demo actions",
+  "valid access code unlocks protected demo actions",
   "no production auth, real security, PHI, simulation output, or optimizer output claim"
 ] as const;

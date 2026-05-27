@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "999",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "PIN literal exists",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    },
+    {
+      "name": "protected action IDs exist",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    },
+    {
+      "name": "wrong PIN validation exists",
+      "passed": true,
+      "detail": "demoPinValidation.ts"
+    },
+    {
+      "name": "no forbidden claim in copy",
+      "passed": true,
+      "detail": "demoPinContract.ts"
+    },
+    {
+      "name": "DemoPinGate component exists",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
+    },
+    {
+      "name": "PIN input exists",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
+    },
+    {
+      "name": "DemoPinGate mounted through PIN-first entry screen",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "protected action helper exists",
+      "passed": true,
+      "detail": "protectedDemoActions.ts"
+    },
+    {
+      "name": "edit working copy gated",
+      "passed": true,
+      "detail": "FloorplanLibrary.tsx"
+    },
+    {
+      "name": "manual assignment proceed gated",
+      "passed": true,
+      "detail": "FloorplanLandingSummary.tsx"
+    },
+    {
+      "name": "demo PIN gate script exists",
+      "passed": true,
+      "detail": "scripts/check-demo-pin-gate.mjs"
+    },
+    {
+      "name": "PIN visual proof assertions exist",
+      "passed": true,
+      "detail": "docs/verification/pin-first-entry-dom-assertions.json"
+    },
+    {
+      "name": "PIN gate visible in app proof",
+      "passed": true,
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
+      }
+    },
+    {
+      "name": "locked proof hides protected workflow actions",
+      "passed": true,
+      "detail": {
+        "pinOnly": true,
+        "appShellVisible": false,
+        "navigationVisible": false,
+        "demoGuideVisible": false,
+        "seedPackVisible": false,
+        "floorplanContentVisible": false,
+        "protectedActionsVisible": false,
+        "forbiddenLockedContentVisible": false
+      }
+    },
+    {
+      "name": "PIN unlocked visible in app proof",
+      "passed": true,
+      "detail": {
+        "appShellVisible": true,
+        "canonicalPlan1WorkflowVisible": true,
+        "navigationVisible": true,
+        "demoGuideDemoted": true
+      }
+    },
+    {
+      "name": "browser-rendered proof is not static",
+      "passed": true,
+      "detail": {
+        "issue": "465",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "locked": {
+          "pinOnly": true,
+          "appShellVisible": false,
+          "navigationVisible": false,
+          "demoGuideVisible": false,
+          "seedPackVisible": false,
+          "floorplanContentVisible": false,
+          "protectedActionsVisible": false,
+          "forbiddenLockedContentVisible": false
+        },
+        "unlocked": {
+          "appShellVisible": true,
+          "canonicalPlan1WorkflowVisible": true,
+          "navigationVisible": true,
+          "demoGuideDemoted": true
+        }
+      }
+    }
+  ]
+}
