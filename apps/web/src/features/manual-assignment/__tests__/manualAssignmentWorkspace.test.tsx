@@ -32,6 +32,10 @@ if (viewModel.nurseCards.find((card) => card.nurseId === "nurse-green")?.assigne
   throw new Error("manual assignment workspace must expose nurse assignment cards");
 }
 
+if (!viewModel.nurseCards.find((card) => card.nurseId === "nurse-green")?.walkingSummary.includes("walk units")) {
+  throw new Error("manual assignment workspace must expose nurse-card walking burden summary");
+}
+
 if (viewModel.unassignedOccupiedRoomCount !== 1) {
   throw new Error("manual assignment workspace must expose unassigned occupied rooms");
 }

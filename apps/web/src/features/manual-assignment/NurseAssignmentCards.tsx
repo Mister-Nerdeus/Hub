@@ -16,6 +16,7 @@ export function NurseAssignmentCards({ cards }: NurseAssignmentCardsProps) {
               <p>
                 {card.assignedRoomCount} assigned / target {card.targetPatientCount} / max {card.maxPatientCount}
               </p>
+              <p>{card.walkingSummary}</p>
             </div>
           </div>
           <ul>

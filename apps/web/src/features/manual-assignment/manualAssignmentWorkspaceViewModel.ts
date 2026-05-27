@@ -6,6 +6,7 @@ import {
   selectUnassignedOccupiedRooms
 } from "./manualAssignmentSelectors";
 import type { ManualAssignmentState } from "./manualAssignmentState";
+import { createWalkingBurdenSummaryByNurse } from "./walkingBurdenViewModel";
 
 export type ManualAssignmentWorkspaceViewModel = {
   activeNurseId: string | null;
@@ -45,6 +46,9 @@ export type ManualAssignmentNurseCard = {
   assignedRoomLabels: string[];
   targetPatientCount: number;
   maxPatientCount: number;
+  walkingSummary: string;
+  roomSpread: number;
+  walkingBurdenUnits: number;
 };
 
 export type ManualAssignmentColorLegendItem = {
@@ -61,6 +65,7 @@ export function createManualAssignmentWorkspaceViewModel(
   const unassignedOccupiedRoomIds = new Set(selectUnassignedOccupiedRooms(state).map((roomLoad) => roomLoad.roomId));
   const assignedRoomsByNurse = selectAssignedRoomsByNurse(state);
   const assignmentCounts = selectAssignmentCountByNurse(state);
+  const walkingByNurse = createWalkingBurdenSummaryByNurse(state);
   const sortedRoomLoads = Object.values(state.roomLoadsByRoomId).sort(compareRoomLoadsByRoomId);
 
   return {
@@ -95,7 +100,10 @@ export function createManualAssignmentWorkspaceViewModel(
       assignedRoomCount: assignmentCounts[nurse.nurseId] ?? 0,
       assignedRoomLabels: (assignedRoomsByNurse[nurse.nurseId] ?? []).map(labelRoom),
       targetPatientCount: nurse.targetPatientCount,
-      maxPatientCount: nurse.maxPatientCount
+      maxPatientCount: nurse.maxPatientCount,
+      walkingSummary: walkingByNurse[nurse.nurseId]?.displaySummary ?? "0 walk units / spread 0",
+      roomSpread: walkingByNurse[nurse.nurseId]?.roomToRoomSpread ?? 0,
+      walkingBurdenUnits: walkingByNurse[nurse.nurseId]?.estimatedWalkingBurdenUnits ?? 0
     })),
     colorLegend: state.nurses.map((nurse) => ({
       nurseId: nurse.nurseId,

@@ -141,6 +141,12 @@
       "packageScript": "check:manual-assignment-ui",
       "command": "npm run check:manual-assignment-ui -- --issue ${manualAssignmentIssue}",
       "category": "manual-assignment-foundation"
+    },
+    {
+      "id": "manual-assignment-burden",
+      "packageScript": "check:manual-assignment-burden",
+      "command": "npm run check:manual-assignment-burden -- --issue ${manualAssignmentIssue}",
+      "category": "manual-assignment-foundation"
     }
   ]
 }

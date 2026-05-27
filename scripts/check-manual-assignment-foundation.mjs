@@ -99,6 +99,11 @@ function runStage(currentStage) {
     manifest.assignmentUiStatus = stageFailures().length === 0 ? "passed" : "failed";
     return;
   }
+  if (currentStage === "walking-burden") {
+    runWalkingBurden();
+    manifest.walkingBurdenStatus = stageFailures().length === 0 ? "passed" : "failed";
+    return;
+  }
 
   const key = stageStatusKey[currentStage];
   if (manifest[key] !== "passed") {
@@ -356,6 +361,42 @@ function runAssignmentUi() {
   });
 }
 
+function runWalkingBurden() {
+  const requiredFiles = [
+    "packages/shared/src/manual-assignment/walkingBurden.ts",
+    "packages/shared/tests/walking-burden.test.mjs",
+    "apps/web/src/features/manual-assignment/walkingBurdenViewModel.ts",
+    "apps/web/src/features/manual-assignment/NurseAssignmentCards.tsx",
+    "apps/web/src/features/manual-assignment/__tests__/walkingBurdenViewModel.test.ts",
+    "scripts/check-manual-assignment-burden.mjs"
+  ];
+  for (const file of requiredFiles) {
+    if (!existsSync(abs(file))) failures.push(`missing walking burden file ${file}`);
+  }
+  const shared = readText("packages/shared/src/manual-assignment/walkingBurden.ts");
+  const card = readText("apps/web/src/features/manual-assignment/NurseAssignmentCards.tsx");
+  const viewModel = readText("apps/web/src/features/manual-assignment/walkingBurdenViewModel.ts");
+  const combined = `${shared}\n${card}\n${viewModel}`;
+  for (const text of [
+    "shortestPathDistance",
+    "path-graph",
+    "straight-line-fallback",
+    "roomToRoomSpread",
+    "estimatedWalkingBurdenUnits",
+    "walkingSummary"
+  ]) {
+    if (!combined.includes(text)) failures.push(`walking burden missing ${text}`);
+  }
+  if (/best assignment|recommend|optimi[sz]er|shift timeline/u.test(combined)) {
+    failures.push("walking burden stage must not contain optimizer or full-shift behavior");
+  }
+  writeJson(`${issueDir}/manifest-update-output.json`, {
+    status: stageFailures().length === 0 ? "passed" : "failed",
+    manifestPath,
+    lastUpdatedIssue: issue
+  });
+}
+
 function runNurseProfiles() {
   const requiredFiles = [
     "packages/shared/src/manual-assignment/nurseProfileDefaults.ts",
@@ -500,6 +541,16 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 386"
     ];
   }
+  if (String(issueNumber) === "387") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-manual-assignment-burden.mjs --issue 387",
+      "node scripts/check-manual-assignment-foundation.mjs --stage walking-burden --allow-partial --issue 387",
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 387"
+    ];
+  }
   return [
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
@@ -520,6 +571,7 @@ function mappedOutputForCommand(command, issueNumber) {
   if (command.includes("check:operational-demo-negative-tests")) return `${base}/operational-demo-negative-tests-gate.txt`;
   if (command.includes("check:canonical-gates")) return `${base}/canonical-gates.txt`;
   if (command.includes("check-manual-assignment-ui")) return `${base}/manual-assignment-ui-gate.txt`;
+  if (command.includes("check-manual-assignment-burden")) return `${base}/manual-assignment-burden-gate.txt`;
   if (command.includes("check-manual-assignment-foundation") || command.includes("check:manual-assignment-foundation")) return `${base}/manual-assignment-foundation-gate.txt`;
   if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   if (command.includes("check-default-plans-2-through-5-unchanged")) return `${base}/plans-2-through-5-unchanged.txt`;
