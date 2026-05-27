@@ -1,0 +1,342 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:professional-access-screen
+> node scripts/check-professional-access-screen.mjs --stage final --issue 500
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "500",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "visible access-screen source does not contain internal access code",
+      "passed": true,
+      "detail": "access source files"
+    },
+    {
+      "name": "professional copy includes Workspace Access",
+      "passed": true,
+      "detail": "Workspace Access"
+    },
+    {
+      "name": "professional copy includes Private operational workspace",
+      "passed": true,
+      "detail": "Private operational workspace"
+    },
+    {
+      "name": "professional copy includes Access Required",
+      "passed": true,
+      "detail": "Access Required"
+    },
+    {
+      "name": "professional copy includes Access code",
+      "passed": true,
+      "detail": "Access code"
+    },
+    {
+      "name": "professional copy includes Continue",
+      "passed": true,
+      "detail": "Continue"
+    },
+    {
+      "name": "professional copy includes Reset",
+      "passed": true,
+      "detail": "Reset"
+    },
+    {
+      "name": "professional copy includes Controlled review flow only. Not a production security system.",
+      "passed": true,
+      "detail": "Controlled review flow only. Not a production security system."
+    },
+    {
+      "name": "copy avoids positive auth/security/PHI-protection claims",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "workspace access view model exists",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "view model owns professional labels",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "components consume view model fields",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+    },
+    {
+      "name": "view model does not emit internal code",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "view model does not emit internal visible terms",
+      "passed": true,
+      "detail": "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "layout includes .demo-pin-entry-screen__panel",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes box-shadow",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes border-radius: 8px",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes .demo-pin-gate__form button[type=\"submit\"]",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "layout includes @media (max-width: 760px)",
+      "passed": true,
+      "detail": "styles.css"
+    },
+    {
+      "name": "entry screen remains standalone locked main",
+      "passed": true,
+      "detail": "DemoPinEntryScreen.tsx"
+    },
+    {
+      "name": "attempt messaging includes Access code not accepted. Try again in 15 seconds.",
+      "passed": true,
+      "detail": "Access code not accepted. Try again in 15 seconds."
+    },
+    {
+      "name": "attempt messaging includes Please wait",
+      "passed": true,
+      "detail": "Please wait"
+    },
+    {
+      "name": "attempt messaging includes Too many attempts. Try again in",
+      "passed": true,
+      "detail": "Too many attempts. Try again in"
+    },
+    {
+      "name": "attempt messaging includes Workspace access granted for this session.",
+      "passed": true,
+      "detail": "Workspace access granted for this session."
+    },
+    {
+      "name": "cooldown remains 15 seconds",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "lockout remains 180 seconds",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "app-rendered DOM assertions exist",
+      "passed": true,
+      "detail": "docs/verification/professional-access-screen-dom-assertions.json"
+    },
+    {
+      "name": "DOM assertion productDisplayNameVisible",
+      "passed": true,
+      "detail": {
+        "expected": true,
+        "actual": true
+      }
+    },
+    {
+      "name": "DOM assertion workspaceAccessVisible",
+      "passed": true,
+      "detail": {
+        "expected": true,
+        "actual": true
+      }
+    },
+    {
+      "name": "DOM assertion accessRequiredVisible",
+      "passed": true,
+      "detail": {
+        "expected": true,
+        "actual": true
+      }
+    },
+    {
+      "name": "DOM assertion accessCodeVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion forbiddenInternalTermVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion professionalCopyVisible",
+      "passed": true,
+      "detail": {
+        "expected": true,
+        "actual": true
+      }
+    },
+    {
+      "name": "DOM assertion productionAuthClaimVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion realSecurityClaimVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion phiProtectionClaimVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion mainNavVisibleBeforeUnlock",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion floorplanContentVisibleBeforeUnlock",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion scenarioContentVisibleBeforeUnlock",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion simulationOutputVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion optimizerOutputVisible",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "DOM assertion staticHtmlOnlyProof",
+      "passed": true,
+      "detail": {
+        "expected": false,
+        "actual": false
+      }
+    },
+    {
+      "name": "professional-access-locked.png screenshot exists",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-498/screenshots/professional-access-locked.png",
+        "bytes": 243638
+      }
+    },
+    {
+      "name": "professional-access-wrong-attempt.png screenshot exists",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-498/screenshots/professional-access-wrong-attempt.png",
+        "bytes": 246251
+      }
+    },
+    {
+      "name": "professional-access-cooldown.png screenshot exists",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-498/screenshots/professional-access-cooldown.png",
+        "bytes": 246231
+      }
+    },
+    {
+      "name": "professional-access-lockout.png screenshot exists",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-498/screenshots/professional-access-lockout.png",
+        "bytes": 245652
+      }
+    },
+    {
+      "name": "professional-access-unlocked-workspace.png screenshot exists",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-498/screenshots/professional-access-unlocked-workspace.png",
+        "bytes": 154391
+      }
+    },
+    {
+      "name": "identifier migration plan exists",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes WorkspaceAccessGate",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes WorkspaceAccessEntryScreen",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes workspaceAccessState",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes workspaceAccessPolicy",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes check-workspace-access-gate",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    },
+    {
+      "name": "migration plan includes Safe Migration Order",
+      "passed": true,
+      "detail": "docs/project/access-gate-identifier-migration-plan.md"
+    }
+  ]
+}

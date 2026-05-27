@@ -1169,7 +1169,8 @@ h1 {
 }
 
 .active-floorplan__status,
-.active-floorplan__counts {
+.active-floorplan__counts,
+.active-floorplan__evidence-list {
   display: grid;
   gap: 10px;
   margin: 0;
@@ -1180,16 +1181,28 @@ h1 {
 }
 
 .active-floorplan__counts {
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.active-floorplan__evidence-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .active-floorplan__status div,
-.active-floorplan__counts div {
+.active-floorplan__counts div,
+.active-floorplan__evidence-list div {
   background: #f7f9fb;
   border: 1px solid #e2e8ef;
   border-radius: 6px;
   min-width: 0;
   padding: 8px;
+}
+
+.active-floorplan__evidence-details summary {
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
 }
 
 .active-floorplan dt {
@@ -2371,12 +2384,6 @@ h1 {
 .demo-pin-entry-screen .demo-pin-gate {
   margin: 0;
   background: #f8fafb;
-}
-
-.demo-relock-button {
-  border: 1px solid #8aa0b2;
-  background: #ffffff;
-  color: #243443;
 }
 
 .plan-1-demo-guide-demoted {

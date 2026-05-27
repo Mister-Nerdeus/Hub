@@ -1,0 +1,35 @@
+{
+  "issue": "510",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/scenario-foundation-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

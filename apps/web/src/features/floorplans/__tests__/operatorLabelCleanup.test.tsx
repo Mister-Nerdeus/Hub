@@ -10,9 +10,14 @@ const librarySource = readFileSync(resolve(repoRoot, "apps/web/src/features/floo
 const controlsSource = readFileSync(resolve(repoRoot, "apps/web/src/features/floorplans/DefaultPlanEditCopyControls.tsx"), "utf8");
 const evidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/floorplans/FloorplanEvidenceDetails.tsx"), "utf8");
 
-for (const requiredLabel of ["Open Floorplan", "Floorplan source", "Validated default", "Mapping reference"]) {
+for (const requiredLabel of ["Open Floorplan"]) {
   if (!librarySource.includes(requiredLabel)) {
     throw new Error(`main floorplan UI must include operator label: ${requiredLabel}`);
+  }
+}
+for (const evidenceLabel of ["sourceDerivedStatus", "Validated default", "Mapping reference"]) {
+  if (!evidenceSource.includes(evidenceLabel)) {
+    throw new Error(`floorplan evidence disclosure must preserve label: ${evidenceLabel}`);
   }
 }
 if (!controlsSource.includes("Edit Working Copy")) {

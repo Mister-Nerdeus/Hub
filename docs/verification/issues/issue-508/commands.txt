@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/capture-unlocked-workspace-polish-proof.mjs --issue 508
+node scripts/check-unlocked-workspace-polish.mjs --stage unlocked-visual-proof --allow-partial --issue 508
+node scripts/check-no-phi-fields.mjs

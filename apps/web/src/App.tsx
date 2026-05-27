@@ -32,7 +32,6 @@ import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
 import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAssignmentWorkspace";
 import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
-import { Plan1ScenarioBuilder } from "./features/scenarios/Plan1ScenarioBuilder";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 import { DemoPinEntryScreen } from "./features/demo-pin/DemoPinEntryScreen";
 import {
@@ -218,7 +217,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
 
       {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
         <details className="plan-1-demo-guide-demoted">
-          <summary>Plan 1 Demo Guide</summary>
+          <summary>Canonical Workflow Guide</summary>
           <Plan1DemoGuide
             viewModel={demoWorkflowViewModel}
             onOpenPlan1={openPlan1Demo}
@@ -230,7 +229,12 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "editor" ? (
         <section className="workflow-section" aria-labelledby="editor-title">
           <h2 id="editor-title">Layout editor</h2>
-          <LayoutEditorStage activeFloorplan={activeFloorplanState.activeFloorplan} />
+          <LayoutEditorStage
+            activeFloorplan={activeFloorplanState.activeFloorplan}
+            onCreateWorkingCopy={() =>
+              duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
+            }
+          />
         </section>
       ) : null}
 
@@ -259,7 +263,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
         <section className="workflow-section" aria-labelledby="scenarios-title">
           <h2 id="scenarios-title">Scenarios</h2>
           <ScenarioRatioComparisonPanel />
-          <Plan1ScenarioBuilder activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
         </section>
       ) : null}
 

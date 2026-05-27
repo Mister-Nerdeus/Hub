@@ -14,7 +14,7 @@ const gateSource = readFileSync(resolve(repoRoot, "apps/web/src/features/demo-pi
 const lockedScreenSource = `${entrySource}\n${gateSource}`;
 
 for (const hiddenText of [
-  "Plan 1 Demo Guide",
+  "Canonical Workflow Guide",
   "seed pack",
   "Scenario Comparison",
   "Ratio Comparison",

@@ -34,7 +34,7 @@ export function FloorplanLibrary({
     <section className="floorplan-library" aria-labelledby="floorplan-library-title">
       <div className="floorplan-library__header">
         <div>
-          <p className="eyebrow">Floorplans</p>
+          <p className="eyebrow">Floorplan</p>
           <h2 id="floorplan-library-title">{viewModel.title}</h2>
         </div>
         <dl className="floorplan-library__totals" aria-label="Floorplan library totals">
@@ -101,24 +101,6 @@ export function FloorplanLibrary({
                 </button>
               ) : null}
             </div>
-            <dl className="floorplan-library__status">
-              <div>
-                <dt>Artifact</dt>
-                <dd>Floorplan source</dd>
-              </div>
-              <div>
-                <dt>Source</dt>
-                <dd>{floorplan.sourceDerivedStatus}</dd>
-              </div>
-              <div>
-                <dt>Import</dt>
-                <dd>{floorplan.importStatus === "validated_default" ? "Validated default" : floorplan.importStatus}</dd>
-              </div>
-              <div>
-                <dt>Mapping</dt>
-                <dd>{floorplan.mappingStatus == null ? floorplan.parentDefaultPlanId : "Mapping reference"}</dd>
-              </div>
-            </dl>
             <dl className="floorplan-library__counts" aria-label={`${floorplan.name} object counts`}>
               <div>
                 <dt>Rooms</dt>

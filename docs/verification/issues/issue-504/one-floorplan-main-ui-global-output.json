@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "504",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "main library filters canonical defaults only",
+      "passed": true,
+      "detail": "floorplanLibraryViewModel.ts"
+    },
+    {
+      "name": "Plans 2-5 are developer references",
+      "passed": true,
+      "detail": "floorplanLibraryViewModel.ts"
+    },
+    {
+      "name": "PlanBuilderLanding removed from Floorplans route",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "PlanBuilderLanding mounted in Developer Evidence",
+      "passed": true,
+      "detail": "DeveloperEvidencePage.tsx"
+    },
+    {
+      "name": "visible route heading is canonical",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "legacy Floorplans h2 removed",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "name": "legacy default cannot open as active",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "saved copy must come from canonical floorplan",
+      "passed": true,
+      "detail": "activeFloorplanState.ts"
+    },
+    {
+      "name": "one-floorplan assertions exist",
+      "passed": true,
+      "detail": "docs/verification/one-floorplan-main-ui-dom-assertions.json"
+    },
+    {
+      "name": "one-floorplan proof is browser-rendered app",
+      "passed": true,
+      "detail": {
+        "issue": "485",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "plan1OnlyInMainUi": true,
+        "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
+        "planBuilderLandingOnlyInDeveloperEvidence": true,
+        "activeWorkflowFloorplanId": "default-er-layout-plan-1"
+      }
+    },
+    {
+      "name": "Plan 1 only in main UI",
+      "passed": true,
+      "detail": {
+        "issue": "485",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "plan1OnlyInMainUi": true,
+        "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
+        "planBuilderLandingOnlyInDeveloperEvidence": true,
+        "activeWorkflowFloorplanId": "default-er-layout-plan-1"
+      }
+    },
+    {
+      "name": "Plans 2-5 only in advanced evidence",
+      "passed": true,
+      "detail": {
+        "issue": "485",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "plan1OnlyInMainUi": true,
+        "plansTwoThroughFiveOnlyInAdvancedEvidence": true,
+        "planBuilderLandingOnlyInDeveloperEvidence": true,
+        "activeWorkflowFloorplanId": "default-er-layout-plan-1"
+      }
+    },
+    {
+      "name": "one-floorplan main UI visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-485/screenshots/one-floorplan-main-ui.png",
+        "bytes": 183304
+      }
+    }
+  ]
+}

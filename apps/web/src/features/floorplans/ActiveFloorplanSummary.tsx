@@ -29,24 +29,12 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
         <>
           <dl className="active-floorplan__status">
             <div>
-              <dt>Plan</dt>
-              <dd>{viewModel.planId}</dd>
+              <dt>Active map</dt>
+              <dd>{viewModel.name}</dd>
             </div>
             <div>
-              <dt>Source</dt>
-              <dd>{viewModel.sourceKindLabel}</dd>
-            </div>
-            <div>
-              <dt>Import</dt>
-              <dd>{viewModel.importStatus}</dd>
-            </div>
-            <div>
-              <dt>Mapping</dt>
-              <dd>{viewModel.mappingStatus ?? viewModel.parentDefaultPlanId}</dd>
-            </div>
-            <div>
-              <dt>Route/export</dt>
-              <dd>{viewModel.routeStatusLabel}</dd>
+              <dt>Edit status</dt>
+              <dd>{viewModel.readOnly ? "Read-only canonical fixture" : "Editable working copy"}</dd>
             </div>
             <div>
               <dt>Review</dt>
@@ -56,12 +44,12 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
               <dt>Promotion</dt>
               <dd>{viewModel.promotionStatusLabel}</dd>
             </div>
-          </dl>
-          <dl className="active-floorplan__counts" aria-label="Active floorplan object counts">
             <div>
               <dt>Rooms</dt>
               <dd>{viewModel.objectCounts.rooms}</dd>
             </div>
+          </dl>
+          <dl className="active-floorplan__counts" aria-label="Active floorplan object counts">
             <div>
               <dt>Halls</dt>
               <dd>{viewModel.objectCounts.hallways}</dd>
@@ -78,15 +66,40 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
               <dt>Zones</dt>
               <dd>{viewModel.objectCounts.zones}</dd>
             </div>
-            <div>
-              <dt>Nodes</dt>
-              <dd>{viewModel.objectCounts.pathNodes}</dd>
-            </div>
-            <div>
-              <dt>Edges</dt>
-              <dd>{viewModel.objectCounts.pathEdges}</dd>
-            </div>
           </dl>
+          <details className="active-floorplan__evidence-details">
+            <summary>Advanced / Evidence details</summary>
+            <dl className="active-floorplan__evidence-list" aria-label="Active floorplan evidence details">
+              <div>
+                <dt>Plan ID</dt>
+                <dd>{viewModel.planId}</dd>
+              </div>
+              <div>
+                <dt>Source</dt>
+                <dd>{viewModel.sourceKindLabel}</dd>
+              </div>
+              <div>
+                <dt>Import</dt>
+                <dd>{viewModel.importStatus}</dd>
+              </div>
+              <div>
+                <dt>Mapping</dt>
+                <dd>{viewModel.mappingStatus ?? viewModel.parentDefaultPlanId}</dd>
+              </div>
+              <div>
+                <dt>Route/export</dt>
+                <dd>{viewModel.routeStatusLabel}</dd>
+              </div>
+              <div>
+                <dt>Nodes</dt>
+                <dd>{viewModel.objectCounts.pathNodes}</dd>
+              </div>
+              <div>
+                <dt>Edges</dt>
+                <dd>{viewModel.objectCounts.pathEdges}</dd>
+              </div>
+            </dl>
+          </details>
         </>
       ) : null}
     </section>

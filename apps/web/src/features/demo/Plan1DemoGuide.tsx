@@ -26,8 +26,8 @@ export function Plan1DemoGuide({
     >
       <div className="plan-1-demo-guide__header">
         <div>
-          <p className="eyebrow">Plan 1 demo workflow</p>
-          <h2 id="plan-1-demo-guide-title">Plan 1 Demo Guide</h2>
+          <p className="eyebrow">Canonical workflow</p>
+          <h2 id="plan-1-demo-guide-title">Canonical Workflow Guide</h2>
         </div>
         <span
           className={`plan-1-demo-guide__badge plan-1-demo-guide__badge--${viewModel.readinessBadge.status}`}
@@ -42,7 +42,7 @@ export function Plan1DemoGuide({
         <p>{viewModel.limitations.join(" ")}</p>
       </div>
 
-      <ol className="plan-1-demo-guide__steps" aria-label="Plan 1 demo steps">
+      <ol className="plan-1-demo-guide__steps" aria-label="Canonical workflow steps">
         {viewModel.steps.map((step, index) => (
           <li
             key={step.stepId}

@@ -37,11 +37,17 @@ export function AppShell({
             Synthetic operational modeling only. Manual review required; promotion blocked.
           </p>
         </div>
-        <div className="workspace-header__state-banner" role="status">
-          <span>Manual review required</span>
-          <span>Promotion blocked</span>
-          <span>Synthetic operational modeling only</span>
-          {onRelockDemo == null ? null : <DemoRelockButton onRelock={onRelockDemo} />}
+        <div className="workspace-header__controls">
+          <div className="workspace-header__state-banner" role="status" aria-label="Workspace status">
+            <span>Manual review required</span>
+            <span>Promotion blocked</span>
+            <span>Synthetic operational modeling only</span>
+          </div>
+          {onRelockDemo == null ? null : (
+            <div className="workspace-header__lock-action">
+              <DemoRelockButton onRelock={onRelockDemo} />
+            </div>
+          )}
         </div>
       </section>
 

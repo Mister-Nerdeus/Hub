@@ -48,6 +48,7 @@
     "check:demo-pin-gate": "npm --workspace packages/shared run build && node scripts/check-demo-pin-gate.mjs --stage final",
     "check:pin-first-entry-gate": "npm --workspace packages/shared run build && node scripts/check-pin-first-entry-gate.mjs --stage final --issue 490",
     "check:pin-rate-limit-lockout": "npm --workspace packages/shared run build && node scripts/check-pin-rate-limit-lockout.mjs --stage final --issue 490",
+    "check:professional-access-screen": "node scripts/check-professional-access-screen.mjs --stage final --issue 500",
     "check:post-unlock-workflow": "npm --workspace packages/shared run build && node scripts/check-post-unlock-workflow.mjs --stage final --issue 490",
     "check:one-floorplan-main-ui-global": "npm --workspace packages/shared run build && node scripts/check-one-floorplan-main-ui-global.mjs --stage final --issue 490",
     "check:scenario-preflight": "npm --workspace packages/shared run build && node scripts/check-scenario-preflight.mjs --stage final --issue 490",

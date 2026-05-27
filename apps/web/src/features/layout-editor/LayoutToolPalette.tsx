@@ -6,6 +6,7 @@ export type LayoutToolPaletteProps = {
   mode: LayoutToolMode;
   selectedRoomType: AuthoringRoomType;
   readOnly: boolean;
+  onCreateWorkingCopy?: () => void;
   onModeChange: (mode: LayoutToolMode) => void;
   onRoomTypeChange: (roomType: AuthoringRoomType) => void;
   onGenerateHallways: () => void;
@@ -15,6 +16,7 @@ export function LayoutToolPalette({
   mode,
   selectedRoomType,
   readOnly,
+  onCreateWorkingCopy,
   onModeChange,
   onRoomTypeChange,
   onGenerateHallways
@@ -57,6 +59,16 @@ export function LayoutToolPalette({
       <button type="button" disabled={readOnly} onClick={onGenerateHallways}>
         Auto hallways
       </button>
+      {readOnly ? (
+        <p className="layout-tool-palette__read-only-note" role="note">
+          Canonical fixture is read-only. Create a working copy to edit geometry.
+          {onCreateWorkingCopy == null ? null : (
+            <button type="button" onClick={onCreateWorkingCopy}>
+              Create working copy
+            </button>
+          )}
+        </p>
+      ) : null}
     </section>
   );
 }

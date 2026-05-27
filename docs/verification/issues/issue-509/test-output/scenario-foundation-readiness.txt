@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "stage": "no-simulation-no-optimizer",
+  "issue": "509",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "scenario manifest has no full-shift simulation",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "scenario manifest has no optimizer",
+      "passed": true,
+      "detail": "scenario-ratio-foundation-manifest.json"
+    },
+    {
+      "name": "scenario source has no execution or optimizer behavior",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scannedFiles": [
+          "apps/web/src/features/scenarios/scenarioComparisonViewModel.ts",
+          "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
+          "apps/web/src/features/scenarios/scenarioRatioComparisonCopy.ts"
+        ],
+        "findings": []
+      }
+    }
+  ]
+}

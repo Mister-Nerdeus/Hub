@@ -69,10 +69,17 @@ export function RoomShape({
         style={semanticStyle}
       />
       <text x={viewModel.labelX} y={viewModel.labelY} style={presentationStyle.muted ? { fill: presentationStyle.textFill } : undefined}>
-        {viewModel.presentationActive && /trauma|level\s*1/i.test(`${viewModel.label} ${viewModel.roomType}`)
-          ? viewModel.label
-          : viewModel.roomNumber}
+        {roomVisibleLabel(viewModel)}
       </text>
     </g>
   );
+}
+
+function roomVisibleLabel(viewModel: RoomShapeViewModel): string {
+  if (viewModel.roomType === "storage") return "Storage";
+  if (viewModel.roomType === "solid_wall") return "Wall";
+  if (viewModel.presentationActive && /trauma|level\s*1/i.test(`${viewModel.label} ${viewModel.roomType}`)) {
+    return viewModel.label;
+  }
+  return viewModel.roomNumber;
 }

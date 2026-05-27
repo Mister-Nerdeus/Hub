@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "stage": "read-only-editor-explanation",
+  "issue": "506",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "read-only-editor-explanation",
+      "name": "read-only explanation is present near disabled controls",
+      "passed": true,
+      "detail": "LayoutToolPalette.tsx"
+    },
+    {
+      "stage": "read-only-editor-explanation",
+      "name": "working-copy CTA is wired when available",
+      "passed": true,
+      "detail": "LayoutToolPalette.tsx + LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "read-only-editor-explanation",
+      "name": "add room and add door remain disabled while read-only",
+      "passed": true,
+      "detail": "LayoutToolPalette.tsx"
+    }
+  ]
+}

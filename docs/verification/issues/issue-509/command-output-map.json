@@ -1,0 +1,71 @@
+{
+  "issue": "509",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-first-entry-gate",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/pin-first-entry-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-rate-limit-lockout",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/pin-rate-limit-lockout.txt"
+      ]
+    },
+    {
+      "command": "npm run check:professional-access-screen",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/professional-access-screen.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-readiness.mjs --stage access-gates-ready --allow-partial --issue 509",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/scenario-foundation-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-readiness.mjs --stage one-floorplan-ready --allow-partial --issue 509",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/scenario-foundation-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-readiness.mjs --stage no-simulation-no-optimizer --allow-partial --issue 509",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/scenario-foundation-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

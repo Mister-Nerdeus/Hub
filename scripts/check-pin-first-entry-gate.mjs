@@ -67,7 +67,7 @@ function runStage(currentStage) {
     const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
     const lockedScreen = `${entry}\n${gate}`;
-    for (const hidden of ["Floorplans", "Editor", "Manual Assignment", "Review / Reports", "Advanced", "Future Tools"]) {
+    for (const hidden of ["Floorplan", "Editor", "Manual Assignment", "Review / Reports", "Advanced", "Future Tools"]) {
       add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
     }
     add("locked screen hides protected action list", !lockedScreen.includes("Protected demo actions") && !lockedScreen.includes("data-protected-action-id"), "DemoPinGate.tsx");
@@ -76,7 +76,7 @@ function runStage(currentStage) {
     const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
     const lockedScreen = `${entry}\n${gate}`;
-    for (const hidden of ["Plan 1 Demo Guide", "seed pack", "Scenario Comparison", "Ratio Comparison", "proof report", "Developer/Evidence"]) {
+    for (const hidden of ["Canonical Workflow Guide", "seed pack", "Scenario Comparison", "Ratio Comparison", "proof report", "Developer/Evidence"]) {
       add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
     }
   }

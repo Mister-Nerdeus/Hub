@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "stage": "whole-app-visible-copy",
+  "normalizedStage": "whole-app-visible-copy",
+  "issue": "502",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "rendered whole app has no visible access-code leak",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "rendered whole app has no forbidden legacy visible copy",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCodeVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "negative visible-copy fixture would fail",
+      "passed": true,
+      "detail": {
+        "fixture": "synthetic rendered text"
+      }
+    }
+  ]
+}

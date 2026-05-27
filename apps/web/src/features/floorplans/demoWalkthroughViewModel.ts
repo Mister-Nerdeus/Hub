@@ -8,7 +8,7 @@ export function createDemoWalkthroughViewModel(): DemoWalkthroughViewModel {
   return {
     walkthroughId: "operational-demo-walkthrough-v1",
     steps: [
-      { label: "Floorplans", status: "Open a default, saved copy, or review candidate." },
+      { label: "Floorplan", status: "Open the canonical map or a saved copy." },
       { label: "Review Candidates", status: "Confirm route/export readiness labels." },
       { label: "Preview", status: "Inspect rendered operational evidence." },
       { label: "Review Packet", status: "Open packet/template references for human review." },

@@ -1,0 +1,41 @@
+{
+  "issue": "507",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage storage-rendering-polish --allow-partial --issue 507",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 507",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-507/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

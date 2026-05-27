@@ -135,7 +135,7 @@ export function createFloorplanLibraryViewModel(
     },
     limitationsSummary: [
       "This workspace uses one canonical ER pod floorplan. Scenario and ratio comparisons layer onto this floorplan.",
-      "Floorplans are approximate operational layouts.",
+      "The canonical floorplan is an approximate operational layout.",
       "Default floorplans are locked; working copies are editable local records."
     ]
   };

@@ -1,0 +1,265 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:pin-rate-limit-lockout
+> npm --workspace packages/shared run build && node scripts/check-pin-rate-limit-lockout.mjs --stage final --issue 490
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "490",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "attempt state starts clean",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 0,
+        "lastAttemptAtMs": null,
+        "cooldownUntilMs": null,
+        "lockoutUntilMs": null
+      }
+    },
+    {
+      "name": "state tracks last attempt",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "local demo state only",
+      "passed": true,
+      "detail": "demoPinAttemptPolicy.ts"
+    },
+    {
+      "name": "wrong attempt creates 15-second cooldown",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 1,
+        "lastAttemptAtMs": 1000,
+        "cooldownUntilMs": 16000,
+        "lockoutUntilMs": null
+      }
+    },
+    {
+      "name": "correct PIN cannot bypass cooldown",
+      "passed": true,
+      "detail": {
+        "status": "cooldown_blocked",
+        "unlocked": false,
+        "message": "Please wait 14 seconds before trying again.",
+        "state": {
+          "wrongAttemptCount": 1,
+          "lastAttemptAtMs": 1000,
+          "cooldownUntilMs": 16000,
+          "lockoutUntilMs": null
+        },
+        "availability": {
+          "canSubmit": false,
+          "reason": "cooldown",
+          "cooldownRemainingMs": 14000,
+          "lockoutRemainingMs": 0,
+          "normalizedState": {
+            "wrongAttemptCount": 1,
+            "lastAttemptAtMs": 1000,
+            "cooldownUntilMs": 16000,
+            "lockoutUntilMs": null
+          }
+        }
+      }
+    },
+    {
+      "name": "cooldown expires deterministically",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 1,
+        "lastAttemptAtMs": 1000,
+        "cooldownUntilMs": 16000,
+        "lockoutUntilMs": null
+      }
+    },
+    {
+      "name": "three wrong attempts lock for 180 seconds",
+      "passed": true,
+      "detail": {
+        "wrongAttemptCount": 3,
+        "lastAttemptAtMs": 31002,
+        "cooldownUntilMs": null,
+        "lockoutUntilMs": 211002
+      }
+    },
+    {
+      "name": "attempt during lockout rejected",
+      "passed": true,
+      "detail": {
+        "status": "lockout_blocked",
+        "unlocked": false,
+        "message": "Too many attempts. Try again in 1 second.",
+        "state": {
+          "wrongAttemptCount": 3,
+          "lastAttemptAtMs": 31002,
+          "cooldownUntilMs": null,
+          "lockoutUntilMs": 211002
+        },
+        "availability": {
+          "canSubmit": false,
+          "reason": "lockout",
+          "cooldownRemainingMs": 0,
+          "lockoutRemainingMs": 1,
+          "normalizedState": {
+            "wrongAttemptCount": 3,
+            "lastAttemptAtMs": 31002,
+            "cooldownUntilMs": null,
+            "lockoutUntilMs": 211002
+          }
+        }
+      }
+    },
+    {
+      "name": "lockout expiration resets wrong count",
+      "passed": true,
+      "detail": {
+        "canSubmit": true,
+        "reason": null,
+        "cooldownRemainingMs": 0,
+        "lockoutRemainingMs": 0,
+        "normalizedState": {
+          "wrongAttemptCount": 0,
+          "lastAttemptAtMs": 31002,
+          "cooldownUntilMs": null,
+          "lockoutUntilMs": null
+        }
+      }
+    },
+    {
+      "name": "cooldown countdown copy exists",
+      "passed": true,
+      "detail": "workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "lockout countdown copy exists",
+      "passed": true,
+      "detail": "workspaceAccessViewModel.ts"
+    },
+    {
+      "name": "countdown is visible in status",
+      "passed": true,
+      "detail": "DemoPinGate.tsx"
+    },
+    {
+      "name": "lockout proof assertions exist",
+      "passed": true,
+      "detail": "docs/verification/pin-rate-limit-lockout-dom-assertions.json"
+    },
+    {
+      "name": "lockout proof is browser-rendered app",
+      "passed": true,
+      "detail": {
+        "issue": "470",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "wrongAttemptCreatesCooldown": true,
+        "cooldownVisible": true,
+        "threeWrongAttemptsCreateLockout": true,
+        "lockoutVisible": true,
+        "countdownVisible": true,
+        "postLockoutUnlockVisible": true,
+        "appContentVisibleDuringLockout": false
+      }
+    },
+    {
+      "name": "cooldown visible in proof",
+      "passed": true,
+      "detail": {
+        "issue": "470",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "wrongAttemptCreatesCooldown": true,
+        "cooldownVisible": true,
+        "threeWrongAttemptsCreateLockout": true,
+        "lockoutVisible": true,
+        "countdownVisible": true,
+        "postLockoutUnlockVisible": true,
+        "appContentVisibleDuringLockout": false
+      }
+    },
+    {
+      "name": "lockout visible in proof",
+      "passed": true,
+      "detail": {
+        "issue": "470",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "wrongAttemptCreatesCooldown": true,
+        "cooldownVisible": true,
+        "threeWrongAttemptsCreateLockout": true,
+        "lockoutVisible": true,
+        "countdownVisible": true,
+        "postLockoutUnlockVisible": true,
+        "appContentVisibleDuringLockout": false
+      }
+    },
+    {
+      "name": "post-lockout unlock works",
+      "passed": true,
+      "detail": {
+        "issue": "470",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "wrongAttemptCreatesCooldown": true,
+        "cooldownVisible": true,
+        "threeWrongAttemptsCreateLockout": true,
+        "lockoutVisible": true,
+        "countdownVisible": true,
+        "postLockoutUnlockVisible": true,
+        "appContentVisibleDuringLockout": false
+      }
+    },
+    {
+      "name": "no app content leaked during lockout",
+      "passed": true,
+      "detail": {
+        "issue": "470",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "staticHtmlOnlyProof": false,
+        "wrongAttemptCreatesCooldown": true,
+        "cooldownVisible": true,
+        "threeWrongAttemptsCreateLockout": true,
+        "lockoutVisible": true,
+        "countdownVisible": true,
+        "postLockoutUnlockVisible": true,
+        "appContentVisibleDuringLockout": false
+      }
+    },
+    {
+      "name": "wrong-pin-cooldown.png visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-470/screenshots/wrong-pin-cooldown.png",
+        "bytes": 39107
+      }
+    },
+    {
+      "name": "three-strike-lockout.png visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-470/screenshots/three-strike-lockout.png",
+        "bytes": 40596
+      }
+    },
+    {
+      "name": "post-lockout-unlock.png visual proof screenshot is browser-sized",
+      "passed": true,
+      "detail": {
+        "path": "docs/verification/issues/issue-470/screenshots/post-lockout-unlock.png",
+        "bytes": 154336
+      }
+    }
+  ]
+}

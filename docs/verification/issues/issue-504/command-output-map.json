@@ -1,0 +1,35 @@
+{
+  "issue": "504",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-504/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-504/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage singular-floorplan-navigation --allow-partial --issue 504",
+      "outputs": [
+        "docs/verification/issues/issue-504/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-one-floorplan-main-ui-global.mjs --issue 504",
+      "outputs": [
+        "docs/verification/issues/issue-504/test-output/one-floorplan-main-ui-global.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-504/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

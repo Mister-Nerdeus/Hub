@@ -1,0 +1,29 @@
+{
+  "issue": "503",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-503/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-503/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage lock-workspace-polish --allow-partial --issue 503",
+      "outputs": [
+        "docs/verification/issues/issue-503/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-503/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

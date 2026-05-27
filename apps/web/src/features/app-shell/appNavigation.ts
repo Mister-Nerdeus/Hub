@@ -22,7 +22,7 @@ export type AppSection = {
 };
 
 export const APP_SECTIONS: readonly AppSection[] = [
-  { id: "floorplans", label: "Floorplans", group: "primary" },
+  { id: "floorplans", label: "Floorplan", group: "primary" },
   { id: "editor", label: "Editor", group: "primary" },
   { id: "manual-assignment", label: "Manual Assignment", group: "primary" },
   { id: "reports", label: "Review / Reports", group: "primary" },

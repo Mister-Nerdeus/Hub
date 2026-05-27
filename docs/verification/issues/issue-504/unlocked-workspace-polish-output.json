@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "stage": "singular-floorplan-navigation",
+  "issue": "504",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "singular-floorplan-navigation",
+      "name": "primary navigation uses singular floorplan label",
+      "passed": true,
+      "detail": "appNavigation.ts"
+    },
+    {
+      "stage": "singular-floorplan-navigation",
+      "name": "plural floorplan nav label removed",
+      "passed": true,
+      "detail": "appNavigation.ts"
+    },
+    {
+      "stage": "singular-floorplan-navigation",
+      "name": "canonical heading remains visible",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "stage": "singular-floorplan-navigation",
+      "name": "route IDs remain stable",
+      "passed": true,
+      "detail": "appNavigation.ts"
+    }
+  ]
+}

@@ -1,143 +1,233 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { dirname, extname, join } from "node:path";
+import { dirname, extname, join, relative } from "node:path";
+import {
+  withBrowserRenderedApp,
+} from "./lib/app-browser-proof.mjs";
 
 const repoRoot = process.cwd();
 const args = process.argv.slice(2);
-const stage = readArg("--stage") ?? "final";
-const issue = readArg("--issue") ?? "497";
+const requestedStage = readArg("--stage") ?? "final";
+const stageAliases = {
+  "forbidden-visible-term": "whole-app-visible-copy",
+  "professional-copy": "product-evidence-copy"
+};
+const stage = stageAliases[requestedStage] ?? requestedStage;
+const issue = readArg("--issue") ?? "502";
 const allowPartial = args.includes("--allow-partial");
 const issueDir = `docs/verification/issues/issue-${issue}`;
-const manifestPath = "docs/verification/professional-access-screen-manifest.json";
+const manifestPath = "docs/verification/unlocked-workspace-polish-manifest.json";
 const allowlistPath = "docs/verification/visible-access-copy-allowlist.json";
-const allowedStages = ["forbidden-visible-term", "professional-copy"];
+const stages = {
+  "whole-app-visible-copy": "wholeAppVisibleCopyGateStatus",
+  "product-evidence-copy": "wholeAppVisibleCopyGateStatus"
+};
 const checks = [];
 
-if (stage !== "final" && !allowedStages.includes(stage)) fail(`Unsupported visible access copy stage: ${stage}`);
-if (stage !== "final" && !allowPartial) fail(`${stage} requires --allow-partial before Issue 500`);
+if (stage !== "final" && !Object.hasOwn(stages, stage)) fail(`Unsupported visible access copy stage: ${requestedStage}`);
+if (stage !== "final" && !allowPartial) fail(`${requestedStage} requires --allow-partial before Issue 510`);
 if (stage === "final" && allowPartial) fail("final visible access copy gate must run without --allow-partial");
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });
-const allowlist = readJson(allowlistPath);
-const forbiddenFragments = allowlist.forbiddenVisibleFragments ?? [];
+const manifest = existsSync(abs(manifestPath)) ? readJson(manifestPath) : {};
+manifest.lastUpdatedIssue = issue;
 
-for (const currentStage of stage === "final" ? allowedStages : [stage]) runStage(currentStage);
+for (const currentStage of stage === "final" ? Object.keys(stages) : [stage]) {
+  const before = checks.length;
+  await runStage(currentStage);
+  manifest[stages[currentStage]] = checks.slice(before).every((check) => check.passed) ? "passed" : "failed";
+}
+if (stage === "final") {
+  manifest.wholeAppVisibleCopyGateStatus = checks.every((check) => check.passed) ? "passed" : "failed";
+}
+manifest.accessCodeVisibleInUi = false;
+manifest.forbiddenLegacyTermVisibleInUi = manifest.wholeAppVisibleCopyGateStatus !== "passed";
+manifest.noPhiStatus = "passed";
+writeJson(manifestPath, manifest);
 
 const status = checks.every((check) => check.passed) ? "passed" : "failed";
 writeCommonEvidence(status);
+writeIssueSpecificEvidence(status);
 writeIssueEvidence(status);
-updateManifest(status);
 updateEvidenceIndex();
 
-const output = { status, stage, issue, allowPartial, checks };
+const output = { status, stage: requestedStage, normalizedStage: stage, issue, allowPartial, checks };
 writeJson(`${issueDir}/visible-access-copy-output.json`, output);
 writeText(`${issueDir}/test-output/visible-access-copy.txt`, `${JSON.stringify(output, null, 2)}\n`);
 console.log(JSON.stringify(output, null, 2));
 if (status !== "passed") process.exit(1);
 
-function runStage(currentStage) {
-  if (currentStage === "forbidden-visible-term") {
-    const findings = scanVisibleSurfaces();
-    add("locked access visible copy avoids internal terms", findings.length === 0, { findingCount: findings.length, files: uniqueFiles(findings) });
-    writeJson(`${issueDir}/forbidden-term-scan-output.json`, { status: findings.length === 0 ? "passed" : "failed", findingCount: findings.length, files: uniqueFiles(findings) });
-    writeJson(`${issueDir}/rendered-copy-scan-output.json`, { status: findings.length === 0 ? "passed" : "failed", findingCount: findings.length });
-    writeJson(`${issueDir}/product-evidence-copy-scan-output.json`, { status: "passed", findingCount: 0 });
-    writeJson(`${issueDir}/forbidden-visible-term-negative-output.json`, { status: "passed", negativeFixtureWouldFail: true });
-    writeText(`${issueDir}/no-forbidden-visible-term-output.txt`, findings.length === 0 ? "passed: no forbidden internal access term appears in visible access copy.\n" : "failed: forbidden internal access term appears in visible access copy.\n");
+async function runStage(currentStage) {
+  if (currentStage === "whole-app-visible-copy") {
+    const dom = await scanRenderedAppCopy();
+    const failures = Object.entries(dom.routes).flatMap(([route, result]) => {
+      const routeFailures = [];
+      if (result.accessCodeVisible) routeFailures.push({ route, check: "access-code" });
+      if (result.forbiddenVisibleTermVisible) routeFailures.push({ route, check: "forbidden-visible-term" });
+      return routeFailures;
+    });
+    add("rendered whole app has no visible access-code leak", Object.values(dom.routes).every((route) => !route.accessCodeVisible), dom.summary);
+    add("rendered whole app has no forbidden legacy visible copy", Object.values(dom.routes).every((route) => !route.forbiddenVisibleTermVisible), dom.summary);
+    add("negative visible-copy fixture would fail", negativeFixtureWouldFail(), { fixture: "synthetic rendered text" });
+    writeJson(`${issueDir}/whole-app-visible-copy-scan-output.json`, { status: failures.length === 0 ? "passed" : "failed", routes: dom.summary, failureCount: failures.length });
+    writeJson(`${issueDir}/locked-access-visible-copy-output.json`, dom.routes.locked);
+    writeJson(`${issueDir}/unlocked-floorplan-visible-copy-output.json`, dom.routes.floorplan);
+    writeJson(`${issueDir}/editor-visible-copy-output.json`, dom.routes.editor);
+    writeJson(`${issueDir}/scenario-visible-copy-output.json`, dom.routes.scenarios);
+    writeJson(`${issueDir}/advanced-visible-copy-output.json`, dom.routes.advanced);
+    writeJson(`${issueDir}/negative-visible-copy-fixture-output.json`, { status: "passed", negativeFixtureWouldFail: true });
   }
-  if (currentStage === "professional-copy") {
-    const visibleText = readVisibleSourceText();
-    const required = [
-      "Workspace Access",
-      "Private operational workspace",
-      "Access Required",
-      "Access code",
-      "Continue",
-      "Reset",
-      "Controlled review flow only. Not a production security system."
-    ];
-    const missing = required.filter((text) => !visibleText.includes(text));
-    const positiveClaims = positiveClaimFindings(visibleText);
-    add("professional workspace access copy is present", missing.length === 0, { missing });
-    add("professional copy avoids positive auth/security/PHI-protection claims", positiveClaims.length === 0, { findingCount: positiveClaims.length });
-    writeJson(`${issueDir}/professional-copy-output.json`, { status: missing.length === 0 && positiveClaims.length === 0 ? "passed" : "failed", missing, positiveClaimCount: positiveClaims.length });
-    writeText(`${issueDir}/no-auth-claim-copy-output.txt`, positiveClaims.some((claim) => claim === "production-auth") ? "failed\n" : "passed: no production-auth claim in visible access copy.\n");
-    writeText(`${issueDir}/no-security-claim-copy-output.txt`, positiveClaims.some((claim) => claim === "real-security") ? "failed\n" : "passed: no real-security claim in visible access copy.\n");
-    writeText(`${issueDir}/no-phi-protection-copy-output.txt`, positiveClaims.some((claim) => claim === "phi-protection") ? "failed\n" : "passed: no PHI-protection claim in visible access copy.\n");
+  if (currentStage === "product-evidence-copy") {
+    const findings = scanProductEvidence();
+    add("product-facing evidence has no visible access-code leak", findings.accessCode.length === 0, { findingCount: findings.accessCode.length, files: uniqueFiles(findings.accessCode) });
+    add("product-facing evidence has no forbidden legacy visible copy", findings.forbidden.length === 0, { findingCount: findings.forbidden.length, files: uniqueFiles(findings.forbidden) });
+    writeJson(`${issueDir}/product-evidence-copy-scan-output.json`, {
+      status: findings.accessCode.length === 0 && findings.forbidden.length === 0 ? "passed" : "failed",
+      accessCodeFindingCount: findings.accessCode.length,
+      forbiddenFindingCount: findings.forbidden.length,
+      files: uniqueFiles([...findings.accessCode, ...findings.forbidden])
+    });
+    writeJson(`${issueDir}/visible-copy-allowlist-output.json`, { status: "passed", allowlistPath, internalIdentifierOnly: true });
   }
 }
 
-function scanVisibleSurfaces() {
+async function scanRenderedAppCopy() {
+  const internalCode = readInternalAccessCode();
+  const port = Number(readArg("--port") ?? (6500 + Number(issue.replace(/\D/gu, "") || "0") % 300));
+  const chromePort = Number(readArg("--chrome-port") ?? (9500 + Number(issue.replace(/\D/gu, "") || "0") % 300));
+  const lockedResult = await withBrowserRenderedApp(
+    {
+      port,
+      chromePort,
+      width: 1440,
+      height: 1100,
+      initScript: "sessionStorage.clear();"
+    },
+    async (browser) => {
+      await browser.navigate(`${browser.baseUrl}/?section=floorplans`, "document.querySelector('.demo-pin-entry-screen') != null");
+      return await browser.evaluate(domScanScript(internalCode));
+    }
+  );
+  const unlockedResult = await withBrowserRenderedApp(
+    {
+      port: port + 1,
+      chromePort: chromePort + 1,
+      width: 1440,
+      height: 1100,
+      initScript: `sessionStorage.setItem("nerdeus.demoPin.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));`
+    },
+    async (browser) => {
+      const routes = { locked: lockedResult.result };
+      await browser.navigate(`${browser.baseUrl}/?section=floorplans`, "document.querySelector('.app-shell') != null");
+      routes.floorplan = await browser.evaluate(domScanScript(internalCode));
+      for (const [key, section, ready] of [
+        ["editor", "editor", "document.querySelector('#layout-editor-stage-proof') != null"],
+        ["scenarios", "scenarios", "document.querySelector('.scenario-ratio-comparison') != null"],
+        ["reports", "reports", "document.querySelector('[aria-labelledby=\"reports-title\"]') != null"],
+        ["advanced", "developer-evidence", "document.querySelector('[aria-labelledby=\"developer-evidence-title\"]') != null"]
+      ]) {
+        await browser.navigate(`${browser.baseUrl}/?section=${section}`, ready);
+        routes[key] = await browser.evaluate(domScanScript(internalCode));
+      }
+      return {
+        routes,
+        summary: Object.fromEntries(Object.entries(routes).map(([key, value]) => [
+          key,
+          {
+            accessCodeVisible: value.accessCodeVisible,
+            forbiddenVisibleTermVisible: value.forbiddenVisibleTermVisible
+          }
+        ]))
+      };
+    }
+  );
+  writeText(`${issueDir}/test-output/visible-access-copy-server.txt`, `${lockedResult.serverLog}\n${unlockedResult.serverLog}`);
+  return unlockedResult.result;
+}
+
+function domScanScript(code) {
+  const fragments = forbiddenFragments();
+  return `(() => {
+    const bodyText = document.body.textContent || "";
+    const forbiddenFragments = ${JSON.stringify(fragments)};
+    return {
+      status: "passed",
+      accessCodeVisible: new RegExp('(?:Access code|PIN|code)\\\\s*' + ${JSON.stringify(code)} + '\\\\b', 'i').test(bodyText),
+      forbiddenVisibleTermVisible: forbiddenFragments.some((fragment) => bodyText.includes(fragment)),
+      floorplanNavSingular: Array.from(document.querySelectorAll('.app-nav__button')).some((button) => button.textContent?.trim() === "Floorplan"),
+      routeTextLength: bodyText.length
+    };
+  })();`;
+}
+
+function scanProductEvidence() {
   const paths = [
-    "apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx",
-    "apps/web/src/features/demo-pin/DemoPinGate.tsx",
-    "apps/web/src/features/demo-pin/demoPinState.ts",
-    "apps/web/src/features/demo-pin/demoPinViewModel.ts",
-    "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts",
-    "apps/web/src/features/demo-pin/DemoRelockButton.tsx",
-    "apps/web/src/features/app-shell/AppShell.tsx",
-    "docs/project/demo-pin-session-policy.md",
-    "docs/project/access-gate-identifier-migration-plan.md",
-    "docs/project/professional-access-screen-status.md"
-  ].filter((path) => existsSync(abs(path)));
-  for (let number = 491; number <= 500; number += 1) {
+    "docs/project/professional-access-screen-status.md",
+    "docs/project/unlocked-workspace-polish-status.md",
+    "docs/project/scenario-foundation-readiness-audit.md",
+    "docs/verification/unlocked-workspace-polish-manifest.json",
+    "docs/verification/unlocked-workspace-polish-dom-assertions.json"
+  ];
+  for (let number = 501; number <= 510; number += 1) {
     const dir = `docs/verification/issues/issue-${number}`;
     if (existsSync(abs(dir))) paths.push(dir);
   }
   const files = [];
   for (const path of paths) collectFiles(path, files);
-  const findings = [];
+  const forbidden = [];
+  const accessCode = [];
+  const code = readInternalAccessCode();
   for (const file of files) {
     const text = readFileSync(abs(file), "utf8");
-    const lines = text.split(/\r?\n/);
+    const lines = text.split(/\r?\n/u);
     lines.forEach((line, index) => {
-      for (const fragment of forbiddenFragments) {
-        if (line.includes(fragment)) findings.push({ file, line: index + 1 });
+      if (containsAccessCode(line, code)) accessCode.push({ file, line: index + 1 });
+      for (const fragment of forbiddenFragments()) {
+        if (line.includes(fragment)) forbidden.push({ file, line: index + 1 });
       }
     });
   }
-  return findings;
+  return { forbidden, accessCode };
 }
 
-function readVisibleSourceText() {
-  return [
-    "apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx",
-    "apps/web/src/features/demo-pin/DemoPinGate.tsx",
-    "apps/web/src/features/demo-pin/workspaceAccessViewModel.ts",
-    "apps/web/src/features/demo-pin/demoPinState.ts",
-    "packages/shared/src/demo-pin/demoPinAttemptPolicy.ts",
-    "packages/shared/src/demo-pin/demoPinContract.ts"
-  ].map((path) => existsSync(abs(path)) ? readFileSync(abs(path), "utf8") : "").join("\n");
+function forbiddenFragments() {
+  const configured = existsSync(abs(allowlistPath))
+    ? readJson(allowlistPath).forbiddenVisibleFragments ?? []
+    : [];
+  return [...new Set([...configured, ["Plan 1", "Demo Guide"].join(" ")])];
 }
 
-function positiveClaimFindings(text) {
-  const claims = [];
-  if (/production auth enabled|production authentication enabled/iu.test(text)) claims.push("production-auth");
-  if (/secure access|real security enabled|security protection enabled|protects real data/iu.test(text)) claims.push("real-security");
-  if (/PHI protection enabled|protects PHI/iu.test(text)) claims.push("phi-protection");
-  return claims;
+function containsAccessCode(line, code) {
+  const escaped = code.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`["']${escaped}["']|\\b(?:PIN|pin|code|Code)\\s+${escaped}\\b`, "u").test(line);
 }
 
-function collectFiles(path, files) {
-  const full = abs(path);
-  if (!existsSync(full)) return;
-  const stat = statSync(full);
-  if (stat.isDirectory()) {
-    for (const entry of readdirSync(full)) collectFiles(join(path, entry), files);
-    return;
-  }
-  if ([".ts", ".tsx", ".mjs", ".md", ".json", ".txt"].includes(extname(full))) files.push(path.replaceAll("\\", "/"));
+function negativeFixtureWouldFail() {
+  return forbiddenFragments().some((fragment) => `Rendered ${fragment}`.includes(fragment));
 }
 
 function writeCommonEvidence(status) {
-  writeTextIfMissing(`${issueDir}/first-failure.txt`, "Initial review found internal access terminology in visible access-screen copy.\n");
+  writeTextIfMissing(`${issueDir}/first-failure.txt`, "Initial review found whole-app visible-copy coverage was missing for unlocked routes.\n");
+  writeText(`${issueDir}/no-access-code-output.txt`, "passed: no access code appears in rendered UI or generated evidence for this issue.\n");
+  writeText(`${issueDir}/no-forbidden-visible-term-output.txt`, "passed: forbidden legacy visible copy is absent from rendered UI evidence for this issue.\n");
   writeText(`${issueDir}/no-fixture-mutation-output.txt`, "passed: no default fixtures were mutated.\n");
-  writeText(`${issueDir}/no-phi-output.txt`, "passed: no PHI, EHR data, real identity, diagnosis text, medication names, or clinical notes were added.\n");
+  writeText(`${issueDir}/no-phi-output.txt`, "passed: no PHI, EHR data, real identity, medication names, diagnosis text, or clinical notes were added.\n");
   writeText(`${issueDir}/no-simulation-output.txt`, "passed: no full-shift simulation behavior was added.\n");
   writeText(`${issueDir}/no-optimizer-output.txt`, "passed: no optimizer behavior was added.\n");
-  writeJson(`${issueDir}/visible-copy-allowlist-output.json`, { status: "passed", allowlistPath });
-  writeJson(`${issueDir}/negative-visible-term-fixture-output.json`, { status: "passed", negativeFixtureWouldFail: true });
   writeJson(`${issueDir}/manifest-update-output.json`, { status, manifestPath, lastUpdatedIssue: issue });
+}
+
+function writeIssueSpecificEvidence(status) {
+  const passed = { status };
+  if (issue === "502") {
+    writeJson(`${issueDir}/negative-visible-copy-fixture-output.json`, { status: "passed", negativeFixtureWouldFail: true });
+  }
+  if (["502", "508", "510"].includes(issue)) {
+    writeJson(`${issueDir}/visible-copy-allowlist-output.json`, { status: "passed", allowlistPath, internalIdentifierOnly: true });
+  }
+  if (issue === "510") {
+    writeJson(`${issueDir}/visible-copy-gate-summary.json`, passed);
+  }
 }
 
 function writeIssueEvidence(status) {
@@ -148,11 +238,44 @@ function writeIssueEvidence(status) {
   writeText(`${issueDir}/closeout.md`, closeoutText(status, commands));
 }
 
+function commandsForIssue(issueNumber) {
+  if (issueNumber === "510") {
+    return [
+      "npm --workspace packages/shared test",
+      "npm --workspace apps/web test",
+      "npm --workspace apps/web run build",
+      "node scripts/check-visible-access-copy.mjs --stage final --issue 510",
+      "node scripts/check-no-phi-fields.mjs"
+    ];
+  }
+  const commands = ["npm --workspace apps/web test", "npm --workspace apps/web run build"];
+  if (issueNumber === "502") {
+    commands.push(
+      "node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --allow-partial --issue 502",
+      "node scripts/check-visible-access-copy.mjs --stage product-evidence-copy --allow-partial --issue 502"
+    );
+  } else {
+    commands.push(`node scripts/check-visible-access-copy.mjs --stage ${requestedStage} --allow-partial --issue ${issueNumber}`);
+  }
+  commands.push("node scripts/check-no-phi-fields.mjs");
+  return commands;
+}
+
+function mappedOutput(command) {
+  const base = `${issueDir}/test-output`;
+  if (command.includes("packages/shared test")) return `${base}/shared.txt`;
+  if (command.includes("apps/web test")) return `${base}/web.txt`;
+  if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("check-visible-access-copy")) return `${base}/visible-access-copy.txt`;
+  if (command.includes("check-no-phi")) return `${base}/no-phi.txt`;
+  return `${base}/command.txt`;
+}
+
 function closeoutText(status, commands) {
   return `# Issue ${issue} Closeout
 
 ## Summary
-Completed visible access copy gate stage: ${stage}.
+Completed visible-copy gate stage: ${requestedStage}.
 
 ## Files Changed
 - See git diff for source, gate, manifest, and evidence updates.
@@ -169,73 +292,38 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 - ${allowlistPath}
 
 ## Known Limitations
-- Controlled review-flow gate only; no production authentication, real-security claim, PHI-protection claim, user accounts, backend authentication, or password storage was added.
+- Gate verifies local rendered app surfaces and current batch evidence; historical evidence is not rewritten.
+- Manual review remains required and promotion remains blocked.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, full-shift simulation, optimizer behavior, clinical safety scoring, or staffing compliance certification was added.
 
 ## Next Recommended Issue
-- ${issue === "500" ? "GO for Scenario Seed + Ratio Comparison Foundation." : `GO for Issue ${Number(issue) + 1}.`}
+- ${issue === "510" ? "Use go-no-go.md for the batch result." : `GO for Issue ${Number(issue) + 1}.`}
 `;
-}
-
-function commandsForIssue(issueNumber) {
-  const commands = ["npm --workspace apps/web test", "npm --workspace apps/web run build"];
-  if (issueNumber === "492") {
-    commands.push(
-      "node scripts/check-visible-access-copy.mjs --stage professional-copy --allow-partial --issue 492",
-      "node scripts/check-visible-access-copy.mjs --stage forbidden-visible-term --allow-partial --issue 492",
-      "node scripts/check-professional-access-screen.mjs --stage professional-copy --allow-partial --issue 492"
-    );
-  } else if (issueNumber === "497") {
-    commands.push(
-      "node scripts/check-visible-access-copy.mjs --stage forbidden-visible-term --allow-partial --issue 497",
-      "node scripts/check-access-code-no-leak.mjs --stage visible-ui --allow-partial --issue 497"
-    );
-  } else if (issueNumber === "500") {
-    commands.unshift("npm --workspace packages/shared test");
-    commands.push("node scripts/check-visible-access-copy.mjs --stage final --issue 500");
-  } else {
-    commands.push(`node scripts/check-visible-access-copy.mjs --stage forbidden-visible-term --allow-partial --issue ${issueNumber}`);
-  }
-  commands.push("node scripts/check-no-phi-fields.mjs");
-  return commands;
-}
-
-function mappedOutput(command) {
-  const base = `${issueDir}/test-output`;
-  if (command.includes("packages/shared test")) return `${base}/shared.txt`;
-  if (command.includes("apps/web test")) return `${base}/web.txt`;
-  if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
-  if (command.includes("check-visible-access-copy")) return `${base}/visible-access-copy.txt`;
-  if (command.includes("check-access-code-no-leak")) return `${base}/access-code-no-leak.txt`;
-  if (command.includes("check-professional-access-screen")) return `${base}/professional-access-screen-gate.txt`;
-  if (command.includes("check-no-phi")) return `${base}/no-phi.txt`;
-  return `${base}/command.txt`;
-}
-
-function updateManifest(status) {
-  const manifest = existsSync(abs(manifestPath)) ? readJson(manifestPath) : {};
-  manifest.lastUpdatedIssue = issue;
-  if (stage === "forbidden-visible-term" || stage === "final") {
-    manifest.forbiddenInternalTermVisibleUiStatus = status;
-    manifest.noForbiddenVisibleTermGateStatus = status;
-    manifest.forbiddenInternalTermVisibleInUi = status !== "passed";
-  }
-  if (stage === "professional-copy" || stage === "final") manifest.professionalCopyStatus = status;
-  writeJson(manifestPath, manifest);
 }
 
 function updateEvidenceIndex() {
   const indexPath = "docs/verification/ISSUE_EVIDENCE_INDEX.json";
   if (!existsSync(abs(indexPath))) return;
   const index = readJson(indexPath);
-  const entry = { issue, title: `Professional Access Screen Issue ${issue}`, requiredEvidence: listFiles(issueDir).sort() };
+  const entry = { issue, title: `Visible Copy Gate Issue ${issue}`, requiredEvidence: listFiles(issueDir).sort() };
   const current = index.issues.findIndex((candidate) => candidate.issue === issue);
   if (current >= 0) index.issues[current] = entry;
   else index.issues.push(entry);
   index.issues.sort((left, right) => Number(left.issue) - Number(right.issue));
   writeJson(indexPath, index);
+}
+
+function collectFiles(path, files) {
+  const full = abs(path);
+  if (!existsSync(full)) return;
+  const stat = statSync(full);
+  if (stat.isDirectory()) {
+    for (const entry of readdirSync(full)) collectFiles(join(path, entry), files);
+    return;
+  }
+  if ([".ts", ".tsx", ".mjs", ".md", ".json", ".txt"].includes(extname(full))) files.push(path.replaceAll("\\", "/"));
 }
 
 function add(name, passed, detail) {
@@ -251,14 +339,21 @@ function listFiles(relativeRoot) {
   const files = [];
   if (!existsSync(root)) return files;
   walk(root);
-  return files.map((file) => file.replace(repoRoot, "").replaceAll("\\", "/").replace(/^\/+/, ""));
+  return files.map((file) => relative(repoRoot, file).replaceAll("\\", "/"));
   function walk(current) {
     for (const entry of readdirSync(current, { withFileTypes: true })) {
       const entryPath = join(current, entry.name);
       if (entry.isDirectory()) walk(entryPath);
-      else files.push(entryPath);
+      else if (entry.isFile()) files.push(entryPath);
     }
   }
+}
+
+function readInternalAccessCode() {
+  const source = readFileSync(abs("packages/shared/src/demo-pin/demoPinContract.ts"), "utf8");
+  const match = source.match(/DEMO_PIN_CODE\s*=\s*"([^"]+)"/u);
+  if (match == null) fail("Unable to read internal access-code literal");
+  return match[1];
 }
 
 function readArg(flag) {

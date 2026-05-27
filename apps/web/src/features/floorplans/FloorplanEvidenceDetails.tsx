@@ -14,6 +14,18 @@ export function FloorplanEvidenceDetails({ floorplan }: FloorplanEvidenceDetails
           <dd>{floorplan.artifactType}</dd>
         </div>
         <div>
+          <dt>Source</dt>
+          <dd>{floorplan.sourceDerivedStatus}</dd>
+        </div>
+        <div>
+          <dt>Import</dt>
+          <dd>{floorplan.importStatus === "validated_default" ? "Validated default" : floorplan.importStatus}</dd>
+        </div>
+        <div>
+          <dt>Mapping</dt>
+          <dd>{floorplan.mappingStatus == null ? floorplan.parentDefaultPlanId : "Mapping reference"}</dd>
+        </div>
+        <div>
           <dt>Raw mapping</dt>
           <dd>{floorplan.mappingStatus ?? floorplan.parentDefaultPlanId}</dd>
         </div>

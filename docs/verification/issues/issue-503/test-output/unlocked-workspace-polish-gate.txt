@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "stage": "lock-workspace-polish",
+  "issue": "503",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "lock-workspace-polish",
+      "name": "lock action is separated from status badges",
+      "passed": true,
+      "detail": "AppShell.tsx"
+    },
+    {
+      "stage": "lock-workspace-polish",
+      "name": "lock action has accessible label",
+      "passed": true,
+      "detail": "DemoRelockButton.tsx"
+    },
+    {
+      "stage": "lock-workspace-polish",
+      "name": "lock action has polished focus and hover states",
+      "passed": true,
+      "detail": "appShell.css"
+    }
+  ]
+}

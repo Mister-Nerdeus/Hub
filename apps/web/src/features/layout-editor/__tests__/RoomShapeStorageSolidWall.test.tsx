@@ -32,6 +32,10 @@ const storageRect = children(storage)[0] as TestElement;
 if (storageRect.props?.style?.fill !== "#b8c0ca") {
   throw new Error("storage room gray style must override assignment color");
 }
+const storageText = textContent(children(storage)[1]);
+if (storageText !== "Storage") {
+  throw new Error("storage room visible label must render as Storage");
+}
 
 const solidWall = RoomShape({
   viewModel: {
@@ -47,6 +51,10 @@ if (solidWall.props["data-presentation-muted"] !== "true") {
 }
 if (solidWallRect.props?.style?.fill !== "#6f7782") {
   throw new Error("solid wall blocked gray style must override assignment color");
+}
+const solidWallText = textContent(children(solidWall)[1]);
+if (solidWallText !== "Wall") {
+  throw new Error("solid wall visible label must render as Wall");
 }
 
 const legend = PresentationLegend({

@@ -153,5 +153,35 @@ const serializedFields = JSON.stringify(roomViewModel.sections);
 assert.equal(serializedFields.includes("pixel"), false);
 assert.equal(serializedFields.includes("px"), false);
 
+const storageViewModel = buildLayoutInspectorViewModel({
+  layout: {
+    ...layout,
+    rooms: [
+      ...layout.rooms,
+      {
+        objectType: "room",
+        id: "storage-proof",
+        label: "Storage proof",
+        roomNumber: "22",
+        roomType: "storage",
+        capacityType: "single",
+        isHallBed: false,
+        isTraumaAdjacent: false,
+        xFeet: 1,
+        yFeet: 1,
+        widthFeet: 4,
+        heightFeet: 4
+      }
+    ]
+  },
+  selectedObjectType: "room",
+  selectedObjectId: "storage-proof"
+});
+const storageFields = storageViewModel.sections.flatMap((section) => section.fields);
+assert.ok(
+  storageFields.some((field) => field.label === "Room type" && field.value === "Storage (non-patient)"),
+  "storage inspector must clearly show storage type"
+);
+
 const selectedTypes = objectCases.map((objectCase) => objectCase.objectType);
 assert.deepEqual(selectedTypes, ["room", "door", "station", "hallway", "zone"] satisfies LayoutSelectionObjectType[]);

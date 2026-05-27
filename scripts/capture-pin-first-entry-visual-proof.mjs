@@ -75,13 +75,13 @@ console.log(JSON.stringify(assertions, null, 2));
 function domAssertionsScript() {
   return `(() => {
     const bodyText = document.body.innerText;
-    const forbiddenLockedPattern = /\\b(Floorplans|Editor|Manual Assignment|Review \\/ Reports|Advanced|Future Tools|Plan 1 Demo Guide|Scenario Comparison|Ratio Comparison|Developer\\/Evidence|Protected demo actions)\\b/;
+    const forbiddenLockedPattern = /\\b(Floorplan|Editor|Manual Assignment|Review \\/ Reports|Advanced|Future Tools|Canonical Workflow Guide|Scenario Comparison|Ratio Comparison|Developer\\/Evidence|Protected demo actions)\\b/;
     return {
       pinEntryVisible: document.querySelector('.demo-pin-entry-screen') != null,
       pinGateVisible: document.querySelector('.demo-pin-gate') != null,
       appShellVisible: document.querySelector('.app-shell') != null,
       navigationVisible: document.querySelector('.app-nav') != null || document.querySelector('nav') != null,
-      demoGuideVisible: /Plan 1 Demo Guide/.test(bodyText),
+      demoGuideVisible: /Canonical Workflow Guide/.test(bodyText),
       seedPackVisible: /seed pack/i.test(bodyText),
       floorplanContentVisible: document.querySelector('.floorplan-library') != null,
       protectedActionsVisible: document.querySelector('[data-protected-action-id]') != null || /Protected demo actions/.test(bodyText),

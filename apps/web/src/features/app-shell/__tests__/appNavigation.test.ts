@@ -13,10 +13,11 @@ const primaryLabels = PRIMARY_APP_SECTIONS.map((section) => section.label);
 const advancedLabels = ADVANCED_APP_SECTIONS.map((section) => section.label);
 const futureLabels = FUTURE_APP_SECTIONS.map((section) => section.label);
 
-for (const label of ["Floorplans", "Editor", "Manual Assignment", "Review / Reports"]) {
+for (const label of ["Floorplan", "Editor", "Manual Assignment", "Review / Reports"]) {
   assert(primaryLabels.includes(label), `primary navigation missing ${label}`);
 }
 
+assert(!primaryLabels.includes("Floorplans"), "primary navigation must use singular floorplan language");
 assert(!primaryLabels.includes("Developer/Evidence"), "Developer/Evidence must not remain primary");
 assert(advancedLabels.includes("Developer/Evidence"), "Developer/Evidence must remain accessible under Advanced");
 

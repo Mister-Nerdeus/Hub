@@ -1,0 +1,35 @@
+{
+  "issue": "505",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-505/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-505/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage evidence-depth-cleanup --allow-partial --issue 505",
+      "outputs": [
+        "docs/verification/issues/issue-505/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 505",
+      "outputs": [
+        "docs/verification/issues/issue-505/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-505/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

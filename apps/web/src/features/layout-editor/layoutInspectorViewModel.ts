@@ -89,7 +89,7 @@ function buildSections(
           title: "Room metadata",
           fields: [
             { label: "Room number", value: selectedObject.roomNumber },
-            { label: "Room type", value: selectedObject.roomType },
+            { label: "Room type", value: formatRoomType(selectedObject.roomType) },
             { label: "Capacity type", value: selectedObject.capacityType },
             { label: "Hall bed", value: formatBoolean(selectedObject.isHallBed) },
             { label: "Trauma adjacent", value: formatBoolean(selectedObject.isTraumaAdjacent) }
@@ -179,4 +179,10 @@ function formatFeet(value: number): string {
 
 function formatBoolean(value: boolean): string {
   return value ? "Yes" : "No";
+}
+
+function formatRoomType(roomType: string): string {
+  if (roomType === "storage") return "Storage (non-patient)";
+  if (roomType === "solid_wall") return "Solid wall / blocked area";
+  return roomType.replaceAll("_", " ");
 }

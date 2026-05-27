@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "stage": "evidence-depth-cleanup",
+  "issue": "505",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "evidence-depth-cleanup",
+      "name": "active card keeps operator fields visible",
+      "passed": true,
+      "detail": "ActiveFloorplanSummary.tsx"
+    },
+    {
+      "stage": "evidence-depth-cleanup",
+      "name": "active technical fields moved into disclosure",
+      "passed": true,
+      "detail": "ActiveFloorplanSummary.tsx"
+    },
+    {
+      "stage": "evidence-depth-cleanup",
+      "name": "library main card no longer renders source/import/mapping status grid",
+      "passed": true,
+      "detail": "FloorplanLibrary.tsx"
+    },
+    {
+      "stage": "evidence-depth-cleanup",
+      "name": "library evidence disclosure preserves source/import/mapping",
+      "passed": true,
+      "detail": "FloorplanEvidenceDetails.tsx"
+    }
+  ]
+}

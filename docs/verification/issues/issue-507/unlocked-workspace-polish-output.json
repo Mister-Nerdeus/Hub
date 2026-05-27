@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "stage": "storage-rendering-polish",
+  "issue": "507",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "storage-rendering-polish",
+      "name": "storage visible label is Storage",
+      "passed": true,
+      "detail": "RoomShape.tsx"
+    },
+    {
+      "stage": "storage-rendering-polish",
+      "name": "storage inspector labels non-patient storage",
+      "passed": true,
+      "detail": "layoutInspectorViewModel.ts"
+    },
+    {
+      "stage": "storage-rendering-polish",
+      "name": "storage remains muted gray",
+      "passed": true,
+      "detail": "LayoutEditorStage.css"
+    }
+  ]
+}

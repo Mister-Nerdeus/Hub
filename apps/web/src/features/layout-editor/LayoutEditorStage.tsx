@@ -185,9 +185,13 @@ const baseInitialStageState = createLayoutEditorState({
 
 type LayoutEditorStageProps = {
   activeFloorplan?: LayoutEditorFloorplanInput | null;
+  onCreateWorkingCopy?: () => void;
 };
 
-export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageProps) {
+export function LayoutEditorStage({
+  activeFloorplan = null,
+  onCreateWorkingCopy
+}: LayoutEditorStageProps) {
   const localDraftStorage = getBrowserLocalDraftStorage();
   const [stageState, dispatchStage] = useReducer(
     layoutEditorReducer,
@@ -892,6 +896,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               mode={toolMode}
               selectedRoomType={selectedNewRoomType}
               readOnly={stageState.readOnly}
+              onCreateWorkingCopy={onCreateWorkingCopy}
               onModeChange={(mode) => {
                 setToolMode(mode);
                 if (mode === "add_door") {

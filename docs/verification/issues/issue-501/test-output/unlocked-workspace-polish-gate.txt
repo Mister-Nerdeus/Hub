@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "stage": "forbidden-visible-term-unlocked",
+  "issue": "501",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "forbidden-visible-term-unlocked",
+      "name": "guide summary uses canonical workflow copy",
+      "passed": true,
+      "detail": "App.tsx"
+    },
+    {
+      "stage": "forbidden-visible-term-unlocked",
+      "name": "guide heading uses canonical workflow copy",
+      "passed": true,
+      "detail": "Plan1DemoGuide.tsx"
+    },
+    {
+      "stage": "forbidden-visible-term-unlocked",
+      "name": "legacy guide label absent from visible guide source",
+      "passed": true,
+      "detail": "App.tsx + Plan1DemoGuide.tsx"
+    }
+  ]
+}

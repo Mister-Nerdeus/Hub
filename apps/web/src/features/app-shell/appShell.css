@@ -5,6 +5,41 @@
   padding: 28px clamp(16px, 4vw, 56px);
 }
 
+.workspace-header__controls {
+  align-items: stretch;
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+
+.workspace-header__lock-action {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.demo-relock-button {
+  background: #ffffff;
+  border: 1px solid #6f8193;
+  border-radius: 6px;
+  color: #172431;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-height: 38px;
+  padding: 8px 12px;
+}
+
+.demo-relock-button:hover {
+  background: #f3f6f8;
+  border-color: #40505f;
+}
+
+.demo-relock-button:focus-visible {
+  outline: 3px solid #8bb7d8;
+  outline-offset: 2px;
+}
+
 .app-nav {
   align-items: center;
   display: grid;
@@ -133,6 +168,12 @@
   .app-nav__advanced-tools,
   .app-nav__future-tools {
     justify-self: stretch;
+  }
+
+  .workspace-header__controls,
+  .workspace-header__lock-action {
+    justify-items: stretch;
+    width: 100%;
   }
 
   .app-nav__advanced-list,
