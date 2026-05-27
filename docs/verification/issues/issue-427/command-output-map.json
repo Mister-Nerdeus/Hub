@@ -1,0 +1,35 @@
+{
+  "issue": "427",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-427/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-427/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-427/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-repair-tools.mjs --stage room-alignment --allow-partial --issue 427",
+      "outputs": [
+        "docs/verification/issues/issue-427/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 427",
+      "outputs": [
+        "docs/verification/issues/issue-427/commands.txt"
+      ]
+    }
+  ]
+}

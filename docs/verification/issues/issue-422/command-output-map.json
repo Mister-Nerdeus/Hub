@@ -1,0 +1,41 @@
+{
+  "issue": "422",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-422/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-422/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-422/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-repair-tools.mjs --stage door-adjacency --allow-partial --issue 422",
+      "outputs": [
+        "docs/verification/issues/issue-422/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-tools.mjs --issue 422",
+      "outputs": [
+        "docs/verification/issues/issue-422/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 422",
+      "outputs": [
+        "docs/verification/issues/issue-422/commands.txt"
+      ]
+    }
+  ]
+}

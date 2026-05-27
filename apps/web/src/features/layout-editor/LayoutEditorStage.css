@@ -1193,6 +1193,129 @@
   margin: 0;
 }
 
+.adjacent-door-candidate-selector,
+.door-placement-validity-preview,
+.door-width-controls,
+.room-alignment-controls,
+.hallway-arrow-editor,
+.support-marker-editor {
+  background: #f8fafc;
+  border: 1px solid #d9e1e8;
+  border-radius: 6px;
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+}
+
+.adjacent-door-candidate-selector label,
+.support-marker-editor label {
+  color: #53616f;
+  display: grid;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 4px;
+}
+
+.adjacent-door-candidate-selector select,
+.support-marker-editor input {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  min-width: 0;
+  padding: 5px 7px;
+}
+
+.adjacent-door-candidate-selector dl {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.adjacent-door-candidate-selector dl div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.adjacent-door-candidate-selector dt,
+.adjacent-door-candidate-selector dd {
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.adjacent-door-candidate-selector__reason,
+.door-placement-validity-preview p,
+.door-placement-validity-preview li,
+.hallway-arrow-editor p,
+.support-marker-editor p {
+  color: #435362;
+  font-size: 0.74rem;
+  font-weight: 800;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.door-placement-validity-preview--invalid {
+  border-color: #d18b7c;
+}
+
+.door-placement-validity-preview--invalid strong {
+  color: #8f1d14;
+}
+
+.door-width-controls,
+.room-alignment-controls div,
+.hallway-arrow-editor {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.door-width-controls span,
+.hallway-arrow-editor span {
+  color: #243447;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.door-width-controls button,
+.room-alignment-controls button,
+.hallway-arrow-editor button,
+.support-marker-editor button,
+.hallway-zone-quick-edit-popover__actions button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 5px 8px;
+}
+
+.layout-editor-stage__door-wall-guide {
+  pointer-events: none;
+}
+
+.layout-editor-stage__door-wall-guide line {
+  stroke: #0f766e;
+  stroke-width: 1.5;
+}
+
+.layout-editor-stage__door-wall-guide-marker {
+  opacity: 0.62;
+}
+
+.layout-editor-stage__door-wall-guide circle {
+  fill: #0f766e;
+  stroke: #ffffff;
+  stroke-width: 1.5;
+}
+
 .layout-assignment-legend {
   background: #ffffff;
   border: 1px solid #c4d0dc;

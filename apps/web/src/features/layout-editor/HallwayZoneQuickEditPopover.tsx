@@ -6,6 +6,9 @@ export type HallwayZoneQuickEditPopoverProps = {
   onLabelChange: (label: string) => void;
   onZoneTypeChange: (zoneType: EditableZoneType) => void;
   onTogglePresentationVisibility: () => void;
+  onReverseArrow?: () => void;
+  onHideArrow?: () => void;
+  onShowArrow?: () => void;
 };
 
 const ZONE_TYPES: readonly EditableZoneType[] = ["ems_entry", "trauma", "provider_pharmacy"];
@@ -14,7 +17,10 @@ export function HallwayZoneQuickEditPopover({
   viewModel,
   onLabelChange,
   onZoneTypeChange,
-  onTogglePresentationVisibility
+  onTogglePresentationVisibility,
+  onReverseArrow,
+  onHideArrow,
+  onShowArrow
 }: HallwayZoneQuickEditPopoverProps) {
   if (viewModel.status === "missing") {
     return <p>No hallway or zone selected.</p>;
@@ -66,6 +72,22 @@ export function HallwayZoneQuickEditPopover({
       <button type="button" disabled={viewModel.readOnly} onClick={onTogglePresentationVisibility}>
         Toggle presentation visibility
       </button>
+      {viewModel.status === "hallway" ? (
+        <div className="hallway-zone-quick-edit-popover__actions">
+          <button type="button" disabled={viewModel.readOnly} onClick={onReverseArrow}>
+            Reverse arrow
+          </button>
+          <button type="button" disabled={viewModel.readOnly} onClick={onHideArrow}>
+            Hide arrow
+          </button>
+          <button type="button" disabled={viewModel.readOnly} onClick={onShowArrow}>
+            Show arrow
+          </button>
+          <p>Arrows are presentation hints only.</p>
+        </div>
+      ) : (
+        <p>Support markers are operational presentation labels only.</p>
+      )}
     </div>
   );
 }

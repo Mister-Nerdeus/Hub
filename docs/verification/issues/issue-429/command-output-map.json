@@ -1,0 +1,35 @@
+{
+  "issue": "429",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-429/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-429/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-429/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-repair-tools.mjs --stage validation-cleanup --allow-partial --issue 429",
+      "outputs": [
+        "docs/verification/issues/issue-429/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 429",
+      "outputs": [
+        "docs/verification/issues/issue-429/commands.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "files": [
+    "apps/web/src/features/layout-editor/layoutLocalDraftPersistence.ts",
+    "apps/web/src/features/layout-editor/LayoutEditorStage.tsx"
+  ],
+  "functions": [
+    "saveLayoutLocalDraft",
+    "loadLayoutLocalDraft",
+    "resetLayoutLocalDraft"
+  ],
+  "classification": "pre_existing_local_draft_persistence"
+}

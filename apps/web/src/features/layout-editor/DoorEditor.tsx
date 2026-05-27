@@ -1,21 +1,33 @@
 import {
   assignDoorToAdjacentRoom,
+  applyDoorWidthPreset,
   centerDoorOnWall,
+  decreaseDoorWidth,
+  increaseDoorWidth,
   moveToOppositeWall,
   moveToWall,
   nudgeDoor,
   type EditableDoorGeometry,
   type EditableDoorWall,
+  type EditableHallwayGeometry,
   type EditableRoomGeometry
 } from "@nerdeus/shared";
+import { AdjacentDoorCandidateSelector } from "./AdjacentDoorCandidateSelector";
+import { buildAdjacentDoorCandidateViewModel } from "./adjacentDoorCandidateViewModel";
 import { buildDoorEditorViewModel } from "./doorEditorViewModel";
+import { DoorPlacementValidityPreview } from "./DoorPlacementValidityPreview";
+import { buildDoorPlacementValidityViewModel } from "./doorPlacementValidityViewModel";
+import { DoorWidthControls } from "./DoorWidthControls";
+import { buildDoorWidthControlsViewModel } from "./doorWidthControlsViewModel";
 import { validateDoorPlacementWarning } from "./layoutDoorValidation";
 
 export type DoorEditorProps = {
   door: EditableDoorGeometry | null;
   rooms: EditableRoomGeometry[];
+  hallways?: EditableHallwayGeometry[];
   readOnly: boolean;
   onMoveDoor: (doorId: string, wall: EditableDoorWall, offsetFeet: number) => void;
+  onUpdateDoorWidth?: (doorId: string, wall: EditableDoorWall, offsetFeet: number, widthFeet: number) => void;
   onDeleteDoor: (doorId: string) => void;
   onAssignDoorToRoom: (
     doorId: string,
@@ -30,8 +42,10 @@ const WALLS: EditableDoorWall[] = ["north", "south", "east", "west"];
 export function DoorEditor({
   door,
   rooms,
+  hallways = [],
   readOnly,
   onMoveDoor,
+  onUpdateDoorWidth = () => undefined,
   onDeleteDoor,
   onAssignDoorToRoom
 }: DoorEditorProps) {
@@ -40,6 +54,9 @@ export function DoorEditor({
   }
   const ownerRoom = rooms.find((room) => room.id === door.ownerId) ?? null;
   const viewModel = buildDoorEditorViewModel({ door, rooms });
+  const adjacentCandidateViewModel = buildAdjacentDoorCandidateViewModel({ door, rooms, hallways, readOnly });
+  const placementValidityViewModel = buildDoorPlacementValidityViewModel({ door, rooms, hallways });
+  const doorWidthViewModel = buildDoorWidthControlsViewModel({ door, ownerRoom, readOnly });
   const validationWarning = validateDoorPlacementWarning(door, rooms);
   const applyWallMove = (wall: EditableDoorWall) => {
     if (ownerRoom == null) return;
@@ -70,13 +87,16 @@ export function DoorEditor({
         rooms,
         doors: [door],
         stations: [],
-        hallways: [],
+        hallways,
         zones: [],
         limitations: []
       },
       door
     });
     if (next != null) onAssignDoorToRoom(door.id, next.roomId, next.wall, next.offsetFeet);
+  };
+  const applyWidthResult = (next: { widthFeet: number; offsetFeet: number }) => {
+    onUpdateDoorWidth(door.id, door.wall, next.offsetFeet, next.widthFeet);
   };
   return (
     <section className="door-editor" aria-label="Door editor">
@@ -133,6 +153,24 @@ export function DoorEditor({
           Adjacent
         </button>
       </div>
+      <AdjacentDoorCandidateSelector
+        viewModel={adjacentCandidateViewModel}
+        selectedRoomId={adjacentCandidateViewModel.candidates[0]?.roomId ?? null}
+        onSelectCandidate={(roomId, wall, offsetFeet) => onAssignDoorToRoom(door.id, roomId, wall, offsetFeet)}
+      />
+      <DoorWidthControls
+        viewModel={doorWidthViewModel}
+        onDecrease={() => {
+          if (ownerRoom != null) applyWidthResult(decreaseDoorWidth({ door, room: ownerRoom }));
+        }}
+        onIncrease={() => {
+          if (ownerRoom != null) applyWidthResult(increaseDoorWidth({ door, room: ownerRoom }));
+        }}
+        onPreset={(widthFeet) => {
+          if (ownerRoom != null) applyWidthResult(applyDoorWidthPreset({ door, room: ownerRoom, widthFeet }));
+        }}
+      />
+      <DoorPlacementValidityPreview viewModel={placementValidityViewModel} />
       {validationWarning == null ? null : (
         <p className="door-editor__warning" role="status">{validationWarning}</p>
       )}

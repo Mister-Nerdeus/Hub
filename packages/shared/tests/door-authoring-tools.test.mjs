@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  assignDoorToAdjacentRoom,
   centerDoorOnWall,
   clampDoorOffsetToWall,
   moveToOppositeWall,
@@ -56,4 +57,25 @@ test("preserves and clamps offset when room owner changes", () => {
     2
   );
   assert.equal(clampDoorOffsetToWall({ room: smallerRoom, wall: "north", offsetFeet: 99, widthFeet: 4 }), 2);
+});
+
+test("assigns only a geometry-valid adjacent room", () => {
+  const layout = {
+    schemaVersion: "1.0.0",
+    layoutId: "door-authoring-adjacent-test",
+    units: "feet",
+    rooms: [
+      { ...room, id: "room-01", label: "Owner", xFeet: 0, yFeet: 10 },
+      { ...room, id: "first-wrong", label: "First wrong", xFeet: 40, yFeet: 40 },
+      { ...room, id: "room-02", label: "Target", xFeet: 0, yFeet: 0 }
+    ],
+    doors: [door],
+    stations: [],
+    hallways: [],
+    zones: [],
+    limitations: ["synthetic door authoring test"]
+  };
+  const result = assignDoorToAdjacentRoom({ layout, door });
+  assert.equal(result.roomId, "room-02");
+  assert.notEqual(result.roomId, "first-wrong");
 });

@@ -12,7 +12,7 @@ export function HallwayArrowOverlay({ arrows }: HallwayArrowOverlayProps) {
           <path d="M 0 0 L 8 4 L 0 8 z" />
         </marker>
       </defs>
-      {arrows.map((arrow) => (
+      {arrows.filter((arrow) => arrow.visible).map((arrow) => (
         <line
           key={arrow.id}
           className="layout-editor-stage__hallway-arrow"
@@ -21,6 +21,8 @@ export function HallwayArrowOverlay({ arrows }: HallwayArrowOverlayProps) {
           x2={arrow.x2}
           y2={arrow.y2}
           markerEnd="url(#layout-editor-stage-arrowhead)"
+          data-hallway-id={arrow.hallwayId}
+          data-arrow-reversed={arrow.reversed}
         />
       ))}
     </g>

@@ -1,5 +1,6 @@
 import {
   addDoorToRoom,
+  alignRoomToReference,
   addRoomToEditableLayout,
   assignDoorToRoom,
   authoringRoomTypeToEditableRoomType,
@@ -7,6 +8,8 @@ import {
   duplicateLayoutObject,
   generateAutoHallways,
   moveDoor,
+  snapRoomToGrid,
+  updateDoorWidth,
   validateAuthoringRoomType,
   type AuthoringRoomType,
   type EditableDoorWall,
@@ -111,6 +114,7 @@ export type LayoutEditorAction =
       widthFeet: number;
     }
   | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
+  | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
   | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "deleteDoor"; doorId: string }
   | {
@@ -134,6 +138,11 @@ export type LayoutEditorAction =
       zoneType?: EditableZoneType;
     }
   | { type: "generateAutoHallways" }
+  | {
+      type: "alignSelectedRoom";
+      operation: "alignTop" | "alignBottom" | "alignLeft" | "alignRight" | "matchWidth" | "matchHeight" | "snapToGrid";
+      referenceRoomId?: string | null;
+    }
   | { type: "duplicateSelectedObject" }
   | { type: "undoLayoutEdit" }
   | { type: "redoLayoutEdit" }
@@ -251,6 +260,18 @@ export function layoutEditorReducer(
           offsetFeet: action.offsetFeet
         })
       );
+    case "updateDoorWidth":
+      return applyDoorAuthoring(
+        state,
+        updateDoorWidth({
+          layout: requireEditableLayout(state),
+          readOnly: state.readOnly,
+          doorId: action.doorId,
+          wall: action.wall,
+          offsetFeet: action.offsetFeet,
+          widthFeet: action.widthFeet
+        })
+      );
     case "doorToolMove":
       return applyDoorAuthoring(
         state,
@@ -291,6 +312,8 @@ export function layoutEditorReducer(
       return editSelectedZone(state, action);
     case "generateAutoHallways":
       return generateAutoHallwaysForState(state);
+    case "alignSelectedRoom":
+      return alignSelectedRoom(state, action);
     case "duplicateSelectedObject":
       return duplicateSelectedObject(state);
     case "undoLayoutEdit":
@@ -313,6 +336,40 @@ export function layoutEditorReducer(
     default:
       throw new Error(`Unsupported layout editor action: ${(action as { type: string }).type}`);
   }
+}
+
+function alignSelectedRoom(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "alignSelectedRoom" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null || state.selectedObjectType !== "room" || state.selectedObjectId == null) {
+    return state;
+  }
+  const selectedRoomId = state.selectedObjectId;
+  const referenceRoomId =
+    action.referenceRoomId ??
+    state.editableLayout.rooms.find((room) => room.id !== selectedRoomId)?.id ??
+    null;
+  const nextLayout = action.operation === "snapToGrid"
+    ? snapRoomToGrid({ layout: state.editableLayout, roomId: selectedRoomId, gridFeet: 2 })
+    : referenceRoomId == null
+      ? state.editableLayout
+      : alignRoomToReference({
+          layout: state.editableLayout,
+          roomId: selectedRoomId,
+          referenceRoomId,
+          operation: action.operation
+        });
+  if (JSON.stringify(nextLayout.rooms) === JSON.stringify(state.editableLayout.rooms)) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: nextLayout,
+    selectedObjectType: "room",
+    selectedObjectId: selectedRoomId,
+    isDirty: true
+  });
 }
 
 function editSelectedRoomType(

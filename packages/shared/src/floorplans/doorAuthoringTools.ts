@@ -4,6 +4,8 @@ import type {
   EditableLayoutGeometryContract,
   EditableRoomGeometry
 } from "../layout-editor/editableLayoutGeometryContract.js";
+import { detectDoorAdjacency } from "./doorAdjacency.js";
+import { oppositeWall, wallLengthFeet } from "./doorGeometryUtils.js";
 
 export function clampDoorOffsetToWall(input: {
   room: EditableRoomGeometry;
@@ -78,21 +80,15 @@ export function assignDoorToAdjacentRoom(input: {
   layout: EditableLayoutGeometryContract;
   door: EditableDoorGeometry;
 }): { roomId: string; wall: EditableDoorWall; offsetFeet: number } | null {
-  const currentRoom = input.layout.rooms.find((room) => room.id === input.door.ownerId);
-  const adjacentRoom = input.layout.rooms.find((room) => room.id !== input.door.ownerId) ?? null;
-  if (currentRoom == null || adjacentRoom == null) {
+  const result = detectDoorAdjacency(input);
+  const candidate = result.candidates[0] ?? null;
+  if (candidate == null) {
     return null;
   }
   return {
-    roomId: adjacentRoom.id,
-    wall: input.door.wall,
-    offsetFeet: preserveOffsetWhenOwnerChanges({
-      fromRoom: currentRoom,
-      toRoom: adjacentRoom,
-      wall: input.door.wall,
-      offsetFeet: input.door.offsetFeet,
-      widthFeet: input.door.widthFeet
-    })
+    roomId: candidate.roomId,
+    wall: candidate.wall,
+    offsetFeet: candidate.previewOffsetFeet
   };
 }
 
@@ -114,19 +110,4 @@ export function preserveOffsetWhenOwnerChanges(input: {
   });
 }
 
-export function oppositeWall(wall: EditableDoorWall): EditableDoorWall {
-  switch (wall) {
-    case "north":
-      return "south";
-    case "south":
-      return "north";
-    case "east":
-      return "west";
-    case "west":
-      return "east";
-  }
-}
-
-function wallLengthFeet(room: EditableRoomGeometry, wall: EditableDoorWall): number {
-  return wall === "north" || wall === "south" ? room.widthFeet : room.heightFeet;
-}
+export { oppositeWall };

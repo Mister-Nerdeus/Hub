@@ -45,7 +45,7 @@ export function buildLayoutValidationPanelViewModel({
     status: warningViewModels.length === 0 ? "empty" : "warnings",
     title: "Layout warnings",
     emptyMessage: "No layout warnings.",
-    warningCount: warningViewModels.length,
+    warningCount: warningViewModels.reduce((sum, warning) => sum + warning.duplicateCount, 0),
     isReadOnly: true,
     warnings: warningViewModels
   };

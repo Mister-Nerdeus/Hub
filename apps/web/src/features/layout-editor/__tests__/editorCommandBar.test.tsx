@@ -17,8 +17,8 @@ const viewModel = buildEditorCommandBarViewModel({
   validationDisabled: false
 });
 
-if (viewModel.saveStatusLabel !== "Save status placeholder") {
-  throw new Error("command bar should expose a save status placeholder");
+if (viewModel.saveStatusLabel !== "Local browser draft writes automatically") {
+  throw new Error("command bar should truthfully expose local draft persistence");
 }
 if (viewModel.dirtyStateLabel !== "Draft changed") {
   throw new Error("command bar should expose dirty state");

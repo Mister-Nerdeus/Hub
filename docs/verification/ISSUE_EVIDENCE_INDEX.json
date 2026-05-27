@@ -14998,6 +14998,116 @@
         "docs/verification/issues/issue-420/zone-label-output.json",
         "docs/verification/issues/issue-420/zone-menu-item-output.json"
       ]
+    },
+    {
+      "issue": "421",
+      "title": "Single-Floorplan Scope Lock and Local Draft Truth Classification",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-421/closeout.md",
+        "docs/verification/issues/issue-421/commands.txt",
+        "docs/verification/issues/issue-421/local-draft-classification-output.json",
+        "docs/verification/issues/issue-421/not-started-mismatch-negative-output.json",
+        "docs/verification/issues/issue-421/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "422",
+      "title": "Real Door Adjacency Detection",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-422/closeout.md",
+        "docs/verification/issues/issue-422/commands.txt",
+        "docs/verification/issues/issue-422/shared-wall-adjacency-output.json",
+        "docs/verification/issues/issue-422/first-non-owner-negative-output.json",
+        "docs/verification/issues/issue-422/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "423",
+      "title": "Adjacent Room Candidate Selector UI",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-423/closeout.md",
+        "docs/verification/issues/issue-423/commands.txt",
+        "docs/verification/issues/issue-423/adjacent-selector-output.json",
+        "docs/verification/issues/issue-423/screenshots/adjacent-door-candidate-selector.png",
+        "docs/verification/issues/issue-423/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "424",
+      "title": "Door Placement Validity Preview",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-424/closeout.md",
+        "docs/verification/issues/issue-424/commands.txt",
+        "docs/verification/issues/issue-424/door-validity-preview-output.json",
+        "docs/verification/issues/issue-424/screenshots/valid-door-placement-preview.png",
+        "docs/verification/issues/issue-424/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "425",
+      "title": "Door Width and Orientation Controls",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-425/closeout.md",
+        "docs/verification/issues/issue-425/commands.txt",
+        "docs/verification/issues/issue-425/door-width-controls-output.json",
+        "docs/verification/issues/issue-425/screenshots/door-width-controls.png",
+        "docs/verification/issues/issue-425/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "426",
+      "title": "Wall Snap and Room Edge Guides",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-426/closeout.md",
+        "docs/verification/issues/issue-426/commands.txt",
+        "docs/verification/issues/issue-426/wall-guide-output.json",
+        "docs/verification/issues/issue-426/screenshots/wall-snap-guides.png",
+        "docs/verification/issues/issue-426/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "427",
+      "title": "Room Edge Alignment Tools",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-427/closeout.md",
+        "docs/verification/issues/issue-427/commands.txt",
+        "docs/verification/issues/issue-427/room-alignment-output.json",
+        "docs/verification/issues/issue-427/screenshots/room-alignment-tools.png",
+        "docs/verification/issues/issue-427/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "428",
+      "title": "Hallway Arrow and Support Marker Controls",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-428/closeout.md",
+        "docs/verification/issues/issue-428/commands.txt",
+        "docs/verification/issues/issue-428/hallway-arrow-editor-output.json",
+        "docs/verification/issues/issue-428/screenshots/hallway-support-marker-controls.png",
+        "docs/verification/issues/issue-428/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "429",
+      "title": "Geometry Validation Cleanup",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-429/closeout.md",
+        "docs/verification/issues/issue-429/commands.txt",
+        "docs/verification/issues/issue-429/validation-cleanup-output.json",
+        "docs/verification/issues/issue-429/screenshots/grouped-validation-drawer.png",
+        "docs/verification/issues/issue-429/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "issue": "430",
+      "title": "Geometry Repair GO / NO-GO",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-430/closeout.md",
+        "docs/verification/issues/issue-430/commands.txt",
+        "docs/verification/issues/issue-430/geometry-repair-final-audit.md",
+        "docs/verification/issues/issue-430/go-no-go.md",
+        "docs/verification/issues/issue-430/test-output/geometry-repair-gate.txt"
+      ]
     }
   ]
 }

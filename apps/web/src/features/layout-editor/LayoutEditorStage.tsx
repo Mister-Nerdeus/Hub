@@ -1,10 +1,13 @@
 import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelEvent } from "react";
 import {
   auditPathSyncStatus,
+  applyDoorWidthPreset,
   assignDoorToAdjacentRoom,
   editableRoomTypeToAuthoringRoomType,
   centerDoorOnWall,
+  decreaseDoorWidth,
   generateDoorPathNodes,
+  increaseDoorWidth,
   moveToOppositeWall,
   moveToWall,
   nudgeDoor,
@@ -99,6 +102,14 @@ import { StationShape } from "./StationShape";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
 import { HallwayArrowOverlay } from "./HallwayArrowOverlay";
 import { buildHallwayArrowViewModels } from "./hallwayArrowViewModel";
+import { DoorWallGuideOverlay } from "./DoorWallGuideOverlay";
+import { buildDoorWallGuideViewModel } from "./doorWallGuideViewModel";
+import { RoomAlignmentControls } from "./RoomAlignmentControls";
+import { buildRoomAlignmentViewModel, type RoomAlignmentActionId } from "./roomAlignmentViewModel";
+import { HallwayArrowEditor } from "./HallwayArrowEditor";
+import { buildHallwayArrowEditorViewModel } from "./hallwayArrowEditorViewModel";
+import { SupportMarkerEditor } from "./SupportMarkerEditor";
+import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from "./supportMarkerEditorViewModel";
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
@@ -194,6 +205,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const [addObjectMenuOpen, setAddObjectMenuOpen] = useState(false);
   const [pendingAddObjectId, setPendingAddObjectId] = useState<AddObjectMenuItemId | null>(null);
   const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
+  const [hallwayArrowState, setHallwayArrowState] = useState<Record<string, { visible?: boolean; reversed?: boolean }>>({});
   const [placementPreviewPoint, setPlacementPreviewPoint] = useState<{
     xFeet: number;
     yFeet: number;
@@ -312,7 +324,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
-  const hallwayArrows = buildHallwayArrowViewModels(renderItems);
+  const hallwayArrows = buildHallwayArrowViewModels(renderItems, hallwayArrowState);
   const selectedDoor =
     stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
@@ -345,6 +357,19 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const doorQuickEditViewModel = buildDoorQuickEdit({
     door: selectedDoor,
     rooms: stageState.editableLayout?.rooms ?? [],
+    hallways: stageState.editableLayout?.hallways ?? [],
+    readOnly: stageState.readOnly
+  });
+  const selectedDoorOwnerRoomForControls = selectedDoor == null || stageState.editableLayout == null
+    ? null
+    : stageState.editableLayout.rooms.find((room) => room.id === selectedDoor.ownerId) ?? null;
+  const doorWallGuideViewModel = buildDoorWallGuideViewModel({
+    door: selectedDoor,
+    ownerRoom: selectedDoorOwnerRoomForControls
+  });
+  const roomAlignmentViewModel = buildRoomAlignmentViewModel({
+    selectedRoom,
+    rooms: stageState.editableLayout?.rooms ?? [],
     readOnly: stageState.readOnly
   });
   const stationQuickEditViewModel = buildStationQuickEdit({
@@ -357,6 +382,14 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     zone: selectedZone,
     readOnly: stageState.readOnly,
     validationWarningCount: stageState.validationWarnings.length
+  });
+  const hallwayArrowEditorViewModel = buildHallwayArrowEditorViewModel({
+    hallway: selectedHallway,
+    readOnly: stageState.readOnly
+  });
+  const supportMarkerEditorViewModel = buildSupportMarkerEditorViewModel({
+    zone: selectedZone,
+    readOnly: stageState.readOnly
   });
   const addObjectMenuViewModel = buildAddObjectMenuViewModel();
   const objectPlacementPreviewViewModel = buildObjectPlacementPreview({
@@ -527,6 +560,58 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
       layout: stageState.editableLayout,
       door: selectedDoor
     });
+  };
+  const computeDoorWidthUpdate = (direction: "increase" | "decrease" | number) => {
+    const ownerRoom = selectedDoorOwnerRoom();
+    if (selectedDoor == null || ownerRoom == null) {
+      return null;
+    }
+    if (direction === "increase") {
+      return increaseDoorWidth({ door: selectedDoor, room: ownerRoom });
+    }
+    if (direction === "decrease") {
+      return decreaseDoorWidth({ door: selectedDoor, room: ownerRoom });
+    }
+    return applyDoorWidthPreset({ door: selectedDoor, room: ownerRoom, widthFeet: direction });
+  };
+  const updateSelectedDoorWidth = (direction: "increase" | "decrease" | number) => {
+    const next = computeDoorWidthUpdate(direction);
+    if (next != null && doorQuickEditViewModel.doorId != null && selectedDoor != null) {
+      dispatchStage({
+        type: "updateDoorWidth",
+        doorId: doorQuickEditViewModel.doorId,
+        wall: selectedDoor.wall,
+        offsetFeet: next.offsetFeet,
+        widthFeet: next.widthFeet
+      });
+    }
+  };
+  const applyRoomAlignment = (actionId: RoomAlignmentActionId) => {
+    dispatchStage({
+      type: "alignSelectedRoom",
+      operation: actionId,
+      referenceRoomId: roomAlignmentViewModel.referenceRoomId
+    });
+  };
+  const reverseSelectedHallwayArrow = () => {
+    if (selectedHallway == null) return;
+    setHallwayArrowState((state) => ({
+      ...state,
+      [selectedHallway.id]: {
+        ...state[selectedHallway.id],
+        reversed: state[selectedHallway.id]?.reversed !== true
+      }
+    }));
+  };
+  const setSelectedHallwayArrowVisible = (visible: boolean) => {
+    if (selectedHallway == null) return;
+    setHallwayArrowState((state) => ({
+      ...state,
+      [selectedHallway.id]: {
+        ...state[selectedHallway.id],
+        visible
+      }
+    }));
   };
   const importEditableFloorplanJson = () => {
     try {
@@ -1043,6 +1128,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 onResizeEnd={endRoomResize}
               />
             ) : null}
+            {editorMode === "edit" ? (
+              <DoorWallGuideOverlay viewModel={doorWallGuideViewModel} />
+            ) : null}
             {objectPlacementPreviewViewModel == null ? null : (
               <ObjectPlacementPreview
                 viewModel={objectPlacementPreviewViewModel}
@@ -1146,6 +1234,20 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                         });
                       }
                     }}
+                    onAdjacentCandidate={(roomId, wall, offsetFeet) => {
+                      if (doorQuickEditViewModel.doorId != null) {
+                        dispatchStage({
+                          type: "assignDoorToRoom",
+                          doorId: doorQuickEditViewModel.doorId,
+                          roomId,
+                          wall,
+                          offsetFeet
+                        });
+                      }
+                    }}
+                    onWidthDecrease={() => updateSelectedDoorWidth("decrease")}
+                    onWidthIncrease={() => updateSelectedDoorWidth("increase")}
+                    onWidthPreset={(widthFeet) => updateSelectedDoorWidth(widthFeet)}
                     onDeleteDoor={() => {
                       if (doorQuickEditViewModel.doorId != null) {
                         dispatchStage({ type: "deleteDoor", doorId: doorQuickEditViewModel.doorId });
@@ -1208,6 +1310,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                       }
                     }}
                     onTogglePresentationVisibility={() => setEditorMode("presentation")}
+                    onReverseArrow={reverseSelectedHallwayArrow}
+                    onHideArrow={() => setSelectedHallwayArrowVisible(false)}
+                    onShowArrow={() => setSelectedHallwayArrowVisible(true)}
                   />
                 ) : null}
               </CanvasObjectPopover>
@@ -1241,6 +1346,10 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                     )
                   }
                 />
+                <RoomAlignmentControls
+                  viewModel={roomAlignmentViewModel}
+                  onApply={applyRoomAlignment}
+                />
                 <RoomTypeEditor
                   room={selectedRoom}
                   readOnly={stageState.readOnly}
@@ -1254,9 +1363,13 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               <DoorEditor
                 door={selectedDoor}
                 rooms={stageState.editableLayout?.rooms ?? []}
+                hallways={stageState.editableLayout?.hallways ?? []}
                 readOnly={stageState.readOnly}
                 onMoveDoor={(doorId, wall, offsetFeet) =>
                   dispatchStage({ type: "moveDoor", doorId, wall, offsetFeet })
+                }
+                onUpdateDoorWidth={(doorId, wall, offsetFeet, widthFeet) =>
+                  dispatchStage({ type: "updateDoorWidth", doorId, wall, offsetFeet, widthFeet })
                 }
                 onDeleteDoor={(doorId) => dispatchStage({ type: "deleteDoor", doorId })}
                 onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
@@ -1283,6 +1396,25 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
             }
             validation={
               <>
+                <HallwayArrowEditor
+                  viewModel={hallwayArrowEditorViewModel}
+                  onReverse={reverseSelectedHallwayArrow}
+                  onHide={() => setSelectedHallwayArrowVisible(false)}
+                  onShow={() => setSelectedHallwayArrowVisible(true)}
+                />
+                <SupportMarkerEditor
+                  viewModel={supportMarkerEditorViewModel}
+                  onLabelChange={(label) => {
+                    if (selectedZone != null && validateSupportMarkerLabel(label) === "Operational label accepted.") {
+                      dispatchStage({
+                        type: "editSelectedZone",
+                        zoneId: selectedZone.id,
+                        label
+                      });
+                    }
+                  }}
+                  onTogglePresentationVisibility={() => setEditorMode("presentation")}
+                />
                 <PathSyncStatusPanel audit={pathSyncAudit} />
                 <LayoutValidationPanel viewModel={validationPanelViewModel} maxVisibleWarnings={2} />
                 <LayoutDeltaPreviewPanel viewModel={deltaPreviewViewModel} />

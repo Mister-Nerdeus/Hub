@@ -31,7 +31,7 @@ export function buildEditorCommandBarViewModel({
   validationDisabled
 }: EditorCommandBarViewModelInput): EditorCommandBarViewModel {
   return {
-    saveStatusLabel: "Save status placeholder",
+    saveStatusLabel: readOnly ? "Not saved in read-only mode" : "Local browser draft writes automatically",
     dirtyStateLabel: isDirty ? "Draft changed" : "No unsaved edits",
     modeLabel: readOnly ? "Read-only" : "Editable",
     validationLabel: validationSummary,

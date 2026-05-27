@@ -8,6 +8,10 @@ export type DoorQuickEditPopoverProps = {
   onCenter: () => void;
   onOpposite: () => void;
   onAdjacent: () => void;
+  onAdjacentCandidate?: (roomId: string, wall: EditableDoorWall, offsetFeet: number) => void;
+  onWidthDecrease?: () => void;
+  onWidthIncrease?: () => void;
+  onWidthPreset?: (widthFeet: number) => void;
   onDeleteDoor: () => void;
 };
 
@@ -20,6 +24,10 @@ export function DoorQuickEditPopover({
   onCenter,
   onOpposite,
   onAdjacent,
+  onAdjacentCandidate = () => undefined,
+  onWidthDecrease = () => undefined,
+  onWidthIncrease = () => undefined,
+  onWidthPreset = () => undefined,
   onDeleteDoor
 }: DoorQuickEditPopoverProps) {
   if (viewModel.status !== "ready" || viewModel.wall == null) {
@@ -64,6 +72,39 @@ export function DoorQuickEditPopover({
         <button type="button" disabled={viewModel.deleteDisabled} onClick={onDeleteDoor}>
           Delete door
         </button>
+      </div>
+      <label>
+        Candidate
+        <select
+          value={viewModel.adjacentCandidates[0]?.roomId ?? ""}
+          disabled={viewModel.readOnly || viewModel.adjacentCandidates.length === 0}
+          onChange={(event) => {
+            const candidate = viewModel.adjacentCandidates.find((item) => item.roomId === event.currentTarget.value);
+            if (candidate != null) {
+              onAdjacentCandidate(candidate.roomId, candidate.wall, candidate.previewOffsetFeet);
+            }
+          }}
+        >
+          {viewModel.adjacentCandidates.map((candidate) => (
+            <option key={candidate.roomId} value={candidate.roomId}>
+              {candidate.roomLabel} / {candidate.wall} / {candidate.relationshipLabel}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div className="door-quick-edit-popover__row">
+        <span>{viewModel.noCandidateReason ?? "Geometry-valid candidate selection available"}</span>
+        <button type="button" disabled={viewModel.readOnly} onClick={onWidthDecrease}>
+          Width -
+        </button>
+        <button type="button" disabled={viewModel.readOnly} onClick={onWidthIncrease}>
+          Width +
+        </button>
+        {[3, 4, 6].map((widthFeet) => (
+          <button key={widthFeet} type="button" disabled={viewModel.readOnly} onClick={() => onWidthPreset(widthFeet)}>
+            {widthFeet} ft
+          </button>
+        ))}
       </div>
     </div>
   );

@@ -109,7 +109,7 @@ export function EditorCommandBar({
           <dd>{viewModel.modeLabel}</dd>
         </div>
         <div>
-          <dt>Save</dt>
+          <dt>Local draft</dt>
           <dd>{viewModel.saveStatusLabel}</dd>
         </div>
         <div>

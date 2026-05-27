@@ -1,4 +1,11 @@
-import type { EditableDoorGeometry, EditableDoorWall, EditableRoomGeometry } from "@nerdeus/shared";
+import {
+  detectDoorAdjacency,
+  type EditableDoorGeometry,
+  type EditableDoorWall,
+  type EditableHallwayGeometry,
+  type EditableRoomGeometry
+} from "@nerdeus/shared";
+import type { AdjacentDoorCandidateItem } from "./adjacentDoorCandidateViewModel";
 
 export type DoorQuickEditViewModel = {
   status: "missing" | "ready";
@@ -9,16 +16,20 @@ export type DoorQuickEditViewModel = {
   readOnly: boolean;
   adjacentCandidateCount: number;
   canUseAdjacent: boolean;
+  adjacentCandidates: readonly AdjacentDoorCandidateItem[];
+  noCandidateReason: string | null;
   deleteDisabled: boolean;
 };
 
 export function buildDoorQuickEdit({
   door,
   rooms,
+  hallways = [],
   readOnly
 }: {
   door: EditableDoorGeometry | null;
   rooms: readonly EditableRoomGeometry[];
+  hallways?: readonly EditableHallwayGeometry[];
   readOnly: boolean;
 }): DoorQuickEditViewModel {
   if (door == null) {
@@ -31,10 +42,34 @@ export function buildDoorQuickEdit({
       readOnly: true,
       adjacentCandidateCount: 0,
       canUseAdjacent: false,
+      adjacentCandidates: [],
+      noCandidateReason: "No door selected.",
       deleteDisabled: true
     };
   }
-  const adjacentCandidateCount = rooms.filter((room) => room.id !== door.ownerId).length;
+  const adjacency = detectDoorAdjacency({
+    layout: {
+      schemaVersion: "1.0.0",
+      layoutId: "door-quick-edit-adjacent-candidates",
+      units: "feet",
+      rooms: [...rooms],
+      doors: [door],
+      stations: [],
+      hallways: [...hallways],
+      zones: [],
+      limitations: ["Editor-only adjacent candidate view model."]
+    },
+    door
+  });
+  const adjacentCandidates = adjacency.candidates.map((candidate) => ({
+    roomId: candidate.roomId,
+    roomLabel: candidate.roomLabel,
+    wall: candidate.wall,
+    relationshipLabel: candidate.relationshipType.replace("_", " "),
+    previewOffsetFeet: candidate.previewOffsetFeet,
+    disabled: false as const
+  }));
+  const adjacentCandidateCount = adjacentCandidates.length;
   return {
     status: "ready",
     doorId: door.id,
@@ -44,6 +79,8 @@ export function buildDoorQuickEdit({
     readOnly,
     adjacentCandidateCount,
     canUseAdjacent: adjacentCandidateCount > 0,
+    adjacentCandidates,
+    noCandidateReason: adjacentCandidateCount === 0 ? adjacency.reasonCodes.join(", ") : null,
     deleteDisabled: readOnly
   };
 }

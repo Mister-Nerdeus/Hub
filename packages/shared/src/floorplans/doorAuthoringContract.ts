@@ -71,6 +71,35 @@ export function moveDoor(input: {
   });
 }
 
+export function updateDoorWidth(input: {
+  layout: EditableLayoutGeometryContract;
+  readOnly: boolean;
+  doorId: string;
+  wall: EditableDoorWall;
+  offsetFeet: number;
+  widthFeet: number;
+}): DoorAuthoringResult {
+  const layout = assertEditable(input.layout, input.readOnly);
+  const existing = layout.doors.find((door) => door.id === input.doorId);
+  if (existing == null) {
+    throw new Error("doorId must reference an existing door");
+  }
+  const updated = validateDoorOnRoom(layout, {
+    ...existing,
+    wall: input.wall,
+    offsetFeet: input.offsetFeet,
+    widthFeet: input.widthFeet
+  });
+  return markPathSyncStale({
+    layout: validateEditableLayoutGeometryContract({
+      ...layout,
+      doors: layout.doors.map((door) => (door.id === input.doorId ? updated : door))
+    }),
+    selectedDoorId: input.doorId
+  });
+}
+
+
 export function deleteDoor(input: {
   layout: EditableLayoutGeometryContract;
   readOnly: boolean;

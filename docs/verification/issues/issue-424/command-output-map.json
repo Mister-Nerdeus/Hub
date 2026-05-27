@@ -1,0 +1,35 @@
+{
+  "issue": "424",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-424/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-424/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-424/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-repair-tools.mjs --stage door-validity-preview --allow-partial --issue 424",
+      "outputs": [
+        "docs/verification/issues/issue-424/test-output/geometry-repair-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 424",
+      "outputs": [
+        "docs/verification/issues/issue-424/commands.txt"
+      ]
+    }
+  ]
+}

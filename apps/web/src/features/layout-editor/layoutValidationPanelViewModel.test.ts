@@ -65,7 +65,7 @@ const warnings: LayoutEditorValidationWarning[] = [
 
 const warningViewModel = buildLayoutValidationPanelViewModel({ warnings });
 assert.equal(warningViewModel.status, "warnings");
-assert.equal(warningViewModel.warningCount, 2);
+assert.equal(warningViewModel.warningCount, 3);
 assert.deepEqual(
   warningViewModel.warnings.map((warning) => ({
     code: warning.code,

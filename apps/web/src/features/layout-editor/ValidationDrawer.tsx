@@ -1,10 +1,13 @@
 import type { ValidationDrawerViewModel } from "./validationDrawerViewModel";
+import { GroupedValidationPanel } from "./GroupedValidationPanel";
+import { buildGroupedValidationViewModel } from "./groupedValidationViewModel";
 
 export type ValidationDrawerProps = {
   viewModel: ValidationDrawerViewModel;
 };
 
 export function ValidationDrawer({ viewModel }: ValidationDrawerProps) {
+  const groupedValidationViewModel = buildGroupedValidationViewModel(viewModel.groups.flatMap((group) => group.warnings));
   return (
     <section
       className="validation-drawer"
@@ -30,23 +33,7 @@ export function ValidationDrawer({ viewModel }: ValidationDrawerProps) {
                 </article>
               ))}
             </div>
-            <div className="validation-drawer__groups" aria-label="Grouped validation warnings">
-              {viewModel.groups.map((group) => (
-                <section key={group.key}>
-                  <h4>
-                    {group.sourceLabel} / {group.objectLabel} ({group.warningCount})
-                  </h4>
-                  <ol>
-                    {group.warnings.map((warning) => (
-                      <li key={`${warning.code}-${warning.message}`}>
-                        <code>{warning.code}</code>
-                        <span>{warning.message}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </section>
-              ))}
-            </div>
+            <GroupedValidationPanel viewModel={groupedValidationViewModel} />
           </div>
         )}
       </details>

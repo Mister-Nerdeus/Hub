@@ -3,8 +3,8 @@ import { DoorQuickEditPopover } from "../DoorQuickEditPopover";
 import { buildDoorQuickEdit } from "../doorQuickEditViewModel";
 
 const rooms: EditableRoomGeometry[] = [
-  room("room-01", "Room 01"),
-  room("room-02", "Room 02")
+  room("room-01", "Room 01", 0, 10),
+  room("room-02", "Room 02", 0, 0)
 ];
 const door: EditableDoorGeometry = {
   objectType: "door",
@@ -38,6 +38,10 @@ const element = DoorQuickEditPopover({
   onCenter: () => calls.push("center"),
   onOpposite: () => calls.push("opposite"),
   onAdjacent: () => calls.push("adjacent"),
+  onAdjacentCandidate: () => calls.push("candidate"),
+  onWidthDecrease: () => calls.push("width-decrease"),
+  onWidthIncrease: () => calls.push("width-increase"),
+  onWidthPreset: () => calls.push("width-preset"),
   onDeleteDoor: () => calls.push("delete")
 });
 
@@ -59,15 +63,19 @@ children[2].props.children[1].props.onClick();
 if (calls.at(-1) !== "adjacent") throw new Error("adjacent callback missing");
 children[2].props.children[2].props.onClick();
 if (calls.at(-1) !== "delete") throw new Error("delete callback missing");
+children[3].props.children[1].props.onChange({ currentTarget: { value: "room-02" } });
+if (calls.at(-1) !== "candidate") throw new Error("candidate callback missing");
+children[4].props.children[1].props.onClick();
+if (calls.at(-1) !== "width-decrease") throw new Error("width decrease callback missing");
 
-function room(id: string, label: string): EditableRoomGeometry {
+function room(id: string, label: string, xFeet: number, yFeet: number): EditableRoomGeometry {
   return {
     objectType: "room",
     id,
     label,
     roomNumber: id,
-    xFeet: 0,
-    yFeet: 0,
+    xFeet,
+    yFeet,
     widthFeet: 12,
     heightFeet: 10,
     roomType: "standard",
