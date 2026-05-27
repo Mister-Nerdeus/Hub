@@ -1,3 +1,4 @@
+import { CANONICAL_FLOORPLAN_ID } from "./canonicalFloorplanViewModel";
 import type { PlanBuilderLibraryViewModel } from "./planBuilderLibraryViewModel";
 import { PlanLibraryFilters } from "./PlanLibraryFilters";
 import { PlanStatusBadge } from "./PlanStatusBadge";
@@ -6,17 +7,18 @@ import { createPlanStatusBadges } from "./planStatusViewModel";
 type PlanBuilderLibraryProps = {
   viewModel: PlanBuilderLibraryViewModel;
   onOpenDefaultPlan?: (planId: string) => void;
-  onOpenReviewCandidate?: (candidateId: string) => void;
 };
 
 export function PlanBuilderLibrary({
   viewModel,
-  onOpenDefaultPlan,
-  onOpenReviewCandidate
+  onOpenDefaultPlan
 }: PlanBuilderLibraryProps) {
   function handleAction(item: PlanBuilderLibraryViewModel["sections"][number]["items"][number], kind: string) {
     const action = item.actions.find((candidate) => candidate.kind === kind);
     if (item.categoryId === "default-fixtures" && kind === "open-plan") {
+      if (item.planId !== CANONICAL_FLOORPLAN_ID) {
+        return;
+      }
       onOpenDefaultPlan?.(item.planId);
       return;
     }
@@ -25,7 +27,6 @@ export function PlanBuilderLibrary({
         item.categoryId === "route-repaired-review-candidates") &&
       (kind === "open-plan" || kind === "open-saved-copy")
     ) {
-      onOpenReviewCandidate?.(item.planId);
       return;
     }
     if (action != null && "safeHref" in action) {

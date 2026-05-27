@@ -10,7 +10,7 @@ if (!empty.hasActiveFloorplan || empty.planId !== "default-er-layout-plan-1") {
   throw new Error("empty active floorplan state should default to canonical Plan 1");
 }
 
-const activeState = openDefaultFloorplan(createEmptyActiveFloorplanState(), "default-er-layout-plan-2");
+const activeState = openDefaultFloorplan(createEmptyActiveFloorplanState(), "default-er-layout-plan-1");
 const active = createOperationalActiveFloorplanViewModel(activeState);
 if (!active.hasActiveFloorplan || active.promotionStatusLabel !== "Promotion blocked") {
   throw new Error("active floorplan summary must preserve promotion block");

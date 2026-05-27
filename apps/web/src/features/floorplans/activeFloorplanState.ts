@@ -108,6 +108,9 @@ export function openDefaultFloorplan(
   planId: string,
   fixtures: DefaultSavedPlanFixtureContract[] = defaultFloorplanLibraryFixtures
 ): ActiveFloorplanState {
+  if (planId !== CANONICAL_FLOORPLAN_ID) {
+    throw new Error(`Cannot open legacy default floorplan as active workflow floorplan: ${planId}`);
+  }
   const fixture = fixtures.find((candidate) => candidate.plan.planId === planId);
   if (fixture == null || fixture.readOnly !== true || fixture.importStatus !== "validated_default") {
     throw new Error(`Cannot open non-validated default JSON floorplan: ${planId}`);

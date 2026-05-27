@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 177 web test file(s).
+Discovered 190 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -40,6 +40,8 @@ Discovered 177 web test file(s).
 
 > src/features/comparison/scenarioComparisonViewModel.test.ts
 
+> src/features/demo-pin/__tests__/DemoPinGate.test.tsx
+
 > src/features/demo/Plan1DemoGuide.test.tsx
 
 > src/features/demo/Plan1DemoProofBundlePanel.test.tsx
@@ -72,6 +74,8 @@ Discovered 177 web test file(s).
 
 > src/features/floorplans/__tests__/canonicalFloorplanViewModel.test.ts
 
+> src/features/floorplans/__tests__/canonicalPlanDefaultOpen.test.tsx
+
 > src/features/floorplans/__tests__/demoWalkthroughViewModel.test.ts
 
 > src/features/floorplans/__tests__/developerEvidenceViewModel.test.ts
@@ -84,6 +88,8 @@ Discovered 177 web test file(s).
 
 > src/features/floorplans/__tests__/legacyFloorplanReferenceList.test.tsx
 
+> src/features/floorplans/__tests__/legacyFloorplansAdvancedOnly.test.tsx
+
 > src/features/floorplans/__tests__/manualReviewActionsViewModel.test.ts
 
 > src/features/floorplans/__tests__/manualReviewCtaActions.test.tsx
@@ -95,6 +101,8 @@ Discovered 177 web test file(s).
 > src/features/floorplans/__tests__/operationalDemoNegativeCases.test.ts
 
 > src/features/floorplans/__tests__/operationalDemoSnapshotAdapter.test.ts
+
+> src/features/floorplans/__tests__/operatorLabelCleanup.test.tsx
 
 > src/features/floorplans/__tests__/operatorModeEvidenceContainment.test.ts
 
@@ -115,6 +123,8 @@ Discovered 177 web test file(s).
 > src/features/floorplans/__tests__/renderedPreviewEvidenceContainment.test.tsx
 
 > src/features/floorplans/__tests__/reviewArtifactLinks.test.ts
+
+> src/features/floorplans/__tests__/singleCanonicalFloorplanMainUi.test.tsx
 
 > src/features/floorplans/activeFloorplanState.test.ts
 
@@ -146,6 +156,8 @@ Discovered 177 web test file(s).
 
 > src/features/layout-editor/__tests__/AddObjectMenu.test.tsx
 
+> src/features/layout-editor/__tests__/AddObjectMenuRoomTypes.test.tsx
+
 > src/features/layout-editor/__tests__/AdjacentDoorCandidateSelector.test.tsx
 
 > src/features/layout-editor/__tests__/CanvasObjectPopover.test.tsx
@@ -168,11 +180,15 @@ Discovered 177 web test file(s).
 
 > src/features/layout-editor/__tests__/RoomQuickEditPopover.test.tsx
 
+> src/features/layout-editor/__tests__/RoomShapeStorageSolidWall.test.tsx
+
 > src/features/layout-editor/__tests__/StationQuickEditPopover.test.tsx
 
 > src/features/layout-editor/__tests__/StationShape.test.tsx
 
 > src/features/layout-editor/__tests__/clickToPlaceObject.test.ts
+
+> src/features/layout-editor/__tests__/clickToPlaceStorageSolidWall.test.ts
 
 > src/features/layout-editor/__tests__/doorAccessMarker.test.tsx
 
@@ -202,9 +218,15 @@ Discovered 177 web test file(s).
 
 > src/features/layout-editor/__tests__/layoutRoomPresentationViewModel.test.ts
 
+> src/features/layout-editor/__tests__/pathNodeStorageSolidWall.test.tsx
+
 > src/features/layout-editor/__tests__/popoverAccessibility.test.tsx
 
 > src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts
+
+> src/features/layout-editor/__tests__/roomPresentationStyles.test.ts
+
+> src/features/layout-editor/__tests__/solidWallNoDoorUi.test.tsx
 
 > src/features/layout-editor/__tests__/stationPresentationShape.test.tsx
 
@@ -310,6 +332,8 @@ Discovered 177 web test file(s).
 
 > src/features/manual-assignment/__tests__/roomLoadEditorViewModel.test.ts
 
+> src/features/manual-assignment/__tests__/storageSolidWallAssignmentExclusion.test.tsx
+
 > src/features/manual-assignment/__tests__/walkingBurdenViewModel.test.ts
 
 > src/features/manual-assignment/manualAssignmentViewModel.test.ts
@@ -337,6 +361,8 @@ Discovered 177 web test file(s).
 > src/features/plans/planImportExport.test.ts
 
 > src/features/reports/reportProofViewModel.test.ts
+
+> src/features/room-loads/__tests__/RoomLoadEditorStorageSolidWall.test.tsx
 
 > src/features/route-preview/routePreviewProofViewModel.test.ts
 
@@ -366,4 +392,4 @@ Discovered 177 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 177 web test file(s).
+Executed 190 web test file(s).

@@ -24,26 +24,38 @@ function writeEvidence(name: string, payload: unknown) {
 
 let state = createEmptyActiveFloorplanState();
 const openedPlanIds: string[] = [];
+const canonicalFixture = defaultPlanFixtures.find((fixture) => fixture.plan.planId === "default-er-layout-plan-1");
 
-for (const fixture of defaultPlanFixtures) {
-  const nextState = openDefaultFloorplan(state, fixture.plan.planId);
-  if (nextState.activeFloorplan?.planId !== fixture.plan.planId) {
-    throw new Error(`active floorplan did not open ${fixture.plan.planId}`);
+if (canonicalFixture == null) {
+  throw new Error("expected canonical Plan 1 fixture");
+}
+
+const nextState = openDefaultFloorplan(state, canonicalFixture.plan.planId);
+if (nextState.activeFloorplan?.planId !== canonicalFixture.plan.planId) {
+  throw new Error(`active floorplan did not open ${canonicalFixture.plan.planId}`);
+}
+if (nextState.activeFloorplan.plan !== canonicalFixture.plan) {
+  throw new Error(`active floorplan must reference the loaded JSON fixture for ${canonicalFixture.plan.planId}`);
+}
+if (nextState.activeFloorplan.readOnly !== true) {
+  throw new Error(`default floorplan must remain read-only for ${canonicalFixture.plan.planId}`);
+}
+if (nextState.selection.selectedObjectId !== null || nextState.selection.routePreviewDraft !== null) {
+  throw new Error(`opening ${canonicalFixture.plan.planId} must reset selection-specific state`);
+}
+if (nextState.sequence !== state.sequence + 1) {
+  throw new Error(`active floorplan sequence must advance deterministically for ${canonicalFixture.plan.planId}`);
+}
+openedPlanIds.push(nextState.activeFloorplan.planId);
+state = nextState;
+
+const rejectedLegacyPlanIds = defaultPlanFixtures
+  .filter((fixture) => fixture.plan.planId !== "default-er-layout-plan-1")
+  .map((fixture) => fixture.plan.planId);
+for (const legacyPlanId of rejectedLegacyPlanIds) {
+  if (!throws(() => openDefaultFloorplan(state, legacyPlanId))) {
+    throw new Error(`legacy default floorplan must not open as active workflow floorplan: ${legacyPlanId}`);
   }
-  if (nextState.activeFloorplan.plan !== fixture.plan) {
-    throw new Error(`active floorplan must reference the loaded JSON fixture for ${fixture.plan.planId}`);
-  }
-  if (nextState.activeFloorplan.readOnly !== true) {
-    throw new Error(`default floorplan must remain read-only for ${fixture.plan.planId}`);
-  }
-  if (nextState.selection.selectedObjectId !== null || nextState.selection.routePreviewDraft !== null) {
-    throw new Error(`opening ${fixture.plan.planId} must reset selection-specific state`);
-  }
-  if (nextState.sequence !== state.sequence + 1) {
-    throw new Error(`active floorplan sequence must advance deterministically for ${fixture.plan.planId}`);
-  }
-  openedPlanIds.push(nextState.activeFloorplan.planId);
-  state = nextState;
 }
 
 const selectedState: ActiveFloorplanState = {
@@ -53,16 +65,16 @@ const selectedState: ActiveFloorplanState = {
     routePreviewDraft: null
   }
 };
-const switchedState = openDefaultFloorplan(selectedState, "default-er-layout-plan-2");
-if (switchedState.activeFloorplan?.planId !== "default-er-layout-plan-2") {
-  throw new Error("switching plans must replace active floorplan state");
+const switchedState = openDefaultFloorplan(selectedState, "default-er-layout-plan-1");
+if (switchedState.activeFloorplan?.planId !== "default-er-layout-plan-1") {
+  throw new Error("reopening the canonical plan must preserve the active floorplan state");
 }
 if (switchedState.selection.selectedObjectId !== null) {
-  throw new Error("switching plans must clear selected object state");
+  throw new Error("reopening the canonical plan must clear selected object state");
 }
 
 const summary = createActiveFloorplanSummaryViewModel(switchedState);
-if (!summary.hasActiveFloorplan || summary.planId !== "default-er-layout-plan-2") {
+if (!summary.hasActiveFloorplan || summary.planId !== "default-er-layout-plan-1") {
   throw new Error("active floorplan summary must reflect opened default plan");
 }
 if (summary.readOnly !== true || summary.sourceKind !== "default-json") {
@@ -105,6 +117,7 @@ writeEvidence("open-default-floorplan-output.json", {
   status: "passed",
   openedPlanIds,
   openedDefaultPlanCount: openedPlanIds.length,
+  rejectedLegacyPlanIds,
   openedPlansRemainReadOnly: true,
   validatedDefaultsOnly: true
 });

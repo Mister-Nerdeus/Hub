@@ -1,4 +1,5 @@
 import { defaultFloorplanLibraryFixtures } from "../../fixtures/defaultPlans";
+import { CANONICAL_FLOORPLAN_ID } from "./canonicalFloorplanViewModel";
 import { createOperationalDemoOperatorSnapshot } from "./operationalDemoSnapshotAdapter";
 import { createPlanLibraryFilters, sortPlanLibraryItemsForReview, type PlanLibraryFilterViewModel } from "./planStatusViewModel";
 import { buildReviewArtifactAction, type ReviewArtifactAction } from "./reviewArtifactLinks";
@@ -22,6 +23,7 @@ export type PlanBuilderLibraryItemViewModel = {
   lastVerifiedIssue: string;
   repoRelativePath: string | null;
   notice: string;
+  activeScenarioUseDisabled?: boolean;
   actions: (ReviewArtifactAction | {
     label: string;
     kind: "open-plan" | "open-saved-copy";
@@ -47,21 +49,27 @@ export type PlanBuilderLibraryViewModel = {
 export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel {
   const safeSnapshot = createOperationalDemoOperatorSnapshot();
 
-  const defaultItems = defaultFloorplanLibraryFixtures.map((fixture) => ({
-    id: `${fixture.plan.planId}:default`,
-    planId: fixture.plan.planId,
-    displayName: fixture.plan.name,
-    artifactLabel: "Default fixture",
-    categoryId: "default-fixtures" as const,
-    routeStatusLabel: "Not applicable",
-    simulationExportStatusLabel: "Not applicable",
-    manualReviewStatusLabel: "Not applicable",
-    promotionStatusLabel: "Not applicable",
-    lastVerifiedIssue: "333",
-    repoRelativePath: null,
-    notice: "Default fixture unchanged.",
-    actions: [{ label: "Open Plan", kind: "open-plan" as const }]
-  }));
+  const defaultItems = defaultFloorplanLibraryFixtures.map((fixture) => {
+    const isCanonicalFixture = fixture.plan.planId === CANONICAL_FLOORPLAN_ID;
+    return {
+      id: `${fixture.plan.planId}:default`,
+      planId: fixture.plan.planId,
+      displayName: fixture.plan.name,
+      artifactLabel: isCanonicalFixture ? "Canonical default fixture" : "Legacy default fixture",
+      categoryId: "default-fixtures" as const,
+      routeStatusLabel: "Not applicable",
+      simulationExportStatusLabel: "Not applicable",
+      manualReviewStatusLabel: "Not applicable",
+      promotionStatusLabel: "Not applicable",
+      lastVerifiedIssue: "333",
+      repoRelativePath: null,
+      notice: isCanonicalFixture
+        ? "Canonical default fixture unchanged."
+        : "Legacy fixture - not used for current scenario/ratio comparison workflow.",
+      activeScenarioUseDisabled: !isCanonicalFixture,
+      actions: isCanonicalFixture ? [{ label: "Open Plan", kind: "open-plan" as const }] : []
+    };
+  });
 
   const correctedItems = safeSnapshot.operatorPlans.map((plan) => ({
     id: `${plan.planId}:corrected`,
@@ -75,8 +83,9 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     promotionStatusLabel: plan.promotionStatusLabel,
     lastVerifiedIssue: "362",
     repoRelativePath: null,
-    notice: "Review candidate only; default fixture unchanged.",
-    actions: [{ label: "Open Saved Copy", kind: "open-saved-copy" as const }]
+    notice: "Legacy review copy only; not used as the active scenario floorplan.",
+    activeScenarioUseDisabled: true,
+    actions: [buildReviewArtifactAction(plan.planId, "developer-evidence", "View Evidence")]
   }));
 
   const repairedItems = safeSnapshot.operatorPlans.map((plan) => ({
@@ -91,11 +100,9 @@ export function createPlanBuilderLibraryViewModel(): PlanBuilderLibraryViewModel
     promotionStatusLabel: plan.promotionStatusLabel,
     lastVerifiedIssue: "375",
     repoRelativePath: null,
-    notice: "Route/export ready, still pending human review.",
-    actions: [
-      { label: "Open as Active Floorplan", kind: "open-plan" as const },
-      buildReviewArtifactAction(plan.planId, "developer-evidence", "View Evidence")
-    ]
+    notice: "Route/export ready legacy evidence, not used as the active scenario floorplan.",
+    activeScenarioUseDisabled: true,
+    actions: [buildReviewArtifactAction(plan.planId, "developer-evidence", "View Evidence")]
   }));
 
   const packetItems = safeSnapshot.operatorPlans.map((plan) => ({

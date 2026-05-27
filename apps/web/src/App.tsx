@@ -5,7 +5,6 @@ import {
   createActiveFloorplanSummaryViewModel,
   createEmptyActiveFloorplanState,
   openDefaultFloorplan,
-  openReviewCandidateFloorplan,
   openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
@@ -109,10 +108,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setFloorplanStatusMessage(null);
   }
 
-  function openReviewCandidate(candidateId: string) {
-    setActiveFloorplanState((state) => openReviewCandidateFloorplan(state, candidateId));
-  }
-
   function deleteSaved(recordId: string) {
     savedFloorplanStore.delete(recordId);
     setSavedFloorplans(savedFloorplanStore.list());
@@ -193,10 +188,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           <details className="floorplan-demo-proof">
             <summary>Advanced / Evidence</summary>
             <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
-            <PlanBuilderLanding
-              onOpenDefaultPlan={openDefault}
-              onOpenReviewCandidate={openReviewCandidate}
-            />
+            <PlanBuilderLanding onOpenDefaultPlan={openDefault} />
           </details>
         </section>
       ) : null}

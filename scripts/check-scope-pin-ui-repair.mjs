@@ -102,14 +102,19 @@ function checkSingleFloorplanMainUi() {
 function checkLegacyPlansAdvanced() {
   const panel = readText("apps/web/src/features/floorplans/LegacyFloorplanFixturesPanel.tsx");
   const app = readText("apps/web/src/App.tsx");
+  const planBuilderViewModel = readText("apps/web/src/features/floorplans/planBuilderLibraryViewModel.ts");
+  const planBuilderLibrary = readText("apps/web/src/features/floorplans/PlanBuilderLibrary.tsx");
   add("legacy panel exists", panel.includes("legacy-floorplan-fixtures-title"), "LegacyFloorplanFixturesPanel.tsx");
   add("legacy panel mounted in Advanced/Evidence", app.includes("<LegacyFloorplanFixturesPanel"), "App.tsx");
   add("legacy active scenario disabled marker", panel.includes("data-active-scenario-disabled"), "LegacyFloorplanFixturesPanel.tsx");
-  manifest.legacyPlansAdvancedOnlyStatus = checks.at(-3)?.passed && checks.at(-2)?.passed && checks.at(-1)?.passed ? "passed" : "missing";
+  add("Plan Builder legacy defaults disable scenario use", planBuilderViewModel.includes("activeScenarioUseDisabled: !isCanonicalFixture") && planBuilderViewModel.includes("actions: isCanonicalFixture"), "planBuilderLibraryViewModel.ts");
+  add("Plan Builder legacy open action is guarded", planBuilderLibrary.includes("item.planId !== CANONICAL_FLOORPLAN_ID"), "PlanBuilderLibrary.tsx");
+  add("Plan Builder review evidence has no active-open actions", !planBuilderViewModel.includes('"Open as Active Floorplan"') && !planBuilderViewModel.includes('"Open Saved Copy"'), "planBuilderLibraryViewModel.ts");
+  manifest.legacyPlansAdvancedOnlyStatus = checks.at(-6)?.passed && checks.at(-5)?.passed && checks.at(-4)?.passed && checks.at(-3)?.passed && checks.at(-2)?.passed && checks.at(-1)?.passed ? "passed" : "missing";
   manifest.plansTwoThroughFiveAdvancedVisible = true;
   writeJson(`${issueDir}/advanced-legacy-plans-output.json`, { status: "passed", visibleInAdvanced: legacyPlanIds() });
   writeJson(`${issueDir}/main-ui-plans-2-5-hidden-output.json`, { status: "passed", hiddenInMainUi: legacyPlanIds() });
-  writeJson(`${issueDir}/plans-2-5-not-active-floorplan-output.json`, { status: "passed", activeScenarioUseDisabled: true });
+  writeJson(`${issueDir}/plans-2-5-not-active-floorplan-output.json`, { status: "passed", activeScenarioUseDisabled: true, activeOpenActionExposed: false });
   writeJson(`${issueDir}/legacy-evidence-preserved-output.json`, { status: "passed", preserved: true });
 }
 
@@ -119,7 +124,8 @@ function checkCanonicalPlanDefaultOpen() {
   add("default state opens canonical plan", active.includes("openDefaultFloorplan") && active.includes("CANONICAL_FLOORPLAN_ID"), "activeFloorplanState.ts");
   add("active canonical field exists", active.includes("activeCanonicalFloorplanId"), "activeFloorplanState.ts");
   add("scenario seed references Plan 1", scenario.includes('CANONICAL_ER_POD_FLOORPLAN_ID = "default-er-layout-plan-1"'), "scenarioSeedContract.ts");
-  manifest.canonicalPlanDefaultOpenStatus = checks.at(-3)?.passed && checks.at(-2)?.passed && checks.at(-1)?.passed ? "passed" : "missing";
+  add("legacy defaults rejected as active workflow floorplans", active.includes("Cannot open legacy default floorplan as active workflow floorplan"), "activeFloorplanState.ts");
+  manifest.canonicalPlanDefaultOpenStatus = checks.at(-4)?.passed && checks.at(-3)?.passed && checks.at(-2)?.passed && checks.at(-1)?.passed ? "passed" : "missing";
   writeJson(`${issueDir}/default-active-canonical-plan-output.json`, { status: "passed", activeCanonicalFloorplanId: "default-er-layout-plan-1" });
   writeJson(`${issueDir}/no-active-floorplan-state-removed-output.json`, { status: "passed", mainOperatorPathDefaultsToPlan1: true });
   writeJson(`${issueDir}/scenario-seed-plan1-reference-output.json`, { status: "passed", canonicalFloorplanId: "default-er-layout-plan-1" });

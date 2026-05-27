@@ -17,20 +17,15 @@ import { createRenderedPlanPreviewViewModel } from "./renderedPlanPreviewViewMod
 
 type PlanBuilderLandingProps = {
   onOpenDefaultPlan?: (planId: string) => void;
-  onOpenReviewCandidate?: (candidateId: string) => void;
 };
 
-export function PlanBuilderLanding({
-  onOpenDefaultPlan,
-  onOpenReviewCandidate
-}: PlanBuilderLandingProps) {
+export function PlanBuilderLanding({ onOpenDefaultPlan }: PlanBuilderLandingProps) {
   return (
     <>
       <DemoWalkthroughPanel viewModel={createDemoWalkthroughViewModel()} />
       <PlanBuilderLibrary
         viewModel={createPlanBuilderLibraryViewModel()}
         onOpenDefaultPlan={onOpenDefaultPlan}
-        onOpenReviewCandidate={onOpenReviewCandidate}
       />
       <RenderedPlanPreviewPanel viewModel={createRenderedPlanPreviewViewModel()} />
       <ManualReviewCtaPanel viewModel={createManualReviewCtaViewModel()} />

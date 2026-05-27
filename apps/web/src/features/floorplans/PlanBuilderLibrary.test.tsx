@@ -10,29 +10,28 @@ type TestElement = {
 };
 
 const openedDefaults: string[] = [];
-const openedReviewCandidates: string[] = [];
 const element = PlanBuilderLibrary({
   viewModel: createPlanBuilderLibraryViewModel(),
-  onOpenDefaultPlan: (planId) => openedDefaults.push(planId),
-  onOpenReviewCandidate: (candidateId) => openedReviewCandidates.push(candidateId)
+  onOpenDefaultPlan: (planId) => openedDefaults.push(planId)
 });
 
 const buttons = collectButtons(element);
 const defaultOpenButton = buttons.find((button) => textContent(button) === "Open Plan");
-const reviewCandidateButton = buttons.find((button) => textContent(button) === "Open as Active Floorplan");
+const activeLegacyButtons = buttons.filter((button) =>
+  ["Open as Active Floorplan", "Open Saved Copy"].includes(textContent(button))
+);
 
-if (defaultOpenButton == null || reviewCandidateButton == null) {
-  throw new Error("Plan Builder library must render actionable active floorplan buttons");
+if (defaultOpenButton == null) {
+  throw new Error("Plan Builder library must render an active floorplan button for canonical Plan 1");
+}
+if (activeLegacyButtons.length !== 0) {
+  throw new Error("Plan Builder library must not render active floorplan buttons for legacy Plans 2-5");
 }
 
 defaultOpenButton.props?.onClick?.();
-reviewCandidateButton.props?.onClick?.();
 
 if (openedDefaults[0] !== "default-er-layout-plan-1") {
   throw new Error("default fixture action must open the default floorplan without mutation");
-}
-if (openedReviewCandidates[0] !== "plan-2") {
-  throw new Error("review candidate action must open the route-repaired candidate as active");
 }
 
 function collectButtons(node: unknown): TestElement[] {
