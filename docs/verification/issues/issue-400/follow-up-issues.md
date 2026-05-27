@@ -1,0 +1,1 @@
+- Continue with the next approved workflow only after human/manual review if visual correctness is required.

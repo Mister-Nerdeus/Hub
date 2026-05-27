@@ -200,6 +200,7 @@ function runStage(currentStage) {
   }
   if (currentStage === "visual-proof") {
     requireFile("docs/verification/floorplan-editor-ux-visual-manifest.json");
+    const visualIssueDir = issue === "400" ? "docs/verification/issues/issue-399" : issueDir;
     for (const screenshot of [
       "editor-edit-mode.png",
       "editor-assignment-mode.png",
@@ -207,7 +208,7 @@ function runStage(currentStage) {
       "door-tools-panel.png",
       "inspector-tabs.png",
       "color-coded-operational-map.png"
-    ]) assertPng(`${issueDir}/screenshots/${screenshot}`);
+    ]) assertPng(`${visualIssueDir}/screenshots/${screenshot}`);
     const visualManifest = existsSync(abs("docs/verification/floorplan-editor-ux-visual-manifest.json"))
       ? readJson("docs/verification/floorplan-editor-ux-visual-manifest.json")
       : null;

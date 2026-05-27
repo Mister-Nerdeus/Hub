@@ -1,0 +1,14 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+node scripts/check-private-source-artifacts.mjs
+node scripts/check-product-naming.mjs --issue 400
+node scripts/check-floorplan-operational-map-style.mjs --issue 400
+node scripts/check-floorplan-editor-ux.mjs --stage final --issue 400
+node scripts/check-floorplan-presentation-rendering.mjs --issue 400
+node scripts/check-door-authoring-tools.mjs --issue 400
+node scripts/check-layout-assignment-overlay.mjs --issue 400
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 400
+node scripts/verify-local.mjs
