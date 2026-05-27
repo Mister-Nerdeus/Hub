@@ -491,6 +491,58 @@
   margin: 0;
 }
 
+.hallway-zone-quick-edit-popover {
+  display: grid;
+  gap: 8px;
+}
+
+.hallway-zone-quick-edit-popover label {
+  color: #53616f;
+  display: grid;
+  font-size: 0.68rem;
+  font-weight: 900;
+  gap: 3px;
+}
+
+.hallway-zone-quick-edit-popover input,
+.hallway-zone-quick-edit-popover select {
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 5px 7px;
+}
+
+.hallway-zone-quick-edit-popover dl {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.hallway-zone-quick-edit-popover dl div {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.hallway-zone-quick-edit-popover dt,
+.hallway-zone-quick-edit-popover dd {
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.hallway-zone-quick-edit-popover dt {
+  color: #53616f;
+}
+
+.hallway-zone-quick-edit-popover dd {
+  color: #111827;
+  text-align: right;
+}
+
 .layout-editor-stage__workspace-boundary {
   fill: none;
   stroke: #2f4659;

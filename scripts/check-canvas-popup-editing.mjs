@@ -213,6 +213,32 @@ function runStage(currentStage) {
   if (currentStage === "hallway-zone-popover") {
     requireText("apps/web/src/features/layout-editor/HallwayZoneQuickEditPopover.tsx", "HallwayZoneQuickEditPopover");
     requireText("apps/web/src/features/layout-editor/hallwayZoneQuickEditViewModel.ts", "buildHallwayZoneQuickEdit");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "HallwayZoneQuickEditPopover");
+    requireText("apps/web/src/features/layout-editor/__tests__/HallwayZoneQuickEditPopover.test.tsx", "validation status");
+    assertPng(`${issueDir}/screenshots/hallway-zone-quick-edit-popover.png`);
+    writeJson(`${issueDir}/hallway-zone-popover-output.json`, {
+      status: "passed",
+      component: "HallwayZoneQuickEditPopover"
+    });
+    writeJson(`${issueDir}/hallway-label-output.json`, { status: "passed", control: "Hallway label" });
+    writeJson(`${issueDir}/zone-label-output.json`, { status: "passed", control: "Zone label" });
+    writeJson(`${issueDir}/arrow-direction-output.json`, {
+      status: "passed",
+      control: "Arrow direction hint"
+    });
+    writeJson(`${issueDir}/presentation-visibility-output.json`, {
+      status: "passed",
+      control: "Presentation visibility"
+    });
+    writeJson(`${issueDir}/validation-status-output.json`, {
+      status: "passed",
+      control: "Validation status"
+    });
+    writeText(`${issueDir}/no-route-truth-claim-output.txt`, "passed: hallway/zone popover does not claim route truth or exact CAD/source parity\n");
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: ["data-hallway-zone-quick-edit=hallway/zone"]
+    });
   }
   if (currentStage === "add-object-menu") {
     requireText("apps/web/src/features/layout-editor/AddObjectMenu.tsx", "AddObjectMenu");

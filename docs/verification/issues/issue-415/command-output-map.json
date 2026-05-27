@@ -1,0 +1,29 @@
+{
+  "issue": "415",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-415/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-415/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canvas-popup-editing.mjs --stage hallway-zone-popover --allow-partial --issue 415",
+      "outputs": [
+        "docs/verification/issues/issue-415/test-output/canvas-popup-editing-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 415",
+      "outputs": [
+        "docs/verification/issues/issue-415/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

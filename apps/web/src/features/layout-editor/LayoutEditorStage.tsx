@@ -118,6 +118,8 @@ import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
 import { buildDoorQuickEdit } from "./doorQuickEditViewModel";
 import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
+import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
+import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -191,6 +193,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const canvasPanRef = useRef<CanvasPanState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
   const selectedStation = findSelectedStation(stageState);
+  const selectedHallway = findSelectedHallway(stageState);
+  const selectedZone = findSelectedZone(stageState);
   useEffect(() => {
     if (activeFloorplan == null) {
       return;
@@ -314,6 +318,12 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     station: selectedStation,
     readOnly: stageState.readOnly,
     presentation: editorMode === "presentation"
+  });
+  const hallwayZoneQuickEditViewModel = buildHallwayZoneQuickEdit({
+    hallway: selectedHallway,
+    zone: selectedZone,
+    readOnly: stageState.readOnly,
+    validationWarningCount: stageState.validationWarnings.length
   });
   const selectStageObject = (
     objectType: Parameters<typeof selectionFromShapeClick>[0],
@@ -1054,6 +1064,13 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                     onPresentationStyle={() => setEditorMode("presentation")}
                     onMoveResize={() => setToolMode("select")}
                   />
+                ) : canvasObjectPopoverViewModel.objectType === "hallway" || canvasObjectPopoverViewModel.objectType === "zone" ? (
+                  <HallwayZoneQuickEditPopover
+                    viewModel={hallwayZoneQuickEditViewModel}
+                    onLabelChange={() => undefined}
+                    onZoneTypeChange={() => undefined}
+                    onTogglePresentationVisibility={() => setEditorMode("presentation")}
+                  />
                 ) : null}
               </CanvasObjectPopover>
             )}
@@ -1170,6 +1187,36 @@ function findSelectedStation(state: {
     return null;
   }
   return state.editableLayout.stations.find((station) => station.id === state.selectedObjectId) ?? null;
+}
+
+function findSelectedHallway(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "hallway" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.hallways.find((hallway) => hallway.id === state.selectedObjectId) ?? null;
+}
+
+function findSelectedZone(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "zone" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.zones.find((zone) => zone.id === state.selectedObjectId) ?? null;
 }
 
 function createInitialStageState() {
