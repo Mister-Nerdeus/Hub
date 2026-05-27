@@ -16,6 +16,7 @@ assertPanel(copySource.includes("Configuration comparison only"), "panel copy mu
 assertPanel(copySource.includes("Simulation engine not started"), "panel copy must state engine boundary");
 assertPanel(copySource.includes("Not staffing compliance certification"), "panel copy must state staffing non-claim");
 assertPanel(panelSource.includes("Placeholder outcome rows"), "panel must render placeholder outcome table");
+assertPanel(!panelSource.includes("\"Computed\""), "panel must not render computed outcome copy");
 assertPanel(appSource.includes("<ScenarioRatioComparisonPanel />"), "App must wire the comparison UI shell into Scenarios");
 
 function assertPanel(condition: boolean, message: string) {

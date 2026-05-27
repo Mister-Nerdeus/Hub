@@ -93,7 +93,7 @@ export function ScenarioRatioComparisonPanel({
                 <td>{row.label}</td>
                 <td>{row.category}</td>
                 <td>{row.status}</td>
-                <td>{row.computed ? "Computed" : row.displayValue}</td>
+                <td>{row.displayValue}</td>
               </tr>
             ))}
           </tbody>

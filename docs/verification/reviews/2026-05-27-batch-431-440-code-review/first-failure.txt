@@ -1,0 +1,13 @@
+First run:
+npm --workspace packages/shared test
+
+Result:
+Failed once in pre-existing test packages/shared/tests/plan-3-correction-audit.test.mjs with:
+SyntaxError: Unexpected end of JSON input
+at updateManifestForCorrection (packages/shared/tests/source-correction-test-helpers.mjs)
+
+Recovery:
+The same command was rerun and passed with 807 passing tests, 0 failures.
+
+Assessment:
+The scenario-ratio contract tests passed in the first run. The transient failure came from an older correction-audit artifact path during parallel node --test execution, not from the Batch 431-440 review fix.
