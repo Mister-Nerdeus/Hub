@@ -88,6 +88,8 @@ import {
 } from "./roomDragSnapAccumulator";
 import { StationShape } from "./StationShape";
 import { buildStationShapeViewModel } from "./stationShapeViewModel";
+import { HallwayArrowOverlay } from "./HallwayArrowOverlay";
+import { buildHallwayArrowViewModels } from "./hallwayArrowViewModel";
 import { ZoneShape } from "./ZoneShape";
 import "./LayoutEditorStage.css";
 
@@ -224,6 +226,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
   const roomItems = renderItems.filter((item) => item.objectType === "room");
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
+  const hallwayArrows = buildHallwayArrowViewModels(renderItems);
   const selectedDoor =
     stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
@@ -652,6 +655,9 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 />
               ))}
             </g>
+            {editorMode === "presentation" ? (
+              <HallwayArrowOverlay arrows={hallwayArrows} />
+            ) : null}
             <g
               className="layout-editor-stage__grid"
               data-grid-state={
@@ -740,6 +746,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
                 <StationShape
                   key={item.hitTargetKey}
                   viewModel={buildStationShapeViewModel(item)}
+                  presentation={editorMode === "presentation"}
                   isSelected={isLayoutObjectSelected({
                     objectType: item.objectType,
                     objectId: item.objectId,

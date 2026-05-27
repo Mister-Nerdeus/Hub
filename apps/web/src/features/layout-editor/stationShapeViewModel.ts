@@ -13,6 +13,7 @@ export type StationShapeViewModel = {
   heightPixels: number;
   labelX: number;
   labelY: number;
+  presentationPath: string;
 };
 
 export function buildStationShapeViewModel(item: LayoutObjectRenderItem): StationShapeViewModel {
@@ -24,6 +25,7 @@ export function buildStationShapeViewModel(item: LayoutObjectRenderItem): Statio
     throw new Error("station render item requires station source geometry");
   }
   const { xPixels, yPixels, widthPixels, heightPixels } = item.displayRectPixels;
+  const radius = Math.min(widthPixels, heightPixels) / 2;
   return {
     objectType: "station",
     objectId: item.objectId,
@@ -36,6 +38,15 @@ export function buildStationShapeViewModel(item: LayoutObjectRenderItem): Statio
     widthPixels,
     heightPixels,
     labelX: xPixels + widthPixels / 2,
-    labelY: yPixels + heightPixels / 2
+    labelY: yPixels + heightPixels / 2,
+    presentationPath: [
+      `M ${xPixels} ${yPixels + heightPixels}`,
+      `L ${xPixels} ${yPixels + radius}`,
+      `Q ${xPixels} ${yPixels} ${xPixels + radius} ${yPixels}`,
+      `L ${xPixels + widthPixels - radius} ${yPixels}`,
+      `Q ${xPixels + widthPixels} ${yPixels} ${xPixels + widthPixels} ${yPixels + radius}`,
+      `L ${xPixels + widthPixels} ${yPixels + heightPixels}`,
+      "Z"
+    ].join(" ")
   };
 }

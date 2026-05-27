@@ -1,0 +1,69 @@
+{
+  "issue": "397",
+  "status": "passed",
+  "scope": "default Plans 2 through 5 fixture, source mapping, and walking baseline files",
+  "comparedAgainst": "approved Plan 2-5 hashes plus git HEAD working-tree cleanliness",
+  "trackedPaths": [
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-2.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-2-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-3.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-3.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-3-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-4.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-4.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-4-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-5.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-5.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-5-walking-baseline.json"
+  ],
+  "changedPaths": [],
+  "hashMismatches": [],
+  "missingPaths": [],
+  "fixtureSummaries": [
+    {
+      "planNumber": 2,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
+      "planId": "default-er-layout-plan-2",
+      "roomCount": 5,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 5,
+      "sha256": "d1b6700a9ac0bb3e6c48ba84b9a7cd9169722c749183a5961d6a9cc15e33efc3"
+    },
+    {
+      "planNumber": 3,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-3.json",
+      "planId": "default-er-layout-plan-3",
+      "roomCount": 3,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 3,
+      "sha256": "827b0e440f47256bde17d8753e7e5c214cba16f1d3f0bd57d9115caf48f9d2b4"
+    },
+    {
+      "planNumber": 4,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-4.json",
+      "planId": "default-er-layout-plan-4",
+      "roomCount": 4,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 4,
+      "sha256": "5f22083f41f3b54987dffa02bd530d13af81d634b9e510d3a689d81cb81932b2"
+    },
+    {
+      "planNumber": 5,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-5.json",
+      "planId": "default-er-layout-plan-5",
+      "roomCount": 4,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 4,
+      "sha256": "dc12dfb2f821d0c70ff749898efa1937d2de4bad7df748cd99b3f2068cd3a67f"
+    }
+  ],
+  "nonClaims": [
+    "This check proves Plans 2-5 protected files match the approved batch baseline hashes.",
+    "This check does not audit Plan 1 visual parity."
+  ]
+}

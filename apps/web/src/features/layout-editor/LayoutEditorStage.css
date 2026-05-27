@@ -700,6 +700,56 @@
   border-style: dashed !important;
 }
 
+.layout-editor-stage--presentation {
+  background: #f7faf8;
+}
+
+.layout-editor-stage--presentation .layout-editor-stage__hallway rect {
+  fill: #dfe9ef;
+  opacity: 1;
+  stroke: #9aaabc;
+  stroke-width: 1.5;
+}
+
+.layout-editor-stage--presentation .layout-editor-stage__zone rect {
+  fill: #d9ead3;
+  opacity: 0.95;
+}
+
+.layout-editor-stage--presentation .layout-editor-stage__zone--ems_entry rect {
+  fill: #dcebd6;
+}
+
+.layout-editor-stage--presentation .layout-editor-stage__room text,
+.layout-editor-stage--assignment .layout-editor-stage__room text {
+  fill: #111827;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 2px;
+}
+
+.layout-editor-stage__room-presentation--special text {
+  font-size: 10px;
+}
+
+.layout-editor-stage__station-presentation {
+  cursor: pointer;
+  fill: #f6ead3;
+  stroke: #6b5a2b;
+  stroke-width: 2;
+}
+
+.layout-editor-stage__hallway-arrow {
+  marker-end: url("#layout-editor-stage-arrowhead");
+  stroke: #506276;
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.layout-editor-stage__hallway-arrow-overlay marker path {
+  fill: #506276;
+}
+
 @media (max-width: 760px) {
   .layout-editor-stage__header {
     flex-direction: column;

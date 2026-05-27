@@ -4,10 +4,11 @@ import { selectedClassName } from "./layoutSelectionHighlight";
 type StationShapeProps = {
   viewModel: StationShapeViewModel;
   isSelected?: boolean;
+  presentation?: boolean;
   onSelect?: (objectType: "station", objectId: string) => void;
 };
 
-export function StationShape({ viewModel, isSelected = false, onSelect }: StationShapeProps) {
+export function StationShape({ viewModel, isSelected = false, presentation = false, onSelect }: StationShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__station", isSelected)}
@@ -17,12 +18,16 @@ export function StationShape({ viewModel, isSelected = false, onSelect }: Statio
       aria-label={viewModel.ariaLabel}
       onClick={() => onSelect?.("station", viewModel.objectId)}
     >
-      <rect
-        x={viewModel.xPixels}
-        y={viewModel.yPixels}
-        width={viewModel.widthPixels}
-        height={viewModel.heightPixels}
-      />
+      {presentation ? (
+        <path className="layout-editor-stage__station-presentation" d={viewModel.presentationPath} />
+      ) : (
+        <rect
+          x={viewModel.xPixels}
+          y={viewModel.yPixels}
+          width={viewModel.widthPixels}
+          height={viewModel.heightPixels}
+        />
+      )}
       <text x={viewModel.labelX} y={viewModel.labelY}>{viewModel.label}</text>
     </g>
   );

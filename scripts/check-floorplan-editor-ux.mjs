@@ -311,7 +311,10 @@ function commandsForIssue(issueNumber) {
       "node scripts/check-door-authoring-tools.mjs --issue 396",
       "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 396 --port 4196 --debug-port 9396"
     ],
-    "397": ["node scripts/check-floorplan-presentation-rendering.mjs --issue 397"],
+    "397": [
+      "node scripts/check-floorplan-presentation-rendering.mjs --issue 397",
+      "node scripts/capture-floorplan-editor-ux-screenshots.mjs --issue 397 --port 4197 --debug-port 9397"
+    ],
     "399": [
       "node scripts/check-floorplan-presentation-rendering.mjs --issue 399",
       "node scripts/check-no-phi-fields.mjs",

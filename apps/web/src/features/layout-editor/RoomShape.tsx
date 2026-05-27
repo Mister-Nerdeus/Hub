@@ -2,6 +2,7 @@ import type { PointerEvent } from "react";
 
 import type { RoomShapeViewModel } from "./roomShapeViewModel";
 import { selectedClassName } from "./layoutSelectionHighlight";
+import { buildRoomPresentationClass } from "./layoutRoomPresentationViewModel";
 
 type RoomShapeProps = {
   viewModel: RoomShapeViewModel;
@@ -22,7 +23,7 @@ export function RoomShape({
 }: RoomShapeProps) {
   return (
     <g
-      className={selectedClassName("layout-editor-stage__room", isSelected)}
+      className={`${selectedClassName("layout-editor-stage__room", isSelected)} ${viewModel.presentationActive ? buildRoomPresentationClass(viewModel) : ""}`}
       data-hit-target-key={viewModel.hitTargetKey}
       data-room-type={viewModel.roomType}
       data-assignment-state={viewModel.assignmentLabel ?? "none"}
@@ -45,7 +46,11 @@ export function RoomShape({
         height={viewModel.heightPixels}
         style={viewModel.assignmentColor == null ? undefined : { fill: viewModel.assignmentColor }}
       />
-      <text x={viewModel.labelX} y={viewModel.labelY}>{viewModel.roomNumber}</text>
+      <text x={viewModel.labelX} y={viewModel.labelY}>
+        {viewModel.presentationActive && /trauma|level\s*1/i.test(`${viewModel.label} ${viewModel.roomType}`)
+          ? viewModel.label
+          : viewModel.roomNumber}
+      </text>
     </g>
   );
 }
