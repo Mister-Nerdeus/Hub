@@ -5,6 +5,7 @@ import type {
   RoomLoad,
   Warning
 } from "../contracts.js";
+import { isNurseAssignableRoomType, isRoomLoadEligibleRoomType } from "../floorplans/roomTypeRules.js";
 
 type WarningDraft = Omit<Warning, "id">;
 
@@ -15,6 +16,7 @@ export function validateManualAssignment(
 ): ManualAssignmentValidationResult {
   const warnings: Warning[] = [];
   const roomIds = new Set(plan.rooms.map((room) => room.id));
+  const roomById = new Map(plan.rooms.map((room) => [room.id, room]));
   const nurseById = new Map(assignmentSet.nurses.map((nurse) => [nurse.id, nurse]));
   const roomLoadById = new Map(roomLoads.map((roomLoad) => [roomLoad.roomId, roomLoad]));
   const assignedRoomMap = new Map<string, string[]>();
@@ -44,6 +46,19 @@ export function validateManualAssignment(
             severity: "critical",
             code: "UNKNOWN_ROOM",
             message: `Assignment ${assignment.id} references unknown room ${roomId}.`,
+            nurseIds: [assignment.nurseId],
+            roomIds: [roomId]
+          })
+        );
+        continue;
+      }
+      const room = roomById.get(roomId);
+      if (room != null && !isNurseAssignableRoomType(room.roomType)) {
+        warnings.push(
+          warning({
+            severity: "critical",
+            code: "UNKNOWN_ROOM",
+            message: `Assignment ${assignment.id} references a room excluded from nurse assignment.`,
             nurseIds: [assignment.nurseId],
             roomIds: [roomId]
           })
@@ -92,6 +107,18 @@ export function validateManualAssignment(
 
   for (const roomLoad of roomLoads) {
     if (!roomLoad.occupied) {
+      continue;
+    }
+    const loadedRoom = roomById.get(roomLoad.roomId);
+    if (loadedRoom != null && !isRoomLoadEligibleRoomType(loadedRoom.roomType)) {
+      warnings.push(
+        warning({
+          severity: "critical",
+          code: "UNKNOWN_ROOM",
+          message: `Room load ${roomLoad.roomId} references a room excluded from room-load inputs.`,
+          roomIds: [roomLoad.roomId]
+        })
+      );
       continue;
     }
 

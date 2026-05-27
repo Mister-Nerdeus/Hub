@@ -9,6 +9,7 @@ import {
   type Plan1NurseProfile,
   type Plan1RoomLoad
 } from "./plan1AssignmentCommon.js";
+import { isNurseAssignableRoomType } from "../floorplans/roomTypeRules.js";
 
 export type Plan1AssignmentValidationInput = {
   plan: PlanContract | null;
@@ -37,6 +38,7 @@ export function validatePlan1AssignmentsForOperations(
   }
 
   const validRoomIds = roomIdsForPlan(input.plan);
+  const roomById = new Map(input.plan.rooms.map((room) => [room.id, room]));
   const validNurseIds = nurseIdsForProfiles(input.nurses);
   const roomLoadById = new Map(input.roomLoads.map((roomLoad) => [roomLoad.roomId, roomLoad]));
   const nurseById = new Map(input.nurses.map((nurse) => [nurse.nurseId, nurse]));
@@ -47,6 +49,11 @@ export function validatePlan1AssignmentsForOperations(
   for (const assignment of input.assignments) {
     if (!validRoomIds.has(assignment.roomId)) {
       warnings.push(warning("INVALID_ROOM_REFERENCE", "blocking", "Assignment references a room outside repaired Plan 1.", [], [assignment.roomId]));
+      continue;
+    }
+    const assignedRoom = roomById.get(assignment.roomId);
+    if (assignedRoom != null && !isNurseAssignableRoomType(assignedRoom.roomType)) {
+      warnings.push(warning("INVALID_ROOM_REFERENCE", "blocking", "Assignment references a non-patient room type excluded from nurse assignment.", [assignment.nurseId], [assignment.roomId]));
       continue;
     }
     if (!validNurseIds.has(assignment.nurseId)) {

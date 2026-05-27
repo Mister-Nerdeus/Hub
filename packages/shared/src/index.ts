@@ -16,6 +16,7 @@ export * from "./assignment/assignmentWalkingPreview.js";
 export * from "./assignment/assignmentBurdenScore.js";
 export * from "./assignment/assignmentComparison.js";
 export * from "./assignment/validateManualAssignment.js";
+export * from "./capacity/capacityRoomEligibility.js";
 export * from "./manual-assignment/manualAssignmentContracts.js";
 export * from "./manual-assignment/manualAssignmentValidation.js";
 export * from "./manual-assignment/manualAssignmentFixtures.js";

@@ -1,4 +1,5 @@
 import type { ManualRoomAssignment } from "@nerdeus/shared";
+import { isNurseAssignableRoomType } from "@nerdeus/shared";
 import type { ManualAssignmentAction } from "./manualAssignmentActions";
 import { createManualAssignmentId, type ManualAssignmentState } from "./manualAssignmentState";
 
@@ -37,6 +38,8 @@ export function manualAssignmentReducer(
 
 function assignRoom(state: ManualAssignmentState, roomId: string, nurseId: string): ManualAssignmentState {
   if (!state.roomLoadsByRoomId[roomId] || !state.nurses.some((nurse) => nurse.nurseId === nurseId)) return state;
+  const roomType = state.roomTypesByRoomId?.[roomId];
+  if (roomType != null && !isNurseAssignableRoomType(roomType)) return state;
   const assignment: ManualRoomAssignment = {
     assignmentId: createManualAssignmentId(roomId, nurseId),
     roomId,

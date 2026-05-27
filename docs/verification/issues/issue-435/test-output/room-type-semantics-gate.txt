@@ -1,0 +1,123 @@
+{
+  "stage": "assignment-exclusion",
+  "issue": "435",
+  "allowPartial": true,
+  "status": "passed",
+  "checks": [
+    {
+      "name": "product display name",
+      "passed": true,
+      "detail": "ER Pod Shift Simulator"
+    },
+    {
+      "name": "single canonical floorplan model",
+      "passed": true,
+      "detail": "single_canonical_floorplan"
+    },
+    {
+      "name": "storage room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "solid wall room type exists",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "storage is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall is not ratio-counting",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "solid wall does not accept doors",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no full shift simulation started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 4:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no 3:1 scenario execution started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "manual approval missing",
+      "passed": true,
+      "detail": "missing"
+    },
+    {
+      "name": "promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "no PHI status passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "Plan 1 assignment validation uses room type rules",
+      "passed": true,
+      "detail": "assignmentValidation.ts"
+    },
+    {
+      "name": "generic manual assignment validation uses room type rules",
+      "passed": true,
+      "detail": "validateManualAssignment.ts"
+    },
+    {
+      "name": "manual assignment reducer rejects ineligible room types",
+      "passed": true,
+      "detail": "manualAssignmentReducer.ts"
+    },
+    {
+      "name": "manual workspace exposes disabled reasons",
+      "passed": true,
+      "detail": "manualAssignmentWorkspaceViewModel.ts"
+    },
+    {
+      "name": "capacity helper excludes non-ratio room types",
+      "passed": true,
+      "detail": "capacityRoomEligibility.ts"
+    },
+    {
+      "name": "manifest marks assignment exclusion implemented",
+      "passed": true,
+      "detail": "implemented"
+    },
+    {
+      "name": "manifest marks capacity ratio exclusion implemented",
+      "passed": true,
+      "detail": "implemented"
+    }
+  ]
+}

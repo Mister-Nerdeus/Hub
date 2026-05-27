@@ -1,12 +1,14 @@
 import type {
   ManualAssignmentNurse,
   ManualAssignmentRoomLoad,
-  ManualRoomAssignment
+  ManualRoomAssignment,
+  SemanticRoomType
 } from "@nerdeus/shared";
 
 export type ManualAssignmentState = {
   nurses: ManualAssignmentNurse[];
   roomLoadsByRoomId: Record<string, ManualAssignmentRoomLoad>;
+  roomTypesByRoomId?: Record<string, SemanticRoomType>;
   assignmentsByRoomId: Record<string, ManualRoomAssignment>;
   activeNurseId: string | null;
   syntheticDataOnly: true;
@@ -14,11 +16,13 @@ export type ManualAssignmentState = {
 
 export function createManualAssignmentInitialState(
   nurses: ManualAssignmentNurse[],
-  roomLoads: ManualAssignmentRoomLoad[]
+  roomLoads: ManualAssignmentRoomLoad[],
+  roomTypesByRoomId?: Record<string, SemanticRoomType>
 ): ManualAssignmentState {
   return {
     nurses: nurses.map((nurse) => ({ ...nurse })),
     roomLoadsByRoomId: Object.fromEntries(roomLoads.map((roomLoad) => [roomLoad.roomId, { ...roomLoad }])),
+    roomTypesByRoomId,
     assignmentsByRoomId: {},
     activeNurseId: nurses.find((nurse) => nurse.active)?.nurseId ?? null,
     syntheticDataOnly: true

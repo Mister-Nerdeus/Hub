@@ -1,4 +1,8 @@
-import type { ManualAssignmentNurse, ManualAssignmentRoomLoad } from "@nerdeus/shared";
+import {
+  isNurseAssignableRoomType,
+  type ManualAssignmentNurse,
+  type ManualAssignmentRoomLoad
+} from "@nerdeus/shared";
 import {
   selectAssignedRoomsByNurse,
   selectAssignmentCountByNurse,
@@ -36,6 +40,8 @@ export type ManualAssignmentRoomCard = {
   assignedColor: string | null;
   unassignedOccupied: boolean;
   controlLabel: string;
+  assignmentDisabled: boolean;
+  assignmentDisabledReason: string | null;
 };
 
 export type ManualAssignmentNurseCard = {
@@ -89,6 +95,8 @@ export function createManualAssignmentWorkspaceViewModel(
     })),
     roomCards: sortedRoomLoads.map((roomLoad) => {
       const assignment = assignmentByRoomId.get(roomLoad.roomId);
+      const roomType = state.roomTypesByRoomId?.[roomLoad.roomId];
+      const assignmentDisabled = roomType != null && !isNurseAssignableRoomType(roomType);
       const assignedNurse = assignment ? nursesById.get(assignment.nurseId) : null;
       const assignedNurseLabel = assignedNurse?.displayLabel ?? "Unassigned";
       return {
@@ -100,7 +108,11 @@ export function createManualAssignmentWorkspaceViewModel(
         assignedNurseLabel,
         assignedColor: assignedNurse?.color ?? null,
         unassignedOccupied: unassignedOccupiedRoomIds.has(roomLoad.roomId),
-        controlLabel: `${labelRoom(roomLoad.roomId)} ${roomLoad.occupied ? "occupied" : "open"} ${assignedNurseLabel}`
+        controlLabel: `${labelRoom(roomLoad.roomId)} ${roomLoad.occupied ? "occupied" : "open"} ${assignedNurseLabel}`,
+        assignmentDisabled,
+        assignmentDisabledReason: assignmentDisabled
+          ? disabledReasonForRoomType(roomType)
+          : null
       };
     }),
     nurseCards: state.nurses.map((nurse) => ({
@@ -119,6 +131,12 @@ export function createManualAssignmentWorkspaceViewModel(
     assignedRoomCount: selectManualAssignments(state).length,
     unassignedOccupiedRoomCount: unassignedOccupiedRoomIds.size
   };
+}
+
+function disabledReasonForRoomType(roomType: string | undefined): string {
+  return roomType === "storage"
+    ? "Storage is excluded from nurse assignment."
+    : "Solid wall / blocked area is excluded from nurse assignment.";
 }
 
 function labelRoom(roomId: string): string {

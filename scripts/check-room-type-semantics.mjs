@@ -113,6 +113,21 @@ if (stage === "solid-wall-no-doors" || stage === "legacy-invalid-layouts" || sta
   add("manifest marks solid wall door validation implemented", manifest.solidWallDoorValidationStatus === "implemented", manifest.solidWallDoorValidationStatus);
 }
 
+if (stage === "assignment-exclusion" || stage === "capacity-ratio-exclusion" || stage === "final") {
+  const assignmentValidation = fs.readFileSync("packages/shared/src/assignment/assignmentValidation.ts", "utf8");
+  const genericAssignment = fs.readFileSync("packages/shared/src/assignment/validateManualAssignment.ts", "utf8");
+  const capacity = fs.readFileSync("packages/shared/src/capacity/capacityRoomEligibility.ts", "utf8");
+  const reducer = fs.readFileSync("apps/web/src/features/manual-assignment/manualAssignmentReducer.ts", "utf8");
+  const workspace = fs.readFileSync("apps/web/src/features/manual-assignment/manualAssignmentWorkspaceViewModel.ts", "utf8");
+  add("Plan 1 assignment validation uses room type rules", assignmentValidation.includes("isNurseAssignableRoomType"), "assignmentValidation.ts");
+  add("generic manual assignment validation uses room type rules", genericAssignment.includes("isNurseAssignableRoomType"), "validateManualAssignment.ts");
+  add("manual assignment reducer rejects ineligible room types", reducer.includes("isNurseAssignableRoomType"), "manualAssignmentReducer.ts");
+  add("manual workspace exposes disabled reasons", workspace.includes("Storage is excluded from nurse assignment."), "manualAssignmentWorkspaceViewModel.ts");
+  add("capacity helper excludes non-ratio room types", capacity.includes("isRatioCountEligibleRoomType"), "capacityRoomEligibility.ts");
+  add("manifest marks assignment exclusion implemented", manifest.assignmentExclusionStatus === "implemented", manifest.assignmentExclusionStatus);
+  add("manifest marks capacity ratio exclusion implemented", manifest.capacityRatioExclusionStatus === "implemented", manifest.capacityRatioExclusionStatus);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }

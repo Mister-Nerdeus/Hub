@@ -1,4 +1,9 @@
-import type { ManualAssignmentNurse, ManualAssignmentRoomLoad, ManualRoomAssignment } from "@nerdeus/shared";
+import {
+  isNurseAssignableRoomType,
+  type ManualAssignmentNurse,
+  type ManualAssignmentRoomLoad,
+  type ManualRoomAssignment
+} from "@nerdeus/shared";
 import type { ManualAssignmentState } from "./manualAssignmentState";
 
 export function selectManualAssignments(state: ManualAssignmentState): ManualRoomAssignment[] {
@@ -8,6 +13,8 @@ export function selectManualAssignments(state: ManualAssignmentState): ManualRoo
 export function selectAssignedRoomsByNurse(state: ManualAssignmentState): Record<string, string[]> {
   const result = Object.fromEntries(state.nurses.map((nurse) => [nurse.nurseId, [] as string[]]));
   for (const assignment of selectManualAssignments(state)) {
+    const roomType = state.roomTypesByRoomId?.[assignment.roomId];
+    if (roomType != null && !isNurseAssignableRoomType(roomType)) continue;
     result[assignment.nurseId] ??= [];
     const assignedRoomIds = result[assignment.nurseId];
     if (assignedRoomIds) assignedRoomIds.push(assignment.roomId);
@@ -24,6 +31,8 @@ export function selectUnassignedOccupiedRooms(state: ManualAssignmentState): Man
 export function selectAssignmentCountByNurse(state: ManualAssignmentState): Record<string, number> {
   const counts = createZeroCountMap(state.nurses);
   for (const assignment of selectManualAssignments(state)) {
+    const roomType = state.roomTypesByRoomId?.[assignment.roomId];
+    if (roomType != null && !isNurseAssignableRoomType(roomType)) continue;
     counts[assignment.nurseId] = (counts[assignment.nurseId] ?? 0) + 1;
   }
   return counts;
@@ -32,6 +41,8 @@ export function selectAssignmentCountByNurse(state: ManualAssignmentState): Reco
 export function selectOccupiedAssignmentCountByNurse(state: ManualAssignmentState): Record<string, number> {
   const counts = createZeroCountMap(state.nurses);
   for (const assignment of selectManualAssignments(state)) {
+    const roomType = state.roomTypesByRoomId?.[assignment.roomId];
+    if (roomType != null && !isNurseAssignableRoomType(roomType)) continue;
     if (state.roomLoadsByRoomId[assignment.roomId]?.occupied) {
       counts[assignment.nurseId] = (counts[assignment.nurseId] ?? 0) + 1;
     }
