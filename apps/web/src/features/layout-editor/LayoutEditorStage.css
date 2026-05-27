@@ -659,6 +659,21 @@
   stroke-width: 3;
 }
 
+.layout-editor-stage__room[data-presentation-muted="true"] rect {
+  fill-opacity: 1;
+  stroke-width: 2;
+}
+
+.layout-editor-stage__room[data-room-type="storage"] rect {
+  fill: #b8c0ca;
+  stroke: #5f6975;
+}
+
+.layout-editor-stage__room[data-room-type="solid_wall"] rect {
+  fill: #6f7782;
+  stroke: #374151;
+}
+
 .layout-editor-stage__room text {
   dominant-baseline: middle;
   fill: #111827;

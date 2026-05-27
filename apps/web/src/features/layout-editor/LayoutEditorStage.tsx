@@ -140,6 +140,7 @@ import {
   placeObjectOnCanvas
 } from "./clickToPlaceObject";
 import { ObjectPlacementPreview } from "./ObjectPlacementPreview";
+import { PresentationLegend } from "./PresentationLegend";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -1356,21 +1357,7 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
               />
             }
             assignment={
-              <aside className="layout-assignment-legend" aria-label="Assignment color legend">
-              <h3>Assignment Colors</h3>
-              <ul>
-                {assignmentOverlay.legend.map((item) => (
-                  <li key={item.label}>
-                    <span style={{ backgroundColor: item.color }} />
-                    {item.label}
-                  </li>
-                ))}
-                <li>
-                  <span className="layout-assignment-legend__unassigned" />
-                  Unassigned occupied
-                </li>
-              </ul>
-              </aside>
+              <PresentationLegend assignmentItems={assignmentOverlay.legend} />
             }
             validation={
               <>

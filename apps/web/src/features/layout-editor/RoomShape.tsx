@@ -3,6 +3,7 @@ import type { PointerEvent } from "react";
 import type { RoomShapeViewModel } from "./roomShapeViewModel";
 import { selectedClassName } from "./layoutSelectionHighlight";
 import { buildRoomPresentationClass } from "./layoutRoomPresentationViewModel";
+import { getRoomPresentationStyle } from "./roomPresentationStyles";
 
 type RoomShapeProps = {
   viewModel: RoomShapeViewModel;
@@ -21,6 +22,17 @@ export function RoomShape({
   onMove,
   onMoveEnd
 }: RoomShapeProps) {
+  const presentationStyle = getRoomPresentationStyle(viewModel.roomType);
+  const assignmentStyle =
+    viewModel.assignmentColor == null || presentationStyle.muted
+      ? undefined
+      : { fill: viewModel.assignmentColor };
+  const semanticStyle = presentationStyle.muted
+    ? {
+        fill: presentationStyle.fill,
+        stroke: presentationStyle.stroke
+      }
+    : assignmentStyle;
   return (
     <g
       className={`${selectedClassName("layout-editor-stage__room", isSelected)} ${viewModel.presentationActive ? buildRoomPresentationClass(viewModel) : ""}`}
@@ -28,6 +40,7 @@ export function RoomShape({
       data-layout-object-type="room"
       data-layout-object-id={viewModel.objectId}
       data-room-type={viewModel.roomType}
+      data-presentation-muted={presentationStyle.muted ? "true" : "false"}
       data-assignment-state={viewModel.assignmentLabel ?? "none"}
       data-burden-level={viewModel.burdenLevel ?? "none"}
       data-warning-state={viewModel.warningState ?? "none"}
@@ -53,9 +66,9 @@ export function RoomShape({
         y={viewModel.yPixels}
         width={viewModel.widthPixels}
         height={viewModel.heightPixels}
-        style={viewModel.assignmentColor == null ? undefined : { fill: viewModel.assignmentColor }}
+        style={semanticStyle}
       />
-      <text x={viewModel.labelX} y={viewModel.labelY}>
+      <text x={viewModel.labelX} y={viewModel.labelY} style={presentationStyle.muted ? { fill: presentationStyle.textFill } : undefined}>
         {viewModel.presentationActive && /trauma|level\s*1/i.test(`${viewModel.label} ${viewModel.roomType}`)
           ? viewModel.label
           : viewModel.roomNumber}

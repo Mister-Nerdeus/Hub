@@ -80,6 +80,23 @@ if (stage === "trauma-storage-correction" || stage === "final") {
   add("manifest marks trauma storage implemented", manifest.canonicalTraumaStorageStatus === "implemented", manifest.canonicalTraumaStorageStatus);
 }
 
+if (stage === "gray-presentation" || stage === "visual-dom-proof" || stage === "final") {
+  const styles = fs.readFileSync("apps/web/src/features/layout-editor/roomPresentationStyles.ts", "utf8");
+  const roomShape = fs.readFileSync("apps/web/src/features/layout-editor/RoomShape.tsx", "utf8");
+  const legend = fs.readFileSync("apps/web/src/features/layout-editor/PresentationLegend.tsx", "utf8");
+  const overlay = fs.readFileSync("apps/web/src/features/layout-editor/layoutAssignmentOverlayViewModel.ts", "utf8");
+  add("storage gray style exists", /storage:[\s\S]*fill:\s*"#b8c0ca"/.test(styles), "roomPresentationStyles.ts");
+  add("solid wall gray style exists", /solid_wall:[\s\S]*fill:\s*"#6f7782"/.test(styles), "roomPresentationStyles.ts");
+  add("RoomShape exposes muted DOM state", roomShape.includes("data-presentation-muted"), "RoomShape.tsx");
+  add("RoomShape blocks assignment color for muted types", roomShape.includes("presentationStyle.muted"), "RoomShape.tsx");
+  add("legend includes storage", legend.includes("data-room-type-legend") && styles.includes("Storage"), "PresentationLegend.tsx");
+  add("legend includes solid wall", legend.includes("data-room-type-legend") && styles.includes("Solid wall / blocked area"), "PresentationLegend.tsx");
+  add("assignment overlay skips muted types", overlay.includes("roomTypeSuppressesAssignmentOverlay"), "layoutAssignmentOverlayViewModel.ts");
+  add("manifest marks gray presentation implemented", manifest.grayPresentationStatus === "implemented", manifest.grayPresentationStatus);
+  add("manifest marks storage gray", manifest.storageGreysOut === true, manifest.storageGreysOut);
+  add("manifest marks solid wall gray", manifest.solidWallGreysOut === true, manifest.solidWallGreysOut);
+}
+
 if (!allowPartial && stage !== "final") {
   add("non-final stages require --allow-partial until issue 440", false, `issue ${issue}`);
 }
