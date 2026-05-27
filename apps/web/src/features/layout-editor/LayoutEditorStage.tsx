@@ -96,6 +96,8 @@ import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
+import { EditorNextStepPanel } from "./EditorNextStepPanel";
+import { buildEditorNextStep } from "./editorNextStepViewModel";
 import {
   canvasPointerDeltaToPanFeet,
   isCanvasPanBackgroundTarget
@@ -229,6 +231,12 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
     warnings: stageState.validationWarnings
   });
   const validationDrawerViewModel = buildValidationDrawerViewModel(validationPanelViewModel);
+  const nextStepViewModel = buildEditorNextStep({
+    hasActiveFloorplan: activeFloorplan != null,
+    selectedObjectType: stageState.selectedObjectType,
+    editorMode,
+    validationWarningCount: stageState.validationWarnings.length
+  });
   const viewportLayoutViewModel = buildEditorViewportLayoutViewModel({
     inspectorCollapsed,
     validationWarningCount: stageState.validationWarnings.length
@@ -610,6 +618,8 @@ export function LayoutEditorStage({ activeFloorplan = null }: LayoutEditorStageP
         onAddObject={() => setToolMode("add_room")}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
       />
+
+      <EditorNextStepPanel viewModel={nextStepViewModel} />
 
       <details className="layout-editor-stage__json-drawer">
         <summary>Floorplan JSON</summary>

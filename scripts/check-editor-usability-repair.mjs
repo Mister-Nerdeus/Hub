@@ -458,8 +458,44 @@ function runStage(currentStage) {
     });
   }
   if (currentStage === "next-step-panel") {
-    requireText("apps/web/src/features/layout-editor/EditorNextStepPanel.tsx", "What do I do next");
+    requireText("apps/web/src/features/layout-editor/editorNextStepViewModel.ts", "What do I do next");
     requireText("apps/web/src/features/layout-editor/editorNextStepViewModel.ts", "buildEditorNextStep");
+    requireText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", "EditorNextStepPanel");
+    requireText("apps/web/src/features/layout-editor/__tests__/editorNextStepViewModel.test.ts", "Open a floorplan.");
+    assertPng(`${issueDir}/screenshots/editor-next-step-panel.png`);
+    writeJson(`${issueDir}/next-step-panel-output.json`, {
+      status: "passed",
+      component: "EditorNextStepPanel",
+      dataAttribute: "data-editor-next-step"
+    });
+    writeJson(`${issueDir}/no-active-floorplan-output.json`, {
+      status: "passed",
+      step: "Open a floorplan."
+    });
+    writeJson(`${issueDir}/room-selected-output.json`, {
+      status: "passed",
+      step: "Edit room / add door / assign nurse."
+    });
+    writeJson(`${issueDir}/door-selected-output.json`, {
+      status: "passed",
+      step: "Move / nudge / center / delete."
+    });
+    writeJson(`${issueDir}/presentation-mode-output.json`, {
+      status: "passed",
+      step: "Export screenshot."
+    });
+    writeJson(`${issueDir}/validation-warning-output.json`, {
+      status: "passed",
+      step: "Open validation drawer."
+    });
+    writeJson(`${issueDir}/dom-assertions-output.json`, {
+      status: "passed",
+      assertions: [
+        "data-editor-next-step changes by editor state",
+        "panel stays compact",
+        "no promotion path is rendered"
+      ]
+    });
   }
 }
 

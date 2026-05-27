@@ -107,6 +107,8 @@ try {
     } else if (issue === "408") {
       await clickIfPresent(cdp, "Advanced");
       screenshots.push(await captureCase(cdp, "primary-nav-with-advanced.png", "primary nav with advanced", 1440, 1200));
+    } else if (issue === "409") {
+      screenshots.push(await captureCase(cdp, "editor-next-step-panel.png", "editor next step panel", 1440, 1200));
     } else if (issue !== "392") {
       await clickIfPresent(cdp, "Assignment View");
       screenshots.push(await captureCase(cdp, "editor-assignment-mode.png", "editor assignment mode", 1440, 1200));

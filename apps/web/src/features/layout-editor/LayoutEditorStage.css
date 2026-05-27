@@ -92,6 +92,47 @@
   overflow-wrap: anywhere;
 }
 
+.editor-next-step-panel {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d9e1e8;
+  border-radius: 8px;
+  display: grid;
+  gap: 6px 12px;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 8px 10px;
+}
+
+.editor-next-step-panel h3 {
+  color: #53616f;
+  font-size: 0.74rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.editor-next-step-panel p {
+  color: #111827;
+  font-size: 0.84rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.editor-next-step-panel ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-next-step-panel li {
+  color: #435362;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
 .layout-editor-stage__json-drawer {
   background: #ffffff;
   border: 1px solid #d9e1e8;
