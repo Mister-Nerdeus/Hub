@@ -1,0 +1,53 @@
+{
+  "issue": "563",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-seed-contract.mjs --stage seed-contract --allow-partial --issue 563",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/deterministic-seed-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-seed-contract.mjs --stage repeatability --allow-partial --issue 563",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/deterministic-seed-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-seed-contract.mjs --stage profile-binding --allow-partial --issue 563",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/deterministic-seed-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-seed-contract.mjs --stage no-hidden-randomness --allow-partial --issue 563",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/deterministic-seed-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-563/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

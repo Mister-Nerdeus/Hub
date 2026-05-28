@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "no-hidden-randomness",
+  "issue": "563",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "contract forbids hidden randomness",
+      "passed": true,
+      "detail": "forbidden"
+    },
+    {
+      "name": "contract forbids current-time dependency",
+      "passed": true,
+      "detail": "forbidden"
+    }
+  ]
+}

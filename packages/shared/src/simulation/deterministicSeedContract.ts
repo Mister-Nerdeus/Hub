@@ -1,0 +1,126 @@
+import type { ActivityProfileId } from "../scenarios/activityProfileContract.js";
+import {
+  CANONICAL_SCENARIO_SEED_ID
+} from "../scenarios/canonicalScenarioSeedContract.js";
+import type { RatioPresetId } from "../scenarios/ratioPresetContract.js";
+import { INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID } from "./simulationRunContract.js";
+
+export const DETERMINISTIC_DRY_RUN_SEED_SCHEMA_VERSION = "1.0.0" as const;
+
+export type DeterministicDryRunSeedContract = {
+  schemaVersion: typeof DETERMINISTIC_DRY_RUN_SEED_SCHEMA_VERSION;
+  seedId: typeof INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID;
+  seedValue: string;
+  canonicalScenarioSeedId: typeof CANONICAL_SCENARIO_SEED_ID;
+  activityProfileId: ActivityProfileId;
+  ratioPresetId: RatioPresetId;
+  reproducibilityNote: "same dry-run inputs and seed produce the same synthetic sequence";
+  hiddenRandomnessStatus: "forbidden";
+  currentTimeDependencyStatus: "forbidden";
+  syntheticDataOnly: true;
+  optimizerStatus: "not_started";
+};
+
+export const deterministicDryRunSeedContract: DeterministicDryRunSeedContract = {
+  schemaVersion: DETERMINISTIC_DRY_RUN_SEED_SCHEMA_VERSION,
+  seedId: INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID,
+  seedValue: "dry-run-seed-v0-canonical-plan-1",
+  canonicalScenarioSeedId: CANONICAL_SCENARIO_SEED_ID,
+  activityProfileId: "typical",
+  ratioPresetId: "four_to_one",
+  reproducibilityNote: "same dry-run inputs and seed produce the same synthetic sequence",
+  hiddenRandomnessStatus: "forbidden",
+  currentTimeDependencyStatus: "forbidden",
+  syntheticDataOnly: true,
+  optimizerStatus: "not_started"
+};
+
+export function validateDeterministicDryRunSeedContract(
+  value: unknown
+): DeterministicDryRunSeedContract {
+  const contract = requireRecord(value, "deterministicDryRunSeed");
+  requireExactKeys(contract, "deterministicDryRunSeed", [
+    "schemaVersion",
+    "seedId",
+    "seedValue",
+    "canonicalScenarioSeedId",
+    "activityProfileId",
+    "ratioPresetId",
+    "reproducibilityNote",
+    "hiddenRandomnessStatus",
+    "currentTimeDependencyStatus",
+    "syntheticDataOnly",
+    "optimizerStatus"
+  ]);
+  return {
+    schemaVersion: requireLiteral(
+      contract.schemaVersion,
+      DETERMINISTIC_DRY_RUN_SEED_SCHEMA_VERSION,
+      "schemaVersion"
+    ),
+    seedId: requireLiteral(contract.seedId, INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID, "seedId"),
+    seedValue: requireString(contract.seedValue, "seedValue"),
+    canonicalScenarioSeedId: requireLiteral(
+      contract.canonicalScenarioSeedId,
+      CANONICAL_SCENARIO_SEED_ID,
+      "canonicalScenarioSeedId"
+    ),
+    activityProfileId: requireEnum(contract.activityProfileId, ["typical", "busy", "slammed"], "activityProfileId"),
+    ratioPresetId: requireEnum(contract.ratioPresetId, ["four_to_one", "three_to_one"], "ratioPresetId"),
+    reproducibilityNote: requireLiteral(
+      contract.reproducibilityNote,
+      "same dry-run inputs and seed produce the same synthetic sequence",
+      "reproducibilityNote"
+    ),
+    hiddenRandomnessStatus: requireLiteral(
+      contract.hiddenRandomnessStatus,
+      "forbidden",
+      "hiddenRandomnessStatus"
+    ),
+    currentTimeDependencyStatus: requireLiteral(
+      contract.currentTimeDependencyStatus,
+      "forbidden",
+      "currentTimeDependencyStatus"
+    ),
+    syntheticDataOnly: requireBooleanLiteral(contract.syntheticDataOnly, true, "syntheticDataOnly"),
+    optimizerStatus: requireLiteral(contract.optimizerStatus, "not_started", "optimizerStatus")
+  };
+}
+
+function requireRecord(value: unknown, label: string): Record<string, unknown> {
+  if (value === null || typeof value !== "object" || Array.isArray(value)) {
+    throw new Error(`${label} must be an object`);
+  }
+  return value as Record<string, unknown>;
+}
+
+function requireExactKeys(value: Record<string, unknown>, label: string, allowedKeys: string[]): void {
+  const allowed = new Set(allowedKeys);
+  for (const key of Object.keys(value)) {
+    if (!allowed.has(key)) throw new Error(`${label}.${key} is not allowed`);
+  }
+}
+
+function requireString(value: unknown, label: string): string {
+  if (typeof value !== "string" || value.length === 0) {
+    throw new Error(`${label} must be a non-empty string`);
+  }
+  return value;
+}
+
+function requireLiteral<T extends string>(value: unknown, expected: T, label: string): T {
+  if (value !== expected) throw new Error(`${label} must be ${expected}`);
+  return expected;
+}
+
+function requireBooleanLiteral<T extends boolean>(value: unknown, expected: T, label: string): T {
+  if (value !== expected) throw new Error(`${label} must be ${String(expected)}`);
+  return expected;
+}
+
+function requireEnum<T extends string>(value: unknown, allowed: readonly T[], label: string): T {
+  if (typeof value !== "string" || !allowed.includes(value as T)) {
+    throw new Error(`${label} must be one of ${allowed.join(", ")}`);
+  }
+  return value as T;
+}
