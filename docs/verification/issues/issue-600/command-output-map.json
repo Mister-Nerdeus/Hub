@@ -1,0 +1,35 @@
+{
+  "issue": "600",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-600/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-600/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-600/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600",
+      "outputs": [
+        "docs/verification/issues/issue-600/test-output/simulation-v0-user-facing-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-600/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

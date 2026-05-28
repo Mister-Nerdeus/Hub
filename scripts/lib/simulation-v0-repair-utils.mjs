@@ -414,6 +414,9 @@ export function commandsForRepairIssue(issue) {
       "npm run check:simulation-v0-ui-shell",
       "npm run check:simulation-v0-refinement-repair",
       "node scripts/check-clean-committed-state.mjs --stage final --issue 599"
+    ],
+    "600": [
+      "node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -437,6 +440,7 @@ export function mappedRepairOutput(dir, command) {
   if (matchesGate(command, "simulation-v0-ui-shell")) return `${base}/simulation-v0-ui-shell.txt`;
   if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
   if (matchesGate(command, "clean-committed-state")) return `${base}/clean-committed-state.txt`;
+  if (matchesGate(command, "simulation-v0-user-facing-readiness")) return `${base}/simulation-v0-user-facing-readiness.txt`;
   if (matchesGate(command, "docs-contracts") || command.includes("check:docs")) return `${base}/docs-contracts.txt`;
   if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
   if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;

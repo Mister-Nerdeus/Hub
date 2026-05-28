@@ -1,0 +1,28 @@
+
+> node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "600",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "next-batch readiness contract is bounded and issue-599 gated",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issue599Go": true,
+        "missingAllowed": [],
+        "missingForbidden": [],
+        "boundaryFailures": [],
+        "docsExist": true,
+        "docHasRequiredSections": true,
+        "statusesSafe": true
+      }
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.

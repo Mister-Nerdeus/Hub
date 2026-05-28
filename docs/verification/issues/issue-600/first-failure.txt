@@ -1,0 +1,3 @@
+After Issue 599 reissued a clean repair GO, the repo still lacked a machine-readable contract bounding what Issues 601-610 may change. Without that contract, expanded user-facing refinement could drift into optimizer behavior, assignment advice, full-shift clinical simulation, staffing certification, patient outcomes, PHI, or EHR integration.
+
+Issue 600 adds the bounded readiness contract and a gate that requires Issue 599 GO, required allowed scope, required forbidden scope, and continuing boundary statuses.
