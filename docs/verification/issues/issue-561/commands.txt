@@ -1,0 +1,14 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:scenario-seed-foundation
+npm run check:ratio-preset-contracts
+npm run check:scenario-capacity-integration
+npm run check:room-load-starter-contract
+npm run check:activity-profile-contracts
+npm run check:manual-assignment-scenario-bridge
+npm run check:scenario-comparison-shell
+node scripts/check-deterministic-dry-run-foundation.mjs --stage manifest --allow-partial --issue 561
+node scripts/check-deterministic-dry-run-foundation.mjs --stage scenario-foundation-dependencies --allow-partial --issue 561
+node scripts/check-simulation-v0-go-no-go.mjs --stage no-optimizer --allow-partial --issue 561
+node scripts/check-no-phi-fields.mjs

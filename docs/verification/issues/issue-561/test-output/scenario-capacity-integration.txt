@@ -1,0 +1,221 @@
+
+> npm run check:scenario-capacity-integration
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:scenario-capacity-integration
+> npm --workspace packages/shared run build && node scripts/check-scenario-capacity-integration.mjs --stage final --issue 560
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario capacity uses canonical report",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "source": "semantic_selectors",
+        "physicalRoomCount": 18,
+        "bedPositionCount": 22,
+        "splitBayCount": 4,
+        "assignmentEligibleCount": 22,
+        "ratioEligibleCount": 22,
+        "excludedCount": 11,
+        "excludedByType": {
+          "storage": 1,
+          "supportArea": 3,
+          "hallway": 7,
+          "solidWall": 0
+        },
+        "assignmentEligibleBedPositionIds": [
+          "room-level-1-trauma",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "ratioEligibleBedPositionIds": [
+          "room-level-1-trauma",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "excludedObjectIds": [
+          "room-14",
+          "station-left",
+          "station-right",
+          "zone-provider-pharmacy",
+          "hallway-main",
+          "hallway-ems-entry",
+          "hallway-top-horizontal",
+          "hallway-left-vertical",
+          "hallway-bottom-horizontal",
+          "hallway-right-vertical",
+          "hallway-right-upper"
+        ],
+        "rawFixtureRoomIterationUsed": false,
+        "usesCanonicalCapacityReport": true,
+        "usesSplitBayFixtureBridge": true
+      }
+    },
+    {
+      "name": "capacity counts are selector-driven",
+      "passed": true,
+      "detail": "semantic_selectors"
+    },
+    {
+      "name": "split bays flow from bridge",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "bed positions differ from physical room count",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "source": "semantic_selectors",
+        "physicalRoomCount": 18,
+        "bedPositionCount": 22,
+        "splitBayCount": 4,
+        "assignmentEligibleCount": 22,
+        "ratioEligibleCount": 22,
+        "excludedCount": 11,
+        "excludedByType": {
+          "storage": 1,
+          "supportArea": 3,
+          "hallway": 7,
+          "solidWall": 0
+        },
+        "assignmentEligibleBedPositionIds": [
+          "room-level-1-trauma",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "ratioEligibleBedPositionIds": [
+          "room-level-1-trauma",
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "excludedObjectIds": [
+          "room-14",
+          "station-left",
+          "station-right",
+          "zone-provider-pharmacy",
+          "hallway-main",
+          "hallway-ems-entry",
+          "hallway-top-horizontal",
+          "hallway-left-vertical",
+          "hallway-bottom-horizontal",
+          "hallway-right-vertical",
+          "hallway-right-upper"
+        ],
+        "rawFixtureRoomIterationUsed": false,
+        "usesCanonicalCapacityReport": true,
+        "usesSplitBayFixtureBridge": true
+      }
+    },
+    {
+      "name": "storage is excluded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "support is excluded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "hallway is excluded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "raw room iteration flag is false",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

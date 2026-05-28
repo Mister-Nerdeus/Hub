@@ -1,0 +1,196 @@
+
+> npm run check:activity-profile-contracts
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:activity-profile-contracts
+> npm --workspace packages/shared run build && node scripts/check-activity-profile-contracts.mjs --stage final --issue 560
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "Typical profile validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "typical",
+        "label": "Typical",
+        "occupancyPercent": 65,
+        "acuityDistributionPlaceholder": {
+          "low": 35,
+          "medium": 50,
+          "high": 15
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 45,
+          "medium": 45,
+          "high": 10
+        },
+        "taskIntensityPlaceholder": "medium",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "Busy profile validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "busy",
+        "label": "Busy",
+        "occupancyPercent": 85,
+        "acuityDistributionPlaceholder": {
+          "low": 25,
+          "medium": 55,
+          "high": 20
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 30,
+          "medium": 50,
+          "high": 20
+        },
+        "taskIntensityPlaceholder": "high",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "Slammed profile validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "slammed",
+        "label": "Slammed",
+        "occupancyPercent": 100,
+        "acuityDistributionPlaceholder": {
+          "low": 15,
+          "medium": 55,
+          "high": 30
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 20,
+          "medium": 45,
+          "high": 35
+        },
+        "taskIntensityPlaceholder": "high",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "typical bounded occupancy",
+      "passed": true,
+      "detail": 65
+    },
+    {
+      "name": "busy bounded occupancy",
+      "passed": true,
+      "detail": 85
+    },
+    {
+      "name": "slammed bounded occupancy",
+      "passed": true,
+      "detail": 100
+    },
+    {
+      "name": "typical has no outcome or compliance claim",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "typical",
+        "label": "Typical",
+        "occupancyPercent": 65,
+        "acuityDistributionPlaceholder": {
+          "low": 35,
+          "medium": 50,
+          "high": 15
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 45,
+          "medium": 45,
+          "high": 10
+        },
+        "taskIntensityPlaceholder": "medium",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "busy has no outcome or compliance claim",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "busy",
+        "label": "Busy",
+        "occupancyPercent": 85,
+        "acuityDistributionPlaceholder": {
+          "low": 25,
+          "medium": 55,
+          "high": 20
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 30,
+          "medium": 50,
+          "high": 20
+        },
+        "taskIntensityPlaceholder": "high",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "slammed has no outcome or compliance claim",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "slammed",
+        "label": "Slammed",
+        "occupancyPercent": 100,
+        "acuityDistributionPlaceholder": {
+          "low": 15,
+          "medium": 55,
+          "high": 30
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 20,
+          "medium": 45,
+          "high": 35
+        },
+        "taskIntensityPlaceholder": "high",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    }
+  ]
+}

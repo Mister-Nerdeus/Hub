@@ -1,0 +1,89 @@
+{
+  "issue": "561",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-seed-foundation",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "npm run check:ratio-preset-contracts",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-capacity-integration",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-load-starter-contract",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:activity-profile-contracts",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "npm run check:manual-assignment-scenario-bridge",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-comparison-shell",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-dry-run-foundation.mjs --stage manifest --allow-partial --issue 561",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/deterministic-dry-run-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-deterministic-dry-run-foundation.mjs --stage scenario-foundation-dependencies --allow-partial --issue 561",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/deterministic-dry-run-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-go-no-go.mjs --stage no-optimizer --allow-partial --issue 561",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/simulation-v0-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-561/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
