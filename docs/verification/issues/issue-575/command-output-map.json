@@ -1,0 +1,53 @@
+{
+  "issue": "575",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-aware-queue-placeholder.mjs --stage four-to-one-queue --allow-partial --issue 575",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/ratio-aware-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-aware-queue-placeholder.mjs --stage three-to-one-queue --allow-partial --issue 575",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/ratio-aware-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-aware-queue-placeholder.mjs --stage ratio-aware-pressure --allow-partial --issue 575",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/ratio-aware-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-aware-queue-placeholder.mjs --stage no-outcome-claims --allow-partial --issue 575",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/ratio-aware-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-575/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

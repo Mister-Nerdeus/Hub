@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "no-outcome-claims",
+  "issue": "575",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "no outcome claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no safety or compliance claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no recommendations or optimizer",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

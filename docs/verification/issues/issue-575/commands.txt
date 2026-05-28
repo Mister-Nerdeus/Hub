@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-ratio-aware-queue-placeholder.mjs --stage four-to-one-queue --allow-partial --issue 575
+node scripts/check-ratio-aware-queue-placeholder.mjs --stage three-to-one-queue --allow-partial --issue 575
+node scripts/check-ratio-aware-queue-placeholder.mjs --stage ratio-aware-pressure --allow-partial --issue 575
+node scripts/check-ratio-aware-queue-placeholder.mjs --stage no-outcome-claims --allow-partial --issue 575
+node scripts/check-no-phi-fields.mjs
