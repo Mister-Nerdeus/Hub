@@ -82,7 +82,9 @@ function run(currentStage) {
       "splitBayFixtureBridgeStatus",
       "capacityCountReportStatus",
       "storageRawFieldGuardStatus",
-      "editorPanThresholdStatus"
+      "editorPanThresholdStatus",
+      "manualReviewPacketStatus",
+      "canonicalHardeningGateStatus"
     ];
     addCheck(checks, "hardening statuses are ready or passed", required.every((key) => ["registered", "present", "passed", "overlay_ready"].includes(manifest[key])), Object.fromEntries(required.map((key) => [key, manifest[key]])));
   }

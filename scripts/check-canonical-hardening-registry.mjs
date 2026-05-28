@@ -21,6 +21,8 @@ const checks = [];
 const dir = issueDir(issue);
 const packageJson = readJson("package.json");
 const verifyLocal = readText("scripts/verify-local.mjs");
+const registryPath = "docs/verification/canonical-hardening-gate-registry.json";
+const registry = readJson(registryPath);
 const requiredScripts = [
   "check:reference-image-asset",
   "check:image-backed-layout-parity",
@@ -38,11 +40,18 @@ function run(currentStage) {
     addCheck(checks, "hardening gates are first-class package scripts", requiredScripts.every((script) => typeof packageJson.scripts[script] === "string"), summary);
   }
   if (currentStage === "canonical-registry") {
+    const registryScripts = new Set(registry.gates.map((gate) => gate.packageScript));
+    const registryFiles = registry.gates.map((gate) => gate.script);
     writeJson(`${dir}/canonical-hardening-registry-output.json`, {
       status: "passed",
-      requiredScripts
+      registryPath,
+      requiredScripts,
+      registryGateCount: registry.gates.length,
+      registryFiles
     });
-    addCheck(checks, "canonical hardening registry script covers required gates", requiredScripts.length === 7, requiredScripts);
+    addCheck(checks, "canonical hardening registry has expected batch", registry.batch === "541-550", registry.batch);
+    addCheck(checks, "canonical hardening registry covers required gates", requiredScripts.every((script) => registryScripts.has(script)), { requiredScripts, registryScripts: [...registryScripts] });
+    addCheck(checks, "canonical hardening registry references gate files", registryFiles.every((file) => file.startsWith("scripts/check-") && file.endsWith(".mjs")), registryFiles);
   }
   if (currentStage === "verify-local") {
     const summary = Object.fromEntries(requiredScripts.map((script) => [`npm run ${script}`, verifyLocal.includes(`npm run ${script}`)]));

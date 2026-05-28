@@ -1,0 +1,42 @@
+{
+  "registryVersion": "1.0.0",
+  "batch": "541-550",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "gates": [
+    {
+      "id": "reference-image-asset",
+      "packageScript": "check:reference-image-asset",
+      "script": "scripts/check-reference-image-asset.mjs"
+    },
+    {
+      "id": "image-backed-layout-parity",
+      "packageScript": "check:image-backed-layout-parity",
+      "script": "scripts/check-image-backed-layout-parity.mjs"
+    },
+    {
+      "id": "split-bay-fixture-bridge",
+      "packageScript": "check:split-bay-fixture-bridge",
+      "script": "scripts/check-split-bay-fixture-bridge.mjs"
+    },
+    {
+      "id": "capacity-count-report",
+      "packageScript": "check:capacity-count-report",
+      "script": "scripts/check-capacity-count-report.mjs"
+    },
+    {
+      "id": "storage-raw-field-guard",
+      "packageScript": "check:storage-raw-field-guard",
+      "script": "scripts/check-storage-raw-field-guard.mjs"
+    },
+    {
+      "id": "editor-pan-threshold",
+      "packageScript": "check:editor-pan-threshold",
+      "script": "scripts/check-editor-pan-threshold.mjs"
+    },
+    {
+      "id": "canonical-scenario-preflight",
+      "packageScript": "check:canonical-scenario-preflight",
+      "script": "scripts/check-canonical-scenario-preflight.mjs"
+    }
+  ]
+}

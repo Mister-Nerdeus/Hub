@@ -1,3 +1,11 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:canonical-scenario-preflight
+> npm --workspace packages/shared run build && node scripts/check-canonical-scenario-preflight.mjs --stage final --issue 550
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
 {
   "status": "passed",
   "stage": "final",

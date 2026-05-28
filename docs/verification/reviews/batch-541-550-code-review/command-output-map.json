@@ -1,0 +1,14 @@
+{
+  "npm --workspace packages/shared test": "test-output/shared.txt",
+  "npm --workspace apps/web test": "test-output/web.txt",
+  "npm --workspace apps/web run build": "test-output/web-build.txt",
+  "npm run check:split-bay-fixture-bridge": "test-output/split-bay-fixture-bridge.txt",
+  "npm run check:canonical-scenario-preflight": "test-output/canonical-scenario-preflight.txt",
+  "node scripts/check-canonical-hardening-registry.mjs --stage final --issue 550": "test-output/canonical-hardening-registry.txt",
+  "node scripts/check-no-phi-fields.mjs": "test-output/no-phi.txt",
+  "docker compose config": "test-output/docker-compose-config.txt",
+  "docker compose -f docker-compose.production.yml config": "test-output/docker-compose-production-config.txt",
+  "docker compose build web": "test-output/docker-compose-build-web.txt",
+  "docker compose -f docker-compose.production.yml build web": "test-output/docker-compose-production-build-web.txt",
+  "git diff --check -- packages/shared/src/floorplans/splitBayFixtureBridge.ts packages/shared/tests/split-bay-fixture-bridge.test.mjs scripts/check-canonical-hardening-registry.mjs scripts/check-canonical-scenario-preflight.mjs docs/verification/canonical-hardening-gate-registry.json docs/verification/reviews/batch-541-550-code-review docs/verification/issues/issue-550/canonical-hardening-registry-output.json docs/verification/issues/issue-550/canonical-scenario-preflight-output.json docs/verification/issues/issue-550/closeout.md": "test-output/git-diff-check.txt"
+}

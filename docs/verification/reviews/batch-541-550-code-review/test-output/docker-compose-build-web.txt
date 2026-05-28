@@ -1,0 +1,86 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 422B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
+#5 DONE 0.0s
+
+#6 [ 1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 3.19MB 1.9s done
+#7 DONE 1.9s
+
+#8 [ 2/10] WORKDIR /repo
+#8 CACHED
+
+#9 [ 3/10] COPY package.json package-lock.json ./
+#9 DONE 0.1s
+
+#10 [ 4/10] COPY apps/web/package.json apps/web/package.json
+#10 DONE 0.1s
+
+#11 [ 5/10] COPY packages/shared/package.json packages/shared/package.json
+#11 DONE 0.1s
+
+#12 [ 6/10] RUN npm ci
+#12 2.883 
+#12 2.883 added 27 packages, and audited 30 packages in 2s
+#12 2.883 
+#12 2.883 9 packages are looking for funding
+#12 2.883   run `npm fund` for details
+#12 2.884 
+#12 2.884 found 0 vulnerabilities
+#12 2.886 npm notice
+#12 2.886 npm notice New major version of npm available! 10.9.8 -> 11.16.0
+#12 2.886 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+#12 2.886 npm notice To update run: npm install -g npm@11.16.0
+#12 2.886 npm notice
+#12 DONE 3.3s
+
+#13 [ 7/10] COPY tsconfig.base.json ./
+#13 DONE 0.1s
+
+#14 [ 8/10] COPY apps/web apps/web
+#14 DONE 0.2s
+
+#15 [ 9/10] COPY packages/shared packages/shared
+#15 DONE 0.2s
+
+#16 [10/10] WORKDIR /repo/apps/web
+#16 DONE 0.1s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 4.3s done
+#17 exporting manifest sha256:3883eefc50b78c99a0083358d6af37160e9a03bb27fbf60a172f7c177881c844 0.0s done
+#17 exporting config sha256:77fbe5fbbe75f4f0e723b4da8bbbe81a3082211014e8e3e541c1ef9cf6456800 0.0s done
+#17 exporting attestation manifest sha256:e30b58477bdf5147f278e627621807c671c1fb35c0c9b85e2cc272e8a867d06a 0.0s done
+#17 exporting manifest list sha256:dfbfb02dda7a34711d34742c6d051c02e12f2083c748680bff6b824bad855b5b
+#17 exporting manifest list sha256:dfbfb02dda7a34711d34742c6d051c02e12f2083c748680bff6b824bad855b5b 0.0s done
+#17 naming to docker.io/library/hub-web:latest done
+#17 unpacking to docker.io/library/hub-web:latest
+#17 unpacking to docker.io/library/hub-web:latest 1.4s done
+#17 DONE 5.9s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image hub-web Built 

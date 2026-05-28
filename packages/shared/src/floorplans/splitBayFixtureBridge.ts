@@ -16,19 +16,10 @@ export type SplitBayFixtureOccupancyBridge = {
   ratioEligible: boolean;
 };
 
-const ORDINARY_ROOM_BRIDGE = {
-  occupancyType: "room",
-  splitBayId: null,
-  physicalRoomCountContribution: 1,
-  bedCountContribution: 1,
-  assignmentEligible: true,
-  ratioEligible: true
-} as const;
-
 export function getSplitBayFixtureOccupancyBridge(objectId: string): SplitBayFixtureOccupancyBridge {
   const entry = canonicalRoomBedBayEntry(objectId);
   if (entry == null) {
-    return { objectId, ...ORDINARY_ROOM_BRIDGE };
+    throw new Error(`unsupported canonical occupancy object: ${objectId}`);
   }
 
   const splitBay = splitBayForRoomId(objectId);

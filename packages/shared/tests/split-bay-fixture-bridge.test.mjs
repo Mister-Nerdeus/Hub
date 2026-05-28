@@ -80,6 +80,13 @@ test("storage and support areas are explicit non-patient selectors", () => {
   });
 });
 
+test("unknown object IDs fail closed instead of defaulting to patient-care rooms", () => {
+  assert.throws(
+    () => getSplitBayFixtureOccupancyBridge("future-storage-like-object"),
+    /unsupported canonical occupancy object/
+  );
+});
+
 test("count selector evidence separates bed and physical-room contributions", () => {
   const paired = ["room-02", "room-03"];
   const bedCount = paired.reduce((sum, roomId) => sum + getBedCountContributionForRoomId(roomId), 0);
