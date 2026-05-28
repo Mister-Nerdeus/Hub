@@ -41,3 +41,36 @@ export type ManualAssignmentScenarioBridgeSummary = {
   syntheticDataOnly: true;
 };
 
+export function buildManualAssignmentScenarioBridgeInput(
+  capacity: ScenarioCapacityIntegration,
+  ratioPreset: RatioPresetContract
+): ManualAssignmentScenarioBridgeInput {
+  const groupSize = ratioPreset.patientsPerNurse;
+  const labels = ["A", "B", "C", "D", "E", "F"];
+  const assignmentGroups = labels
+    .map((label, index) => {
+      const assignedBedPositionIds = capacity.assignmentEligibleBedPositionIds.slice(
+        index * groupSize,
+        index * groupSize + groupSize
+      );
+      return {
+        assignmentGroupId: `synthetic-group-${label.toLowerCase()}`,
+        syntheticNurseLabel: `Synthetic Nurse ${label}`,
+        assignedBedPositionIds,
+        syntheticDataOnly: true as const
+      };
+    })
+    .filter((group) => group.assignedBedPositionIds.length > 0);
+
+  return {
+    schemaVersion: MANUAL_ASSIGNMENT_SCENARIO_BRIDGE_SCHEMA_VERSION,
+    bridgeId: "manual-assignment-scenario-bridge-canonical-plan-1",
+    assignmentGroups,
+    ratioPreset,
+    capacity,
+    recommendationStatus: "not_started",
+    optimizerStatus: "not_started",
+    fullShiftSimulationStatus: "not_started",
+    syntheticDataOnly: true
+  };
+}

@@ -32,6 +32,24 @@ async function runStage(stage) {
     const validated = shared.validateNurseRuntimeStateSet(states, { capacity });
     context.add("runtime state set validates", validated.states.length > 0, validated.states.length);
     writeJson(`${context.dir}/nurse-runtime-state-output.json`, { status: "passed", states: validated });
+    let rejected = false;
+    try {
+      shared.validateNurseRuntimeStateSet(
+        {
+          ...states,
+          states: [
+            {
+              ...states.states[0],
+              assignedBedPositionIds: [capacity.excludedObjectIds[0]]
+            }
+          ]
+        },
+        { capacity }
+      );
+    } catch {
+      rejected = true;
+    }
+    writeJson(`${context.dir}/excluded-space-negative-output.json`, { status: "passed", rejected });
   }
   if (stage === "manual-assignment-input") {
     context.add("runtime state uses manual assignment bridge", states.manualAssignmentBridgeId === bridge.bridgeId, states.manualAssignmentBridgeId);

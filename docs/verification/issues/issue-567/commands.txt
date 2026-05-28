@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-nurse-runtime-state-contract.mjs --stage runtime-state-contract --allow-partial --issue 567
+node scripts/check-nurse-runtime-state-contract.mjs --stage manual-assignment-input --allow-partial --issue 567
+node scripts/check-nurse-runtime-state-contract.mjs --stage synthetic-nurse-labels --allow-partial --issue 567
+node scripts/check-nurse-runtime-state-contract.mjs --stage no-recommendations --allow-partial --issue 567
+node scripts/check-no-phi-fields.mjs

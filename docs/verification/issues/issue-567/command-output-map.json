@@ -1,0 +1,53 @@
+{
+  "issue": "567",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-nurse-runtime-state-contract.mjs --stage runtime-state-contract --allow-partial --issue 567",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/nurse-runtime-state-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-nurse-runtime-state-contract.mjs --stage manual-assignment-input --allow-partial --issue 567",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/nurse-runtime-state-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-nurse-runtime-state-contract.mjs --stage synthetic-nurse-labels --allow-partial --issue 567",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/nurse-runtime-state-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-nurse-runtime-state-contract.mjs --stage no-recommendations --allow-partial --issue 567",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/nurse-runtime-state-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-567/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
