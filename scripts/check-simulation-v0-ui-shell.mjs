@@ -71,8 +71,8 @@ async function renderSimulationRoute() {
   const screenshotPath = join(abs(`${context.dir}/screenshots`), "simulation-v0-internal-dry-run-panel.png");
   const result = await withBrowserRenderedApp(
     {
-      port: 7100 + Number(context.issue),
-      chromePort: 10100 + Number(context.issue),
+      port: 18000 + Number(context.issue),
+      chromePort: 19000 + Number(context.issue),
       width: 1440,
       height: 1000,
       initScript: 'sessionStorage.setItem("nerdeus.demoPin.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));'

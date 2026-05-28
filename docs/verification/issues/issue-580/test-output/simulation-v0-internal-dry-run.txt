@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation v0 manifest exists",
+      "passed": true,
+      "detail": {
+        "manifestVersion": "1.0.0",
+        "batch": "571-580",
+        "lastUpdatedIssue": "580",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "scenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "neutralWorkloadSeedStatus": "passed",
+        "ratioRuntimeSeedStatus": "passed",
+        "activityProfileOccupancySelectionStatus": "passed",
+        "dryRunExecutorStatus": "passed",
+        "nurseTaskProcessingStatus": "passed",
+        "ratioAwareQueueStatus": "passed",
+        "dryRunEventArtifactStatus": "passed",
+        "ratioComparisonArtifactStatus": "passed",
+        "simulationV0UiStatus": "passed",
+        "reproducibilityProofStatus": "passed",
+        "simulationV0GoNoGoStatus": "go_for_expanded_simulation_v0_refinement",
+        "usesCanonicalScenarioSeed": true,
+        "usesSelectorDrivenCapacity": true,
+        "usesNeutralWorkloadSeed": true,
+        "usesRatioSpecificRuntimeSeed": true,
+        "usesActivityProfileForOccupancy": true,
+        "usesStorageOrSupportForTasks": false,
+        "usesRawRoomCounts": false,
+        "fullFutureSimulationEventModelStatus": "dormant",
+        "simulationV0Status": "internal_dry_run_only",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "patientOutcomePredictionStatus": "not_started",
+        "manualApprovalStatus": "missing",
+        "promotionStatus": "blocked",
+        "noPhiStatus": "passed",
+        "goNoGoStatus": "go_for_expanded_simulation_v0_refinement"
+      }
+    },
+    {
+      "name": "all implementation statuses passed",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "executor uses canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "executor uses canonical seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "comparison uses shared workload",
+      "passed": true,
+      "detail": {
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "activityProfileId": "typical",
+        "generatedTaskCount": 30,
+        "taskInstanceIds": [
+          "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-24-dry-run-room-check-01",
+          "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-06-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-12-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-17-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-room-check-01",
+          "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+          "dry-run-task-room-11-dry-run-room-check-01",
+          "dry-run-task-room-10-dry-run-room-check-01",
+          "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-room-check-01",
+          "dry-run-task-room-02-dry-run-room-check-01",
+          "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-room-check-01",
+          "dry-run-task-room-22-dry-run-room-check-01"
+        ],
+        "sameWorkloadForRatios": true
+      }
+    },
+    {
+      "name": "run status is internal dry-run only",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "comparison is internal only",
+      "passed": true,
+      "detail": "internal_dry_run_only"
+    },
+    {
+      "name": "future full event contract is dormant",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no assignment recommendations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no clinical/staffing/outcome claims",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

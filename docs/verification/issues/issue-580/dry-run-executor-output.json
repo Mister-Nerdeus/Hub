@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "executor output validates",
+      "passed": true,
+      "detail": "1.0.0"
+    },
+    {
+      "name": "executor uses neutral workload seed",
+      "passed": true,
+      "detail": "neutral-workload-seed-canonical-plan-1"
+    },
+    {
+      "name": "one internal dry-run can execute",
+      "passed": true,
+      "detail": 106
+    },
+    {
+      "name": "generated task count is non-zero",
+      "passed": true,
+      "detail": {
+        "generatedTaskCount": 30,
+        "startedPlaceholderCount": 30,
+        "completedPlaceholderCount": 30,
+        "queuedPlaceholderCount": 30,
+        "delayedPlaceholderCount": 8,
+        "unassignedPlaceholderCount": 0
+      }
+    },
+    {
+      "name": "timeline repeats for same inputs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full event contract remains dormant",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "no clinical safety claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no staffing compliance claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no patient outcome prediction claim",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

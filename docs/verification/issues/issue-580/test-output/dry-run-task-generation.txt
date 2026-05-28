@@ -1,0 +1,37 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:dry-run-task-generation
+> npm --workspace packages/shared run build && node scripts/check-dry-run-task-generation.mjs --stage final --issue 570
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "room-load input is synthetic",
+      "passed": true,
+      "detail": "synthetic planning input"
+    },
+    {
+      "name": "task instances validate",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "excluded spaces are rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "task generation repeats with same seed",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

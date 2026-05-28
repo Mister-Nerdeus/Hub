@@ -1,0 +1,82 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:scenario-comparison-shell
+> npm --workspace packages/shared run build && node scripts/check-scenario-comparison-shell.mjs --stage final --issue 560
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario shell marker exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "canonical floorplan renders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "capacity count summary renders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio presets render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "activity profiles render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manual bridge status renders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "simulation output placeholder copy exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "optimizer placeholder copy exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "outcome placeholder table is absent from foundation shell",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "view model does not expose placeholder outcome rows",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "view model uses scenario capacity integration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "view model avoids raw room iteration",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario shell visible copy has no access credential or forbidden configured wording",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

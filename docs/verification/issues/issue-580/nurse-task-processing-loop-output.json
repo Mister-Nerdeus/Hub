@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "assigned nurse receives task placeholders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "busy nurse queues placeholders",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "manual assignment bridge is the only assignment source",
+      "passed": true,
+      "detail": "manual_assignment_bridge_only"
+    },
+    {
+      "name": "uncovered bed produces unassigned placeholder",
+      "passed": true,
+      "detail": [
+        "dry-run-task-room-06-dry-run-documentation-placeholder-02"
+      ]
+    },
+    {
+      "name": "excluded space negative fixture rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no reassignment search",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no recommendation output",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no optimizer output",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:simulation-run-contract
+> npm --workspace packages/shared run build && node scripts/check-simulation-run-contract.mjs --stage final --issue 570
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "internal dry-run simulation run contract validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract references canonical scenario seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "contract is synthetic only",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "contract is internal dry-run only",
+      "passed": true,
+      "detail": "internal_dry_run_shell_only"
+    },
+    {
+      "name": "optimizer remains not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

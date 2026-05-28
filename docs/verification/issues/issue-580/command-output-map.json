@@ -1,0 +1,209 @@
+{
+  "issue": "580",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-seed-foundation",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "npm run check:ratio-preset-contracts",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-capacity-integration",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-load-starter-contract",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:activity-profile-contracts",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "npm run check:manual-assignment-scenario-bridge",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "npm run check:scenario-comparison-shell",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "npm run check:deterministic-dry-run-foundation",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/deterministic-dry-run-foundation.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-run-contract",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/simulation-run-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:deterministic-seed-contract",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/deterministic-seed-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dry-run-timestep-shell",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-timestep-shell.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dry-run-task-template-contract",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-task-template-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dry-run-task-generation",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-task-generation.txt"
+      ]
+    },
+    {
+      "command": "npm run check:nurse-runtime-state-contract",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/nurse-runtime-state-contract.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dry-run-queue-placeholder",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dry-run-comparison-proof",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-internal-dry-run.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/simulation-v0-internal-dry-run.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-neutral-workload-seed.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/neutral-workload-seed.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-occupancy-selection.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/activity-profile-occupancy-selection.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-nurse-task-processing-loop.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/nurse-task-processing-loop.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-aware-queue-placeholder.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/ratio-aware-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-event-artifacts.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/dry-run-event-artifacts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-comparison-artifact.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/simulation-v0-comparison-artifact.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ui-shell.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/simulation-v0-ui-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-reproducibility.mjs --stage final --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/simulation-v0-reproducibility.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/visible-access-copy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 580",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-580/test-output/docker-compose-production-config.txt"
+      ]
+    }
+  ]
+}

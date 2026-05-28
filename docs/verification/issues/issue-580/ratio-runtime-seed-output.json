@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "four": {
+    "schemaVersion": "1.0.0",
+    "seedId": "runtime-seed-canonical-plan-1-four-to-one",
+    "seedValue": "simulation-v0-runtime-canonical-plan-1-four-to-one",
+    "namespace": "ratio_runtime",
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "activityProfileId": "typical",
+    "ratioPresetId": "four_to_one",
+    "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+    "hiddenRandomnessStatus": "forbidden",
+    "currentTimeDependencyStatus": "forbidden",
+    "syntheticDataOnly": true,
+    "optimizerStatus": "not_started"
+  },
+  "three": {
+    "schemaVersion": "1.0.0",
+    "seedId": "runtime-seed-canonical-plan-1-three-to-one",
+    "seedValue": "simulation-v0-runtime-canonical-plan-1-three-to-one",
+    "namespace": "ratio_runtime",
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "activityProfileId": "typical",
+    "ratioPresetId": "three_to_one",
+    "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+    "hiddenRandomnessStatus": "forbidden",
+    "currentTimeDependencyStatus": "forbidden",
+    "syntheticDataOnly": true,
+    "optimizerStatus": "not_started"
+  }
+}

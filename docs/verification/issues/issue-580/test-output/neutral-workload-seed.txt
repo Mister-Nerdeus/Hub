@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "neutral workload seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "neutral-workload-seed-canonical-plan-1",
+        "seedValue": "simulation-v0-neutral-workload-canonical-plan-1",
+        "namespace": "workload",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetBinding": "ratio_neutral",
+        "reproducibilityNote": "same workload seed produces the same synthetic workload across ratio presets",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "workload seed is ratio-neutral",
+      "passed": true,
+      "detail": "ratio_neutral"
+    },
+    {
+      "name": "4:1 runtime seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "runtime-seed-canonical-plan-1-four-to-one",
+        "seedValue": "simulation-v0-runtime-canonical-plan-1-four-to-one",
+        "namespace": "ratio_runtime",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetId": "four_to_one",
+        "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "3:1 runtime seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "runtime-seed-canonical-plan-1-three-to-one",
+        "seedValue": "simulation-v0-runtime-canonical-plan-1-three-to-one",
+        "namespace": "ratio_runtime",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetId": "three_to_one",
+        "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "runtime seeds are distinct",
+      "passed": true,
+      "detail": {
+        "four": "runtime-seed-canonical-plan-1-four-to-one",
+        "three": "runtime-seed-canonical-plan-1-three-to-one"
+      }
+    },
+    {
+      "name": "same neutral workload seed repeats task generation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "neutral workload seed drives shared workload",
+      "passed": true,
+      "detail": "neutral-workload-seed-canonical-plan-1"
+    },
+    {
+      "name": "ratio runtime sequences can differ deterministically",
+      "passed": true,
+      "detail": {
+        "fourRuntime": [
+          878405,
+          951401,
+          378425,
+          370882,
+          151543,
+          890038
+        ],
+        "threeRuntime": [
+          22525,
+          862421,
+          876326,
+          62597,
+          626525,
+          153078
+        ]
+      }
+    },
+    {
+      "name": "simulation source avoids Math.random and Date.now",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

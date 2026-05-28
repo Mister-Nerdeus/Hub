@@ -1,0 +1,37 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:nurse-runtime-state-contract
+> npm --workspace packages/shared run build && node scripts/check-nurse-runtime-state-contract.mjs --stage final --issue 570
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "runtime state set validates",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "name": "runtime state uses manual assignment bridge",
+      "passed": true,
+      "detail": "manual-assignment-scenario-bridge-canonical-plan-1"
+    },
+    {
+      "name": "nurse labels are synthetic",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "recommendations remain not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

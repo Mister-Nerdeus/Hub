@@ -1,0 +1,82 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:deterministic-seed-contract
+> npm --workspace packages/shared run build && node scripts/check-deterministic-seed-contract.mjs --stage final --issue 570
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "deterministic seed contract validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same seed repeats sequence",
+      "passed": true,
+      "detail": {
+        "first": [
+          938134,
+          463802,
+          202213,
+          729531,
+          491726
+        ],
+        "second": [
+          938134,
+          463802,
+          202213,
+          729531,
+          491726
+        ]
+      }
+    },
+    {
+      "name": "different seed changes sequence",
+      "passed": true,
+      "detail": {
+        "first": [
+          938134,
+          463802,
+          202213,
+          729531,
+          491726
+        ],
+        "different": [
+          509562,
+          327367,
+          329687,
+          780810,
+          129404
+        ]
+      }
+    },
+    {
+      "name": "seed binds activity profile",
+      "passed": true,
+      "detail": "typical"
+    },
+    {
+      "name": "seed binds ratio preset",
+      "passed": true,
+      "detail": "four_to_one"
+    },
+    {
+      "name": "contract forbids hidden randomness",
+      "passed": true,
+      "detail": "forbidden"
+    },
+    {
+      "name": "contract forbids current-time dependency",
+      "passed": true,
+      "detail": "forbidden"
+    }
+  ]
+}

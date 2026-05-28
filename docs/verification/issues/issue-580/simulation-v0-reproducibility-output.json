@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "repeated runs match",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "proofId": "simulation-v0-dry-run-reproducibility-proof",
+        "firstArtifactHash": "1aaf94db",
+        "secondArtifactHash": "1aaf94db",
+        "repeatedRunMatches": true,
+        "taskTimelineEqual": true,
+        "queuePlaceholderEqual": true,
+        "changedSeedArtifactHash": "4472873a",
+        "changedSeedChangesHash": true,
+        "nondeterministicMetadataExcludedFromHash": true,
+        "hiddenTimeInputStatus": "forbidden",
+        "hiddenRandomnessStatus": "forbidden",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "timeline equals",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "queue placeholders equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "artifact hash repeats",
+      "passed": true,
+      "detail": {
+        "first": "1aaf94db",
+        "second": "1aaf94db"
+      }
+    },
+    {
+      "name": "nondeterministic metadata excluded from hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "changed seed changes hash",
+      "passed": true,
+      "detail": {
+        "first": "1aaf94db",
+        "changed": "4472873a"
+      }
+    },
+    {
+      "name": "simulation source avoids Math.random and Date.now",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "proof forbids hidden time and randomness",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "proofId": "simulation-v0-dry-run-reproducibility-proof",
+        "firstArtifactHash": "1aaf94db",
+        "secondArtifactHash": "1aaf94db",
+        "repeatedRunMatches": true,
+        "taskTimelineEqual": true,
+        "queuePlaceholderEqual": true,
+        "changedSeedArtifactHash": "4472873a",
+        "changedSeedChangesHash": true,
+        "nondeterministicMetadataExcludedFromHash": true,
+        "hiddenTimeInputStatus": "forbidden",
+        "hiddenRandomnessStatus": "forbidden",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "syntheticDataOnly": true
+      }
+    }
+  ]
+}

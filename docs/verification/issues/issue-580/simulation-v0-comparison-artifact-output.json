@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "comparison uses neutral workload seed",
+      "passed": true,
+      "detail": {
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "activityProfileId": "typical",
+        "generatedTaskCount": 30,
+        "taskInstanceIds": [
+          "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-24-dry-run-room-check-01",
+          "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-06-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-12-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-17-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-room-check-01",
+          "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+          "dry-run-task-room-11-dry-run-room-check-01",
+          "dry-run-task-room-10-dry-run-room-check-01",
+          "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-room-check-01",
+          "dry-run-task-room-02-dry-run-room-check-01",
+          "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-room-check-01",
+          "dry-run-task-room-22-dry-run-room-check-01"
+        ],
+        "sameWorkloadForRatios": true
+      }
+    },
+    {
+      "name": "both ratios share generated task count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runtime seed ids differ",
+      "passed": true,
+      "detail": {
+        "fourToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+        "threeToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+        "ratioSpecificRuntimeAssumptions": true
+      }
+    },
+    {
+      "name": "runtime group counts differ by ratio",
+      "passed": true,
+      "detail": [
+        {
+          "ratioPresetId": "four_to_one",
+          "ratioLabel": "4:1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedTaskCount": 30,
+          "queuedPlaceholderCount": 8,
+          "delayedPlaceholderCount": 8,
+          "unassignedPlaceholderCount": 0,
+          "syntheticNurseRuntimeGroupCount": 6,
+          "placeholderPressureBand": "placeholder_heavy"
+        },
+        {
+          "ratioPresetId": "three_to_one",
+          "ratioLabel": "3:1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+          "generatedTaskCount": 30,
+          "queuedPlaceholderCount": 5,
+          "delayedPlaceholderCount": 5,
+          "unassignedPlaceholderCount": 0,
+          "syntheticNurseRuntimeGroupCount": 8,
+          "placeholderPressureBand": "placeholder_moderate"
+        }
+      ]
+    },
+    {
+      "name": "comparison artifact validates",
+      "passed": true,
+      "detail": "simulation-v0-four-to-one-vs-three-to-one-comparison"
+    },
+    {
+      "name": "no clinical safety claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no staffing compliance claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no patient outcome claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no optimizer or recommendation",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

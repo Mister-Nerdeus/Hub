@@ -1,0 +1,109 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:manual-assignment-scenario-bridge
+> npm --workspace packages/shared run build && node scripts/check-manual-assignment-scenario-bridge.mjs --stage final --issue 560
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "bridge returns summary",
+      "passed": true,
+      "detail": {
+        "bridgeId": "manual-assignment-scenario-bridge-canonical-plan-1",
+        "coveredEligibleBedPositionIds": [
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-level-1-trauma"
+        ],
+        "uncoveredEligibleBedPositionIds": [
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "ignoredExcludedObjectIds": [
+          "room-14"
+        ],
+        "ratioReadiness": {
+          "ratioPresetId": "four_to_one",
+          "patientsPerNurse": 4,
+          "groupCount": 2,
+          "capacityForAssignedGroups": 8,
+          "assignedEligibleCount": 7,
+          "overCapacityPlaceholder": false
+        },
+        "recommendationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "fullShiftSimulationStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "excluded spaces are ignored",
+      "passed": true,
+      "detail": [
+        "room-14"
+      ]
+    },
+    {
+      "name": "covered eligible positions are selector-derived",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "uncovered eligible positions are reported",
+      "passed": true,
+      "detail": 15
+    },
+    {
+      "name": "ratio readiness uses preset",
+      "passed": true,
+      "detail": {
+        "ratioPresetId": "four_to_one",
+        "patientsPerNurse": 4,
+        "groupCount": 2,
+        "capacityForAssignedGroups": 8,
+        "assignedEligibleCount": 7,
+        "overCapacityPlaceholder": false
+      }
+    },
+    {
+      "name": "ratio readiness is placeholder only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "bridge does not recommend",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "bridge does not optimize",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:dry-run-queue-placeholder
+> npm --workspace packages/shared run build && node scripts/check-dry-run-queue-placeholder.mjs --stage final --issue 570
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "queue placeholder validates",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "delayed placeholder validates",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "queue order repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no outcome claim flag is false",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

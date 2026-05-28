@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "summary": {
+    "schemaVersion": "1.0.0",
+    "queueSummaryId": "ratio-aware-queue-three_to_one",
+    "ratioPresetId": "three_to_one",
+    "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+    "generatedTaskCount": 30,
+    "syntheticNurseRuntimeGroupCount": 8,
+    "queuedPlaceholderCount": 5,
+    "delayedPlaceholderCount": 5,
+    "unassignedPlaceholderCount": 0,
+    "placeholderPressureBand": "placeholder_moderate",
+    "limitationCopy": [
+      "Queue pressure is a synthetic internal placeholder only.",
+      "Ratio-specific runtime state can change queue and delay placeholder counts.",
+      "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+    ],
+    "outcomeClaim": false,
+    "clinicalSafetyClaim": false,
+    "staffingComplianceClaim": false,
+    "recommendationStatus": "not_started",
+    "optimizerStatus": "not_started",
+    "syntheticDataOnly": true
+  }
+}
