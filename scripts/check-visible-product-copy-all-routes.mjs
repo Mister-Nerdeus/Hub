@@ -27,8 +27,13 @@ const ROUTES = [
 ];
 
 const stages = [
+  "policy-hardening",
   "route-matrix",
   "rendered-copy",
+  "generic-demo-negative",
+  "advanced-evidence-exception",
+  "product-docs-copy",
+  "source-identifier-allowlist",
   "negative-fixture",
   "missing-route-negative",
   "allowlist-negative",
@@ -40,8 +45,13 @@ const context = createRepairContext({
   scriptName: "visible product copy all routes",
   stages,
   statusKeyByStage: {
+    "policy-hardening": "visibleCopyPolicyHardeningStatus",
     "route-matrix": "visibleCopyAllRoutesStatus",
     "rendered-copy": "visibleCopyAllRoutesStatus",
+    "generic-demo-negative": "visibleCopyPolicyHardeningStatus",
+    "advanced-evidence-exception": "visibleCopyPolicyHardeningStatus",
+    "product-docs-copy": "visibleCopyPolicyHardeningStatus",
+    "source-identifier-allowlist": "visibleCopyPolicyHardeningStatus",
     "access-credential": "visibleCopyAllRoutesStatus"
   },
   outputName: "rendered-copy-scan-output.json",
@@ -57,10 +67,48 @@ finalizeRepairGate(context, {
     routesScanned: ROUTES.map(([id]) => id),
     visibleLegacyCopyStatus: context.checks.every((check) => check.passed) ? "passed" : "failed",
     accessCredentialVisibleStatus: context.checks.every((check) => check.passed) ? "passed" : "failed"
+    ,
+    visibleCopyPolicyHardeningStatus: context.checks.every((check) => check.passed) ? "passed" : "failed",
+    visibleCopyPolicyFailClosed: context.checks.every((check) => check.passed)
   }
 });
 
 async function runStage(stage) {
+  if (stage === "policy-hardening") {
+    const policy = readJson("docs/verification/visible-product-copy-policy.json");
+    const requiredGroups = [
+      "renderedProductForbiddenFragments",
+      "advancedEvidenceAllowedFragments",
+      "sourceIdentifierAllowlistRules",
+      "productDocsForbiddenFragments"
+    ];
+    const missingGroups = requiredGroups.filter((key) => !Array.isArray(policy[key]));
+    const requiredFragments = [
+      "demo",
+      "Demo",
+      "DEMO",
+      "demo workflow",
+      "demo seed",
+      "demo review",
+      "trial",
+      "Relock Demo",
+      "Demo PIN",
+      "Plan 1 Demo Guide",
+      "recommended assignment",
+      "best assignment"
+    ];
+    const missingFragments = requiredFragments.filter((fragment) =>
+      !policy.renderedProductForbiddenFragments?.includes(fragment)
+    );
+    const passed = missingGroups.length === 0 && missingFragments.length === 0;
+    context.add("visible product copy policy uses scoped fail-closed groups", passed, { missingGroups, missingFragments });
+    writeJson(`${context.dir}/policy-hardening-output.json`, {
+      status: passed ? "passed" : "failed",
+      policyVersion: policy.policyVersion,
+      missingGroups,
+      missingFragments
+    });
+  }
   if (stage === "route-matrix") {
     const policy = readJson("docs/verification/visible-product-copy-policy.json");
     const required = policy.requiredRoutes ?? [];
@@ -81,10 +129,49 @@ async function runStage(stage) {
     context.add("rendered route text has no forbidden visible fragments", forbiddenCount === 0, { forbiddenCount });
     context.add("rendered route text has no visible access credential", credentialCount === 0, { credentialCount });
     writeJson(`${context.dir}/rendered-copy-scan-output.json`, scan);
+    writeJson(`${context.dir}/rendered-product-route-output.json`, scan);
+  }
+  if (stage === "generic-demo-negative") {
+    const failed = scanText("Synthetic rendered product copy with demo workflow and demo seed", {
+      routeId: "floorplan",
+      scope: "product"
+    }).forbiddenFindings.length > 0;
+    context.add("generic demo variants fail on product route text", failed, null);
+    writeJson(`${context.dir}/generic-demo-negative-output.json`, { status: failed ? "passed" : "failed" });
+  }
+  if (stage === "advanced-evidence-exception") {
+    const scan = scanText("Historical internal demo workflow evidence", {
+      routeId: "advanced-evidence",
+      scope: "advanced-evidence"
+    });
+    const allowed = scan.forbiddenFindings.length === 0 && scan.allowedFindings.length > 0;
+    context.add("advanced/evidence route can carry explicit historical/internal exceptions", allowed, scan);
+    writeJson(`${context.dir}/advanced-evidence-exception-output.json`, { status: allowed ? "passed" : "failed", scan });
+  }
+  if (stage === "product-docs-copy") {
+    const policy = readJson("docs/verification/visible-product-copy-policy.json");
+    const findings = scanProductDocs(policy.productDocsForbiddenFragments ?? []);
+    context.add("product-facing docs do not contain forbidden legacy user-facing terms", findings.length === 0, { findings });
+    writeJson(`${context.dir}/product-docs-copy-output.json`, { status: findings.length === 0 ? "passed" : "failed", findings });
+  }
+  if (stage === "source-identifier-allowlist") {
+    const current = readJson("docs/verification/visible-product-copy-allowlist.json");
+    const policy = readJson("docs/verification/visible-product-copy-policy.json");
+    const invalidCurrent = (current.entries ?? []).filter((entry) => !allowlistEntryValid(entry));
+    const invalidPolicyRules = (policy.sourceIdentifierAllowlistRules ?? []).filter((entry) => !allowlistEntryValid(entry));
+    const passed = invalidCurrent.length === 0 && invalidPolicyRules.length === 0;
+    context.add("source identifier allowlist entries include scope, classification, justification, and expiry", passed, { invalidCurrent, invalidPolicyRules });
+    writeJson(`${context.dir}/source-identifier-allowlist-output.json`, {
+      status: passed ? "passed" : "failed",
+      entryCount: (current.entries ?? []).length,
+      policyRuleCount: (policy.sourceIdentifierAllowlistRules ?? []).length,
+      invalidCurrent,
+      invalidPolicyRules
+    });
   }
   if (stage === "negative-fixture") {
     const policy = readJson("docs/verification/visible-product-copy-policy.json");
-    const forbidden = policy.forbiddenVisibleFragments[0];
+    const forbidden = forbiddenFragmentsForScope(policy, "product")[0];
     const failed = scanText(`Synthetic rendered copy ${forbidden}`).forbiddenFindings.length > 0;
     context.add("rendered forbidden term negative fixture fails", failed, { forbidden });
     writeJson(`${context.dir}/negative-visible-copy-fixture-output.json`, { status: failed ? "passed" : "failed", forbidden });
@@ -140,7 +227,10 @@ async function scanRoutes() {
       await browser.screenshot(screenshotPath);
       const screenshotOk = fileExists(screenshotPath, 100);
       const bodyText = await browser.evaluate("document.body.textContent || ''");
-      const textScan = scanText(bodyText, policy, credential);
+      const textScan = scanText(bodyText, {
+        routeId,
+        scope: policy.advancedEvidenceRoutes?.includes(routeId) ? "advanced-evidence" : "product"
+      });
       routes.push({
         routeId,
         section,
@@ -164,15 +254,52 @@ async function scanRoutes() {
 }
 
 function scanText(text, policy = readJson("docs/verification/visible-product-copy-policy.json"), credential = readInternalAccessCredential()) {
-  const forbiddenFindings = policy.forbiddenVisibleFragments.filter((fragment) => text.toLowerCase().includes(String(fragment).toLowerCase()));
+  let options = {};
+  if (policy?.scope != null || policy?.routeId != null) {
+    options = policy;
+    policy = readJson("docs/verification/visible-product-copy-policy.json");
+    credential = readInternalAccessCredential();
+  }
+  const scope = options.scope ?? (policy.advancedEvidenceRoutes?.includes(options.routeId) ? "advanced-evidence" : "product");
+  const forbidden = forbiddenFragmentsForScope(policy, scope);
+  const allowed = scope === "advanced-evidence" ? policy.advancedEvidenceAllowedFragments ?? [] : [];
+  const forbiddenFindings = forbidden.filter((fragment) => text.includes(String(fragment)));
+  const allowedFindings = allowed.filter((fragment) => text.includes(String(fragment)));
   return {
     forbiddenFindings,
+    allowedFindings,
     accessCredentialVisible: new RegExp(`(?:access code|pin|credential|code)\\s*${escapeRegExp(credential)}\\b`, "iu").test(text)
   };
 }
 
 function allowlistEntryValid(entry) {
-  return typeof entry?.path === "string" && typeof entry.classification === "string" && typeof entry.justification === "string" && entry.justification.length > 20;
+  return typeof entry?.path === "string" &&
+    (typeof entry.route === "string" || typeof entry.scope === "string") &&
+    typeof entry.classification === "string" &&
+    typeof entry.justification === "string" &&
+    entry.justification.length > 20 &&
+    (typeof entry.expiry === "string" || typeof entry.removalCondition === "string");
+}
+
+function forbiddenFragmentsForScope(policy, scope) {
+  if (scope === "advanced-evidence") {
+    const allowed = new Set(policy.advancedEvidenceAllowedFragments ?? []);
+    return (policy.renderedProductForbiddenFragments ?? []).filter((fragment) => !allowed.has(fragment));
+  }
+  return policy.renderedProductForbiddenFragments ?? policy.forbiddenVisibleFragments ?? [];
+}
+
+function scanProductDocs(fragments) {
+  const findings = [];
+  const files = collectTextFiles("docs/project");
+  for (const file of files) {
+    const text = readFileSafe(file);
+    if (text == null) continue;
+    for (const fragment of fragments) {
+      if (text.includes(String(fragment))) findings.push({ file, fragment });
+    }
+  }
+  return findings;
 }
 
 function readInternalAccessCredential() {

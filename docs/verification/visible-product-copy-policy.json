@@ -1,5 +1,5 @@
 {
-  "policyVersion": "1.0.0",
+  "policyVersion": "2.0.0",
   "productDisplayName": "ER Pod Shift Simulator",
   "requiredRoutes": [
     "locked-access",
@@ -14,11 +14,56 @@
     "routes",
     "assignments"
   ],
-  "forbiddenVisibleFragments": [
-    "Demo PIN",
-    "Demo-only",
-    "demo-only",
+  "advancedEvidenceRoutes": ["advanced-evidence"],
+  "renderedProductForbiddenFragments": [
+    "demo",
+    "Demo",
+    "DEMO",
+    "demo workflow",
+    "demo seed",
+    "demo review",
+    "trial",
     "Relock Demo",
+    "Demo PIN",
+    "Plan 1 Demo Guide",
+    "recommended assignment",
+    "best assignment"
+  ],
+  "advancedEvidenceAllowedFragments": [
+    "demo",
+    "Demo",
+    "DEMO",
+    "demo workflow",
+    "demo seed",
+    "demo review",
+    "Plan 1 Demo Guide"
+  ],
+  "sourceIdentifierAllowlistRules": [
+    {
+      "path": "apps/web/src/features/demo-pin/",
+      "scope": "source_identifier",
+      "classification": "non_rendered_compatibility_identifier",
+      "justification": "Legacy internal access-gate filenames are retained as compatibility wrappers while product-rendered copy uses workspace access language.",
+      "expiry": "Remove when compatibility wrappers are renamed or deleted."
+    },
+    {
+      "path": "packages/shared/src/demo-pin/",
+      "scope": "source_identifier",
+      "classification": "non_rendered_internal_contract_identifier",
+      "justification": "The access credential remains an internal validation contract and is scanned to ensure it is not rendered or copied into evidence.",
+      "expiry": "Remove when the internal access contract no longer uses legacy source identifiers."
+    }
+  ],
+  "productDocsForbiddenFragments": [
+    "demo",
+    "Demo",
+    "DEMO",
+    "demo workflow",
+    "demo seed",
+    "demo review",
+    "trial",
+    "Relock Demo",
+    "Demo PIN",
     "Plan 1 Demo Guide",
     "recommended assignment",
     "best assignment"

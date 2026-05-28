@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "product-docs-copy",
+  "issue": "594",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "product-facing docs do not contain forbidden legacy user-facing terms",
+      "passed": true,
+      "detail": {
+        "findings": []
+      }
+    }
+  ]
+}

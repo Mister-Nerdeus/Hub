@@ -1,0 +1,97 @@
+
+> node scripts/check-visible-product-copy-all-routes.mjs --stage policy-hardening --allow-partial --issue 594
+{
+  "status": "passed",
+  "stage": "policy-hardening",
+  "issue": "594",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "visible product copy policy uses scoped fail-closed groups",
+      "passed": true,
+      "detail": {
+        "missingGroups": [],
+        "missingFragments": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 594
+{
+  "status": "passed",
+  "stage": "rendered-copy",
+  "issue": "594",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "every required route rendered",
+      "passed": true,
+      "detail": {
+        "routeCount": 11,
+        "forbiddenFragmentCount": 0,
+        "credentialFindingCount": 0
+      }
+    },
+    {
+      "name": "route screenshots exist and are non-empty",
+      "passed": true,
+      "detail": {
+        "missingScreenshots": []
+      }
+    },
+    {
+      "name": "rendered route text has no forbidden visible fragments",
+      "passed": true,
+      "detail": {
+        "forbiddenCount": 0
+      }
+    },
+    {
+      "name": "rendered route text has no visible access credential",
+      "passed": true,
+      "detail": {
+        "credentialCount": 0
+      }
+    }
+  ]
+}
+
+> node scripts/check-visible-product-copy-all-routes.mjs --stage generic-demo-negative --allow-partial --issue 594
+{
+  "status": "passed",
+  "stage": "generic-demo-negative",
+  "issue": "594",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "generic demo variants fail on product route text",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-visible-product-copy-all-routes.mjs --stage product-docs-copy --allow-partial --issue 594
+{
+  "status": "passed",
+  "stage": "product-docs-copy",
+  "issue": "594",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "product-facing docs do not contain forbidden legacy user-facing terms",
+      "passed": true,
+      "detail": {
+        "findings": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.

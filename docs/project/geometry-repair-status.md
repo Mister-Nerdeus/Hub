@@ -1,6 +1,6 @@
 # Geometry Repair Status
 
-Batch 421-430 is GO for Autosave, Draft Recovery, Versioning, and Demo PIN Gate.
+Batch 421-430 is GO for Autosave, Draft Recovery, Versioning, and Workspace Access Gate.
 
 The geometry/editor foundation now includes:
 

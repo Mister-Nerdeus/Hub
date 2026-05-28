@@ -1,0 +1,53 @@
+{
+  "issue": "594",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage policy-hardening --allow-partial --issue 594",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 594",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage generic-demo-negative --allow-partial --issue 594",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage product-docs-copy --allow-partial --issue 594",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-594/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

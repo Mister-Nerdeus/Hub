@@ -1,15 +1,19 @@
 {
-  "manifestVersion": "1.0.0",
+  "manifestVersion": "2.0.0",
   "entries": [
     {
       "path": "apps/web/src/features/demo-pin/",
+      "scope": "source_identifier",
       "classification": "non_rendered_compatibility_identifier",
-      "justification": "Legacy internal access-gate filenames are retained as compatibility wrappers while product-rendered copy uses workspace access language."
+      "justification": "Legacy internal access-gate filenames are retained as compatibility wrappers while product-rendered copy uses workspace access language.",
+      "expiry": "Remove when compatibility wrappers are renamed or deleted."
     },
     {
       "path": "packages/shared/src/demo-pin/",
+      "scope": "source_identifier",
       "classification": "non_rendered_internal_contract_identifier",
-      "justification": "The access credential remains an internal validation contract and is scanned to ensure it is not rendered or copied into evidence."
+      "justification": "The access credential remains an internal validation contract and is scanned to ensure it is not rendered or copied into evidence.",
+      "expiry": "Remove when the internal access contract no longer uses legacy source identifiers."
     }
   ]
 }

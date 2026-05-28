@@ -4,12 +4,7 @@
 
 The visible workspace access screen now uses professional copy, but internal paths and code identifiers still retain legacy access-gate names. Those names are implementation details and should not be treated as product copy.
 
-Current internal areas:
-
-- `apps/web/src/features/demo-pin/`
-- `packages/shared/src/demo-pin/`
-- `scripts/check-demo-pin-gate.mjs`
-- Existing tests and browser proof helpers that validate the access gate.
+Current internal areas are governed by the visible-copy source identifier allowlist and are not product copy. Existing tests and browser proof helpers validate the access gate without exposing the configured credential.
 
 ## Future Names
 

@@ -1,0 +1,3 @@
+Reproduced failure class: the prior visible-copy policy blocked only specific strings such as Demo PIN and Plan 1 Demo Guide, while generic product-facing variants such as demo workflow and demo seed were not fail-closed.
+
+The first hardened product-docs scan also found legacy wording in project status docs. Those docs were repaired rather than broadly allowlisted.

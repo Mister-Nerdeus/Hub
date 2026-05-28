@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "591-600",
-  "lastUpdatedIssue": "593",
+  "lastUpdatedIssue": "594",
   "productDisplayName": "ER Pod Shift Simulator",
   "sourceBatch": "581-590",
   "sourceGoNoGoStatus": "go_for_expanded_simulation_v0_user_facing_refinement",
@@ -9,7 +9,7 @@
   "actualRoomCreationScaleStatus": "passed",
   "committedEvidenceIndexStatus": "passed",
   "docsContractResolutionStatus": "passed",
-  "visibleCopyPolicyHardeningStatus": "missing",
+  "visibleCopyPolicyHardeningStatus": "passed",
   "simulationUiStatusTruthStatus": "missing",
   "finalGateIndependentRevalidationStatus": "missing",
   "cleanCloneVerificationStatus": "missing",
@@ -21,7 +21,7 @@
   "actualPlacementUsesSharedDefault": true,
   "committedEvidenceIndexValid": true,
   "docsContractsBlockingStatus": "resolved",
-  "visibleCopyPolicyFailClosed": false,
+  "visibleCopyPolicyFailClosed": true,
   "simulationUiStatusDerivedFromProof": false,
   "finalGateRevalidatesCommittedState": false,
   "cleanCloneVerificationRequired": true,
@@ -40,5 +40,22 @@
   "usesRawRoomCounts": false,
   "defaultRoomScaleStatus": "passed",
   "evidenceIndexStatus": "passed",
-  "evidenceIndexValid": true
+  "evidenceIndexValid": true,
+  "visibleCopyAllRoutesStatus": "passed",
+  "allProductRoutesScanned": true,
+  "routesScanned": [
+    "locked-access",
+    "floorplan",
+    "editor",
+    "manual-assignment",
+    "scenarios",
+    "simulation",
+    "reports",
+    "settings",
+    "advanced-evidence",
+    "routes",
+    "assignments"
+  ],
+  "visibleLegacyCopyStatus": "passed",
+  "accessCredentialVisibleStatus": "passed"
 }

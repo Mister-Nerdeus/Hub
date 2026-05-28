@@ -379,6 +379,12 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-docs-contracts.mjs --stage historical-backlog --allow-partial --issue 593",
       "node scripts/check-docs-contracts.mjs --stage contradiction-negative --allow-partial --issue 593",
       "node scripts/check-docs-contracts.mjs --stage required-gate-failed-go-negative --allow-partial --issue 593"
+    ],
+    "594": [
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage policy-hardening --allow-partial --issue 594",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 594",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage generic-demo-negative --allow-partial --issue 594",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage product-docs-copy --allow-partial --issue 594"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
