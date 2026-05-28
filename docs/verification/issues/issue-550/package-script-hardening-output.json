@@ -1,0 +1,9 @@
+{
+  "check:reference-image-asset": "node scripts/check-reference-image-asset.mjs --stage final --issue 550",
+  "check:image-backed-layout-parity": "node scripts/check-image-backed-layout-parity.mjs --stage final --issue 550",
+  "check:split-bay-fixture-bridge": "npm --workspace packages/shared run build && node scripts/check-split-bay-fixture-bridge.mjs --stage final --issue 550",
+  "check:capacity-count-report": "npm --workspace packages/shared run build && node scripts/check-capacity-count-report.mjs --stage final --issue 550",
+  "check:storage-raw-field-guard": "npm --workspace packages/shared run build && node scripts/check-storage-raw-field-guard.mjs --stage final --issue 550",
+  "check:editor-pan-threshold": "node scripts/check-editor-pan-threshold.mjs --stage final --issue 550",
+  "check:canonical-scenario-preflight": "npm --workspace packages/shared run build && node scripts/check-canonical-scenario-preflight.mjs --stage final --issue 550"
+}

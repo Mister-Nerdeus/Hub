@@ -1,0 +1,68 @@
+
+> npm run check:storage-raw-field-guard
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:storage-raw-field-guard
+> npm --workspace packages/shared run build && node scripts/check-storage-raw-field-guard.mjs --stage final --issue 550
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "550",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "storage raw field risk is documented",
+      "passed": true,
+      "detail": {
+        "hasMaxPatients": true,
+        "maxPatients": 1,
+        "hasPathNodeId": true,
+        "capacityCategory": "single",
+        "roomClass": "storage"
+      }
+    },
+    {
+      "name": "storage room retains storage room type",
+      "passed": true,
+      "detail": "storage"
+    },
+    {
+      "name": "selectors ignore room-like raw fields for storage",
+      "passed": true,
+      "detail": {
+        "occupancyType": "storage",
+        "bedCountContribution": 0,
+        "physicalRoomCountContribution": 0,
+        "assignmentEligible": false,
+        "ratioEligible": false,
+        "roomLoadEligible": false
+      }
+    },
+    {
+      "name": "storage remains non-assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage remains excluded from ratio math",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage remains excluded from room-load generation",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "future drift negative proof passes",
+      "passed": true,
+      "detail": {
+        "storageWithRoomLikeRawFieldsStillExcluded": true
+      }
+    }
+  ]
+}

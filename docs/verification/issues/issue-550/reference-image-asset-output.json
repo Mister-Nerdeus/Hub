@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "550",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "root-provided reference asset is detected or registered after move",
+      "passed": true,
+      "detail": {
+        "hasRootAsset": false,
+        "hasStableAsset": true
+      }
+    },
+    {
+      "name": "source record references canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "source record has stable reference asset path",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "source record no longer says visual source is missing",
+      "passed": true,
+      "detail": "present"
+    },
+    {
+      "name": "stable reference asset exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "root reference asset is no longer unmanaged",
+      "passed": true,
+      "detail": "moved_from_root_to_stable_reference"
+    },
+    {
+      "name": "reference image checksum exists",
+      "passed": true,
+      "detail": "BCCF0F44DDB89BB2C74D3D7C40D669EF8B1DC90A048CE65242339DC88ED9F6BC"
+    },
+    {
+      "name": "checksum matches source record",
+      "passed": true,
+      "detail": "BCCF0F44DDB89BB2C74D3D7C40D669EF8B1DC90A048CE65242339DC88ED9F6BC"
+    },
+    {
+      "name": "asset type is PNG",
+      "passed": true,
+      "detail": "image/png"
+    },
+    {
+      "name": "exact CAD parity is not claimed",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "promotion remains blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "reference overlay trace asset exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-overlay.json"
+    }
+  ]
+}

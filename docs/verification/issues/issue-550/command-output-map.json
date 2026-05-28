@@ -1,0 +1,113 @@
+{
+  "issue": "550",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-first-entry-gate",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/pin-first-entry-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-rate-limit-lockout",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/pin-rate-limit-lockout.txt"
+      ]
+    },
+    {
+      "command": "npm run check:professional-access-screen",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/professional-access-screen.txt"
+      ]
+    },
+    {
+      "command": "npm run check:reference-image-asset",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:image-backed-layout-parity",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:split-bay-fixture-bridge",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:capacity-count-report",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:storage-raw-field-guard",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:editor-pan-threshold",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:canonical-scenario-preflight",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-map-review-packet.mjs --issue 550",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/canonical-map-review-packet.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-hardening-registry.mjs --stage final --issue 550",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/canonical-hardening-registry.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 550",
+      "outputs": [
+        "docs/verification/issues/issue-550/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+
+> npm run check:canonical-scenario-preflight
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:canonical-scenario-preflight
+> npm --workspace packages/shared run build && node scripts/check-canonical-scenario-preflight.mjs --stage final --issue 550
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "550",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "reference image exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "reference overlay exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-overlay.json"
+    },
+    {
+      "name": "image-backed parity report exists",
+      "passed": true,
+      "detail": "docs/verification/image-backed-layout-parity-report.json"
+    },
+    {
+      "name": "split-bay fixture bridge passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "capacity count report is selector-driven",
+      "passed": true,
+      "detail": "semantic_selectors"
+    },
+    {
+      "name": "physical rooms and bed positions are separated",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source": "semantic_selectors",
+        "physicalRoomCount": 18,
+        "bedPositionCount": 22,
+        "splitBayCount": 4,
+        "excludedCount": 11,
+        "assignmentEligibleCount": 22,
+        "ratioEligibleCount": 22,
+        "rawRoomCountMisuseRejected": true
+      }
+    },
+    {
+      "name": "excluded spaces are counted separately",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    },
+    {
+      "name": "storage raw-field guard passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "hardening statuses are ready or passed",
+      "passed": true,
+      "detail": {
+        "referenceImageAssetStatus": "registered",
+        "referenceOverlayStatus": "present",
+        "imageBackedParityStatus": "passed",
+        "splitBayFixtureBridgeStatus": "passed",
+        "capacityCountReportStatus": "passed",
+        "storageRawFieldGuardStatus": "passed",
+        "editorPanThresholdStatus": "passed"
+      }
+    },
+    {
+      "name": "scenario remains contract-only",
+      "passed": true,
+      "detail": "contract_only"
+    },
+    {
+      "name": "full-shift simulation not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "optimizer not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

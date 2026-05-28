@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "source": "semantic_selectors",
+  "physicalRoomCount": 18,
+  "bedPositionCount": 22,
+  "splitBayCount": 4,
+  "ordinaryPatientRoomCount": 14,
+  "storageCount": 1,
+  "supportAreaCount": 3,
+  "hallwayCorridorCount": 7,
+  "solidWallCount": 0,
+  "ratioEligibleCount": 22,
+  "assignmentEligibleCount": 22,
+  "excludedCount": 11,
+  "excludedByType": {
+    "storage": 1,
+    "supportArea": 3,
+    "hallway": 7,
+    "solidWall": 0
+  },
+  "selectorNotes": [
+    "Counts are derived from occupancy and split-bay selectors, not raw room-like fixture fields.",
+    "Storage, support areas, hallways, and solid walls are non-patient and excluded from assignment and ratio counts.",
+    "Split bays contribute separate bed positions and paired physical-room count."
+  ]
+}

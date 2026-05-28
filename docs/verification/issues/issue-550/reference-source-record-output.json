@@ -1,0 +1,31 @@
+{
+  "referenceRecordVersion": "1.0.0",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "assetStatus": "committed_reference_image_registered",
+  "originalRootAssetName": "Screenshot.png",
+  "stableReferenceAssetPath": "docs/verification/reference/plan-1-reference-floorplan.png",
+  "committedReferenceImage": "docs/verification/reference/plan-1-reference-floorplan.png",
+  "assetType": "image/png",
+  "checksum": {
+    "algorithm": "SHA-256",
+    "value": "BCCF0F44DDB89BB2C74D3D7C40D669EF8B1DC90A048CE65242339DC88ED9F6BC"
+  },
+  "sourceNote": "The batch prompt supplied the root-level Screenshot.png reference image. The image was moved into the stable verification reference location as an operational visual reference for Plan 1.",
+  "visualSourceStatus": "present",
+  "rootAssetDisposition": "moved_from_root_to_stable_reference",
+  "baseRoomModuleFeet": {
+    "width": 10,
+    "height": 10
+  },
+  "requiredBanks": [
+    "left trauma pod",
+    "right pod",
+    "far-right vertical bank",
+    "left-side vertical bank",
+    "bottom bank",
+    "provider/pharmacy support band"
+  ],
+  "manualVisualReviewRequired": true,
+  "exactCadParityClaimed": false,
+  "promotionStatus": "blocked"
+}

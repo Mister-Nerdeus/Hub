@@ -1,0 +1,53 @@
+
+> npm run check:capacity-count-report
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:capacity-count-report
+> npm --workspace packages/shared run build && node scripts/check-capacity-count-report.mjs --stage final --issue 550
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "550",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "physical rooms are selector-counted separately",
+      "passed": true,
+      "detail": 18
+    },
+    {
+      "name": "bed positions are selector-counted separately",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "split bays are counted from split-bay selectors",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "storage/support/hallways/solid walls are excluded",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    },
+    {
+      "name": "ratio eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "assignment eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "550",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "hardening gates are first-class package scripts",
+      "passed": true,
+      "detail": {
+        "check:reference-image-asset": "node scripts/check-reference-image-asset.mjs --stage final --issue 550",
+        "check:image-backed-layout-parity": "node scripts/check-image-backed-layout-parity.mjs --stage final --issue 550",
+        "check:split-bay-fixture-bridge": "npm --workspace packages/shared run build && node scripts/check-split-bay-fixture-bridge.mjs --stage final --issue 550",
+        "check:capacity-count-report": "npm --workspace packages/shared run build && node scripts/check-capacity-count-report.mjs --stage final --issue 550",
+        "check:storage-raw-field-guard": "npm --workspace packages/shared run build && node scripts/check-storage-raw-field-guard.mjs --stage final --issue 550",
+        "check:editor-pan-threshold": "node scripts/check-editor-pan-threshold.mjs --stage final --issue 550",
+        "check:canonical-scenario-preflight": "npm --workspace packages/shared run build && node scripts/check-canonical-scenario-preflight.mjs --stage final --issue 550"
+      }
+    },
+    {
+      "name": "canonical hardening registry script covers required gates",
+      "passed": true,
+      "detail": [
+        "check:reference-image-asset",
+        "check:image-backed-layout-parity",
+        "check:split-bay-fixture-bridge",
+        "check:capacity-count-report",
+        "check:storage-raw-field-guard",
+        "check:editor-pan-threshold",
+        "check:canonical-scenario-preflight"
+      ]
+    },
+    {
+      "name": "verify-local includes hardening package scripts",
+      "passed": true,
+      "detail": {
+        "npm run check:reference-image-asset": true,
+        "npm run check:image-backed-layout-parity": true,
+        "npm run check:split-bay-fixture-bridge": true,
+        "npm run check:capacity-count-report": true,
+        "npm run check:storage-raw-field-guard": true,
+        "npm run check:editor-pan-threshold": true,
+        "npm run check:canonical-scenario-preflight": true
+      }
+    }
+  ]
+}
