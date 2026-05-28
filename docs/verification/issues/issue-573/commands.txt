@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-dry-run-executor.mjs --stage executor-contract --allow-partial --issue 573
+node scripts/check-dry-run-executor.mjs --stage one-run-execution --allow-partial --issue 573
+node scripts/check-dry-run-executor.mjs --stage deterministic-timeline --allow-partial --issue 573
+node scripts/check-dry-run-executor.mjs --stage dormant-full-event-contract --allow-partial --issue 573
+node scripts/check-dry-run-executor.mjs --stage no-clinical-claims --allow-partial --issue 573
+node scripts/check-no-phi-fields.mjs

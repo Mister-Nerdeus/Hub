@@ -1,0 +1,59 @@
+{
+  "issue": "573",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage executor-contract --allow-partial --issue 573",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage one-run-execution --allow-partial --issue 573",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage deterministic-timeline --allow-partial --issue 573",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage dormant-full-event-contract --allow-partial --issue 573",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-executor.mjs --stage no-clinical-claims --allow-partial --issue 573",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/dry-run-executor.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-573/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
