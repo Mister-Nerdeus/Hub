@@ -1,0 +1,35 @@
+{
+  "issue": "542",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-542/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-542/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage overlay-trace --allow-partial --issue 542",
+      "outputs": [
+        "docs/verification/issues/issue-542/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-image-backed-layout-parity.mjs --stage reference-overlay --allow-partial --issue 542",
+      "outputs": [
+        "docs/verification/issues/issue-542/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-542/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

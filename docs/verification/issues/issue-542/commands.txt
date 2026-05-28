@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-reference-image-asset.mjs --stage overlay-trace --allow-partial --issue 542
+node scripts/check-image-backed-layout-parity.mjs --stage reference-overlay --allow-partial --issue 542
+node scripts/check-no-phi-fields.mjs

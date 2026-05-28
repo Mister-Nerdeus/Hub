@@ -1,0 +1,161 @@
+{
+  "status": "passed",
+  "stage": "reference-overlay",
+  "issue": "542",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference image exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "all required overlay regions exist",
+      "passed": true,
+      "detail": [
+        {
+          "id": "left-trauma-pod",
+          "present": true
+        },
+        {
+          "id": "right-pod",
+          "present": true
+        },
+        {
+          "id": "far-right-vertical-bank",
+          "present": true
+        },
+        {
+          "id": "left-side-vertical-bank",
+          "present": true
+        },
+        {
+          "id": "bottom-bank",
+          "present": true
+        },
+        {
+          "id": "provider-pharmacy-support-band",
+          "present": true
+        },
+        {
+          "id": "nurse-station-areas",
+          "present": true
+        },
+        {
+          "id": "main-hallway-corridor-bands",
+          "present": true
+        },
+        {
+          "id": "storage-support-region",
+          "present": true
+        }
+      ]
+    },
+    {
+      "name": "overlay coordinates are finite and normalized",
+      "passed": true,
+      "detail": [
+        {
+          "id": "left-trauma-pod",
+          "valid": true,
+          "bounds": {
+            "x": 0.08,
+            "y": 0.22,
+            "width": 0.28,
+            "height": 0.35
+          }
+        },
+        {
+          "id": "right-pod",
+          "valid": true,
+          "bounds": {
+            "x": 0.39,
+            "y": 0.2,
+            "width": 0.25,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "far-right-vertical-bank",
+          "valid": true,
+          "bounds": {
+            "x": 0.7,
+            "y": 0.2,
+            "width": 0.15,
+            "height": 0.28
+          }
+        },
+        {
+          "id": "left-side-vertical-bank",
+          "valid": true,
+          "bounds": {
+            "x": 0.07,
+            "y": 0.55,
+            "width": 0.14,
+            "height": 0.23
+          }
+        },
+        {
+          "id": "bottom-bank",
+          "valid": true,
+          "bounds": {
+            "x": 0.28,
+            "y": 0.65,
+            "width": 0.5,
+            "height": 0.18
+          }
+        },
+        {
+          "id": "provider-pharmacy-support-band",
+          "valid": true,
+          "bounds": {
+            "x": 0.41,
+            "y": 0.5,
+            "width": 0.28,
+            "height": 0.12
+          }
+        },
+        {
+          "id": "nurse-station-areas",
+          "valid": true,
+          "bounds": {
+            "x": 0.27,
+            "y": 0.45,
+            "width": 0.35,
+            "height": 0.14
+          }
+        },
+        {
+          "id": "main-hallway-corridor-bands",
+          "valid": true,
+          "bounds": {
+            "x": 0.19,
+            "y": 0.34,
+            "width": 0.66,
+            "height": 0.4
+          }
+        },
+        {
+          "id": "storage-support-region",
+          "valid": true,
+          "bounds": {
+            "x": 0.13,
+            "y": 0.34,
+            "width": 0.15,
+            "height": 0.14
+          }
+        }
+      ]
+    },
+    {
+      "name": "overlay does not claim exact CAD parity",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "manual review remains required",
+      "passed": true,
+      "detail": true
+    }
+  ]
+}

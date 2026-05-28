@@ -1,0 +1,15 @@
+
+> node scripts/check-reference-image-asset.mjs --stage overlay-trace --allow-partial --issue 542
+{
+  "status": "passed",
+  "stage": "overlay-trace",
+  "issue": "542",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference overlay trace asset exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-overlay.json"
+    }
+  ]
+}
