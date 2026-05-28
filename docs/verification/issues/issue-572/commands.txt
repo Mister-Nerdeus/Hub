@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-activity-profile-occupancy-selection.mjs --stage typical --allow-partial --issue 572
+node scripts/check-activity-profile-occupancy-selection.mjs --stage busy --allow-partial --issue 572
+node scripts/check-activity-profile-occupancy-selection.mjs --stage slammed --allow-partial --issue 572
+node scripts/check-activity-profile-occupancy-selection.mjs --stage deterministic-selection --allow-partial --issue 572
+node scripts/check-activity-profile-occupancy-selection.mjs --stage excluded-space-negative --allow-partial --issue 572
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "selection": {
+    "schemaVersion": "1.0.0",
+    "selectionId": "activity-profile-occupancy-selection-canonical-plan-1",
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "activityProfileId": "typical",
+    "occupancyPercent": 65,
+    "eligibleBedPositionCount": 22,
+    "occupancyTargetCount": 15,
+    "selectedOccupiedBedPositionIds": [
+      "room-12",
+      "room-16",
+      "room-22",
+      "room-21",
+      "room-19",
+      "room-24",
+      "room-02",
+      "room-15",
+      "room-11",
+      "room-level-1-trauma",
+      "room-05",
+      "room-10",
+      "room-06",
+      "room-17",
+      "room-07"
+    ],
+    "unoccupiedEligibleBedPositionIds": [
+      "room-03",
+      "room-04",
+      "room-08",
+      "room-09",
+      "room-13",
+      "room-20",
+      "room-23"
+    ],
+    "deterministicSelectionProof": "dbfff1cd",
+    "usesSelectorEligibleBedPositions": true,
+    "usesNeutralWorkloadSeed": true,
+    "usesStorageOrSupportForTasks": false,
+    "usesRawRoomCounts": false,
+    "syntheticDataOnly": true,
+    "optimizerStatus": "not_started"
+  }
+}

@@ -179,6 +179,7 @@ export * from "./scenarios/manualAssignmentScenarioValidation.js";
 export * from "./random/seededRandom.js";
 export * from "./simulation/assignmentVariantRunContract.js";
 export * from "./simulation/assignmentVariantRunner.js";
+export * from "./simulation/activityProfileOccupancySelection.js";
 export * from "./simulation/deterministicSeedContract.js";
 export * from "./simulation/deterministicSequence.js";
 export * from "./simulation/dryRunTimestepContract.js";

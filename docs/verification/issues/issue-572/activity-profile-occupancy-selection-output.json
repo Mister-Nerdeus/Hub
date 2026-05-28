@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "excluded-space-negative",
+  "issue": "572",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "excluded spaces are not selected",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "excluded space negative fixture is rejected",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
