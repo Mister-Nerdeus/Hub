@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "stage": "product-evidence-copy",
+  "normalizedStage": "product-evidence-copy",
+  "issue": "509",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "product-facing evidence has no visible access-credential leak",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    },
+    {
+      "name": "product-facing evidence has no forbidden legacy visible copy",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    }
+  ]
+}

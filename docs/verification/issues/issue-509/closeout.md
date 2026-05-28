@@ -1,7 +1,7 @@
 # Issue 509 Closeout
 
 ## Summary
-Completed scenario foundation readiness stage: no-simulation-no-optimizer.
+Completed scenario foundation readiness stage: one-floorplan-ready.
 
 ## Files Changed
 - See git diff for source, gate, manifest, and evidence updates.
@@ -14,6 +14,7 @@ Completed scenario foundation readiness stage: no-simulation-no-optimizer.
 - npm run check:pin-first-entry-gate
 - npm run check:pin-rate-limit-lockout
 - npm run check:professional-access-screen
+- node scripts/check-layout-editor-background-pan.mjs --stage final --issue 509
 - node scripts/check-scenario-foundation-readiness.mjs --stage access-gates-ready --allow-partial --issue 509
 - node scripts/check-scenario-foundation-readiness.mjs --stage one-floorplan-ready --allow-partial --issue 509
 - node scripts/check-scenario-foundation-readiness.mjs --stage no-simulation-no-optimizer --allow-partial --issue 509

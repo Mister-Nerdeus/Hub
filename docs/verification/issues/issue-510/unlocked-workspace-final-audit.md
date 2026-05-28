@@ -9,6 +9,7 @@ Status: GO for Scenario Seed + Ratio Comparison Foundation.
 - Evidence depth cleanup: passed
 - Read-only editor explanation: passed
 - Storage rendering polish: passed
+- Editor background pan: passed
 - App-rendered unlocked proof: passed
 - Scenario foundation readiness: passed
 - Manual review remains required.

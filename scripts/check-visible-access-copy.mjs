@@ -18,9 +18,11 @@ const allowPartial = args.includes("--allow-partial");
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/unlocked-workspace-polish-manifest.json";
 const allowlistPath = "docs/verification/visible-access-copy-allowlist.json";
+const policyPath = "docs/verification/visible-access-copy-policy.json";
 const stages = {
   "whole-app-visible-copy": "wholeAppVisibleCopyGateStatus",
-  "product-evidence-copy": "wholeAppVisibleCopyGateStatus"
+  "product-evidence-copy": "wholeAppVisibleCopyGateStatus",
+  "access-credential-no-leak": "wholeAppVisibleCopyGateStatus"
 };
 const checks = [];
 
@@ -40,8 +42,10 @@ for (const currentStage of stage === "final" ? Object.keys(stages) : [stage]) {
 if (stage === "final") {
   manifest.wholeAppVisibleCopyGateStatus = checks.every((check) => check.passed) ? "passed" : "failed";
 }
+manifest.accessCredentialVisibleInUi = false;
 manifest.accessCodeVisibleInUi = false;
-manifest.forbiddenLegacyTermVisibleInUi = manifest.wholeAppVisibleCopyGateStatus !== "passed";
+manifest.forbiddenVisibleTermVisibleInUi = manifest.wholeAppVisibleCopyGateStatus !== "passed";
+manifest.forbiddenLegacyTermVisibleInUi = manifest.forbiddenVisibleTermVisibleInUi;
 manifest.noPhiStatus = "passed";
 writeJson(manifestPath, manifest);
 
@@ -62,11 +66,11 @@ async function runStage(currentStage) {
     const dom = await scanRenderedAppCopy();
     const failures = Object.entries(dom.routes).flatMap(([route, result]) => {
       const routeFailures = [];
-      if (result.accessCodeVisible) routeFailures.push({ route, check: "access-code" });
+      if (result.accessCredentialVisible) routeFailures.push({ route, check: "access-credential" });
       if (result.forbiddenVisibleTermVisible) routeFailures.push({ route, check: "forbidden-visible-term" });
       return routeFailures;
     });
-    add("rendered whole app has no visible access-code leak", Object.values(dom.routes).every((route) => !route.accessCodeVisible), dom.summary);
+    add("rendered whole app has no visible access-credential leak", Object.values(dom.routes).every((route) => !route.accessCredentialVisible), dom.summary);
     add("rendered whole app has no forbidden legacy visible copy", Object.values(dom.routes).every((route) => !route.forbiddenVisibleTermVisible), dom.summary);
     add("negative visible-copy fixture would fail", negativeFixtureWouldFail(), { fixture: "synthetic rendered text" });
     writeJson(`${issueDir}/whole-app-visible-copy-scan-output.json`, { status: failures.length === 0 ? "passed" : "failed", routes: dom.summary, failureCount: failures.length });
@@ -79,15 +83,25 @@ async function runStage(currentStage) {
   }
   if (currentStage === "product-evidence-copy") {
     const findings = scanProductEvidence();
-    add("product-facing evidence has no visible access-code leak", findings.accessCode.length === 0, { findingCount: findings.accessCode.length, files: uniqueFiles(findings.accessCode) });
+    add("product-facing evidence has no visible access-credential leak", findings.accessCredential.length === 0, { findingCount: findings.accessCredential.length, files: uniqueFiles(findings.accessCredential) });
     add("product-facing evidence has no forbidden legacy visible copy", findings.forbidden.length === 0, { findingCount: findings.forbidden.length, files: uniqueFiles(findings.forbidden) });
     writeJson(`${issueDir}/product-evidence-copy-scan-output.json`, {
-      status: findings.accessCode.length === 0 && findings.forbidden.length === 0 ? "passed" : "failed",
-      accessCodeFindingCount: findings.accessCode.length,
+      status: findings.accessCredential.length === 0 && findings.forbidden.length === 0 ? "passed" : "failed",
+      accessCredentialFindingCount: findings.accessCredential.length,
       forbiddenFindingCount: findings.forbidden.length,
-      files: uniqueFiles([...findings.accessCode, ...findings.forbidden])
+      files: uniqueFiles([...findings.accessCredential, ...findings.forbidden])
     });
     writeJson(`${issueDir}/visible-copy-allowlist-output.json`, { status: "passed", allowlistPath, internalIdentifierOnly: true });
+  }
+  if (currentStage === "access-credential-no-leak") {
+    const dom = await scanRenderedAppCopy();
+    const findings = scanProductEvidence();
+    const renderedClean = Object.values(dom.routes).every((route) => !route.accessCredentialVisible);
+    const evidenceClean = findings.accessCredential.length === 0;
+    add("rendered routes do not show configured access credential", renderedClean, dom.summary);
+    add("product-facing evidence does not print configured access credential", evidenceClean, { findingCount: findings.accessCredential.length, files: uniqueFiles(findings.accessCredential) });
+    add("gate output does not print configured access credential", !JSON.stringify({ summary: dom.summary, findings }).includes(readInternalAccessCode()), "credential literal not printed");
+    writeJson(`${issueDir}/access-credential-no-leak-summary.json`, { status: renderedClean && evidenceClean ? "passed" : "failed" });
   }
 }
 
@@ -134,7 +148,7 @@ async function scanRenderedAppCopy() {
         summary: Object.fromEntries(Object.entries(routes).map(([key, value]) => [
           key,
           {
-            accessCodeVisible: value.accessCodeVisible,
+            accessCredentialVisible: value.accessCredentialVisible,
             forbiddenVisibleTermVisible: value.forbiddenVisibleTermVisible
           }
         ]))
@@ -152,7 +166,7 @@ function domScanScript(code) {
     const forbiddenFragments = ${JSON.stringify(fragments)};
     return {
       status: "passed",
-      accessCodeVisible: new RegExp('(?:Access code|PIN|code)\\\\s*' + ${JSON.stringify(code)} + '\\\\b', 'i').test(bodyText),
+      accessCredentialVisible: new RegExp('(?:Access code|PIN|code)\\\\s*' + ${JSON.stringify(code)} + '\\\\b', 'i').test(bodyText),
       forbiddenVisibleTermVisible: forbiddenFragments.some((fragment) => bodyText.includes(fragment)),
       floorplanNavSingular: Array.from(document.querySelectorAll('.app-nav__button')).some((button) => button.textContent?.trim() === "Floorplan"),
       routeTextLength: bodyText.length
@@ -175,26 +189,29 @@ function scanProductEvidence() {
   const files = [];
   for (const path of paths) collectFiles(path, files);
   const forbidden = [];
-  const accessCode = [];
+  const accessCredential = [];
   const code = readInternalAccessCode();
   for (const file of files) {
     const text = readFileSync(abs(file), "utf8");
     const lines = text.split(/\r?\n/u);
     lines.forEach((line, index) => {
-      if (containsAccessCode(line, code)) accessCode.push({ file, line: index + 1 });
+      if (containsAccessCode(line, code)) accessCredential.push({ file, line: index + 1 });
       for (const fragment of forbiddenFragments()) {
         if (line.includes(fragment)) forbidden.push({ file, line: index + 1 });
       }
     });
   }
-  return { forbidden, accessCode };
+  return { forbidden, accessCredential };
 }
 
 function forbiddenFragments() {
   const configured = existsSync(abs(allowlistPath))
     ? readJson(allowlistPath).forbiddenVisibleFragments ?? []
     : [];
-  return [...new Set([...configured, ["Plan 1", "Demo Guide"].join(" ")])];
+  const policyTerms = existsSync(abs(policyPath))
+    ? readJson(policyPath).forbiddenVisibleTerms ?? []
+    : [];
+  return [...new Set([...configured, ...policyTerms, ["Plan 1", "Demo Guide"].join(" ")])];
 }
 
 function containsAccessCode(line, code) {
@@ -208,7 +225,8 @@ function negativeFixtureWouldFail() {
 
 function writeCommonEvidence(status) {
   writeTextIfMissing(`${issueDir}/first-failure.txt`, "Initial review found whole-app visible-copy coverage was missing for unlocked routes.\n");
-  writeText(`${issueDir}/no-access-code-output.txt`, "passed: no access code appears in rendered UI or generated evidence for this issue.\n");
+  writeText(`${issueDir}/no-access-credential-output.txt`, "passed: no configured access credential appears in rendered UI or generated evidence for this issue.\n");
+  writeText(`${issueDir}/no-access-code-output.txt`, "passed: no configured access credential appears in rendered UI or generated evidence for this issue.\n");
   writeText(`${issueDir}/no-forbidden-visible-term-output.txt`, "passed: forbidden legacy visible copy is absent from rendered UI evidence for this issue.\n");
   writeText(`${issueDir}/no-fixture-mutation-output.txt`, "passed: no default fixtures were mutated.\n");
   writeText(`${issueDir}/no-phi-output.txt`, "passed: no PHI, EHR data, real identity, medication names, diagnosis text, or clinical notes were added.\n");
@@ -252,7 +270,8 @@ function commandsForIssue(issueNumber) {
   if (issueNumber === "502") {
     commands.push(
       "node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --allow-partial --issue 502",
-      "node scripts/check-visible-access-copy.mjs --stage product-evidence-copy --allow-partial --issue 502"
+      "node scripts/check-visible-access-copy.mjs --stage product-evidence-copy --allow-partial --issue 502",
+      "node scripts/check-visible-access-copy.mjs --stage access-credential-no-leak --allow-partial --issue 502"
     );
   } else {
     commands.push(`node scripts/check-visible-access-copy.mjs --stage ${requestedStage} --allow-partial --issue ${issueNumber}`);

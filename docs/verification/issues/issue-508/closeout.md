@@ -1,7 +1,7 @@
 # Issue 508 Closeout
 
 ## Summary
-Completed unlocked workspace polish stage: unlocked-visual-proof.
+Completed layout editor background pan stage: no-geometry-mutation.
 
 ## Files Changed
 - See git diff for source, gate, manifest, and evidence updates.
@@ -9,9 +9,12 @@ Completed unlocked workspace polish stage: unlocked-visual-proof.
 ## Commands Run
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/capture-unlocked-workspace-polish-proof.mjs --issue 508
-- node scripts/check-unlocked-workspace-polish.mjs --stage unlocked-visual-proof --allow-partial --issue 508
+- node scripts/check-layout-editor-background-pan.mjs --stage interaction-model --allow-partial --issue 508
+- node scripts/check-layout-editor-background-pan.mjs --stage pointer-pan --allow-partial --issue 508
+- node scripts/check-layout-editor-background-pan.mjs --stage read-only-pan --allow-partial --issue 508
+- node scripts/check-layout-editor-background-pan.mjs --stage no-geometry-mutation --allow-partial --issue 508
 - node scripts/check-no-phi-fields.mjs
+- node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 508
 
 ## Tests Passed/Failed
 - Required local gates for this issue passed.
@@ -27,6 +30,3 @@ Completed unlocked workspace polish stage: unlocked-visual-proof.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, clinical safety scoring, or staffing compliance certification was added.
-
-## Next Recommended Issue
-- GO for Issue 509.

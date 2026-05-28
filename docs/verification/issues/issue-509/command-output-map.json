@@ -44,6 +44,12 @@
       ]
     },
     {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 509",
+      "outputs": [
+        "docs/verification/issues/issue-509/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
       "command": "node scripts/check-scenario-foundation-readiness.mjs --stage access-gates-ready --allow-partial --issue 509",
       "outputs": [
         "docs/verification/issues/issue-509/test-output/scenario-foundation-readiness.txt"

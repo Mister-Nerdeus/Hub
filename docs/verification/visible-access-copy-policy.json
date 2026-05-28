@@ -1,0 +1,28 @@
+{
+  "policyVersion": "1.0.0",
+  "accessCredentialHandling": {
+    "source": "internal-contract",
+    "printCredentialInOutputs": false,
+    "visibleUiAllowed": false,
+    "productEvidenceAllowed": false
+  },
+  "forbiddenVisibleTerms": [
+    "Demo PIN",
+    "Demo-only",
+    "demo-only",
+    "Relock Demo",
+    "trial",
+    "Plan 1 Demo Guide"
+  ],
+  "allowedInternalIdentifierPatterns": [
+    "legacy source filenames only when not rendered",
+    "legacy internal type names only when not rendered"
+  ],
+  "scanTargets": [
+    "apps/web/src",
+    "docs/project",
+    "docs/verification",
+    "rendered app DOM",
+    "issue evidence outputs"
+  ]
+}

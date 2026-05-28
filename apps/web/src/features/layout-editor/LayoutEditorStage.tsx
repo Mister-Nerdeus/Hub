@@ -950,6 +950,9 @@ export function LayoutEditorStage({
 
       <div className={viewportLayoutViewModel.workspaceClassName} {...viewportLayoutViewModel.dataAttributes}>
         <div className="layout-editor-stage__shell" data-proof-only="true">
+          <p className="layout-editor-stage__pan-helper" data-canvas-pan-helper="true">
+            Drag the hallway/background to pan the map.
+          </p>
           <svg
             className={`layout-editor-stage__svg layout-editor-stage--${editorMode}`}
             viewBox={STAGE_VIEW_BOX}
@@ -964,6 +967,8 @@ export function LayoutEditorStage({
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
+            data-pan-x-feet={stageState.viewport.panXFeet}
+            data-pan-y-feet={stageState.viewport.panYFeet}
             data-placement-object={pendingAddObjectId ?? "none"}
             onClick={addRoomFromStageClick}
             onPointerDown={startCanvasPan}

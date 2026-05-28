@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "stage": "no-geometry-mutation",
+  "issue": "508",
+  "allowPartial": true,
+  "checks": [
+    {
+      "stage": "no-geometry-mutation",
+      "name": "pan action changes viewport only",
+      "passed": true,
+      "detail": "layoutEditorReducer.ts"
+    },
+    {
+      "stage": "no-geometry-mutation",
+      "name": "room, door, and handle targets do not start pan",
+      "passed": true,
+      "detail": "layoutCanvasPan.test.ts"
+    }
+  ]
+}

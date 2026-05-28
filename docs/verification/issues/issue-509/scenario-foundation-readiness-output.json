@@ -1,31 +1,33 @@
 {
   "status": "passed",
-  "stage": "no-simulation-no-optimizer",
+  "stage": "one-floorplan-ready",
   "issue": "509",
   "allowPartial": true,
   "checks": [
     {
-      "name": "scenario manifest has no full-shift simulation",
+      "name": "singular floorplan navigation ready",
       "passed": true,
-      "detail": "scenario-ratio-foundation-manifest.json"
+      "detail": "appNavigation.ts"
     },
     {
-      "name": "scenario manifest has no optimizer",
+      "name": "Plans 2-5 remain out of main UI",
       "passed": true,
-      "detail": "scenario-ratio-foundation-manifest.json"
+      "detail": "docs/verification/unlocked-workspace-polish-manifest.json"
     },
     {
-      "name": "scenario source has no execution or optimizer behavior",
+      "name": "Plans 2-5 remain Advanced/Evidence only",
       "passed": true,
-      "detail": {
-        "status": "passed",
-        "scannedFiles": [
-          "apps/web/src/features/scenarios/scenarioComparisonViewModel.ts",
-          "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
-          "apps/web/src/features/scenarios/scenarioRatioComparisonCopy.ts"
-        ],
-        "findings": []
-      }
+      "detail": "docs/verification/unlocked-workspace-polish-manifest.json"
+    },
+    {
+      "name": "editor background pan is ready",
+      "passed": true,
+      "detail": "docs/verification/unlocked-workspace-polish-manifest.json"
+    },
+    {
+      "name": "storage semantics gate source remains present",
+      "passed": true,
+      "detail": "roomTypeRules.ts"
     }
   ]
 }

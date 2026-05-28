@@ -20,6 +20,48 @@
       ]
     },
     {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-first-entry-gate",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/pin-first-entry-gate.txt"
+      ]
+    },
+    {
+      "command": "npm run check:pin-rate-limit-lockout",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/pin-rate-limit-lockout.txt"
+      ]
+    },
+    {
+      "command": "npm run check:professional-access-screen",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/professional-access-screen.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-access-copy.mjs --stage final --issue 510",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/visible-access-copy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
       "command": "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
       "outputs": [
         "docs/verification/issues/issue-510/test-output/scenario-foundation-readiness.txt"
@@ -29,6 +71,36 @@
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
         "docs/verification/issues/issue-510/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/docker-build-web.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-510/test-output/docker-build-production-web.txt"
       ]
     }
   ]

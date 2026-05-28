@@ -5,6 +5,7 @@ npm run check:room-type-semantics
 npm run check:pin-first-entry-gate
 npm run check:pin-rate-limit-lockout
 npm run check:professional-access-screen
+node scripts/check-layout-editor-background-pan.mjs --stage final --issue 509
 node scripts/check-scenario-foundation-readiness.mjs --stage access-gates-ready --allow-partial --issue 509
 node scripts/check-scenario-foundation-readiness.mjs --stage one-floorplan-ready --allow-partial --issue 509
 node scripts/check-scenario-foundation-readiness.mjs --stage no-simulation-no-optimizer --allow-partial --issue 509

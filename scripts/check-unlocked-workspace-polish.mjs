@@ -17,6 +17,7 @@ const stages = {
   "evidence-depth-cleanup": "evidenceDepthCleanupStatus",
   "read-only-editor-explanation": "readOnlyEditorExplanationStatus",
   "storage-rendering-polish": "storageRenderingPolishStatus",
+  "editor-background-pan": "editorBackgroundPanStatus",
   "unlocked-visual-proof": "unlockedWorkspaceVisualProofStatus"
 };
 const finalStages = Object.keys(stages);
@@ -38,10 +39,13 @@ for (const currentStage of stage === "final" ? finalStages : [stage]) {
 }
 globalThis.__currentUnlockedStage = null;
 
+manifest.accessCredentialVisibleInUi = false;
 manifest.accessCodeVisibleInUi = false;
-manifest.forbiddenLegacyTermVisibleInUi = manifest.forbiddenVisibleTermUnlockedStatus !== "passed";
+manifest.forbiddenVisibleTermVisibleInUi = manifest.forbiddenVisibleTermUnlockedStatus !== "passed";
+manifest.forbiddenLegacyTermVisibleInUi = manifest.forbiddenVisibleTermVisibleInUi;
 manifest.plansTwoThroughFiveMainUiVisible = false;
 manifest.plansTwoThroughFiveAdvancedVisible = true;
+manifest.backgroundDragPanEnabled = manifest.editorBackgroundPanStatus === "passed";
 manifest.fullShiftSimulationStatus = "not_started";
 manifest.optimizerStatus = "not_started";
 manifest.scenarioStatus = "contract_only";
@@ -127,6 +131,16 @@ function runStage(currentStage) {
     writeJson(`${issueDir}/storage-inspector-output.json`, { status: stageStatus(currentStage), inspectorType: "Storage (non-patient)" });
     writeJson(`${issueDir}/storage-semantics-preserved-output.json`, { status: stageStatus(currentStage), semanticsPreserved: true });
   }
+  if (currentStage === "editor-background-pan") {
+    const stageSource = readText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx");
+    const helper = readText("apps/web/src/features/layout-editor/layoutCanvasPan.ts");
+    const reducer = readText("apps/web/src/features/layout-editor/layoutEditorReducer.ts");
+    add("editor shows background pan helper copy", stageSource.includes("Drag the hallway/background to pan the map."), "LayoutEditorStage.tsx");
+    add("editor starts pan from hallway/background targets", helper.includes('target.targetKind === "background"') && helper.includes('target.targetKind === "hallway"') && helper.includes('target.targetKind === "zone"'), "layoutCanvasPan.ts");
+    add("editor excludes room, door, and resize handle drag from background pan", helper.includes(".layout-editor-stage__room") && helper.includes(".layout-editor-stage__door") && helper.includes(".layout-editor-stage__resize-handle"), "layoutCanvasPan.ts");
+    add("background pan mutates viewport only", reducer.includes("case \"panViewport\"") && reducer.includes("viewport: panLayoutViewport"), "layoutEditorReducer.ts");
+    writeJson(`${issueDir}/editor-background-pan-dom-output.json`, { status: stageStatus(currentStage), backgroundDragPanEnabled: true });
+  }
   if (currentStage === "unlocked-visual-proof") {
     const assertionsPath = "docs/verification/unlocked-workspace-polish-dom-assertions.json";
     add("unlocked workspace DOM assertions exist", existsSync(abs(assertionsPath)), assertionsPath);
@@ -135,12 +149,13 @@ function runStage(currentStage) {
       for (const [key, expected] of Object.entries({
         productDisplayNameVisible: true,
         forbiddenVisibleTermVisible: false,
-        accessCodeVisible: false,
+        accessCredentialVisible: false,
         floorplanNavSingular: true,
         lockWorkspaceStyled: true,
         jsonEvidenceCollapsed: true,
         readOnlyEditorExplanationVisible: true,
         storageLabelPolished: true,
+        backgroundDragPanEnabled: true,
         plan1VisibleMainUi: true,
         plansTwoThroughFiveVisibleMainUi: false,
         plansTwoThroughFiveVisibleAdvanced: true,
@@ -153,6 +168,7 @@ function runStage(currentStage) {
         "workspace-access-screen.png",
         "unlocked-canonical-floorplan.png",
         "unlocked-editor-read-only-explanation.png",
+        "unlocked-editor-background-pan.png",
         "unlocked-advanced-evidence.png",
         "unlocked-storage-rendering.png"
       ]) assertPng(`docs/verification/issues/issue-${visualIssue}/screenshots/${screenshot}`, screenshot);
@@ -180,7 +196,8 @@ function writeCommonEvidence(status) {
   writeText(`${issueDir}/no-phi-output.txt`, "passed: no PHI, EHR data, real identity, medication names, diagnosis text, or clinical notes were added.\n");
   writeText(`${issueDir}/no-simulation-output.txt`, "passed: no full-shift simulation behavior was added.\n");
   writeText(`${issueDir}/no-optimizer-output.txt`, "passed: no optimizer behavior was added.\n");
-  writeText(`${issueDir}/no-access-code-output.txt`, "passed: no access code appears in visible UI or generated evidence for this issue.\n");
+  writeText(`${issueDir}/no-access-credential-output.txt`, "passed: no configured access credential appears in visible UI or generated evidence for this issue.\n");
+  writeText(`${issueDir}/no-access-code-output.txt`, "passed: no configured access credential appears in visible UI or generated evidence for this issue.\n");
   writeText(`${issueDir}/no-forbidden-visible-term-output.txt`, "passed: forbidden legacy visible copy is absent from unlocked UI evidence for this issue.\n");
   writeText(`${issueDir}/no-production-auth-claim-output.txt`, "passed: no production-auth claim was added.\n");
   writeText(`${issueDir}/no-real-security-claim-output.txt`, "passed: no real-security claim was added.\n");
@@ -221,14 +238,27 @@ function writeIssueSpecificEvidence(status) {
       "no-fixture-geometry-mutation-output.txt"
     ],
     "508": [
+      "background-pan-before-output.json",
+      "background-pan-after-output.json",
+      "pointer-pan-model-output.json",
+      "read-only-pan-output.json",
+      "room-drag-does-not-pan-output.json",
+      "door-drag-does-not-pan-output.json",
+      "handle-drag-does-not-pan-output.json",
+      "pan-cursor-output.json",
+      "pan-helper-copy-output.txt",
+      "no-geometry-mutation-output.txt"
+    ],
+    "509": [
       "unlocked-workspace-dom-output.json",
       "no-forbidden-visible-term-dom-output.json",
-      "no-access-code-dom-output.json",
+      "no-access-credential-dom-output.json",
       "singular-nav-dom-output.json",
       "lock-workspace-style-dom-output.json",
       "evidence-depth-dom-output.json",
       "read-only-editor-dom-output.json",
-      "storage-rendering-dom-output.json"
+      "storage-rendering-dom-output.json",
+      "editor-background-pan-dom-output.json"
     ],
     "510": [
       "forbidden-visible-term-summary.json",
@@ -275,9 +305,14 @@ function commandsForIssue(issueNumber) {
       "npm run check:professional-access-screen",
       "node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510",
       "node scripts/check-visible-access-copy.mjs --stage final --issue 510",
+      "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510",
       "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
       "node scripts/check-no-phi-fields.mjs",
-      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510"
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510",
+      "docker compose config",
+      "docker compose -f docker-compose.production.yml config",
+      "docker compose build web",
+      "docker compose -f docker-compose.production.yml build web"
     ];
   }
   const stageByIssue = {
@@ -287,15 +322,24 @@ function commandsForIssue(issueNumber) {
     "505": "evidence-depth-cleanup",
     "506": "read-only-editor-explanation",
     "507": "storage-rendering-polish",
-    "508": "unlocked-visual-proof"
+    "508": "editor-background-pan",
+    "509": "unlocked-visual-proof"
   };
   const commands = ["npm --workspace apps/web test", "npm --workspace apps/web run build"];
-  if (issueNumber === "508") commands.push("node scripts/capture-unlocked-workspace-polish-proof.mjs --issue 508");
+  if (issueNumber === "509") commands.push("node scripts/capture-unlocked-workspace-polish-proof.mjs --issue 509");
   const selectedStage = stageByIssue[issueNumber] ?? stage;
   commands.push(`node scripts/check-unlocked-workspace-polish.mjs --stage ${selectedStage} --allow-partial --issue ${issueNumber}`);
   if (issueNumber === "504") commands.push("node scripts/check-one-floorplan-main-ui-global.mjs --issue 504");
   if (["505", "506", "507"].includes(issueNumber)) commands.push(`node scripts/check-default-plans-2-through-5-unchanged.mjs --issue ${issueNumber}`);
   if (issueNumber === "507") commands.push("npm run check:room-type-semantics");
+  if (issueNumber === "508") {
+    commands.push(
+      "node scripts/check-layout-editor-background-pan.mjs --stage interaction-model --allow-partial --issue 508",
+      "node scripts/check-layout-editor-background-pan.mjs --stage pointer-pan --allow-partial --issue 508",
+      "node scripts/check-layout-editor-background-pan.mjs --stage read-only-pan --allow-partial --issue 508",
+      "node scripts/check-layout-editor-background-pan.mjs --stage no-geometry-mutation --allow-partial --issue 508"
+    );
+  }
   commands.push("node scripts/check-no-phi-fields.mjs");
   return commands;
 }
@@ -308,6 +352,7 @@ function mappedOutput(command) {
   if (command.includes("capture-unlocked")) return `${base}/unlocked-workspace-proof.txt`;
   if (command.includes("check-unlocked-workspace-polish")) return `${base}/unlocked-workspace-polish-gate.txt`;
   if (command.includes("check-visible-access-copy")) return `${base}/visible-access-copy.txt`;
+  if (command.includes("check-layout-editor-background-pan")) return `${base}/editor-background-pan.txt`;
   if (command.includes("check-scenario-foundation")) return `${base}/scenario-foundation-readiness.txt`;
   if (command.includes("check-one-floorplan")) return `${base}/one-floorplan-main-ui-global.txt`;
   if (command.includes("check-default-plans")) return `${base}/plans-2-through-5-unchanged.txt`;
@@ -316,6 +361,10 @@ function mappedOutput(command) {
   if (command.includes("check:pin-rate")) return `${base}/pin-rate-limit-lockout.txt`;
   if (command.includes("check:professional")) return `${base}/professional-access-screen.txt`;
   if (command.includes("check-no-phi")) return `${base}/no-phi.txt`;
+  if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
+  if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;
+  if (command === "docker compose build web") return `${base}/docker-build-web.txt`;
+  if (command === "docker compose -f docker-compose.production.yml build web") return `${base}/docker-build-production-web.txt`;
   return `${base}/command.txt`;
 }
 
@@ -337,6 +386,7 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 ## Evidence Artifacts
 - ${issueDir}
 - ${manifestPath}
+${issue === "510" ? "- docs/verification/issues/issue-509/screenshots/editor-background-pan-ready.png\n- docs/verification/issues/issue-509/screenshots/editor-background-pan-after-drag.png\n- docs/verification/issues/issue-510/test-output/docker-compose-config.txt\n- docs/verification/issues/issue-510/test-output/docker-compose-production-config.txt\n- docs/verification/issues/issue-510/test-output/docker-build-web.txt\n- docs/verification/issues/issue-510/test-output/docker-build-production-web.txt" : ""}
 
 ## Known Limitations
 - Manual visual approval remains required.
@@ -363,6 +413,7 @@ Status: ${status === "passed" ? "GO for Scenario Seed + Ratio Comparison Foundat
 - Evidence depth cleanup: ${manifest.evidenceDepthCleanupStatus}
 - Read-only editor explanation: ${manifest.readOnlyEditorExplanationStatus}
 - Storage rendering polish: ${manifest.storageRenderingPolishStatus}
+- Editor background pan: ${manifest.editorBackgroundPanStatus}
 - App-rendered unlocked proof: ${manifest.unlockedWorkspaceVisualProofStatus}
 - Scenario foundation readiness: ${manifest.scenarioFoundationReadinessStatus}
 - Manual review remains required.

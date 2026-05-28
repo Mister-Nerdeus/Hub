@@ -1,0 +1,66 @@
+ Image hub-web Building
+ Image hub-api Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 422B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 295B done
+#4 DONE 0.0s
+
+#5 [ 1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#5 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 141.66kB 0.1s done
+#6 DONE 0.1s
+
+#7 [ 3/10] COPY package.json package-lock.json ./
+#7 CACHED
+
+#8 [ 6/10] RUN npm ci
+#8 CACHED
+
+#9 [ 9/10] COPY packages/shared packages/shared
+#9 CACHED
+
+#10 [ 2/10] WORKDIR /repo
+#10 CACHED
+
+#11 [ 8/10] COPY apps/web apps/web
+#11 CACHED
+
+#12 [ 4/10] COPY apps/web/package.json apps/web/package.json
+#12 CACHED
+
+#13 [ 7/10] COPY tsconfig.base.json ./
+#13 CACHED
+
+#14 [ 5/10] COPY packages/shared/package.json packages/shared/package.json
+#14 CACHED
+
+#15 [10/10] WORKDIR /repo/apps/web
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:b0d2c66801831fcc0b10ed43fc22b831414eeedfb7d8b38524143c42e1482bd1 done
+#16 exporting config sha256:3635816c60d0fda69f626bdb8e11950c6a87a4fd04814f01785d24b1b94e8358 done
+#16 exporting attestation manifest sha256:49094f2ac256873b930e78c95dc9023ff4670775e0a96965e553a60f7bb3c7fa 0.0s done
+#16 exporting manifest list sha256:021e02f3b69e3063f27c17b53c9f6aa798a5d561402f6944aad568d1056b4d8d
+#16 exporting manifest list sha256:021e02f3b69e3063f27c17b53c9f6aa798a5d561402f6944aad568d1056b4d8d 0.0s done
+#16 naming to docker.io/library/hub-web:latest done
+#16 unpacking to docker.io/library/hub-web:latest 0.0s done
+#16 DONE 0.2s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ Image hub-web Built

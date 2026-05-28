@@ -1,0 +1,25 @@
+
+> @nerdeus/web@0.1.0 dev
+> vite --host 0.0.0.0 --host 127.0.0.1 --port 7008
+
+
+  [32m[1mVITE[22m v8.0.14[39m  [2mready in [0m[1m274[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m7008[22m/[39m
+
+
+> @nerdeus/web@0.1.0 dev
+> vite --host 0.0.0.0 --host 127.0.0.1 --port 7009
+
+
+  [32m[1mVITE[22m v8.0.14[39m  [2mready in [0m[1m252[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m7009[22m/[39m
+[2m8:04:31 PM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /v1/simulation/runs?limit=5&offset=0[39m
+AggregateError [ECONNREFUSED]:
+    at internalConnectMultiple (node:net:1139:18)
+    at afterConnectMultiple (node:net:1714:7)
+[2m8:04:31 PM[22m [31m[1m[vite][22m[39m [31mhttp proxy error: /v1/simulation/runs?limit=5&offset=0[39m
+AggregateError [ECONNREFUSED]:
+    at internalConnectMultiple (node:net:1139:18)
+    at afterConnectMultiple (node:net:1714:7)

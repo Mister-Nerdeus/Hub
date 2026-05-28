@@ -1,5 +1,17 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
+npm run check:room-type-semantics
+npm run check:pin-first-entry-gate
+npm run check:pin-rate-limit-lockout
+npm run check:professional-access-screen
+node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510
+node scripts/check-visible-access-copy.mjs --stage final --issue 510
+node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510
 node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510
 node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose build web
+docker compose -f docker-compose.production.yml build web

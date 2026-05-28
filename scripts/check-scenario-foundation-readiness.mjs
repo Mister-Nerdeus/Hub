@@ -65,14 +65,15 @@ function runStage(currentStage) {
     const professional = readJson("docs/verification/professional-access-screen-manifest.json");
     const pin = readJson("docs/verification/pin-first-entry-gate-manifest.json");
     add("professional access final gate passed", professional.finalGoNoGoStatus === "passed", "professional-access-screen-manifest.json");
-    add("access code not visible in professional manifest", professional.accessCodeVisibleInUi === false, "professional-access-screen-manifest.json");
+    add("access credential not visible in professional manifest", (professional.accessCredentialVisibleInUi ?? professional.accessCodeVisibleInUi) === false, "professional-access-screen-manifest.json");
     add("PIN-first gate passed", pin.pinFirstEntryGateStatus === "passed" && pin.preUnlockNavSuppressionStatus === "passed", "pin-first-entry-gate-manifest.json");
     add("cooldown and lockout gates passed", pin.pinCooldownStatus === "passed" && pin.pinLockoutStatus === "passed", "pin-first-entry-gate-manifest.json");
-    add("access code is not stored in current evidence manifest", pin.accessCodeStoredInEvidence === false, "pin-first-entry-gate-manifest.json");
+    add("access credential is not stored in current evidence manifest", pin.accessCodeStoredInEvidence === false, "pin-first-entry-gate-manifest.json");
     writeJson(`${issueDir}/professional-access-summary.json`, { status: professional.finalGoNoGoStatus });
     writeJson(`${issueDir}/pin-first-summary.json`, { status: pin.pinFirstEntryGateStatus });
     writeJson(`${issueDir}/cooldown-lockout-summary.json`, { cooldown: pin.pinCooldownStatus, lockout: pin.pinLockoutStatus });
-    writeJson(`${issueDir}/access-code-no-leak-summary.json`, { status: professional.accessCodeVisibleInUi === false ? "passed" : "failed" });
+    writeJson(`${issueDir}/access-credential-no-leak-summary.json`, { status: (professional.accessCredentialVisibleInUi ?? professional.accessCodeVisibleInUi) === false ? "passed" : "failed" });
+    writeJson(`${issueDir}/access-code-no-leak-summary.json`, { status: (professional.accessCredentialVisibleInUi ?? professional.accessCodeVisibleInUi) === false ? "passed" : "failed" });
   }
   if (currentStage === "one-floorplan-ready") {
     const unlocked = existsSync(abs(manifestPath)) ? readJson(manifestPath) : {};
@@ -80,10 +81,12 @@ function runStage(currentStage) {
     add("singular floorplan navigation ready", nav.includes('label: "Floorplan"') && !nav.includes('label: "Floorplans"'), "appNavigation.ts");
     add("Plans 2-5 remain out of main UI", unlocked.plansTwoThroughFiveMainUiVisible === false, manifestPath);
     add("Plans 2-5 remain Advanced/Evidence only", unlocked.plansTwoThroughFiveAdvancedVisible === true, manifestPath);
+    add("editor background pan is ready", unlocked.editorBackgroundPanStatus === "passed" && unlocked.backgroundDragPanEnabled === true, manifestPath);
     add("storage semantics gate source remains present", readText("packages/shared/src/floorplans/roomTypeRules.ts").includes("storage"), "roomTypeRules.ts");
     writeJson(`${issueDir}/one-floorplan-summary.json`, { status: "passed", singularNavigation: true });
     writeJson(`${issueDir}/room-type-semantics-summary.json`, { status: "passed" });
     writeJson(`${issueDir}/storage-semantics-summary.json`, { status: "passed" });
+    writeJson(`${issueDir}/editor-background-pan-summary.json`, { status: unlocked.editorBackgroundPanStatus ?? "missing" });
   }
   if (currentStage === "no-simulation-no-optimizer") {
     const scenarioManifest = readJson("docs/verification/scenario-ratio-foundation-manifest.json");
@@ -167,6 +170,7 @@ function commandsForIssue(issueNumber) {
       "npm --workspace packages/shared test",
       "npm --workspace apps/web test",
       "npm --workspace apps/web run build",
+      "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510",
       "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
       "node scripts/check-no-phi-fields.mjs"
     ];
@@ -179,6 +183,7 @@ function commandsForIssue(issueNumber) {
     "npm run check:pin-first-entry-gate",
     "npm run check:pin-rate-limit-lockout",
     "npm run check:professional-access-screen",
+    "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 509",
     "node scripts/check-scenario-foundation-readiness.mjs --stage access-gates-ready --allow-partial --issue 509",
     "node scripts/check-scenario-foundation-readiness.mjs --stage one-floorplan-ready --allow-partial --issue 509",
     "node scripts/check-scenario-foundation-readiness.mjs --stage no-simulation-no-optimizer --allow-partial --issue 509",
@@ -192,6 +197,7 @@ function mappedOutput(command) {
   if (command.includes("apps/web test")) return `${base}/web.txt`;
   if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
   if (command.includes("check-scenario-foundation")) return `${base}/scenario-foundation-readiness.txt`;
+  if (command.includes("check-layout-editor-background-pan")) return `${base}/editor-background-pan.txt`;
   if (command.includes("check:room-type-semantics")) return `${base}/room-type-semantics.txt`;
   if (command.includes("check:pin-first")) return `${base}/pin-first-entry-gate.txt`;
   if (command.includes("check:pin-rate")) return `${base}/pin-rate-limit-lockout.txt`;

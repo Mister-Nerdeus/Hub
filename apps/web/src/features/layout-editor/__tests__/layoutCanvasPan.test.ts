@@ -8,13 +8,15 @@ if (!canStartCanvasPan({ targetKind: "background" })) {
   throw new Error("background target should start canvas panning");
 }
 
+if (!canStartCanvasPan({ targetKind: "hallway" }) || !canStartCanvasPan({ targetKind: "zone" })) {
+  throw new Error("hallway and zone targets should start canvas panning");
+}
+
 for (const targetKind of [
   "room",
   "door",
   "resize-handle",
   "station",
-  "hallway",
-  "zone",
   "popup",
   "toolbar",
   "selected-object"

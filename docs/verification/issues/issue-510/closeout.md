@@ -1,10 +1,10 @@
 # Issue 510 Closeout
 
 ## Summary
-Completed the final GO / NO-GO audit for Batch 501-510.
+Completed unlocked workspace polish stage: final.
 
 ## Files Changed
-- Source UI polish, gate scripts, package verification alias, batch manifest, final status docs, and issue evidence under `docs/verification/issues/issue-501` through `issue-510`.
+- See git diff for source, gate, manifest, and evidence updates.
 
 ## Commands Run
 - npm --workspace packages/shared test
@@ -16,29 +16,35 @@ Completed the final GO / NO-GO audit for Batch 501-510.
 - npm run check:professional-access-screen
 - node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510
 - node scripts/check-visible-access-copy.mjs --stage final --issue 510
+- node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510
 - node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510
 - node scripts/check-no-phi-fields.mjs
 - node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510
 - docker compose config
+- docker compose -f docker-compose.production.yml config
+- docker compose build web
+- docker compose -f docker-compose.production.yml build web
 
 ## Tests Passed/Failed
-- Passed: all required final local gates.
-- Failed: none in the final rerun.
+- Required local gates for this issue passed.
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-510
 - docs/verification/unlocked-workspace-polish-manifest.json
-- docs/verification/unlocked-workspace-polish-dom-assertions.json
-- docs/project/scenario-foundation-readiness-audit.md
-- docs/project/unlocked-workspace-polish-status.md
+- docs/verification/issues/issue-509/screenshots/editor-background-pan-ready.png
+- docs/verification/issues/issue-509/screenshots/editor-background-pan-after-drag.png
+- docs/verification/issues/issue-510/test-output/docker-compose-config.txt
+- docs/verification/issues/issue-510/test-output/docker-compose-production-config.txt
+- docs/verification/issues/issue-510/test-output/docker-build-web.txt
+- docs/verification/issues/issue-510/test-output/docker-build-production-web.txt
 
 ## Known Limitations
-- Scenario work remains contract-only.
-- Manual review remains required and promotion remains blocked.
-- Docker was verified by configuration render; no Docker file changes were required.
+- Manual visual approval remains required.
+- Promotion remains blocked.
+- Scenario work remains contract-only; no full-shift simulation or optimizer behavior was added.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, full-shift simulation, optimizer behavior, clinical safety scoring, or staffing compliance certification was added.
+- Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, clinical safety scoring, or staffing compliance certification was added.
 
-## GO / NO-GO
-GO for Scenario Seed + Ratio Comparison Foundation.
+## Next Recommended Issue
+- GO for Scenario Seed + Ratio Comparison Foundation.

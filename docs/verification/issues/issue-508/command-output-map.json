@@ -14,21 +14,39 @@
       ]
     },
     {
-      "command": "node scripts/capture-unlocked-workspace-polish-proof.mjs --issue 508",
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage interaction-model --allow-partial --issue 508",
       "outputs": [
-        "docs/verification/issues/issue-508/test-output/unlocked-workspace-proof.txt"
+        "docs/verification/issues/issue-508/test-output/editor-background-pan.txt"
       ]
     },
     {
-      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage unlocked-visual-proof --allow-partial --issue 508",
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage pointer-pan --allow-partial --issue 508",
       "outputs": [
-        "docs/verification/issues/issue-508/test-output/unlocked-workspace-polish-gate.txt"
+        "docs/verification/issues/issue-508/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage read-only-pan --allow-partial --issue 508",
+      "outputs": [
+        "docs/verification/issues/issue-508/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage no-geometry-mutation --allow-partial --issue 508",
+      "outputs": [
+        "docs/verification/issues/issue-508/test-output/editor-background-pan.txt"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
         "docs/verification/issues/issue-508/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 508",
+      "outputs": [
+        "docs/verification/issues/issue-508/test-output/plans-2-through-5-unchanged.txt"
       ]
     }
   ]

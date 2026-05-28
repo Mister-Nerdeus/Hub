@@ -6,31 +6,31 @@
   "allowPartial": false,
   "checks": [
     {
-      "name": "rendered whole app has no visible access-code leak",
+      "name": "rendered whole app has no visible access-credential leak",
       "passed": true,
       "detail": {
         "locked": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "floorplan": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "editor": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "scenarios": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "reports": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "advanced": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         }
       }
@@ -40,27 +40,27 @@
       "passed": true,
       "detail": {
         "locked": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "floorplan": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "editor": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "scenarios": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "reports": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         },
         "advanced": {
-          "accessCodeVisible": false,
+          "accessCredentialVisible": false,
           "forbiddenVisibleTermVisible": false
         }
       }
@@ -73,7 +73,7 @@
       }
     },
     {
-      "name": "product-facing evidence has no visible access-code leak",
+      "name": "product-facing evidence has no visible access-credential leak",
       "passed": true,
       "detail": {
         "findingCount": 0,
@@ -87,6 +87,49 @@
         "findingCount": 0,
         "files": []
       }
+    },
+    {
+      "name": "rendered routes do not show configured access credential",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "product-facing evidence does not print configured access credential",
+      "passed": true,
+      "detail": {
+        "findingCount": 0,
+        "files": []
+      }
+    },
+    {
+      "name": "gate output does not print configured access credential",
+      "passed": true,
+      "detail": "credential literal not printed"
     }
   ]
 }
