@@ -1,0 +1,46 @@
+
+> node scripts/check-canonical-hardening-registry.mjs --stage package-scripts --allow-partial --issue 549
+{
+  "status": "passed",
+  "stage": "package-scripts",
+  "issue": "549",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "hardening gates are first-class package scripts",
+      "passed": true,
+      "detail": {
+        "check:reference-image-asset": "node scripts/check-reference-image-asset.mjs --stage final --issue 550",
+        "check:image-backed-layout-parity": "node scripts/check-image-backed-layout-parity.mjs --stage final --issue 550",
+        "check:split-bay-fixture-bridge": "npm --workspace packages/shared run build && node scripts/check-split-bay-fixture-bridge.mjs --stage final --issue 550",
+        "check:capacity-count-report": "npm --workspace packages/shared run build && node scripts/check-capacity-count-report.mjs --stage final --issue 550",
+        "check:storage-raw-field-guard": "npm --workspace packages/shared run build && node scripts/check-storage-raw-field-guard.mjs --stage final --issue 550",
+        "check:editor-pan-threshold": "node scripts/check-editor-pan-threshold.mjs --stage final --issue 550",
+        "check:canonical-scenario-preflight": "npm --workspace packages/shared run build && node scripts/check-canonical-scenario-preflight.mjs --stage final --issue 550"
+      }
+    }
+  ]
+}
+
+> node scripts/check-canonical-hardening-registry.mjs --stage verify-local --allow-partial --issue 549
+{
+  "status": "passed",
+  "stage": "verify-local",
+  "issue": "549",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "verify-local includes hardening package scripts",
+      "passed": true,
+      "detail": {
+        "npm run check:reference-image-asset": true,
+        "npm run check:image-backed-layout-parity": true,
+        "npm run check:split-bay-fixture-bridge": true,
+        "npm run check:capacity-count-report": true,
+        "npm run check:storage-raw-field-guard": true,
+        "npm run check:editor-pan-threshold": true,
+        "npm run check:canonical-scenario-preflight": true
+      }
+    }
+  ]
+}

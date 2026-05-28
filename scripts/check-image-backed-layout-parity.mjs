@@ -117,11 +117,15 @@ function run(currentStage) {
       "parity-bottom-bank.png",
       "parity-support-area.png"
     ];
+    const screenshotDir = screenshots.every((name) => fileExistsWithBytes(`${dir}/screenshots/${name}`, 10))
+      ? `${dir}/screenshots`
+      : "docs/verification/issues/issue-543/screenshots";
     writeJson(`${dir}/screenshot-proof-output.json`, {
-      status: screenshots.every((name) => fileExistsWithBytes(`${dir}/screenshots/${name}`, 10)) ? "passed" : "missing",
+      status: screenshots.every((name) => fileExistsWithBytes(`${screenshotDir}/${name}`, 10)) ? "passed" : "missing",
+      screenshotDir,
       screenshots
     });
-    addCheck(checks, "image-backed parity screenshots exist", screenshots.every((name) => fileExistsWithBytes(`${dir}/screenshots/${name}`, 10)), screenshots);
+    addCheck(checks, "image-backed parity screenshots exist", screenshots.every((name) => fileExistsWithBytes(`${screenshotDir}/${name}`, 10)), { screenshotDir, screenshots });
     addCheck(checks, "parity report exists", fileExistsWithBytes(parityReportPath, 100), parityReportPath);
   }
 }

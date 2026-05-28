@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "stage": "verify-local",
+  "issue": "549",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "verify-local includes hardening package scripts",
+      "passed": true,
+      "detail": {
+        "npm run check:reference-image-asset": true,
+        "npm run check:image-backed-layout-parity": true,
+        "npm run check:split-bay-fixture-bridge": true,
+        "npm run check:capacity-count-report": true,
+        "npm run check:storage-raw-field-guard": true,
+        "npm run check:editor-pan-threshold": true,
+        "npm run check:canonical-scenario-preflight": true
+      }
+    }
+  ]
+}
