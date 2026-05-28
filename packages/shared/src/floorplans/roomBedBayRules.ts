@@ -92,3 +92,11 @@ export function isAssignmentEligibleOccupancy(occupancyType: LayoutOccupancyType
 export function isRatioEligibleOccupancy(occupancyType: LayoutOccupancyType): boolean {
   return getRoomBedBayEligibilityRule(occupancyType).ratioEligible;
 }
+
+export function roomCountContributionForOccupancy(occupancyType: LayoutOccupancyType): number {
+  return Number(getRoomBedBayEligibilityRule(occupancyType).roomCountEligible);
+}
+
+export function bedCountContributionForOccupancy(occupancyType: LayoutOccupancyType): number {
+  return Number(getRoomBedBayEligibilityRule(occupancyType).bedCountEligible);
+}

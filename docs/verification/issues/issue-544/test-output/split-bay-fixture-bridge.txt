@@ -1,0 +1,140 @@
+
+> node scripts/check-split-bay-fixture-bridge.mjs --stage fixture-bridge --allow-partial --issue 544
+{
+  "status": "passed",
+  "stage": "fixture-bridge",
+  "issue": "544",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "paired rooms use bed-position occupancy",
+      "passed": true,
+      "detail": [
+        {
+          "objectId": "room-02",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-02-03",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-03",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-02-03",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-04",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-04-05",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-05",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-04-05",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-06",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-06-07",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-07",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-06-07",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-08",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-08-09",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        },
+        {
+          "objectId": "room-09",
+          "occupancyType": "bed_position",
+          "splitBayId": "split-bay-08-09",
+          "physicalRoomCountContribution": 0.5,
+          "bedCountContribution": 1,
+          "assignmentEligible": true,
+          "ratioEligible": true
+        }
+      ]
+    },
+    {
+      "name": "split bay IDs are selector-driven",
+      "passed": true,
+      "detail": [
+        "room-02",
+        "room-03",
+        "room-04",
+        "room-05",
+        "room-06",
+        "room-07",
+        "room-08",
+        "room-09"
+      ]
+    },
+    {
+      "name": "storage is explicit storage occupancy",
+      "passed": true,
+      "detail": "storage"
+    }
+  ]
+}
+
+> node scripts/check-split-bay-fixture-bridge.mjs --stage count-selectors --allow-partial --issue 544
+{
+  "status": "passed",
+  "stage": "count-selectors",
+  "issue": "544",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "paired bed positions contribute eight beds",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "paired bed positions contribute four physical rooms",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "storage contributes no bed or physical room count",
+      "passed": true,
+      "detail": {
+        "objectId": "room-14",
+        "occupancyType": "storage",
+        "splitBayId": null,
+        "physicalRoomCountContribution": 0,
+        "bedCountContribution": 0,
+        "assignmentEligible": false,
+        "ratioEligible": false
+      }
+    }
+  ]
+}

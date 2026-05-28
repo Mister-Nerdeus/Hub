@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "stage": "count-selectors",
+  "issue": "544",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "paired bed positions contribute eight beds",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "paired bed positions contribute four physical rooms",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "storage contributes no bed or physical room count",
+      "passed": true,
+      "detail": {
+        "objectId": "room-14",
+        "occupancyType": "storage",
+        "splitBayId": null,
+        "physicalRoomCountContribution": 0,
+        "bedCountContribution": 0,
+        "assignmentEligible": false,
+        "ratioEligible": false
+      }
+    }
+  ]
+}
