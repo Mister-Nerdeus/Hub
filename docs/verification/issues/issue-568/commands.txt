@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-dry-run-queue-placeholder.mjs --stage queue-placeholder --allow-partial --issue 568
+node scripts/check-dry-run-queue-placeholder.mjs --stage delayed-task-placeholder --allow-partial --issue 568
+node scripts/check-dry-run-queue-placeholder.mjs --stage deterministic-order --allow-partial --issue 568
+node scripts/check-dry-run-queue-placeholder.mjs --stage no-outcome-claim --allow-partial --issue 568
+node scripts/check-no-phi-fields.mjs

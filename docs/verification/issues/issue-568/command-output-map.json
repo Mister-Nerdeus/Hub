@@ -1,0 +1,53 @@
+{
+  "issue": "568",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-queue-placeholder.mjs --stage queue-placeholder --allow-partial --issue 568",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/dry-run-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-queue-placeholder.mjs --stage delayed-task-placeholder --allow-partial --issue 568",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/dry-run-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-queue-placeholder.mjs --stage deterministic-order --allow-partial --issue 568",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/dry-run-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-queue-placeholder.mjs --stage no-outcome-claim --allow-partial --issue 568",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/dry-run-queue-placeholder.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-568/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
