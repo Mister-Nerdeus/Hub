@@ -12,7 +12,13 @@ import {
   type ScenarioCapacityIntegration
 } from "../scenarios/scenarioCapacityIntegration.js";
 import { typicalActivityProfile } from "../scenarios/activityProfileContract.js";
-import { deterministicDryRunSeedContract } from "./deterministicSeedContract.js";
+import {
+  FOUR_TO_ONE_RUNTIME_SEED_ID,
+  THREE_TO_ONE_RUNTIME_SEED_ID,
+  fourToOneRuntimeSeedContract,
+  neutralWorkloadSeedContract,
+  threeToOneRuntimeSeedContract
+} from "./deterministicSeedContract.js";
 import { buildDryRunQueuePlaceholder } from "./dryRunQueuePlaceholder.js";
 import { buildNurseRuntimeStatesFromManualBridge } from "./nurseRuntimeStateContract.js";
 import { dryRunTaskTemplates } from "./taskTemplateContract.js";
@@ -31,7 +37,8 @@ export type DryRunComparisonRunSummary = {
   capacityReportReference: "docs/verification/canonical-capacity-count-report.json";
   roomLoadContractId: "room-load-starter-canonical-plan-1";
   activityProfileId: "typical";
-  deterministicSeedId: "deterministic-dry-run-seed-canonical-plan-1";
+  neutralWorkloadSeedId: "neutral-workload-seed-canonical-plan-1";
+  ratioRuntimeSeedId: "runtime-seed-canonical-plan-1-four-to-one" | "runtime-seed-canonical-plan-1-three-to-one";
   taskTemplateCount: number;
   generatedTaskCount: number;
   syntheticNurseRuntimeGroupCount: number;
@@ -51,12 +58,17 @@ export type DryRunComparisonProof = {
     capacityReportReference: "docs/verification/canonical-capacity-count-report.json";
     roomLoadContractId: "room-load-starter-canonical-plan-1";
     activityProfileId: "typical";
-    deterministicSeedId: "deterministic-dry-run-seed-canonical-plan-1";
+    neutralWorkloadSeedId: "neutral-workload-seed-canonical-plan-1";
+    ratioRuntimeSeedIds: readonly [
+      "runtime-seed-canonical-plan-1-four-to-one",
+      "runtime-seed-canonical-plan-1-three-to-one"
+    ];
     taskTemplateIds: readonly string[];
     usesCanonicalCapacityReport: true;
     usesSplitBayFixtureBridge: true;
     usesRawRoomCounts: false;
     usesStorageOrSupportForTasks: false;
+    sharedWorkloadGeneration: "ratio_neutral";
   };
   runs: readonly [DryRunComparisonRunSummary, DryRunComparisonRunSummary];
   limitationCopy: readonly string[];
@@ -76,11 +88,12 @@ export function buildDryRunComparisonProof(
   const taskSet = generateDryRunTaskInstances({
     roomLoad,
     activityProfile: typicalActivityProfile,
-    seedContract: deterministicDryRunSeedContract,
+    seedContract: neutralWorkloadSeedContract,
     templates: dryRunTaskTemplates,
     capacity
   });
-  const queue = buildDryRunQueuePlaceholder({ taskSet, seedContract: deterministicDryRunSeedContract });
+  const fourQueue = buildDryRunQueuePlaceholder({ taskSet, seedContract: fourToOneRuntimeSeedContract });
+  const threeQueue = buildDryRunQueuePlaceholder({ taskSet, seedContract: threeToOneRuntimeSeedContract });
   return {
     schemaVersion: DRY_RUN_COMPARISON_PROOF_SCHEMA_VERSION,
     proofId: "dry-run-ratio-comparison-proof-canonical-plan-1",
@@ -90,16 +103,21 @@ export function buildDryRunComparisonProof(
       capacityReportReference: "docs/verification/canonical-capacity-count-report.json",
       roomLoadContractId: roomLoad.contractId,
       activityProfileId: DRY_RUN_COMPARISON_ACTIVITY_PROFILE_ID,
-      deterministicSeedId: deterministicDryRunSeedContract.seedId,
+      neutralWorkloadSeedId: neutralWorkloadSeedContract.seedId,
+      ratioRuntimeSeedIds: [
+        FOUR_TO_ONE_RUNTIME_SEED_ID,
+        THREE_TO_ONE_RUNTIME_SEED_ID
+      ] as const,
       taskTemplateIds: dryRunTaskTemplates.map((template) => template.templateId),
       usesCanonicalCapacityReport: capacity.usesCanonicalCapacityReport,
       usesSplitBayFixtureBridge: capacity.usesSplitBayFixtureBridge,
       usesRawRoomCounts: false,
-      usesStorageOrSupportForTasks: false
+      usesStorageOrSupportForTasks: false,
+      sharedWorkloadGeneration: "ratio_neutral"
     },
     runs: [
-      buildRunSummary("dry-run-proof-four-to-one", fourToOneRatioPreset, capacity, taskSet.instances.length, queue),
-      buildRunSummary("dry-run-proof-three-to-one", threeToOneRatioPreset, capacity, taskSet.instances.length, queue)
+      buildRunSummary("dry-run-proof-four-to-one", fourToOneRatioPreset, capacity, taskSet.instances.length, fourQueue),
+      buildRunSummary("dry-run-proof-three-to-one", threeToOneRatioPreset, capacity, taskSet.instances.length, threeQueue)
     ],
     limitationCopy: [
       "Internal deterministic dry-run proof shell only.",
@@ -135,7 +153,11 @@ function buildRunSummary(
     capacityReportReference: ratioPreset.capacityReportReference,
     roomLoadContractId: "room-load-starter-canonical-plan-1",
     activityProfileId: DRY_RUN_COMPARISON_ACTIVITY_PROFILE_ID,
-    deterministicSeedId: deterministicDryRunSeedContract.seedId,
+    neutralWorkloadSeedId: neutralWorkloadSeedContract.seedId,
+    ratioRuntimeSeedId:
+      ratioPreset.presetId === "four_to_one"
+        ? FOUR_TO_ONE_RUNTIME_SEED_ID
+        : THREE_TO_ONE_RUNTIME_SEED_ID,
     taskTemplateCount: dryRunTaskTemplates.length,
     generatedTaskCount,
     syntheticNurseRuntimeGroupCount: runtimeStates.states.length,

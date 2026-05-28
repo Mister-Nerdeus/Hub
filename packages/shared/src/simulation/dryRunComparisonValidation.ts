@@ -34,8 +34,11 @@ export function validateDryRunComparisonProof(value: unknown): DryRunComparisonP
     if (run.activityProfileId !== sharedInputs.activityProfileId) {
       throw new Error("dry-run comparison runs must share the activity profile");
     }
-    if (run.deterministicSeedId !== sharedInputs.deterministicSeedId) {
-      throw new Error("dry-run comparison runs must share the deterministic seed");
+    if (run.neutralWorkloadSeedId !== sharedInputs.neutralWorkloadSeedId) {
+      throw new Error("dry-run comparison runs must share the neutral workload seed");
+    }
+    if (!sharedInputs.ratioRuntimeSeedIds.includes(run.ratioRuntimeSeedId)) {
+      throw new Error("dry-run comparison runs must use declared ratio runtime seeds");
     }
   }
   return {
@@ -70,12 +73,14 @@ function validateSharedInputs(value: unknown): DryRunComparisonProof["sharedInpu
     "capacityReportReference",
     "roomLoadContractId",
     "activityProfileId",
-    "deterministicSeedId",
+    "neutralWorkloadSeedId",
+    "ratioRuntimeSeedIds",
     "taskTemplateIds",
     "usesCanonicalCapacityReport",
     "usesSplitBayFixtureBridge",
     "usesRawRoomCounts",
-    "usesStorageOrSupportForTasks"
+    "usesStorageOrSupportForTasks",
+    "sharedWorkloadGeneration"
   ]);
   return {
     canonicalScenarioSeedId: requireLiteral(
@@ -91,11 +96,12 @@ function validateSharedInputs(value: unknown): DryRunComparisonProof["sharedInpu
     ),
     roomLoadContractId: requireLiteral(shared.roomLoadContractId, "room-load-starter-canonical-plan-1", "roomLoadContractId"),
     activityProfileId: requireLiteral(shared.activityProfileId, "typical", "activityProfileId"),
-    deterministicSeedId: requireLiteral(
-      shared.deterministicSeedId,
-      "deterministic-dry-run-seed-canonical-plan-1",
-      "deterministicSeedId"
+    neutralWorkloadSeedId: requireLiteral(
+      shared.neutralWorkloadSeedId,
+      "neutral-workload-seed-canonical-plan-1",
+      "neutralWorkloadSeedId"
     ),
+    ratioRuntimeSeedIds: validateRatioRuntimeSeedIds(shared.ratioRuntimeSeedIds),
     taskTemplateIds: validateStringArray(shared.taskTemplateIds, "taskTemplateIds"),
     usesCanonicalCapacityReport: requireBooleanLiteral(shared.usesCanonicalCapacityReport, true, "usesCanonicalCapacityReport"),
     usesSplitBayFixtureBridge: requireBooleanLiteral(shared.usesSplitBayFixtureBridge, true, "usesSplitBayFixtureBridge"),
@@ -104,6 +110,11 @@ function validateSharedInputs(value: unknown): DryRunComparisonProof["sharedInpu
       shared.usesStorageOrSupportForTasks,
       false,
       "usesStorageOrSupportForTasks"
+    ),
+    sharedWorkloadGeneration: requireLiteral(
+      shared.sharedWorkloadGeneration,
+      "ratio_neutral",
+      "sharedWorkloadGeneration"
     )
   };
 }
@@ -120,7 +131,8 @@ function validateRunSummary(value: unknown): DryRunComparisonRunSummary {
     "capacityReportReference",
     "roomLoadContractId",
     "activityProfileId",
-    "deterministicSeedId",
+    "neutralWorkloadSeedId",
+    "ratioRuntimeSeedId",
     "taskTemplateCount",
     "generatedTaskCount",
     "syntheticNurseRuntimeGroupCount",
@@ -148,7 +160,12 @@ function validateRunSummary(value: unknown): DryRunComparisonRunSummary {
     ),
     roomLoadContractId: requireLiteral(run.roomLoadContractId, "room-load-starter-canonical-plan-1", "roomLoadContractId"),
     activityProfileId: requireLiteral(run.activityProfileId, "typical", "activityProfileId"),
-    deterministicSeedId: requireLiteral(run.deterministicSeedId, "deterministic-dry-run-seed-canonical-plan-1", "deterministicSeedId"),
+    neutralWorkloadSeedId: requireLiteral(run.neutralWorkloadSeedId, "neutral-workload-seed-canonical-plan-1", "neutralWorkloadSeedId"),
+    ratioRuntimeSeedId: requireEnum(
+      run.ratioRuntimeSeedId,
+      ["runtime-seed-canonical-plan-1-four-to-one", "runtime-seed-canonical-plan-1-three-to-one"],
+      "ratioRuntimeSeedId"
+    ),
     taskTemplateCount: requireNonNegativeInteger(run.taskTemplateCount, "taskTemplateCount"),
     generatedTaskCount: requireNonNegativeInteger(run.generatedTaskCount, "generatedTaskCount"),
     syntheticNurseRuntimeGroupCount: requireNonNegativeInteger(
@@ -165,6 +182,24 @@ function validateRunSummary(value: unknown): DryRunComparisonRunSummary {
     ),
     syntheticDataOnly: requireBooleanLiteral(run.syntheticDataOnly, true, "syntheticDataOnly")
   };
+}
+
+function validateRatioRuntimeSeedIds(value: unknown): [
+  "runtime-seed-canonical-plan-1-four-to-one",
+  "runtime-seed-canonical-plan-1-three-to-one"
+] {
+  const values = validateStringArray(value, "ratioRuntimeSeedIds");
+  if (
+    values.length !== 2 ||
+    values[0] !== "runtime-seed-canonical-plan-1-four-to-one" ||
+    values[1] !== "runtime-seed-canonical-plan-1-three-to-one"
+  ) {
+    throw new Error("ratioRuntimeSeedIds must list 4:1 and 3:1 runtime seeds in order");
+  }
+  return values as [
+    "runtime-seed-canonical-plan-1-four-to-one",
+    "runtime-seed-canonical-plan-1-three-to-one"
+  ];
 }
 
 function requireRecord(value: unknown, label: string): Record<string, unknown> {

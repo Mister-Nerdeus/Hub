@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "no-hidden-randomness",
+  "issue": "571",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "simulation source avoids Math.random and Date.now",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

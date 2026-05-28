@@ -1,7 +1,11 @@
 import { createSeededRandom } from "../random/seededRandom.js";
 import {
   type DeterministicDryRunSeedContract,
-  validateDeterministicDryRunSeedContract
+  type NeutralWorkloadSeedContract,
+  type RatioRuntimeSeedContract,
+  validateDeterministicDryRunSeedContract,
+  validateNeutralWorkloadSeedContract,
+  validateRatioRuntimeSeedContract
 } from "./deterministicSeedContract.js";
 
 export function stableDryRunHash(input: string): number {
@@ -39,4 +43,55 @@ export function createDeterministicDryRunSequence(
   );
   const random = createSeededRandom(numericSeed);
   return Array.from({ length: count }, () => random.nextInt(0, 1_000_000));
+}
+
+export function createDeterministicWorkloadSequence(
+  contract: NeutralWorkloadSeedContract,
+  namespace: string,
+  count: number
+): number[] {
+  const seed = validateNeutralWorkloadSeedContract(contract);
+  assertSequenceRequest(namespace, count);
+  const numericSeed = stableDryRunHash(
+    [
+      seed.seedValue,
+      seed.canonicalScenarioSeedId,
+      seed.activityProfileId,
+      seed.namespace,
+      seed.ratioPresetBinding,
+      namespace
+    ].join("|")
+  );
+  const random = createSeededRandom(numericSeed);
+  return Array.from({ length: count }, () => random.nextInt(0, 1_000_000));
+}
+
+export function createDeterministicRatioRuntimeSequence(
+  contract: RatioRuntimeSeedContract,
+  namespace: string,
+  count: number
+): number[] {
+  const seed = validateRatioRuntimeSeedContract(contract);
+  assertSequenceRequest(namespace, count);
+  const numericSeed = stableDryRunHash(
+    [
+      seed.seedValue,
+      seed.canonicalScenarioSeedId,
+      seed.activityProfileId,
+      seed.namespace,
+      seed.ratioPresetId,
+      namespace
+    ].join("|")
+  );
+  const random = createSeededRandom(numericSeed);
+  return Array.from({ length: count }, () => random.nextInt(0, 1_000_000));
+}
+
+function assertSequenceRequest(namespace: string, count: number): void {
+  if (namespace.length === 0) {
+    throw new Error("deterministic sequence requires a namespace");
+  }
+  if (!Number.isSafeInteger(count) || count < 0) {
+    throw new Error("deterministic sequence count must be a non-negative integer");
+  }
 }

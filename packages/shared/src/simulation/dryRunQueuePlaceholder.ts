@@ -1,7 +1,11 @@
 import {
-  createDeterministicDryRunSequence
+  createDeterministicDryRunSequence,
+  createDeterministicRatioRuntimeSequence
 } from "./deterministicSequence.js";
-import type { DeterministicDryRunSeedContract } from "./deterministicSeedContract.js";
+import type {
+  DeterministicDryRunSeedContract,
+  RatioRuntimeSeedContract
+} from "./deterministicSeedContract.js";
 import type { DryRunTaskInstanceSet } from "./taskInstanceGeneration.js";
 
 export const DRY_RUN_QUEUE_PLACEHOLDER_SCHEMA_VERSION = "1.0.0" as const;
@@ -12,7 +16,7 @@ export type DryRunPressureLabel = "placeholder_light" | "placeholder_moderate" |
 export type DryRunQueuePlaceholder = {
   schemaVersion: typeof DRY_RUN_QUEUE_PLACEHOLDER_SCHEMA_VERSION;
   queuePlaceholderId: "dry-run-queue-placeholder-canonical-plan-1";
-  deterministicSeedId: DeterministicDryRunSeedContract["seedId"];
+  deterministicSeedId: DeterministicDryRunSeedContract["seedId"] | RatioRuntimeSeedContract["seedId"];
   queuedTaskIds: readonly string[];
   delayedTaskIds: readonly string[];
   syntheticDelayBand: DryRunDelayBand;
@@ -28,13 +32,21 @@ export type DryRunQueuePlaceholder = {
 
 export function buildDryRunQueuePlaceholder(input: {
   taskSet: DryRunTaskInstanceSet;
-  seedContract: DeterministicDryRunSeedContract;
+  seedContract: DeterministicDryRunSeedContract | RatioRuntimeSeedContract;
 }): DryRunQueuePlaceholder {
-  const sequence = createDeterministicDryRunSequence(
-    input.seedContract,
-    `queue-placeholder:${input.taskSet.taskInstanceSetId}`,
-    Math.max(1, input.taskSet.instances.length)
-  );
+  const sequenceCount = Math.max(1, input.taskSet.instances.length);
+  const sequence =
+    "namespace" in input.seedContract && input.seedContract.namespace === "ratio_runtime"
+      ? createDeterministicRatioRuntimeSequence(
+          input.seedContract,
+          `queue-placeholder:${input.taskSet.taskInstanceSetId}`,
+          sequenceCount
+        )
+      : createDeterministicDryRunSequence(
+          input.seedContract as DeterministicDryRunSeedContract,
+          `queue-placeholder:${input.taskSet.taskInstanceSetId}`,
+          sequenceCount
+        );
   const ordered = input.taskSet.instances
     .map((task, index) => ({
       taskId: task.taskInstanceId,

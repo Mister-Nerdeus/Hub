@@ -1,0 +1,53 @@
+{
+  "issue": "571",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-neutral-workload-seed.mjs --stage neutral-workload-seed --allow-partial --issue 571",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/neutral-workload-seed.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-neutral-workload-seed.mjs --stage ratio-runtime-seeds --allow-partial --issue 571",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/neutral-workload-seed.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-neutral-workload-seed.mjs --stage repeatability --allow-partial --issue 571",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/neutral-workload-seed.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-neutral-workload-seed.mjs --stage no-hidden-randomness --allow-partial --issue 571",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/neutral-workload-seed.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-571/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

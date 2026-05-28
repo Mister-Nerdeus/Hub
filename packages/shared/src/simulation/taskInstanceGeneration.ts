@@ -3,9 +3,13 @@ import { validateRoomLoadStarterContract } from "../scenarios/roomLoadEligibilit
 import type { RoomLoadStarterContract } from "../scenarios/roomLoadStarterContract.js";
 import type { ScenarioCapacityIntegration } from "../scenarios/scenarioCapacityIntegration.js";
 import {
-  createDeterministicDryRunSequence
+  createDeterministicDryRunSequence,
+  createDeterministicWorkloadSequence
 } from "./deterministicSequence.js";
-import type { DeterministicDryRunSeedContract } from "./deterministicSeedContract.js";
+import type {
+  DeterministicDryRunSeedContract,
+  NeutralWorkloadSeedContract
+} from "./deterministicSeedContract.js";
 import type {
   DryRunTaskIntensityBand,
   DryRunTaskTemplateContract
@@ -34,7 +38,7 @@ export type DryRunTaskInstanceSet = {
   canonicalScenarioSeedId: RoomLoadStarterContract["canonicalScenarioSeedId"];
   roomLoadContractId: RoomLoadStarterContract["contractId"];
   activityProfileId: ActivityProfileContract["profileId"];
-  deterministicSeedId: DeterministicDryRunSeedContract["seedId"];
+  deterministicSeedId: DeterministicDryRunSeedContract["seedId"] | NeutralWorkloadSeedContract["seedId"];
   source: "room-load starter synthetic input";
   instances: readonly DryRunTaskInstance[];
   usesRawRoomCounts: false;
@@ -46,7 +50,7 @@ export type DryRunTaskInstanceSet = {
 export type GenerateDryRunTaskInstancesInput = {
   roomLoad: RoomLoadStarterContract;
   activityProfile: ActivityProfileContract;
-  seedContract: DeterministicDryRunSeedContract;
+  seedContract: DeterministicDryRunSeedContract | NeutralWorkloadSeedContract;
   templates: readonly DryRunTaskTemplateContract[];
   capacity: ScenarioCapacityIntegration;
 };
@@ -62,11 +66,19 @@ export function generateDryRunTaskInstances(
     throw new Error("dry-run task generation requires templates for the activity profile");
   }
   const occupiedEntries = roomLoad.entries.filter((entry) => entry.occupancyState === "occupied");
-  const sequence = createDeterministicDryRunSequence(
-    input.seedContract,
-    `task-instance-generation:${input.activityProfile.profileId}`,
-    Math.max(1, occupiedEntries.length * templates.length * 3)
-  );
+  const sequenceCount = Math.max(1, occupiedEntries.length * templates.length * 3);
+  const sequence =
+    "ratioPresetBinding" in input.seedContract
+      ? createDeterministicWorkloadSequence(
+          input.seedContract,
+          `task-instance-generation:${input.activityProfile.profileId}`,
+          sequenceCount
+        )
+      : createDeterministicDryRunSequence(
+          input.seedContract,
+          `task-instance-generation:${input.activityProfile.profileId}`,
+          sequenceCount
+        );
   let sequenceIndex = 0;
   const instances: DryRunTaskInstance[] = [];
   const templateLimit = templateLimitForProfile(input.activityProfile.taskIntensityPlaceholder);

@@ -36,7 +36,8 @@ async function runStage(stage) {
   if (stage === "shared-inputs") {
     context.add("runs share canonical seed", new Set(validated.runs.map((run) => run.canonicalScenarioSeedId)).size === 1);
     context.add("runs share activity profile", new Set(validated.runs.map((run) => run.activityProfileId)).size === 1);
-    context.add("runs share deterministic seed", new Set(validated.runs.map((run) => run.deterministicSeedId)).size === 1);
+    context.add("runs share neutral workload seed", new Set(validated.runs.map((run) => run.neutralWorkloadSeedId)).size === 1);
+    context.add("runs use ratio-specific runtime seeds", new Set(validated.runs.map((run) => run.ratioRuntimeSeedId)).size === 2);
     writeJson(`${context.dir}/shared-inputs-output.json`, { status: "passed", sharedInputs: validated.sharedInputs });
   }
   if (stage === "comparison-proof") {

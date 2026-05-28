@@ -18309,6 +18309,39 @@
         "docs/verification/issues/issue-570/visible-access-copy-output.json",
         "docs/verification/issues/issue-570/whole-app-visible-copy-scan-output.json"
       ]
+    },
+    {
+      "issue": "571",
+      "title": "Neutral Workload Seed and Ratio Runtime Seed Split",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-571/closeout.md",
+        "docs/verification/issues/issue-571/command-output-map.json",
+        "docs/verification/issues/issue-571/commands.txt",
+        "docs/verification/issues/issue-571/first-failure.txt",
+        "docs/verification/issues/issue-571/manifest-update-output.json",
+        "docs/verification/issues/issue-571/neutral-workload-seed-output.json",
+        "docs/verification/issues/issue-571/no-access-credential-output.txt",
+        "docs/verification/issues/issue-571/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-571/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-571/no-current-time-dependency-output.txt",
+        "docs/verification/issues/issue-571/no-fixture-mutation-output.txt",
+        "docs/verification/issues/issue-571/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-571/no-hidden-randomness-output.txt",
+        "docs/verification/issues/issue-571/no-optimizer-output.txt",
+        "docs/verification/issues/issue-571/no-outcome-claims-output.txt",
+        "docs/verification/issues/issue-571/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-571/no-phi-output.txt",
+        "docs/verification/issues/issue-571/no-recommendations-output.txt",
+        "docs/verification/issues/issue-571/no-safety-or-compliance-claims-output.txt",
+        "docs/verification/issues/issue-571/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-571/ratio-runtime-seed-output.json",
+        "docs/verification/issues/issue-571/repeatability-output.json",
+        "docs/verification/issues/issue-571/test-output/neutral-workload-seed.txt",
+        "docs/verification/issues/issue-571/test-output/no-phi.txt",
+        "docs/verification/issues/issue-571/test-output/shared.txt",
+        "docs/verification/issues/issue-571/test-output/web-build.txt",
+        "docs/verification/issues/issue-571/test-output/web.txt"
+      ]
     }
   ]
 }
