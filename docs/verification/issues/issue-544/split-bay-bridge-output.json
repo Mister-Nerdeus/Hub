@@ -1,77 +1,20 @@
 {
   "status": "passed",
-  "bridges": [
-    {
-      "objectId": "room-02",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-02-03",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-03",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-02-03",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-04",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-04-05",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-05",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-04-05",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-06",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-06-07",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-07",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-06-07",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-08",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-08-09",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    },
-    {
-      "objectId": "room-09",
-      "occupancyType": "bed_position",
-      "splitBayId": "split-bay-08-09",
-      "physicalRoomCountContribution": 0.5,
-      "bedCountContribution": 1,
-      "assignmentEligible": true,
-      "ratioEligible": true
-    }
+  "pairedRoomIds": [
+    "room-02",
+    "room-03",
+    "room-04",
+    "room-05",
+    "room-06",
+    "room-07",
+    "room-08",
+    "room-09"
+  ],
+  "bridgeCount": 8,
+  "splitBayIds": [
+    "split-bay-02-03",
+    "split-bay-04-05",
+    "split-bay-06-07",
+    "split-bay-08-09"
   ]
 }

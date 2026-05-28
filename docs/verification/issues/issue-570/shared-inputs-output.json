@@ -6,7 +6,11 @@
     "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
     "roomLoadContractId": "room-load-starter-canonical-plan-1",
     "activityProfileId": "typical",
-    "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+    "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+    "ratioRuntimeSeedIds": [
+      "runtime-seed-canonical-plan-1-four-to-one",
+      "runtime-seed-canonical-plan-1-three-to-one"
+    ],
     "taskTemplateIds": [
       "dry-run-room-check",
       "dry-run-documentation-placeholder",
@@ -17,6 +21,7 @@
     "usesCanonicalCapacityReport": true,
     "usesSplitBayFixtureBridge": true,
     "usesRawRoomCounts": false,
-    "usesStorageOrSupportForTasks": false
+    "usesStorageOrSupportForTasks": false,
+    "sharedWorkloadGeneration": "ratio_neutral"
   }
 }

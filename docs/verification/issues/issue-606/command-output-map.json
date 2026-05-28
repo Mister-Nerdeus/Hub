@@ -1,0 +1,53 @@
+{
+  "issue": "606",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-cards.mjs --stage cards-contract --allow-partial --issue 606",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/simulation-v0-summary-cards.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-cards.mjs --stage derived-values --allow-partial --issue 606",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/simulation-v0-summary-cards.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-cards.mjs --stage review-state-derived --allow-partial --issue 606",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/simulation-v0-summary-cards.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-cards.mjs --stage no-claim-copy --allow-partial --issue 606",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/simulation-v0-summary-cards.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-606/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

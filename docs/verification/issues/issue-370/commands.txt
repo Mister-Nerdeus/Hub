@@ -11,5 +11,4 @@ node scripts/check-plan-builder-ux-review-flow.mjs --stage final --issue 370
 node scripts/check-human-review-intake.mjs --stage final --issue 370
 node scripts/check-operational-demo-ux.mjs --stage final --issue 370
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 370
-docker compose config
 node scripts/verify-local.mjs

@@ -1,0 +1,59 @@
+{
+  "issue": "605",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-table.mjs --stage table-contract --allow-partial --issue 605",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/simulation-v0-timeline-table.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-table.mjs --stage rendered-table --allow-partial --issue 605",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/simulation-v0-timeline-table.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-table.mjs --stage review-state-derived --allow-partial --issue 605",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/simulation-v0-timeline-table.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-table.mjs --stage no-phi-rows --allow-partial --issue 605",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/simulation-v0-timeline-table.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-table.mjs --stage deterministic-timeline --allow-partial --issue 605",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/simulation-v0-timeline-table.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-605/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

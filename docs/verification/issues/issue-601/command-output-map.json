@@ -1,0 +1,65 @@
+{
+  "issue": "601",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-clean-state --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-readiness --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-preflight --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage dynamic-evidence-index-range --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage stale-issue-number-negative --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage non-mutating-root-verify --allow-partial --issue 601",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/preflight-truth-lock.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-601/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

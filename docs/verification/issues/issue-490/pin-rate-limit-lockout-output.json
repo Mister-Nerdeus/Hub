@@ -40,7 +40,7 @@
       "detail": {
         "status": "cooldown_blocked",
         "unlocked": false,
-        "message": "Wait 14 seconds before another demo PIN attempt.",
+        "message": "Please wait 14 seconds before trying again.",
         "state": {
           "wrongAttemptCount": 1,
           "lastAttemptAtMs": 1000,
@@ -87,7 +87,7 @@
       "detail": {
         "status": "lockout_blocked",
         "unlocked": false,
-        "message": "Demo PIN entry is locked. Try again in 1 seconds.",
+        "message": "Too many attempts. Try again in 1 second.",
         "state": {
           "wrongAttemptCount": 3,
           "lastAttemptAtMs": 31002,
@@ -127,12 +127,12 @@
     {
       "name": "cooldown countdown copy exists",
       "passed": true,
-      "detail": "demoPinViewModel.ts"
+      "detail": "workspaceAccessViewModel.ts"
     },
     {
       "name": "lockout countdown copy exists",
       "passed": true,
-      "detail": "demoPinViewModel.ts"
+      "detail": "workspaceAccessViewModel.ts"
     },
     {
       "name": "countdown is visible in status",

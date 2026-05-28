@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-ratio-controls.mjs --stage controls-contract --allow-partial --issue 604
+node scripts/check-simulation-v0-ratio-controls.mjs --stage rendered-views --allow-partial --issue 604
+node scripts/check-simulation-v0-ratio-controls.mjs --stage review-state-update --allow-partial --issue 604
+node scripts/check-simulation-v0-ratio-controls.mjs --stage forbidden-copy-negative --allow-partial --issue 604
+node scripts/check-no-phi-fields.mjs

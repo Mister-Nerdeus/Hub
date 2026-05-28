@@ -18,7 +18,8 @@
         "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
         "roomLoadContractId": "room-load-starter-canonical-plan-1",
         "activityProfileId": "typical",
-        "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
         "taskTemplateCount": 5,
         "generatedTaskCount": 8,
         "syntheticNurseRuntimeGroupCount": 6,
@@ -42,7 +43,8 @@
         "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
         "roomLoadContractId": "room-load-starter-canonical-plan-1",
         "activityProfileId": "typical",
-        "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
         "taskTemplateCount": 5,
         "generatedTaskCount": 8,
         "syntheticNurseRuntimeGroupCount": 8,
@@ -64,7 +66,12 @@
       "detail": null
     },
     {
-      "name": "runs share deterministic seed",
+      "name": "runs share neutral workload seed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runs use ratio-specific runtime seeds",
       "passed": true,
       "detail": null
     },

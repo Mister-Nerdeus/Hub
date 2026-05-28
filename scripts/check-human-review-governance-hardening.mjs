@@ -380,7 +380,7 @@ function buildHardeningManifest() {
     forbiddenClaimStatus: "passed",
     goNoGoStatus: intakeManifest.manualApprovalStatus === "complete"
       ? "GO for Default Fixture Promotion Review only if structured human approvals exist and dry-run recheck passes"
-      : "GO for Operational Demo Polish while promotion remains blocked"
+      : "GO for Operational Review Polish while promotion remains blocked"
   };
 }
 
@@ -617,7 +617,7 @@ function writeFinalIssue360Evidence() {
   writeJson(`${issueDir}/no-phi-summary.json`, { status: "passed" });
   writeJson(`${issueDir}/default-fixture-nonmutation-summary.json`, { status: "unchanged" });
   writeText(`${issueDir}/known-gaps.md`, "- No submitted structured human review records are present for Plans 2 through 5.\n- Promotion remains blocked and dry-run only.\n");
-  writeText(`${issueDir}/follow-up-issues.md`, "- Continue operational demo polish while collecting structured human review records separately.\n");
+  writeText(`${issueDir}/follow-up-issues.md`, "- Continue operational review polish while collecting structured human review records separately.\n");
   writeText(`${issueDir}/go-no-go.md`, `${buildHardeningManifest().goNoGoStatus}\n`);
   writeText("docs/project/human-review-governance-hardening-status.md", [
     "# Human Review Governance Hardening Status",

@@ -16,15 +16,19 @@ const viewModelSource = readFileSync(
 );
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
 
-assertPanel(panelSource.includes("Internal Dry-Run Readiness"), "panel must render readiness heading");
-assertPanel(panelSource.includes("Queue Placeholders"), "panel must render queue summary");
-assertPanel(panelSource.includes("Artifact Summary"), "panel must render artifact summary");
+assertPanel(panelSource.includes("simulation-v0-title"), "panel must render route heading");
+assertPanel(panelSource.includes("simulation-v0-route"), "panel must render stable route landmark");
+assertPanel(panelSource.includes("simulation-v0-controls"), "panel must render stable controls landmark");
+assertPanel(panelSource.includes("simulation-v0-output"), "panel must render stable output landmark");
+assertPanel(panelSource.includes("simulation-v0-proof"), "panel must render stable proof landmark");
+assertPanel(panelSource.includes("SimulationV0SummaryCards"), "panel must render queue summary cards");
+assertPanel(panelSource.includes("SimulationV0ArtifactProofPanel"), "panel must render artifact proof");
 assertPanel(viewModelSource.includes("internal synthetic dry-run only"), "view model must expose internal-only status");
 assertPanel(viewModelSource.includes("No optimizer."), "view model must state no optimizer");
-assertPanel(viewModelSource.includes("No assignment recommendation."), "view model must state no assignment recommendation");
-assertPanel(viewModelSource.includes("No clinical safety score."), "view model must state no clinical safety score");
-assertPanel(viewModelSource.includes("No staffing compliance certification."), "view model must state no staffing compliance certification");
-assertPanel(viewModelSource.includes("No patient outcome prediction."), "view model must state no patient outcome prediction");
+assertPanel(viewModelSource.includes("No automated assignment output."), "view model must state no automated assignment output");
+assertPanel(viewModelSource.includes("No care-quality certification."), "view model must state no care-quality certification");
+assertPanel(viewModelSource.includes("No staffing certification."), "view model must state no staffing certification");
+assertPanel(viewModelSource.includes("No outcome prediction."), "view model must state no outcome prediction");
 assertPanel(appSource.includes("SimulationV0InternalDryRunPanel"), "app must mount Simulation v0 panel");
 
 function assertPanel(condition: boolean, message: string) {

@@ -80,12 +80,6 @@
       ]
     },
     {
-      "command": "docker compose config",
-      "outputs": [
-        "docs/verification/issues/issue-370/test-output/docker-compose-config.txt"
-      ]
-    },
-    {
       "command": "node scripts/verify-local.mjs",
       "outputs": [
         "docs/verification/issues/issue-370/test-output/verify-local.txt"

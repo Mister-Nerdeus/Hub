@@ -1,7 +1,7 @@
 # Issue 360 Closeout
 
 ## Summary
-GO for Operational Demo Polish while promotion remains blocked
+GO for Operational Review Polish while promotion remains blocked
 
 ## Files Changed
 - Human review governance scripts, shared tests/contracts, manifests, and local evidence artifacts.
@@ -24,4 +24,4 @@ GO for Operational Demo Polish while promotion remains blocked
 - Non-PHI rules still pass; no private source payloads, real identifiers, clinical notes, approval fabrication, promotion, scoring, or optimizer behavior were introduced.
 
 ## Next Recommended Issue
-GO for Operational Demo Polish while promotion remains blocked
+GO for Operational Review Polish while promotion remains blocked

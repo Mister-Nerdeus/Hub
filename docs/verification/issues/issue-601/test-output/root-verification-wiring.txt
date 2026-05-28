@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "every required 571-590 final gate has a root npm script",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "requiredCount": 20
+      }
+    },
+    {
+      "name": "verify-local includes every required 571-590 root gate",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "final verify-local does not use --allow-partial for required gates",
+      "passed": true,
+      "detail": {
+        "offenders": []
+      }
+    },
+    {
+      "name": "missing script negative fixture fails",
+      "passed": true,
+      "detail": {
+        "missing": [
+          "check:neutral-workload-seed"
+        ]
+      }
+    },
+    {
+      "name": "verify-local dry-run source includes root check commands",
+      "passed": true,
+      "detail": {
+        "commandCount": 48
+      }
+    }
+  ]
+}

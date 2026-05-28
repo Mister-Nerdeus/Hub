@@ -136,13 +136,25 @@ function scanScenarioBoundary() {
     const lines = readText(file).split(/\r?\n/u);
     lines.forEach((line, index) => {
       for (const rule of forbidden) {
-        if (rule.pattern.test(line) && !/\bnot staffing compliance\b|\bSimulation engine not started\b|\bNo optimizer\b/iu.test(line)) {
+        if (rule.pattern.test(line) && !isAllowedBoundaryLine(line, rule.label)) {
           findings.push({ file, line: index + 1, label: rule.label });
         }
       }
     });
   }
   return { status: findings.length === 0 ? "passed" : "failed", scannedFiles: files, findings };
+}
+
+function isAllowedBoundaryLine(line, label) {
+  if (/\bNo optimizer\b|\bSimulation engine not started\b/iu.test(line)) return true;
+  if (label === "optimizer" && /\boptimizerStatus\b.{0,40}\bnot_started\b/iu.test(line)) return true;
+  if (label === "optimizer" && /\brecommendationStatus\b.{0,40}\bnot_started\b/iu.test(line)) return true;
+  if (label === "optimizer" && /\bmust not\b.{0,80}\b(?:optimize|optimizer)\b/iu.test(line)) return true;
+  if (label === "staffing compliance claim" && /\bstaffingCompliance(?:Claim|Status)\b.{0,40}(?:false|not_started)\b/iu.test(line)) return true;
+  if (label === "staffing compliance claim" && /\bNo staffing compliance certification\b/iu.test(line)) return true;
+  if (label === "staffing compliance claim" && /\bmust not\b.{0,60}\bstaffing compliance\b/iu.test(line)) return true;
+  if (label === "clinical claim" && /\bclinicalSafety(?:Claim|ScoringStatus)\b.{0,40}(?:false|not_started)\b/iu.test(line)) return true;
+  return false;
 }
 
 function writeCommonEvidence() {

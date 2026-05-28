@@ -1,0 +1,53 @@
+{
+  "issue": "604",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ratio-controls.mjs --stage controls-contract --allow-partial --issue 604",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/simulation-v0-ratio-controls.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ratio-controls.mjs --stage rendered-views --allow-partial --issue 604",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/simulation-v0-ratio-controls.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ratio-controls.mjs --stage review-state-update --allow-partial --issue 604",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/simulation-v0-ratio-controls.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ratio-controls.mjs --stage forbidden-copy-negative --allow-partial --issue 604",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/simulation-v0-ratio-controls.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-604/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

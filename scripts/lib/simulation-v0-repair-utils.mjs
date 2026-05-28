@@ -4,6 +4,7 @@ import { dirname, extname, join, relative } from "node:path";
 export const repoRoot = process.cwd();
 export const manifestPath = "docs/verification/simulation-v0-refinement-repair-manifest.json";
 export const falsePositiveRepairManifestPath = "docs/verification/simulation-v0-false-positive-repair-manifest.json";
+export const userFacingRefinementManifestPath = "docs/verification/simulation-v0-user-facing-refinement-manifest.json";
 
 export const repairIssueTitles = {
   "581": "Rendered Product Copy Gate Across All Routes",
@@ -25,7 +26,17 @@ export const repairIssueTitles = {
   "597": "Clean-Clone / Committed-State Verification Harness",
   "598": "Runtime Seed Operational Meaning Strengthening",
   "599": "Clean Repair GO / NO-GO Reissue",
-  "600": "Next-Batch Readiness Contract for 601-610"
+  "600": "Next-Batch Readiness Contract for 601-610",
+  "601": "Preflight Truth-Lock and Non-Mutating Root Verification",
+  "602": "Simulation Review State Contract and Route Shell",
+  "603": "Activity Profile Selector: Typical / Busy / Slammed",
+  "604": "4:1 vs 3:1 Ratio Comparison Controls",
+  "605": "Dry-Run Timeline Table",
+  "606": "Queue / Delay / Unassigned Summary Cards",
+  "607": "Selected Occupied-Bed Proof Panel",
+  "608": "Artifact Hash and Reproducibility Proof Panel",
+  "609": "Dry-Run Artifact Export / Download",
+  "610": "User-Facing Simulation v0 GO / NO-GO"
 };
 
 export function abs(path) {
@@ -78,12 +89,16 @@ export function fileExists(path, minBytes = 1) {
 }
 
 export function manifestPathForIssue(issue) {
+  if (Number(issue) >= 601) return userFacingRefinementManifestPath;
   return Number(issue) >= 591 ? falsePositiveRepairManifestPath : manifestPath;
 }
 
 export function loadRepairManifest(path = manifestPath) {
   if (!existsSync(abs(path)) && path === falsePositiveRepairManifestPath) {
     saveRepairManifest(defaultFalsePositiveRepairManifest(), path);
+  }
+  if (!existsSync(abs(path)) && path === userFacingRefinementManifestPath) {
+    saveRepairManifest(defaultUserFacingRefinementManifest(), path);
   }
   return readJson(path);
 }
@@ -134,13 +149,61 @@ export function defaultFalsePositiveRepairManifest() {
   };
 }
 
+export function defaultUserFacingRefinementManifest() {
+  return {
+    manifestVersion: "1.0.0",
+    batch: "601-610",
+    lastUpdatedIssue: "601",
+    productDisplayName: "ER Pod Shift Simulator",
+    sourceBatch: "591-600",
+    sourceGoNoGoStatus: "go_for_expanded_simulation_v0_user_facing_refinement",
+    sourceReadinessContractStatus: "passed",
+    preflightTruthLockStatus: "missing",
+    nonMutatingRootVerificationStatus: "missing",
+    simulationReviewStateContractStatus: "missing",
+    simulationRouteShellStatus: "missing",
+    activityProfileSelectorStatus: "missing",
+    ratioComparisonControlsStatus: "missing",
+    dryRunTimelineTableStatus: "missing",
+    queueDelaySummaryCardsStatus: "missing",
+    occupiedBedProofPanelStatus: "missing",
+    artifactHashProofPanelStatus: "missing",
+    artifactExportDownloadStatus: "missing",
+    simulationV0UserFacingGoNoGoStatus: "not_ready",
+    verifyLocalIncludesCleanState: false,
+    verifyLocalIncludesReadiness: false,
+    verifyLocalIncludesPreflight: false,
+    evidenceIndexUsesDynamicCurrentIssue: false,
+    rootScriptsUseCurrentEvidenceIssue: false,
+    rootVerifyIsNonMutating: false,
+    activityProfilesEnabled: [],
+    ratioControlsEnabled: [],
+    dryRunTimelineVisible: false,
+    queueDelayCardsVisible: false,
+    occupiedBedProofVisible: false,
+    artifactHashProofVisible: false,
+    artifactExportAvailable: false,
+    simulationV0Status: "internal_dry_run_only",
+    fullFutureSimulationEventModelStatus: "dormant",
+    optimizerStatus: "not_started",
+    assignmentRecommendationStatus: "not_started",
+    clinicalSafetyScoringStatus: "not_started",
+    staffingComplianceStatus: "not_started",
+    patientOutcomePredictionStatus: "not_started",
+    manualApprovalStatus: "missing",
+    promotionStatus: "blocked",
+    noPhiStatus: "passed",
+    goNoGoStatus: "not_ready"
+  };
+}
+
 export function createRepairContext({ scriptName, stages, statusKeyByStage, outputName, defaultIssue }) {
   const args = parseArgs();
   const stage = String(args.stage ?? "final");
   const issue = String(args.issue ?? defaultIssue);
   const allowPartial = args["allow-partial"] === true;
   if (!stages.includes(stage)) throw new Error(`Unsupported ${scriptName} stage: ${stage}`);
-  if (stage !== "final" && !allowPartial && issue !== "590") {
+  if (stage !== "final" && !allowPartial && issue !== "590" && Number(issue) < 610) {
     throw new Error(`${stage} requires --allow-partial before Issue 590`);
   }
   if (stage === "final" && allowPartial) throw new Error("final gate must run without --allow-partial");
@@ -203,7 +266,7 @@ export function finalizeRepairGate(context, extra = {}) {
   writeCommonRepairEvidence(context.dir, context.issue, status, context.manifestPath);
   const commands = extra.commands ?? commandsForRepairIssue(context.issue);
   writeCommandEvidence(context.dir, context.issue, commands);
-  writeCloseout(context.dir, context.issue, status, commands, extra.closeoutStatus);
+  writeCloseout(context.dir, context.issue, status, commands, extra.closeoutStatus, context.manifestPath);
   updateEvidenceIndex(context.issue);
   const output = {
     status,
@@ -220,6 +283,33 @@ export function finalizeRepairGate(context, extra = {}) {
 }
 
 export function updateRepairGoNoGo(manifest) {
+  if (manifest.batch === "601-610") {
+    const readyKeys = [
+      "preflightTruthLockStatus",
+      "nonMutatingRootVerificationStatus",
+      "simulationReviewStateContractStatus",
+      "simulationRouteShellStatus",
+      "activityProfileSelectorStatus",
+      "ratioComparisonControlsStatus",
+      "dryRunTimelineTableStatus",
+      "queueDelaySummaryCardsStatus",
+      "occupiedBedProofPanelStatus",
+      "artifactHashProofPanelStatus",
+      "artifactExportDownloadStatus"
+    ];
+    const ready = readyKeys.every((key) => manifest[key] === "passed") &&
+      manifest.verifyLocalIncludesCleanState === true &&
+      manifest.verifyLocalIncludesReadiness === true &&
+      manifest.verifyLocalIncludesPreflight === true &&
+      manifest.evidenceIndexUsesDynamicCurrentIssue === true &&
+      manifest.rootScriptsUseCurrentEvidenceIssue === true &&
+      manifest.rootVerifyIsNonMutating === true;
+    manifest.simulationV0UserFacingGoNoGoStatus = ready
+      ? "go_for_manual_visual_review"
+      : "not_ready";
+    manifest.goNoGoStatus = manifest.simulationV0UserFacingGoNoGoStatus;
+    return;
+  }
   if (manifest.batch === "591-600") {
     const readyKeys = [
       "actualRoomCreationScaleStatus",
@@ -417,6 +507,74 @@ export function commandsForRepairIssue(issue) {
     ],
     "600": [
       "node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600"
+    ],
+    "601": [
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-clean-state --allow-partial --issue 601",
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-readiness --allow-partial --issue 601",
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-preflight --allow-partial --issue 601",
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage dynamic-evidence-index-range --allow-partial --issue 601",
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage stale-issue-number-negative --allow-partial --issue 601",
+      "node scripts/check-simulation-v0-user-facing-preflight.mjs --stage non-mutating-root-verify --allow-partial --issue 601"
+    ],
+    "602": [
+      "node scripts/check-simulation-v0-user-facing-shell.mjs --stage route-shell-contract --allow-partial --issue 602",
+      "node scripts/check-simulation-v0-user-facing-shell.mjs --stage review-state-contract --allow-partial --issue 602",
+      "node scripts/check-simulation-v0-user-facing-shell.mjs --stage rendered-route --allow-partial --issue 602",
+      "node scripts/check-simulation-v0-user-facing-shell.mjs --stage no-claims --allow-partial --issue 602",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 602"
+    ],
+    "603": [
+      "node scripts/check-simulation-v0-profile-selector.mjs --stage selector-contract --allow-partial --issue 603",
+      "node scripts/check-simulation-v0-profile-selector.mjs --stage profile-outputs --allow-partial --issue 603",
+      "node scripts/check-simulation-v0-profile-selector.mjs --stage deterministic-selection --allow-partial --issue 603",
+      "node scripts/check-simulation-v0-profile-selector.mjs --stage review-state-update --allow-partial --issue 603",
+      "node scripts/check-simulation-v0-profile-selector.mjs --stage no-free-text --allow-partial --issue 603"
+    ],
+    "604": [
+      "node scripts/check-simulation-v0-ratio-controls.mjs --stage controls-contract --allow-partial --issue 604",
+      "node scripts/check-simulation-v0-ratio-controls.mjs --stage rendered-views --allow-partial --issue 604",
+      "node scripts/check-simulation-v0-ratio-controls.mjs --stage review-state-update --allow-partial --issue 604",
+      "node scripts/check-simulation-v0-ratio-controls.mjs --stage forbidden-copy-negative --allow-partial --issue 604"
+    ],
+    "605": [
+      "node scripts/check-simulation-v0-timeline-table.mjs --stage table-contract --allow-partial --issue 605",
+      "node scripts/check-simulation-v0-timeline-table.mjs --stage rendered-table --allow-partial --issue 605",
+      "node scripts/check-simulation-v0-timeline-table.mjs --stage review-state-derived --allow-partial --issue 605",
+      "node scripts/check-simulation-v0-timeline-table.mjs --stage no-phi-rows --allow-partial --issue 605",
+      "node scripts/check-simulation-v0-timeline-table.mjs --stage deterministic-timeline --allow-partial --issue 605"
+    ],
+    "606": [
+      "node scripts/check-simulation-v0-summary-cards.mjs --stage cards-contract --allow-partial --issue 606",
+      "node scripts/check-simulation-v0-summary-cards.mjs --stage derived-values --allow-partial --issue 606",
+      "node scripts/check-simulation-v0-summary-cards.mjs --stage review-state-derived --allow-partial --issue 606",
+      "node scripts/check-simulation-v0-summary-cards.mjs --stage no-claim-copy --allow-partial --issue 606"
+    ],
+    "607": [
+      "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage proof-contract --allow-partial --issue 607",
+      "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage selected-bed-ids --allow-partial --issue 607",
+      "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage review-state-derived --allow-partial --issue 607",
+      "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage excluded-space-negative --allow-partial --issue 607"
+    ],
+    "608": [
+      "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage proof-contract --allow-partial --issue 608",
+      "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage stable-hash --allow-partial --issue 608",
+      "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage reproducibility --allow-partial --issue 608",
+      "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage review-state-derived --allow-partial --issue 608",
+      "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage changed-seed-negative --allow-partial --issue 608"
+    ],
+    "609": [
+      "node scripts/check-simulation-v0-artifact-export.mjs --stage export-contract --allow-partial --issue 609",
+      "node scripts/check-simulation-v0-artifact-export.mjs --stage exported-json --allow-partial --issue 609",
+      "node scripts/check-simulation-v0-artifact-export.mjs --stage review-state-derived --allow-partial --issue 609",
+      "node scripts/check-simulation-v0-artifact-export.mjs --stage no-phi-export --allow-partial --issue 609",
+      "node scripts/check-simulation-v0-artifact-export.mjs --stage no-credential-export --allow-partial --issue 609"
+    ],
+    "610": [
+      "npm run check:clean-committed-state",
+      "npm run check:simulation-v0-user-facing-readiness",
+      "npm run check:simulation-v0-user-facing-preflight",
+      "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage final --issue 610",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 610"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -441,6 +599,16 @@ export function mappedRepairOutput(dir, command) {
   if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
   if (matchesGate(command, "clean-committed-state")) return `${base}/clean-committed-state.txt`;
   if (matchesGate(command, "simulation-v0-user-facing-readiness")) return `${base}/simulation-v0-user-facing-readiness.txt`;
+  if (matchesGate(command, "simulation-v0-user-facing-preflight")) return `${base}/preflight-truth-lock.txt`;
+  if (matchesGate(command, "simulation-v0-user-facing-shell")) return `${base}/simulation-v0-user-facing-shell.txt`;
+  if (matchesGate(command, "simulation-v0-profile-selector")) return `${base}/simulation-v0-profile-selector.txt`;
+  if (matchesGate(command, "simulation-v0-ratio-controls")) return `${base}/simulation-v0-ratio-controls.txt`;
+  if (matchesGate(command, "simulation-v0-timeline-table")) return `${base}/simulation-v0-timeline-table.txt`;
+  if (matchesGate(command, "simulation-v0-summary-cards")) return `${base}/simulation-v0-summary-cards.txt`;
+  if (matchesGate(command, "simulation-v0-occupied-bed-proof")) return `${base}/simulation-v0-occupied-bed-proof.txt`;
+  if (matchesGate(command, "simulation-v0-artifact-proof-panel")) return `${base}/simulation-v0-artifact-proof-panel.txt`;
+  if (matchesGate(command, "simulation-v0-artifact-export")) return `${base}/simulation-v0-artifact-export.txt`;
+  if (matchesGate(command, "simulation-v0-user-facing-go-no-go")) return `${base}/simulation-v0-user-facing-go-no-go.txt`;
   if (matchesGate(command, "docs-contracts") || command.includes("check:docs")) return `${base}/docs-contracts.txt`;
   if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
   if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;
@@ -453,7 +621,7 @@ function matchesGate(command, gateName) {
   return command.includes(`check-${gateName}`) || command.includes(`check:${gateName}`);
 }
 
-export function writeCloseout(dir, issue, status, commands, explicitGoNoGo) {
+export function writeCloseout(dir, issue, status, commands, explicitGoNoGo, selectedManifestPath = manifestPath) {
   const next = issue === "590" ? "Expanded Simulation v0 User-Facing Refinement" : `Issue ${Number(issue) + 1}`;
   const goNoGo = explicitGoNoGo ?? (status === "passed" ? `GO for ${next}.` : "NO-GO with blockers in gate output.");
   writeText(`${dir}/closeout.md`, `# Issue ${issue} Closeout
@@ -472,7 +640,7 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 
 ## Evidence Artifacts
 - ${dir}
-- ${manifestPath}
+- ${selectedManifestPath}
 
 ## Known Limitations
 - Simulation v0 remains an internal deterministic dry-run only.

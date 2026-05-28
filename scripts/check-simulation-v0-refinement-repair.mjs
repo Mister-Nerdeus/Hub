@@ -147,14 +147,19 @@ function revalidateDocsContracts() {
 
 function revalidateUiStatus() {
   const viewModel = readText("apps/web/src/features/simulation/simulationV0ViewModel.ts");
+  const artifactProofViewModel = readText("apps/web/src/features/simulation/simulationV0ArtifactProofViewModel.ts");
   const proofBuilder = readText("packages/shared/src/simulation/dryRunReproducibilityProof.ts");
-  const passed = viewModel.includes("buildDryRunReproducibilityStatus") &&
+  const usesLegacyProofBuilder = viewModel.includes("buildDryRunReproducibilityStatus");
+  const usesRouteProofPanel = viewModel.includes("buildSimulationV0ArtifactProofViewModel") &&
+    artifactProofViewModel.includes("stable_hash_proof_passed") &&
+    artifactProofViewModel.includes("same Simulation v0 review inputs must produce the same artifact hash");
+  const passed = (usesLegacyProofBuilder || usesRouteProofPanel) &&
     !viewModel.includes("stable hash proof pending final gate") &&
     proofBuilder.includes("stable_hash_proof_passed") &&
     proofBuilder.includes("stable hash proof passed");
   return {
     status: passed ? "passed" : "failed",
-    usesProofBuilder: viewModel.includes("buildDryRunReproducibilityStatus"),
+    usesProofBuilder: usesLegacyProofBuilder || usesRouteProofPanel,
     pendingStatusAbsent: !viewModel.includes("stable hash proof pending final gate")
   };
 }

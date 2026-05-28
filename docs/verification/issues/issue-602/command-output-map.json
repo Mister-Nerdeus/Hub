@@ -1,0 +1,59 @@
+{
+  "issue": "602",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-shell.mjs --stage route-shell-contract --allow-partial --issue 602",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/simulation-v0-user-facing-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-shell.mjs --stage review-state-contract --allow-partial --issue 602",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/simulation-v0-user-facing-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-shell.mjs --stage rendered-route --allow-partial --issue 602",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/simulation-v0-user-facing-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-shell.mjs --stage no-claims --allow-partial --issue 602",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/simulation-v0-user-facing-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 602",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-602/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

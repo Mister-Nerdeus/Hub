@@ -1,0 +1,144 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "committed issue evidence index is non-empty JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "path": "docs/verification/ISSUE_EVIDENCE_INDEX.json",
+        "byteSize": 1417003,
+        "whitespaceOnly": false,
+        "schemaVersion": "1.0.0",
+        "lastRebuiltIssue": "601",
+        "issueCount": 480,
+        "failures": []
+      }
+    },
+    {
+      "name": "issue evidence index is valid JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "failures": []
+      }
+    },
+    {
+      "name": "issue evidence index covers 571 through current manifest issue",
+      "passed": true,
+      "detail": {
+        "coverageFailures": [],
+        "requiredIssues": [
+          "571",
+          "572",
+          "573",
+          "574",
+          "575",
+          "576",
+          "577",
+          "578",
+          "579",
+          "580",
+          "581",
+          "582",
+          "583",
+          "584",
+          "585",
+          "586",
+          "587",
+          "588",
+          "589",
+          "590",
+          "591",
+          "592",
+          "593",
+          "594",
+          "595",
+          "596",
+          "597",
+          "598",
+          "599",
+          "600",
+          "601"
+        ]
+      }
+    },
+    {
+      "name": "issue evidence index includes required evidence through current manifest issue",
+      "passed": true,
+      "detail": {
+        "missingRequiredEvidenceFailures": [],
+        "requiredIssues": [
+          "571",
+          "572",
+          "573",
+          "574",
+          "575",
+          "576",
+          "577",
+          "578",
+          "579",
+          "580",
+          "581",
+          "582",
+          "583",
+          "584",
+          "585",
+          "586",
+          "587",
+          "588",
+          "589",
+          "590",
+          "591",
+          "592",
+          "593",
+          "594",
+          "595",
+          "596",
+          "597",
+          "598",
+          "599",
+          "600",
+          "601"
+        ]
+      }
+    },
+    {
+      "name": "stale entry negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local-only evidence with blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "missing evidence negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt index exists",
+      "passed": true,
+      "detail": {
+        "indexPath": "docs/verification/ISSUE_EVIDENCE_INDEX.json"
+      }
+    },
+    {
+      "name": "indexed evidence is present",
+      "passed": true,
+      "detail": {
+        "missingEvidenceCount": 0
+      }
+    }
+  ]
+}

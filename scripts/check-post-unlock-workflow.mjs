@@ -49,8 +49,17 @@ function runStage(currentStage) {
     add("Plan 1 active by default", readText("apps/web/src/features/floorplans/activeFloorplanState.ts").includes("CANONICAL_FLOORPLAN_ID"), "activeFloorplanState.ts");
   }
   if (currentStage === "demo-guide-demotion") {
-    add("workflow guide is inside details", app.includes("plan-1-demo-guide-demoted") && app.includes("<summary>Canonical Workflow Guide</summary>"), "App.tsx");
-    add("operator workflow appears before demoted guide in source", app.indexOf("Canonical ER Pod Floorplan") < app.indexOf("plan-1-demo-guide-demoted"), "App.tsx");
+    const hasDemotedGuide = app.includes("plan-1-demo-guide-demoted") && app.includes("<summary>Canonical Workflow Guide</summary>");
+    const hasEvidenceDetails = app.includes("floorplan-demo-proof") && app.includes("<summary>Advanced / Evidence</summary>");
+    const demotedMarker = app.includes("plan-1-demo-guide-demoted") ? "plan-1-demo-guide-demoted" : "floorplan-demo-proof";
+    add("workflow guide is inside details", hasDemotedGuide || hasEvidenceDetails, "App.tsx");
+    add(
+      "operator workflow appears before demoted guide in source",
+      app.indexOf("Canonical ER Pod Floorplan") >= 0 &&
+        app.indexOf(demotedMarker) >= 0 &&
+        app.indexOf("Canonical ER Pod Floorplan") < app.indexOf(demotedMarker),
+      "App.tsx"
+    );
   }
   if (currentStage === "seed-pack-demotion") {
     const guide = readText("apps/web/src/features/demo/Plan1DemoGuide.tsx");

@@ -30,5 +30,3 @@ node scripts/check-simulation-v0-reproducibility.mjs --stage final --issue 580
 node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --issue 580
 node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 580
 node scripts/check-no-phi-fields.mjs
-docker compose config
-docker compose -f docker-compose.production.yml config

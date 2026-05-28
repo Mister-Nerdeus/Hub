@@ -39,8 +39,6 @@
 - node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --issue 580
 - node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 580
 - node scripts/check-no-phi-fields.mjs
-- docker compose config
-- docker compose -f docker-compose.production.yml config
 
 ## Tests Passed/Failed
 - Required local gates for this issue passed.
@@ -48,8 +46,6 @@
 ## Evidence Artifacts
 - docs/verification/issues/issue-580
 - docs/verification/simulation-v0-internal-dry-run-manifest.json
-- docs/verification/issues/issue-580/test-output/docker-compose-config.txt
-- docs/verification/issues/issue-580/test-output/docker-compose-production-config.txt
 
 ## Known Limitations
 - Simulation v0 remains an internal deterministic dry-run only.

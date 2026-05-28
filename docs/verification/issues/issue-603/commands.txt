@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-profile-selector.mjs --stage selector-contract --allow-partial --issue 603
+node scripts/check-simulation-v0-profile-selector.mjs --stage profile-outputs --allow-partial --issue 603
+node scripts/check-simulation-v0-profile-selector.mjs --stage deterministic-selection --allow-partial --issue 603
+node scripts/check-simulation-v0-profile-selector.mjs --stage review-state-update --allow-partial --issue 603
+node scripts/check-simulation-v0-profile-selector.mjs --stage no-free-text --allow-partial --issue 603
+node scripts/check-no-phi-fields.mjs

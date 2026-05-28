@@ -76,16 +76,16 @@ async function runStage(stage) {
   if (stage === "ui-shell") {
     const source = readFileSync(abs("apps/web/src/features/simulation/SimulationV0InternalDryRunPanel.tsx"), "utf8");
     context.add("Simulation v0 panel source exists", source.includes("SimulationV0InternalDryRunPanel"));
-    context.add("panel exposes internal dry-run heading", source.includes("Internal Dry-Run Readiness"));
+    context.add("panel exposes Simulation v0 route landmark", source.includes("simulation-v0-route"));
     const proof = await renderSimulationRoute();
     context.add("rendered simulation panel exists", proof.dom.panelFound, proof.dom);
     writeJson(`${context.dir}/simulation-v0-ui-shell-output.json`, { status: "passed", dom: proof.dom, screenshot: proof.screenshotPath });
   }
   if (stage === "artifact-summary") {
     const viewModel = readFileSync(abs("apps/web/src/features/simulation/simulationV0ViewModel.ts"), "utf8");
-    context.add("view model exposes comparison artifact status", viewModel.includes("comparisonArtifactStatus"));
-    context.add("view model exposes reproducibility status", viewModel.includes("reproducibilityStatus"));
-    writeJson(`${context.dir}/artifact-summary-ui-output.json`, { status: "passed", hasComparisonArtifactStatus: true, hasReproducibilityStatus: true });
+    context.add("view model exposes artifact proof", viewModel.includes("artifactProof"));
+    context.add("view model exposes artifact export", viewModel.includes("artifactExport"));
+    writeJson(`${context.dir}/artifact-summary-ui-output.json`, { status: "passed", hasArtifactProof: true, hasArtifactExport: true });
   }
   if (stage === "visible-copy") {
     const proof = await renderSimulationRoute();
@@ -93,10 +93,10 @@ async function runStage(stage) {
     const required = [
       "internal synthetic dry-run only",
       "No optimizer.",
-      "No assignment recommendation.",
-      "No clinical safety score.",
-      "No staffing compliance certification.",
-      "No patient outcome prediction."
+      "No automated assignment output.",
+      "No care-quality certification.",
+      "No staffing certification.",
+      "No outcome prediction."
     ];
     const missing = required.filter((fragment) => !text.includes(fragment));
     context.add("visible copy includes required limitations", missing.length === 0, missing);
@@ -108,11 +108,11 @@ async function runStage(stage) {
   if (stage === "ui-status-truth") {
     const viewModel = readFileSync(abs("apps/web/src/features/simulation/simulationV0ViewModel.ts"), "utf8");
     const proof = await renderSimulationRoute("simulation-status-truth.png");
-    const passed = viewModel.includes("buildDryRunReproducibilityStatus") &&
+    const passed = viewModel.includes("buildSimulationV0ArtifactProofViewModel") &&
       proof.dom.bodyText.includes("stable hash proof passed") &&
       !proof.dom.bodyText.includes("stable hash proof pending final gate");
     context.add("Simulation UI status is derived from passing proof truth", passed, {
-      usesProofBuilder: viewModel.includes("buildDryRunReproducibilityStatus"),
+      usesProofBuilder: viewModel.includes("buildSimulationV0ArtifactProofViewModel"),
       renderedPassedStatus: proof.dom.bodyText.includes("stable hash proof passed"),
       pendingAbsent: !proof.dom.bodyText.includes("stable hash proof pending final gate")
     });
@@ -162,7 +162,7 @@ async function renderSimulationRoute(fileName = "simulation-v0-internal-dry-run-
       initScript: 'sessionStorage.setItem("nerdeus.demoPin.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));'
     },
     async (browser) => {
-      await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-internal-dry-run-panel') != null");
+    await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-route') != null");
       await browser.screenshot(screenshotPath);
       const dom = await browser.evaluate(domScript(readInternalAccessCode()));
       return dom;
@@ -182,7 +182,7 @@ function domScript(code) {
     const bodyText = document.body.textContent || "";
     const forbidden = ["Demo PIN", "Demo-only", "demo-only", "Relock Demo", "trial", "Plan 1 Demo Guide"];
     return {
-      panelFound: document.querySelector('#simulation-v0-internal-dry-run-panel') != null,
+      panelFound: document.querySelector('#simulation-v0-route') != null,
       bodyText,
       accessCredentialVisible: new RegExp('(?:Access code|PIN|code)\\\\s*' + ${JSON.stringify(code)} + '\\\\b', 'i').test(bodyText),
       forbiddenVisibleTermVisible: forbidden.some((fragment) => bodyText.includes(fragment)),

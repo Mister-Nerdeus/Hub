@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation route has no workflow guide DOM/text",
+      "passed": true,
+      "detail": {
+        "textLength": 4627
+      }
+    },
+    {
+      "name": "Simulation route contains Simulation v0 content",
+      "passed": true,
+      "detail": {
+        "textLength": 4627
+      }
+    },
+    {
+      "name": "floorplan/editor/manual-assignment routes are not polluted by workflow evidence",
+      "passed": true,
+      "detail": {
+        "polluted": []
+      }
+    },
+    {
+      "name": "Advanced/Evidence retains deliberate workflow evidence placement",
+      "passed": true,
+      "detail": {
+        "textLength": 46204
+      }
+    },
+    {
+      "name": "route text diff separates Simulation from workflow evidence",
+      "passed": true,
+      "detail": {
+        "simulationContainsGuide": false,
+        "advancedContainsGuide": true,
+        "simulationTextLength": 4627,
+        "advancedTextLength": 46204
+      }
+    },
+    {
+      "name": "workflow guide is not mounted globally in App.tsx",
+      "passed": true,
+      "detail": {
+        "oldGlobalMountPath": "apps/web/src/App.tsx"
+      }
+    }
+  ]
+}

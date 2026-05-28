@@ -102,7 +102,7 @@ function runPreflight() {
   requireFile("docs/verification/corrected-plan-route-repair-manifest.json");
   requireFile("scripts/check-product-naming.mjs");
   const hardening = readJson("docs/verification/human-review-governance-hardening-manifest.json");
-  if (hardening.lastUpdatedIssue !== "360" || !String(hardening.goNoGoStatus).includes("Operational Demo")) {
+  if (hardening.lastUpdatedIssue !== "360" || !String(hardening.goNoGoStatus).includes("Operational Review")) {
     failures.push("Issue 360 governance baseline is missing or stale");
   }
   writeText(`${issueDir}/first-failure.txt`, firstFailureText(issue));
@@ -304,7 +304,7 @@ function runFinalAudit() {
   }
   const claims = scanForbiddenClaims();
   if (claims.status !== "passed") failures.push("forbidden user-facing claims detected");
-  writeText(`${issueDir}/operational-demo-ux-final-audit.md`, "# Operational Demo UX Final Audit\n\nGO for stakeholder/demo walkthrough while promotion remains blocked. GO for explicit human/manual review. NO-GO for promotion.\n");
+  writeText(`${issueDir}/operational-demo-ux-final-audit.md`, "# Operational Review UX Final Audit\n\nGO for stakeholder review walkthrough while promotion remains blocked. GO for explicit human/manual review. NO-GO for promotion.\n");
   writeJson(`${issueDir}/operational-demo-ux-manifest-summary.json`, manifest);
   for (const [file, key] of [
     ["product-naming-summary.json", "productNamingStatus"],
@@ -327,8 +327,8 @@ function runFinalAudit() {
   writeJson(`${issueDir}/promotion-block-summary.json`, { status: "blocked", promoted: false });
   writeText(`${issueDir}/known-gaps.md`, "- Manual visual approval is not recorded.\n- Promotion remains blocked.\n- Screenshots are local responsive proof, not human visual approval.\n");
   writeText(`${issueDir}/follow-up-issues.md`, "- Conduct explicit structured human/manual review.\n- Continue manual assignment workflow foundation after review boundaries remain clear.\n");
-  writeText(`${issueDir}/go-no-go.md`, "GO for stakeholder/demo walkthrough while promotion remains blocked.\nGO for explicit human/manual review.\n");
-  writeText("docs/project/operational-demo-ux-status.md", "GO for stakeholder/demo walkthrough while promotion remains blocked. Manual review remains required.\n");
+  writeText(`${issueDir}/go-no-go.md`, "GO for stakeholder review walkthrough while promotion remains blocked.\nGO for explicit human/manual review.\n");
+  writeText("docs/project/operational-demo-ux-status.md", "GO for stakeholder review walkthrough while promotion remains blocked. Manual review remains required.\n");
 }
 
 function summarizeManifest(value) {
@@ -379,7 +379,7 @@ function buildGoNoGo(value) {
     value.demoProofStatus
   ].every((status) => status === "complete");
   return complete
-    ? "GO for stakeholder/demo walkthrough while promotion remains blocked; GO for explicit human/manual review"
+    ? "GO for stakeholder review walkthrough while promotion remains blocked; GO for explicit human/manual review"
     : "not_ready";
 }
 
@@ -519,10 +519,10 @@ function closeoutForIssue(issueNumber) {
     `# Issue ${issueNumber} Closeout`,
     "",
     "## Summary",
-    issueNumber === "370" ? manifest.goNoGoStatus : `Completed operational demo UX stage ${stage}.`,
+    issueNumber === "370" ? manifest.goNoGoStatus : `Completed operational review UX stage ${stage}.`,
     "",
     "## Files Changed",
-    "- Operational demo UX source, gates, manifests, and local evidence artifacts.",
+    "- Operational review UX source, gates, manifests, and local evidence artifacts.",
     "",
     "## Commands Run",
     "- See `commands.txt` and `command-output-map.json`.",
@@ -548,7 +548,7 @@ function closeoutForIssue(issueNumber) {
 
 function firstFailureText(issueNumber) {
   const text = {
-    "361": "Reproduced missing operational demo UX manifest/gate and product-naming preflight gap.",
+    "361": "Reproduced missing operational review UX manifest/gate and product-naming preflight gap.",
     "362": "Reproduced risk of operator UI consuming raw proof manifests instead of a typed safe snapshot.",
     "363": "Reproduced app shell title/navigation polish gap.",
     "364": "Reproduced Plan Builder library mixing operator labels with proof details.",
@@ -558,7 +558,7 @@ function firstFailureText(issueNumber) {
     "368": "Reproduced manual review CTA launch-flow gap.",
     "369": "Reproduced developer evidence containment and responsive proof gap.",
     "370": "Reproduced final GO / NO-GO need after Issues 361-369."
-  }[issueNumber] ?? "Reproduced operational demo UX gap.";
+  }[issueNumber] ?? "Reproduced operational review UX gap.";
   return `${text}\n`;
 }
 
@@ -573,7 +573,7 @@ function updateEvidenceIndex(issueNumber) {
     ...files.filter((path) => ![`${issueDir}/closeout.md`, `${issueDir}/commands.txt`, `${issueDir}/command-output-map.json`].includes(path))
   ];
   const titles = {
-    "361": "Operational Demo UX Preflight and Boundary Lock",
+    "361": "Operational Review UX Preflight and Boundary Lock",
     "362": "Safe Operator Reviewer UI Snapshot Contract",
     "363": "App Shell and Navigation Demo Polish",
     "364": "Plan Builder Library Operator View",
@@ -582,7 +582,7 @@ function updateEvidenceIndex(issueNumber) {
     "367": "Safe Rendered Preview and Limitation Language",
     "368": "Manual Review CTA and Artifact Launch Flow",
     "369": "Developer Evidence Containment and Demo Proof",
-    "370": "Operational Demo UX GO NO-GO"
+    "370": "Operational Review UX GO NO-GO"
   };
   const entry = { issue: issueNumber, title: titles[issueNumber] ?? `Issue ${issueNumber}`, requiredEvidence };
   const existing = index.issues.findIndex((candidate) => candidate.issue === issueNumber);

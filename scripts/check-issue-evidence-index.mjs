@@ -221,7 +221,7 @@ async function runCli() {
   });
 
   await runSelectedRepairStages(context, async (stage) => {
-    const requiredIssues = Array.from({ length: 22 }, (_, index) => String(571 + index).padStart(3, "0"));
+    const requiredIssues = requiredIssuesThroughCurrentManifest();
     if (stage === "committed-index-content") {
       const summary = summarizeEvidenceIndexContent(process.cwd());
       const passed = summary.status === "passed" &&
@@ -239,13 +239,14 @@ async function runCli() {
     }
     if (stage === "issue-coverage") {
       const failures = checkIssueEvidenceIndex(process.cwd(), { requiredIssues });
-      const coverageFailures = failures.filter((failure) => /Issue 57[1-9]|Issue 58[0-9]|Issue 59[0-2]/u.test(failure));
+      const requiredIssuePattern = new RegExp(`Issue (${requiredIssues.join("|")})`, "u");
+      const coverageFailures = failures.filter((failure) => requiredIssuePattern.test(failure));
       const missingRequiredEvidenceFailures = failures.filter((failure) =>
-        /Issue 58[1-9]|Issue 59[0-2]/u.test(failure) &&
+        requiredIssuePattern.test(failure) &&
         /requiredEvidence|missing indexed evidence|indexed evidence is empty/u.test(failure)
       );
-      context.add("issue evidence index covers 571-592", coverageFailures.length === 0, { coverageFailures });
-      context.add("issue evidence index includes required evidence for 581-592", missingRequiredEvidenceFailures.length === 0, { missingRequiredEvidenceFailures });
+      context.add("issue evidence index covers 571 through current manifest issue", coverageFailures.length === 0, { coverageFailures, requiredIssues });
+      context.add("issue evidence index includes required evidence through current manifest issue", missingRequiredEvidenceFailures.length === 0, { missingRequiredEvidenceFailures, requiredIssues });
       writeJson(`${context.dir}/issue-coverage-output.json`, {
         status: coverageFailures.length === 0 && missingRequiredEvidenceFailures.length === 0 ? "passed" : "failed",
         requiredIssues,
@@ -343,6 +344,24 @@ function checkLocalOnlyIndexNegative() {
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }
+}
+
+function requiredIssuesThroughCurrentManifest() {
+  const manifestCandidates = [
+    "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+    "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+    "docs/verification/simulation-v0-refinement-repair-manifest.json"
+  ];
+  const currentIssue = manifestCandidates
+    .filter((path) => existsSync(path))
+    .map((path) => Number(JSON.parse(readFileSync(path, "utf8")).lastUpdatedIssue))
+    .filter((issue) => Number.isFinite(issue))
+    .sort((left, right) => right - left)[0] ?? 592;
+  const firstIssue = 571;
+  return Array.from(
+    { length: Math.max(0, currentIssue - firstIssue + 1) },
+    (_, index) => String(firstIssue + index).padStart(3, "0")
+  );
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

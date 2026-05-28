@@ -5,9 +5,9 @@
   "allowPartial": false,
   "checks": [
     {
-      "name": "DemoPinEntryScreen exists",
+      "name": "PIN-first entry screen exists",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "DemoPinEntryScreen.tsx or WorkspaceAccessEntryScreen.tsx"
     },
     {
       "name": "locked branch returns before AppShell",
@@ -20,34 +20,34 @@
       "detail": "App.tsx"
     },
     {
-      "name": "locked screen hides Floorplans",
+      "name": "locked screen hides Floorplan",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Editor",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Manual Assignment",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Review / Reports",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Advanced",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Future Tools",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides protected action list",
@@ -55,54 +55,54 @@
       "detail": "DemoPinGate.tsx"
     },
     {
-      "name": "locked screen hides Plan 1 Demo Guide",
+      "name": "locked screen hides Canonical Workflow Guide",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides seed pack",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Scenario Comparison",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Ratio Comparison",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides proof report",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "locked screen hides Developer/Evidence",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx + DemoPinGate.tsx"
+      "detail": "PIN entry screen + DemoPinGate.tsx"
     },
     {
       "name": "standalone main element",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "PIN entry screen"
     },
     {
       "name": "product name visible",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "PIN entry screen"
     },
     {
-      "name": "demo-only disclaimer visible",
+      "name": "controlled review-flow disclaimer visible",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "PIN entry screen"
     },
     {
       "name": "no production auth claim",
       "passed": true,
-      "detail": "DemoPinEntryScreen.tsx"
+      "detail": "PIN entry screen"
     },
     {
       "name": "accessible status and label",

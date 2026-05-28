@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-clean-state --allow-partial --issue 601
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-readiness --allow-partial --issue 601
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage verify-local-includes-preflight --allow-partial --issue 601
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage dynamic-evidence-index-range --allow-partial --issue 601
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage stale-issue-number-negative --allow-partial --issue 601
+node scripts/check-simulation-v0-user-facing-preflight.mjs --stage non-mutating-root-verify --allow-partial --issue 601
+node scripts/check-no-phi-fields.mjs

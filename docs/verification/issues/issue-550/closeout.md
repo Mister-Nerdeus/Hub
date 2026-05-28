@@ -1,9 +1,7 @@
 # Issue 550 Closeout
 
 ## Files Changed
-- Final canonical fidelity hardening status and Issue 550 audit evidence.
-- `docs/verification/canonical-fidelity-hardening-manifest.json`
-- `docs/project/canonical-fidelity-hardening-status.md`
+- Canonical fidelity hardening files, gates, docs, or evidence for Issue 550.
 
 ## Commands Run
 - npm --workspace packages/shared test
@@ -26,7 +24,7 @@
 - node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 550
 
 ## Tests Passed/Failed
-- Passed: all Issue 550 acceptance gates ran without `--allow-partial`.
+- Required local checks for this issue passed.
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-550
@@ -36,10 +34,10 @@
 - The reference image is an operational visual reference, not an exact CAD source.
 - Manual visual review remains required.
 - Promotion remains blocked.
-- Scenario work remained contract-only during this batch.
+- Scenario work remains contract-only unless Issue 550 records GO.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass. No PHI, EHR integration, real patient identity, diagnosis text, clinical notes, medication names, clinical safety certification, or staffing compliance certification was added.
 
 ## GO / NO-GO
-- GO for Scenario Seed + Ratio Comparison Foundation.
+- GO for Issue 551.

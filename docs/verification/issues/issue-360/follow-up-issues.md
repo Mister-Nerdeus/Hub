@@ -1,1 +1,1 @@
-- Continue operational demo polish while collecting structured human review records separately.
+- Continue operational review polish while collecting structured human review records separately.

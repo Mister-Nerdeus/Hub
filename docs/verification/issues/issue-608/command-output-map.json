@@ -1,0 +1,59 @@
+{
+  "issue": "608",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage proof-contract --allow-partial --issue 608",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/simulation-v0-artifact-proof-panel.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage stable-hash --allow-partial --issue 608",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/simulation-v0-artifact-proof-panel.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage reproducibility --allow-partial --issue 608",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/simulation-v0-artifact-proof-panel.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage review-state-derived --allow-partial --issue 608",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/simulation-v0-artifact-proof-panel.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage changed-seed-negative --allow-partial --issue 608",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/simulation-v0-artifact-proof-panel.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-608/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

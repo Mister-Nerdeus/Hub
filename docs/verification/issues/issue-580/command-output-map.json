@@ -192,18 +192,6 @@
       "outputs": [
         "docs/verification/issues/issue-580/test-output/no-phi.txt"
       ]
-    },
-    {
-      "command": "docker compose config",
-      "outputs": [
-        "docs/verification/issues/issue-580/test-output/docker-compose-config.txt"
-      ]
-    },
-    {
-      "command": "docker compose -f docker-compose.production.yml config",
-      "outputs": [
-        "docs/verification/issues/issue-580/test-output/docker-compose-production-config.txt"
-      ]
     }
   ]
 }

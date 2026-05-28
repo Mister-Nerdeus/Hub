@@ -59,34 +59,43 @@ console.log(JSON.stringify(output, null, 2));
 function runStage(currentStage) {
   if (currentStage === "pre-app-gate") {
     const app = readText("apps/web/src/App.tsx");
-    add("DemoPinEntryScreen exists", existsSync(abs("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx")), "DemoPinEntryScreen.tsx");
-    add("locked branch returns before AppShell", /if \(!demoPinState\.unlocked\)[\s\S]*return \([\s\S]*<DemoPinEntryScreen/.test(app), "App.tsx");
+    add(
+      "PIN-first entry screen exists",
+      existsSync(abs("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx")) ||
+        existsSync(abs("apps/web/src/features/demo-pin/WorkspaceAccessEntryScreen.tsx")),
+      "DemoPinEntryScreen.tsx or WorkspaceAccessEntryScreen.tsx"
+    );
+    add(
+      "locked branch returns before AppShell",
+      /if \(!(?:demoPinState|workspaceAccessState)\.unlocked\)[\s\S]*return \([\s\S]*<(?:DemoPinEntryScreen|WorkspaceAccessEntryScreen)/.test(app),
+      "App.tsx"
+    );
     add("PIN gate not mounted in AppShell content", !/<AppShell[\s\S]*<DemoPinGate/.test(app), "App.tsx");
   }
   if (currentStage === "hide-shell-before-unlock") {
-    const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
+    const entry = readPinEntryScreen();
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
     const lockedScreen = `${entry}\n${gate}`;
     for (const hidden of ["Floorplan", "Editor", "Manual Assignment", "Review / Reports", "Advanced", "Future Tools"]) {
-      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
+      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "PIN entry screen + DemoPinGate.tsx");
     }
     add("locked screen hides protected action list", !lockedScreen.includes("Protected demo actions") && !lockedScreen.includes("data-protected-action-id"), "DemoPinGate.tsx");
   }
   if (currentStage === "hide-demo-content-before-unlock") {
-    const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
+    const entry = readPinEntryScreen();
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
     const lockedScreen = `${entry}\n${gate}`;
     for (const hidden of ["Canonical Workflow Guide", "seed pack", "Scenario Comparison", "Ratio Comparison", "proof report", "Developer/Evidence"]) {
-      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "DemoPinEntryScreen.tsx + DemoPinGate.tsx");
+      add(`locked screen hides ${hidden}`, !lockedScreen.includes(hidden), "PIN entry screen + DemoPinGate.tsx");
     }
   }
   if (currentStage === "pin-landing-ux") {
-    const entry = readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
+    const entry = readPinEntryScreen();
     const gate = readText("apps/web/src/features/demo-pin/DemoPinGate.tsx");
-    add("standalone main element", entry.includes("<main") && entry.includes("data-app-lock-state=\"locked\""), "DemoPinEntryScreen.tsx");
-    add("product name visible", entry.includes("productDisplayName") || entry.includes("PRODUCT_DISPLAY_NAME"), "DemoPinEntryScreen.tsx");
-    add("controlled review-flow disclaimer visible", entry.includes("viewModel.caveat") || entry.includes("Demo-only PIN screen"), "DemoPinEntryScreen.tsx");
-    add("no production auth claim", !/secure access|production auth enabled|protects real data/iu.test(entry), "DemoPinEntryScreen.tsx");
+    add("standalone main element", entry.includes("<main") && entry.includes("data-app-lock-state=\"locked\""), "PIN entry screen");
+    add("product name visible", entry.includes("productDisplayName") || entry.includes("PRODUCT_DISPLAY_NAME"), "PIN entry screen");
+    add("controlled review-flow disclaimer visible", entry.includes("viewModel.caveat") || entry.includes("Demo-only PIN screen"), "PIN entry screen");
+    add("no production auth claim", !/secure access|production auth enabled|protects real data/iu.test(entry), "PIN entry screen");
     add("accessible status and label", gate.includes("role=\"status\"") && gate.includes("aria-label={viewModel.inputLabel}"), "DemoPinGate.tsx");
   }
   if (currentStage === "visual-proof") {
@@ -236,6 +245,12 @@ function readArg(flag) {
 
 function readText(path) {
   return readFileSync(abs(path), "utf8");
+}
+
+function readPinEntryScreen() {
+  const currentPath = "apps/web/src/features/demo-pin/WorkspaceAccessEntryScreen.tsx";
+  if (existsSync(abs(currentPath))) return readText(currentPath);
+  return readText("apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx");
 }
 
 function readJson(path) {

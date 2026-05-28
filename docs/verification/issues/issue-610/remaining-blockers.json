@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "610",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "final Simulation v0 route renders all user-facing review regions",
+      "passed": true,
+      "detail": {
+        "route": true,
+        "controls": true,
+        "output": true,
+        "proof": true,
+        "exportControl": true,
+        "textLength": 4627
+      }
+    }
+  ]
+}

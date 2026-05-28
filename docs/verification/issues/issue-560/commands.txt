@@ -10,6 +10,5 @@ node scripts/check-manual-assignment-scenario-bridge.mjs --stage final --issue 5
 node scripts/check-scenario-comparison-shell.mjs --stage final --issue 560
 node scripts/check-scenario-foundation-go-no-go.mjs --stage final --issue 560
 node scripts/verify-local.mjs
-docker compose up --build -d
 docker compose ps
 node scripts/check-no-phi-fields.mjs

@@ -1,14 +1,14 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "361-370",
-  "lastUpdatedIssue": "380",
+  "lastUpdatedIssue": "370",
   "productDisplayName": "ER Pod Shift Simulator",
   "governanceHardeningManifestPath": "docs/verification/governance-product-naming-hardening-manifest.json",
   "governanceHardeningManifestHash": "35937b9c99eae8cb8155663b5fbc366c2ef0a578f37752b4712d323cb7055102",
   "manualVisualReviewManifestPath": "docs/verification/manual-visual-review-manifest.json",
   "manualVisualReviewManifestHash": "f074acc0d1c08c10a960ab45e9b8246c5e58cc6dabdfb32f579c5c47de7c56a6",
   "planBuilderUxManifestPath": "docs/verification/plan-builder-ux-review-flow-manifest.json",
-  "planBuilderUxManifestHash": "b3372758042909ecd5dc8a2d55d168511a2ff65c3e9ee8536f30e166fdf2ced2",
+  "planBuilderUxManifestHash": "60ac18167aa053c7f36b8b4eca9146c9de06718899b70526084dcc1d71b35e31",
   "safeSnapshotStatus": "complete",
   "appShellStatus": "complete",
   "planLibraryStatus": "complete",
@@ -24,5 +24,5 @@
   "privateSourceBoundaryStatus": "passed",
   "noPhiStatus": "passed",
   "defaultFixtureMutationStatus": "unchanged",
-  "goNoGoStatus": "GO for stakeholder/demo walkthrough while promotion remains blocked; GO for explicit human/manual review"
+  "goNoGoStatus": "GO for stakeholder review walkthrough while promotion remains blocked; GO for explicit human/manual review"
 }

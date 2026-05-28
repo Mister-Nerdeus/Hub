@@ -1,0 +1,142 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "changed runtime seed changes runtime-sensitive output",
+      "passed": true,
+      "detail": {
+        "base": "88de14ac",
+        "changed": "f3e09bf6"
+      }
+    },
+    {
+      "name": "changed runtime seed changes at least one operational runtime field",
+      "passed": true,
+      "detail": {
+        "differences": [
+          {
+            "field": "nurseProcessingOrder",
+            "changedNurseIds": [
+              "synthetic-nurse-01",
+              "synthetic-nurse-03",
+              "synthetic-nurse-04"
+            ]
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+            "base": 90,
+            "changed": 97
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-17-dry-run-room-check-01",
+            "base": 97,
+            "changed": 90
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-10-dry-run-room-check-01",
+            "base": 165,
+            "changed": 175
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+            "base": 173,
+            "changed": 165
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+            "base": 195,
+            "changed": 204
+          },
+          {
+            "field": "taskStartMinute",
+            "taskId": "dry-run-task-room-02-dry-run-room-check-01",
+            "base": 206,
+            "changed": 195
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-17-dry-run-room-check-01",
+            "base": 97,
+            "changed": null
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+            "base": 173,
+            "changed": null
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-02-dry-run-room-check-01",
+            "base": 206,
+            "changed": null
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+            "base": null,
+            "changed": 97
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-10-dry-run-room-check-01",
+            "base": null,
+            "changed": 175
+          },
+          {
+            "field": "taskDelayedMinute",
+            "taskId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+            "base": null,
+            "changed": 204
+          }
+        ]
+      }
+    },
+    {
+      "name": "same runtime seed repeats deterministically",
+      "passed": true,
+      "detail": {
+        "runtimeHash": "88de14ac",
+        "repeatRuntimeHash": "88de14ac"
+      }
+    },
+    {
+      "name": "changed runtime seed preserves neutral workload task IDs",
+      "passed": true,
+      "detail": {
+        "workloadHash": "466b1c78",
+        "changedWorkloadHash": "466b1c78"
+      }
+    },
+    {
+      "name": "negative fixture proves changed runtime seed cannot produce same runtime-sensitive hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "workload hash is unchanged when only runtime seed changes",
+      "passed": true,
+      "detail": {
+        "workloadHash": "466b1c78",
+        "changedWorkloadHash": "466b1c78"
+      }
+    },
+    {
+      "name": "runtime-sensitive hash changes when runtime seed changes",
+      "passed": true,
+      "detail": {
+        "runtimeHash": "88de14ac",
+        "changedRuntimeHash": "f3e09bf6"
+      }
+    }
+  ]
+}

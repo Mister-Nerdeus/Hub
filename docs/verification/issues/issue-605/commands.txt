@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-timeline-table.mjs --stage table-contract --allow-partial --issue 605
+node scripts/check-simulation-v0-timeline-table.mjs --stage rendered-table --allow-partial --issue 605
+node scripts/check-simulation-v0-timeline-table.mjs --stage review-state-derived --allow-partial --issue 605
+node scripts/check-simulation-v0-timeline-table.mjs --stage no-phi-rows --allow-partial --issue 605
+node scripts/check-simulation-v0-timeline-table.mjs --stage deterministic-timeline --allow-partial --issue 605
+node scripts/check-no-phi-fields.mjs

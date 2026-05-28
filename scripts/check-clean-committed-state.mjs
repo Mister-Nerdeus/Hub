@@ -53,7 +53,9 @@ async function runStage(stage) {
       "check:visible-product-copy-all-routes",
       "check:simulation-v0-ui-shell",
       "check:simulation-v0-refinement-repair",
-      "check:simulation-v0-user-facing-readiness"
+      "check:simulation-v0-user-facing-readiness",
+      "check:clean-committed-state",
+      "check:simulation-v0-user-facing-preflight"
     ];
     const missingScripts = requiredScripts.filter((script) => typeof packageScripts[script] !== "string");
     const passed = missing.length === 0 && missingScripts.length === 0;

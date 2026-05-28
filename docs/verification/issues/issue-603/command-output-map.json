@@ -1,0 +1,59 @@
+{
+  "issue": "603",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-profile-selector.mjs --stage selector-contract --allow-partial --issue 603",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/simulation-v0-profile-selector.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-profile-selector.mjs --stage profile-outputs --allow-partial --issue 603",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/simulation-v0-profile-selector.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-profile-selector.mjs --stage deterministic-selection --allow-partial --issue 603",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/simulation-v0-profile-selector.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-profile-selector.mjs --stage review-state-update --allow-partial --issue 603",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/simulation-v0-profile-selector.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-profile-selector.mjs --stage no-free-text --allow-partial --issue 603",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/simulation-v0-profile-selector.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-603/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

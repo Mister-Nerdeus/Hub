@@ -1,0 +1,53 @@
+{
+  "issue": "607",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage proof-contract --allow-partial --issue 607",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/simulation-v0-occupied-bed-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage selected-bed-ids --allow-partial --issue 607",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/simulation-v0-occupied-bed-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage review-state-derived --allow-partial --issue 607",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/simulation-v0-occupied-bed-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage excluded-space-negative --allow-partial --issue 607",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/simulation-v0-occupied-bed-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-607/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

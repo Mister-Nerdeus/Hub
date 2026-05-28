@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "valid 4:1 and 3:1 seed/preset matrices pass",
+      "passed": true,
+      "detail": {
+        "four": "runtime-seed-canonical-plan-1-four-to-one",
+        "three": "runtime-seed-canonical-plan-1-three-to-one"
+      }
+    },
+    {
+      "name": "mismatched ratio/runtime seed pairs are rejected",
+      "passed": true,
+      "detail": {
+        "failures": [
+          "executor ratio/runtime seed mismatch: four_to_one preset requires four_to_one runtime seed",
+          "executor ratio/runtime seed mismatch: three_to_one preset requires three_to_one runtime seed"
+        ]
+      }
+    },
+    {
+      "name": "mismatched activity profile seeds are rejected",
+      "passed": true,
+      "detail": {
+        "failures": [
+          "executor workload seed activity profile must match selected activity profile",
+          "executor runtime seed activity profile must match selected activity profile"
+        ]
+      }
+    },
+    {
+      "name": "mismatched canonical scenario seed is rejected",
+      "passed": true,
+      "detail": {
+        "failure": "executor workload seed canonical scenario seed must match capacity seed"
+      }
+    },
+    {
+      "name": "syntheticDataOnly false is rejected at executor boundary",
+      "passed": true,
+      "detail": {
+        "failure": "executor accepts syntheticDataOnly inputs only"
+      }
+    }
+  ]
+}

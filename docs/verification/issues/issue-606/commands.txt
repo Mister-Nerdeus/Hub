@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-summary-cards.mjs --stage cards-contract --allow-partial --issue 606
+node scripts/check-simulation-v0-summary-cards.mjs --stage derived-values --allow-partial --issue 606
+node scripts/check-simulation-v0-summary-cards.mjs --stage review-state-derived --allow-partial --issue 606
+node scripts/check-simulation-v0-summary-cards.mjs --stage no-claim-copy --allow-partial --issue 606
+node scripts/check-no-phi-fields.mjs

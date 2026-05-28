@@ -17,7 +17,7 @@ Completed demo PIN gate stage: final.
 - docs/verification/scope-pin-ui-repair-manifest.json
 
 ## Known Limitations
-- configured access credential is a demo proceed gate only.
+- Access gate is a demo proceed gate only.
 - It is not production authentication, real security, or data protection.
 
 ## Non-PHI Confirmation

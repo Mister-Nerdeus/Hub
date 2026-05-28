@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage proof-contract --allow-partial --issue 608
+node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage stable-hash --allow-partial --issue 608
+node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage reproducibility --allow-partial --issue 608
+node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage review-state-derived --allow-partial --issue 608
+node scripts/check-simulation-v0-artifact-proof-panel.mjs --stage changed-seed-negative --allow-partial --issue 608
+node scripts/check-no-phi-fields.mjs

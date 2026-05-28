@@ -1,5 +1,3 @@
-
-> node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600
 {
   "status": "passed",
   "stage": "final",
@@ -23,6 +21,3 @@
     }
   ]
 }
-
-> node scripts/check-no-phi-fields.mjs
-No PHI-like fields found.

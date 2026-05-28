@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "601",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "comparison artifact includes exactly one 4:1 and one 3:1 run",
+      "passed": true,
+      "detail": {
+        "ids": [
+          "four_to_one",
+          "three_to_one"
+        ]
+      }
+    },
+    {
+      "name": "runtime seed IDs exactly match ratio runs",
+      "passed": true,
+      "detail": {
+        "four": "runtime-seed-canonical-plan-1-four-to-one",
+        "three": "runtime-seed-canonical-plan-1-three-to-one"
+      }
+    },
+    {
+      "name": "shared workload counts and unique task IDs are validated",
+      "passed": true,
+      "detail": {
+        "generatedTaskCount": 30,
+        "taskIdCount": 30,
+        "uniqueTaskIdCount": 30
+      }
+    },
+    {
+      "name": "limitation copy includes required non-claim boundaries",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "comparison artifact remains internal-only and synthetic-only",
+      "passed": true,
+      "detail": {
+        "internalOnlyStatus": "internal_dry_run_only",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "invalid comparison artifacts fail validation",
+      "passed": true,
+      "detail": {
+        "results": [
+          {
+            "name": "duplicate 4:1 runs",
+            "error": "Simulation v0 comparison must include exactly one 4:1 run and one 3:1 run"
+          },
+          {
+            "name": "missing 3:1 run",
+            "error": "Simulation v0 comparison must include exactly two ratio runs"
+          },
+          {
+            "name": "wrong runtime seed",
+            "error": "Simulation v0 4:1 run must use the 4:1 runtime seed"
+          },
+          {
+            "name": "mismatched generated task count",
+            "error": "Simulation v0 run generated task count must match shared workload"
+          },
+          {
+            "name": "duplicate task IDs",
+            "error": "Simulation v0 shared workload task ids must be unique"
+          },
+          {
+            "name": "missing limitation copy",
+            "error": "Simulation v0 comparison limitation copy must include internal synthetic dry-run"
+          },
+          {
+            "name": "optimizer started",
+            "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+          },
+          {
+            "name": "assignment recommendation started",
+            "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+          },
+          {
+            "name": "staffing compliance claim true",
+            "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+          },
+          {
+            "name": "patient outcome claim true",
+            "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+          },
+          {
+            "name": "syntheticDataOnly false",
+            "error": "Simulation v0 comparison must use synthetic data only"
+          }
+        ]
+      }
+    }
+  ]
+}
