@@ -188,6 +188,7 @@ export * from "./simulation/dryRunTimestepContract.js";
 export * from "./simulation/dryRunTimestepValidation.js";
 export * from "./simulation/dryRunQueuePlaceholder.js";
 export * from "./simulation/dryRunQueueValidation.js";
+export * from "./simulation/dryRunReproducibilityProof.js";
 export * from "./simulation/dryRunComparisonProof.js";
 export * from "./simulation/dryRunComparisonValidation.js";
 export * from "./simulation/internalDryRunExecutor.js";

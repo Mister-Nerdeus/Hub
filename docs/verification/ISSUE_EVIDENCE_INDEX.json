@@ -18588,6 +18588,39 @@
         "docs/verification/issues/issue-578/visible-copy-output.json",
         "docs/verification/issues/issue-578/whole-app-visible-copy-scan-output.json"
       ]
+    },
+    {
+      "issue": "579",
+      "title": "Dry-Run Reproducibility Proof",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-579/artifact-hash-output.json",
+        "docs/verification/issues/issue-579/changed-seed-negative-output.json",
+        "docs/verification/issues/issue-579/closeout.md",
+        "docs/verification/issues/issue-579/command-output-map.json",
+        "docs/verification/issues/issue-579/commands.txt",
+        "docs/verification/issues/issue-579/first-failure.txt",
+        "docs/verification/issues/issue-579/manifest-update-output.json",
+        "docs/verification/issues/issue-579/no-access-credential-output.txt",
+        "docs/verification/issues/issue-579/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-579/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-579/no-fixture-mutation-output.txt",
+        "docs/verification/issues/issue-579/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-579/no-hidden-time-or-randomness-output.txt",
+        "docs/verification/issues/issue-579/no-optimizer-output.txt",
+        "docs/verification/issues/issue-579/no-outcome-claims-output.txt",
+        "docs/verification/issues/issue-579/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-579/no-phi-output.txt",
+        "docs/verification/issues/issue-579/no-recommendations-output.txt",
+        "docs/verification/issues/issue-579/no-safety-or-compliance-claims-output.txt",
+        "docs/verification/issues/issue-579/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-579/repeated-run-output.json",
+        "docs/verification/issues/issue-579/simulation-v0-reproducibility-output.json",
+        "docs/verification/issues/issue-579/test-output/no-phi.txt",
+        "docs/verification/issues/issue-579/test-output/shared.txt",
+        "docs/verification/issues/issue-579/test-output/simulation-v0-reproducibility.txt",
+        "docs/verification/issues/issue-579/test-output/web-build.txt",
+        "docs/verification/issues/issue-579/test-output/web.txt"
+      ]
     }
   ]
 }

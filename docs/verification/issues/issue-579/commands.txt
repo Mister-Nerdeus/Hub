@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-reproducibility.mjs --stage repeated-run --allow-partial --issue 579
+node scripts/check-simulation-v0-reproducibility.mjs --stage artifact-hash --allow-partial --issue 579
+node scripts/check-simulation-v0-reproducibility.mjs --stage changed-seed-negative --allow-partial --issue 579
+node scripts/check-simulation-v0-reproducibility.mjs --stage no-hidden-time-or-randomness --allow-partial --issue 579
+node scripts/check-no-phi-fields.mjs
