@@ -19464,8 +19464,39 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "597",
+      "title": "Clean-Clone / Committed-State Verification Harness",
+      "evidenceDir": "docs/verification/issues/issue-597",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-597/clean-committed-state-output.json",
+        "docs/verification/issues/issue-597/closeout.md",
+        "docs/verification/issues/issue-597/command-output-map.json",
+        "docs/verification/issues/issue-597/commands.txt",
+        "docs/verification/issues/issue-597/committed-required-paths-output.json",
+        "docs/verification/issues/issue-597/first-failure.txt",
+        "docs/verification/issues/issue-597/git-tracked-required-files-output.json",
+        "docs/verification/issues/issue-597/local-only-artifact-negative-output.json",
+        "docs/verification/issues/issue-597/manifest-update-output.json",
+        "docs/verification/issues/issue-597/no-access-credential-output.txt",
+        "docs/verification/issues/issue-597/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-597/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-597/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-597/no-optimizer-output.txt",
+        "docs/verification/issues/issue-597/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-597/no-phi-output.txt",
+        "docs/verification/issues/issue-597/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-597/test-output/clean-committed-state.txt",
+        "docs/verification/issues/issue-597/test-output/no-phi.txt",
+        "docs/verification/issues/issue-597/test-output/shared.txt",
+        "docs/verification/issues/issue-597/test-output/web-build.txt",
+        "docs/verification/issues/issue-597/test-output/web.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "596"
+  "lastRebuiltIssue": "597"
 }

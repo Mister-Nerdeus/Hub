@@ -1,0 +1,47 @@
+{
+  "issue": "597",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-clean-committed-state.mjs --stage required-files --allow-partial --issue 597",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-clean-committed-state.mjs --stage local-only-negative --allow-partial --issue 597",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-clean-committed-state.mjs --stage git-tracked-required-files --allow-partial --issue 597",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-597/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

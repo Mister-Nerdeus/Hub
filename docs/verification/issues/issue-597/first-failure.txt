@@ -1,0 +1,3 @@
+The prior evidence-index contradiction showed a failure class where gates could pass using local generated state while committed files were blank, stale, or missing.
+
+Issue 597 repairs that failure class by adding a git-aware committed-state verifier and a local-only artifact negative fixture. The gate now checks required repair files with committed-path and git-tracked evidence instead of trusting runtime-generated artifacts alone.

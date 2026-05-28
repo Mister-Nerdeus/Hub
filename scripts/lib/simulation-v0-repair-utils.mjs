@@ -395,6 +395,11 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-simulation-v0-refinement-repair.mjs --stage independent-revalidation --allow-partial --issue 596",
       "node scripts/check-simulation-v0-refinement-repair.mjs --stage manifest-contradiction-negative --allow-partial --issue 596",
       "node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 596"
+    ],
+    "597": [
+      "node scripts/check-clean-committed-state.mjs --stage required-files --allow-partial --issue 597",
+      "node scripts/check-clean-committed-state.mjs --stage local-only-negative --allow-partial --issue 597",
+      "node scripts/check-clean-committed-state.mjs --stage git-tracked-required-files --allow-partial --issue 597"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -416,6 +421,7 @@ export function mappedRepairOutput(dir, command) {
   if (matchesGate(command, "simulation-v0-comparison-validation-hardening")) return `${base}/simulation-v0-comparison-validation-hardening.txt`;
   if (matchesGate(command, "simulation-v0-refinement-repair")) return `${base}/simulation-v0-refinement-repair.txt`;
   if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
+  if (matchesGate(command, "clean-committed-state")) return `${base}/clean-committed-state.txt`;
   if (matchesGate(command, "docs-contracts") || command.includes("check:docs")) return `${base}/docs-contracts.txt`;
   if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
   if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;

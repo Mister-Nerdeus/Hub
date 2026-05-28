@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-clean-committed-state.mjs --stage required-files --allow-partial --issue 597
+node scripts/check-clean-committed-state.mjs --stage local-only-negative --allow-partial --issue 597
+node scripts/check-clean-committed-state.mjs --stage git-tracked-required-files --allow-partial --issue 597
+node scripts/check-no-phi-fields.mjs
