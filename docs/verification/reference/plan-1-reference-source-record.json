@@ -1,0 +1,21 @@
+{
+  "referenceRecordVersion": "1.0.0",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "assetStatus": "source_record",
+  "committedReferenceImage": null,
+  "sourceNote": "The batch prompt supplied the reference layout requirements in text. No binary image asset was attached in the workspace, so this record anchors the canonical remap to the provided room-bank, scale, hallway, support, and split-bay requirements.",
+  "baseRoomModuleFeet": {
+    "width": 10,
+    "height": 10
+  },
+  "requiredBanks": [
+    "left trauma pod",
+    "right pod",
+    "far-right vertical bank",
+    "left-side vertical bank",
+    "bottom bank",
+    "provider/pharmacy support band"
+  ],
+  "manualVisualReviewRequired": true,
+  "promotionStatus": "blocked"
+}

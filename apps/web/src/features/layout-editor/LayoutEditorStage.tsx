@@ -945,6 +945,8 @@ export function LayoutEditorStage({
           onPanSouth={() => dispatchStage(panViewportAction("south"))}
           onPanWest={() => dispatchStage(panViewportAction("west"))}
           onPanEast={() => dispatchStage(panViewportAction("east"))}
+          onReset={() => dispatchStage({ type: "resetViewport" })}
+          onFit={() => dispatchStage({ type: "fitViewport" })}
         />
       </div>
 

@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-room-bed-bay-model.mjs --stage room-bed-bay-contract --allow-partial --issue 513
+node scripts/check-no-phi-fields.mjs

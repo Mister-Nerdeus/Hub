@@ -1,0 +1,23 @@
+{
+  "issue": "538",
+  "commands": [
+    {
+      "command": "node scripts/check-canonical-floorplan-scenario-readiness.mjs --stage path-door-consistency --allow-partial --issue 538",
+      "outputs": [
+        "docs/verification/issues/issue-538/test-output/scenario-readiness.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-538/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-538/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

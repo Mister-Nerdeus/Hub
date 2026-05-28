@@ -1,0 +1,41 @@
+{
+  "issue": "520",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scale.mjs --stage final --issue 520",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/canonical-floorplan-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-bed-bay-model.mjs --stage final --issue 520",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/room-bed-bay-model.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-520/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

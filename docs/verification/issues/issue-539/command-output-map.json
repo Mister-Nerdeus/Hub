@@ -1,0 +1,35 @@
+{
+  "issue": "539",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-539/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-539/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-539/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scenario-readiness.mjs --stage final --allow-partial --issue 539",
+      "outputs": [
+        "docs/verification/issues/issue-539/test-output/scenario-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-539/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

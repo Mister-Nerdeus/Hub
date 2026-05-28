@@ -1,0 +1,29 @@
+{
+  "issue": "532",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-532/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-532/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-unlocked-workspace-polish.mjs --stage read-only-editor-explanation --allow-partial --issue 532",
+      "outputs": [
+        "docs/verification/issues/issue-532/test-output/unlocked-workspace-polish-gate.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-532/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

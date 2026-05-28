@@ -1,0 +1,100 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "531",
+  "allowPartial": false,
+  "checks": [
+    {
+      "stage": "interaction-model",
+      "name": "background and hallway/zone targets can start pan",
+      "passed": true,
+      "detail": "layoutCanvasPan.ts"
+    },
+    {
+      "stage": "interaction-model",
+      "name": "room, door, resize handle, toolbar, and popup targets block pan",
+      "passed": true,
+      "detail": "layoutCanvasPan.ts"
+    },
+    {
+      "stage": "interaction-model",
+      "name": "helper copy is rendered near canvas",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "pointer-pan",
+      "name": "SVG wires pointer pan handlers",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "pointer-pan",
+      "name": "pointer delta converts to viewport pan in all directions",
+      "passed": true,
+      "detail": "layoutCanvasPan.test.ts"
+    },
+    {
+      "stage": "pointer-pan",
+      "name": "pan state is exposed for DOM proof",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "read-only-pan",
+      "name": "canvas pan start is not blocked by read-only state",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "read-only-pan",
+      "name": "placement preview remains blocked in read-only mode",
+      "passed": true,
+      "detail": "LayoutEditorStage.tsx"
+    },
+    {
+      "stage": "no-geometry-mutation",
+      "name": "pan action changes viewport only",
+      "passed": true,
+      "detail": "layoutEditorReducer.ts"
+    },
+    {
+      "stage": "no-geometry-mutation",
+      "name": "room, door, and handle targets do not start pan",
+      "passed": true,
+      "detail": "layoutCanvasPan.test.ts"
+    },
+    {
+      "stage": "visual-proof",
+      "name": "Issue 531 SVG pan proof exists",
+      "passed": true,
+      "detail": "docs/verification/issues/issue-531/screenshots/editor-background-pan-proof.svg"
+    },
+    {
+      "stage": "visual-proof",
+      "name": "DOM proof reports background drag pan enabled",
+      "passed": true,
+      "detail": {
+        "issue": "509",
+        "source": "browser-rendered-app",
+        "renderedAppProof": true,
+        "productDisplayNameVisible": true,
+        "forbiddenVisibleTermVisible": false,
+        "accessCredentialVisible": false,
+        "accessCodeVisible": false,
+        "floorplanNavSingular": true,
+        "lockWorkspaceStyled": true,
+        "jsonEvidenceCollapsed": true,
+        "readOnlyEditorExplanationVisible": true,
+        "storageLabelPolished": true,
+        "backgroundDragPanEnabled": true,
+        "plan1VisibleMainUi": true,
+        "plansTwoThroughFiveVisibleMainUi": false,
+        "plansTwoThroughFiveVisibleAdvanced": true,
+        "simulationOutputVisible": false,
+        "optimizerOutputVisible": false,
+        "staticHtmlOnlyProof": false
+      }
+    }
+  ]
+}

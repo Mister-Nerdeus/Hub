@@ -1,0 +1,35 @@
+{
+  "issue": "513",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-513/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-513/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-513/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-bed-bay-model.mjs --stage room-bed-bay-contract --allow-partial --issue 513",
+      "outputs": [
+        "docs/verification/issues/issue-513/test-output/room-bed-bay-model.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-513/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

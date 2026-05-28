@@ -76,8 +76,7 @@ export function RoomShape({
 }
 
 function roomVisibleLabel(viewModel: RoomShapeViewModel): string {
-  if (viewModel.roomType === "storage") return "Storage";
-  if (viewModel.roomType === "solid_wall") return "Wall";
+  if (viewModel.roomType === "storage" || viewModel.roomType === "solid_wall") return viewModel.visibleLabel;
   if (viewModel.presentationActive && /trauma|level\s*1/i.test(`${viewModel.label} ${viewModel.roomType}`)) {
     return viewModel.label;
   }

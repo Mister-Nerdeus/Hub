@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "stage": "provider-pharmacy",
+  "issue": "526",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "provider/pharmacy remains support zone",
+      "passed": true,
+      "detail": {
+        "id": "zone-provider-pharmacy",
+        "label": "Provider Pharmacy Area",
+        "zoneType": "pharmacy",
+        "color": "#8c6bb1",
+        "x": 110,
+        "y": 74,
+        "widthFeet": 34,
+        "lengthFeet": 16,
+        "travelBlocked": false,
+        "travelPenalty": 1.1,
+        "zoneOperationalMetadata": {
+          "zoneClass": "support",
+          "publicAccess": false,
+          "staffOnly": true,
+          "supportsPatientFlow": false,
+          "supportsClinicalOperations": true
+        }
+      }
+    },
+    {
+      "name": "provider/pharmacy matches target geometry",
+      "passed": true,
+      "detail": {
+        "zone": {
+          "id": "zone-provider-pharmacy",
+          "label": "Provider Pharmacy Area",
+          "zoneType": "pharmacy",
+          "color": "#8c6bb1",
+          "x": 110,
+          "y": 74,
+          "widthFeet": 34,
+          "lengthFeet": 16,
+          "travelBlocked": false,
+          "travelPenalty": 1.1,
+          "zoneOperationalMetadata": {
+            "zoneClass": "support",
+            "publicAccess": false,
+            "staffOnly": true,
+            "supportsPatientFlow": false,
+            "supportsClinicalOperations": true
+          }
+        },
+        "expected": {
+          "x": 110,
+          "y": 74,
+          "widthFeet": 34,
+          "lengthFeet": 16
+        }
+      }
+    }
+  ]
+}

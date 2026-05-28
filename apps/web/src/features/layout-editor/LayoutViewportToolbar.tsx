@@ -9,6 +9,7 @@ export type LayoutViewportToolbarProps = {
   onPanWest: () => void;
   onPanEast: () => void;
   onReset?: () => void;
+  onFit?: () => void;
 };
 
 export function LayoutViewportToolbar({
@@ -19,7 +20,8 @@ export function LayoutViewportToolbar({
   onPanSouth,
   onPanWest,
   onPanEast,
-  onReset
+  onReset,
+  onFit
 }: LayoutViewportToolbarProps) {
   return (
     <div className="layout-viewport-toolbar" aria-label="Layout viewport controls">
@@ -54,6 +56,17 @@ export function LayoutViewportToolbar({
           onClick={onReset}
         >
           Reset
+        </button>
+      )}
+      {onFit == null ? null : (
+        <button
+          type="button"
+          className="layout-viewport-toolbar__fit"
+          aria-label="Fit to floorplan"
+          title="Fit to floorplan"
+          onClick={onFit}
+        >
+          Fit
         </button>
       )}
     </div>

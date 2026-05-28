@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "stage": "room-bank-alignment",
+  "issue": "515",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "room bank left-trauma-pod exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    },
+    {
+      "name": "room bank right-pod exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    },
+    {
+      "name": "room bank far-right-vertical-bank exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    },
+    {
+      "name": "room bank left-side-vertical-bank exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    },
+    {
+      "name": "room bank bottom-bank exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    },
+    {
+      "name": "room bank provider-pharmacy-support-band exists",
+      "passed": true,
+      "detail": "roomBankContract.ts"
+    }
+  ]
+}

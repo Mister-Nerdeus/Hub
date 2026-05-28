@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "reference-asset",
+  "issue": "511",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference source record exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-source-record.json"
+    },
+    {
+      "name": "reference target geometry uses feet",
+      "passed": true,
+      "detail": "feet"
+    }
+  ]
+}

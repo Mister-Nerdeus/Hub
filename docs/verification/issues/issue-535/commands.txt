@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-reference-layout-parity.mjs --stage visual-overlay --allow-partial --issue 535
+node scripts/check-no-phi-fields.mjs

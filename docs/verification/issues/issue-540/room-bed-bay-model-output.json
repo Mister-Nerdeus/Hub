@@ -1,0 +1,78 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "540",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "occupancy type includes room",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes bed_position",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes split_bay",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes storage/support/hallway",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "split bay pair room-02\", \"room-03 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-04\", \"room-05 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-06\", \"room-07 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-08\", \"room-09 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "storage excluded from bed and ratio counts",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "support area excluded from patient math",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "hallway excluded from patient math",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "bed positions assignment eligible",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "storage assignment excluded",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    }
+  ]
+}

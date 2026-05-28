@@ -3,6 +3,8 @@ import {
   normalizeLayoutEditorViewport,
   type LayoutEditorViewport
 } from "./layoutEditorState";
+import type { LayoutBoundsFeet } from "./layoutMoveValidation";
+import type { LayoutStageViewportPixels } from "./layoutWorkspaceConfig";
 
 export const MIN_LAYOUT_EDITOR_ZOOM = 0.5;
 export const MAX_LAYOUT_EDITOR_ZOOM = 3;
@@ -52,6 +54,24 @@ export function panLayoutViewport(
 
 export function resetLayoutViewport(): LayoutEditorViewport {
   return { ...DEFAULT_LAYOUT_EDITOR_VIEWPORT };
+}
+
+export function fitLayoutViewportToBounds(
+  bounds: LayoutBoundsFeet,
+  viewportPixels: LayoutStageViewportPixels,
+  pixelsPerFoot = DEFAULT_LAYOUT_EDITOR_VIEWPORT.pixelsPerFoot,
+  paddingFeet = 6
+): LayoutEditorViewport {
+  const paddedWidthFeet = requirePositive(bounds.widthFeet + paddingFeet * 2, "paddedWidthFeet");
+  const paddedHeightFeet = requirePositive(bounds.heightFeet + paddingFeet * 2, "paddedHeightFeet");
+  const widthZoom = requirePositive(viewportPixels.widthPixels, "viewport width") / (paddedWidthFeet * requirePositive(pixelsPerFoot, "pixelsPerFoot"));
+  const heightZoom = requirePositive(viewportPixels.heightPixels, "viewport height") / (paddedHeightFeet * pixelsPerFoot);
+  return normalizeLayoutEditorViewport({
+    pixelsPerFoot,
+    zoom: clampZoom(roundViewportValue(Math.min(widthZoom, heightZoom))),
+    panXFeet: roundViewportValue(bounds.xFeet - paddingFeet),
+    panYFeet: roundViewportValue(bounds.yFeet - paddingFeet)
+  });
 }
 
 function clampZoom(zoom: number): number {

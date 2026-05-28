@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "stage": "nurse-stations",
+  "issue": "527",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "station-left matches target geometry",
+      "passed": true,
+      "detail": {
+        "station": {
+          "id": "station-left",
+          "label": "Left Nurse Station",
+          "stationType": "primary",
+          "x": 54,
+          "y": 64,
+          "widthFeet": 16,
+          "lengthFeet": 8,
+          "pathNodeId": "node-station-left",
+          "stationOperationalMetadata": {
+            "stationClass": "primary",
+            "supportsChargeNurse": true,
+            "supportsPrimaryNurse": true,
+            "supportsProvider": false,
+            "supportsTriage": false,
+            "visibilityLevel": "high",
+            "defaultWalkingOrigin": true
+          }
+        },
+        "expected": {
+          "x": 54,
+          "y": 64,
+          "widthFeet": 16,
+          "lengthFeet": 8
+        }
+      }
+    },
+    {
+      "name": "station-right matches target geometry",
+      "passed": true,
+      "detail": {
+        "station": {
+          "id": "station-right",
+          "label": "Right Nurse Station",
+          "stationType": "secondary",
+          "x": 122,
+          "y": 64,
+          "widthFeet": 16,
+          "lengthFeet": 8,
+          "pathNodeId": "node-station-right",
+          "stationOperationalMetadata": {
+            "stationClass": "secondary",
+            "supportsChargeNurse": false,
+            "supportsPrimaryNurse": true,
+            "supportsProvider": false,
+            "supportsTriage": false,
+            "visibilityLevel": "high",
+            "defaultWalkingOrigin": false
+          }
+        },
+        "expected": {
+          "x": 122,
+          "y": 64,
+          "widthFeet": 16,
+          "lengthFeet": 8
+        }
+      }
+    }
+  ]
+}

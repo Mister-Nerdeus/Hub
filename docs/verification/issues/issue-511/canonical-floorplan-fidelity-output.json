@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "reference-audit",
+  "issue": "511",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference audit document exists",
+      "passed": true,
+      "detail": "canonical-reference-layout-audit.md"
+    },
+    {
+      "name": "reference source record exists",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    }
+  ]
+}

@@ -34,6 +34,7 @@ import {
 import {
   DEFAULT_LAYOUT_EDITOR_PAN_STEP_FEET,
   panLayoutViewport,
+  fitLayoutViewportToBounds,
   resetLayoutViewport,
   zoomLayoutViewport,
   type LayoutViewportZoomDirection
@@ -83,6 +84,7 @@ export type LayoutEditorAction =
   | { type: "zoomViewport"; direction: LayoutViewportZoomDirection }
   | { type: "panViewport"; deltaXFeet: number; deltaYFeet: number }
   | { type: "resetViewport" }
+  | { type: "fitViewport" }
   | { type: "setSnapMode"; snapMode: LayoutEditorSnapMode }
   | { type: "moveRoom"; roomId: string; deltaXFeet: number; deltaYFeet: number }
   | {
@@ -209,6 +211,14 @@ export function layoutEditorReducer(
       return {
         ...state,
         viewport: resetLayoutViewport()
+      };
+    case "fitViewport":
+      return {
+        ...state,
+        viewport: fitLayoutViewportToBounds(state.layoutBoundsFeet, {
+          widthPixels: 1080,
+          heightPixels: 720
+        }, state.viewport.pixelsPerFoot)
       };
     case "setSnapMode":
       if (!isLayoutEditorSnapMode(action.snapMode)) {

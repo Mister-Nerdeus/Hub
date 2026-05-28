@@ -1,0 +1,3 @@
+node scripts/check-room-bed-bay-model.mjs --stage capacity-eligibility --allow-partial --issue 516
+npm run check:room-type-semantics
+node scripts/check-no-phi-fields.mjs

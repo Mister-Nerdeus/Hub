@@ -1,0 +1,35 @@
+{
+  "issue": "511",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-511/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-511/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scale.mjs --stage reference-asset --allow-partial --issue 511",
+      "outputs": [
+        "docs/verification/issues/issue-511/test-output/canonical-floorplan-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-fidelity.mjs --stage reference-audit --allow-partial --issue 511",
+      "outputs": [
+        "docs/verification/issues/issue-511/test-output/canonical-floorplan-fidelity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-511/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,612 @@
+{
+  "rooms": {
+    "room-level-1-trauma": {
+      "x": 18,
+      "y": 38,
+      "widthFeet": 20,
+      "lengthFeet": 18
+    },
+    "room-02": {
+      "x": 42,
+      "y": 36,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-03": {
+      "x": 56,
+      "y": 36,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-04": {
+      "x": 42,
+      "y": 52,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-05": {
+      "x": 56,
+      "y": 52,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-14": {
+      "x": 34,
+      "y": 18,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-06": {
+      "x": 94,
+      "y": 36,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-07": {
+      "x": 108,
+      "y": 36,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-08": {
+      "x": 94,
+      "y": 52,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-09": {
+      "x": 108,
+      "y": 52,
+      "widthFeet": 12,
+      "lengthFeet": 14
+    },
+    "room-10": {
+      "x": 124,
+      "y": 44,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-13": {
+      "x": 104,
+      "y": 18,
+      "widthFeet": 18,
+      "lengthFeet": 14
+    },
+    "room-11": {
+      "x": 150,
+      "y": 22,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-12": {
+      "x": 150,
+      "y": 40,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-15": {
+      "x": 8,
+      "y": 82,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-16": {
+      "x": 8,
+      "y": 102,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-17": {
+      "x": 102,
+      "y": 76,
+      "widthFeet": 16,
+      "lengthFeet": 14
+    },
+    "room-19": {
+      "x": 34,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-20": {
+      "x": 52,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-21": {
+      "x": 70,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-22": {
+      "x": 88,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-23": {
+      "x": 106,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    },
+    "room-24": {
+      "x": 124,
+      "y": 100,
+      "widthFeet": 14,
+      "lengthFeet": 16
+    }
+  },
+  "nurseStations": {
+    "station-left": {
+      "x": 54,
+      "y": 70,
+      "widthFeet": 18,
+      "lengthFeet": 10
+    },
+    "station-right": {
+      "x": 126,
+      "y": 70,
+      "widthFeet": 18,
+      "lengthFeet": 10
+    }
+  },
+  "zones": {
+    "zone-level-1-trauma": {
+      "x": 16,
+      "y": 34,
+      "widthFeet": 24,
+      "lengthFeet": 24
+    },
+    "region-left-upper-pod-trauma-2-5-14": {
+      "x": 4,
+      "y": 4,
+      "widthFeet": 82,
+      "lengthFeet": 64
+    },
+    "region-left-side-rooms-15-16": {
+      "x": 4,
+      "y": 88,
+      "widthFeet": 40,
+      "lengthFeet": 38
+    },
+    "region-right-upper-pod-6-10-13": {
+      "x": 88,
+      "y": 4,
+      "widthFeet": 84,
+      "lengthFeet": 64
+    },
+    "region-right-side-rooms-11-12": {
+      "x": 144,
+      "y": 18,
+      "widthFeet": 32,
+      "lengthFeet": 30
+    },
+    "region-provider-pharmacy": {
+      "x": 120,
+      "y": 46,
+      "widthFeet": 52,
+      "lengthFeet": 36
+    },
+    "region-bottom-rooms-19-24": {
+      "x": 4,
+      "y": 84,
+      "widthFeet": 172,
+      "lengthFeet": 42
+    },
+    "region-hallway-network": {
+      "x": 0,
+      "y": 24,
+      "widthFeet": 176,
+      "lengthFeet": 90
+    },
+    "region-ems-entry": {
+      "x": 0,
+      "y": 70,
+      "widthFeet": 24,
+      "lengthFeet": 56
+    },
+    "zone-hall-ems-entry": {
+      "x": 6,
+      "y": 40,
+      "widthFeet": 24,
+      "lengthFeet": 54
+    },
+    "zone-numbered-room-bank": {
+      "x": 34,
+      "y": 6,
+      "widthFeet": 78,
+      "lengthFeet": 62
+    },
+    "zone-provider-pharmacy": {
+      "x": 100,
+      "y": 70,
+      "widthFeet": 42,
+      "lengthFeet": 18
+    },
+    "zone-nurse-station-core": {
+      "x": 44,
+      "y": 30,
+      "widthFeet": 26,
+      "lengthFeet": 12
+    },
+    "zone-left-side-rooms-15-16": {
+      "x": 4,
+      "y": 78,
+      "widthFeet": 30,
+      "lengthFeet": 44
+    },
+    "zone-left-pod-rooms-2-5-14": {
+      "x": 32,
+      "y": 16,
+      "widthFeet": 42,
+      "lengthFeet": 52
+    },
+    "zone-right-pod-rooms-6-10-13": {
+      "x": 92,
+      "y": 16,
+      "widthFeet": 48,
+      "lengthFeet": 54
+    },
+    "zone-right-side-rooms-11-12": {
+      "x": 146,
+      "y": 20,
+      "widthFeet": 26,
+      "lengthFeet": 38
+    },
+    "zone-bottom-rooms-19-24": {
+      "x": 32,
+      "y": 96,
+      "widthFeet": 112,
+      "lengthFeet": 24
+    },
+    "zone-ems-entry": {
+      "x": 10,
+      "y": 50,
+      "widthFeet": 18,
+      "lengthFeet": 34
+    },
+    "zone-main-hallways": {
+      "x": 8,
+      "y": 26,
+      "widthFeet": 164,
+      "lengthFeet": 86
+    },
+    "zone-nurse-station-core-left": {
+      "x": 54,
+      "y": 70,
+      "widthFeet": 18,
+      "lengthFeet": 10
+    },
+    "zone-nurse-station-core-right": {
+      "x": 126,
+      "y": 70,
+      "widthFeet": 18,
+      "lengthFeet": 10
+    }
+  },
+  "doors": {
+    "door-01": {
+      "roomId": "room-level-1-trauma",
+      "x": 28,
+      "y": 56,
+      "widthFeet": 4
+    },
+    "door-02": {
+      "roomId": "room-02",
+      "x": 48,
+      "y": 50,
+      "widthFeet": 3
+    },
+    "door-03": {
+      "roomId": "room-03",
+      "x": 62,
+      "y": 50,
+      "widthFeet": 3
+    },
+    "door-04": {
+      "roomId": "room-04",
+      "x": 48,
+      "y": 66,
+      "widthFeet": 3
+    },
+    "door-05": {
+      "roomId": "room-05",
+      "x": 62,
+      "y": 66,
+      "widthFeet": 3
+    },
+    "door-06": {
+      "roomId": "room-06",
+      "x": 100,
+      "y": 50,
+      "widthFeet": 3
+    },
+    "door-07": {
+      "roomId": "room-07",
+      "x": 114,
+      "y": 50,
+      "widthFeet": 3
+    },
+    "door-08": {
+      "roomId": "room-08",
+      "x": 100,
+      "y": 66,
+      "widthFeet": 3
+    },
+    "door-09": {
+      "roomId": "room-09",
+      "x": 114,
+      "y": 66,
+      "widthFeet": 3
+    },
+    "door-10": {
+      "roomId": "room-10",
+      "x": 131,
+      "y": 60,
+      "widthFeet": 3
+    },
+    "door-11": {
+      "roomId": "room-11",
+      "x": 158,
+      "y": 36,
+      "widthFeet": 3
+    },
+    "door-12": {
+      "roomId": "room-12",
+      "x": 158,
+      "y": 54,
+      "widthFeet": 3
+    },
+    "door-13": {
+      "roomId": "room-13",
+      "x": 113,
+      "y": 32,
+      "widthFeet": 3
+    },
+    "door-14": {
+      "roomId": "room-14",
+      "x": 42,
+      "y": 32,
+      "widthFeet": 3
+    },
+    "door-15": {
+      "roomId": "room-15",
+      "x": 16,
+      "y": 96,
+      "widthFeet": 3
+    },
+    "door-16": {
+      "roomId": "room-16",
+      "x": 16,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-17": {
+      "roomId": "room-17",
+      "x": 110,
+      "y": 90,
+      "widthFeet": 3
+    },
+    "door-18": {
+      "roomId": "room-19",
+      "x": 41,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-19": {
+      "roomId": "room-20",
+      "x": 59,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-20": {
+      "roomId": "room-21",
+      "x": 77,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-21": {
+      "roomId": "room-22",
+      "x": 95,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-22": {
+      "roomId": "room-23",
+      "x": 113,
+      "y": 116,
+      "widthFeet": 3
+    },
+    "door-23": {
+      "roomId": "room-24",
+      "x": 131,
+      "y": 116,
+      "widthFeet": 3
+    }
+  },
+  "pathNodes": {
+    "node-entry-ems": {
+      "x": 16,
+      "y": 92,
+      "linkedObjectId": null
+    },
+    "node-hall-ems-entry": {
+      "x": 16,
+      "y": 72,
+      "linkedObjectId": "hallway-ems-entry"
+    },
+    "node-hall-west": {
+      "x": 16,
+      "y": 40,
+      "linkedObjectId": "hallway-main"
+    },
+    "node-hall-mid": {
+      "x": 62,
+      "y": 40,
+      "linkedObjectId": "hallway-main"
+    },
+    "node-hall-east": {
+      "x": 104,
+      "y": 40,
+      "linkedObjectId": "hallway-main"
+    },
+    "node-door-level-1-trauma": {
+      "x": 28,
+      "y": 56,
+      "linkedObjectId": "door-01"
+    },
+    "node-door-room-02": {
+      "x": 48,
+      "y": 50,
+      "linkedObjectId": "door-02"
+    },
+    "node-door-room-03": {
+      "x": 62,
+      "y": 50,
+      "linkedObjectId": "door-03"
+    },
+    "node-door-room-04": {
+      "x": 48,
+      "y": 66,
+      "linkedObjectId": "door-04"
+    },
+    "node-door-room-05": {
+      "x": 62,
+      "y": 66,
+      "linkedObjectId": "door-05"
+    },
+    "node-door-room-14": {
+      "x": 42,
+      "y": 32,
+      "linkedObjectId": "door-14"
+    },
+    "node-door-room-06": {
+      "x": 100,
+      "y": 50,
+      "linkedObjectId": "door-06"
+    },
+    "node-door-room-07": {
+      "x": 114,
+      "y": 50,
+      "linkedObjectId": "door-07"
+    },
+    "node-door-room-08": {
+      "x": 100,
+      "y": 66,
+      "linkedObjectId": "door-08"
+    },
+    "node-door-room-09": {
+      "x": 114,
+      "y": 66,
+      "linkedObjectId": "door-09"
+    },
+    "node-door-room-10": {
+      "x": 131,
+      "y": 60,
+      "linkedObjectId": "door-10"
+    },
+    "node-door-room-13": {
+      "x": 113,
+      "y": 32,
+      "linkedObjectId": "door-13"
+    },
+    "node-door-room-11": {
+      "x": 158,
+      "y": 36,
+      "linkedObjectId": "door-11"
+    },
+    "node-door-room-12": {
+      "x": 158,
+      "y": 54,
+      "linkedObjectId": "door-12"
+    },
+    "node-door-room-15": {
+      "x": 16,
+      "y": 96,
+      "linkedObjectId": "door-15"
+    },
+    "node-door-room-16": {
+      "x": 16,
+      "y": 116,
+      "linkedObjectId": "door-16"
+    },
+    "node-door-room-17": {
+      "x": 110,
+      "y": 90,
+      "linkedObjectId": "door-17"
+    },
+    "node-door-room-19": {
+      "x": 41,
+      "y": 116,
+      "linkedObjectId": "door-18"
+    },
+    "node-door-room-20": {
+      "x": 59,
+      "y": 116,
+      "linkedObjectId": "door-19"
+    },
+    "node-door-room-21": {
+      "x": 77,
+      "y": 116,
+      "linkedObjectId": "door-20"
+    },
+    "node-door-room-22": {
+      "x": 95,
+      "y": 116,
+      "linkedObjectId": "door-21"
+    },
+    "node-door-room-23": {
+      "x": 113,
+      "y": 116,
+      "linkedObjectId": "door-22"
+    },
+    "node-door-room-24": {
+      "x": 131,
+      "y": 116,
+      "linkedObjectId": "door-23"
+    },
+    "node-station-left": {
+      "x": 63,
+      "y": 75,
+      "linkedObjectId": "station-left"
+    },
+    "node-station-right": {
+      "x": 135,
+      "y": 75,
+      "linkedObjectId": "station-right"
+    },
+    "node-zone-provider-pharmacy": {
+      "x": 121,
+      "y": 79,
+      "linkedObjectId": "zone-provider-pharmacy"
+    },
+    "node-hallway-top-horizontal": {
+      "x": 90,
+      "y": 28,
+      "linkedObjectId": "hallway-top-horizontal"
+    },
+    "node-hallway-left-vertical": {
+      "x": 28,
+      "y": 72,
+      "linkedObjectId": "hallway-left-vertical"
+    },
+    "node-hallway-bottom-horizontal": {
+      "x": 90,
+      "y": 92,
+      "linkedObjectId": "hallway-bottom-horizontal"
+    },
+    "node-hallway-right-vertical": {
+      "x": 150,
+      "y": 60,
+      "linkedObjectId": "hallway-right-vertical"
+    },
+    "node-hallway-right-upper": {
+      "x": 122,
+      "y": 28,
+      "linkedObjectId": "hallway-right-upper"
+    }
+  }
+}

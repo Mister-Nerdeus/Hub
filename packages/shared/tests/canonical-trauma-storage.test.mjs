@@ -26,16 +26,16 @@ function readPlan1() {
   }).plan;
 }
 
-test("canonical Trauma One rear box is classified as storage without geometry change", () => {
+test("canonical Trauma One rear box is classified as storage with reference-remap geometry", () => {
   const plan = readPlan1();
   const storage = plan.rooms.find((room) => room.id === "room-14");
   assert.ok(storage);
   assert.equal(storage.label, "14");
   assert.equal(storage.roomType, "storage");
-  assert.equal(storage.x, 34);
+  assert.equal(storage.x, 28);
   assert.equal(storage.y, 18);
-  assert.equal(storage.widthFeet, 16);
-  assert.equal(storage.lengthFeet, 14);
+  assert.equal(storage.widthFeet, 10);
+  assert.equal(storage.lengthFeet, 10);
   assert.equal(storage.roomOperationalMetadata?.roomClass, "storage");
 });
 

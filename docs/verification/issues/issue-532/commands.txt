@@ -1,0 +1,4 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-unlocked-workspace-polish.mjs --stage read-only-editor-explanation --allow-partial --issue 532
+node scripts/check-no-phi-fields.mjs

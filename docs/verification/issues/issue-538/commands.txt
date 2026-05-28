@@ -1,0 +1,3 @@
+node scripts/check-canonical-floorplan-scenario-readiness.mjs --stage path-door-consistency --allow-partial --issue 538
+npm run check:room-type-semantics
+node scripts/check-no-phi-fields.mjs

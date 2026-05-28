@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "stage": "room-bed-bay-contract",
+  "issue": "513",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "occupancy type includes room",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes bed_position",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes split_bay",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    },
+    {
+      "name": "occupancy type includes storage/support/hallway",
+      "passed": true,
+      "detail": "roomBedBayTypes.ts"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "status": "passed",
+  "changedCount": 6,
+  "changes": [
+    {
+      "category": "rooms",
+      "id": "room-15",
+      "before": {
+        "x": 8,
+        "y": 82,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "after": {
+        "x": 8,
+        "y": 80,
+        "widthFeet": 10,
+        "lengthFeet": 10
+      }
+    },
+    {
+      "category": "rooms",
+      "id": "room-16",
+      "before": {
+        "x": 8,
+        "y": 102,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "after": {
+        "x": 8,
+        "y": 92,
+        "widthFeet": 10,
+        "lengthFeet": 10
+      }
+    },
+    {
+      "category": "rooms",
+      "id": "room-17",
+      "before": {
+        "x": 102,
+        "y": 76,
+        "widthFeet": 16,
+        "lengthFeet": 14
+      },
+      "after": {
+        "x": 92,
+        "y": 76,
+        "widthFeet": 10,
+        "lengthFeet": 10
+      }
+    },
+    {
+      "category": "doors",
+      "id": "door-15",
+      "before": {
+        "roomId": "room-15",
+        "x": 16,
+        "y": 96,
+        "widthFeet": 3
+      },
+      "after": {
+        "roomId": "room-15",
+        "x": 18,
+        "y": 85,
+        "widthFeet": 3
+      }
+    },
+    {
+      "category": "doors",
+      "id": "door-16",
+      "before": {
+        "roomId": "room-16",
+        "x": 16,
+        "y": 116,
+        "widthFeet": 3
+      },
+      "after": {
+        "roomId": "room-16",
+        "x": 18,
+        "y": 97,
+        "widthFeet": 3
+      }
+    },
+    {
+      "category": "doors",
+      "id": "door-17",
+      "before": {
+        "roomId": "room-17",
+        "x": 110,
+        "y": 90,
+        "widthFeet": 3
+      },
+      "after": {
+        "roomId": "room-17",
+        "x": 97,
+        "y": 86,
+        "widthFeet": 3
+      }
+    }
+  ]
+}

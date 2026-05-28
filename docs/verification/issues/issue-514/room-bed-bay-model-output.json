@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "stage": "split-bay-semantics",
+  "issue": "514",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "split bay pair room-02\", \"room-03 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-04\", \"room-05 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-06\", \"room-07 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "split bay pair room-08\", \"room-09 exists",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    },
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": "splitBayContract.ts"
+    }
+  ]
+}

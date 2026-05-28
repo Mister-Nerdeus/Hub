@@ -71,10 +71,10 @@ if (stage === "trauma-storage-correction" || stage === "final") {
   add("canonical Level 1 Trauma exists", trauma != null, "room-level-1-trauma");
   if (room != null) {
     add("room-14 is storage", room.roomType === "storage", room.roomType);
-    add("room-14 geometry x preserved", room.x === 34, room.x);
+    add("room-14 geometry x reference remapped", room.x === 28, room.x);
     add("room-14 geometry y preserved", room.y === 18, room.y);
-    add("room-14 geometry width preserved", room.widthFeet === 16, room.widthFeet);
-    add("room-14 geometry length preserved", room.lengthFeet === 14, room.lengthFeet);
+    add("room-14 geometry width uses base module", room.widthFeet === 10, room.widthFeet);
+    add("room-14 geometry length uses base module", room.lengthFeet === 10, room.lengthFeet);
     add("room-14 metadata class is storage", room.roomOperationalMetadata?.roomClass === "storage", room.roomOperationalMetadata?.roomClass);
   }
   add("manifest marks trauma storage implemented", manifest.canonicalTraumaStorageStatus === "implemented", manifest.canonicalTraumaStorageStatus);

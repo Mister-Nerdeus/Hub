@@ -1,0 +1,41 @@
+{
+  "issue": "512",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scale.mjs --stage scale-contract --allow-partial --issue 512",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/canonical-floorplan-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scale.mjs --stage ten-by-ten-module --allow-partial --issue 512",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/canonical-floorplan-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-512/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

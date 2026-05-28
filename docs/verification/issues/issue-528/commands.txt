@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canonical-floorplan-fidelity.mjs --stage doors-access --allow-partial --issue 528
+npm run check:room-type-semantics
+node scripts/check-no-phi-fields.mjs

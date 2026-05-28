@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "539",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "patient-care room count remains explicit",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "bed count is derived from explicit maxPatients only",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "storage is excluded space",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider/pharmacy support zone exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every door references an existing room",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every room door path node references an existing door",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no door references a solid wall",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario status remains contract-only",
+      "passed": true,
+      "detail": "No scenario execution added by this batch gate."
+    },
+    {
+      "name": "optimizer status remains not started for this batch",
+      "passed": true,
+      "detail": "No optimizer behavior added by this batch gate."
+    }
+  ]
+}

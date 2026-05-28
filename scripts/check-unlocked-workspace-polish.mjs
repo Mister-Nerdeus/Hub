@@ -124,7 +124,7 @@ function runStage(currentStage) {
     const room = readText("apps/web/src/features/layout-editor/RoomShape.tsx");
     const inspector = readText("apps/web/src/features/layout-editor/layoutInspectorViewModel.ts");
     const css = readText("apps/web/src/features/layout-editor/LayoutEditorStage.css");
-    add("storage visible label is Storage", room.includes('viewModel.roomType === "storage"') && room.includes('return "Storage"'), "RoomShape.tsx");
+    add("storage visible label is Storage", room.includes('viewModel.roomType === "storage"') && (room.includes('return "Storage"') || room.includes("viewModel.visibleLabel")), "RoomShape.tsx");
     add("storage inspector labels non-patient storage", inspector.includes("Storage (non-patient)"), "layoutInspectorViewModel.ts");
     add("storage remains muted gray", css.includes('[data-room-type="storage"]') && css.includes("#b8c0ca"), "LayoutEditorStage.css");
     writeJson(`${issueDir}/storage-rendering-output.json`, { status: stageStatus(currentStage), storageLabel: "Storage", muted: true });

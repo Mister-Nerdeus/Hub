@@ -1,0 +1,23 @@
+{
+  "issue": "516",
+  "commands": [
+    {
+      "command": "node scripts/check-room-bed-bay-model.mjs --stage capacity-eligibility --allow-partial --issue 516",
+      "outputs": [
+        "docs/verification/issues/issue-516/test-output/room-bed-bay-model.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-516/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-516/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

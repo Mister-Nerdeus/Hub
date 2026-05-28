@@ -6,6 +6,7 @@ const className = buildRoomPresentationClass({
   ariaLabel: "Room",
   hitTargetKey: "room:1",
   label: "Level 1 Trauma",
+  visibleLabel: "Level 1 Trauma",
   roomNumber: "01",
   roomType: "trauma",
   xPixels: 0,

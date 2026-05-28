@@ -1,0 +1,29 @@
+{
+  "issue": "536",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-536/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-536/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-layout-parity.mjs --stage screenshot-proof --allow-partial --issue 536",
+      "outputs": [
+        "docs/verification/issues/issue-536/test-output/reference-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-536/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

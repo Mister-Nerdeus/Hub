@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "no-simulation-no-optimizer",
+  "issue": "533",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "scenario status remains contract-only",
+      "passed": true,
+      "detail": "No scenario execution added by this batch gate."
+    },
+    {
+      "name": "optimizer status remains not started for this batch",
+      "passed": true,
+      "detail": "No optimizer behavior added by this batch gate."
+    }
+  ]
+}

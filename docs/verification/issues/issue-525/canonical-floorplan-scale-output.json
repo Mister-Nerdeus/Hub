@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "stage": "ten-by-ten-module",
+  "issue": "525",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "base patient-care rooms use 10 ft x 10 ft module",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "storage uses visible 10 ft x 10 ft module",
+      "passed": true,
+      "detail": {
+        "id": "room-14",
+        "label": "14",
+        "roomType": "storage",
+        "x": 28,
+        "y": 18,
+        "widthFeet": 10,
+        "lengthFeet": 10,
+        "maxPatients": 1,
+        "traumaCapable": false,
+        "isolationCapable": false,
+        "doorPoint": {
+          "x": 33,
+          "y": 28
+        },
+        "zoneId": "zone-left-pod-rooms-2-5-14",
+        "nearestStationId": "station-left",
+        "pathNodeId": "node-door-room-14",
+        "roomOperationalMetadata": {
+          "roomNumber": "14",
+          "roomClass": "storage",
+          "capacityCategory": "single",
+          "traumaAdjacent": false,
+          "isolationReady": false,
+          "behavioralReady": false,
+          "sitterCapable": false,
+          "lineOfSightLevel": "moderate"
+        }
+      }
+    }
+  ]
+}

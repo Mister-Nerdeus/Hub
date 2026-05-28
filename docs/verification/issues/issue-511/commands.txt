@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canonical-floorplan-scale.mjs --stage reference-asset --allow-partial --issue 511
+node scripts/check-canonical-floorplan-fidelity.mjs --stage reference-audit --allow-partial --issue 511
+node scripts/check-no-phi-fields.mjs

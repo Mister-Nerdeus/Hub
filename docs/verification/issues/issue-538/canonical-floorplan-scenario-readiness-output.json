@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "path-door-consistency",
+  "issue": "538",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "every door references an existing room",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "every room door path node references an existing door",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no door references a solid wall",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

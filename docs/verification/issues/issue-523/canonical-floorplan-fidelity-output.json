@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "stage": "far-right-bank",
+  "issue": "523",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "room-11 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-11",
+          "label": "11",
+          "roomType": "standard",
+          "x": 148,
+          "y": 24,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 158,
+            "y": 29
+          },
+          "zoneId": "zone-right-side-rooms-11-12",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-11",
+          "roomOperationalMetadata": {
+            "roomNumber": "11",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 148,
+          "y": 24,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-12 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-12",
+          "label": "12",
+          "roomType": "standard",
+          "x": 148,
+          "y": 38,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 158,
+            "y": 43
+          },
+          "zoneId": "zone-right-side-rooms-11-12",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-12",
+          "roomOperationalMetadata": {
+            "roomNumber": "12",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 148,
+          "y": 38,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    }
+  ]
+}

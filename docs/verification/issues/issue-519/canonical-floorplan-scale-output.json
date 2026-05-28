@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "519",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference source record exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-source-record.json"
+    },
+    {
+      "name": "reference target geometry uses feet",
+      "passed": true,
+      "detail": "feet"
+    },
+    {
+      "name": "scale unit is feet",
+      "passed": true,
+      "detail": {
+        "unit": "feet",
+        "pixelsPerUnit": 6,
+        "gridSizeFeet": 1,
+        "snapToGrid": true,
+        "origin": "top-left"
+      }
+    },
+    {
+      "name": "grid size remains feet",
+      "passed": true,
+      "detail": 1
+    },
+    {
+      "name": "scale contract source exists",
+      "passed": true,
+      "detail": "packages/shared/src/floorplans/floorplanScaleContract.ts"
+    },
+    {
+      "name": "base patient-care rooms use 10 ft x 10 ft module",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "storage uses visible 10 ft x 10 ft module",
+      "passed": true,
+      "detail": {
+        "id": "room-14",
+        "label": "14",
+        "roomType": "storage",
+        "x": 28,
+        "y": 18,
+        "widthFeet": 10,
+        "lengthFeet": 10,
+        "maxPatients": 1,
+        "traumaCapable": false,
+        "isolationCapable": false,
+        "doorPoint": {
+          "x": 33,
+          "y": 28
+        },
+        "zoneId": "zone-left-pod-rooms-2-5-14",
+        "nearestStationId": "station-left",
+        "pathNodeId": "node-door-room-14",
+        "roomOperationalMetadata": {
+          "roomNumber": "14",
+          "roomClass": "storage",
+          "capacityCategory": "single",
+          "traumaAdjacent": false,
+          "isolationReady": false,
+          "behavioralReady": false,
+          "sitterCapable": false,
+          "lineOfSightLevel": "moderate"
+        }
+      }
+    },
+    {
+      "name": "all room coordinates are finite feet",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all door coordinates are finite feet",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "target geometry records all Plan 1 rooms",
+      "passed": true,
+      "detail": 23
+    }
+  ]
+}

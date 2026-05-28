@@ -1,0 +1,254 @@
+{
+  "status": "passed",
+  "stage": "right-pod",
+  "issue": "522",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "room-06 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-06",
+          "label": "6",
+          "roomType": "standard",
+          "x": 92,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 97,
+            "y": 38
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-06",
+          "roomOperationalMetadata": {
+            "roomNumber": "6",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 92,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-07 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-07",
+          "label": "7",
+          "roomType": "standard",
+          "x": 104,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 109,
+            "y": 38
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-07",
+          "roomOperationalMetadata": {
+            "roomNumber": "7",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 104,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-08 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-08",
+          "label": "8",
+          "roomType": "standard",
+          "x": 92,
+          "y": 40,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 97,
+            "y": 50
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-08",
+          "roomOperationalMetadata": {
+            "roomNumber": "8",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 92,
+          "y": 40,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-09 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-09",
+          "label": "9",
+          "roomType": "standard",
+          "x": 104,
+          "y": 40,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 109,
+            "y": 50
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-09",
+          "roomOperationalMetadata": {
+            "roomNumber": "9",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 104,
+          "y": 40,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-10 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-10",
+          "label": "10",
+          "roomType": "standard",
+          "x": 116,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 126,
+            "y": 39
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-10",
+          "roomOperationalMetadata": {
+            "roomNumber": "10",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 116,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    },
+    {
+      "name": "room-13 matches reference target geometry",
+      "passed": true,
+      "detail": {
+        "actual": {
+          "id": "room-13",
+          "label": "13",
+          "roomType": "standard",
+          "x": 104,
+          "y": 16,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 109,
+            "y": 26
+          },
+          "zoneId": "zone-right-pod-rooms-6-10-13",
+          "nearestStationId": "station-right",
+          "pathNodeId": "node-door-room-13",
+          "roomOperationalMetadata": {
+            "roomNumber": "13",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "expected": {
+          "x": 104,
+          "y": 16,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    }
+  ]
+}

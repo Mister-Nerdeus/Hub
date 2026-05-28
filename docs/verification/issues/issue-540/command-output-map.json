@@ -1,0 +1,77 @@
+{
+  "issue": "540",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scale.mjs --stage final --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/canonical-floorplan-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-bed-bay-model.mjs --stage final --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/room-bed-bay-model.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-fidelity.mjs --stage final --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/canonical-floorplan-fidelity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-layout-parity.mjs --stage final --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/reference-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-floorplan-scenario-readiness.mjs --stage final --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/scenario-readiness.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 540",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/plans-2-through-5-unchanged.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-540/test-output/docker-compose-production-config.txt"
+      ]
+    }
+  ]
+}

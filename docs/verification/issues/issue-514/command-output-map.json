@@ -1,0 +1,35 @@
+{
+  "issue": "514",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-514/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-514/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-514/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-bed-bay-model.mjs --stage split-bay-semantics --allow-partial --issue 514",
+      "outputs": [
+        "docs/verification/issues/issue-514/test-output/room-bed-bay-model.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-514/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -8,6 +8,7 @@ const baseViewModel: RoomShapeViewModel = {
   ariaLabel: "storage room",
   hitTargetKey: "room:room-storage",
   label: "Storage",
+  visibleLabel: "Storage",
   roomNumber: "Storage",
   roomType: "storage",
   xPixels: 10,
@@ -42,6 +43,7 @@ const solidWall = RoomShape({
     ...baseViewModel,
     objectId: "room-solid-wall",
     roomType: "solid_wall",
+    visibleLabel: "Wall",
     roomNumber: "Wall"
   }
 });

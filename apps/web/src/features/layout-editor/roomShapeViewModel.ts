@@ -1,3 +1,5 @@
+import { supportSpaceVisibleLabel } from "@nerdeus/shared";
+
 import type { LayoutObjectRenderItem } from "./layoutObjectRenderPipeline";
 import type { LayoutAssignmentOverlayRoom } from "./layoutAssignmentOverlay";
 import type { LayoutEditorMode } from "./layoutEditorMode";
@@ -8,6 +10,7 @@ export type RoomShapeViewModel = {
   ariaLabel: string;
   hitTargetKey: string;
   label: string;
+  visibleLabel: string;
   roomNumber: string;
   roomType: string;
   xPixels: number;
@@ -45,6 +48,11 @@ export function buildRoomShapeViewModel(
     ariaLabel: item.ariaLabel,
     hitTargetKey: item.hitTargetKey,
     label: source.label,
+    visibleLabel: supportSpaceVisibleLabel({
+      roomType: source.roomType,
+      label: source.label,
+      internalReferenceId: source.roomNumber
+    }),
     roomNumber: source.roomNumber,
     roomType: source.roomType,
     xPixels,

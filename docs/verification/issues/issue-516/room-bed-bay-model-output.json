@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "capacity-eligibility",
+  "issue": "516",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "storage excluded from bed and ratio counts",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "support area excluded from patient math",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    },
+    {
+      "name": "hallway excluded from patient math",
+      "passed": true,
+      "detail": "roomBedBayRules.ts"
+    }
+  ]
+}

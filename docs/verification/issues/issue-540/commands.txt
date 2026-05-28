@@ -1,0 +1,12 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canonical-floorplan-scale.mjs --stage final --issue 540
+node scripts/check-room-bed-bay-model.mjs --stage final --issue 540
+node scripts/check-canonical-floorplan-fidelity.mjs --stage final --issue 540
+node scripts/check-reference-layout-parity.mjs --stage final --issue 540
+node scripts/check-canonical-floorplan-scenario-readiness.mjs --stage final --issue 540
+node scripts/check-no-phi-fields.mjs
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 540
+docker compose config
+docker compose -f docker-compose.production.yml config

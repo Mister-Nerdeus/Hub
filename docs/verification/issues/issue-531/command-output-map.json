@@ -1,0 +1,29 @@
+{
+  "issue": "531",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-531/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-531/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 531",
+      "outputs": [
+        "docs/verification/issues/issue-531/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-531/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "hallways",
+  "issue": "517",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "hallway corridor contract exists",
+      "passed": true,
+      "detail": "hallwayCorridorContract.ts"
+    },
+    {
+      "name": "canonical hallway count retained",
+      "passed": true,
+      "detail": 7
+    },
+    {
+      "name": "hallway nodes retained",
+      "passed": true,
+      "detail": "pathNodes"
+    }
+  ]
+}
