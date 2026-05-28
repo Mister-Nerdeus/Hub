@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "artifactId": "simulation-v0-four-to-one-vs-three-to-one-comparison",
+  "sharedWorkload": {
+    "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+    "activityProfileId": "typical",
+    "generatedTaskCount": 30,
+    "taskInstanceIds": [
+      "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-24-dry-run-room-check-01",
+      "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-05-dry-run-room-check-01",
+      "dry-run-task-room-15-dry-run-room-check-01",
+      "dry-run-task-room-16-dry-run-room-check-01",
+      "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-06-dry-run-room-check-01",
+      "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-12-dry-run-room-check-01",
+      "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-17-dry-run-room-check-01",
+      "dry-run-task-room-07-dry-run-room-check-01",
+      "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+      "dry-run-task-room-11-dry-run-room-check-01",
+      "dry-run-task-room-10-dry-run-room-check-01",
+      "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-19-dry-run-room-check-01",
+      "dry-run-task-room-02-dry-run-room-check-01",
+      "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-21-dry-run-room-check-01",
+      "dry-run-task-room-22-dry-run-room-check-01"
+    ],
+    "sameWorkloadForRatios": true
+  },
+  "ratioRuntime": {
+    "fourToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+    "threeToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+    "ratioSpecificRuntimeAssumptions": true
+  },
+  "runs": [
+    {
+      "ratioPresetId": "four_to_one",
+      "ratioLabel": "4:1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "generatedTaskCount": 30,
+      "queuedPlaceholderCount": 8,
+      "delayedPlaceholderCount": 8,
+      "unassignedPlaceholderCount": 0,
+      "syntheticNurseRuntimeGroupCount": 6,
+      "placeholderPressureBand": "placeholder_heavy"
+    },
+    {
+      "ratioPresetId": "three_to_one",
+      "ratioLabel": "3:1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+      "generatedTaskCount": 30,
+      "queuedPlaceholderCount": 5,
+      "delayedPlaceholderCount": 5,
+      "unassignedPlaceholderCount": 0,
+      "syntheticNurseRuntimeGroupCount": 8,
+      "placeholderPressureBand": "placeholder_moderate"
+    }
+  ],
+  "limitationCopy": [
+    "Comparison artifact is an internal synthetic dry-run artifact only.",
+    "Both ratios use the same neutral synthetic workload.",
+    "Runtime and queue placeholders use ratio-specific assumptions.",
+    "No optimizer, assignment recommendation, clinical safety score, staffing compliance certification, or patient outcome prediction is produced."
+  ],
+  "internalOnlyStatus": "internal_dry_run_only",
+  "optimizerStatus": "not_started",
+  "assignmentRecommendationStatus": "not_started",
+  "clinicalSafetyClaim": false,
+  "staffingComplianceClaim": false,
+  "patientOutcomePredictionClaim": false,
+  "syntheticDataOnly": true
+}

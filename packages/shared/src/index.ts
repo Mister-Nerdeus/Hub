@@ -215,6 +215,8 @@ export * from "./simulation/plan1DemoProofBundle.js";
 export * from "./simulation/ratioAwareQueuePlaceholder.js";
 export * from "./simulation/ratioAwareQueueValidation.js";
 export * from "./simulation/simulationExecution.js";
+export * from "./simulation/simulationV0ComparisonArtifact.js";
+export * from "./simulation/simulationV0ComparisonValidation.js";
 export * from "./simulation/simulationRunContract.js";
 export * from "./simulation/simulationRunValidation.js";
 export * from "./simulation/simulationScoring.js";

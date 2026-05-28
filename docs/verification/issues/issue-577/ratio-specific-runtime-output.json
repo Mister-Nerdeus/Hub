@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "ratioRuntime": {
+    "fourToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+    "threeToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+    "ratioSpecificRuntimeAssumptions": true
+  },
+  "runs": [
+    {
+      "ratioPresetId": "four_to_one",
+      "ratioLabel": "4:1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "generatedTaskCount": 30,
+      "queuedPlaceholderCount": 8,
+      "delayedPlaceholderCount": 8,
+      "unassignedPlaceholderCount": 0,
+      "syntheticNurseRuntimeGroupCount": 6,
+      "placeholderPressureBand": "placeholder_heavy"
+    },
+    {
+      "ratioPresetId": "three_to_one",
+      "ratioLabel": "3:1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+      "generatedTaskCount": 30,
+      "queuedPlaceholderCount": 5,
+      "delayedPlaceholderCount": 5,
+      "unassignedPlaceholderCount": 0,
+      "syntheticNurseRuntimeGroupCount": 8,
+      "placeholderPressureBand": "placeholder_moderate"
+    }
+  ]
+}

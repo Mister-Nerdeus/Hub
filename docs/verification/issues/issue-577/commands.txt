@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-comparison-artifact.mjs --stage shared-workload --allow-partial --issue 577
+node scripts/check-simulation-v0-comparison-artifact.mjs --stage ratio-specific-runtime --allow-partial --issue 577
+node scripts/check-simulation-v0-comparison-artifact.mjs --stage comparison-artifact --allow-partial --issue 577
+node scripts/check-simulation-v0-comparison-artifact.mjs --stage no-safety-or-compliance-claims --allow-partial --issue 577
+node scripts/check-no-phi-fields.mjs

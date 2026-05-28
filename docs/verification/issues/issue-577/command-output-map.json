@@ -1,0 +1,53 @@
+{
+  "issue": "577",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-comparison-artifact.mjs --stage shared-workload --allow-partial --issue 577",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/simulation-v0-comparison-artifact.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-comparison-artifact.mjs --stage ratio-specific-runtime --allow-partial --issue 577",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/simulation-v0-comparison-artifact.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-comparison-artifact.mjs --stage comparison-artifact --allow-partial --issue 577",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/simulation-v0-comparison-artifact.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-comparison-artifact.mjs --stage no-safety-or-compliance-claims --allow-partial --issue 577",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/simulation-v0-comparison-artifact.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-577/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

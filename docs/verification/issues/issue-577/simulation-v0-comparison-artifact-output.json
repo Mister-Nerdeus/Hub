@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "stage": "no-safety-or-compliance-claims",
+  "issue": "577",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "no clinical safety claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no staffing compliance claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no patient outcome claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no optimizer or recommendation",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
