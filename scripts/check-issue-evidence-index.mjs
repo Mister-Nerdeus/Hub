@@ -9,19 +9,20 @@ import {
   runSelectedRepairStages,
   writeJson
 } from "./lib/simulation-v0-repair-utils.mjs";
+import {
+  ISSUE_EVIDENCE_INDEX_PATH,
+  readCommittedEvidenceIndex,
+  summarizeEvidenceIndexContent
+} from "./lib/evidence-index-utils.mjs";
 
 const FIRST_INDEXED_ISSUE = 82;
-const indexPath = "docs/verification/ISSUE_EVIDENCE_INDEX.json";
+const indexPath = ISSUE_EVIDENCE_INDEX_PATH;
 
 export function checkIssueEvidenceIndex(root = process.cwd(), options = {}) {
   const failures = [];
   const absoluteIndexPath = join(root, indexPath);
-  if (!existsSync(absoluteIndexPath) || !statSync(absoluteIndexPath).isFile()) {
-    return [`Missing issue evidence index: ${indexPath}`];
-  }
-  if (statSync(absoluteIndexPath).size === 0) {
-    return [`Issue evidence index is empty: ${indexPath}`];
-  }
+  const contentCheck = readCommittedEvidenceIndex(root);
+  if (contentCheck.failures.length > 0) return contentCheck.failures;
 
   let index;
   try {
@@ -191,14 +192,28 @@ async function runCli() {
     return;
   }
 
-  const stages = ["valid-json", "issue-coverage", "stale-entry-negative", "missing-evidence-negative", "rebuilt-index", "missing-evidence", "final"];
+  const stages = [
+    "committed-index-content",
+    "valid-json",
+    "issue-coverage",
+    "stale-entry-negative",
+    "blank-committed-index-negative",
+    "local-only-index-negative",
+    "missing-evidence-negative",
+    "rebuilt-index",
+    "missing-evidence",
+    "final"
+  ];
   const context = createRepairContext({
     scriptName: "issue evidence index",
     stages,
     statusKeyByStage: {
+      "committed-index-content": "committedEvidenceIndexStatus",
       "valid-json": "evidenceIndexStatus",
       "issue-coverage": "evidenceIndexStatus",
       "stale-entry-negative": "evidenceIndexStatus",
+      "blank-committed-index-negative": "committedEvidenceIndexStatus",
+      "local-only-index-negative": "committedEvidenceIndexStatus",
       "missing-evidence-negative": "evidenceIndexStatus"
     },
     outputName: "issue-evidence-index-output.json",
@@ -206,7 +221,17 @@ async function runCli() {
   });
 
   await runSelectedRepairStages(context, async (stage) => {
-    const requiredIssues = Array.from({ length: 14 }, (_, index) => String(571 + index).padStart(3, "0"));
+    const requiredIssues = Array.from({ length: 22 }, (_, index) => String(571 + index).padStart(3, "0"));
+    if (stage === "committed-index-content") {
+      const summary = summarizeEvidenceIndexContent(process.cwd());
+      const passed = summary.status === "passed" &&
+        summary.byteSize > 0 &&
+        !summary.whitespaceOnly &&
+        typeof summary.schemaVersion === "string" &&
+        summary.issueCount > 0;
+      context.add("committed issue evidence index is non-empty JSON with schema metadata", passed, summary);
+      writeJson(`${context.dir}/committed-index-content-output.json`, summary);
+    }
     if (stage === "valid-json") {
       const failures = checkIssueEvidenceIndex(process.cwd(), { requireSchemaVersion: true, requireLastRebuiltIssue: true });
       context.add("issue evidence index is valid JSON with schema metadata", failures.length === 0, { failures });
@@ -214,14 +239,34 @@ async function runCli() {
     }
     if (stage === "issue-coverage") {
       const failures = checkIssueEvidenceIndex(process.cwd(), { requiredIssues });
-      const coverageFailures = failures.filter((failure) => /Issue 57[1-9]|Issue 58[0-4]/u.test(failure));
-      context.add("issue evidence index covers 571-584", coverageFailures.length === 0, { coverageFailures });
-      writeJson(`${context.dir}/issue-coverage-output.json`, { status: coverageFailures.length === 0 ? "passed" : "failed", requiredIssues, coverageFailures });
+      const coverageFailures = failures.filter((failure) => /Issue 57[1-9]|Issue 58[0-9]|Issue 59[0-2]/u.test(failure));
+      const missingRequiredEvidenceFailures = failures.filter((failure) =>
+        /Issue 58[1-9]|Issue 59[0-2]/u.test(failure) &&
+        /requiredEvidence|missing indexed evidence|indexed evidence is empty/u.test(failure)
+      );
+      context.add("issue evidence index covers 571-592", coverageFailures.length === 0, { coverageFailures });
+      context.add("issue evidence index includes required evidence for 581-592", missingRequiredEvidenceFailures.length === 0, { missingRequiredEvidenceFailures });
+      writeJson(`${context.dir}/issue-coverage-output.json`, {
+        status: coverageFailures.length === 0 && missingRequiredEvidenceFailures.length === 0 ? "passed" : "failed",
+        requiredIssues,
+        coverageFailures,
+        missingRequiredEvidenceFailures
+      });
     }
     if (stage === "stale-entry-negative") {
       const failed = checkStaleEntryNegative();
       context.add("stale entry negative fixture fails", failed, null);
       writeJson(`${context.dir}/stale-entry-negative-output.json`, { status: failed ? "passed" : "failed" });
+    }
+    if (stage === "blank-committed-index-negative") {
+      const failed = checkBlankCommittedIndexNegative();
+      context.add("blank committed index negative fixture fails", failed, null);
+      writeJson(`${context.dir}/blank-committed-index-negative-output.json`, { status: failed ? "passed" : "failed" });
+    }
+    if (stage === "local-only-index-negative") {
+      const failed = checkLocalOnlyIndexNegative();
+      context.add("local-only evidence with blank committed index negative fixture fails", failed, null);
+      writeJson(`${context.dir}/local-only-index-negative-output.json`, { status: failed ? "passed" : "failed" });
     }
     if (stage === "missing-evidence-negative") {
       const failed = checkMissingEvidenceNegative();
@@ -242,7 +287,9 @@ async function runCli() {
     testOutputName: "issue-evidence-index.txt",
     manifestUpdates: {
       evidenceIndexStatus: context.checks.every((check) => check.passed) ? "passed" : "failed",
-      evidenceIndexValid: context.checks.every((check) => check.passed)
+      evidenceIndexValid: context.checks.every((check) => check.passed),
+      committedEvidenceIndexStatus: context.checks.every((check) => check.passed) ? "passed" : "failed",
+      committedEvidenceIndexValid: context.checks.every((check) => check.passed)
     }
   });
 }
@@ -265,6 +312,34 @@ function checkMissingEvidenceNegative() {
     writeFileSync(join(tempRoot, "docs", "verification", "ISSUE_EVIDENCE_INDEX.json"), JSON.stringify({ schemaVersion: "1.0.0", lastRebuiltIssue: "571", issues: [] }, null, 2));
     mkdirSync(join(tempRoot, "docs", "verification", "issues", "issue-571"), { recursive: true });
     return checkIssueEvidenceIndex(tempRoot, { requiredIssues: ["571"] }).some((failure) => failure.includes("Issue 571 is missing"));
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function checkBlankCommittedIndexNegative() {
+  const tempRoot = mkdtempSync(join(tmpdir(), "issue-evidence-blank-"));
+  try {
+    mkdirSync(join(tempRoot, "docs", "verification"), { recursive: true });
+    writeFileSync(join(tempRoot, indexPath), "   \n");
+    return checkIssueEvidenceIndex(tempRoot, { requireSchemaVersion: true }).some((failure) =>
+      /whitespace-only|empty/u.test(failure)
+    );
+  } finally {
+    rmSync(tempRoot, { recursive: true, force: true });
+  }
+}
+
+function checkLocalOnlyIndexNegative() {
+  const tempRoot = mkdtempSync(join(tmpdir(), "issue-evidence-local-only-"));
+  try {
+    createIssueEvidence(tempRoot, "591", "closeout");
+    createIssueEvidence(tempRoot, "592", "closeout");
+    mkdirSync(join(tempRoot, "docs", "verification"), { recursive: true });
+    writeFileSync(join(tempRoot, indexPath), "");
+    return checkIssueEvidenceIndex(tempRoot, { requiredIssues: ["591", "592"] }).some((failure) =>
+      /empty|whitespace-only/u.test(failure)
+    );
   } finally {
     rmSync(tempRoot, { recursive: true, force: true });
   }

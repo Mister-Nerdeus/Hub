@@ -366,6 +366,13 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-default-room-scale.mjs --stage export-import-proof --allow-partial --issue 591",
       "node scripts/check-default-room-scale.mjs --stage negative-12x10-placement --allow-partial --issue 591",
       "node scripts/check-default-room-scale.mjs --stage source-scan --allow-partial --issue 591"
+    ],
+    "592": [
+      "node scripts/check-issue-evidence-index.mjs --stage committed-index-content --allow-partial --issue 592",
+      "node scripts/check-issue-evidence-index.mjs --stage valid-json --allow-partial --issue 592",
+      "node scripts/check-issue-evidence-index.mjs --stage issue-coverage --allow-partial --issue 592",
+      "node scripts/check-issue-evidence-index.mjs --stage blank-committed-index-negative --allow-partial --issue 592",
+      "node scripts/check-issue-evidence-index.mjs --stage local-only-index-negative --allow-partial --issue 592"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];

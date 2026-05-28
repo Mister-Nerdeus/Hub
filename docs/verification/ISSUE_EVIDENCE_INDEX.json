@@ -19278,8 +19278,44 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "592",
+      "title": "Repair Committed Evidence Index Truth",
+      "evidenceDir": "docs/verification/issues/issue-592",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-592/blank-committed-index-negative-output.json",
+        "docs/verification/issues/issue-592/closeout.md",
+        "docs/verification/issues/issue-592/command-output-map.json",
+        "docs/verification/issues/issue-592/commands.txt",
+        "docs/verification/issues/issue-592/committed-index-content-output.json",
+        "docs/verification/issues/issue-592/first-failure.txt",
+        "docs/verification/issues/issue-592/issue-coverage-output.json",
+        "docs/verification/issues/issue-592/issue-evidence-index-output.json",
+        "docs/verification/issues/issue-592/local-only-index-negative-output.json",
+        "docs/verification/issues/issue-592/manifest-update-output.json",
+        "docs/verification/issues/issue-592/missing-evidence-negative-output.json",
+        "docs/verification/issues/issue-592/missing-evidence-output.json",
+        "docs/verification/issues/issue-592/no-access-credential-output.txt",
+        "docs/verification/issues/issue-592/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-592/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-592/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-592/no-optimizer-output.txt",
+        "docs/verification/issues/issue-592/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-592/no-phi-output.txt",
+        "docs/verification/issues/issue-592/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-592/stale-entry-negative-output.json",
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt",
+        "docs/verification/issues/issue-592/test-output/no-phi.txt",
+        "docs/verification/issues/issue-592/test-output/shared.txt",
+        "docs/verification/issues/issue-592/test-output/web-build.txt",
+        "docs/verification/issues/issue-592/test-output/web.txt",
+        "docs/verification/issues/issue-592/valid-json-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "591"
+  "lastRebuiltIssue": "592"
 }

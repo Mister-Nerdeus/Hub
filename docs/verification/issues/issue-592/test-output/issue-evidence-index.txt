@@ -1,0 +1,103 @@
+
+> node scripts/check-issue-evidence-index.mjs --stage committed-index-content --allow-partial --issue 592
+{
+  "status": "passed",
+  "stage": "committed-index-content",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "committed issue evidence index is non-empty JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "path": "docs/verification/ISSUE_EVIDENCE_INDEX.json",
+        "byteSize": 1364866,
+        "whitespaceOnly": false,
+        "schemaVersion": "1.0.0",
+        "lastRebuiltIssue": "592",
+        "issueCount": 462,
+        "failures": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-issue-evidence-index.mjs --stage valid-json --allow-partial --issue 592
+{
+  "status": "passed",
+  "stage": "valid-json",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "issue evidence index is valid JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "failures": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-issue-evidence-index.mjs --stage issue-coverage --allow-partial --issue 592
+{
+  "status": "passed",
+  "stage": "issue-coverage",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "issue evidence index covers 571-592",
+      "passed": true,
+      "detail": {
+        "coverageFailures": []
+      }
+    },
+    {
+      "name": "issue evidence index includes required evidence for 581-592",
+      "passed": true,
+      "detail": {
+        "missingRequiredEvidenceFailures": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-issue-evidence-index.mjs --stage blank-committed-index-negative --allow-partial --issue 592
+{
+  "status": "passed",
+  "stage": "blank-committed-index-negative",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-issue-evidence-index.mjs --stage local-only-index-negative --allow-partial --issue 592
+{
+  "status": "passed",
+  "stage": "local-only-index-negative",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "local-only evidence with blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.

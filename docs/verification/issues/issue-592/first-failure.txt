@@ -1,0 +1,3 @@
+Reproduced failure class: the prior gate could report evidence-index success without explicitly proving the committed docs/verification/ISSUE_EVIDENCE_INDEX.json content was non-empty JSON from repo root.
+
+The repaired gate now reads the committed index path directly, fails on empty or whitespace-only content, and includes negative fixtures for blank committed state and local-only evidence with a blank committed index.

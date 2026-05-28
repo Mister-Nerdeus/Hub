@@ -1,13 +1,13 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "591-600",
-  "lastUpdatedIssue": "591",
+  "lastUpdatedIssue": "592",
   "productDisplayName": "ER Pod Shift Simulator",
   "sourceBatch": "581-590",
   "sourceGoNoGoStatus": "go_for_expanded_simulation_v0_user_facing_refinement",
   "sourceGoNoGoClean": false,
   "actualRoomCreationScaleStatus": "passed",
-  "committedEvidenceIndexStatus": "missing",
+  "committedEvidenceIndexStatus": "passed",
   "docsContractResolutionStatus": "missing",
   "visibleCopyPolicyHardeningStatus": "missing",
   "simulationUiStatusTruthStatus": "missing",
@@ -19,7 +19,7 @@
   "defaultPatientRoomWidthFeet": 10,
   "defaultPatientRoomHeightFeet": 10,
   "actualPlacementUsesSharedDefault": true,
-  "committedEvidenceIndexValid": false,
+  "committedEvidenceIndexValid": true,
   "docsContractsBlockingStatus": "not_checked",
   "visibleCopyPolicyFailClosed": false,
   "simulationUiStatusDerivedFromProof": false,
@@ -38,5 +38,7 @@
   "goNoGoStatus": "not_ready",
   "usesStorageOrSupportForTasks": false,
   "usesRawRoomCounts": false,
-  "defaultRoomScaleStatus": "passed"
+  "defaultRoomScaleStatus": "passed",
+  "evidenceIndexStatus": "passed",
+  "evidenceIndexValid": true
 }

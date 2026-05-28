@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-issue-evidence-index.mjs --stage committed-index-content --allow-partial --issue 592
+node scripts/check-issue-evidence-index.mjs --stage valid-json --allow-partial --issue 592
+node scripts/check-issue-evidence-index.mjs --stage issue-coverage --allow-partial --issue 592
+node scripts/check-issue-evidence-index.mjs --stage blank-committed-index-negative --allow-partial --issue 592
+node scripts/check-issue-evidence-index.mjs --stage local-only-index-negative --allow-partial --issue 592
+node scripts/check-no-phi-fields.mjs

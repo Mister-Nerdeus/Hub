@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "local-only-index-negative",
+  "issue": "592",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "local-only evidence with blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "issue": "592",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-issue-evidence-index.mjs --stage committed-index-content --allow-partial --issue 592",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-issue-evidence-index.mjs --stage valid-json --allow-partial --issue 592",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-issue-evidence-index.mjs --stage issue-coverage --allow-partial --issue 592",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-issue-evidence-index.mjs --stage blank-committed-index-negative --allow-partial --issue 592",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-issue-evidence-index.mjs --stage local-only-index-negative --allow-partial --issue 592",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-592/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
