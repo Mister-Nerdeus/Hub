@@ -1,0 +1,14 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:simulation-v0-user-facing-readiness
+npm run check:docs
+node scripts/check-no-phi-fields.mjs
+docker compose config
+docker compose -f docker-compose.production.yml config
+npm run check:production-docker-runtime
+node scripts/check-clean-committed-state.mjs --stage final --issue 600
+npm run check:default-room-scale
+npm run check:issue-evidence-index
+npm run check:visible-product-copy-all-routes
+npm run check:simulation-v0-refinement-repair

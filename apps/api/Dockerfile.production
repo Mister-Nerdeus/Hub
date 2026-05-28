@@ -1,5 +1,8 @@
 FROM python:3.13-slim
 
+LABEL org.opencontainers.image.title="ER Pod Shift Simulator API"
+LABEL org.opencontainers.image.description="Operational simulation API; no PHI or EHR integration"
+
 WORKDIR /app
 
 COPY apps/api/requirements.txt ./

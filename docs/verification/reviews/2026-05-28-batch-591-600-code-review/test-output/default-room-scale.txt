@@ -1,0 +1,84 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:default-room-scale
+> npm --workspace packages/shared run build && node scripts/check-default-room-scale.mjs --stage final --issue 590
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "actual add-room placement uses shared 10 by 10 default helper",
+      "passed": true,
+      "detail": {
+        "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+        "forbiddenFragmentAbsent": true
+      }
+    },
+    {
+      "name": "preview and actual placement share the same default-size helper",
+      "passed": true,
+      "detail": {
+        "helperExported": true,
+        "previewUsesHelper": true,
+        "actualUsesHelper": true,
+        "patientDefault": true,
+        "storageDefault": true
+      }
+    },
+    {
+      "name": "patient and storage placement defaults are centralized at 10 by 10",
+      "passed": true,
+      "detail": {
+        "path": "apps/web/src/features/layout-editor/clickToPlaceObject.ts"
+      }
+    },
+    {
+      "name": "authoring export/import harness preserves added 10 by 10 room",
+      "passed": true,
+      "detail": {
+        "path": "packages/shared/src/floorplans/floorplanAuthoringBehaviorHarness.ts"
+      }
+    },
+    {
+      "name": "actual placement 12 by 10 negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "12 by 10 negative scale fixture fails",
+      "passed": true,
+      "detail": {
+        "widthFeet": 12,
+        "heightFeet": 10
+      }
+    },
+    {
+      "name": "editor route renders with 10 by 10 default source constants",
+      "passed": true,
+      "detail": {
+        "editorRendered": true
+      }
+    },
+    {
+      "name": "canonical fixture geometry was not mutated by default placement change",
+      "passed": true,
+      "detail": {
+        "fixture": "packages/shared/src/default-plans/planVisualParitySourceTruth.ts"
+      }
+    },
+    {
+      "name": "layout editor source has no hardcoded 12-foot default placement width",
+      "passed": true,
+      "detail": {
+        "findings": []
+      }
+    }
+  ]
+}

@@ -28,6 +28,8 @@ mustInclude(nginx, "location /v1/", `${nginxFile} must proxy /v1/ API routes`);
 mustInclude(nginx, "try_files $uri $uri/ /index.html;", `${nginxFile} must keep SPA fallback for non-API routes`);
 
 mustInclude(webDocker, "FROM nginx:", `${webDockerfile} must serve production output with nginx`);
+mustInclude(webDocker, "org.opencontainers.image.title=\"ER Pod Shift Simulator\"", `${webDockerfile} must carry the product container label`);
+mustInclude(webDocker, "no PHI or EHR integration", `${webDockerfile} must carry the non-PHI/EHR boundary label`);
 mustInclude(webDocker, "npm --workspace apps/web run build", `${webDockerfile} must build static assets`);
 mustInclude(webDocker, "nginx.production.conf", `${webDockerfile} must copy the production nginx config`);
 mustNotInclude(webDocker, "npm run dev", `${webDockerfile} must not run the Vite development server`);
@@ -35,6 +37,8 @@ mustNotInclude(webDocker, "vite --host", `${webDockerfile} must not run the Vite
 
 mustInclude(apiDocker, "COPY apps/api/alembic.ini", `${apiDockerfile} must include Alembic config`);
 mustInclude(apiDocker, "COPY apps/api/alembic", `${apiDockerfile} must include migration scripts`);
+mustInclude(apiDocker, "org.opencontainers.image.title=\"ER Pod Shift Simulator API\"", `${apiDockerfile} must carry the API product container label`);
+mustInclude(apiDocker, "no PHI or EHR integration", `${apiDockerfile} must carry the non-PHI/EHR boundary label`);
 
 if (failures.length === 0 && runSmoke) {
   await runProductionSmoke();

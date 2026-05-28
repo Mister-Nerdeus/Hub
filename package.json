@@ -94,6 +94,7 @@
     "check:runtime-seed-behavior": "npm --workspace packages/shared run build && node scripts/check-runtime-seed-behavior.mjs --stage final --issue 590",
     "check:simulation-v0-comparison-validation-hardening": "npm --workspace packages/shared run build && node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage final --issue 590",
     "check:simulation-v0-refinement-repair": "npm --workspace packages/shared run build && node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590",
+    "check:simulation-v0-user-facing-readiness": "node scripts/check-simulation-v0-user-facing-readiness.mjs --stage final --issue 600",
     "check:post-unlock-workflow": "npm --workspace packages/shared run build && node scripts/check-post-unlock-workflow.mjs --stage final --issue 490",
     "check:one-floorplan-main-ui-global": "npm --workspace packages/shared run build && node scripts/check-one-floorplan-main-ui-global.mjs --stage final --issue 490",
     "check:scenario-preflight": "npm --workspace packages/shared run build && node scripts/check-scenario-preflight.mjs --stage final --issue 490",

@@ -52,7 +52,8 @@ async function runStage(stage) {
       "check:docs",
       "check:visible-product-copy-all-routes",
       "check:simulation-v0-ui-shell",
-      "check:simulation-v0-refinement-repair"
+      "check:simulation-v0-refinement-repair",
+      "check:simulation-v0-user-facing-readiness"
     ];
     const missingScripts = requiredScripts.filter((script) => typeof packageScripts[script] !== "string");
     const passed = missing.length === 0 && missingScripts.length === 0;
@@ -80,10 +81,14 @@ function requiredCommittedPaths() {
     "docs/verification/simulation-v0-false-positive-repair-manifest.json",
     "scripts/check-clean-committed-state.mjs",
     "scripts/check-simulation-v0-refinement-repair.mjs",
+    "scripts/check-simulation-v0-user-facing-readiness.mjs",
+    "docs/project/simulation-v0-clean-repair-go-no-go.md",
+    "docs/project/simulation-v0-user-facing-refinement-readiness.md",
+    "docs/verification/simulation-v0-user-facing-refinement-readiness.json",
     "package.json"
   ];
   const issueEvidence = [];
-  for (let issue = 591; issue <= 598; issue += 1) {
+  for (let issue = 591; issue <= 600; issue += 1) {
     issueEvidence.push(`docs/verification/issues/issue-${issue}/closeout.md`);
     issueEvidence.push(`docs/verification/issues/issue-${issue}/commands.txt`);
     issueEvidence.push(`docs/verification/issues/issue-${issue}/command-output-map.json`);
