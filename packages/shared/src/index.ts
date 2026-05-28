@@ -194,6 +194,8 @@ export * from "./simulation/nurseQueue.js";
 export * from "./simulation/nurseQueueContract.js";
 export * from "./simulation/nurseRuntimeStateContract.js";
 export * from "./simulation/nurseRuntimeStateValidation.js";
+export * from "./simulation/nurseTaskProcessingLoop.js";
+export * from "./simulation/nurseTaskProcessingValidation.js";
 export * from "./simulation/plan1SimulationInputContract.js";
 export * from "./simulation/plan1SeededTaskGenerator.js";
 export * from "./simulation/plan1ShiftDryRun.js";

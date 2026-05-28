@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "no-recommendations",
+  "issue": "574",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "no reassignment search",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no recommendation output",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no optimizer output",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

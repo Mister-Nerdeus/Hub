@@ -15,6 +15,7 @@ import {
 } from "./deterministicSeedContract.js";
 import { buildDryRunQueuePlaceholder } from "./dryRunQueuePlaceholder.js";
 import { buildNurseRuntimeStatesFromManualBridge, type NurseRuntimeStateSet } from "./nurseRuntimeStateContract.js";
+import { processNurseTaskPlaceholders } from "./nurseTaskProcessingLoop.js";
 import { dryRunTaskTemplates, type DryRunTaskTemplateContract } from "./taskTemplateContract.js";
 import { generateDryRunTaskInstances, type DryRunTaskInstanceSet } from "./taskInstanceGeneration.js";
 
@@ -122,7 +123,8 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     capacity
   });
   const queuePlaceholder = buildDryRunQueuePlaceholder({ taskSet, seedContract: ratioRuntimeSeed });
-  const timeline = buildTimeline(taskSet, runtimeStates);
+  const processing = processNurseTaskPlaceholders({ taskSet, runtimeStates, capacity });
+  const timeline = processing.timeline;
   const nurseRuntimeSnapshots = buildNurseSnapshots(runtimeStates, timeline);
   const queueSnapshots = buildQueueSnapshots(timestep, timeline);
 
@@ -145,8 +147,8 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
       startedPlaceholderCount: countEvents(timeline, "task_placeholder_started"),
       completedPlaceholderCount: countEvents(timeline, "task_placeholder_completed"),
       queuedPlaceholderCount: Math.max(countEvents(timeline, "task_placeholder_queued"), queuePlaceholder.queuedTaskIds.length),
-      delayedPlaceholderCount: countEvents(timeline, "task_placeholder_delayed"),
-      unassignedPlaceholderCount: countEvents(timeline, "task_placeholder_unassigned")
+      delayedPlaceholderCount: Math.max(countEvents(timeline, "task_placeholder_delayed"), processing.busyNurseQueuedTaskIds.length),
+      unassignedPlaceholderCount: processing.unassignedPlaceholderTaskIds.length
     },
     limitations: [
       "Internal synthetic dry-run only.",
@@ -162,63 +164,6 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     patientOutcomePredictionClaim: false,
     syntheticDataOnly: true
   };
-}
-
-function buildTimeline(
-  taskSet: DryRunTaskInstanceSet,
-  runtimeStates: NurseRuntimeStateSet
-): InternalDryRunTimelineEvent[] {
-  const coverage = new Map<string, string>();
-  const busyUntilByNurse = new Map<string, number>();
-  for (const state of runtimeStates.states) {
-    busyUntilByNurse.set(state.syntheticNurseId, 0);
-    for (const bedId of state.assignedBedPositionIds) coverage.set(bedId, state.syntheticNurseId);
-  }
-  const timeline: InternalDryRunTimelineEvent[] = [];
-  for (const task of taskSet.instances) {
-    const nurseId = coverage.get(task.loadableBedPositionId) ?? null;
-    const readyMinute = task.syntheticTimestepOffsetMinutes;
-    pushEvent(timeline, "task_placeholder_ready", readyMinute, task.taskInstanceId, task.loadableBedPositionId, nurseId);
-    if (nurseId == null) {
-      pushEvent(timeline, "task_placeholder_unassigned", readyMinute, task.taskInstanceId, task.loadableBedPositionId, null);
-      continue;
-    }
-    const busyUntil = busyUntilByNurse.get(nurseId) ?? 0;
-    const startMinute = Math.max(readyMinute, busyUntil);
-    if (startMinute > readyMinute) {
-      pushEvent(timeline, "task_placeholder_queued", readyMinute, task.taskInstanceId, task.loadableBedPositionId, nurseId);
-      pushEvent(timeline, "task_placeholder_delayed", startMinute, task.taskInstanceId, task.loadableBedPositionId, nurseId);
-    }
-    pushEvent(timeline, "task_placeholder_started", startMinute, task.taskInstanceId, task.loadableBedPositionId, nurseId);
-    const completedMinute = startMinute + task.durationPlaceholderMinutes;
-    busyUntilByNurse.set(nurseId, completedMinute);
-    pushEvent(timeline, "task_placeholder_completed", completedMinute, task.taskInstanceId, task.loadableBedPositionId, nurseId);
-  }
-  return timeline.sort((left, right) =>
-    left.syntheticMinuteOffset - right.syntheticMinuteOffset ||
-    left.eventLabel.localeCompare(right.eventLabel) ||
-    left.taskInstanceId.localeCompare(right.taskInstanceId)
-  );
-}
-
-function pushEvent(
-  timeline: InternalDryRunTimelineEvent[],
-  eventLabel: InternalDryRunEventLabel,
-  syntheticMinuteOffset: number,
-  taskInstanceId: string,
-  loadableBedPositionId: string,
-  syntheticNurseId: string | null
-): void {
-  timeline.push({
-    eventId: `dry-run-event-${String(timeline.length + 1).padStart(4, "0")}`,
-    eventLabel,
-    syntheticMinuteOffset,
-    taskInstanceId,
-    loadableBedPositionId,
-    syntheticNurseId,
-    dryRunStatus: "internal_dry_run_only",
-    syntheticDataOnly: true
-  });
 }
 
 function buildNurseSnapshots(

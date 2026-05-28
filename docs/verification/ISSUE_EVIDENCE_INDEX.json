@@ -18411,6 +18411,40 @@
         "docs/verification/issues/issue-573/test-output/web-build.txt",
         "docs/verification/issues/issue-573/test-output/web.txt"
       ]
+    },
+    {
+      "issue": "574",
+      "title": "Nurse Runtime Task Processing Loop",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-574/busy-nurse-queue-output.json",
+        "docs/verification/issues/issue-574/closeout.md",
+        "docs/verification/issues/issue-574/command-output-map.json",
+        "docs/verification/issues/issue-574/commands.txt",
+        "docs/verification/issues/issue-574/excluded-space-negative-output.json",
+        "docs/verification/issues/issue-574/first-failure.txt",
+        "docs/verification/issues/issue-574/manifest-update-output.json",
+        "docs/verification/issues/issue-574/manual-assignment-input-output.json",
+        "docs/verification/issues/issue-574/no-access-credential-output.txt",
+        "docs/verification/issues/issue-574/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-574/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-574/no-fixture-mutation-output.txt",
+        "docs/verification/issues/issue-574/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-574/no-optimizer-output.txt",
+        "docs/verification/issues/issue-574/no-outcome-claims-output.txt",
+        "docs/verification/issues/issue-574/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-574/no-phi-output.txt",
+        "docs/verification/issues/issue-574/no-recommendations-output.txt",
+        "docs/verification/issues/issue-574/no-safety-or-compliance-claims-output.txt",
+        "docs/verification/issues/issue-574/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-574/nurse-task-processing-loop-output.json",
+        "docs/verification/issues/issue-574/synthetic-task-processing-output.json",
+        "docs/verification/issues/issue-574/test-output/no-phi.txt",
+        "docs/verification/issues/issue-574/test-output/nurse-task-processing-loop.txt",
+        "docs/verification/issues/issue-574/test-output/shared.txt",
+        "docs/verification/issues/issue-574/test-output/web-build.txt",
+        "docs/verification/issues/issue-574/test-output/web.txt",
+        "docs/verification/issues/issue-574/unassigned-placeholder-output.json"
+      ]
     }
   ]
 }
