@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "deterministic-repeatability",
+  "issue": "566",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "task generation repeats with same seed",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

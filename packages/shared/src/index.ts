@@ -206,6 +206,8 @@ export * from "./simulation/simulationScoring.js";
 export * from "./simulation/simulationScoringContract.js";
 export * from "./simulation/taskTemplateContract.js";
 export * from "./simulation/taskTemplateValidation.js";
+export * from "./simulation/taskInstanceGeneration.js";
+export * from "./simulation/taskInstanceValidation.js";
 export * from "./tasks/aggregateTaskTimeline.js";
 export * from "./tasks/assignTasksByManualCoverage.js";
 export * from "./tasks/generateOperationalTasks.js";

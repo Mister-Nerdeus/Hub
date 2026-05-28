@@ -1,0 +1,53 @@
+{
+  "issue": "566",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-generation.mjs --stage room-load-input --allow-partial --issue 566",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/dry-run-task-generation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-generation.mjs --stage task-instance-generation --allow-partial --issue 566",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/dry-run-task-generation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-generation.mjs --stage excluded-space-negative --allow-partial --issue 566",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/dry-run-task-generation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-generation.mjs --stage deterministic-repeatability --allow-partial --issue 566",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/dry-run-task-generation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-566/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
