@@ -1,0 +1,31 @@
+
+>>> node scripts/check-reference-layout-parity.mjs --stage final --issue 540
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "540",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "reference overlay summary written",
+      "passed": true,
+      "detail": "docs/verification/issues/issue-540/reference-overlay-summary.json"
+    },
+    {
+      "name": "all target rooms exist in plan",
+      "passed": true,
+      "detail": 23
+    },
+    {
+      "name": "reference scale proof has no off-module base rooms",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "screenshot proof artifact exists",
+      "passed": true,
+      "detail": "docs/verification/issues/issue-540/screenshots/reference-alignment-proof.svg"
+    }
+  ]
+}

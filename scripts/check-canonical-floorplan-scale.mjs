@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {
   addCheck,
+  fileExistsWithBytes,
   finalizeGate,
   loadPlan,
   parseArgs,
@@ -9,6 +10,7 @@ import {
 } from "./lib/canonical-floorplan-fidelity-utils.mjs";
 
 const stages = ["reference-asset", "scale-contract", "ten-by-ten-module", "geometry-units", "remap-scale-proof", "final"];
+const referenceSourceRecordPath = "docs/verification/reference/plan-1-reference-source-record.json";
 const args = parseArgs();
 const stage = args.stage ?? "final";
 const issue = args.issue ?? "511";
@@ -21,13 +23,17 @@ const target = readJson(targetGeometryPath);
 
 function run(currentStage) {
   if (currentStage === "reference-asset") {
-    addCheck(checks, "reference source record exists", true, "docs/verification/reference/plan-1-reference-source-record.json");
+    const sourceRecordExists = fileExistsWithBytes(referenceSourceRecordPath, 100);
+    const sourceRecord = sourceRecordExists ? readJson(referenceSourceRecordPath) : null;
+    addCheck(checks, "reference source record exists", sourceRecordExists, referenceSourceRecordPath);
+    addCheck(checks, "reference source record names canonical Plan 1", sourceRecord?.canonicalFloorplanId === plan.planId, sourceRecord?.canonicalFloorplanId);
+    addCheck(checks, "reference source record preserves manual review block", sourceRecord?.manualVisualReviewRequired === true && sourceRecord?.promotionStatus === "blocked", sourceRecord);
     addCheck(checks, "reference target geometry uses feet", target.unit === "feet", target.unit);
   }
   if (currentStage === "scale-contract") {
     addCheck(checks, "scale unit is feet", plan.scale.unit === "feet", plan.scale);
     addCheck(checks, "grid size remains feet", plan.scale.gridSizeFeet === 1, plan.scale.gridSizeFeet);
-    addCheck(checks, "scale contract source exists", true, "packages/shared/src/floorplans/floorplanScaleContract.ts");
+    addCheck(checks, "scale contract source exists", fileExistsWithBytes("packages/shared/src/floorplans/floorplanScaleContract.ts", 500), "packages/shared/src/floorplans/floorplanScaleContract.ts");
   }
   if (currentStage === "ten-by-ten-module") {
     const baseRooms = plan.rooms.filter((room) => !["room-level-1-trauma"].includes(room.id) && room.roomType !== "storage");

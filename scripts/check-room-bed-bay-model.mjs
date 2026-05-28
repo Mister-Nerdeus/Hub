@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { addCheck, finalizeGate, parseArgs, readText } from "./lib/canonical-floorplan-fidelity-utils.mjs";
+import { addCheck, finalizeGate, loadPlan, parseArgs, readText } from "./lib/canonical-floorplan-fidelity-utils.mjs";
 
 const stages = [
   "room-bed-bay-contract",
@@ -14,6 +14,7 @@ const issue = args.issue ?? "513";
 const allowPartial = args["allow-partial"] === true;
 if (!stages.includes(stage)) throw new Error(`Unsupported room/bed/bay model stage: ${stage}`);
 const checks = [];
+const plan = loadPlan();
 
 function run(currentStage) {
   if (currentStage === "room-bed-bay-contract") {
@@ -22,6 +23,13 @@ function run(currentStage) {
     addCheck(checks, "occupancy type includes bed_position", types.includes('"bed_position"'), "roomBedBayTypes.ts");
     addCheck(checks, "occupancy type includes split_bay", types.includes('"split_bay"'), "roomBedBayTypes.ts");
     addCheck(checks, "occupancy type includes storage/support/hallway", types.includes('"storage"') && types.includes('"support_area"') && types.includes('"hallway"'), "roomBedBayTypes.ts");
+    const missingRoomIds = plan.rooms.map((room) => room.id).filter((id) => !types.includes(`objectId: "${id}"`));
+    const missingStationIds = plan.nurseStations.map((station) => station.id).filter((id) => !types.includes(`objectId: "${id}"`));
+    const missingHallwayIds = plan.hallways.map((hallway) => hallway.id).filter((id) => !types.includes(`objectId: "${id}"`));
+    addCheck(checks, "all canonical Plan 1 rooms have explicit room/bed/bay entries", missingRoomIds.length === 0, missingRoomIds);
+    addCheck(checks, "nurse stations have explicit support-area entries", missingStationIds.length === 0, missingStationIds);
+    addCheck(checks, "hallways have explicit hallway entries", missingHallwayIds.length === 0, missingHallwayIds);
+    addCheck(checks, "provider/pharmacy has explicit support-area entry", types.includes('objectId: "zone-provider-pharmacy"') && types.includes('occupancyType: "support_area"'), "zone-provider-pharmacy");
   }
   if (currentStage === "split-bay-semantics") {
     const split = readText("packages/shared/src/floorplans/splitBayContract.ts");

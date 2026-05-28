@@ -31,7 +31,7 @@ function run(currentStage) {
     addCheck(checks, "all target rooms exist in plan", Object.keys(target.rooms).every((id) => plan.rooms.some((room) => room.id === id)), Object.keys(target.rooms).length);
   }
   if (currentStage === "scale-proof") {
-    const offModule = plan.rooms.filter((room) => room.id !== "room-level-1-trauma" && room.widthFeet !== 10);
+    const offModule = plan.rooms.filter((room) => room.id !== "room-level-1-trauma" && (room.widthFeet !== 10 || room.lengthFeet !== 10));
     addCheck(checks, "reference scale proof has no off-module base rooms", offModule.length === 0, offModule.map((room) => room.id));
   }
   if (currentStage === "screenshot-proof") {

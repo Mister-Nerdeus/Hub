@@ -1,3 +1,6 @@
+
+>>> docker compose -f docker-compose.production.yml config
+
 name: hub
 services:
   api:

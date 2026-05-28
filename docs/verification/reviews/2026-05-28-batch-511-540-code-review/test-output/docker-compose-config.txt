@@ -1,9 +1,12 @@
+
+>>> docker compose config
+
 name: hub
 services:
   api:
     build:
       context: C:\Projects\Hub
-      dockerfile: apps/api/Dockerfile.production
+      dockerfile: apps/api/Dockerfile.local
     depends_on:
       db:
         condition: service_healthy
@@ -11,12 +14,16 @@ services:
     environment:
       API_HOST: 0.0.0.0
       API_PORT: "8000"
-      APP_ENV: production
-      CORS_ORIGINS: https://hub.nerdeus.com
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
       DATABASE_URL: postgresql+psycopg://hub:<redacted-local-compose-value>@db:5432/hub
-    image: hub-api-production
     networks:
       default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
   db:
     environment:
       POSTGRES_DB: hub
@@ -40,20 +47,20 @@ services:
   web:
     build:
       context: C:\Projects\Hub
-      dockerfile: apps/web/Dockerfile.production
-      args:
-        VITE_API_BASE_URL: ""
+      dockerfile: apps/web/Dockerfile.local
     depends_on:
       api:
         condition: service_started
         required: true
-    image: hub-web-production
+    environment:
+      VITE_API_BASE_URL: ""
+      VITE_API_PROXY_TARGET: http://api:8000
     networks:
       default: null
     ports:
       - mode: ingress
-        target: 80
-        published: "80"
+        target: 5173
+        published: "5180"
         protocol: tcp
 networks:
   default:
