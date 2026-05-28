@@ -52,6 +52,7 @@ export * from "./floorplans/roomBedBayTypes.js";
 export * from "./floorplans/roomBedBayRules.js";
 export * from "./floorplans/splitBayContract.js";
 export * from "./floorplans/splitBayFixtureBridge.js";
+export * from "./floorplans/canonicalCapacityCountReport.js";
 export * from "./floorplans/roomBankContract.js";
 export * from "./floorplans/supportSpaceLabelRules.js";
 export * from "./floorplans/hallwayCorridorContract.js";

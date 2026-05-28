@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-capacity-count-report.mjs --stage physical-room-count --allow-partial --issue 545
+node scripts/check-capacity-count-report.mjs --stage bed-position-count --allow-partial --issue 545
+node scripts/check-capacity-count-report.mjs --stage split-bay-count --allow-partial --issue 545
+node scripts/check-capacity-count-report.mjs --stage excluded-space-count --allow-partial --issue 545
+node scripts/check-no-phi-fields.mjs

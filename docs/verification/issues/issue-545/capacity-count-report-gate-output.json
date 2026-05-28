@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "stage": "excluded-space-count",
+  "issue": "545",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "storage/support/hallways/solid walls are excluded",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    },
+    {
+      "name": "ratio eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "assignment eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    }
+  ]
+}

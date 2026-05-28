@@ -1,0 +1,75 @@
+
+> node scripts/check-capacity-count-report.mjs --stage physical-room-count --allow-partial --issue 545
+{
+  "status": "passed",
+  "stage": "physical-room-count",
+  "issue": "545",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "physical rooms are selector-counted separately",
+      "passed": true,
+      "detail": 18
+    }
+  ]
+}
+
+> node scripts/check-capacity-count-report.mjs --stage bed-position-count --allow-partial --issue 545
+{
+  "status": "passed",
+  "stage": "bed-position-count",
+  "issue": "545",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "bed positions are selector-counted separately",
+      "passed": true,
+      "detail": 22
+    }
+  ]
+}
+
+> node scripts/check-capacity-count-report.mjs --stage split-bay-count --allow-partial --issue 545
+{
+  "status": "passed",
+  "stage": "split-bay-count",
+  "issue": "545",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "split bays are counted from split-bay selectors",
+      "passed": true,
+      "detail": 4
+    }
+  ]
+}
+
+> node scripts/check-capacity-count-report.mjs --stage excluded-space-count --allow-partial --issue 545
+{
+  "status": "passed",
+  "stage": "excluded-space-count",
+  "issue": "545",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "storage/support/hallways/solid walls are excluded",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    },
+    {
+      "name": "ratio eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "assignment eligible count excludes support spaces",
+      "passed": true,
+      "detail": 22
+    }
+  ]
+}

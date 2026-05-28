@@ -1,0 +1,53 @@
+{
+  "issue": "545",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-capacity-count-report.mjs --stage physical-room-count --allow-partial --issue 545",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/capacity-count-report.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-capacity-count-report.mjs --stage bed-position-count --allow-partial --issue 545",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/capacity-count-report.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-capacity-count-report.mjs --stage split-bay-count --allow-partial --issue 545",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/capacity-count-report.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-capacity-count-report.mjs --stage excluded-space-count --allow-partial --issue 545",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/capacity-count-report.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-545/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
