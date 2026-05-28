@@ -1,0 +1,47 @@
+{
+  "issue": "595",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ui-shell.mjs --stage ui-status-truth --allow-partial --issue 595",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ui-shell.mjs --stage reproducibility-status --allow-partial --issue 595",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-ui-shell.mjs --stage pending-status-negative --allow-partial --issue 595",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-595/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

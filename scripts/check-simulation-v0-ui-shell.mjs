@@ -14,23 +14,63 @@ import {
   writeJson,
   writeText
 } from "./lib/simulation-v0-internal-dry-run-utils.mjs";
+import {
+  createRepairContext,
+  finalizeRepairGate,
+  runSelectedRepairStages
+} from "./lib/simulation-v0-repair-utils.mjs";
 
-const stages = ["ui-shell", "artifact-summary", "visible-copy", "final"];
+const stages = [
+  "ui-shell",
+  "artifact-summary",
+  "visible-copy",
+  "ui-status-truth",
+  "reproducibility-status",
+  "pending-status-negative",
+  "simulation-route-render",
+  "final"
+];
 
-const context = createCheckContext({
-  scriptName: "simulation v0 ui shell",
-  stages,
-  statusKeyByStage: {
-    "ui-shell": "simulationV0UiStatus",
-    "artifact-summary": "simulationV0UiStatus",
-    "visible-copy": "simulationV0UiStatus"
-  },
-  outputName: "simulation-v0-ui-shell-output.json",
-  defaultIssue: "578"
-});
+const cliIssue = Number(process.argv[process.argv.indexOf("--issue") + 1] ?? 578);
+const usesFalsePositiveRepairManifest = Number.isFinite(cliIssue) && cliIssue >= 591;
+const context = usesFalsePositiveRepairManifest
+  ? createRepairContext({
+      scriptName: "simulation v0 ui shell",
+      stages,
+      statusKeyByStage: {
+        "ui-status-truth": "simulationUiStatusTruthStatus",
+        "reproducibility-status": "simulationUiStatusTruthStatus",
+        "pending-status-negative": "simulationUiStatusTruthStatus",
+        "simulation-route-render": "simulationUiStatusTruthStatus"
+      },
+      outputName: "simulation-v0-ui-shell-output.json",
+      defaultIssue: "595"
+    })
+  : createCheckContext({
+      scriptName: "simulation v0 ui shell",
+      stages,
+      statusKeyByStage: {
+        "ui-shell": "simulationV0UiStatus",
+        "artifact-summary": "simulationV0UiStatus",
+        "visible-copy": "simulationV0UiStatus"
+      },
+      outputName: "simulation-v0-ui-shell-output.json",
+      defaultIssue: "578"
+    });
 
-await runSelectedStages(context, runStage);
-finalizeGate(context, { testOutputName: "simulation-v0-ui-shell.txt" });
+if (usesFalsePositiveRepairManifest) {
+  await runSelectedRepairStages(context, runStage);
+  finalizeRepairGate(context, {
+    testOutputName: "simulation-v0-ui-shell.txt",
+    manifestUpdates: {
+      simulationUiStatusTruthStatus: context.checks.every((check) => check.passed) ? "passed" : "failed",
+      simulationUiStatusDerivedFromProof: context.checks.every((check) => check.passed)
+    }
+  });
+} else {
+  await runSelectedStages(context, runStage);
+  finalizeGate(context, { testOutputName: "simulation-v0-ui-shell.txt" });
+}
 
 async function runStage(stage) {
   if (stage === "ui-shell") {
@@ -65,10 +105,54 @@ async function runStage(stage) {
     writeJson(`${context.dir}/visible-copy-output.json`, { status: "passed", missing, dom: proof.dom });
     writeText(`${context.dir}/limitation-copy-output.json`, `${JSON.stringify({ status: "passed", required }, null, 2)}\n`);
   }
+  if (stage === "ui-status-truth") {
+    const viewModel = readFileSync(abs("apps/web/src/features/simulation/simulationV0ViewModel.ts"), "utf8");
+    const proof = await renderSimulationRoute("simulation-status-truth.png");
+    const passed = viewModel.includes("buildDryRunReproducibilityStatus") &&
+      proof.dom.bodyText.includes("stable hash proof passed") &&
+      !proof.dom.bodyText.includes("stable hash proof pending final gate");
+    context.add("Simulation UI status is derived from passing proof truth", passed, {
+      usesProofBuilder: viewModel.includes("buildDryRunReproducibilityStatus"),
+      renderedPassedStatus: proof.dom.bodyText.includes("stable hash proof passed"),
+      pendingAbsent: !proof.dom.bodyText.includes("stable hash proof pending final gate")
+    });
+    writeJson(`${context.dir}/ui-status-truth-output.json`, {
+      status: passed ? "passed" : "failed",
+      screenshot: proof.screenshotPath
+    });
+  }
+  if (stage === "reproducibility-status") {
+    const shared = await import("../packages/shared/dist/index.js");
+    const proof = shared.buildDryRunReproducibilityProof();
+    const status = shared.buildDryRunReproducibilityStatus(proof);
+    const passed = status.label === "stable hash proof passed" && proof.repeatedRunMatches === true;
+    context.add("reproducibility status builder reports passed only from proof", passed, {
+      status,
+      repeatedRunMatches: proof.repeatedRunMatches
+    });
+    writeJson(`${context.dir}/reproducibility-status-output.json`, { status: passed ? "passed" : "failed", proofStatus: status });
+  }
+  if (stage === "pending-status-negative") {
+    const failed = pendingStatusContradictionFails({
+      proofPassed: true,
+      uiStatus: "stable hash proof pending final gate"
+    });
+    context.add("manifest/proof passed plus pending UI status negative fixture fails", failed, null);
+    writeJson(`${context.dir}/pending-status-negative-output.json`, { status: failed ? "passed" : "failed" });
+  }
+  if (stage === "simulation-route-render") {
+    const proof = await renderSimulationRoute("simulation-status-truth.png");
+    context.add("simulation route renders proof-derived status without forbidden claims", proof.dom.panelFound && proof.dom.bodyText.includes("stable hash proof passed") && !proof.dom.forbiddenVisibleTermVisible, proof.dom);
+    writeJson(`${context.dir}/simulation-route-render-output.json`, {
+      status: proof.dom.panelFound ? "passed" : "failed",
+      dom: proof.dom,
+      screenshot: proof.screenshotPath
+    });
+  }
 }
 
-async function renderSimulationRoute() {
-  const screenshotPath = join(abs(`${context.dir}/screenshots`), "simulation-v0-internal-dry-run-panel.png");
+async function renderSimulationRoute(fileName = "simulation-v0-internal-dry-run-panel.png") {
+  const screenshotPath = join(abs(`${context.dir}/screenshots`), fileName);
   const result = await withBrowserRenderedApp(
     {
       port: 18000 + Number(context.issue),
@@ -87,6 +171,10 @@ async function renderSimulationRoute() {
   assertBrowserPng(screenshotPath);
   writeBrowserJson(abs(`${context.dir}/artifact-summary-ui-output.json`), { status: "passed", dom: result.result });
   return { dom: result.result, screenshotPath };
+}
+
+function pendingStatusContradictionFails(input) {
+  return input.proofPassed === true && String(input.uiStatus).includes("pending");
 }
 
 function domScript(code) {

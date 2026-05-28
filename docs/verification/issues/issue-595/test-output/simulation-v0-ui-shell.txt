@@ -1,0 +1,65 @@
+
+> node scripts/check-simulation-v0-ui-shell.mjs --stage ui-status-truth --allow-partial --issue 595
+{
+  "status": "passed",
+  "stage": "ui-status-truth",
+  "issue": "595",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation UI status is derived from passing proof truth",
+      "passed": true,
+      "detail": {
+        "usesProofBuilder": true,
+        "renderedPassedStatus": true,
+        "pendingAbsent": true
+      }
+    }
+  ]
+}
+
+> node scripts/check-simulation-v0-ui-shell.mjs --stage reproducibility-status --allow-partial --issue 595
+{
+  "status": "passed",
+  "stage": "reproducibility-status",
+  "issue": "595",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "reproducibility status builder reports passed only from proof",
+      "passed": true,
+      "detail": {
+        "status": {
+          "status": "stable_hash_proof_passed",
+          "label": "stable hash proof passed",
+          "proofId": "simulation-v0-dry-run-reproducibility-proof",
+          "firstArtifactHash": "376afabc",
+          "secondArtifactHash": "376afabc",
+          "repeatedRunMatches": true
+        },
+        "repeatedRunMatches": true
+      }
+    }
+  ]
+}
+
+> node scripts/check-simulation-v0-ui-shell.mjs --stage pending-status-negative --allow-partial --issue 595
+{
+  "status": "passed",
+  "stage": "pending-status-negative",
+  "issue": "595",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "manifest/proof passed plus pending UI status negative fixture fails",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.

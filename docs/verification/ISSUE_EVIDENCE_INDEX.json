@@ -19392,8 +19392,43 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "595",
+      "title": "Simulation UI Status Truth Repair",
+      "evidenceDir": "docs/verification/issues/issue-595",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-595/artifact-summary-ui-output.json",
+        "docs/verification/issues/issue-595/closeout.md",
+        "docs/verification/issues/issue-595/command-output-map.json",
+        "docs/verification/issues/issue-595/commands.txt",
+        "docs/verification/issues/issue-595/first-failure.txt",
+        "docs/verification/issues/issue-595/manifest-update-output.json",
+        "docs/verification/issues/issue-595/no-access-credential-output.txt",
+        "docs/verification/issues/issue-595/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-595/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-595/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-595/no-optimizer-output.txt",
+        "docs/verification/issues/issue-595/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-595/no-phi-output.txt",
+        "docs/verification/issues/issue-595/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-595/pending-status-negative-output.json",
+        "docs/verification/issues/issue-595/reproducibility-status-output.json",
+        "docs/verification/issues/issue-595/screenshots/simulation-status-truth.png",
+        "docs/verification/issues/issue-595/simulation-route-render-output.json",
+        "docs/verification/issues/issue-595/simulation-v0-ui-shell-output.json",
+        "docs/verification/issues/issue-595/test-output/command.txt",
+        "docs/verification/issues/issue-595/test-output/no-phi.txt",
+        "docs/verification/issues/issue-595/test-output/shared.txt",
+        "docs/verification/issues/issue-595/test-output/simulation-v0-ui-shell.txt",
+        "docs/verification/issues/issue-595/test-output/web-build.txt",
+        "docs/verification/issues/issue-595/test-output/web.txt",
+        "docs/verification/issues/issue-595/ui-status-truth-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "594"
+  "lastRebuiltIssue": "595"
 }

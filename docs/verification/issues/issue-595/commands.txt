@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-ui-shell.mjs --stage ui-status-truth --allow-partial --issue 595
+node scripts/check-simulation-v0-ui-shell.mjs --stage reproducibility-status --allow-partial --issue 595
+node scripts/check-simulation-v0-ui-shell.mjs --stage pending-status-negative --allow-partial --issue 595
+node scripts/check-no-phi-fields.mjs

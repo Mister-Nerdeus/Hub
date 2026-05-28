@@ -1,4 +1,7 @@
-import { buildSimulationV0ComparisonArtifact } from "@nerdeus/shared";
+import {
+  buildDryRunReproducibilityStatus,
+  buildSimulationV0ComparisonArtifact
+} from "@nerdeus/shared";
 
 export type SimulationV0InternalDryRunViewModel = {
   status: string;
@@ -21,6 +24,7 @@ export type SimulationV0InternalDryRunViewModel = {
 
 export function createSimulationV0InternalDryRunViewModel(): SimulationV0InternalDryRunViewModel {
   const artifact = buildSimulationV0ComparisonArtifact();
+  const reproducibility = buildDryRunReproducibilityStatus();
   return {
     status: "internal synthetic dry-run only",
     canonicalSeed: artifact.sharedWorkload.neutralWorkloadSeedId,
@@ -36,7 +40,7 @@ export function createSimulationV0InternalDryRunViewModel(): SimulationV0Interna
       pressure: run.placeholderPressureBand.replace("placeholder_", "")
     })),
     comparisonArtifactStatus: artifact.artifactId,
-    reproducibilityStatus: "stable hash proof pending final gate",
+    reproducibilityStatus: reproducibility.label,
     limitations: [
       "Internal synthetic dry-run only.",
       "No optimizer.",

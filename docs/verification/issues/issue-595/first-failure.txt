@@ -1,0 +1,3 @@
+Reproduced failure class: Simulation v0 view model hardcoded `stable hash proof pending final gate` even after reproducibility proof gates could pass.
+
+Repair path: add a shared deterministic reproducibility status builder, derive the UI label from the proof, and fail closed if proof-passed state is paired with a pending UI status.

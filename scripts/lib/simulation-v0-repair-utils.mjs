@@ -385,6 +385,11 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 594",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage generic-demo-negative --allow-partial --issue 594",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage product-docs-copy --allow-partial --issue 594"
+    ],
+    "595": [
+      "node scripts/check-simulation-v0-ui-shell.mjs --stage ui-status-truth --allow-partial --issue 595",
+      "node scripts/check-simulation-v0-ui-shell.mjs --stage reproducibility-status --allow-partial --issue 595",
+      "node scripts/check-simulation-v0-ui-shell.mjs --stage pending-status-negative --allow-partial --issue 595"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];

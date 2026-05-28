@@ -25,6 +25,15 @@ export type DryRunReproducibilityProof = {
   syntheticDataOnly: true;
 };
 
+export type DryRunReproducibilityStatus = {
+  status: "stable_hash_proof_passed";
+  label: "stable hash proof passed";
+  proofId: DryRunReproducibilityProof["proofId"];
+  firstArtifactHash: string;
+  secondArtifactHash: string;
+  repeatedRunMatches: true;
+};
+
 export function buildDryRunReproducibilityProof(): DryRunReproducibilityProof {
   const firstRun = executeInternalDryRun();
   const secondRun = executeInternalDryRun();
@@ -69,5 +78,21 @@ export function buildDryRunReproducibilityProof(): DryRunReproducibilityProof {
     staffingComplianceClaim: false,
     patientOutcomePredictionClaim: false,
     syntheticDataOnly: true
+  };
+}
+
+export function buildDryRunReproducibilityStatus(
+  proof: DryRunReproducibilityProof = buildDryRunReproducibilityProof()
+): DryRunReproducibilityStatus {
+  if (!proof.repeatedRunMatches || proof.firstArtifactHash !== proof.secondArtifactHash) {
+    throw new Error("dry-run reproducibility proof must pass before UI status can be passed");
+  }
+  return {
+    status: "stable_hash_proof_passed",
+    label: "stable hash proof passed",
+    proofId: proof.proofId,
+    firstArtifactHash: proof.firstArtifactHash,
+    secondArtifactHash: proof.secondArtifactHash,
+    repeatedRunMatches: true
   };
 }
