@@ -1,0 +1,7 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-pan-threshold.mjs --stage threshold-model --allow-partial --issue 547
+node scripts/check-editor-pan-threshold.mjs --stage no-accidental-pan --allow-partial --issue 547
+node scripts/check-editor-pan-threshold.mjs --stage drag-pan-still-works --allow-partial --issue 547
+node scripts/check-layout-editor-background-pan.mjs --stage final --issue 547
+node scripts/check-no-phi-fields.mjs

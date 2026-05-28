@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "547",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "threshold constant is 3-5 px",
+      "passed": true,
+      "detail": 4
+    },
+    {
+      "name": "potential-pan state exists before active pan",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "tiny movement test exists",
+      "passed": true,
+      "detail": "backgroundPanThreshold.test.tsx"
+    },
+    {
+      "name": "move handler returns before dispatch under threshold",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "threshold-crossed drag still uses normal pan conversion",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room/door/handle isolation remains",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "read-only pan is not blocked",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

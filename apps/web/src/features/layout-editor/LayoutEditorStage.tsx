@@ -116,6 +116,7 @@ import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewMo
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
 import {
+  hasCanvasPanPassedMovementThreshold,
   canvasPointerDeltaToPanFeet,
   isCanvasPanBackgroundTarget
 } from "./layoutCanvasPan";
@@ -165,8 +166,11 @@ type RoomResizeState = {
 };
 
 type CanvasPanState = {
+  startClientX: number;
+  startClientY: number;
   lastClientX: number;
   lastClientY: number;
+  active: boolean;
 };
 
 const baseInitialStageState = createLayoutEditorState({
@@ -741,10 +745,12 @@ export function LayoutEditorStage({
     }
     event.preventDefault();
     canvasPanRef.current = {
+      startClientX: event.clientX,
+      startClientY: event.clientY,
       lastClientX: event.clientX,
-      lastClientY: event.clientY
+      lastClientY: event.clientY,
+      active: false
     };
-    setCanvasPanActive(true);
     event.currentTarget.setPointerCapture(event.pointerId);
   };
   const moveCanvasPan = (event: PointerEvent<SVGSVGElement>) => {
@@ -756,6 +762,20 @@ export function LayoutEditorStage({
       return;
     }
     event.preventDefault();
+    if (!pan.active) {
+      const passedThreshold = hasCanvasPanPassedMovementThreshold(
+        event.clientX - pan.startClientX,
+        event.clientY - pan.startClientY
+      );
+      if (!passedThreshold) {
+        return;
+      }
+      canvasPanRef.current = {
+        ...pan,
+        active: true
+      };
+      setCanvasPanActive(true);
+    }
     const delta = canvasPointerDeltaToPanFeet({
       deltaClientX: event.clientX - pan.lastClientX,
       deltaClientY: event.clientY - pan.lastClientY,
@@ -763,8 +783,11 @@ export function LayoutEditorStage({
       zoom: stageState.viewport.zoom
     });
     canvasPanRef.current = {
+      startClientX: pan.startClientX,
+      startClientY: pan.startClientY,
       lastClientX: event.clientX,
-      lastClientY: event.clientY
+      lastClientY: event.clientY,
+      active: true
     };
     if (delta.deltaXFeet !== 0 || delta.deltaYFeet !== 0) {
       dispatchStage({ type: "panViewport", ...delta });

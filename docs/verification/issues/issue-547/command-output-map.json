@@ -1,0 +1,47 @@
+{
+  "issue": "547",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-pan-threshold.mjs --stage threshold-model --allow-partial --issue 547",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/editor-pan-threshold.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-pan-threshold.mjs --stage no-accidental-pan --allow-partial --issue 547",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/editor-pan-threshold.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-pan-threshold.mjs --stage drag-pan-still-works --allow-partial --issue 547",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/editor-pan-threshold.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 547",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/editor-background-pan.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-547/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

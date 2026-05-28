@@ -21,8 +21,21 @@ export type CanvasPanDeltaInput = {
   zoom: number;
 };
 
+export const CANVAS_PAN_ACTIVATION_THRESHOLD_PX = 4;
+
 export function canStartCanvasPan(target: CanvasPanTargetDescriptor): boolean {
   return target.targetKind === "background" || target.targetKind === "hallway" || target.targetKind === "zone";
+}
+
+export function hasCanvasPanPassedMovementThreshold(
+  deltaClientX: number,
+  deltaClientY: number,
+  thresholdPx = CANVAS_PAN_ACTIVATION_THRESHOLD_PX
+): boolean {
+  if (!Number.isFinite(deltaClientX) || !Number.isFinite(deltaClientY) || !Number.isFinite(thresholdPx) || thresholdPx < 0) {
+    return false;
+  }
+  return Math.hypot(deltaClientX, deltaClientY) >= thresholdPx;
 }
 
 export function canvasPointerDeltaToPanFeet({
