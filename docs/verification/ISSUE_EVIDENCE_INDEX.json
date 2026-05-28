@@ -19427,8 +19427,45 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "596",
+      "title": "Final GO Gate Must Independently Revalidate",
+      "evidenceDir": "docs/verification/issues/issue-596",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-596/closeout.md",
+        "docs/verification/issues/issue-596/command-output-map.json",
+        "docs/verification/issues/issue-596/commands.txt",
+        "docs/verification/issues/issue-596/default-scale-revalidation-output.json",
+        "docs/verification/issues/issue-596/docs-contract-revalidation-output.json",
+        "docs/verification/issues/issue-596/evidence-index-revalidation-output.json",
+        "docs/verification/issues/issue-596/first-failure.txt",
+        "docs/verification/issues/issue-596/independent-revalidation-output.json",
+        "docs/verification/issues/issue-596/manifest-contradiction-negative-output.json",
+        "docs/verification/issues/issue-596/manifest-update-output.json",
+        "docs/verification/issues/issue-596/no-access-credential-output.txt",
+        "docs/verification/issues/issue-596/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-596/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-596/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-596/no-manual-approval-claim-output.txt",
+        "docs/verification/issues/issue-596/no-optimizer-output.txt",
+        "docs/verification/issues/issue-596/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-596/no-phi-output.txt",
+        "docs/verification/issues/issue-596/no-promotion-output.txt",
+        "docs/verification/issues/issue-596/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-596/simulation-v0-refinement-repair-output.json",
+        "docs/verification/issues/issue-596/test-output/no-phi.txt",
+        "docs/verification/issues/issue-596/test-output/shared.txt",
+        "docs/verification/issues/issue-596/test-output/simulation-v0-refinement-repair.txt",
+        "docs/verification/issues/issue-596/test-output/web-build.txt",
+        "docs/verification/issues/issue-596/test-output/web.txt",
+        "docs/verification/issues/issue-596/ui-status-revalidation-output.json",
+        "docs/verification/issues/issue-596/visible-copy-policy-revalidation-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "595"
+  "lastRebuiltIssue": "596"
 }

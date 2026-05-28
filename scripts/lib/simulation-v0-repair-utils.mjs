@@ -390,6 +390,11 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-simulation-v0-ui-shell.mjs --stage ui-status-truth --allow-partial --issue 595",
       "node scripts/check-simulation-v0-ui-shell.mjs --stage reproducibility-status --allow-partial --issue 595",
       "node scripts/check-simulation-v0-ui-shell.mjs --stage pending-status-negative --allow-partial --issue 595"
+    ],
+    "596": [
+      "node scripts/check-simulation-v0-refinement-repair.mjs --stage independent-revalidation --allow-partial --issue 596",
+      "node scripts/check-simulation-v0-refinement-repair.mjs --stage manifest-contradiction-negative --allow-partial --issue 596",
+      "node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 596"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
