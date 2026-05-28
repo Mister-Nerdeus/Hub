@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-default-room-scale.mjs --stage actual-placement-default --allow-partial --issue 591
+node scripts/check-default-room-scale.mjs --stage preview-placement-parity --allow-partial --issue 591
+node scripts/check-default-room-scale.mjs --stage export-import-proof --allow-partial --issue 591
+node scripts/check-default-room-scale.mjs --stage negative-12x10-placement --allow-partial --issue 591
+node scripts/check-default-room-scale.mjs --stage source-scan --allow-partial --issue 591
+node scripts/check-no-phi-fields.mjs

@@ -140,6 +140,7 @@ import {
 } from "./addObjectMenuViewModel";
 import {
   buildObjectPlacementPreview,
+  getDefaultPlacementSizeForObject,
   placeObjectOnCanvas
 } from "./clickToPlaceObject";
 import { ObjectPlacementPreview } from "./ObjectPlacementPreview";
@@ -465,14 +466,18 @@ export function LayoutEditorStage({
     if (toolMode !== "add_room") {
       return;
     }
+    if (pendingAddObjectId == null) {
+      return;
+    }
     const pointFeet = stagePointerToFeet(event, stageState.viewport);
+    const defaultPlacementSize = getDefaultPlacementSizeForObject(pendingAddObjectId);
     dispatchStage(
       buildAddRoomAction({
         sequence: authoringSequence,
         draft: {
           selectedRoomType: selectedNewRoomType,
-          defaultWidthFeet: 12,
-          defaultHeightFeet: 10
+          defaultWidthFeet: defaultPlacementSize.widthFeet,
+          defaultHeightFeet: defaultPlacementSize.heightFeet
         },
         xFeet: pointFeet.xFeet,
         yFeet: pointFeet.yFeet

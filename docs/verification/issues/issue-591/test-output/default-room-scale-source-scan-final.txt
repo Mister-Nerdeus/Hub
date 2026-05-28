@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "source-scan",
+  "issue": "591",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "layout editor source has no hardcoded 12-foot default placement width",
+      "passed": true,
+      "detail": {
+        "findings": []
+      }
+    }
+  ]
+}

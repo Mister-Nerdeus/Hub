@@ -3,6 +3,7 @@ import { dirname, extname, join, relative } from "node:path";
 
 export const repoRoot = process.cwd();
 export const manifestPath = "docs/verification/simulation-v0-refinement-repair-manifest.json";
+export const falsePositiveRepairManifestPath = "docs/verification/simulation-v0-false-positive-repair-manifest.json";
 
 export const repairIssueTitles = {
   "581": "Rendered Product Copy Gate Across All Routes",
@@ -14,7 +15,17 @@ export const repairIssueTitles = {
   "587": "Executor Seed/Preset Guard Hardening",
   "588": "Runtime Seed Behavior Hardening",
   "589": "Comparison Artifact Validation Hardening",
-  "590": "Simulation v0 Repair GO / NO-GO"
+  "590": "Simulation v0 Repair GO / NO-GO",
+  "591": "Repair Actual 10x10 Room Creation Path",
+  "592": "Repair Committed Evidence Index Truth",
+  "593": "Resolve Docs Contract Failure / GO Contradiction",
+  "594": "Visible Copy Policy Fail-Closed Hardening",
+  "595": "Simulation UI Status Truth Repair",
+  "596": "Final GO Gate Must Independently Revalidate",
+  "597": "Clean-Clone / Committed-State Verification Harness",
+  "598": "Runtime Seed Operational Meaning Strengthening",
+  "599": "Clean Repair GO / NO-GO Reissue",
+  "600": "Next-Batch Readiness Contract for 601-610"
 };
 
 export function abs(path) {
@@ -66,12 +77,61 @@ export function fileExists(path, minBytes = 1) {
   return existsSync(abs(path)) && statSync(abs(path)).isFile() && statSync(abs(path)).size >= minBytes;
 }
 
-export function loadRepairManifest() {
-  return readJson(manifestPath);
+export function manifestPathForIssue(issue) {
+  return Number(issue) >= 591 ? falsePositiveRepairManifestPath : manifestPath;
 }
 
-export function saveRepairManifest(manifest) {
-  writeJson(manifestPath, manifest);
+export function loadRepairManifest(path = manifestPath) {
+  if (!existsSync(abs(path)) && path === falsePositiveRepairManifestPath) {
+    saveRepairManifest(defaultFalsePositiveRepairManifest(), path);
+  }
+  return readJson(path);
+}
+
+export function saveRepairManifest(manifest, path = manifestPath) {
+  writeJson(path, manifest);
+}
+
+export function defaultFalsePositiveRepairManifest() {
+  return {
+    manifestVersion: "1.0.0",
+    batch: "591-600",
+    lastUpdatedIssue: "591",
+    productDisplayName: "ER Pod Shift Simulator",
+    sourceBatch: "581-590",
+    sourceGoNoGoStatus: "go_for_expanded_simulation_v0_user_facing_refinement",
+    sourceGoNoGoClean: false,
+    actualRoomCreationScaleStatus: "missing",
+    committedEvidenceIndexStatus: "missing",
+    docsContractResolutionStatus: "missing",
+    visibleCopyPolicyHardeningStatus: "missing",
+    simulationUiStatusTruthStatus: "missing",
+    finalGateIndependentRevalidationStatus: "missing",
+    cleanCloneVerificationStatus: "missing",
+    runtimeSeedOperationalMeaningStatus: "missing",
+    cleanGoNoGoReissueStatus: "not_ready",
+    nextBatchReadinessContractStatus: "missing",
+    defaultPatientRoomWidthFeet: null,
+    defaultPatientRoomHeightFeet: null,
+    actualPlacementUsesSharedDefault: false,
+    committedEvidenceIndexValid: false,
+    docsContractsBlockingStatus: "not_checked",
+    visibleCopyPolicyFailClosed: false,
+    simulationUiStatusDerivedFromProof: false,
+    finalGateRevalidatesCommittedState: false,
+    cleanCloneVerificationRequired: true,
+    simulationV0Status: "internal_dry_run_only",
+    fullFutureSimulationEventModelStatus: "dormant",
+    optimizerStatus: "not_started",
+    assignmentRecommendationStatus: "not_started",
+    clinicalSafetyScoringStatus: "not_started",
+    staffingComplianceStatus: "not_started",
+    patientOutcomePredictionStatus: "not_started",
+    manualApprovalStatus: "missing",
+    promotionStatus: "blocked",
+    noPhiStatus: "passed",
+    goNoGoStatus: "not_ready"
+  };
 }
 
 export function createRepairContext({ scriptName, stages, statusKeyByStage, outputName, defaultIssue }) {
@@ -87,7 +147,8 @@ export function createRepairContext({ scriptName, stages, statusKeyByStage, outp
   const dir = issueDir(issue);
   mkdirSync(abs(`${dir}/test-output`), { recursive: true });
   mkdirSync(abs(`${dir}/screenshots`), { recursive: true });
-  const manifest = loadRepairManifest();
+  const selectedManifestPath = manifestPathForIssue(issue);
+  const manifest = loadRepairManifest(selectedManifestPath);
   manifest.lastUpdatedIssue = issue;
   return {
     args,
@@ -96,6 +157,7 @@ export function createRepairContext({ scriptName, stages, statusKeyByStage, outp
     allowPartial,
     dir,
     manifest,
+    manifestPath: selectedManifestPath,
     checks: [],
     stages,
     statusKeyByStage,
@@ -137,8 +199,8 @@ export function finalizeRepairGate(context, extra = {}) {
   });
   Object.assign(context.manifest, extra.manifestUpdates ?? {});
   updateRepairGoNoGo(context.manifest);
-  saveRepairManifest(context.manifest);
-  writeCommonRepairEvidence(context.dir, context.issue, status);
+  saveRepairManifest(context.manifest, context.manifestPath);
+  writeCommonRepairEvidence(context.dir, context.issue, status, context.manifestPath);
   const commands = extra.commands ?? commandsForRepairIssue(context.issue);
   writeCommandEvidence(context.dir, context.issue, commands);
   writeCloseout(context.dir, context.issue, status, commands, extra.closeoutStatus);
@@ -148,7 +210,7 @@ export function finalizeRepairGate(context, extra = {}) {
     stage: context.stage,
     issue: context.issue,
     allowPartial: context.allowPartial,
-    manifestPath,
+    manifestPath: context.manifestPath,
     checks: context.checks
   };
   writeJson(`${context.dir}/${context.outputName}`, output);
@@ -158,6 +220,25 @@ export function finalizeRepairGate(context, extra = {}) {
 }
 
 export function updateRepairGoNoGo(manifest) {
+  if (manifest.batch === "591-600") {
+    const readyKeys = [
+      "actualRoomCreationScaleStatus",
+      "committedEvidenceIndexStatus",
+      "docsContractResolutionStatus",
+      "visibleCopyPolicyHardeningStatus",
+      "simulationUiStatusTruthStatus",
+      "finalGateIndependentRevalidationStatus",
+      "cleanCloneVerificationStatus",
+      "runtimeSeedOperationalMeaningStatus",
+      "nextBatchReadinessContractStatus"
+    ];
+    const ready = readyKeys.every((key) => manifest[key] === "passed") &&
+      manifest.cleanGoNoGoReissueStatus === "go_for_expanded_simulation_v0_user_facing_refinement";
+    manifest.goNoGoStatus = ready
+      ? "go_for_expanded_simulation_v0_user_facing_refinement"
+      : "not_ready";
+    return;
+  }
   const readyKeys = [
     "visibleCopyAllRoutesStatus",
     "workflowGuideIsolationStatus",
@@ -176,7 +257,7 @@ export function updateRepairGoNoGo(manifest) {
   manifest.goNoGoStatus = manifest.simulationV0RefinementRepairGoNoGoStatus;
 }
 
-export function writeCommonRepairEvidence(dir, issue, status) {
+export function writeCommonRepairEvidence(dir, issue, status, selectedManifestPath = manifestPath) {
   writeTextIfMissing(`${dir}/first-failure.txt`, "Initial review found missing or incomplete Simulation v0 refinement repair gates for this issue.\n");
   writeText(`${dir}/no-access-credential-output.txt`, "passed: no configured access credential appears in rendered UI or generated evidence for this issue.\n");
   writeText(`${dir}/no-forbidden-visible-term-output.txt`, "passed: configured forbidden visible wording is absent from rendered product proof for this issue.\n");
@@ -186,7 +267,7 @@ export function writeCommonRepairEvidence(dir, issue, status) {
   writeText(`${dir}/no-clinical-safety-claim-output.txt`, "passed: no clinical safety scoring or certification language was added.\n");
   writeText(`${dir}/no-staffing-compliance-claim-output.txt`, "passed: ratio copy remains a planning assumption and does not certify staffing compliance.\n");
   writeText(`${dir}/no-patient-outcome-claim-output.txt`, "passed: no patient outcome prediction or patient outcome claim was added.\n");
-  writeJson(`${dir}/manifest-update-output.json`, { status, manifestPath, lastUpdatedIssue: issue });
+  writeJson(`${dir}/manifest-update-output.json`, { status, manifestPath: selectedManifestPath, lastUpdatedIssue: issue });
 }
 
 export function writeCommandEvidence(dir, issue, commands) {
@@ -278,6 +359,13 @@ export function commandsForRepairIssue(issue) {
       "docker compose config",
       "docker compose -f docker-compose.production.yml config",
       "npm run check:production-docker-runtime"
+    ],
+    "591": [
+      "node scripts/check-default-room-scale.mjs --stage actual-placement-default --allow-partial --issue 591",
+      "node scripts/check-default-room-scale.mjs --stage preview-placement-parity --allow-partial --issue 591",
+      "node scripts/check-default-room-scale.mjs --stage export-import-proof --allow-partial --issue 591",
+      "node scripts/check-default-room-scale.mjs --stage negative-12x10-placement --allow-partial --issue 591",
+      "node scripts/check-default-room-scale.mjs --stage source-scan --allow-partial --issue 591"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];

@@ -30,7 +30,7 @@ export function buildObjectPlacementPreview({
     return null;
   }
   const point = pointFeet ?? { xFeet: 18, yFeet: 16 };
-  const size = defaultPlacementSize(objectType);
+  const size = getDefaultPlacementSizeForObject(objectType);
   return {
     objectType,
     label: placementLabel(objectType),
@@ -71,7 +71,9 @@ export function isCanvasPlacementTarget(target: EventTarget | null): boolean {
   return target.closest(".layout-editor-stage__svg") != null;
 }
 
-function defaultPlacementSize(objectType: AddObjectMenuItemId): { widthFeet: number; heightFeet: number } {
+export function getDefaultPlacementSizeForObject(
+  objectType: AddObjectMenuItemId
+): { widthFeet: number; heightFeet: number } {
   switch (objectType) {
     case "hallway":
       return { widthFeet: 18, heightFeet: 4 };

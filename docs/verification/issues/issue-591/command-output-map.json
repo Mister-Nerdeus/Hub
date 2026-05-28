@@ -1,0 +1,59 @@
+{
+  "issue": "591",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-room-scale.mjs --stage actual-placement-default --allow-partial --issue 591",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-room-scale.mjs --stage preview-placement-parity --allow-partial --issue 591",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-room-scale.mjs --stage export-import-proof --allow-partial --issue 591",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-room-scale.mjs --stage negative-12x10-placement --allow-partial --issue 591",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-default-room-scale.mjs --stage source-scan --allow-partial --issue 591",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-591/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

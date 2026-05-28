@@ -1,0 +1,3 @@
+Reproduced failure class: LayoutEditorStage.tsx actual add-room dispatch used defaultWidthFeet: 12 and defaultHeightFeet: 10 while clickToPlaceObject.ts preview constants were 10 by 10.
+
+The false-positive was that preview correctness was treated as actual placement correctness. The actual placement path did not share the preview default source of truth.

@@ -1,5 +1,6 @@
 import {
   buildObjectPlacementPreview,
+  getDefaultPlacementSizeForObject,
   isCanvasPlacementTarget,
   placeObjectOnCanvas
 } from "../clickToPlaceObject";
@@ -34,6 +35,17 @@ const storagePreview = buildObjectPlacementPreview({
 });
 if (storagePreview == null || storagePreview.widthFeet !== 10 || storagePreview.heightFeet !== 10) {
   throw new Error("storage placement preview should use the 10 by 10 default room size");
+}
+
+const patientPlacementSize = getDefaultPlacementSizeForObject("patient_care_room");
+const storagePlacementSize = getDefaultPlacementSizeForObject("storage_room");
+if (
+  patientPlacementSize.widthFeet !== roomPreview.widthFeet ||
+  patientPlacementSize.heightFeet !== roomPreview.heightFeet ||
+  storagePlacementSize.widthFeet !== storagePreview.widthFeet ||
+  storagePlacementSize.heightFeet !== storagePreview.heightFeet
+) {
+  throw new Error("preview and actual placement defaults must use the same room-size helper");
 }
 
 const defaultPreview = buildObjectPlacementPreview({
