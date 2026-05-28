@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "no-safety-or-compliance-claims",
+  "issue": "569",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "proof carries no clinical claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "proof carries no compliance claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "proof carries no outcome claim",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

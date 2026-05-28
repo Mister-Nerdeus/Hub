@@ -1,0 +1,59 @@
+{
+  "issue": "569",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-comparison-proof.mjs --stage four-to-one-dry-run --allow-partial --issue 569",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-comparison-proof.mjs --stage three-to-one-dry-run --allow-partial --issue 569",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-comparison-proof.mjs --stage shared-inputs --allow-partial --issue 569",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-comparison-proof.mjs --stage comparison-proof --allow-partial --issue 569",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-comparison-proof.mjs --stage no-safety-or-compliance-claims --allow-partial --issue 569",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/dry-run-comparison-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-569/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

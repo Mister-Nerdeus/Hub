@@ -46,7 +46,8 @@ export function buildManualAssignmentScenarioBridgeInput(
   ratioPreset: RatioPresetContract
 ): ManualAssignmentScenarioBridgeInput {
   const groupSize = ratioPreset.patientsPerNurse;
-  const labels = ["A", "B", "C", "D", "E", "F"];
+  const groupCount = Math.ceil(capacity.assignmentEligibleBedPositionIds.length / groupSize);
+  const labels = Array.from({ length: groupCount }, (_, index) => String.fromCharCode(65 + index));
   const assignmentGroups = labels
     .map((label, index) => {
       const assignedBedPositionIds = capacity.assignmentEligibleBedPositionIds.slice(

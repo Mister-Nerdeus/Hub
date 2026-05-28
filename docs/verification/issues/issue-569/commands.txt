@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-dry-run-comparison-proof.mjs --stage four-to-one-dry-run --allow-partial --issue 569
+node scripts/check-dry-run-comparison-proof.mjs --stage three-to-one-dry-run --allow-partial --issue 569
+node scripts/check-dry-run-comparison-proof.mjs --stage shared-inputs --allow-partial --issue 569
+node scripts/check-dry-run-comparison-proof.mjs --stage comparison-proof --allow-partial --issue 569
+node scripts/check-dry-run-comparison-proof.mjs --stage no-safety-or-compliance-claims --allow-partial --issue 569
+node scripts/check-no-phi-fields.mjs
