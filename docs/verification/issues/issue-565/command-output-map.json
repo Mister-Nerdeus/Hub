@@ -1,0 +1,53 @@
+{
+  "issue": "565",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-template-contract.mjs --stage task-template-contract --allow-partial --issue 565",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/dry-run-task-template-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-template-contract.mjs --stage no-clinical-task-claims --allow-partial --issue 565",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/dry-run-task-template-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-template-contract.mjs --stage no-medication-or-diagnosis --allow-partial --issue 565",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/dry-run-task-template-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-dry-run-task-template-contract.mjs --stage bounded-placeholders --allow-partial --issue 565",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/dry-run-task-template-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-565/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

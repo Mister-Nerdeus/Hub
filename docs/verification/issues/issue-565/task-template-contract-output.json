@@ -1,0 +1,104 @@
+{
+  "status": "passed",
+  "templates": [
+    {
+      "schemaVersion": "1.0.0",
+      "templateId": "dry-run-room-check",
+      "category": "room_check",
+      "durationBand": {
+        "minMinutes": 5,
+        "maxMinutes": 10
+      },
+      "intensityBand": "low",
+      "allowedActivityProfileIds": [
+        "typical",
+        "busy",
+        "slammed"
+      ],
+      "syntheticOperationalPlaceholder": true,
+      "clinicalClaim": false,
+      "medicationOrDiagnosisText": false,
+      "outcomePredictionClaim": false,
+      "optimizerStatus": "not_started"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "templateId": "dry-run-documentation-placeholder",
+      "category": "documentation_placeholder",
+      "durationBand": {
+        "minMinutes": 5,
+        "maxMinutes": 15
+      },
+      "intensityBand": "medium",
+      "allowedActivityProfileIds": [
+        "typical",
+        "busy",
+        "slammed"
+      ],
+      "syntheticOperationalPlaceholder": true,
+      "clinicalClaim": false,
+      "medicationOrDiagnosisText": false,
+      "outcomePredictionClaim": false,
+      "optimizerStatus": "not_started"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "templateId": "dry-run-support-coordination-placeholder",
+      "category": "support_coordination_placeholder",
+      "durationBand": {
+        "minMinutes": 10,
+        "maxMinutes": 20
+      },
+      "intensityBand": "medium",
+      "allowedActivityProfileIds": [
+        "busy",
+        "slammed"
+      ],
+      "syntheticOperationalPlaceholder": true,
+      "clinicalClaim": false,
+      "medicationOrDiagnosisText": false,
+      "outcomePredictionClaim": false,
+      "optimizerStatus": "not_started"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "templateId": "dry-run-turnover-placeholder",
+      "category": "turnover_placeholder",
+      "durationBand": {
+        "minMinutes": 10,
+        "maxMinutes": 25
+      },
+      "intensityBand": "high",
+      "allowedActivityProfileIds": [
+        "typical",
+        "busy",
+        "slammed"
+      ],
+      "syntheticOperationalPlaceholder": true,
+      "clinicalClaim": false,
+      "medicationOrDiagnosisText": false,
+      "outcomePredictionClaim": false,
+      "optimizerStatus": "not_started"
+    },
+    {
+      "schemaVersion": "1.0.0",
+      "templateId": "dry-run-observation-placeholder",
+      "category": "observation_placeholder",
+      "durationBand": {
+        "minMinutes": 5,
+        "maxMinutes": 20
+      },
+      "intensityBand": "medium",
+      "allowedActivityProfileIds": [
+        "typical",
+        "busy",
+        "slammed"
+      ],
+      "syntheticOperationalPlaceholder": true,
+      "clinicalClaim": false,
+      "medicationOrDiagnosisText": false,
+      "outcomePredictionClaim": false,
+      "optimizerStatus": "not_started"
+    }
+  ]
+}

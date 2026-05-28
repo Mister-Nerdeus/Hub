@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "bounded-placeholders",
+  "issue": "565",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "template durations are bounded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "template intensities are bounded",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
