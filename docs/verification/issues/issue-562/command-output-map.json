@@ -1,0 +1,53 @@
+{
+  "issue": "562",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-run-contract.mjs --stage run-contract --allow-partial --issue 562",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/simulation-run-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-run-contract.mjs --stage canonical-seed-only --allow-partial --issue 562",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/simulation-run-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-run-contract.mjs --stage synthetic-internal-only --allow-partial --issue 562",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/simulation-run-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-run-contract.mjs --stage no-optimizer --allow-partial --issue 562",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/simulation-run-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-562/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

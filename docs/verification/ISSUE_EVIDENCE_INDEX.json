@@ -17938,6 +17938,35 @@
         "docs/verification/issues/issue-561/test-output/web.txt",
         "docs/verification/issues/issue-561/verify-local-output.json"
       ]
+    },
+    {
+      "issue": "562",
+      "title": "Simulation Run Contract, Internal Dry-Run Only",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-562/canonical-seed-only-output.json",
+        "docs/verification/issues/issue-562/closeout.md",
+        "docs/verification/issues/issue-562/command-output-map.json",
+        "docs/verification/issues/issue-562/commands.txt",
+        "docs/verification/issues/issue-562/first-failure.txt",
+        "docs/verification/issues/issue-562/manifest-update-output.json",
+        "docs/verification/issues/issue-562/no-access-credential-output.txt",
+        "docs/verification/issues/issue-562/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-562/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-562/no-fixture-mutation-output.txt",
+        "docs/verification/issues/issue-562/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-562/no-optimizer-output.txt",
+        "docs/verification/issues/issue-562/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-562/no-phi-output.txt",
+        "docs/verification/issues/issue-562/no-recommendations-output.txt",
+        "docs/verification/issues/issue-562/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-562/simulation-run-contract-output.json",
+        "docs/verification/issues/issue-562/synthetic-internal-only-output.json",
+        "docs/verification/issues/issue-562/test-output/no-phi.txt",
+        "docs/verification/issues/issue-562/test-output/shared.txt",
+        "docs/verification/issues/issue-562/test-output/simulation-run-contract.txt",
+        "docs/verification/issues/issue-562/test-output/web-build.txt",
+        "docs/verification/issues/issue-562/test-output/web.txt"
+      ]
     }
   ]
 }

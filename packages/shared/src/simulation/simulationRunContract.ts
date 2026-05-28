@@ -5,6 +5,198 @@ import type {
   ShiftScenarioContract
 } from "../contracts.js";
 import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
+import {
+  ACTIVITY_PROFILE_IDS,
+  type ActivityProfileId
+} from "../scenarios/activityProfileContract.js";
+import {
+  CANONICAL_SCENARIO_FLOORPLAN_ID,
+  CANONICAL_SCENARIO_SEED_ID
+} from "../scenarios/canonicalScenarioSeedContract.js";
+import {
+  RATIO_PRESET_IDS,
+  type RatioPresetId
+} from "../scenarios/ratioPresetContract.js";
+
+export const INTERNAL_DRY_RUN_SIMULATION_RUN_SCHEMA_VERSION = "1.0.0" as const;
+export const INTERNAL_DRY_RUN_SIMULATION_RUN_CONTRACT_ID =
+  "simulation-v0-internal-dry-run-contract" as const;
+export const INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID =
+  "deterministic-dry-run-seed-canonical-plan-1" as const;
+
+export type InternalDryRunSimulationRunContract = {
+  schemaVersion: typeof INTERNAL_DRY_RUN_SIMULATION_RUN_SCHEMA_VERSION;
+  runContractId: typeof INTERNAL_DRY_RUN_SIMULATION_RUN_CONTRACT_ID;
+  canonicalScenarioSeedId: typeof CANONICAL_SCENARIO_SEED_ID;
+  canonicalFloorplanId: typeof CANONICAL_SCENARIO_FLOORPLAN_ID;
+  ratioPresetId: RatioPresetId;
+  allowedRatioPresetIds: readonly RatioPresetId[];
+  activityProfileId: ActivityProfileId;
+  allowedActivityProfileIds: readonly ActivityProfileId[];
+  roomLoadContractId: "room-load-starter-canonical-plan-1";
+  manualAssignmentBridgeId: "manual-assignment-scenario-bridge-canonical-plan-1";
+  deterministicSeedId: typeof INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID;
+  dryRunStatus: "internal_dry_run_shell_only";
+  syntheticDataOnly: true;
+  canonicalPlanOnly: true;
+  optimizerStatus: "not_started";
+  assignmentRecommendationStatus: "not_started";
+  clinicalSafetyClaim: false;
+  staffingComplianceClaim: false;
+  outcomePredictionClaim: false;
+};
+
+export function buildInternalDryRunSimulationRunContract(
+  options: Partial<Pick<InternalDryRunSimulationRunContract, "ratioPresetId" | "activityProfileId">> = {}
+): InternalDryRunSimulationRunContract {
+  return {
+    schemaVersion: INTERNAL_DRY_RUN_SIMULATION_RUN_SCHEMA_VERSION,
+    runContractId: INTERNAL_DRY_RUN_SIMULATION_RUN_CONTRACT_ID,
+    canonicalScenarioSeedId: CANONICAL_SCENARIO_SEED_ID,
+    canonicalFloorplanId: CANONICAL_SCENARIO_FLOORPLAN_ID,
+    ratioPresetId: options.ratioPresetId ?? "four_to_one",
+    allowedRatioPresetIds: [...RATIO_PRESET_IDS],
+    activityProfileId: options.activityProfileId ?? "typical",
+    allowedActivityProfileIds: [...ACTIVITY_PROFILE_IDS],
+    roomLoadContractId: "room-load-starter-canonical-plan-1",
+    manualAssignmentBridgeId: "manual-assignment-scenario-bridge-canonical-plan-1",
+    deterministicSeedId: INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID,
+    dryRunStatus: "internal_dry_run_shell_only",
+    syntheticDataOnly: true,
+    canonicalPlanOnly: true,
+    optimizerStatus: "not_started",
+    assignmentRecommendationStatus: "not_started",
+    clinicalSafetyClaim: false,
+    staffingComplianceClaim: false,
+    outcomePredictionClaim: false
+  };
+}
+
+export function validateInternalDryRunSimulationRunContract(
+  value: unknown
+): InternalDryRunSimulationRunContract {
+  validateNoForbiddenKeysOrText(value, "internalDryRunSimulationRun");
+  const contract = requireRecord(value, "internalDryRunSimulationRun");
+  requireExactKeys(contract, "internalDryRunSimulationRun", [
+    "schemaVersion",
+    "runContractId",
+    "canonicalScenarioSeedId",
+    "canonicalFloorplanId",
+    "ratioPresetId",
+    "allowedRatioPresetIds",
+    "activityProfileId",
+    "allowedActivityProfileIds",
+    "roomLoadContractId",
+    "manualAssignmentBridgeId",
+    "deterministicSeedId",
+    "dryRunStatus",
+    "syntheticDataOnly",
+    "canonicalPlanOnly",
+    "optimizerStatus",
+    "assignmentRecommendationStatus",
+    "clinicalSafetyClaim",
+    "staffingComplianceClaim",
+    "outcomePredictionClaim"
+  ]);
+
+  const ratioPresetId = requireEnum(contract.ratioPresetId, RATIO_PRESET_IDS, "ratioPresetId");
+  const activityProfileId = requireEnum(
+    contract.activityProfileId,
+    ACTIVITY_PROFILE_IDS,
+    "activityProfileId"
+  );
+  const allowedRatioPresetIds = validateEnumArray(
+    contract.allowedRatioPresetIds,
+    RATIO_PRESET_IDS,
+    "allowedRatioPresetIds"
+  );
+  const allowedActivityProfileIds = validateEnumArray(
+    contract.allowedActivityProfileIds,
+    ACTIVITY_PROFILE_IDS,
+    "allowedActivityProfileIds"
+  );
+
+  if (allowedRatioPresetIds.length !== RATIO_PRESET_IDS.length) {
+    throw new Error("allowedRatioPresetIds must include every dry-run ratio preset");
+  }
+  if (allowedActivityProfileIds.length !== ACTIVITY_PROFILE_IDS.length) {
+    throw new Error("allowedActivityProfileIds must include every activity profile");
+  }
+
+  return {
+    schemaVersion: requireLiteral(
+      contract.schemaVersion,
+      INTERNAL_DRY_RUN_SIMULATION_RUN_SCHEMA_VERSION,
+      "schemaVersion"
+    ),
+    runContractId: requireLiteral(
+      contract.runContractId,
+      INTERNAL_DRY_RUN_SIMULATION_RUN_CONTRACT_ID,
+      "runContractId"
+    ),
+    canonicalScenarioSeedId: requireLiteral(
+      contract.canonicalScenarioSeedId,
+      CANONICAL_SCENARIO_SEED_ID,
+      "canonicalScenarioSeedId"
+    ),
+    canonicalFloorplanId: requireLiteral(
+      contract.canonicalFloorplanId,
+      CANONICAL_SCENARIO_FLOORPLAN_ID,
+      "canonicalFloorplanId"
+    ),
+    ratioPresetId,
+    allowedRatioPresetIds,
+    activityProfileId,
+    allowedActivityProfileIds,
+    roomLoadContractId: requireLiteral(
+      contract.roomLoadContractId,
+      "room-load-starter-canonical-plan-1",
+      "roomLoadContractId"
+    ),
+    manualAssignmentBridgeId: requireLiteral(
+      contract.manualAssignmentBridgeId,
+      "manual-assignment-scenario-bridge-canonical-plan-1",
+      "manualAssignmentBridgeId"
+    ),
+    deterministicSeedId: requireLiteral(
+      contract.deterministicSeedId,
+      INTERNAL_DRY_RUN_DETERMINISTIC_SEED_ID,
+      "deterministicSeedId"
+    ),
+    dryRunStatus: requireLiteral(
+      contract.dryRunStatus,
+      "internal_dry_run_shell_only",
+      "dryRunStatus"
+    ),
+    syntheticDataOnly: requireBooleanLiteral(
+      contract.syntheticDataOnly,
+      true,
+      "syntheticDataOnly"
+    ),
+    canonicalPlanOnly: requireBooleanLiteral(contract.canonicalPlanOnly, true, "canonicalPlanOnly"),
+    optimizerStatus: requireLiteral(contract.optimizerStatus, "not_started", "optimizerStatus"),
+    assignmentRecommendationStatus: requireLiteral(
+      contract.assignmentRecommendationStatus,
+      "not_started",
+      "assignmentRecommendationStatus"
+    ),
+    clinicalSafetyClaim: requireBooleanLiteral(
+      contract.clinicalSafetyClaim,
+      false,
+      "clinicalSafetyClaim"
+    ),
+    staffingComplianceClaim: requireBooleanLiteral(
+      contract.staffingComplianceClaim,
+      false,
+      "staffingComplianceClaim"
+    ),
+    outcomePredictionClaim: requireBooleanLiteral(
+      contract.outcomePredictionClaim,
+      false,
+      "outcomePredictionClaim"
+    )
+  };
+}
 
 export type SimulationTaskEventAction =
   | "ready"
@@ -815,6 +1007,13 @@ function requireLiteral<T extends string>(value: unknown, expected: T, label: st
   return expected;
 }
 
+function requireBooleanLiteral<T extends boolean>(value: unknown, expected: T, label: string): T {
+  if (value !== expected) {
+    throw new Error(`${label} must be ${String(expected)}`);
+  }
+  return expected;
+}
+
 function requireEnum<T extends string>(
   value: unknown,
   allowedValues: readonly T[],
@@ -824,6 +1023,18 @@ function requireEnum<T extends string>(
     throw new Error(`${label} must be one of ${allowedValues.join(", ")}`);
   }
   return value as T;
+}
+
+function validateEnumArray<T extends string>(
+  value: unknown,
+  allowedValues: readonly T[],
+  label: string
+): T[] {
+  const values = requireArray(value, label).map((item, index) =>
+    requireEnum(item, allowedValues, `${label}[${index}]`)
+  );
+  requireUnique(label, values);
+  return values;
 }
 
 function requireUnique(label: string, values: string[]): Set<string> {

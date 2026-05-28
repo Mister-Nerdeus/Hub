@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "no-optimizer",
+  "issue": "562",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "optimizer remains not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}
