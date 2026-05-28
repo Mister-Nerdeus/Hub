@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-dry-run-event-artifacts.mjs --stage event-artifact --allow-partial --issue 576
+node scripts/check-dry-run-event-artifacts.mjs --stage summary-artifact --allow-partial --issue 576
+node scripts/check-dry-run-event-artifacts.mjs --stage deterministic-hash --allow-partial --issue 576
+node scripts/check-dry-run-event-artifacts.mjs --stage limitations --allow-partial --issue 576
+node scripts/check-no-phi-fields.mjs

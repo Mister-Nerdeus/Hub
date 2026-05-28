@@ -182,6 +182,8 @@ export * from "./simulation/assignmentVariantRunner.js";
 export * from "./simulation/activityProfileOccupancySelection.js";
 export * from "./simulation/deterministicSeedContract.js";
 export * from "./simulation/deterministicSequence.js";
+export * from "./simulation/dryRunArtifactContract.js";
+export * from "./simulation/dryRunArtifactGeneration.js";
 export * from "./simulation/dryRunTimestepContract.js";
 export * from "./simulation/dryRunTimestepValidation.js";
 export * from "./simulation/dryRunQueuePlaceholder.js";

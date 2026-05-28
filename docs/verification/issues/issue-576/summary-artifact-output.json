@@ -1,0 +1,196 @@
+{
+  "status": "passed",
+  "taskSummaryArtifact": {
+    "schemaVersion": "1.0.0",
+    "artifactId": "internal-dry-run-four_to_one-typical-task-summary.json",
+    "artifactType": "task_summary",
+    "runId": "internal-dry-run-four_to_one-typical",
+    "metadata": {
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+      "canonicalFloorplanId": "default-er-layout-plan-1",
+      "ratioPresetId": "four_to_one",
+      "activityProfileId": "typical",
+      "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+      "syntheticDataOnly": true,
+      "optimizerStatus": "not_started",
+      "assignmentRecommendationStatus": "not_started"
+    },
+    "summary": {
+      "generatedTaskCount": 30,
+      "taskInstanceIds": [
+        "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-24-dry-run-room-check-01",
+        "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-05-dry-run-room-check-01",
+        "dry-run-task-room-15-dry-run-room-check-01",
+        "dry-run-task-room-16-dry-run-room-check-01",
+        "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-06-dry-run-room-check-01",
+        "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-12-dry-run-room-check-01",
+        "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-17-dry-run-room-check-01",
+        "dry-run-task-room-07-dry-run-room-check-01",
+        "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+        "dry-run-task-room-11-dry-run-room-check-01",
+        "dry-run-task-room-10-dry-run-room-check-01",
+        "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-19-dry-run-room-check-01",
+        "dry-run-task-room-02-dry-run-room-check-01",
+        "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+        "dry-run-task-room-21-dry-run-room-check-01",
+        "dry-run-task-room-22-dry-run-room-check-01"
+      ]
+    }
+  },
+  "nurseRuntimeSummaryArtifact": {
+    "schemaVersion": "1.0.0",
+    "artifactId": "internal-dry-run-four_to_one-typical-nurse-runtime-summary.json",
+    "artifactType": "nurse_runtime_summary",
+    "runId": "internal-dry-run-four_to_one-typical",
+    "metadata": {
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+      "canonicalFloorplanId": "default-er-layout-plan-1",
+      "ratioPresetId": "four_to_one",
+      "activityProfileId": "typical",
+      "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+      "syntheticDataOnly": true,
+      "optimizerStatus": "not_started",
+      "assignmentRecommendationStatus": "not_started"
+    },
+    "summary": {
+      "syntheticNurseSnapshotCount": 6,
+      "snapshots": [
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-01",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+            "dry-run-task-room-02-dry-run-room-check-01",
+            "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02"
+          ],
+          "queuedPlaceholderTaskIds": [
+            "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02"
+          ],
+          "availabilityState": "queued_placeholder"
+        },
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-02",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-05-dry-run-room-check-01",
+            "dry-run-task-room-06-dry-run-room-check-01",
+            "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-07-dry-run-room-check-01",
+            "dry-run-task-room-05-dry-run-documentation-placeholder-02"
+          ],
+          "queuedPlaceholderTaskIds": [
+            "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-07-dry-run-room-check-01"
+          ],
+          "availabilityState": "queued_placeholder"
+        },
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-03",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-12-dry-run-room-check-01",
+            "dry-run-task-room-11-dry-run-room-check-01",
+            "dry-run-task-room-10-dry-run-room-check-01",
+            "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-11-dry-run-documentation-placeholder-02"
+          ],
+          "queuedPlaceholderTaskIds": [
+            "dry-run-task-room-12-dry-run-room-check-01",
+            "dry-run-task-room-12-dry-run-documentation-placeholder-02"
+          ],
+          "availabilityState": "queued_placeholder"
+        },
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-04",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-15-dry-run-room-check-01",
+            "dry-run-task-room-16-dry-run-room-check-01",
+            "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-17-dry-run-room-check-01"
+          ],
+          "queuedPlaceholderTaskIds": [
+            "dry-run-task-room-16-dry-run-room-check-01",
+            "dry-run-task-room-17-dry-run-room-check-01"
+          ],
+          "availabilityState": "queued_placeholder"
+        },
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-05",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-19-dry-run-room-check-01",
+            "dry-run-task-room-21-dry-run-room-check-01",
+            "dry-run-task-room-22-dry-run-room-check-01"
+          ],
+          "queuedPlaceholderTaskIds": [
+            "dry-run-task-room-22-dry-run-room-check-01"
+          ],
+          "availabilityState": "queued_placeholder"
+        },
+        {
+          "syntheticMinuteOffset": 0,
+          "syntheticNurseId": "synthetic-nurse-06",
+          "activePlaceholderTaskIds": [
+            "dry-run-task-room-24-dry-run-room-check-01",
+            "dry-run-task-room-24-dry-run-documentation-placeholder-02"
+          ],
+          "queuedPlaceholderTaskIds": [],
+          "availabilityState": "busy_placeholder"
+        }
+      ]
+    }
+  },
+  "queuePlaceholderSummaryArtifact": {
+    "schemaVersion": "1.0.0",
+    "artifactId": "internal-dry-run-four_to_one-typical-queue-placeholder-summary.json",
+    "artifactType": "queue_placeholder_summary",
+    "runId": "internal-dry-run-four_to_one-typical",
+    "metadata": {
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+      "canonicalFloorplanId": "default-er-layout-plan-1",
+      "ratioPresetId": "four_to_one",
+      "activityProfileId": "typical",
+      "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+      "syntheticDataOnly": true,
+      "optimizerStatus": "not_started",
+      "assignmentRecommendationStatus": "not_started"
+    },
+    "summary": {
+      "generatedTaskCount": 30,
+      "startedPlaceholderCount": 30,
+      "completedPlaceholderCount": 30,
+      "queuedPlaceholderCount": 30,
+      "delayedPlaceholderCount": 8,
+      "unassignedPlaceholderCount": 0
+    }
+  }
+}
