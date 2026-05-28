@@ -1,0 +1,104 @@
+> npm run check:simulation-v0-ui-shell
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:simulation-v0-ui-shell
+> npm --workspace packages/shared run build && node scripts/check-simulation-v0-ui-shell.mjs --stage final --issue 580
+
+
+> @nerdeus/shared@0.1.0 build
+> tsc -p tsconfig.json
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation v0 panel source exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "panel exposes internal dry-run heading",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rendered simulation panel exists",
+      "passed": true,
+      "detail": {
+        "panelFound": true,
+        "bodyText": "\n    Operational workspaceER Pod Shift SimulatorSynthetic operational modeling only. Manual review required; promotion blocked.Manual review requiredPromotion blockedSynthetic operational modeling onlyLock WorkspaceFloorplanEditorManual AssignmentReview / ReportsAdvancedDeveloper/EvidenceFuture ToolsReview CandidatesAssignment WorkflowScenariosSimulationSettingsSimulationSimulation v0Internal Dry-Run Readinessinternal synthetic dry-run onlyCanonical seedneutral-workload-seed-canonical-plan-1Activity profiletypicalRatio presets4:1 / 3:1Task placeholders30Queue PlaceholdersRatioQueuedDelayedUnassignedGroupsPressure4:18806heavy3:15508moderateArtifact SummaryComparisonsimulation-v0-four-to-one-vs-three-to-one-comparisonReproducibilitystable hash proof passedLimitationsInternal synthetic dry-run only.No optimizer.No assignment recommendation.No clinical safety score.No staffing compliance certification.No patient outcome prediction.\n    \n  \n\n",
+        "accessCredentialVisible": false,
+        "forbiddenVisibleTermVisible": false,
+        "textLength": 951
+      }
+    },
+    {
+      "name": "view model exposes comparison artifact status",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "view model exposes reproducibility status",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "visible copy includes required limitations",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "visible copy does not expose access credential",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "visible copy avoids configured forbidden terms",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Simulation UI status is derived from passing proof truth",
+      "passed": true,
+      "detail": {
+        "usesProofBuilder": true,
+        "renderedPassedStatus": true,
+        "pendingAbsent": true
+      }
+    },
+    {
+      "name": "reproducibility status builder reports passed only from proof",
+      "passed": true,
+      "detail": {
+        "status": {
+          "status": "stable_hash_proof_passed",
+          "label": "stable hash proof passed",
+          "proofId": "simulation-v0-dry-run-reproducibility-proof",
+          "firstArtifactHash": "dd3779f6",
+          "secondArtifactHash": "dd3779f6",
+          "repeatedRunMatches": true
+        },
+        "repeatedRunMatches": true
+      }
+    },
+    {
+      "name": "manifest/proof passed plus pending UI status negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "simulation route renders proof-derived status without forbidden claims",
+      "passed": true,
+      "detail": {
+        "panelFound": true,
+        "bodyText": "\n    Operational workspaceER Pod Shift SimulatorSynthetic operational modeling only. Manual review required; promotion blocked.Manual review requiredPromotion blockedSynthetic operational modeling onlyLock WorkspaceFloorplanEditorManual AssignmentReview / ReportsAdvancedDeveloper/EvidenceFuture ToolsReview CandidatesAssignment WorkflowScenariosSimulationSettingsSimulationSimulation v0Internal Dry-Run Readinessinternal synthetic dry-run onlyCanonical seedneutral-workload-seed-canonical-plan-1Activity profiletypicalRatio presets4:1 / 3:1Task placeholders30Queue PlaceholdersRatioQueuedDelayedUnassignedGroupsPressure4:18806heavy3:15508moderateArtifact SummaryComparisonsimulation-v0-four-to-one-vs-three-to-one-comparisonReproducibilitystable hash proof passedLimitationsInternal synthetic dry-run only.No optimizer.No assignment recommendation.No clinical safety score.No staffing compliance certification.No patient outcome prediction.\n    \n  \n\n",
+        "accessCredentialVisible": false,
+        "forbiddenVisibleTermVisible": false,
+        "textLength": 951
+      }
+    }
+  ]
+}

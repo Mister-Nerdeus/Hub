@@ -83,7 +83,7 @@ function requiredCommittedPaths() {
     "package.json"
   ];
   const issueEvidence = [];
-  for (let issue = 591; issue <= 596; issue += 1) {
+  for (let issue = 591; issue <= 598; issue += 1) {
     issueEvidence.push(`docs/verification/issues/issue-${issue}/closeout.md`);
     issueEvidence.push(`docs/verification/issues/issue-${issue}/commands.txt`);
     issueEvidence.push(`docs/verification/issues/issue-${issue}/command-output-map.json`);

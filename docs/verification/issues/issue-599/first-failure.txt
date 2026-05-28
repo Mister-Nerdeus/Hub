@@ -1,0 +1,3 @@
+Issue 590 produced a GO while earlier gates had unresolved contradictions, including actual placement scale, committed evidence index truth, docs contract status, visible-copy fail-closed coverage, stale Simulation UI status, final-gate manifest trust, committed-state verification, and runtime seed operational meaning.
+
+Issue 599 repairs the false-positive decision state by rerunning the repaired gates and issuing a clean audit decision from committed local evidence.

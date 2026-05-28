@@ -1,0 +1,83 @@
+> npm run check:issue-evidence-index
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:issue-evidence-index
+> node scripts/check-issue-evidence-index.mjs --stage final --issue 590
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "committed issue evidence index is non-empty JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "path": "docs/verification/ISSUE_EVIDENCE_INDEX.json",
+        "byteSize": 1381932,
+        "whitespaceOnly": false,
+        "schemaVersion": "1.0.0",
+        "lastRebuiltIssue": "599",
+        "issueCount": 469,
+        "failures": []
+      }
+    },
+    {
+      "name": "issue evidence index is valid JSON with schema metadata",
+      "passed": true,
+      "detail": {
+        "failures": []
+      }
+    },
+    {
+      "name": "issue evidence index covers 571-592",
+      "passed": true,
+      "detail": {
+        "coverageFailures": []
+      }
+    },
+    {
+      "name": "issue evidence index includes required evidence for 581-592",
+      "passed": true,
+      "detail": {
+        "missingRequiredEvidenceFailures": []
+      }
+    },
+    {
+      "name": "stale entry negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local-only evidence with blank committed index negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "missing evidence negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rebuilt index exists",
+      "passed": true,
+      "detail": {
+        "indexPath": "docs/verification/ISSUE_EVIDENCE_INDEX.json"
+      }
+    },
+    {
+      "name": "indexed evidence is present",
+      "passed": true,
+      "detail": {
+        "missingEvidenceCount": 0
+      }
+    }
+  ]
+}

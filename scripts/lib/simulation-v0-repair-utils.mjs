@@ -405,6 +405,15 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-runtime-seed-behavior.mjs --stage operational-runtime-field-changed --allow-partial --issue 598",
       "node scripts/check-runtime-seed-behavior.mjs --stage same-workload-preserved --allow-partial --issue 598",
       "node scripts/check-runtime-seed-behavior.mjs --stage workload-hash-unchanged --allow-partial --issue 598"
+    ],
+    "599": [
+      "npm run check:default-room-scale",
+      "npm run check:issue-evidence-index",
+      "npm run check:docs",
+      "npm run check:visible-product-copy-all-routes",
+      "npm run check:simulation-v0-ui-shell",
+      "npm run check:simulation-v0-refinement-repair",
+      "node scripts/check-clean-committed-state.mjs --stage final --issue 599"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -425,6 +434,7 @@ export function mappedRepairOutput(dir, command) {
   if (matchesGate(command, "runtime-seed-behavior")) return `${base}/runtime-seed-behavior.txt`;
   if (matchesGate(command, "simulation-v0-comparison-validation-hardening")) return `${base}/simulation-v0-comparison-validation-hardening.txt`;
   if (matchesGate(command, "simulation-v0-refinement-repair")) return `${base}/simulation-v0-refinement-repair.txt`;
+  if (matchesGate(command, "simulation-v0-ui-shell")) return `${base}/simulation-v0-ui-shell.txt`;
   if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
   if (matchesGate(command, "clean-committed-state")) return `${base}/clean-committed-state.txt`;
   if (matchesGate(command, "docs-contracts") || command.includes("check:docs")) return `${base}/docs-contracts.txt`;

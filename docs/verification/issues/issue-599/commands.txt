@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:default-room-scale
+npm run check:issue-evidence-index
+npm run check:docs
+npm run check:visible-product-copy-all-routes
+npm run check:simulation-v0-ui-shell
+npm run check:simulation-v0-refinement-repair
+node scripts/check-clean-committed-state.mjs --stage final --issue 599
+node scripts/check-no-phi-fields.mjs

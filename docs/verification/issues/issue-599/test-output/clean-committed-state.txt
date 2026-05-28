@@ -1,0 +1,30 @@
+> node scripts/check-clean-committed-state.mjs --stage final --issue 599
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "599",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "required committed-state repair files and root scripts exist",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "missingScripts": []
+      }
+    },
+    {
+      "name": "local-only artifact negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "required committed-state repair files are git-tracked",
+      "passed": true,
+      "detail": {
+        "untracked": []
+      }
+    }
+  ]
+}

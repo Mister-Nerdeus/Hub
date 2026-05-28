@@ -1,0 +1,71 @@
+{
+  "issue": "599",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:default-room-scale",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/default-room-scale.txt"
+      ]
+    },
+    {
+      "command": "npm run check:issue-evidence-index",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/issue-evidence-index.txt"
+      ]
+    },
+    {
+      "command": "npm run check:docs",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "npm run check:visible-product-copy-all-routes",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-ui-shell",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/simulation-v0-ui-shell.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-refinement-repair",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/simulation-v0-refinement-repair.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-clean-committed-state.mjs --stage final --issue 599",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-599/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
