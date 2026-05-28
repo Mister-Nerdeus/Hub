@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "561-570",
-  "lastUpdatedIssue": "569",
+  "lastUpdatedIssue": "570",
   "productDisplayName": "ER Pod Shift Simulator",
   "canonicalFloorplanId": "default-er-layout-plan-1",
   "scenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
@@ -14,7 +14,7 @@
   "nurseRuntimeStateStatus": "passed",
   "queuePlaceholderStatus": "passed",
   "ratioDryRunComparisonStatus": "passed",
-  "simulationV0GoNoGoStatus": "not_ready",
+  "simulationV0GoNoGoStatus": "go_for_simulation_v0_internal_dry_run_implementation",
   "usesCanonicalScenarioSeed": true,
   "usesRatioPresetContracts": true,
   "usesRoomLoadStarterContract": true,
@@ -31,5 +31,5 @@
   "manualApprovalStatus": "missing",
   "promotionStatus": "blocked",
   "noPhiStatus": "passed",
-  "goNoGoStatus": "not_ready"
+  "goNoGoStatus": "go_for_simulation_v0_internal_dry_run_implementation"
 }

@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "internal dry-run simulation run contract validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "contract references canonical scenario seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "contract is synthetic only",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "contract is internal dry-run only",
+      "passed": true,
+      "detail": "internal_dry_run_shell_only"
+    },
+    {
+      "name": "optimizer remains not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

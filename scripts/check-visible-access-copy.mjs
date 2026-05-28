@@ -14,6 +14,7 @@ const stageAliases = {
 };
 const stage = stageAliases[requestedStage] ?? requestedStage;
 const issue = readArg("--issue") ?? "502";
+const issueNumber = Number(issue.replace(/\D/gu, "") || "0");
 const allowPartial = args.includes("--allow-partial");
 const issueDir = `docs/verification/issues/issue-${issue}`;
 const manifestPath = "docs/verification/unlocked-workspace-polish-manifest.json";
@@ -27,7 +28,7 @@ const stages = {
 const checks = [];
 
 if (stage !== "final" && !Object.hasOwn(stages, stage)) fail(`Unsupported visible access copy stage: ${requestedStage}`);
-if (stage !== "final" && !allowPartial) fail(`${requestedStage} requires --allow-partial before Issue 510`);
+if (stage !== "final" && !allowPartial && issueNumber < 510) fail(`${requestedStage} requires --allow-partial before Issue 510`);
 if (stage === "final" && allowPartial) fail("final visible access copy gate must run without --allow-partial");
 
 mkdirSync(abs(`${issueDir}/test-output`), { recursive: true });

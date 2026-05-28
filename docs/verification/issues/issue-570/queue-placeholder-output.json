@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "queue": {
+    "schemaVersion": "1.0.0",
+    "queuePlaceholderId": "dry-run-queue-placeholder-canonical-plan-1",
+    "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+    "queuedTaskIds": [
+      "dry-run-task-room-03-dry-run-room-check-01",
+      "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-04-dry-run-room-check-01",
+      "dry-run-task-room-02-dry-run-room-check-01",
+      "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+      "dry-run-task-room-level-1-trauma-dry-run-room-check-01"
+    ],
+    "delayedTaskIds": [
+      "dry-run-task-room-04-dry-run-room-check-01",
+      "dry-run-task-room-04-dry-run-documentation-placeholder-02"
+    ],
+    "syntheticDelayBand": "placeholder_medium",
+    "placeholderPressureLabel": "placeholder_moderate",
+    "taskSetSnapshot": {
+      "schemaVersion": "1.0.0",
+      "taskInstanceSetId": "dry-run-task-instances-canonical-plan-1",
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+      "roomLoadContractId": "room-load-starter-canonical-plan-1",
+      "activityProfileId": "typical",
+      "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+      "source": "room-load starter synthetic input",
+      "instances": [
+        {
+          "taskInstanceId": "dry-run-task-room-03-dry-run-room-check-01",
+          "loadableBedPositionId": "room-03",
+          "templateId": "dry-run-room-check",
+          "syntheticTimestepOffsetMinutes": 0,
+          "durationPlaceholderMinutes": 5,
+          "intensityPlaceholder": "low",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+          "loadableBedPositionId": "room-03",
+          "templateId": "dry-run-documentation-placeholder",
+          "syntheticTimestepOffsetMinutes": 15,
+          "durationPlaceholderMinutes": 11,
+          "intensityPlaceholder": "medium",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-04-dry-run-room-check-01",
+          "loadableBedPositionId": "room-04",
+          "templateId": "dry-run-room-check",
+          "syntheticTimestepOffsetMinutes": 45,
+          "durationPlaceholderMinutes": 5,
+          "intensityPlaceholder": "low",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+          "loadableBedPositionId": "room-02",
+          "templateId": "dry-run-room-check",
+          "syntheticTimestepOffsetMinutes": 105,
+          "durationPlaceholderMinutes": 6,
+          "intensityPlaceholder": "low",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+          "loadableBedPositionId": "room-level-1-trauma",
+          "templateId": "dry-run-documentation-placeholder",
+          "syntheticTimestepOffsetMinutes": 135,
+          "durationPlaceholderMinutes": 14,
+          "intensityPlaceholder": "medium",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+          "loadableBedPositionId": "room-04",
+          "templateId": "dry-run-documentation-placeholder",
+          "syntheticTimestepOffsetMinutes": 150,
+          "durationPlaceholderMinutes": 5,
+          "intensityPlaceholder": "medium",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+          "loadableBedPositionId": "room-02",
+          "templateId": "dry-run-documentation-placeholder",
+          "syntheticTimestepOffsetMinutes": 180,
+          "durationPlaceholderMinutes": 7,
+          "intensityPlaceholder": "medium",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        },
+        {
+          "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+          "loadableBedPositionId": "room-level-1-trauma",
+          "templateId": "dry-run-room-check",
+          "syntheticTimestepOffsetMinutes": 210,
+          "durationPlaceholderMinutes": 5,
+          "intensityPlaceholder": "low",
+          "dryRunStatus": "internal_dry_run_shell_only",
+          "syntheticDataOnly": true,
+          "clinicalClaim": false,
+          "outcomePredictionClaim": false,
+          "optimizerStatus": "not_started"
+        }
+      ],
+      "usesRawRoomCounts": false,
+      "usesStorageOrSupportForTasks": false,
+      "syntheticDataOnly": true,
+      "optimizerStatus": "not_started"
+    },
+    "outcomeClaim": false,
+    "clinicalSafetyScoreStatus": "not_started",
+    "staffingComplianceStatus": "not_started",
+    "optimizerStatus": "not_started",
+    "assignmentRecommendationStatus": "not_started",
+    "syntheticDataOnly": true
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "4:1 dry-run proof exists",
+      "passed": true,
+      "detail": {
+        "runId": "dry-run-proof-four-to-one",
+        "ratioPresetId": "four_to_one",
+        "ratioLabel": "4:1",
+        "patientsPerNurse": 4,
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+        "roomLoadContractId": "room-load-starter-canonical-plan-1",
+        "activityProfileId": "typical",
+        "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+        "taskTemplateCount": 5,
+        "generatedTaskCount": 8,
+        "syntheticNurseRuntimeGroupCount": 6,
+        "queuePlaceholderCount": 8,
+        "delayedTaskPlaceholderCount": 2,
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "3:1 dry-run proof exists",
+      "passed": true,
+      "detail": {
+        "runId": "dry-run-proof-three-to-one",
+        "ratioPresetId": "three_to_one",
+        "ratioLabel": "3:1",
+        "patientsPerNurse": 3,
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+        "roomLoadContractId": "room-load-starter-canonical-plan-1",
+        "activityProfileId": "typical",
+        "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+        "taskTemplateCount": 5,
+        "generatedTaskCount": 8,
+        "syntheticNurseRuntimeGroupCount": 8,
+        "queuePlaceholderCount": 8,
+        "delayedTaskPlaceholderCount": 2,
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "runs share canonical seed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runs share activity profile",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runs share deterministic seed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "comparison proof validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "proof carries no clinical claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "proof carries no compliance claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "proof carries no outcome claim",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

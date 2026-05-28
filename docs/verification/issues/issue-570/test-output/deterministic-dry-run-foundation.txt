@@ -1,0 +1,328 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "deterministic dry-run manifest exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest names canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "manifest names canonical scenario seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "manifest keeps Simulation v0 internal",
+      "passed": true,
+      "detail": "internal_dry_run_shell_only"
+    },
+    {
+      "name": "manifest blocks promotion",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "scenarioSeedManifestStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "canonicalScenarioSeedStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "ratioPresetFourToOneStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "ratioPresetThreeToOneStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "capacityIntegrationStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "roomLoadStarterContractStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "activityProfileContractStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "manualAssignmentScenarioBridgeStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "scenarioComparisonShellStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "check:deterministic-dry-run-foundation package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-deterministic-dry-run-foundation.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:simulation-run-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-simulation-run-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:deterministic-seed-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-deterministic-seed-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-timestep-shell package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-timestep-shell.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-task-template-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-task-template-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-task-generation package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-task-generation.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:nurse-runtime-state-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-nurse-runtime-state-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-queue-placeholder package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-queue-placeholder.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-comparison-proof package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-comparison-proof.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:simulation-v0-go-no-go package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-simulation-v0-go-no-go.mjs --stage final --issue 570"
+    },
+    {
+      "name": "manifest does not use raw room counts",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "dry-run source avoids raw room iteration",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "optimizer not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "assignment recommendations not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "clinical scoring not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "staffing compliance not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "patient outcome prediction not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "deterministic dry-run manifest exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest names canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "manifest names canonical scenario seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "manifest keeps Simulation v0 internal",
+      "passed": true,
+      "detail": "internal_dry_run_shell_only"
+    },
+    {
+      "name": "manifest blocks promotion",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "scenarioSeedManifestStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "canonicalScenarioSeedStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "ratioPresetFourToOneStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "ratioPresetThreeToOneStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "capacityIntegrationStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "roomLoadStarterContractStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "activityProfileContractStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "manualAssignmentScenarioBridgeStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "scenarioComparisonShellStatus passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "check:deterministic-dry-run-foundation package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-deterministic-dry-run-foundation.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:simulation-run-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-simulation-run-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:deterministic-seed-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-deterministic-seed-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-timestep-shell package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-timestep-shell.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-task-template-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-task-template-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-task-generation package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-task-generation.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:nurse-runtime-state-contract package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-nurse-runtime-state-contract.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-queue-placeholder package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-queue-placeholder.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:dry-run-comparison-proof package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-dry-run-comparison-proof.mjs --stage final --issue 570"
+    },
+    {
+      "name": "check:simulation-v0-go-no-go package script exists",
+      "passed": true,
+      "detail": "npm --workspace packages/shared run build && node scripts/check-simulation-v0-go-no-go.mjs --stage final --issue 570"
+    },
+    {
+      "name": "manifest does not use raw room counts",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "dry-run source avoids raw room iteration",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "optimizer not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "assignment recommendations not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "clinical scoring not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "staffing compliance not started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "patient outcome prediction not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

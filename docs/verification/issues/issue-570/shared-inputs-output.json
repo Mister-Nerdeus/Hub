@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "sharedInputs": {
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+    "roomLoadContractId": "room-load-starter-canonical-plan-1",
+    "activityProfileId": "typical",
+    "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+    "taskTemplateIds": [
+      "dry-run-room-check",
+      "dry-run-documentation-placeholder",
+      "dry-run-support-coordination-placeholder",
+      "dry-run-turnover-placeholder",
+      "dry-run-observation-placeholder"
+    ],
+    "usesCanonicalCapacityReport": true,
+    "usesSplitBayFixtureBridge": true,
+    "usesRawRoomCounts": false,
+    "usesStorageOrSupportForTasks": false
+  }
+}

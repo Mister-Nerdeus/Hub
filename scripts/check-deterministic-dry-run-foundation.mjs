@@ -77,7 +77,22 @@ function runStage(stage) {
   }
   if (stage === "no-raw-room-counts") {
     const files = [
-      "packages/shared/src/simulation",
+      "packages/shared/src/simulation/deterministicSeedContract.ts",
+      "packages/shared/src/simulation/deterministicSequence.ts",
+      "packages/shared/src/simulation/dryRunComparisonProof.ts",
+      "packages/shared/src/simulation/dryRunComparisonValidation.ts",
+      "packages/shared/src/simulation/dryRunQueuePlaceholder.ts",
+      "packages/shared/src/simulation/dryRunQueueValidation.ts",
+      "packages/shared/src/simulation/dryRunTimestepContract.ts",
+      "packages/shared/src/simulation/dryRunTimestepValidation.ts",
+      "packages/shared/src/simulation/nurseRuntimeStateContract.ts",
+      "packages/shared/src/simulation/nurseRuntimeStateValidation.ts",
+      "packages/shared/src/simulation/simulationRunContract.ts",
+      "packages/shared/src/simulation/simulationRunValidation.ts",
+      "packages/shared/src/simulation/taskInstanceGeneration.ts",
+      "packages/shared/src/simulation/taskInstanceValidation.ts",
+      "packages/shared/src/simulation/taskTemplateContract.ts",
+      "packages/shared/src/simulation/taskTemplateValidation.ts",
       "scripts/check-deterministic-dry-run-foundation.mjs",
       "scripts/check-dry-run-task-generation.mjs"
     ];

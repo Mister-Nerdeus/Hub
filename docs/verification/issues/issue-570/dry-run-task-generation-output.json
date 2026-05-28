@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "room-load input is synthetic",
+      "passed": true,
+      "detail": "synthetic planning input"
+    },
+    {
+      "name": "task instances validate",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "excluded spaces are rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "task generation repeats with same seed",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

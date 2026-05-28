@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "runtime state set validates",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "name": "runtime state uses manual assignment bridge",
+      "passed": true,
+      "detail": "manual-assignment-scenario-bridge-canonical-plan-1"
+    },
+    {
+      "name": "nurse labels are synthetic",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "recommendations remain not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "runtime state set validates",
+      "passed": true,
+      "detail": 6
+    },
+    {
+      "name": "runtime state uses manual assignment bridge",
+      "passed": true,
+      "detail": "manual-assignment-scenario-bridge-canonical-plan-1"
+    },
+    {
+      "name": "nurse labels are synthetic",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "recommendations remain not started",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

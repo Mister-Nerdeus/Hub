@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "queue placeholder validates",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "delayed placeholder validates",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "queue order repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no outcome claim flag is false",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "570",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/deterministic-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "queue placeholder validates",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "delayed placeholder validates",
+      "passed": true,
+      "detail": 2
+    },
+    {
+      "name": "queue order repeats",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no outcome claim flag is false",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "run": {
+    "runId": "dry-run-proof-three-to-one",
+    "ratioPresetId": "three_to_one",
+    "ratioLabel": "3:1",
+    "patientsPerNurse": 3,
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+    "roomLoadContractId": "room-load-starter-canonical-plan-1",
+    "activityProfileId": "typical",
+    "deterministicSeedId": "deterministic-dry-run-seed-canonical-plan-1",
+    "taskTemplateCount": 5,
+    "generatedTaskCount": 8,
+    "syntheticNurseRuntimeGroupCount": 8,
+    "queuePlaceholderCount": 8,
+    "delayedTaskPlaceholderCount": 2,
+    "optimizerStatus": "not_started",
+    "assignmentRecommendationStatus": "not_started",
+    "syntheticDataOnly": true
+  }
+}

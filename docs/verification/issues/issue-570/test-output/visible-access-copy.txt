@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "stage": "whole-app-visible-copy",
+  "normalizedStage": "whole-app-visible-copy",
+  "issue": "570",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "rendered whole app has no visible access-credential leak",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "rendered whole app has no forbidden legacy visible copy",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "negative visible-copy fixture would fail",
+      "passed": true,
+      "detail": {
+        "fixture": "synthetic rendered text"
+      }
+    }
+  ]
+}
