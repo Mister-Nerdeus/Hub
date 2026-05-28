@@ -1,0 +1,1363 @@
+
+
+> node scripts/check-simulation-v0-internal-dry-run.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation v0 manifest exists",
+      "passed": true,
+      "detail": {
+        "manifestVersion": "1.0.0",
+        "batch": "571-580",
+        "lastUpdatedIssue": "580",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "scenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "neutralWorkloadSeedStatus": "passed",
+        "ratioRuntimeSeedStatus": "passed",
+        "activityProfileOccupancySelectionStatus": "passed",
+        "dryRunExecutorStatus": "passed",
+        "nurseTaskProcessingStatus": "passed",
+        "ratioAwareQueueStatus": "passed",
+        "dryRunEventArtifactStatus": "passed",
+        "ratioComparisonArtifactStatus": "passed",
+        "simulationV0UiStatus": "passed",
+        "reproducibilityProofStatus": "passed",
+        "simulationV0GoNoGoStatus": "go_for_expanded_simulation_v0_refinement",
+        "usesCanonicalScenarioSeed": true,
+        "usesSelectorDrivenCapacity": true,
+        "usesNeutralWorkloadSeed": true,
+        "usesRatioSpecificRuntimeSeed": true,
+        "usesActivityProfileForOccupancy": true,
+        "usesStorageOrSupportForTasks": false,
+        "usesRawRoomCounts": false,
+        "fullFutureSimulationEventModelStatus": "dormant",
+        "simulationV0Status": "internal_dry_run_only",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "patientOutcomePredictionStatus": "not_started",
+        "manualApprovalStatus": "missing",
+        "promotionStatus": "blocked",
+        "noPhiStatus": "passed",
+        "goNoGoStatus": "go_for_expanded_simulation_v0_refinement"
+      }
+    },
+    {
+      "name": "all implementation statuses passed",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "executor uses canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "executor uses canonical seed",
+      "passed": true,
+      "detail": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "name": "comparison uses shared workload",
+      "passed": true,
+      "detail": {
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "activityProfileId": "typical",
+        "generatedTaskCount": 30,
+        "taskInstanceIds": [
+          "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-24-dry-run-room-check-01",
+          "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-06-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-12-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-17-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-room-check-01",
+          "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+          "dry-run-task-room-11-dry-run-room-check-01",
+          "dry-run-task-room-10-dry-run-room-check-01",
+          "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-room-check-01",
+          "dry-run-task-room-02-dry-run-room-check-01",
+          "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-room-check-01",
+          "dry-run-task-room-22-dry-run-room-check-01"
+        ],
+        "sameWorkloadForRatios": true
+      }
+    },
+    {
+      "name": "run status is internal dry-run only",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "comparison is internal only",
+      "passed": true,
+      "detail": "internal_dry_run_only"
+    },
+    {
+      "name": "future full event contract is dormant",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "no optimizer started",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no assignment recommendations",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no clinical/staffing/outcome claims",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-neutral-workload-seed.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "neutral workload seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "neutral-workload-seed-canonical-plan-1",
+        "seedValue": "simulation-v0-neutral-workload-canonical-plan-1",
+        "namespace": "workload",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetBinding": "ratio_neutral",
+        "reproducibilityNote": "same workload seed produces the same synthetic workload across ratio presets",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "workload seed is ratio-neutral",
+      "passed": true,
+      "detail": "ratio_neutral"
+    },
+    {
+      "name": "4:1 runtime seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "runtime-seed-canonical-plan-1-four-to-one",
+        "seedValue": "simulation-v0-runtime-canonical-plan-1-four-to-one",
+        "namespace": "ratio_runtime",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetId": "four_to_one",
+        "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "3:1 runtime seed exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "seedId": "runtime-seed-canonical-plan-1-three-to-one",
+        "seedValue": "simulation-v0-runtime-canonical-plan-1-three-to-one",
+        "namespace": "ratio_runtime",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "activityProfileId": "typical",
+        "ratioPresetId": "three_to_one",
+        "reproducibilityNote": "same ratio runtime seed produces the same synthetic runtime sequence for that ratio",
+        "hiddenRandomnessStatus": "forbidden",
+        "currentTimeDependencyStatus": "forbidden",
+        "syntheticDataOnly": true,
+        "optimizerStatus": "not_started"
+      }
+    },
+    {
+      "name": "runtime seeds are distinct",
+      "passed": true,
+      "detail": {
+        "four": "runtime-seed-canonical-plan-1-four-to-one",
+        "three": "runtime-seed-canonical-plan-1-three-to-one"
+      }
+    },
+    {
+      "name": "same neutral workload seed repeats task generation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "neutral workload seed drives shared workload",
+      "passed": true,
+      "detail": "neutral-workload-seed-canonical-plan-1"
+    },
+    {
+      "name": "ratio runtime sequences can differ deterministically",
+      "passed": true,
+      "detail": {
+        "fourRuntime": [
+          878405,
+          951401,
+          378425,
+          370882,
+          151543,
+          890038
+        ],
+        "threeRuntime": [
+          22525,
+          862421,
+          876326,
+          62597,
+          626525,
+          153078
+        ]
+      }
+    },
+    {
+      "name": "simulation source avoids Math.random and Date.now",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}
+
+> node scripts/check-activity-profile-occupancy-selection.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "typical selection uses profile occupancy",
+      "passed": true,
+      "detail": {
+        "expected": 15,
+        "selection": {
+          "schemaVersion": "1.0.0",
+          "selectionId": "activity-profile-occupancy-selection-canonical-plan-1",
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "activityProfileId": "typical",
+          "occupancyPercent": 65,
+          "eligibleBedPositionCount": 22,
+          "occupancyTargetCount": 15,
+          "selectedOccupiedBedPositionIds": [
+            "room-12",
+            "room-16",
+            "room-22",
+            "room-21",
+            "room-19",
+            "room-24",
+            "room-02",
+            "room-15",
+            "room-11",
+            "room-level-1-trauma",
+            "room-05",
+            "room-10",
+            "room-06",
+            "room-17",
+            "room-07"
+          ],
+          "unoccupiedEligibleBedPositionIds": [
+            "room-03",
+            "room-04",
+            "room-08",
+            "room-09",
+            "room-13",
+            "room-20",
+            "room-23"
+          ],
+          "deterministicSelectionProof": "dbfff1cd",
+          "usesSelectorEligibleBedPositions": true,
+          "usesNeutralWorkloadSeed": true,
+          "usesStorageOrSupportForTasks": false,
+          "usesRawRoomCounts": false,
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started"
+        }
+      }
+    },
+    {
+      "name": "typical selection validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "busy selection uses profile occupancy",
+      "passed": true,
+      "detail": {
+        "expected": 19,
+        "selection": {
+          "schemaVersion": "1.0.0",
+          "selectionId": "activity-profile-occupancy-selection-canonical-plan-1",
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "activityProfileId": "busy",
+          "occupancyPercent": 85,
+          "eligibleBedPositionCount": 22,
+          "occupancyTargetCount": 19,
+          "selectedOccupiedBedPositionIds": [
+            "room-02",
+            "room-07",
+            "room-11",
+            "room-23",
+            "room-09",
+            "room-08",
+            "room-17",
+            "room-19",
+            "room-06",
+            "room-level-1-trauma",
+            "room-24",
+            "room-22",
+            "room-10",
+            "room-03",
+            "room-04",
+            "room-15",
+            "room-12",
+            "room-20",
+            "room-21"
+          ],
+          "unoccupiedEligibleBedPositionIds": [
+            "room-05",
+            "room-13",
+            "room-16"
+          ],
+          "deterministicSelectionProof": "7f5f9db3",
+          "usesSelectorEligibleBedPositions": true,
+          "usesNeutralWorkloadSeed": true,
+          "usesStorageOrSupportForTasks": false,
+          "usesRawRoomCounts": false,
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started"
+        }
+      }
+    },
+    {
+      "name": "busy selection validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "slammed selection uses profile occupancy",
+      "passed": true,
+      "detail": {
+        "expected": 22,
+        "selection": {
+          "schemaVersion": "1.0.0",
+          "selectionId": "activity-profile-occupancy-selection-canonical-plan-1",
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "activityProfileId": "slammed",
+          "occupancyPercent": 100,
+          "eligibleBedPositionCount": 22,
+          "occupancyTargetCount": 22,
+          "selectedOccupiedBedPositionIds": [
+            "room-09",
+            "room-20",
+            "room-08",
+            "room-23",
+            "room-11",
+            "room-05",
+            "room-21",
+            "room-level-1-trauma",
+            "room-04",
+            "room-02",
+            "room-17",
+            "room-03",
+            "room-12",
+            "room-10",
+            "room-22",
+            "room-06",
+            "room-07",
+            "room-15",
+            "room-16",
+            "room-24",
+            "room-19",
+            "room-13"
+          ],
+          "unoccupiedEligibleBedPositionIds": [],
+          "deterministicSelectionProof": "e505cd1d",
+          "usesSelectorEligibleBedPositions": true,
+          "usesNeutralWorkloadSeed": true,
+          "usesStorageOrSupportForTasks": false,
+          "usesRawRoomCounts": false,
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started"
+        }
+      }
+    },
+    {
+      "name": "slammed selection validates",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "same seed and profile repeat selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "excluded spaces are not selected",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "excluded space negative fixture is rejected",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-dry-run-executor.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "executor output validates",
+      "passed": true,
+      "detail": "1.0.0"
+    },
+    {
+      "name": "executor uses neutral workload seed",
+      "passed": true,
+      "detail": "neutral-workload-seed-canonical-plan-1"
+    },
+    {
+      "name": "one internal dry-run can execute",
+      "passed": true,
+      "detail": 106
+    },
+    {
+      "name": "generated task count is non-zero",
+      "passed": true,
+      "detail": {
+        "generatedTaskCount": 30,
+        "startedPlaceholderCount": 30,
+        "completedPlaceholderCount": 30,
+        "queuedPlaceholderCount": 8,
+        "delayedPlaceholderCount": 8,
+        "unassignedPlaceholderCount": 0
+      }
+    },
+    {
+      "name": "timeline repeats for same inputs",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "full event contract remains dormant",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "no clinical safety claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no staffing compliance claim",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "no patient outcome prediction claim",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}
+
+> node scripts/check-nurse-task-processing-loop.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "assigned nurse receives task placeholders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "busy nurse queues placeholders",
+      "passed": true,
+      "detail": 8
+    },
+    {
+      "name": "manual assignment bridge is the only assignment source",
+      "passed": true,
+      "detail": "manual_assignment_bridge_only"
+    },
+    {
+      "name": "uncovered bed produces unassigned placeholder",
+      "passed": true,
+      "detail": [
+        "dry-run-task-room-06-dry-run-documentation-placeholder-02"
+      ]
+    },
+    {
+      "name": "excluded space negative fixture rejected",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no reassignment search",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no recommendation output",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "no optimizer output",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}
+
+> node scripts/check-ratio-aware-queue-placeholder.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "4:1 queue summary validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "queueSummaryId": "ratio-aware-queue-four_to_one",
+        "ratioPresetId": "four_to_one",
+        "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+        "generatedTaskCount": 30,
+        "syntheticNurseRuntimeGroupCount": 6,
+        "queuedPlaceholderCount": 8,
+        "delayedPlaceholderCount": 8,
+        "unassignedPlaceholderCount": 0,
+        "placeholderPressureBand": "placeholder_heavy",
+        "limitationCopy": [
+          "Queue pressure is a synthetic internal placeholder only.",
+          "Ratio-specific runtime state can change queue and delay placeholder counts.",
+          "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+        ],
+        "outcomeClaim": false,
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "recommendationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "3:1 queue summary validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "queueSummaryId": "ratio-aware-queue-three_to_one",
+        "ratioPresetId": "three_to_one",
+        "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+        "generatedTaskCount": 30,
+        "syntheticNurseRuntimeGroupCount": 8,
+        "queuedPlaceholderCount": 5,
+        "delayedPlaceholderCount": 5,
+        "unassignedPlaceholderCount": 0,
+        "placeholderPressureBand": "placeholder_moderate",
+        "limitationCopy": [
+          "Queue pressure is a synthetic internal placeholder only.",
+          "Ratio-specific runtime state can change queue and delay placeholder counts.",
+          "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+        ],
+        "outcomeClaim": false,
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "recommendationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "ratios share generated workload count",
+      "passed": true,
+      "detail": {
+        "four": 30,
+        "three": 30
+      }
+    },
+    {
+      "name": "ratio runtime capacity can change queue placeholders",
+      "passed": true,
+      "detail": {
+        "four": {
+          "schemaVersion": "1.0.0",
+          "queueSummaryId": "ratio-aware-queue-four_to_one",
+          "ratioPresetId": "four_to_one",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedTaskCount": 30,
+          "syntheticNurseRuntimeGroupCount": 6,
+          "queuedPlaceholderCount": 8,
+          "delayedPlaceholderCount": 8,
+          "unassignedPlaceholderCount": 0,
+          "placeholderPressureBand": "placeholder_heavy",
+          "limitationCopy": [
+            "Queue pressure is a synthetic internal placeholder only.",
+            "Ratio-specific runtime state can change queue and delay placeholder counts.",
+            "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+          ],
+          "outcomeClaim": false,
+          "clinicalSafetyClaim": false,
+          "staffingComplianceClaim": false,
+          "recommendationStatus": "not_started",
+          "optimizerStatus": "not_started",
+          "syntheticDataOnly": true
+        },
+        "three": {
+          "schemaVersion": "1.0.0",
+          "queueSummaryId": "ratio-aware-queue-three_to_one",
+          "ratioPresetId": "three_to_one",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+          "generatedTaskCount": 30,
+          "syntheticNurseRuntimeGroupCount": 8,
+          "queuedPlaceholderCount": 5,
+          "delayedPlaceholderCount": 5,
+          "unassignedPlaceholderCount": 0,
+          "placeholderPressureBand": "placeholder_moderate",
+          "limitationCopy": [
+            "Queue pressure is a synthetic internal placeholder only.",
+            "Ratio-specific runtime state can change queue and delay placeholder counts.",
+            "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+          ],
+          "outcomeClaim": false,
+          "clinicalSafetyClaim": false,
+          "staffingComplianceClaim": false,
+          "recommendationStatus": "not_started",
+          "optimizerStatus": "not_started",
+          "syntheticDataOnly": true
+        }
+      }
+    },
+    {
+      "name": "no outcome claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no safety or compliance claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no recommendations or optimizer",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-dry-run-event-artifacts.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "event artifact exists",
+      "passed": true,
+      "detail": "internal-dry-run-events-four_to_one-typical.json"
+    },
+    {
+      "name": "task summary exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "artifactId": "internal-dry-run-four_to_one-typical-task-summary.json",
+        "artifactType": "task_summary",
+        "runId": "internal-dry-run-four_to_one-typical",
+        "metadata": {
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "ratioPresetId": "four_to_one",
+          "activityProfileId": "typical",
+          "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started",
+          "assignmentRecommendationStatus": "not_started"
+        },
+        "summary": {
+          "generatedTaskCount": 30,
+          "taskInstanceIds": [
+            "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-24-dry-run-room-check-01",
+            "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-05-dry-run-room-check-01",
+            "dry-run-task-room-15-dry-run-room-check-01",
+            "dry-run-task-room-16-dry-run-room-check-01",
+            "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-06-dry-run-room-check-01",
+            "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-12-dry-run-room-check-01",
+            "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-17-dry-run-room-check-01",
+            "dry-run-task-room-07-dry-run-room-check-01",
+            "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+            "dry-run-task-room-11-dry-run-room-check-01",
+            "dry-run-task-room-10-dry-run-room-check-01",
+            "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-19-dry-run-room-check-01",
+            "dry-run-task-room-02-dry-run-room-check-01",
+            "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+            "dry-run-task-room-21-dry-run-room-check-01",
+            "dry-run-task-room-22-dry-run-room-check-01"
+          ]
+        }
+      }
+    },
+    {
+      "name": "nurse runtime summary exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "artifactId": "internal-dry-run-four_to_one-typical-nurse-runtime-summary.json",
+        "artifactType": "nurse_runtime_summary",
+        "runId": "internal-dry-run-four_to_one-typical",
+        "metadata": {
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "ratioPresetId": "four_to_one",
+          "activityProfileId": "typical",
+          "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started",
+          "assignmentRecommendationStatus": "not_started"
+        },
+        "summary": {
+          "syntheticNurseSnapshotCount": 6,
+          "snapshots": [
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-01",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+                "dry-run-task-room-02-dry-run-room-check-01",
+                "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02"
+              ],
+              "queuedPlaceholderTaskIds": [
+                "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02"
+              ],
+              "availabilityState": "queued_placeholder"
+            },
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-02",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-05-dry-run-room-check-01",
+                "dry-run-task-room-06-dry-run-room-check-01",
+                "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-07-dry-run-room-check-01",
+                "dry-run-task-room-05-dry-run-documentation-placeholder-02"
+              ],
+              "queuedPlaceholderTaskIds": [
+                "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-07-dry-run-room-check-01"
+              ],
+              "availabilityState": "queued_placeholder"
+            },
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-03",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-12-dry-run-room-check-01",
+                "dry-run-task-room-11-dry-run-room-check-01",
+                "dry-run-task-room-10-dry-run-room-check-01",
+                "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-11-dry-run-documentation-placeholder-02"
+              ],
+              "queuedPlaceholderTaskIds": [
+                "dry-run-task-room-12-dry-run-room-check-01",
+                "dry-run-task-room-12-dry-run-documentation-placeholder-02"
+              ],
+              "availabilityState": "queued_placeholder"
+            },
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-04",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-15-dry-run-room-check-01",
+                "dry-run-task-room-16-dry-run-room-check-01",
+                "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-17-dry-run-room-check-01"
+              ],
+              "queuedPlaceholderTaskIds": [
+                "dry-run-task-room-16-dry-run-room-check-01",
+                "dry-run-task-room-17-dry-run-room-check-01"
+              ],
+              "availabilityState": "queued_placeholder"
+            },
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-05",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+                "dry-run-task-room-19-dry-run-room-check-01",
+                "dry-run-task-room-21-dry-run-room-check-01",
+                "dry-run-task-room-22-dry-run-room-check-01"
+              ],
+              "queuedPlaceholderTaskIds": [
+                "dry-run-task-room-22-dry-run-room-check-01"
+              ],
+              "availabilityState": "queued_placeholder"
+            },
+            {
+              "syntheticMinuteOffset": 0,
+              "syntheticNurseId": "synthetic-nurse-06",
+              "activePlaceholderTaskIds": [
+                "dry-run-task-room-24-dry-run-room-check-01",
+                "dry-run-task-room-24-dry-run-documentation-placeholder-02"
+              ],
+              "queuedPlaceholderTaskIds": [],
+              "availabilityState": "busy_placeholder"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "queue placeholder summary exists",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "artifactId": "internal-dry-run-four_to_one-typical-queue-placeholder-summary.json",
+        "artifactType": "queue_placeholder_summary",
+        "runId": "internal-dry-run-four_to_one-typical",
+        "metadata": {
+          "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+          "canonicalFloorplanId": "default-er-layout-plan-1",
+          "ratioPresetId": "four_to_one",
+          "activityProfileId": "typical",
+          "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+          "syntheticDataOnly": true,
+          "optimizerStatus": "not_started",
+          "assignmentRecommendationStatus": "not_started"
+        },
+        "summary": {
+          "generatedTaskCount": 30,
+          "startedPlaceholderCount": 30,
+          "completedPlaceholderCount": 30,
+          "queuedPlaceholderCount": 8,
+          "delayedPlaceholderCount": 8,
+          "unassignedPlaceholderCount": 0
+        }
+      }
+    },
+    {
+      "name": "stable artifact hash repeats",
+      "passed": true,
+      "detail": {
+        "first": "e3d17eb8",
+        "second": "e3d17eb8"
+      }
+    },
+    {
+      "name": "hash excludes nondeterministic metadata",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "limitations markdown exists",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-simulation-v0-comparison-artifact.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "comparison uses neutral workload seed",
+      "passed": true,
+      "detail": {
+        "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+        "activityProfileId": "typical",
+        "generatedTaskCount": 30,
+        "taskInstanceIds": [
+          "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-24-dry-run-room-check-01",
+          "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-22-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-room-check-01",
+          "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-06-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-10-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-12-dry-run-room-check-01",
+          "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-17-dry-run-room-check-01",
+          "dry-run-task-room-07-dry-run-room-check-01",
+          "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+          "dry-run-task-room-11-dry-run-room-check-01",
+          "dry-run-task-room-10-dry-run-room-check-01",
+          "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-19-dry-run-room-check-01",
+          "dry-run-task-room-02-dry-run-room-check-01",
+          "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+          "dry-run-task-room-21-dry-run-room-check-01",
+          "dry-run-task-room-22-dry-run-room-check-01"
+        ],
+        "sameWorkloadForRatios": true
+      }
+    },
+    {
+      "name": "both ratios share generated task count",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runtime seed ids differ",
+      "passed": true,
+      "detail": {
+        "fourToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+        "threeToOneRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+        "ratioSpecificRuntimeAssumptions": true
+      }
+    },
+    {
+      "name": "runtime group counts differ by ratio",
+      "passed": true,
+      "detail": [
+        {
+          "ratioPresetId": "four_to_one",
+          "ratioLabel": "4:1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+          "generatedTaskCount": 30,
+          "queuedPlaceholderCount": 8,
+          "delayedPlaceholderCount": 8,
+          "unassignedPlaceholderCount": 0,
+          "syntheticNurseRuntimeGroupCount": 6,
+          "placeholderPressureBand": "placeholder_heavy"
+        },
+        {
+          "ratioPresetId": "three_to_one",
+          "ratioLabel": "3:1",
+          "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+          "generatedTaskCount": 30,
+          "queuedPlaceholderCount": 5,
+          "delayedPlaceholderCount": 5,
+          "unassignedPlaceholderCount": 0,
+          "syntheticNurseRuntimeGroupCount": 8,
+          "placeholderPressureBand": "placeholder_moderate"
+        }
+      ]
+    },
+    {
+      "name": "comparison artifact validates",
+      "passed": true,
+      "detail": "simulation-v0-four-to-one-vs-three-to-one-comparison"
+    },
+    {
+      "name": "no clinical safety claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no staffing compliance claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no patient outcome claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no optimizer or recommendation",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-simulation-v0-ui-shell.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation v0 panel source exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "panel exposes internal dry-run heading",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "rendered simulation panel exists",
+      "passed": true,
+      "detail": {
+        "panelFound": true,
+        "bodyText": "\n    Operational workspaceER Pod Shift SimulatorSynthetic operational modeling only. Manual review required; promotion blocked.Manual review requiredPromotion blockedSynthetic operational modeling onlyLock WorkspaceFloorplanEditorManual AssignmentReview / ReportsAdvancedDeveloper/EvidenceFuture ToolsReview CandidatesAssignment WorkflowScenariosSimulationSettingsCanonical Workflow GuideCanonical workflowCanonical Workflow GuidePlan 1 readySynthetic operational modeling only. Not a clinical safety score. Not a staffing compliance recommendation. Not a legal compliance assessment. Not a patient outcome prediction. Not based on real patient, staff, EHR, or hospital data.Plan 1 demo workflow only. Deterministic dry-run proof uses seeded synthetic fixtures. Developer evidence remains in the Developer/Evidence section.1Open repaired Plan 1Open Plan 12Review floorplanReview editor3Review assignmentsReview assignments4Review scenario assumptionsReview assumptions5Run/view deterministic dry-runView dry-run6Review scenario comparisonReview comparison7Review proof reportReview proofNext recommended stepReview floorplanReview editorDeveloper evidence seed packDeterministic seed packPlan 1 demo seedssynthetic data onlyTypical workloadBaseline synthetic workload for opening the demo and reviewing normal dry-run proof.Profileplan-1-typicalSeed251001Duration720 minutesbaseline synthetic task pressurelimited deferred synthetic workvisible warning explanationsproof report availableSlammed workloadHigh synthetic task pressure case for demonstrating larger queue-depth and deferred-work signals.Profileplan-1-slammedSeed253003Duration720 minuteshigher synthetic task pressuremore deferred synthetic worklarger queue-depth signalwarning explanations visibleWalking-heavy workloadSynthetic route-friction case for demonstrating approximate walking-load differences.Profileplan-1-walking-heavySeed255005Duration720 minuteshigher approximate walking loadpath-based walking assumptions visiblewalking-load warning visiblescenario comparison difference visibleTrauma-heavy workloadSynthetic trauma-response task mix for demonstrating an operational trauma workload signal.Profileplan-1-trauma-heavySeed254004Duration720 minutestrauma workload notice visiblehigher synthetic task pressuremore deferred synthetic workwarning explanations visibleScenario comparison setCanonical comparison path for typical, slammed, walking-heavy, and trauma-heavy demo review.Profileplan-1-typicalSeed251001Duration720 minutesclear comparison differenceshuman-readable scenario narrativeslimitations visibleproof report availableLimitationsApproximate walking load comes from Plan 1 route assumptions.Comparison uses seeded synthetic scenario profiles only.Plan 1 deterministic dry-run foundation only.Synthetic tasks use explicit assumptions and seeded generation.Synthetic trauma-heavy profile is operational demo input only.Non-claimsNot a clinical safety score.Not a legal compliance assessment.Not a patient outcome prediction.Not a staffing compliance recommendation.Not based on real patient, staff, EHR, or hospital data.Synthetic operational modeling only.SimulationSimulation v0Internal Dry-Run Readinessinternal synthetic dry-run onlyCanonical seedneutral-workload-seed-canonical-plan-1Activity profiletypicalRatio presets4:1 / 3:1Task placeholders30Queue PlaceholdersRatioQueuedDelayedUnassignedGroupsPressure4:18806heavy3:15508moderateArtifact SummaryComparisonsimulation-v0-four-to-one-vs-three-to-one-comparisonReproducibilitystable hash proof pending final gateLimitationsInternal synthetic dry-run only.No optimizer.No assignment recommendation.No clinical safety score.No staffing compliance certification.No patient outcome prediction.\n    \n  \n\n",
+        "accessCredentialVisible": false,
+        "forbiddenVisibleTermVisible": false,
+        "textLength": 3745
+      }
+    },
+    {
+      "name": "view model exposes comparison artifact status",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "view model exposes reproducibility status",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "visible copy includes required limitations",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "visible copy does not expose access credential",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "visible copy avoids configured forbidden terms",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-simulation-v0-reproducibility.mjs --stage final --issue 580
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "580",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "repeated runs match",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "proofId": "simulation-v0-dry-run-reproducibility-proof",
+        "firstArtifactHash": "e3d17eb8",
+        "secondArtifactHash": "e3d17eb8",
+        "repeatedRunMatches": true,
+        "taskTimelineEqual": true,
+        "queuePlaceholderEqual": true,
+        "changedSeedArtifactHash": "ed42d59e",
+        "changedSeedChangesHash": true,
+        "nondeterministicMetadataExcludedFromHash": true,
+        "hiddenTimeInputStatus": "forbidden",
+        "hiddenRandomnessStatus": "forbidden",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "timeline equals",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "queue placeholders equal",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "artifact hash repeats",
+      "passed": true,
+      "detail": {
+        "first": "e3d17eb8",
+        "second": "e3d17eb8"
+      }
+    },
+    {
+      "name": "nondeterministic metadata excluded from hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "changed seed changes hash",
+      "passed": true,
+      "detail": {
+        "first": "e3d17eb8",
+        "changed": "ed42d59e"
+      }
+    },
+    {
+      "name": "simulation source avoids Math.random and Date.now",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "proof forbids hidden time and randomness",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "proofId": "simulation-v0-dry-run-reproducibility-proof",
+        "firstArtifactHash": "e3d17eb8",
+        "secondArtifactHash": "e3d17eb8",
+        "repeatedRunMatches": true,
+        "taskTimelineEqual": true,
+        "queuePlaceholderEqual": true,
+        "changedSeedArtifactHash": "ed42d59e",
+        "changedSeedChangesHash": true,
+        "nondeterministicMetadataExcludedFromHash": true,
+        "hiddenTimeInputStatus": "forbidden",
+        "hiddenRandomnessStatus": "forbidden",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "syntheticDataOnly": true
+      }
+    }
+  ]
+}
+
+> node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --issue 580
+{
+  "status": "passed",
+  "stage": "whole-app-visible-copy",
+  "normalizedStage": "whole-app-visible-copy",
+  "issue": "580",
+  "allowPartial": false,
+  "checks": [
+    {
+      "name": "rendered whole app has no visible access-credential leak",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "rendered whole app has no forbidden legacy visible copy",
+      "passed": true,
+      "detail": {
+        "locked": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "floorplan": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "editor": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "scenarios": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "reports": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        },
+        "advanced": {
+          "accessCredentialVisible": false,
+          "forbiddenVisibleTermVisible": false
+        }
+      }
+    },
+    {
+      "name": "negative visible-copy fixture would fail",
+      "passed": true,
+      "detail": {
+        "fixture": "synthetic rendered text"
+      }
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.
+
+> node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 580
+{
+  "status": "passed",
+  "scope": "default Plans 2 through 5 fixture, source mapping, and walking baseline files",
+  "comparedAgainst": "approved Plan 2-5 hashes plus git HEAD working-tree cleanliness",
+  "trackedPaths": [
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-2.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-2-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-3.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-3.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-3-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-4.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-4.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-4-walking-baseline.json",
+    "packages/shared/fixtures/default-plans/default-er-layout-plan-5.json",
+    "packages/shared/fixtures/default-plans/source-mappings/mapping-er-layout-plan-5.json",
+    "packages/shared/fixtures/default-plans/walking-baselines/default-er-layout-plan-5-walking-baseline.json"
+  ],
+  "changedPaths": [],
+  "hashMismatches": [],
+  "missingPaths": [],
+  "fixtureSummaries": [
+    {
+      "planNumber": 2,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-2.json",
+      "planId": "default-er-layout-plan-2",
+      "roomCount": 5,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 5,
+      "sha256": "d1b6700a9ac0bb3e6c48ba84b9a7cd9169722c749183a5961d6a9cc15e33efc3"
+    },
+    {
+      "planNumber": 3,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-3.json",
+      "planId": "default-er-layout-plan-3",
+      "roomCount": 3,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 3,
+      "sha256": "827b0e440f47256bde17d8753e7e5c214cba16f1d3f0bd57d9115caf48f9d2b4"
+    },
+    {
+      "planNumber": 4,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-4.json",
+      "planId": "default-er-layout-plan-4",
+      "roomCount": 4,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 4,
+      "sha256": "5f22083f41f3b54987dffa02bd530d13af81d634b9e510d3a689d81cb81932b2"
+    },
+    {
+      "planNumber": 5,
+      "path": "packages/shared/fixtures/default-plans/default-er-layout-plan-5.json",
+      "planId": "default-er-layout-plan-5",
+      "roomCount": 4,
+      "nurseStationCount": 2,
+      "hallwayCount": 2,
+      "doorCount": 4,
+      "sha256": "dc12dfb2f821d0c70ff749898efa1937d2de4bad7df748cd99b3f2068cd3a67f"
+    }
+  ],
+  "nonClaims": [
+    "This check proves Plans 2-5 protected files match the approved batch baseline hashes.",
+    "This check does not audit Plan 1 visual parity."
+  ]
+}

@@ -1,0 +1,5 @@
+Code review found that internal dry-run executor summaryCounts.queuedPlaceholderCount was inflated by the legacy dry-run queue placeholder task list.
+
+The executor timeline and ratio-aware queue summaries reported runtime-capacity-driven queue counts, but the artifact summary used Math.max(timeline queued events, all legacy queued task IDs), producing 30 queued placeholders from a 30-task workload instead of the runtime-processing count of 8.
+
+Resolved by deriving executor queued and delayed summary counts directly from synthetic nurse runtime timeline events.

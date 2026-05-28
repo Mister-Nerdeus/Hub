@@ -13,7 +13,6 @@ import {
   type NeutralWorkloadSeedContract,
   type RatioRuntimeSeedContract
 } from "./deterministicSeedContract.js";
-import { buildDryRunQueuePlaceholder } from "./dryRunQueuePlaceholder.js";
 import { buildNurseRuntimeStatesFromManualBridge, type NurseRuntimeStateSet } from "./nurseRuntimeStateContract.js";
 import { processNurseTaskPlaceholders } from "./nurseTaskProcessingLoop.js";
 import { dryRunTaskTemplates, type DryRunTaskTemplateContract } from "./taskTemplateContract.js";
@@ -122,7 +121,6 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     templates: input.templates ?? dryRunTaskTemplates,
     capacity
   });
-  const queuePlaceholder = buildDryRunQueuePlaceholder({ taskSet, seedContract: ratioRuntimeSeed });
   const processing = processNurseTaskPlaceholders({ taskSet, runtimeStates, capacity });
   const timeline = processing.timeline;
   const nurseRuntimeSnapshots = buildNurseSnapshots(runtimeStates, timeline);
@@ -146,8 +144,8 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
       generatedTaskCount: taskSet.instances.length,
       startedPlaceholderCount: countEvents(timeline, "task_placeholder_started"),
       completedPlaceholderCount: countEvents(timeline, "task_placeholder_completed"),
-      queuedPlaceholderCount: Math.max(countEvents(timeline, "task_placeholder_queued"), queuePlaceholder.queuedTaskIds.length),
-      delayedPlaceholderCount: Math.max(countEvents(timeline, "task_placeholder_delayed"), processing.busyNurseQueuedTaskIds.length),
+      queuedPlaceholderCount: countEvents(timeline, "task_placeholder_queued"),
+      delayedPlaceholderCount: countEvents(timeline, "task_placeholder_delayed"),
       unassignedPlaceholderCount: processing.unassignedPlaceholderTaskIds.length
     },
     limitations: [

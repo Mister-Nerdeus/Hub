@@ -16,6 +16,16 @@ test("internal dry-run executor produces one synthetic run", () => {
   assert.ok(run.timeline.length > 0);
 });
 
+test("internal dry-run queue summary follows runtime processing events", () => {
+  const run = executeInternalDryRun();
+  const queuedEvents = run.timeline.filter((event) => event.eventLabel === "task_placeholder_queued");
+  const delayedEvents = run.timeline.filter((event) => event.eventLabel === "task_placeholder_delayed");
+
+  assert.equal(run.summaryCounts.queuedPlaceholderCount, queuedEvents.length);
+  assert.equal(run.summaryCounts.delayedPlaceholderCount, delayedEvents.length);
+  assert.notEqual(run.summaryCounts.queuedPlaceholderCount, run.summaryCounts.generatedTaskCount);
+});
+
 test("internal dry-run timeline is deterministic", () => {
   const first = executeInternalDryRun();
   const second = executeInternalDryRun();

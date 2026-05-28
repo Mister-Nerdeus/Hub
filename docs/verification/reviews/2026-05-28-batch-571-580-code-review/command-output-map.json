@@ -1,0 +1,12 @@
+{
+  "npm --workspace packages/shared test": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/shared.txt",
+  "npm --workspace apps/web test": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/web.txt",
+  "npm --workspace apps/web run build": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/web-build.txt",
+  "simulation-v0 final gates": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/simulation-v0-final-gates.txt",
+  "post-review no-PHI gate": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/no-phi-post-review.txt",
+  "docker compose config": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/docker-compose-config.txt",
+  "docker compose production config": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/docker-compose-production-config.txt",
+  "production docker runtime guard": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/production-docker-runtime.txt",
+  "docker compose build web": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/docker-compose-build-web.txt",
+  "docker compose production build web": "docs/verification/reviews/2026-05-28-batch-571-580-code-review/test-output/docker-compose-production-build-web.txt"
+}
