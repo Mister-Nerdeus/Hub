@@ -5,79 +5,104 @@
 #1 DONE 0.0s
 
 #2 [internal] load build definition from Dockerfile.production
+#2 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.production
 #2 transferring dockerfile: 651B done
 #2 DONE 0.0s
 
-#3 [internal] load metadata for docker.io/library/nginx:1.27-alpine
-#3 ...
+#3 [auth] library/nginx:pull token for registry-1.docker.io
+#3 DONE 0.0s
 
 #4 [internal] load metadata for docker.io/library/node:22-alpine
 #4 DONE 0.2s
 
-#3 [internal] load metadata for docker.io/library/nginx:1.27-alpine
-#3 DONE 0.2s
+#5 [internal] load metadata for docker.io/library/nginx:1.27-alpine
+#5 DONE 0.4s
 
-#5 [internal] load .dockerignore
-#5 transferring context: 295B done
-#5 DONE 0.0s
+#6 [internal] load .dockerignore
+#6 transferring context: 295B done
+#6 DONE 0.0s
 
-#6 [stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
-#6 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
-#6 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
-#6 DONE 0.1s
-
-#7 [build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
-#7 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#7 [stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
 #7 DONE 0.1s
 
-#8 [internal] load build context
-#8 transferring context: 141.66kB 0.1s done
+#8 [build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#8 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
 #8 DONE 0.1s
 
-#9 [build 10/10] RUN npm --workspace apps/web run build
-#9 CACHED
+#9 [internal] load build context
+#9 transferring context: 141.66kB 0.1s done
+#9 DONE 0.1s
 
-#10 [stage-1 2/3] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
+#10 [build  6/10] RUN npm ci
 #10 CACHED
 
-#11 [build  5/10] COPY packages/shared/package.json packages/shared/package.json
+#11 [build  2/10] WORKDIR /repo
 #11 CACHED
 
 #12 [build  3/10] COPY package.json package-lock.json ./
 #12 CACHED
 
-#13 [build  6/10] RUN npm ci
+#13 [build  4/10] COPY apps/web/package.json apps/web/package.json
 #13 CACHED
 
-#14 [build  4/10] COPY apps/web/package.json apps/web/package.json
+#14 [build  5/10] COPY packages/shared/package.json packages/shared/package.json
 #14 CACHED
 
 #15 [build  7/10] COPY tsconfig.base.json ./
 #15 CACHED
 
-#16 [build  9/10] COPY packages/shared packages/shared
-#16 CACHED
+#16 [build  8/10] COPY apps/web apps/web
+#16 DONE 0.2s
 
-#17 [build  2/10] WORKDIR /repo
-#17 CACHED
+#17 [build  9/10] COPY packages/shared packages/shared
+#17 DONE 0.2s
 
-#18 [build  8/10] COPY apps/web apps/web
-#18 CACHED
+#18 [build 10/10] RUN npm --workspace apps/web run build
+#18 0.419
+#18 0.419 > @nerdeus/web@0.1.0 build
+#18 0.419 > npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+#18 0.419
+#18 0.567
+#18 0.567 > @nerdeus/shared@0.1.0 build
+#18 0.567 > tsc -p tsconfig.json
+#18 0.567
+#18 11.01 vite v8.0.14 building client environment for production...
+#18 11.02 [2K
+transforming...✓ 491 modules transformed.
+#18 11.32 rendering chunks...
+#18 11.45 computing gzip size...
+#18 11.46 dist/index.html                     0.40 kB │ gzip:   0.27 kB
+#18 11.46 dist/assets/index-BrXgRXEB.css     98.24 kB │ gzip:  14.16 kB
+#18 11.46 dist/assets/index-BEFNXIyu.js   1,098.18 kB │ gzip: 229.58 kB
+#18 11.46
+#18 11.46 ✓ built in 451ms
+#18 11.46 [plugin builtin:vite-reporter]
+#18 11.46 (!) Some chunks are larger than 500 kB after minification. Consider:
+#18 11.46 - Using dynamic import() to code-split the application
+#18 11.46 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+#18 11.46 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+#18 DONE 11.6s
 
-#19 [stage-1 3/3] COPY apps/web/nginx.production.conf /etc/nginx/conf.d/default.conf
+#19 [stage-1 2/3] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
 #19 CACHED
 
-#20 exporting to image
-#20 exporting layers done
-#20 exporting manifest sha256:9d0e42fc8a2a2aa70978dc874e8d7cd994aec71d2b087bb262af085b282bd31a done
-#20 exporting config sha256:264ce4146609b87345d7b92ab1f9d7f37ade8982331da53c0130ae76be020be7 done
-#20 exporting attestation manifest sha256:453726b03447dc10dfe7df2b1c590242b76ad12090e148bfe1a25c1fb4e6aa0d 0.1s done
-#20 exporting manifest list sha256:538829fc1f8af76832f4a2ac1d5246569a4b1fb3429eaff6f0d7f1446a2cc7a8
-#20 exporting manifest list sha256:538829fc1f8af76832f4a2ac1d5246569a4b1fb3429eaff6f0d7f1446a2cc7a8 0.0s done
-#20 naming to docker.io/library/hub-web-production:latest done
-#20 unpacking to docker.io/library/hub-web-production:latest 0.0s done
-#20 DONE 0.2s
+#20 [stage-1 3/3] COPY apps/web/nginx.production.conf /etc/nginx/conf.d/default.conf
+#20 CACHED
 
-#21 resolving provenance for metadata file
-#21 DONE 0.0s
+#21 exporting to image
+#21 exporting layers done
+#21 exporting manifest sha256:9d0e42fc8a2a2aa70978dc874e8d7cd994aec71d2b087bb262af085b282bd31a done
+#21 exporting config sha256:264ce4146609b87345d7b92ab1f9d7f37ade8982331da53c0130ae76be020be7 done
+#21 exporting attestation manifest sha256:c0774d271b19127ab8ab33af184d2174ab5cce4850c2a57a6224a820ddb5211e 0.0s done
+#21 exporting manifest list sha256:c82d20fd1e28605e0972a4d8e057eeaeb97a3f92349edd284c373edba758a8e3
+#21 exporting manifest list sha256:c82d20fd1e28605e0972a4d8e057eeaeb97a3f92349edd284c373edba758a8e3 0.0s done
+#21 naming to docker.io/library/hub-web-production:latest done
+#21 unpacking to docker.io/library/hub-web-production:latest 0.0s done
+#21 DONE 0.2s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.0s
  Image hub-web-production Built

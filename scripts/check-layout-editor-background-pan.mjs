@@ -133,9 +133,20 @@ function commandsForIssue(issueNumber) {
       "npm --workspace packages/shared test",
       "npm --workspace apps/web test",
       "npm --workspace apps/web run build",
+      "npm run check:room-type-semantics",
+      "npm run check:pin-first-entry-gate",
+      "npm run check:pin-rate-limit-lockout",
+      "npm run check:professional-access-screen",
+      "node scripts/check-unlocked-workspace-polish.mjs --stage final --issue 510",
+      "node scripts/check-visible-access-copy.mjs --stage final --issue 510",
       "node scripts/check-layout-editor-background-pan.mjs --stage final --issue 510",
+      "node scripts/check-scenario-foundation-readiness.mjs --stage final --issue 510",
       "node scripts/check-no-phi-fields.mjs",
-      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510"
+      "node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 510",
+      "docker compose config",
+      "docker compose -f docker-compose.production.yml config",
+      "docker compose build web",
+      "docker compose -f docker-compose.production.yml build web"
     ];
   }
   return [
@@ -155,17 +166,29 @@ function mappedOutput(command) {
   if (command.includes("packages/shared test")) return `${base}/shared.txt`;
   if (command.includes("apps/web test")) return `${base}/web.txt`;
   if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("check:room-type-semantics")) return `${base}/room-type-semantics.txt`;
+  if (command.includes("check:pin-first")) return `${base}/pin-first-entry-gate.txt`;
+  if (command.includes("check:pin-rate")) return `${base}/pin-rate-limit-lockout.txt`;
+  if (command.includes("check:professional")) return `${base}/professional-access-screen.txt`;
+  if (command.includes("check-unlocked-workspace-polish")) return `${base}/unlocked-workspace-polish-gate.txt`;
+  if (command.includes("check-visible-access-copy")) return `${base}/visible-access-copy.txt`;
   if (command.includes("check-layout-editor-background-pan")) return `${base}/editor-background-pan.txt`;
+  if (command.includes("check-scenario-foundation")) return `${base}/scenario-foundation-readiness.txt`;
   if (command.includes("check-no-phi")) return `${base}/no-phi.txt`;
   if (command.includes("check-default-plans")) return `${base}/plans-2-through-5-unchanged.txt`;
+  if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
+  if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;
+  if (command === "docker compose build web") return `${base}/docker-build-web.txt`;
+  if (command === "docker compose -f docker-compose.production.yml build web") return `${base}/docker-build-production-web.txt`;
   return `${base}/command.txt`;
 }
 
 function closeoutText(status, commands) {
+  const summary = issue === "510" ? "Completed unlocked workspace polish final audit." : `Completed layout editor background pan stage: ${stage}.`;
   return `# Issue ${issue} Closeout
 
 ## Summary
-Completed layout editor background pan stage: ${stage}.
+${summary}
 
 ## Files Changed
 - See git diff for source, gate, manifest, and evidence updates.
@@ -179,6 +202,7 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 ## Evidence Artifacts
 - ${issueDir}
 - ${manifestPath}
+${issue === "510" ? "- docs/verification/issues/issue-509/screenshots/editor-background-pan-ready.png\n- docs/verification/issues/issue-509/screenshots/editor-background-pan-after-drag.png\n- docs/verification/issues/issue-510/test-output/docker-compose-config.txt\n- docs/verification/issues/issue-510/test-output/docker-compose-production-config.txt\n- docs/verification/issues/issue-510/test-output/docker-build-web.txt\n- docs/verification/issues/issue-510/test-output/docker-build-production-web.txt" : ""}
 
 ## Known Limitations
 - Manual visual approval remains required.
@@ -187,6 +211,9 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, clinical safety scoring, or staffing compliance certification was added.
+
+## Next Recommended Issue
+- ${issue === "510" ? (status === "passed" ? "GO for Scenario Seed + Ratio Comparison Foundation." : "NO-GO with exact blockers.") : `GO for Issue ${Number(issue) + 1}.`}
 `;
 }
 

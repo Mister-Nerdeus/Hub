@@ -8,59 +8,64 @@
 #2 transferring dockerfile: 422B done
 #2 DONE 0.0s
 
-#3 [internal] load metadata for docker.io/library/node:22-alpine
-#3 DONE 0.4s
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
 
-#4 [internal] load .dockerignore
-#4 transferring context: 295B done
-#4 DONE 0.0s
+#4 [internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.6s
 
-#5 [ 1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
-#5 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
 #5 DONE 0.0s
 
-#6 [internal] load build context
-#6 transferring context: 141.66kB 0.1s done
-#6 DONE 0.1s
+#6 [ 1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
 
-#7 [ 3/10] COPY package.json package-lock.json ./
-#7 CACHED
+#7 [internal] load build context
+#7 transferring context: 2.88MB 0.9s done
+#7 DONE 0.9s
 
-#8 [ 6/10] RUN npm ci
+#8 [ 3/10] COPY package.json package-lock.json ./
 #8 CACHED
 
-#9 [ 9/10] COPY packages/shared packages/shared
+#9 [ 4/10] COPY apps/web/package.json apps/web/package.json
 #9 CACHED
 
-#10 [ 2/10] WORKDIR /repo
+#10 [ 5/10] COPY packages/shared/package.json packages/shared/package.json
 #10 CACHED
 
-#11 [ 8/10] COPY apps/web apps/web
+#11 [ 6/10] RUN npm ci
 #11 CACHED
 
-#12 [ 4/10] COPY apps/web/package.json apps/web/package.json
+#12 [ 2/10] WORKDIR /repo
 #12 CACHED
 
 #13 [ 7/10] COPY tsconfig.base.json ./
 #13 CACHED
 
-#14 [ 5/10] COPY packages/shared/package.json packages/shared/package.json
-#14 CACHED
+#14 [ 8/10] COPY apps/web apps/web
+#14 DONE 0.4s
 
-#15 [10/10] WORKDIR /repo/apps/web
-#15 CACHED
+#15 [ 9/10] COPY packages/shared packages/shared
+#15 DONE 0.3s
 
-#16 exporting to image
-#16 exporting layers done
-#16 exporting manifest sha256:b0d2c66801831fcc0b10ed43fc22b831414eeedfb7d8b38524143c42e1482bd1 done
-#16 exporting config sha256:3635816c60d0fda69f626bdb8e11950c6a87a4fd04814f01785d24b1b94e8358 done
-#16 exporting attestation manifest sha256:49094f2ac256873b930e78c95dc9023ff4670775e0a96965e553a60f7bb3c7fa 0.0s done
-#16 exporting manifest list sha256:021e02f3b69e3063f27c17b53c9f6aa798a5d561402f6944aad568d1056b4d8d
-#16 exporting manifest list sha256:021e02f3b69e3063f27c17b53c9f6aa798a5d561402f6944aad568d1056b4d8d 0.0s done
-#16 naming to docker.io/library/hub-web:latest done
-#16 unpacking to docker.io/library/hub-web:latest 0.0s done
-#16 DONE 0.2s
+#16 [10/10] WORKDIR /repo/apps/web
+#16 DONE 0.1s
 
-#17 resolving provenance for metadata file
-#17 DONE 0.0s
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.4s done
+#17 exporting manifest sha256:d31b8ffe93a0bbdaabb0bf65ed7fd4178b559ac20dae338a52d960681a777a26 0.0s done
+#17 exporting config sha256:d18d84d7b1a67e40505e5e11450dd6ded219db3c0670a862147812596c33080d 0.0s done
+#17 exporting attestation manifest sha256:e59553c5f231dd9bea30ff534fab15665e0f8a6e0c8c1a3611186b2161c6a0d9 0.0s done
+#17 exporting manifest list sha256:7327afcba811f50e976ee6f4b2c1e73b214f98e90f1d8eac3340e43f01073081
+#17 exporting manifest list sha256:7327afcba811f50e976ee6f4b2c1e73b214f98e90f1d8eac3340e43f01073081 0.0s done
+#17 naming to docker.io/library/hub-web:latest done
+#17 unpacking to docker.io/library/hub-web:latest
+#17 unpacking to docker.io/library/hub-web:latest 0.4s done
+#17 DONE 0.9s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
  Image hub-web Built
