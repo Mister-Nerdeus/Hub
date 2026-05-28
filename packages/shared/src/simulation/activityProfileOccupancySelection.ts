@@ -84,6 +84,7 @@ export function buildRoomLoadStarterContractFromOccupancySelection(
   capacity: ScenarioCapacityIntegration,
   selection: ActivityProfileOccupancySelection
 ): RoomLoadStarterContract {
+  assertOccupancySelectionUsesEligibleBeds(capacity, selection);
   const occupied = new Set(selection.selectedOccupiedBedPositionIds);
   const entries = capacity.assignmentEligibleBedPositionIds.map((loadableBedPositionId) => ({
     loadableBedPositionId,
@@ -110,6 +111,22 @@ export function buildRoomLoadStarterContractFromOccupancySelection(
     },
     capacity
   );
+}
+
+function assertOccupancySelectionUsesEligibleBeds(
+  capacity: ScenarioCapacityIntegration,
+  selection: ActivityProfileOccupancySelection
+): void {
+  if (selection.usesStorageOrSupportForTasks !== false || selection.usesRawRoomCounts !== false) {
+    throw new Error("occupancy selection must exclude storage/support spaces and raw room counts");
+  }
+  const eligible = new Set(capacity.assignmentEligibleBedPositionIds);
+  const excluded = new Set(capacity.excludedObjectIds);
+  for (const id of selection.selectedOccupiedBedPositionIds) {
+    if (!eligible.has(id) || excluded.has(id)) {
+      throw new Error("room-load starter occupancy selection must use selector-eligible bed positions only");
+    }
+  }
 }
 
 export function validateActivityProfileOccupancySelection(

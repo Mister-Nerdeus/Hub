@@ -93,3 +93,19 @@ test("room-load starter consumes selected occupied beds", () => {
     new Set(selection.selectedOccupiedBedPositionIds)
   );
 });
+
+test("room-load starter rejects excluded occupied bed selections", () => {
+  const { capacity, selection } = selectionFor(slammedActivityProfile);
+
+  assert.throws(
+    () =>
+      buildRoomLoadStarterContractFromOccupancySelection(capacity, {
+        ...selection,
+        selectedOccupiedBedPositionIds: [
+          ...selection.selectedOccupiedBedPositionIds,
+          capacity.excludedObjectIds[0]
+        ]
+      }),
+    /selector-eligible/
+  );
+});

@@ -212,7 +212,7 @@ export function createRepairContext({ scriptName, stages, statusKeyByStage, outp
   mkdirSync(abs(`${dir}/screenshots`), { recursive: true });
   const selectedManifestPath = manifestPathForIssue(issue);
   const manifest = loadRepairManifest(selectedManifestPath);
-  manifest.lastUpdatedIssue = issue;
+  manifest.lastUpdatedIssue = latestIssue(manifest.lastUpdatedIssue, issue);
   return {
     args,
     stage,
@@ -246,7 +246,7 @@ export async function runSelectedRepairStages(context, runStage) {
 export function finalizeRepairGate(context, extra = {}) {
   const status = context.checks.every((check) => check.passed) ? "passed" : "failed";
   Object.assign(context.manifest, {
-    lastUpdatedIssue: context.issue,
+    lastUpdatedIssue: latestIssue(context.manifest.lastUpdatedIssue, context.issue),
     noPhiStatus: "passed",
     optimizerStatus: "not_started",
     assignmentRecommendationStatus: "not_started",
@@ -280,6 +280,15 @@ export function finalizeRepairGate(context, extra = {}) {
   writeText(`${context.dir}/test-output/${extra.testOutputName ?? context.outputName.replace(/\.json$/u, ".txt")}`, `${JSON.stringify(output, null, 2)}\n`);
   console.log(JSON.stringify(output, null, 2));
   if (status !== "passed") process.exit(1);
+}
+
+function latestIssue(left, right) {
+  const leftNumber = Number(left);
+  const rightNumber = Number(right);
+  if (Number.isFinite(leftNumber) && Number.isFinite(rightNumber)) {
+    return String(Math.max(leftNumber, rightNumber)).padStart(3, "0");
+  }
+  return String(right);
 }
 
 export function updateRepairGoNoGo(manifest) {
