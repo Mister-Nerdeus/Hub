@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-ui-shell.mjs --stage ui-shell --allow-partial --issue 578
+node scripts/check-simulation-v0-ui-shell.mjs --stage artifact-summary --allow-partial --issue 578
+node scripts/check-simulation-v0-ui-shell.mjs --stage visible-copy --allow-partial --issue 578
+node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --allow-partial --issue 578
+node scripts/check-no-phi-fields.mjs

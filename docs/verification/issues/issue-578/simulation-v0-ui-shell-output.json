@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "visible-copy",
+  "issue": "578",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-internal-dry-run-manifest.json",
+  "checks": [
+    {
+      "name": "visible copy includes required limitations",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "visible copy does not expose access credential",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "visible copy avoids configured forbidden terms",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

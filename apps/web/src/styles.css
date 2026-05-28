@@ -2534,6 +2534,98 @@ h1 {
   gap: 4px;
 }
 
+.simulation-v0-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.simulation-v0-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.simulation-v0-panel__header strong {
+  border: 1px solid #9fb2c8;
+  border-radius: 999px;
+  color: #253447;
+  background: #f7fafc;
+  padding: 6px 10px;
+  font-size: 0.9rem;
+}
+
+.simulation-v0-panel__facts,
+.simulation-v0-panel__artifact {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.simulation-v0-panel__facts div,
+.simulation-v0-panel__artifact div {
+  border: 1px solid #d5dde7;
+  border-radius: 8px;
+  padding: 10px;
+  background: #ffffff;
+}
+
+.simulation-v0-panel dt {
+  color: #53657a;
+  font-size: 0.84rem;
+}
+
+.simulation-v0-panel dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
+.simulation-v0-panel__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+  gap: 16px;
+}
+
+.simulation-v0-panel__grid section {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.simulation-v0-panel__table {
+  display: grid;
+  border: 1px solid #d5dde7;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.simulation-v0-panel__table [role="row"] {
+  display: grid;
+  grid-template-columns: 0.8fr repeat(5, minmax(72px, 1fr));
+}
+
+.simulation-v0-panel__table [role="columnheader"],
+.simulation-v0-panel__table [role="cell"] {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 8px;
+  min-width: 0;
+}
+
+.simulation-v0-panel__table [role="columnheader"] {
+  background: #f7fafc;
+  color: #53657a;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.simulation-v0-panel__limitations {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+}
+
 @media (max-width: 760px) {
   .workspace-header {
     flex-direction: column;
@@ -2550,6 +2642,7 @@ h1 {
   }
 
   .simulation-proof__header,
+  .simulation-v0-panel__header,
   .retrieval-proof__header,
   .optimizer-proof__header,
   .floorplan-library__header,
@@ -2582,6 +2675,20 @@ h1 {
   .scenario-ratio-comparison__foundation,
   .scenario-ratio-comparison__summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .simulation-v0-panel__facts,
+  .simulation-v0-panel__artifact,
+  .simulation-v0-panel__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .simulation-v0-panel__table {
+    overflow-x: auto;
+  }
+
+  .simulation-v0-panel__table [role="row"] {
+    min-width: 620px;
   }
 
   .floorplan-library__counts,

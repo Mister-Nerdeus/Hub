@@ -33,6 +33,8 @@ import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAs
 import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
 import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
+import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
+import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
 import { DemoPinEntryScreen } from "./features/demo-pin/DemoPinEntryScreen";
 import {
   clearDemoPinUnlock,
@@ -74,6 +76,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
   const demoPinGateViewModel = createDemoPinGateViewModel(demoPinState);
   const legacyFloorplanFixturesPanelViewModel = createLegacyFloorplanFixturesPanelViewModel();
+  const simulationV0ViewModel = createSimulationV0InternalDryRunViewModel();
 
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
   const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
@@ -269,7 +272,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "simulation" ? (
         <section className="workflow-section" aria-labelledby="simulation-title">
           <h2 id="simulation-title">Simulation</h2>
-          <p className="workflow-section__placeholder">Simulation execution is in preview mode and will be refined in a dedicated workflow.</p>
+          <SimulationV0InternalDryRunPanel viewModel={simulationV0ViewModel} />
         </section>
       ) : null}
 
