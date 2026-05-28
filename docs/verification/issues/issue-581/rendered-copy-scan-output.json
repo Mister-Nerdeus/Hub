@@ -6,6 +6,13 @@
   "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
   "checks": [
     {
+      "name": "rendered access credential negative fixture fails",
+      "passed": true,
+      "detail": {
+        "fixture": "Access code <configured>"
+      }
+    },
+    {
       "name": "rendered routes do not expose configured access credential",
       "passed": true,
       "detail": {

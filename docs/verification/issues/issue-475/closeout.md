@@ -17,7 +17,7 @@ Completed demo PIN no-secrets audit.
 - docs/verification/pin-first-entry-gate-manifest.json
 
 ## Known Limitations
-- PIN 2026 is demo-only and is not production authentication, real security, or PHI protection.
+- configured access credential is demo-only and is not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, clinical safety certification, hidden scoring, optimizer behavior, or full-shift simulation was added.

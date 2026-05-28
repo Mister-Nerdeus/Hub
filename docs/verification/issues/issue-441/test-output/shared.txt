@@ -1459,8 +1459,8 @@ ok 242 - demo PIN contract stays demo-only
   duration_ms: 4.1685
   type: 'test'
   ...
-# Subtest: PIN 2026 unlocks and wrong or empty PIN fails
-ok 243 - PIN 2026 unlocks and wrong or empty PIN fails
+# Subtest: configured access credential unlocks and wrong or empty PIN fails
+ok 243 - configured access credential unlocks and wrong or empty PIN fails
   ---
   duration_ms: 1.3427
   type: 'test'

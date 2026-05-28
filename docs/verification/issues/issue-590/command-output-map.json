@@ -22,61 +22,61 @@
     {
       "command": "npm run check:simulation-v0-internal-dry-run",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/simulation-v0-internal-dry-run.txt"
       ]
     },
     {
       "command": "npm run check:visible-product-copy-all-routes",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/visible-product-copy-all-routes.txt"
       ]
     },
     {
       "command": "npm run check:workflow-guide-route-isolation",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/workflow-guide-route-isolation.txt"
       ]
     },
     {
       "command": "npm run check:workspace-access-internal-naming",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/workspace-access-internal-naming.txt"
       ]
     },
     {
       "command": "npm run check:issue-evidence-index",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/issue-evidence-index.txt"
       ]
     },
     {
       "command": "npm run check:root-verification-wiring",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/root-verification-wiring.txt"
       ]
     },
     {
       "command": "npm run check:default-room-scale",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/default-room-scale.txt"
       ]
     },
     {
       "command": "npm run check:executor-seed-preset-guards",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/executor-seed-preset-guards.txt"
       ]
     },
     {
       "command": "npm run check:runtime-seed-behavior",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/runtime-seed-behavior.txt"
       ]
     },
     {
       "command": "npm run check:simulation-v0-comparison-validation-hardening",
       "outputs": [
-        "docs/verification/issues/issue-590/test-output/command.txt"
+        "docs/verification/issues/issue-590/test-output/simulation-v0-comparison-validation-hardening.txt"
       ]
     },
     {
@@ -86,9 +86,33 @@
       ]
     },
     {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "npm run check:production-docker-runtime",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/production-docker-runtime.txt"
+      ]
+    },
+    {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
         "docs/verification/issues/issue-590/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/docs-contracts.txt"
       ]
     }
   ]

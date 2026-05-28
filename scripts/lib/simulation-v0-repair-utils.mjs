@@ -274,7 +274,10 @@ export function commandsForRepairIssue(issue) {
       "npm run check:executor-seed-preset-guards",
       "npm run check:runtime-seed-behavior",
       "npm run check:simulation-v0-comparison-validation-hardening",
-      "node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590"
+      "node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590",
+      "docker compose config",
+      "docker compose -f docker-compose.production.yml config",
+      "npm run check:production-docker-runtime"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -285,19 +288,26 @@ export function mappedRepairOutput(dir, command) {
   if (command.includes("packages/shared test")) return `${base}/shared.txt`;
   if (command.includes("apps/web test")) return `${base}/web.txt`;
   if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
-  if (command.includes("check-visible-product-copy-all-routes")) return `${base}/visible-product-copy-all-routes.txt`;
-  if (command.includes("check-workflow-guide-route-isolation")) return `${base}/workflow-guide-route-isolation.txt`;
-  if (command.includes("check-workspace-access-internal-naming")) return `${base}/workspace-access-internal-naming.txt`;
-  if (command.includes("check-issue-evidence-index")) return `${base}/issue-evidence-index.txt`;
-  if (command.includes("check-root-verification-wiring")) return `${base}/root-verification-wiring.txt`;
-  if (command.includes("check-default-room-scale")) return `${base}/default-room-scale.txt`;
-  if (command.includes("check-executor-seed-preset-guards")) return `${base}/executor-seed-preset-guards.txt`;
-  if (command.includes("check-runtime-seed-behavior")) return `${base}/runtime-seed-behavior.txt`;
-  if (command.includes("check-simulation-v0-comparison-validation-hardening")) return `${base}/simulation-v0-comparison-validation-hardening.txt`;
-  if (command.includes("check-simulation-v0-refinement-repair")) return `${base}/simulation-v0-refinement-repair.txt`;
-  if (command.includes("check-simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
+  if (matchesGate(command, "visible-product-copy-all-routes")) return `${base}/visible-product-copy-all-routes.txt`;
+  if (matchesGate(command, "workflow-guide-route-isolation")) return `${base}/workflow-guide-route-isolation.txt`;
+  if (matchesGate(command, "workspace-access-internal-naming")) return `${base}/workspace-access-internal-naming.txt`;
+  if (matchesGate(command, "issue-evidence-index")) return `${base}/issue-evidence-index.txt`;
+  if (matchesGate(command, "root-verification-wiring")) return `${base}/root-verification-wiring.txt`;
+  if (matchesGate(command, "default-room-scale")) return `${base}/default-room-scale.txt`;
+  if (matchesGate(command, "executor-seed-preset-guards")) return `${base}/executor-seed-preset-guards.txt`;
+  if (matchesGate(command, "runtime-seed-behavior")) return `${base}/runtime-seed-behavior.txt`;
+  if (matchesGate(command, "simulation-v0-comparison-validation-hardening")) return `${base}/simulation-v0-comparison-validation-hardening.txt`;
+  if (matchesGate(command, "simulation-v0-refinement-repair")) return `${base}/simulation-v0-refinement-repair.txt`;
+  if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
+  if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
+  if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;
+  if (command.includes("check:production-docker-runtime")) return `${base}/production-docker-runtime.txt`;
   if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   return `${base}/command.txt`;
+}
+
+function matchesGate(command, gateName) {
+  return command.includes(`check-${gateName}`) || command.includes(`check:${gateName}`);
 }
 
 export function writeCloseout(dir, issue, status, commands, explicitGoNoGo) {

@@ -17,7 +17,7 @@ Completed PIN cooldown/lockout stage: cooldown.
 - docs/verification/pin-first-entry-gate-manifest.json
 
 ## Known Limitations
-- PIN 2026 remains a demo-only gate, not production authentication, real security, or PHI protection.
+- configured access credential remains a demo-only gate, not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, clinical safety certification, hidden scoring, optimizer behavior, or full-shift simulation was added.

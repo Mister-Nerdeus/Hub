@@ -65,7 +65,7 @@ writeJson(`${context.dir}/executor-seed-preset-guard-summary.json`, { executorSe
 writeJson(`${context.dir}/runtime-seed-behavior-summary.json`, { runtimeSeedBehaviorStatus: manifest.runtimeSeedBehaviorStatus });
 writeJson(`${context.dir}/comparison-validation-hardening-summary.json`, { comparisonValidationHardeningStatus: manifest.comparisonValidationHardeningStatus });
 writeJson(`${context.dir}/route-screenshot-index.json`, {
-  screenshots: (manifest.routesScanned ?? []).map((route) => `docs/verification/issues/issue-581/screenshots/${route}.png`)
+  screenshots: (manifest.routesScanned ?? []).map((route) => `${context.dir}/screenshots/${route}.png`)
 });
 writeText(`${context.dir}/known-gaps.md`, [
   "# Known Gaps",

@@ -12,4 +12,8 @@ npm run check:executor-seed-preset-guards
 npm run check:runtime-seed-behavior
 npm run check:simulation-v0-comparison-validation-hardening
 node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590
+docker compose config
+docker compose -f docker-compose.production.yml config
+npm run check:production-docker-runtime
 node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs

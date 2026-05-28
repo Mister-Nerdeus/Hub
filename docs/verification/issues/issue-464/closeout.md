@@ -17,7 +17,7 @@ Completed PIN-first entry gate stage: pin-landing-ux.
 - docs/verification/pin-first-entry-gate-manifest.json
 
 ## Known Limitations
-- PIN 2026 is demo-only and is not production authentication, real security, or PHI protection.
+- configured access credential is demo-only and is not production authentication, real security, or PHI protection.
 - Manual review remains required and promotion remains blocked.
 
 ## Non-PHI Confirmation

@@ -3,8 +3,10 @@ import { readFileSync } from "node:fs";
 import { withBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
 import {
   abs,
+  collectTextFiles,
   createRepairContext,
   finalizeRepairGate,
+  fileExists,
   readJson,
   runSelectedRepairStages,
   writeJson
@@ -114,9 +116,11 @@ async function runStage(stage) {
       "docs/verification/visible-product-copy-allowlist.json"
     ], credential);
     const renderedCount = rendered.routes.filter((route) => route.accessCredentialVisible).length;
+    const negativeFixtureFails = scanText(`Synthetic rendered copy Access code ${credential}`).accessCredentialVisible;
+    context.add("rendered access credential negative fixture fails", negativeFixtureFails, { fixture: "Access code <configured>" });
     context.add("rendered routes do not expose configured access credential", renderedCount === 0, { renderedCount });
     context.add("issue evidence and product docs do not expose configured access credential", evidenceFindings.length === 0, { findingCount: evidenceFindings.length });
-    writeJson(`${context.dir}/access-credential-output.json`, { status: renderedCount === 0 && evidenceFindings.length === 0 ? "passed" : "failed", renderedCount, evidenceFindingCount: evidenceFindings.length });
+    writeJson(`${context.dir}/access-credential-output.json`, { status: negativeFixtureFails && renderedCount === 0 && evidenceFindings.length === 0 ? "passed" : "failed", renderedCount, evidenceFindingCount: evidenceFindings.length, negativeFixtureFails });
   }
 }
 
@@ -134,13 +138,14 @@ async function scanRoutes() {
       await browser.navigate(`${browser.baseUrl}/?section=${section}`, `document.querySelector(${JSON.stringify(readySelector)}) != null`);
       const screenshotPath = `${context.dir}/screenshots/${routeId}.png`;
       await browser.screenshot(screenshotPath);
+      const screenshotOk = fileExists(screenshotPath, 100);
       const bodyText = await browser.evaluate("document.body.textContent || ''");
       const textScan = scanText(bodyText, policy, credential);
       routes.push({
         routeId,
         section,
         screenshotPath,
-        screenshotOk: true,
+        screenshotOk,
         renderedTextLength: bodyText.length,
         ...textScan
       });
@@ -180,9 +185,11 @@ function readInternalAccessCredential() {
 function scanFilesForCredential(paths, credential) {
   const findings = [];
   for (const path of paths) {
-    if (!readFileSafe(path)) continue;
-    const text = readFileSafe(path);
-    if (containsCredentialLeak(text, credential)) findings.push({ path });
+    const files = collectTextFiles(path);
+    for (const file of files) {
+      const text = readFileSafe(file);
+      if (text != null && containsCredentialLeak(text, credential)) findings.push({ path: file });
+    }
   }
   return findings;
 }

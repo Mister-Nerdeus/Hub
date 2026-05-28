@@ -17,7 +17,7 @@ Completed demo PIN gate stage: protected-actions.
 - docs/verification/scope-pin-ui-repair-manifest.json
 
 ## Known Limitations
-- PIN 2026 is a demo proceed gate only.
+- configured access credential is a demo proceed gate only.
 - It is not production authentication, real security, or data protection.
 
 ## Non-PHI Confirmation

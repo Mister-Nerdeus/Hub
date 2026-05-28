@@ -21,10 +21,15 @@
 - npm run check:runtime-seed-behavior
 - npm run check:simulation-v0-comparison-validation-hardening
 - node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590
+- docker compose config
+- docker compose -f docker-compose.production.yml config
+- npm run check:production-docker-runtime
 - node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
 
 ## Tests Passed/Failed
 - Required local gates for this issue passed.
+- Docs contracts check failed on pre-existing historical closeout/index gaps outside Issues 581-590; see test-output/docs-contracts.txt.
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-590
@@ -35,6 +40,7 @@
 - Manual visual review remains required.
 - Promotion remains blocked.
 - Full-event simulation, optimization, assignment recommendations, clinical safety scoring, staffing compliance certification, and patient outcome prediction remain out of scope.
+- Historical docs contract cleanup remains open for older issue evidence outside this batch.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden visible wording.

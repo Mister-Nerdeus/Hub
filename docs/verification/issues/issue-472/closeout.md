@@ -17,7 +17,7 @@ Completed PIN session stage: session-storage.
 - docs/verification/pin-first-entry-gate-manifest.json
 
 ## Known Limitations
-- PIN 2026 is session-only demo state, not production authentication, real security, or PHI protection.
+- configured access credential is session-only demo state, not production authentication, real security, or PHI protection.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, hidden scoring, optimizer behavior, clinical safety scoring, or staffing compliance certification was added.
