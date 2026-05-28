@@ -2,7 +2,9 @@
 
 Plan 1 remains the canonical operational floorplan: `default-er-layout-plan-1`.
 
-The batch prompt supplied the reference layout requirements but no binary floorplan image was present in the workspace. The committed reference source record therefore captures the required banks, support areas, and 10 ft x 10 ft module expectations while keeping manual visual review required.
+The batch prompt supplied `Screenshot.png` at the repository root. The asset is now registered at `docs/verification/reference/plan-1-reference-floorplan.png` as an operational visual reference for Plan 1, with checksum recorded in `docs/verification/reference/plan-1-reference-source-record.json`.
+
+The committed reference image is not an exact CAD source, and this audit does not claim exact architectural parity. Manual visual review remains required and promotion remains blocked.
 
 ## Mismatch Inventory
 

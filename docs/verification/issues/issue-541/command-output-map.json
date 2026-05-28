@@ -1,0 +1,53 @@
+{
+  "issue": "541",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage root-asset-detected --allow-partial --issue 541",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage source-asset --allow-partial --issue 541",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage moved-from-root --allow-partial --issue 541",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage metadata --allow-partial --issue 541",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-image-asset.mjs --stage manual-review-required --allow-partial --issue 541",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/reference-image-asset.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-541/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

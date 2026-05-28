@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "manual-review-required",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "promotion remains blocked",
+      "passed": true,
+      "detail": "blocked"
+    }
+  ]
+}

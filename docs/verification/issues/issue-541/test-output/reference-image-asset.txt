@@ -1,0 +1,113 @@
+
+> node scripts/check-reference-image-asset.mjs --stage root-asset-detected --allow-partial --issue 541
+{
+  "status": "passed",
+  "stage": "root-asset-detected",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "root-provided reference asset is detected or registered after move",
+      "passed": true,
+      "detail": {
+        "hasRootAsset": false,
+        "hasStableAsset": true
+      }
+    }
+  ]
+}
+
+> node scripts/check-reference-image-asset.mjs --stage source-asset --allow-partial --issue 541
+{
+  "status": "passed",
+  "stage": "source-asset",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "source record references canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "source record has stable reference asset path",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "source record no longer says visual source is missing",
+      "passed": true,
+      "detail": "present"
+    }
+  ]
+}
+
+> node scripts/check-reference-image-asset.mjs --stage moved-from-root --allow-partial --issue 541
+{
+  "status": "passed",
+  "stage": "moved-from-root",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "stable reference asset exists",
+      "passed": true,
+      "detail": "docs/verification/reference/plan-1-reference-floorplan.png"
+    },
+    {
+      "name": "root reference asset is no longer unmanaged",
+      "passed": true,
+      "detail": "moved_from_root_to_stable_reference"
+    }
+  ]
+}
+
+> node scripts/check-reference-image-asset.mjs --stage metadata --allow-partial --issue 541
+{
+  "status": "passed",
+  "stage": "metadata",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "reference image checksum exists",
+      "passed": true,
+      "detail": "BCCF0F44DDB89BB2C74D3D7C40D669EF8B1DC90A048CE65242339DC88ED9F6BC"
+    },
+    {
+      "name": "checksum matches source record",
+      "passed": true,
+      "detail": "BCCF0F44DDB89BB2C74D3D7C40D669EF8B1DC90A048CE65242339DC88ED9F6BC"
+    },
+    {
+      "name": "asset type is PNG",
+      "passed": true,
+      "detail": "image/png"
+    },
+    {
+      "name": "exact CAD parity is not claimed",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}
+
+> node scripts/check-reference-image-asset.mjs --stage manual-review-required --allow-partial --issue 541
+{
+  "status": "passed",
+  "stage": "manual-review-required",
+  "issue": "541",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "promotion remains blocked",
+      "passed": true,
+      "detail": "blocked"
+    }
+  ]
+}

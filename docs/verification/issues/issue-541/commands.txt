@@ -1,0 +1,8 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-reference-image-asset.mjs --stage root-asset-detected --allow-partial --issue 541
+node scripts/check-reference-image-asset.mjs --stage source-asset --allow-partial --issue 541
+node scripts/check-reference-image-asset.mjs --stage moved-from-root --allow-partial --issue 541
+node scripts/check-reference-image-asset.mjs --stage metadata --allow-partial --issue 541
+node scripts/check-reference-image-asset.mjs --stage manual-review-required --allow-partial --issue 541
+node scripts/check-no-phi-fields.mjs
