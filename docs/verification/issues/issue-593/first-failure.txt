@@ -1,0 +1,3 @@
+Reproduced failure class: node scripts/check-docs-contracts.mjs failed while the prior batch still claimed a clean GO. The observed failures are historical evidence-index and command-output-map backlog items around Issues 511-550, not current Issues 591-600.
+
+Repair path: current-batch docs contracts are blocking, historical backlog is explicitly scoped as non-blocking by machine-readable policy, and requiredGateFailed plus closeoutSaysGo negative fixtures fail closed.

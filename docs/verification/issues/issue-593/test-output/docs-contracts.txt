@@ -1,0 +1,72 @@
+
+> node scripts/check-docs-contracts.mjs --stage current-batch --allow-partial --issue 593
+{
+  "status": "passed",
+  "stage": "current-batch",
+  "issue": "593",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "current-batch docs contracts are blocking and passing",
+      "passed": true,
+      "detail": {
+        "currentBatchFailureCount": 0,
+        "policyFailures": []
+      }
+    }
+  ]
+}
+
+> node scripts/check-docs-contracts.mjs --stage historical-backlog --allow-partial --issue 593
+{
+  "status": "passed",
+  "stage": "historical-backlog",
+  "issue": "593",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "historical docs-contract backlog is scoped and non-blocking by policy",
+      "passed": true,
+      "detail": {
+        "historicalBacklogFailureCount": 298
+      }
+    }
+  ]
+}
+
+> node scripts/check-docs-contracts.mjs --stage contradiction-negative --allow-partial --issue 593
+{
+  "status": "passed",
+  "stage": "contradiction-negative",
+  "issue": "593",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "requiredGateFailed plus closeoutSaysGo negative fixture fails",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-docs-contracts.mjs --stage required-gate-failed-go-negative --allow-partial --issue 593
+{
+  "status": "passed",
+  "stage": "required-gate-failed-go-negative",
+  "issue": "593",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "required gate failure cannot coexist with GO",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
+
+> node scripts/check-no-phi-fields.mjs
+No PHI-like fields found.

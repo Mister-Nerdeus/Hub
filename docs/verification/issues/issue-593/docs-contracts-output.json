@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "required-gate-failed-go-negative",
+  "issue": "593",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "required gate failure cannot coexist with GO",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

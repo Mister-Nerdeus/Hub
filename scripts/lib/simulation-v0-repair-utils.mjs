@@ -373,6 +373,12 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-issue-evidence-index.mjs --stage issue-coverage --allow-partial --issue 592",
       "node scripts/check-issue-evidence-index.mjs --stage blank-committed-index-negative --allow-partial --issue 592",
       "node scripts/check-issue-evidence-index.mjs --stage local-only-index-negative --allow-partial --issue 592"
+    ],
+    "593": [
+      "node scripts/check-docs-contracts.mjs --stage current-batch --allow-partial --issue 593",
+      "node scripts/check-docs-contracts.mjs --stage historical-backlog --allow-partial --issue 593",
+      "node scripts/check-docs-contracts.mjs --stage contradiction-negative --allow-partial --issue 593",
+      "node scripts/check-docs-contracts.mjs --stage required-gate-failed-go-negative --allow-partial --issue 593"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];
@@ -394,6 +400,7 @@ export function mappedRepairOutput(dir, command) {
   if (matchesGate(command, "simulation-v0-comparison-validation-hardening")) return `${base}/simulation-v0-comparison-validation-hardening.txt`;
   if (matchesGate(command, "simulation-v0-refinement-repair")) return `${base}/simulation-v0-refinement-repair.txt`;
   if (matchesGate(command, "simulation-v0-internal-dry-run")) return `${base}/simulation-v0-internal-dry-run.txt`;
+  if (matchesGate(command, "docs-contracts") || command.includes("check:docs")) return `${base}/docs-contracts.txt`;
   if (command === "docker compose config") return `${base}/docker-compose-config.txt`;
   if (command === "docker compose -f docker-compose.production.yml config") return `${base}/docker-compose-production-config.txt`;
   if (command.includes("check:production-docker-runtime")) return `${base}/production-docker-runtime.txt`;

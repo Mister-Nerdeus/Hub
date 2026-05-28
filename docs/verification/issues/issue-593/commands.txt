@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-docs-contracts.mjs --stage current-batch --allow-partial --issue 593
+node scripts/check-docs-contracts.mjs --stage historical-backlog --allow-partial --issue 593
+node scripts/check-docs-contracts.mjs --stage contradiction-negative --allow-partial --issue 593
+node scripts/check-docs-contracts.mjs --stage required-gate-failed-go-negative --allow-partial --issue 593
+node scripts/check-no-phi-fields.mjs

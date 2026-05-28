@@ -1,0 +1,53 @@
+{
+  "issue": "593",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs --stage current-batch --allow-partial --issue 593",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs --stage historical-backlog --allow-partial --issue 593",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs --stage contradiction-negative --allow-partial --issue 593",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs --stage required-gate-failed-go-negative --allow-partial --issue 593",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-593/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
