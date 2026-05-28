@@ -19495,8 +19495,41 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "598",
+      "title": "Runtime Seed Operational Meaning Strengthening",
+      "evidenceDir": "docs/verification/issues/issue-598",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-598/closeout.md",
+        "docs/verification/issues/issue-598/command-output-map.json",
+        "docs/verification/issues/issue-598/commands.txt",
+        "docs/verification/issues/issue-598/first-failure.txt",
+        "docs/verification/issues/issue-598/manifest-update-output.json",
+        "docs/verification/issues/issue-598/no-access-credential-output.txt",
+        "docs/verification/issues/issue-598/no-assignment-recommendation-output.txt",
+        "docs/verification/issues/issue-598/no-clinical-safety-claim-output.txt",
+        "docs/verification/issues/issue-598/no-current-time-dependency-output.txt",
+        "docs/verification/issues/issue-598/no-forbidden-visible-term-output.txt",
+        "docs/verification/issues/issue-598/no-hidden-randomness-output.txt",
+        "docs/verification/issues/issue-598/no-optimizer-output.txt",
+        "docs/verification/issues/issue-598/no-patient-outcome-claim-output.txt",
+        "docs/verification/issues/issue-598/no-phi-output.txt",
+        "docs/verification/issues/issue-598/no-staffing-compliance-claim-output.txt",
+        "docs/verification/issues/issue-598/operational-runtime-field-changed-output.json",
+        "docs/verification/issues/issue-598/runtime-seed-behavior-output.json",
+        "docs/verification/issues/issue-598/same-workload-preserved-output.json",
+        "docs/verification/issues/issue-598/test-output/no-phi.txt",
+        "docs/verification/issues/issue-598/test-output/runtime-seed-behavior.txt",
+        "docs/verification/issues/issue-598/test-output/shared.txt",
+        "docs/verification/issues/issue-598/test-output/web-build.txt",
+        "docs/verification/issues/issue-598/test-output/web.txt",
+        "docs/verification/issues/issue-598/workload-hash-unchanged-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "597"
+  "lastRebuiltIssue": "598"
 }

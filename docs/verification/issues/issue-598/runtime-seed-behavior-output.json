@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "stage": "workload-hash-unchanged",
+  "issue": "598",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-false-positive-repair-manifest.json",
+  "checks": [
+    {
+      "name": "workload hash is unchanged when only runtime seed changes",
+      "passed": true,
+      "detail": {
+        "workloadHash": "466b1c78",
+        "changedWorkloadHash": "466b1c78"
+      }
+    }
+  ]
+}

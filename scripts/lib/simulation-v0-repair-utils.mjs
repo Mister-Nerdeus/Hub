@@ -400,6 +400,11 @@ export function commandsForRepairIssue(issue) {
       "node scripts/check-clean-committed-state.mjs --stage required-files --allow-partial --issue 597",
       "node scripts/check-clean-committed-state.mjs --stage local-only-negative --allow-partial --issue 597",
       "node scripts/check-clean-committed-state.mjs --stage git-tracked-required-files --allow-partial --issue 597"
+    ],
+    "598": [
+      "node scripts/check-runtime-seed-behavior.mjs --stage operational-runtime-field-changed --allow-partial --issue 598",
+      "node scripts/check-runtime-seed-behavior.mjs --stage same-workload-preserved --allow-partial --issue 598",
+      "node scripts/check-runtime-seed-behavior.mjs --stage workload-hash-unchanged --allow-partial --issue 598"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];

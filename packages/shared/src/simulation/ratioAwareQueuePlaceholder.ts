@@ -46,6 +46,7 @@ export function calculateRatioAwareQueuePlaceholder(input: {
     (event) => event.eventLabel === "task_placeholder_delayed"
   ).length;
   const unassignedPlaceholderCount = processing.unassignedPlaceholderTaskIds.length;
+  const pressureCount = queuedPlaceholderCount + delayedPlaceholderCount;
   return {
     schemaVersion: RATIO_AWARE_QUEUE_PLACEHOLDER_SCHEMA_VERSION,
     queueSummaryId: `ratio-aware-queue-${input.ratioPreset.presetId}`,
@@ -56,7 +57,7 @@ export function calculateRatioAwareQueuePlaceholder(input: {
     queuedPlaceholderCount,
     delayedPlaceholderCount,
     unassignedPlaceholderCount,
-    placeholderPressureBand: pressureBand(queuedPlaceholderCount + delayedPlaceholderCount, input.taskSet.instances.length),
+    placeholderPressureBand: pressureBand(pressureCount, input.taskSet.instances.length),
     limitationCopy: [
       "Queue pressure is a synthetic internal placeholder only.",
       "Ratio-specific runtime state can change queue and delay placeholder counts.",

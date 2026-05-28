@@ -93,13 +93,15 @@ function orderTasksForRuntime(
   if (ratioRuntimeSeed == null) {
     return tasks;
   }
-  const sequence = createDeterministicRatioRuntimeSequence(
-    ratioRuntimeSeed,
-    "nurse-task-processing-loop:same-minute-order",
-    tasks.length
-  );
   const orderByTaskId = new Map(
-    tasks.map((task, index) => [task.taskInstanceId, sequence[index] ?? 0])
+    tasks.map((task) => [
+      task.taskInstanceId,
+      createDeterministicRatioRuntimeSequence(
+        ratioRuntimeSeed,
+        `nurse-task-processing-loop:same-minute-order:${task.taskInstanceId}`,
+        1
+      )[0] ?? 0
+    ])
   );
   return [...tasks].sort((left, right) =>
     left.syntheticTimestepOffsetMinutes - right.syntheticTimestepOffsetMinutes ||

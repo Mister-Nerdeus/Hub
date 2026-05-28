@@ -1,0 +1,3 @@
+The prior runtime-seed gate proved only that a runtime-sensitive hash changed. That could pass even if the changed seed affected event ordering or event identifiers without changing any operational runtime field.
+
+Issue 598 repairs that failure class by requiring a changed runtime seed to preserve neutral workload task IDs while changing at least one operational runtime field: nurse processing order, task start minute, task delayed minute, queued count, delayed count, or queue pressure band.
