@@ -1,0 +1,188 @@
+
+> node scripts/capture-image-backed-layout-parity-proof.mjs --issue 543
+{
+  "schemaVersion": "1.0.0",
+  "issue": "543",
+  "status": "passed",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "referenceImagePath": "docs/verification/reference/plan-1-reference-floorplan.png",
+  "referenceOverlayPath": "docs/verification/reference/plan-1-reference-overlay.json",
+  "comparisonBasis": "committed reference image plus normalized operational overlay",
+  "exactCadParityClaimed": false,
+  "manualVisualReviewRequired": true,
+  "promotionStatus": "blocked",
+  "regionParity": {
+    "roomBanks": {
+      "status": "passed",
+      "regions": [
+        "left-trauma-pod",
+        "right-pod",
+        "far-right-vertical-bank",
+        "left-side-vertical-bank",
+        "bottom-bank"
+      ]
+    },
+    "supportAreas": {
+      "status": "passed",
+      "regions": [
+        "provider-pharmacy-support-band",
+        "nurse-station-areas",
+        "storage-support-region"
+      ]
+    },
+    "hallways": {
+      "status": "passed",
+      "regions": [
+        "main-hallway-corridor-bands"
+      ]
+    }
+  },
+  "overlayCoverage": [
+    {
+      "id": "left-trauma-pod",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "right-pod",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "far-right-vertical-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "left-side-vertical-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "bottom-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "provider-pharmacy-support-band",
+      "category": "support_area",
+      "fixtureHintCount": 1
+    },
+    {
+      "id": "nurse-station-areas",
+      "category": "support_area",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "main-hallway-corridor-bands",
+      "category": "hallway",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "storage-support-region",
+      "category": "storage_support",
+      "fixtureHintCount": 1
+    }
+  ],
+  "screenshots": [
+    "docs/verification/issues/issue-543/screenshots/reference-floorplan-source.png",
+    "docs/verification/issues/issue-543/screenshots/app-rendered-canonical-floorplan.png",
+    "docs/verification/issues/issue-543/screenshots/parity-left-trauma-pod.png",
+    "docs/verification/issues/issue-543/screenshots/parity-right-pod.png",
+    "docs/verification/issues/issue-543/screenshots/parity-bottom-bank.png",
+    "docs/verification/issues/issue-543/screenshots/parity-support-area.png"
+  ],
+  "visualLimitations": [
+    "The proof is region-level and image-backed; it is not CAD alignment.",
+    "Manual visual review remains required.",
+    "The committed reference is operational visual evidence only."
+  ],
+  "browserProof": {
+    "canonicalPlanVisible": true,
+    "accessCredentialVisible": false,
+    "exactCadParityClaimVisible": false,
+    "manualReviewRequiredVisible": true
+  }
+}
+
+> node scripts/check-image-backed-layout-parity.mjs --stage room-bank-parity --allow-partial --issue 543
+{
+  "status": "passed",
+  "stage": "room-bank-parity",
+  "issue": "543",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "room bank parity regions are present",
+      "passed": true,
+      "detail": [
+        "left-trauma-pod",
+        "right-pod",
+        "far-right-vertical-bank",
+        "left-side-vertical-bank",
+        "bottom-bank"
+      ]
+    }
+  ]
+}
+
+> node scripts/check-image-backed-layout-parity.mjs --stage support-area-parity --allow-partial --issue 543
+{
+  "status": "passed",
+  "stage": "support-area-parity",
+  "issue": "543",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "support and storage regions are present",
+      "passed": true,
+      "detail": [
+        "provider-pharmacy-support-band",
+        "nurse-station-areas",
+        "storage-support-region"
+      ]
+    }
+  ]
+}
+
+> node scripts/check-image-backed-layout-parity.mjs --stage hallway-parity --allow-partial --issue 543
+{
+  "status": "passed",
+  "stage": "hallway-parity",
+  "issue": "543",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "main hallway/corridor overlay region exists",
+      "passed": true,
+      "detail": "main-hallway-corridor-bands"
+    }
+  ]
+}
+
+> node scripts/check-image-backed-layout-parity.mjs --stage screenshot-proof --allow-partial --issue 543
+{
+  "status": "passed",
+  "stage": "screenshot-proof",
+  "issue": "543",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "image-backed parity screenshots exist",
+      "passed": true,
+      "detail": [
+        "reference-floorplan-source.png",
+        "app-rendered-canonical-floorplan.png",
+        "parity-left-trauma-pod.png",
+        "parity-right-pod.png",
+        "parity-bottom-bank.png",
+        "parity-support-area.png"
+      ]
+    },
+    {
+      "name": "parity report exists",
+      "passed": true,
+      "detail": "docs/verification/image-backed-layout-parity-report.json"
+    }
+  ]
+}

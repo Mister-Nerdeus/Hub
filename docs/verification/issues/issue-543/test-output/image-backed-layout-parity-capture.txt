@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "1.0.0",
+  "issue": "543",
+  "status": "passed",
+  "canonicalFloorplanId": "default-er-layout-plan-1",
+  "referenceImagePath": "docs/verification/reference/plan-1-reference-floorplan.png",
+  "referenceOverlayPath": "docs/verification/reference/plan-1-reference-overlay.json",
+  "comparisonBasis": "committed reference image plus normalized operational overlay",
+  "exactCadParityClaimed": false,
+  "manualVisualReviewRequired": true,
+  "promotionStatus": "blocked",
+  "regionParity": {
+    "roomBanks": {
+      "status": "passed",
+      "regions": [
+        "left-trauma-pod",
+        "right-pod",
+        "far-right-vertical-bank",
+        "left-side-vertical-bank",
+        "bottom-bank"
+      ]
+    },
+    "supportAreas": {
+      "status": "passed",
+      "regions": [
+        "provider-pharmacy-support-band",
+        "nurse-station-areas",
+        "storage-support-region"
+      ]
+    },
+    "hallways": {
+      "status": "passed",
+      "regions": [
+        "main-hallway-corridor-bands"
+      ]
+    }
+  },
+  "overlayCoverage": [
+    {
+      "id": "left-trauma-pod",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "right-pod",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "far-right-vertical-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "left-side-vertical-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "bottom-bank",
+      "category": "room_bank",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "provider-pharmacy-support-band",
+      "category": "support_area",
+      "fixtureHintCount": 1
+    },
+    {
+      "id": "nurse-station-areas",
+      "category": "support_area",
+      "fixtureHintCount": 2
+    },
+    {
+      "id": "main-hallway-corridor-bands",
+      "category": "hallway",
+      "fixtureHintCount": 6
+    },
+    {
+      "id": "storage-support-region",
+      "category": "storage_support",
+      "fixtureHintCount": 1
+    }
+  ],
+  "screenshots": [
+    "docs/verification/issues/issue-543/screenshots/reference-floorplan-source.png",
+    "docs/verification/issues/issue-543/screenshots/app-rendered-canonical-floorplan.png",
+    "docs/verification/issues/issue-543/screenshots/parity-left-trauma-pod.png",
+    "docs/verification/issues/issue-543/screenshots/parity-right-pod.png",
+    "docs/verification/issues/issue-543/screenshots/parity-bottom-bank.png",
+    "docs/verification/issues/issue-543/screenshots/parity-support-area.png"
+  ],
+  "visualLimitations": [
+    "The proof is region-level and image-backed; it is not CAD alignment.",
+    "Manual visual review remains required.",
+    "The committed reference is operational visual evidence only."
+  ],
+  "browserProof": {
+    "canonicalPlanVisible": true,
+    "accessCredentialVisible": false,
+    "exactCadParityClaimVisible": false,
+    "manualReviewRequiredVisible": true
+  }
+}
+
+
+> @nerdeus/web@0.1.0 dev
+> vite --host 0.0.0.0 --host 127.0.0.1 --port 5543
+
+
+  [32m[1mVITE[22m v8.0.14[39m  [2mready in [0m[1m232[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5543[22m/[39m

@@ -1,0 +1,53 @@
+{
+  "issue": "543",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/capture-image-backed-layout-parity-proof.mjs --issue 543",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/image-backed-layout-parity-capture.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-image-backed-layout-parity.mjs --stage room-bank-parity --allow-partial --issue 543",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-image-backed-layout-parity.mjs --stage support-area-parity --allow-partial --issue 543",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-image-backed-layout-parity.mjs --stage hallway-parity --allow-partial --issue 543",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-image-backed-layout-parity.mjs --stage screenshot-proof --allow-partial --issue 543",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-543/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

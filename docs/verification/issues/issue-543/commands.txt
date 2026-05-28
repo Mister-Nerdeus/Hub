@@ -1,0 +1,8 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/capture-image-backed-layout-parity-proof.mjs --issue 543
+node scripts/check-image-backed-layout-parity.mjs --stage room-bank-parity --allow-partial --issue 543
+node scripts/check-image-backed-layout-parity.mjs --stage support-area-parity --allow-partial --issue 543
+node scripts/check-image-backed-layout-parity.mjs --stage hallway-parity --allow-partial --issue 543
+node scripts/check-image-backed-layout-parity.mjs --stage screenshot-proof --allow-partial --issue 543
+node scripts/check-no-phi-fields.mjs

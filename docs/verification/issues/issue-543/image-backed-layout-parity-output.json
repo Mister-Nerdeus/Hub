@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "stage": "screenshot-proof",
+  "issue": "543",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "image-backed parity screenshots exist",
+      "passed": true,
+      "detail": [
+        "reference-floorplan-source.png",
+        "app-rendered-canonical-floorplan.png",
+        "parity-left-trauma-pod.png",
+        "parity-right-pod.png",
+        "parity-bottom-bank.png",
+        "parity-support-area.png"
+      ]
+    },
+    {
+      "name": "parity report exists",
+      "passed": true,
+      "detail": "docs/verification/image-backed-layout-parity-report.json"
+    }
+  ]
+}
