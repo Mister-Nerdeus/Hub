@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "stage": "excluded-space-counts",
+  "issue": "548",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "storage/support/hallways are excluded spaces",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    },
+    {
+      "name": "provider/pharmacy support zone exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "assignment and ratio eligible counts exclude storage/support/hallways",
+      "passed": true,
+      "detail": {
+        "assignmentEligibleCount": 22,
+        "ratioEligibleCount": 22
+      }
+    }
+  ]
+}

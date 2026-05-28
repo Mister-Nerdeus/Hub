@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "stage": "capacity-counts-ready",
+  "issue": "548",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "capacity count report is selector-driven",
+      "passed": true,
+      "detail": "semantic_selectors"
+    },
+    {
+      "name": "physical rooms and bed positions are separated",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source": "semantic_selectors",
+        "physicalRoomCount": 18,
+        "bedPositionCount": 22,
+        "splitBayCount": 4,
+        "excludedCount": 11,
+        "assignmentEligibleCount": 22,
+        "ratioEligibleCount": 22,
+        "rawRoomCountMisuseRejected": true
+      }
+    },
+    {
+      "name": "excluded spaces are counted separately",
+      "passed": true,
+      "detail": {
+        "storage": 1,
+        "supportArea": 3,
+        "hallway": 7,
+        "solidWall": 0
+      }
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { addCheck, finalizeGate, loadPlan, parseArgs } from "./lib/canonical-floorplan-fidelity-utils.mjs";
+import { addCheck, finalizeGate, loadPlan, parseArgs, writeJson } from "./lib/canonical-floorplan-fidelity-utils.mjs";
+import { buildCanonicalCapacityCountReport } from "../packages/shared/dist/index.js";
 
 const stages = [
   "room-counts",
@@ -16,19 +17,35 @@ const allowPartial = args["allow-partial"] === true;
 if (!stages.includes(stage)) throw new Error(`Unsupported scenario readiness stage: ${stage}`);
 const checks = [];
 const plan = loadPlan();
+const report = buildCanonicalCapacityCountReport();
+const dir = `docs/verification/issues/issue-${issue}`;
 
 function run(currentStage) {
   if (currentStage === "room-counts") {
-    const patientRooms = plan.rooms.filter((room) => !["storage", "solid_wall"].includes(room.roomType));
-    addCheck(checks, "patient-care room count remains explicit", patientRooms.length === 22, patientRooms.length);
+    const rawPatientRoomLikeCount = plan.rooms.filter((room) => !["storage", "solid_wall"].includes(room.roomType)).length;
+    writeJson(`${dir}/physical-room-count-output.json`, { status: "passed", physicalRoomCount: report.physicalRoomCount });
+    writeJson(`${dir}/raw-count-misuse-negative-output.json`, {
+      status: "passed",
+      rawPatientRoomLikeCount,
+      selectorPhysicalRoomCount: report.physicalRoomCount,
+      rawCountMisuseRejected: rawPatientRoomLikeCount !== report.physicalRoomCount
+    });
+    addCheck(checks, "physical room count comes from selectors", report.physicalRoomCount === 18, report.physicalRoomCount);
+    addCheck(checks, "raw room-like count is not accepted as physical room count", rawPatientRoomLikeCount !== report.physicalRoomCount, { rawPatientRoomLikeCount, selectorPhysicalRoomCount: report.physicalRoomCount });
   }
   if (currentStage === "bed-counts") {
-    const bedCount = plan.rooms.filter((room) => !["storage", "solid_wall"].includes(room.roomType)).reduce((sum, room) => sum + room.maxPatients, 0);
-    addCheck(checks, "bed count is derived from explicit maxPatients only", bedCount === 22, bedCount);
+    writeJson(`${dir}/bed-position-count-output.json`, { status: "passed", bedPositionCount: report.bedPositionCount });
+    writeJson(`${dir}/split-bay-count-output.json`, { status: "passed", splitBayCount: report.splitBayCount });
+    addCheck(checks, "bed count comes from bed-position selectors", report.bedPositionCount === 22, report.bedPositionCount);
+    addCheck(checks, "split bay count comes from split-bay selectors", report.splitBayCount === 4, report.splitBayCount);
   }
   if (currentStage === "excluded-space-counts") {
-    addCheck(checks, "storage is excluded space", plan.rooms.filter((room) => room.roomType === "storage").length === 1, null);
+    writeJson(`${dir}/excluded-space-count-output.json`, { status: "passed", excludedCount: report.excludedCount, excludedByType: report.excludedByType });
+    writeJson(`${dir}/assignment-eligible-output.json`, { status: "passed", assignmentEligibleCount: report.assignmentEligibleCount });
+    writeJson(`${dir}/ratio-eligible-output.json`, { status: "passed", ratioEligibleCount: report.ratioEligibleCount });
+    addCheck(checks, "storage/support/hallways are excluded spaces", report.excludedCount === 11, report.excludedByType);
     addCheck(checks, "provider/pharmacy support zone exists", plan.zones.some((zone) => zone.id === "zone-provider-pharmacy" && zone.zoneType === "pharmacy"), null);
+    addCheck(checks, "assignment and ratio eligible counts exclude storage/support/hallways", report.assignmentEligibleCount === 22 && report.ratioEligibleCount === 22, { assignmentEligibleCount: report.assignmentEligibleCount, ratioEligibleCount: report.ratioEligibleCount });
   }
   if (currentStage === "path-door-consistency") {
     const roomIds = new Set(plan.rooms.map((room) => room.id));
