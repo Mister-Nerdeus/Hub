@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stage": "future-drift-negative",
+  "issue": "546",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "future drift negative proof passes",
+      "passed": true,
+      "detail": {
+        "storageWithRoomLikeRawFieldsStillExcluded": true
+      }
+    }
+  ]
+}

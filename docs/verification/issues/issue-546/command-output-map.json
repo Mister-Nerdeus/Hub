@@ -1,0 +1,53 @@
+{
+  "issue": "546",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:room-type-semantics",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/room-type-semantics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-storage-raw-field-guard.mjs --stage raw-field-audit --allow-partial --issue 546",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/storage-raw-field-guard.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-storage-raw-field-guard.mjs --stage selector-ignore-proof --allow-partial --issue 546",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/storage-raw-field-guard.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-storage-raw-field-guard.mjs --stage future-drift-negative --allow-partial --issue 546",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/storage-raw-field-guard.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-546/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+
+> node scripts/check-storage-raw-field-guard.mjs --stage raw-field-audit --allow-partial --issue 546
+{
+  "status": "passed",
+  "stage": "raw-field-audit",
+  "issue": "546",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "storage raw field risk is documented",
+      "passed": true,
+      "detail": {
+        "hasMaxPatients": true,
+        "maxPatients": 1,
+        "hasPathNodeId": true,
+        "capacityCategory": "single",
+        "roomClass": "storage"
+      }
+    },
+    {
+      "name": "storage room retains storage room type",
+      "passed": true,
+      "detail": "storage"
+    }
+  ]
+}
+
+> node scripts/check-storage-raw-field-guard.mjs --stage selector-ignore-proof --allow-partial --issue 546
+{
+  "status": "passed",
+  "stage": "selector-ignore-proof",
+  "issue": "546",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "selectors ignore room-like raw fields for storage",
+      "passed": true,
+      "detail": {
+        "occupancyType": "storage",
+        "bedCountContribution": 0,
+        "physicalRoomCountContribution": 0,
+        "assignmentEligible": false,
+        "ratioEligible": false,
+        "roomLoadEligible": false
+      }
+    },
+    {
+      "name": "storage remains non-assignable",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage remains excluded from ratio math",
+      "passed": true,
+      "detail": false
+    },
+    {
+      "name": "storage remains excluded from room-load generation",
+      "passed": true,
+      "detail": false
+    }
+  ]
+}
+
+> node scripts/check-storage-raw-field-guard.mjs --stage future-drift-negative --allow-partial --issue 546
+{
+  "status": "passed",
+  "stage": "future-drift-negative",
+  "issue": "546",
+  "allowPartial": true,
+  "checks": [
+    {
+      "name": "future drift negative proof passes",
+      "passed": true,
+      "detail": {
+        "storageWithRoomLikeRawFieldsStillExcluded": true
+      }
+    }
+  ]
+}
