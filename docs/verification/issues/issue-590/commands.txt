@@ -1,0 +1,15 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:simulation-v0-internal-dry-run
+npm run check:visible-product-copy-all-routes
+npm run check:workflow-guide-route-isolation
+npm run check:workspace-access-internal-naming
+npm run check:issue-evidence-index
+npm run check:root-verification-wiring
+npm run check:default-room-scale
+npm run check:executor-seed-preset-guards
+npm run check:runtime-seed-behavior
+npm run check:simulation-v0-comparison-validation-hardening
+node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590
+node scripts/check-no-phi-fields.mjs

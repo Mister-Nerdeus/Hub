@@ -1,0 +1,95 @@
+{
+  "issue": "590",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-internal-dry-run",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:visible-product-copy-all-routes",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:workflow-guide-route-isolation",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:workspace-access-internal-naming",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:issue-evidence-index",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:root-verification-wiring",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:default-room-scale",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:executor-seed-preset-guards",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:runtime-seed-behavior",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-comparison-validation-hardening",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-refinement-repair.mjs --stage final --issue 590",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/simulation-v0-refinement-repair.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-590/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

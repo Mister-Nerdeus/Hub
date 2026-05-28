@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "validInputs": [
+    {
+      "ratioPresetId": "four_to_one",
+      "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
+      "activityProfileId": "typical",
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation"
+    },
+    {
+      "ratioPresetId": "three_to_one",
+      "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+      "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+      "activityProfileId": "typical",
+      "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation"
+    }
+  ]
+}

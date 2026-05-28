@@ -106,6 +106,7 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
   const neutralWorkloadSeed = input.neutralWorkloadSeed ?? neutralWorkloadSeedContract;
   const ratioRuntimeSeed = input.ratioRuntimeSeed ?? fourToOneRuntimeSeedContract;
   const timestep = input.timestepContract ?? dryRunTimestepContract;
+  validateExecutorInputBindings({ capacity, activityProfile, ratioPreset, neutralWorkloadSeed, ratioRuntimeSeed });
   const bridge = buildManualAssignmentScenarioBridgeInput(capacity, ratioPreset);
   const runtimeStates = input.runtimeStates ?? buildNurseRuntimeStatesFromManualBridge(bridge, { ratioPreset });
   const occupancySelection = selectOccupiedBedPositionsForActivityProfile({
@@ -121,7 +122,7 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     templates: input.templates ?? dryRunTaskTemplates,
     capacity
   });
-  const processing = processNurseTaskPlaceholders({ taskSet, runtimeStates, capacity });
+  const processing = processNurseTaskPlaceholders({ taskSet, runtimeStates, capacity, ratioRuntimeSeed });
   const timeline = processing.timeline;
   const nurseRuntimeSnapshots = buildNurseSnapshots(runtimeStates, timeline);
   const queueSnapshots = buildQueueSnapshots(timestep, timeline);
@@ -162,6 +163,40 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     patientOutcomePredictionClaim: false,
     syntheticDataOnly: true
   };
+}
+
+function validateExecutorInputBindings(input: {
+  capacity: ScenarioCapacityIntegration;
+  activityProfile: ActivityProfileContract;
+  ratioPreset: RatioPresetContract;
+  neutralWorkloadSeed: NeutralWorkloadSeedContract;
+  ratioRuntimeSeed: RatioRuntimeSeedContract;
+}): void {
+  if (input.ratioRuntimeSeed.ratioPresetId !== input.ratioPreset.presetId) {
+    throw new Error(
+      `executor ratio/runtime seed mismatch: ${input.ratioPreset.presetId} preset requires ${input.ratioPreset.presetId} runtime seed`
+    );
+  }
+  if (input.neutralWorkloadSeed.activityProfileId !== input.activityProfile.profileId) {
+    throw new Error("executor workload seed activity profile must match selected activity profile");
+  }
+  if (input.ratioRuntimeSeed.activityProfileId !== input.activityProfile.profileId) {
+    throw new Error("executor runtime seed activity profile must match selected activity profile");
+  }
+  if (input.neutralWorkloadSeed.canonicalScenarioSeedId !== input.capacity.canonicalScenarioSeedId) {
+    throw new Error("executor workload seed canonical scenario seed must match capacity seed");
+  }
+  if (input.ratioRuntimeSeed.canonicalScenarioSeedId !== input.capacity.canonicalScenarioSeedId) {
+    throw new Error("executor runtime seed canonical scenario seed must match capacity seed");
+  }
+  if (
+    input.activityProfile.syntheticDataOnly !== true ||
+    input.ratioPreset.syntheticDataOnly !== true ||
+    input.neutralWorkloadSeed.syntheticDataOnly !== true ||
+    input.ratioRuntimeSeed.syntheticDataOnly !== true
+  ) {
+    throw new Error("executor accepts syntheticDataOnly inputs only");
+  }
 }
 
 function buildNurseSnapshots(

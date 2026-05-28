@@ -22,10 +22,18 @@ if (
   roomPreview.label !== "Patient care room" ||
   roomPreview.xFeet !== 12 ||
   roomPreview.yFeet !== 9 ||
-  roomPreview.widthFeet !== 12 ||
+  roomPreview.widthFeet !== 10 ||
   roomPreview.heightFeet !== 10
 ) {
   throw new Error("room placement preview should use the active canvas point and default room size");
+}
+
+const storagePreview = buildObjectPlacementPreview({
+  objectType: "storage_room",
+  pointFeet: { xFeet: 12, yFeet: 9 }
+});
+if (storagePreview == null || storagePreview.widthFeet !== 10 || storagePreview.heightFeet !== 10) {
+  throw new Error("storage placement preview should use the 10 by 10 default room size");
 }
 
 const defaultPreview = buildObjectPlacementPreview({

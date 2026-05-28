@@ -1,0 +1,111 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "visible product copy policy exists",
+      "passed": true,
+      "detail": {
+        "policyPath": "docs/verification/visible-product-copy-policy.json"
+      }
+    },
+    {
+      "name": "required route matrix exactly matches policy",
+      "passed": true,
+      "detail": {
+        "routeIds": [
+          "locked-access",
+          "floorplan",
+          "editor",
+          "manual-assignment",
+          "scenarios",
+          "simulation",
+          "reports",
+          "settings",
+          "advanced-evidence",
+          "routes",
+          "assignments"
+        ],
+        "missing": [],
+        "extra": []
+      }
+    },
+    {
+      "name": "every required route rendered",
+      "passed": true,
+      "detail": {
+        "routeCount": 11,
+        "forbiddenFragmentCount": 0,
+        "credentialFindingCount": 0
+      }
+    },
+    {
+      "name": "route screenshots exist and are non-empty",
+      "passed": true,
+      "detail": {
+        "missingScreenshots": []
+      }
+    },
+    {
+      "name": "rendered route text has no forbidden visible fragments",
+      "passed": true,
+      "detail": {
+        "forbiddenCount": 0
+      }
+    },
+    {
+      "name": "rendered route text has no visible access credential",
+      "passed": true,
+      "detail": {
+        "credentialCount": 0
+      }
+    },
+    {
+      "name": "rendered forbidden term negative fixture fails",
+      "passed": true,
+      "detail": {
+        "forbidden": "Demo PIN"
+      }
+    },
+    {
+      "name": "missing route negative fixture fails",
+      "passed": true,
+      "detail": {
+        "missing": [
+          "locked-access"
+        ]
+      }
+    },
+    {
+      "name": "allowlist entry without justification negative fixture fails",
+      "passed": true,
+      "detail": {
+        "path": "apps/web/src/example.ts"
+      }
+    },
+    {
+      "name": "current visible copy allowlist entries include classification and justification",
+      "passed": true,
+      "detail": {
+        "invalidCurrent": []
+      }
+    },
+    {
+      "name": "rendered routes do not expose configured access credential",
+      "passed": true,
+      "detail": {
+        "renderedCount": 0
+      }
+    },
+    {
+      "name": "issue evidence and product docs do not expose configured access credential",
+      "passed": true,
+      "detail": {
+        "findingCount": 0
+      }
+    }
+  ]
+}

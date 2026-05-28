@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "changed runtime seed changes runtime-sensitive output",
+      "passed": true,
+      "detail": {
+        "base": "c8fd7c84",
+        "changed": "83abdf06"
+      }
+    },
+    {
+      "name": "same runtime seed repeats deterministically",
+      "passed": true,
+      "detail": {
+        "runtimeHash": "c8fd7c84",
+        "repeatRuntimeHash": "c8fd7c84"
+      }
+    },
+    {
+      "name": "changed runtime seed preserves neutral workload task IDs",
+      "passed": true,
+      "detail": {
+        "workloadHash": "466b1c78",
+        "changedWorkloadHash": "466b1c78"
+      }
+    },
+    {
+      "name": "negative fixture proves changed runtime seed cannot produce same runtime-sensitive hash",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "workload hash is unchanged when only runtime seed changes",
+      "passed": true,
+      "detail": {
+        "workloadHash": "466b1c78",
+        "changedWorkloadHash": "466b1c78"
+      }
+    },
+    {
+      "name": "runtime-sensitive hash changes when runtime seed changes",
+      "passed": true,
+      "detail": {
+        "runtimeHash": "c8fd7c84",
+        "changedRuntimeHash": "83abdf06"
+      }
+    }
+  ]
+}

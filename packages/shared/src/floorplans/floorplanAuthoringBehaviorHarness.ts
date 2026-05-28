@@ -98,7 +98,7 @@ export function runFloorplanAuthoringBehaviorHarness(input: {
     roomType: "patient_room",
     xFeet: boundsFeet.xFeet + boundsFeet.widthFeet - 28,
     yFeet: boundsFeet.yFeet + boundsFeet.heightFeet - 24,
-    widthFeet: 12,
+    widthFeet: 10,
     heightFeet: 10,
     boundsFeet
   });

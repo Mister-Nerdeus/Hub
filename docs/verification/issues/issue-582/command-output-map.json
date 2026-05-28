@@ -1,0 +1,59 @@
+{
+  "issue": "582",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-workflow-guide-route-isolation.mjs --stage simulation-route-clean --allow-partial --issue 582",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/workflow-guide-route-isolation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-workflow-guide-route-isolation.mjs --stage non-global-guide --allow-partial --issue 582",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/workflow-guide-route-isolation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-workflow-guide-route-isolation.mjs --stage advanced-evidence-placement --allow-partial --issue 582",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/workflow-guide-route-isolation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-workflow-guide-route-isolation.mjs --stage hidden-guide-not-mounted --allow-partial --issue 582",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/workflow-guide-route-isolation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 582",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-582/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

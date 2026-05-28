@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-visible-product-copy-all-routes.mjs --stage route-matrix --allow-partial --issue 581
+node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 581
+node scripts/check-visible-product-copy-all-routes.mjs --stage negative-fixture --allow-partial --issue 581
+node scripts/check-visible-product-copy-all-routes.mjs --stage missing-route-negative --allow-partial --issue 581
+node scripts/check-visible-product-copy-all-routes.mjs --stage access-credential --allow-partial --issue 581
+node scripts/check-no-phi-fields.mjs

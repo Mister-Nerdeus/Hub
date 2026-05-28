@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "synthetic-only-negative",
+  "issue": "587",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "syntheticDataOnly false is rejected at executor boundary",
+      "passed": true,
+      "detail": {
+        "failure": "executor accepts syntheticDataOnly inputs only"
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "policyVersion": "1.0.0",
+  "productDisplayName": "ER Pod Shift Simulator",
+  "requiredRoutes": [
+    "locked-access",
+    "floorplan",
+    "editor",
+    "manual-assignment",
+    "scenarios",
+    "simulation",
+    "reports",
+    "settings",
+    "advanced-evidence",
+    "routes",
+    "assignments"
+  ],
+  "forbiddenVisibleFragments": [
+    "Demo PIN",
+    "Demo-only",
+    "demo-only",
+    "Relock Demo",
+    "Plan 1 Demo Guide",
+    "recommended assignment",
+    "best assignment"
+  ],
+  "accessCredentialHandling": {
+    "visibleUiAllowed": false,
+    "issueEvidenceAllowed": false,
+    "productDocsAllowed": false,
+    "printCredentialInOutputs": false
+  }
+}

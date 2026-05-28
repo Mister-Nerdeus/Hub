@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-runtime-seed-behavior.mjs --stage runtime-seed-affects-output --allow-partial --issue 588
+node scripts/check-runtime-seed-behavior.mjs --stage deterministic-repeatability --allow-partial --issue 588
+node scripts/check-runtime-seed-behavior.mjs --stage same-workload-preserved --allow-partial --issue 588
+node scripts/check-runtime-seed-behavior.mjs --stage workload-hash-unchanged --allow-partial --issue 588
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-workspace-access-internal-naming.mjs --stage source-rename --allow-partial --issue 583
+node scripts/check-workspace-access-internal-naming.mjs --stage storage-key-migration --allow-partial --issue 583
+node scripts/check-workspace-access-internal-naming.mjs --stage rendered-copy --allow-partial --issue 583
+node scripts/check-workspace-access-internal-naming.mjs --stage credential-storage-negative --allow-partial --issue 583
+node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 583
+node scripts/check-no-phi-fields.mjs

@@ -38,7 +38,8 @@ export function calculateRatioAwareQueuePlaceholder(input: {
   const processing = processNurseTaskPlaceholders({
     taskSet: input.taskSet,
     runtimeStates: input.runtimeStates,
-    capacity: input.capacity
+    capacity: input.capacity,
+    ratioRuntimeSeed: input.ratioRuntimeSeed
   });
   const queuedPlaceholderCount = processing.busyNurseQueuedTaskIds.length;
   const delayedPlaceholderCount = processing.timeline.filter(

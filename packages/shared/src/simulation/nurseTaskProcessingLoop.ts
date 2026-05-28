@@ -1,7 +1,9 @@
 import type { ScenarioCapacityIntegration } from "../scenarios/scenarioCapacityIntegration.js";
+import { createDeterministicRatioRuntimeSequence } from "./deterministicSequence.js";
+import type { RatioRuntimeSeedContract } from "./deterministicSeedContract.js";
 import type { InternalDryRunTimelineEvent } from "./internalDryRunExecutor.js";
 import type { NurseRuntimeStateSet } from "./nurseRuntimeStateContract.js";
-import type { DryRunTaskInstanceSet } from "./taskInstanceGeneration.js";
+import type { DryRunTaskInstance, DryRunTaskInstanceSet } from "./taskInstanceGeneration.js";
 
 export const NURSE_TASK_PROCESSING_LOOP_SCHEMA_VERSION = "1.0.0" as const;
 
@@ -25,6 +27,7 @@ export function processNurseTaskPlaceholders(input: {
   taskSet: DryRunTaskInstanceSet;
   runtimeStates: NurseRuntimeStateSet;
   capacity: ScenarioCapacityIntegration;
+  ratioRuntimeSeed?: RatioRuntimeSeedContract;
 }): NurseTaskProcessingResult {
   const eligible = new Set(input.capacity.assignmentEligibleBedPositionIds);
   const excluded = new Set(input.capacity.excludedObjectIds);
@@ -38,7 +41,7 @@ export function processNurseTaskPlaceholders(input: {
   const busyNurseQueuedTaskIds: string[] = [];
   const unassignedPlaceholderTaskIds: string[] = [];
 
-  for (const task of input.taskSet.instances) {
+  for (const task of orderTasksForRuntime(input.taskSet.instances, input.ratioRuntimeSeed)) {
     if (!eligible.has(task.loadableBedPositionId) || excluded.has(task.loadableBedPositionId)) {
       throw new Error("nurse task processing loop accepts selector-eligible bed positions only");
     }
@@ -81,6 +84,28 @@ export function processNurseTaskPlaceholders(input: {
     clinicalSafetyClaim: false,
     syntheticDataOnly: true
   };
+}
+
+function orderTasksForRuntime(
+  tasks: readonly DryRunTaskInstance[],
+  ratioRuntimeSeed: RatioRuntimeSeedContract | undefined
+): readonly DryRunTaskInstance[] {
+  if (ratioRuntimeSeed == null) {
+    return tasks;
+  }
+  const sequence = createDeterministicRatioRuntimeSequence(
+    ratioRuntimeSeed,
+    "nurse-task-processing-loop:same-minute-order",
+    tasks.length
+  );
+  const orderByTaskId = new Map(
+    tasks.map((task, index) => [task.taskInstanceId, sequence[index] ?? 0])
+  );
+  return [...tasks].sort((left, right) =>
+    left.syntheticTimestepOffsetMinutes - right.syntheticTimestepOffsetMinutes ||
+    (orderByTaskId.get(left.taskInstanceId) ?? 0) - (orderByTaskId.get(right.taskInstanceId) ?? 0) ||
+    left.taskInstanceId.localeCompare(right.taskInstanceId)
+  );
 }
 
 function pushEvent(

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "unlocked-shell-mounted",
+  "issue": "583",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "unlocked app mounts shell",
+      "passed": true,
+      "detail": {
+        "unlockedShellMounted": true
+      }
+    }
+  ]
+}

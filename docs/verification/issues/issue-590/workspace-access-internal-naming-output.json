@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "visible-adjacent App internals use workspace-access naming",
+      "passed": true,
+      "detail": {
+        "renamed": [
+          "WorkspaceAccessEntryScreen",
+          "workspaceAccessState",
+          "workspaceAccessSessionStorage"
+        ]
+      }
+    },
+    {
+      "name": "old workspace access key migrates once and is cleared",
+      "passed": true,
+      "detail": {
+        "oldKey": "nerdeus.demoPin.sessionUnlock.v1",
+        "newKey": "nerdeus.workspaceAccess.sessionUnlock.v1"
+      }
+    },
+    {
+      "name": "rendered access copy has no legacy access wording",
+      "passed": true,
+      "detail": {
+        "forbidden": false
+      }
+    },
+    {
+      "name": "rendered access copy does not expose credential",
+      "passed": true,
+      "detail": {
+        "credentialVisible": false
+      }
+    },
+    {
+      "name": "credential-like stored fields are rejected",
+      "passed": true,
+      "detail": {
+        "fieldsChecked": 7
+      }
+    },
+    {
+      "name": "legacy session key is cleared after migration and relock",
+      "passed": true,
+      "detail": {
+        "oldKey": "nerdeus.demoPin.sessionUnlock.v1"
+      }
+    },
+    {
+      "name": "locked app does not mount shell",
+      "passed": true,
+      "detail": {
+        "lockedShellMounted": false
+      }
+    },
+    {
+      "name": "unlocked app mounts shell",
+      "passed": true,
+      "detail": {
+        "unlockedShellMounted": true
+      }
+    }
+  ]
+}

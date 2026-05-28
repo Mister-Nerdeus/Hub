@@ -35,6 +35,8 @@ import { createOperationalOutcomeDashboardViewModel } from "../outcomes/operatio
 import { LegacyFloorplanReferenceList } from "../floorplans/LegacyFloorplanReferenceList";
 import { createFloorplanLibraryViewModel } from "../floorplans/floorplanLibraryViewModel";
 import { PlanBuilderLanding } from "../floorplans/PlanBuilderLanding";
+import { Plan1DemoGuide } from "../demo/Plan1DemoGuide";
+import { createPlan1DemoWorkflowViewModel } from "../demo/plan1DemoWorkflowViewModel";
 import { RoutePreviewProof } from "../route-preview/RoutePreviewProof";
 import { createRoutePreviewProofViewModel } from "../route-preview/routePreviewProofViewModel";
 import { OperationalReportsProof } from "../reports/OperationalReportsProof";
@@ -65,6 +67,10 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
   const routePreviewProofViewModel = createRoutePreviewProofViewModel();
   const optimizerProofViewModel = createOptimizerProofViewModel();
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel();
+  const workflowGuideViewModel = createPlan1DemoWorkflowViewModel({
+    activeSection: "developer-evidence",
+    activePlanId: "default-er-layout-plan-1"
+  });
 
   const [draftPlan, dispatchDraft] = useReducer(planDraftReducer, planErPodPhase2 as PlanContract);
   const [defaultsFormState, setDefaultsFormState] = useState(createDefaultPlanBuilderDefaultsFormState);
@@ -112,6 +118,14 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
       <p className="developer-evidence__intro">Proof-only workflow modules are preserved here only.</p>
       <div className="developer-evidence__grid">
         {evidenceSection("Simulation API retrieval", <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />)}
+        {evidenceSection(
+          "Workflow evidence",
+          <Plan1DemoGuide
+            viewModel={workflowGuideViewModel}
+            onOpenPlan1={() => undefined}
+            onNavigate={() => undefined}
+          />
+        )}
         {evidenceSection(
           "Legacy floorplan references",
           <LegacyFloorplanReferenceList floorplans={floorplanLibraryViewModel.legacyDefaultFloorplans} />

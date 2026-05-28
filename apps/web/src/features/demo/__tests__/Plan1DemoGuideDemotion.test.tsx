@@ -7,17 +7,18 @@ declare const process: { cwd(): string };
 
 const repoRoot = resolve(process.cwd(), "../..");
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
+const evidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx"), "utf8");
 const legacyGuideLabel = ["Plan", "1", "Demo", "Guide"].join(" ");
 
-if (!appSource.includes("plan-1-demo-guide-demoted")) {
-  throw new Error("Canonical workflow guide must be demoted into a secondary details section");
+if (appSource.includes("plan-1-demo-guide-demoted") || appSource.includes("<Plan1DemoGuide")) {
+  throw new Error("Canonical workflow guide must not be globally mounted in App");
 }
-if (!appSource.includes("Canonical Workflow Guide")) {
-  throw new Error("unlocked guide summary must use canonical workflow copy");
+if (!evidenceSource.includes("<Plan1DemoGuide") || !evidenceSource.includes("Workflow evidence")) {
+  throw new Error("workflow guide must live only in the deliberate Advanced/Evidence placement");
 }
-if (appSource.includes(`<summary>${legacyGuideLabel}</summary>`)) {
+if (evidenceSource.includes(`<summary>${legacyGuideLabel}</summary>`)) {
   throw new Error("unlocked guide summary must not use legacy guide copy");
 }
-if (appSource.indexOf("Canonical ER Pod Floorplan") > appSource.indexOf("plan-1-demo-guide-demoted")) {
-  throw new Error("canonical operator workflow must appear before the demo guide source path");
+if (!appSource.includes("Canonical ER Pod Floorplan")) {
+  throw new Error("canonical operator workflow must remain in the product route");
 }

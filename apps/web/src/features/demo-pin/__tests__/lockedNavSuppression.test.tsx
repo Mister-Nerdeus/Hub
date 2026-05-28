@@ -8,7 +8,7 @@ declare const process: { cwd(): string };
 const repoRoot = resolve(process.cwd(), "../..");
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
 const entrySource = readFileSync(
-  resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinEntryScreen.tsx"),
+  resolve(repoRoot, "apps/web/src/features/demo-pin/WorkspaceAccessEntryScreen.tsx"),
   "utf8"
 );
 const gateSource = readFileSync(resolve(repoRoot, "apps/web/src/features/demo-pin/DemoPinGate.tsx"), "utf8");
@@ -27,6 +27,6 @@ for (const hiddenText of [
   }
 }
 
-if (!appSource.includes("if (!demoPinState.unlocked)")) {
+if (!appSource.includes("if (!workspaceAccessState.unlocked)")) {
   throw new Error("locked branch must be explicit before AppShell navigation renders");
 }

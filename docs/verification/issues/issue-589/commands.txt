@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage exact-ratio-pair --allow-partial --issue 589
+node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage seed-pairing --allow-partial --issue 589
+node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage shared-workload-integrity --allow-partial --issue 589
+node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage limitation-copy --allow-partial --issue 589
+node scripts/check-simulation-v0-comparison-validation-hardening.mjs --stage negative-fixtures --allow-partial --issue 589
+node scripts/check-no-phi-fields.mjs

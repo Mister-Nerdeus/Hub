@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "canonical-fixture-unchanged",
+  "issue": "586",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "canonical fixture geometry was not mutated by default placement change",
+      "passed": true,
+      "detail": {
+        "fixture": "packages/shared/src/default-plans/planVisualParitySourceTruth.ts"
+      }
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "results": [
+    {
+      "name": "duplicate 4:1 runs",
+      "error": "Simulation v0 comparison must include exactly one 4:1 run and one 3:1 run"
+    },
+    {
+      "name": "missing 3:1 run",
+      "error": "Simulation v0 comparison must include exactly two ratio runs"
+    },
+    {
+      "name": "wrong runtime seed",
+      "error": "Simulation v0 4:1 run must use the 4:1 runtime seed"
+    },
+    {
+      "name": "mismatched generated task count",
+      "error": "Simulation v0 run generated task count must match shared workload"
+    },
+    {
+      "name": "duplicate task IDs",
+      "error": "Simulation v0 shared workload task ids must be unique"
+    },
+    {
+      "name": "missing limitation copy",
+      "error": "Simulation v0 comparison limitation copy must include internal synthetic dry-run"
+    },
+    {
+      "name": "optimizer started",
+      "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+    },
+    {
+      "name": "assignment recommendation started",
+      "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+    },
+    {
+      "name": "staffing compliance claim true",
+      "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+    },
+    {
+      "name": "patient outcome claim true",
+      "error": "Simulation v0 comparison must not optimize, recommend, or claim safety/compliance/outcomes"
+    },
+    {
+      "name": "syntheticDataOnly false",
+      "error": "Simulation v0 comparison must use synthetic data only"
+    }
+  ]
+}

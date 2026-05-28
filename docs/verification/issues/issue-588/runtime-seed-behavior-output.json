@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "stage": "runtime-sensitive-hash-changed",
+  "issue": "588",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "runtime-sensitive hash changes when runtime seed changes",
+      "passed": true,
+      "detail": {
+        "runtimeHash": "c8fd7c84",
+        "changedRuntimeHash": "83abdf06"
+      }
+    }
+  ]
+}

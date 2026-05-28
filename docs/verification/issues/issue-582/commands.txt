@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-workflow-guide-route-isolation.mjs --stage simulation-route-clean --allow-partial --issue 582
+node scripts/check-workflow-guide-route-isolation.mjs --stage non-global-guide --allow-partial --issue 582
+node scripts/check-workflow-guide-route-isolation.mjs --stage advanced-evidence-placement --allow-partial --issue 582
+node scripts/check-workflow-guide-route-isolation.mjs --stage hidden-guide-not-mounted --allow-partial --issue 582
+node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 582
+node scripts/check-no-phi-fields.mjs

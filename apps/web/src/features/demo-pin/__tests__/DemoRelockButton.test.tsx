@@ -12,6 +12,6 @@ const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8"
 if (!appShellSource.includes("DemoRelockButton")) {
   throw new Error("AppShell must expose a workspace relock action after unlock");
 }
-if (!appSource.includes("clearDemoPinUnlock(getSessionStorage())")) {
+if (!appSource.includes("clearWorkspaceAccessSession(getSessionStorage())")) {
   throw new Error("Relock must clear session unlock state");
 }

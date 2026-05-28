@@ -14,6 +14,11 @@ export type ObjectPlacementPreviewViewModel = {
   stroke: string;
 };
 
+export const DEFAULT_PATIENT_ROOM_WIDTH_FEET = 10;
+export const DEFAULT_PATIENT_ROOM_HEIGHT_FEET = 10;
+export const DEFAULT_STORAGE_ROOM_WIDTH_FEET = 10;
+export const DEFAULT_STORAGE_ROOM_HEIGHT_FEET = 10;
+
 export function buildObjectPlacementPreview({
   objectType,
   pointFeet
@@ -81,9 +86,20 @@ function defaultPlacementSize(objectType: AddObjectMenuItemId): { widthFeet: num
     case "label":
       return { widthFeet: 8, heightFeet: 2 };
     case "patient_care_room":
+      return {
+        widthFeet: DEFAULT_PATIENT_ROOM_WIDTH_FEET,
+        heightFeet: DEFAULT_PATIENT_ROOM_HEIGHT_FEET
+      };
     case "storage_room":
+      return {
+        widthFeet: DEFAULT_STORAGE_ROOM_WIDTH_FEET,
+        heightFeet: DEFAULT_STORAGE_ROOM_HEIGHT_FEET
+      };
     case "solid_wall":
-      return { widthFeet: 12, heightFeet: 10 };
+      return {
+        widthFeet: DEFAULT_PATIENT_ROOM_WIDTH_FEET,
+        heightFeet: DEFAULT_PATIENT_ROOM_HEIGHT_FEET
+      };
   }
 }
 

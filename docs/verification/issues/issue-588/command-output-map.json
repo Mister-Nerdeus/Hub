@@ -1,0 +1,53 @@
+{
+  "issue": "588",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-runtime-seed-behavior.mjs --stage runtime-seed-affects-output --allow-partial --issue 588",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/runtime-seed-behavior.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-runtime-seed-behavior.mjs --stage deterministic-repeatability --allow-partial --issue 588",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/runtime-seed-behavior.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-runtime-seed-behavior.mjs --stage same-workload-preserved --allow-partial --issue 588",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/runtime-seed-behavior.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-runtime-seed-behavior.mjs --stage workload-hash-unchanged --allow-partial --issue 588",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/runtime-seed-behavior.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-588/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

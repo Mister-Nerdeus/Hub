@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "access-credential",
+  "issue": "581",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "rendered routes do not expose configured access credential",
+      "passed": true,
+      "detail": {
+        "renderedCount": 0
+      }
+    },
+    {
+      "name": "issue evidence and product docs do not expose configured access credential",
+      "passed": true,
+      "detail": {
+        "findingCount": 0
+      }
+    }
+  ]
+}

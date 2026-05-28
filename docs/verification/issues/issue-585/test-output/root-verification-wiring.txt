@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "verify-local-dry-run",
+  "issue": "585",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "verify-local dry-run source includes root check commands",
+      "passed": true,
+      "detail": {
+        "commandCount": 45
+      }
+    }
+  ]
+}

@@ -30,19 +30,17 @@ import {
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
 import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAssignmentWorkspace";
-import { Plan1DemoGuide } from "./features/demo/Plan1DemoGuide";
-import { createPlan1DemoWorkflowViewModel } from "./features/demo/plan1DemoWorkflowViewModel";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
-import { DemoPinEntryScreen } from "./features/demo-pin/DemoPinEntryScreen";
+import { WorkspaceAccessEntryScreen } from "./features/demo-pin/WorkspaceAccessEntryScreen";
 import {
-  clearDemoPinUnlock,
-  createInitialDemoPinUiState,
-  submitDemoPin,
-  tickDemoPinState,
-  updateDemoPinInput
-} from "./features/demo-pin/demoPinState";
+  clearWorkspaceAccessSession,
+  createInitialWorkspaceAccessState,
+  submitWorkspaceAccess,
+  tickWorkspaceAccessState,
+  updateWorkspaceAccessInput
+} from "./features/demo-pin/workspaceAccessState";
 import { createDemoPinGateViewModel } from "./features/demo-pin/demoPinViewModel";
 import { useDemoPinTimer } from "./features/demo-pin/useDemoPinTimer";
 import { LegacyFloorplanFixturesPanel } from "./features/floorplans/LegacyFloorplanFixturesPanel";
@@ -57,8 +55,8 @@ type AppProps = {
 export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "";
   const [activeSection, setActiveSection] = useState(() => readInitialSection(initialSection));
-  const [demoPinState, setDemoPinState] = useState(() =>
-    createInitialDemoPinUiState(getSessionStorage(), Date.now())
+  const [workspaceAccessState, setWorkspaceAccessState] = useState(() =>
+    createInitialWorkspaceAccessState(getSessionStorage(), Date.now())
   );
 
   const savedFloorplanStoreRef = useRef<SavedFloorplanStore | null>(null);
@@ -74,7 +72,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     savedFloorplanStore.list()
   );
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
-  const demoPinGateViewModel = createDemoPinGateViewModel(demoPinState);
+  const demoPinGateViewModel = createDemoPinGateViewModel(workspaceAccessState);
   const legacyFloorplanFixturesPanelViewModel = createLegacyFloorplanFixturesPanelViewModel();
   const simulationV0ViewModel = createSimulationV0InternalDryRunViewModel();
 
@@ -85,10 +83,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const canonicalFloorplanHeaderViewModel = createCanonicalFloorplanHeaderViewModel({
     activeFloorplan: activeFloorplanSummaryViewModel,
     savedFloorplans
-  });
-  const demoWorkflowViewModel = createPlan1DemoWorkflowViewModel({
-    activeSection,
-    activePlanId: activeFloorplanState.activeFloorplan?.plan.planId ?? null
   });
 
   function openDefault(planId: string) {
@@ -120,19 +114,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setFloorplanStatusMessage("Saved copy deleted. Canonical floorplan remains available.");
   }
 
-  function openPlan1Demo() {
-    openDefault("default-er-layout-plan-1");
-    setActiveSection("editor");
-  }
-
-  function navigateDemo(sectionId: AppSectionId, anchorId?: string) {
-    setActiveSection(sectionId);
-    if (anchorId == null) {
-      return;
-    }
-    window.setTimeout(() => document.getElementById(anchorId)?.scrollIntoView(), 0);
-  }
-
   useEffect(() => {
     if (typeof window === "undefined" || window.location.hash.length <= 1) {
       return;
@@ -142,13 +123,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   }, []);
 
   const tickDemoPin = useCallback(() => {
-    setDemoPinState((state) => tickDemoPinState(state));
+    setWorkspaceAccessState((state) => tickWorkspaceAccessState(state));
   }, []);
-  useDemoPinTimer(!demoPinState.unlocked, tickDemoPin);
+  useDemoPinTimer(!workspaceAccessState.unlocked, tickDemoPin);
 
   function submitDemoPinEntry() {
-    setDemoPinState((state) => {
-      const nextState = submitDemoPin(state, getSessionStorage());
+    setWorkspaceAccessState((state) => {
+      const nextState = submitWorkspaceAccess(state, getSessionStorage());
       if (nextState.unlocked) {
         setActiveSection(DEFAULT_APP_SECTION_ID);
       }
@@ -157,20 +138,20 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   }
 
   function clearDemoPinEntry() {
-    setDemoPinState(clearDemoPinUnlock(getSessionStorage()));
+    setWorkspaceAccessState(clearWorkspaceAccessSession(getSessionStorage()));
   }
 
   function relockDemo() {
-    setDemoPinState(clearDemoPinUnlock(getSessionStorage()));
+    setWorkspaceAccessState(clearWorkspaceAccessSession(getSessionStorage()));
     setActiveSection(DEFAULT_APP_SECTION_ID);
   }
 
-  if (!demoPinState.unlocked) {
+  if (!workspaceAccessState.unlocked) {
     return (
-      <DemoPinEntryScreen
+      <WorkspaceAccessEntryScreen
         viewModel={demoPinGateViewModel}
-        value={demoPinState.input}
-        onChange={(value) => setDemoPinState((state) => updateDemoPinInput(state, value))}
+        value={workspaceAccessState.input}
+        onChange={(value) => setWorkspaceAccessState((state) => updateWorkspaceAccessInput(state, value))}
         onUnlock={submitDemoPinEntry}
         onClear={clearDemoPinEntry}
       />
@@ -193,7 +174,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onOpenManualAssignment={() => setActiveSection("manual-assignment")}
             onOpenScenarioComparison={() => setActiveSection("scenarios")}
             onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
-            demoPinUnlocked={demoPinState.unlocked}
+            demoPinUnlocked={workspaceAccessState.unlocked}
           />
           <CanonicalFloorplanHeader viewModel={canonicalFloorplanHeaderViewModel} />
           {floorplanStatusMessage == null ? null : (
@@ -209,24 +190,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onDuplicateDefaultPlan={duplicateDefault}
             onOpenSavedPlan={openSaved}
             onDeleteSavedPlan={deleteSaved}
-            demoPinUnlocked={demoPinState.unlocked}
+            demoPinUnlocked={workspaceAccessState.unlocked}
           />
           <details className="floorplan-demo-proof">
             <summary>Advanced / Evidence</summary>
             <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
           </details>
         </section>
-      ) : null}
-
-      {activeSection !== DEVELOPER_EVIDENCE_SECTION_ID ? (
-        <details className="plan-1-demo-guide-demoted">
-          <summary>Canonical Workflow Guide</summary>
-          <Plan1DemoGuide
-            viewModel={demoWorkflowViewModel}
-            onOpenPlan1={openPlan1Demo}
-            onNavigate={navigateDemo}
-          />
-        </details>
       ) : null}
 
       {activeSection === "editor" ? (

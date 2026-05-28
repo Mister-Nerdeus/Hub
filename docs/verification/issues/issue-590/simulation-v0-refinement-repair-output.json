@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "590",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "all Simulation v0 repair statuses passed",
+      "passed": true,
+      "detail": {
+        "requiredStatuses": {
+          "visibleCopyAllRoutesStatus": "passed",
+          "workflowGuideIsolationStatus": "passed",
+          "workspaceAccessNamingStatus": "passed",
+          "evidenceIndexStatus": "passed",
+          "rootVerificationWiringStatus": "passed",
+          "defaultRoomScaleStatus": "passed",
+          "executorSeedPresetGuardStatus": "passed",
+          "runtimeSeedBehaviorStatus": "passed",
+          "comparisonValidationHardeningStatus": "passed"
+        },
+        "blockers": []
+      }
+    },
+    {
+      "name": "manual visual review remains required",
+      "passed": true,
+      "detail": {
+        "manualApprovalStatus": "missing"
+      }
+    },
+    {
+      "name": "promotion remains blocked",
+      "passed": true,
+      "detail": {
+        "promotionStatus": "blocked"
+      }
+    },
+    {
+      "name": "Simulation v0 remains internal dry-run only",
+      "passed": true,
+      "detail": {
+        "simulationV0Status": "internal_dry_run_only"
+      }
+    },
+    {
+      "name": "no PHI status remains passed",
+      "passed": true,
+      "detail": {
+        "noPhiStatus": "passed"
+      }
+    }
+  ]
+}

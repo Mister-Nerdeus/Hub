@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "hidden-guide-not-mounted",
+  "issue": "582",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-refinement-repair-manifest.json",
+  "checks": [
+    {
+      "name": "workflow guide is not mounted globally in App.tsx",
+      "passed": true,
+      "detail": {
+        "oldGlobalMountPath": "apps/web/src/App.tsx"
+      }
+    }
+  ]
+}

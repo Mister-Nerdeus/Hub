@@ -1,0 +1,53 @@
+{
+  "issue": "585",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-root-verification-wiring.mjs --stage root-scripts --allow-partial --issue 585",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/root-verification-wiring.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-root-verification-wiring.mjs --stage verify-local-includes-571-590 --allow-partial --issue 585",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/root-verification-wiring.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-root-verification-wiring.mjs --stage no-allow-partial-final-verify --allow-partial --issue 585",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/root-verification-wiring.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-root-verification-wiring.mjs --stage missing-script-negative --allow-partial --issue 585",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/root-verification-wiring.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-585/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

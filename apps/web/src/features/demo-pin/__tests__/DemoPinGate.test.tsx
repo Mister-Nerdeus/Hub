@@ -23,7 +23,7 @@ if (!gateSource.includes("demo-pin-gate") || !gateSource.includes("type=\"passwo
 if (gateSource.includes("data-protected-action-id") || gateSource.includes("Protected demo actions")) {
   throw new Error("locked access gate must not render protected workflow actions before unlock");
 }
-if (!appSource.includes("<DemoPinEntryScreen")) {
+if (!appSource.includes("<WorkspaceAccessEntryScreen")) {
   throw new Error("App must mount the standalone workspace access screen before AppShell");
 }
 
