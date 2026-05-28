@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "stage": "busy",
+  "issue": "557",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "Busy profile validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "profileId": "busy",
+        "label": "Busy",
+        "occupancyPercent": 85,
+        "acuityDistributionPlaceholder": {
+          "low": 25,
+          "medium": 55,
+          "high": 20
+        },
+        "complexityDistributionPlaceholder": {
+          "low": 30,
+          "medium": 50,
+          "high": 20
+        },
+        "taskIntensityPlaceholder": "high",
+        "assumptionsNote": "synthetic planning input",
+        "deterministic": true,
+        "fullShiftSimulationStatus": "not_started",
+        "outcomeClaim": false,
+        "staffingComplianceClaim": false,
+        "syntheticDataOnly": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "no-raw-room-counts",
+  "issue": "555",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario capacity source uses canonical capacity report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario seed selectors require semantic selectors",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario capacity source does not use plan.rooms iteration",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

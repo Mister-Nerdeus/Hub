@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "room-load-contract",
+  "issue": "556",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "room-load contract validates",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "room-load source is synthetic planning input",
+      "passed": true,
+      "detail": "synthetic planning input"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "stage": "ratio-readiness",
+  "issue": "558",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "ratio readiness uses preset",
+      "passed": true,
+      "detail": {
+        "ratioPresetId": "four_to_one",
+        "patientsPerNurse": 4,
+        "groupCount": 2,
+        "capacityForAssignedGroups": 8,
+        "assignedEligibleCount": 7,
+        "overCapacityPlaceholder": false
+      }
+    },
+    {
+      "name": "ratio readiness is placeholder only",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "profile": {
+    "schemaVersion": "1.0.0",
+    "profileId": "typical",
+    "label": "Typical",
+    "occupancyPercent": 65,
+    "acuityDistributionPlaceholder": {
+      "low": 35,
+      "medium": 50,
+      "high": 15
+    },
+    "complexityDistributionPlaceholder": {
+      "low": 45,
+      "medium": 45,
+      "high": 10
+    },
+    "taskIntensityPlaceholder": "medium",
+    "assumptionsNote": "synthetic planning input",
+    "deterministic": true,
+    "fullShiftSimulationStatus": "not_started",
+    "outcomeClaim": false,
+    "staffingComplianceClaim": false,
+    "syntheticDataOnly": true
+  }
+}

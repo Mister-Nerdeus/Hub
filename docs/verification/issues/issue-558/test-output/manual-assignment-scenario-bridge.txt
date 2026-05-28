@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "no-recommendations",
+  "issue": "558",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "bridge does not recommend",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "bridge does not optimize",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

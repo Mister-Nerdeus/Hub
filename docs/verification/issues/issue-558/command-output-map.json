@@ -1,0 +1,53 @@
+{
+  "issue": "558",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-scenario-bridge.mjs --stage bridge-contract --allow-partial --issue 558",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-scenario-bridge.mjs --stage coverage-readiness --allow-partial --issue 558",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-scenario-bridge.mjs --stage ratio-readiness --allow-partial --issue 558",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-scenario-bridge.mjs --stage no-recommendations --allow-partial --issue 558",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-558/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-scenario-seed-foundation.mjs --stage canonical-plan-only --allow-partial --issue 552
+node scripts/check-scenario-seed-foundation.mjs --stage seed-contract --allow-partial --issue 552
+node scripts/check-default-plans-2-through-5-unchanged.mjs --issue 552
+node scripts/check-no-phi-fields.mjs

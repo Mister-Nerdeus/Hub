@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "no-simulation",
+  "issue": "556",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "room-load does not start simulation",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "room-load does not claim outcomes",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

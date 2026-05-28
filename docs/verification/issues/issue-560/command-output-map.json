@@ -1,0 +1,89 @@
+{
+  "issue": "560",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-seed-foundation.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-preset-contracts.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-capacity-integration.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-load-starter-contract.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-scenario-bridge.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/manual-assignment-scenario-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-comparison-shell.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-go-no-go.mjs --stage final --issue 560",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/scenario-foundation-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/verify-local.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/verify-local.txt"
+      ]
+    },
+    {
+      "command": "docker compose ps",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/docker-compose-ps.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

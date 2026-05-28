@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "excluded-space-negative",
+  "issue": "556",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "excluded spaces cannot receive room-load assumptions",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

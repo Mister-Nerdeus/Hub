@@ -1,0 +1,153 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario seed foundation manifest exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest names canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "manifest keeps promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "Plan 1 accepted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "default-er-layout-plan-2 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-2"
+    },
+    {
+      "name": "default-er-layout-plan-3 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-3"
+    },
+    {
+      "name": "default-er-layout-plan-4 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-4"
+    },
+    {
+      "name": "default-er-layout-plan-5 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-5"
+    },
+    {
+      "name": "canonical scenario seed validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "scenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "floorplanRole": "canonical_plan_1_only",
+        "referenceImageStatus": "image_backed_reference_ready",
+        "referenceOverlayStatus": "overlay_parity_ready",
+        "scaleModule": "canonical_plan_1_scale",
+        "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+        "splitBayBridgeReference": "packages/shared/src/floorplans/splitBayFixtureBridge.ts",
+        "storageSupportExclusionReference": "packages/shared/src/floorplans/storageRawFieldGuard.ts",
+        "selectorCountSource": "semantic_selectors",
+        "usesCanonicalCapacityReport": true,
+        "usesSplitBayFixtureBridge": true,
+        "usesStorageRawFieldsForCounts": false,
+        "plansTwoThroughFiveScenarioEligible": false,
+        "manualVisualReviewRequired": true,
+        "promotionStatus": "blocked",
+        "scenarioStatus": "foundation_contract_only",
+        "fullShiftSimulationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "seed references capacity report",
+      "passed": true,
+      "detail": "docs/verification/canonical-capacity-count-report.json"
+    },
+    {
+      "name": "seed references split-bay bridge",
+      "passed": true,
+      "detail": "packages/shared/src/floorplans/splitBayFixtureBridge.ts"
+    },
+    {
+      "name": "seed references image-backed proof",
+      "passed": true,
+      "detail": "image_backed_reference_ready"
+    },
+    {
+      "name": "referenceImageAssetStatus is ready",
+      "passed": true,
+      "detail": "registered"
+    },
+    {
+      "name": "imageBackedParityStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayFixtureBridgeStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "capacityCountReportStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "storageRawFieldGuardStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "editorPanThresholdStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "reference image asset exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "image-backed parity report exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "capacity count report exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario capacity source uses canonical capacity report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario seed selectors require semantic selectors",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "scenario capacity source does not use plan.rooms iteration",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

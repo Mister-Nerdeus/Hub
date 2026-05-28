@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "stage": "ui-shell",
+  "issue": "559",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario shell marker exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "canonical floorplan renders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "capacity count summary renders",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio presets render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "activity profiles render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manual bridge status renders",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

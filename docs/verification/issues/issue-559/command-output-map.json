@@ -1,0 +1,59 @@
+{
+  "issue": "559",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-comparison-shell.mjs --stage ui-shell --allow-partial --issue 559",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-comparison-shell.mjs --stage placeholder-output --allow-partial --issue 559",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-comparison-shell.mjs --stage selector-driven-counts --allow-partial --issue 559",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-comparison-shell.mjs --stage visible-copy --allow-partial --issue 559",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/scenario-comparison-shell.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-access-copy.mjs --stage whole-app-visible-copy --allow-partial --issue 559",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/visible-access-copy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-559/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

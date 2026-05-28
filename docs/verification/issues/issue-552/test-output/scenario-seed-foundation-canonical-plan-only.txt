@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "stage": "canonical-plan-only",
+  "issue": "552",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "Plan 1 accepted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "default-er-layout-plan-2 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-2"
+    },
+    {
+      "name": "default-er-layout-plan-3 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-3"
+    },
+    {
+      "name": "default-er-layout-plan-4 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-4"
+    },
+    {
+      "name": "default-er-layout-plan-5 rejected",
+      "passed": true,
+      "detail": "default-er-layout-plan-5"
+    }
+  ]
+}

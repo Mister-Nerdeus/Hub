@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "preset-validation",
+  "issue": "553",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "ratio pair shares canonical scenario seed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio pair uses same capacity report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio presets use ratio eligible count",
+      "passed": true,
+      "detail": 22
+    }
+  ]
+}

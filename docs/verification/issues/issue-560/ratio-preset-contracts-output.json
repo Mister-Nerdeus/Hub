@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "4:1 preset validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "presetId": "four_to_one",
+        "label": "4:1",
+        "patientsPerNurse": 4,
+        "sourceNote": "synthetic planning assumption",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+        "usesRatioEligibleBedPositions": true,
+        "excludesNonPatientSpaces": true,
+        "usesRawRoomCount": false,
+        "complianceClaim": false,
+        "clinicalSafetyClaim": false,
+        "fullShiftSimulationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "4:1 preset is planning assumption",
+      "passed": true,
+      "detail": "synthetic planning assumption"
+    },
+    {
+      "name": "3:1 preset validates",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "presetId": "three_to_one",
+        "label": "3:1",
+        "patientsPerNurse": 3,
+        "sourceNote": "synthetic planning assumption",
+        "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+        "canonicalFloorplanId": "default-er-layout-plan-1",
+        "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+        "usesRatioEligibleBedPositions": true,
+        "excludesNonPatientSpaces": true,
+        "usesRawRoomCount": false,
+        "complianceClaim": false,
+        "clinicalSafetyClaim": false,
+        "fullShiftSimulationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "3:1 preset is planning assumption",
+      "passed": true,
+      "detail": "synthetic planning assumption"
+    },
+    {
+      "name": "ratio pair shares canonical scenario seed",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio pair uses same capacity report",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "ratio presets use ratio eligible count",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "ratio preset files contain no compliance or clinical-safety claims",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

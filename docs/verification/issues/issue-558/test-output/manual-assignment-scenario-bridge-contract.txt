@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "stage": "bridge-contract",
+  "issue": "558",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "bridge returns summary",
+      "passed": true,
+      "detail": {
+        "bridgeId": "manual-assignment-scenario-bridge-canonical-plan-1",
+        "coveredEligibleBedPositionIds": [
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-level-1-trauma"
+        ],
+        "uncoveredEligibleBedPositionIds": [
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24"
+        ],
+        "ignoredExcludedObjectIds": [
+          "room-14"
+        ],
+        "ratioReadiness": {
+          "ratioPresetId": "four_to_one",
+          "patientsPerNurse": 4,
+          "groupCount": 2,
+          "capacityForAssignedGroups": 8,
+          "assignedEligibleCount": 7,
+          "overCapacityPlaceholder": false
+        },
+        "recommendationStatus": "not_started",
+        "optimizerStatus": "not_started",
+        "fullShiftSimulationStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "excluded spaces are ignored",
+      "passed": true,
+      "detail": [
+        "room-14"
+      ]
+    }
+  ]
+}

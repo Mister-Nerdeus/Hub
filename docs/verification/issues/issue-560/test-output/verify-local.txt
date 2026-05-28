@@ -1,0 +1,651 @@
+
+> docker compose config
+name: hub
+services:
+  api:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/api/Dockerfile.local
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: "8000"
+      APP_ENV: local
+      CORS_ORIGINS: http://localhost:5180,http://localhost:5173,http://localhost:5174
+      DATABASE_URL: postgresql+psycopg://hub:hub@db:5432/hub
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: "8010"
+        protocol: tcp
+  db:
+    environment:
+      POSTGRES_DB: hub
+      POSTGRES_PASSWORD: hub
+      POSTGRES_USER: hub
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}
+      timeout: 5s
+      interval: 5s
+      retries: 12
+    image: postgres:16-alpine
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: hub-postgres-data
+        target: /var/lib/postgresql/data
+        volume: {}
+  web:
+    build:
+      context: C:\Projects\Hub
+      dockerfile: apps/web/Dockerfile.local
+    depends_on:
+      api:
+        condition: service_started
+        required: true
+    environment:
+      VITE_API_BASE_URL: ""
+      VITE_API_PROXY_TARGET: http://api:8000
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 5173
+        published: "5180"
+        protocol: tcp
+networks:
+  default:
+    name: hub_default
+volumes:
+  hub-postgres-data:
+    name: hub_hub-postgres-data
+
+> docker compose up --build -d
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 881B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 305B 0.0s done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.local
+#3 transferring dockerfile: 422B 0.0s done
+#3 DONE 0.1s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 ...
+
+#5 [auth] library/python:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/node:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.6s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 ...
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 295B 0.0s done
+#8 DONE 0.0s
+
+#9 [web  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#9 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#9 DONE 0.0s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 295B 0.0s done
+#8 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 DONE 0.8s
+
+#10 [api internal] load build context
+#10 ...
+
+#11 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#11 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#11 DONE 0.1s
+
+#10 [api internal] load build context
+#10 transferring context: 948.79kB 0.9s done
+#10 DONE 0.9s
+
+#12 [web internal] load build context
+#12 ...
+
+#13 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#13 CACHED
+
+#14 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#14 CACHED
+
+#15 [api 2/5] WORKDIR /app
+#15 CACHED
+
+#16 [api 5/5] COPY apps/api/ ./
+#16 CACHED
+
+#12 [web internal] load build context
+#12 ...
+
+#17 [api] exporting to image
+#17 exporting layers 0.0s done
+#17 exporting manifest sha256:6ea7fef17a6c00f3f926f35d65417f1a546980b737c5d4f3a5c39cd9eeb358c1 done
+#17 exporting config sha256:5989071b7482c085c84d7856219315a5840ed1481887df34dd651339312fb25b done
+#17 exporting attestation manifest sha256:fe99bae40d774ee55da1d58d53653bc5c316e426045f474a0e90766dcaeb74b8 0.1s done
+#17 exporting manifest list sha256:16f9b39d2a35c6b0b26e8f571b829af8788eca21b4b3c0d708513d654e094a2c 0.1s done
+#17 naming to docker.io/library/hub-api:latest done
+#17 unpacking to docker.io/library/hub-api:latest 0.0s done
+#17 DONE 0.4s
+
+#12 [web internal] load build context
+#12 ...
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#12 [web internal] load build context
+#12 transferring context: 3.11MB 2.4s done
+#12 DONE 2.4s
+
+#19 [web  2/10] WORKDIR /repo
+#19 CACHED
+
+#20 [web  3/10] COPY package.json package-lock.json ./
+#20 DONE 0.1s
+
+#21 [web  4/10] COPY apps/web/package.json apps/web/package.json
+#21 DONE 0.1s
+
+#22 [web  5/10] COPY packages/shared/package.json packages/shared/package.json
+#22 DONE 0.1s
+
+#23 [web  6/10] RUN npm ci
+#23 3.395 
+#23 3.395 added 27 packages, and audited 30 packages in 3s
+#23 3.395 
+#23 3.395 9 packages are looking for funding
+#23 3.395   run `npm fund` for details
+#23 3.396 
+#23 3.396 found 0 vulnerabilities
+#23 3.397 npm notice
+#23 3.397 npm notice New major version of npm available! 10.9.8 -> 11.16.0
+#23 3.397 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+#23 3.397 npm notice To update run: npm install -g npm@11.16.0
+#23 3.397 npm notice
+#23 DONE 3.8s
+
+#24 [web  7/10] COPY tsconfig.base.json ./
+#24 DONE 0.1s
+
+#25 [web  8/10] COPY apps/web apps/web
+#25 DONE 0.2s
+
+#26 [web  9/10] COPY packages/shared packages/shared
+#26 DONE 0.3s
+
+#27 [web 10/10] WORKDIR /repo/apps/web
+#27 DONE 0.1s
+
+#28 [web] exporting to image
+#28 exporting layers
+#28 exporting layers 4.4s done
+#28 exporting manifest sha256:59cfe413ce0fedf7a29791c0d8ac3b330fbd429a32f5d58293f4cdcd37ef35e9 0.0s done
+#28 exporting config sha256:6fd0fe8fc8ffa12d8b7d030760c8a9492a99ba2b7d4f6251fd934adb6d4a1545 0.0s done
+#28 exporting attestation manifest sha256:aa8f4565a3ab5a6e20f725b299ec0c1839324e33186f4e790b3c9146bf5d622a 0.0s done
+#28 exporting manifest list sha256:db5a7be13e38f3234e3626a4df4bb5ef2baa78ee2f1e32af2dd0751081f5f114
+#28 exporting manifest list sha256:db5a7be13e38f3234e3626a4df4bb5ef2baa78ee2f1e32af2dd0751081f5f114 0.0s done
+#28 naming to docker.io/library/hub-web:latest done
+#28 unpacking to docker.io/library/hub-web:latest
+#28 unpacking to docker.io/library/hub-web:latest 1.2s done
+#28 DONE 5.8s
+
+#29 [web] resolving provenance for metadata file
+#29 DONE 0.0s
+ Image hub-web Built 
+ Image hub-api Built 
+ Container hub-db-1 Running 
+ Container hub-api-1 Recreate 
+ Container hub-api-1 Recreated 
+ Container hub-web-1 Recreate 
+ Container hub-web-1 Recreated 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 
+
+> docker compose ps
+NAME        IMAGE                COMMAND                  SERVICE   CREATED         STATUS                  PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       3 seconds ago   Up Less than a second   0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        4 hours ago     Up 4 hours (healthy)    5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       2 seconds ago   Up Less than a second   0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp
+
+> docker compose --profile tools run --rm migrate
+ Container hub-db-1 Running 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-migrate-run-c3467874811c Creating 
+ Container hub-migrate-run-c3467874811c Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+
+> npm run check:no-phi
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:no-phi
+> node scripts/check-no-phi-fields.mjs
+
+No PHI-like fields found.
+
+> npm run check:dependencies
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:dependencies
+> node scripts/check-dependency-specs.mjs
+
+Dependency specs are pinned.
+
+> npm run check:docs
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:docs
+> node scripts/check-docs-contracts.mjs
+
+issue-508/closeout.md missing closeout concept: Next Recommended Issue
+issue-511/closeout.md missing closeout concept: Summary
+issue-511/closeout.md missing closeout concept: Next Recommended Issue
+issue-512/closeout.md missing closeout concept: Summary
+issue-512/closeout.md missing closeout concept: Next Recommended Issue
+issue-513/closeout.md missing closeout concept: Summary
+issue-513/closeout.md missing closeout concept: Next Recommended Issue
+issue-514/closeout.md missing closeout concept: Summary
+issue-514/closeout.md missing closeout concept: Next Recommended Issue
+issue-515/closeout.md missing closeout concept: Summary
+issue-515/closeout.md missing closeout concept: Next Recommended Issue
+issue-516/closeout.md missing closeout concept: Summary
+issue-516/closeout.md missing closeout concept: Next Recommended Issue
+issue-517/closeout.md missing closeout concept: Summary
+issue-517/closeout.md missing closeout concept: Next Recommended Issue
+issue-518/closeout.md missing closeout concept: Summary
+issue-518/closeout.md missing closeout concept: Next Recommended Issue
+issue-519/closeout.md missing closeout concept: Summary
+issue-519/closeout.md missing closeout concept: Next Recommended Issue
+issue-520/closeout.md missing closeout concept: Summary
+issue-520/closeout.md missing closeout concept: Next Recommended Issue
+issue-521/closeout.md missing closeout concept: Summary
+issue-521/closeout.md missing closeout concept: Next Recommended Issue
+issue-522/closeout.md missing closeout concept: Summary
+issue-522/closeout.md missing closeout concept: Next Recommended Issue
+issue-523/closeout.md missing closeout concept: Summary
+issue-523/closeout.md missing closeout concept: Next Recommended Issue
+issue-524/closeout.md missing closeout concept: Summary
+issue-524/closeout.md missing closeout concept: Next Recommended Issue
+issue-525/closeout.md missing closeout concept: Summary
+issue-525/closeout.md missing closeout concept: Next Recommended Issue
+issue-526/closeout.md missing closeout concept: Summary
+issue-526/closeout.md missing closeout concept: Next Recommended Issue
+issue-527/closeout.md missing closeout concept: Summary
+issue-527/closeout.md missing closeout concept: Next Recommended Issue
+issue-528/closeout.md missing closeout concept: Summary
+issue-528/closeout.md missing closeout concept: Next Recommended Issue
+issue-529/closeout.md missing closeout concept: Summary
+issue-529/closeout.md missing closeout concept: Next Recommended Issue
+issue-530/closeout.md missing closeout concept: Summary
+issue-530/closeout.md missing closeout concept: Next Recommended Issue
+issue-533/closeout.md missing closeout concept: Summary
+issue-533/closeout.md missing closeout concept: Next Recommended Issue
+issue-535/closeout.md missing closeout concept: Summary
+issue-535/closeout.md missing closeout concept: Next Recommended Issue
+issue-536/closeout.md missing closeout concept: Summary
+issue-536/closeout.md missing closeout concept: Next Recommended Issue
+issue-537/closeout.md missing closeout concept: Summary
+issue-537/closeout.md missing closeout concept: Next Recommended Issue
+issue-538/closeout.md missing closeout concept: Summary
+issue-538/closeout.md missing closeout concept: Next Recommended Issue
+issue-539/closeout.md missing closeout concept: Summary
+issue-539/closeout.md missing closeout concept: Next Recommended Issue
+issue-540/closeout.md missing closeout concept: Summary
+issue-540/closeout.md missing closeout concept: Next Recommended Issue
+issue-541/closeout.md missing closeout concept: Summary
+issue-541/closeout.md missing closeout concept: Next Recommended Issue
+issue-542/closeout.md missing closeout concept: Summary
+issue-542/closeout.md missing closeout concept: Next Recommended Issue
+issue-543/closeout.md missing closeout concept: Summary
+issue-543/closeout.md missing closeout concept: Next Recommended Issue
+issue-544/closeout.md missing closeout concept: Summary
+issue-544/closeout.md missing closeout concept: Next Recommended Issue
+issue-545/closeout.md missing closeout concept: Summary
+issue-545/closeout.md missing closeout concept: Next Recommended Issue
+issue-546/closeout.md missing closeout concept: Summary
+issue-546/closeout.md missing closeout concept: Next Recommended Issue
+issue-547/closeout.md missing closeout concept: Summary
+issue-547/closeout.md missing closeout concept: Next Recommended Issue
+issue-548/closeout.md missing closeout concept: Summary
+issue-548/closeout.md missing closeout concept: Next Recommended Issue
+issue-549/closeout.md missing closeout concept: Summary
+issue-549/closeout.md missing closeout concept: Next Recommended Issue
+issue-550/closeout.md missing closeout concept: Summary
+issue-550/closeout.md missing closeout concept: Next Recommended Issue
+issue-551/closeout.md missing closeout concept: Summary
+issue-551/closeout.md missing closeout concept: Next Recommended Issue
+issue-552/closeout.md missing closeout concept: Summary
+issue-552/closeout.md missing closeout concept: Next Recommended Issue
+issue-553/closeout.md missing closeout concept: Summary
+issue-553/closeout.md missing closeout concept: Next Recommended Issue
+issue-554/closeout.md missing closeout concept: Summary
+issue-554/closeout.md missing closeout concept: Next Recommended Issue
+issue-555/closeout.md missing closeout concept: Summary
+issue-555/closeout.md missing closeout concept: Next Recommended Issue
+issue-556/closeout.md missing closeout concept: Summary
+issue-556/closeout.md missing closeout concept: Next Recommended Issue
+issue-557/closeout.md missing closeout concept: Summary
+issue-557/closeout.md missing closeout concept: Next Recommended Issue
+issue-558/closeout.md missing closeout concept: Summary
+issue-558/closeout.md missing closeout concept: Next Recommended Issue
+issue-559/closeout.md missing closeout concept: Summary
+issue-559/closeout.md missing closeout concept: Next Recommended Issue
+issue-560/closeout.md missing closeout concept: Summary
+issue-560/closeout.md missing closeout concept: Next Recommended Issue
+Issue 511 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 512 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 513 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 514 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 515 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 516 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 517 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 518 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 519 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 520 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 521 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 522 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 523 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 524 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 525 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 526 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 527 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 528 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 529 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 530 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 531 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 532 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 533 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 534 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 535 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 536 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 537 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 538 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 539 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 540 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 541 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 542 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 543 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 544 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 545 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 546 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 547 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 548 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 549 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+issue-550 missing mapped output for "npm run check:reference-image-asset": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:image-backed-layout-parity": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:split-bay-fixture-bridge": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:capacity-count-report": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:storage-raw-field-guard": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:editor-pan-threshold": docs/verification/issues/issue-550/test-output/command.txt
+issue-550 missing mapped output for "npm run check:canonical-scenario-preflight": docs/verification/issues/issue-550/test-output/command.txt
+issue-511 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-511/test-output/web.txt
+issue-511 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-511/test-output/web-build.txt
+issue-511 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-511/test-output/canonical-floorplan-scale.txt
+issue-511 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-511/test-output/canonical-floorplan-fidelity.txt
+issue-511 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-511/test-output/no-phi.txt
+issue-512 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-512/test-output/shared.txt
+issue-512 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-512/test-output/web.txt
+issue-512 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-512/test-output/web-build.txt
+issue-512 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-512/test-output/canonical-floorplan-scale.txt
+issue-512 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-512/test-output/no-phi.txt
+issue-513 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-513/test-output/shared.txt
+issue-513 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-513/test-output/web.txt
+issue-513 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-513/test-output/web-build.txt
+issue-513 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-513/test-output/room-bed-bay-model.txt
+issue-513 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-513/test-output/no-phi.txt
+issue-514 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-514/test-output/shared.txt
+issue-514 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-514/test-output/web.txt
+issue-514 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-514/test-output/web-build.txt
+issue-514 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-514/test-output/room-bed-bay-model.txt
+issue-514 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-514/test-output/no-phi.txt
+issue-515 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-515/test-output/shared.txt
+issue-515 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-515/test-output/web.txt
+issue-515 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-515/test-output/web-build.txt
+issue-515 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-515/test-output/canonical-floorplan-fidelity.txt
+issue-515 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-515/test-output/no-phi.txt
+issue-516 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-516/test-output/room-bed-bay-model.txt
+issue-516 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-516/test-output/room-type-semantics.txt
+issue-516 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-516/test-output/no-phi.txt
+issue-517 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-517/test-output/shared.txt
+issue-517 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-517/test-output/web.txt
+issue-517 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-517/test-output/web-build.txt
+issue-517 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-517/test-output/canonical-floorplan-fidelity.txt
+issue-517 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-517/test-output/no-phi.txt
+issue-518 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-518/test-output/shared.txt
+issue-518 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-518/test-output/web.txt
+issue-518 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-518/test-output/web-build.txt
+issue-518 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-518/test-output/canonical-floorplan-fidelity.txt
+issue-518 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-518/test-output/no-phi.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/shared.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/web.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/web-build.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/canonical-floorplan-scale.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/room-bed-bay-model.txt
+issue-519 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-519/test-output/no-phi.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/shared.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/web.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/web-build.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/canonical-floorplan-scale.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/room-bed-bay-model.txt
+issue-520 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-520/test-output/no-phi.txt
+issue-521 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-521/test-output/shared.txt
+issue-521 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-521/test-output/web.txt
+issue-521 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-521/test-output/web-build.txt
+issue-521 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-521/test-output/canonical-floorplan-fidelity.txt
+issue-521 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-521/test-output/no-phi.txt
+issue-522 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-522/test-output/shared.txt
+issue-522 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-522/test-output/web.txt
+issue-522 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-522/test-output/web-build.txt
+issue-522 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-522/test-output/canonical-floorplan-fidelity.txt
+issue-522 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-522/test-output/no-phi.txt
+issue-523 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-523/test-output/shared.txt
+issue-523 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-523/test-output/web.txt
+issue-523 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-523/test-output/web-build.txt
+issue-523 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-523/test-output/canonical-floorplan-fidelity.txt
+issue-523 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-523/test-output/no-phi.txt
+issue-524 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-524/test-output/shared.txt
+issue-524 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-524/test-output/web.txt
+issue-524 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-524/test-output/web-build.txt
+issue-524 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-524/test-output/canonical-floorplan-fidelity.txt
+issue-524 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-524/test-output/no-phi.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/shared.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/web.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/web-build.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/canonical-floorplan-fidelity.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/canonical-floorplan-scale.txt
+issue-525 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-525/test-output/no-phi.txt
+issue-526 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-526/test-output/shared.txt
+issue-526 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-526/test-output/web.txt
+issue-526 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-526/test-output/web-build.txt
+issue-526 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-526/test-output/canonical-floorplan-fidelity.txt
+issue-526 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-526/test-output/no-phi.txt
+issue-527 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-527/test-output/shared.txt
+issue-527 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-527/test-output/web.txt
+issue-527 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-527/test-output/web-build.txt
+issue-527 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-527/test-output/canonical-floorplan-fidelity.txt
+issue-527 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-527/test-output/no-phi.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/shared.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/web.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/web-build.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/canonical-floorplan-fidelity.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/room-type-semantics.txt
+issue-528 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-528/test-output/no-phi.txt
+issue-529 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-529/test-output/shared.txt
+issue-529 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-529/test-output/web.txt
+issue-529 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-529/test-output/web-build.txt
+issue-529 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-529/test-output/canonical-floorplan-fidelity.txt
+issue-529 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-529/test-output/no-phi.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/shared.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/web.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/web-build.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/canonical-floorplan-fidelity.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/no-phi.txt
+issue-530 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-530/test-output/plans-2-through-5-unchanged.txt
+issue-531 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-531/test-output/web.txt
+issue-531 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-531/test-output/web-build.txt
+issue-531 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-531/test-output/editor-background-pan.txt
+issue-531 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-531/test-output/no-phi.txt
+issue-532 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-532/test-output/web.txt
+issue-532 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-532/test-output/web-build.txt
+issue-532 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-532/test-output/unlocked-workspace-polish-gate.txt
+issue-532 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-532/test-output/no-phi.txt
+issue-533 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-533/test-output/web.txt
+issue-533 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-533/test-output/web-build.txt
+issue-533 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-533/test-output/no-phi.txt
+issue-534 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-534/test-output/web.txt
+issue-534 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-534/test-output/web-build.txt
+issue-534 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-534/test-output/unlocked-workspace-polish-gate.txt
+issue-534 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-534/test-output/no-phi.txt
+issue-535 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-535/test-output/web.txt
+issue-535 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-535/test-output/web-build.txt
+issue-535 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-535/test-output/reference-layout-parity.txt
+issue-535 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-535/test-output/no-phi.txt
+issue-536 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-536/test-output/web.txt
+issue-536 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-536/test-output/web-build.txt
+issue-536 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-536/test-output/reference-layout-parity.txt
+issue-536 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-536/test-output/no-phi.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/shared.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/web.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/web-build.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/canonical-floorplan-fidelity.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/no-phi.txt
+issue-537 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-537/test-output/plans-2-through-5-unchanged.txt
+issue-538 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-538/test-output/scenario-readiness.txt
+issue-538 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-538/test-output/room-type-semantics.txt
+issue-538 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-538/test-output/no-phi.txt
+issue-539 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-539/test-output/shared.txt
+issue-539 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-539/test-output/web.txt
+issue-539 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-539/test-output/web-build.txt
+issue-539 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-539/test-output/scenario-readiness.txt
+issue-539 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-539/test-output/no-phi.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/shared.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/web.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/web-build.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/canonical-floorplan-scale.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/room-bed-bay-model.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/canonical-floorplan-fidelity.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/reference-layout-parity.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/scenario-readiness.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/no-phi.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/plans-2-through-5-unchanged.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/docker-compose-config.txt
+issue-540 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-540/test-output/docker-compose-production-config.txt
+issue-541 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-541/test-output/web.txt
+issue-541 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-541/test-output/web-build.txt
+issue-541 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-541/test-output/reference-image-asset.txt
+issue-541 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-541/test-output/no-phi.txt
+issue-542 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-542/test-output/web.txt
+issue-542 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-542/test-output/web-build.txt
+issue-542 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-542/test-output/reference-image-asset.txt
+issue-542 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-542/test-output/image-backed-layout-parity.txt
+issue-542 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-542/test-output/no-phi.txt
+issue-543 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-543/test-output/web.txt
+issue-543 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-543/test-output/web-build.txt
+issue-543 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-543/test-output/image-backed-layout-parity-capture.txt
+issue-543 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-543/test-output/image-backed-layout-parity.txt
+issue-543 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-543/test-output/no-phi.txt
+issue-544 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-544/test-output/shared.txt
+issue-544 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-544/test-output/web.txt
+issue-544 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-544/test-output/web-build.txt
+issue-544 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-544/test-output/split-bay-fixture-bridge.txt
+issue-544 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-544/test-output/no-phi.txt
+issue-545 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-545/test-output/shared.txt
+issue-545 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-545/test-output/web.txt
+issue-545 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-545/test-output/web-build.txt
+issue-545 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-545/test-output/capacity-count-report.txt
+issue-545 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-545/test-output/no-phi.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/shared.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/web.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/web-build.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/room-type-semantics.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/storage-raw-field-guard.txt
+issue-546 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-546/test-output/no-phi.txt
+issue-547 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-547/test-output/web.txt
+issue-547 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-547/test-output/web-build.txt
+issue-547 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-547/test-output/editor-pan-threshold.txt
+issue-547 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-547/test-output/editor-background-pan.txt
+issue-547 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-547/test-output/no-phi.txt
+issue-548 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-548/test-output/web.txt
+issue-548 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-548/test-output/web-build.txt
+issue-548 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-548/test-output/scenario-readiness.txt
+issue-548 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-548/test-output/no-phi.txt
+issue-549 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-549/test-output/web.txt
+issue-549 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-549/test-output/web-build.txt
+issue-549 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-549/test-output/canonical-map-review-packet.txt
+issue-549 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-549/test-output/canonical-hardening-registry.txt
+issue-549 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-549/test-output/no-phi.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/room-type-semantics.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/pin-first-entry-gate.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/pin-rate-limit-lockout.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/professional-access-screen.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/command.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/canonical-map-review-packet.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/canonical-hardening-registry.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/no-phi.txt
+issue-550 mapped output is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json: docs/verification/issues/issue-550/test-output/plans-2-through-5-unchanged.txt
+Issue 511 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 512 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 513 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 514 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 515 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 516 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 517 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 518 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 519 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 520 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 521 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 522 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 523 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 524 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 525 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 526 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 527 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 528 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 529 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 530 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 531 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 532 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 533 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 534 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 535 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 536 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 537 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 538 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 539 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 540 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 541 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 542 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 543 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 544 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 545 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 546 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 547 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 548 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 549 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json

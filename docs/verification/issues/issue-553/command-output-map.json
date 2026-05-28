@@ -1,0 +1,47 @@
+{
+  "issue": "553",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-preset-contracts.mjs --stage four-to-one --allow-partial --issue 553",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-preset-contracts.mjs --stage preset-validation --allow-partial --issue 553",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-ratio-preset-contracts.mjs --stage no-compliance-claims --allow-partial --issue 553",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/ratio-preset-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-553/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

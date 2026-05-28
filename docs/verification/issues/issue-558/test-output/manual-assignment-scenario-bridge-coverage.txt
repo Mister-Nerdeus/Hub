@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "stage": "coverage-readiness",
+  "issue": "558",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "covered eligible positions are selector-derived",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "uncovered eligible positions are reported",
+      "passed": true,
+      "detail": 15
+    }
+  ]
+}

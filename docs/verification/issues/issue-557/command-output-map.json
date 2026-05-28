@@ -1,0 +1,59 @@
+{
+  "issue": "557",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage typical --allow-partial --issue 557",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage busy --allow-partial --issue 557",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage slammed --allow-partial --issue 557",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage bounded-values --allow-partial --issue 557",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-activity-profile-contracts.mjs --stage no-outcome-claims --allow-partial --issue 557",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/activity-profile-contracts.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-557/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

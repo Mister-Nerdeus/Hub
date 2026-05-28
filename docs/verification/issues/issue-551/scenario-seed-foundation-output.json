@@ -1,0 +1,54 @@
+{
+  "status": "passed",
+  "stage": "hardening-dependencies",
+  "issue": "551",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "referenceImageAssetStatus is ready",
+      "passed": true,
+      "detail": "registered"
+    },
+    {
+      "name": "imageBackedParityStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayFixtureBridgeStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "capacityCountReportStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "storageRawFieldGuardStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "editorPanThresholdStatus is ready",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "reference image asset exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "image-backed parity report exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "capacity count report exists",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

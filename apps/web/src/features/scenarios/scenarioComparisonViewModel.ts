@@ -17,6 +17,16 @@ import {
   validateOutcomeMetricPlaceholderSet,
   validatePatientLoadPatternContract,
   validateScenarioSeedContract,
+  activityProfileContracts,
+  bridgeManualAssignmentsToScenarioInput,
+  buildCanonicalCapacityCountReport,
+  buildRoomLoadStarterContract,
+  buildScenarioCapacityIntegration,
+  fourToOneRatioPreset,
+  threeToOneRatioPreset,
+  validateActivityProfileContract,
+  validateRatioPresetPair,
+  validateRoomLoadStarterContract,
   type AcuityPatternContract,
   type AssignmentScenarioTemplateContract,
   type ErActivityPresetContract,
@@ -55,6 +65,32 @@ export type ScenarioRatioCardViewModel = {
 export type ScenarioComparisonViewModel = {
   canonicalFloorplanId: string;
   floorplanLabel: string;
+  foundationStatus: string;
+  referenceImageStatus: string;
+  capacitySummary: {
+    physicalRoomCount: number;
+    bedPositionCount: number;
+    splitBayCount: number;
+    assignmentEligibleCount: number;
+    ratioEligibleCount: number;
+    excludedCount: number;
+    selectorDrivenCounts: true;
+  };
+  ratioPresetRows: {
+    presetId: string;
+    label: string;
+    patientsPerNurse: number;
+    sourceNote: string;
+  }[];
+  activityProfileRows: {
+    profileId: string;
+    label: string;
+    occupancyPercent: number;
+    taskIntensityPlaceholder: string;
+  }[];
+  roomLoadContractStatus: string;
+  manualAssignmentBridgeStatus: string;
+  knownLimitations: string[];
   cards: [ScenarioRatioCardViewModel, ScenarioRatioCardViewModel];
   nurseCountDifference: number;
   activityPresetSummary: string;
@@ -100,6 +136,35 @@ export function createScenarioComparisonViewModel(
   const patientLoadPattern = validatePatientLoadPatternContract(input.patientLoadPattern);
   const acuityPattern = validateAcuityPatternContract(input.acuityPattern);
   const placeholders = validateOutcomeMetricPlaceholderSet(input.outcomePlaceholders);
+  const capacityReport = buildCanonicalCapacityCountReport();
+  const capacity = buildScenarioCapacityIntegration(capacityReport);
+  const [fourToOnePreset, threeToOnePreset] = validateRatioPresetPair(
+    fourToOneRatioPreset,
+    threeToOneRatioPreset,
+    capacityReport
+  );
+  const roomLoadContract = validateRoomLoadStarterContract(buildRoomLoadStarterContract(capacity), capacity);
+  const activityProfiles = activityProfileContracts.map((profile) =>
+    validateActivityProfileContract(profile)
+  );
+  const bridgeSummary = bridgeManualAssignmentsToScenarioInput({
+    schemaVersion: "1.0.0",
+    bridgeId: "manual-assignment-scenario-bridge-canonical-plan-1",
+    assignmentGroups: [
+      {
+        assignmentGroupId: "synthetic-group-blue",
+        syntheticNurseLabel: "Synthetic Nurse Blue",
+        assignedBedPositionIds: ["room-level-1-trauma", "room-02", "room-03", "room-04"],
+        syntheticDataOnly: true
+      }
+    ],
+    ratioPreset: fourToOnePreset,
+    capacity,
+    recommendationStatus: "not_started",
+    optimizerStatus: "not_started",
+    fullShiftSimulationStatus: "not_started",
+    syntheticDataOnly: true
+  });
 
   for (const floorplanId of [
     input.canonicalFloorplanId,
@@ -133,6 +198,38 @@ export function createScenarioComparisonViewModel(
   return {
     canonicalFloorplanId: CANONICAL_ER_POD_FLOORPLAN_ID,
     floorplanLabel: "Canonical ER pod floorplan",
+    foundationStatus: "Scenario foundation only",
+    referenceImageStatus: "Image-backed reference proof ready",
+    capacitySummary: {
+      physicalRoomCount: capacity.physicalRoomCount,
+      bedPositionCount: capacity.bedPositionCount,
+      splitBayCount: capacity.splitBayCount,
+      assignmentEligibleCount: capacity.assignmentEligibleCount,
+      ratioEligibleCount: capacity.ratioEligibleCount,
+      excludedCount: capacity.excludedCount,
+      selectorDrivenCounts: true
+    },
+    ratioPresetRows: [fourToOnePreset, threeToOnePreset].map((preset) => ({
+      presetId: preset.presetId,
+      label: preset.label,
+      patientsPerNurse: preset.patientsPerNurse,
+      sourceNote: preset.sourceNote
+    })),
+    activityProfileRows: activityProfiles.map((profile) => ({
+      profileId: profile.profileId,
+      label: profile.label,
+      occupancyPercent: profile.occupancyPercent,
+      taskIntensityPlaceholder: profile.taskIntensityPlaceholder
+    })),
+    roomLoadContractStatus: `${roomLoadContract.entries.length} selector-eligible bed positions ready for synthetic room-load inputs`,
+    manualAssignmentBridgeStatus: `${bridgeSummary.coveredEligibleBedPositionIds.length} covered selector-eligible bed positions in bridge proof`,
+    knownLimitations: [
+      "No full-shift simulation output",
+      "No optimizer recommendation",
+      "No clinical safety score",
+      "No staffing compliance certification",
+      "Manual visual review remains required"
+    ],
     cards: [fourToOneCard, threeToOneCard],
     nurseCountDifference: threeToOneCard.nurseGroupCount - fourToOneCard.nurseGroupCount,
     activityPresetSummary: `${erActivityPreset.label}: arrivals ${erActivityPreset.arrivalPressureLevel}, turnover ${erActivityPreset.turnoverPressureLevel}, trauma ${erActivityPreset.traumaFrequencyLevel}, boarding ${erActivityPreset.boardingPressureLevel}.`,
@@ -147,9 +244,10 @@ export function createScenarioComparisonViewModel(
       displayValue: metric.placeholderCopy
     })),
     nonClaimCopy: [
-      "Configuration comparison only",
-      "Simulation engine not started",
-      "Not staffing compliance certification"
+      "Scenario foundation only",
+      "No full-shift simulation output",
+      "No optimizer recommendation",
+      "No staffing compliance certification"
     ]
   };
 }

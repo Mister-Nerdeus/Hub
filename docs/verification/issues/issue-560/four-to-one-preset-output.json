@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "preset": {
+    "schemaVersion": "1.0.0",
+    "presetId": "four_to_one",
+    "label": "4:1",
+    "patientsPerNurse": 4,
+    "sourceNote": "synthetic planning assumption",
+    "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+    "usesRatioEligibleBedPositions": true,
+    "excludesNonPatientSpaces": true,
+    "usesRawRoomCount": false,
+    "complianceClaim": false,
+    "clinicalSafetyClaim": false,
+    "fullShiftSimulationStatus": "not_started",
+    "optimizerStatus": "not_started",
+    "syntheticDataOnly": true
+  }
+}

@@ -2250,6 +2250,7 @@ h1 {
 }
 
 .scenario-ratio-comparison__cards,
+.scenario-ratio-comparison__foundation,
 .scenario-ratio-comparison__summary-grid {
   display: grid;
   gap: 12px;
@@ -2261,6 +2262,8 @@ h1 {
 }
 
 .scenario-ratio-comparison__card,
+.scenario-ratio-comparison__foundation section,
+.scenario-ratio-comparison__limitations,
 .scenario-ratio-comparison__summary-grid section {
   background: #f7f9fb;
   border: 1px solid #d8e0e8;
@@ -2278,12 +2281,36 @@ h1 {
   margin: 0;
 }
 
-.scenario-ratio-comparison__card dl div {
+.scenario-ratio-comparison__card dl div,
+.scenario-ratio-comparison__foundation dl div {
   background: #ffffff;
   border: 1px solid #e2e8ef;
   border-radius: 6px;
   min-width: 0;
   padding: 8px;
+}
+
+.scenario-ratio-comparison__foundation dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+.scenario-ratio-comparison__summary-grid ul,
+.scenario-ratio-comparison__limitations ul {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.scenario-ratio-comparison__summary-grid li,
+.scenario-ratio-comparison__limitations li {
+  color: #263340;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.35;
 }
 
 .scenario-ratio-comparison dt {
@@ -2552,6 +2579,7 @@ h1 {
   .plan-1-demo-proof-bundle__notes,
   .plan-1-demo-guide__next,
   .scenario-ratio-comparison__cards,
+  .scenario-ratio-comparison__foundation,
   .scenario-ratio-comparison__summary-grid {
     grid-template-columns: 1fr;
   }

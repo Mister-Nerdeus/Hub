@@ -1,0 +1,53 @@
+{
+  "issue": "555",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-capacity-integration.mjs --stage capacity-report --allow-partial --issue 555",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-capacity-integration.mjs --stage split-bay-bridge --allow-partial --issue 555",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-capacity-integration.mjs --stage excluded-spaces --allow-partial --issue 555",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/scenario-capacity-integration.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-seed-foundation.mjs --stage no-raw-room-counts --allow-partial --issue 555",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-555/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

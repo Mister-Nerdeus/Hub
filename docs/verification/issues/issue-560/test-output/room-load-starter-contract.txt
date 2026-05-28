@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "560",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "room-load contract validates",
+      "passed": true,
+      "detail": 22
+    },
+    {
+      "name": "room-load source is synthetic planning input",
+      "passed": true,
+      "detail": "synthetic planning input"
+    },
+    {
+      "name": "entries are assignment eligible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "excluded spaces cannot receive room-load assumptions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room-load does not start simulation",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "room-load does not claim outcomes",
+      "passed": true,
+      "detail": "not_started"
+    }
+  ]
+}

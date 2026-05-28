@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-manual-assignment-scenario-bridge.mjs --stage bridge-contract --allow-partial --issue 558
+node scripts/check-manual-assignment-scenario-bridge.mjs --stage coverage-readiness --allow-partial --issue 558
+node scripts/check-manual-assignment-scenario-bridge.mjs --stage ratio-readiness --allow-partial --issue 558
+node scripts/check-manual-assignment-scenario-bridge.mjs --stage no-recommendations --allow-partial --issue 558
+node scripts/check-no-phi-fields.mjs

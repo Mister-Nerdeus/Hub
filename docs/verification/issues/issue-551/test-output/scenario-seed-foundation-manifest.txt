@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "manifest",
+  "issue": "551",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "scenario seed foundation manifest exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest names canonical Plan 1",
+      "passed": true,
+      "detail": "default-er-layout-plan-1"
+    },
+    {
+      "name": "manifest keeps promotion blocked",
+      "passed": true,
+      "detail": "blocked"
+    }
+  ]
+}

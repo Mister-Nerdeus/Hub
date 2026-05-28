@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "no-simulation-no-optimizer",
+  "issue": "551",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/scenario-seed-foundation-manifest.json",
+  "checks": [
+    {
+      "name": "foundation sources do not add simulation or optimizer execution",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

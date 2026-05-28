@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "seed": {
+    "schemaVersion": "1.0.0",
+    "scenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "floorplanRole": "canonical_plan_1_only",
+    "referenceImageStatus": "image_backed_reference_ready",
+    "referenceOverlayStatus": "overlay_parity_ready",
+    "scaleModule": "canonical_plan_1_scale",
+    "capacityReportReference": "docs/verification/canonical-capacity-count-report.json",
+    "splitBayBridgeReference": "packages/shared/src/floorplans/splitBayFixtureBridge.ts",
+    "storageSupportExclusionReference": "packages/shared/src/floorplans/storageRawFieldGuard.ts",
+    "selectorCountSource": "semantic_selectors",
+    "usesCanonicalCapacityReport": true,
+    "usesSplitBayFixtureBridge": true,
+    "usesStorageRawFieldsForCounts": false,
+    "plansTwoThroughFiveScenarioEligible": false,
+    "manualVisualReviewRequired": true,
+    "promotionStatus": "blocked",
+    "scenarioStatus": "foundation_contract_only",
+    "fullShiftSimulationStatus": "not_started",
+    "optimizerStatus": "not_started",
+    "clinicalSafetyScoringStatus": "not_started",
+    "staffingComplianceStatus": "not_started",
+    "syntheticDataOnly": true
+  }
+}

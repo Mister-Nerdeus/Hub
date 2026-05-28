@@ -1,0 +1,83 @@
+{
+  "issue": "551",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:reference-image-asset",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/command.txt"
+      ]
+    },
+    {
+      "command": "npm run check:image-backed-layout-parity",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/image-backed-layout-parity.txt"
+      ]
+    },
+    {
+      "command": "npm run check:split-bay-fixture-bridge",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/split-bay-fixture-bridge.txt"
+      ]
+    },
+    {
+      "command": "npm run check:capacity-count-report",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/capacity-count-report.txt"
+      ]
+    },
+    {
+      "command": "npm run check:storage-raw-field-guard",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/storage-raw-field-guard.txt"
+      ]
+    },
+    {
+      "command": "npm run check:editor-pan-threshold",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/editor-pan-threshold.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-seed-foundation.mjs --stage manifest --allow-partial --issue 551",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-seed-foundation.mjs --stage hardening-dependencies --allow-partial --issue 551",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/scenario-seed-foundation.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-scenario-foundation-go-no-go.mjs --stage no-simulation-no-optimizer --allow-partial --issue 551",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/scenario-foundation-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-551/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

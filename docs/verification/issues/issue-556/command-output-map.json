@@ -1,0 +1,53 @@
+{
+  "issue": "556",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-load-starter-contract.mjs --stage room-load-contract --allow-partial --issue 556",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-load-starter-contract.mjs --stage eligibility --allow-partial --issue 556",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-load-starter-contract.mjs --stage excluded-space-negative --allow-partial --issue 556",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-load-starter-contract.mjs --stage no-simulation --allow-partial --issue 556",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/room-load-starter-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-556/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
