@@ -1,7 +1,5 @@
 import {
-  CANONICAL_ER_POD_FLOORPLAN_ID,
-  fourToOneScenarioSeedFixture,
-  outcomeMetricPlaceholderSet
+  CANONICAL_SCENARIO_FLOORPLAN_ID
 } from "@nerdeus/shared";
 import {
   createDefaultScenarioComparisonInput,
@@ -10,7 +8,7 @@ import {
 
 const viewModel = createScenarioComparisonViewModel();
 
-if (viewModel.canonicalFloorplanId !== CANONICAL_ER_POD_FLOORPLAN_ID) {
+if (viewModel.canonicalFloorplanId !== CANONICAL_SCENARIO_FLOORPLAN_ID) {
   throw new Error("comparison view model must use the canonical floorplan");
 }
 
@@ -18,39 +16,30 @@ if (viewModel.cards[0].label !== "4:1" || viewModel.cards[1].label !== "3:1") {
   throw new Error("comparison view model must show 4:1 and 3:1 side by side");
 }
 
-if (viewModel.nurseCountDifference !== 2) {
-  throw new Error("comparison view model must expose nurse group difference");
+if (viewModel.cards[0].planningGroupCountPlaceholder >= viewModel.cards[1].planningGroupCountPlaceholder) {
+  throw new Error("comparison view model must expose readiness-level planning group comparison");
 }
 
-if (!viewModel.activityPresetSummary.includes("Busy")) {
-  throw new Error("comparison view model must include activity preset summary");
+if (viewModel.planningGroupDifferencePlaceholder <= 0) {
+  throw new Error("comparison view model must expose planning group difference placeholder");
 }
 
-if (!viewModel.patientLoadSummary.includes("occupied rooms") || !viewModel.acuityPatternSummary.includes("acuity")) {
-  throw new Error("comparison view model must include load and acuity summaries");
+if (viewModel.capacitySummary.selectorDrivenCounts !== true) {
+  throw new Error("comparison view model must use selector-driven capacity counts");
 }
 
-if (!viewModel.placeholderOutcomeRows.every((row) => row.status === "placeholder" && row.computed === false)) {
-  throw new Error("comparison view model must keep outcome rows placeholder-only");
+if (!viewModel.knownLimitations.includes("No full-shift simulation output")) {
+  throw new Error("comparison view model must keep simulation output absent");
 }
 
 const mismatchedInput = createDefaultScenarioComparisonInput();
-mismatchedInput.threeToOneScenarioSeed = {
-  ...fourToOneScenarioSeedFixture,
-  scenarioSeedId: "scenario-seed-drifted-floorplan",
-  ratioConfigurationId: "three_to_one",
-  assignmentTemplateId: "assignment-template-canonical-er-pod-3-to-1",
-  canonicalFloorplanId: "default-er-layout-plan-2" as typeof CANONICAL_ER_POD_FLOORPLAN_ID
-};
+mismatchedInput.canonicalFloorplanId = "default-er-layout-plan-2";
 
 assertThrows(() => createScenarioComparisonViewModel(mismatchedInput), "canonical");
 
-const computedInput = createDefaultScenarioComparisonInput();
-computedInput.outcomePlaceholders = {
-  ...outcomeMetricPlaceholderSet,
-  metrics: [{ ...outcomeMetricPlaceholderSet.metrics[0], computed: true }]
-} as unknown as typeof outcomeMetricPlaceholderSet;
-assertThrows(() => createScenarioComparisonViewModel(computedInput), "computed");
+const missingReferenceProofInput = createDefaultScenarioComparisonInput();
+missingReferenceProofInput.imageBackedReferenceProofReady = false;
+assertThrows(() => createScenarioComparisonViewModel(missingReferenceProofInput), "image-backed");
 
 function assertThrows(fn: () => unknown, expectedMessagePart: string) {
   try {

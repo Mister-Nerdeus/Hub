@@ -1,65 +1,35 @@
 import {
-  CANONICAL_ER_POD_FLOORPLAN_ID,
-  busyErActivityPreset,
-  fourToOneAssignmentScenarioTemplate,
-  fourToOneNurseRatio,
-  fourToOneScenarioSeedFixture,
-  outcomeMetricPlaceholderSet,
-  threeToOneAssignmentScenarioTemplate,
-  threeToOneNurseRatio,
-  threeToOneScenarioSeedFixture,
-  typicalLoadAcuityPattern,
-  typicalLoadPatientLoadPattern,
-  validateAcuityPatternContract,
-  validateAssignmentScenarioTemplateContract,
-  validateErActivityPresetContract,
-  validateNurseRatioContract,
-  validateOutcomeMetricPlaceholderSet,
-  validatePatientLoadPatternContract,
-  validateScenarioSeedContract,
+  CANONICAL_SCENARIO_FLOORPLAN_ID,
   activityProfileContracts,
   bridgeManualAssignmentsToScenarioInput,
   buildCanonicalCapacityCountReport,
   buildRoomLoadStarterContract,
   buildScenarioCapacityIntegration,
+  canonicalScenarioSeedContract,
   fourToOneRatioPreset,
   threeToOneRatioPreset,
   validateActivityProfileContract,
+  validateCanonicalScenarioSeedContract,
   validateRatioPresetPair,
   validateRoomLoadStarterContract,
-  type AcuityPatternContract,
-  type AssignmentScenarioTemplateContract,
-  type ErActivityPresetContract,
-  type NurseRatioContract,
-  type OutcomeMetricPlaceholderSet,
-  type PatientLoadPatternContract,
-  type ScenarioSeedContract
+  type CanonicalScenarioSeedContract
 } from "@nerdeus/shared";
 
 export type ScenarioComparisonViewModelInput = {
   canonicalFloorplanId: string;
-  fourToOneScenarioSeed: ScenarioSeedContract;
-  threeToOneScenarioSeed: ScenarioSeedContract;
-  fourToOneRatio: NurseRatioContract;
-  threeToOneRatio: NurseRatioContract;
-  fourToOneAssignmentTemplate: AssignmentScenarioTemplateContract;
-  threeToOneAssignmentTemplate: AssignmentScenarioTemplateContract;
-  erActivityPreset: ErActivityPresetContract;
-  patientLoadPattern: PatientLoadPatternContract;
-  acuityPattern: AcuityPatternContract;
-  outcomePlaceholders: OutcomeMetricPlaceholderSet;
+  scenarioSeed: CanonicalScenarioSeedContract;
+  splitBayBridgeReady: boolean;
+  imageBackedReferenceProofReady: boolean;
 };
 
 export type ScenarioRatioCardViewModel = {
   ratioId: "four_to_one" | "three_to_one";
   label: string;
-  scenarioName: string;
-  assignmentTemplateId: string;
-  nurseGroupCount: number;
-  assignedRoomCount: number;
-  targetOccupiedRoomsPerNurse: number;
-  maxOccupiedRoomsPerNurse: number;
-  assignmentSummary: string;
+  patientsPerNurse: number;
+  sourceNote: string;
+  ratioEligibleCount: number;
+  planningGroupCountPlaceholder: number;
+  readinessSummary: string;
 };
 
 export type ScenarioComparisonViewModel = {
@@ -92,51 +62,28 @@ export type ScenarioComparisonViewModel = {
   manualAssignmentBridgeStatus: string;
   knownLimitations: string[];
   cards: [ScenarioRatioCardViewModel, ScenarioRatioCardViewModel];
-  nurseCountDifference: number;
-  activityPresetSummary: string;
-  patientLoadSummary: string;
-  acuityPatternSummary: string;
-  placeholderOutcomeRows: {
-    metricId: string;
-    label: string;
-    category: string;
-    status: "placeholder";
-    computed: false;
-    displayValue: string;
-  }[];
+  planningGroupDifferencePlaceholder: number;
   nonClaimCopy: string[];
 };
 
 export function createDefaultScenarioComparisonInput(): ScenarioComparisonViewModelInput {
   return {
-    canonicalFloorplanId: CANONICAL_ER_POD_FLOORPLAN_ID,
-    fourToOneScenarioSeed: fourToOneScenarioSeedFixture,
-    threeToOneScenarioSeed: threeToOneScenarioSeedFixture,
-    fourToOneRatio: fourToOneNurseRatio,
-    threeToOneRatio: threeToOneNurseRatio,
-    fourToOneAssignmentTemplate: fourToOneAssignmentScenarioTemplate,
-    threeToOneAssignmentTemplate: threeToOneAssignmentScenarioTemplate,
-    erActivityPreset: busyErActivityPreset,
-    patientLoadPattern: typicalLoadPatientLoadPattern,
-    acuityPattern: typicalLoadAcuityPattern,
-    outcomePlaceholders: outcomeMetricPlaceholderSet
+    canonicalFloorplanId: CANONICAL_SCENARIO_FLOORPLAN_ID,
+    scenarioSeed: canonicalScenarioSeedContract,
+    splitBayBridgeReady: true,
+    imageBackedReferenceProofReady: true
   };
 }
 
 export function createScenarioComparisonViewModel(
   input: ScenarioComparisonViewModelInput = createDefaultScenarioComparisonInput()
 ): ScenarioComparisonViewModel {
-  const fourToOneScenarioSeed = validateScenarioSeedContract(input.fourToOneScenarioSeed);
-  const threeToOneScenarioSeed = validateScenarioSeedContract(input.threeToOneScenarioSeed);
-  const fourToOneRatio = validateNurseRatioContract(input.fourToOneRatio);
-  const threeToOneRatio = validateNurseRatioContract(input.threeToOneRatio);
-  const fourToOneAssignmentTemplate = validateAssignmentScenarioTemplateContract(input.fourToOneAssignmentTemplate);
-  const threeToOneAssignmentTemplate = validateAssignmentScenarioTemplateContract(input.threeToOneAssignmentTemplate);
-  const erActivityPreset = validateErActivityPresetContract(input.erActivityPreset);
-  const patientLoadPattern = validatePatientLoadPatternContract(input.patientLoadPattern);
-  const acuityPattern = validateAcuityPatternContract(input.acuityPattern);
-  const placeholders = validateOutcomeMetricPlaceholderSet(input.outcomePlaceholders);
   const capacityReport = buildCanonicalCapacityCountReport();
+  const scenarioSeed = validateCanonicalScenarioSeedContract(input.scenarioSeed, {
+    capacityReport,
+    splitBayBridgeReady: input.splitBayBridgeReady,
+    imageBackedReferenceProofReady: input.imageBackedReferenceProofReady
+  });
   const capacity = buildScenarioCapacityIntegration(capacityReport);
   const [fourToOnePreset, threeToOnePreset] = validateRatioPresetPair(
     fourToOneRatioPreset,
@@ -166,40 +113,18 @@ export function createScenarioComparisonViewModel(
     syntheticDataOnly: true
   });
 
-  for (const floorplanId of [
-    input.canonicalFloorplanId,
-    fourToOneScenarioSeed.canonicalFloorplanId,
-    threeToOneScenarioSeed.canonicalFloorplanId,
-    fourToOneAssignmentTemplate.canonicalFloorplanId,
-    threeToOneAssignmentTemplate.canonicalFloorplanId
-  ]) {
-    if (floorplanId !== CANONICAL_ER_POD_FLOORPLAN_ID) {
-      throw new Error("Scenario comparison requires the same canonical floorplan");
-    }
-  }
-  if (
-    fourToOneScenarioSeed.ratioConfigurationId !== "four_to_one" ||
-    fourToOneRatio.ratioId !== "four_to_one" ||
-    fourToOneAssignmentTemplate.ratioConfigurationId !== "four_to_one"
-  ) {
-    throw new Error("4:1 scenario inputs must be internally consistent");
-  }
-  if (
-    threeToOneScenarioSeed.ratioConfigurationId !== "three_to_one" ||
-    threeToOneRatio.ratioId !== "three_to_one" ||
-    threeToOneAssignmentTemplate.ratioConfigurationId !== "three_to_one"
-  ) {
-    throw new Error("3:1 scenario inputs must be internally consistent");
+  if (input.canonicalFloorplanId !== CANONICAL_SCENARIO_FLOORPLAN_ID) {
+    throw new Error("Scenario comparison requires the canonical Plan 1 floorplan");
   }
 
-  const fourToOneCard = buildRatioCard(fourToOneScenarioSeed, fourToOneRatio, fourToOneAssignmentTemplate);
-  const threeToOneCard = buildRatioCard(threeToOneScenarioSeed, threeToOneRatio, threeToOneAssignmentTemplate);
+  const fourToOneCard = buildRatioCard(fourToOnePreset, capacity.ratioEligibleCount);
+  const threeToOneCard = buildRatioCard(threeToOnePreset, capacity.ratioEligibleCount);
 
   return {
-    canonicalFloorplanId: CANONICAL_ER_POD_FLOORPLAN_ID,
+    canonicalFloorplanId: CANONICAL_SCENARIO_FLOORPLAN_ID,
     floorplanLabel: "Canonical ER pod floorplan",
     foundationStatus: "Scenario foundation only",
-    referenceImageStatus: "Image-backed reference proof ready",
+    referenceImageStatus: `${humanizeReferenceStatus(scenarioSeed.referenceImageStatus)} proof ready`,
     capacitySummary: {
       physicalRoomCount: capacity.physicalRoomCount,
       bedPositionCount: capacity.bedPositionCount,
@@ -231,18 +156,8 @@ export function createScenarioComparisonViewModel(
       "Manual visual review remains required"
     ],
     cards: [fourToOneCard, threeToOneCard],
-    nurseCountDifference: threeToOneCard.nurseGroupCount - fourToOneCard.nurseGroupCount,
-    activityPresetSummary: `${erActivityPreset.label}: arrivals ${erActivityPreset.arrivalPressureLevel}, turnover ${erActivityPreset.turnoverPressureLevel}, trauma ${erActivityPreset.traumaFrequencyLevel}, boarding ${erActivityPreset.boardingPressureLevel}.`,
-    patientLoadSummary: `${patientLoadPattern.label}: ${patientLoadPattern.occupiedRoomCount} occupied rooms, hallway pressure ${patientLoadPattern.hallwayPressureLevel}.`,
-    acuityPatternSummary: `${acuityPattern.label}: ${acuityPattern.lowAcuityShare}% low, ${acuityPattern.mediumAcuityShare}% medium, ${acuityPattern.highAcuityShare}% high acuity.`,
-    placeholderOutcomeRows: placeholders.metrics.map((metric) => ({
-      metricId: metric.metricId,
-      label: metric.label,
-      category: metric.category,
-      status: "placeholder",
-      computed: false,
-      displayValue: metric.placeholderCopy
-    })),
+    planningGroupDifferencePlaceholder:
+      threeToOneCard.planningGroupCountPlaceholder - fourToOneCard.planningGroupCountPlaceholder,
     nonClaimCopy: [
       "Scenario foundation only",
       "No full-shift simulation output",
@@ -252,24 +167,23 @@ export function createScenarioComparisonViewModel(
   };
 }
 
+function humanizeReferenceStatus(status: CanonicalScenarioSeedContract["referenceImageStatus"]): string {
+  if (status === "image_backed_reference_ready") return "Image-backed reference";
+  return status;
+}
+
 function buildRatioCard(
-  scenarioSeed: ScenarioSeedContract,
-  ratio: NurseRatioContract,
-  assignmentTemplate: AssignmentScenarioTemplateContract
+  preset: typeof fourToOneRatioPreset | typeof threeToOneRatioPreset,
+  ratioEligibleCount: number
 ): ScenarioRatioCardViewModel {
-  const assignedRoomCount = assignmentTemplate.nurseGroups.reduce(
-    (total, group) => total + group.roomIds.length,
-    0
-  );
+  const planningGroupCountPlaceholder = Math.ceil(ratioEligibleCount / preset.patientsPerNurse);
   return {
-    ratioId: ratio.ratioId,
-    label: ratio.label,
-    scenarioName: scenarioSeed.scenarioName,
-    assignmentTemplateId: assignmentTemplate.assignmentTemplateId,
-    nurseGroupCount: assignmentTemplate.nurseGroups.length,
-    assignedRoomCount,
-    targetOccupiedRoomsPerNurse: ratio.targetOccupiedRoomsPerNurse,
-    maxOccupiedRoomsPerNurse: ratio.maxOccupiedRoomsPerNurse,
-    assignmentSummary: `${assignmentTemplate.nurseGroups.length} synthetic nurse groups cover ${assignedRoomCount} canonical rooms.`
+    ratioId: preset.presetId,
+    label: preset.label,
+    patientsPerNurse: preset.patientsPerNurse,
+    sourceNote: preset.sourceNote,
+    ratioEligibleCount,
+    planningGroupCountPlaceholder,
+    readinessSummary: `${planningGroupCountPlaceholder} planning groups for ${ratioEligibleCount} selector-eligible bed positions.`
   };
 }

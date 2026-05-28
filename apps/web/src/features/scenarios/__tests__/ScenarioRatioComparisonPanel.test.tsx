@@ -15,7 +15,8 @@ assertPanel(panelSource.includes("data-ratio-card={card.ratioId}"), "panel must 
 assertPanel(copySource.includes("Configuration comparison only"), "panel copy must state configuration-only boundary");
 assertPanel(copySource.includes("Simulation engine not started"), "panel copy must state engine boundary");
 assertPanel(copySource.includes("Not staffing compliance certification"), "panel copy must state staffing non-claim");
-assertPanel(panelSource.includes("Placeholder outcome rows"), "panel must render placeholder outcome table");
+assertPanel(panelSource.includes("Ratio comparison readiness"), "panel must render readiness-level ratio comparison");
+assertPanel(!panelSource.includes("Placeholder outcome rows"), "panel must not render outcome placeholders in the foundation shell");
 assertPanel(!panelSource.includes("\"Computed\""), "panel must not render computed outcome copy");
 assertPanel(appSource.includes("<ScenarioRatioComparisonPanel />"), "App must wire the comparison UI shell into Scenarios");
 

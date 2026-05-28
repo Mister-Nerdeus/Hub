@@ -2,6 +2,7 @@
 
 ## Summary
 - Completed scenario seed foundation work for Issue 560 without adding full-shift simulation, optimizer behavior, clinical safety scoring, staffing compliance certification, patient outcome claims, PHI, or EHR/source-system integration.
+- Post-batch code review narrowed the scenario comparison shell to readiness-level foundation output only and removed older outcome-placeholder and assignment-template room-count display from the new shell.
 
 ## Files Changed
 - Scenario seed foundation contracts, gates, UI shell, manifest, package scripts, and evidence artifacts as applicable for Issue 560.
@@ -19,6 +20,7 @@
 - node scripts/check-scenario-comparison-shell.mjs --stage final --issue 560
 - node scripts/check-scenario-foundation-go-no-go.mjs --stage final --issue 560
 - node scripts/verify-local.mjs
+- docker compose up --build -d
 - docker compose ps
 - node scripts/check-no-phi-fields.mjs
 

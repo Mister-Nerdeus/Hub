@@ -106,43 +106,30 @@ export function ScenarioRatioComparisonPanel({
             data-ratio-card={card.ratioId}
           >
             <h4>{card.label} scenario</h4>
-            <p>{card.scenarioName}</p>
+            <p>{card.sourceNote}</p>
             <dl>
               <div>
-                <dt>Synthetic nurse groups</dt>
-                <dd>{card.nurseGroupCount}</dd>
+                <dt>Patients per nurse group</dt>
+                <dd>{card.patientsPerNurse}</dd>
               </div>
               <div>
-                <dt>Canonical rooms assigned</dt>
-                <dd>{card.assignedRoomCount}</dd>
+                <dt>Ratio eligible</dt>
+                <dd>{card.ratioEligibleCount}</dd>
               </div>
               <div>
-                <dt>Target rooms per group</dt>
-                <dd>{card.targetOccupiedRoomsPerNurse}</dd>
-              </div>
-              <div>
-                <dt>Max rooms per group</dt>
-                <dd>{card.maxOccupiedRoomsPerNurse}</dd>
+                <dt>Planning groups</dt>
+                <dd>{card.planningGroupCountPlaceholder}</dd>
               </div>
             </dl>
-            <strong>{card.assignmentSummary}</strong>
+            <strong>{card.readinessSummary}</strong>
           </article>
         ))}
       </div>
 
       <div className="scenario-ratio-comparison__summary-grid">
         <section>
-          <h4>Activity preset</h4>
-          <p>{viewModel.activityPresetSummary}</p>
-        </section>
-        <section>
-          <h4>Load and acuity</h4>
-          <p>{viewModel.patientLoadSummary}</p>
-          <p>{viewModel.acuityPatternSummary}</p>
-        </section>
-        <section>
-          <h4>Nurse group difference</h4>
-          <p>3:1 uses {viewModel.nurseCountDifference} additional synthetic nurse groups for the same canonical room set.</p>
+          <h4>Ratio comparison readiness</h4>
+          <p>3:1 uses {viewModel.planningGroupDifferencePlaceholder} additional planning groups for the same selector-eligible bed-position count.</p>
         </section>
       </div>
 
@@ -154,30 +141,6 @@ export function ScenarioRatioComparisonPanel({
           ))}
         </ul>
       </section>
-
-      <div className="scenario-ratio-comparison__table-wrap">
-        <table>
-          <caption>Placeholder outcome rows</caption>
-          <thead>
-            <tr>
-              <th>Metric</th>
-              <th>Category</th>
-              <th>Status</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {viewModel.placeholderOutcomeRows.map((row) => (
-              <tr key={row.metricId}>
-                <td>{row.label}</td>
-                <td>{row.category}</td>
-                <td>{row.status}</td>
-                <td>{row.displayValue}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
     </section>
   );
 }

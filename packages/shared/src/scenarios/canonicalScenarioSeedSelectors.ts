@@ -2,6 +2,7 @@ import type { CanonicalCapacityCountReport } from "../floorplans/canonicalCapaci
 import {
   ADVANCED_EVIDENCE_FLOORPLAN_IDS,
   CANONICAL_SCENARIO_FLOORPLAN_ID,
+  CANONICAL_SCENARIO_SEED_ID,
   CANONICAL_SCENARIO_SEED_SCHEMA_VERSION,
   type CanonicalScenarioSeedContract
 } from "./canonicalScenarioSeedContract.js";
@@ -56,6 +57,9 @@ export function validateCanonicalScenarioSeedContract(
   if (seed.schemaVersion !== CANONICAL_SCENARIO_SEED_SCHEMA_VERSION) {
     throw new Error("canonical scenario seed schema version is unsupported");
   }
+  if (seed.scenarioSeedId !== CANONICAL_SCENARIO_SEED_ID) {
+    throw new Error("canonical scenario seed ID is unsupported");
+  }
   assertCanonicalScenarioFloorplanId(seed.canonicalFloorplanId);
   assertCanonicalScenarioSeedDependencies(dependencies);
   if (
@@ -76,4 +80,3 @@ export function validateCanonicalScenarioSeedContract(
   }
   return seed;
 }
-

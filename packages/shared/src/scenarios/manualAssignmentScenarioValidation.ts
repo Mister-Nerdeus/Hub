@@ -3,6 +3,7 @@ import {
   type ManualAssignmentScenarioBridgeInput,
   type ManualAssignmentScenarioBridgeSummary
 } from "./manualAssignmentScenarioBridge.js";
+import { CANONICAL_SCENARIO_SEED_ID } from "./canonicalScenarioSeedContract.js";
 
 export function bridgeManualAssignmentsToScenarioInput(
   input: ManualAssignmentScenarioBridgeInput
@@ -17,6 +18,13 @@ export function bridgeManualAssignmentsToScenarioInput(
   ) {
     throw new Error("manual assignment bridge must not recommend, optimize, or execute simulation");
   }
+  if (
+    input.ratioPreset.canonicalScenarioSeedId !== CANONICAL_SCENARIO_SEED_ID ||
+    input.ratioPreset.usesRatioEligibleBedPositions !== true ||
+    input.ratioPreset.usesRawRoomCount !== false
+  ) {
+    throw new Error("manual assignment bridge must use canonical selector-driven ratio assumptions");
+  }
 
   const eligible = new Set(input.capacity.assignmentEligibleBedPositionIds);
   const excluded = new Set(input.capacity.excludedObjectIds);
@@ -26,6 +34,9 @@ export function bridgeManualAssignmentsToScenarioInput(
   for (const group of input.assignmentGroups) {
     if (!group.syntheticDataOnly) {
       throw new Error("manual assignment bridge groups must be synthetic");
+    }
+    if (!group.syntheticNurseLabel.startsWith("Synthetic Nurse ")) {
+      throw new Error("manual assignment bridge must use synthetic nurse labels only");
     }
     for (const id of group.assignedBedPositionIds) {
       if (excluded.has(id)) {
@@ -63,4 +74,3 @@ export function bridgeManualAssignmentsToScenarioInput(
     syntheticDataOnly: true
   };
 }
-

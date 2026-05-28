@@ -74,6 +74,12 @@
       ]
     },
     {
+      "command": "docker compose up --build -d",
+      "outputs": [
+        "docs/verification/issues/issue-560/test-output/docker-compose-up.txt"
+      ]
+    },
+    {
       "command": "docker compose ps",
       "outputs": [
         "docs/verification/issues/issue-560/test-output/docker-compose-ps.txt"

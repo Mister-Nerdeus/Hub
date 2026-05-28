@@ -45,8 +45,9 @@ function runStage(stage) {
   if (stage === "placeholder-output") {
     context.add("simulation output placeholder copy exists", viewModel.includes("No full-shift simulation output"));
     context.add("optimizer placeholder copy exists", viewModel.includes("No optimizer recommendation"));
-    context.add("placeholder outcome rows remain", panel.includes("Placeholder outcome rows"));
-    writeJson(`${context.dir}/placeholder-output-proof.json`, { status: "passed", placeholders: ["simulation", "optimizer", "outcome rows"] });
+    context.add("outcome placeholder table is absent from foundation shell", !panel.includes("Placeholder outcome rows"));
+    context.add("view model does not expose placeholder outcome rows", !viewModel.includes("placeholderOutcomeRows"));
+    writeJson(`${context.dir}/placeholder-output-proof.json`, { status: "passed", placeholders: ["simulation", "optimizer"], outcomeRowsRendered: false });
   }
   if (stage === "selector-driven-counts") {
     context.add("view model uses scenario capacity integration", viewModel.includes("buildScenarioCapacityIntegration"));
@@ -65,4 +66,3 @@ function runStage(stage) {
     writeJson(`${context.dir}/visible-copy-output.json`, { status: findings.length === 0 ? "passed" : "failed", findings });
   }
 }
-
