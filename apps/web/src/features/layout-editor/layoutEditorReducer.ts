@@ -824,11 +824,25 @@ function duplicateSelectedObject(state: LayoutEditorState): LayoutEditorState {
     objectType: state.selectedObjectType,
     objectId: state.selectedObjectId
   });
+  const labelReviewWarning = result.objectType === "room"
+    ? [
+        buildLayoutValidationWarning({
+          code: "copied_room_label_review",
+          severity: "info",
+          source: "audit",
+          message: "Copied room label should be reviewed.",
+          objectType: "room",
+          objectId: result.duplicatedObjectId,
+          isGenerated: true
+        })
+      ]
+    : [];
   return withUndoHistory(state, {
     ...state,
     editableLayout: result.layout,
     selectedObjectType: result.objectType,
     selectedObjectId: result.duplicatedObjectId,
+    validationWarnings: [...state.validationWarnings, ...labelReviewWarning],
     isDirty: true
   });
 }

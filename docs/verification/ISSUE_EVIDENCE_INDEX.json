@@ -20933,8 +20933,33 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "627",
+      "title": "Floorplan Editor Duplicate Label Normalization",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-627/closeout.md",
+        "docs/verification/issues/issue-627/commands.txt",
+        "docs/verification/issues/issue-627/command-output-map.json",
+        "docs/verification/issues/issue-627/first-failure.txt",
+        "docs/verification/issues/issue-627/duplicate-room-label-output.json",
+        "docs/verification/issues/issue-627/duplicate-station-label-output.json",
+        "docs/verification/issues/issue-627/duplicate-zone-label-output.json",
+        "docs/verification/issues/issue-627/copy-chain-negative-output.json",
+        "docs/verification/issues/issue-627/label-review-warning-output.json",
+        "docs/verification/issues/issue-627/save-reload-duplicate-output.json",
+        "docs/verification/issues/issue-627/no-phi-output.txt",
+        "docs/verification/issues/issue-627/manifest-update-output.json",
+        "docs/verification/issues/issue-627/screenshots/duplicate-label-normalized.png",
+        "docs/verification/issues/issue-627/test-output/shared.txt",
+        "docs/verification/issues/issue-627/test-output/web.txt",
+        "docs/verification/issues/issue-627/test-output/web-build.txt",
+        "docs/verification/issues/issue-627/test-output/duplicate-labels.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "626"
+  "lastRebuiltIssue": "627"
 }

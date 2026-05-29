@@ -39,11 +39,15 @@ export function duplicateLayoutObject(input: DuplicateLayoutObjectInput): Duplic
     const source = layout.rooms.find((room) => room.id === input.objectId);
     if (source == null) throw new Error(`unknown room: ${input.objectId}`);
     const duplicatedObjectId = nextDuplicateId(source.id, allIds);
+    const duplicateLabel = normalizeDuplicateLabel({
+      originalLabel: source.label,
+      existingLabels: layout.rooms.map((room) => room.label)
+    });
     const duplicate: EditableRoomGeometry = {
       ...source,
       id: duplicatedObjectId,
-      label: `${source.label} Copy`,
-      roomNumber: `${source.roomNumber} Copy`,
+      label: duplicateLabel,
+      roomNumber: "Review",
       xFeet: source.xFeet + offset.xFeet,
       yFeet: source.yFeet + offset.yFeet
     };
@@ -61,10 +65,14 @@ export function duplicateLayoutObject(input: DuplicateLayoutObjectInput): Duplic
     const source = layout.stations.find((station) => station.id === input.objectId);
     if (source == null) throw new Error(`unknown station: ${input.objectId}`);
     const duplicatedObjectId = nextDuplicateId(source.id, allIds);
+    const duplicateLabel = normalizeDuplicateLabel({
+      originalLabel: source.label,
+      existingLabels: layout.stations.map((station) => station.label)
+    });
     const duplicate: EditableStationGeometry = {
       ...source,
       id: duplicatedObjectId,
-      label: `${source.label} Copy`,
+      label: duplicateLabel,
       xFeet: source.xFeet + offset.xFeet,
       yFeet: source.yFeet + offset.yFeet
     };
@@ -81,10 +89,14 @@ export function duplicateLayoutObject(input: DuplicateLayoutObjectInput): Duplic
   const source = layout.zones.find((zone) => zone.id === input.objectId);
   if (source == null) throw new Error(`unknown zone: ${input.objectId}`);
   const duplicatedObjectId = nextDuplicateId(source.id, allIds);
+  const duplicateLabel = normalizeDuplicateLabel({
+    originalLabel: source.label,
+    existingLabels: layout.zones.map((zone) => zone.label)
+  });
   const duplicate: EditableZoneGeometry = {
     ...source,
     id: duplicatedObjectId,
-    label: `${source.label} Copy`,
+    label: duplicateLabel,
     xFeet: source.xFeet + offset.xFeet,
     yFeet: source.yFeet + offset.yFeet
   };
@@ -96,6 +108,28 @@ export function duplicateLayoutObject(input: DuplicateLayoutObjectInput): Duplic
       zones: [...layout.zones, duplicate]
     })
   };
+}
+
+export function normalizeDuplicateLabel(input: {
+  originalLabel: string;
+  existingLabels: readonly string[];
+}): string {
+  const baseLabel = input.originalLabel
+    .trim()
+    .replace(/(?:\s+Copy(?:\s+\d+)?)+$/u, "")
+    .trim() || "Copy";
+  const existing = new Set(input.existingLabels.map((label) => label.trim()));
+  const firstCandidate = `${baseLabel} Copy`;
+  if (!existing.has(firstCandidate)) {
+    return firstCandidate;
+  }
+  let index = 2;
+  let candidate = `${firstCandidate} ${index}`;
+  while (existing.has(candidate)) {
+    index += 1;
+    candidate = `${firstCandidate} ${index}`;
+  }
+  return candidate;
 }
 
 function collectLayoutObjectIds(layout: EditableLayoutGeometryContract): Set<string> {

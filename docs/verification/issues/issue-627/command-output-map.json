@@ -1,0 +1,59 @@
+{
+  "issue": "627",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-627/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-627/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-627/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage duplicate-room-label --allow-partial --issue 627",
+      "outputs": [
+        "docs/verification/issues/issue-627/duplicate-room-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage duplicate-station-label --allow-partial --issue 627",
+      "outputs": [
+        "docs/verification/issues/issue-627/duplicate-station-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage duplicate-zone-label --allow-partial --issue 627",
+      "outputs": [
+        "docs/verification/issues/issue-627/duplicate-zone-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage copy-chain-negative --allow-partial --issue 627",
+      "outputs": [
+        "docs/verification/issues/issue-627/copy-chain-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage save-reload --allow-partial --issue 627",
+      "outputs": [
+        "docs/verification/issues/issue-627/save-reload-duplicate-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-627/no-phi-output.txt"
+      ]
+    }
+  ]
+}
