@@ -20461,7 +20461,7 @@
     },
     {
       "issue": "618",
-      "title": "Simulation v0 Repair Issue 618",
+      "title": "Simulation Route Accessibility Pass",
       "evidenceDir": "docs/verification/issues/issue-618",
       "requiredEvidence": [
         "docs/verification/issues/issue-618/accessibility-scan-output.json",
@@ -20592,7 +20592,9 @@
         "docs/verification/issues/issue-620/test-output/docker-compose-up-build.txt",
         "docs/verification/issues/issue-620/test-output/no-phi.txt",
         "docs/verification/issues/issue-620/test-output/shared.txt",
+        "docs/verification/issues/issue-620/test-output/simulation-v0-accessibility-review.txt",
         "docs/verification/issues/issue-620/test-output/simulation-v0-manual-review-go-no-go.txt",
+        "docs/verification/issues/issue-620/test-output/simulation-v0-responsive-proof-review.txt",
         "docs/verification/issues/issue-620/test-output/simulation-v0-user-facing-feature-gates.txt",
         "docs/verification/issues/issue-620/test-output/visible-product-copy-all-routes.txt",
         "docs/verification/issues/issue-620/test-output/web-build.txt",
@@ -20605,5 +20607,5 @@
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "620"
+  "lastRebuiltIssue": "601"
 }

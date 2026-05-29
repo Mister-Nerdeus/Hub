@@ -7,9 +7,11 @@ import {
   createRepairContext,
   finalizeRepairGate,
   fileExists,
+  readText,
   readJson,
   runSelectedRepairStages,
-  writeJson
+  writeJson,
+  writeText
 } from "./lib/simulation-v0-repair-utils.mjs";
 
 const ROUTES = [
@@ -58,6 +60,7 @@ const context = createRepairContext({
   defaultIssue: "581"
 });
 
+const preservedManifest = Number(context.issue) >= 611 ? readText(context.manifestPath) : null;
 await runSelectedRepairStages(context, runStage);
 finalizeRepairGate(context, {
   testOutputName: "visible-product-copy-all-routes.txt",
@@ -72,6 +75,7 @@ finalizeRepairGate(context, {
     visibleCopyPolicyFailClosed: context.checks.every((check) => check.passed)
   }
 });
+if (preservedManifest != null) writeText(context.manifestPath, preservedManifest);
 
 async function runStage(stage) {
   if (stage === "policy-hardening") {

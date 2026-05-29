@@ -81,6 +81,12 @@ async function captureViewport(name, width, height) {
     height,
     initScript: 'sessionStorage.setItem("nerdeus.workspaceAccess.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));'
   }, async (browser) => {
+    await browser.cdp.send("Emulation.setDeviceMetricsOverride", {
+      width,
+      height,
+      deviceScaleFactor: 1,
+      mobile: width < 600
+    });
     await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-route') != null");
     await browser.screenshot(screenshotPath);
     return browser.evaluate(`(() => {

@@ -1,15 +1,19 @@
 # Issue 618 Closeout
 
 ## Summary
-- Completed Simulation v0 repair issue 618 within the internal synthetic dry-run boundary.
+- Completed Simulation Route Accessibility Pass within the internal synthetic dry-run boundary.
 
 ## Files Changed
-- Simulation v0 repair source, gates, Docker/local verification wiring, manifest, and evidence artifacts as applicable for Issue 618.
+- Simulation v0 manual-review UX source, gates, manifest, and evidence artifacts as applicable for Issue 618.
 
 ## Commands Run
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
+- node scripts/check-simulation-v0-accessibility.mjs --stage semantic-scan --allow-partial --issue 618
+- node scripts/check-simulation-v0-accessibility.mjs --stage keyboard-navigation --allow-partial --issue 618
+- node scripts/check-simulation-v0-accessibility.mjs --stage focus-order --allow-partial --issue 618
+- node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 618
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -17,16 +21,16 @@
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-618
-- docs/verification/simulation-v0-user-facing-refinement-manifest.json
+- docs/verification/simulation-v0-manual-review-ux-manifest.json
 
 ## Known Limitations
 - Simulation v0 remains an internal deterministic dry-run only.
-- Manual visual review remains required.
+- Manual visual review remains required and is not completed by automation.
 - Promotion remains blocked.
 - Full-event simulation, optimization, assignment recommendations, clinical safety scoring, staffing compliance certification, and patient outcome prediction remain out of scope.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden visible wording.
+- Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden claim wording.
 
-## Next Recommended Issue
-- GO for Issue 619.
+## GO / NO-GO
+- GO for Issue 619. Basic Simulation v0 accessibility proof is complete.

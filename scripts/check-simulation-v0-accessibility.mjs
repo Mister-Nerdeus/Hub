@@ -62,10 +62,11 @@ async function runStage(stage) {
   if (stage === "focus-order") {
     const proof = await captureAccessibility();
     const source = readText("apps/web/src/styles.css");
-    const profileIndex = proof.focusableNames.findIndex((name) => name.includes("Typical"));
-    const ratioIndex = proof.focusableNames.findIndex((name) => name.includes("4:1 dry-run"));
-    const filterIndex = proof.focusableNames.findIndex((name) => name.includes("All events"));
-    const exportIndex = proof.focusableNames.findIndex((name) => name.includes("Download JSON"));
+    const keyboardSequence = proof.tabSequence.filter(Boolean);
+    const profileIndex = keyboardSequence.findIndex((name) => name.includes("Typical"));
+    const ratioIndex = keyboardSequence.findIndex((name) => name.includes("4:1 dry-run"));
+    const filterIndex = keyboardSequence.findIndex((name) => name.includes("All events"));
+    const exportIndex = keyboardSequence.findIndex((name) => name.includes("Download JSON"));
     const passed = profileIndex >= 0 &&
       ratioIndex > profileIndex &&
       filterIndex > ratioIndex &&
@@ -76,6 +77,7 @@ async function runStage(stage) {
       ratioIndex,
       filterIndex,
       exportIndex,
+      keyboardSequence,
       focusStyle: source.includes(":focus-visible")
     });
   }
@@ -92,8 +94,30 @@ async function captureAccessibility() {
     initScript: 'sessionStorage.setItem("nerdeus.workspaceAccess.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));'
   }, async (browser) => {
     await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-route') != null");
+    const tabSequence = [];
+    for (let index = 0; index < 32; index += 1) {
+      await browser.cdp.send("Input.dispatchKeyEvent", {
+        type: "keyDown",
+        key: "Tab",
+        code: "Tab",
+        windowsVirtualKeyCode: 9,
+        nativeVirtualKeyCode: 9
+      });
+      await browser.cdp.send("Input.dispatchKeyEvent", {
+        type: "keyUp",
+        key: "Tab",
+        code: "Tab",
+        windowsVirtualKeyCode: 9,
+        nativeVirtualKeyCode: 9
+      });
+      tabSequence.push(await browser.evaluate(`(() => {
+        const node = document.activeElement;
+        if (node == null || !document.querySelector('#simulation-v0-route')?.contains(node)) return null;
+        return (node.textContent || node.getAttribute('aria-label') || '').replace(/\\s+/g, ' ').trim();
+      })();`));
+    }
     await browser.screenshot(screenshotPath);
-    return browser.evaluate(`(() => {
+    const semanticProof = await browser.evaluate(`(() => {
       const root = document.querySelector('#simulation-v0-route');
       const buttons = Array.from(root?.querySelectorAll('button') ?? []);
       const focusable = Array.from(root?.querySelectorAll('button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])') ?? []);
@@ -109,9 +133,16 @@ async function captureAccessibility() {
         screenshotPath: ${JSON.stringify(`${context.dir}/screenshots/simulation-accessibility-proof.png`)}
       };
     })();`);
+    return {
+      ...semanticProof,
+      tabSequence
+    };
   });
   assertBrowserPng(screenshotPath);
-  context._accessibility = result.result;
+  context._accessibility = {
+    ...result.result,
+    tabSequence: result.result.tabSequence ?? []
+  };
   writeJson(`${context.dir}/rendered-accessibility-output.json`, { status: "passed", detail: context._accessibility });
   return context._accessibility;
 }

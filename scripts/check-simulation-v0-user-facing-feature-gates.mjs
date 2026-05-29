@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import {
   addAndWrite,
   createManualReviewUxContext,
@@ -69,20 +69,26 @@ async function runStage(stage) {
   }
   if (stage === "rerun-feature-gates") {
     const results = [];
-    for (const script of rerunScripts) {
-      const result = spawnSync("npm", ["run", script], {
-        cwd: process.cwd(),
-        shell: process.platform === "win32",
-        encoding: "utf8",
-        maxBuffer: 20 * 1024 * 1024
-      });
-      results.push({
-        script,
-        status: result.status,
-        stdoutTail: tail(result.stdout),
-        stderrTail: tail(result.stderr)
-      });
-      if (result.status !== 0) break;
+    const sourceManifestPath = "docs/verification/simulation-v0-user-facing-refinement-manifest.json";
+    const sourceManifestBefore = readFileSync(sourceManifestPath, "utf8");
+    try {
+      for (const script of rerunScripts) {
+        const result = spawnSync("npm", ["run", script], {
+          cwd: process.cwd(),
+          shell: process.platform === "win32",
+          encoding: "utf8",
+          maxBuffer: 20 * 1024 * 1024
+        });
+        results.push({
+          script,
+          status: result.status,
+          stdoutTail: tail(result.stdout),
+          stderrTail: tail(result.stderr)
+        });
+        if (result.status !== 0) break;
+      }
+    } finally {
+      writeFileSync(sourceManifestPath, sourceManifestBefore);
     }
     const passed = results.length === rerunScripts.length && results.every((result) => result.status === 0);
     context.add("composite gate reruns 603-609 and 611-616 feature gates", passed, { results });

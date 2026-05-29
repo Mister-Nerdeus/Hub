@@ -1,4 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
+node scripts/check-simulation-v0-accessibility.mjs --stage semantic-scan --allow-partial --issue 618
+node scripts/check-simulation-v0-accessibility.mjs --stage keyboard-navigation --allow-partial --issue 618
+node scripts/check-simulation-v0-accessibility.mjs --stage focus-order --allow-partial --issue 618
+node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 618
 node scripts/check-no-phi-fields.mjs
