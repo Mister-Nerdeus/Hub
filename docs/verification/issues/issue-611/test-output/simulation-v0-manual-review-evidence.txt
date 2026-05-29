@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "stage": "scorecard",
+  "issue": "611",
+  "allowPartial": true,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "manual review scorecard exists without pre-filled approval",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "prefilledPass": false
+      }
+    }
+  ]
+}
