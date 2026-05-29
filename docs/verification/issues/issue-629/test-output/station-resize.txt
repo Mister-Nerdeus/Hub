@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "629",
+  "checks": [
+    {
+      "name": "station resize handles dispatch station geometry resize",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station inspector exposes editable X/Y/width/height fields",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resize and inspector geometry edits are undoable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resize is eligible for scoped local draft autosave",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resized geometry persists through export/import bridge",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resized geometry persists through saved copy reload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resize is blocked in read-only state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station resize does not mutate room capacity or room counts",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

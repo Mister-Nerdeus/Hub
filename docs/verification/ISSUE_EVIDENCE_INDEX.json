@@ -20984,8 +20984,36 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "629",
+      "title": "Floorplan Editor Nurse Station Resize Support",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-629/closeout.md",
+        "docs/verification/issues/issue-629/commands.txt",
+        "docs/verification/issues/issue-629/command-output-map.json",
+        "docs/verification/issues/issue-629/first-failure.txt",
+        "docs/verification/issues/issue-629/station-resize-output.json",
+        "docs/verification/issues/issue-629/station-inspector-geometry-output.json",
+        "docs/verification/issues/issue-629/station-resize-undo-redo-output.json",
+        "docs/verification/issues/issue-629/station-resize-autosave-output.json",
+        "docs/verification/issues/issue-629/station-resize-export-import-output.json",
+        "docs/verification/issues/issue-629/station-resize-save-reload-output.json",
+        "docs/verification/issues/issue-629/read-only-negative-output.json",
+        "docs/verification/issues/issue-629/no-capacity-change-output.json",
+        "docs/verification/issues/issue-629/no-phi-output.txt",
+        "docs/verification/issues/issue-629/manifest-update-output.json",
+        "docs/verification/issues/issue-629/screenshots/station-resized.png",
+        "docs/verification/issues/issue-629/screenshots/station-inspector-geometry.png",
+        "docs/verification/issues/issue-629/test-output/shared.txt",
+        "docs/verification/issues/issue-629/test-output/web.txt",
+        "docs/verification/issues/issue-629/test-output/web-build.txt",
+        "docs/verification/issues/issue-629/test-output/station-resize.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "628"
+  "lastRebuiltIssue": "629"
 }

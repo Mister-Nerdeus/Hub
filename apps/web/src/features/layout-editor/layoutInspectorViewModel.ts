@@ -62,7 +62,7 @@ export function buildLayoutInspectorViewModel(
     objectType: selectedObjectType,
     objectId: selectedObjectId,
     sourceUnits: "feet",
-    isReadOnly: selectedObject.objectType !== "room",
+    isReadOnly: selectedObject.objectType !== "room" && selectedObject.objectType !== "station",
     sections: buildSections(selectedObject)
   };
 }
@@ -117,7 +117,7 @@ function buildSections(
           title: "Station metadata",
           fields: [{ label: "Station type", value: selectedObject.stationType }].map(readOnlyField)
         },
-        rectGeometrySection(selectedObject)
+        rectGeometrySection(selectedObject, "Station geometry", true)
       ];
     case "hallway":
       return [rectGeometrySection(selectedObject, "Hallway geometry")];

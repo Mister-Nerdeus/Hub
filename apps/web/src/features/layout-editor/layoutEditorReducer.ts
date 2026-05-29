@@ -42,7 +42,9 @@ import {
   createRoomDimensionEditAuditEntry,
   createRoomMoveAuditEntry,
   createRoomResizeAuditEntry,
-  createStationMoveAuditEntry
+  createStationDimensionEditAuditEntry,
+  createStationMoveAuditEntry,
+  createStationResizeAuditEntry
 } from "./layoutEditAuditTrail";
 import { applyLayoutEditEffects } from "./layoutEditEffects";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
@@ -62,6 +64,12 @@ import {
 } from "./roomInspectorDimensionEdit";
 import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
+import {
+  editSelectedStationDimensionsInLayout,
+  resizeSelectedStationInLayout,
+  type StationInspectorDimensionChanges
+} from "./stationResizeInteraction";
+import type { StationResizeHandle } from "./stationResizeHandlesViewModel";
 import { validateRoomResizeWarnings } from "./roomResizeValidation";
 import {
   validateRoomOperationalLabel,
@@ -102,7 +110,19 @@ export type LayoutEditorAction =
       deltaXFeet: number;
       deltaYFeet: number;
     }
+  | {
+      type: "resizeStation";
+      stationId: string;
+      handle: StationResizeHandle;
+      deltaXFeet: number;
+      deltaYFeet: number;
+    }
   | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
+  | {
+      type: "editSelectedStationDimensions";
+      stationId: string;
+      dimensions: StationInspectorDimensionChanges;
+    }
   | {
       type: "editSelectedRoomLabel";
       roomId: string;
@@ -272,8 +292,15 @@ export function layoutEditorReducer(
         deltaXFeet: action.deltaXFeet,
         deltaYFeet: action.deltaYFeet
       });
+    case "resizeStation":
+      return resizeStation(state, action.stationId, action.handle, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
     case "editSelectedRoomDimensions":
       return editSelectedRoomDimensions(state, action.dimensions);
+    case "editSelectedStationDimensions":
+      return editSelectedStationDimensions(state, action.stationId, action.dimensions);
     case "editSelectedRoomLabel":
       return editSelectedRoomLabel(state, action);
     case "editSelectedRoomType":
@@ -1034,6 +1061,159 @@ function resizeRoom(
       auditEntry
     })
   );
+}
+
+function editSelectedStationDimensions(
+  state: LayoutEditorState,
+  stationId: string,
+  dimensions: StationInspectorDimensionChanges
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "station" || state.selectedObjectId !== stationId) {
+    return state;
+  }
+
+  const beforeStation = state.editableLayout.stations.find((station) => station.id === stationId);
+  if (beforeStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+  const editedLayout = editSelectedStationDimensionsInLayout({
+    layout: state.editableLayout,
+    selectedObjectType: state.selectedObjectType,
+    selectedObjectId: state.selectedObjectId,
+    stationId,
+    changes: dimensions,
+    snapMode: state.snapMode
+  });
+  const afterStation = editedLayout.stations.find((station) => station.id === stationId);
+  if (afterStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+  if (roomRectEquals(beforeStation, afterStation)) {
+    return state;
+  }
+
+  const auditEntry = createStationDimensionEditAuditEntry({
+    stationId,
+    before: roomRectForAudit(beforeStation),
+    after: roomRectForAudit(afterStation),
+    deltaFeet: {
+      deltaXFeet: afterStation.xFeet - beforeStation.xFeet,
+      deltaYFeet: afterStation.yFeet - beforeStation.yFeet,
+      deltaWidthFeet: afterStation.widthFeet - beforeStation.widthFeet,
+      deltaHeightFeet: afterStation.heightFeet - beforeStation.heightFeet
+    },
+    changedFields: changedRoomDimensionFields(beforeStation, afterStation),
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return withUndoHistory(
+    state,
+    applyLayoutEditEffects({
+      state,
+      editableLayout: editedLayout,
+      validationWarnings: replaceGeneratedWarningsBySources({
+        existingWarnings: state.validationWarnings,
+        replacementWarnings: validateStationResizeWarnings(afterStation),
+        sources: ["resize"]
+      }),
+      selectedObjectType: "station",
+      selectedObjectId: stationId,
+      auditEntry
+    })
+  );
+}
+
+function resizeStation(
+  state: LayoutEditorState,
+  stationId: string,
+  handle: StationResizeHandle,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.readOnly) {
+    return state;
+  }
+  if (state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "station" || state.selectedObjectId !== stationId) {
+    return state;
+  }
+
+  const beforeStation = state.editableLayout.stations.find((station) => station.id === stationId);
+  if (beforeStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+
+  const resizedLayout = resizeSelectedStationInLayout({
+    layout: state.editableLayout,
+    selectedObjectType: state.selectedObjectType,
+    selectedObjectId: state.selectedObjectId,
+    stationId,
+    handle,
+    deltaFeet: delta,
+    snapMode: state.snapMode
+  });
+  const afterStation = resizedLayout.stations.find((station) => station.id === stationId);
+  if (afterStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+  if (roomRectEquals(beforeStation, afterStation)) {
+    return state;
+  }
+
+  const auditEntry = createStationResizeAuditEntry({
+    stationId,
+    resizeHandle: handle,
+    before: roomRectForAudit(beforeStation),
+    after: roomRectForAudit(afterStation),
+    deltaFeet: {
+      deltaXFeet: afterStation.xFeet - beforeStation.xFeet,
+      deltaYFeet: afterStation.yFeet - beforeStation.yFeet,
+      deltaWidthFeet: afterStation.widthFeet - beforeStation.widthFeet,
+      deltaHeightFeet: afterStation.heightFeet - beforeStation.heightFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return withUndoHistory(
+    state,
+    applyLayoutEditEffects({
+      state,
+      editableLayout: resizedLayout,
+      validationWarnings: replaceGeneratedWarningsBySources({
+        existingWarnings: state.validationWarnings,
+        replacementWarnings: validateStationResizeWarnings(afterStation),
+        sources: ["resize"]
+      }),
+      selectedObjectType: "station",
+      selectedObjectId: stationId,
+      auditEntry
+    })
+  );
+}
+
+function validateStationResizeWarnings(station: {
+  id: string;
+  widthFeet: number;
+  heightFeet: number;
+}): LayoutEditorValidationWarning[] {
+  if (station.widthFeet >= 8 && station.heightFeet >= 5) {
+    return [];
+  }
+  return [
+    buildLayoutValidationWarning({
+      code: "station_label_readability_small",
+      severity: "info",
+      source: "resize",
+      message: "Station label may be hard to read at this size.",
+      objectType: "station",
+      objectId: station.id,
+      isGenerated: true
+    })
+  ];
 }
 
 function roomRectEquals(

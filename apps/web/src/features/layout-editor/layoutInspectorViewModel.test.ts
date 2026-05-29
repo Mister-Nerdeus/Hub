@@ -54,8 +54,8 @@ const objectCases = [
     objectType: "station",
     objectId: "station-primary",
     expectedTitle: "Primary nurse station",
-    expectedIsReadOnly: true,
-    expectedSections: ["Station metadata", "Geometry"],
+    expectedIsReadOnly: false,
+    expectedSections: ["Station metadata", "Station geometry"],
     expectedFields: [
       ["Station type", "nurse_station"],
       ["Height", "6 ft"]

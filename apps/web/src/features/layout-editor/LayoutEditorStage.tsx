@@ -94,6 +94,11 @@ import {
   buildSelectedRoomResizeHandlesViewModel,
   type RoomResizeHandle
 } from "./roomResizeHandlesViewModel";
+import { StationResizeHandles } from "./StationResizeHandles";
+import {
+  buildSelectedStationResizeHandlesViewModel,
+  type StationResizeHandle
+} from "./stationResizeHandlesViewModel";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
 import { createSyntheticLayoutAssignmentOverlay } from "./layoutAssignmentOverlayViewModel";
@@ -174,6 +179,13 @@ type StationDragState = {
 type RoomResizeState = {
   roomId: string;
   handle: RoomResizeHandle;
+  lastClientX: number;
+  lastClientY: number;
+};
+
+type StationResizeState = {
+  stationId: string;
+  handle: StationResizeHandle;
   lastClientX: number;
   lastClientY: number;
 };
@@ -261,6 +273,7 @@ export function LayoutEditorStage({
   const roomDragRef = useRef<RoomDragState | null>(null);
   const stationDragRef = useRef<StationDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
+  const stationResizeRef = useRef<StationResizeState | null>(null);
   const canvasPanRef = useRef<CanvasPanState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
   const selectedStation = findSelectedStation(stageState);
@@ -288,9 +301,16 @@ export function LayoutEditorStage({
     activeFloorplan?.sourceKind,
     activeFloorplan?.readOnly
   ]);
+  const selectedInspectorRect = selectedRoom ?? selectedStation;
   useEffect(() => {
-    setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedRoom));
-  }, [selectedRoom?.id, selectedRoom?.xFeet, selectedRoom?.yFeet, selectedRoom?.widthFeet, selectedRoom?.heightFeet]);
+    setRoomDimensionDraft(createRoomInspectorDimensionDraft(selectedInspectorRect));
+  }, [
+    selectedInspectorRect?.id,
+    selectedInspectorRect?.xFeet,
+    selectedInspectorRect?.yFeet,
+    selectedInspectorRect?.widthFeet,
+    selectedInspectorRect?.heightFeet
+  ]);
   useEffect(() => {
     setDoorPathNodeGenerationResult(null);
     setSimulationReadyExportResult(null);
@@ -427,6 +447,11 @@ export function LayoutEditorStage({
   );
   const assignmentOverlay = createSyntheticLayoutAssignmentOverlay(stageState.editableLayout);
   const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
+    renderItems,
+    selectedObjectType: stageState.selectedObjectType,
+    selectedObjectId: stageState.selectedObjectId
+  });
+  const stationResizeHandlesViewModel = buildSelectedStationResizeHandlesViewModel({
     renderItems,
     selectedObjectType: stageState.selectedObjectType,
     selectedObjectId: stageState.selectedObjectId
@@ -862,6 +887,67 @@ export function LayoutEditorStage({
   const endStationMove = (stationId: string, event: PointerEvent<SVGGElement>) => {
     if (stationDragRef.current?.stationId === stationId) {
       stationDragRef.current = null;
+    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+  const startStationResize = (
+    stationId: string,
+    handle: StationResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (stageState.readOnly) {
+      return;
+    }
+    if (stageState.selectedObjectType !== "station" || stageState.selectedObjectId !== stationId) {
+      return;
+    }
+    stationResizeRef.current = {
+      stationId,
+      handle,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const resizeStation = (
+    stationId: string,
+    handle: StationResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    const resize = stationResizeRef.current;
+    if (resize == null || resize.stationId !== stationId || resize.handle !== handle) {
+      return;
+    }
+    const deltaXFeet = pixelsDeltaToFeet(event.clientX - resize.lastClientX, stageState.viewport);
+    const deltaYFeet = pixelsDeltaToFeet(event.clientY - resize.lastClientY, stageState.viewport);
+    stationResizeRef.current = {
+      stationId,
+      handle,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY
+    };
+    if (deltaXFeet === 0 && deltaYFeet === 0) {
+      return;
+    }
+    dispatchStage({
+      type: "resizeStation",
+      stationId,
+      handle,
+      deltaXFeet,
+      deltaYFeet
+    });
+  };
+  const endStationResize = (
+    stationId: string,
+    handle: StationResizeHandle,
+    event: PointerEvent<SVGRectElement>
+  ) => {
+    if (stationResizeRef.current?.stationId === stationId && stationResizeRef.current.handle === handle) {
+      stationResizeRef.current = null;
     }
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -1368,6 +1454,14 @@ export function LayoutEditorStage({
                 onResizeEnd={endRoomResize}
               />
             ) : null}
+            {editorMode === "edit" && stationResizeHandlesViewModel != null ? (
+              <StationResizeHandles
+                viewModel={stationResizeHandlesViewModel}
+                onResizeStart={startStationResize}
+                onResize={resizeStation}
+                onResizeEnd={endStationResize}
+              />
+            ) : null}
             {editorMode === "edit" ? (
               <DoorWallGuideOverlay viewModel={doorWallGuideViewModel} />
             ) : null}
@@ -1577,12 +1671,21 @@ export function LayoutEditorStage({
                     const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
                     setRoomDimensionDraft(result.draft);
                     if (result.status === "valid") {
-                      dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
+                      if (selectedRoom != null) {
+                        dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
+                      }
+                      if (selectedStation != null) {
+                        dispatchStage({
+                          type: "editSelectedStationDimensions",
+                          stationId: selectedStation.id,
+                          dimensions: result.changes
+                        });
+                      }
                     }
                   }}
                   onCancelRoomDimensionDraft={(field) =>
                     setRoomDimensionDraft((draft) =>
-                      cancelRoomInspectorDimensionDraftField(draft, selectedRoom, field)
+                      cancelRoomInspectorDimensionDraftField(draft, selectedInspectorRect, field)
                     )
                   }
                 />

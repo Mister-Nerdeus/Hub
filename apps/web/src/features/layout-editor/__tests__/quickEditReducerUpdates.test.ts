@@ -62,6 +62,52 @@ if (
   throw new Error("station move undo must restore station geometry");
 }
 
+const resizedStation = layoutEditorReducer(stationState, {
+  type: "resizeStation",
+  stationId: "station-primary",
+  handle: "southeast",
+  deltaXFeet: 2,
+  deltaYFeet: 1
+});
+const stationBeforeResize = stationState.editableLayout?.stations.find(
+  (candidate) => candidate.id === "station-primary"
+);
+const stationAfterResize = resizedStation.editableLayout?.stations.find(
+  (candidate) => candidate.id === "station-primary"
+);
+if (
+  stationAfterResize?.widthFeet !== (stationBeforeResize?.widthFeet ?? 0) + 2 ||
+  stationAfterResize.heightFeet !== (stationBeforeResize?.heightFeet ?? 0) + 1
+) {
+  throw new Error("station resize reducer must update station dimensions");
+}
+if (resizedStation.editAuditTrail.at(-1)?.editType !== "station_resized") {
+  throw new Error("station resize must write a station_resized audit entry");
+}
+const undoneStationResize = layoutEditorReducer(resizedStation, { type: "undoLayoutEdit" });
+if (
+  undoneStationResize.editableLayout?.stations.find((candidate) => candidate.id === "station-primary")?.widthFeet !==
+  stationBeforeResize?.widthFeet
+) {
+  throw new Error("station resize undo must restore station dimensions");
+}
+
+const inspectorEditedStation = layoutEditorReducer(stationState, {
+  type: "editSelectedStationDimensions",
+  stationId: "station-primary",
+  dimensions: { widthFeet: 12, heightFeet: 8 }
+});
+const inspectorEditedStationGeometry = inspectorEditedStation.editableLayout?.stations.find(
+  (candidate) => candidate.id === "station-primary"
+);
+if (
+  inspectorEditedStationGeometry?.widthFeet !== 12 ||
+  inspectorEditedStationGeometry.heightFeet !== 8 ||
+  inspectorEditedStation.editAuditTrail.at(-1)?.editType !== "edit_station_dimensions"
+) {
+  throw new Error("station inspector geometry edit must update dimensions and audit");
+}
+
 const hallwayState = createLayoutEditorState({
   editableLayout: layoutEditorProofFixture,
   selectedObjectType: "hallway",
@@ -123,6 +169,17 @@ if (
   }) !== readOnlyStationState
 ) {
   throw new Error("station move must be blocked on read-only layouts");
+}
+if (
+  layoutEditorReducer(readOnlyStationState, {
+    type: "resizeStation",
+    stationId: "station-primary",
+    handle: "east",
+    deltaXFeet: 4,
+    deltaYFeet: 0
+  }) !== readOnlyStationState
+) {
+  throw new Error("station resize must be blocked on read-only layouts");
 }
 
 const deleteRoomState = createLayoutEditorState({

@@ -83,7 +83,9 @@ export function buildLayoutEditGestureAuditSummary({
       }
       return buildDimensionEditGestureSummary(firstEntry, order);
     case "station_moved":
-      throw new Error("station movement is audited as a low-level operational edit only");
+    case "station_resized":
+    case "edit_station_dimensions":
+      throw new Error("station geometry is audited as a low-level operational edit only");
   }
 }
 

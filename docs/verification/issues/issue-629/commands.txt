@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-station-resize.mjs --stage resize-station --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage inspector-geometry --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage undo-redo --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage autosave --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage export-import --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage save-reload --allow-partial --issue 629
+node scripts/check-layout-editor-station-resize.mjs --stage read-only-negative --allow-partial --issue 629
+node scripts/check-no-phi-fields.mjs
