@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "stage": "draft-to-saved-record",
+  "issue": "634",
+  "checks": [
+    {
+      "name": "savedFloorplanStore record keeps changed room and door values",
+      "passed": true,
+      "detail": {
+        "saveHandlerInput": {
+          "roomId": "room-02",
+          "roomX": 56,
+          "roomY": 34,
+          "roomWidth": 10,
+          "roomHeight": 10,
+          "doorId": "door-02",
+          "doorRoomId": "room-02",
+          "doorWall": "south",
+          "doorOffsetFeet": 4.5,
+          "doorWidthFeet": 4,
+          "doorCount": 23
+        },
+        "savedRecordPayload": {
+          "roomId": "room-02",
+          "roomX": 56,
+          "roomY": 34,
+          "roomWidth": 10,
+          "roomHeight": 10,
+          "doorId": "door-02",
+          "doorRoomId": "room-02",
+          "doorWall": "south",
+          "doorOffsetFeet": 4.5,
+          "doorWidthFeet": 4,
+          "doorCount": 23
+        }
+      }
+    }
+  ]
+}

@@ -11,6 +11,7 @@ import {
   type SaveKind
 } from "@nerdeus/shared";
 import { planContractToEditableLayoutGeometry } from "../layout-editor/layoutEditorState";
+import { recordSavedRecordTraceStage } from "../layout-editor/layoutSaveTrace";
 import type { SavedFloorplanPersistence } from "./savedFloorplanPersistence";
 
 export type SavedFloorplanRecord = {
@@ -82,6 +83,7 @@ export function createSavedFloorplanStore(
       });
       records.set(record.savedPlanId, cloneSavedRecord(record));
       persist();
+      recordSavedRecordTraceStage("savedRecordPayload", record);
       return cloneSavedRecord(record);
     },
     saveDraft(savedPlanId, draft) {
@@ -107,6 +109,7 @@ export function createSavedFloorplanStore(
       );
       records.set(record.savedPlanId, cloneSavedRecord(record));
       persist();
+      recordSavedRecordTraceStage("savedRecordPayload", record);
       return cloneSavedRecord(record);
     },
     saveAsDraft(draft, options) {
@@ -132,6 +135,7 @@ export function createSavedFloorplanStore(
       );
       records.set(record.savedPlanId, cloneSavedRecord(record));
       persist();
+      recordSavedRecordTraceStage("savedRecordPayload", record);
       return cloneSavedRecord(record);
     },
     load(recordId) {

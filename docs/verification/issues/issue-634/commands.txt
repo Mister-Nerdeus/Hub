@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 634
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage editable-to-draft --allow-partial --issue 634
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage draft-to-saved-record --allow-partial --issue 634
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage persisted-localstorage --allow-partial --issue 634
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage reopened-layout-match --allow-partial --issue 634
+node scripts/check-layout-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 634
+node scripts/check-no-phi-fields.mjs

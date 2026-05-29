@@ -22,6 +22,12 @@ import {
 import { createSavedFloorplanPersistence } from "./features/floorplans/savedFloorplanPersistence";
 import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
 import type { SaveWorkingCopyResult } from "./features/layout-editor/LayoutEditorStage";
+import {
+  recordDraftTraceStage,
+  recordEditableLayoutTraceStage,
+  recordPlanTraceStage,
+  recordSavedRecordTraceStage
+} from "./features/layout-editor/layoutSaveTrace";
 import { LayoutEditorErrorBoundary } from "./features/layout-editor/LayoutEditorErrorBoundary";
 import { AppShell } from "./features/app-shell/AppShell";
 import {
@@ -106,6 +112,15 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     if (saved == null) {
       return;
     }
+    recordPlanTraceStage("reopenedPlan", {
+      recordId: saved.recordId,
+      plan: saved.plan
+    });
+    recordEditableLayoutTraceStage("reopenedEditableLayout", {
+      recordId: saved.recordId,
+      planId: saved.planId,
+      editableLayout: saved.authoringDraft.editableLayout
+    });
     setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
     setFloorplanStatusMessage(null);
   }
@@ -124,8 +139,22 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     }
     try {
       const savedAt = new Date().toISOString();
+      recordDraftTraceStage("saveHandlerInput", {
+        recordId: active.recordId,
+        draft
+      });
       if (active.sourceKind === "saved-json") {
         const saved = savedFloorplanStore.saveDraft(active.recordId, stampDraft(draft, savedAt));
+        recordSavedRecordTraceStage("savedRecordPayload", saved);
+        recordPlanTraceStage("reopenedPlan", {
+          recordId: saved.recordId,
+          plan: saved.plan
+        });
+        recordEditableLayoutTraceStage("reopenedEditableLayout", {
+          recordId: saved.recordId,
+          planId: saved.planId,
+          editableLayout: saved.authoringDraft.editableLayout
+        });
         setSavedFloorplans(savedFloorplanStore.list());
         setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
         setFloorplanStatusMessage(`Saved working copy ${saved.displayName}.`);
@@ -139,6 +168,16 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       const saved = savedFloorplanStore.saveAsDraft(stampDraft(draft, savedAt), {
         displayName: `${draft.displayName} Working Copy`,
         versionLabel: "v1"
+      });
+      recordSavedRecordTraceStage("savedRecordPayload", saved);
+      recordPlanTraceStage("reopenedPlan", {
+        recordId: saved.recordId,
+        plan: saved.plan
+      });
+      recordEditableLayoutTraceStage("reopenedEditableLayout", {
+        recordId: saved.recordId,
+        planId: saved.planId,
+        editableLayout: saved.authoringDraft.editableLayout
       });
       setSavedFloorplans(savedFloorplanStore.list());
       setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
@@ -160,10 +199,15 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     }
     try {
       const savedAt = new Date().toISOString();
+      recordDraftTraceStage("saveHandlerInput", {
+        recordId: activeFloorplanState.activeFloorplan.recordId,
+        draft
+      });
       const saved = savedFloorplanStore.saveAsDraft(stampDraft(draft, savedAt), {
         displayName: `${draft.displayName} Copy`,
         versionLabel: "v1"
       });
+      recordSavedRecordTraceStage("savedRecordPayload", saved);
       setSavedFloorplans(savedFloorplanStore.list());
       setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
       setFloorplanStatusMessage(`Created saved copy ${saved.displayName}.`);

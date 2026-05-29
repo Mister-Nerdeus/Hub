@@ -1,0 +1,17 @@
+node:net:1917
+      const error = new UVExceptionWithHostPort(rval, 'listen', address, port);
+                    ^
+
+Error: listen EACCES: permission denied 127.0.0.1:6881
+    at Server.setupListenHandle [as _listen2] (node:net:1917:21)
+    at listenInCluster (node:net:1996:12)
+    at node:net:2205:7
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
+  code: 'EACCES',
+  errno: -4092,
+  syscall: 'listen',
+  address: '127.0.0.1',
+  port: 6881
+}
+
+Node.js v22.16.0

@@ -2,6 +2,7 @@ import {
   validateSavedPlanRecordContract,
   type SavedPlanRecordContract
 } from "@nerdeus/shared";
+import { recordSavedRecordTraceStage } from "../layout-editor/layoutSaveTrace";
 
 const STORAGE_KEY = "nerdeus.floorplans.savedAuthoringRecords.v1";
 
@@ -34,10 +35,15 @@ export function createSavedFloorplanPersistence(
       return parsed.map(validateSavedPlanRecordContract);
     },
     save(records) {
+      const validatedRecords = records.map(validateSavedPlanRecordContract);
       storage.setItem(
         key,
-        JSON.stringify(records.map(validateSavedPlanRecordContract))
+        JSON.stringify(validatedRecords)
       );
+      const lastRecord = validatedRecords[validatedRecords.length - 1];
+      if (lastRecord != null) {
+        recordSavedRecordTraceStage("persistedLocalStoragePayload", lastRecord);
+      }
     },
     clear() {
       storage.removeItem(key);

@@ -141,6 +141,10 @@ import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
 import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
+import {
+  recordDraftTraceStage,
+  recordEditableLayoutTraceStage
+} from "./layoutSaveTrace";
 import { AddObjectMenu } from "./AddObjectMenu";
 import {
   buildAddObjectMenuViewModel,
@@ -577,6 +581,17 @@ export function LayoutEditorStage({
       setSaveStatus("Save failed: no active floorplan is loaded");
       return;
     }
+    if (stageState.loadedFloorplan != null && stageState.editableLayout != null) {
+      recordEditableLayoutTraceStage("afterEditEditableLayout", {
+        recordId: stageState.loadedFloorplan.recordId,
+        planId: stageState.loadedFloorplan.planId,
+        editableLayout: stageState.editableLayout
+      });
+      recordDraftTraceStage("draftBeforeSave", {
+        recordId: stageState.loadedFloorplan.recordId,
+        draft
+      });
+    }
     const result = onSaveWorkingCopy(draft);
     applySaveResult(result);
   };
@@ -589,6 +604,17 @@ export function LayoutEditorStage({
     if (draft == null) {
       setSaveStatus("Save failed: no active floorplan is loaded");
       return;
+    }
+    if (stageState.loadedFloorplan != null && stageState.editableLayout != null) {
+      recordEditableLayoutTraceStage("afterEditEditableLayout", {
+        recordId: stageState.loadedFloorplan.recordId,
+        planId: stageState.loadedFloorplan.planId,
+        editableLayout: stageState.editableLayout
+      });
+      recordDraftTraceStage("draftBeforeSave", {
+        recordId: stageState.loadedFloorplan.recordId,
+        draft
+      });
     }
     const result = onSaveAsNewCopy(draft);
     applySaveResult(result);

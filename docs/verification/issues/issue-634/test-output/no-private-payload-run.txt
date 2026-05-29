@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stage": "no-private-payload",
+  "issue": "634",
+  "checks": [
+    {
+      "name": "saved record and trace omit private source payload",
+      "passed": true,
+      "detail": {
+        "privatePayload": [],
+        "tracePrivatePayload": []
+      }
+    }
+  ]
+}
