@@ -1,0 +1,76 @@
+{
+  "status": "passed",
+  "recordId": "saved-default-er-layout-plan-1-001",
+  "roomBefore": {
+    "id": "room-02",
+    "x": 44,
+    "y": 28,
+    "widthFeet": 10,
+    "lengthFeet": 10
+  },
+  "roomExpected": {
+    "id": "room-02",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10
+  },
+  "localDraftRoom": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "namedSavedRoomAfterRestore": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 44,
+    "yFeet": 28,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "restoredExportedRoom": {
+    "id": "room-02",
+    "label": "2",
+    "roomType": "standard",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10,
+    "maxPatients": 1,
+    "traumaCapable": false,
+    "isolationCapable": false,
+    "doorPoint": {
+      "x": 49,
+      "y": 38
+    },
+    "zoneId": "zone-left-pod-rooms-2-5-14",
+    "nearestStationId": "station-left",
+    "pathNodeId": "node-door-room-02",
+    "roomOperationalMetadata": {
+      "roomNumber": "2",
+      "roomClass": "standard",
+      "capacityCategory": "single",
+      "traumaAdjacent": false,
+      "isolationReady": false,
+      "behavioralReady": false,
+      "sitterCapable": false,
+      "lineOfSightLevel": "moderate"
+    }
+  },
+  "bannerBeforeRestoreText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 7:44:10 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON"
+}

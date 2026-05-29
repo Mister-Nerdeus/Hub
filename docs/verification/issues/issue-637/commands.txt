@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage local-draft-only --allow-partial --issue 637
+node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage named-save-without-local-draft --allow-partial --issue 637
+node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage clear-local-draft-does-not-clear-named-save --allow-partial --issue 637
+node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage restore-not-named-save --allow-partial --issue 637
+node scripts/check-no-phi-fields.mjs

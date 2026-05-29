@@ -1,0 +1,53 @@
+{
+  "issue": "637",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-637/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-637/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-637/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage local-draft-only --allow-partial --issue 637",
+      "outputs": [
+        "docs/verification/issues/issue-637/local-draft-only-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage named-save-without-local-draft --allow-partial --issue 637",
+      "outputs": [
+        "docs/verification/issues/issue-637/named-save-without-local-draft-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage clear-local-draft-does-not-clear-named-save --allow-partial --issue 637",
+      "outputs": [
+        "docs/verification/issues/issue-637/clear-local-draft-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage restore-not-named-save --allow-partial --issue 637",
+      "outputs": [
+        "docs/verification/issues/issue-637/restore-not-named-save-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-637/no-phi-output.txt"
+      ]
+    }
+  ]
+}

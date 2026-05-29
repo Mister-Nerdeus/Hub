@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "recordId": "saved-default-er-layout-plan-1-001",
+  "roomExpected": {
+    "id": "room-02",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10
+  },
+  "localDraftAfterClear": null,
+  "reloadedSavedRoom": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "reloadedExportedRoom": {
+    "id": "room-02",
+    "label": "2",
+    "roomType": "standard",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10,
+    "maxPatients": 1,
+    "traumaCapable": false,
+    "isolationCapable": false,
+    "doorPoint": {
+      "x": 49,
+      "y": 38
+    },
+    "zoneId": "zone-left-pod-rooms-2-5-14",
+    "nearestStationId": "station-left",
+    "pathNodeId": "node-door-room-02",
+    "roomOperationalMetadata": {
+      "roomNumber": "2",
+      "roomClass": "standard",
+      "capacityCategory": "single",
+      "traumaAdjacent": false,
+      "isolationReady": false,
+      "behavioralReady": false,
+      "sitterCapable": false,
+      "lineOfSightLevel": "moderate"
+    }
+  }
+}

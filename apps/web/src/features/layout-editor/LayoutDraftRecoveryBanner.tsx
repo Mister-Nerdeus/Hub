@@ -22,7 +22,7 @@ export function LayoutDraftRecoveryBanner({
   if (state.status === "restored") {
     return (
       <aside className="layout-draft-recovery-banner" role="status">
-        Restored local draft saved {formatDraftRecoveryTimestamp(state.updatedAt)}.
+        Restored local recovery draft from {formatDraftRecoveryTimestamp(state.updatedAt)}. Named working copy was not saved by this restore.
       </aside>
     );
   }
@@ -36,9 +36,9 @@ export function LayoutDraftRecoveryBanner({
   return (
     <aside className="layout-draft-recovery-banner" role="status" data-draft-recovery-banner="available">
       <p>
-        Recovered local draft for {state.displayName}, plan {state.planId}, saved{" "}
-        {formatDraftRecoveryTimestamp(state.updatedAt)}. Dirty state:{" "}
-        {state.isDirty ? "draft changed" : "no unsaved edits"}.
+        Local recovery draft for {state.displayName}, plan {state.planId}, captured{" "}
+        {formatDraftRecoveryTimestamp(state.updatedAt)}. This is not a named working-copy save. Dirty state:{" "}
+        {state.isDirty ? "draft changed locally" : "unchanged locally"}.
       </p>
       <div className="layout-draft-recovery-banner__actions">
         <button type="button" onClick={onRestore}>
