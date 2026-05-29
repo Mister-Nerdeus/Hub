@@ -1,0 +1,53 @@
+{
+  "issue": "616",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage status-state --allow-partial --issue 616",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/simulation-v0-artifact-export-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage copy-feedback --allow-partial --issue 616",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/simulation-v0-artifact-export-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-credential-export --allow-partial --issue 616",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/simulation-v0-artifact-export-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-phi-export --allow-partial --issue 616",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/simulation-v0-artifact-export-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-616/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

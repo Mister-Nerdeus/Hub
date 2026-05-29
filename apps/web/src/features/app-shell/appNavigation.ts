@@ -25,12 +25,12 @@ export const APP_SECTIONS: readonly AppSection[] = [
   { id: "floorplans", label: "Floorplan", group: "primary" },
   { id: "editor", label: "Editor", group: "primary" },
   { id: "manual-assignment", label: "Manual Assignment", group: "primary" },
+  { id: "simulation", label: "Simulation Review", group: "primary" },
   { id: "reports", label: "Review / Reports", group: "primary" },
   { id: "developer-evidence", label: "Developer/Evidence", group: "advanced" },
   { id: "routes", label: "Review Candidates", group: "future" },
   { id: "assignments", label: "Assignment Workflow", group: "future" },
   { id: "scenarios", label: "Scenarios", group: "future" },
-  { id: "simulation", label: "Simulation", group: "future" },
   { id: "settings", label: "Settings", group: "future" }
 ];
 

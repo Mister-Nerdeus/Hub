@@ -2,6 +2,7 @@ import type { InternalDryRunExecutorOutput } from "@nerdeus/shared";
 import type { SimulationV0ReviewState } from "./simulationV0ReviewState";
 
 export type SimulationV0TimelineRow = {
+  eventId: string;
   minute: number;
   eventLabel: string;
   taskInstanceId: string;
@@ -13,6 +14,7 @@ export type SimulationV0TimelineRow = {
 export type SimulationV0TimelineViewModel = {
   profileId: SimulationV0ReviewState["activityProfileId"];
   ratioView: SimulationV0ReviewState["ratioView"];
+  rows: readonly SimulationV0TimelineRow[];
   visibleRows: readonly SimulationV0TimelineRow[];
   totalRowCount: number;
   rowLimit: 25;
@@ -23,6 +25,7 @@ export function buildSimulationV0TimelineViewModel(input: {
   run: InternalDryRunExecutorOutput;
 }): SimulationV0TimelineViewModel {
   const rows = input.run.timeline.map((event) => ({
+    eventId: event.eventId,
     minute: event.syntheticMinuteOffset,
     eventLabel: event.eventLabel,
     taskInstanceId: event.taskInstanceId,
@@ -33,6 +36,7 @@ export function buildSimulationV0TimelineViewModel(input: {
   return {
     profileId: input.reviewState.activityProfileId,
     ratioView: input.reviewState.ratioView,
+    rows,
     visibleRows: rows.slice(0, 25),
     totalRowCount: rows.length,
     rowLimit: 25

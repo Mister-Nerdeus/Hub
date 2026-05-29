@@ -1,5 +1,6 @@
 import type { SimulationV0InternalDryRunViewModel } from "./simulationV0ViewModel";
 import type { SimulationV0RatioView } from "./simulationV0ReviewState";
+import { simulationV0Copy } from "./simulationV0Copy";
 
 type Props = {
   viewModel: Pick<SimulationV0InternalDryRunViewModel, "ratioOptions" | "reviewState">;
@@ -23,6 +24,7 @@ export function SimulationV0RatioControls({ viewModel, onChange }: Props) {
           </button>
         ))}
       </div>
+      <p>{simulationV0Copy.ratioExplanation}</p>
     </fieldset>
   );
 }

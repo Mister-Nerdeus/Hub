@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-timeline-usability.mjs --stage event-id --allow-partial --issue 614
+node scripts/check-simulation-v0-timeline-usability.mjs --stage pagination --allow-partial --issue 614
+node scripts/check-simulation-v0-timeline-usability.mjs --stage fixed-filter --allow-partial --issue 614
+node scripts/check-simulation-v0-timeline-usability.mjs --stage no-free-text-filter --allow-partial --issue 614
+node scripts/check-no-phi-fields.mjs

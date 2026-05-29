@@ -19,6 +19,7 @@ export type SimulationV0ArtifactExportBundle = {
 export type SimulationV0ArtifactExportViewModel = {
   fileName: string;
   summaryText: string;
+  previewText: string;
   jsonText: string;
   bundle: SimulationV0ArtifactExportBundle;
 };
@@ -51,6 +52,7 @@ export function buildSimulationV0ArtifactExportViewModel(input: {
   return {
     fileName: `simulation-v0-${input.reviewState.activityProfileId}-${input.reviewState.ratioView}.json`,
     summaryText,
+    previewText: summaryText,
     jsonText: JSON.stringify(bundle, null, 2),
     bundle
   };

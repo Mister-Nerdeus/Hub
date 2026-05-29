@@ -1,4 +1,5 @@
 import type { SimulationV0OccupiedBedProofViewModel } from "./simulationV0OccupiedBedProofViewModel";
+import { simulationV0Copy } from "./simulationV0Copy";
 
 type Props = {
   viewModel: SimulationV0OccupiedBedProofViewModel;
@@ -11,6 +12,7 @@ export function SimulationV0OccupiedBedProofPanel({ viewModel }: Props) {
         <div>
           <h3 id="simulation-v0-occupied-bed-proof-title">Occupied bed proof</h3>
           <p>{viewModel.profileLabel} / {viewModel.occupancyPercent}% occupancy</p>
+          <p>{simulationV0Copy.occupiedBedProofExplanation}</p>
         </div>
         <strong>{viewModel.selectedOccupiedBedCount} selected</strong>
       </div>

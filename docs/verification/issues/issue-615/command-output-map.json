@@ -1,0 +1,47 @@
+{
+  "issue": "615",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage hierarchy --allow-partial --issue 615",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage artifact-derived-values --allow-partial --issue 615",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage forbidden-copy-negative --allow-partial --issue 615",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

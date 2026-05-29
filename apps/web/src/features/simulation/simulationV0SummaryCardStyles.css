@@ -1,0 +1,57 @@
+.simulation-v0-summary-cards__note {
+  background: #f7fafc;
+  border: 1px solid #d5dde7;
+  border-radius: 6px;
+  color: #253447;
+  font-weight: 900;
+  padding: 8px 10px;
+}
+
+.simulation-v0-summary-card-groups {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.simulation-v0-summary-card-group {
+  border: 1px solid #d5dde7;
+  border-radius: 6px;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px;
+}
+
+.simulation-v0-summary-card-group__header {
+  display: grid;
+  gap: 4px;
+}
+
+.simulation-v0-summary-card-group__header h4 {
+  color: #111827;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.simulation-v0-summary-card-group__header p {
+  color: #53657a;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.simulation-v0-summary-card-group .simulation-v0-summary-cards {
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.simulation-v0-summary-card-group .simulation-v0-summary-cards dd {
+  font-size: 1.18rem;
+  font-weight: 950;
+}
+
+@media (max-width: 760px) {
+  .simulation-v0-summary-card-groups {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "613",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "centralized Simulation v0 copy contract includes required explanations",
+      "passed": true,
+      "detail": {
+        "missingKeys": [],
+        "exactHash": true
+      }
+    },
+    {
+      "name": "rendered Simulation v0 route includes concise nontechnical explanations",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "textLength": 5812,
+        "screenshotPath": "docs/verification/issues/issue-613/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "forbidden Simulation v0 copy implication negative fixture is enforced",
+      "passed": true,
+      "detail": {
+        "found": [],
+        "negativeFixture": "safe"
+      }
+    }
+  ]
+}

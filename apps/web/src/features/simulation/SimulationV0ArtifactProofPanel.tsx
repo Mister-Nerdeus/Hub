@@ -1,4 +1,5 @@
 import type { SimulationV0ArtifactProofViewModel } from "./simulationV0ArtifactProofViewModel";
+import { simulationV0Copy } from "./simulationV0Copy";
 
 type Props = {
   viewModel: SimulationV0ArtifactProofViewModel;
@@ -11,6 +12,7 @@ export function SimulationV0ArtifactProofPanel({ viewModel }: Props) {
         <div>
           <h3 id="simulation-v0-artifact-proof-title">Artifact hash proof</h3>
           <p>{viewModel.reproducibilityStatus.replaceAll("_", " ")}</p>
+          <p>{simulationV0Copy.artifactHashExplanation}</p>
         </div>
       </div>
       <dl className="simulation-v0-panel__artifact">

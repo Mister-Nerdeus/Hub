@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-artifact-export-ux.mjs --stage status-state --allow-partial --issue 616
+node scripts/check-simulation-v0-artifact-export-ux.mjs --stage copy-feedback --allow-partial --issue 616
+node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-credential-export --allow-partial --issue 616
+node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-phi-export --allow-partial --issue 616
+node scripts/check-no-phi-fields.mjs

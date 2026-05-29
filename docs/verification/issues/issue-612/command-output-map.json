@@ -1,0 +1,53 @@
+{
+  "issue": "612",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage decision-doc --allow-partial --issue 612",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage rendered-navigation --allow-partial --issue 612",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage forbidden-copy-negative --allow-partial --issue 612",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 612",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-612/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

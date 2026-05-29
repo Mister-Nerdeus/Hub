@@ -1,0 +1,53 @@
+{
+  "issue": "614",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage event-id --allow-partial --issue 614",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/simulation-v0-timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage pagination --allow-partial --issue 614",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/simulation-v0-timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage fixed-filter --allow-partial --issue 614",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/simulation-v0-timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage no-free-text-filter --allow-partial --issue 614",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/simulation-v0-timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-614/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

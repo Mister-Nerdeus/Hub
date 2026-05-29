@@ -241,7 +241,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
 
       {activeSection === "simulation" ? (
         <section className="workflow-section" aria-labelledby="simulation-title">
-          <h2 id="simulation-title">Simulation</h2>
+          <h2 id="simulation-title">Simulation Review</h2>
           <SimulationV0InternalDryRunPanel viewModel={simulationV0ViewModel} />
         </section>
       ) : null}

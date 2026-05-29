@@ -43,6 +43,7 @@ import {
   buildSimulationV0ArtifactExportViewModel,
   type SimulationV0ArtifactExportViewModel
 } from "./simulationV0ArtifactExportViewModel";
+import { simulationV0Copy } from "./simulationV0Copy";
 
 export type SimulationV0DryRunReview = {
   ratioPreset: RatioPresetContract;
@@ -94,7 +95,7 @@ export function createSimulationV0RouteViewModel(
     status: "internal_synthetic_dry_run_only",
     statusLabel: "internal synthetic dry-run only",
     title: "Simulation v0 Review",
-    subtitle: "Synthetic operational dry-run review surface.",
+    subtitle: simulationV0Copy.syntheticDryRunExplanation,
     reviewState,
     controlsRegion: {
       landmarkId: "simulation-v0-controls",
@@ -112,17 +113,7 @@ export function createSimulationV0RouteViewModel(
       artifactHashProofVisible: true,
       artifactExportAvailable: true
     },
-    limitationCopy: [
-      "Internal synthetic dry-run only.",
-      "Operational placeholders only.",
-      "Manual visual review remains required.",
-      "Promotion remains blocked.",
-      "No optimizer.",
-      "No automated assignment output.",
-      "No care-quality certification.",
-      "No staffing certification.",
-      "No outcome prediction."
-    ],
+    limitationCopy: [...simulationV0Copy.limitationCopy],
     forbiddenClaims: {
       optimizer: false,
       assignmentRecommendation: false,

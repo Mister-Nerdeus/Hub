@@ -1,5 +1,6 @@
 import type { SimulationV0InternalDryRunViewModel } from "./simulationV0ViewModel";
 import type { SimulationV0ReviewState } from "./simulationV0ReviewState";
+import { simulationV0Copy } from "./simulationV0Copy";
 
 type Props = {
   viewModel: Pick<SimulationV0InternalDryRunViewModel, "profileOptions" | "reviewState">;
@@ -29,6 +30,7 @@ export function SimulationV0ActivityProfileSelector({ viewModel, onChange }: Pro
             ?.syntheticWorkloadNote
         }
       </p>
+      <p>{simulationV0Copy.profileExplanation}</p>
     </fieldset>
   );
 }

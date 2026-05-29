@@ -13,7 +13,7 @@ const primaryLabels = PRIMARY_APP_SECTIONS.map((section) => section.label);
 const advancedLabels = ADVANCED_APP_SECTIONS.map((section) => section.label);
 const futureLabels = FUTURE_APP_SECTIONS.map((section) => section.label);
 
-for (const label of ["Floorplan", "Editor", "Manual Assignment", "Review / Reports"]) {
+for (const label of ["Floorplan", "Editor", "Manual Assignment", "Simulation Review", "Review / Reports"]) {
   assert(primaryLabels.includes(label), `primary navigation missing ${label}`);
 }
 
@@ -21,9 +21,11 @@ assert(!primaryLabels.includes("Floorplans"), "primary navigation must use singu
 assert(!primaryLabels.includes("Developer/Evidence"), "Developer/Evidence must not remain primary");
 assert(advancedLabels.includes("Developer/Evidence"), "Developer/Evidence must remain accessible under Advanced");
 
-for (const label of ["Review Candidates", "Assignment Workflow", "Scenarios", "Simulation", "Settings"]) {
+for (const label of ["Review Candidates", "Assignment Workflow", "Scenarios", "Settings"]) {
   assert(futureLabels.includes(label), `future tools missing ${label}`);
 }
+
+assert(!futureLabels.includes("Simulation"), "Simulation must not remain under Future Tools");
 
 assert(
   APP_SECTIONS.find((section) => section.id === "assignments")?.label !== "Assignments",
