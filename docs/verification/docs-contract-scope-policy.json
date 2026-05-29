@@ -2,12 +2,12 @@
   "schemaVersion": "1.0.0",
   "policy": "docs_contract_scope_policy",
   "currentBatchBlocking": {
-    "issueRanges": ["622-622"],
+    "issueRanges": ["623-623"],
     "blocking": true,
     "description": "Current floorplan editor reconstruction repair issue docs contracts are blocking for GO / NO-GO decisions."
   },
   "historicalBacklogNonblocking": {
-    "issueRanges": ["015-621", "623-625"],
+    "issueRanges": ["015-622", "624-625"],
     "blocking": false,
     "followUpCleanupIssue": "docs-contract-historical-backlog-cleanup",
     "acceptedRisk": "Historical issue evidence-index and command-output-map gaps predate the active floorplan editor reconstruction issue. Pre-existing Issue 622-625 folders belong to a prior repair batch and remain non-blocking until each matching persistence issue rewrites its evidence.",

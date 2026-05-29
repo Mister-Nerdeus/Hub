@@ -11,8 +11,8 @@ import {
   type LayoutEditorViewport
 } from "./layoutEditorState";
 
-export const LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION = "1.0.0";
-export const LAYOUT_LOCAL_DRAFT_STORAGE_KEY = "nerdeus.layoutEditor.localDraft.v1";
+export const LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION = "2.0.0";
+export const LAYOUT_LOCAL_DRAFT_LEGACY_STORAGE_KEY = "nerdeus.layoutEditor.localDraft.v1";
 
 export type LayoutLocalDraftStorage = {
   getItem(key: string): string | null;
@@ -26,6 +26,12 @@ export type LayoutLocalDraftDirtyState = {
 
 export type LayoutLocalDraftRecord = {
   schemaVersion: typeof LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION;
+  recordId: string;
+  planId: string;
+  sourceKind: "default-json" | "saved-json" | "review-candidate-json";
+  parentDefaultPlanId: string | null;
+  displayName: string;
+  updatedAt: string;
   editableLayout: EditableLayoutGeometryContract;
   snapMode: LayoutEditorSnapMode;
   viewport: LayoutEditorViewport;
@@ -35,9 +41,19 @@ export type LayoutLocalDraftRecord = {
 
 export type LoadLayoutLocalDraftResult =
   | { status: "loaded"; draft: LayoutLocalDraftRecord }
-  | { status: "empty" | "invalid" | "schema_mismatch"; draft: null };
+  | { status: "empty" | "invalid" | "schema_mismatch" | "wrong_copy"; draft: null };
+
+export type LegacyLayoutLocalDraftResult =
+  | { status: "legacy_available"; storageKey: typeof LAYOUT_LOCAL_DRAFT_LEGACY_STORAGE_KEY }
+  | { status: "empty" | "invalid" };
 
 export function buildLayoutLocalDraftRecord(input: {
+  recordId: string;
+  planId: string;
+  sourceKind: "default-json" | "saved-json" | "review-candidate-json";
+  parentDefaultPlanId: string | null;
+  displayName: string;
+  updatedAt: string;
   editableLayout: EditableLayoutGeometryContract;
   snapMode: LayoutEditorSnapMode;
   viewport: LayoutEditorViewport;
@@ -46,6 +62,12 @@ export function buildLayoutLocalDraftRecord(input: {
 }): LayoutLocalDraftRecord {
   return {
     schemaVersion: LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION,
+    recordId: requireString(input.recordId, "recordId"),
+    planId: requireString(input.planId, "planId"),
+    sourceKind: requireSourceKind(input.sourceKind),
+    parentDefaultPlanId: input.parentDefaultPlanId == null ? null : requireString(input.parentDefaultPlanId, "parentDefaultPlanId"),
+    displayName: requireString(input.displayName, "displayName"),
+    updatedAt: requireIsoTimestamp(input.updatedAt, "updatedAt"),
     editableLayout: validateEditableLayoutGeometryContract(input.editableLayout),
     snapMode: requireSnapMode(input.snapMode),
     viewport: normalizeLayoutEditorViewport(input.viewport),
@@ -58,11 +80,16 @@ export function saveLayoutLocalDraft(
   storage: LayoutLocalDraftStorage,
   draft: LayoutLocalDraftRecord
 ): void {
-  storage.setItem(LAYOUT_LOCAL_DRAFT_STORAGE_KEY, JSON.stringify(validateLayoutLocalDraftRecord(draft)));
+  const validated = validateLayoutLocalDraftRecord(draft);
+  storage.setItem(layoutLocalDraftStorageKey(validated.recordId), JSON.stringify(validated));
 }
 
-export function loadLayoutLocalDraft(storage: LayoutLocalDraftStorage): LoadLayoutLocalDraftResult {
-  const serialized = storage.getItem(LAYOUT_LOCAL_DRAFT_STORAGE_KEY);
+export function loadLayoutLocalDraft(
+  storage: LayoutLocalDraftStorage,
+  recordId: string
+): LoadLayoutLocalDraftResult {
+  const normalizedRecordId = requireString(recordId, "recordId");
+  const serialized = storage.getItem(layoutLocalDraftStorageKey(normalizedRecordId));
   if (serialized == null) {
     return { status: "empty", draft: null };
   }
@@ -84,14 +111,35 @@ export function loadLayoutLocalDraft(storage: LayoutLocalDraftStorage): LoadLayo
   }
 
   try {
-    return { status: "loaded", draft: validateLayoutLocalDraftRecord(parsed) };
+    const draft = validateLayoutLocalDraftRecord(parsed);
+    if (draft.recordId !== normalizedRecordId) {
+      return { status: "wrong_copy", draft: null };
+    }
+    return { status: "loaded", draft };
   } catch (_error) {
     return { status: "invalid", draft: null };
   }
 }
 
-export function resetLayoutLocalDraft(storage: LayoutLocalDraftStorage): void {
-  storage.removeItem(LAYOUT_LOCAL_DRAFT_STORAGE_KEY);
+export function resetLayoutLocalDraft(storage: LayoutLocalDraftStorage, recordId: string): void {
+  storage.removeItem(layoutLocalDraftStorageKey(requireString(recordId, "recordId")));
+}
+
+export function layoutLocalDraftStorageKey(recordId: string): string {
+  return `nerdeus.layoutEditor.localDraft.v2.${requireString(recordId, "recordId")}`;
+}
+
+export function inspectLegacyLayoutLocalDraft(storage: LayoutLocalDraftStorage): LegacyLayoutLocalDraftResult {
+  const serialized = storage.getItem(LAYOUT_LOCAL_DRAFT_LEGACY_STORAGE_KEY);
+  if (serialized == null) {
+    return { status: "empty" };
+  }
+  try {
+    JSON.parse(serialized);
+    return { status: "legacy_available", storageKey: LAYOUT_LOCAL_DRAFT_LEGACY_STORAGE_KEY };
+  } catch {
+    return { status: "invalid" };
+  }
 }
 
 export function validateLayoutLocalDraftRecord(value: unknown): LayoutLocalDraftRecord {
@@ -113,6 +161,12 @@ export function validateLayoutLocalDraftRecord(value: unknown): LayoutLocalDraft
 
   return {
     schemaVersion: LAYOUT_LOCAL_DRAFT_SCHEMA_VERSION,
+    recordId: requireString(candidate.recordId, "recordId"),
+    planId: requireString(candidate.planId, "planId"),
+    sourceKind: requireSourceKind(candidate.sourceKind),
+    parentDefaultPlanId: candidate.parentDefaultPlanId == null ? null : requireString(candidate.parentDefaultPlanId, "parentDefaultPlanId"),
+    displayName: requireString(candidate.displayName, "displayName"),
+    updatedAt: requireIsoTimestamp(candidate.updatedAt, "updatedAt"),
     editableLayout: validateEditableLayoutGeometryContract(candidate.editableLayout),
     snapMode: requireSnapMode(candidate.snapMode),
     viewport: normalizeLayoutEditorViewport(candidate.viewport as LayoutEditorViewport),
@@ -151,6 +205,28 @@ function requireSnapMode(value: unknown): LayoutEditorSnapMode {
 function requireBoolean(value: unknown, label: string): boolean {
   if (typeof value !== "boolean") {
     throw new Error(`${label} must be boolean`);
+  }
+  return value;
+}
+
+function requireString(value: unknown, label: string): string {
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(`${label} must be a non-empty string`);
+  }
+  return value;
+}
+
+function requireIsoTimestamp(value: unknown, label: string): string {
+  const text = requireString(value, label);
+  if (Number.isNaN(Date.parse(text))) {
+    throw new Error(`${label} must be an ISO-compatible timestamp`);
+  }
+  return text;
+}
+
+function requireSourceKind(value: unknown): LayoutLocalDraftRecord["sourceKind"] {
+  if (value !== "default-json" && value !== "saved-json" && value !== "review-candidate-json") {
+    throw new Error("sourceKind must be default-json, saved-json, or review-candidate-json");
   }
   return value;
 }

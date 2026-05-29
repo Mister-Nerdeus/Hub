@@ -1,9 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-door-delete --allow-partial --issue 623
-node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623
-node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623
-node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623
-node scripts/check-layout-editor-door-delete-ux.mjs --stage keyboard-delete --allow-partial --issue 623
+node scripts/check-layout-editor-per-copy-autosave.mjs --stage scoped-key --allow-partial --issue 623
+node scripts/check-layout-editor-per-copy-autosave.mjs --stage copy-isolation --allow-partial --issue 623
+node scripts/check-layout-editor-per-copy-autosave.mjs --stage wrong-copy-negative --allow-partial --issue 623
+node scripts/check-layout-editor-per-copy-autosave.mjs --stage v1-migration --allow-partial --issue 623
 node scripts/check-no-phi-fields.mjs

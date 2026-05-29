@@ -54,7 +54,6 @@ import {
 } from "./roomInspectorDimensionDraft";
 import {
   buildLayoutLocalDraftRecord,
-  loadLayoutLocalDraft,
   resetLayoutLocalDraft,
   saveLayoutLocalDraft,
   type LayoutLocalDraftStorage
@@ -300,13 +299,24 @@ export function LayoutEditorStage({
     return () => document.removeEventListener("keydown", deleteSelectedDoor);
   }, [editorMode, stageState.readOnly, stageState.selectedObjectType, stageState.selectedObjectId]);
   useEffect(() => {
-    if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
+    if (
+      localDraftStorage == null ||
+      stageState.editableLayout == null ||
+      stageState.loadedFloorplan == null ||
+      stageState.readOnly
+    ) {
       return;
     }
     try {
       saveLayoutLocalDraft(
         localDraftStorage,
         buildLayoutLocalDraftRecord({
+          recordId: stageState.loadedFloorplan.recordId,
+          planId: stageState.loadedFloorplan.planId,
+          sourceKind: stageState.loadedFloorplan.sourceKind,
+          parentDefaultPlanId: stageState.loadedFloorplan.parentDefaultPlanId,
+          displayName: stageState.loadedFloorplan.name,
+          updatedAt: new Date().toISOString(),
           editableLayout: stageState.editableLayout,
           snapMode: stageState.snapMode,
           viewport: stageState.viewport,
@@ -320,6 +330,7 @@ export function LayoutEditorStage({
   }, [
     localDraftStorage,
     stageState.editableLayout,
+    stageState.loadedFloorplan,
     stageState.readOnly,
     stageState.snapMode,
     stageState.viewport,
@@ -952,8 +963,8 @@ export function LayoutEditorStage({
         onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
         onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
         onResetDraft={() => {
-          if (localDraftStorage != null) {
-            resetLayoutLocalDraft(localDraftStorage);
+          if (localDraftStorage != null && stageState.loadedFloorplan != null) {
+            resetLayoutLocalDraft(localDraftStorage, stageState.loadedFloorplan.recordId);
           }
           if (activeFloorplan == null) {
             dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
@@ -1583,27 +1594,7 @@ function findSelectedZone(state: {
 }
 
 function createInitialStageState() {
-  const storage = getBrowserLocalDraftStorage();
-  if (storage == null) {
-    return baseInitialStageState;
-  }
-
-  const loadedDraft = loadLayoutLocalDraft(storage);
-  if (loadedDraft.status !== "loaded") {
-    return baseInitialStageState;
-  }
-
-  const firstRoom = loadedDraft.draft.editableLayout.rooms[0];
-  return createLayoutEditorState({
-    ...baseInitialStageState,
-    editableLayout: loadedDraft.draft.editableLayout,
-    viewport: loadedDraft.draft.viewport,
-    snapMode: loadedDraft.draft.snapMode,
-    editAuditTrail: loadedDraft.draft.auditTrail,
-    isDirty: loadedDraft.draft.dirtyState.isDirty,
-    selectedObjectType: firstRoom == null ? null : "room",
-    selectedObjectId: firstRoom?.id ?? null
-  });
+  return baseInitialStageState;
 }
 
 function buildStagePathSyncAudit(state: LayoutEditorState): PathSyncAuditResult | null {
