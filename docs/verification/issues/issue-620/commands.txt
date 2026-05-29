@@ -9,6 +9,9 @@ npm run check:simulation-v0-occupied-bed-proof
 npm run check:simulation-v0-artifact-proof-panel
 npm run check:simulation-v0-artifact-export
 npm run check:simulation-v0-user-facing-go-no-go
+npm run check:simulation-v0-timeline-usability
+npm run check:simulation-v0-accessibility
+npm run check:simulation-v0-responsive-route
 npm run check:clean-committed-state
 npm run check:simulation-v0-user-facing-readiness
 node scripts/check-simulation-v0-manual-review-go-no-go.mjs --stage final --issue 620

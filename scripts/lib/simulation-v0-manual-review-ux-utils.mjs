@@ -117,6 +117,8 @@ export function defaultManualReviewUxManifest() {
   };
 }
 
+const manualReviewUxManifestKeys = Object.keys(defaultManualReviewUxManifest());
+
 export function loadManualReviewUxManifest() {
   if (!existsSync(abs(manualReviewUxManifestPath))) {
     saveManualReviewUxManifest(defaultManualReviewUxManifest());
@@ -125,7 +127,12 @@ export function loadManualReviewUxManifest() {
 }
 
 export function saveManualReviewUxManifest(manifest) {
-  writeJson(manualReviewUxManifestPath, manifest);
+  const defaults = defaultManualReviewUxManifest();
+  const normalized = {};
+  for (const key of manualReviewUxManifestKeys) {
+    normalized[key] = Object.hasOwn(manifest, key) ? manifest[key] : defaults[key];
+  }
+  writeJson(manualReviewUxManifestPath, normalized);
 }
 
 export function createManualReviewUxContext({ scriptName, stages, statusKeyByStage = {}, outputName, defaultIssue }) {
@@ -185,8 +192,7 @@ export function finalizeManualReviewUxGate(context, extra = {}) {
     manualApprovalStatus: "missing",
     promotionStatus: "blocked",
     fullFutureSimulationEventModelStatus: "dormant",
-    simulationV0Status: "internal_dry_run_only",
-    humanReviewCompleted: false
+    simulationV0Status: "internal_dry_run_only"
   });
   Object.assign(context.manifest, extra.manifestUpdates ?? {});
   if (
@@ -295,6 +301,7 @@ function mappedOutput(dir, command) {
   if (command.includes("packages/shared test")) return `${base}/shared.txt`;
   if (command.includes("apps/web test")) return `${base}/web.txt`;
   if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("manual-review-pack")) return `${base}/manual-review-pack.txt`;
   if (command.includes("manual-review-evidence")) return `${base}/simulation-v0-manual-review-evidence.txt`;
   if (command.includes("navigation-placement")) return `${base}/simulation-v0-navigation-placement.txt`;
   if (command.includes("copy-polish")) return `${base}/simulation-v0-copy-polish.txt`;
@@ -303,10 +310,21 @@ function mappedOutput(dir, command) {
   if (command.includes("artifact-export-ux")) return `${base}/simulation-v0-artifact-export-ux.txt`;
   if (command.includes("user-facing-feature-gates")) return `${base}/simulation-v0-user-facing-feature-gates.txt`;
   if (command.includes("accessibility")) return `${base}/simulation-v0-accessibility.txt`;
+  if (command.includes("responsive-route")) return `${base}/responsive-route.txt`;
   if (command.includes("responsive-proof")) return `${base}/simulation-v0-responsive-proof.txt`;
   if (command.includes("manual-review-go-no-go")) return `${base}/simulation-v0-manual-review-go-no-go.txt`;
   if (command.includes("visible-product-copy-all-routes")) return `${base}/visible-product-copy-all-routes.txt`;
-  if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
+  if (command.includes("check-no-phi-fields")) return `${dir}/no-phi-output.txt`;
+  if (command.includes("check:simulation-v0-profile-selector")) return `${base}/profile-selector.txt`;
+  if (command.includes("check:simulation-v0-ratio-controls")) return `${base}/ratio-controls.txt`;
+  if (command.includes("check:simulation-v0-timeline-table")) return `${base}/timeline-table.txt`;
+  if (command.includes("check:simulation-v0-summary-cards")) return `${base}/summary-cards.txt`;
+  if (command.includes("check:simulation-v0-occupied-bed-proof")) return `${base}/occupied-bed-proof.txt`;
+  if (command.includes("check:simulation-v0-artifact-proof-panel")) return `${base}/artifact-proof-panel.txt`;
+  if (command.includes("check:simulation-v0-artifact-export")) return `${base}/artifact-export.txt`;
+  if (command.includes("check:simulation-v0-user-facing-go-no-go")) return `${base}/user-facing-go-no-go.txt`;
+  if (command.includes("check:simulation-v0-user-facing-readiness")) return `${base}/user-facing-readiness.txt`;
+  if (command.includes("check:docs")) return `${base}/docs-contracts.txt`;
   if (command.includes("check:clean-committed-state")) return `${base}/clean-committed-state.txt`;
   if (command.includes("docker compose config")) return `${base}/docker-compose-config.txt`;
   if (command.includes("docker compose up --build -d")) return `${base}/docker-compose-up-build.txt`;
@@ -323,63 +341,77 @@ export function commandsForManualReviewUxIssue(issue) {
   ];
   const stagesByIssue = {
     "611": [
-      "node scripts/check-simulation-v0-manual-review-evidence.mjs --stage evidence-pack --allow-partial --issue 611",
-      "node scripts/check-simulation-v0-manual-review-evidence.mjs --stage route-screenshot --allow-partial --issue 611",
-      "node scripts/check-simulation-v0-manual-review-evidence.mjs --stage checklist --allow-partial --issue 611",
-      "node scripts/check-simulation-v0-manual-review-evidence.mjs --stage scorecard --allow-partial --issue 611",
-      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 611"
+      "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage feature-gate-root-wiring --allow-partial --issue 611",
+      "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage final-gate-reruns-feature-validators --allow-partial --issue 611",
+      "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage manifest-only-negative --allow-partial --issue 611",
+      "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage dom-only-negative --allow-partial --issue 611"
     ],
     "612": [
-      "node scripts/check-simulation-v0-navigation-placement.mjs --stage decision-doc --allow-partial --issue 612",
-      "node scripts/check-simulation-v0-navigation-placement.mjs --stage rendered-navigation --allow-partial --issue 612",
-      "node scripts/check-simulation-v0-navigation-placement.mjs --stage forbidden-copy-negative --allow-partial --issue 612",
+      "node scripts/check-simulation-v0-manual-review-pack.mjs --stage checklist --allow-partial --issue 612",
+      "node scripts/check-simulation-v0-manual-review-pack.mjs --stage screenshot-pack --allow-partial --issue 612",
+      "node scripts/check-simulation-v0-manual-review-pack.mjs --stage route-text --allow-partial --issue 612",
+      "node scripts/check-simulation-v0-manual-review-pack.mjs --stage reviewer-feedback-template --allow-partial --issue 612",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 612"
     ],
     "613": [
-      "node scripts/check-simulation-v0-copy-polish.mjs --stage copy-contract --allow-partial --issue 613",
-      "node scripts/check-simulation-v0-copy-polish.mjs --stage rendered-copy --allow-partial --issue 613",
-      "node scripts/check-simulation-v0-copy-polish.mjs --stage forbidden-copy-negative --allow-partial --issue 613",
+      "node scripts/check-simulation-v0-navigation-placement.mjs --stage decision-record --allow-partial --issue 613",
+      "node scripts/check-simulation-v0-navigation-placement.mjs --stage rendered-navigation --allow-partial --issue 613",
+      "node scripts/check-simulation-v0-navigation-placement.mjs --stage forbidden-copy-negative --allow-partial --issue 613",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 613"
     ],
     "614": [
-      "node scripts/check-simulation-v0-timeline-usability.mjs --stage event-id --allow-partial --issue 614",
-      "node scripts/check-simulation-v0-timeline-usability.mjs --stage pagination --allow-partial --issue 614",
-      "node scripts/check-simulation-v0-timeline-usability.mjs --stage fixed-filter --allow-partial --issue 614",
-      "node scripts/check-simulation-v0-timeline-usability.mjs --stage no-free-text-filter --allow-partial --issue 614"
+      "node scripts/check-simulation-v0-copy-polish.mjs --stage copy-contract --allow-partial --issue 614",
+      "node scripts/check-simulation-v0-copy-polish.mjs --stage plain-language --allow-partial --issue 614",
+      "node scripts/check-simulation-v0-copy-polish.mjs --stage artifact-hash-explanation --allow-partial --issue 614",
+      "node scripts/check-simulation-v0-copy-polish.mjs --stage forbidden-copy-negative --allow-partial --issue 614",
+      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 614"
     ],
     "615": [
-      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage hierarchy --allow-partial --issue 615",
-      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage artifact-derived-values --allow-partial --issue 615",
-      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage forbidden-copy-negative --allow-partial --issue 615"
+      "node scripts/check-simulation-v0-timeline-usability.mjs --stage event-id-keys --allow-partial --issue 615",
+      "node scripts/check-simulation-v0-timeline-usability.mjs --stage controlled-filters --allow-partial --issue 615",
+      "node scripts/check-simulation-v0-timeline-usability.mjs --stage bounded-display --allow-partial --issue 615",
+      "node scripts/check-simulation-v0-timeline-usability.mjs --stage no-free-text-filter --allow-partial --issue 615"
     ],
     "616": [
-      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage status-state --allow-partial --issue 616",
-      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage copy-feedback --allow-partial --issue 616",
-      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-credential-export --allow-partial --issue 616",
-      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-phi-export --allow-partial --issue 616"
+      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage shared-queue-summary --allow-partial --issue 616",
+      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage no-ui-pressure-duplication --allow-partial --issue 616",
+      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage visual-hierarchy --allow-partial --issue 616",
+      "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage no-claim-copy --allow-partial --issue 616"
     ],
     "617": [
-      "node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage root-scripts --allow-partial --issue 617",
-      "node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage rerun-feature-gates --allow-partial --issue 617",
-      "node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage missing-feature-gate-negative --allow-partial --issue 617"
+      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage export-status-contract --allow-partial --issue 617",
+      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage deterministic-filename --allow-partial --issue 617",
+      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage copy-failure-status --allow-partial --issue 617",
+      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-phi-export --allow-partial --issue 617",
+      "node scripts/check-simulation-v0-artifact-export-ux.mjs --stage no-credential-export --allow-partial --issue 617"
     ],
     "618": [
-      "node scripts/check-simulation-v0-accessibility.mjs --stage semantic-scan --allow-partial --issue 618",
+      "node scripts/check-simulation-v0-accessibility.mjs --stage accessibility-contract --allow-partial --issue 618",
       "node scripts/check-simulation-v0-accessibility.mjs --stage keyboard-navigation --allow-partial --issue 618",
-      "node scripts/check-simulation-v0-accessibility.mjs --stage focus-order --allow-partial --issue 618",
-      "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 618"
+      "node scripts/check-simulation-v0-accessibility.mjs --stage accessible-labels --allow-partial --issue 618",
+      "node scripts/check-simulation-v0-accessibility.mjs --stage table-semantics --allow-partial --issue 618",
+      "node scripts/check-simulation-v0-accessibility.mjs --stage negative-fixtures --allow-partial --issue 618"
     ],
     "619": [
-      "node scripts/check-simulation-v0-responsive-proof.mjs --stage desktop --allow-partial --issue 619",
-      "node scripts/check-simulation-v0-responsive-proof.mjs --stage tablet --allow-partial --issue 619",
-      "node scripts/check-simulation-v0-responsive-proof.mjs --stage mobile --allow-partial --issue 619",
-      "node scripts/check-simulation-v0-responsive-proof.mjs --stage no-horizontal-overflow --allow-partial --issue 619"
+      "node scripts/check-simulation-v0-responsive-route.mjs --stage responsive-contract --allow-partial --issue 619",
+      "node scripts/check-simulation-v0-responsive-route.mjs --stage viewport-screenshots --allow-partial --issue 619",
+      "node scripts/check-simulation-v0-responsive-route.mjs --stage no-horizontal-overflow --allow-partial --issue 619",
+      "node scripts/check-simulation-v0-responsive-route.mjs --stage limitations-visible --allow-partial --issue 619"
     ],
     "620": [
+      "npm run check:simulation-v0-profile-selector",
+      "npm run check:simulation-v0-ratio-controls",
+      "npm run check:simulation-v0-timeline-table",
+      "npm run check:simulation-v0-summary-cards",
+      "npm run check:simulation-v0-occupied-bed-proof",
+      "npm run check:simulation-v0-artifact-proof-panel",
+      "npm run check:simulation-v0-artifact-export",
+      "npm run check:simulation-v0-user-facing-go-no-go",
       "npm run check:clean-committed-state",
-      "npm run check:simulation-v0-user-facing-feature-gates",
+      "npm run check:simulation-v0-user-facing-readiness",
       "node scripts/check-simulation-v0-manual-review-go-no-go.mjs --stage final --issue 620",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 620",
+      "npm run check:docs",
       "docker compose config",
       "docker compose -f docker-compose.production.yml config",
       "docker compose up --build -d",

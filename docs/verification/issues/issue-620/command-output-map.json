@@ -68,6 +68,24 @@
       ]
     },
     {
+      "command": "npm run check:simulation-v0-timeline-usability",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-accessibility",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/accessibility.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-responsive-route",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/responsive-route.txt"
+      ]
+    },
+    {
       "command": "npm run check:clean-committed-state",
       "outputs": [
         "docs/verification/issues/issue-620/test-output/clean-committed-state.txt"

@@ -90,7 +90,7 @@ async function captureViewport(name, width, height) {
     await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-route') != null");
     await browser.screenshot(screenshotPath);
     return browser.evaluate(`(() => {
-      const table = document.querySelector('.simulation-v0-panel__table--timeline');
+      const table = document.querySelector('.simulation-v0-panel__table--timeline')?.closest('.simulation-v0-panel__table');
       return {
         viewport: { name: ${JSON.stringify(name)}, width: window.innerWidth, height: window.innerHeight },
         controlsVisible: Boolean(document.querySelector('#simulation-v0-controls')),

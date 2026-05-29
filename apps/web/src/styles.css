@@ -2788,30 +2788,36 @@ h1 {
 }
 
 .simulation-v0-panel__table {
-  display: grid;
   border: 1px solid #d5dde7;
   border-radius: 8px;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
-.simulation-v0-panel__table [role="row"] {
-  display: grid;
-  grid-template-columns: 0.8fr repeat(5, minmax(72px, 1fr));
+.simulation-v0-panel__table table {
+  border-collapse: collapse;
+  min-width: 820px;
+  width: 100%;
 }
 
-.simulation-v0-panel__table--timeline [role="row"] {
-  grid-template-columns: minmax(120px, 0.8fr) 0.45fr minmax(180px, 1fr) minmax(220px, 1.1fr) minmax(180px, 1fr) minmax(140px, 0.8fr);
+.simulation-v0-panel__table caption {
+  color: #111827;
+  font-size: 0.86rem;
+  font-weight: 900;
+  padding: 10px 12px;
+  text-align: left;
 }
 
-.simulation-v0-panel__table [role="columnheader"],
-.simulation-v0-panel__table [role="cell"] {
+.simulation-v0-panel__table th,
+.simulation-v0-panel__table td {
   border-bottom: 1px solid #e2e8f0;
   padding: 8px;
-  min-width: 0;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
 }
 
-.simulation-v0-panel__table [role="columnheader"] {
+.simulation-v0-panel__table th {
   background: #f7fafc;
   color: #53657a;
   font-size: 0.82rem;
@@ -2945,10 +2951,6 @@ h1 {
 
   .simulation-v0-panel__table {
     overflow-x: auto;
-  }
-
-  .simulation-v0-panel__table [role="row"] {
-    min-width: 820px;
   }
 
   .simulation-v0-timeline-toolbar {

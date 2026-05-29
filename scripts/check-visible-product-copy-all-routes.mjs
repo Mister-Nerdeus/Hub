@@ -60,7 +60,11 @@ const context = createRepairContext({
   defaultIssue: "581"
 });
 
-const preservedManifest = Number(context.issue) >= 611 ? readText(context.manifestPath) : null;
+const preserveIssueEvidence = Number(context.issue) >= 611;
+const preservedManifest = preserveIssueEvidence ? readText(context.manifestPath) : null;
+const preservedCommands = preserveIssueEvidence && fileExists(`${context.dir}/commands.txt`) ? readText(`${context.dir}/commands.txt`) : null;
+const preservedCommandMap = preserveIssueEvidence && fileExists(`${context.dir}/command-output-map.json`) ? readText(`${context.dir}/command-output-map.json`) : null;
+const preservedCloseout = preserveIssueEvidence && fileExists(`${context.dir}/closeout.md`) ? readText(`${context.dir}/closeout.md`) : null;
 await runSelectedRepairStages(context, runStage);
 finalizeRepairGate(context, {
   testOutputName: "visible-product-copy-all-routes.txt",
@@ -76,6 +80,9 @@ finalizeRepairGate(context, {
   }
 });
 if (preservedManifest != null) writeText(context.manifestPath, preservedManifest);
+if (preservedCommands != null) writeText(`${context.dir}/commands.txt`, preservedCommands);
+if (preservedCommandMap != null) writeText(`${context.dir}/command-output-map.json`, preservedCommandMap);
+if (preservedCloseout != null) writeText(`${context.dir}/closeout.md`, preservedCloseout);
 
 async function runStage(stage) {
   if (stage === "policy-hardening") {

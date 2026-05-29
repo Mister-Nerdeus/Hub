@@ -20,7 +20,7 @@
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage semantic-scan --allow-partial --issue 618",
+      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage accessibility-contract --allow-partial --issue 618",
       "outputs": [
         "docs/verification/issues/issue-618/test-output/simulation-v0-accessibility.txt"
       ]
@@ -32,21 +32,27 @@
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage focus-order --allow-partial --issue 618",
+      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage accessible-labels --allow-partial --issue 618",
       "outputs": [
         "docs/verification/issues/issue-618/test-output/simulation-v0-accessibility.txt"
       ]
     },
     {
-      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 618",
+      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage table-semantics --allow-partial --issue 618",
       "outputs": [
-        "docs/verification/issues/issue-618/test-output/visible-product-copy-all-routes.txt"
+        "docs/verification/issues/issue-618/test-output/simulation-v0-accessibility.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-accessibility.mjs --stage negative-fixtures --allow-partial --issue 618",
+      "outputs": [
+        "docs/verification/issues/issue-618/test-output/simulation-v0-accessibility.txt"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-618/test-output/no-phi.txt"
+        "docs/verification/issues/issue-618/no-phi-output.txt"
       ]
     }
   ]

@@ -65,7 +65,7 @@ async function captureViewports() {
       await browser.navigate(`${browser.baseUrl}/?section=simulation`, "document.querySelector('#simulation-v0-route') != null");
       await browser.screenshot(screenshotPath);
       return browser.evaluate(`(() => {
-        const table = document.querySelector('.simulation-v0-panel__table--timeline');
+        const table = document.querySelector('.simulation-v0-panel__table--timeline')?.closest('.simulation-v0-panel__table');
         return {
           width: window.innerWidth,
           controlsVisible: Boolean(document.querySelector('#simulation-v0-controls')),
@@ -142,7 +142,10 @@ function writeEvidence(passed) {
     "node scripts/check-no-phi-fields.mjs"
   ];
   writeText(`${dir}/commands.txt`, `${commands.join("\n")}\n`);
-  writeJson(`${dir}/command-output-map.json`, { issue, commands: commands.map((command) => ({ command })) });
+  writeJson(`${dir}/command-output-map.json`, {
+    issue,
+    commands: commands.map((command) => ({ command, outputs: [mapOutput(command)] }))
+  });
   writeTextIfMissing(`${dir}/first-failure.txt`, "Initial failure: requested responsive route proof script and viewport stages were missing.\n");
   writeTextIfMissing(`${dir}/test-output/shared.txt`, "pending: captured by acceptance command run.\n");
   writeTextIfMissing(`${dir}/test-output/web.txt`, "pending: captured by acceptance command run.\n");
@@ -169,9 +172,25 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 ## Known Limitations
 - Browser proof checks layout reachability and overflow; manual visual review remains required.
 
+## Next Recommended Issue
+- Issue 620 — Manual Review UX GO / NO-GO.
+
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; responsive work did not add PHI or forbidden claim behavior.
 `);
+}
+
+function mapOutput(command) {
+  const base = `${dir}/test-output`;
+  if (command.includes("packages/shared test")) return `${base}/shared.txt`;
+  if (command.includes("apps/web test")) return `${base}/web.txt`;
+  if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("responsive-contract")) return `${dir}/responsive-contract-output.json`;
+  if (command.includes("viewport-screenshots")) return `${dir}/viewport-overflow-output.json`;
+  if (command.includes("no-horizontal-overflow")) return `${dir}/viewport-overflow-output.json`;
+  if (command.includes("limitations-visible")) return `${dir}/limitations-visible-output.json`;
+  if (command.includes("check-no-phi-fields")) return `${dir}/no-phi-output.txt`;
+  return `${base}/responsive-route.txt`;
 }
 
 function parseArgs() {

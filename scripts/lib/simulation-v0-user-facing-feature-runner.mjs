@@ -191,7 +191,7 @@ async function runStage(context, config, stage) {
   }
   if (stage === "rendered-table") {
     const source = readText("apps/web/src/features/simulation/SimulationV0TimelineTable.tsx");
-    const passed = ["Dry-run timeline", "columnheader", "visibleRows"].every((fragment) => source.includes(fragment));
+    const passed = ["Dry-run timeline", "scope=\"col\"", "visibleRows"].every((fragment) => source.includes(fragment));
     addAndWrite(context, "rendered-table-output.json", "timeline table renders accessible headers", passed, {});
   }
   if (stage === "review-state-derived") {

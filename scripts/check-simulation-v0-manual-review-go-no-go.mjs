@@ -207,14 +207,25 @@ function writeEvidence(passed) {
     "npm run check:simulation-v0-artifact-proof-panel",
     "npm run check:simulation-v0-artifact-export",
     "npm run check:simulation-v0-user-facing-go-no-go",
+    "npm run check:simulation-v0-timeline-usability",
+    "npm run check:simulation-v0-accessibility",
+    "npm run check:simulation-v0-responsive-route",
     "npm run check:clean-committed-state",
     "npm run check:simulation-v0-user-facing-readiness",
     "node scripts/check-simulation-v0-manual-review-go-no-go.mjs --stage final --issue 620",
     "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 620",
-    "node scripts/check-no-phi-fields.mjs"
+    "node scripts/check-no-phi-fields.mjs",
+    "npm run check:docs",
+    "docker compose config",
+    "docker compose up --build -d",
+    "docker compose ps",
+    "docker compose -f docker-compose.production.yml config"
   ];
   writeText(`${dir}/commands.txt`, `${commands.join("\n")}\n`);
-  writeJson(`${dir}/command-output-map.json`, { issue, commands: commands.map((command) => ({ command })) });
+  writeJson(`${dir}/command-output-map.json`, {
+    issue,
+    commands: commands.map((command) => ({ command, outputs: [mapOutput(command)] }))
+  });
   writeTextIfMissing(`${dir}/first-failure.txt`, "Initial failure: final manual review GO/NO-GO had to be realigned to the requested 611-620 UX manifest keys.\n");
   writeTextIfMissing(`${dir}/test-output/shared.txt`, "pending: captured by acceptance command run.\n");
   writeTextIfMissing(`${dir}/test-output/web.txt`, "pending: captured by acceptance command run.\n");
@@ -225,8 +236,9 @@ function writeEvidence(passed) {
 - Completed audit-only Simulation v0 manual review UX GO/NO-GO.
 
 ## Files Changed
+- Simulation v0 route review surface and local validators as applicable.
 - docs/project/simulation-v0-manual-review-ux-status.md
-- scripts/check-simulation-v0-manual-review-go-no-go.mjs
+- docs/verification/simulation-v0-manual-review-ux-manifest.json
 - docs/verification/issues/issue-620/
 
 ## Commands Run
@@ -234,18 +246,52 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 
 ## Tests Passed/Failed
 - ${passed ? "Issue 620 final manual review UX GO/NO-GO passed." : "Issue 620 final manual review UX GO/NO-GO failed; see blockers."}
+- Shared tests, web tests, web build, Simulation v0 root gates, visible-copy scan, no-PHI scan, and Docker proof are expected local acceptance commands for this closeout.
+- npm run check:docs may still fail on pre-existing Issue 621-625 evidence/index gaps outside this 611-620 batch.
 
 ## Evidence Artifacts
 - ${dir}
+- ${manifestPath}
 
 ## Known Limitations
 - This is not production approval.
 - Manual visual review remains required.
 - Promotion remains blocked.
+- Full-event simulation, optimizer behavior, assignment recommendations, staffing advice, clinical safety scoring, staffing compliance certification, patient outcome prediction, PHI, and EHR integration remain out of scope.
+- npm run check:docs is blocked by pre-existing Issue 621-625 evidence/index gaps if those future issue folders are present without completed evidence maps.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR integration, optimizer, assignment recommendation, clinical safety score, staffing compliance certification, or patient outcome prediction was added.
 `);
+}
+
+function mapOutput(command) {
+  const base = `${dir}/test-output`;
+  if (command.includes("packages/shared test")) return `${base}/shared.txt`;
+  if (command.includes("apps/web test")) return `${base}/web.txt`;
+  if (command.includes("apps/web run build")) return `${base}/web-build.txt`;
+  if (command.includes("check:simulation-v0-profile-selector")) return `${base}/profile-selector.txt`;
+  if (command.includes("check:simulation-v0-ratio-controls")) return `${base}/ratio-controls.txt`;
+  if (command.includes("check:simulation-v0-timeline-table")) return `${base}/timeline-table.txt`;
+  if (command.includes("check:simulation-v0-summary-cards")) return `${base}/summary-cards.txt`;
+  if (command.includes("check:simulation-v0-occupied-bed-proof")) return `${base}/occupied-bed-proof.txt`;
+  if (command.includes("check:simulation-v0-artifact-proof-panel")) return `${base}/artifact-proof-panel.txt`;
+  if (command.includes("check:simulation-v0-artifact-export")) return `${base}/artifact-export.txt`;
+  if (command.includes("check:simulation-v0-user-facing-go-no-go")) return `${base}/user-facing-go-no-go.txt`;
+  if (command.includes("check:simulation-v0-timeline-usability")) return `${base}/timeline-usability.txt`;
+  if (command.includes("check:simulation-v0-accessibility")) return `${base}/accessibility.txt`;
+  if (command.includes("check:simulation-v0-responsive-route")) return `${base}/responsive-route.txt`;
+  if (command.includes("check:clean-committed-state")) return `${base}/clean-committed-state.txt`;
+  if (command.includes("check:simulation-v0-user-facing-readiness")) return `${base}/user-facing-readiness.txt`;
+  if (command.includes("manual-review-go-no-go")) return `${base}/manual-review-go-no-go.txt`;
+  if (command.includes("visible-product-copy-all-routes")) return `${base}/visible-product-copy-all-routes.txt`;
+  if (command.includes("check-no-phi-fields")) return `${dir}/no-phi-output.txt`;
+  if (command.includes("check:docs")) return `${base}/docs-contracts.txt`;
+  if (command.includes("docker compose config")) return `${base}/docker-compose-config.txt`;
+  if (command.includes("docker compose up --build -d")) return `${base}/docker-compose-up-build.txt`;
+  if (command === "docker compose ps") return `${base}/docker-compose-ps.txt`;
+  if (command.includes("docker-compose.production.yml")) return `${base}/docker-compose-production-config.txt`;
+  return `${base}/manual-review-go-no-go.txt`;
 }
 
 function add(name, passed, detail = null) {

@@ -20,27 +20,33 @@
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage hierarchy --allow-partial --issue 615",
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage event-id-keys --allow-partial --issue 615",
       "outputs": [
-        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+        "docs/verification/issues/issue-615/test-output/simulation-v0-timeline-usability.txt"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage artifact-derived-values --allow-partial --issue 615",
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage controlled-filters --allow-partial --issue 615",
       "outputs": [
-        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+        "docs/verification/issues/issue-615/test-output/simulation-v0-timeline-usability.txt"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-summary-card-hierarchy.mjs --stage forbidden-copy-negative --allow-partial --issue 615",
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage bounded-display --allow-partial --issue 615",
       "outputs": [
-        "docs/verification/issues/issue-615/test-output/simulation-v0-summary-card-hierarchy.txt"
+        "docs/verification/issues/issue-615/test-output/simulation-v0-timeline-usability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-timeline-usability.mjs --stage no-free-text-filter --allow-partial --issue 615",
+      "outputs": [
+        "docs/verification/issues/issue-615/test-output/simulation-v0-timeline-usability.txt"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-615/test-output/no-phi.txt"
+        "docs/verification/issues/issue-615/no-phi-output.txt"
       ]
     }
   ]

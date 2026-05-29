@@ -148,7 +148,7 @@ async function captureRouteEvidence() {
         tag: node.tagName.toLowerCase(),
         text: node.textContent?.replace(/\\s+/g, ' ').trim() || node.getAttribute('aria-label') || null
       }));
-      const timelineRows = Array.from(root?.querySelectorAll('.simulation-v0-panel__table--timeline [role="row"]') ?? []);
+      const timelineRows = Array.from(root?.querySelectorAll('.simulation-v0-panel__table--timeline tbody tr') ?? []);
       const summaryCardInventory = Array.from(root?.querySelectorAll('.simulation-v0-summary-cards div') ?? []).map((node) => ({
         label: node.querySelector('dt')?.textContent?.trim(),
         value: node.querySelector('dd')?.textContent?.trim()
@@ -163,7 +163,7 @@ async function captureRouteEvidence() {
         sectionInventory,
         controlInventory,
         timelineInventory: {
-          headerCells: Array.from(root?.querySelectorAll('.simulation-v0-panel__table--timeline [role="columnheader"]') ?? []).map((node) => node.textContent?.trim()),
+          headerCells: Array.from(root?.querySelectorAll('.simulation-v0-panel__table--timeline th[scope="col"]') ?? []).map((node) => node.textContent?.trim()),
           visibleRows: Math.max(0, timelineRows.length - 1)
         },
         summaryCardInventory,

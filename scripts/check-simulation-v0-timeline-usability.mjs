@@ -134,11 +134,11 @@ async function captureTimeline() {
     await browser.screenshot(screenshotPath);
     return browser.evaluate(`(() => {
       const table = document.querySelector('.simulation-v0-panel__table--timeline');
-      const rows = Array.from(table?.querySelectorAll('[role="row"]') ?? []);
+      const rows = Array.from(table?.querySelectorAll('tbody tr') ?? []);
       return {
-        headers: Array.from(table?.querySelectorAll('[role="columnheader"]') ?? []).map((node) => node.textContent.trim()),
-        firstEventId: rows[1]?.querySelector('[role="cell"]')?.textContent?.trim() ?? '',
-        visibleRowCount: Math.max(0, rows.length - 1),
+        headers: Array.from(table?.querySelectorAll('th[scope="col"]') ?? []).map((node) => node.textContent.trim()),
+        firstEventId: rows[0]?.querySelector('td')?.textContent?.trim() ?? '',
+        visibleRowCount: rows.length,
         filterLabels: Array.from(document.querySelectorAll('.simulation-v0-filter-buttons button')).map((node) => node.textContent.trim()),
         paginationText: document.querySelector('.simulation-v0-pagination')?.textContent?.replace(/\\s+/g, ' ').trim() ?? '',
         rowSummary: document.querySelector('.simulation-v0-row-summary')?.textContent?.replace(/\\s+/g, ' ').trim() ?? '',

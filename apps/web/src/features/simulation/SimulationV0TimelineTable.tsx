@@ -116,25 +116,32 @@ export function SimulationV0TimelineTable({ viewModel }: Props) {
       <p className="simulation-v0-row-summary">
         Showing {visibleRows.length} rows from {filteredRows.length} filtered events and {viewModel.totalRowCount} total events for {viewModel.profileId} / {viewModel.ratioView}.
       </p>
-      <div className="simulation-v0-panel__table simulation-v0-panel__table--timeline" role="table" aria-label="Dry-run timeline events">
-        <div role="row">
-          <span role="columnheader">Event ID</span>
-          <span role="columnheader">Minute</span>
-          <span role="columnheader">Event</span>
-          <span role="columnheader">Task</span>
-          <span role="columnheader">Bed position</span>
-          <span role="columnheader">Synthetic nurse</span>
-        </div>
-        {visibleRows.map((row) => (
-          <div role="row" key={row.eventId}>
-            <span role="cell">{row.eventId}</span>
-            <span role="cell">{row.minute}</span>
-            <span role="cell">{row.eventLabel}</span>
-            <span role="cell">{row.taskInstanceId}</span>
-            <span role="cell">{row.bedPositionId}</span>
-            <span role="cell">{row.syntheticNurseId ?? "unassigned"}</span>
-          </div>
-        ))}
+      <div className="simulation-v0-panel__table" aria-label="Dry-run timeline table region">
+        <table className="simulation-v0-panel__table--timeline">
+          <caption>Dry-run timeline events</caption>
+          <thead>
+            <tr>
+              <th scope="col">Event ID</th>
+              <th scope="col">Minute</th>
+              <th scope="col">Event</th>
+              <th scope="col">Task</th>
+              <th scope="col">Bed position</th>
+              <th scope="col">Synthetic nurse</th>
+            </tr>
+          </thead>
+          <tbody>
+            {visibleRows.map((row) => (
+              <tr key={row.eventId}>
+                <td>{row.eventId}</td>
+                <td>{row.minute}</td>
+                <td>{row.eventLabel}</td>
+                <td>{row.taskInstanceId}</td>
+                <td>{row.bedPositionId}</td>
+                <td>{row.syntheticNurseId ?? "unassigned"}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </section>
   );

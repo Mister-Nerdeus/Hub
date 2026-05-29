@@ -27,8 +27,8 @@
 ## Known Limitations
 - Browser proof checks layout reachability and overflow; manual visual review remains required.
 
+## Next Recommended Issue
+- Issue 620 — Manual Review UX GO / NO-GO.
+
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; responsive work did not add PHI or forbidden claim behavior.
-
-## Next Recommended Issue
-- GO for Issue 620.

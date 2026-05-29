@@ -51,6 +51,7 @@ async function runStage(stage) {
       proof.legendTexts.includes("Activity profile") &&
       proof.legendTexts.includes("Ratio planning assumption") &&
       proof.tableHasLabel &&
+      proof.nativeTableCount === 1 &&
       proof.namedButtonCount === proof.buttonCount &&
       proof.statusRegionCount >= 1 &&
       proof.limitationsHeading === "Limitations";
@@ -77,7 +78,7 @@ async function runStage(stage) {
   }
   if (stage === "table-semantics") {
     const proof = await captureAccessibility();
-    const passed = proof.tableHasLabel && proof.tableHeaderCount >= 6;
+    const passed = proof.tableHasLabel && proof.nativeTableCount === 1 && proof.tableHeaderCount >= 6;
     addAndWrite(context, "table-semantics-output.json", "timeline table has semantic label and headers", passed, proof);
   }
   if (stage === "export-status-a11y") {
@@ -158,8 +159,9 @@ async function captureAccessibility() {
       return {
         fieldsetCount: root?.querySelectorAll('fieldset').length ?? 0,
         legendTexts: Array.from(root?.querySelectorAll('legend') ?? []).map((node) => node.textContent.trim()),
-        tableHasLabel: Boolean(root?.querySelector('.simulation-v0-panel__table--timeline[aria-label]')),
-        tableHeaderCount: root?.querySelectorAll('.simulation-v0-panel__table--timeline [role="columnheader"]').length ?? 0,
+        tableHasLabel: Boolean(root?.querySelector('.simulation-v0-panel__table--timeline caption')),
+        tableHeaderCount: root?.querySelectorAll('.simulation-v0-panel__table--timeline th[scope="col"]').length ?? 0,
+        nativeTableCount: root?.querySelectorAll('table.simulation-v0-panel__table--timeline').length ?? 0,
         buttonCount: buttons.length,
         namedButtonCount: buttons.filter((node) => (node.textContent || node.getAttribute('aria-label') || '').trim().length > 0).length,
         statusRegionCount: root?.querySelectorAll('[role="status"]').length ?? 0,
