@@ -1335,6 +1335,16 @@ export function LayoutEditorStage({
                         });
                       }
                     }}
+                    onRoomIdentityChange={({ roomNumber, label }) => {
+                      if (roomQuickEditViewModel.roomId != null) {
+                        dispatchStage({
+                          type: "editSelectedRoomLabel",
+                          roomId: roomQuickEditViewModel.roomId,
+                          roomNumber,
+                          label
+                        });
+                      }
+                    }}
                     onWidthStep={(deltaFeet) => {
                       if (roomQuickEditViewModel.widthFeet != null) {
                         dispatchStage({

@@ -20907,8 +20907,34 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "626",
+      "title": "Floorplan Editor Editable Room Labels",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-626/closeout.md",
+        "docs/verification/issues/issue-626/commands.txt",
+        "docs/verification/issues/issue-626/command-output-map.json",
+        "docs/verification/issues/issue-626/first-failure.txt",
+        "docs/verification/issues/issue-626/room-label-edit-output.json",
+        "docs/verification/issues/issue-626/room-number-edit-output.json",
+        "docs/verification/issues/issue-626/label-persistence-output.json",
+        "docs/verification/issues/issue-626/undo-redo-label-output.json",
+        "docs/verification/issues/issue-626/no-phi-label-negative-output.json",
+        "docs/verification/issues/issue-626/export-import-label-output.json",
+        "docs/verification/issues/issue-626/save-reload-label-output.json",
+        "docs/verification/issues/issue-626/no-phi-output.txt",
+        "docs/verification/issues/issue-626/manifest-update-output.json",
+        "docs/verification/issues/issue-626/screenshots/editable-room-labels.png",
+        "docs/verification/issues/issue-626/test-output/shared.txt",
+        "docs/verification/issues/issue-626/test-output/web.txt",
+        "docs/verification/issues/issue-626/test-output/web-build.txt",
+        "docs/verification/issues/issue-626/test-output/room-labels.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "625"
+  "lastRebuiltIssue": "626"
 }

@@ -34,6 +34,7 @@ const calls: string[] = [];
 const element = RoomQuickEditPopover({
   viewModel: editableViewModel,
   onRoomTypeChange: () => calls.push("room-type"),
+  onRoomIdentityChange: () => calls.push("room-identity"),
   onWidthStep: () => calls.push("width"),
   onHeightStep: () => calls.push("height"),
   onAssignNurse: () => calls.push("assign-nurse"),
@@ -51,7 +52,7 @@ if (element.props["data-room-quick-edit"] !== "ready") {
 }
 
 const children = element.props.children;
-const actionButtons = children[3].props.children;
+const actionButtons = children[5].props.children;
 for (const [index, expected] of ["assign-nurse", "add-door", "remove-attached-doors", "duplicate-room", "delete-room"].entries()) {
   if (actionButtons[index].props.disabled) {
     continue;

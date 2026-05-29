@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-room-labels.mjs --stage room-label-edit --allow-partial --issue 626
+node scripts/check-layout-editor-room-labels.mjs --stage room-number-edit --allow-partial --issue 626
+node scripts/check-layout-editor-room-labels.mjs --stage persistence --allow-partial --issue 626
+node scripts/check-layout-editor-room-labels.mjs --stage undo-redo --allow-partial --issue 626
+node scripts/check-layout-editor-room-labels.mjs --stage save-reload --allow-partial --issue 626
+node scripts/check-layout-editor-room-labels.mjs --stage no-phi-negative --allow-partial --issue 626
+node scripts/check-no-phi-fields.mjs

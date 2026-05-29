@@ -1,9 +1,14 @@
 import type { EditableRoomType } from "@nerdeus/shared";
 import type { RoomQuickEditViewModel } from "./roomQuickEditViewModel";
+import {
+  validateRoomOperationalLabel,
+  validateRoomOperationalNumber
+} from "./roomLabelValidation";
 
 export type RoomQuickEditPopoverProps = {
   viewModel: RoomQuickEditViewModel;
   onRoomTypeChange: (roomType: EditableRoomType) => void;
+  onRoomIdentityChange: (input: { roomNumber: string; label: string }) => void;
   onWidthStep: (deltaFeet: number) => void;
   onHeightStep: (deltaFeet: number) => void;
   onAssignNurse: () => void;
@@ -30,6 +35,7 @@ const ROOM_TYPE_OPTIONS: readonly EditableRoomType[] = [
 export function RoomQuickEditPopover({
   viewModel,
   onRoomTypeChange,
+  onRoomIdentityChange,
   onWidthStep,
   onHeightStep,
   onAssignNurse,
@@ -39,15 +45,55 @@ export function RoomQuickEditPopover({
   onDeleteRoom,
   attachedDoorCount = 0
 }: RoomQuickEditPopoverProps) {
+  const commitIdentity = (input: HTMLInputElement, roomNumber: string, label: string) => {
+    const roomNumberResult = validateRoomOperationalNumber(roomNumber);
+    if (roomNumberResult.status === "rejected") {
+      input.setCustomValidity(roomNumberResult.reason);
+      input.reportValidity();
+      return;
+    }
+    const labelResult = validateRoomOperationalLabel(label);
+    if (labelResult.status === "rejected") {
+      input.setCustomValidity(labelResult.reason);
+      input.reportValidity();
+      return;
+    }
+    input.setCustomValidity("");
+    onRoomIdentityChange({
+      roomNumber: roomNumberResult.value,
+      label: labelResult.value
+    });
+  };
   if (viewModel.status !== "ready" || viewModel.roomType == null) {
     return <p>No room selected.</p>;
   }
   return (
     <div className="room-quick-edit-popover" data-room-quick-edit="ready">
       <label>
-        Room number / label
-        <input value={`${viewModel.roomNumber} / ${viewModel.label}`} readOnly />
+        Room number
+        <input
+          defaultValue={viewModel.roomNumber}
+          readOnly={viewModel.readOnly}
+          onBlur={(event) => commitIdentity(event.currentTarget, event.currentTarget.value, viewModel.label)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") commitIdentity(event.currentTarget, event.currentTarget.value, viewModel.label);
+            if (event.key === "Escape") event.currentTarget.value = viewModel.roomNumber;
+          }}
+        />
       </label>
+      <label>
+        Room label
+        <input
+          defaultValue={viewModel.label}
+          readOnly={viewModel.readOnly}
+          onBlur={(event) => commitIdentity(event.currentTarget, viewModel.roomNumber, event.currentTarget.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") commitIdentity(event.currentTarget, viewModel.roomNumber, event.currentTarget.value);
+            if (event.key === "Escape") event.currentTarget.value = viewModel.label;
+          }}
+        />
+      </label>
+      <p className="room-quick-edit-popover__validation">Operational labels only.</p>
       <label>
         Room type
         <select

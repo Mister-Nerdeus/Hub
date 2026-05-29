@@ -62,6 +62,10 @@ import { resizeSelectedRoomInLayout } from "./roomResizeInteraction";
 import type { RoomResizeHandle } from "./roomResizeHandlesViewModel";
 import { validateRoomResizeWarnings } from "./roomResizeValidation";
 import {
+  validateRoomOperationalLabel,
+  validateRoomOperationalNumber
+} from "./roomLabelValidation";
+import {
   createLayoutUndoRedoHistory,
   createLayoutUndoRedoSnapshot,
   pushLayoutUndoRedoSnapshot,
@@ -96,6 +100,12 @@ export type LayoutEditorAction =
       deltaYFeet: number;
     }
   | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
+  | {
+      type: "editSelectedRoomLabel";
+      roomId: string;
+      roomNumber?: string;
+      label?: string;
+    }
   | { type: "editSelectedRoomType"; roomId: string; roomType: AuthoringRoomType }
   | {
       type: "addRoom";
@@ -256,6 +266,8 @@ export function layoutEditorReducer(
       });
     case "editSelectedRoomDimensions":
       return editSelectedRoomDimensions(state, action.dimensions);
+    case "editSelectedRoomLabel":
+      return editSelectedRoomLabel(state, action);
     case "editSelectedRoomType":
       return editSelectedRoomType(state, action.roomId, action.roomType);
     case "addRoom":
@@ -429,6 +441,43 @@ function editSelectedRoomType(
     },
     selectedObjectType: "room",
     selectedObjectId: roomId,
+    isDirty: true
+  });
+}
+
+function editSelectedRoomLabel(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "editSelectedRoomLabel" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "room" || state.selectedObjectId !== action.roomId) {
+    return state;
+  }
+  const room = state.editableLayout.rooms.find((candidate) => candidate.id === action.roomId);
+  if (room == null) {
+    throw new Error(`unknown room: ${action.roomId}`);
+  }
+  const nextRoomNumber =
+    action.roomNumber === undefined ? room.roomNumber : validateAccepted(validateRoomOperationalNumber(action.roomNumber));
+  const nextLabel =
+    action.label === undefined ? room.label : validateAccepted(validateRoomOperationalLabel(action.label));
+  if (nextRoomNumber === room.roomNumber && nextLabel === room.label) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      rooms: state.editableLayout.rooms.map((candidate) =>
+        candidate.id === action.roomId
+          ? { ...candidate, roomNumber: nextRoomNumber, label: nextLabel }
+          : candidate
+      )
+    },
+    selectedObjectType: "room",
+    selectedObjectId: action.roomId,
     isDirty: true
   });
 }
@@ -790,6 +839,13 @@ function normalizeEditableLabel(value: string | undefined): string | null {
   }
   const label = value.trim();
   return label.length === 0 ? null : label;
+}
+
+function validateAccepted(result: ReturnType<typeof validateRoomOperationalLabel>): string {
+  if (result.status !== "accepted") {
+    throw new Error(result.reason);
+  }
+  return result.value;
 }
 
 function requireEditableLayout(state: LayoutEditorState): EditableLayoutGeometryContract {

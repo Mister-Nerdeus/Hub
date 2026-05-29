@@ -1,0 +1,65 @@
+{
+  "issue": "626",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-626/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-626/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-626/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage room-label-edit --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/room-label-edit-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage room-number-edit --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/room-number-edit-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage persistence --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/label-persistence-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage undo-redo --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/undo-redo-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage save-reload --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/save-reload-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage no-phi-negative --allow-partial --issue 626",
+      "outputs": [
+        "docs/verification/issues/issue-626/no-phi-label-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-626/no-phi-output.txt"
+      ]
+    }
+  ]
+}

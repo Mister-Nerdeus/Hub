@@ -28,6 +28,7 @@ if (viewModel.addDoorDisabledReason !== "Solid wall / blocked area cannot accept
 const element = RoomQuickEditPopover({
   viewModel,
   onRoomTypeChange: () => undefined,
+  onRoomIdentityChange: () => undefined,
   onWidthStep: () => undefined,
   onHeightStep: () => undefined,
   onAssignNurse: () => undefined,
@@ -39,7 +40,7 @@ const element = RoomQuickEditPopover({
   onDeleteRoom: () => undefined
 });
 
-const actionButtons = element.props.children[3].props.children;
+const actionButtons = element.props.children[5].props.children;
 if (actionButtons[0].props.disabled !== true) {
   throw new Error("Assign nurse button must render disabled for solid walls");
 }

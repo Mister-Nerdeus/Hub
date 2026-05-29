@@ -89,6 +89,7 @@ function buildSections(
           title: "Room metadata",
           fields: [
             { label: "Room number", value: selectedObject.roomNumber },
+            { label: "Room label", value: selectedObject.label },
             { label: "Room type", value: formatRoomType(selectedObject.roomType) },
             { label: "Capacity type", value: selectedObject.capacityType },
             { label: "Hall bed", value: formatBoolean(selectedObject.isHallBed) },
