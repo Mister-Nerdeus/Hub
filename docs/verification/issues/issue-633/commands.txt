@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-active-copy-identity.mjs --stage visible-identity --allow-partial --issue 633
+node scripts/check-layout-editor-active-copy-identity.mjs --stage save-status-record-id --allow-partial --issue 633
+node scripts/check-layout-editor-active-copy-identity.mjs --stage wrong-copy-negative --allow-partial --issue 633
+node scripts/check-layout-editor-active-copy-identity.mjs --stage same-copy-reopen --allow-partial --issue 633
+node scripts/check-no-phi-fields.mjs

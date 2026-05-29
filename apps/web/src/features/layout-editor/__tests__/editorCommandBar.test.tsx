@@ -10,6 +10,11 @@ declare const process: { cwd(): string };
 
 const viewModel = buildEditorCommandBarViewModel({
   hasActiveFloorplan: true,
+  activeCopyName: "ER Layout Plan 1 Working Copy",
+  activeRecordId: "saved-default-er-layout-plan-1-001",
+  activePlanId: "default-er-layout-plan-1",
+  activeSourceLabel: "Saved working copy",
+  lastNamedCopySaveLabel: "Not saved this session",
   isDirty: true,
   readOnly: false,
   undoDisabled: false,
@@ -21,6 +26,9 @@ const viewModel = buildEditorCommandBarViewModel({
 
 if (viewModel.saveStatusLabel !== "Not saved yet") {
   throw new Error("command bar should truthfully expose named-copy save status");
+}
+if (viewModel.activeRecordIdLabel !== "saved-default-er-layout-plan-1-001") {
+  throw new Error("command bar should expose active saved record identity");
 }
 if (viewModel.dirtyStateLabel !== "Draft changed") {
   throw new Error("command bar should expose dirty state");
@@ -36,6 +44,11 @@ const calls: string[] = [];
 const element = EditorCommandBar({
   layoutLabel: "proof-layout",
   hasActiveFloorplan: true,
+  activeCopyName: "ER Layout Plan 1 Working Copy",
+  activeRecordId: "saved-default-er-layout-plan-1-001",
+  activePlanId: "default-er-layout-plan-1",
+  activeSourceLabel: "Saved working copy",
+  lastNamedCopySaveLabel: "Not saved this session",
   readOnly: false,
   isDirty: true,
   undoDisabled: false,

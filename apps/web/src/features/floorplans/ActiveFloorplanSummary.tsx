@@ -33,6 +33,10 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
               <dd>{viewModel.name}</dd>
             </div>
             <div>
+              <dt>Record ID</dt>
+              <dd>{viewModel.recordId}</dd>
+            </div>
+            <div>
               <dt>Edit status</dt>
               <dd>{viewModel.readOnly ? "Read-only canonical fixture" : "Editable working copy"}</dd>
             </div>
@@ -73,6 +77,10 @@ export function ActiveFloorplanSummary({ viewModel, onLaunchEditor }: ActiveFloo
               <div>
                 <dt>Plan ID</dt>
                 <dd>{viewModel.planId}</dd>
+              </div>
+              <div>
+                <dt>Active record</dt>
+                <dd>{viewModel.recordId}</dd>
               </div>
               <div>
                 <dt>Source</dt>

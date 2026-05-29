@@ -3,6 +3,11 @@ import { buildEditorCommandBarViewModel } from "./editorCommandBarViewModel";
 export type EditorCommandBarProps = {
   layoutLabel: string;
   hasActiveFloorplan: boolean;
+  activeCopyName: string;
+  activeRecordId: string | null;
+  activePlanId: string | null;
+  activeSourceLabel: string;
+  lastNamedCopySaveLabel: string;
   readOnly: boolean;
   isDirty: boolean;
   undoDisabled: boolean;
@@ -28,6 +33,11 @@ export type EditorCommandBarProps = {
 export function EditorCommandBar({
   layoutLabel,
   hasActiveFloorplan,
+  activeCopyName,
+  activeRecordId,
+  activePlanId,
+  activeSourceLabel,
+  lastNamedCopySaveLabel,
   readOnly,
   isDirty,
   undoDisabled,
@@ -51,6 +61,11 @@ export function EditorCommandBar({
 }: EditorCommandBarProps) {
   const viewModel = buildEditorCommandBarViewModel({
     hasActiveFloorplan,
+    activeCopyName,
+    activeRecordId,
+    activePlanId,
+    activeSourceLabel,
+    lastNamedCopySaveLabel,
     isDirty,
     readOnly,
     undoDisabled,
@@ -125,6 +140,22 @@ export function EditorCommandBar({
       </div>
       <dl className="editor-command-bar__status" aria-label="Editor status">
         <div>
+          <dt>Active copy</dt>
+          <dd>{viewModel.activeCopyName}</dd>
+        </div>
+        <div>
+          <dt>Record ID</dt>
+          <dd>{viewModel.activeRecordIdLabel}</dd>
+        </div>
+        <div>
+          <dt>Plan ID</dt>
+          <dd>{viewModel.activePlanIdLabel}</dd>
+        </div>
+        <div>
+          <dt>Source</dt>
+          <dd>{viewModel.activeSourceLabel}</dd>
+        </div>
+        <div>
           <dt>Layout</dt>
           <dd>{layoutLabel}</dd>
         </div>
@@ -133,8 +164,12 @@ export function EditorCommandBar({
           <dd>{viewModel.modeLabel}</dd>
         </div>
         <div>
-          <dt>Local draft</dt>
+          <dt>Named working copy</dt>
           <dd>{viewModel.saveStatusLabel}</dd>
+        </div>
+        <div>
+          <dt>Last named-copy save</dt>
+          <dd>{viewModel.lastNamedCopySaveLabel}</dd>
         </div>
         <div>
           <dt>State</dt>
@@ -153,6 +188,11 @@ export function EditorCommandBar({
           <dd>{viewModel.proceedStatusLabel}</dd>
         </div>
       </dl>
+      {viewModel.defaultWarningLabel == null ? null : (
+        <p className="editor-command-bar__warning" role="status">
+          {viewModel.defaultWarningLabel}
+        </p>
+      )}
     </section>
   );
 }

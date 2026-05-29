@@ -68,6 +68,7 @@ export type ActiveFloorplanState = {
 export type ActiveFloorplanSummaryViewModel = {
   hasActiveFloorplan: boolean;
   planId: string | null;
+  recordId: string | null;
   name: string;
   readOnly: boolean;
   sourceKind: "default-json" | "saved-json" | "review-candidate-json" | null;
@@ -212,6 +213,7 @@ export function createActiveFloorplanSummaryViewModel(
     return {
       hasActiveFloorplan: false,
       planId: null,
+      recordId: null,
       name: "Canonical Plan 1 ready",
       readOnly: false,
       sourceKind: null,
@@ -231,6 +233,7 @@ export function createActiveFloorplanSummaryViewModel(
   return {
     hasActiveFloorplan: true,
     planId: floorplan.planId,
+    recordId: floorplan.recordId,
     name: floorplan.name,
     readOnly: floorplan.readOnly,
     sourceKind: floorplan.sourceKind,

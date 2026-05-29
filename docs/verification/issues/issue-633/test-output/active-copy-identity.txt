@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stage": "same-copy-reopen",
+  "issue": "633",
+  "checks": [
+    {
+      "name": "same saved recordId reopens with changed room geometry",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001",
+        "reopenedViaLibraryRecordId": "saved-default-er-layout-plan-1-001"
+      }
+    }
+  ]
+}

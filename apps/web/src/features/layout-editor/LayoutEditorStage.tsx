@@ -248,6 +248,7 @@ export function LayoutEditorStage({
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
   const [saveStatus, setSaveStatus] = useState("Not saved yet");
+  const [lastNamedCopySaveLabel, setLastNamedCopySaveLabel] = useState("Not saved this session");
   const [draftRecoveryState, setDraftRecoveryState] = useState<DraftRecoveryState>({ status: "none" });
   const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
@@ -285,6 +286,7 @@ export function LayoutEditorStage({
     }
     dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
     setSaveStatus("Not saved yet");
+    setLastNamedCopySaveLabel("Not saved this session");
     if (localDraftStorage != null) {
       const loadedDraft = loadLayoutLocalDraft(localDraftStorage, activeFloorplan.recordId);
       if (loadedDraft.status === "loaded") {
@@ -619,11 +621,13 @@ export function LayoutEditorStage({
       return;
     }
     const time = formatSaveTime(result.savedAt);
+    const namedCopySaveLabel = `${time} / record ${result.recordId}`;
     setSaveStatus(
       result.status === "saved"
-        ? `Saved working copy at ${time}`
-        : `Created new copy at ${time}`
+        ? `Saved working copy ${result.recordId} at ${time}`
+        : `Created new copy ${result.recordId} at ${time}`
     );
+    setLastNamedCopySaveLabel(namedCopySaveLabel);
     dispatchStage({ type: "markClean" });
   };
   const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
@@ -1139,6 +1143,11 @@ export function LayoutEditorStage({
       <EditorCommandBar
         layoutLabel={stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout"}
         hasActiveFloorplan={activeFloorplan != null}
+        activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
+        activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
+        activePlanId={stageState.loadedFloorplan?.planId ?? null}
+        activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+        lastNamedCopySaveLabel={lastNamedCopySaveLabel}
         readOnly={stageState.readOnly}
         isDirty={stageState.isDirty}
         undoDisabled={stageState.history.past.length === 0}
@@ -1884,6 +1893,21 @@ function isEditableKeyboardTarget(target: EventTarget | null): boolean {
   }
   const tagName = target.tagName.toLowerCase();
   return tagName === "input" || tagName === "textarea" || tagName === "select" || target.isContentEditable;
+}
+
+function sourceKindDisplayLabel(
+  sourceKind: LayoutEditorFloorplanInput["sourceKind"] | null
+): string {
+  if (sourceKind === "saved-json") {
+    return "Saved working copy";
+  }
+  if (sourceKind === "review-candidate-json") {
+    return "Review candidate";
+  }
+  if (sourceKind === "default-json") {
+    return "Canonical default";
+  }
+  return "No active source";
 }
 
 function pixelsDeltaToFeet(

@@ -1,5 +1,10 @@
 export type EditorCommandBarViewModelInput = {
   hasActiveFloorplan: boolean;
+  activeCopyName: string;
+  activeRecordId: string | null;
+  activePlanId: string | null;
+  activeSourceLabel: string;
+  lastNamedCopySaveLabel: string;
   isDirty: boolean;
   readOnly: boolean;
   undoDisabled: boolean;
@@ -10,6 +15,12 @@ export type EditorCommandBarViewModelInput = {
 };
 
 export type EditorCommandBarViewModel = {
+  activeCopyName: string;
+  activeRecordIdLabel: string;
+  activePlanIdLabel: string;
+  activeSourceLabel: string;
+  lastNamedCopySaveLabel: string;
+  defaultWarningLabel: string | null;
   saveStatusLabel: string;
   dirtyStateLabel: string;
   modeLabel: string;
@@ -28,6 +39,11 @@ export type EditorCommandBarViewModel = {
 
 export function buildEditorCommandBarViewModel({
   hasActiveFloorplan,
+  activeCopyName,
+  activeRecordId,
+  activePlanId,
+  activeSourceLabel,
+  lastNamedCopySaveLabel,
   isDirty,
   readOnly,
   undoDisabled,
@@ -37,6 +53,14 @@ export function buildEditorCommandBarViewModel({
   saveStatus
 }: EditorCommandBarViewModelInput): EditorCommandBarViewModel {
   return {
+    activeCopyName,
+    activeRecordIdLabel: activeRecordId ?? "No active record",
+    activePlanIdLabel: activePlanId ?? "No active plan",
+    activeSourceLabel,
+    lastNamedCopySaveLabel,
+    defaultWarningLabel: readOnly
+      ? "Canonical default is read-only. Save working copy creates a saved editable copy."
+      : null,
     saveStatusLabel: saveStatus,
     dirtyStateLabel: isDirty ? "Draft changed" : "No unsaved edits",
     modeLabel: readOnly ? "Read-only" : "Editable",

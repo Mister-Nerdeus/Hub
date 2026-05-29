@@ -1,0 +1,53 @@
+{
+  "issue": "633",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-633/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-633/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-633/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-active-copy-identity.mjs --stage visible-identity --allow-partial --issue 633",
+      "outputs": [
+        "docs/verification/issues/issue-633/active-copy-identity-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-active-copy-identity.mjs --stage save-status-record-id --allow-partial --issue 633",
+      "outputs": [
+        "docs/verification/issues/issue-633/save-status-record-id-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-active-copy-identity.mjs --stage wrong-copy-negative --allow-partial --issue 633",
+      "outputs": [
+        "docs/verification/issues/issue-633/wrong-copy-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-active-copy-identity.mjs --stage same-copy-reopen --allow-partial --issue 633",
+      "outputs": [
+        "docs/verification/issues/issue-633/same-copy-reopen-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-633/no-phi-output.txt"
+      ]
+    }
+  ]
+}
