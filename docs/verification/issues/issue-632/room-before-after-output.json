@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "before": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 44,
+    "yFeet": 28,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "expected": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "afterReload": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "stage": "red-mode-detects-loss",
+  "issue": "632",
+  "checks": [
+    {
+      "name": "RED fixture detects stale saved room and door payload",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "failures": [
+          "room geometry reverted or changed after reload",
+          "door geometry reverted or changed after reload"
+        ]
+      }
+    }
+  ]
+}

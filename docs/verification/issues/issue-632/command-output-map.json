@@ -1,0 +1,59 @@
+{
+  "issue": "632",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-632/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-632/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-632/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-failure-repro.mjs --stage red-mode-detects-loss --allow-partial --issue 632",
+      "outputs": [
+        "docs/verification/issues/issue-632/red-mode-detection-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-failure-repro.mjs --stage browser-save-reload --allow-partial --issue 632",
+      "outputs": [
+        "docs/verification/issues/issue-632/green-mode-browser-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-failure-repro.mjs --stage room-move-compare --allow-partial --issue 632",
+      "outputs": [
+        "docs/verification/issues/issue-632/room-before-after-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-failure-repro.mjs --stage door-change-compare --allow-partial --issue 632",
+      "outputs": [
+        "docs/verification/issues/issue-632/door-before-after-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-failure-repro.mjs --stage same-record-reload --allow-partial --issue 632",
+      "outputs": [
+        "docs/verification/issues/issue-632/same-record-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-632/no-phi-output.txt"
+      ]
+    }
+  ]
+}

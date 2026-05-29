@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "same-record-reload",
+  "issue": "632",
+  "checks": [
+    {
+      "name": "reload opens exact same saved recordId",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "reopenedViaLibraryRecordId": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001"
+      }
+    }
+  ]
+}

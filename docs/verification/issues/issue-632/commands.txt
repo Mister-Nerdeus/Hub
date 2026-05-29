@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-save-failure-repro.mjs --stage red-mode-detects-loss --allow-partial --issue 632
+node scripts/check-layout-editor-save-failure-repro.mjs --stage browser-save-reload --allow-partial --issue 632
+node scripts/check-layout-editor-save-failure-repro.mjs --stage room-move-compare --allow-partial --issue 632
+node scripts/check-layout-editor-save-failure-repro.mjs --stage door-change-compare --allow-partial --issue 632
+node scripts/check-layout-editor-save-failure-repro.mjs --stage same-record-reload --allow-partial --issue 632
+node scripts/check-no-phi-fields.mjs
