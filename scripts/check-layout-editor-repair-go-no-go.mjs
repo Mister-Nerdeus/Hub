@@ -2,6 +2,7 @@
 import {
   addCheck,
   assertFile,
+  captureLayoutEditorRepairBrowserProof,
   ensureIssueDirs,
   loadManifest,
   readArg,
@@ -10,7 +11,6 @@ import {
   writeCloseout,
   writeCommands,
   writeJson,
-  writeProofPng,
   writeText,
   writeTextIfMissing
 } from "./lib/layout-editor-repair-batch-utils.mjs";
@@ -31,6 +31,13 @@ addCheck(checks, "provider/pharmacy room type passed", manifest.providerPharmacy
 addCheck(checks, "no claim boundary statuses remain not started", manifest.optimizerStatus === "not_started" && manifest.assignmentRecommendationStatus === "not_started" && manifest.clinicalSafetyScoringStatus === "not_started" && manifest.staffingComplianceStatus === "not_started" && manifest.patientOutcomePredictionStatus === "not_started");
 addCheck(checks, "manual approval and promotion remain blocked", manifest.manualApprovalStatus === "missing" && manifest.promotionStatus === "blocked");
 addCheck(checks, "required issue evidence exists", ["621", "622", "623", "624"].every((number) => assertFile(`docs/verification/issues/issue-${number}/closeout.md`) && assertFile(`docs/verification/issues/issue-${number}/commands.txt`)));
+const finalBrowserProof = await captureLayoutEditorRepairBrowserProof({
+  issue,
+  scenario: "final-editor",
+  screenshotName: "layout-editor-repair-final.png",
+  outputPath: `${dir}/final-browser-proof-output.json`
+});
+addCheck(checks, "final browser-rendered editor route is nonblank", finalBrowserProof.status === "passed" && finalBrowserProof.routeRenders && finalBrowserProof.stageRenders && finalBrowserProof.fatalErrors.length === 0, finalBrowserProof);
 
 const passed = statusFromChecks(checks) === "passed";
 const decision = passed ? "go_to_resume_human_manual_visual_review" : "not_ready";
@@ -50,8 +57,6 @@ Decision: ${passed ? "GO to resume human manual visual review." : "NO-GO."}
 
 Manual approval remains required. Promotion remains blocked.
 `);
-writeProofPng(`${dir}/screenshots/layout-editor-repair-final.png`, "neutral");
-
 updateManifest(issue, {
   layoutEditorRepairGoNoGoStatus: decision,
   goNoGoStatus: decision

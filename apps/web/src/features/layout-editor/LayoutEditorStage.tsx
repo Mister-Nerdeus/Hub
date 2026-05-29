@@ -292,16 +292,20 @@ export function LayoutEditorStage({
     if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
       return;
     }
-    saveLayoutLocalDraft(
-      localDraftStorage,
-      buildLayoutLocalDraftRecord({
-        editableLayout: stageState.editableLayout,
-        snapMode: stageState.snapMode,
-        viewport: stageState.viewport,
-        auditTrail: stageState.editAuditTrail,
-        isDirty: stageState.isDirty
-      })
-    );
+    try {
+      saveLayoutLocalDraft(
+        localDraftStorage,
+        buildLayoutLocalDraftRecord({
+          editableLayout: stageState.editableLayout,
+          snapMode: stageState.snapMode,
+          viewport: stageState.viewport,
+          auditTrail: stageState.editAuditTrail,
+          isDirty: stageState.isDirty
+        })
+      );
+    } catch {
+      // Live editor geometry may temporarily violate strict export validation while the user repairs doors.
+    }
   }, [
     localDraftStorage,
     stageState.editableLayout,

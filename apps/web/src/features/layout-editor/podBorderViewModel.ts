@@ -13,11 +13,16 @@ export function buildPodBorderViewModel(input: {
   if (input.layout == null) {
     return null;
   }
-  const border = generateAutoPodBorder({
-    layout: input.layout,
-    sourcePlanId: input.sourcePlanId,
-    paddingFeet: 4
-  });
+  let border: AutoPodBorder;
+  try {
+    border = generateAutoPodBorder({
+      layout: input.layout,
+      sourcePlanId: input.sourcePlanId,
+      paddingFeet: 4
+    });
+  } catch {
+    return null;
+  }
   return {
     ...border,
     rectPixels: rectFeetToPixels(border.boundsFeet, input.viewport)

@@ -8,9 +8,47 @@
       "detail": null
     },
     {
+      "name": "pod border generation cannot blank live render on strict door validation",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local draft autosave cannot blank live render on strict door validation",
+      "passed": true,
+      "detail": null
+    },
+    {
       "name": "stage exposes render and validation data attributes",
       "passed": true,
       "detail": null
+    },
+    {
+      "name": "browser-rendered editor route does not blank",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source": "browser-rendered-app",
+        "scenario": "narrow-room-stability",
+        "screenshots": [
+          "docs/verification/issues/issue-625/screenshots/narrow-room-5ft-stable.png",
+          "docs/verification/issues/issue-625/screenshots/narrow-room-4ft-stable.png"
+        ],
+        "serverLogLength": 236,
+        "routeRenders": true,
+        "stageRenders": true,
+        "renderItemCount": 77,
+        "roomRenderCount": 23,
+        "validationWarningCount": 7,
+        "roomVisible": true,
+        "doorVisible": true,
+        "doorInvalidVisible": true,
+        "validationPanelVisible": true,
+        "doorDeleteControlReachable": true,
+        "roomRemoveDoorsControlReachable": false,
+        "providerPharmacyVisible": false,
+        "bodyTextLength": 3665,
+        "fatalErrors": []
+      }
     }
   ]
 }

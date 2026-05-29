@@ -1,5 +1,11 @@
 {
   "status": "passed",
   "stage": "keyboard-delete",
-  "checks": []
+  "checks": [
+    {
+      "name": "Delete and Backspace remove selected doors without stealing form input keys",
+      "passed": true,
+      "detail": null
+    }
+  ]
 }

@@ -14,6 +14,7 @@ Door geometry safety added for narrow-room editor rendering.
 - node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage door-clamp --allow-partial --issue 622
 - node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-warning --allow-partial --issue 622
 - node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage render-no-throw --allow-partial --issue 622
+- node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage strict-export-validation --allow-partial --issue 622
 - node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage solid-wall-door-negative --allow-partial --issue 622
 - node scripts/check-no-phi-fields.mjs
 

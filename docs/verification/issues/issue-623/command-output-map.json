@@ -1,53 +1,47 @@
-{
-  "issue": "623",
-  "commands": [
-    {
-      "command": "npm --workspace packages/shared test",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/shared.txt"
-      ]
-    },
-    {
-      "command": "npm --workspace apps/web test",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/web.txt"
-      ]
-    },
-    {
-      "command": "npm --workspace apps/web run build",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/web-build.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-door-delete --allow-partial --issue 623",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/layout-editor-door-delete-ux.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/layout-editor-door-delete-ux.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/layout-editor-door-delete-ux.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623",
-      "outputs": [
-        "docs/verification/issues/issue-623/test-output/layout-editor-door-delete-ux.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-no-phi-fields.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-623/no-phi-output.txt"
-      ]
-    }
-  ]
-}
+[
+  {
+    "command": "npm --workspace packages/shared test",
+    "output": "docs/verification/issues/issue-623/test-output/shared.txt",
+    "exitCode": 0
+  },
+  {
+    "command": "npm --workspace apps/web test",
+    "output": "docs/verification/issues/issue-623/test-output/web.txt",
+    "exitCode": 0
+  },
+  {
+    "command": "npm --workspace apps/web run build",
+    "output": "docs/verification/issues/issue-623/test-output/web-build.txt",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-door-delete --allow-partial --issue 623",
+    "output": "docs/verification/issues/issue-623/selected-door-delete-output.json",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623",
+    "output": "docs/verification/issues/issue-623/selected-room-remove-doors-output.json",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623",
+    "output": "docs/verification/issues/issue-623/invalid-door-delete-output.json",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623",
+    "output": "docs/verification/issues/issue-623/warning-cleanup-output.json",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-layout-editor-door-delete-ux.mjs --stage keyboard-delete --allow-partial --issue 623",
+    "output": "docs/verification/issues/issue-623/keyboard-delete-output.json",
+    "exitCode": 0
+  },
+  {
+    "command": "node scripts/check-no-phi-fields.mjs",
+    "output": "docs/verification/issues/issue-623/no-phi-output.txt",
+    "exitCode": 0
+  }
+]

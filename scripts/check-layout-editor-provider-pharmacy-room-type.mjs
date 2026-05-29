@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {
   addCheck,
+  captureLayoutEditorRepairBrowserProof,
   ensureIssueDirs,
   readArg,
   readText,
@@ -10,7 +11,6 @@ import {
   writeCloseout,
   writeCommands,
   writeJson,
-  writeProofPng,
   writeText,
   writeTextIfMissing
 } from "./lib/layout-editor-repair-batch-utils.mjs";
@@ -20,6 +20,7 @@ const issue = readArg("--issue", "624");
 const dir = `docs/verification/issues/issue-${issue}`;
 const stages = ["room-type-contract", "mapping", "non-patient-eligibility", "export-import-persistence", "no-task-generation", "rendered-editor"];
 const checks = [];
+let providerPharmacyBrowserProof = null;
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
@@ -33,7 +34,7 @@ const webTest = readText("apps/web/src/features/layout-editor/__tests__/provider
 const sharedTest = readText("packages/shared/tests/provider-pharmacy-room-type.test.mjs");
 const menu = readText("apps/web/src/features/layout-editor/addObjectMenuViewModel.ts");
 
-for (const currentStage of stage === "final" ? stages : [stage]) runStage(currentStage);
+for (const currentStage of stage === "final" ? stages : [stage]) await runStage(currentStage);
 const status = statusFromChecks(checks);
 
 if (status === "passed") {
@@ -76,7 +77,7 @@ writeCloseout(issue, "Provider/pharmacy room type is editable, persistent, and e
 console.log(JSON.stringify({ status, stage, issue, checks }, null, 2));
 if (status !== "passed") process.exit(1);
 
-function runStage(currentStage) {
+async function runStage(currentStage) {
   if (currentStage === "room-type-contract") {
     addCheck(checks, "editable and plan room contracts include provider_pharmacy", editableContract.includes('"provider_pharmacy"') && contracts.includes('"provider_pharmacy"'));
     writeJson(`${dir}/provider-pharmacy-room-type-output.json`, { status: statusFromChecks(checks), editableRoomTypeExists: true });
@@ -100,7 +101,18 @@ function runStage(currentStage) {
   }
   if (currentStage === "rendered-editor") {
     addCheck(checks, "provider_pharmacy is available in placement/editor UI and muted legend", menu.includes("provider_pharmacy") && webTest.includes("Provider / pharmacy support"));
+    const proof = await ensureProviderPharmacyBrowserProof();
+    addCheck(checks, "browser-rendered editor can assign provider/pharmacy room type", proof.status === "passed" && proof.providerPharmacyVisible && proof.fatalErrors.length === 0, proof);
     writeJson(`${dir}/rendered-room-type-editor-output.json`, { status: statusFromChecks(checks), renderedEditorOption: true });
-    writeProofPng(`${dir}/screenshots/provider-pharmacy-room-type.png`, "green");
   }
+}
+
+async function ensureProviderPharmacyBrowserProof() {
+  providerPharmacyBrowserProof ??= await captureLayoutEditorRepairBrowserProof({
+    issue,
+    scenario: "provider-pharmacy-editor",
+    screenshotName: "provider-pharmacy-room-type.png",
+    outputPath: `${dir}/rendered-room-type-editor-browser-output.json`
+  });
+  return providerPharmacyBrowserProof;
 }

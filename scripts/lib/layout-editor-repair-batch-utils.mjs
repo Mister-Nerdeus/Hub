@@ -1,6 +1,12 @@
 import { deflateSync } from "node:zlib";
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import {
+  assertBrowserPng,
+  delay,
+  waitForExpression,
+  withBrowserRenderedApp
+} from "./app-browser-proof.mjs";
 
 export const repoRoot = process.cwd();
 export const manifestPath = "docs/verification/layout-editor-narrow-room-door-provider-pharmacy-manifest.json";
@@ -189,6 +195,118 @@ export function writeProofPng(path, palette = "green") {
   writeBinaryPng(path, raw, width, height);
 }
 
+export async function captureLayoutEditorRepairBrowserProof({
+  issue,
+  scenario,
+  screenshotName,
+  outputPath
+}) {
+  const issueNumber = Number(issue);
+  const offset = scenarioPortOffset(scenario);
+  const dir = `docs/verification/issues/issue-${issue}`;
+  const screenshotPath = `${dir}/screenshots/${screenshotName}`;
+  const initScript = `
+    (() => {
+      const errors = [];
+      Object.defineProperty(window, "__layoutEditorRepairBrowserErrors", { value: errors, configurable: true });
+      window.addEventListener("error", (event) => errors.push(String(event.message || event.error || "error")));
+      window.addEventListener("unhandledrejection", (event) => errors.push(String(event.reason || "unhandled rejection")));
+      const originalConsoleError = console.error.bind(console);
+      console.error = (...args) => {
+        errors.push(args.map((item) => String(item)).join(" "));
+        originalConsoleError(...args);
+      };
+      try {
+        sessionStorage.setItem("nerdeus.workspaceAccess.sessionUnlock.v1", JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));
+      } catch {}
+    })();
+  `;
+  const proof = await withBrowserRenderedApp({
+    port: 7620 + (Number.isFinite(issueNumber) ? issueNumber - 600 : 0) + offset,
+    chromePort: 10620 + (Number.isFinite(issueNumber) ? issueNumber - 600 : 0) + offset,
+    width: 1440,
+    height: 1100,
+    initScript
+  }, async (browser) => {
+    await browser.navigate(
+      `${browser.baseUrl}/?section=editor#layout-editor-stage-title`,
+      `document.querySelector(".layout-editor-stage__svg") != null`
+    );
+    await waitForExpression(browser, `document.querySelector(".layout-editor-stage__svg")?.dataset.renderItemCount !== "0"`);
+    await ensureEditableEditor(browser);
+    if (scenario === "narrow-room-stability") {
+      await openRoomPopover(browser);
+      await setRoomDimension(browser, "width", 5);
+      await browser.screenshot(abs(`${dir}/screenshots/narrow-room-5ft-stable.png`));
+      await setRoomDimension(browser, "width", 4);
+      await setRoomDimension(browser, "height", 4);
+      await browser.screenshot(abs(`${dir}/screenshots/narrow-room-4ft-stable.png`));
+      await clickDoor(browser);
+      await waitForExpression(browser, `document.querySelector(".door-quick-edit-popover") != null`);
+    } else if (scenario === "door-warning") {
+      await openRoomPopover(browser);
+      await setRoomDimension(browser, "width", 4);
+      await setRoomDimension(browser, "height", 4);
+      await clickDoor(browser);
+      await waitForExpression(browser, `document.querySelector('[data-door-invalid="true"]') != null`);
+      await browser.screenshot(abs(screenshotPath));
+    } else if (scenario === "door-delete-control") {
+      await clickDoor(browser);
+      await waitForExpression(browser, `document.querySelector(".door-quick-edit-popover")?.textContent.includes("Delete door") === true`);
+      await browser.screenshot(abs(screenshotPath));
+    } else if (scenario === "provider-pharmacy-editor") {
+      await openRoomPopover(browser);
+      await selectRoomType(browser, "provider_pharmacy");
+      await waitForExpression(browser, `document.querySelector('[data-room-type="provider_pharmacy"]') != null`);
+      await browser.screenshot(abs(screenshotPath));
+    } else if (scenario === "final-editor") {
+      await browser.screenshot(abs(screenshotPath));
+    } else {
+      throw new Error(`unsupported layout editor browser proof scenario: ${scenario}`);
+    }
+
+    const result = await browser.evaluate(`(() => {
+      const svg = document.querySelector(".layout-editor-stage__svg");
+      const room = document.querySelector('[data-layout-object-type="room"]');
+      const door = document.querySelector('[data-layout-object-type="door"]');
+      return {
+        routeRenders: document.querySelector('[aria-labelledby="editor-title"]') != null,
+        stageRenders: svg != null,
+        renderItemCount: Number(svg?.dataset.renderItemCount || 0),
+        roomRenderCount: Number(svg?.dataset.roomRenderCount || 0),
+        validationWarningCount: Number(svg?.dataset.validationWarningCount || 0),
+        roomVisible: room != null,
+        doorVisible: door != null,
+        doorInvalidVisible: document.querySelector('[data-door-invalid="true"]') != null,
+        validationPanelVisible: document.querySelector("[data-validation-panel], .validation-drawer") != null,
+        doorDeleteControlReachable: document.body.textContent.includes("Delete door"),
+        roomRemoveDoorsControlReachable: document.body.textContent.includes("Remove attached doors"),
+        providerPharmacyVisible: document.querySelector('[data-room-type="provider_pharmacy"]') != null,
+        bodyTextLength: document.body.textContent.length,
+        fatalErrors: window.__layoutEditorRepairBrowserErrors || []
+      };
+    })();`);
+    return result;
+  });
+
+  const screenshotTargets = scenario === "narrow-room-stability"
+    ? [`${dir}/screenshots/narrow-room-5ft-stable.png`, `${dir}/screenshots/narrow-room-4ft-stable.png`]
+    : [screenshotPath];
+  for (const target of screenshotTargets) {
+    assertBrowserPng(abs(target));
+  }
+  const output = {
+    status: proof.result.routeRenders && proof.result.stageRenders && proof.result.fatalErrors.length === 0 ? "passed" : "failed",
+    source: "browser-rendered-app",
+    scenario,
+    screenshots: screenshotTargets,
+    serverLogLength: proof.serverLog.length,
+    ...proof.result
+  };
+  writeJson(outputPath ?? `${dir}/${scenario}-browser-proof-output.json`, output);
+  return output;
+}
+
 export function assertFile(path, minBytes = 1) {
   return existsSync(abs(path)) && statSync(abs(path)).size >= minBytes;
 }
@@ -205,6 +323,107 @@ function writeBinaryPng(path, raw, width, height) {
     pngChunk("IDAT", deflateSync(raw)),
     pngChunk("IEND", Buffer.alloc(0))
   ]));
+}
+
+function scenarioPortOffset(scenario) {
+  switch (scenario) {
+    case "narrow-room-stability":
+      return 0;
+    case "door-warning":
+      return 100;
+    case "door-delete-control":
+      return 200;
+    case "provider-pharmacy-editor":
+      return 300;
+    case "final-editor":
+      return 400;
+    default:
+      return 500;
+  }
+}
+
+async function openRoomPopover(browser) {
+  await clickSelector(browser, '[data-layout-object-type="room"]');
+  await waitForExpression(browser, `document.querySelector(".room-quick-edit-popover")?.textContent.includes("Width") === true`);
+}
+
+async function ensureEditableEditor(browser) {
+  const readOnly = await browser.evaluate(`document.querySelector(".layout-editor-stage__svg")?.dataset.readOnly === "true"`);
+  if (!readOnly) return;
+  await clickButtonText(browser, "Create working copy", { allowDisabled: false });
+  await waitForExpression(browser, `document.querySelector(".layout-editor-stage__svg")?.dataset.readOnly === "false"`, 20_000);
+  await delay(250);
+}
+
+async function clickDoor(browser) {
+  await clickSelector(browser, '[data-layout-object-type="door"]');
+}
+
+async function setRoomDimension(browser, axis, targetFeet) {
+  const buttonText = axis === "width" ? "-W" : "-H";
+  for (let attempt = 0; attempt < 40; attempt += 1) {
+    const current = await readRoomDimension(browser, axis);
+    if (current == null) {
+      await openRoomPopover(browser);
+      await delay(100);
+      continue;
+    }
+    if (current === targetFeet) return;
+    if (current < targetFeet) {
+      throw new Error(`room ${axis} reached ${current} ft before target ${targetFeet} ft`);
+    }
+    await clickButtonText(browser, buttonText);
+    await delay(100);
+  }
+  const current = await readRoomDimension(browser, axis);
+  throw new Error(`room ${axis} did not reach ${targetFeet} ft; current ${current} ft`);
+}
+
+async function readRoomDimension(browser, axis) {
+  const label = axis === "width" ? "Width" : "Height";
+  return browser.evaluate(`(() => {
+    const text = document.querySelector(".room-quick-edit-popover")?.textContent || "";
+    const match = new RegExp(${JSON.stringify(`${label}\\s+(\\d+(?:\\.\\d+)?)\\s*ft`)}).exec(text);
+    if (match != null) return Number(match[1]);
+    const rect = document.querySelector(".layout-editor-stage__room--selected rect");
+    if (rect == null) return null;
+    const pixels = Number(rect.getAttribute(${JSON.stringify(axis === "width" ? "width" : "height")}));
+    return Number.isFinite(pixels) ? pixels / 12 : null;
+  })();`);
+}
+
+async function selectRoomType(browser, roomType) {
+  const selected = await browser.evaluate(`(() => {
+    const select = document.querySelector(".room-quick-edit-popover select");
+    if (!(select instanceof HTMLSelectElement)) return false;
+    select.value = ${JSON.stringify(roomType)};
+    select.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+  })();`);
+  if (!selected) throw new Error(`room type select was not available for ${roomType}`);
+  await delay(150);
+}
+
+async function clickButtonText(browser, text, options = {}) {
+  const clicked = await browser.evaluate(`(() => {
+    const button = [...document.querySelectorAll("button")]
+      .find((candidate) => candidate.textContent.trim() === ${JSON.stringify(text)} && (${options.allowDisabled ? "true" : "!candidate.disabled"}));
+    if (button == null) return false;
+    button.click();
+    return true;
+  })();`);
+  if (!clicked) throw new Error(`button was not available: ${text}`);
+}
+
+async function clickSelector(browser, selector) {
+  const clicked = await browser.evaluate(`(() => {
+    const element = document.querySelector(${JSON.stringify(selector)});
+    if (element == null) return false;
+    element.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window }));
+    return true;
+  })();`);
+  if (!clicked) throw new Error(`selector was not available: ${selector}`);
+  await delay(150);
 }
 
 function pngChunk(type, data) {

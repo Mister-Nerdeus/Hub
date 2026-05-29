@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {
   addCheck,
+  captureLayoutEditorRepairBrowserProof,
   ensureIssueDirs,
   readArg,
   readText,
@@ -10,15 +11,15 @@ import {
   writeCloseout,
   writeCommands,
   writeJson,
-  writeProofPng,
   writeTextIfMissing
 } from "./lib/layout-editor-repair-batch-utils.mjs";
 
 const stage = readArg("--stage", "final");
 const issue = readArg("--issue", "623");
 const dir = `docs/verification/issues/issue-${issue}`;
-const stages = ["selected-door-delete", "selected-room-remove-doors", "invalid-door-delete", "warning-cleanup"];
+const stages = ["selected-door-delete", "selected-room-remove-doors", "invalid-door-delete", "warning-cleanup", "keyboard-delete"];
 const checks = [];
+let doorDeleteBrowserProof = null;
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
@@ -31,7 +32,7 @@ const doorPopover = readText("apps/web/src/features/layout-editor/DoorQuickEditP
 const stageSource = readText("apps/web/src/features/layout-editor/LayoutEditorStage.tsx");
 const tests = readText("apps/web/src/features/layout-editor/__tests__/doorDeleteUx.test.ts");
 
-for (const currentStage of stage === "final" ? stages : [stage]) runStage(currentStage);
+for (const currentStage of stage === "final" ? stages : [stage]) await runStage(currentStage);
 const status = statusFromChecks(checks);
 
 if (status === "passed") {
@@ -41,8 +42,8 @@ if (status === "passed") {
     selectedRoomDoorsCanBeRemoved: true
   });
 }
-writeJson(`${dir}/keyboard-delete-output.json`, { status: stageSource.includes("Backspace") && stageSource.includes("Delete") ? "passed" : "failed" });
-writeJson(`${dir}/rendered-delete-control-output.json`, { status, controls: ["Door editor Delete door", "Door quick edit Delete door", "Room quick edit Remove attached doors"] });
+writeJson(`${dir}/keyboard-delete-output.json`, { status: stageSource.includes("Backspace") && stageSource.includes("Delete") && stageSource.includes("isEditableKeyboardTarget") ? "passed" : "failed", formInputGuard: stageSource.includes("isEditableKeyboardTarget") });
+writeJson(`${dir}/rendered-delete-control-output.json`, { status, controls: ["Door editor Delete door", "Door quick edit Delete door", "Room quick edit Remove attached doors"], browserProof: doorDeleteBrowserProof });
 writeJson(`${dir}/test-output/layout-editor-door-delete-ux.txt`, { status, stage, checks });
 
 const commands = [
@@ -53,6 +54,7 @@ const commands = [
   "node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623",
   "node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623",
   "node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623",
+  "node scripts/check-layout-editor-door-delete-ux.mjs --stage keyboard-delete --allow-partial --issue 623",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, "layout-editor-door-delete-ux.txt");
@@ -60,12 +62,13 @@ writeCloseout(issue, "Door removal UX now covers selected doors and selected roo
 console.log(JSON.stringify({ status, stage, issue, checks }, null, 2));
 if (status !== "passed") process.exit(1);
 
-function runStage(currentStage) {
+async function runStage(currentStage) {
   if (currentStage === "selected-door-delete") {
     addCheck(checks, "selected door deletion is reducer-local and strict-validation safe", reducer.includes("deleteDoorFromState") && tests.includes("deleteDoor"));
     addCheck(checks, "door delete controls are rendered", doorEditor.includes("Delete door") && doorPopover.includes("Delete door"));
+    const proof = await ensureDoorDeleteBrowserProof();
+    addCheck(checks, "browser-rendered selected door delete control is reachable", proof.status === "passed" && proof.doorDeleteControlReachable && proof.fatalErrors.length === 0, proof);
     writeJson(`${dir}/selected-door-delete-output.json`, { status: statusFromChecks(checks), selectedDoorCanBeRemoved: true });
-    writeProofPng(`${dir}/screenshots/door-delete-control.png`, "neutral");
   }
   if (currentStage === "selected-room-remove-doors") {
     addCheck(checks, "selected room remove attached doors action exists", reducer.includes("removeSelectedRoomDoors") && roomPopover.includes("Remove attached doors"));
@@ -79,4 +82,18 @@ function runStage(currentStage) {
     addCheck(checks, "door-specific warnings are removed on delete", reducer.includes("relatedObjectId !== doorId") && tests.includes("relatedObjectId === invalidDoor.id"));
     writeJson(`${dir}/warning-cleanup-output.json`, { status: statusFromChecks(checks), doorWarningsCleared: true });
   }
+  if (currentStage === "keyboard-delete") {
+    addCheck(checks, "Delete and Backspace remove selected doors without stealing form input keys", stageSource.includes("Backspace") && stageSource.includes("Delete") && stageSource.includes("isEditableKeyboardTarget"));
+    writeJson(`${dir}/keyboard-delete-output.json`, { status: statusFromChecks(checks), keyboardDelete: true, formInputGuard: true });
+  }
+}
+
+async function ensureDoorDeleteBrowserProof() {
+  doorDeleteBrowserProof ??= await captureLayoutEditorRepairBrowserProof({
+    issue,
+    scenario: "door-delete-control",
+    screenshotName: "door-delete-control.png",
+    outputPath: `${dir}/rendered-delete-control-output.json`
+  });
+  return doorDeleteBrowserProof;
 }

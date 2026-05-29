@@ -14,6 +14,7 @@ Door removal UX now covers selected doors and selected rooms with attached doors
 - node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623
 - node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623
 - node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623
+- node scripts/check-layout-editor-door-delete-ux.mjs --stage keyboard-delete --allow-partial --issue 623
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
