@@ -164,6 +164,13 @@ type RoomDragState = {
   accumulator: RoomDragSnapAccumulator;
 };
 
+type StationDragState = {
+  stationId: string;
+  lastClientX: number;
+  lastClientY: number;
+  accumulator: RoomDragSnapAccumulator;
+};
+
 type RoomResizeState = {
   roomId: string;
   handle: RoomResizeHandle;
@@ -252,6 +259,7 @@ export function LayoutEditorStage({
   const [simulationReadyExportResult, setSimulationReadyExportResult] =
     useState<SimulationReadyExportResult | null>(null);
   const roomDragRef = useRef<RoomDragState | null>(null);
+  const stationDragRef = useRef<StationDragState | null>(null);
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const canvasPanRef = useRef<CanvasPanState | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
@@ -496,6 +504,19 @@ export function LayoutEditorStage({
     }
     roomDragRef.current = {
       roomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY,
+      accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const startStationMove = (stationId: string, event: PointerEvent<SVGGElement>) => {
+    selectStageObject("station", stationId);
+    if (stageState.readOnly || editorMode !== "edit") {
+      return;
+    }
+    stationDragRef.current = {
+      stationId,
       lastClientX: event.clientX,
       lastClientY: event.clientY,
       accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
@@ -806,6 +827,41 @@ export function LayoutEditorStage({
   const endRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
     if (roomDragRef.current?.roomId === roomId) {
       roomDragRef.current = null;
+    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+  const moveStation = (stationId: string, event: PointerEvent<SVGGElement>) => {
+    const drag = stationDragRef.current;
+    if (drag == null || drag.stationId !== stationId) {
+      return;
+    }
+
+    const deltaXFeet = pixelsDeltaToFeet(event.clientX - drag.lastClientX, stageState.viewport);
+    const deltaYFeet = pixelsDeltaToFeet(event.clientY - drag.lastClientY, stageState.viewport);
+    const accumulation = accumulateRoomDragDelta(drag.accumulator, { deltaXFeet, deltaYFeet });
+
+    stationDragRef.current = {
+      stationId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY,
+      accumulator: accumulation.accumulator
+    };
+
+    if (accumulation.emittedDelta.deltaXFeet === 0 && accumulation.emittedDelta.deltaYFeet === 0) {
+      return;
+    }
+
+    dispatchStage({
+      type: "moveStation",
+      stationId,
+      ...accumulation.emittedDelta
+    });
+  };
+  const endStationMove = (stationId: string, event: PointerEvent<SVGGElement>) => {
+    if (stationDragRef.current?.stationId === stationId) {
+      stationDragRef.current = null;
     }
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
       event.currentTarget.releasePointerCapture(event.pointerId);
@@ -1298,6 +1354,9 @@ export function LayoutEditorStage({
                     selectedObjectId: stageState.selectedObjectId
                   })}
                   onSelect={selectStageObject}
+                  onMoveStart={editorMode === "edit" ? startStationMove : undefined}
+                  onMove={editorMode === "edit" ? moveStation : undefined}
+                  onMoveEnd={editorMode === "edit" ? endStationMove : undefined}
                 />
               ))}
             </g>

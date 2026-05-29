@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-station-move.mjs --stage move-station --allow-partial --issue 628
+node scripts/check-layout-editor-station-move.mjs --stage undo-redo --allow-partial --issue 628
+node scripts/check-layout-editor-station-move.mjs --stage autosave --allow-partial --issue 628
+node scripts/check-layout-editor-station-move.mjs --stage export-import --allow-partial --issue 628
+node scripts/check-layout-editor-station-move.mjs --stage save-reload --allow-partial --issue 628
+node scripts/check-layout-editor-station-move.mjs --stage read-only-negative --allow-partial --issue 628
+node scripts/check-no-phi-fields.mjs

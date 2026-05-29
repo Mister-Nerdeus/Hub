@@ -12,6 +12,7 @@ export type ApplyLayoutEditEffectsInput = {
 
 const DELTA_PREVIEW_TRIGGERING_EDIT_TYPES = [
   "move_room",
+  "station_moved",
   "resize_room",
   "edit_room_dimensions"
 ] as const;
@@ -59,6 +60,7 @@ export function getLatestDeltaPreviewEdit(
 export function isNoOpLayoutEdit(entry: LayoutEditAuditEntry): boolean {
   switch (entry.editType) {
     case "move_room":
+    case "station_moved":
       return entry.deltaFeet.deltaXFeet === 0 && entry.deltaFeet.deltaYFeet === 0;
     case "resize_room":
     case "edit_room_dimensions":

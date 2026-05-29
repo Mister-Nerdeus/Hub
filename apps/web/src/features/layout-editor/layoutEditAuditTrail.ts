@@ -20,6 +20,7 @@ export type LayoutEditAuditResizeDeltaFeet = LayoutEditAuditDeltaFeet & {
 
 export const LAYOUT_EDIT_AUDIT_ENTRY_TYPES = [
   "move_room",
+  "station_moved",
   "resize_room",
   "edit_room_dimensions"
 ] as const;
@@ -30,6 +31,18 @@ export type LayoutRoomMoveAuditEntry = {
   editId: string;
   editType: "move_room";
   objectType: "room";
+  objectId: string;
+  before: LayoutEditAuditPointFeet;
+  after: LayoutEditAuditPointFeet;
+  deltaFeet: LayoutEditAuditDeltaFeet;
+  createdAtOrder: number;
+  limitations: string[];
+};
+
+export type LayoutStationMoveAuditEntry = {
+  editId: string;
+  editType: "station_moved";
+  objectType: "station";
   objectId: string;
   before: LayoutEditAuditPointFeet;
   after: LayoutEditAuditPointFeet;
@@ -66,11 +79,20 @@ export type LayoutRoomDimensionEditAuditEntry = {
 
 export type LayoutEditAuditEntry =
   | LayoutRoomMoveAuditEntry
+  | LayoutStationMoveAuditEntry
   | LayoutRoomResizeAuditEntry
   | LayoutRoomDimensionEditAuditEntry;
 
 export type CreateRoomMoveAuditEntryInput = {
   roomId: string;
+  before: LayoutEditAuditPointFeet;
+  after: LayoutEditAuditPointFeet;
+  deltaFeet: LayoutEditAuditDeltaFeet;
+  createdAtOrder: number;
+};
+
+export type CreateStationMoveAuditEntryInput = {
+  stationId: string;
   before: LayoutEditAuditPointFeet;
   after: LayoutEditAuditPointFeet;
   deltaFeet: LayoutEditAuditDeltaFeet;
@@ -113,6 +135,27 @@ export function createRoomMoveAuditEntry({
     editType: "move_room",
     objectType: "room",
     objectId: requireString(roomId, "roomId"),
+    before: normalizePoint(before, "before"),
+    after: normalizePoint(after, "after"),
+    deltaFeet: normalizeDelta(deltaFeet),
+    createdAtOrder: order,
+    limitations: [...ROOM_MOVE_AUDIT_LIMITATIONS]
+  };
+}
+
+export function createStationMoveAuditEntry({
+  stationId,
+  before,
+  after,
+  deltaFeet,
+  createdAtOrder
+}: CreateStationMoveAuditEntryInput): LayoutStationMoveAuditEntry {
+  const order = requirePositiveInteger(createdAtOrder, "createdAtOrder");
+  return {
+    editId: `layout-edit-${order.toString().padStart(6, "0")}`,
+    editType: "station_moved",
+    objectType: "station",
+    objectId: requireString(stationId, "stationId"),
     before: normalizePoint(before, "before"),
     after: normalizePoint(after, "after"),
     deltaFeet: normalizeDelta(deltaFeet),

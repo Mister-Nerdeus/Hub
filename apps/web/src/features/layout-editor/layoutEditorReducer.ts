@@ -41,7 +41,8 @@ import {
 import {
   createRoomDimensionEditAuditEntry,
   createRoomMoveAuditEntry,
-  createRoomResizeAuditEntry
+  createRoomResizeAuditEntry,
+  createStationMoveAuditEntry
 } from "./layoutEditAuditTrail";
 import { applyLayoutEditEffects } from "./layoutEditEffects";
 import { selectEditableLayoutObject } from "./layoutSelectionModel";
@@ -54,6 +55,7 @@ import {
   replaceGeneratedWarningsBySources
 } from "./layoutWarningRecalculation";
 import { moveRoomByDeltaFeet } from "./roomDragMove";
+import { moveStationByDeltaFeet } from "./stationDragMove";
 import {
   editSelectedRoomDimensionsInLayout,
   type RoomInspectorDimensionChanges
@@ -92,6 +94,7 @@ export type LayoutEditorAction =
   | { type: "fitViewport" }
   | { type: "setSnapMode"; snapMode: LayoutEditorSnapMode }
   | { type: "moveRoom"; roomId: string; deltaXFeet: number; deltaYFeet: number }
+  | { type: "moveStation"; stationId: string; deltaXFeet: number; deltaYFeet: number }
   | {
       type: "resizeRoom";
       roomId: string;
@@ -256,6 +259,11 @@ export function layoutEditorReducer(
       };
     case "moveRoom":
       return moveRoom(state, action.roomId, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
+    case "moveStation":
+      return moveStation(state, action.stationId, {
         deltaXFeet: action.deltaXFeet,
         deltaYFeet: action.deltaYFeet
       });
@@ -1157,6 +1165,58 @@ function moveRoom(
       }),
       selectedObjectType: "room",
       selectedObjectId: roomId,
+      auditEntry
+    })
+  );
+}
+
+function moveStation(
+  state: LayoutEditorState,
+  stationId: string,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.readOnly) {
+    return state;
+  }
+  if (state.editableLayout == null) {
+    return state;
+  }
+
+  const beforeStation = state.editableLayout.stations.find((station) => station.id === stationId);
+  if (beforeStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+  const movedLayout = moveStationByDeltaFeet({
+    layout: state.editableLayout,
+    stationId,
+    delta,
+    snapMode: state.snapMode,
+    boundsFeet: state.layoutBoundsFeet
+  });
+  const afterStation = movedLayout.stations.find((station) => station.id === stationId);
+  if (afterStation == null) {
+    throw new Error(`unknown station: ${stationId}`);
+  }
+
+  const auditEntry = createStationMoveAuditEntry({
+    stationId,
+    before: { xFeet: beforeStation.xFeet, yFeet: beforeStation.yFeet },
+    after: { xFeet: afterStation.xFeet, yFeet: afterStation.yFeet },
+    deltaFeet: {
+      deltaXFeet: afterStation.xFeet - beforeStation.xFeet,
+      deltaYFeet: afterStation.yFeet - beforeStation.yFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+
+  return withUndoHistory(
+    state,
+    applyLayoutEditEffects({
+      state,
+      editableLayout: movedLayout,
+      validationWarnings: state.validationWarnings,
+      selectedObjectType: "station",
+      selectedObjectId: stationId,
       auditEntry
     })
   );

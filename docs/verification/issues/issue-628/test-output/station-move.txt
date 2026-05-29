@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "628",
+  "checks": [
+    {
+      "name": "station drag handlers dispatch station geometry movement",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station movement writes undoable audit history",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station movement is eligible for scoped local draft autosave",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "moved station geometry persists through export/import bridge",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "moved station geometry persists through saved copy reload",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station movement is blocked for read-only or non-edit views",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "station movement does not mutate room capacity or room counts",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

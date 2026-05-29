@@ -2,6 +2,7 @@ import {
   createRoomDimensionEditAuditEntry,
   createRoomMoveAuditEntry,
   createRoomResizeAuditEntry,
+  createStationMoveAuditEntry,
   LAYOUT_EDIT_AUDIT_ENTRY_TYPES
 } from "./layoutEditAuditTrail";
 
@@ -15,6 +16,7 @@ const assert = {
 
 assert.deepEqual([...LAYOUT_EDIT_AUDIT_ENTRY_TYPES], [
   "move_room",
+  "station_moved",
   "resize_room",
   "edit_room_dimensions"
 ]);
@@ -44,16 +46,40 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
+  createStationMoveAuditEntry({
+    stationId: "station-primary",
+    before: { xFeet: 40, yFeet: 12 },
+    after: { xFeet: 42, yFeet: 13 },
+    deltaFeet: { deltaXFeet: 2, deltaYFeet: 1 },
+    createdAtOrder: 2
+  }),
+  {
+    editId: "layout-edit-000002",
+    editType: "station_moved",
+    objectType: "station",
+    objectId: "station-primary",
+    before: { xFeet: 40, yFeet: 12 },
+    after: { xFeet: 42, yFeet: 13 },
+    deltaFeet: { deltaXFeet: 2, deltaYFeet: 1 },
+    createdAtOrder: 2,
+    limitations: [
+      "Audit entry describes an operational layout edit only.",
+      "Undo, redo, persistence, path sync, and simulation rerun are not performed."
+    ]
+  }
+);
+
+assert.deepEqual(
   createRoomResizeAuditEntry({
     roomId: "room-14",
     resizeHandle: "southeast",
     before: { xFeet: 10, yFeet: 8, widthFeet: 12, heightFeet: 10 },
     after: { xFeet: 10, yFeet: 8, widthFeet: 14, heightFeet: 11 },
     deltaFeet: { deltaXFeet: 0, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: 1 },
-    createdAtOrder: 2
+    createdAtOrder: 3
   }),
   {
-    editId: "layout-edit-000002",
+    editId: "layout-edit-000003",
     editType: "resize_room",
     objectType: "room",
     objectId: "room-14",
@@ -61,7 +87,7 @@ assert.deepEqual(
     before: { xFeet: 10, yFeet: 8, widthFeet: 12, heightFeet: 10 },
     after: { xFeet: 10, yFeet: 8, widthFeet: 14, heightFeet: 11 },
     deltaFeet: { deltaXFeet: 0, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: 1 },
-    createdAtOrder: 2,
+    createdAtOrder: 3,
     limitations: [
       "Audit entry describes an operational layout edit only.",
       "Undo, redo, persistence, path sync, and simulation rerun are not performed."
@@ -76,10 +102,10 @@ assert.deepEqual(
     after: { xFeet: 11, yFeet: 8, widthFeet: 14, heightFeet: 9 },
     deltaFeet: { deltaXFeet: 1, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: -1 },
     changedFields: ["widthFeet", "xFeet", "heightFeet"],
-    createdAtOrder: 3
+    createdAtOrder: 4
   }),
   {
-    editId: "layout-edit-000003",
+    editId: "layout-edit-000004",
     editType: "edit_room_dimensions",
     objectType: "room",
     objectId: "room-14",
@@ -87,7 +113,7 @@ assert.deepEqual(
     after: { xFeet: 11, yFeet: 8, widthFeet: 14, heightFeet: 9 },
     deltaFeet: { deltaXFeet: 1, deltaYFeet: 0, deltaWidthFeet: 2, deltaHeightFeet: -1 },
     changedFields: ["heightFeet", "widthFeet", "xFeet"],
-    createdAtOrder: 3,
+    createdAtOrder: 4,
     limitations: [
       "Audit entry describes an operational layout edit only.",
       "Undo, redo, persistence, path sync, and simulation rerun are not performed."

@@ -1,0 +1,65 @@
+{
+  "issue": "628",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-628/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-628/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-628/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage move-station --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/station-move-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage undo-redo --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/station-move-undo-redo-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage autosave --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/station-move-autosave-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage export-import --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/station-move-export-import-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage save-reload --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/station-move-save-reload-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage read-only-negative --allow-partial --issue 628",
+      "outputs": [
+        "docs/verification/issues/issue-628/read-only-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-628/no-phi-output.txt"
+      ]
+    }
+  ]
+}

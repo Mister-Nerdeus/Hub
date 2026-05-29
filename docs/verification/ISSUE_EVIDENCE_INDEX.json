@@ -20958,8 +20958,34 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "628",
+      "title": "Floorplan Editor Nurse Station Move Support",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-628/closeout.md",
+        "docs/verification/issues/issue-628/commands.txt",
+        "docs/verification/issues/issue-628/command-output-map.json",
+        "docs/verification/issues/issue-628/first-failure.txt",
+        "docs/verification/issues/issue-628/station-move-output.json",
+        "docs/verification/issues/issue-628/station-move-undo-redo-output.json",
+        "docs/verification/issues/issue-628/station-move-autosave-output.json",
+        "docs/verification/issues/issue-628/station-move-export-import-output.json",
+        "docs/verification/issues/issue-628/station-move-save-reload-output.json",
+        "docs/verification/issues/issue-628/read-only-negative-output.json",
+        "docs/verification/issues/issue-628/no-capacity-change-output.json",
+        "docs/verification/issues/issue-628/no-phi-output.txt",
+        "docs/verification/issues/issue-628/manifest-update-output.json",
+        "docs/verification/issues/issue-628/screenshots/station-moved.png",
+        "docs/verification/issues/issue-628/test-output/shared.txt",
+        "docs/verification/issues/issue-628/test-output/web.txt",
+        "docs/verification/issues/issue-628/test-output/web-build.txt",
+        "docs/verification/issues/issue-628/test-output/station-move.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "627"
+  "lastRebuiltIssue": "628"
 }

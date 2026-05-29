@@ -82,6 +82,8 @@ export function buildLayoutEditGestureAuditSummary({
         throw new Error("dimension edit gestures require exactly one edit_room_dimensions entry");
       }
       return buildDimensionEditGestureSummary(firstEntry, order);
+    case "station_moved":
+      throw new Error("station movement is audited as a low-level operational edit only");
   }
 }
 

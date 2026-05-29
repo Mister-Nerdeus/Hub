@@ -1,3 +1,5 @@
+import type { PointerEvent } from "react";
+
 import type { StationShapeViewModel } from "./stationShapeViewModel";
 import { selectedClassName } from "./layoutSelectionHighlight";
 
@@ -6,9 +8,20 @@ type StationShapeProps = {
   isSelected?: boolean;
   presentation?: boolean;
   onSelect?: (objectType: "station", objectId: string) => void;
+  onMoveStart?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
+  onMove?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
+  onMoveEnd?: (objectId: string, event: PointerEvent<SVGGElement>) => void;
 };
 
-export function StationShape({ viewModel, isSelected = false, presentation = false, onSelect }: StationShapeProps) {
+export function StationShape({
+  viewModel,
+  isSelected = false,
+  presentation = false,
+  onSelect,
+  onMoveStart,
+  onMove,
+  onMoveEnd
+}: StationShapeProps) {
   return (
     <g
       className={selectedClassName("layout-editor-stage__station", isSelected)}
@@ -26,6 +39,10 @@ export function StationShape({ viewModel, isSelected = false, presentation = fal
           onSelect?.("station", viewModel.objectId);
         }
       }}
+      onPointerDown={(event) => onMoveStart?.(viewModel.objectId, event)}
+      onPointerMove={(event) => onMove?.(viewModel.objectId, event)}
+      onPointerUp={(event) => onMoveEnd?.(viewModel.objectId, event)}
+      onPointerCancel={(event) => onMoveEnd?.(viewModel.objectId, event)}
     >
       {presentation ? (
         <>

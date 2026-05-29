@@ -28,6 +28,40 @@ if (
   throw new Error("station quick edit undo must restore station type");
 }
 
+const movedStation = layoutEditorReducer(stationState, {
+  type: "moveStation",
+  stationId: "station-primary",
+  deltaXFeet: 2,
+  deltaYFeet: 1
+});
+const movedStationGeometry = movedStation.editableLayout?.stations.find(
+  (candidate) => candidate.id === "station-primary"
+);
+if (
+  movedStationGeometry?.xFeet !==
+    (stationState.editableLayout?.stations.find((candidate) => candidate.id === "station-primary")?.xFeet ?? 0) + 2 ||
+  movedStationGeometry.yFeet !==
+    (stationState.editableLayout?.stations.find((candidate) => candidate.id === "station-primary")?.yFeet ?? 0) + 1
+) {
+  throw new Error("station move reducer must update station geometry");
+}
+if (movedStation.selectedObjectType !== "station" || movedStation.selectedObjectId !== "station-primary") {
+  throw new Error("station move reducer must keep the moved station selected");
+}
+if (!movedStation.isDirty || movedStation.history.past.length !== 1) {
+  throw new Error("station move must mark dirty and support undo");
+}
+if (movedStation.editAuditTrail.at(-1)?.editType !== "station_moved") {
+  throw new Error("station move must write a station_moved audit entry");
+}
+const undoneStationMove = layoutEditorReducer(movedStation, { type: "undoLayoutEdit" });
+if (
+  undoneStationMove.editableLayout?.stations.find((candidate) => candidate.id === "station-primary")?.xFeet !==
+  stationState.editableLayout?.stations.find((candidate) => candidate.id === "station-primary")?.xFeet
+) {
+  throw new Error("station move undo must restore station geometry");
+}
+
 const hallwayState = createLayoutEditorState({
   editableLayout: layoutEditorProofFixture,
   selectedObjectType: "hallway",
@@ -72,6 +106,23 @@ if (
   }) !== readOnlyState
 ) {
   throw new Error("quick edit reducer updates must be blocked on read-only layouts");
+}
+
+const readOnlyStationState = createLayoutEditorState({
+  editableLayout: layoutEditorProofFixture,
+  readOnly: true,
+  selectedObjectType: "station",
+  selectedObjectId: "station-primary"
+});
+if (
+  layoutEditorReducer(readOnlyStationState, {
+    type: "moveStation",
+    stationId: "station-primary",
+    deltaXFeet: 4,
+    deltaYFeet: 0
+  }) !== readOnlyStationState
+) {
+  throw new Error("station move must be blocked on read-only layouts");
 }
 
 const deleteRoomState = createLayoutEditorState({
