@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "go-revocation",
+  "issue": "631",
+  "checks": [
+    {
+      "name": "previous reconstruction GO is explicitly revoked",
+      "passed": true,
+      "detail": {
+        "sourceGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+        "sourceGoNoGoRevoked": true,
+        "reconstructionStatus": "no_go_until_save_reload_truth_loop_passes"
+      }
+    }
+  ]
+}

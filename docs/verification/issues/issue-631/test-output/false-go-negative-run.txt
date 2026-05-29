@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "stage": "false-go-negative",
+  "issue": "631",
+  "checks": [
+    {
+      "name": "manifest GO without browser save/reload proof is treated as false positive",
+      "passed": true,
+      "detail": {
+        "sourceSaysGo": true,
+        "browserProofMissing": true,
+        "revoked": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "requiredScripts": [
+    "check:floorplan-editor-save-reload-preflight",
+    "check:layout-editor-save-failure-repro",
+    "check:layout-editor-active-copy-identity",
+    "check:layout-editor-save-pipeline-trace",
+    "check:layout-editor-room-move-persistence",
+    "check:layout-editor-door-change-persistence",
+    "check:layout-editor-local-draft-vs-named-save",
+    "check:layout-editor-truthful-save-status",
+    "check:layout-editor-browser-reload-regression",
+    "check:floorplan-editor-save-reload-go-no-go"
+  ],
+  "missing": [],
+  "missingVerify": []
+}

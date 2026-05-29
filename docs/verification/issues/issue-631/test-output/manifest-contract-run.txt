@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "stage": "manifest-contract",
+  "issue": "631",
+  "checks": [
+    {
+      "name": "save/reload manifest contract is present and fail-closed",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "mismatched": []
+      }
+    }
+  ]
+}

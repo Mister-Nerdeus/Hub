@@ -1,0 +1,53 @@
+{
+  "issue": "631",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-631/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-631/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-631/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage go-revocation --allow-partial --issue 631",
+      "outputs": [
+        "docs/verification/issues/issue-631/go-revocation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage manifest-contract --allow-partial --issue 631",
+      "outputs": [
+        "docs/verification/issues/issue-631/manifest-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage root-script-wiring --allow-partial --issue 631",
+      "outputs": [
+        "docs/verification/issues/issue-631/root-script-wiring-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage false-go-negative --allow-partial --issue 631",
+      "outputs": [
+        "docs/verification/issues/issue-631/false-go-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-631/no-phi-output.txt"
+      ]
+    }
+  ]
+}
