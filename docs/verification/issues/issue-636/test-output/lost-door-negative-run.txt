@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "stage": "lost-door-negative",
+  "issue": "636",
+  "checks": [
+    {
+      "name": "lost door geometry/count negative fixture is detected",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "failures": [
+          "changed door geometry missing",
+          "added door missing",
+          "deleted door reappeared"
+        ],
+        "expectedDoor": {
+          "id": "door-02",
+          "ownerId": "room-02",
+          "wall": "north",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "addedDoorId": "authored-door-001",
+        "deletedDoorId": "door-03",
+        "afterReloadDoors": [
+          {
+            "id": "door-02",
+            "ownerId": "room-02",
+            "wall": "south",
+            "offsetFeet": 3.5,
+            "widthFeet": 3
+          },
+          {
+            "id": "door-03",
+            "ownerId": "room-03",
+            "wall": "south",
+            "offsetFeet": 3.5,
+            "widthFeet": 3
+          }
+        ]
+      }
+    }
+  ]
+}

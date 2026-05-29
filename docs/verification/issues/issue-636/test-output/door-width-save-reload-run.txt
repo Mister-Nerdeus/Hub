@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "stage": "door-width-save-reload",
+  "issue": "636",
+  "checks": [
+    {
+      "name": "door width change survives save/reload",
+      "passed": true,
+      "detail": {
+        "before": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "expected": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "north",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "afterReload": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "north",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        }
+      }
+    }
+  ]
+}

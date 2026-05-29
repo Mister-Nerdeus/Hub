@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "stage": "door-add-save-reload",
+  "issue": "636",
+  "checks": [
+    {
+      "name": "added door survives save/reload",
+      "passed": true,
+      "detail": {
+        "addedDoorId": "authored-door-001",
+        "addedDoorAfterReload": {
+          "objectType": "door",
+          "id": "authored-door-001",
+          "label": "room-02 door",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 1,
+          "widthFeet": 4
+        }
+      }
+    }
+  ]
+}

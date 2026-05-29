@@ -1,0 +1,65 @@
+{
+  "issue": "636",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-636/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-636/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-636/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage door-move-save-reload --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/door-move-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage door-width-save-reload --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/door-width-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage door-add-save-reload --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/door-add-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage door-delete-save-reload --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/door-delete-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage export-after-reload --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/export-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-door-change-persistence.mjs --stage lost-door-negative --allow-partial --issue 636",
+      "outputs": [
+        "docs/verification/issues/issue-636/lost-door-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-636/no-phi-output.txt"
+      ]
+    }
+  ]
+}

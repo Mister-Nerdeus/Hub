@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "stage": "export-after-reload",
+  "issue": "636",
+  "checks": [
+    {
+      "name": "exported JSON after reload contains changed/added/deleted door state",
+      "passed": true,
+      "detail": {
+        "exportedChangedDoorAfterReload": {
+          "id": "door-02",
+          "label": "Door 2",
+          "roomId": "room-02",
+          "x": 50.5,
+          "y": 28,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        },
+        "exportedAddedDoorAfterReload": {
+          "id": "authored-door-001",
+          "label": "room-02 door",
+          "roomId": "room-02",
+          "x": 47,
+          "y": 38,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        },
+        "exportedDeletedDoorAfterReload": null
+      }
+    }
+  ]
+}
