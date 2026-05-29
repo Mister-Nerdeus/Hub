@@ -191,11 +191,20 @@ const baseInitialStageState = createLayoutEditorState({
 type LayoutEditorStageProps = {
   activeFloorplan?: LayoutEditorFloorplanInput | null;
   onCreateWorkingCopy?: () => void;
+  onSaveWorkingCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
+  onSaveAsNewCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
 };
+
+export type SaveWorkingCopyResult =
+  | { status: "saved"; recordId: string; displayName: string; savedAt: string }
+  | { status: "created_copy"; recordId: string; displayName: string; savedAt: string }
+  | { status: "failed"; message: string };
 
 export function LayoutEditorStage({
   activeFloorplan = null,
-  onCreateWorkingCopy
+  onCreateWorkingCopy,
+  onSaveWorkingCopy,
+  onSaveAsNewCopy
 }: LayoutEditorStageProps) {
   const localDraftStorage = getBrowserLocalDraftStorage();
   const [stageState, dispatchStage] = useReducer(
@@ -208,6 +217,7 @@ export function LayoutEditorStage({
   );
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
+  const [saveStatus, setSaveStatus] = useState("Not saved yet");
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
@@ -240,6 +250,7 @@ export function LayoutEditorStage({
       return;
     }
     dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
+    setSaveStatus("Not saved yet");
   }, [
     activeFloorplan?.recordId,
     activeFloorplan?.planId,
@@ -472,6 +483,45 @@ export function LayoutEditorStage({
     } catch (error) {
       setFloorplanJsonStatus(errorMessage(error));
     }
+  };
+  const saveWorkingCopy = () => {
+    if (onSaveWorkingCopy == null) {
+      setSaveStatus("Save failed: no save handler is available");
+      return;
+    }
+    const draft = buildStageAuthoringDraft(stageState);
+    if (draft == null) {
+      setSaveStatus("Save failed: no active floorplan is loaded");
+      return;
+    }
+    const result = onSaveWorkingCopy(draft);
+    applySaveResult(result);
+  };
+  const saveAsNewCopy = () => {
+    if (onSaveAsNewCopy == null) {
+      setSaveStatus("Save failed: no save handler is available");
+      return;
+    }
+    const draft = buildStageAuthoringDraft(stageState);
+    if (draft == null) {
+      setSaveStatus("Save failed: no active floorplan is loaded");
+      return;
+    }
+    const result = onSaveAsNewCopy(draft);
+    applySaveResult(result);
+  };
+  const applySaveResult = (result: SaveWorkingCopyResult) => {
+    if (result.status === "failed") {
+      setSaveStatus(`Save failed: ${result.message}`);
+      return;
+    }
+    const time = formatSaveTime(result.savedAt);
+    setSaveStatus(
+      result.status === "saved"
+        ? `Saved working copy at ${time}`
+        : `Created new copy at ${time}`
+    );
+    dispatchStage({ type: "markClean" });
   };
   const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
     const placementAction = placeObjectOnCanvas({
@@ -889,11 +939,13 @@ export function LayoutEditorStage({
 
       <EditorCommandBar
         layoutLabel={stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout"}
+        hasActiveFloorplan={activeFloorplan != null}
         readOnly={stageState.readOnly}
         isDirty={stageState.isDirty}
         undoDisabled={stageState.history.past.length === 0}
         redoDisabled={stageState.history.future.length === 0}
         jsonStatus={floorplanJsonStatus}
+        saveStatus={saveStatus}
         validationSummary={viewportLayoutViewModel.validationSummary}
         validationDisabled={validationDisabled}
         inspectorCollapsed={inspectorCollapsed}
@@ -909,6 +961,8 @@ export function LayoutEditorStage({
             dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
           }
         }}
+        onSaveWorkingCopy={saveWorkingCopy}
+        onSaveAsNewCopy={saveAsNewCopy}
         onExportJson={exportActiveFloorplanJson}
         onImportJson={importEditableFloorplanJson}
         onValidate={validateSimulationReadyExportFromStage}
@@ -1638,4 +1692,12 @@ function stagePointerToFeet(
 
 function errorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
+}
+
+function formatSaveTime(value: string): string {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }

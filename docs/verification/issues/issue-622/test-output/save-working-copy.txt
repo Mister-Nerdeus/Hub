@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "622",
+  "checks": [
+    {
+      "name": "save buttons and visible status are present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Save working copy calls store.saveDraft for saved copies",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Save as new copy calls store.saveAsDraft",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saving a default/read-only plan creates a saved copy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved copy reload proof exists and display name reloads",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "save status covers saved, created, and failed states",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "save failure negative path is visible and non-corrupting",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "save path rejects private payloads and preserves operational labels/geometry",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

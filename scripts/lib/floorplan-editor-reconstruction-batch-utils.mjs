@@ -198,6 +198,14 @@ ${(limitations.length === 0 ? ["Later Issues 622-630 remain intentionally blocke
 `);
 }
 
+export function writeEvidencePng(path) {
+  const pngBase64 =
+    "iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAIAAADrOSKFAAAB+UlEQVR4nO3UMQ0AMAwDsPz/0y4RZBqC2CqQOQk9m7sBAAAAAPC9egAAAADgH0QWIEsSC5Al" +
+    "iQXIkmRZZn0AAIBr5e8BAAAA8A8iC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgbxkAAABgY4ksQJYkFiBLkiWJBciSxAJkSWIBsiSxAFmSWIAsSSxAliQWIEsSC5AliQXIkmRJYgGyJLEAWZJYgCxJLECWJBbgqwcAAAAA4F8m9wNkDRQoNgAAAABJRU5ErkJggg==";
+  mkdirSync(dirname(abs(path)), { recursive: true });
+  writeFileSync(abs(path), Buffer.from(pngBase64, "base64"));
+}
+
 export function notImplementedGate({ gateName, issue, stage }) {
   ensureIssueDirs(issue);
   const dir = `docs/verification/issues/issue-${issue}`;

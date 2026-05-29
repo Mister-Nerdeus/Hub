@@ -66,7 +66,14 @@ export function buildPlanContractFromEditableLayout(input: {
           widthFeet: geometry.widthFeet,
           lengthFeet: geometry.heightFeet,
           traumaCapable: roomType === "trauma",
-          isolationCapable: roomType === "isolation"
+          isolationCapable: roomType === "isolation",
+          roomOperationalMetadata:
+            existing.roomOperationalMetadata == null
+              ? existing.roomOperationalMetadata
+              : {
+                  ...existing.roomOperationalMetadata,
+                  roomNumber: geometry.roomNumber
+                }
         };
   });
   const doors = editableLayout.doors.map((door) => {
@@ -116,13 +123,13 @@ export function buildPlanContractFromEditableLayout(input: {
       const geometry = stationGeometryById.get(station.id);
       return geometry == null
         ? station
-        : { ...station, x: geometry.xFeet, y: geometry.yFeet, widthFeet: geometry.widthFeet, lengthFeet: geometry.heightFeet };
+        : { ...station, label: geometry.label, x: geometry.xFeet, y: geometry.yFeet, widthFeet: geometry.widthFeet, lengthFeet: geometry.heightFeet };
     }),
     zones: source.zones.map((zone) => {
       const geometry = zoneGeometryById.get(zone.id);
       return geometry == null
         ? zone
-        : { ...zone, x: geometry.xFeet, y: geometry.yFeet, widthFeet: geometry.widthFeet, lengthFeet: geometry.heightFeet };
+        : { ...zone, label: geometry.label, x: geometry.xFeet, y: geometry.yFeet, widthFeet: geometry.widthFeet, lengthFeet: geometry.heightFeet };
     }),
     pathNodes,
     pathEdges: source.pathEdges.filter((edge) => pathNodeIds.has(edge.fromNodeId) && pathNodeIds.has(edge.toNodeId))

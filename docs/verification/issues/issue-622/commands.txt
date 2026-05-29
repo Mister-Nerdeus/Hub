@@ -1,10 +1,10 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-reproduction --allow-partial --issue 622
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage door-clamp --allow-partial --issue 622
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-warning --allow-partial --issue 622
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage render-no-throw --allow-partial --issue 622
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage strict-export-validation --allow-partial --issue 622
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage solid-wall-door-negative --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage save-button-visible --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage save-working-copy --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage save-as-new-copy --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage default-plan-save-creates-copy --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage reload-saved-copy --allow-partial --issue 622
+node scripts/check-layout-editor-save-working-copy.mjs --stage no-private-payload --allow-partial --issue 622
 node scripts/check-no-phi-fields.mjs

@@ -1,52 +1,65 @@
-[
-  {
-    "command": "npm --workspace packages/shared test",
-    "output": "docs/verification/issues/issue-622/test-output/shared.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web test",
-    "output": "docs/verification/issues/issue-622/test-output/web.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web run build",
-    "output": "docs/verification/issues/issue-622/test-output/web-build.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-reproduction --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/invalid-door-reproduction-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage door-clamp --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/door-clamp-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-warning --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/invalid-door-warning-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage render-no-throw --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/render-no-throw-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage strict-export-validation --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/strict-export-validation-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage solid-wall-door-negative --allow-partial --issue 622",
-    "output": "docs/verification/issues/issue-622/solid-wall-door-negative-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-no-phi-fields.mjs",
-    "output": "docs/verification/issues/issue-622/no-phi-output.txt",
-    "exitCode": 0
-  }
-]
+{
+  "issue": "622",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-622/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-622/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-622/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage save-button-visible --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/save-working-copy-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage save-working-copy --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/save-working-copy-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage save-as-new-copy --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/save-as-new-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage default-plan-save-creates-copy --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/default-plan-save-creates-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage reload-saved-copy --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/saved-copy-reload-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage no-private-payload --allow-partial --issue 622",
+      "outputs": [
+        "docs/verification/issues/issue-622/no-private-payload-output.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-622/no-phi-output.txt"
+      ]
+    }
+  ]
+}

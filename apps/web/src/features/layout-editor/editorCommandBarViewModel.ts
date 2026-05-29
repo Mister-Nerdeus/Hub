@@ -1,10 +1,12 @@
 export type EditorCommandBarViewModelInput = {
+  hasActiveFloorplan: boolean;
   isDirty: boolean;
   readOnly: boolean;
   undoDisabled: boolean;
   redoDisabled: boolean;
   validationSummary: string;
   validationDisabled: boolean;
+  saveStatus: string;
 };
 
 export type EditorCommandBarViewModel = {
@@ -16,6 +18,8 @@ export type EditorCommandBarViewModel = {
   redoDisabled: boolean;
   validationDisabled: boolean;
   addObjectDisabled: boolean;
+  saveWorkingCopyDisabled: boolean;
+  saveAsNewCopyDisabled: boolean;
   proceedDisabled: boolean;
   proceedLabel: string;
   proceedStatusLabel: string;
@@ -23,15 +27,17 @@ export type EditorCommandBarViewModel = {
 };
 
 export function buildEditorCommandBarViewModel({
+  hasActiveFloorplan,
   isDirty,
   readOnly,
   undoDisabled,
   redoDisabled,
   validationSummary,
-  validationDisabled
+  validationDisabled,
+  saveStatus
 }: EditorCommandBarViewModelInput): EditorCommandBarViewModel {
   return {
-    saveStatusLabel: readOnly ? "Not saved in read-only mode" : "Local browser draft writes automatically",
+    saveStatusLabel: saveStatus,
     dirtyStateLabel: isDirty ? "Draft changed" : "No unsaved edits",
     modeLabel: readOnly ? "Read-only" : "Editable",
     validationLabel: validationSummary,
@@ -39,6 +45,8 @@ export function buildEditorCommandBarViewModel({
     redoDisabled,
     validationDisabled,
     addObjectDisabled: readOnly,
+    saveWorkingCopyDisabled: !hasActiveFloorplan,
+    saveAsNewCopyDisabled: !hasActiveFloorplan,
     proceedDisabled: true,
     proceedLabel: "Proceed later",
     proceedStatusLabel: "Future step",

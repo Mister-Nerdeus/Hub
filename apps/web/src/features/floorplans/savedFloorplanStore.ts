@@ -227,10 +227,13 @@ function assertNoForbiddenPayload(value: unknown, label: string): void {
 }
 
 function webRecordFromContract(record: SavedPlanRecordContract): SavedFloorplanRecord {
-  const plan = buildPlanContractFromEditableLayout({
-    sourcePlan: record.authoringDraft.sourcePlan,
-    editableLayout: record.authoringDraft.editableLayout,
-    planId: record.planId
+  const plan = validatePlanContract({
+    ...buildPlanContractFromEditableLayout({
+      sourcePlan: record.authoringDraft.sourcePlan,
+      editableLayout: record.authoringDraft.editableLayout,
+      planId: record.planId
+    }),
+    name: record.displayName
   });
   return {
     ...record,

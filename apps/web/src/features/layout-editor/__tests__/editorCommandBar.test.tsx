@@ -9,16 +9,18 @@ import { buildEditorCommandBarViewModel } from "../editorCommandBarViewModel";
 declare const process: { cwd(): string };
 
 const viewModel = buildEditorCommandBarViewModel({
+  hasActiveFloorplan: true,
   isDirty: true,
   readOnly: false,
   undoDisabled: false,
   redoDisabled: true,
   validationSummary: "2 validation warnings",
-  validationDisabled: false
+  validationDisabled: false,
+  saveStatus: "Not saved yet"
 });
 
-if (viewModel.saveStatusLabel !== "Local browser draft writes automatically") {
-  throw new Error("command bar should truthfully expose local draft persistence");
+if (viewModel.saveStatusLabel !== "Not saved yet") {
+  throw new Error("command bar should truthfully expose named-copy save status");
 }
 if (viewModel.dirtyStateLabel !== "Draft changed") {
   throw new Error("command bar should expose dirty state");
@@ -33,11 +35,13 @@ if (!viewModel.proceedDisabled || viewModel.proceedStatusLabel !== "Future step"
 const calls: string[] = [];
 const element = EditorCommandBar({
   layoutLabel: "proof-layout",
+  hasActiveFloorplan: true,
   readOnly: false,
   isDirty: true,
   undoDisabled: false,
   redoDisabled: true,
   jsonStatus: "ready",
+  saveStatus: "Not saved yet",
   validationSummary: "2 validation warnings",
   validationDisabled: false,
   inspectorCollapsed: false,
@@ -49,6 +53,12 @@ const element = EditorCommandBar({
   },
   onResetDraft: () => {
     calls.push("reset-draft");
+  },
+  onSaveWorkingCopy: () => {
+    calls.push("save-working-copy");
+  },
+  onSaveAsNewCopy: () => {
+    calls.push("save-as-new-copy");
   },
   onExportJson: () => {
     calls.push("export");
@@ -83,10 +93,16 @@ const labels = commandGroups
   .filter((child: { props?: { children?: string } }) => child?.props?.children != null)
   .map((child: { props: { children: string } }) => child.props.children);
 
-for (const label of ["Undo", "Redo", "Reset draft", "Import JSON", "Export", "Add Object", "Validate", "Reset view", "Proceed later"]) {
+for (const label of ["Undo", "Redo", "Save working copy", "Save as new copy", "Reset draft", "Import JSON", "Export", "Add Object", "Validate", "Reset view", "Proceed later"]) {
   if (!labels.includes(label)) {
     throw new Error(`EditorCommandBar missing ${label}`);
   }
+}
+
+const saveButton = asArray(commandGroups[1].props.children)[0];
+saveButton.props.onClick();
+if (calls.at(-1) !== "save-working-copy") {
+  throw new Error("Save working copy command should call the save callback");
 }
 
 const validateButton = asArray(commandGroups[3].props.children)[0];

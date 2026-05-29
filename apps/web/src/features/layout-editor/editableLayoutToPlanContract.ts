@@ -38,16 +38,24 @@ export function editableLayoutToPlanContract({
   const rooms = editableLayout.rooms.map((geometry) => {
     const room = sourceRoomsById.get(geometry.id);
     return room == null
-      ? editableRoomToPlanRoom(geometry)
-      : {
-          ...room,
-          roomType: editableRoomToPlanRoomType(geometry),
-          traumaCapable: geometry.roomType === "trauma",
-          x: geometry.xFeet,
-          y: geometry.yFeet,
-          widthFeet: geometry.widthFeet,
-          lengthFeet: geometry.heightFeet
-        };
+        ? editableRoomToPlanRoom(geometry)
+        : {
+            ...room,
+            label: geometry.label,
+            roomType: editableRoomToPlanRoomType(geometry),
+            traumaCapable: geometry.roomType === "trauma",
+            x: geometry.xFeet,
+            y: geometry.yFeet,
+            widthFeet: geometry.widthFeet,
+            lengthFeet: geometry.heightFeet,
+            roomOperationalMetadata:
+              room.roomOperationalMetadata == null
+                ? room.roomOperationalMetadata
+                : {
+                    ...room.roomOperationalMetadata,
+                    roomNumber: geometry.roomNumber
+                  }
+          };
   });
   const doors = editableLayout.doors.map((door) => {
     const sourceDoor = sourceDoorsById.get(door.id);
@@ -115,6 +123,7 @@ export function editableLayoutToPlanContract({
       }
       return {
         ...station,
+        label: geometry.label,
         x: geometry.xFeet,
         y: geometry.yFeet,
         widthFeet: geometry.widthFeet,
@@ -128,6 +137,7 @@ export function editableLayoutToPlanContract({
       }
       return {
         ...zone,
+        label: geometry.label,
         x: geometry.xFeet,
         y: geometry.yFeet,
         widthFeet: geometry.widthFeet,

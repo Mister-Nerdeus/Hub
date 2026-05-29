@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { AuthoringDraftContract } from "@nerdeus/shared";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
@@ -20,6 +21,7 @@ import {
 } from "./features/floorplans/savedFloorplanStore";
 import { createSavedFloorplanPersistence } from "./features/floorplans/savedFloorplanPersistence";
 import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
+import type { SaveWorkingCopyResult } from "./features/layout-editor/LayoutEditorStage";
 import { AppShell } from "./features/app-shell/AppShell";
 import {
   APP_SECTIONS,
@@ -112,6 +114,67 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setSavedFloorplans(savedFloorplanStore.list());
     setActiveFloorplanState((state) => cleanupActiveFloorplanAfterSavedDelete(state, recordId));
     setFloorplanStatusMessage("Saved copy deleted. Canonical floorplan remains available.");
+  }
+
+  function saveActiveWorkingCopy(draft: AuthoringDraftContract): SaveWorkingCopyResult {
+    const active = activeFloorplanState.activeFloorplan;
+    if (active == null) {
+      return { status: "failed", message: "No active floorplan is loaded." };
+    }
+    try {
+      const savedAt = new Date().toISOString();
+      if (active.sourceKind === "saved-json") {
+        const saved = savedFloorplanStore.saveDraft(active.recordId, stampDraft(draft, savedAt));
+        setSavedFloorplans(savedFloorplanStore.list());
+        setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+        setFloorplanStatusMessage(`Saved working copy ${saved.displayName}.`);
+        return {
+          status: "saved",
+          recordId: saved.recordId,
+          displayName: saved.displayName,
+          savedAt
+        };
+      }
+      const saved = savedFloorplanStore.saveAsDraft(stampDraft(draft, savedAt), {
+        displayName: `${draft.displayName} Working Copy`,
+        versionLabel: "v1"
+      });
+      setSavedFloorplans(savedFloorplanStore.list());
+      setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+      setFloorplanStatusMessage(`Created working copy ${saved.displayName}.`);
+      return {
+        status: "created_copy",
+        recordId: saved.recordId,
+        displayName: saved.displayName,
+        savedAt
+      };
+    } catch (error) {
+      return { status: "failed", message: errorMessage(error) };
+    }
+  }
+
+  function saveActiveAsNewCopy(draft: AuthoringDraftContract): SaveWorkingCopyResult {
+    if (activeFloorplanState.activeFloorplan == null) {
+      return { status: "failed", message: "No active floorplan is loaded." };
+    }
+    try {
+      const savedAt = new Date().toISOString();
+      const saved = savedFloorplanStore.saveAsDraft(stampDraft(draft, savedAt), {
+        displayName: `${draft.displayName} Copy`,
+        versionLabel: "v1"
+      });
+      setSavedFloorplans(savedFloorplanStore.list());
+      setActiveFloorplanState((state) => openSavedFloorplan(state, saved));
+      setFloorplanStatusMessage(`Created saved copy ${saved.displayName}.`);
+      return {
+        status: "created_copy",
+        recordId: saved.recordId,
+        displayName: saved.displayName,
+        savedAt
+      };
+    } catch (error) {
+      return { status: "failed", message: errorMessage(error) };
+    }
   }
 
   useEffect(() => {
@@ -207,6 +270,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onCreateWorkingCopy={() =>
               duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
             }
+            onSaveWorkingCopy={saveActiveWorkingCopy}
+            onSaveAsNewCopy={saveActiveAsNewCopy}
           />
         </section>
       ) : null}
@@ -279,4 +344,15 @@ function readInitialSection(fallback: AppSectionId): AppSectionId {
 
 function getSessionStorage(): Storage | null {
   return typeof window === "undefined" ? null : window.sessionStorage;
+}
+
+function stampDraft(draft: AuthoringDraftContract, updatedAt: string): AuthoringDraftContract {
+  return {
+    ...draft,
+    updatedAt
+  };
+}
+
+function errorMessage(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
 }

@@ -2,17 +2,21 @@ import { buildEditorCommandBarViewModel } from "./editorCommandBarViewModel";
 
 export type EditorCommandBarProps = {
   layoutLabel: string;
+  hasActiveFloorplan: boolean;
   readOnly: boolean;
   isDirty: boolean;
   undoDisabled: boolean;
   redoDisabled: boolean;
   jsonStatus: string;
+  saveStatus: string;
   validationSummary: string;
   validationDisabled: boolean;
   inspectorCollapsed: boolean;
   onUndo: () => void;
   onRedo: () => void;
   onResetDraft: () => void;
+  onSaveWorkingCopy: () => void;
+  onSaveAsNewCopy: () => void;
   onExportJson: () => void;
   onImportJson: () => void;
   onValidate: () => void;
@@ -23,17 +27,21 @@ export type EditorCommandBarProps = {
 
 export function EditorCommandBar({
   layoutLabel,
+  hasActiveFloorplan,
   readOnly,
   isDirty,
   undoDisabled,
   redoDisabled,
   jsonStatus,
+  saveStatus,
   validationSummary,
   validationDisabled,
   inspectorCollapsed,
   onUndo,
   onRedo,
   onResetDraft,
+  onSaveWorkingCopy,
+  onSaveAsNewCopy,
   onExportJson,
   onImportJson,
   onValidate,
@@ -42,12 +50,14 @@ export function EditorCommandBar({
   onToggleInspector
 }: EditorCommandBarProps) {
   const viewModel = buildEditorCommandBarViewModel({
+    hasActiveFloorplan,
     isDirty,
     readOnly,
     undoDisabled,
     redoDisabled,
     validationSummary,
-    validationDisabled
+    validationDisabled,
+    saveStatus
   });
 
   return (
@@ -66,6 +76,20 @@ export function EditorCommandBar({
         </button>
       </div>
       <div className="editor-command-bar__primary" data-command-group="draft">
+        <button
+          type="button"
+          disabled={viewModel.saveWorkingCopyDisabled}
+          onClick={onSaveWorkingCopy}
+        >
+          Save working copy
+        </button>
+        <button
+          type="button"
+          disabled={viewModel.saveAsNewCopyDisabled}
+          onClick={onSaveAsNewCopy}
+        >
+          Save as new copy
+        </button>
         <button type="button" onClick={onResetDraft}>
           Reset draft
         </button>
