@@ -1,52 +1,59 @@
-[
-  {
-    "command": "npm --workspace packages/shared test",
-    "output": "docs/verification/issues/issue-624/test-output/shared.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web test",
-    "output": "docs/verification/issues/issue-624/test-output/web.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web run build",
-    "output": "docs/verification/issues/issue-624/test-output/web-build.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage room-type-contract --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/provider-pharmacy-room-type-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage mapping --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/room-type-mapping-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage non-patient-eligibility --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/non-patient-eligibility-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage export-import-persistence --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/export-import-persistence-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage no-task-generation --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/no-task-generation-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage rendered-editor --allow-partial --issue 624",
-    "output": "docs/verification/issues/issue-624/rendered-room-type-editor-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-no-phi-fields.mjs",
-    "output": "docs/verification/issues/issue-624/no-phi-output.txt",
-    "exitCode": 0
-  }
-]
+{
+  "issue": "624",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage banner-visible --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/restore-banner-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage restore-action --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/restore-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage discard-action --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/discard-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage export-json --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/export-draft-json-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage wrong-copy-negative --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/wrong-copy-banner-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-624/no-phi-output.txt"
+      ]
+    }
+  ]
+}

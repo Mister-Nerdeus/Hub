@@ -69,10 +69,12 @@ import {
   undoLayoutEditHistory,
   type LayoutUndoRedoSnapshot
 } from "./layoutUndoRedoHistory";
+import type { LayoutLocalDraftRecord } from "./layoutLocalDraftPersistence";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
   | { type: "loadActiveFloorplan"; floorplan: LayoutEditorFloorplanInput }
+  | { type: "restoreLocalDraft"; draft: LayoutLocalDraftRecord }
   | {
       type: "selectObject";
       objectType: LayoutEditorSelectableObjectType;
@@ -181,6 +183,20 @@ export function layoutEditorReducer(
         snapMode: state.snapMode,
         history: createLayoutUndoRedoHistory(state.history.maxDepth)
       });
+    case "restoreLocalDraft": {
+      const firstRoom = action.draft.editableLayout.rooms[0];
+      return {
+        ...state,
+        editableLayout: action.draft.editableLayout,
+        viewport: normalizeLayoutEditorViewport(action.draft.viewport),
+        snapMode: action.draft.snapMode,
+        editAuditTrail: [...action.draft.auditTrail],
+        isDirty: action.draft.dirtyState.isDirty,
+        selectedObjectType: firstRoom == null ? null : "room",
+        selectedObjectId: firstRoom?.id ?? null,
+        history: createLayoutUndoRedoHistory(state.history.maxDepth)
+      };
+    }
     case "selectObject":
       return selectObject(state, action.objectType, action.objectId);
     case "clearSelection":

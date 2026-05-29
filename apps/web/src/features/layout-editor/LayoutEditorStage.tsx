@@ -54,10 +54,16 @@ import {
 } from "./roomInspectorDimensionDraft";
 import {
   buildLayoutLocalDraftRecord,
+  loadLayoutLocalDraft,
   resetLayoutLocalDraft,
   saveLayoutLocalDraft,
   type LayoutLocalDraftStorage
 } from "./layoutLocalDraftPersistence";
+import { LayoutDraftRecoveryBanner } from "./LayoutDraftRecoveryBanner";
+import {
+  buildDraftRecoveryState,
+  type DraftRecoveryState
+} from "./layoutDraftRecoveryViewModel";
 import { buildLayoutGridViewModel } from "./layoutGridViewModel";
 import { buildLayoutObjectRenderPipeline } from "./layoutObjectRenderPipeline";
 import { isLayoutObjectSelected } from "./layoutSelectionHighlight";
@@ -217,6 +223,8 @@ export function LayoutEditorStage({
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
   const [saveStatus, setSaveStatus] = useState("Not saved yet");
+  const [draftRecoveryState, setDraftRecoveryState] = useState<DraftRecoveryState>({ status: "none" });
+  const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
@@ -250,6 +258,16 @@ export function LayoutEditorStage({
     }
     dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
     setSaveStatus("Not saved yet");
+    if (localDraftStorage != null) {
+      const loadedDraft = loadLayoutLocalDraft(localDraftStorage, activeFloorplan.recordId);
+      if (loadedDraft.status === "loaded") {
+        setAvailableRecoveryDraft(loadedDraft.draft);
+        setDraftRecoveryState(buildDraftRecoveryState(loadedDraft.draft));
+      } else {
+        setAvailableRecoveryDraft(null);
+        setDraftRecoveryState({ status: "none" });
+      }
+    }
   }, [
     activeFloorplan?.recordId,
     activeFloorplan?.planId,
@@ -520,6 +538,28 @@ export function LayoutEditorStage({
     }
     const result = onSaveAsNewCopy(draft);
     applySaveResult(result);
+  };
+  const restoreRecoveryDraft = () => {
+    if (availableRecoveryDraft == null) {
+      return;
+    }
+    dispatchStage({ type: "restoreLocalDraft", draft: availableRecoveryDraft });
+    setDraftRecoveryState({ status: "restored", updatedAt: availableRecoveryDraft.updatedAt });
+  };
+  const discardRecoveryDraft = () => {
+    if (localDraftStorage != null && stageState.loadedFloorplan != null) {
+      resetLayoutLocalDraft(localDraftStorage, stageState.loadedFloorplan.recordId);
+    }
+    setAvailableRecoveryDraft(null);
+    setDraftRecoveryState({ status: "discarded" });
+  };
+  const exportRecoveryDraftJson = () => {
+    if (availableRecoveryDraft == null) {
+      setFloorplanJsonStatus("No recovery draft available");
+      return;
+    }
+    setFloorplanJsonText(JSON.stringify(availableRecoveryDraft, null, 2));
+    setFloorplanJsonStatus("Recovery draft JSON exported");
   };
   const applySaveResult = (result: SaveWorkingCopyResult) => {
     if (result.status === "failed") {
@@ -980,6 +1020,13 @@ export function LayoutEditorStage({
         onResetView={() => dispatchStage({ type: "resetViewport" })}
         onAddObject={() => setAddObjectMenuOpen((value) => !value)}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
+      />
+
+      <LayoutDraftRecoveryBanner
+        state={draftRecoveryState}
+        onRestore={restoreRecoveryDraft}
+        onDiscard={discardRecoveryDraft}
+        onExportJson={exportRecoveryDraftJson}
       />
 
       {addObjectMenuOpen ? (
