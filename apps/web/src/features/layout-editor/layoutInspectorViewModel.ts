@@ -183,6 +183,7 @@ function formatBoolean(value: boolean): string {
 
 function formatRoomType(roomType: string): string {
   if (roomType === "storage") return "Storage (non-patient)";
+  if (roomType === "provider_pharmacy") return "Provider / pharmacy support (non-patient)";
   if (roomType === "solid_wall") return "Solid wall / blocked area";
   return roomType.replaceAll("_", " ");
 }

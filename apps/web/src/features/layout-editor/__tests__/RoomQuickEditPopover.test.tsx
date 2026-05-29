@@ -38,6 +38,7 @@ const element = RoomQuickEditPopover({
   onHeightStep: () => calls.push("height"),
   onAssignNurse: () => calls.push("assign-nurse"),
   onAddDoor: () => calls.push("add-door"),
+  onRemoveAttachedDoors: () => calls.push("remove-attached-doors"),
   onDuplicateRoom: () => calls.push("duplicate-room"),
   onDeleteRoom: () => calls.push("delete-room")
 });
@@ -51,7 +52,10 @@ if (element.props["data-room-quick-edit"] !== "ready") {
 
 const children = element.props.children;
 const actionButtons = children[3].props.children;
-for (const [index, expected] of ["assign-nurse", "add-door", "duplicate-room", "delete-room"].entries()) {
+for (const [index, expected] of ["assign-nurse", "add-door", "remove-attached-doors", "duplicate-room", "delete-room"].entries()) {
+  if (actionButtons[index].props.disabled) {
+    continue;
+  }
   actionButtons[index].props.onClick();
   if (calls.at(-1) !== expected) {
     throw new Error(`Expected ${expected} callback`);

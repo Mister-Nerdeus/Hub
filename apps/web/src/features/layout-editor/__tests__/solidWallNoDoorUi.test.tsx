@@ -34,6 +34,7 @@ const element = RoomQuickEditPopover({
   onAddDoor: () => {
     throw new Error("disabled add door should not be invoked by test");
   },
+  onRemoveAttachedDoors: () => undefined,
   onDuplicateRoom: () => undefined,
   onDeleteRoom: () => undefined
 });

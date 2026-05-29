@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage room-type-contract --allow-partial --issue 624
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage mapping --allow-partial --issue 624
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage non-patient-eligibility --allow-partial --issue 624
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage export-import-persistence --allow-partial --issue 624
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage no-task-generation --allow-partial --issue 624
+node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage rendered-editor --allow-partial --issue 624
+node scripts/check-no-phi-fields.mjs

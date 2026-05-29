@@ -8,8 +8,10 @@ export type RoomQuickEditPopoverProps = {
   onHeightStep: (deltaFeet: number) => void;
   onAssignNurse: () => void;
   onAddDoor: () => void;
+  onRemoveAttachedDoors: () => void;
   onDuplicateRoom: () => void;
   onDeleteRoom: () => void;
+  attachedDoorCount?: number;
 };
 
 const ROOM_TYPE_OPTIONS: readonly EditableRoomType[] = [
@@ -20,6 +22,7 @@ const ROOM_TYPE_OPTIONS: readonly EditableRoomType[] = [
   "hall_bed",
   "procedure",
   "overflow",
+  "provider_pharmacy",
   "storage",
   "solid_wall"
 ];
@@ -31,8 +34,10 @@ export function RoomQuickEditPopover({
   onHeightStep,
   onAssignNurse,
   onAddDoor,
+  onRemoveAttachedDoors,
   onDuplicateRoom,
-  onDeleteRoom
+  onDeleteRoom,
+  attachedDoorCount = 0
 }: RoomQuickEditPopoverProps) {
   if (viewModel.status !== "ready" || viewModel.roomType == null) {
     return <p>No room selected.</p>;
@@ -89,6 +94,13 @@ export function RoomQuickEditPopover({
           onClick={onAddDoor}
         >
           Add door
+        </button>
+        <button
+          type="button"
+          disabled={viewModel.readOnly || attachedDoorCount === 0}
+          onClick={onRemoveAttachedDoors}
+        >
+          Remove attached doors
         </button>
         <button type="button" disabled={viewModel.duplicateDisabled} onClick={onDuplicateRoom}>
           Duplicate room

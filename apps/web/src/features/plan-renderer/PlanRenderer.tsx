@@ -23,6 +23,7 @@ const roomTypeLabels: Record<Room["roomType"], string> = {
   hall_bed: "Hall bed",
   procedure: "Procedure",
   overflow: "Overflow",
+  provider_pharmacy: "Provider / pharmacy support",
   storage: "Storage",
   solid_wall: "Solid wall / blocked area"
 };

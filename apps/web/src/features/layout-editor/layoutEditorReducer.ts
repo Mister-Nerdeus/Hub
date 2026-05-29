@@ -4,7 +4,6 @@ import {
   addRoomToEditableLayout,
   assignDoorToRoom,
   authoringRoomTypeToEditableRoomType,
-  deleteDoor,
   duplicateLayoutObject,
   generateAutoHallways,
   moveDoor,
@@ -119,6 +118,7 @@ export type LayoutEditorAction =
   | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
   | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "deleteDoor"; doorId: string }
+  | { type: "removeSelectedRoomDoors" }
   | {
       type: "assignDoorToRoom";
       doorId: string;
@@ -294,14 +294,9 @@ export function layoutEditorReducer(
         })
       );
     case "deleteDoor":
-      return applyDoorAuthoring(
-        state,
-        deleteDoor({
-          layout: requireEditableLayout(state),
-          readOnly: state.readOnly,
-          doorId: action.doorId
-        })
-      );
+      return deleteDoorFromState(state, action.doorId);
+    case "removeSelectedRoomDoors":
+      return removeSelectedRoomDoors(state);
     case "assignDoorToRoom":
       return applyDoorAuthoring(
         state,
@@ -500,6 +495,86 @@ function deleteSelectedRoom(state: LayoutEditorState): LayoutEditorState {
       }
       return true;
     }),
+    isDirty: true
+  });
+}
+
+function deleteDoorFromState(state: LayoutEditorState, doorId: string): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const door = state.editableLayout.doors.find((candidate) => candidate.id === doorId);
+  if (door == null) {
+    return state;
+  }
+  const ownerRoomExists = door.ownerKind === "room" &&
+    state.editableLayout.rooms.some((room) => room.id === door.ownerId);
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      doors: state.editableLayout.doors.filter((candidate) => candidate.id !== doorId)
+    },
+    selectedObjectType: ownerRoomExists ? "room" : null,
+    selectedObjectId: ownerRoomExists ? door.ownerId : null,
+    validationWarnings: state.validationWarnings
+      .filter((warning) => warning.objectType !== "door" || warning.objectId !== doorId)
+      .filter((warning) => warning.relatedObjectType !== "door" || warning.relatedObjectId !== doorId)
+      .concat(
+        buildLayoutValidationWarning({
+          code: "path_sync_stale_after_door_edit",
+          severity: "warning",
+          source: "path_sync",
+          message: "Door authoring changed geometry; route/path sync is stale until path nodes are reviewed.",
+          objectType: ownerRoomExists ? "room" : null,
+          objectId: ownerRoomExists ? door.ownerId : null,
+          isGenerated: true
+        })
+      ),
+    isDirty: true
+  });
+}
+
+function removeSelectedRoomDoors(state: LayoutEditorState): LayoutEditorState {
+  if (
+    state.readOnly ||
+    state.editableLayout == null ||
+    state.selectedObjectType !== "room" ||
+    state.selectedObjectId == null
+  ) {
+    return state;
+  }
+  const roomId = state.selectedObjectId;
+  const removedDoorIds = new Set(
+    state.editableLayout.doors
+      .filter((door) => door.ownerKind === "room" && door.ownerId === roomId)
+      .map((door) => door.id)
+  );
+  if (removedDoorIds.size === 0) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      doors: state.editableLayout.doors.filter((door) => !removedDoorIds.has(door.id))
+    },
+    selectedObjectType: "room",
+    selectedObjectId: roomId,
+    validationWarnings: state.validationWarnings
+      .filter((warning) => warning.objectType !== "door" || warning.objectId == null || !removedDoorIds.has(warning.objectId))
+      .filter((warning) => warning.relatedObjectType !== "door" || warning.relatedObjectId == null || !removedDoorIds.has(warning.relatedObjectId))
+      .concat(
+        buildLayoutValidationWarning({
+          code: "path_sync_stale_after_door_edit",
+          severity: "warning",
+          source: "path_sync",
+          message: "Door authoring changed geometry; route/path sync is stale until path nodes are reviewed.",
+          objectType: "room",
+          objectId: roomId,
+          isGenerated: true
+        })
+      ),
     isDirty: true
   });
 }

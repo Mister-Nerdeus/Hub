@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editable and plan room contracts include provider_pharmacy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "authoring/editable/plan mapping preserves provider_pharmacy",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider_pharmacy is non-patient and support-passable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider_pharmacy persistence is covered by shared and web tests",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider_pharmacy is excluded from generated dry-run task instances",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider_pharmacy is available in placement/editor UI and muted legend",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

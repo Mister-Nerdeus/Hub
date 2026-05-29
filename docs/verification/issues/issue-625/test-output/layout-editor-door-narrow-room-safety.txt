@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "test fixture keeps invalid source door geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "shared normalizer clamps width and offset to owner wall",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "render path uses normalized display geometry",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "invalid/clamped door warning is visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "invalid narrow-room door still renders without throwing",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "solid wall remains door-ineligible",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

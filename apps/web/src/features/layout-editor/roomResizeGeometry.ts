@@ -9,6 +9,7 @@ import {
 import { isRoomResizeHandle, type RoomResizeHandle } from "./roomResizeHandlesViewModel";
 
 export const DEFAULT_MINIMUM_ROOM_RESIZE_SIZE_FEET = 4;
+export const MINIMUM_EDITABLE_ROOM_SIZE_FEET = DEFAULT_MINIMUM_ROOM_RESIZE_SIZE_FEET;
 
 export type ResizeRoomByHandleDeltaFeetInput = {
   room: EditableRoomGeometry;

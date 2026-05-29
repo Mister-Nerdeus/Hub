@@ -6,6 +6,7 @@ import type {
   EditableStationGeometry,
   EditableZoneGeometry
 } from "@nerdeus/shared";
+import { normalizeDoorForOwnerWall } from "@nerdeus/shared";
 
 import {
   rectFeetToPixels,
@@ -35,6 +36,8 @@ export type LayoutObjectRenderItem = {
   hitTargetKey: string;
   displayRectFeet: LayoutRectFeet;
   displayRectPixels: LayoutRectPixels;
+  geometryStatus?: "valid" | "clamped" | "invalid";
+  geometryWarnings?: readonly string[];
   sourceGeometry:
     | EditableHallwayGeometry
     | EditableZoneGeometry
@@ -49,6 +52,7 @@ export type BuildLayoutObjectRenderPipelineInput = {
 };
 
 const DOOR_THICKNESS_FEET = 0.5;
+const MINIMUM_DISPLAY_DOOR_WIDTH_FEET = 2;
 
 export function buildLayoutObjectRenderPipeline({
   layout,
@@ -106,6 +110,8 @@ function buildRectRenderItem(
     hitTargetKey: `${objectType}:${objectId}`,
     displayRectFeet: { ...rectFeet },
     displayRectPixels: rectFeetToPixels(rectFeet, viewport),
+    geometryStatus: "valid",
+    geometryWarnings: [],
     sourceGeometry
   };
 }
@@ -120,8 +126,14 @@ function buildDoorRenderItem(
     return null;
   }
 
-  const displayRectFeet = deriveDoorDisplayRectFeet(door, owner);
-  return buildRectRenderItem(
+  const normalized = normalizeDoorForOwnerWall({
+    door,
+    ownerRect: owner,
+    minimumDoorWidthFeet: MINIMUM_DISPLAY_DOOR_WIDTH_FEET
+  });
+  const displayRectFeet = deriveDoorDisplayRectFeet(normalized.door, owner);
+  return {
+    ...buildRectRenderItem(
     "door",
     door.id,
     "doors",
@@ -129,7 +141,10 @@ function buildDoorRenderItem(
     displayRectFeet,
     door,
     viewport
-  );
+    ),
+    geometryStatus: normalized.status,
+    geometryWarnings: normalized.warnings
+  };
 }
 
 function findDoorOwnerRect(

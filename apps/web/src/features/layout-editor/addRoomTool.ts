@@ -27,6 +27,7 @@ export function buildAddRoomAction(input: {
 
 function labelPrefix(roomType: AuthoringRoomType): string {
   if (roomType === "storage") return "Storage Room";
+  if (roomType === "provider_pharmacy") return "Provider Pharmacy";
   if (roomType === "solid_wall") return "Solid Wall";
   return "Care Room";
 }

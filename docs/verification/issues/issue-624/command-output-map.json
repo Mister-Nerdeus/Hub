@@ -1,0 +1,65 @@
+{
+  "issue": "624",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage room-type-contract --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage mapping --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage non-patient-eligibility --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage export-import-persistence --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage no-task-generation --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage rendered-editor --allow-partial --issue 624",
+      "outputs": [
+        "docs/verification/issues/issue-624/test-output/layout-editor-provider-pharmacy-room-type.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-624/no-phi-output.txt"
+      ]
+    }
+  ]
+}

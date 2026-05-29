@@ -1,0 +1,65 @@
+{
+  "issue": "621",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage reproduce-blank --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage five-foot-room --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage four-foot-room --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage sub-four-foot-negative --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage narrow-room-with-door --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage browser-no-blank --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/layout-editor-narrow-room-stability.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-621/no-phi-output.txt"
+      ]
+    }
+  ]
+}

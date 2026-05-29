@@ -10,6 +10,7 @@ export const EDITABLE_ROOM_TYPES = [
   "procedure",
   "overflow",
   "hall_bed",
+  "provider_pharmacy",
   "storage",
   "solid_wall"
 ] as const;

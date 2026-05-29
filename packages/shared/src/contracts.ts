@@ -12,6 +12,7 @@ export const ROOM_TYPES = [
   "hall_bed",
   "procedure",
   "overflow",
+  "provider_pharmacy",
   "storage",
   "solid_wall"
 ] as const;
@@ -78,6 +79,7 @@ export const ROOM_OPERATIONAL_CLASSES = [
   "procedure",
   "hall_bed",
   "overflow",
+  "provider_pharmacy",
   "storage",
   "solid_wall"
 ] as const;

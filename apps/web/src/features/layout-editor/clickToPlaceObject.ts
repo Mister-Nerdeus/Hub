@@ -123,6 +123,10 @@ function placementStyle(objectType: AddObjectMenuItemId): { fill: string; stroke
     const style = getRoomPresentationStyle("storage");
     return { fill: style.fill, stroke: style.stroke };
   }
+  if (objectType === "provider_pharmacy") {
+    const style = getRoomPresentationStyle("provider_pharmacy");
+    return { fill: style.fill, stroke: style.stroke };
+  }
   if (objectType === "solid_wall") {
     const style = getRoomPresentationStyle("solid_wall");
     return { fill: style.fill, stroke: style.stroke };

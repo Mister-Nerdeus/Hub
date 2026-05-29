@@ -270,6 +270,25 @@ export function LayoutEditorStage({
     return () => document.removeEventListener("keydown", cancelPlacement);
   }, [pendingAddObjectId]);
   useEffect(() => {
+    const deleteSelectedDoor = (event: KeyboardEvent) => {
+      if (
+        stageState.readOnly ||
+        editorMode !== "edit" ||
+        stageState.selectedObjectType !== "door" ||
+        stageState.selectedObjectId == null ||
+        (event.key !== "Delete" && event.key !== "Backspace") ||
+        isEditableKeyboardTarget(event.target)
+      ) {
+        return;
+      }
+      event.preventDefault();
+      dispatchStage({ type: "deleteDoor", doorId: stageState.selectedObjectId });
+      setCanvasPopoverOpen(false);
+    };
+    document.addEventListener("keydown", deleteSelectedDoor);
+    return () => document.removeEventListener("keydown", deleteSelectedDoor);
+  }, [editorMode, stageState.readOnly, stageState.selectedObjectType, stageState.selectedObjectId]);
+  useEffect(() => {
     if (localDraftStorage == null || stageState.editableLayout == null || stageState.readOnly) {
       return;
     }
@@ -365,6 +384,9 @@ export function LayoutEditorStage({
     room: selectedRoom,
     readOnly: stageState.readOnly
   });
+  const selectedRoomAttachedDoorCount = selectedRoom == null
+    ? 0
+    : stageState.editableLayout?.doors.filter((door) => door.ownerKind === "room" && door.ownerId === selectedRoom.id).length ?? 0;
   const doorQuickEditViewModel = buildDoorQuickEdit({
     door: selectedDoor,
     rooms: stageState.editableLayout?.rooms ?? [],
@@ -1209,6 +1231,8 @@ export function LayoutEditorStage({
                     }}
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
+                    onRemoveAttachedDoors={() => dispatchStage({ type: "removeSelectedRoomDoors" })}
+                    attachedDoorCount={selectedRoomAttachedDoorCount}
                     onDuplicateRoom={() => dispatchStage({ type: "duplicateSelectedObject" })}
                     onDeleteRoom={() => dispatchStage({ type: "deleteSelectedRoom" })}
                   />
@@ -1578,6 +1602,14 @@ function getBrowserLocalDraftStorage(): LayoutLocalDraftStorage | null {
     return null;
   }
   return window.localStorage;
+}
+
+function isEditableKeyboardTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+  const tagName = target.tagName.toLowerCase();
+  return tagName === "input" || tagName === "textarea" || tagName === "select" || target.isContentEditable;
 }
 
 function pixelsDeltaToFeet(

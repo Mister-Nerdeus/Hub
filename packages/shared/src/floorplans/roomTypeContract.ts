@@ -32,6 +32,8 @@ export function authoringRoomTypeToEditableRoomType(value: AuthoringRoomType): E
       return "hall_bed";
     case "storage":
       return "storage";
+    case "provider_pharmacy":
+      return "provider_pharmacy";
     case "solid_wall":
       return "solid_wall";
     case "unknown":
@@ -49,6 +51,8 @@ export function editableRoomTypeToAuthoringRoomType(value: EditableRoomType): Au
       return "hallway";
     case "storage":
       return "storage";
+    case "provider_pharmacy":
+      return "provider_pharmacy";
     case "solid_wall":
       return "solid_wall";
     default:
@@ -64,6 +68,8 @@ export function authoringRoomTypeToPlanRoomType(value: AuthoringRoomType): RoomT
       return "hall_bed";
     case "storage":
       return "storage";
+    case "provider_pharmacy":
+      return "provider_pharmacy";
     case "solid_wall":
       return "solid_wall";
     case "unknown":

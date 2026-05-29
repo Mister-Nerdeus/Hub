@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "selected door deletion is reducer-local and strict-validation safe",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "door delete controls are rendered",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "selected room remove attached doors action exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "invalid door can be deleted without validating the whole layout",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "door-specific warnings are removed on delete",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

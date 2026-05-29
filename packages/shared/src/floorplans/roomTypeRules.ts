@@ -37,6 +37,18 @@ export const ROOM_TYPE_RULES = {
   hall_bed: { roomType: "hall_bed", ...patientCareRules },
   procedure: { roomType: "procedure", ...patientCareRules },
   overflow: { roomType: "overflow", ...patientCareRules },
+  provider_pharmacy: {
+    roomType: "provider_pharmacy",
+    patientCareEligible: false,
+    nurseAssignable: false,
+    roomLoadEligible: false,
+    ratioCountEligible: false,
+    burdenScoreEligible: false,
+    pathNodeEligible: false,
+    doorEligible: true,
+    travelBlocking: false,
+    presentationMuted: true
+  },
   storage: {
     roomType: "storage",
     patientCareEligible: false,

@@ -27,6 +27,14 @@ export const semanticRoomPresentationStyles = {
     muted: true,
     legendLabel: "Storage"
   },
+  provider_pharmacy: {
+    roomType: "provider_pharmacy",
+    fill: "#d7e8df",
+    stroke: "#55796a",
+    textFill: "#17352a",
+    muted: true,
+    legendLabel: "Provider / pharmacy support"
+  },
   solid_wall: {
     roomType: "solid_wall",
     fill: "#6f7782",

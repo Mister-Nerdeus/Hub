@@ -1,6 +1,6 @@
 import type { EditableRoomGeometry } from "@nerdeus/shared";
 
-import { resizeRoomByHandleDeltaFeet } from "./roomResizeGeometry";
+import { MINIMUM_EDITABLE_ROOM_SIZE_FEET, resizeRoomByHandleDeltaFeet } from "./roomResizeGeometry";
 import { ROOM_RESIZE_HANDLE_ORDER } from "./roomResizeHandlesViewModel";
 
 const assert = {
@@ -116,6 +116,56 @@ assert.deepEqual(
     heightFeet: 4
   }
 );
+
+assert.equal(MINIMUM_EDITABLE_ROOM_SIZE_FEET, 4);
+
+const fiveFootWideRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "east",
+  deltaFeet: { deltaXFeet: -7, deltaYFeet: 0 },
+  snapMode: "fine"
+});
+assert.equal(fiveFootWideRoom.widthFeet, 5);
+
+const fourFootWideRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "east",
+  deltaFeet: { deltaXFeet: -8, deltaYFeet: 0 },
+  snapMode: "fine"
+});
+assert.equal(fourFootWideRoom.widthFeet, 4);
+
+const subFourFootWideRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "east",
+  deltaFeet: { deltaXFeet: -8.01, deltaYFeet: 0 },
+  snapMode: "fine"
+});
+assert.equal(subFourFootWideRoom.widthFeet, 4);
+
+const fiveFootHighRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "south",
+  deltaFeet: { deltaXFeet: 0, deltaYFeet: -5 },
+  snapMode: "fine"
+});
+assert.equal(fiveFootHighRoom.heightFeet, 5);
+
+const fourFootHighRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "south",
+  deltaFeet: { deltaXFeet: 0, deltaYFeet: -6 },
+  snapMode: "fine"
+});
+assert.equal(fourFootHighRoom.heightFeet, 4);
+
+const subFourFootHighRoom = resizeRoomByHandleDeltaFeet({
+  room: baseRoom,
+  handle: "south",
+  deltaFeet: { deltaXFeet: 0, deltaYFeet: -6.01 },
+  snapMode: "fine"
+});
+assert.equal(subFourFootHighRoom.heightFeet, 4);
 
 assert.equal(JSON.stringify(baseRoom).includes("12.5"), false);
 assert.deepEqual(baseRoom, {

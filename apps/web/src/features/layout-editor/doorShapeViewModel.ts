@@ -24,6 +24,7 @@ export type DoorShapeViewModel = {
   markerHeightPixels: number;
   hitSlopPixels: number;
   invalid: boolean;
+  warnings: readonly string[];
 };
 
 export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShapeViewModel {
@@ -63,6 +64,7 @@ export function buildDoorShapeViewModel(item: LayoutObjectRenderItem): DoorShape
     markerWidthPixels,
     markerHeightPixels,
     hitSlopPixels: 6,
-    invalid: source.widthFeet <= 0 || source.offsetFeet < 0
+    invalid: item.geometryStatus === "clamped" || item.geometryStatus === "invalid" || source.widthFeet <= 0 || source.offsetFeet < 0,
+    warnings: item.geometryWarnings ?? []
   };
 }

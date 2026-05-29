@@ -38,12 +38,13 @@ export function buildAddObjectMenuViewModel(): AddObjectMenuViewModel {
 }
 
 export function isRoomPlacementMenuItem(itemId: AddObjectMenuItemId): boolean {
-  return itemId === "patient_care_room" || itemId === "storage_room" || itemId === "solid_wall";
+  return itemId === "patient_care_room" || itemId === "storage_room" || itemId === "provider_pharmacy" || itemId === "solid_wall";
 }
 
-export function roomTypeForPlacementMenuItem(itemId: AddObjectMenuItemId): "patient_room" | "storage" | "solid_wall" | null {
+export function roomTypeForPlacementMenuItem(itemId: AddObjectMenuItemId): "patient_room" | "storage" | "provider_pharmacy" | "solid_wall" | null {
   if (itemId === "patient_care_room") return "patient_room";
   if (itemId === "storage_room") return "storage";
+  if (itemId === "provider_pharmacy") return "provider_pharmacy";
   if (itemId === "solid_wall") return "solid_wall";
   return null;
 }
