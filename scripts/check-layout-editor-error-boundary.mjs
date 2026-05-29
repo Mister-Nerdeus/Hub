@@ -99,9 +99,12 @@ function runStage(selectedStage) {
   }
   if (selectedStage === "restore-after-crash") {
     const passed = boundary.includes("restoreLatestDraft") &&
+      boundary.includes("clearForcedCrashTrigger") &&
       boundary.includes('url.searchParams.delete("forceLayoutEditorCrash")') &&
-      boundary.includes("hasError: false");
-    addCheck(checks, "restore action exits crash state without erasing draft", passed);
+      boundary.includes("hasError: false") &&
+      boundary.includes("discardDraft") &&
+      boundary.match(/discardDraft\(\)[\s\S]*?clearForcedCrashTrigger/u) != null;
+    addCheck(checks, "restore and discard actions exit forced crash state without erasing route recovery", passed);
     writeJson(`${dir}/restore-after-crash-output.json`, { status: passed ? "passed" : "failed" });
     return;
   }

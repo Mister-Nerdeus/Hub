@@ -67,11 +67,7 @@ export class LayoutEditorErrorBoundary extends Component<
   }
 
   private restoreLatestDraft() {
-    if (typeof window !== "undefined") {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("forceLayoutEditorCrash");
-      window.history.replaceState({}, "", url.toString());
-    }
+    this.clearForcedCrashTrigger();
     this.setState({ hasError: false, message: null });
   }
 
@@ -98,6 +94,16 @@ export class LayoutEditorErrorBoundary extends Component<
       return;
     }
     resetLayoutLocalDraft(window.localStorage, this.props.activeFloorplan.recordId);
+    this.clearForcedCrashTrigger();
     this.setState({ hasError: false, message: null });
+  }
+
+  private clearForcedCrashTrigger() {
+    if (typeof window === "undefined") {
+      return;
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.delete("forceLayoutEditorCrash");
+    window.history.replaceState({}, "", url.toString());
   }
 }
