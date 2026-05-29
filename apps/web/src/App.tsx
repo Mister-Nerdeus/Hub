@@ -22,6 +22,7 @@ import {
 import { createSavedFloorplanPersistence } from "./features/floorplans/savedFloorplanPersistence";
 import { LayoutEditorStage } from "./features/layout-editor/LayoutEditorStage";
 import type { SaveWorkingCopyResult } from "./features/layout-editor/LayoutEditorStage";
+import { LayoutEditorErrorBoundary } from "./features/layout-editor/LayoutEditorErrorBoundary";
 import { AppShell } from "./features/app-shell/AppShell";
 import {
   APP_SECTIONS,
@@ -265,14 +266,19 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "editor" ? (
         <section className="workflow-section" aria-labelledby="editor-title">
           <h2 id="editor-title">Layout editor</h2>
-          <LayoutEditorStage
+          <LayoutEditorErrorBoundary
             activeFloorplan={activeFloorplanState.activeFloorplan}
-            onCreateWorkingCopy={() =>
-              duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
-            }
-            onSaveWorkingCopy={saveActiveWorkingCopy}
-            onSaveAsNewCopy={saveActiveAsNewCopy}
-          />
+            onReturnToLibrary={() => setActiveSection("floorplans")}
+          >
+            <LayoutEditorStage
+              activeFloorplan={activeFloorplanState.activeFloorplan}
+              onCreateWorkingCopy={() =>
+                duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
+              }
+              onSaveWorkingCopy={saveActiveWorkingCopy}
+              onSaveAsNewCopy={saveActiveAsNewCopy}
+            />
+          </LayoutEditorErrorBoundary>
         </section>
       ) : null}
 

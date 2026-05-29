@@ -211,6 +211,12 @@ export function LayoutEditorStage({
   onSaveWorkingCopy,
   onSaveAsNewCopy
 }: LayoutEditorStageProps) {
+  if (
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("forceLayoutEditorCrash") === "1"
+  ) {
+    throw new Error("Forced layout editor crash for local recovery verification.");
+  }
   const localDraftStorage = getBrowserLocalDraftStorage();
   const [stageState, dispatchStage] = useReducer(
     layoutEditorReducer,

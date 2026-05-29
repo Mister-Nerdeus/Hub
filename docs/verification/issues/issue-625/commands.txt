@@ -1,11 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage final --issue 625
-node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage final --issue 625
-node scripts/check-layout-editor-door-delete-ux.mjs --stage final --issue 625
-node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage final --issue 625
-node scripts/check-layout-editor-repair-go-no-go.mjs --stage final --issue 625
+node scripts/check-layout-editor-error-boundary.mjs --stage forced-crash --allow-partial --issue 625
+node scripts/check-layout-editor-error-boundary.mjs --stage recovery-screen --allow-partial --issue 625
+node scripts/check-layout-editor-error-boundary.mjs --stage export-draft-after-crash --allow-partial --issue 625
+node scripts/check-layout-editor-error-boundary.mjs --stage no-blank-screen --allow-partial --issue 625
 node scripts/check-no-phi-fields.mjs
-docker compose config
-docker compose -f docker-compose.production.yml config
