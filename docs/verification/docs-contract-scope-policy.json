@@ -2,15 +2,15 @@
   "schemaVersion": "1.0.0",
   "policy": "docs_contract_scope_policy",
   "currentBatchBlocking": {
-    "issueRanges": ["591-600"],
+    "issueRanges": ["621-621"],
     "blocking": true,
-    "description": "Current truth-loop repair batch docs contracts are blocking for GO / NO-GO decisions."
+    "description": "Current floorplan editor reconstruction repair issue docs contracts are blocking for GO / NO-GO decisions."
   },
   "historicalBacklogNonblocking": {
-    "issueRanges": ["015-590"],
+    "issueRanges": ["015-620", "622-625"],
     "blocking": false,
     "followUpCleanupIssue": "docs-contract-historical-backlog-cleanup",
-    "acceptedRisk": "Historical issue evidence-index and command-output-map gaps predate the 591-600 truth-loop repair batch. They remain visible in structured output but do not block current-batch GO decisions unless they overlap Issues 591-600.",
+    "acceptedRisk": "Historical issue evidence-index and command-output-map gaps predate the active floorplan editor reconstruction issue. Pre-existing Issue 622-625 folders belong to a prior repair batch and remain non-blocking until each matching persistence issue rewrites its evidence.",
     "expiryCondition": "Expires when the historical evidence index and command-output-map backlog is either repaired or reclassified by a later accepted docs-contract issue."
   }
 }

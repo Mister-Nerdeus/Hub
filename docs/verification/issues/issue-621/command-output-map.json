@@ -1,52 +1,53 @@
-[
-  {
-    "command": "npm --workspace packages/shared test",
-    "output": "docs/verification/issues/issue-621/test-output/shared.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web test",
-    "output": "docs/verification/issues/issue-621/test-output/web.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "npm --workspace apps/web run build",
-    "output": "docs/verification/issues/issue-621/test-output/web-build.txt",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage reproduce-blank --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/narrow-room-reproduction-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage five-foot-room --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/five-foot-room-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage four-foot-room --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/four-foot-room-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage sub-four-foot-negative --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/sub-four-foot-negative-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage narrow-room-with-door --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/narrow-room-with-door-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-layout-editor-narrow-room-stability.mjs --stage browser-no-blank --allow-partial --issue 621",
-    "output": "docs/verification/issues/issue-621/browser-no-blank-output.json",
-    "exitCode": 0
-  },
-  {
-    "command": "node scripts/check-no-phi-fields.mjs",
-    "output": "docs/verification/issues/issue-621/no-phi-output.txt",
-    "exitCode": 0
-  }
-]
+{
+  "issue": "621",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-621/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage manifest-contract --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/manifest-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage root-script-plan --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/root-script-plan-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage docs-contract-scope --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/docs-contract-scope-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage stale-manifest-negative --allow-partial --issue 621",
+      "outputs": [
+        "docs/verification/issues/issue-621/stale-manifest-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-621/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage reproduce-blank --allow-partial --issue 621
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage five-foot-room --allow-partial --issue 621
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage four-foot-room --allow-partial --issue 621
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage sub-four-foot-negative --allow-partial --issue 621
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage narrow-room-with-door --allow-partial --issue 621
-node scripts/check-layout-editor-narrow-room-stability.mjs --stage browser-no-blank --allow-partial --issue 621
+node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage manifest-contract --allow-partial --issue 621
+node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage root-script-plan --allow-partial --issue 621
+node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage docs-contract-scope --allow-partial --issue 621
+node scripts/check-floorplan-editor-reconstruction-preflight.mjs --stage stale-manifest-negative --allow-partial --issue 621
 node scripts/check-no-phi-fields.mjs

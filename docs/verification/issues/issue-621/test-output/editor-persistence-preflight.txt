@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "621",
+  "checks": [
+    {
+      "name": "reconstruction manifest has required fields",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "manifest uses product display name",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manifest is not stale previous-batch manifest",
+      "passed": true,
+      "detail": {
+        "oldManifestStillPresent": true
+      }
+    },
+    {
+      "name": "all reconstruction gates have root scripts",
+      "passed": true,
+      "detail": {
+        "missingRootScripts": []
+      }
+    },
+    {
+      "name": "all reconstruction root script files exist",
+      "passed": true,
+      "detail": {
+        "missingScriptFiles": []
+      }
+    },
+    {
+      "name": "verify-local includes reconstruction root scripts",
+      "passed": true,
+      "detail": {
+        "missingVerifyLocal": []
+      }
+    },
+    {
+      "name": "future issue folder docs-contract churn is explicitly scoped",
+      "passed": true,
+      "detail": {
+        "currentRanges": [
+          "621-621"
+        ],
+        "staleFutureFolders": [
+          "issue-622",
+          "issue-623",
+          "issue-624",
+          "issue-625"
+        ]
+      }
+    },
+    {
+      "name": "stale previous-batch manifest negative fixture fails",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "preflight checks stale manifest path is not reused",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Issue 621 required evidence files exist",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    }
+  ]
+}

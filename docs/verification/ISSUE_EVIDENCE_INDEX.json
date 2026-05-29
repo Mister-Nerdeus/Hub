@@ -20786,8 +20786,78 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "621",
+      "title": "Floorplan Editor Persistence Preflight + Gate Wiring",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-621/closeout.md",
+        "docs/verification/issues/issue-621/commands.txt",
+        "docs/verification/issues/issue-621/command-output-map.json",
+        "docs/verification/issues/issue-621/first-failure.txt",
+        "docs/verification/issues/issue-621/manifest-contract-output.json",
+        "docs/verification/issues/issue-621/root-script-plan-output.json",
+        "docs/verification/issues/issue-621/docs-contract-scope-output.json",
+        "docs/verification/issues/issue-621/stale-manifest-negative-output.json",
+        "docs/verification/issues/issue-621/no-phi-output.txt",
+        "docs/verification/issues/issue-621/manifest-update-output.json",
+        "docs/verification/issues/issue-621/test-output/shared.txt",
+        "docs/verification/issues/issue-621/test-output/web.txt",
+        "docs/verification/issues/issue-621/test-output/web-build.txt",
+        "docs/verification/issues/issue-621/test-output/editor-persistence-preflight.txt"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
+    },
+    {
+      "issue": "622",
+      "title": "Floorplan Editor Save Working Copy",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-622/closeout.md",
+        "docs/verification/issues/issue-622/commands.txt",
+        "docs/verification/issues/issue-622/command-output-map.json",
+        "docs/verification/issues/issue-622/manifest-update-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
+    },
+    {
+      "issue": "623",
+      "title": "Floorplan Editor Per-Copy Autosave",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-623/closeout.md",
+        "docs/verification/issues/issue-623/commands.txt",
+        "docs/verification/issues/issue-623/command-output-map.json",
+        "docs/verification/issues/issue-623/manifest-update-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
+    },
+    {
+      "issue": "624",
+      "title": "Floorplan Editor Draft Recovery Banner",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-624/closeout.md",
+        "docs/verification/issues/issue-624/commands.txt",
+        "docs/verification/issues/issue-624/command-output-map.json",
+        "docs/verification/issues/issue-624/manifest-update-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
+    },
+    {
+      "issue": "625",
+      "title": "Floorplan Editor Crash Recovery Boundary",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-625/closeout.md",
+        "docs/verification/issues/issue-625/commands.txt",
+        "docs/verification/issues/issue-625/command-output-map.json",
+        "docs/verification/issues/issue-625/manifest-update-output.json"
+      ],
+      "missingRequiredEvidence": [],
+      "status": "indexed"
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "601"
+  "lastRebuiltIssue": "625"
 }
