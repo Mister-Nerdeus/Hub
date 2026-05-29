@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "630",
+  "checks": [
+    {
+      "name": "forced render crash test hook exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local recovery screen exposes required actions",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "crash recovery can export scoped draft JSON",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "restore action exits crash state without erasing draft",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "error boundary is local to editor and renders nonblank recovery UI",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

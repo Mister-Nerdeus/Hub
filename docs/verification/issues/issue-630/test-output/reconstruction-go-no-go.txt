@@ -1,0 +1,228 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "630",
+  "decision": "go_for_full_er_floorplan_reconstruction",
+  "checks": [
+    {
+      "name": "node scripts/check-layout-editor-save-working-copy.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-per-copy-autosave.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-error-boundary.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-room-labels.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-duplicate-labels.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-station-move.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-station-resize.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "node scripts/check-layout-editor-reconstruction-stress.mjs --stage final --issue 630",
+      "passed": true,
+      "detail": {
+        "exitCode": 0,
+        "stderr": ""
+      }
+    },
+    {
+      "name": "manifest cross-check agrees with rerun validators",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "no PHI/optimizer/recommendation/clinical/staffing/outcome drift",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "final decision has rerun validator proof",
+      "passed": true,
+      "detail": {
+        "commandResults": [
+          {
+            "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"save buttons and visible status are present\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Save working copy calls store.saveDraft for saved copies\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Save as new copy calls store.saveAsDraft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saving a default/read-only plan creates a saved copy\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saved copy reload proof exists and display name reloads\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save status covers saved, created, and failed states\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save failure negative path is visible and non-corrupting\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save path rejects private payloads and preserves operational labels/geometry\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-per-copy-autosave.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"autosave uses v2 scoped storage keys with record identity\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copy A autosave does not overwrite copy B\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"wrong-copy restore negative path exists\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"legacy v1 draft is classified and not auto-loaded\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"autosave record includes updatedAt timestamp\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"autosave persists editable geometry only, not private payloads\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"recovered draft banner shows copy, plan, timestamp, and dirty state\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"restore action applies the scoped recovery draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"discard removes only the active scoped draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export recovery draft JSON works independently of save\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"draft for another copy is not auto-restored or shown\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-error-boundary.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"forced render crash test hook exists\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"local recovery screen exposes required actions\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"crash recovery can export scoped draft JSON\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"restore action exits crash state without erasing draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"error boundary is local to editor and renders nonblank recovery UI\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-room-labels.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"room label is separately editable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room number is separately editable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room number and label persist through export/import and local records\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room label edits are undoable and redoable in session\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saved-copy reload path preserves room labels\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room label validator rejects identifier and clinical text fixtures\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export/import label output is covered\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"duplicate room labels normalize and room number requires review\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"duplicate station labels normalize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"duplicate zone labels normalize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copy-chain negative fixture is normalized to numbered Copy suffixes\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"normalized duplicate labels flow through saved editable layout\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copied room label review warning is emitted\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-station-move.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"station drag handlers dispatch station geometry movement\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement writes undoable audit history\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement is eligible for scoped local draft autosave\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"moved station geometry persists through export/import bridge\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"moved station geometry persists through saved copy reload\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement is blocked for read-only or non-edit views\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement does not mutate room capacity or room counts\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-station-resize.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"station resize handles dispatch station geometry resize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station inspector exposes editable X/Y/width/height fields\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize and inspector geometry edits are undoable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize is eligible for scoped local draft autosave\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resized geometry persists through export/import bridge\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resized geometry persists through saved copy reload\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize is blocked in read-only state\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize does not mutate room capacity or room counts\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          },
+          {
+            "command": "node scripts/check-layout-editor-reconstruction-stress.mjs --stage final --issue 630",
+            "status": "passed",
+            "exitCode": 0,
+            "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"combined reconstruction workflow surface is wired\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save, per-copy autosave, and restore paths are present\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"forced crash route renders local recovery actions\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export JSON validation preserves labels and station geometry\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"stress workflow does not introduce private source payload persistence\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+            "stderr": ""
+          }
+        ]
+      }
+    }
+  ],
+  "commandResults": [
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"save buttons and visible status are present\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Save working copy calls store.saveDraft for saved copies\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Save as new copy calls store.saveAsDraft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saving a default/read-only plan creates a saved copy\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saved copy reload proof exists and display name reloads\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save status covers saved, created, and failed states\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save failure negative path is visible and non-corrupting\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save path rejects private payloads and preserves operational labels/geometry\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-per-copy-autosave.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"autosave uses v2 scoped storage keys with record identity\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copy A autosave does not overwrite copy B\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"wrong-copy restore negative path exists\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"legacy v1 draft is classified and not auto-loaded\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"autosave record includes updatedAt timestamp\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"autosave persists editable geometry only, not private payloads\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"recovered draft banner shows copy, plan, timestamp, and dirty state\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"restore action applies the scoped recovery draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"discard removes only the active scoped draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export recovery draft JSON works independently of save\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"draft for another copy is not auto-restored or shown\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-error-boundary.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"forced render crash test hook exists\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"local recovery screen exposes required actions\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"crash recovery can export scoped draft JSON\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"restore action exits crash state without erasing draft\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"error boundary is local to editor and renders nonblank recovery UI\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"room label is separately editable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room number is separately editable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room number and label persist through export/import and local records\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room label edits are undoable and redoable in session\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"saved-copy reload path preserves room labels\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"room label validator rejects identifier and clinical text fixtures\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export/import label output is covered\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"duplicate room labels normalize and room number requires review\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"duplicate station labels normalize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"duplicate zone labels normalize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copy-chain negative fixture is normalized to numbered Copy suffixes\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"normalized duplicate labels flow through saved editable layout\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"copied room label review warning is emitted\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"station drag handlers dispatch station geometry movement\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement writes undoable audit history\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement is eligible for scoped local draft autosave\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"moved station geometry persists through export/import bridge\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"moved station geometry persists through saved copy reload\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement is blocked for read-only or non-edit views\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station movement does not mutate room capacity or room counts\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-resize.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"station resize handles dispatch station geometry resize\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station inspector exposes editable X/Y/width/height fields\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize and inspector geometry edits are undoable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize is eligible for scoped local draft autosave\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resized geometry persists through export/import bridge\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resized geometry persists through saved copy reload\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize is blocked in read-only state\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"station resize does not mutate room capacity or room counts\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    },
+    {
+      "command": "node scripts/check-layout-editor-reconstruction-stress.mjs --stage final --issue 630",
+      "status": "passed",
+      "exitCode": 0,
+      "stdout": "{\n  \"status\": \"passed\",\n  \"stage\": \"final\",\n  \"issue\": \"630\",\n  \"checks\": [\n    {\n      \"name\": \"combined reconstruction workflow surface is wired\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save, per-copy autosave, and restore paths are present\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"forced crash route renders local recovery actions\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"export JSON validation preserves labels and station geometry\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"stress workflow does not introduce private source payload persistence\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}",
+      "stderr": ""
+    }
+  ]
+}

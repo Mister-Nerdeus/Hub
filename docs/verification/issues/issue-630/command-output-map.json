@@ -1,0 +1,101 @@
+{
+  "issue": "630",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-save-working-copy.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/save-working-copy.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-per-copy-autosave.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/per-copy-autosave.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-draft-recovery-banner.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/draft-recovery-banner.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-error-boundary.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/editor-error-boundary.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-labels.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/room-labels.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-duplicate-labels.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/duplicate-labels.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-move.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/station-move.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-station-resize.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/station-resize.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-reconstruction-stress.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/reconstruction-stress-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-editor-reconstruction-go-no-go.mjs --stage final --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/go-no-go.md"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 630",
+      "outputs": [
+        "docs/verification/issues/issue-630/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-630/no-phi-output.txt"
+      ]
+    }
+  ]
+}

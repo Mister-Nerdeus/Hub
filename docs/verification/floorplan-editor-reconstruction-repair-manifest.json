@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "621-630",
-  "lastUpdatedIssue": "629",
+  "lastUpdatedIssue": "630",
   "productDisplayName": "ER Pod Shift Simulator",
   "sourceBatch": "611-620",
   "sourceGoNoGoStatus": "go_for_manual_visual_review",
@@ -14,8 +14,8 @@
   "duplicateLabelNormalizationStatus": "passed",
   "stationMoveStatus": "passed",
   "stationResizeStatus": "passed",
-  "editorStressRecoveryStatus": "missing",
-  "floorplanReconstructionGoNoGoStatus": "not_ready",
+  "editorStressRecoveryStatus": "passed",
+  "floorplanReconstructionGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
   "saveWorkingCopyVisible": true,
   "saveAsNewCopyVisible": true,
   "savedCopyReloadProof": true,
@@ -40,5 +40,5 @@
   "manualApprovalStatus": "missing",
   "promotionStatus": "blocked",
   "noPhiStatus": "passed",
-  "goNoGoStatus": "not_ready"
+  "goNoGoStatus": "go_for_full_er_floorplan_reconstruction"
 }

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "630",
+  "checks": [
+    {
+      "name": "recovered draft banner shows copy, plan, timestamp, and dirty state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "restore action applies the scoped recovery draft",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "discard removes only the active scoped draft",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "export recovery draft JSON works independently of save",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "draft for another copy is not auto-restored or shown",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

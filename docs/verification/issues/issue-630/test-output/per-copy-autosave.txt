@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "630",
+  "checks": [
+    {
+      "name": "autosave uses v2 scoped storage keys with record identity",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "copy A autosave does not overwrite copy B",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "wrong-copy restore negative path exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "legacy v1 draft is classified and not auto-loaded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "autosave record includes updatedAt timestamp",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "autosave persists editable geometry only, not private payloads",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

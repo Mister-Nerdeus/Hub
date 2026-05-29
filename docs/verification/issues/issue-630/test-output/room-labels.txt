@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "630",
+  "checks": [
+    {
+      "name": "room label is separately editable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room number is separately editable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room number and label persist through export/import and local records",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room label edits are undoable and redoable in session",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "saved-copy reload path preserves room labels",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "room label validator rejects identifier and clinical text fixtures",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "export/import label output is covered",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}
