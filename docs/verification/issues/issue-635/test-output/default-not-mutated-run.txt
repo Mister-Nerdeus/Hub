@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "stage": "default-not-mutated",
+  "issue": "635",
+  "checks": [
+    {
+      "name": "canonical default remains unchanged after saved-copy room move",
+      "passed": true,
+      "detail": {
+        "defaultExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "roomBefore": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    }
+  ]
+}

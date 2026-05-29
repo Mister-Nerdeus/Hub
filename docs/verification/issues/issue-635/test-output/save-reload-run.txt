@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "stage": "save-reload",
+  "issue": "635",
+  "checks": [
+    {
+      "name": "saved room geometry survives browser reload and same-copy reopen",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "savedRecordRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "reloadedEditableRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        }
+      }
+    }
+  ]
+}

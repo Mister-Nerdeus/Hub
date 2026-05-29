@@ -1,0 +1,59 @@
+{
+  "issue": "635",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-635/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-635/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-635/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-move-persistence.mjs --stage immediate-edit --allow-partial --issue 635",
+      "outputs": [
+        "docs/verification/issues/issue-635/immediate-editable-layout-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-move-persistence.mjs --stage save-reload --allow-partial --issue 635",
+      "outputs": [
+        "docs/verification/issues/issue-635/reload-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-move-persistence.mjs --stage export-after-reload --allow-partial --issue 635",
+      "outputs": [
+        "docs/verification/issues/issue-635/export-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-move-persistence.mjs --stage default-not-mutated --allow-partial --issue 635",
+      "outputs": [
+        "docs/verification/issues/issue-635/default-not-mutated-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-room-move-persistence.mjs --stage stale-room-negative --allow-partial --issue 635",
+      "outputs": [
+        "docs/verification/issues/issue-635/stale-room-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-635/no-phi-output.txt"
+      ]
+    }
+  ]
+}

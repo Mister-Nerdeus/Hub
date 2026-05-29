@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-room-move-persistence.mjs --stage immediate-edit --allow-partial --issue 635
+node scripts/check-layout-editor-room-move-persistence.mjs --stage save-reload --allow-partial --issue 635
+node scripts/check-layout-editor-room-move-persistence.mjs --stage export-after-reload --allow-partial --issue 635
+node scripts/check-layout-editor-room-move-persistence.mjs --stage default-not-mutated --allow-partial --issue 635
+node scripts/check-layout-editor-room-move-persistence.mjs --stage stale-room-negative --allow-partial --issue 635
+node scripts/check-no-phi-fields.mjs

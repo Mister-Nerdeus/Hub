@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "stage": "stale-room-negative",
+  "issue": "635",
+  "checks": [
+    {
+      "name": "stale room payload negative fixture is detected",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "failures": [
+          "room x/y reverted after reload"
+        ],
+        "expected": {
+          "id": "room-02",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "afterReload": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        }
+      }
+    }
+  ]
+}
