@@ -14,24 +14,29 @@ const viewModel = buildEditorCommandBarViewModel({
   activeRecordId: "saved-default-er-layout-plan-1-001",
   activePlanId: "default-er-layout-plan-1",
   activeSourceLabel: "Saved working copy",
+  localRecoveryDraftLabel: "No local recovery draft for this copy",
   lastNamedCopySaveLabel: "Not saved this session",
+  reloadProofLabel: "Not verified this session",
   isDirty: true,
   readOnly: false,
   undoDisabled: false,
   redoDisabled: true,
   validationSummary: "2 validation warnings",
   validationDisabled: false,
-  saveStatus: "Not saved yet"
+  saveStatus: "Named working copy not saved this session"
 });
 
-if (viewModel.saveStatusLabel !== "Not saved yet") {
-  throw new Error("command bar should truthfully expose named-copy save status");
+if (viewModel.saveStatusLabel !== "Not saved since local changes") {
+  throw new Error("command bar should truthfully expose named-copy save status for dirty local edits");
 }
 if (viewModel.activeRecordIdLabel !== "saved-default-er-layout-plan-1-001") {
   throw new Error("command bar should expose active saved record identity");
 }
-if (viewModel.dirtyStateLabel !== "Draft changed") {
+if (viewModel.dirtyStateLabel !== "Local editor state: changed locally") {
   throw new Error("command bar should expose dirty state");
+}
+if (viewModel.changedNotSavedWarningLabel == null) {
+  throw new Error("command bar should warn when local changes are not named-copy saved");
 }
 if (viewModel.addObjectDisabled) {
   throw new Error("Add Object shortcut should be enabled for editable layouts");
@@ -48,13 +53,15 @@ const element = EditorCommandBar({
   activeRecordId: "saved-default-er-layout-plan-1-001",
   activePlanId: "default-er-layout-plan-1",
   activeSourceLabel: "Saved working copy",
+  localRecoveryDraftLabel: "No local recovery draft for this copy",
   lastNamedCopySaveLabel: "Not saved this session",
+  reloadProofLabel: "Not verified this session",
   readOnly: false,
   isDirty: true,
   undoDisabled: false,
   redoDisabled: true,
   jsonStatus: "ready",
-  saveStatus: "Not saved yet",
+  saveStatus: "Named working copy not saved this session",
   validationSummary: "2 validation warnings",
   validationDisabled: false,
   inspectorCollapsed: false,

@@ -4,7 +4,9 @@ export type EditorCommandBarViewModelInput = {
   activeRecordId: string | null;
   activePlanId: string | null;
   activeSourceLabel: string;
+  localRecoveryDraftLabel: string;
   lastNamedCopySaveLabel: string;
+  reloadProofLabel: string;
   isDirty: boolean;
   readOnly: boolean;
   undoDisabled: boolean;
@@ -19,8 +21,11 @@ export type EditorCommandBarViewModel = {
   activeRecordIdLabel: string;
   activePlanIdLabel: string;
   activeSourceLabel: string;
+  localRecoveryDraftLabel: string;
   lastNamedCopySaveLabel: string;
+  reloadProofLabel: string;
   defaultWarningLabel: string | null;
+  changedNotSavedWarningLabel: string | null;
   saveStatusLabel: string;
   dirtyStateLabel: string;
   modeLabel: string;
@@ -43,7 +48,9 @@ export function buildEditorCommandBarViewModel({
   activeRecordId,
   activePlanId,
   activeSourceLabel,
+  localRecoveryDraftLabel,
   lastNamedCopySaveLabel,
+  reloadProofLabel,
   isDirty,
   readOnly,
   undoDisabled,
@@ -57,12 +64,17 @@ export function buildEditorCommandBarViewModel({
     activeRecordIdLabel: activeRecordId ?? "No active record",
     activePlanIdLabel: activePlanId ?? "No active plan",
     activeSourceLabel,
+    localRecoveryDraftLabel,
     lastNamedCopySaveLabel,
+    reloadProofLabel,
     defaultWarningLabel: readOnly
       ? "Canonical default is read-only. Save working copy creates a saved editable copy."
       : null,
-    saveStatusLabel: saveStatus,
-    dirtyStateLabel: isDirty ? "Draft changed" : "No unsaved edits",
+    changedNotSavedWarningLabel: isDirty && !readOnly
+      ? "Changes are in the local editor only. Click Save working copy to persist this saved copy."
+      : null,
+    saveStatusLabel: isDirty && !readOnly ? "Not saved since local changes" : saveStatus,
+    dirtyStateLabel: isDirty ? "Local editor state: changed locally" : "Local editor state: unchanged locally",
     modeLabel: readOnly ? "Read-only" : "Editable",
     validationLabel: validationSummary,
     undoDisabled,

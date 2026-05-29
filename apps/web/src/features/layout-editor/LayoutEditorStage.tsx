@@ -251,8 +251,9 @@ export function LayoutEditorStage({
   );
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
-  const [saveStatus, setSaveStatus] = useState("Not saved yet");
+  const [saveStatus, setSaveStatus] = useState("Named working copy not saved this session");
   const [lastNamedCopySaveLabel, setLastNamedCopySaveLabel] = useState("Not saved this session");
+  const [reloadProofLabel, setReloadProofLabel] = useState("Not verified this session");
   const [draftRecoveryState, setDraftRecoveryState] = useState<DraftRecoveryState>({ status: "none" });
   const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
@@ -280,6 +281,7 @@ export function LayoutEditorStage({
   const roomResizeRef = useRef<RoomResizeState | null>(null);
   const stationResizeRef = useRef<StationResizeState | null>(null);
   const canvasPanRef = useRef<CanvasPanState | null>(null);
+  const lastAppliedSaveRecordIdRef = useRef<string | null>(null);
   const selectedRoom = findSelectedRoom(stageState);
   const selectedStation = findSelectedStation(stageState);
   const selectedHallway = findSelectedHallway(stageState);
@@ -289,8 +291,13 @@ export function LayoutEditorStage({
       return;
     }
     dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
-    setSaveStatus("Not saved yet");
-    setLastNamedCopySaveLabel("Not saved this session");
+    if (lastAppliedSaveRecordIdRef.current === activeFloorplan.recordId) {
+      lastAppliedSaveRecordIdRef.current = null;
+    } else {
+      setSaveStatus("Named working copy not saved this session");
+      setLastNamedCopySaveLabel("Not saved this session");
+      setReloadProofLabel("Not verified this session");
+    }
     if (localDraftStorage != null) {
       const loadedDraft = loadLayoutLocalDraft(localDraftStorage, activeFloorplan.recordId);
       if (loadedDraft.status === "loaded") {
@@ -648,12 +655,14 @@ export function LayoutEditorStage({
     }
     const time = formatSaveTime(result.savedAt);
     const namedCopySaveLabel = `${time} / record ${result.recordId}`;
+    lastAppliedSaveRecordIdRef.current = result.recordId;
     setSaveStatus(
       result.status === "saved"
         ? `Saved working copy ${result.recordId} at ${time}`
         : `Created new copy ${result.recordId} at ${time}`
     );
     setLastNamedCopySaveLabel(namedCopySaveLabel);
+    setReloadProofLabel("Not verified after latest named-copy save");
     dispatchStage({ type: "markClean" });
   };
   const addRoomFromStageClick = (event: PointerEvent<SVGSVGElement>) => {
@@ -1173,7 +1182,9 @@ export function LayoutEditorStage({
         activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
         activePlanId={stageState.loadedFloorplan?.planId ?? null}
         activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+        localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
         lastNamedCopySaveLabel={lastNamedCopySaveLabel}
+        reloadProofLabel={reloadProofLabel}
         readOnly={stageState.readOnly}
         isDirty={stageState.isDirty}
         undoDisabled={stageState.history.past.length === 0}
@@ -1934,6 +1945,19 @@ function sourceKindDisplayLabel(
     return "Canonical default";
   }
   return "No active source";
+}
+
+function localRecoveryDraftStatusLabel(state: DraftRecoveryState): string {
+  if (state.status === "available") {
+    return `Available local recovery draft captured ${formatSaveTime(state.updatedAt)}; not a named save`;
+  }
+  if (state.status === "restored") {
+    return `Restored local recovery draft from ${formatSaveTime(state.updatedAt)}; named copy not saved by restore`;
+  }
+  if (state.status === "discarded") {
+    return "Local recovery draft discarded";
+  }
+  return "No local recovery draft for this copy";
 }
 
 function pixelsDeltaToFeet(

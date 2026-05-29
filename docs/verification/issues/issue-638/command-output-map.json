@@ -1,0 +1,53 @@
+{
+  "issue": "638",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-638/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-638/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-638/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-truthful-save-status.mjs --stage status-contract --allow-partial --issue 638",
+      "outputs": [
+        "docs/verification/issues/issue-638/status-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-truthful-save-status.mjs --stage local-vs-named --allow-partial --issue 638",
+      "outputs": [
+        "docs/verification/issues/issue-638/local-vs-named-status-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-truthful-save-status.mjs --stage changed-not-saved-warning --allow-partial --issue 638",
+      "outputs": [
+        "docs/verification/issues/issue-638/changed-not-saved-warning-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-truthful-save-status.mjs --stage misleading-copy-negative --allow-partial --issue 638",
+      "outputs": [
+        "docs/verification/issues/issue-638/misleading-copy-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-638/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -7,7 +7,9 @@ export type EditorCommandBarProps = {
   activeRecordId: string | null;
   activePlanId: string | null;
   activeSourceLabel: string;
+  localRecoveryDraftLabel: string;
   lastNamedCopySaveLabel: string;
+  reloadProofLabel: string;
   readOnly: boolean;
   isDirty: boolean;
   undoDisabled: boolean;
@@ -37,7 +39,9 @@ export function EditorCommandBar({
   activeRecordId,
   activePlanId,
   activeSourceLabel,
+  localRecoveryDraftLabel,
   lastNamedCopySaveLabel,
+  reloadProofLabel,
   readOnly,
   isDirty,
   undoDisabled,
@@ -65,7 +69,9 @@ export function EditorCommandBar({
     activeRecordId,
     activePlanId,
     activeSourceLabel,
+    localRecoveryDraftLabel,
     lastNamedCopySaveLabel,
+    reloadProofLabel,
     isDirty,
     readOnly,
     undoDisabled,
@@ -164,12 +170,20 @@ export function EditorCommandBar({
           <dd>{viewModel.modeLabel}</dd>
         </div>
         <div>
+          <dt>Local recovery draft</dt>
+          <dd>{viewModel.localRecoveryDraftLabel}</dd>
+        </div>
+        <div>
           <dt>Named working copy</dt>
           <dd>{viewModel.saveStatusLabel}</dd>
         </div>
         <div>
           <dt>Last named-copy save</dt>
           <dd>{viewModel.lastNamedCopySaveLabel}</dd>
+        </div>
+        <div>
+          <dt>Reload proof</dt>
+          <dd>{viewModel.reloadProofLabel}</dd>
         </div>
         <div>
           <dt>State</dt>
@@ -191,6 +205,11 @@ export function EditorCommandBar({
       {viewModel.defaultWarningLabel == null ? null : (
         <p className="editor-command-bar__warning" role="status">
           {viewModel.defaultWarningLabel}
+        </p>
+      )}
+      {viewModel.changedNotSavedWarningLabel == null ? null : (
+        <p className="editor-command-bar__warning" role="status">
+          {viewModel.changedNotSavedWarningLabel}
         </p>
       )}
     </section>

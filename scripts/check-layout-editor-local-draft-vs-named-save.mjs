@@ -149,7 +149,7 @@ async function runStage(selectedStage) {
     const passed =
       bannerSource.includes("Named working copy was not saved by this restore") &&
       localDraftScenario.bannerAfterRestoreText.includes("Named working copy was not saved by this restore") &&
-      localDraftScenario.namedStatusAfterRestore.includes("Not saved yet") &&
+      localDraftScenario.namedStatusAfterRestore.includes("Not saved since local changes") &&
       localDraftScenario.namedSavedRoomAfterRestore.xFeet === localDraftScenario.roomBefore.x;
     addCheck(checks, "restoring local draft does not mark named copy saved", passed, {
       bannerAfterRestoreText: localDraftScenario.bannerAfterRestoreText,

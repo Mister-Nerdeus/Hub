@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "stage": "changed-not-saved-warning",
+  "issue": "638",
+  "checks": [
+    {
+      "name": "local changes warn user to save named working copy",
+      "passed": true,
+      "detail": {
+        "unsavedWarningText": "Changes are in the local editor only. Click Save working copy to persist this saved copy."
+      }
+    }
+  ]
+}
