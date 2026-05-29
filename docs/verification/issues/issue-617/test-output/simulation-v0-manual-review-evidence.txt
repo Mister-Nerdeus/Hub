@@ -1,0 +1,55 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "617",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "manual review evidence pack covers the required route review inventory",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "sectionCount": 11,
+        "controlCount": 17,
+        "timeline": {
+          "headerCells": [
+            "Event ID",
+            "Minute",
+            "Event",
+            "Task",
+            "Bed position",
+            "Synthetic nurse"
+          ],
+          "visibleRows": 25
+        },
+        "summaryCardCount": 6,
+        "proofPanelCount": 3,
+        "exportControlCount": 2
+      }
+    },
+    {
+      "name": "manual review route screenshot and text snapshot exist",
+      "passed": true,
+      "detail": {
+        "screenshotPath": "docs/verification/issues/issue-617/screenshots/simulation-v0-manual-review-route.png",
+        "textLength": 5812
+      }
+    },
+    {
+      "name": "manual review checklist exists and remains blank for human use",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "manual review scorecard exists without pre-filled approval",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "prefilledPass": false
+      }
+    }
+  ]
+}

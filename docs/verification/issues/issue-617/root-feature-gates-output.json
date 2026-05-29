@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "617",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "root package scripts and local verifier include Simulation v0 feature gates",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "verifyIncludesComposite": true
+      }
+    },
+    {
+      "name": "composite gate reruns 603-609 and 611-616 feature gates",
+      "passed": true,
+      "detail": {
+        "results": [
+          {
+            "script": "check:simulation-v0-profile-selector",
+            "status": 0,
+            "stdoutTail": "            \"room-15\"\n          ],\n          \"seedReference\": \"simulation-v0-neutral-workload-canonical-plan-1-busy\",\n          \"syntheticDataOnly\": true\n        }\n      }\n    },\n    {\n      \"name\": \"controls update shared review state helpers\",\n      \"passed\": true,\n      \"detail\": {}\n    },\n    {\n      \"name\": \"profile selector does not add clinical free text\",\n      \"passed\": true,\n      \"detail\": {}\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-ratio-controls",
+            "status": 0,
+            "stdoutTail": "    {\n      \"name\": \"ratio views render allowed labels\",\n      \"passed\": true,\n      \"detail\": {}\n    },\n    {\n      \"name\": \"controls update shared review state helpers\",\n      \"passed\": true,\n      \"detail\": {}\n    },\n    {\n      \"name\": \"forbidden ratio wording negative fixture fails\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": []\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-timeline-table",
+            "status": 0,
+            "stdoutTail": "        \"ratioView\": \"three_to_one\"\n      }\n    },\n    {\n      \"name\": \"timeline rows contain synthetic task and bed identifiers only\",\n      \"passed\": true,\n      \"detail\": {\n        \"forbidden\": []\n      }\n    },\n    {\n      \"name\": \"timeline is deterministic for same review state\",\n      \"passed\": true,\n      \"detail\": {\n        \"rowCount\": 284\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-summary-cards",
+            "status": 0,
+            "stdoutTail": "      }\n    },\n    {\n      \"name\": \"output derives from shared review state\",\n      \"passed\": true,\n      \"detail\": {\n        \"activityProfileId\": \"busy\",\n        \"ratioView\": \"three_to_one\"\n      }\n    },\n    {\n      \"name\": \"summary card copy avoids recommendation and certification wording\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": []\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-occupied-bed-proof",
+            "status": 0,
+            "stdoutTail": "      ]\n    },\n    {\n      \"name\": \"output derives from shared review state\",\n      \"passed\": true,\n      \"detail\": {\n        \"activityProfileId\": \"busy\",\n        \"ratioView\": \"three_to_one\"\n      }\n    },\n    {\n      \"name\": \"excluded spaces cannot be selected as occupied workload beds\",\n      \"passed\": true,\n      \"detail\": {\n        \"selectedExcluded\": []\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-artifact-proof-panel",
+            "status": 0,
+            "stdoutTail": "      }\n    },\n    {\n      \"name\": \"output derives from shared review state\",\n      \"passed\": true,\n      \"detail\": {\n        \"activityProfileId\": \"busy\",\n        \"ratioView\": \"three_to_one\"\n      }\n    },\n    {\n      \"name\": \"changed seed changes relevant hash\",\n      \"passed\": true,\n      \"detail\": {\n        \"changedHash\": \"de9846b3\"\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-artifact-export",
+            "status": 0,
+            "stdoutTail": "      \"detail\": {\n        \"activityProfileId\": \"busy\",\n        \"ratioView\": \"three_to_one\"\n      }\n    },\n    {\n      \"name\": \"export contains synthetic operational data only\",\n      \"passed\": true,\n      \"detail\": {\n        \"forbidden\": []\n      }\n    },\n    {\n      \"name\": \"export does not include access credential\",\n      \"passed\": true,\n      \"detail\": {}\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-manual-review-evidence",
+            "status": 0,
+            "stdoutTail": "      }\n    },\n    {\n      \"name\": \"manual review checklist exists and remains blank for human use\",\n      \"passed\": true,\n      \"detail\": {\n        \"missing\": []\n      }\n    },\n    {\n      \"name\": \"manual review scorecard exists without pre-filled approval\",\n      \"passed\": true,\n      \"detail\": {\n        \"missing\": [],\n        \"prefilledPass\": false\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-navigation-placement",
+            "status": 0,
+            "stdoutTail": "          \"Assignment Workflow\",\n          \"Scenarios\",\n          \"Settings\"\n        ],\n        \"routeHeading\": \"Simulation Review\",\n        \"routeText\": \"Simulation v0Simulation v0 ReviewReview synthetic operational placeholders for a deterministic dry-run. Manual visual review is still required.internal synthetic dry-run onlyActivity profileTypical65% occupancyBusy85% occupancySlammed100% occupancymedium synthetic placeholder workloadChoose one synthetic activity profile to change the number of occupied bed positions used by the dry-run.Ratio planning assumption4:1 dry-runRatio planning assumption3:1 dry-runRatio planning assumptionSide-by-side comparisonRatio planning assumptionChoose a bounded ratio planning assumption. This changes the synthetic nurse grouping used for review.Queue placeholder summarytypical / comparisonScan artifact-derived counts for generated, queued, delayed, and unassigned placeholders.Operational placeholder summary only.WorkloadGenerated placeholder volume.Generated60QueueQueued and delayed placeholder events.Queued13Delayed13Coverage placeholderUnassigned placeholder events only.Unassigned0Runtime groupingSynthetic nurse groups and placeholder pressure.Synthetic nurse groups14Placeholder pressureplaceholder moderateDry-run timelinetypical / comparisonInspect the generated placeholder events in time order. Rows use synthetic task, bed-position, and nurse-group identifiers.25 of 106All eventsReadyQueuedDelayedStartedCompletedUnassignedPrevious pagePage 1 of 5Next pageShowing 25 rows from 106 filtered events and 106 total events.Event IDMinuteEventTaskBed positionSynthetic nursedry-run-event-000130task_placeholder_readydry-run-task-room-06-dry-run-documentation-placeholder-02room-06synthetic-nurse-02dry-run-event-000430task_placeholder_readydry-run-task-room-24-dry-run-room-check-01room-24synthetic-nurse-06dry-run-event-000230task_placeholder_starteddry-run-task-room-06-dry-run-documentation-placeholder-02room-06synthetic-nurse-02dry-run-event-000530task_placeholder_starteddry-run-task-room-24-dry-run-room-check-01room-24synthetic-nurse-06dry-run-event-000640task_placeholder_completeddry-run-task-room-24-dry-run-room-check-01room-24synthetic-nurse-06dry-run-event-000341task_placeholder_completeddry-run-task-room-06-dry-run-documentation-placeholder-02room-06synthetic-nurse-02dry-run-event-000745task_placeholder_readydry-run-task-room-17-dry-run-documentation-placeholder-02room-17synthetic-nurse-04dry-run-event-001045task_placeholder_readydry-run-task-room-22-dry-run-documentation-placeholder-02room-22synthetic-nurse-05dry-run-event-000845task_placeholder_starteddry-run-task-room-17-dry-run-documentation-placeholder-02room-17synthetic-nurse-04dry-run-event-001145task_placeholder_starteddry-run-task-room-22-dry-run-documentation-placeholder-02room-22synthetic-nurse-05dry-run-event-000959task_placeholder_completeddry-run-task-room-17-dry-run-documentation-placeholder-02room-17synthetic-nurse-04dry-run-event-001259task_placeholder_completeddry-run-task-room-22-dry-run-documentation-placeholder-02room-22synthetic-nurse-05dry-run-event-002060task_placeholder_queueddry-run-task-room-16-dry-run-room-check-01room-16synthetic-nurse-04dry-run-event-001360task_placeholder_readydry-run-task-room-05-dry-run-room-check-01room-05synthetic-nurse-02dry-run-event-001660task_placeholder_readydry-run-task-room-15-dry-run-room-check-01room-15synthetic-nurse-04dry-run-event-001960task_placeholder_readydry-run-task-room-16-dry-run-room-check-01room-16synthetic-nurse-04dry-run-event-001460task_placeholder_starteddry-run-task-room-05-dry-run-room-check-01room-05synthetic-nurse-02dry-run-event-001760task_placeholder_starteddry-run-task-room-15-dry-run-room-check-01room-15synthetic-nurse-04dry-run-event-001566task_placeholder_completeddry-run-task-room-05-dry-run-room-check-01room-05synthetic-nurse-02dry-run-event-001866task_placeholder_completeddry-run-task-room-15-dry-run-room-check-01room-15synthetic-nurse-04dry-run-event-002166task_placeholder_delayeddry-run-task-room-16-dry-run-room-check-01room-16synthetic-nurse-04dry-run-event-002266task_placeholder_starteddry-run-task-room-16-dry-run-room-check-01room-16synthetic-nurse-04dry-run-event-002371task_placeholder_completeddry-run-task-room-16-dry-run-room-check-01room-16synthetic-nurse-04dry-run-event-002775task_placeholder_readydry-run-task-room-16-dry-run-documentation-placeholder-02room-16synthetic-nurse-04dry-run-event-002475task_placeholder_readydry-run-task-room-21-dry-run-documentation-placeholder-02room-21synthetic-nurse-05Occupied bed proofTypical / 65% occupancyShows which synthetic bed positions were selected and which non-bed spaces were excluded.15 selectedExcluded objects11Excluded categoriesstorage, support area, hallway, solid wallCapacity noteSelector-derived assignment-eligible bed positions only.room-12room-16room-22room-21room-19room-24room-02room-15room-11room-level-1-traumaroom-05room-10room-06room-17room-07Artifact hash proofstable hash proof passedThis helps confirm the same synthetic inputs produce the same dry-run artifact.Artifact IDinternal-dry-run-four_to_one-typical-artifact-bundleRun IDinternal-dry-run-four_to_one-typicalStable hashdd3779f6Workload seedneutral-workload-seed-canonical-plan-1Runtime seedruntime-seed-canonical-plan-1-four-to-oneHash metadata policyexcludes variable metadataArtifact exportsimulation-v0-typical-comparison.jsonExport a synthetic review bundle for local inspection. The preview is a bounded summary, not the full JSON.Download JSONCopy summarySynthetic review bundle only.Simulation v0 artifact review bundle\\nProfile: typical\\nRatio view: comparison\\nBundle count: 2\\nStable hashes: dd3779f6, 16e56106LimitationsInternal synthetic dry-run only.Operational placeholders only.Manual visual review remains required.Promotion remains blocked.No optimizer.No automated assignment output.No care-quality certification.No staffing certification.No outcome prediction.\",\n        \"screenshotPath\": \"docs/verification/issues/issue-617/screenshots/simulation-navigation-placement.png\"\n      }\n    },\n    {\n      \"name\": \"forbidden navigation-label negative fixture is enforced\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": [],\n        \"negativeFixture\": \"Optimizer\"\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-copy-polish",
+            "status": 0,
+            "stdoutTail": "    {\n      \"name\": \"rendered Simulation v0 route includes concise nontechnical explanations\",\n      \"passed\": true,\n      \"detail\": {\n        \"missing\": [],\n        \"textLength\": 5812,\n        \"screenshotPath\": \"docs/verification/issues/issue-617/screenshots/simulation-copy-polish.png\"\n      }\n    },\n    {\n      \"name\": \"forbidden Simulation v0 copy implication negative fixture is enforced\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": [],\n        \"negativeFixture\": \"safe\"\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-timeline-usability",
+            "status": 0,
+            "stdoutTail": "          \"All events\",\n          \"Ready\",\n          \"Queued\",\n          \"Delayed\",\n          \"Started\",\n          \"Completed\",\n          \"Unassigned\"\n        ]\n      }\n    },\n    {\n      \"name\": \"timeline does not add free-text clinical search fields\",\n      \"passed\": true,\n      \"detail\": {\n        \"hasTextInput\": false\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-summary-card-hierarchy",
+            "status": 0,
+            "stdoutTail": "          \"screenshotPath\": \"docs/verification/issues/issue-617/screenshots/simulation-summary-card-hierarchy.png\"\n        }\n      }\n    },\n    {\n      \"name\": \"summary-card values remain dry-run artifact derived\",\n      \"passed\": true,\n      \"detail\": {}\n    },\n    {\n      \"name\": \"summary-card copy avoids forbidden implication words\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": [],\n        \"negativeFixture\": \"recommended\"\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          },
+          {
+            "script": "check:simulation-v0-artifact-export-ux",
+            "status": 0,
+            "stdoutTail": "      \"passed\": true,\n      \"detail\": {}\n    },\n    {\n      \"name\": \"artifact export source does not include credentials\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": false\n      }\n    },\n    {\n      \"name\": \"artifact export remains synthetic and non-PHI\",\n      \"passed\": true,\n      \"detail\": {\n        \"found\": []\n      }\n    }\n  ]\n}\n",
+            "stderrTail": ""
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing feature-gate negative fixture fails",
+      "passed": true,
+      "detail": {
+        "missing": [
+          "check:simulation-v0-artifact-export"
+        ]
+      }
+    }
+  ]
+}

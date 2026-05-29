@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "617",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "artifact proof exposes stable hash and metadata policy",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "same inputs produce same artifact hash",
+      "passed": true,
+      "detail": {
+        "hash": "4f695205"
+      }
+    },
+    {
+      "name": "dry-run reproducibility proof passes",
+      "passed": true,
+      "detail": {
+        "schemaVersion": "1.0.0",
+        "proofId": "simulation-v0-dry-run-reproducibility-proof",
+        "firstArtifactHash": "dd3779f6",
+        "secondArtifactHash": "dd3779f6",
+        "repeatedRunMatches": true,
+        "taskTimelineEqual": true,
+        "queuePlaceholderEqual": true,
+        "changedSeedArtifactHash": "de9846b3",
+        "changedSeedChangesHash": true,
+        "nondeterministicMetadataExcludedFromHash": true,
+        "hiddenTimeInputStatus": "forbidden",
+        "hiddenRandomnessStatus": "forbidden",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "syntheticDataOnly": true
+      }
+    },
+    {
+      "name": "output derives from shared review state",
+      "passed": true,
+      "detail": {
+        "activityProfileId": "busy",
+        "ratioView": "three_to_one"
+      }
+    },
+    {
+      "name": "changed seed changes relevant hash",
+      "passed": true,
+      "detail": {
+        "changedHash": "de9846b3"
+      }
+    }
+  ]
+}

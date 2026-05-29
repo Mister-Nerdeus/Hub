@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage root-scripts --allow-partial --issue 617
+node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage rerun-feature-gates --allow-partial --issue 617
+node scripts/check-simulation-v0-user-facing-feature-gates.mjs --stage missing-feature-gate-negative --allow-partial --issue 617
+node scripts/check-no-phi-fields.mjs

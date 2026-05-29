@@ -296,6 +296,8 @@ function mappedOutput(dir, command) {
   if (command.includes("check-no-phi-fields")) return `${base}/no-phi.txt`;
   if (command.includes("check:clean-committed-state")) return `${base}/clean-committed-state.txt`;
   if (command.includes("docker compose config")) return `${base}/docker-compose-config.txt`;
+  if (command.includes("docker compose up --build -d")) return `${base}/docker-compose-up-build.txt`;
+  if (command === "docker compose ps") return `${base}/docker-compose-ps.txt`;
   if (command.includes("docker-compose.production.yml")) return `${base}/docker-compose-production-config.txt`;
   return `${base}/command.txt`;
 }
@@ -366,7 +368,9 @@ export function commandsForManualReviewUxIssue(issue) {
       "node scripts/check-simulation-v0-manual-review-go-no-go.mjs --stage final --issue 620",
       "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 620",
       "docker compose config",
-      "docker compose -f docker-compose.production.yml config"
+      "docker compose -f docker-compose.production.yml config",
+      "docker compose up --build -d",
+      "docker compose ps"
     ]
   };
   return [...common, ...(stagesByIssue[issue] ?? []), "node scripts/check-no-phi-fields.mjs"];

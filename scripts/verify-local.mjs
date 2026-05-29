@@ -206,6 +206,7 @@ const commands = [
   "npm run check:clean-committed-state",
   "npm run check:simulation-v0-user-facing-readiness",
   "npm run check:simulation-v0-user-facing-preflight",
+  "npm run check:simulation-v0-user-facing-feature-gates",
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",

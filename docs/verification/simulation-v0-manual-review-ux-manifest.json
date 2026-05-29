@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "611-620",
-  "lastUpdatedIssue": "616",
+  "lastUpdatedIssue": "620",
   "productDisplayName": "ER Pod Shift Simulator",
   "sourceBatch": "601-610",
   "sourceGoNoGoStatus": "go_for_manual_visual_review",
@@ -12,10 +12,10 @@
   "timelineUsabilityStatus": "passed",
   "summaryCardsVisualHierarchyStatus": "passed",
   "artifactExportUxStatus": "passed",
-  "finalGateRerunCoverageStatus": "missing",
-  "simulationAccessibilityStatus": "missing",
-  "simulationResponsiveProofStatus": "missing",
-  "manualReviewGoNoGoStatus": "not_ready",
+  "finalGateRerunCoverageStatus": "passed",
+  "simulationAccessibilityStatus": "passed",
+  "simulationResponsiveProofStatus": "passed",
+  "manualReviewGoNoGoStatus": "go_for_human_manual_visual_review",
   "manualReviewEvidencePackExists": true,
   "manualReviewChecklistExists": true,
   "manualReviewScorecardExists": true,
@@ -24,9 +24,9 @@
   "timelinePaginationOrFilteringEnabled": true,
   "summaryCardsHierarchyImproved": true,
   "artifactExportHasStatusFeedback": true,
-  "finalGateRerunsFeatureGates": false,
-  "accessibilityProofComplete": false,
-  "responsiveProofComplete": false,
+  "finalGateRerunsFeatureGates": true,
+  "accessibilityProofComplete": true,
+  "responsiveProofComplete": true,
   "simulationV0Status": "internal_dry_run_only",
   "fullFutureSimulationEventModelStatus": "dormant",
   "optimizerStatus": "not_started",
@@ -37,5 +37,5 @@
   "manualApprovalStatus": "missing",
   "promotionStatus": "blocked",
   "noPhiStatus": "passed",
-  "goNoGoStatus": "not_ready"
+  "goNoGoStatus": "go_for_human_manual_visual_review"
 }

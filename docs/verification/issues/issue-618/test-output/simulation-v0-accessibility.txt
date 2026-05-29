@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "618",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "Simulation v0 route has basic semantic labels and named controls",
+      "passed": true,
+      "detail": {
+        "fieldsetCount": 2,
+        "legendTexts": [
+          "Activity profile",
+          "Ratio planning assumption"
+        ],
+        "tableHasLabel": true,
+        "buttonCount": 17,
+        "namedButtonCount": 17,
+        "statusRegionCount": 1,
+        "limitationsHeading": "Limitations",
+        "focusableNames": [
+          "Typical65% occupancy",
+          "Busy85% occupancy",
+          "Slammed100% occupancy",
+          "4:1 dry-runRatio planning assumption",
+          "3:1 dry-runRatio planning assumption",
+          "Side-by-side comparisonRatio planning assumption",
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned",
+          "Previous page",
+          "Next page",
+          "Download JSON",
+          "Copy summary"
+        ],
+        "screenshotPath": "docs/verification/issues/issue-618/screenshots/simulation-accessibility-proof.png"
+      }
+    },
+    {
+      "name": "Simulation v0 controls and export actions are keyboard reachable",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "focusableNames": [
+          "Typical65% occupancy",
+          "Busy85% occupancy",
+          "Slammed100% occupancy",
+          "4:1 dry-runRatio planning assumption",
+          "3:1 dry-runRatio planning assumption",
+          "Side-by-side comparisonRatio planning assumption",
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned",
+          "Previous page",
+          "Next page",
+          "Download JSON",
+          "Copy summary"
+        ]
+      }
+    },
+    {
+      "name": "focus order follows Simulation v0 visual workflow",
+      "passed": true,
+      "detail": {
+        "profileIndex": 0,
+        "ratioIndex": 3,
+        "filterIndex": 6,
+        "exportIndex": 15,
+        "focusStyle": true
+      }
+    }
+  ]
+}

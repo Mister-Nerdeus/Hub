@@ -1,0 +1,77 @@
+{
+  "issue": "620",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "npm run check:simulation-v0-user-facing-feature-gates",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/simulation-v0-user-facing-feature-gates.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-manual-review-go-no-go.mjs --stage final --issue 620",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/simulation-v0-manual-review-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 620",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose up --build -d",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/docker-compose-up-build.txt"
+      ]
+    },
+    {
+      "command": "docker compose ps",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/docker-compose-ps.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-620/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}

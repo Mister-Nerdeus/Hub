@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-v0-responsive-proof.mjs --stage desktop --allow-partial --issue 619
+node scripts/check-simulation-v0-responsive-proof.mjs --stage tablet --allow-partial --issue 619
+node scripts/check-simulation-v0-responsive-proof.mjs --stage mobile --allow-partial --issue 619
+node scripts/check-simulation-v0-responsive-proof.mjs --stage no-horizontal-overflow --allow-partial --issue 619
+node scripts/check-no-phi-fields.mjs

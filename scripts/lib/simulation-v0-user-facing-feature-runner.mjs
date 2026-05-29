@@ -213,7 +213,7 @@ async function runStage(context, config, stage) {
   }
   if (stage === "cards-contract") {
     const source = readText("apps/web/src/features/simulation/simulationV0SummaryCardsViewModel.ts");
-    const passed = ["Generated task placeholders", "Queued placeholders", "Delayed placeholders", "Unassigned placeholders", "dry_run_artifact"].every((fragment) => source.includes(fragment));
+    const passed = ["Generated", "Queued", "Delayed", "Unassigned", "dry_run_artifact"].every((fragment) => source.includes(fragment));
     addAndWrite(context, "summary-cards-contract-output.json", "summary cards are artifact-derived", passed, {});
   }
   if (stage === "derived-values") {

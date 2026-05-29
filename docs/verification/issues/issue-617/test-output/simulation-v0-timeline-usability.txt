@@ -1,0 +1,88 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "617",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "timeline exposes stable event IDs and uses them as row keys",
+      "passed": true,
+      "detail": {
+        "headers": [
+          "Event ID",
+          "Minute",
+          "Event",
+          "Task",
+          "Bed position",
+          "Synthetic nurse"
+        ],
+        "firstEventId": "dry-run-event-0001",
+        "visibleRowCount": 25,
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ],
+        "paginationText": "Previous pagePage 1 of 5Next page",
+        "rowSummary": "Showing 25 rows from 106 filtered events and 106 total events.",
+        "screenshotPath": "docs/verification/issues/issue-617/screenshots/simulation-timeline-usability.png"
+      }
+    },
+    {
+      "name": "timeline renders bounded 25-row pagination",
+      "passed": true,
+      "detail": {
+        "headers": [
+          "Event ID",
+          "Minute",
+          "Event",
+          "Task",
+          "Bed position",
+          "Synthetic nurse"
+        ],
+        "firstEventId": "dry-run-event-0001",
+        "visibleRowCount": 25,
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ],
+        "paginationText": "Previous pagePage 1 of 5Next page",
+        "rowSummary": "Showing 25 rows from 106 filtered events and 106 total events.",
+        "screenshotPath": "docs/verification/issues/issue-617/screenshots/simulation-timeline-usability.png"
+      }
+    },
+    {
+      "name": "timeline exposes fixed event-label filters only",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ]
+      }
+    },
+    {
+      "name": "timeline does not add free-text clinical search fields",
+      "passed": true,
+      "detail": {
+        "hasTextInput": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "617",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "artifact export exposes bounded status states and summary preview",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "rendered": {
+          "buttons": [
+            "Download JSON",
+            "Copy summary"
+          ],
+          "statusText": "Synthetic review bundle only.",
+          "previewText": "Simulation v0 artifact review bundle\nProfile: typical\nRatio view: comparison\nBundle count: 2\nStable hashes: dd3779f6, 16e56106",
+          "screenshotPath": "docs/verification/issues/issue-617/screenshots/simulation-artifact-export-ux.png"
+        }
+      }
+    },
+    {
+      "name": "copy success feedback is rendered",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "artifact export source does not include credentials",
+      "passed": true,
+      "detail": {
+        "found": false
+      }
+    },
+    {
+      "name": "artifact export remains synthetic and non-PHI",
+      "passed": true,
+      "detail": {
+        "found": []
+      }
+    }
+  ]
+}

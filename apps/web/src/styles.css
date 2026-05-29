@@ -23,6 +23,15 @@ pre {
   font: inherit;
 }
 
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid #2f6f73;
+  outline-offset: 2px;
+}
+
 .app-shell {
   display: grid;
   gap: 28px;

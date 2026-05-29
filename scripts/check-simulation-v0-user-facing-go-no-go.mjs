@@ -5,6 +5,7 @@ import {
   abs,
   createRepairContext,
   finalizeRepairGate,
+  fileExists,
   readJson,
   runSelectedRepairStages,
   writeJson,
@@ -39,7 +40,13 @@ const blockers = Object.entries(requiredStatuses)
   .filter(([key, expected]) => manifest[key] !== expected)
   .map(([key, expected]) => ({ key, expected, actual: manifest[key] }));
 for (const blocker of blockers) context.add(`final blocker: ${blocker.key}`, false, blocker);
-const passed = blockers.length === 0;
+const packageScripts = readJson("package.json").scripts ?? {};
+const compositeGateConfigured = typeof packageScripts["check:simulation-v0-user-facing-feature-gates"] === "string" &&
+  fileExists("scripts/check-simulation-v0-user-facing-feature-gates.mjs");
+context.add("final GO/NO-GO has composite feature-gate rerun coverage configured", compositeGateConfigured, {
+  rootScript: packageScripts["check:simulation-v0-user-facing-feature-gates"] ?? null
+});
+const passed = blockers.length === 0 && compositeGateConfigured;
 writeFinalArtifacts(passed, blockers, manifest);
 finalizeRepairGate(context, {
   testOutputName: "simulation-v0-user-facing-go-no-go.txt",

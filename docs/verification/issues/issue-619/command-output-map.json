@@ -1,0 +1,53 @@
+{
+  "issue": "619",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage desktop --allow-partial --issue 619",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage tablet --allow-partial --issue 619",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage mobile --allow-partial --issue 619",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage no-horizontal-overflow --allow-partial --issue 619",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-619/test-output/no-phi.txt"
+      ]
+    }
+  ]
+}
