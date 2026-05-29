@@ -1,0 +1,58 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:simulation-v0-occupied-bed-proof
+> node scripts/check-simulation-v0-occupied-bed-proof.mjs --stage final --issue 611 --read-only
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "611",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "occupied-bed proof contract exposes selected and excluded objects",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "occupied-bed proof includes selected bed IDs",
+      "passed": true,
+      "detail": [
+        "room-13",
+        "room-20",
+        "room-12",
+        "room-08",
+        "room-06",
+        "room-23",
+        "room-05",
+        "room-24",
+        "room-02",
+        "room-16",
+        "room-09",
+        "room-07",
+        "room-19",
+        "room-11",
+        "room-17",
+        "room-03",
+        "room-level-1-trauma",
+        "room-04",
+        "room-15"
+      ]
+    },
+    {
+      "name": "output derives from shared review state",
+      "passed": true,
+      "detail": {
+        "activityProfileId": "busy",
+        "ratioView": "three_to_one"
+      }
+    },
+    {
+      "name": "excluded spaces cannot be selected as occupied workload beds",
+      "passed": true,
+      "detail": {
+        "selectedExcluded": []
+      }
+    }
+  ]
+}

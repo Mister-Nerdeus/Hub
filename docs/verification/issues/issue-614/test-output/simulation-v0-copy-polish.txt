@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "614",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "centralized Simulation v0 copy contract includes required explanations",
+      "passed": true,
+      "detail": {
+        "missingKeys": [],
+        "exactHash": true
+      }
+    },
+    {
+      "name": "plain-language copy is rendered",
+      "passed": true,
+      "detail": {
+        "fragment": "This view shows a synthetic dry-run using placeholder operational workload assumptions.",
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "rendered Simulation v0 route includes concise nontechnical explanations",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "textLength": 6022,
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "activity-profile-explanation copy is rendered",
+      "passed": true,
+      "detail": {
+        "fragment": "Typical, Busy, and Slammed change synthetic occupancy and workload pressure.",
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "ratio-assumption-explanation copy is rendered",
+      "passed": true,
+      "detail": {
+        "fragment": "These are planning assumptions for comparison, not staffing recommendations.",
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "artifact-hash-explanation copy is rendered",
+      "passed": true,
+      "detail": {
+        "fragment": "This helps verify that the same synthetic inputs produce the same dry-run artifact.",
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "export-explanation copy is rendered",
+      "passed": true,
+      "detail": {
+        "fragment": "Export contains synthetic operational review data only.",
+        "screenshotPath": "docs/verification/issues/issue-614/screenshots/simulation-copy-polish.png"
+      }
+    },
+    {
+      "name": "forbidden Simulation v0 copy implication negative fixture is enforced",
+      "passed": true,
+      "detail": {
+        "found": [],
+        "negativeFixture": "safe"
+      }
+    }
+  ]
+}

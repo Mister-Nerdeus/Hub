@@ -1,0 +1,3232 @@
+{
+  "status": "passed",
+  "detail": {
+    "exportType": "simulation_v0_internal_dry_run_review_bundle",
+    "reviewState": {
+      "activityProfileId": "busy",
+      "ratioView": "three_to_one"
+    },
+    "bundles": [
+      {
+        "schemaVersion": "1.0.0",
+        "bundleId": "internal-dry-run-three_to_one-busy-artifact-bundle",
+        "runId": "internal-dry-run-three_to_one-busy",
+        "eventArtifact": {
+          "schemaVersion": "1.0.0",
+          "artifactId": "internal-dry-run-events-three_to_one-busy.json",
+          "artifactType": "event_timeline",
+          "runId": "internal-dry-run-three_to_one-busy",
+          "metadata": {
+            "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+            "canonicalFloorplanId": "default-er-layout-plan-1",
+            "ratioPresetId": "three_to_one",
+            "activityProfileId": "busy",
+            "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+            "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+            "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+            "syntheticDataOnly": true,
+            "optimizerStatus": "not_started",
+            "assignmentRecommendationStatus": "not_started"
+          },
+          "timeline": [
+            {
+              "eventId": "dry-run-event-0014",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0013",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0001",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0010",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0007",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0004",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0002",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0011",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0008",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0005",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 0,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0006",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 7,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0003",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 10,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0015",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 10,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0016",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 10,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0009",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 14,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0033",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0028",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-room-check-01",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0037",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0032",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0018",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0027",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-room-check-01",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0024",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0021",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0038",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0019",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0025",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0022",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 15,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0012",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 18,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0026",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 25,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0039",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 26,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0017",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 26,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0034",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 26,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0035",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 26,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0023",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 29,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0052",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0047",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0040",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-room-check-01",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0051",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0046",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0043",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-room-check-01",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0041",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-room-check-01",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0044",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 30,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-room-check-01",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0042",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-room-check-01",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0020",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0053",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0029",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-room-check-01",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0054",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0030",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 37,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-room-check-01",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0045",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 38,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-room-check-01",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0036",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 39,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0031",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 43,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-room-check-01",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0048",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 43,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0049",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 43,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0063",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0068",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0062",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0056",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0067",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0059",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0057",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0060",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 45,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0055",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 49,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0061",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 50,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0058",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 59,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0064",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 59,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0065",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 59,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0073",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0080",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0072",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0077",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0081",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0078",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 60,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0050",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 61,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0082",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 65,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0079",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 73,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0103",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-room-check-01",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0087",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0095",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-room-check-01",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0099",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0102",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-room-check-01",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0086",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0083",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-room-check-01",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0094",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-room-check-01",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0091",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0100",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0084",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-room-check-01",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0092",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 75,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0066",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 79,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0069",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 79,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0070",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 79,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0085",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 82,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-room-check-01",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0093",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 82,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0088",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 82,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0089",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 82,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0101",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 85,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0108",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0115",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0112",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-room-check-01",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0107",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0118",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0121",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-room-check-01",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0116",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0113",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-room-check-01",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0119",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0122",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 90,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-room-check-01",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0071",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 93,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0074",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 93,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0075",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 93,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0090",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 96,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0096",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 96,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-room-check-01",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0097",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 96,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-room-check-01",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0114",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 98,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-room-check-01",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0123",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 100,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-room-check-01",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0117",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 101,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0120",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 102,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0098",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 103,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-room-check-01",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0109",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 103,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0110",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 103,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0144",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0139",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0134",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-room-check-01",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0149",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0143",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0130",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-room-check-01",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0138",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0124",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0133",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-room-check-01",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0156",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0148",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0127",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0153",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0131",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-room-check-01",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0125",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0157",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0128",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0154",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 105,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0076",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 107,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0104",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 107,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-room-check-01",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0105",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 107,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-room-check-01",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0126",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 111,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0135",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 111,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-room-check-01",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0136",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 111,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-room-check-01",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0132",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 115,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-room-check-01",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0158",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 115,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0129",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 115,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0145",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 115,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0146",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 115,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0106",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 117,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-room-check-01",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0155",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 118,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0137",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-room-check-01",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0140",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0162",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-room-check-01",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0165",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-room-check-01",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0159",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-room-check-01",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0141",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0163",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-room-check-01",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0166",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-room-check-01",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0160",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 120,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-room-check-01",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0147",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 123,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-room-check-01",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0111",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 125,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0150",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 125,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0151",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 125,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0164",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 127,
+              "taskInstanceId": "dry-run-task-room-08-dry-run-room-check-01",
+              "loadableBedPositionId": "room-08",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0167",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 127,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-room-check-01",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0161",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 129,
+              "taskInstanceId": "dry-run-task-room-17-dry-run-room-check-01",
+              "loadableBedPositionId": "room-17",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0142",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 131,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0175",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0168",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0171",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0174",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0179",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0169",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0172",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0180",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 135,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0152",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 136,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0173",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 148,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0181",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 148,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0176",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 148,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0177",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 148,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0186",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0182",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0185",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0190",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0183",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0191",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 150,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0170",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 152,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0192",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 157,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0178",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 159,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0196",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 165,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0193",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 165,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0197",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 165,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0194",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 165,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0184",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 166,
+              "taskInstanceId": "dry-run-task-room-04-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-04",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0187",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 166,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0188",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 166,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0189",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 172,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0198",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 175,
+              "taskInstanceId": "dry-run-task-room-15-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-15",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0195",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 179,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0199",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0205",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0202",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0200",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0206",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0203",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 180,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0207",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 189,
+              "taskInstanceId": "dry-run-task-room-09-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-09",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0201",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 190,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0212",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0226",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0216",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0208",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-room-check-01",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0211",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0219",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0225",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0222",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0217",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0209",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-room-check-01",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0220",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0223",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 195,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0204",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 201,
+              "taskInstanceId": "dry-run-task-room-24-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-24",
+              "syntheticNurseId": "synthetic-nurse-08",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0210",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 203,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-room-check-01",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0213",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 203,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0214",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 203,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0218",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0239",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0247",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-room-check-01",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0234",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0238",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0246",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-room-check-01",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0230",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0243",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0233",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0231",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0244",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 210,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0221",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 212,
+              "taskInstanceId": "dry-run-task-room-19-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-19",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0215",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 213,
+              "taskInstanceId": "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-13",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0235",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 213,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0236",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 213,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0224",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 214,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0227",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 214,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0228",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 214,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0232",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 220,
+              "taskInstanceId": "dry-run-task-room-06-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-06",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0248",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 220,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-room-check-01",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0249",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 220,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-room-check-01",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0229",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 221,
+              "taskInstanceId": "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "loadableBedPositionId": "room-level-1-trauma",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0240",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 221,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0241",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 221,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0263",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0258",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0276",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-room-check-01",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0281",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0268",
+              "eventLabel": "task_placeholder_queued",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-room-check-01",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0262",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0257",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0275",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-room-check-01",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0272",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0280",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0254",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0267",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-room-check-01",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0251",
+              "eventLabel": "task_placeholder_ready",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0273",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0255",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0252",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 225,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0245",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 228,
+              "taskInstanceId": "dry-run-task-room-11-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-11",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0282",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 228,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0283",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 228,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0250",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 229,
+              "taskInstanceId": "dry-run-task-room-05-dry-run-room-check-01",
+              "loadableBedPositionId": "room-05",
+              "syntheticNurseId": "synthetic-nurse-02",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0256",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 236,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0269",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 236,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-room-check-01",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0270",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 236,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-room-check-01",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0242",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 237,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0259",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 237,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0260",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 237,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0284",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 238,
+              "taskInstanceId": "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "loadableBedPositionId": "room-12",
+              "syntheticNurseId": "synthetic-nurse-04",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0237",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 238,
+              "taskInstanceId": "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-16",
+              "syntheticNurseId": "synthetic-nurse-05",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0253",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 243,
+              "taskInstanceId": "dry-run-task-room-23-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-23",
+              "syntheticNurseId": "synthetic-nurse-07",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0271",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 244,
+              "taskInstanceId": "dry-run-task-room-20-dry-run-room-check-01",
+              "loadableBedPositionId": "room-20",
+              "syntheticNurseId": "synthetic-nurse-06",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0274",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 248,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0277",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 248,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-room-check-01",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0278",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 248,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-room-check-01",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0261",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 249,
+              "taskInstanceId": "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "loadableBedPositionId": "room-03",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0264",
+              "eventLabel": "task_placeholder_delayed",
+              "syntheticMinuteOffset": 249,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0265",
+              "eventLabel": "task_placeholder_started",
+              "syntheticMinuteOffset": 249,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0279",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 257,
+              "taskInstanceId": "dry-run-task-room-07-dry-run-room-check-01",
+              "loadableBedPositionId": "room-07",
+              "syntheticNurseId": "synthetic-nurse-03",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            },
+            {
+              "eventId": "dry-run-event-0266",
+              "eventLabel": "task_placeholder_completed",
+              "syntheticMinuteOffset": 262,
+              "taskInstanceId": "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "loadableBedPositionId": "room-02",
+              "syntheticNurseId": "synthetic-nurse-01",
+              "dryRunStatus": "internal_dry_run_only",
+              "syntheticDataOnly": true
+            }
+          ]
+        },
+        "taskSummaryArtifact": {
+          "schemaVersion": "1.0.0",
+          "artifactId": "internal-dry-run-three_to_one-busy-task-summary.json",
+          "artifactType": "task_summary",
+          "runId": "internal-dry-run-three_to_one-busy",
+          "metadata": {
+            "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+            "canonicalFloorplanId": "default-er-layout-plan-1",
+            "ratioPresetId": "three_to_one",
+            "activityProfileId": "busy",
+            "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+            "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+            "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+            "syntheticDataOnly": true,
+            "optimizerStatus": "not_started",
+            "assignmentRecommendationStatus": "not_started"
+          },
+          "summary": {
+            "generatedTaskCount": 76,
+            "taskInstanceIds": [
+              "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-09-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-13-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-23-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-06-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-17-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-19-dry-run-room-check-01",
+              "dry-run-task-room-24-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-level-1-trauma-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-04-dry-run-room-check-01",
+              "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-24-dry-run-room-check-01",
+              "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-08-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-16-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-09-dry-run-room-check-01",
+              "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-15-dry-run-room-check-01",
+              "dry-run-task-room-16-dry-run-room-check-01",
+              "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-02-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-11-dry-run-room-check-01",
+              "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-20-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-23-dry-run-room-check-01",
+              "dry-run-task-room-02-dry-run-room-check-01",
+              "dry-run-task-room-03-dry-run-room-check-01",
+              "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-06-dry-run-room-check-01",
+              "dry-run-task-room-11-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-19-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-23-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-08-dry-run-room-check-01",
+              "dry-run-task-room-12-dry-run-room-check-01",
+              "dry-run-task-room-17-dry-run-room-check-01",
+              "dry-run-task-room-02-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-20-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-04-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-13-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-15-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-05-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-09-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-24-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-13-dry-run-room-check-01",
+              "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-19-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+              "dry-run-task-room-level-1-trauma-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-05-dry-run-room-check-01",
+              "dry-run-task-room-06-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-11-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-16-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-07-dry-run-room-check-01",
+              "dry-run-task-room-07-dry-run-turnover-placeholder-04",
+              "dry-run-task-room-12-dry-run-support-coordination-placeholder-03",
+              "dry-run-task-room-20-dry-run-documentation-placeholder-02",
+              "dry-run-task-room-20-dry-run-room-check-01",
+              "dry-run-task-room-23-dry-run-turnover-placeholder-04"
+            ]
+          }
+        },
+        "nurseRuntimeSummaryArtifact": {
+          "schemaVersion": "1.0.0",
+          "artifactId": "internal-dry-run-three_to_one-busy-nurse-runtime-summary.json",
+          "artifactType": "nurse_runtime_summary",
+          "runId": "internal-dry-run-three_to_one-busy",
+          "metadata": {
+            "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+            "canonicalFloorplanId": "default-er-layout-plan-1",
+            "ratioPresetId": "three_to_one",
+            "activityProfileId": "busy",
+            "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+            "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+            "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+            "syntheticDataOnly": true,
+            "optimizerStatus": "not_started",
+            "assignmentRecommendationStatus": "not_started"
+          },
+          "summary": {
+            "syntheticNurseSnapshotCount": 8,
+            "snapshots": [
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-01",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-level-1-trauma-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-03-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-02-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-03-dry-run-room-check-01",
+                  "dry-run-task-room-02-dry-run-room-check-01",
+                  "dry-run-task-room-02-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-level-1-trauma-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-level-1-trauma-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+                  "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-03-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-02-dry-run-documentation-placeholder-02"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-02-dry-run-room-check-01",
+                  "dry-run-task-room-level-1-trauma-dry-run-room-check-01",
+                  "dry-run-task-room-03-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-02-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-03-dry-run-turnover-placeholder-04"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-02",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-06-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-04-dry-run-room-check-01",
+                  "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-04-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-06-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-06-dry-run-room-check-01",
+                  "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-04-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-05-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-06-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-05-dry-run-room-check-01"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-04-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-05-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-06-dry-run-room-check-01",
+                  "dry-run-task-room-05-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-05-dry-run-room-check-01"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-03",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-09-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-08-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-09-dry-run-room-check-01",
+                  "dry-run-task-room-08-dry-run-room-check-01",
+                  "dry-run-task-room-09-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-07-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-07-dry-run-room-check-01"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-08-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-08-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-07-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-09-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-07-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-09-dry-run-room-check-01",
+                  "dry-run-task-room-07-dry-run-room-check-01"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-04",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-11-dry-run-room-check-01",
+                  "dry-run-task-room-11-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-12-dry-run-room-check-01",
+                  "dry-run-task-room-11-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-12-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-11-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-12-dry-run-support-coordination-placeholder-03"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-12-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-12-dry-run-support-coordination-placeholder-03"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-05",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-13-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-16-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-15-dry-run-room-check-01",
+                  "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-16-dry-run-room-check-01",
+                  "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-13-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-15-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-13-dry-run-room-check-01",
+                  "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-16-dry-run-turnover-placeholder-04"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-15-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-16-dry-run-room-check-01",
+                  "dry-run-task-room-15-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-16-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-13-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-16-dry-run-turnover-placeholder-04"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-06",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-19-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-17-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-19-dry-run-room-check-01",
+                  "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-17-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-20-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-19-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-17-dry-run-room-check-01",
+                  "dry-run-task-room-20-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-19-dry-run-turnover-placeholder-04",
+                  "dry-run-task-room-20-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-20-dry-run-room-check-01"
+                ],
+                "queuedPlaceholderTaskIds": [
+                  "dry-run-task-room-19-dry-run-room-check-01",
+                  "dry-run-task-room-17-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-20-dry-run-room-check-01"
+                ],
+                "availabilityState": "queued_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-07",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-23-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-23-dry-run-room-check-01",
+                  "dry-run-task-room-23-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-23-dry-run-turnover-placeholder-04"
+                ],
+                "queuedPlaceholderTaskIds": [],
+                "availabilityState": "busy_placeholder"
+              },
+              {
+                "syntheticMinuteOffset": 0,
+                "syntheticNurseId": "synthetic-nurse-08",
+                "activePlaceholderTaskIds": [
+                  "dry-run-task-room-24-dry-run-support-coordination-placeholder-03",
+                  "dry-run-task-room-24-dry-run-room-check-01",
+                  "dry-run-task-room-24-dry-run-documentation-placeholder-02",
+                  "dry-run-task-room-24-dry-run-turnover-placeholder-04"
+                ],
+                "queuedPlaceholderTaskIds": [],
+                "availabilityState": "busy_placeholder"
+              }
+            ]
+          }
+        },
+        "queuePlaceholderSummaryArtifact": {
+          "schemaVersion": "1.0.0",
+          "artifactId": "internal-dry-run-three_to_one-busy-queue-placeholder-summary.json",
+          "artifactType": "queue_placeholder_summary",
+          "runId": "internal-dry-run-three_to_one-busy",
+          "metadata": {
+            "canonicalScenarioSeedId": "scenario-seed-canonical-plan-1-foundation",
+            "canonicalFloorplanId": "default-er-layout-plan-1",
+            "ratioPresetId": "three_to_one",
+            "activityProfileId": "busy",
+            "neutralWorkloadSeedId": "neutral-workload-seed-canonical-plan-1",
+            "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+            "generatedMetadataPolicy": "no_current_time_in_stable_hash",
+            "syntheticDataOnly": true,
+            "optimizerStatus": "not_started",
+            "assignmentRecommendationStatus": "not_started"
+          },
+          "summary": {
+            "schemaVersion": "1.0.0",
+            "queueSummaryId": "ratio-aware-queue-three_to_one",
+            "ratioPresetId": "three_to_one",
+            "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-three-to-one",
+            "generatedTaskCount": 76,
+            "syntheticNurseRuntimeGroupCount": 8,
+            "queuedPlaceholderCount": 28,
+            "delayedPlaceholderCount": 28,
+            "unassignedPlaceholderCount": 0,
+            "placeholderPressureBand": "placeholder_heavy",
+            "limitationCopy": [
+              "Queue pressure is a synthetic internal placeholder only.",
+              "Ratio-specific runtime state can change queue and delay placeholder counts.",
+              "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+            ],
+            "outcomeClaim": false,
+            "clinicalSafetyClaim": false,
+            "staffingComplianceClaim": false,
+            "recommendationStatus": "not_started",
+            "optimizerStatus": "not_started",
+            "syntheticDataOnly": true
+          }
+        },
+        "limitationsMarkdown": "# Simulation v0 Internal Dry-Run Limitations\n\n- Internal synthetic dry-run only.\n- Task events are operational placeholders only.\n- Queue and delay values are placeholder summaries only.\n- No optimizer, assignment recommendation, clinical safety score, staffing compliance certification, or patient outcome prediction is produced.",
+        "stableArtifactHash": "90d76ec",
+        "hashExcludesNondeterministicMetadata": true,
+        "clinicalSafetyClaim": false,
+        "staffingComplianceClaim": false,
+        "patientOutcomePredictionClaim": false,
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "syntheticDataOnly": true
+      }
+    ],
+    "limitationsMarkdown": "# Simulation v0 Internal Dry-Run Limitations\n\n- Internal synthetic dry-run only.\n- Task events are operational placeholders only.\n- Queue and delay values are placeholder summaries only.\n- No optimizer, assignment recommendation, clinical safety score, staffing compliance certification, or patient outcome prediction is produced.",
+    "boundaryStatus": {
+      "syntheticDataOnly": true,
+      "optimizerStatus": "not_started",
+      "assignmentRecommendationStatus": "not_started",
+      "clinicalSafetyClaim": false,
+      "staffingComplianceClaim": false,
+      "patientOutcomePredictionClaim": false
+    }
+  }
+}

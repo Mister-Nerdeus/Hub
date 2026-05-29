@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "611",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "summary cards are artifact-derived",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "summary card values derive from dry-run counts",
+      "passed": true,
+      "detail": {
+        "generatedTaskCount": 76,
+        "startedPlaceholderCount": 76,
+        "completedPlaceholderCount": 76,
+        "queuedPlaceholderCount": 28,
+        "delayedPlaceholderCount": 28,
+        "unassignedPlaceholderCount": 0
+      }
+    },
+    {
+      "name": "output derives from shared review state",
+      "passed": true,
+      "detail": {
+        "activityProfileId": "busy",
+        "ratioView": "three_to_one"
+      }
+    },
+    {
+      "name": "summary card copy avoids recommendation and certification wording",
+      "passed": true,
+      "detail": {
+        "found": []
+      }
+    }
+  ]
+}

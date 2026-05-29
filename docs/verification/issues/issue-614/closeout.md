@@ -1,7 +1,7 @@
 # Issue 614 Closeout
 
 ## Summary
-- Completed Timeline Usability: Pagination, Fixed Filters, and Event IDs within the internal synthetic dry-run boundary.
+- Completed Simulation v0 Copy and Explanation Polish within the internal synthetic dry-run boundary.
 
 ## Files Changed
 - Simulation v0 manual-review UX source, gates, manifest, and evidence artifacts as applicable for Issue 614.
@@ -33,4 +33,4 @@
 - Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden claim wording.
 
 ## GO / NO-GO
-- GO for Issue 615. Timeline has stable IDs, pagination, and fixed filters.
+- GO for Issue 614. Simulation v0 route explanations are ready for manual review.

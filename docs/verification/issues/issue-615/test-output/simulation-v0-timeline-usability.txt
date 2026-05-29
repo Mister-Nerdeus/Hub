@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "615",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "timeline exposes stable event IDs and uses them as row keys",
+      "passed": true,
+      "detail": {
+        "headers": [
+          "Event ID",
+          "Minute",
+          "Event",
+          "Task",
+          "Bed position",
+          "Synthetic nurse"
+        ],
+        "firstEventId": "dry-run-event-0001",
+        "visibleRowCount": 25,
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ],
+        "paginationText": "Previous pagePage 1 of 5Next page",
+        "rowSummary": "Showing 25 rows from 106 filtered events and 106 total events for typical / comparison.",
+        "controlText": "All eventsReadyQueuedDelayedStartedCompletedUnassignedRows2550All boundedSynthetic nurseAll synthetic nursessynthetic-nurse-01synthetic-nurse-02synthetic-nurse-03synthetic-nurse-04synthetic-nurse-05synthetic-nurse-06Bed positionAll bed positionsroom-02room-05room-06room-07room-10room-11room-12room-15room-16room-17room-19room-21room-22room-24room-level-1-traumaReset filtersPrevious pagePage 1 of 5Next page",
+        "screenshotPath": "docs/verification/issues/issue-615/screenshots/simulation-timeline-usability.png"
+      }
+    },
+    {
+      "name": "timeline exposes stable event IDs and uses them as row keys",
+      "passed": true,
+      "detail": {
+        "headers": [
+          "Event ID",
+          "Minute",
+          "Event",
+          "Task",
+          "Bed position",
+          "Synthetic nurse"
+        ],
+        "firstEventId": "dry-run-event-0001",
+        "visibleRowCount": 25,
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ],
+        "paginationText": "Previous pagePage 1 of 5Next page",
+        "rowSummary": "Showing 25 rows from 106 filtered events and 106 total events for typical / comparison.",
+        "controlText": "All eventsReadyQueuedDelayedStartedCompletedUnassignedRows2550All boundedSynthetic nurseAll synthetic nursessynthetic-nurse-01synthetic-nurse-02synthetic-nurse-03synthetic-nurse-04synthetic-nurse-05synthetic-nurse-06Bed positionAll bed positionsroom-02room-05room-06room-07room-10room-11room-12room-15room-16room-17room-19room-21room-22room-24room-level-1-traumaReset filtersPrevious pagePage 1 of 5Next page",
+        "screenshotPath": "docs/verification/issues/issue-615/screenshots/simulation-timeline-usability.png"
+      }
+    },
+    {
+      "name": "timeline renders bounded 25-row pagination",
+      "passed": true,
+      "detail": {
+        "headers": [
+          "Event ID",
+          "Minute",
+          "Event",
+          "Task",
+          "Bed position",
+          "Synthetic nurse"
+        ],
+        "firstEventId": "dry-run-event-0001",
+        "visibleRowCount": 25,
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ],
+        "paginationText": "Previous pagePage 1 of 5Next page",
+        "rowSummary": "Showing 25 rows from 106 filtered events and 106 total events for typical / comparison.",
+        "controlText": "All eventsReadyQueuedDelayedStartedCompletedUnassignedRows2550All boundedSynthetic nurseAll synthetic nursessynthetic-nurse-01synthetic-nurse-02synthetic-nurse-03synthetic-nurse-04synthetic-nurse-05synthetic-nurse-06Bed positionAll bed positionsroom-02room-05room-06room-07room-10room-11room-12room-15room-16room-17room-19room-21room-22room-24room-level-1-traumaReset filtersPrevious pagePage 1 of 5Next page",
+        "screenshotPath": "docs/verification/issues/issue-615/screenshots/simulation-timeline-usability.png"
+      }
+    },
+    {
+      "name": "timeline exposes fixed event-label filters only",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "filterLabels": [
+          "All events",
+          "Ready",
+          "Queued",
+          "Delayed",
+          "Started",
+          "Completed",
+          "Unassigned"
+        ]
+      }
+    },
+    {
+      "name": "timeline exposes bounded enum/id filters and reset control",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "controlText": "All eventsReadyQueuedDelayedStartedCompletedUnassignedRows2550All boundedSynthetic nurseAll synthetic nursessynthetic-nurse-01synthetic-nurse-02synthetic-nurse-03synthetic-nurse-04synthetic-nurse-05synthetic-nurse-06Bed positionAll bed positionsroom-02room-05room-06room-07room-10room-11room-12room-15room-16room-17room-19room-21room-22room-24room-level-1-traumaReset filtersPrevious pagePage 1 of 5Next page"
+      }
+    },
+    {
+      "name": "timeline row display is bounded to 25, 50, or all capped rows",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "timeline does not add free-text clinical search fields",
+      "passed": true,
+      "detail": {
+        "hasTextInput": false
+      }
+    },
+    {
+      "name": "timeline filters are deterministic enum/id filters",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

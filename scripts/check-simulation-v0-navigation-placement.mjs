@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { join } from "node:path";
+import { copyFileSync } from "node:fs";
 import { assertBrowserPng, withBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
 import {
   abs,
@@ -12,18 +13,20 @@ import {
   writeJson
 } from "./lib/simulation-v0-manual-review-ux-utils.mjs";
 
-const stages = ["decision-doc", "rendered-navigation", "forbidden-copy-negative", "final"];
+const stages = ["decision-doc", "decision-record", "rendered-navigation", "route-access", "forbidden-copy-negative", "final"];
 
 const context = createManualReviewUxContext({
   scriptName: "simulation v0 navigation placement",
   stages,
   statusKeyByStage: {
-    "decision-doc": "simulationNavigationPlacementStatus",
-    "rendered-navigation": "simulationNavigationPlacementStatus",
-    "forbidden-copy-negative": "simulationNavigationPlacementStatus"
+    "decision-doc": "navigationPlacementDecisionStatus",
+    "decision-record": "navigationPlacementDecisionStatus",
+    "rendered-navigation": "navigationPlacementDecisionStatus",
+    "route-access": "navigationPlacementDecisionStatus",
+    "forbidden-copy-negative": "navigationPlacementDecisionStatus"
   },
   outputName: "navigation-placement-decision-output.json",
-  defaultIssue: "612"
+  defaultIssue: "613"
 });
 
 await runSelectedManualReviewUxStages(context, runStage);
@@ -32,20 +35,22 @@ finalizeManualReviewUxGate(context, {
   testOutputName: "simulation-v0-navigation-placement.txt",
   manifestUpdates: {
     simulationNavigationPlacementStatus: passed ? "passed" : "failed",
+    navigationPlacementDecisionStatus: passed ? "passed" : "failed",
+    navigationPlacement: passed ? "primary_review" : "not_decided",
     simulationNavigationPlacement: passed ? "primary_simulation_review" : "not_decided"
   },
   closeoutStatus: passed ? "GO for Issue 613. Navigation is intentionally placed for manual review." : "NO-GO with navigation blockers."
 });
 
 async function runStage(stage) {
-  if (stage === "decision-doc") {
-    const doc = readText("docs/project/simulation-v0-navigation-placement.md");
+  if (stage === "decision-doc" || stage === "decision-record") {
+    const doc = readText("docs/product/simulation-v0-navigation-placement-decision.md");
     const source = readText("apps/web/src/features/app-shell/appNavigation.ts");
     const required = [
-      "Selected option: Option B",
+      "Option C",
       "Simulation Review",
       "primary workflow",
-      "internal synthetic dry-run only",
+      "internal synthetic dry-run",
       "Manual visual review remains required",
       "Promotion remains blocked"
     ];
@@ -65,6 +70,13 @@ async function runStage(stage) {
       proof.routeText.includes("internal synthetic dry-run only") &&
       proof.routeText.includes("Manual visual review remains required");
     addAndWrite(context, "rendered-navigation-output.json", "rendered navigation places Simulation Review in the primary workflow only", passed, proof);
+  }
+  if (stage === "route-access") {
+    const proof = await captureNavigation();
+    const passed = proof.routeHeading === "Simulation Review" &&
+      proof.routeText.includes("synthetic dry-run") &&
+      proof.routeText.includes("Promotion remains blocked");
+    addAndWrite(context, "route-access-output.json", "Simulation route is accessible from chosen navigation placement", passed, proof);
   }
   if (stage === "forbidden-copy-negative") {
     const source = `${readText("apps/web/src/features/app-shell/appNavigation.ts")}\n${readText("apps/web/src/App.tsx")}`;
@@ -107,6 +119,7 @@ async function captureNavigation() {
     }))();`);
   });
   assertBrowserPng(screenshotPath);
+  copyFileSync(screenshotPath, join(abs(`${context.dir}/screenshots`), "simulation-route-from-navigation.png"));
   context._navigation = { ...result.result, screenshotPath: `${context.dir}/screenshots/simulation-navigation-placement.png` };
   writeJson(`${context.dir}/rendered-navigation-output.json`, { status: "passed", detail: context._navigation });
   return context._navigation;

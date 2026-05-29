@@ -1,32 +1,35 @@
 # Issue 611 Closeout
 
 ## Summary
-- Completed Simulation v0 repair issue 611 within the internal synthetic dry-run boundary.
+- Repaired root feature-gate wiring and hardened the final Simulation v0 user-facing GO/NO-GO gate to rerun actual validators.
 
 ## Files Changed
-- Simulation v0 repair source, gates, Docker/local verification wiring, manifest, and evidence artifacts as applicable for Issue 611.
+- package.json
+- scripts/verify-local.mjs
+- scripts/check-simulation-v0-user-facing-go-no-go.mjs
+- docs/verification/simulation-v0-manual-review-ux-manifest.json
+- docs/verification/issues/issue-611/
 
 ## Commands Run
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
+- node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage feature-gate-root-wiring --allow-partial --issue 611
+- node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage final-gate-reruns-feature-validators --allow-partial --issue 611
+- node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage manifest-only-negative --allow-partial --issue 611
+- node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage dom-only-negative --allow-partial --issue 611
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Required local gates for this issue passed.
+- Issue 611 gate checks passed.
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-611
-- docs/verification/simulation-v0-user-facing-refinement-manifest.json
 
 ## Known Limitations
-- Simulation v0 remains an internal deterministic dry-run only.
+- Simulation v0 remains an internal synthetic dry-run only.
 - Manual visual review remains required.
 - Promotion remains blocked.
-- Full-event simulation, optimization, assignment recommendations, clinical safety scoring, staffing compliance certification, and patient outcome prediction remain out of scope.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden visible wording.
-
-## Next Recommended Issue
-- GO for Issue 612.
+- Non-PHI rules still pass; no PHI, real identity, EHR integration, medication names, diagnosis text, clinical notes, optimizer behavior, assignment recommendation, clinical safety scoring, staffing compliance certification, or patient outcome prediction was added.

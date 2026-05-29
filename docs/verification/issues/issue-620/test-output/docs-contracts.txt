@@ -1,0 +1,73 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:docs
+> node scripts/check-docs-contracts.mjs
+
+issue-621/closeout.md missing closeout concept: Next Recommended Issue
+issue-622/closeout.md missing closeout concept: Next Recommended Issue
+issue-623/closeout.md missing closeout concept: Next Recommended Issue
+issue-624/closeout.md missing closeout concept: Next Recommended Issue
+issue-621 command-output-map.json issue must be 621
+issue-621 command-output-map.json requires commands array
+issue-621 command lacks output mapping: npm --workspace packages/shared test
+issue-621 command lacks output mapping: npm --workspace apps/web test
+issue-621 command lacks output mapping: npm --workspace apps/web run build
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage reproduce-blank --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage five-foot-room --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage four-foot-room --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage sub-four-foot-negative --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage narrow-room-with-door --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage browser-no-blank --allow-partial --issue 621
+issue-621 command lacks output mapping: node scripts/check-no-phi-fields.mjs
+issue-622 command-output-map.json issue must be 622
+issue-622 command-output-map.json requires commands array
+issue-622 command lacks output mapping: npm --workspace packages/shared test
+issue-622 command lacks output mapping: npm --workspace apps/web test
+issue-622 command lacks output mapping: npm --workspace apps/web run build
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-reproduction --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage door-clamp --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage invalid-door-warning --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage render-no-throw --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage strict-export-validation --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage solid-wall-door-negative --allow-partial --issue 622
+issue-622 command lacks output mapping: node scripts/check-no-phi-fields.mjs
+issue-623 command-output-map.json issue must be 623
+issue-623 command-output-map.json requires commands array
+issue-623 command lacks output mapping: npm --workspace packages/shared test
+issue-623 command lacks output mapping: npm --workspace apps/web test
+issue-623 command lacks output mapping: npm --workspace apps/web run build
+issue-623 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-door-delete --allow-partial --issue 623
+issue-623 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage selected-room-remove-doors --allow-partial --issue 623
+issue-623 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage invalid-door-delete --allow-partial --issue 623
+issue-623 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage warning-cleanup --allow-partial --issue 623
+issue-623 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage keyboard-delete --allow-partial --issue 623
+issue-623 command lacks output mapping: node scripts/check-no-phi-fields.mjs
+issue-624 command-output-map.json issue must be 624
+issue-624 command-output-map.json requires commands array
+issue-624 command lacks output mapping: npm --workspace packages/shared test
+issue-624 command lacks output mapping: npm --workspace apps/web test
+issue-624 command lacks output mapping: npm --workspace apps/web run build
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage room-type-contract --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage mapping --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage non-patient-eligibility --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage export-import-persistence --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage no-task-generation --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage rendered-editor --allow-partial --issue 624
+issue-624 command lacks output mapping: node scripts/check-no-phi-fields.mjs
+issue-625 command-output-map.json issue must be 625
+issue-625 command-output-map.json requires commands array
+issue-625 command lacks output mapping: npm --workspace packages/shared test
+issue-625 command lacks output mapping: npm --workspace apps/web test
+issue-625 command lacks output mapping: npm --workspace apps/web run build
+issue-625 command lacks output mapping: node scripts/check-layout-editor-narrow-room-stability.mjs --stage final --issue 625
+issue-625 command lacks output mapping: node scripts/check-layout-editor-door-narrow-room-safety.mjs --stage final --issue 625
+issue-625 command lacks output mapping: node scripts/check-layout-editor-door-delete-ux.mjs --stage final --issue 625
+issue-625 command lacks output mapping: node scripts/check-layout-editor-provider-pharmacy-room-type.mjs --stage final --issue 625
+issue-625 command lacks output mapping: node scripts/check-layout-editor-repair-go-no-go.mjs --stage final --issue 625
+issue-625 command lacks output mapping: node scripts/check-no-phi-fields.mjs
+issue-625 command lacks output mapping: docker compose config
+issue-625 command lacks output mapping: docker compose -f docker-compose.production.yml config
+Issue 621 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 622 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 623 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 624 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json
+Issue 625 is missing from docs/verification/ISSUE_EVIDENCE_INDEX.json

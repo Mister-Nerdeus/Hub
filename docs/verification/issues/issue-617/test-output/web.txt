@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 214 web test file(s).
+Discovered 218 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -206,6 +206,8 @@ Discovered 214 web test file(s).
 
 > src/features/layout-editor/__tests__/HallwayZoneQuickEditPopover.test.tsx
 
+> src/features/layout-editor/__tests__/LayoutEditorStage.narrowRoom.test.tsx
+
 > src/features/layout-editor/__tests__/LayoutEditorStage.test.tsx
 
 > src/features/layout-editor/__tests__/RoomAlignmentControls.test.tsx
@@ -225,6 +227,10 @@ Discovered 214 web test file(s).
 > src/features/layout-editor/__tests__/clickToPlaceStorageSolidWall.test.ts
 
 > src/features/layout-editor/__tests__/doorAccessMarker.test.tsx
+
+> src/features/layout-editor/__tests__/doorDeleteUx.test.ts
+
+> src/features/layout-editor/__tests__/doorNarrowRoomSafety.test.ts
 
 > src/features/layout-editor/__tests__/editorCommandBar.test.tsx
 
@@ -257,6 +263,8 @@ Discovered 214 web test file(s).
 > src/features/layout-editor/__tests__/pathNodeStorageSolidWall.test.tsx
 
 > src/features/layout-editor/__tests__/popoverAccessibility.test.tsx
+
+> src/features/layout-editor/__tests__/providerPharmacyRoomType.test.tsx
 
 > src/features/layout-editor/__tests__/quickEditReducerUpdates.test.ts
 
@@ -440,4 +448,4 @@ Discovered 214 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 214 web test file(s).
+Executed 218 web test file(s).

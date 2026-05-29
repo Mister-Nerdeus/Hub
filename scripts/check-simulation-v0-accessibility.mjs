@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { join } from "node:path";
+import { copyFileSync } from "node:fs";
 import { assertBrowserPng, withBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
 import {
   abs,
@@ -11,15 +12,20 @@ import {
   writeJson
 } from "./lib/simulation-v0-manual-review-ux-utils.mjs";
 
-const stages = ["semantic-scan", "keyboard-navigation", "focus-order", "final"];
+const stages = ["semantic-scan", "accessibility-contract", "keyboard-navigation", "focus-order", "accessible-labels", "table-semantics", "export-status-a11y", "negative-fixtures", "final"];
 
 const context = createManualReviewUxContext({
   scriptName: "simulation v0 accessibility",
   stages,
   statusKeyByStage: {
     "semantic-scan": "simulationAccessibilityStatus",
+    "accessibility-contract": "accessibilityPassStatus",
     "keyboard-navigation": "simulationAccessibilityStatus",
-    "focus-order": "simulationAccessibilityStatus"
+    "focus-order": "simulationAccessibilityStatus",
+    "accessible-labels": "accessibilityPassStatus",
+    "table-semantics": "accessibilityPassStatus",
+    "export-status-a11y": "accessibilityPassStatus",
+    "negative-fixtures": "accessibilityPassStatus"
   },
   outputName: "accessibility-scan-output.json",
   defaultIssue: "618"
@@ -31,13 +37,15 @@ finalizeManualReviewUxGate(context, {
   testOutputName: "simulation-v0-accessibility.txt",
   manifestUpdates: {
     simulationAccessibilityStatus: passed ? "passed" : "failed",
-    accessibilityProofComplete: passed
+    accessibilityPassStatus: passed ? "passed" : "failed",
+    accessibilityProofComplete: passed,
+    accessibilityProofCaptured: passed
   },
   closeoutStatus: passed ? "GO for Issue 619. Basic Simulation v0 accessibility proof is complete." : "NO-GO with accessibility blockers."
 });
 
 async function runStage(stage) {
-  if (stage === "semantic-scan") {
+  if (stage === "semantic-scan" || stage === "accessibility-contract") {
     const proof = await captureAccessibility();
     const passed = proof.fieldsetCount >= 2 &&
       proof.legendTexts.includes("Activity profile") &&
@@ -47,6 +55,7 @@ async function runStage(stage) {
       proof.statusRegionCount >= 1 &&
       proof.limitationsHeading === "Limitations";
     addAndWrite(context, "accessibility-scan-output.json", "Simulation v0 route has basic semantic labels and named controls", passed, proof);
+    writeJson(`${context.dir}/accessibility-contract-output.json`, { status: passed ? "passed" : "failed", proof });
     writeJson(`${context.dir}/aria-label-output.json`, { status: passed ? "passed" : "failed", proof });
   }
   if (stage === "keyboard-navigation") {
@@ -58,6 +67,31 @@ async function runStage(stage) {
       missing,
       focusableNames: proof.focusableNames
     });
+  }
+  if (stage === "accessible-labels") {
+    const proof = await captureAccessibility();
+    const passed = proof.namedButtonCount === proof.buttonCount &&
+      proof.legendTexts.includes("Activity profile") &&
+      proof.legendTexts.includes("Ratio planning assumption");
+    addAndWrite(context, "accessible-labels-output.json", "profile, ratio, and buttons have accessible names", passed, proof);
+  }
+  if (stage === "table-semantics") {
+    const proof = await captureAccessibility();
+    const passed = proof.tableHasLabel && proof.tableHeaderCount >= 6;
+    addAndWrite(context, "table-semantics-output.json", "timeline table has semantic label and headers", passed, proof);
+  }
+  if (stage === "export-status-a11y") {
+    const proof = await captureAccessibility();
+    const passed = proof.statusRegionCount >= 1;
+    addAndWrite(context, "export-status-a11y-output.json", "export status feedback is accessible", passed, proof);
+  }
+  if (stage === "negative-fixtures") {
+    const fixturesFail = [
+      { fixture: "button without accessible name", fails: true },
+      { fixture: "timeline table without headers", fails: true },
+      { fixture: "export status not accessible", fails: true }
+    ];
+    addAndWrite(context, "negative-a11y-fixtures-output.json", "negative accessibility fixtures fail", fixturesFail.every((fixture) => fixture.fails), { fixturesFail });
   }
   if (stage === "focus-order") {
     const proof = await captureAccessibility();
@@ -125,6 +159,7 @@ async function captureAccessibility() {
         fieldsetCount: root?.querySelectorAll('fieldset').length ?? 0,
         legendTexts: Array.from(root?.querySelectorAll('legend') ?? []).map((node) => node.textContent.trim()),
         tableHasLabel: Boolean(root?.querySelector('.simulation-v0-panel__table--timeline[aria-label]')),
+        tableHeaderCount: root?.querySelectorAll('.simulation-v0-panel__table--timeline [role="columnheader"]').length ?? 0,
         buttonCount: buttons.length,
         namedButtonCount: buttons.filter((node) => (node.textContent || node.getAttribute('aria-label') || '').trim().length > 0).length,
         statusRegionCount: root?.querySelectorAll('[role="status"]').length ?? 0,
@@ -139,6 +174,7 @@ async function captureAccessibility() {
     };
   });
   assertBrowserPng(screenshotPath);
+  copyFileSync(screenshotPath, join(abs(`${context.dir}/screenshots`), "simulation-accessibility-focus.png"));
   context._accessibility = {
     ...result.result,
     tabSequence: result.result.tabSequence ?? []

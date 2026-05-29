@@ -11,18 +11,33 @@ import {
   writeJson
 } from "./lib/simulation-v0-manual-review-ux-utils.mjs";
 
-const stages = ["copy-contract", "rendered-copy", "forbidden-copy-negative", "final"];
+const stages = [
+  "copy-contract",
+  "plain-language",
+  "rendered-copy",
+  "activity-profile-explanation",
+  "ratio-assumption-explanation",
+  "artifact-hash-explanation",
+  "export-explanation",
+  "forbidden-copy-negative",
+  "final"
+];
 
 const context = createManualReviewUxContext({
   scriptName: "simulation v0 copy polish",
   stages,
   statusKeyByStage: {
-    "copy-contract": "simulationCopyExplanationStatus",
-    "rendered-copy": "simulationCopyExplanationStatus",
-    "forbidden-copy-negative": "simulationCopyExplanationStatus"
+    "copy-contract": "userCopyExplanationPolishStatus",
+    "plain-language": "userCopyExplanationPolishStatus",
+    "rendered-copy": "userCopyExplanationPolishStatus",
+    "activity-profile-explanation": "userCopyExplanationPolishStatus",
+    "ratio-assumption-explanation": "userCopyExplanationPolishStatus",
+    "artifact-hash-explanation": "userCopyExplanationPolishStatus",
+    "export-explanation": "userCopyExplanationPolishStatus",
+    "forbidden-copy-negative": "userCopyExplanationPolishStatus"
   },
   outputName: "copy-contract-output.json",
-  defaultIssue: "613"
+  defaultIssue: "614"
 });
 
 await runSelectedManualReviewUxStages(context, runStage);
@@ -30,7 +45,13 @@ const passed = context.checks.every((check) => check.passed);
 finalizeManualReviewUxGate(context, {
   testOutputName: "simulation-v0-copy-polish.txt",
   manifestUpdates: {
-    simulationCopyExplanationStatus: passed ? "passed" : "failed"
+    simulationCopyExplanationStatus: passed ? "passed" : "failed",
+    userCopyExplanationPolishStatus: passed ? "passed" : "failed",
+    copyExplainsSyntheticDryRun: passed,
+    copyExplainsActivityProfiles: passed,
+    copyExplainsRatioAssumptions: passed,
+    copyExplainsArtifactHash: passed,
+    copyExplainsExport: passed
   },
   closeoutStatus: passed ? "GO for Issue 614. Simulation v0 route explanations are ready for manual review." : "NO-GO with copy blockers."
 });
@@ -50,24 +71,44 @@ async function runStage(stage) {
       "limitationCopy"
     ];
     const missingKeys = requiredKeys.filter((key) => !source.includes(key));
-    const exactHash = source.includes("This helps confirm the same synthetic inputs produce the same dry-run artifact.");
+    const exactHash = source.includes("This helps verify that the same synthetic inputs produce the same dry-run artifact.");
     const passed = missingKeys.length === 0 && exactHash;
     addAndWrite(context, "copy-contract-output.json", "centralized Simulation v0 copy contract includes required explanations", passed, {
       missingKeys,
       exactHash
     });
   }
+  if (["plain-language", "activity-profile-explanation", "ratio-assumption-explanation", "artifact-hash-explanation", "export-explanation"].includes(stage)) {
+    const proof = await captureRenderedCopy();
+    const requiredByStage = {
+      "plain-language": "This view shows a synthetic dry-run using placeholder operational workload assumptions.",
+      "activity-profile-explanation": "Typical, Busy, and Slammed change synthetic occupancy and workload pressure.",
+      "ratio-assumption-explanation": "These are planning assumptions for comparison, not staffing recommendations.",
+      "artifact-hash-explanation": "This helps verify that the same synthetic inputs produce the same dry-run artifact.",
+      "export-explanation": "Export contains synthetic operational review data only."
+    };
+    const fragment = requiredByStage[stage];
+    const passed = proof.routeText.includes(fragment);
+    const outputName = {
+      "plain-language": "plain-language-output.json",
+      "activity-profile-explanation": "activity-profile-explanation-output.json",
+      "ratio-assumption-explanation": "ratio-assumption-explanation-output.json",
+      "artifact-hash-explanation": "artifact-hash-explanation-output.json",
+      "export-explanation": "export-explanation-output.json"
+    }[stage];
+    addAndWrite(context, outputName, `${stage} copy is rendered`, passed, { fragment, screenshotPath: proof.screenshotPath });
+  }
   if (stage === "rendered-copy") {
     const proof = await captureRenderedCopy();
     const requiredFragments = [
-      "Review synthetic operational placeholders for a deterministic dry-run.",
-      "Choose one synthetic activity profile",
-      "Choose a bounded ratio planning assumption.",
-      "Inspect the generated placeholder events in time order.",
-      "Scan artifact-derived counts",
+      "This view shows a synthetic dry-run using placeholder operational workload assumptions.",
+      "Typical, Busy, and Slammed change synthetic occupancy and workload pressure.",
+      "These are planning assumptions for comparison, not staffing recommendations.",
+      "Timeline rows show synthetic task placeholders generated by the dry-run.",
+      "These cards summarize placeholder task queue, delay, and unassigned counts.",
       "Shows which synthetic bed positions were selected",
-      "This helps confirm the same synthetic inputs produce the same dry-run artifact.",
-      "Export a synthetic review bundle",
+      "This helps verify that the same synthetic inputs produce the same dry-run artifact.",
+      "Export contains synthetic operational review data only.",
       "Manual visual review remains required."
     ];
     const missing = requiredFragments.filter((fragment) => !proof.routeText.includes(fragment));

@@ -1,4 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
+node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage feature-gate-root-wiring --allow-partial --issue 611
+node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage final-gate-reruns-feature-validators --allow-partial --issue 611
+node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage manifest-only-negative --allow-partial --issue 611
+node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage dom-only-negative --allow-partial --issue 611
 node scripts/check-no-phi-fields.mjs

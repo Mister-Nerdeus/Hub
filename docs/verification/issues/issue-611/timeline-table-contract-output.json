@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "611",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "timeline row contract is bounded and operational",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "timeline table renders accessible headers",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "output derives from shared review state",
+      "passed": true,
+      "detail": {
+        "activityProfileId": "busy",
+        "ratioView": "three_to_one"
+      }
+    },
+    {
+      "name": "timeline rows contain synthetic task and bed identifiers only",
+      "passed": true,
+      "detail": {
+        "forbidden": []
+      }
+    },
+    {
+      "name": "timeline is deterministic for same review state",
+      "passed": true,
+      "detail": {
+        "rowCount": 284
+      }
+    }
+  ]
+}

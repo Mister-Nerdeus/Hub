@@ -20,33 +20,39 @@
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage decision-doc --allow-partial --issue 612",
+      "command": "node scripts/check-simulation-v0-manual-review-pack.mjs --stage checklist --allow-partial --issue 612",
       "outputs": [
-        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+        "docs/verification/issues/issue-612/manual-review-checklist-output.json"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage rendered-navigation --allow-partial --issue 612",
+      "command": "node scripts/check-simulation-v0-manual-review-pack.mjs --stage screenshot-pack --allow-partial --issue 612",
       "outputs": [
-        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+        "docs/verification/issues/issue-612/screenshot-index.json"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-navigation-placement.mjs --stage forbidden-copy-negative --allow-partial --issue 612",
+      "command": "node scripts/check-simulation-v0-manual-review-pack.mjs --stage route-text --allow-partial --issue 612",
       "outputs": [
-        "docs/verification/issues/issue-612/test-output/simulation-v0-navigation-placement.txt"
+        "docs/verification/issues/issue-612/route-text-output.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-manual-review-pack.mjs --stage reviewer-feedback-template --allow-partial --issue 612",
+      "outputs": [
+        "docs/verification/issues/issue-612/reviewer-feedback-template-output.json"
       ]
     },
     {
       "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --allow-partial --issue 612",
       "outputs": [
-        "docs/verification/issues/issue-612/test-output/visible-product-copy-all-routes.txt"
+        "docs/verification/issues/issue-612/visible-copy-output.json"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-612/test-output/no-phi.txt"
+        "docs/verification/issues/issue-612/no-claim-output.json"
       ]
     }
   ]

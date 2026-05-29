@@ -18,6 +18,8 @@ export type SimulationV0TimelineViewModel = {
   visibleRows: readonly SimulationV0TimelineRow[];
   totalRowCount: number;
   rowLimit: 25;
+  availableSyntheticNurseIds: readonly string[];
+  availableBedPositionIds: readonly string[];
 };
 
 export function buildSimulationV0TimelineViewModel(input: {
@@ -39,6 +41,10 @@ export function buildSimulationV0TimelineViewModel(input: {
     rows,
     visibleRows: rows.slice(0, 25),
     totalRowCount: rows.length,
-    rowLimit: 25
+    rowLimit: 25,
+    availableSyntheticNurseIds: Array.from(
+      new Set(rows.map((row) => row.syntheticNurseId).filter((id): id is string => id != null))
+    ).sort(),
+    availableBedPositionIds: Array.from(new Set(rows.map((row) => row.bedPositionId))).sort()
   };
 }

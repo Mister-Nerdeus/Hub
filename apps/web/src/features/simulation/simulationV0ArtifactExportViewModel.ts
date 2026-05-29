@@ -49,8 +49,9 @@ export function buildSimulationV0ArtifactExportViewModel(input: {
     `Bundle count: ${input.bundles.length}`,
     `Stable hashes: ${input.bundles.map((item) => item.stableArtifactHash).join(", ")}`
   ].join("\n");
+  const hashPrefix = input.bundles.at(0)?.stableArtifactHash.slice(0, 8) ?? "nohash";
   return {
-    fileName: `simulation-v0-${input.reviewState.activityProfileId}-${input.reviewState.ratioView}.json`,
+    fileName: `simulation-v0-dry-run-${input.reviewState.activityProfileId}-${input.reviewState.ratioView}-${hashPrefix}.json`,
     summaryText,
     previewText: summaryText,
     jsonText: JSON.stringify(bundle, null, 2),

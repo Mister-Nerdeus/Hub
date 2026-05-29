@@ -1,0 +1,35 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:simulation-v0-ratio-controls
+> node scripts/check-simulation-v0-ratio-controls.mjs --stage final --issue 611 --read-only
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "611",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "ratio controls expose allowed planning assumptions only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "ratio views render allowed labels",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "controls update shared review state helpers",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "forbidden ratio wording negative fixture fails",
+      "passed": true,
+      "detail": {
+        "found": []
+      }
+    }
+  ]
+}

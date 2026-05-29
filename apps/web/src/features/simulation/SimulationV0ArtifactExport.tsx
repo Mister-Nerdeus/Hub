@@ -14,17 +14,23 @@ export function SimulationV0ArtifactExport({ viewModel }: Props) {
   const [status, setStatus] = useState<SimulationV0ArtifactExportStatus>("idle");
 
   function downloadJson() {
-    const blob = new Blob([viewModel.jsonText], { type: "application/json" });
-    const href = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = href;
-    link.download = viewModel.fileName;
-    link.click();
-    URL.revokeObjectURL(href);
-    setStatus("download_ready");
+    setStatus("download_started");
+    try {
+      const blob = new Blob([viewModel.jsonText], { type: "application/json" });
+      const href = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = href;
+      link.download = viewModel.fileName;
+      link.click();
+      URL.revokeObjectURL(href);
+      setStatus("download_ready");
+    } catch {
+      setStatus("download_failed");
+    }
   }
 
   async function copySummary() {
+    setStatus("copy_started");
     try {
       if (navigator.clipboard?.writeText == null) {
         setStatus("copy_failed");

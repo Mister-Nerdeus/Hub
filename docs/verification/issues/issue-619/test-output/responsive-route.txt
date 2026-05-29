@@ -1,0 +1,192 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "619",
+  "checks": [
+    {
+      "name": "responsive CSS contains route, controls, and table containment rules",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "responsive screenshots captured for 1440, 1024, 768, and 390 widths",
+      "passed": true,
+      "detail": {
+        "proofs": [
+          {
+            "name": "1440",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1440.png",
+            "width": 1440,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "1024",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1024.png",
+            "width": 1024,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "768",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-768.png",
+            "width": 768,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "390",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-390.png",
+            "width": 390,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "route has no full-page horizontal overflow at supported widths",
+      "passed": true,
+      "detail": {
+        "proofs": [
+          {
+            "name": "1440",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1440.png",
+            "width": 1440,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "1024",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1024.png",
+            "width": 1024,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "768",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-768.png",
+            "width": 768,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "390",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-390.png",
+            "width": 390,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "limitations remain visible at supported widths",
+      "passed": true,
+      "detail": {
+        "proofs": [
+          {
+            "name": "1440",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1440.png",
+            "width": 1440,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "1024",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-1024.png",
+            "width": 1024,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "768",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-768.png",
+            "width": 768,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          },
+          {
+            "name": "390",
+            "screenshotPath": "docs\\verification\\issues\\issue-619\\screenshots\\simulation-responsive-390.png",
+            "width": 390,
+            "controlsVisible": true,
+            "summaryVisible": true,
+            "timelineVisible": true,
+            "proofVisible": true,
+            "exportVisible": true,
+            "limitationsVisible": true,
+            "horizontalOverflowPixels": 0,
+            "timelineContainerScrolls": true
+          }
+        ]
+      }
+    }
+  ]
+}

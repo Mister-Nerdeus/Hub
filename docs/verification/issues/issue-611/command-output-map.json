@@ -20,9 +20,33 @@
       ]
     },
     {
+      "command": "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage feature-gate-root-wiring --allow-partial --issue 611",
+      "outputs": [
+        "docs/verification/issues/issue-611/root-scripts-feature-gates-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage final-gate-reruns-feature-validators --allow-partial --issue 611",
+      "outputs": [
+        "docs/verification/issues/issue-611/final-gate-reruns-feature-validators-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage manifest-only-negative --allow-partial --issue 611",
+      "outputs": [
+        "docs/verification/issues/issue-611/manifest-only-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-simulation-v0-user-facing-go-no-go.mjs --stage dom-only-negative --allow-partial --issue 611",
+      "outputs": [
+        "docs/verification/issues/issue-611/dom-only-negative-output.json"
+      ]
+    },
+    {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-611/test-output/no-phi.txt"
+        "docs/verification/issues/issue-611/no-phi-output.txt"
       ]
     }
   ]

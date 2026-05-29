@@ -2666,6 +2666,7 @@ h1 {
 .simulation-v0-timeline-toolbar {
   align-items: flex-start;
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   justify-content: space-between;
 }
@@ -2677,8 +2678,28 @@ h1 {
   gap: 6px;
 }
 
+.simulation-v0-select-control {
+  color: #53657a;
+  display: grid;
+  font-size: 0.76rem;
+  font-weight: 900;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.simulation-v0-select-control select {
+  background: #ffffff;
+  border: 1px solid #9fb2c8;
+  border-radius: 6px;
+  color: #253447;
+  font: inherit;
+  min-height: 34px;
+  padding: 6px 8px;
+}
+
 .simulation-v0-filter-buttons button,
-.simulation-v0-pagination button {
+.simulation-v0-pagination button,
+.simulation-v0-timeline-toolbar > button {
   background: #ffffff;
   border: 1px solid #9fb2c8;
   border-radius: 6px;
@@ -2770,7 +2791,8 @@ h1 {
   display: grid;
   border: 1px solid #d5dde7;
   border-radius: 8px;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .simulation-v0-panel__table [role="row"] {

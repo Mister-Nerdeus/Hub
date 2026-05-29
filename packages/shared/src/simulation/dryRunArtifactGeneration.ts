@@ -55,7 +55,7 @@ export function generateDryRunArtifactBundle(run: InternalDryRunExecutorOutput):
     artifactType: "queue_placeholder_summary" as const,
     runId: run.runId,
     metadata,
-    summary: run.summaryCounts
+    summary: run.queueSummary
   };
   const limitationsMarkdown = [
     "# Simulation v0 Internal Dry-Run Limitations",

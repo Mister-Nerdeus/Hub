@@ -15,6 +15,10 @@ import {
 } from "./deterministicSeedContract.js";
 import { buildNurseRuntimeStatesFromManualBridge, type NurseRuntimeStateSet } from "./nurseRuntimeStateContract.js";
 import { processNurseTaskPlaceholders } from "./nurseTaskProcessingLoop.js";
+import {
+  calculateRatioAwareQueuePlaceholder,
+  type RatioAwareQueuePlaceholderSummary
+} from "./ratioAwareQueuePlaceholder.js";
 import { dryRunTaskTemplates, type DryRunTaskTemplateContract } from "./taskTemplateContract.js";
 import { generateDryRunTaskInstances, type DryRunTaskInstanceSet } from "./taskInstanceGeneration.js";
 
@@ -70,6 +74,7 @@ export type InternalDryRunExecutorOutput = {
   timeline: readonly InternalDryRunTimelineEvent[];
   nurseRuntimeSnapshots: readonly InternalDryRunNurseRuntimeSnapshot[];
   queueSnapshots: readonly InternalDryRunQueueSnapshot[];
+  queueSummary: RatioAwareQueuePlaceholderSummary;
   summaryCounts: {
     generatedTaskCount: number;
     startedPlaceholderCount: number;
@@ -123,6 +128,13 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     capacity
   });
   const processing = processNurseTaskPlaceholders({ taskSet, runtimeStates, capacity, ratioRuntimeSeed });
+  const queueSummary = calculateRatioAwareQueuePlaceholder({
+    taskSet,
+    runtimeStates,
+    ratioPreset,
+    ratioRuntimeSeed,
+    capacity
+  });
   const timeline = processing.timeline;
   const nurseRuntimeSnapshots = buildNurseSnapshots(runtimeStates, timeline);
   const queueSnapshots = buildQueueSnapshots(timestep, timeline);
@@ -141,6 +153,7 @@ export function executeInternalDryRun(input: ExecuteInternalDryRunInput = {}): I
     timeline,
     nurseRuntimeSnapshots,
     queueSnapshots,
+    queueSummary,
     summaryCounts: {
       generatedTaskCount: taskSet.instances.length,
       startedPlaceholderCount: countEvents(timeline, "task_placeholder_started"),

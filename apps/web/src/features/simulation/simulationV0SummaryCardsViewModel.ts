@@ -29,19 +29,17 @@ export function buildSimulationV0SummaryCardsViewModel(input: {
 }): SimulationV0SummaryCardsViewModel {
   const totals = input.runs.reduce(
     (sum, run) => ({
-      generated: sum.generated + run.summaryCounts.generatedTaskCount,
-      queued: sum.queued + run.summaryCounts.queuedPlaceholderCount,
-      delayed: sum.delayed + run.summaryCounts.delayedPlaceholderCount,
-      unassigned: sum.unassigned + run.summaryCounts.unassignedPlaceholderCount,
-      nurseGroups: sum.nurseGroups + run.nurseRuntimeSnapshots.length
+      generated: sum.generated + run.queueSummary.generatedTaskCount,
+      queued: sum.queued + run.queueSummary.queuedPlaceholderCount,
+      delayed: sum.delayed + run.queueSummary.delayedPlaceholderCount,
+      unassigned: sum.unassigned + run.queueSummary.unassignedPlaceholderCount,
+      nurseGroups: sum.nurseGroups + run.queueSummary.syntheticNurseRuntimeGroupCount
     }),
     { generated: 0, queued: 0, delayed: 0, unassigned: 0, nurseGroups: 0 }
   );
-  const pressureBand = totals.delayed + totals.queued === 0
-    ? "placeholder light"
-    : totals.delayed + totals.queued <= totals.generated * 0.45
-      ? "placeholder moderate"
-      : "placeholder heavy";
+  const pressureBand = Array.from(
+    new Set(input.runs.map((run) => run.queueSummary.placeholderPressureBand.replaceAll("_", " ")))
+  ).join(" / ");
   const cards: SimulationV0SummaryCard[] = [
     card("Generated", totals.generated, "workload"),
     card("Queued", totals.queued, "queue"),

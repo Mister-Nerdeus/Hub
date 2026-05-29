@@ -5,13 +5,13 @@ export const repoRoot = process.cwd();
 export const manualReviewUxManifestPath = "docs/verification/simulation-v0-manual-review-ux-manifest.json";
 
 export const manualReviewUxIssueTitles = {
-  "611": "Manual Visual Review Evidence Pack and Scorecard",
-  "612": "Simulation Navigation Placement Decision",
-  "613": "Simulation Copy and Explanation Polish",
-  "614": "Timeline Usability: Pagination, Fixed Filters, and Event IDs",
-  "615": "Summary Cards Visual Hierarchy and Safe Emphasis",
-  "616": "Artifact Export UX: Copy/Download Feedback and Safe Preview",
-  "617": "Final Gate Hardening: Re-run Feature Gates",
+  "611": "Root Feature Gates and Final GO/NO-GO Depth Repair",
+  "612": "Manual Visual Review Evidence Pack",
+  "613": "Simulation Route Navigation Placement Decision",
+  "614": "Simulation v0 Copy and Explanation Polish",
+  "615": "Timeline Usability Hardening",
+  "616": "Summary Cards Visual Hierarchy and Shared Queue Summary",
+  "617": "Artifact Export UX Polish",
   "618": "Simulation Route Accessibility Pass",
   "619": "Simulation Route Responsive Proof",
   "620": "Manual Visual Review GO / NO-GO"
@@ -74,28 +74,35 @@ export function defaultManualReviewUxManifest() {
     productDisplayName: "ER Pod Shift Simulator",
     sourceBatch: "601-610",
     sourceGoNoGoStatus: "go_for_manual_visual_review",
-    sourceSimulationV0Status: "internal_dry_run_only",
-    manualVisualReviewEvidenceStatus: "missing",
-    simulationNavigationPlacementStatus: "missing",
-    simulationCopyExplanationStatus: "missing",
+    featureGateRootWiringStatus: "missing",
+    finalGateDepthStatus: "missing",
+    manualVisualReviewEvidencePackStatus: "missing",
+    navigationPlacementDecisionStatus: "missing",
+    userCopyExplanationPolishStatus: "missing",
     timelineUsabilityStatus: "missing",
     summaryCardsVisualHierarchyStatus: "missing",
     artifactExportUxStatus: "missing",
-    finalGateRerunCoverageStatus: "missing",
-    simulationAccessibilityStatus: "missing",
-    simulationResponsiveProofStatus: "missing",
+    accessibilityPassStatus: "missing",
+    responsiveRouteProofStatus: "missing",
     manualReviewGoNoGoStatus: "not_ready",
-    manualReviewEvidencePackExists: false,
-    manualReviewChecklistExists: false,
-    manualReviewScorecardExists: false,
-    humanReviewCompleted: false,
-    simulationNavigationPlacement: "not_decided",
-    timelinePaginationOrFilteringEnabled: false,
-    summaryCardsHierarchyImproved: false,
-    artifactExportHasStatusFeedback: false,
-    finalGateRerunsFeatureGates: false,
-    accessibilityProofComplete: false,
-    responsiveProofComplete: false,
+    rootScriptsInclude603To610FeatureGates: false,
+    verifyLocalIncludes603To610FeatureGates: false,
+    finalGateRerunsFeatureValidators: false,
+    finalGateNotManifestOnly: false,
+    manualReviewScreenshotsCaptured: false,
+    manualReviewChecklistCaptured: false,
+    navigationPlacement: "not_decided",
+    copyExplainsSyntheticDryRun: false,
+    copyExplainsActivityProfiles: false,
+    copyExplainsRatioAssumptions: false,
+    copyExplainsArtifactHash: false,
+    copyExplainsExport: false,
+    timelineUsesStableEventIds: false,
+    timelineHasUsabilityControls: false,
+    summaryCardsUseSharedQueueSummary: false,
+    artifactExportHasUserFeedback: false,
+    accessibilityProofCaptured: false,
+    responsiveProofCaptured: false,
     simulationV0Status: "internal_dry_run_only",
     fullFutureSimulationEventModelStatus: "dormant",
     optimizerStatus: "not_started",
@@ -182,7 +189,13 @@ export function finalizeManualReviewUxGate(context, extra = {}) {
     humanReviewCompleted: false
   });
   Object.assign(context.manifest, extra.manifestUpdates ?? {});
-  if (context.manifest.manualReviewGoNoGoStatus !== "go_for_human_manual_visual_review") {
+  if (
+    ![
+      "go_for_manual_visual_review",
+      "go_for_additional_ux_repair",
+      "no_go"
+    ].includes(context.manifest.manualReviewGoNoGoStatus)
+  ) {
     context.manifest.goNoGoStatus = "not_ready";
   }
   saveManualReviewUxManifest(context.manifest);

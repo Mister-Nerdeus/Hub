@@ -1,7 +1,7 @@
 # Issue 617 Closeout
 
 ## Summary
-- Completed Final Gate Hardening: Re-run Feature Gates within the internal synthetic dry-run boundary.
+- Completed Artifact Export UX Polish within the internal synthetic dry-run boundary.
 
 ## Files Changed
 - Simulation v0 manual-review UX source, gates, manifest, and evidence artifacts as applicable for Issue 617.
@@ -32,4 +32,4 @@
 - Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden claim wording.
 
 ## GO / NO-GO
-- GO for Issue 618. Final gate coverage reruns feature gates.
+- GO for Issue 617. Artifact export has status feedback and bounded preview.

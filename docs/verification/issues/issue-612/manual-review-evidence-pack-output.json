@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "612",
+  "checks": [
+    {
+      "name": "manual review checklist covers required reviewer questions",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "manual review screenshot pack captures all required route areas",
+      "passed": true,
+      "detail": {
+        "route": true,
+        "controls": true,
+        "timeline": true,
+        "summaryCards": true,
+        "occupiedBedProof": true,
+        "artifactProof": true,
+        "artifactExport": true
+      }
+    },
+    {
+      "name": "route text dump captures reviewer-visible Simulation v0 copy",
+      "passed": true,
+      "detail": {
+        "textLength": 6022
+      }
+    },
+    {
+      "name": "reviewer feedback template supports defect conversion without clinical/staffing/outcome judgment",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "manual review pack avoids recommendation, production, staffing advice, PHI, and EHR claims",
+      "passed": true,
+      "detail": {
+        "forbidden": []
+      }
+    }
+  ]
+}

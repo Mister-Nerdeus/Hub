@@ -20,33 +20,33 @@
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage desktop --allow-partial --issue 619",
+      "command": "node scripts/check-simulation-v0-responsive-route.mjs --stage responsive-contract --allow-partial --issue 619",
       "outputs": [
-        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+        "docs/verification/issues/issue-619/responsive-contract-output.json"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage tablet --allow-partial --issue 619",
+      "command": "node scripts/check-simulation-v0-responsive-route.mjs --stage viewport-screenshots --allow-partial --issue 619",
       "outputs": [
-        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+        "docs/verification/issues/issue-619/viewport-overflow-output.json"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage mobile --allow-partial --issue 619",
+      "command": "node scripts/check-simulation-v0-responsive-route.mjs --stage no-horizontal-overflow --allow-partial --issue 619",
       "outputs": [
-        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+        "docs/verification/issues/issue-619/viewport-overflow-output.json"
       ]
     },
     {
-      "command": "node scripts/check-simulation-v0-responsive-proof.mjs --stage no-horizontal-overflow --allow-partial --issue 619",
+      "command": "node scripts/check-simulation-v0-responsive-route.mjs --stage limitations-visible --allow-partial --issue 619",
       "outputs": [
-        "docs/verification/issues/issue-619/test-output/simulation-v0-responsive-proof.txt"
+        "docs/verification/issues/issue-619/limitations-visible-output.json"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-619/test-output/no-phi.txt"
+        "docs/verification/issues/issue-619/manifest-update-output.json"
       ]
     }
   ]

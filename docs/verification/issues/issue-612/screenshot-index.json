@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "screenshots": [
+    "docs/verification/issues/issue-612/screenshots/simulation-route-full.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-controls.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-timeline.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-summary-cards.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-occupied-bed-proof.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-artifact-proof.png",
+    "docs/verification/issues/issue-612/screenshots/simulation-artifact-export.png"
+  ],
+  "proof": {
+    "route": true,
+    "controls": true,
+    "timeline": true,
+    "summaryCards": true,
+    "occupiedBedProof": true,
+    "artifactProof": true,
+    "artifactExport": true
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "616",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
+  "checks": [
+    {
+      "name": "summary cards render neutral grouped hierarchy",
+      "passed": true,
+      "detail": {
+        "missingGroups": [],
+        "missingLabels": [],
+        "rendered": {
+          "groupTitles": [
+            "Workload",
+            "Queue",
+            "Coverage placeholder",
+            "Runtime grouping"
+          ],
+          "cardLabels": [
+            "Generated",
+            "Queued",
+            "Delayed",
+            "Unassigned",
+            "Synthetic nurse groups",
+            "Placeholder pressure"
+          ],
+          "note": "Operational placeholder summary only.",
+          "screenshotPath": "docs/verification/issues/issue-616/screenshots/simulation-summary-card-hierarchy.png"
+        }
+      }
+    },
+    {
+      "name": "summary-card values remain shared queue-summary derived",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "UI does not duplicate pressure-band calculation",
+      "passed": true,
+      "detail": {
+        "found": []
+      }
+    },
+    {
+      "name": "summary cards render neutral grouped hierarchy",
+      "passed": true,
+      "detail": {
+        "missingGroups": [],
+        "missingLabels": [],
+        "rendered": {
+          "groupTitles": [
+            "Workload",
+            "Queue",
+            "Coverage placeholder",
+            "Runtime grouping"
+          ],
+          "cardLabels": [
+            "Generated",
+            "Queued",
+            "Delayed",
+            "Unassigned",
+            "Synthetic nurse groups",
+            "Placeholder pressure"
+          ],
+          "note": "Operational placeholder summary only.",
+          "screenshotPath": "docs/verification/issues/issue-616/screenshots/simulation-summary-card-hierarchy.png"
+        }
+      }
+    },
+    {
+      "name": "summary-card values remain shared queue-summary derived",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "summary-card copy avoids forbidden implication words",
+      "passed": true,
+      "detail": {
+        "found": [],
+        "negativeFixture": "recommended"
+      }
+    },
+    {
+      "name": "summary-card copy avoids forbidden implication words",
+      "passed": true,
+      "detail": {
+        "found": [],
+        "negativeFixture": "recommended"
+      }
+    }
+  ]
+}

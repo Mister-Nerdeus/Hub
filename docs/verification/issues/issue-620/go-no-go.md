@@ -1,3 +1,14 @@
-GO for human manual visual review.
+GO for manual visual review.
 
-Human manual review remains required. Promotion remains blocked.
+Reviewer tasks:
+- review route wording
+- review usefulness of profile selector
+- review 4:1 / 3:1 controls
+- review timeline readability
+- review summary cards
+- review occupied-bed proof
+- review artifact proof
+- review export workflow
+- report confusing wording
+- report misleading claims
+- report layout/scrolling issues

@@ -1,7 +1,7 @@
 # Issue 616 Closeout
 
 ## Summary
-- Completed Artifact Export UX: Copy/Download Feedback and Safe Preview within the internal synthetic dry-run boundary.
+- Completed Summary Cards Visual Hierarchy and Shared Queue Summary within the internal synthetic dry-run boundary.
 
 ## Files Changed
 - Simulation v0 manual-review UX source, gates, manifest, and evidence artifacts as applicable for Issue 616.
@@ -33,4 +33,4 @@
 - Non-PHI rules still pass; the issue uses synthetic operational data only and adds no real identity fields, source-system integration, medication names, diagnosis text, clinical notes, access credential disclosure, or forbidden claim wording.
 
 ## GO / NO-GO
-- GO for Issue 617. Artifact export has status feedback and bounded preview.
+- GO for Issue 616. Summary cards have grouped visual hierarchy.

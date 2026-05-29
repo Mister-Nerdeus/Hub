@@ -1,33 +1,4 @@
 {
   "status": "passed",
-  "stage": "final",
-  "issue": "620",
-  "allowPartial": false,
-  "manifestPath": "docs/verification/simulation-v0-manual-review-ux-manifest.json",
-  "checks": [
-    {
-      "name": "manual review final audit has no blockers and does not claim human completion",
-      "passed": true,
-      "detail": {
-        "blockers": [],
-        "missingFiles": [],
-        "humanReviewCompleted": false,
-        "noClaimBoundary": {
-          "manualReviewRequired": true,
-          "promotionBlocked": true,
-          "noManualReviewPassedClaim": true,
-          "noPromotionReadyClaim": true,
-          "noProductionReadyClaim": true
-        }
-      }
-    },
-    {
-      "name": "manual review GO/NO-GO decision written",
-      "passed": true,
-      "detail": {
-        "decision": "GO for human manual visual review.",
-        "humanReviewCompleted": false
-      }
-    }
-  ]
+  "blockers": []
 }

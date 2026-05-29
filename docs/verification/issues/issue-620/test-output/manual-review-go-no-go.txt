@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "620",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manifest records all Issue 611-619 UX hardening gates as passed",
+      "passed": true,
+      "detail": {
+        "blockers": []
+      }
+    },
+    {
+      "name": "manifest records required boolean proof flags",
+      "passed": true,
+      "detail": {
+        "falseFlags": []
+      }
+    },
+    {
+      "name": "manual review UX evidence files exist",
+      "passed": true,
+      "detail": {
+        "missingFiles": []
+      }
+    },
+    {
+      "name": "rendered route keeps no-claim and non-PHI boundaries",
+      "passed": true,
+      "detail": {
+        "forbidden": []
+      }
+    }
+  ]
+}
