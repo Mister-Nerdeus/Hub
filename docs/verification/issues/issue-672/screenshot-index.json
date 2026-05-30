@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "screenshots": [
+    "docs/verification/issues/issue-672/screenshots/door-candidate-disabled-reasons.png"
+  ],
+  "proof": {
+    "status": "passed",
+    "screenshot": "docs/verification/issues/issue-672/screenshots/door-candidate-disabled-reasons.png",
+    "serverLogBytes": 236,
+    "addDoorResult": {
+      "clicked": true,
+      "label": "Add door"
+    },
+    "disabledOptions": [
+      "19 / south / hallway adjacent - Door owner is not a patient-room target for adjacent assignment."
+    ],
+    "placeholderValue": "",
+    "popoverText": "WallnorthsoutheastwestOffset 1 ftNudge -Nudge +CenterOpposite1 adjacent candidatesDelete doorCandidateSelect candidate...19 / south / hallway adjacent - Door owner is not a patient-room target for adjacent assignment.Door owner is not a patient-room target for adjacent assignment.Width -Width +3 ft4 ft6 ftOwner room: 14",
+    "recoveryScreenVisible": false
+  }
+}

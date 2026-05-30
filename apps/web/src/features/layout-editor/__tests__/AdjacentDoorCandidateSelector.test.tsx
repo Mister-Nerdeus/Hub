@@ -53,6 +53,23 @@ if (!AdjacentDoorCandidateSelector({ viewModel: readOnly, onSelectCandidate: () 
   throw new Error("read-only candidate selector must be protected");
 }
 
+const storageCandidate = buildAdjacentDoorCandidateViewModel({
+  door,
+  rooms: [rooms[0]!, { ...room("storage", "Storage", 0, 0), roomType: "storage" }],
+  readOnly: false
+});
+if (storageCandidate.candidates[0]?.disabled !== true || storageCandidate.candidates[0].disabledReason == null) {
+  throw new Error("support-only adjacent candidates must be disabled with a reason");
+}
+const storageElement = AdjacentDoorCandidateSelector({
+  viewModel: storageCandidate,
+  onSelectCandidate: () => calls.push("blocked-storage")
+});
+storageElement.props.children[0].props.children[1].props.onChange({ currentTarget: { value: "storage" } });
+if (calls.includes("blocked-storage")) {
+  throw new Error("disabled adjacent candidates must not dispatch selection");
+}
+
 function room(id: string, label: string, xFeet: number, yFeet: number): EditableRoomGeometry {
   return {
     objectType: "room",

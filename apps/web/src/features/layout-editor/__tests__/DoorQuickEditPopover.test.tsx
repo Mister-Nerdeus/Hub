@@ -78,8 +78,8 @@ if (calls.at(-1) !== "candidate") throw new Error("candidate callback missing");
 children[4].props.children[1].props.onClick();
 if (calls.at(-1) !== "width-decrease") throw new Error("width decrease callback missing");
 
-if (JSON.stringify(element).includes("Adjacent")) {
-  throw new Error("quick edit must not expose automatic adjacent reassignment");
+if (children[3].props.children[1].props.value !== "") {
+  throw new Error("quick edit candidate selector must start at the neutral placeholder");
 }
 
 function room(id: string, label: string, xFeet: number, yFeet: number): EditableRoomGeometry {

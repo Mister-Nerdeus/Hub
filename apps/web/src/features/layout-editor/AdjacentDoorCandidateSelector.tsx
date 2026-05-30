@@ -12,9 +12,7 @@ export function AdjacentDoorCandidateSelector({
   selectedRoomId = null,
   onSelectCandidate
 }: AdjacentDoorCandidateSelectorProps) {
-  const selectedCandidate = viewModel.candidates.find((candidate) => candidate.roomId === selectedRoomId)
-    ?? viewModel.candidates[0]
-    ?? null;
+  const selectedCandidate = viewModel.candidates.find((candidate) => candidate.roomId === selectedRoomId) ?? null;
   return (
     <div
       className="adjacent-door-candidate-selector"
@@ -24,24 +22,31 @@ export function AdjacentDoorCandidateSelector({
         Adjacent room candidate
         <select
           aria-label="Adjacent room candidate"
-          disabled={viewModel.readOnly || selectedCandidate == null}
+          disabled={viewModel.readOnly || viewModel.candidates.length === 0}
           value={selectedCandidate?.roomId ?? ""}
           onChange={(event) => {
+            if (event.currentTarget.value === "") {
+              return;
+            }
             const candidate = viewModel.candidates.find((item) => item.roomId === event.currentTarget.value);
-            if (candidate != null) {
+            if (candidate != null && !candidate.disabled) {
               onSelectCandidate(candidate.roomId, candidate.wall, candidate.previewOffsetFeet);
             }
           }}
         >
+          <option value="">Select candidate...</option>
           {viewModel.candidates.map((candidate) => (
-            <option key={candidate.roomId} value={candidate.roomId}>
+            <option key={candidate.roomId} value={candidate.roomId} disabled={candidate.disabled}>
               {candidate.roomLabel} / {candidate.wall} / {candidate.relationshipLabel}
+              {candidate.disabled && candidate.disabledReason != null ? ` - ${candidate.disabledReason}` : ""}
             </option>
           ))}
         </select>
       </label>
       {selectedCandidate == null ? (
-        <p className="adjacent-door-candidate-selector__reason">{viewModel.disabledReason}</p>
+        <p className="adjacent-door-candidate-selector__reason">
+          {viewModel.disabledReason ?? "Select an adjacent room candidate."}
+        </p>
       ) : (
         <dl>
           <div>

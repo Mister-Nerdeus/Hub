@@ -71,24 +71,29 @@ export function DoorQuickEditPopover({
       <label>
         Candidate
         <select
-          value={viewModel.adjacentCandidates[0]?.roomId ?? ""}
+          value=""
           disabled={viewModel.readOnly || viewModel.adjacentCandidates.length === 0}
           onChange={(event) => {
+            if (event.currentTarget.value === "") {
+              return;
+            }
             const candidate = viewModel.adjacentCandidates.find((item) => item.roomId === event.currentTarget.value);
-            if (candidate != null) {
+            if (candidate != null && !candidate.disabled) {
               onAdjacentCandidate(candidate.roomId, candidate.wall, candidate.previewOffsetFeet);
             }
           }}
         >
+          <option value="">Select candidate...</option>
           {viewModel.adjacentCandidates.map((candidate) => (
-            <option key={candidate.roomId} value={candidate.roomId}>
+            <option key={candidate.roomId} value={candidate.roomId} disabled={candidate.disabled}>
               {candidate.roomLabel} / {candidate.wall} / {candidate.relationshipLabel}
+              {candidate.disabled && candidate.disabledReason != null ? ` - ${candidate.disabledReason}` : ""}
             </option>
           ))}
         </select>
       </label>
       <div className="door-quick-edit-popover__row">
-        <span>{viewModel.noCandidateReason ?? "Geometry-valid candidate selection available"}</span>
+        <span>{viewModel.noCandidateReason ?? "Adjacent candidate selection available"}</span>
         <button type="button" disabled={viewModel.readOnly} onClick={onWidthDecrease}>
           Width -
         </button>

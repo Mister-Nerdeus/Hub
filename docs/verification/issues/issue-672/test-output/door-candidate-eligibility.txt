@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "issue": "672",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "candidate eligibility contract and UI model are wired",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "sourcePath": "packages/shared/src/floorplans/doorCandidateEligibility.ts",
+        "hasEligibilityType": true,
+        "hasEvaluator": true,
+        "modelHasDisabledReason": true,
+        "adjacentUsesEligibility": true,
+        "quickEditUsesEligibility": true
+      }
+    },
+    {
+      "name": "solid-wall candidate is blocked with reason text",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "candidateRoomId": "solid",
+        "eligibility": {
+          "status": "blocked",
+          "reason": "Solid wall targets cannot receive patient-room door assignments."
+        }
+      }
+    },
+    {
+      "name": "support/storage candidate is blocked with reason text",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "candidateRoomId": "storage",
+        "eligibility": {
+          "status": "blocked",
+          "reason": "Storage/support-only targets do not receive patient-room door assignments."
+        }
+      }
+    },
+    {
+      "name": "provider/pharmacy candidate routes away from patient-room door assignment",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "candidateRoomId": "provider",
+        "eligibility": {
+          "status": "blocked",
+          "reason": "Provider/pharmacy targets use support access points, not patient-room doors."
+        }
+      }
+    },
+    {
+      "name": "candidate selection starts with neutral placeholder",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "quickEditHasPlaceholder": true,
+        "selectorHasPlaceholder": true,
+        "quickEditIgnoresPlaceholder": true,
+        "selectorIgnoresPlaceholder": true,
+        "noFirstCandidateValue": true
+      }
+    },
+    {
+      "name": "invalid candidates are disabled and cannot dispatch assignment",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "quickEditDisablesInvalidOptions": true,
+        "selectorDisablesInvalidOptions": true,
+        "quickEditBlocksDisabledDispatch": true,
+        "selectorBlocksDisabledDispatch": true,
+        "disabledReasonRendered": true,
+        "regressionTestCoversDisabledDispatch": true
+      }
+    }
+  ]
+}
