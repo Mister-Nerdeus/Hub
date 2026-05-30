@@ -159,6 +159,7 @@ export type LayoutEditorAction =
       offsetFeet: number;
       widthFeet: number;
     }
+  | { type: "recordDoorAuthoringWarning"; warning: DoorAuthoringWarning }
   | {
       type: "addSupportAccessPoint";
       accessPointId: string;
@@ -376,6 +377,8 @@ export function layoutEditorReducer(
           widthFeet: action.widthFeet
         })
       );
+    case "recordDoorAuthoringWarning":
+      return appendDoorAuthoringWarning(state, action.warning);
     case "addSupportAccessPoint":
       return applySupportAccessMutation(
         state,

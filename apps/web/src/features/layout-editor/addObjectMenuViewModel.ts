@@ -15,6 +15,8 @@ export type AddObjectMenuItem = {
   id: AddObjectMenuItemId;
   label: string;
   placementModeLabel: string;
+  disabled?: boolean;
+  disabledReason?: string;
 };
 
 export type AddObjectMenuViewModel = {

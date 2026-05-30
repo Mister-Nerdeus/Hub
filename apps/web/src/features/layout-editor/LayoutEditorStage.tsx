@@ -14,6 +14,7 @@ import {
   validateSimulationReadyExport,
   type AuthoringDraftContract,
   type AuthoringRoomType,
+  type DoorAuthoringWarning,
   type DoorPathNodeGenerationResult,
   type EditableSplitBayDividerStyle,
   type EditableDoorWall,
@@ -772,19 +773,42 @@ export function LayoutEditorStage({
     setToolMode("select");
   };
   const addDoorToSelectedRoom = () => {
-    if (
-      stageState.readOnly ||
-      stageState.selectedObjectType !== "room" ||
-      stageState.selectedObjectId == null
-    ) {
+    if (stageState.readOnly) {
+      dispatchStage({
+        type: "recordDoorAuthoringWarning",
+        warning: buildAddDoorBlockedWarning({
+          reason: "Read-only plans cannot be edited.",
+          roomId: stageState.selectedObjectType === "room" ? stageState.selectedObjectId : null
+        })
+      });
       return;
     }
-    dispatchStage(
-      buildAddDoorAction({
-        sequence: authoringSequence,
-        roomId: stageState.selectedObjectId
-      })
-    );
+    if (stageState.selectedObjectType !== "room" || stageState.selectedObjectId == null) {
+      dispatchStage({
+        type: "recordDoorAuthoringWarning",
+        warning: buildAddDoorBlockedWarning({
+          reason: "Select a patient room before adding a door.",
+          roomId: null
+        })
+      });
+      return;
+    }
+    const result = buildAddDoorAction({
+      layout: stageState.editableLayout,
+      sequence: authoringSequence,
+      roomId: stageState.selectedObjectId
+    });
+    if (result.status === "blocked") {
+      dispatchStage({
+        type: "recordDoorAuthoringWarning",
+        warning: buildAddDoorBlockedWarning({
+          reason: result.reason,
+          roomId: stageState.selectedObjectId
+        })
+      });
+      return;
+    }
+    dispatchStage(result.action);
     setAuthoringSequence((value) => value + 1);
     setToolMode("select");
   };
@@ -2034,6 +2058,19 @@ export function LayoutEditorStage({
       <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
   );
+}
+
+function buildAddDoorBlockedWarning(input: {
+  reason: string;
+  roomId: string | null;
+}): DoorAuthoringWarning {
+  return {
+    code: "add_door_preflight_blocked",
+    severity: "blocking",
+    actionType: "addDoor",
+    message: `Add door blocked: ${input.reason}`,
+    roomId: input.roomId ?? undefined
+  };
 }
 
 function findSelectedRoom(state: {

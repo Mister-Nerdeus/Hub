@@ -10,6 +10,7 @@ import {
 
 import { buildAddRoomAction } from "../addRoomTool";
 import { buildAddObjectMenuViewModel, isRoomPlacementMenuItem, roomTypeForPlacementMenuItem } from "../addObjectMenuViewModel";
+import { buildRoomQuickEdit } from "../roomQuickEditViewModel";
 import { getRoomPresentationStyle } from "../roomPresentationStyles";
 
 const assert = {
@@ -58,3 +59,23 @@ assert.ok(addAction.label.includes("Provider Pharmacy"), "provider/pharmacy labe
 const style = getRoomPresentationStyle("provider_pharmacy");
 assert.equal(style.muted, true);
 assert.equal(style.legendLabel, "Provider / pharmacy support");
+
+const quickEdit = buildRoomQuickEdit({
+  readOnly: false,
+  room: {
+    objectType: "room",
+    id: "provider-room",
+    label: "Provider Pharmacy",
+    roomNumber: "provider-room",
+    roomType: "provider_pharmacy",
+    capacityType: "single",
+    isHallBed: false,
+    isTraumaAdjacent: false,
+    xFeet: 0,
+    yFeet: 0,
+    widthFeet: 12,
+    heightFeet: 10
+  }
+});
+assert.equal(quickEdit.addDoorDisabled, true);
+assert.equal(quickEdit.addDoorDisabledReason, "Provider/pharmacy areas use support access point tooling.");

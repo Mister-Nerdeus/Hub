@@ -1,0 +1,12 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-add-door-preflight.mjs --stage preflight-contract --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage patient-room-door --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage solid-wall-reject --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage storage-reject --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage support-access-separation --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage missing-selection --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage warning-visible --allow-partial --issue 673
+node scripts/check-add-door-preflight.mjs --stage final --issue 673
+node scripts/check-no-phi-fields.mjs

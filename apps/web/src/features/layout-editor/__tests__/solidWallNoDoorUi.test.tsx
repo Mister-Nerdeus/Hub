@@ -47,3 +47,14 @@ if (actionButtons[0].props.disabled !== true) {
 if (actionButtons[1].props.disabled !== true) {
   throw new Error("Add Door button must render disabled for solid walls");
 }
+
+const storageViewModel = buildRoomQuickEdit({
+  room: { ...solidWall, id: "storage-01", roomType: "storage", label: "Storage", roomNumber: "Storage" },
+  readOnly: false
+});
+if (!storageViewModel.addDoorDisabled) {
+  throw new Error("storage Add Door control must be disabled");
+}
+if (storageViewModel.addDoorDisabledReason !== "Storage/support-only rooms use non-patient access workflows.") {
+  throw new Error("storage Add Door disabled reason must be explicit");
+}

@@ -1,0 +1,77 @@
+{
+  "issue": "673",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-673/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-673/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-673/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage preflight-contract --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/add-door-preflight-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage patient-room-door --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/patient-room-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage solid-wall-reject --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/solid-wall-reject-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage storage-reject --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/storage-reject-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage support-access-separation --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/provider-pharmacy-support-access-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage missing-selection --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/missing-selection-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage warning-visible --allow-partial --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/warning-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-add-door-preflight.mjs --stage final --issue 673",
+      "outputs": [
+        "docs/verification/issues/issue-673/test-output/add-door-preflight.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-673/no-phi-output.txt"
+      ]
+    }
+  ]
+}

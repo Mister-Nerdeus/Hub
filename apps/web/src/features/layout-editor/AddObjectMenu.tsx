@@ -13,7 +13,8 @@ export function AddObjectMenu({ viewModel, readOnly, onSelect }: AddObjectMenuPr
         <button
           key={item.id}
           type="button"
-          disabled={readOnly}
+          disabled={readOnly || item.disabled === true}
+          title={item.disabledReason}
           data-add-object-item={item.id}
           onClick={() => onSelect(item.id)}
         >
