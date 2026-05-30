@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "issue": "643",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "Save Working Copy is primary and visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Save As New Copy is visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Export JSON is labeled as backup/export and not primary save",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local draft reset is separated as recovery/danger action",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "command groups are explicit",
+      "passed": true,
+      "detail": [
+        "primary-save",
+        "edit-history",
+        "recovery-import-export",
+        "validation-view"
+      ]
+    }
+  ]
+}

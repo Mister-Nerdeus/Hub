@@ -122,6 +122,7 @@ import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from ".
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
+import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -133,6 +134,8 @@ import {
 import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
 import { CanvasObjectPopover } from "./CanvasObjectPopover";
 import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
+import { EditorPopupModeControl, type EditorPopupMode } from "./EditorPopupModeControl";
+import { useEditorWorkspaceMeasurements } from "./useEditorWorkspaceMeasurements";
 import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
 import { buildRoomQuickEdit } from "./roomQuickEditViewModel";
 import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
@@ -143,7 +146,8 @@ import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
 import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
 import {
   recordDraftTraceStage,
-  recordEditableLayoutTraceStage
+  recordEditableLayoutTraceStage,
+  recordPlanTraceStage
 } from "./layoutSaveTrace";
 import { AddObjectMenu } from "./AddObjectMenu";
 import {
@@ -261,6 +265,7 @@ export function LayoutEditorStage({
   const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
+  const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
   const [addObjectMenuOpen, setAddObjectMenuOpen] = useState(false);
   const [pendingAddObjectId, setPendingAddObjectId] = useState<AddObjectMenuItemId | null>(null);
   const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
@@ -428,6 +433,7 @@ export function LayoutEditorStage({
     inspectorCollapsed,
     validationWarningCount: stageState.validationWarnings.length
   });
+  const workspaceMeasurements = useEditorWorkspaceMeasurements(inspectorCollapsed);
   const validationDisabled = stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null;
   const deltaPreviewViewModel = buildLayoutDeltaPreviewViewModel({
     isDirty: stageState.isDirty,
@@ -473,7 +479,10 @@ export function LayoutEditorStage({
     ? buildCanvasObjectPopover({
         selectedObjectType: stageState.selectedObjectType,
         selectedObjectId: stageState.selectedObjectId,
-        renderItems
+        renderItems,
+        popupMode,
+        canvasWidthPixels: STAGE_WIDTH_PIXELS,
+        canvasHeightPixels: STAGE_HEIGHT_PIXELS
       })
     : null;
   const roomQuickEditViewModel = buildRoomQuickEdit({
@@ -572,6 +581,12 @@ export function LayoutEditorStage({
         editableLayout: stageState.editableLayout
       });
       const exported = exportFloorplanJson(exportResult.plan);
+      if (stageState.loadedFloorplan != null) {
+        recordPlanTraceStage("exportedJsonAfterReload", {
+          recordId: stageState.loadedFloorplan.recordId,
+          plan: exportResult.plan
+        });
+      }
       setFloorplanJsonText(exported);
       setFloorplanJsonStatus(`Exported ${exportResult.plan.planId}; door/path sync deferred`);
     } catch (error) {
@@ -1185,6 +1200,7 @@ export function LayoutEditorStage({
         localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
         lastNamedCopySaveLabel={lastNamedCopySaveLabel}
         reloadProofLabel={reloadProofLabel}
+        hasLocalRecoveryDraft={availableRecoveryDraft != null}
         readOnly={stageState.readOnly}
         isDirty={stageState.isDirty}
         undoDisabled={stageState.history.past.length === 0}
@@ -1196,6 +1212,7 @@ export function LayoutEditorStage({
         inspectorCollapsed={inspectorCollapsed}
         onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
         onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
+        onRestoreDraft={restoreRecoveryDraft}
         onResetDraft={() => {
           if (localDraftStorage != null && stageState.loadedFloorplan != null) {
             resetLayoutLocalDraft(localDraftStorage, stageState.loadedFloorplan.recordId);
@@ -1214,6 +1231,19 @@ export function LayoutEditorStage({
         onResetView={() => dispatchStage({ type: "resetViewport" })}
         onAddObject={() => setAddObjectMenuOpen((value) => !value)}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
+      />
+
+      <EditorSaveStatusPanel
+        activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
+        activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
+        activePlanId={stageState.loadedFloorplan?.planId ?? null}
+        activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+        localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
+        lastNamedCopySaveLabel={lastNamedCopySaveLabel}
+        reloadProofLabel={reloadProofLabel}
+        readOnly={stageState.readOnly}
+        isDirty={stageState.isDirty}
+        saveStatus={saveStatus}
       />
 
       <LayoutDraftRecoveryBanner
@@ -1308,10 +1338,16 @@ export function LayoutEditorStage({
           onReset={() => dispatchStage({ type: "resetViewport" })}
           onFit={() => dispatchStage({ type: "fitViewport" })}
         />
+        <EditorPopupModeControl mode={popupMode} onModeChange={setPopupMode} />
       </div>
 
-      <div className={viewportLayoutViewModel.workspaceClassName} {...viewportLayoutViewModel.dataAttributes}>
-        <div className="layout-editor-stage__shell" data-proof-only="true">
+      <div
+        className={viewportLayoutViewModel.workspaceClassName}
+        style={workspaceMeasurements.workspaceStyle}
+        data-editor-canvas-height={workspaceMeasurements.canvasHeight}
+        {...viewportLayoutViewModel.dataAttributes}
+      >
+        <div className="layout-editor-stage__shell" data-proof-only="true" ref={workspaceMeasurements.shellRef}>
           <p className="layout-editor-stage__pan-helper" data-canvas-pan-helper="true">
             Drag the hallway/background to pan the map.
           </p>
@@ -1517,7 +1553,7 @@ export function LayoutEditorStage({
                 viewport={stageState.viewport}
               />
             )}
-            {canvasObjectPopoverViewModel == null ? null : (
+            {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "canvas" ? null : (
               <CanvasObjectPopover
                 viewModel={canvasObjectPopoverViewModel}
                 onClose={() => setCanvasPopoverOpen(false)}
@@ -1700,7 +1736,19 @@ export function LayoutEditorStage({
           </svg>
         </div>
         {inspectorCollapsed ? null : (
-        <div className="layout-editor-stage__side-panels">
+        <div className="layout-editor-stage__side-panels" ref={workspaceMeasurements.sidePanelRef}>
+          {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (
+            <section className="layout-editor-stage__docked-popover" data-popup-docked-panel="true">
+              <header>
+                <strong>{canvasObjectPopoverViewModel.title}</strong>
+                <button type="button" onClick={() => setCanvasPopoverOpen(false)}>
+                  Close
+                </button>
+              </header>
+              <p>{canvasObjectPopoverViewModel.dockReason ?? "Docked editing mode is active."}</p>
+              <p>Use the selected-object inspector below for reconstruction edits while this popup stays docked.</p>
+            </section>
+          )}
           <LayoutInspectorTabs
             selectedObjectType={stageState.selectedObjectType}
             room={

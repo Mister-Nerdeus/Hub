@@ -40,6 +40,71 @@
   outline-offset: 2px;
 }
 
+.runtime-build-info {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  max-width: 560px;
+  padding: 10px;
+}
+
+.runtime-build-info dl {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.runtime-build-info div {
+  min-width: 0;
+}
+
+.runtime-build-info dt {
+  color: #53616f;
+  font-size: 0.64rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.runtime-build-info dd {
+  color: #111827;
+  font-size: 0.74rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.runtime-build-info p {
+  color: #435362;
+  font-size: 0.74rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.runtime-mismatch-banner {
+  align-items: center;
+  background: #fff7e6;
+  border: 1px solid #d8b456;
+  border-radius: 8px;
+  color: #3d2f0a;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  line-height: 1.35;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 10px 12px;
+  width: 100%;
+}
+
+.runtime-mismatch-banner strong,
+.runtime-mismatch-banner span {
+  font-size: 0.86rem;
+}
+
 .app-nav {
   align-items: center;
   display: grid;

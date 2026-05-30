@@ -10,6 +10,7 @@ export type EditorCommandBarProps = {
   localRecoveryDraftLabel: string;
   lastNamedCopySaveLabel: string;
   reloadProofLabel: string;
+  hasLocalRecoveryDraft: boolean;
   readOnly: boolean;
   isDirty: boolean;
   undoDisabled: boolean;
@@ -21,6 +22,7 @@ export type EditorCommandBarProps = {
   inspectorCollapsed: boolean;
   onUndo: () => void;
   onRedo: () => void;
+  onRestoreDraft: () => void;
   onResetDraft: () => void;
   onSaveWorkingCopy: () => void;
   onSaveAsNewCopy: () => void;
@@ -42,6 +44,7 @@ export function EditorCommandBar({
   localRecoveryDraftLabel,
   lastNamedCopySaveLabel,
   reloadProofLabel,
+  hasLocalRecoveryDraft,
   readOnly,
   isDirty,
   undoDisabled,
@@ -53,6 +56,7 @@ export function EditorCommandBar({
   inspectorCollapsed,
   onUndo,
   onRedo,
+  onRestoreDraft,
   onResetDraft,
   onSaveWorkingCopy,
   onSaveAsNewCopy,
@@ -88,7 +92,29 @@ export function EditorCommandBar({
       data-editor-command-bar="consolidated"
       data-proceed-placeholder="disabled"
     >
-      <div className="editor-command-bar__primary" data-command-group="history">
+      <div className="editor-command-bar__primary editor-command-bar__primary-save" data-command-group="primary-save">
+        <button
+          type="button"
+          className="editor-command-bar__save-primary"
+          data-editor-control="save-working-copy"
+          disabled={viewModel.saveWorkingCopyDisabled}
+          onClick={onSaveWorkingCopy}
+        >
+          Save Working Copy
+        </button>
+        <button
+          type="button"
+          data-editor-control="save-as-new-copy"
+          disabled={viewModel.saveAsNewCopyDisabled}
+          onClick={onSaveAsNewCopy}
+        >
+          Save As New Copy
+        </button>
+        <button type="button" data-editor-control="export-json-backup" onClick={onExportJson}>
+          Export JSON Backup
+        </button>
+      </div>
+      <div className="editor-command-bar__primary" data-command-group="edit-history">
         <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
           Undo
         </button>
@@ -96,42 +122,26 @@ export function EditorCommandBar({
           Redo
         </button>
       </div>
-      <div className="editor-command-bar__primary" data-command-group="draft">
-        <button
-          type="button"
-          disabled={viewModel.saveWorkingCopyDisabled}
-          onClick={onSaveWorkingCopy}
-        >
-          Save working copy
+      <div className="editor-command-bar__primary editor-command-bar__recovery" data-command-group="recovery-import-export">
+        <button type="button" disabled={!hasLocalRecoveryDraft} onClick={onRestoreDraft}>
+          Restore Local Draft
         </button>
-        <button
-          type="button"
-          disabled={viewModel.saveAsNewCopyDisabled}
-          onClick={onSaveAsNewCopy}
-        >
-          Save as new copy
-        </button>
-        <button type="button" onClick={onResetDraft}>
-          Reset draft
+        <button type="button" className="editor-command-bar__danger" onClick={onResetDraft}>
+          Reset Local Draft
         </button>
         <button type="button" onClick={onImportJson}>
           Import JSON
         </button>
-        <button type="button" onClick={onExportJson}>
-          Export
-        </button>
       </div>
-      <div className="editor-command-bar__primary" data-command-group="object">
+      <div className="editor-command-bar__primary" data-command-group="editor-tools">
         <button type="button" disabled={viewModel.addObjectDisabled} onClick={onAddObject}>
           Add Object
         </button>
       </div>
-      <div className="editor-command-bar__primary" data-command-group="validation">
+      <div className="editor-command-bar__primary" data-command-group="validation-view">
         <button type="button" disabled={viewModel.validationDisabled} onClick={onValidate}>
           Validate
         </button>
-      </div>
-      <div className="editor-command-bar__primary" data-command-group="view">
         <button type="button" onClick={onResetView}>
           Reset view
         </button>
@@ -202,6 +212,10 @@ export function EditorCommandBar({
           <dd>{viewModel.proceedStatusLabel}</dd>
         </div>
       </dl>
+      <p className="editor-command-bar__help" data-save-help="named-copy-local-draft-export">
+        Save Working Copy persists this named saved copy. Local draft is browser recovery only.
+        Export JSON Backup downloads a backup file.
+      </p>
       {viewModel.defaultWarningLabel == null ? null : (
         <p className="editor-command-bar__warning" role="status">
           {viewModel.defaultWarningLabel}

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "issue": "648",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "canvas height contract prevents aspect ratio collapse",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "canvas height tracks inspector height and inspector scrolls internally",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "desktop layout exposes measured canvas height and inspector state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "laptop/tablet responsive canvas minimum is defined",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "workspace avoids full-page horizontal overflow",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

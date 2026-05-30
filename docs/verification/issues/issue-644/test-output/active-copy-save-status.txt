@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "issue": "644",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "dedicated active copy save status panel is rendered",
+      "passed": true,
+      "detail": [
+        "Active copy",
+        "Record ID",
+        "Plan ID",
+        "Source",
+        "Mode",
+        "Local recovery draft",
+        "Reload proof"
+      ]
+    },
+    {
+      "name": "recordId is visible and machine-readable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "source kind is visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "named save status and timestamp are visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "canonical default is clearly marked read-only",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "save result includes recordId",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

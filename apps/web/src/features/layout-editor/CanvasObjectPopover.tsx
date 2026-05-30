@@ -32,6 +32,7 @@ export function CanvasObjectPopover({ viewModel, onClose, children }: CanvasObje
       className="canvas-object-popover-shell"
       data-popover-anchor-type={viewModel.objectType}
       data-popover-anchor-id={viewModel.objectId}
+      data-popover-placement={viewModel.placement}
     >
       <div
         ref={popoverRef}

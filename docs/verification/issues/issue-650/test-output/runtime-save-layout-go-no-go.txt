@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "decision": {
+    "editorRuntimeSaveLayoutGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "manualBrowserChecklistCaptured": true
+  },
+  "blockers": [],
+  "checks": [
+    {
+      "name": "Issues 641-649 validators reran",
+      "passed": true,
+      "detail": [
+        {
+          "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/runtime-version-proof.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/stale-runtime-detection.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/save-command-bar-ux.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/active-copy-save-status.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/truthful-save-language.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/room-door-save-reload-proof.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/save-pipeline-trace.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/canvas-height-layout.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
+          "outputPath": "docs/verification/issues/issue-650/test-output/popup-layout.txt",
+          "status": 0
+        }
+      ]
+    },
+    {
+      "name": "manifest proof fields are complete",
+      "passed": true,
+      "detail": {
+        "runtimeVersionProofStatus": true,
+        "staleRuntimeDetectionStatus": true,
+        "saveCommandBarUxStatus": true,
+        "activeCopyIdentityStatus": true,
+        "truthfulSaveStatusStatus": true,
+        "roomDoorSaveReloadStatus": true,
+        "savePipelineTraceStatus": true,
+        "canvasInspectorLayoutStatus": true,
+        "popupDockingStatus": true,
+        "roomDoorSaveReloadProof": true,
+        "sameRecordReloadProof": true,
+        "canvasMatchesInspectorHeight": true,
+        "popupClampOrDockProof": true
+      }
+    },
+    {
+      "name": "manual browser checklist captured",
+      "passed": true,
+      "detail": {
+        "Build/version marker visible": true,
+        "Save Working Copy visible and primary": true,
+        "Save As New Copy visible": true,
+        "Active copy name and recordId visible": true,
+        "Move one room": true,
+        "Change one door": true,
+        "Click Save Working Copy": true,
+        "Reload browser": true,
+        "Open same saved copy": true,
+        "Changes remain": true,
+        "Export JSON includes changes": true,
+        "Canvas is tall enough to work without constant vertical scrolling": true,
+        "Inspector scrolls if needed": true,
+        "Popup can be docked or remains visible": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "issue": "646",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-646/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-646/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-646/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage browser-room-door-proof --allow-partial --issue 646",
+      "outputs": [
+        "docs/verification/issues/issue-646/browser-room-door-proof-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage same-record-reload --allow-partial --issue 646",
+      "outputs": [
+        "docs/verification/issues/issue-646/same-record-reload-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage exported-json-compare --allow-partial --issue 646",
+      "outputs": [
+        "docs/verification/issues/issue-646/exported-json-compare-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-646/no-phi-output.txt"
+      ]
+    }
+  ]
+}

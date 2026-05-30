@@ -1,0 +1,38 @@
+> node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
+exitCode: 0
+
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "visible runtime build info is wired",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "machine-readable runtime marker is present",
+      "passed": true,
+      "detail": [
+        "data-runtime-build-info=\"true\"",
+        "data-build-commit",
+        "data-build-time",
+        "data-runtime-mode",
+        "data-editor-save-ux",
+        "data-batch-marker",
+        "641-650-editor-runtime-save-layout"
+      ]
+    },
+    {
+      "name": "local dev reset note is present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reconstruction remains NO-GO until this batch passes",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

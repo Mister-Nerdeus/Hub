@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 642
+node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 642
+node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 642
+node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 642
+node scripts/check-no-phi-fields.mjs

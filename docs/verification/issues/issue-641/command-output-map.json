@@ -1,0 +1,47 @@
+{
+  "issue": "641",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-641/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-641/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-641/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-runtime-version-proof.mjs --stage runtime-build-info --allow-partial --issue 641",
+      "outputs": [
+        "docs/verification/issues/issue-641/runtime-build-info-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-runtime-version-proof.mjs --stage runtime-marker --allow-partial --issue 641",
+      "outputs": [
+        "docs/verification/issues/issue-641/runtime-marker-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-runtime-version-proof.mjs --stage stale-runtime-negative --allow-partial --issue 641",
+      "outputs": [
+        "docs/verification/issues/issue-641/stale-runtime-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-641/no-phi-output.txt"
+      ]
+    }
+  ]
+}

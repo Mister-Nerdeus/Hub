@@ -1,0 +1,53 @@
+{
+  "issue": "642",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-642/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-642/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-642/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 642",
+      "outputs": [
+        "docs/verification/issues/issue-642/capability-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 642",
+      "outputs": [
+        "docs/verification/issues/issue-642/save-control-presence-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 642",
+      "outputs": [
+        "docs/verification/issues/issue-642/stale-runtime-banner-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 642",
+      "outputs": [
+        "docs/verification/issues/issue-642/stale-runtime-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-642/no-phi-output.txt"
+      ]
+    }
+  ]
+}

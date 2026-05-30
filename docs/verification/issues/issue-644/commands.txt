@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 644
+node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 644
+node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 644
+node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 644
+node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 644
+node scripts/check-no-phi-fields.mjs

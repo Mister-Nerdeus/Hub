@@ -68,13 +68,13 @@ export function buildEditorCommandBarViewModel({
     lastNamedCopySaveLabel,
     reloadProofLabel,
     defaultWarningLabel: readOnly
-      ? "Canonical default is read-only. Save working copy creates a saved editable copy."
+      ? "Canonical default is read-only. Save Working Copy creates a saved editable copy."
       : null,
     changedNotSavedWarningLabel: isDirty && !readOnly
-      ? "Changes are in the local editor only. Click Save working copy to persist this saved copy."
+      ? "Changes are in the local editor only. Click Save Working Copy to persist this saved copy."
       : null,
     saveStatusLabel: isDirty && !readOnly ? "Not saved since local changes" : saveStatus,
-    dirtyStateLabel: isDirty ? "Local editor state: changed locally" : "Local editor state: unchanged locally",
+    dirtyStateLabel: isDirty ? "Local editor state: changed" : "Local editor state: unchanged",
     modeLabel: readOnly ? "Read-only" : "Editable",
     validationLabel: validationSummary,
     undoDisabled,
@@ -86,6 +86,6 @@ export function buildEditorCommandBarViewModel({
     proceedDisabled: true,
     proceedLabel: "Proceed later",
     proceedStatusLabel: "Future step",
-    commandGroups: ["history", "draft", "object", "validation", "view", "next"]
+    commandGroups: ["primary-save", "edit-history", "recovery-import-export", "editor-tools", "validation-view", "next"]
   };
 }

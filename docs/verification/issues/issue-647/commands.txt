@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 647
+node scripts/check-editor-save-pipeline-trace.mjs --stage full-save-trace --allow-partial --issue 647
+node scripts/check-editor-save-pipeline-trace.mjs --stage payload-diff --allow-partial --issue 647
+node scripts/check-editor-save-pipeline-trace.mjs --stage exported-json-trace --allow-partial --issue 647
+node scripts/check-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 647
+node scripts/check-no-phi-fields.mjs

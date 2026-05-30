@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-runtime-version-proof.mjs --stage runtime-build-info --allow-partial --issue 641
+node scripts/check-editor-runtime-version-proof.mjs --stage runtime-marker --allow-partial --issue 641
+node scripts/check-editor-runtime-version-proof.mjs --stage stale-runtime-negative --allow-partial --issue 641
+node scripts/check-no-phi-fields.mjs

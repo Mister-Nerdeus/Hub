@@ -5,6 +5,8 @@ import {
   type AppSectionId
 } from "./appNavigation";
 import { DemoRelockButton } from "../demo-pin/DemoRelockButton";
+import { RuntimeBuildInfoPanel } from "../runtime/RuntimeBuildInfoPanel";
+import { RuntimeMismatchBanner } from "../runtime/RuntimeMismatchBanner";
 
 import "./appShell.css";
 
@@ -49,7 +51,10 @@ export function AppShell({
             </div>
           )}
         </div>
+        <RuntimeBuildInfoPanel />
       </section>
+
+      <RuntimeMismatchBanner />
 
       <nav className="app-nav" aria-label="Primary workflow navigation">
         {primarySections.map((section) => (

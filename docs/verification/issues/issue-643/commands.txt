@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 643
+node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 643
+node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 643
+node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 643
+node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 643
+node scripts/check-no-phi-fields.mjs

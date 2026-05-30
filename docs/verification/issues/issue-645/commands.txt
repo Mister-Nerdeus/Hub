@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 645
+node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 645
+node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 645
+node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 645
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,59 @@
+{
+  "issue": "644",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-644/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-644/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-644/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 644",
+      "outputs": [
+        "docs/verification/issues/issue-644/active-copy-panel-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 644",
+      "outputs": [
+        "docs/verification/issues/issue-644/record-id-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 644",
+      "outputs": [
+        "docs/verification/issues/issue-644/source-kind-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 644",
+      "outputs": [
+        "docs/verification/issues/issue-644/named-save-status-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 644",
+      "outputs": [
+        "docs/verification/issues/issue-644/canonical-default-warning-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-644/no-phi-output.txt"
+      ]
+    }
+  ]
+}

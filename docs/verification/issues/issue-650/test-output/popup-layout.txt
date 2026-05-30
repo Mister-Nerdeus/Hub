@@ -1,0 +1,30 @@
+> node scripts/check-editor-popup-layout.mjs --stage final --issue 650
+exitCode: 0
+
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "popup mode control exposes Auto, On canvas, and Docked",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "canvas popover clamps inside canvas",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "docked mode renders in side inspector",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto mode docks on constrained canvas",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

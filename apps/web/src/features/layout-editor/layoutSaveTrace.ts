@@ -23,16 +23,24 @@ export type RoomDoorProbe = {
 
 export type LayoutSaveTrace = {
   traceId: string;
+  buildCommit: string;
   recordId: string;
   planId: string;
   beforeEdit?: RoomDoorProbe;
+  afterVisibleEdit?: RoomDoorProbe;
+  editableLayoutBeforeSave?: RoomDoorProbe;
+  authoringDraftBeforeSave?: RoomDoorProbe;
   afterEditEditableLayout?: RoomDoorProbe;
   draftBeforeSave?: RoomDoorProbe;
   saveHandlerInput?: RoomDoorProbe;
   savedRecordPayload?: RoomDoorProbe;
+  savedFloorplanStorePayload?: RoomDoorProbe;
+  localStoragePayload?: RoomDoorProbe;
   persistedLocalStoragePayload?: RoomDoorProbe;
   reopenedPlan?: RoomDoorProbe;
   reopenedEditableLayout?: RoomDoorProbe;
+  exportedJsonAfterReload?: RoomDoorProbe;
+  failureStage: string | null;
 };
 
 type LayoutSaveTraceStage = Exclude<keyof LayoutSaveTrace, "traceId" | "recordId" | "planId">;
@@ -173,13 +181,43 @@ function recordLayoutSaveTraceStage(
   }
   const trace = window.__nerdeusLayoutSaveTrace ?? {
     traceId: `layout-save-trace-${Date.now()}`,
+    buildCommit: import.meta.env.VITE_BUILD_COMMIT?.trim() || "local-dev",
     recordId: options.recordId,
-    planId: options.planId
+    planId: options.planId,
+    failureStage: null
   };
+  const aliases = aliasStages(stage, options.probe);
   window.__nerdeusLayoutSaveTrace = {
     ...trace,
     recordId: options.recordId,
     planId: options.planId,
-    [stage]: options.probe
+    [stage]: options.probe,
+    ...aliases,
+    failureStage: null
   };
+}
+
+function aliasStages(stage: LayoutSaveTraceStage, probe: RoomDoorProbe): Partial<LayoutSaveTrace> {
+  if (stage === "afterEditEditableLayout") {
+    return {
+      afterVisibleEdit: probe,
+      editableLayoutBeforeSave: probe
+    };
+  }
+  if (stage === "draftBeforeSave") {
+    return {
+      authoringDraftBeforeSave: probe
+    };
+  }
+  if (stage === "savedRecordPayload") {
+    return {
+      savedFloorplanStorePayload: probe
+    };
+  }
+  if (stage === "persistedLocalStoragePayload") {
+    return {
+      localStoragePayload: probe
+    };
+  }
+  return {};
 }

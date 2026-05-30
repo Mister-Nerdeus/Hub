@@ -1,0 +1,53 @@
+{
+  "issue": "645",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-645/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-645/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-645/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 645",
+      "outputs": [
+        "docs/verification/issues/issue-645/save-language-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 645",
+      "outputs": [
+        "docs/verification/issues/issue-645/no-unsaved-edits-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 645",
+      "outputs": [
+        "docs/verification/issues/issue-645/local-vs-named-status-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 645",
+      "outputs": [
+        "docs/verification/issues/issue-645/changed-not-saved-warning-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-645/no-phi-output.txt"
+      ]
+    }
+  ]
+}

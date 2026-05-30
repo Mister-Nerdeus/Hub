@@ -50,6 +50,8 @@ services:
       dockerfile: apps/web/Dockerfile.production
       args:
         VITE_API_BASE_URL: ${VITE_API_BASE_URL:-}
+        VITE_BUILD_COMMIT: ${VITE_BUILD_COMMIT:-local-dev}
+        VITE_BUILD_TIME: ${VITE_BUILD_TIME:-local-build}
     depends_on:
       - api
     ports:

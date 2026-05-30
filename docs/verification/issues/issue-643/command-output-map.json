@@ -1,0 +1,59 @@
+{
+  "issue": "643",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-643/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-643/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-643/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 643",
+      "outputs": [
+        "docs/verification/issues/issue-643/primary-save-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 643",
+      "outputs": [
+        "docs/verification/issues/issue-643/save-as-new-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 643",
+      "outputs": [
+        "docs/verification/issues/issue-643/export-backup-distinction-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 643",
+      "outputs": [
+        "docs/verification/issues/issue-643/reset-local-draft-danger-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 643",
+      "outputs": [
+        "docs/verification/issues/issue-643/command-grouping-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-643/no-phi-output.txt"
+      ]
+    }
+  ]
+}

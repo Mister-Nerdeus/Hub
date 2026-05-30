@@ -1,0 +1,36 @@
+> node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
+exitCode: 0
+
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "expected editor capabilities are declared centrally",
+      "passed": true,
+      "detail": [
+        "saveWorkingCopy",
+        "saveAsNewCopy",
+        "activeRecordIdentity",
+        "namedSaveStatus",
+        "runtimeBuildInfo"
+      ]
+    },
+    {
+      "name": "expected save controls are present in source UI",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "runtime mismatch banner explains restart and hard refresh",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "matched runtime suppresses stale warning",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

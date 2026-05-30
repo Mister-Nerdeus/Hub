@@ -32,7 +32,7 @@ if (viewModel.saveStatusLabel !== "Not saved since local changes") {
 if (viewModel.activeRecordIdLabel !== "saved-default-er-layout-plan-1-001") {
   throw new Error("command bar should expose active saved record identity");
 }
-if (viewModel.dirtyStateLabel !== "Local editor state: changed locally") {
+if (viewModel.dirtyStateLabel !== "Local editor state: changed") {
   throw new Error("command bar should expose dirty state");
 }
 if (viewModel.changedNotSavedWarningLabel == null) {
@@ -56,6 +56,7 @@ const element = EditorCommandBar({
   localRecoveryDraftLabel: "No local recovery draft for this copy",
   lastNamedCopySaveLabel: "Not saved this session",
   reloadProofLabel: "Not verified this session",
+  hasLocalRecoveryDraft: true,
   readOnly: false,
   isDirty: true,
   undoDisabled: false,
@@ -70,6 +71,9 @@ const element = EditorCommandBar({
   },
   onRedo: () => {
     calls.push("redo");
+  },
+  onRestoreDraft: () => {
+    calls.push("restore-draft");
   },
   onResetDraft: () => {
     calls.push("reset-draft");
@@ -113,25 +117,25 @@ const labels = commandGroups
   .filter((child: { props?: { children?: string } }) => child?.props?.children != null)
   .map((child: { props: { children: string } }) => child.props.children);
 
-for (const label of ["Undo", "Redo", "Save working copy", "Save as new copy", "Reset draft", "Import JSON", "Export", "Add Object", "Validate", "Reset view", "Proceed later"]) {
+for (const label of ["Undo", "Redo", "Save Working Copy", "Save As New Copy", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset view", "Proceed later"]) {
   if (!labels.includes(label)) {
     throw new Error(`EditorCommandBar missing ${label}`);
   }
 }
 
-const saveButton = asArray(commandGroups[1].props.children)[0];
+const saveButton = asArray(commandGroups[0].props.children)[0];
 saveButton.props.onClick();
 if (calls.at(-1) !== "save-working-copy") {
   throw new Error("Save working copy command should call the save callback");
 }
 
-const validateButton = asArray(commandGroups[3].props.children)[0];
+const validateButton = asArray(commandGroups[4].props.children)[0];
 validateButton.props.onClick();
 if (calls.at(-1) !== "validate") {
   throw new Error("Validate command should call the validation callback");
 }
 
-const addObjectButton = asArray(commandGroups[2].props.children)[0];
+const addObjectButton = asArray(commandGroups[3].props.children)[0];
 addObjectButton.props.onClick();
 if (calls.at(-1) !== "add-object") {
   throw new Error("Add Object shortcut should call the object callback");

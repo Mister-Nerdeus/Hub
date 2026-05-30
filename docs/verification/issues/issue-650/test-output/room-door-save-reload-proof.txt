@@ -1,0 +1,298 @@
+> node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650
+exitCode: 0
+
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "room and door changed before save and persisted in saved record",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "activeRecordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "beforeRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 44,
+          "yFeet": 28,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "afterRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "beforeDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "afterDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "exportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "exportedDoor": {
+          "id": "door-02",
+          "label": "Door 2",
+          "roomId": "room-02",
+          "x": 62.5,
+          "y": 44,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        }
+      }
+    },
+    {
+      "name": "same saved recordId is active after reload",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "activeRecordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "beforeRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 44,
+          "yFeet": 28,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "afterRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "beforeDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "afterDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "exportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "exportedDoor": {
+          "id": "door-02",
+          "label": "Door 2",
+          "roomId": "room-02",
+          "x": 62.5,
+          "y": 44,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        }
+      }
+    },
+    {
+      "name": "exported JSON after reload contains changed room and door values",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "activeRecordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "beforeRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 44,
+          "yFeet": 28,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "afterRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "beforeDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "afterDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "exportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "exportedDoor": {
+          "id": "door-02",
+          "label": "Door 2",
+          "roomId": "room-02",
+          "x": 62.5,
+          "y": 44,
+          "widthFeet": 4,
+          "pathNodeId": null,
+          "doorOperationalMetadata": null
+        }
+      }
+    }
+  ]
+}

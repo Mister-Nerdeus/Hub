@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-canvas-height-layout.mjs --stage canvas-height-contract --allow-partial --issue 648
+node scripts/check-editor-canvas-height-layout.mjs --stage inspector-parity --allow-partial --issue 648
+node scripts/check-editor-canvas-height-layout.mjs --stage desktop-layout --allow-partial --issue 648
+node scripts/check-editor-canvas-height-layout.mjs --stage laptop-layout --allow-partial --issue 648
+node scripts/check-editor-canvas-height-layout.mjs --stage no-horizontal-overflow --allow-partial --issue 648
+node scripts/check-no-phi-fields.mjs

@@ -51,10 +51,32 @@
   padding: 6px 10px;
 }
 
+.editor-command-bar__save-primary {
+  background: #17324d !important;
+  border-color: #17324d !important;
+  color: #ffffff !important;
+  min-height: 38px;
+  padding-inline: 14px !important;
+}
+
+.editor-command-bar__danger {
+  border-color: #b42318 !important;
+  color: #8f1d14 !important;
+}
+
 .editor-command-bar button:disabled {
   color: #8a96a3;
   cursor: not-allowed;
   opacity: 0.72;
+}
+
+.editor-command-bar__help {
+  color: #435362;
+  flex: 1 1 100%;
+  font-size: 0.76rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
 }
 
 .editor-command-bar__status {
@@ -90,6 +112,57 @@
   font-weight: 900;
   margin: 0;
   overflow-wrap: anywhere;
+}
+
+.editor-save-status-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.editor-save-status-panel dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+}
+
+.editor-save-status-panel div {
+  background: #f8fafc;
+  border: 1px solid #d9e1e8;
+  border-radius: 6px;
+  min-width: 0;
+  padding: 7px 9px;
+}
+
+.editor-save-status-panel dt {
+  color: #53616f;
+  font-size: 0.64rem;
+  font-weight: 800;
+  margin: 0 0 2px;
+}
+
+.editor-save-status-panel dd {
+  color: #111827;
+  font-size: 0.76rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.editor-save-status-panel__warning {
+  background: #fff7e6;
+  border: 1px solid #e5c673;
+  border-radius: 6px;
+  color: #44330e;
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1.35;
+  margin: 0;
+  padding: 8px 10px;
 }
 
 .editor-next-step-panel {
@@ -257,6 +330,45 @@
   gap: 6px;
 }
 
+.editor-popup-mode-control {
+  align-items: center;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.editor-popup-mode-control legend {
+  color: #53616f;
+  font-size: 0.76rem;
+  font-weight: 900;
+  padding: 0;
+}
+
+.editor-popup-mode-control div {
+  display: flex;
+  gap: 4px;
+}
+
+.editor-popup-mode-control button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 6px 8px;
+}
+
+.editor-popup-mode-control button[aria-pressed="true"] {
+  background: #17324d;
+  border-color: #17324d;
+  color: #ffffff;
+}
+
 .layout-tool-palette__read-only-note {
   align-items: center;
   background: #fff7e6;
@@ -334,6 +446,7 @@
   background: #ffffff;
   border: 1px solid #c4d0dc;
   border-radius: 8px;
+  min-height: var(--editor-canvas-min-height, 820px);
   overflow: hidden;
 }
 
@@ -348,10 +461,11 @@
 }
 
 .layout-editor-stage__workspace {
-  align-items: start;
+  align-items: stretch;
   display: grid;
   gap: 12px;
   grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  overflow-x: hidden;
 }
 
 .layout-editor-stage__workspace--inspector-collapsed {
@@ -361,6 +475,48 @@
 .layout-editor-stage__side-panels {
   display: grid;
   gap: 12px;
+  max-height: var(--editor-canvas-height, 820px);
+  overflow: auto;
+}
+
+.layout-editor-stage__docked-popover {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.layout-editor-stage__docked-popover header {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.layout-editor-stage__docked-popover strong {
+  color: #111827;
+  font-size: 0.86rem;
+}
+
+.layout-editor-stage__docked-popover p {
+  color: #435362;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.layout-editor-stage__docked-popover button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.74rem;
+  font-weight: 900;
+  padding: 5px 8px;
 }
 
 .layout-viewport-toolbar {
@@ -411,10 +567,11 @@
 }
 
 .layout-editor-stage__svg {
-  aspect-ratio: 3 / 2;
+  aspect-ratio: auto;
   background: #f8fafc;
   display: block;
-  height: auto;
+  height: var(--editor-canvas-height, 820px);
+  min-height: var(--editor-canvas-min-height, 720px);
   width: 100%;
 }
 
