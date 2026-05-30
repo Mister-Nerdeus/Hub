@@ -1,0 +1,230 @@
+
+> nerdeus-er-pod-shift-simulator@0.1.0 check:layout-editor-local-draft-vs-named-save
+> node scripts/check-layout-editor-local-draft-vs-named-save.mjs --stage final --issue 637
+
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "637",
+  "checks": [
+    {
+      "name": "unsaved local recovery draft restores locally without changing named saved copy",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001",
+        "roomBefore": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "roomExpected": {
+          "id": "room-02",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "localDraftRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "restoredExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "namedSavedRoomAfterRestore": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 44,
+          "yFeet": 28,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "bannerBeforeRestoreText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:34 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+        "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
+        "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+      }
+    },
+    {
+      "name": "named saved copy reloads after local draft is cleared",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001",
+        "roomBefore": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "roomExpected": {
+          "id": "room-02",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "localDraftAfterClear": null,
+        "reloadedSavedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "reloadedExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "name": "clearing local draft does not erase named saved copy",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001",
+        "roomBefore": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "roomExpected": {
+          "id": "room-02",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "localDraftAfterClear": null,
+        "reloadedSavedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 56,
+          "yFeet": 34,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "reloadedExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        }
+      }
+    },
+    {
+      "name": "restoring local draft does not mark named copy saved",
+      "passed": true,
+      "detail": {
+        "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
+        "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+      }
+    }
+  ]
+}

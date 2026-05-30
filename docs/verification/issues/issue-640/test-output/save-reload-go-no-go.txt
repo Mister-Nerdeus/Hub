@@ -1,0 +1,1742 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "issue": "640",
+  "decision": {
+    "saveReloadGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction"
+  },
+  "checks": [
+    {
+      "name": "Issues 631-639 validator outputs are present and passed",
+      "passed": true,
+      "detail": [
+        {
+          "label": "631 preflight",
+          "path": "docs/verification/issues/issue-631/test-output/save-reload-preflight.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "631",
+            "checks": [
+              {
+                "name": "previous reconstruction GO is explicitly revoked",
+                "passed": true,
+                "detail": {
+                  "sourceGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+                  "sourceGoNoGoRevoked": true,
+                  "reconstructionStatus": "no_go_until_save_reload_truth_loop_passes"
+                }
+              },
+              {
+                "name": "save/reload manifest contract is present and fail-closed",
+                "passed": true,
+                "detail": {
+                  "missing": [],
+                  "mismatched": [],
+                  "finalGoHasProof": true
+                }
+              },
+              {
+                "name": "root scripts and local verifier include Issues 631-640 gates",
+                "passed": true,
+                "detail": {
+                  "missing": [],
+                  "missingVerify": []
+                }
+              },
+              {
+                "name": "manifest GO without browser save/reload proof is treated as false positive",
+                "passed": true,
+                "detail": {
+                  "sourceSaysGo": true,
+                  "browserProofMissing": false,
+                  "finalNegativeProofRecorded": true,
+                  "revoked": true
+                }
+              },
+              {
+                "name": "project status records NO-GO until Issue 640",
+                "passed": true,
+                "detail": null
+              }
+            ]
+          }
+        },
+        {
+          "label": "632 failure repro",
+          "path": "docs/verification/issues/issue-632/test-output/save-failure-repro.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "632",
+            "checks": [
+              {
+                "name": "RED fixture detects stale saved room and door payload",
+                "passed": true,
+                "detail": {
+                  "status": "failed",
+                  "failures": [
+                    "room geometry reverted or changed after reload",
+                    "door geometry reverted or changed after reload"
+                  ]
+                }
+              },
+              {
+                "name": "browser save/reload preserves changed room and door values",
+                "passed": true,
+                "detail": {
+                  "status": "passed",
+                  "failures": []
+                }
+              },
+              {
+                "name": "room changed x/y survives reload",
+                "passed": true,
+                "detail": {
+                  "before": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 44,
+                    "yFeet": 28,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "expected": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "afterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                }
+              },
+              {
+                "name": "door changed offset/width survives reload",
+                "passed": true,
+                "detail": {
+                  "before": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expected": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "afterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  }
+                }
+              },
+              {
+                "name": "reload opens exact same saved recordId",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "reopenedViaLibraryRecordId": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "633 active copy identity",
+          "path": "docs/verification/issues/issue-633/test-output/active-copy-identity.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "633",
+            "checks": [
+              {
+                "name": "active copy name, recordId, planId, source, read-only state are visible",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001"
+                }
+              },
+              {
+                "name": "save result includes saved recordId",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "saveStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nCreated new copy saved-default-er-layout-plan-1-001 at 08:07 PM\nLast named-copy save\n08:07 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              },
+              {
+                "name": "canonical default remains visibly different from saved copy after save",
+                "passed": true,
+                "detail": {
+                  "defaultExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "savedExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "same saved recordId reopens with changed room geometry",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "reopenedViaLibraryRecordId": "saved-default-er-layout-plan-1-001"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "634 save pipeline trace",
+          "path": "docs/verification/issues/issue-634/test-output/save-pipeline-trace.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "634",
+            "checks": [
+              {
+                "name": "trace contract and save-pipeline hooks are present",
+                "passed": true,
+                "detail": null
+              },
+              {
+                "name": "editable layout, draft, and save handler input carry changed room and door values",
+                "passed": true,
+                "detail": {
+                  "beforeEdit": {
+                    "roomId": "room-02",
+                    "roomX": 44,
+                    "roomY": 28,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 3.5,
+                    "doorWidthFeet": 3,
+                    "doorCount": 23
+                  },
+                  "afterEditEditableLayout": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  },
+                  "draftBeforeSave": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  },
+                  "saveHandlerInput": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  }
+                }
+              },
+              {
+                "name": "savedFloorplanStore record keeps changed room and door values",
+                "passed": true,
+                "detail": {
+                  "saveHandlerInput": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  },
+                  "savedRecordPayload": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  }
+                }
+              },
+              {
+                "name": "localStorage saved record payload matches saved record probe",
+                "passed": true,
+                "detail": {
+                  "persistedLocalStoragePayload": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  },
+                  "localStorageProbe": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  }
+                }
+              },
+              {
+                "name": "same-record reopen restores saved payload into active plan and editable layout",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "reopenedViaLibraryRecordId": "saved-default-er-layout-plan-1-001",
+                  "reopenedPlan": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorX": 62.5,
+                    "doorY": 44,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  },
+                  "reopenedEditableLayout": {
+                    "roomId": "room-02",
+                    "roomX": 56,
+                    "roomY": 34,
+                    "roomWidth": 10,
+                    "roomHeight": 10,
+                    "doorId": "door-02",
+                    "doorRoomId": "room-02",
+                    "doorWall": "south",
+                    "doorOffsetFeet": 4.5,
+                    "doorWidthFeet": 4,
+                    "doorCount": 23
+                  }
+                }
+              },
+              {
+                "name": "saved record and trace omit private source payload",
+                "passed": true,
+                "detail": {
+                  "privatePayload": [],
+                  "tracePrivatePayload": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "635 room move persistence",
+          "path": "docs/verification/issues/issue-635/test-output/room-move-persistence.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "635",
+            "checks": [
+              {
+                "name": "room move updates editor state, marks dirty, and remains undoable/redoable before save",
+                "passed": true,
+                "detail": {
+                  "roomBefore": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "immediateExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "roomAfterUndo": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "roomAfterRedo": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "dirtyStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              },
+              {
+                "name": "saved room geometry survives browser reload and same-copy reopen",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "savedRecordRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "reloadedEditableRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                }
+              },
+              {
+                "name": "exported JSON after reload contains moved room x/y",
+                "passed": true,
+                "detail": {
+                  "exportedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "roomExpected": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  }
+                }
+              },
+              {
+                "name": "canonical default remains unchanged after saved-copy room move",
+                "passed": true,
+                "detail": {
+                  "defaultExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "roomBefore": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  }
+                }
+              },
+              {
+                "name": "stale room payload negative fixture is detected",
+                "passed": true,
+                "detail": {
+                  "status": "failed",
+                  "failures": [
+                    "room x/y reverted after reload"
+                  ],
+                  "expected": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "afterReload": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "636 door change persistence",
+          "path": "docs/verification/issues/issue-636/test-output/door-change-persistence.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "636",
+            "checks": [
+              {
+                "name": "door wall move survives save/reload",
+                "passed": true,
+                "detail": {
+                  "before": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expected": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "north",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "afterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "north",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  }
+                }
+              },
+              {
+                "name": "door width change survives save/reload",
+                "passed": true,
+                "detail": {
+                  "before": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expected": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "north",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "afterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "north",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  }
+                }
+              },
+              {
+                "name": "added door survives save/reload",
+                "passed": true,
+                "detail": {
+                  "addedDoorId": "authored-door-001",
+                  "addedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "authored-door-001",
+                    "label": "room-02 door",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 1,
+                    "widthFeet": 4
+                  }
+                }
+              },
+              {
+                "name": "deleted door remains absent after save/reload",
+                "passed": true,
+                "detail": {
+                  "deletedDoorId": "door-03",
+                  "deletedDoorBefore": {
+                    "objectType": "door",
+                    "id": "door-03",
+                    "label": "Door 3",
+                    "ownerKind": "room",
+                    "ownerId": "room-03",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "deletedDoorAfterReload": null,
+                  "doorCountBefore": 23,
+                  "doorCountAfterReload": 23
+                }
+              },
+              {
+                "name": "exported JSON after reload contains changed/added/deleted door state",
+                "passed": true,
+                "detail": {
+                  "exportedChangedDoorAfterReload": {
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "roomId": "room-02",
+                    "x": 50.5,
+                    "y": 28,
+                    "widthFeet": 4,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "exportedAddedDoorAfterReload": {
+                    "id": "authored-door-001",
+                    "label": "room-02 door",
+                    "roomId": "room-02",
+                    "x": 47,
+                    "y": 38,
+                    "widthFeet": 4,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "exportedDeletedDoorAfterReload": null
+                }
+              },
+              {
+                "name": "lost door geometry/count negative fixture is detected",
+                "passed": true,
+                "detail": {
+                  "status": "failed",
+                  "failures": [
+                    "changed door geometry missing",
+                    "added door missing",
+                    "deleted door reappeared"
+                  ],
+                  "expectedDoor": {
+                    "id": "door-02",
+                    "ownerId": "room-02",
+                    "wall": "north",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "addedDoorId": "authored-door-001",
+                  "deletedDoorId": "door-03",
+                  "afterReloadDoors": [
+                    {
+                      "id": "door-02",
+                      "ownerId": "room-02",
+                      "wall": "south",
+                      "offsetFeet": 3.5,
+                      "widthFeet": 3
+                    },
+                    {
+                      "id": "door-03",
+                      "ownerId": "room-03",
+                      "wall": "south",
+                      "offsetFeet": 3.5,
+                      "widthFeet": 3
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "637 local draft vs named save",
+          "path": "docs/verification/issues/issue-637/test-output/local-draft-vs-named-save.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "637",
+            "checks": [
+              {
+                "name": "unsaved local recovery draft restores locally without changing named saved copy",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "roomBefore": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "roomExpected": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "localDraftRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "restoredExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "namedSavedRoomAfterRestore": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 44,
+                    "yFeet": 28,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "bannerBeforeRestoreText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:34 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
+                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              },
+              {
+                "name": "named saved copy reloads after local draft is cleared",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "roomBefore": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "roomExpected": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "localDraftAfterClear": null,
+                  "reloadedSavedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "reloadedExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "clearing local draft does not erase named saved copy",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "roomBefore": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "roomExpected": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "localDraftAfterClear": null,
+                  "reloadedSavedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "reloadedExportedRoom": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "restoring local draft does not mark named copy saved",
+                "passed": true,
+                "detail": {
+                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
+                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "638 truthful save status",
+          "path": "docs/verification/issues/issue-638/test-output/truthful-save-status.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "638",
+            "checks": [
+              {
+                "name": "status contract separates local draft, named save, dirty state, and reload proof",
+                "passed": true,
+                "detail": null
+              },
+              {
+                "name": "UI distinguishes local recovery draft, named save, dirty state, and active record",
+                "passed": true,
+                "detail": {
+                  "recordId": "saved-default-er-layout-plan-1-001",
+                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              },
+              {
+                "name": "local changes warn user to save named working copy",
+                "passed": true,
+                "detail": {
+                  "unsavedWarningText": "Changes are in the local editor only. Click Save working copy to persist this saved copy."
+                }
+              },
+              {
+                "name": "ambiguous No unsaved edits status cannot pass",
+                "passed": true,
+                "detail": {
+                  "negative": {
+                    "status": "failed",
+                    "failures": [
+                      "ambiguous local state text implies named-copy persistence"
+                    ],
+                    "statusText": "No unsaved edits"
+                  },
+                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step",
+                  "savedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nSaved working copy saved-default-er-layout-plan-1-001 at 08:08 PM\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "label": "639 browser reload regression",
+          "path": "docs/verification/issues/issue-639/test-output/browser-reload-regression.txt",
+          "status": "passed",
+          "payload": {
+            "status": "passed",
+            "stage": "final",
+            "issue": "639",
+            "checks": [
+              {
+                "name": "scenario 1 room move only survives save/reload/export",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "beforeRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "expectedRoom": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "exportedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "beforeDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expectedDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "exportedDoorAfterReload": {
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "roomId": "room-02",
+                    "x": 61,
+                    "y": 44,
+                    "widthFeet": 3,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "namedSavedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "namedSavedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "localDraftAfterClear": "not-cleared",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:59 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-1-after-reload.png",
+                  "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-1-after-reload.json"
+                }
+              },
+              {
+                "name": "scenario 2 door change only survives save/reload/export",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "beforeRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "expectedRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "exportedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "beforeDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expectedDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "exportedDoorAfterReload": {
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "roomId": "room-02",
+                    "x": 50.5,
+                    "y": 38,
+                    "widthFeet": 4,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "namedSavedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 44,
+                    "yFeet": 28,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "namedSavedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "localDraftAfterClear": "not-cleared",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:06 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-2-after-reload.png",
+                  "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-2-after-reload.json"
+                }
+              },
+              {
+                "name": "scenario 3 room and door together survive save/reload/export",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "beforeRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "expectedRoom": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "exportedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "beforeDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expectedDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "exportedDoorAfterReload": {
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "roomId": "room-02",
+                    "x": 62.5,
+                    "y": 44,
+                    "widthFeet": 4,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "namedSavedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "namedSavedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "localDraftAfterClear": "not-cleared",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:13 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-3-after-reload.png",
+                  "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-3-after-reload.json"
+                }
+              },
+              {
+                "name": "scenario 4 named copy survives local draft clearing",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "beforeRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "expectedRoom": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "exportedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "roomType": "standard",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10,
+                    "maxPatients": 1,
+                    "traumaCapable": false,
+                    "isolationCapable": false,
+                    "doorPoint": {
+                      "x": 49,
+                      "y": 38
+                    },
+                    "zoneId": "zone-left-pod-rooms-2-5-14",
+                    "nearestStationId": "station-left",
+                    "pathNodeId": "node-door-room-02",
+                    "roomOperationalMetadata": {
+                      "roomNumber": "2",
+                      "roomClass": "standard",
+                      "capacityCategory": "single",
+                      "traumaAdjacent": false,
+                      "isolationReady": false,
+                      "behavioralReady": false,
+                      "sitterCapable": false,
+                      "lineOfSightLevel": "moderate"
+                    }
+                  },
+                  "beforeDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expectedDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "exportedDoorAfterReload": {
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "roomId": "room-02",
+                    "x": 62.5,
+                    "y": 44,
+                    "widthFeet": 4,
+                    "pathNodeId": null,
+                    "doorOperationalMetadata": null
+                  },
+                  "namedSavedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 56,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "namedSavedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "localDraftAfterClear": null,
+                  "localDraftBannerText": "",
+                  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-4-after-clear-draft-reload.png",
+                  "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-4-after-reload.json"
+                }
+              },
+              {
+                "name": "scenario 5 unsaved local draft does not equal named save",
+                "passed": true,
+                "detail": {
+                  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+                  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+                  "beforeRoom": {
+                    "id": "room-02",
+                    "x": 44,
+                    "y": 28,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "expectedRoom": {
+                    "id": "room-02",
+                    "x": 56,
+                    "y": 34,
+                    "widthFeet": 10,
+                    "lengthFeet": 10
+                  },
+                  "exportedRoomAfterReload": null,
+                  "beforeDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "expectedDoor": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 4.5,
+                    "widthFeet": 4
+                  },
+                  "exportedDoorAfterReload": null,
+                  "namedSavedRoomAfterReload": {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 44,
+                    "yFeet": 28,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  "namedSavedDoorAfterReload": {
+                    "objectType": "door",
+                    "id": "door-02",
+                    "label": "Door 2",
+                    "ownerKind": "room",
+                    "ownerId": "room-02",
+                    "wall": "south",
+                    "offsetFeet": 3.5,
+                    "widthFeet": 3
+                  },
+                  "localDraftAfterClear": "not-cleared",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:26 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+                  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-5-local-draft-banner.png",
+                  "exportedJson": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Required proof booleans are present",
+      "passed": true,
+      "detail": {
+        "roomMoveReloadProof": true,
+        "doorChangeReloadProof": true,
+        "roomDoorCombinedReloadProof": true,
+        "sameRecordReloadProof": true,
+        "savedPayloadDiffProof": true,
+        "localStorageSavedRecordProof": true,
+        "localDraftNamedSaveSeparationProof": true,
+        "saveStatusTruthful": true,
+        "greenPersistenceProof": true
+      }
+    },
+    {
+      "name": "Forbidden drift statuses remain blocked/not started",
+      "passed": true,
+      "detail": {
+        "collaborationStatus": true,
+        "optimizerStatus": true,
+        "assignmentRecommendationStatus": true,
+        "clinicalSafetyScoringStatus": true,
+        "staffingComplianceStatus": true,
+        "patientOutcomePredictionStatus": true,
+        "noPhiStatus": true
+      }
+    }
+  ]
+}

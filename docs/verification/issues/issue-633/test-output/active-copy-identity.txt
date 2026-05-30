@@ -1,8 +1,87 @@
 {
   "status": "passed",
-  "stage": "same-copy-reopen",
+  "stage": "final",
   "issue": "633",
   "checks": [
+    {
+      "name": "active copy name, recordId, planId, source, read-only state are visible",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001"
+      }
+    },
+    {
+      "name": "save result includes saved recordId",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-default-er-layout-plan-1-001",
+        "saveStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nCreated new copy saved-default-er-layout-plan-1-001 at 08:07 PM\nLast named-copy save\n08:07 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+      }
+    },
+    {
+      "name": "canonical default remains visibly different from saved copy after save",
+      "passed": true,
+      "detail": {
+        "defaultExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        },
+        "savedExportedRoom": {
+          "id": "room-02",
+          "label": "2",
+          "roomType": "standard",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10,
+          "maxPatients": 1,
+          "traumaCapable": false,
+          "isolationCapable": false,
+          "doorPoint": {
+            "x": 49,
+            "y": 38
+          },
+          "zoneId": "zone-left-pod-rooms-2-5-14",
+          "nearestStationId": "station-left",
+          "pathNodeId": "node-door-room-02",
+          "roomOperationalMetadata": {
+            "roomNumber": "2",
+            "roomClass": "standard",
+            "capacityCategory": "single",
+            "traumaAdjacent": false,
+            "isolationReady": false,
+            "behavioralReady": false,
+            "sitterCapable": false,
+            "lineOfSightLevel": "moderate"
+          }
+        }
+      }
+    },
     {
       "name": "same saved recordId reopens with changed room geometry",
       "passed": true,

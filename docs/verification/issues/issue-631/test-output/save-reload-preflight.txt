@@ -1,8 +1,26 @@
 {
   "status": "passed",
-  "stage": "root-script-wiring",
+  "stage": "final",
   "issue": "631",
   "checks": [
+    {
+      "name": "previous reconstruction GO is explicitly revoked",
+      "passed": true,
+      "detail": {
+        "sourceGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+        "sourceGoNoGoRevoked": true,
+        "reconstructionStatus": "no_go_until_save_reload_truth_loop_passes"
+      }
+    },
+    {
+      "name": "save/reload manifest contract is present and fail-closed",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "mismatched": [],
+        "finalGoHasProof": true
+      }
+    },
     {
       "name": "root scripts and local verifier include Issues 631-640 gates",
       "passed": true,
@@ -10,6 +28,21 @@
         "missing": [],
         "missingVerify": []
       }
+    },
+    {
+      "name": "manifest GO without browser save/reload proof is treated as false positive",
+      "passed": true,
+      "detail": {
+        "sourceSaysGo": true,
+        "browserProofMissing": false,
+        "finalNegativeProofRecorded": true,
+        "revoked": true
+      }
+    },
+    {
+      "name": "project status records NO-GO until Issue 640",
+      "passed": true,
+      "detail": null
     }
   ]
 }

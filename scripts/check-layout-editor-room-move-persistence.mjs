@@ -21,6 +21,9 @@ const issue = readArg("--issue", "635");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
 const checks = [];
+const hasDirtyNamedCopyStatus = (text) =>
+  text.includes("Not saved since local changes") ||
+  text.includes("Draft changed");
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
@@ -100,7 +103,7 @@ async function runStage(selectedStage) {
   if (selectedStage === "immediate-edit") {
     const passed =
       roomPlanMatches(scenario.immediateExportedRoom, scenario.roomExpected) &&
-      scenario.dirtyStatusText.includes("Draft changed") &&
+      hasDirtyNamedCopyStatus(scenario.dirtyStatusText) &&
       roomPlanMatches(scenario.roomAfterUndo, scenario.roomBefore) &&
       roomPlanMatches(scenario.roomAfterRedo, scenario.roomExpected);
     addCheck(checks, "room move updates editor state, marks dirty, and remains undoable/redoable before save", passed, {
@@ -119,7 +122,7 @@ async function runStage(selectedStage) {
       roomAfterRedo: scenario.roomAfterRedo
     });
     writeJson(`${dir}/dirty-state-output.json`, {
-      status: scenario.dirtyStatusText.includes("Draft changed") ? "passed" : "failed",
+      status: hasDirtyNamedCopyStatus(scenario.dirtyStatusText) ? "passed" : "failed",
       dirtyStatusText: scenario.dirtyStatusText
     });
     return;

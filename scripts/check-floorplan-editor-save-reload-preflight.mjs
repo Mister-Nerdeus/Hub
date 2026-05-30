@@ -41,12 +41,15 @@ for (const selectedStage of stages) {
 
 const passed = statusFromChecks(checks) === "passed";
 if (passed) {
-  updateSaveReloadManifest(issue, {
-    preflightRevocationStatus: "passed",
-    sourceGoNoGoRevoked: true,
-    reconstructionStatus: "no_go_until_save_reload_truth_loop_passes",
-    goNoGoStatus: "not_ready"
-  });
+  const manifest = readJson(saveReloadManifestPath);
+  if (manifest.saveReloadGoNoGoStatus !== "go_for_full_er_floorplan_reconstruction") {
+    updateSaveReloadManifest(issue, {
+      preflightRevocationStatus: "passed",
+      sourceGoNoGoRevoked: true,
+      reconstructionStatus: "no_go_until_save_reload_truth_loop_passes",
+      goNoGoStatus: "not_ready"
+    });
+  }
 }
 writeJson(`${dir}/test-output/save-reload-preflight.txt`, {
   status: passed ? "passed" : "failed",
@@ -108,12 +111,23 @@ function runStage(selectedStage) {
   if (selectedStage === "manifest-contract") {
     const manifest = readJson(saveReloadManifestPath);
     const missing = Object.keys(requiredSaveReloadManifest).filter((key) => !Object.hasOwn(manifest, key));
+    const finalGoHasProof =
+      manifest.lastUpdatedIssue === "640" &&
+      manifest.saveReloadGoNoGoStatus === "go_for_full_er_floorplan_reconstruction" &&
+      manifest.greenPersistenceProof === true &&
+      manifest.roomMoveReloadProof === true &&
+      manifest.doorChangeReloadProof === true &&
+      manifest.roomDoorCombinedReloadProof === true &&
+      manifest.sameRecordReloadProof === true &&
+      manifest.savedPayloadDiffProof === true &&
+      manifest.localStorageSavedRecordProof === true &&
+      manifest.localDraftNamedSaveSeparationProof === true &&
+      manifest.saveStatusTruthful === true;
     const mismatched = [
       ["manifestVersion", "1.0.0"],
       ["batch", "631-640"],
       ["sourceBatch", "621-630"],
       ["sourceGoNoGoRevoked", true],
-      ["saveReloadGoNoGoStatus", "not_ready"],
       ["reconstructionStatus", "no_go_until_save_reload_truth_loop_passes"],
       ["collaborationStatus", "not_started"],
       ["optimizerStatus", "not_started"],
@@ -123,12 +137,20 @@ function runStage(selectedStage) {
       ["patientOutcomePredictionStatus", "not_started"],
       ["noPhiStatus", "passed"]
     ].filter(([key, expected]) => manifest[key] !== expected);
+    if (manifest.saveReloadGoNoGoStatus !== "not_ready" && !finalGoHasProof) {
+      mismatched.push(["saveReloadGoNoGoStatus", "not_ready or final GO with proof"]);
+    }
     const passed = missing.length === 0 && mismatched.length === 0;
-    addCheck(checks, "save/reload manifest contract is present and fail-closed", passed, { missing, mismatched });
+    addCheck(checks, "save/reload manifest contract is present and fail-closed", passed, {
+      missing,
+      mismatched,
+      finalGoHasProof
+    });
     writeJson(`${dir}/manifest-contract-output.json`, {
       status: passed ? "passed" : "failed",
       missing,
       mismatched,
+      finalGoHasProof,
       manifestPath: saveReloadManifestPath
     });
     return;
@@ -171,18 +193,21 @@ function runStage(selectedStage) {
       manifest.roomMoveReloadProof !== true ||
       manifest.doorChangeReloadProof !== true ||
       manifest.sameRecordReloadProof !== true;
+    const finalNegativeProofRecorded = manifest.manifestFalsePositiveNegativeProof === true;
     const revoked = manifest.sourceGoNoGoRevoked === true &&
       manifest.reconstructionStatus === "no_go_until_save_reload_truth_loop_passes";
-    const passed = sourceSaysGo && browserProofMissing && revoked;
+    const passed = sourceSaysGo && (browserProofMissing || finalNegativeProofRecorded) && revoked;
     addCheck(checks, "manifest GO without browser save/reload proof is treated as false positive", passed, {
       sourceSaysGo,
       browserProofMissing,
+      finalNegativeProofRecorded,
       revoked
     });
     writeJson(`${dir}/false-go-negative-output.json`, {
       status: passed ? "passed" : "failed",
       sourceSaysGo,
       browserProofMissing,
+      finalNegativeProofRecorded,
       revoked,
       negativeFixture: "621-630 GO plus missing room/door/same-record browser reload proof"
     });

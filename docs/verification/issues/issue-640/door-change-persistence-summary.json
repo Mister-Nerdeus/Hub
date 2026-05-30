@@ -1,0 +1,185 @@
+{
+  "label": "636 door change persistence",
+  "path": "docs/verification/issues/issue-636/test-output/door-change-persistence.txt",
+  "status": "passed",
+  "payload": {
+    "status": "passed",
+    "stage": "final",
+    "issue": "636",
+    "checks": [
+      {
+        "name": "door wall move survives save/reload",
+        "passed": true,
+        "detail": {
+          "before": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "south",
+            "offsetFeet": 3.5,
+            "widthFeet": 3
+          },
+          "expected": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "north",
+            "offsetFeet": 4.5,
+            "widthFeet": 4
+          },
+          "afterReload": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "north",
+            "offsetFeet": 4.5,
+            "widthFeet": 4
+          }
+        }
+      },
+      {
+        "name": "door width change survives save/reload",
+        "passed": true,
+        "detail": {
+          "before": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "south",
+            "offsetFeet": 3.5,
+            "widthFeet": 3
+          },
+          "expected": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "north",
+            "offsetFeet": 4.5,
+            "widthFeet": 4
+          },
+          "afterReload": {
+            "objectType": "door",
+            "id": "door-02",
+            "label": "Door 2",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "north",
+            "offsetFeet": 4.5,
+            "widthFeet": 4
+          }
+        }
+      },
+      {
+        "name": "added door survives save/reload",
+        "passed": true,
+        "detail": {
+          "addedDoorId": "authored-door-001",
+          "addedDoorAfterReload": {
+            "objectType": "door",
+            "id": "authored-door-001",
+            "label": "room-02 door",
+            "ownerKind": "room",
+            "ownerId": "room-02",
+            "wall": "south",
+            "offsetFeet": 1,
+            "widthFeet": 4
+          }
+        }
+      },
+      {
+        "name": "deleted door remains absent after save/reload",
+        "passed": true,
+        "detail": {
+          "deletedDoorId": "door-03",
+          "deletedDoorBefore": {
+            "objectType": "door",
+            "id": "door-03",
+            "label": "Door 3",
+            "ownerKind": "room",
+            "ownerId": "room-03",
+            "wall": "south",
+            "offsetFeet": 3.5,
+            "widthFeet": 3
+          },
+          "deletedDoorAfterReload": null,
+          "doorCountBefore": 23,
+          "doorCountAfterReload": 23
+        }
+      },
+      {
+        "name": "exported JSON after reload contains changed/added/deleted door state",
+        "passed": true,
+        "detail": {
+          "exportedChangedDoorAfterReload": {
+            "id": "door-02",
+            "label": "Door 2",
+            "roomId": "room-02",
+            "x": 50.5,
+            "y": 28,
+            "widthFeet": 4,
+            "pathNodeId": null,
+            "doorOperationalMetadata": null
+          },
+          "exportedAddedDoorAfterReload": {
+            "id": "authored-door-001",
+            "label": "room-02 door",
+            "roomId": "room-02",
+            "x": 47,
+            "y": 38,
+            "widthFeet": 4,
+            "pathNodeId": null,
+            "doorOperationalMetadata": null
+          },
+          "exportedDeletedDoorAfterReload": null
+        }
+      },
+      {
+        "name": "lost door geometry/count negative fixture is detected",
+        "passed": true,
+        "detail": {
+          "status": "failed",
+          "failures": [
+            "changed door geometry missing",
+            "added door missing",
+            "deleted door reappeared"
+          ],
+          "expectedDoor": {
+            "id": "door-02",
+            "ownerId": "room-02",
+            "wall": "north",
+            "offsetFeet": 4.5,
+            "widthFeet": 4
+          },
+          "addedDoorId": "authored-door-001",
+          "deletedDoorId": "door-03",
+          "afterReloadDoors": [
+            {
+              "id": "door-02",
+              "ownerId": "room-02",
+              "wall": "south",
+              "offsetFeet": 3.5,
+              "widthFeet": 3
+            },
+            {
+              "id": "door-03",
+              "ownerId": "room-03",
+              "wall": "south",
+              "offsetFeet": 3.5,
+              "widthFeet": 3
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
