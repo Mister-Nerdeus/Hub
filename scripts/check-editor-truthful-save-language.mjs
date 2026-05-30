@@ -15,7 +15,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "645");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -45,17 +45,17 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 645",
-  "node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 645",
-  "node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 645",
-  "node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 645",
+  "node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 650",
+  "node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 650",
+  "node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 650",
+  "node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 645": `${dir}/save-language-contract-output.json`,
-  "node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 645": `${dir}/no-unsaved-edits-negative-output.json`,
-  "node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 645": `${dir}/local-vs-named-status-output.json`,
-  "node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 645": `${dir}/changed-not-saved-warning-output.json`
+  "node scripts/check-editor-truthful-save-language.mjs --stage save-language-contract --allow-partial --issue 650": `${dir}/save-language-contract-output.json`,
+  "node scripts/check-editor-truthful-save-language.mjs --stage no-unsaved-edits-negative --allow-partial --issue 650": `${dir}/no-unsaved-edits-negative-output.json`,
+  "node scripts/check-editor-truthful-save-language.mjs --stage local-vs-named --allow-partial --issue 650": `${dir}/local-vs-named-status-output.json`,
+  "node scripts/check-editor-truthful-save-language.mjs --stage changed-not-saved-warning --allow-partial --issue 650": `${dir}/changed-not-saved-warning-output.json`
 });
 writeCloseout(issue, "Save language separates local editor state, local recovery draft, named working-copy save, and reload proof.", passed ? "passed" : "failed", commands);
 

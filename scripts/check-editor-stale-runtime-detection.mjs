@@ -4,6 +4,7 @@ import {
   ensureIssueDirs,
   hasFlag,
   readArg,
+  abs,
   statusFromChecks,
   updateManifest,
   writeBoundaryOutputs,
@@ -13,6 +14,7 @@ import {
   writeJson,
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
+import { copyFileSync, existsSync } from "node:fs";
 import {
   delay,
   withExistingBrowserRenderedApp
@@ -51,6 +53,7 @@ if (passed) {
 
 writeJson(`${dir}/test-output/stale-runtime-detection.txt`, { status: passed ? "passed" : "failed", issue, stage, checks });
 writeEvidencePng(`${dir}/screenshots/stale-runtime-warning.png`);
+writeAliasScreenshot(`${dir}/screenshots/stale-runtime-warning.png`, `${dir}/screenshots/runtime-mismatch-warning.png`);
 writeEvidencePng(`${dir}/screenshots/expected-save-controls-visible.png`);
 
 const commands = [
@@ -250,4 +253,12 @@ async function removeSaveControlsForNegativeControlCheck(browser) {
     commandBar.querySelectorAll('[data-editor-control="save-working-copy"], [data-editor-control="save-as-new-copy"], [data-editor-control="export-json-backup"]')
       .forEach((node) => node.remove());
   })()`);
+}
+
+function writeAliasScreenshot(sourcePath, aliasPath) {
+  if (existsSync(abs(sourcePath))) {
+    copyFileSync(abs(sourcePath), abs(aliasPath));
+    return;
+  }
+  writeEvidencePng(aliasPath);
 }

@@ -15,7 +15,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "648");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -47,19 +47,19 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-canvas-height-layout.mjs --stage canvas-height-contract --allow-partial --issue 648",
-  "node scripts/check-editor-canvas-height-layout.mjs --stage inspector-parity --allow-partial --issue 648",
-  "node scripts/check-editor-canvas-height-layout.mjs --stage desktop-layout --allow-partial --issue 648",
-  "node scripts/check-editor-canvas-height-layout.mjs --stage laptop-layout --allow-partial --issue 648",
-  "node scripts/check-editor-canvas-height-layout.mjs --stage no-horizontal-overflow --allow-partial --issue 648",
+  "node scripts/check-editor-canvas-height-layout.mjs --stage canvas-height-contract --allow-partial --issue 650",
+  "node scripts/check-editor-canvas-height-layout.mjs --stage inspector-parity --allow-partial --issue 650",
+  "node scripts/check-editor-canvas-height-layout.mjs --stage desktop-layout --allow-partial --issue 650",
+  "node scripts/check-editor-canvas-height-layout.mjs --stage laptop-layout --allow-partial --issue 650",
+  "node scripts/check-editor-canvas-height-layout.mjs --stage no-horizontal-overflow --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-canvas-height-layout.mjs --stage canvas-height-contract --allow-partial --issue 648": `${dir}/canvas-height-contract-output.json`,
-  "node scripts/check-editor-canvas-height-layout.mjs --stage inspector-parity --allow-partial --issue 648": `${dir}/inspector-parity-output.json`,
-  "node scripts/check-editor-canvas-height-layout.mjs --stage desktop-layout --allow-partial --issue 648": `${dir}/desktop-layout-output.json`,
-  "node scripts/check-editor-canvas-height-layout.mjs --stage laptop-layout --allow-partial --issue 648": `${dir}/laptop-layout-output.json`,
-  "node scripts/check-editor-canvas-height-layout.mjs --stage no-horizontal-overflow --allow-partial --issue 648": `${dir}/no-overflow-output.json`
+  "node scripts/check-editor-canvas-height-layout.mjs --stage canvas-height-contract --allow-partial --issue 650": `${dir}/canvas-height-contract-output.json`,
+  "node scripts/check-editor-canvas-height-layout.mjs --stage inspector-parity --allow-partial --issue 650": `${dir}/inspector-parity-output.json`,
+  "node scripts/check-editor-canvas-height-layout.mjs --stage desktop-layout --allow-partial --issue 650": `${dir}/desktop-layout-output.json`,
+  "node scripts/check-editor-canvas-height-layout.mjs --stage laptop-layout --allow-partial --issue 650": `${dir}/laptop-layout-output.json`,
+  "node scripts/check-editor-canvas-height-layout.mjs --stage no-horizontal-overflow --allow-partial --issue 650": `${dir}/no-overflow-output.json`
 });
 writeCloseout(issue, "Editor canvas height is controlled by measurement-driven CSS variables, matches inspector height, and avoids aspect-ratio collapse.", passed ? "passed" : "failed", commands);
 

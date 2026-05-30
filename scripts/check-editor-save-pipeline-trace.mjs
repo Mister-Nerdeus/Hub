@@ -16,7 +16,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "647");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -44,19 +44,19 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 647",
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage full-save-trace --allow-partial --issue 647",
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage payload-diff --allow-partial --issue 647",
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage exported-json-trace --allow-partial --issue 647",
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 647",
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 650",
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage full-save-trace --allow-partial --issue 650",
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage payload-diff --allow-partial --issue 650",
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage exported-json-trace --allow-partial --issue 650",
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 647": `${dir}/trace-contract-output.json`,
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage full-save-trace --allow-partial --issue 647": `${dir}/full-save-trace-output.json`,
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage payload-diff --allow-partial --issue 647": `${dir}/payload-diff-output.json`,
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage exported-json-trace --allow-partial --issue 647": `${dir}/exported-json-trace-output.json`,
-  "node scripts/check-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 647": `${dir}/private-payload-negative-output.txt`
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage trace-contract --allow-partial --issue 650": `${dir}/trace-contract-output.json`,
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage full-save-trace --allow-partial --issue 650": `${dir}/full-save-trace-output.json`,
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage payload-diff --allow-partial --issue 650": `${dir}/payload-diff-output.json`,
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage exported-json-trace --allow-partial --issue 650": `${dir}/exported-json-trace-output.json`,
+  "node scripts/check-editor-save-pipeline-trace.mjs --stage no-private-payload --allow-partial --issue 650": `${dir}/private-payload-negative-output.txt`
 });
 writeCloseout(issue, "Save pipeline trace contract records comparable room/door probes across edit, draft, save handler, saved store, localStorage, reopen, and export stages.", passed ? "passed" : "failed", commands, [
   "Trace is test-only browser memory and stores room/door probes only, not private source payloads."

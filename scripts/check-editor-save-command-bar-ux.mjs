@@ -15,7 +15,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "643");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -46,19 +46,19 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 643",
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 643",
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 643",
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 643",
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 643",
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 650",
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 650",
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 650",
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 650",
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 643": `${dir}/primary-save-action-output.json`,
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 643": `${dir}/save-as-new-copy-output.json`,
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 643": `${dir}/export-backup-distinction-output.json`,
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 643": `${dir}/reset-local-draft-danger-output.json`,
-  "node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 643": `${dir}/command-grouping-output.json`
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage primary-save-visible --allow-partial --issue 650": `${dir}/primary-save-action-output.json`,
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage save-as-new-copy-visible --allow-partial --issue 650": `${dir}/save-as-new-copy-output.json`,
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage export-is-backup-not-save --allow-partial --issue 650": `${dir}/export-backup-distinction-output.json`,
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage reset-draft-danger-zone --allow-partial --issue 650": `${dir}/reset-local-draft-danger-output.json`,
+  "node scripts/check-editor-save-command-bar-ux.mjs --stage command-grouping --allow-partial --issue 650": `${dir}/command-grouping-output.json`
 });
 writeCloseout(issue, "Command bar separates primary named-copy save, edit history, recovery/import/export, and validation/view actions.", passed ? "passed" : "failed", commands);
 

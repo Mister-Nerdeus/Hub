@@ -1,8 +1,10 @@
 # Manual Browser Checklist
 
-- [x] Build/version marker visible
+- [x] Runtime build panel visible
+- [x] Batch marker visible
 - [x] Save Working Copy visible and primary
 - [x] Save As New Copy visible
+- [x] Export JSON Backup visible
 - [x] Active copy name and recordId visible
 - [x] Move one room
 - [x] Change one door

@@ -16,7 +16,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "646");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -46,15 +46,15 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage browser-room-door-proof --allow-partial --issue 646",
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage same-record-reload --allow-partial --issue 646",
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage exported-json-compare --allow-partial --issue 646",
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage browser-room-door-proof --allow-partial --issue 650",
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage same-record-reload --allow-partial --issue 650",
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage exported-json-compare --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage browser-room-door-proof --allow-partial --issue 646": `${dir}/browser-room-door-proof-output.json`,
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage same-record-reload --allow-partial --issue 646": `${dir}/same-record-reload-output.json`,
-  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage exported-json-compare --allow-partial --issue 646": `${dir}/exported-json-compare-output.json`
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage browser-room-door-proof --allow-partial --issue 650": `${dir}/browser-room-door-proof-output.json`,
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage same-record-reload --allow-partial --issue 650": `${dir}/same-record-reload-output.json`,
+  "node scripts/check-editor-room-door-save-reload-proof.mjs --stage exported-json-compare --allow-partial --issue 650": `${dir}/exported-json-compare-output.json`
 });
 writeCloseout(issue, "Real browser proof moves a room, changes a door, saves the named working copy, reloads, reopens the same recordId, and verifies exported JSON.", passed ? "passed" : "failed", commands, [
   "Browser proof uses localStorage-backed saved working copies only; no API/EHR integration was added."

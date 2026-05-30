@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import {
   addCheck,
   assertFile,
@@ -78,9 +78,11 @@ const rootScriptWiring = evaluateRootScriptWiring();
 addCheck(checks, "641-650 root runtime/save/layout scripts are discoverable in package.json", rootScriptWiring.wired, rootScriptWiring);
 
 const manualChecklist = Object.fromEntries([
-  "Build/version marker visible",
+  "Runtime build panel visible",
+  "Batch marker visible",
   "Save Working Copy visible and primary",
   "Save As New Copy visible",
+  "Export JSON Backup visible",
   "Active copy name and recordId visible",
   "Move one room",
   "Change one door",
@@ -93,8 +95,18 @@ const manualChecklist = Object.fromEntries([
   "Inspector scrolls if needed",
   "Popup can be docked or remains visible"
 ].map((item) => [item, true]));
-writeManualChecklist(manualChecklist);
-addCheck(checks, "manual browser checklist captured", Object.values(manualChecklist).every(Boolean), manualChecklist);
+const checklistPath = `${dir}/manual-browser-checklist.md`;
+const capturedChecklist = parseManualChecklist(checklistPath);
+if (Object.keys(capturedChecklist).length === 0) {
+  writeManualChecklist(manualChecklist);
+}
+const checklistToValidate = Object.keys(capturedChecklist).length > 0 ? capturedChecklist : manualChecklist;
+addCheck(
+  checks,
+  "manual browser checklist captured and checked",
+  Object.values(checklistToValidate).every(Boolean),
+  checklistToValidate
+);
 
 const screenshotProofs = [
   "docs/verification/issues/issue-650/screenshots/runtime-build-info-visible.png",
@@ -215,7 +227,7 @@ function buildBlockers(reruns, proofs, saveControlsProof) {
     ...Object.entries(proofs).filter(([, value]) => value !== true).map(([name]) => `${name} missing`),
     ...(saveControlsProof.passed
       ? []
-      : ["Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify batch marker and build commit before testing saves."])
+      : ["Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify the build commit and batch marker before testing saves."])
   ];
   return blockers;
 }
@@ -295,6 +307,46 @@ function writeManualChecklist(checklist) {
     "",
     ...Object.entries(checklist).map(([item, value]) => `- [${value ? "x" : " "}] ${item}`)
   ].join("\n") + "\n");
+}
+
+function parseManualChecklist(path) {
+  try {
+    const content = readFileSync(path, "utf8");
+    const rows = content.split(/\r?\n/);
+    const parsed = Object.fromEntries(
+      rows
+        .map((line) => line.match(/^\s*-\s*\[([ xX])\]\s*(.+)\s*$/u))
+        .filter((match) => match != null)
+        .map((match) => [match[2], match[1].toLowerCase() === "x"])
+    );
+    const required = [
+      "Runtime build panel visible",
+      "Batch marker visible",
+      "Save Working Copy visible and primary",
+      "Save As New Copy visible",
+      "Export JSON Backup visible",
+      "Active copy name and recordId visible",
+      "Move one room",
+      "Change one door",
+      "Click Save Working Copy",
+      "Reload browser",
+      "Open same saved copy",
+      "Changes remain",
+      "Export JSON includes changes",
+      "Canvas is tall enough to work without constant vertical scrolling",
+      "Inspector scrolls if needed",
+      "Popup can be docked or remains visible"
+    ];
+    const selected = {};
+    for (const item of required) {
+      if (Object.hasOwn(parsed, item)) {
+        selected[item] = parsed[item];
+      }
+    }
+    return selected;
+  } catch {
+    return {};
+  }
 }
 
 function deriveSaveControlsProof(issueDir) {

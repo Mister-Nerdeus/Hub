@@ -15,7 +15,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "649");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -46,17 +46,17 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-popup-layout.mjs --stage popup-mode-contract --allow-partial --issue 649",
-  "node scripts/check-editor-popup-layout.mjs --stage clamp-inside-canvas --allow-partial --issue 649",
-  "node scripts/check-editor-popup-layout.mjs --stage docked-mode --allow-partial --issue 649",
-  "node scripts/check-editor-popup-layout.mjs --stage small-viewport --allow-partial --issue 649",
+  "node scripts/check-editor-popup-layout.mjs --stage popup-mode-contract --allow-partial --issue 650",
+  "node scripts/check-editor-popup-layout.mjs --stage clamp-inside-canvas --allow-partial --issue 650",
+  "node scripts/check-editor-popup-layout.mjs --stage docked-mode --allow-partial --issue 650",
+  "node scripts/check-editor-popup-layout.mjs --stage small-viewport --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-popup-layout.mjs --stage popup-mode-contract --allow-partial --issue 649": `${dir}/popup-mode-contract-output.json`,
-  "node scripts/check-editor-popup-layout.mjs --stage clamp-inside-canvas --allow-partial --issue 649": `${dir}/clamp-output.json`,
-  "node scripts/check-editor-popup-layout.mjs --stage docked-mode --allow-partial --issue 649": `${dir}/dock-output.json`,
-  "node scripts/check-editor-popup-layout.mjs --stage small-viewport --allow-partial --issue 649": `${dir}/small-viewport-output.json`
+  "node scripts/check-editor-popup-layout.mjs --stage popup-mode-contract --allow-partial --issue 650": `${dir}/popup-mode-contract-output.json`,
+  "node scripts/check-editor-popup-layout.mjs --stage clamp-inside-canvas --allow-partial --issue 650": `${dir}/clamp-output.json`,
+  "node scripts/check-editor-popup-layout.mjs --stage docked-mode --allow-partial --issue 650": `${dir}/dock-output.json`,
+  "node scripts/check-editor-popup-layout.mjs --stage small-viewport --allow-partial --issue 650": `${dir}/small-viewport-output.json`
 });
 writeCloseout(issue, "Object popup mode supports Auto, On canvas, and Docked; canvas popups clamp inside the stage and can dock into the side inspector.", passed ? "passed" : "failed", commands);
 

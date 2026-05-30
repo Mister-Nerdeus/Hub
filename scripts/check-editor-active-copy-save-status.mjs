@@ -15,7 +15,7 @@ import {
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
 
-const issue = readArg("--issue", "644");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
@@ -47,19 +47,19 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 644",
-  "node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 644",
-  "node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 644",
-  "node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 644",
-  "node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 644",
+  "node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 650",
+  "node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 650",
+  "node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 650",
+  "node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 650",
+  "node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 644": `${dir}/active-copy-panel-output.json`,
-  "node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 644": `${dir}/record-id-visible-output.json`,
-  "node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 644": `${dir}/source-kind-visible-output.json`,
-  "node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 644": `${dir}/named-save-status-output.json`,
-  "node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 644": `${dir}/canonical-default-warning-output.json`
+  "node scripts/check-editor-active-copy-save-status.mjs --stage active-copy-panel --allow-partial --issue 650": `${dir}/active-copy-panel-output.json`,
+  "node scripts/check-editor-active-copy-save-status.mjs --stage record-id-visible --allow-partial --issue 650": `${dir}/record-id-visible-output.json`,
+  "node scripts/check-editor-active-copy-save-status.mjs --stage source-kind-visible --allow-partial --issue 650": `${dir}/source-kind-visible-output.json`,
+  "node scripts/check-editor-active-copy-save-status.mjs --stage named-save-status --allow-partial --issue 650": `${dir}/named-save-status-output.json`,
+  "node scripts/check-editor-active-copy-save-status.mjs --stage canonical-default-warning --allow-partial --issue 650": `${dir}/canonical-default-warning-output.json`
 });
 writeCloseout(issue, "Active copy identity and named working-copy save status are displayed in a dedicated panel.", passed ? "passed" : "failed", commands);
 
