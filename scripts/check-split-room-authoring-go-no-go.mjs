@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import {
   addCheck,
+  browserRegressionProofIndexFileName,
   ensureIssueDirs,
   exists,
   hasFlag,
@@ -8,6 +9,7 @@ import {
   readArg,
   readJson,
   splitRoomManifestPath,
+  splitRoomBrowserRegressionProofFileName,
   statusFromChecks,
   updateSplitRoomManifest,
   writeBoundaryOutputs,
@@ -24,6 +26,9 @@ const issue = readArg("--issue", "688");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
+const typedDoorBrowserProofPath = `${dir}/door-browser-regression-proof.json`;
+const typedSplitRoomBrowserProofPath = `${dir}/${splitRoomBrowserRegressionProofFileName}`;
+const browserProofIndexPath = `${dir}/${browserRegressionProofIndexFileName}`;
 
 if (stage !== "final") {
   throw new Error(`Unsupported split-room go/no-go stage: ${stage}`);
@@ -236,6 +241,7 @@ Evidence basis:
 - Local test and build gates.
 - Split-room issue evidence summaries.
 - Browser regression proof for Room 5 workflow, canonical pairs, child assignment colors, save/reload, export/import, no Copy label, and no recovery screen.
+- Typed browser proof artifacts: ${typedDoorBrowserProofPath}, ${typedSplitRoomBrowserProofPath}, and ${browserProofIndexPath}.
 - Door-hardening non-regression status from the split-room manifest.
 
 Boundary confirmation:
@@ -253,6 +259,11 @@ Decision: ${finalDecision.splitRoomGoNoGoStatus}
 
 The exact Room 5 workflow is covered by local evidence:
 Select Room 5, Create Split Room 4/5, verify one bay with divider and labels, save, reload, export/import JSON, and assign child positions independently.
+
+Typed browser evidence:
+- Door proof: ${typedDoorBrowserProofPath}
+- Split-room proof: ${typedSplitRoomBrowserProofPath}
+- Proof index: ${browserProofIndexPath}
 `);
 }
 

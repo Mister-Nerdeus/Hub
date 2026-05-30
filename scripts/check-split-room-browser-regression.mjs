@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import {
   addCheck,
+  browserRegressionProofIndexFileName,
   canonicalSplitRoomPairs,
   ensureIssueDirs,
   hasFlag,
   readArg,
   statusFromChecks,
+  splitRoomBrowserRegressionProofFileName,
   updateSplitRoomManifest,
   writeBoundaryOutputs,
   writeCloseout,
@@ -20,6 +22,10 @@ const issue = readArg("--issue", "688");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
+const splitRoomProofPath = `${dir}/${splitRoomBrowserRegressionProofFileName}`;
+const doorProofPath = `${dir}/door-browser-regression-proof.json`;
+const proofIndexPath = `${dir}/${browserRegressionProofIndexFileName}`;
+const genericProofPath = `${dir}/browser-regression-proof.json`;
 const supportedStages = [
   "room5-user-flow",
   "all-canonical-pairs",
@@ -58,6 +64,8 @@ const stages = stage === "final"
 const checks = [];
 const stageResults = {};
 const proof = await runBrowserProof();
+writeJson(splitRoomProofPath, proof);
+writeBrowserProofIndex();
 
 for (const selectedStage of stages) {
   stageResults[selectedStage] = runStage(selectedStage, proof);
@@ -84,6 +92,15 @@ writeCommandsAndCloseout(status);
 
 console.log(JSON.stringify({ status, issue, stage, checks }, null, 2));
 if (status !== "passed" && !allowPartial) process.exit(1);
+
+function writeBrowserProofIndex() {
+  const index = {
+    doorProof: doorProofPath,
+    splitRoomProof: splitRoomProofPath
+  };
+  writeJson(proofIndexPath, index);
+  writeJson(genericProofPath, index);
+}
 
 function runStage(selectedStage, browserProof) {
   if (selectedStage === "room5-user-flow") {

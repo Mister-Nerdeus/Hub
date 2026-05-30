@@ -1,0 +1,59 @@
+{
+  "issue": "691",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-691/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-691/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-691/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage artifact-inventory --allow-partial --issue 691",
+      "outputs": [
+        "docs/verification/issues/issue-691/artifact-inventory-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage door-proof-renamed --allow-partial --issue 691",
+      "outputs": [
+        "docs/verification/issues/issue-691/door-proof-renamed-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage split-room-proof-renamed --allow-partial --issue 691",
+      "outputs": [
+        "docs/verification/issues/issue-691/split-room-proof-renamed-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage generic-proof-negative --allow-partial --issue 691",
+      "outputs": [
+        "docs/verification/issues/issue-691/generic-proof-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage go-no-go-reference --allow-partial --issue 691",
+      "outputs": [
+        "docs/verification/issues/issue-691/go-no-go-reference-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-691/no-phi-output.txt"
+      ]
+    }
+  ]
+}

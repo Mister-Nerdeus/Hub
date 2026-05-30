@@ -7,6 +7,8 @@ import {
 import {
   addCheck,
   assertFile,
+  browserRegressionProofIndexFileName,
+  doorBrowserRegressionProofFileName,
   ensureIssueDirs,
   hasFlag,
   readArg,
@@ -26,7 +28,10 @@ const issue = readArg("--issue", "677");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
-const proofPath = `${dir}/browser-regression-proof.json`;
+const proofPath = `${dir}/${doorBrowserRegressionProofFileName}`;
+const genericProofPath = `${dir}/browser-regression-proof.json`;
+const proofIndexPath = `${dir}/${browserRegressionProofIndexFileName}`;
+const splitRoomProofPath = `${dir}/split-room-browser-regression-proof.json`;
 const exportedJsonPath = `${dir}/exported-json/door-regression-after-reload.json`;
 const supportedStages = [
   "valid-patient-door",
@@ -168,8 +173,18 @@ async function loadOrCaptureProof() {
     browserProof = readJson(proofPath);
     return browserProof;
   }
+  if (stage !== "final" && !assertFile(proofPath) && assertFile(genericProofPath) && assertFile(exportedJsonPath)) {
+    const legacyProof = readJson(genericProofPath);
+    if (legacyProof.validPatientDoor != null || legacyProof.doorMove != null) {
+      browserProof = legacyProof;
+      writeJson(proofPath, browserProof);
+      writeBrowserProofIndex();
+      return browserProof;
+    }
+  }
   browserProof = await captureBrowserRegressionProof();
   writeJson(proofPath, browserProof);
+  writeBrowserProofIndex();
   writeJson(`${dir}/screenshot-index.json`, {
     status: browserProof.status,
     screenshots: [
@@ -185,6 +200,15 @@ async function loadOrCaptureProof() {
     artifacts: [exportedJsonPath]
   });
   return browserProof;
+}
+
+function writeBrowserProofIndex() {
+  const index = {
+    doorProof: proofPath,
+    splitRoomProof: splitRoomProofPath
+  };
+  writeJson(proofIndexPath, index);
+  writeJson(genericProofPath, index);
 }
 
 async function captureBrowserRegressionProof() {

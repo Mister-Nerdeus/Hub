@@ -7,6 +7,8 @@ export const splitRoomManifestPath = "docs/verification/split-room-authoring-man
 export const splitRoomCloseoutHardeningManifestPath = "docs/verification/split-room-closeout-hardening-manifest.json";
 export const splitRoomManifestVersion = "1.0.0";
 export const dockerRevisionLabel = "split-room-authoring-679-688";
+export const splitRoomBrowserRegressionProofFileName = "split-room-browser-regression-proof.json";
+export const browserRegressionProofIndexFileName = "browser-regression-proof-index.json";
 
 export const splitRoomRootScriptMap = {
   "check:split-room-authoring-preflight":

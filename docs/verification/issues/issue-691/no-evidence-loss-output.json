@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "sourceIssue": "688",
+  "actions": [
+    "wrote typed proof index and replaced generic proof payload with index"
+  ],
+  "legacyGenericHadDoorProof": false,
+  "artifacts": [
+    {
+      "path": "docs/verification/issues/issue-688/door-browser-regression-proof.json",
+      "exists": true,
+      "bytes": 4086
+    },
+    {
+      "path": "docs/verification/issues/issue-688/split-room-browser-regression-proof.json",
+      "exists": true,
+      "bytes": 7175
+    },
+    {
+      "path": "docs/verification/issues/issue-688/browser-regression-proof-index.json",
+      "exists": true,
+      "bytes": 190
+    },
+    {
+      "path": "docs/verification/issues/issue-688/browser-regression-proof.json",
+      "exists": true,
+      "bytes": 190
+    }
+  ]
+}

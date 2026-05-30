@@ -6,6 +6,8 @@ export const doorAuthoringManifestPath =
   "docs/verification/door-authoring-crash-hardening-manifest.json";
 
 export const doorAuthoringManifestVersion = "1.0.0";
+export const doorBrowserRegressionProofFileName = "door-browser-regression-proof.json";
+export const browserRegressionProofIndexFileName = "browser-regression-proof-index.json";
 
 export const doorAuthoringRootScriptMap = {
   "check:door-authoring-crash-preflight":
