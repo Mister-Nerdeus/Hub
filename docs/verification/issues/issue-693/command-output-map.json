@@ -1,0 +1,89 @@
+{
+  "issue": "693",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/adjacency-hardening-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/manual-assignment-browser-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-door-artifact-naming.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/artifact-naming-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-unsplit-confirmation.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/unsplit-confirmation-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/split-room-browser-regression-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/door-browser-regression-summary.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-closeout-go-no-go.mjs --stage final --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/split-room-closeout-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 693",
+      "outputs": [
+        "docs/verification/issues/issue-693/test-output/visible-product-copy-all-routes.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-production-docker-runtime.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-693/docker-runtime-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-693/no-phi-output.txt"
+      ]
+    }
+  ]
+}

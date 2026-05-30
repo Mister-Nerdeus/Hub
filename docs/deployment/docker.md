@@ -67,4 +67,4 @@ The editor usability and canvas popup changes remain within the existing Docker 
 
 ## Batch 669-678 Door Authoring Note
 
-Split-room authoring remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the split-room resolver, atomic creation model, persistence contract, and UI workflow ship without adding services or dependencies. The API and web images carry the `split-room-authoring-679-688` revision label for local Docker proof traceability only.
+Split-room closeout hardening remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the split-room resolver, atomic creation model, persistence contract, UI workflow, and final closeout validators ship without adding services or dependencies. The API and web images carry the `split-room-closeout-hardening-689-693` revision label for local Docker proof traceability only.

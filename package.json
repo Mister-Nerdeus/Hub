@@ -68,6 +68,7 @@
     "check:split-room-manual-assignment-browser": "node scripts/check-split-room-manual-assignment-browser.mjs --stage final --issue 690",
     "check:split-door-artifact-naming": "node scripts/check-split-door-artifact-naming.mjs --stage final --issue 691",
     "check:split-room-unsplit-confirmation": "node scripts/check-split-room-unsplit-confirmation.mjs --stage final --issue 692",
+    "check:split-room-closeout-go-no-go": "node scripts/check-split-room-closeout-go-no-go.mjs --stage final --issue 693",
     "check:layout-assignment-overlay": "npm --workspace packages/shared run build && node scripts/check-layout-assignment-overlay.mjs",
     "check:room-type-semantics": "npm --workspace packages/shared run build && node scripts/check-room-type-semantics.mjs --stage final",
     "check:demo-pin-gate": "npm --workspace packages/shared run build && node scripts/check-demo-pin-gate.mjs --stage final",

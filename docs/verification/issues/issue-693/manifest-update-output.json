@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "manifestPath": "docs/verification/split-room-closeout-hardening-manifest.json",
+  "updates": {
+    "splitRoomCloseoutGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "splitRoomAdjacencyHardeningStatus": "passed",
+    "splitRoomManualAssignmentBrowserStatus": "passed",
+    "splitDoorEvidenceNamingStatus": "passed",
+    "splitRoomUnsplitConfirmationStatus": "passed",
+    "reconstructionStatus": "go_for_full_er_floorplan_reconstruction",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "splitRoomSeparatedAlignedRoomsBlocked": true,
+    "splitRoomCanonicalPairsStillPass": true,
+    "splitRoomOverlapBlocked": true,
+    "splitRoomChildManualAssignmentProof": true,
+    "splitRoomParentNotAssignableProof": true,
+    "splitRoomChildBurdenProof": true,
+    "splitRoomIndependentColorProof": true,
+    "doorProofArtifactTyped": true,
+    "splitRoomProofArtifactTyped": true,
+    "genericBrowserProofCollisionRemoved": true,
+    "finalAuditReferencesTypedArtifacts": true,
+    "unsplitRequiresConfirmation": true,
+    "unsplitCancelPreservesSplit": true,
+    "unsplitPreservesChildRooms": true,
+    "splitRoomStatusCopyCurrentGo": true
+  }
+}

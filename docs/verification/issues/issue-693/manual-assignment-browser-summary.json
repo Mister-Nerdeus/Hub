@@ -1,0 +1,123 @@
+{
+  "label": "split-room Manual Assignment browser proof",
+  "source": "docs/verification/issues/issue-693/test-output/split-room-manual-assignment-browser.txt",
+  "status": "passed",
+  "issue": "693",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "real browser flow creates Split Room 4/5 and opens Manual Assignment",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitRoomCreated": true,
+        "manualAssignmentRouteVisited": true,
+        "nurseASelected": true,
+        "nurseBSelected": true,
+        "noRecoveryScreen": true
+      }
+    },
+    {
+      "name": "Nurse A card includes Room 4 through Manual Assignment UI",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "nurseCardRoomIds": [
+          "room-04"
+        ],
+        "nurseCardText": "Nurse A1 assigned / target 4 / max 50 walk units / spread 0Room 4"
+      }
+    },
+    {
+      "name": "Nurse B card includes Room 5 through Manual Assignment UI",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "nurseCardRoomIds": [
+          "room-05"
+        ],
+        "nurseCardText": "Nurse B1 assigned / target 4 / max 50 walk units / spread 0Room 5"
+      }
+    },
+    {
+      "name": "parent split bay is not an assignable patient room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "parentSplitBayId": "split-bay-room-04-room-05",
+        "roomCardIds": [
+          "room-02",
+          "room-03",
+          "room-04",
+          "room-05",
+          "room-06",
+          "room-07",
+          "room-08",
+          "room-09",
+          "room-10",
+          "room-11",
+          "room-12",
+          "room-13",
+          "room-15",
+          "room-16",
+          "room-17",
+          "room-19",
+          "room-20",
+          "room-21",
+          "room-22",
+          "room-23",
+          "room-24",
+          "room-level-1-trauma"
+        ],
+        "parentSplitBaysAssignable": "false"
+      }
+    },
+    {
+      "name": "assigned count includes Room 4 and Room 5 child rooms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "assignedCount": 2,
+        "assignedRoomIds": [
+          "room-04",
+          "room-05"
+        ]
+      }
+    },
+    {
+      "name": "burden output references split-room child room IDs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "burdenRows": [
+          {
+            "nurseId": "nurse-a",
+            "assignedRoomIds": [
+              "room-04"
+            ],
+            "text": "Nurse A170800015assigned room count 1; occupied room count 1; acuity burden 7; trauma burden 0; special burden 8; walking burden 0; room spread penalty 0; over ratio penalty 0; rooms room-04"
+          },
+          {
+            "nurseId": "nurse-b",
+            "assignedRoomIds": [
+              "room-05"
+            ],
+            "text": "Nurse B1100800018assigned room count 1; occupied room count 1; acuity burden 10; trauma burden 0; special burden 8; walking burden 0; room spread penalty 0; over ratio penalty 0; rooms room-05"
+          }
+        ]
+      }
+    },
+    {
+      "name": "returning to editor shows independent child assignment colors",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "childAssignmentColors": [
+          "#2563eb",
+          "#16a34a"
+        ],
+        "fillCount": 2
+      }
+    }
+  ]
+}

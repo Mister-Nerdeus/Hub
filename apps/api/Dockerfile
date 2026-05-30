@@ -3,7 +3,7 @@ FROM python:3.13-slim
 
 LABEL org.opencontainers.image.title="ER Pod Shift Simulator API"
 LABEL org.opencontainers.image.description="Operational simulation API; no PHI or EHR integration"
-LABEL org.opencontainers.image.revision="split-room-authoring-679-688"
+LABEL org.opencontainers.image.revision="split-room-closeout-hardening-689-693"
 
 WORKDIR /app
 

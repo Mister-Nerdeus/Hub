@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 export const splitRoomManifestPath = "docs/verification/split-room-authoring-manifest.json";
 export const splitRoomCloseoutHardeningManifestPath = "docs/verification/split-room-closeout-hardening-manifest.json";
 export const splitRoomManifestVersion = "1.0.0";
-export const dockerRevisionLabel = "split-room-authoring-679-688";
+export const dockerRevisionLabel = "split-room-closeout-hardening-689-693";
 export const splitRoomBrowserRegressionProofFileName = "split-room-browser-regression-proof.json";
 export const browserRegressionProofIndexFileName = "browser-regression-proof-index.json";
 
@@ -32,7 +32,17 @@ export const splitRoomRootScriptMap = {
   "check:split-room-browser-regression":
     "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688",
   "check:split-room-authoring-go-no-go":
-    "node scripts/check-split-room-authoring-go-no-go.mjs --stage final --issue 688"
+    "node scripts/check-split-room-authoring-go-no-go.mjs --stage final --issue 688",
+  "check:split-room-adjacency-hardening":
+    "node scripts/check-split-room-adjacency-hardening.mjs --stage final --issue 689",
+  "check:split-room-manual-assignment-browser":
+    "node scripts/check-split-room-manual-assignment-browser.mjs --stage final --issue 690",
+  "check:split-door-artifact-naming":
+    "node scripts/check-split-door-artifact-naming.mjs --stage final --issue 691",
+  "check:split-room-unsplit-confirmation":
+    "node scripts/check-split-room-unsplit-confirmation.mjs --stage final --issue 692",
+  "check:split-room-closeout-go-no-go":
+    "node scripts/check-split-room-closeout-go-no-go.mjs --stage final --issue 693"
 };
 
 export const splitRoomManifestTemplate = {

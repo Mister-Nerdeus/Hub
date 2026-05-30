@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "689-693",
-  "lastUpdatedIssue": "692",
+  "lastUpdatedIssue": "693",
   "productDisplayName": "ER Pod Shift Simulator",
   "sourceBatch": "679-688",
   "sourceSplitRoomGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
@@ -10,7 +10,7 @@
   "splitRoomManualAssignmentBrowserStatus": "passed",
   "splitDoorEvidenceNamingStatus": "passed",
   "splitRoomUnsplitConfirmationStatus": "passed",
-  "splitRoomCloseoutGoNoGoStatus": "not_ready",
+  "splitRoomCloseoutGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
   "splitRoomSeparatedAlignedRoomsBlocked": true,
   "splitRoomCanonicalPairsStillPass": true,
   "splitRoomOverlapBlocked": true,
@@ -26,7 +26,7 @@
   "unsplitCancelPreservesSplit": true,
   "unsplitPreservesChildRooms": true,
   "splitRoomStatusCopyCurrentGo": true,
-  "reconstructionStatus": "go_for_controlled_reconstruction_but_split_room_closeout_hardening_pending",
+  "reconstructionStatus": "go_for_full_er_floorplan_reconstruction",
   "doorAuthoringStatus": "passed",
   "collaborationStatus": "not_started",
   "simulationV0Status": "internal_dry_run_only",
@@ -37,5 +37,5 @@
   "patientOutcomePredictionStatus": "not_started",
   "promotionStatus": "blocked",
   "noPhiStatus": "passed",
-  "goNoGoStatus": "not_ready"
+  "goNoGoStatus": "go_for_full_er_floorplan_reconstruction"
 }

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "toleranceFeet": 0.01,
+  "resultShape": {
+    "adjacent": {
+      "status": "adjacent",
+      "orientation": "horizontal",
+      "gapFeet": 0
+    },
+    "blocked": {
+      "status": "blocked",
+      "reason": "Rooms are not adjacent enough to form one physical bay.",
+      "gapFeet": 2
+    }
+  }
+}

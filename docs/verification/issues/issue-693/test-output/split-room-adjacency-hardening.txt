@@ -1,0 +1,243 @@
+{
+  "status": "passed",
+  "issue": "693",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split-room adjacency contract exports strict result and 0.01 ft tolerance",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "toleranceFeet": 0.01,
+        "resultShape": {
+          "adjacent": {
+            "status": "adjacent",
+            "orientation": "horizontal",
+            "gapFeet": 0
+          },
+          "blocked": {
+            "status": "blocked",
+            "reason": "Rooms are not adjacent enough to form one physical bay.",
+            "gapFeet": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "touching same-row rooms resolve as a horizontal split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        },
+        "adjacency": {
+          "status": "adjacent",
+          "orientation": "horizontal",
+          "gapFeet": 0
+        }
+      }
+    },
+    {
+      "name": "touching same-column rooms resolve as a vertical split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        },
+        "adjacency": {
+          "status": "adjacent",
+          "orientation": "vertical",
+          "gapFeet": 0
+        }
+      }
+    },
+    {
+      "name": "same-row rooms separated by grid space are blocked",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "blocked",
+          "reason": "Rooms are not adjacent enough to form one physical bay.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        }
+      }
+    },
+    {
+      "name": "same-column rooms separated by grid space are blocked",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "blocked",
+          "reason": "Rooms are not adjacent enough to form one physical bay.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        }
+      }
+    },
+    {
+      "name": "overlapping canonical rooms are blocked",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "blocked",
+          "reason": "Rooms overlap and are not adjacent enough to form one physical bay.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        }
+      }
+    },
+    {
+      "name": "all canonical split-room pairs still pass when physically adjacent",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "selectedRoomId": "room-02",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-02-room-03",
+              "pairLabel": "2/3",
+              "roomAId": "room-02",
+              "roomBId": "room-03",
+              "roomALabel": "Room 2",
+              "roomBLabel": "Room 3",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-03",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-02-room-03",
+              "pairLabel": "2/3",
+              "roomAId": "room-02",
+              "roomBId": "room-03",
+              "roomALabel": "Room 2",
+              "roomBLabel": "Room 3",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-04",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-04-room-05",
+              "pairLabel": "4/5",
+              "roomAId": "room-04",
+              "roomBId": "room-05",
+              "roomALabel": "Room 4",
+              "roomBLabel": "Room 5",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-05",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-04-room-05",
+              "pairLabel": "4/5",
+              "roomAId": "room-04",
+              "roomBId": "room-05",
+              "roomALabel": "Room 4",
+              "roomBLabel": "Room 5",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-06",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-06-room-07",
+              "pairLabel": "6/7",
+              "roomAId": "room-06",
+              "roomBId": "room-07",
+              "roomALabel": "Room 6",
+              "roomBLabel": "Room 7",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-07",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-06-room-07",
+              "pairLabel": "6/7",
+              "roomAId": "room-06",
+              "roomBId": "room-07",
+              "roomALabel": "Room 6",
+              "roomBLabel": "Room 7",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-08",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-08-room-09",
+              "pairLabel": "8/9",
+              "roomAId": "room-08",
+              "roomBId": "room-09",
+              "roomALabel": "Room 8",
+              "roomBLabel": "Room 9",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "selectedRoomId": "room-09",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-08-room-09",
+              "pairLabel": "8/9",
+              "roomAId": "room-08",
+              "roomBId": "room-09",
+              "roomALabel": "Room 8",
+              "roomBLabel": "Room 9",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
