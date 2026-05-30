@@ -17,4 +17,11 @@ Boundary status:
 - No simulation expansion is in scope.
 - No optimizer, assignment recommendation, collaboration, clinical safety scoring, staffing compliance certification, patient outcome prediction, PHI, or EHR integration is in scope.
 
-Workflow status remains not_ready until Issue 703 passes the final GO / NO-GO audit.
+Issue 703 final GO / NO-GO audit passed:
+
+- `activeFloorplanWorkflowGoNoGoStatus`: `go_for_editor_simplification_and_assignment_persistence`
+- `activeFloorplanPersistenceStatus`: `passed`
+- `activeFloorplanSurvivesReload`: `true`
+- `singleActiveFloorplanContract`: `true`
+- `normalModeShowsOneFloorplan`: `true`
+- `allModesShowActiveFloorplan`: `true`
