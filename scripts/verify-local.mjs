@@ -166,6 +166,19 @@ const editorRuntimeSaveLayoutVerificationCommands = [
   "npm run check:editor-runtime-save-ux-layout-go-no-go"
 ];
 
+const doorAuthoringCrashHardeningCommands = [
+  "npm run check:door-authoring-crash-preflight",
+  "npm run check:door-authoring-crash-reproduction",
+  "npm run check:safe-door-authoring-wrapper",
+  "npm run check:door-candidate-eligibility",
+  "npm run check:add-door-preflight",
+  "npm run check:door-owner-model-hardening",
+  "npm run check:door-action-recovery-snapshots",
+  "npm run check:door-recovery-diagnostics",
+  "npm run check:door-authoring-browser-regression",
+  "npm run check:door-authoring-go-no-go"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -257,6 +270,7 @@ const commands = [
   "npm run check:editor-canvas-height-layout",
   "npm run check:editor-popup-layout",
   "npm run check:editor-runtime-save-ux-layout-go-no-go",
+  ...doorAuthoringCrashHardeningCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "669",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "prior reconstruction GO is explicitly revoked",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "sourceGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+        "sourceGoNoGoRevoked": true,
+        "reconstructionStatus": "no_go_until_door_authoring_crash_hardening_passes",
+        "revocationReason": "User reproduced editor recovery screen while adding/assigning doors in both top pod areas."
+      }
+    },
+    {
+      "name": "door hardening manifest follows issue 669 contract",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "mismatches": [],
+        "manifestPath": "docs/verification/door-authoring-crash-hardening-manifest.json"
+      }
+    },
+    {
+      "name": "root scripts and verify-local wire all door hardening gates",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingPackageScripts": [],
+        "missingVerifyLocalScripts": [],
+        "missingFiles": []
+      }
+    },
+    {
+      "name": "prior GO fixture is rejected when door crash proof is missing",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "falseGoFixture": {
+          "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+          "doorCrashPreflightStatus": "missing",
+          "safeDoorAuthoringWrapperStatus": "missing",
+          "noRecoveryScreenDuringDoorWork": false,
+          "doorSaveReloadProof": false
+        },
+        "detection": {
+          "status": "failed",
+          "blockers": [
+            "doorCrashPreflightStatus is missing",
+            "safeDoorAuthoringWrapperStatus is missing",
+            "noRecoveryScreenDuringDoorWork is false",
+            "doorSaveReloadProof is false"
+          ]
+        }
+      }
+    }
+  ]
+}

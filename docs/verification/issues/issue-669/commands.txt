@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-door-authoring-crash-preflight.mjs --stage go-revocation --allow-partial --issue 669
+node scripts/check-door-authoring-crash-preflight.mjs --stage manifest-contract --allow-partial --issue 669
+node scripts/check-door-authoring-crash-preflight.mjs --stage root-script-wiring --allow-partial --issue 669
+node scripts/check-door-authoring-crash-preflight.mjs --stage false-go-negative --allow-partial --issue 669
+node scripts/check-no-phi-fields.mjs

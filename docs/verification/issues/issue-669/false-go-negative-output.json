@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "falseGoFixture": {
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "doorCrashPreflightStatus": "missing",
+    "safeDoorAuthoringWrapperStatus": "missing",
+    "noRecoveryScreenDuringDoorWork": false,
+    "doorSaveReloadProof": false
+  },
+  "detection": {
+    "status": "failed",
+    "blockers": [
+      "doorCrashPreflightStatus is missing",
+      "safeDoorAuthoringWrapperStatus is missing",
+      "noRecoveryScreenDuringDoorWork is false",
+      "doorSaveReloadProof is false"
+    ]
+  }
+}

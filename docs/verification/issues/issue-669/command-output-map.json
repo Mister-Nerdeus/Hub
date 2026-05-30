@@ -1,0 +1,53 @@
+{
+  "issue": "669",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-669/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-669/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-669/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-crash-preflight.mjs --stage go-revocation --allow-partial --issue 669",
+      "outputs": [
+        "docs/verification/issues/issue-669/go-revocation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-crash-preflight.mjs --stage manifest-contract --allow-partial --issue 669",
+      "outputs": [
+        "docs/verification/issues/issue-669/manifest-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-crash-preflight.mjs --stage root-script-wiring --allow-partial --issue 669",
+      "outputs": [
+        "docs/verification/issues/issue-669/root-script-wiring-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-crash-preflight.mjs --stage false-go-negative --allow-partial --issue 669",
+      "outputs": [
+        "docs/verification/issues/issue-669/false-go-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-669/no-phi-output.txt"
+      ]
+    }
+  ]
+}
