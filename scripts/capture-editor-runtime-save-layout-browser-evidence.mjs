@@ -4,6 +4,8 @@ import { dirname } from "node:path";
 import {
   delay,
   waitForExpression,
+  readEditorRuntimeState,
+  buildRuntimeProofSummary,
   withBrowserRenderedApp
 } from "./lib/app-browser-proof.mjs";
 import {
@@ -17,6 +19,7 @@ const dir = `docs/verification/issues/issue-${issue}`;
 const initScript =
   "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
 const captured = [];
+const batchMarker = "641-650-editor-runtime-save-layout";
 
 for (const evidenceIssue of ["641", "642", "643", "644", "645", "648", "649", "650"]) {
   ensureIssueDirs(evidenceIssue);
@@ -39,12 +42,20 @@ async function captureDesktopEvidence() {
     { port, chromePort, width: 1440, height: 1100, initScript },
     async (browser) => {
       await openFreshEditor(browser);
-  await saveScreenshot(browser, [
+      const state = await readEditorRuntimeState(browser);
+      writeJson(`${dir}/fresh-runtime-proof-summary.json`, buildRuntimeProofSummary(state, {
+        proofType: "fresh-runtime",
+        baseUrl: `http://127.0.0.1:${port}`,
+        port,
+        batchMarker
+      }));
+      await browser.screenshot(`${dir}/screenshots/fresh-runtime-proof.png`);
+      await saveScreenshot(browser, [
         "docs/verification/issues/issue-641/screenshots/runtime-build-info.png",
         "docs/verification/issues/issue-650/screenshots/runtime-build-info.png",
         "docs/verification/issues/issue-650/screenshots/runtime-build-info-visible.png"
       ]);
-  await saveScreenshot(browser, [
+      await saveScreenshot(browser, [
         "docs/verification/issues/issue-642/screenshots/expected-save-controls-visible.png",
         "docs/verification/issues/issue-643/screenshots/redesigned-command-bar.png",
         "docs/verification/issues/issue-644/screenshots/canonical-default-warning.png",
@@ -116,7 +127,7 @@ async function captureDesktopEvidence() {
       ]);
 
       await openFreshEditor(browser);
-  await browser.evaluate(`(() => {
+      await browser.evaluate(`(() => {
         document.querySelectorAll('[data-editor-control="save-working-copy"], [data-editor-control="save-as-new-copy"]').forEach((node) => node.remove());
       })()`);
       await waitForExpression(browser, `document.querySelector('[data-runtime-mismatch-banner="true"]') != null`, 10_000);

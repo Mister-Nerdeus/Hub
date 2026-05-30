@@ -1,0 +1,13 @@
+{
+  "status": "not_run",
+  "expected": { "name": "check:editor-runtime-version-proof", "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650" },
+  "actual": { "name": "check:editor-runtime-version-proof", "command": "node scripts/check-editor-runtime-version-proof.mjs --stage old --issue 650" },
+  "mismatched": [
+    {
+      "name": "check:editor-runtime-version-proof",
+      "expected": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+      "actual": "node scripts/check-editor-runtime-version-proof.mjs --stage old --issue 650"
+    }
+  ],
+  "blockers": ["Pending execution of stale-command fixture."]
+}

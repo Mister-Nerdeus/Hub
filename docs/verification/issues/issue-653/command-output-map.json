@@ -1,0 +1,59 @@
+{
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-653\\test-output\\shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-653\\test-output\\web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-653\\test-output\\web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage missing-checklist-fails --allow-partial --issue 653",
+      "outputs": [
+        "docs/verification/issues/issue-653\\missing-checklist-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage unchecked-template --allow-partial --issue 653",
+      "outputs": [
+        "docs/verification/issues/issue-653\\unchecked-template-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage partial-checklist-negative --allow-partial --issue 653",
+      "outputs": [
+        "docs/verification/issues/issue-653\\partial-checklist-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage completed-checklist-with-evidence --allow-partial --issue 653",
+      "outputs": [
+        "docs/verification/issues/issue-653\\completed-checklist-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage auto-pass-negative --allow-partial --issue 653",
+      "outputs": [
+        "docs/verification/issues/issue-653\\auto-pass-negative-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-653\\no-phi-output.txt"
+      ]
+    }
+  ],
+  "issue": 653
+}

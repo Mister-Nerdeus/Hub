@@ -3,6 +3,8 @@ import { existsSync, mkdirSync, statSync, writeFileSync } from "node:fs";
 import { createServer } from "node:net";
 import { dirname, join } from "node:path";
 
+export const editorRuntimeBuildMarker = "641-650-editor-runtime-save-layout";
+
 export async function withBrowserRenderedApp(options, callback) {
   const port = Number(options.port);
   const chromePort = Number(options.chromePort);
@@ -142,6 +144,90 @@ export async function waitForExpression(browser, expression, timeoutMs = 15_000)
     await delay(250);
   }
   throw new Error(`Timed out waiting for expression: ${expression}`);
+}
+
+export async function readEditorRuntimeState(browser) {
+  return browser.evaluate(`(() => {
+    const panel = document.querySelector('[data-runtime-build-info="true"]');
+    const commandBar = document.querySelector('[data-editor-command-bar="consolidated"]');
+    const savePanel = document.querySelector('[data-editor-save-status-panel="true"]');
+    const banner = document.querySelector('[data-runtime-mismatch-banner="true"]');
+    const missingCapabilities = [];
+    if (panel == null) missingCapabilities.push("runtime build marker");
+    if (commandBar == null) {
+      missingCapabilities.push("editor command bar");
+    } else {
+      if (commandBar.querySelector('[data-editor-control="save-working-copy"]') == null) {
+        missingCapabilities.push("Save Working Copy control");
+      }
+      if (commandBar.querySelector('[data-editor-control="save-as-new-copy"]') == null) {
+        missingCapabilities.push("Save As New Copy control");
+      }
+      if (commandBar.querySelector('[data-editor-control="export-json-backup"]') == null) {
+        missingCapabilities.push("Export JSON Backup control");
+      }
+    }
+
+    const room = document.querySelector('[data-layout-object-type="room"][data-layout-object-id="room-02"]');
+    const door = document.querySelector('[data-layout-object-type="door"][data-layout-object-id="door-02"]');
+    return {
+      runtimeBuildInfoExists: panel != null,
+      batchMarker: panel?.getAttribute("data-batch-marker") ?? null,
+      runtimeBuildInfoVisible: panel != null,
+      runtimeMode: panel?.getAttribute("data-runtime-mode") ?? null,
+      editorSaveUx: panel?.getAttribute("data-editor-save-ux") ?? null,
+      buildCommit: panel?.getAttribute("data-build-commit") ?? null,
+      buildTime: panel?.getAttribute("data-build-time") ?? null,
+      commandBarExists: commandBar != null,
+      saveWorkingCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-working-copy"]') != null,
+      saveAsNewCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-as-new-copy"]') != null,
+      exportJsonBackupVisible: commandBar?.querySelector('[data-editor-control="export-json-backup"]') != null,
+      activeRecordIdVisible: savePanel?.querySelector('[data-active-record-id]') != null,
+      activeRecordId: savePanel?.querySelector('[data-active-record-id]')?.getAttribute("data-active-record-id") ?? null,
+      namedSaveStatusVisible: savePanel?.querySelector('[data-named-save-status]') != null,
+      runtimeMismatchBannerVisible: banner != null,
+      runtimeMismatchBannerText: banner?.textContent?.trim() ?? "",
+      runtimeMismatchMissingCapabilities: banner?.getAttribute("data-missing-capabilities") ?? "",
+      commandBarRoomVisible: room != null,
+      commandBarDoorVisible: door != null,
+      missingCapabilities
+    };
+  })()`);
+}
+
+export function buildRuntimeProofSummary(state, options = {}) {
+  const proofType = options.proofType ?? "unknown";
+  const baseUrl = options.baseUrl ?? "http://127.0.0.1";
+  const port = Number(options.port ?? 0);
+  const batchMarker = options.batchMarker ?? null;
+  const requiredControls = [
+    state.saveWorkingCopyControlVisible,
+    state.saveAsNewCopyControlVisible,
+    state.exportJsonBackupVisible,
+    state.activeRecordIdVisible,
+    state.namedSaveStatusVisible
+  ];
+  const controlsVisible = requiredControls.every(Boolean);
+  const markerMatched = batchMarker == null ? state.batchMarker != null : state.batchMarker === batchMarker;
+  return {
+    proofType,
+    baseUrl,
+    port,
+    buildCommit: state.buildCommit ?? null,
+    buildTime: state.buildTime ?? null,
+    batchMarker: state.batchMarker ?? null,
+    saveWorkingCopyVisible: Boolean(state.saveWorkingCopyControlVisible),
+    saveAsNewCopyVisible: Boolean(state.saveAsNewCopyControlVisible),
+    exportJsonBackupVisible: Boolean(state.exportJsonBackupVisible),
+    activeRecordIdVisible: Boolean(state.activeRecordIdVisible),
+    namedSaveStatusVisible: Boolean(state.namedSaveStatusVisible),
+    runtimeMismatchBannerVisible: Boolean(state.runtimeMismatchBannerVisible),
+    status: controlsVisible && markerMatched && state.runtimeBuildInfoExists === true && state.runtimeMismatchBannerVisible === false
+      ? "passed"
+      : "failed",
+    batchMarkerMatched: markerMatched,
+    runtimeBuildInfoExists: Boolean(state.runtimeBuildInfoExists)
+  };
 }
 
 export async function delay(ms) {

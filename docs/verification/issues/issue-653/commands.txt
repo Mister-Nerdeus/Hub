@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage missing-checklist-fails --allow-partial --issue 653
+node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage unchecked-template --allow-partial --issue 653
+node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage partial-checklist-negative --allow-partial --issue 653
+node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage completed-checklist-with-evidence --allow-partial --issue 653
+node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage auto-pass-negative --allow-partial --issue 653
+node scripts/check-no-phi-fields.mjs

@@ -16,13 +16,18 @@ import {
   writeJson,
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
-import { withExistingBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
+import {
+  readEditorRuntimeState,
+  buildRuntimeProofSummary,
+  withExistingBrowserRenderedApp
+} from "./lib/app-browser-proof.mjs";
 
 const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
 const checks = [];
+let runtimeState = null;
 const port = Number(readArg("--port", "5180"));
 const chromePort = Number(readArg("--chrome-port", "9850"));
 const initScript =
@@ -57,7 +62,24 @@ const runtimeSummary = {
   batchMarker,
   checks
 };
+const runtimeProofRecord = runtimeState == null ? null : buildRuntimeProofSummary(runtimeState, {
+  proofType: "existing-localhost",
+  baseUrl: `http://127.0.0.1:${port}`,
+  port,
+  batchMarker
+});
 writeJson(`${dir}/test-output/runtime-version-proof.txt`, runtimeSummary);
+writeJson(`${dir}/runtime-version-proof-record.json`, {
+  ...runtimeSummary,
+  ...(runtimeProofRecord ?? {
+    proofType: "existing-localhost",
+    baseUrl: `http://127.0.0.1:${port}`,
+    port,
+    batchMarker,
+    status: "failed"
+  }),
+  status: runtimeProofRecord?.status ?? "failed"
+});
 writeJson(`${dir}/runtime-version-summary.json`, runtimeSummary);
 writeEvidencePng(`${dir}/screenshots/runtime-build-info.png`);
 writeAliasScreenshot(`${dir}/screenshots/runtime-build-info.png`, `${dir}/screenshots/runtime-build-info-visible.png`);
@@ -144,7 +166,8 @@ async function runStage(selectedStage) {
 
 async function runStageForBrowser(selectedStage, browser) {
   if (selectedStage === "runtime-build-info") {
-    const state = await readRuntimeState(browser);
+    const state = await readEditorRuntimeState(browser);
+    runtimeState = state;
     const required = ["buildCommit", "buildTime", "runtimeMode", "editorSaveUx", "runtimeBuildInfoExists"];
     const passed = required.every((key) => Boolean(state[key]));
     return {
@@ -156,11 +179,12 @@ async function runStageForBrowser(selectedStage, browser) {
     };
   }
   if (selectedStage === "runtime-marker") {
-    const state = await readRuntimeState(browser);
+    const state = await readEditorRuntimeState(browser);
+    runtimeState = state;
     const requiredMarker = batchMarker;
     const passed = state.runtimeBuildInfoExists &&
       state.batchMarker === requiredMarker &&
-      state.dataRuntimeSaveUx === "enabled" &&
+      state.editorSaveUx === "enabled" &&
       state.runtimeMode != null;
     return {
       name: "machine-readable runtime marker is present",
@@ -171,7 +195,8 @@ async function runStageForBrowser(selectedStage, browser) {
     };
   }
   if (selectedStage === "editor-controls-visibility") {
-    const state = await readRuntimeState(browser);
+    const state = await readEditorRuntimeState(browser);
+    runtimeState = state;
     const requiredControls = [
       "save-working-copy",
       "save-as-new-copy",
@@ -179,9 +204,21 @@ async function runStageForBrowser(selectedStage, browser) {
     ];
     const requiredChecks = requiredControls.map((control) => ({
       control,
-      visible: state.editorControls[control]
+      visible: control === "save-working-copy"
+        ? state.saveWorkingCopyControlVisible
+        : control === "save-as-new-copy"
+          ? state.saveAsNewCopyControlVisible
+          : state.exportJsonBackupVisible
     }));
-    const missing = requiredControls.filter((value) => !state.editorControls[value]);
+    const missing = requiredControls.filter((value) => {
+      if (value === "save-working-copy") {
+        return !state.saveWorkingCopyControlVisible;
+      }
+      if (value === "save-as-new-copy") {
+        return !state.saveAsNewCopyControlVisible;
+      }
+      return !state.exportJsonBackupVisible;
+    });
     const passed = missing.length === 0;
     return {
       name: "expected editor save controls are visible in rendered app",
@@ -192,7 +229,8 @@ async function runStageForBrowser(selectedStage, browser) {
     };
   }
   if (selectedStage === "stale-runtime-negative") {
-    const state = await readRuntimeState(browser);
+    const state = await readEditorRuntimeState(browser);
+    runtimeState = state;
     const passed = Boolean(state.runtimeBuildInfoExists) &&
       state.saveWorkingCopyControlVisible &&
       state.saveAsNewCopyControlVisible &&
@@ -223,32 +261,6 @@ async function runStageForBrowser(selectedStage, browser) {
     };
   }
   throw new Error(`Unsupported runtime version proof stage: ${selectedStage}`);
-}
-
-function readRuntimeState(browser) {
-  return browser.evaluate(`(() => {
-    const panel = document.querySelector('[data-runtime-build-info="true"]');
-    const commandBar = document.querySelector('[data-editor-command-bar="consolidated"]');
-    return {
-      runtimeBuildInfoExists: panel != null,
-      editorControls: {
-        "save-working-copy": commandBar?.querySelector('[data-editor-control="save-working-copy"]') != null,
-        "save-as-new-copy": commandBar?.querySelector('[data-editor-control="save-as-new-copy"]') != null,
-        "export-json-backup": commandBar?.querySelector('[data-editor-control="export-json-backup"]') != null
-      },
-      buildCommit: panel?.getAttribute("data-build-commit") ?? null,
-      buildTime: panel?.getAttribute("data-build-time") ?? null,
-      runtimeMode: panel?.getAttribute("data-runtime-mode") ?? null,
-      dataRuntimeSaveUx: panel?.getAttribute("data-editor-save-ux") ?? null,
-      batchMarker: panel?.getAttribute("data-batch-marker") ?? null,
-      activeRecordIdVisible: document.querySelector('[data-editor-save-status-panel="true"] [data-active-record-id]') != null,
-      namedSaveStatusVisible: document.querySelector('[data-editor-save-status-panel="true"] [data-named-save-status]') != null,
-      saveWorkingCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-working-copy"]') != null,
-      saveAsNewCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-as-new-copy"]') != null,
-      exportJsonBackupVisible: commandBar?.querySelector('[data-editor-control="export-json-backup"]') != null,
-      runtimeMismatchBannerVisible: document.querySelector('[data-runtime-mismatch-banner="true"]') != null
-    };
-  })()`);
 }
 
 function writeAliasScreenshot(sourcePath, aliasPath) {

@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
+import { runtimeAlignmentRootScriptMap } from "./lib/editor-runtime-alignment-hardening-utils.mjs";
 
 function loadLocalEnv() {
   const values = {};
@@ -152,6 +153,37 @@ const canonicalCommands = loadCanonicalGateRegistry().gates.map((gate) =>
   })
 );
 
+const editorRuntimeSaveLayoutVerificationCommands = [
+  "npm run check:editor-runtime-version-proof",
+  "npm run check:editor-stale-runtime-detection",
+  "npm run check:editor-save-command-bar-ux",
+  "npm run check:editor-active-copy-save-status",
+  "npm run check:editor-truthful-save-language",
+  "npm run check:editor-room-door-save-reload-proof",
+  "npm run check:editor-save-pipeline-trace",
+  "npm run check:editor-canvas-height-layout",
+  "npm run check:editor-popup-layout",
+  "npm run check:editor-runtime-save-ux-layout-go-no-go"
+];
+
+const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
+const staleRuntimeLayoutRootScripts = [
+  "check:floorplan-editor-save-reload-preflight",
+  "check:layout-editor-save-working-copy",
+  "check:layout-editor-per-copy-autosave",
+  "check:layout-editor-draft-recovery-banner",
+  "check:layout-editor-error-boundary",
+  "check:layout-editor-room-labels",
+  "check:layout-editor-duplicate-labels",
+  "check:layout-editor-room-move-persistence",
+  "check:layout-editor-door-change-persistence",
+  "check:layout-editor-active-copy-identity",
+  "check:layout-editor-truthful-save-status",
+  "check:layout-editor-browser-reload-regression",
+  "check:layout-editor-save-failure-repro",
+  "check:layout-editor-local-draft-vs-named-save"
+];
+
 const commands = [
   "docker compose config",
   "docker compose up --build -d",
@@ -215,17 +247,6 @@ const commands = [
   "npm run check:simulation-v0-artifact-export",
   "npm run check:simulation-v0-user-facing-go-no-go",
   "npm run check:simulation-v0-user-facing-feature-gates",
-  "npm run check:floorplan-editor-reconstruction-preflight",
-  "npm run check:layout-editor-save-working-copy",
-  "npm run check:layout-editor-per-copy-autosave",
-  "npm run check:layout-editor-draft-recovery-banner",
-  "npm run check:layout-editor-error-boundary",
-  "npm run check:layout-editor-room-labels",
-  "npm run check:layout-editor-duplicate-labels",
-  "npm run check:layout-editor-station-move",
-  "npm run check:layout-editor-station-resize",
-  "npm run check:layout-editor-reconstruction-stress",
-  "npm run check:floorplan-editor-reconstruction-go-no-go",
   "npm run check:editor-runtime-version-proof",
   "npm run check:editor-stale-runtime-detection",
   "npm run check:editor-save-command-bar-ux",
@@ -236,16 +257,9 @@ const commands = [
   "npm run check:editor-canvas-height-layout",
   "npm run check:editor-popup-layout",
   "npm run check:editor-runtime-save-ux-layout-go-no-go",
-  "npm run check:floorplan-editor-save-reload-preflight",
-  "npm run check:layout-editor-save-failure-repro",
-  "npm run check:layout-editor-active-copy-identity",
-  "npm run check:layout-editor-save-pipeline-trace",
-  "npm run check:layout-editor-room-move-persistence",
-  "npm run check:layout-editor-door-change-persistence",
-  "npm run check:layout-editor-local-draft-vs-named-save",
-  "npm run check:layout-editor-truthful-save-status",
-  "npm run check:layout-editor-browser-reload-regression",
-  "npm run check:floorplan-editor-save-reload-go-no-go",
+  "npm run check:layout-editor-station-move",
+  "npm run check:layout-editor-station-resize",
+  "npm run check:floorplan-editor-reconstruction-go-no-go",
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "cd apps/api && python -m pytest",
@@ -253,6 +267,26 @@ const commands = [
   "node scripts/check-private-source-artifacts.mjs",
   "node scripts/verify-docker-plan-api.mjs"
 ];
+
+console.log("\n=== Editor runtime/save/layout verification ===");
+editorRuntimeSaveLayoutVerificationCommands.forEach((command) => {
+  console.log(`- ${command}`);
+});
+const verifyLocalRuntimeSection = readVerifyLocalSection();
+const verifyLocalRootScriptNames = requiredRootScripts.filter((script) =>
+  sectionContainsScript(verifyLocalRuntimeSection, `npm run ${script}`)
+);
+const missingVerifyLocalRootScripts = requiredRootScripts.filter((script) => !verifyLocalRootScriptNames.includes(script));
+if (missingVerifyLocalRootScripts.length > 0) {
+  throw new Error(`verify-local must include all 641-650 runtime/save/layout root checks. Missing: ${missingVerifyLocalRootScripts.join(", ")}`);
+}
+const staleInVerifyLocal = staleRuntimeLayoutRootScripts.filter((script) =>
+  sectionContainsScript(verifyLocalRuntimeSection, `npm run ${script}`)
+);
+if (staleInVerifyLocal.length > 0) {
+  throw new Error(`verify-local still calls stale 631-640 runtime/save/layout script names: ${staleInVerifyLocal.join(", ")}`);
+}
+console.log("");
 
 for (const command of commands) {
   console.log(`\n> ${command}`);
@@ -263,6 +297,32 @@ for (const command of commands) {
   if (result.status !== 0) {
     process.exit(result.status ?? 1);
   }
+}
+
+function readVerifyLocalSection() {
+  const source = readFileSync("scripts/verify-local.mjs", "utf8");
+  const start = source.indexOf("=== Editor runtime/save/layout verification ===");
+  if (start < 0) {
+    return "";
+  }
+  const afterStart = source.indexOf("\n", source.indexOf("const editorRuntimeSaveLayoutVerificationCommands", start));
+  const sectionEndMarkers = [
+    "console.log(\"\");",
+    "\nfor (const command of commands)",
+    "\nconst envFile"
+  ];
+  let end = source.length;
+  for (const marker of sectionEndMarkers) {
+    const candidate = source.indexOf(marker, afterStart);
+    if (candidate !== -1 && candidate < end) {
+      end = candidate;
+    }
+  }
+  return source.slice(afterStart, end);
+}
+
+function sectionContainsScript(source, needle) {
+  return source.includes(needle);
 }
 
 console.log(`\n> GET ${apiUrl}/health`);
