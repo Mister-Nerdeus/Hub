@@ -160,6 +160,7 @@ export type LayoutEditorAction =
       widthFeet: number;
     }
   | { type: "recordDoorAuthoringWarning"; warning: DoorAuthoringWarning }
+  | { type: "recordDoorOwnerWarning"; warning: DoorAuthoringWarning }
   | {
       type: "addSupportAccessPoint";
       accessPointId: string;
@@ -378,6 +379,8 @@ export function layoutEditorReducer(
         })
       );
     case "recordDoorAuthoringWarning":
+      return appendDoorAuthoringWarning(state, action.warning);
+    case "recordDoorOwnerWarning":
       return appendDoorAuthoringWarning(state, action.warning);
     case "addSupportAccessPoint":
       return applySupportAccessMutation(

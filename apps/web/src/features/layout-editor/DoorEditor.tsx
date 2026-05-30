@@ -10,7 +10,6 @@ import {
   type EditableDoorWall,
   type EditableHallwayGeometry,
   type EditableRoomGeometry,
-  isDoorEligibleRoomType
 } from "@nerdeus/shared";
 import { AdjacentDoorCandidateSelector } from "./AdjacentDoorCandidateSelector";
 import { buildAdjacentDoorCandidateViewModel } from "./adjacentDoorCandidateViewModel";
@@ -52,13 +51,18 @@ export function DoorEditor({
   if (door == null) {
     return null;
   }
-  const ownerRoom = rooms.find((room) => room.id === door.ownerId) ?? null;
-  const doorToolsDisabled = readOnly || ownerRoom == null || !isDoorEligibleRoomType(ownerRoom.roomType);
-  const viewModel = buildDoorEditorViewModel({ door, rooms });
+  const viewModel = buildDoorEditorViewModel({ door, rooms, hallways });
+  const ownerViewModel = viewModel?.owner ?? null;
+  const ownerRoom = ownerViewModel?.status === "room"
+    ? rooms.find((room) => room.id === ownerViewModel.roomId) ?? null
+    : null;
+  const doorToolsDisabled = readOnly || viewModel?.patientDoorControlsEnabled !== true;
   const adjacentCandidateViewModel = buildAdjacentDoorCandidateViewModel({ door, rooms, hallways, readOnly });
   const placementValidityViewModel = buildDoorPlacementValidityViewModel({ door, rooms, hallways });
   const doorWidthViewModel = buildDoorWidthControlsViewModel({ door, ownerRoom, readOnly });
-  const validationWarning = validateDoorPlacementWarning(door, rooms);
+  const validationWarning = ownerViewModel?.status === "room"
+    ? validateDoorPlacementWarning(door, rooms)
+    : viewModel?.invalidPlacementWarning ?? null;
   const applyWallMove = (wall: EditableDoorWall) => {
     if (ownerRoom == null) return;
     const next = moveToWall({ door, room: ownerRoom, wall });
@@ -87,60 +91,69 @@ export function DoorEditor({
       <header>
         <p className="eyebrow">Door</p>
         <h3>{viewModel?.selectedDoorLabel ?? door.label}</h3>
-        <p>{viewModel?.ownerRoomLabel}</p>
+        <p>{viewModel?.ownerKindLabel}: {viewModel?.ownerLabel}</p>
       </header>
-      <div className="door-editor__group" aria-label="Wall">
-        <strong>Wall</strong>
-        <select
-          aria-label="Door wall"
-          value={door.wall}
-          disabled={doorToolsDisabled}
-          onChange={(event) => applyWallMove(event.currentTarget.value as EditableDoorWall)}
-        >
-          {WALLS.map((wall) => (
-            <option key={wall} value={wall}>
-              {wall}
-            </option>
-          ))}
-        </select>
-        <button type="button" disabled={doorToolsDisabled} onClick={applyOpposite}>
-          Opposite
-        </button>
-      </div>
-      <div className="door-editor__group" aria-label="Position">
-        <strong>Position</strong>
-        <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(-1)}>
-          Nudge -
-        </button>
-        <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(1)}>
-          Nudge +
-        </button>
-        <button type="button" disabled={doorToolsDisabled} onClick={applyCenter}>
-          Center
-        </button>
-      </div>
-      <div className="door-editor__group" aria-label="Owner / Adjacent room">
-        <strong>Owner / Adjacent room</strong>
-        <span>{viewModel?.ownerRoomLabel}</span>
-      </div>
-      <AdjacentDoorCandidateSelector
-        viewModel={adjacentCandidateViewModel}
-        selectedRoomId={adjacentCandidateViewModel.candidates[0]?.roomId ?? null}
-        onSelectCandidate={(roomId, wall, offsetFeet) => onAssignDoorToRoom(door.id, roomId, wall, offsetFeet)}
-      />
-      <DoorWidthControls
-        viewModel={doorWidthViewModel}
-        onDecrease={() => {
-          if (ownerRoom != null) applyWidthResult(decreaseDoorWidth({ door, room: ownerRoom }));
-        }}
-        onIncrease={() => {
-          if (ownerRoom != null) applyWidthResult(increaseDoorWidth({ door, room: ownerRoom }));
-        }}
-        onPreset={(widthFeet) => {
-          if (ownerRoom != null) applyWidthResult(applyDoorWidthPreset({ door, room: ownerRoom, widthFeet }));
-        }}
-      />
-      <DoorPlacementValidityPreview viewModel={placementValidityViewModel} />
+      {ownerViewModel?.status === "room" ? (
+        <>
+          <div className="door-editor__group" aria-label="Wall">
+            <strong>Wall</strong>
+            <select
+              aria-label="Door wall"
+              value={door.wall}
+              disabled={doorToolsDisabled}
+              onChange={(event) => applyWallMove(event.currentTarget.value as EditableDoorWall)}
+            >
+              {WALLS.map((wall) => (
+                <option key={wall} value={wall}>
+                  {wall}
+                </option>
+              ))}
+            </select>
+            <button type="button" disabled={doorToolsDisabled} onClick={applyOpposite}>
+              Opposite
+            </button>
+          </div>
+          <div className="door-editor__group" aria-label="Position">
+            <strong>Position</strong>
+            <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(-1)}>
+              Nudge -
+            </button>
+            <button type="button" disabled={doorToolsDisabled} onClick={() => applyNudge(1)}>
+              Nudge +
+            </button>
+            <button type="button" disabled={doorToolsDisabled} onClick={applyCenter}>
+              Center
+            </button>
+          </div>
+          <div className="door-editor__group" aria-label="Owner / Adjacent room">
+            <strong>Owner / Adjacent room</strong>
+            <span>{viewModel?.ownerLabel ?? door.ownerId}</span>
+          </div>
+          <AdjacentDoorCandidateSelector
+            viewModel={adjacentCandidateViewModel}
+            selectedRoomId={adjacentCandidateViewModel.candidates[0]?.roomId ?? null}
+            onSelectCandidate={(roomId, wall, offsetFeet) => onAssignDoorToRoom(door.id, roomId, wall, offsetFeet)}
+          />
+          <DoorWidthControls
+            viewModel={doorWidthViewModel}
+            onDecrease={() => {
+              if (ownerRoom != null) applyWidthResult(decreaseDoorWidth({ door, room: ownerRoom }));
+            }}
+            onIncrease={() => {
+              if (ownerRoom != null) applyWidthResult(increaseDoorWidth({ door, room: ownerRoom }));
+            }}
+            onPreset={(widthFeet) => {
+              if (ownerRoom != null) applyWidthResult(applyDoorWidthPreset({ door, room: ownerRoom, widthFeet }));
+            }}
+          />
+          <DoorPlacementValidityPreview viewModel={placementValidityViewModel} />
+        </>
+      ) : (
+        <div className="door-editor__group" aria-label="Hallway opening controls">
+          <strong>{ownerViewModel?.status === "hallway" ? "Hallway opening" : "Owner recovery"}</strong>
+          <span>{viewModel?.invalidPlacementWarning ?? "Hallway openings do not use patient-room door controls."}</span>
+        </div>
+      )}
       {validationWarning == null ? null : (
         <p className="door-editor__warning" role="status">{validationWarning}</p>
       )}

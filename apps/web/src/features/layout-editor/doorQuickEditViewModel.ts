@@ -5,10 +5,16 @@ import {
   type EditableDoorWall,
   type EditableHallwayGeometry,
   type EditableLayoutGeometryContract,
-  type EditableRoomGeometry,
-  isDoorEligibleRoomType
+  type EditableRoomGeometry
 } from "@nerdeus/shared";
 import type { AdjacentDoorCandidateItem } from "./adjacentDoorCandidateViewModel";
+import {
+  buildDoorOwnerViewModel,
+  doorOwnerDisplayLabel,
+  doorOwnerKindLabel,
+  doorOwnerWarning,
+  type DoorOwnerViewModel
+} from "./doorOwnerViewModel";
 
 export type DoorQuickEditViewModel = {
   status: "missing" | "ready";
@@ -16,6 +22,8 @@ export type DoorQuickEditViewModel = {
   label: string;
   ownerLabel: string | null;
   ownerKindLabel: string | null;
+  ownerStatus: DoorOwnerViewModel["status"] | null;
+  ownerWarning: string | null;
   wall: EditableDoorWall | null;
   offsetFeet: number | null;
   readOnly: boolean;
@@ -44,6 +52,8 @@ export function buildDoorQuickEdit({
       label: "No door selected",
       ownerLabel: null,
       ownerKindLabel: null,
+      ownerStatus: null,
+      ownerWarning: null,
       wall: null,
       offsetFeet: null,
       readOnly: true,
@@ -54,18 +64,15 @@ export function buildDoorQuickEdit({
       deleteDisabled: true
     };
   }
-  const ownerRoom = door.ownerKind === "room"
-    ? rooms.find((room) => room.id === door.ownerId) ?? null
-    : null;
-  const ownerHallway = door.ownerKind === "hallway"
-    ? hallways.find((hallway) => hallway.id === door.ownerId) ?? null
-    : null;
-  const ownerDoorEligible = ownerRoom == null || isDoorEligibleRoomType(ownerRoom.roomType);
+  const owner = buildDoorOwnerViewModel({ door, rooms, hallways });
+  const ownerDoorEligible = owner?.status === "room" && owner.doorEligible;
   const layout = candidateLayout({ door, rooms, hallways });
-  const adjacency = detectDoorAdjacency({
-    layout,
-    door
-  });
+  const adjacency = owner?.status === "room"
+    ? detectDoorAdjacency({
+        layout,
+        door
+      })
+    : { candidates: [], reasonCodes: [] };
   const adjacentCandidates = adjacency.candidates.map((candidate) => ({
     roomId: candidate.roomId,
     roomLabel: candidate.roomLabel,
@@ -76,26 +83,33 @@ export function buildDoorQuickEdit({
   }));
   const adjacentCandidateCount = adjacentCandidates.length;
   const enabledCandidateCount = adjacentCandidates.filter((candidate) => !candidate.disabled).length;
+  const ownerWarning = doorOwnerWarning(owner);
   const toolsReadOnly = readOnly || !ownerDoorEligible;
   return {
     status: "ready",
     doorId: door.id,
     label: door.label,
-    ownerLabel: ownerRoom?.label ?? ownerHallway?.label ?? door.ownerId,
-    ownerKindLabel: door.ownerKind === "room" ? "Owner room" : "Owner hallway",
+    ownerLabel: doorOwnerDisplayLabel(owner),
+    ownerKindLabel: doorOwnerKindLabel(owner),
+    ownerStatus: owner?.status ?? null,
+    ownerWarning,
     wall: door.wall,
     offsetFeet: door.offsetFeet,
     readOnly: toolsReadOnly,
     adjacentCandidateCount,
     canUseAdjacent: enabledCandidateCount > 0,
     adjacentCandidates,
-    noCandidateReason: !ownerDoorEligible
-      ? "Solid wall / blocked area cannot accept doors."
-      : adjacentCandidateCount === 0
-        ? adjacency.reasonCodes.join(", ")
-        : enabledCandidateCount === 0
-          ? uniqueDisabledReasons(adjacentCandidates).join("; ")
-        : null,
+    noCandidateReason:
+      ownerWarning ??
+      (!ownerDoorEligible
+        ? owner?.status === "hallway"
+          ? "Hallway openings do not use patient-room adjacent assignment."
+          : "Selected owner cannot use patient-room door controls."
+        : adjacentCandidateCount === 0
+          ? adjacency.reasonCodes.join(", ")
+          : enabledCandidateCount === 0
+            ? uniqueDisabledReasons(adjacentCandidates).join("; ")
+            : null),
     deleteDisabled: readOnly
   };
 }

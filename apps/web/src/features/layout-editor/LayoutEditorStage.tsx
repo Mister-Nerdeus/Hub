@@ -531,7 +531,9 @@ export function LayoutEditorStage({
   });
   const selectedDoorOwnerRoomForControls = selectedDoor == null || stageState.editableLayout == null
     ? null
-    : stageState.editableLayout.rooms.find((room) => room.id === selectedDoor.ownerId) ?? null;
+    : selectedDoor.ownerKind === "room"
+      ? stageState.editableLayout.rooms.find((room) => room.id === selectedDoor.ownerId) ?? null
+      : null;
   const doorWallGuideViewModel = buildDoorWallGuideViewModel({
     door: selectedDoor,
     ownerRoom: selectedDoorOwnerRoomForControls
@@ -895,6 +897,9 @@ export function LayoutEditorStage({
   };
   const selectedDoorOwnerRoom = () => {
     if (selectedDoor == null || stageState.editableLayout == null) {
+      return null;
+    }
+    if (selectedDoor.ownerKind !== "room") {
       return null;
     }
     return stageState.editableLayout.rooms.find((room) => room.id === selectedDoor.ownerId) ?? null;

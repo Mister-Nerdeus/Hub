@@ -19,6 +19,13 @@ export const EDITABLE_STATION_TYPES = ["nurse_station", "desk"] as const;
 export const EDITABLE_ZONE_TYPES = ["operational", "ems_entry", "trauma", "provider_pharmacy"] as const;
 export const EDITABLE_DOOR_OWNER_KINDS = ["room", "hallway"] as const;
 export const EDITABLE_SUPPORT_ACCESS_OWNER_KINDS = ["zone"] as const;
+export const EDITABLE_DOOR_OWNER_MODEL_STATUSES = [
+  "room",
+  "hallway",
+  "support_access",
+  "missing",
+  "invalid"
+] as const;
 export const EDITABLE_SPLIT_BAY_DIVIDER_STYLES = ["diagonal", "vertical", "horizontal"] as const;
 
 export type EditableLayoutUnits = (typeof EDITABLE_LAYOUT_UNITS)[number];
@@ -29,6 +36,7 @@ export type EditableStationType = (typeof EDITABLE_STATION_TYPES)[number];
 export type EditableZoneType = (typeof EDITABLE_ZONE_TYPES)[number];
 export type EditableDoorOwnerKind = (typeof EDITABLE_DOOR_OWNER_KINDS)[number];
 export type EditableSupportAccessOwnerKind = (typeof EDITABLE_SUPPORT_ACCESS_OWNER_KINDS)[number];
+export type EditableDoorOwnerModelStatus = (typeof EDITABLE_DOOR_OWNER_MODEL_STATUSES)[number];
 export type EditableSplitBayDividerStyle = (typeof EDITABLE_SPLIT_BAY_DIVIDER_STYLES)[number];
 
 export type EditableRectFeet = {

@@ -1,0 +1,65 @@
+{
+  "issue": "674",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-674/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-674/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-674/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage room-owned-door --allow-partial --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/room-owned-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage hallway-owned-opening --allow-partial --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/hallway-owned-opening-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage support-access --allow-partial --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/support-access-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage missing-owner --allow-partial --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/missing-owner-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage invalid-owner-no-crash --allow-partial --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/invalid-owner-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-owner-model-hardening.mjs --stage final --issue 674",
+      "outputs": [
+        "docs/verification/issues/issue-674/test-output/door-owner-model-hardening.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-674/no-phi-output.txt"
+      ]
+    }
+  ]
+}

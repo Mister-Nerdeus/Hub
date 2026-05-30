@@ -31,6 +31,22 @@ export function DoorQuickEditPopover({
   if (viewModel.status !== "ready" || viewModel.wall == null) {
     return <p>No door selected.</p>;
   }
+  if (viewModel.ownerStatus !== "room") {
+    return (
+      <div className="door-quick-edit-popover" data-door-quick-edit="ready">
+        <p className="door-quick-edit-popover__owner">
+          {viewModel.ownerKindLabel}: {viewModel.ownerLabel}
+        </p>
+        <p role="status">{viewModel.ownerWarning ?? viewModel.noCandidateReason}</p>
+        <div className="door-quick-edit-popover__row">
+          <span>{viewModel.ownerStatus === "hallway" ? "Hallway opening" : "Owner recovery"}</span>
+          <button type="button" disabled={viewModel.deleteDisabled} onClick={onDeleteDoor}>
+            Delete door
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="door-quick-edit-popover" data-door-quick-edit="ready">
       <label>
