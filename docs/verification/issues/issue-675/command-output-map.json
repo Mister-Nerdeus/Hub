@@ -1,0 +1,65 @@
+{
+  "issue": "675",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-675/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-675/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-675/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage snapshot-contract --allow-partial --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/snapshot-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage before-door-action --allow-partial --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/before-door-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage failed-action-restore --allow-partial --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/failed-action-restore-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage scoped-record --allow-partial --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/scoped-record-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage export-snapshot --allow-partial --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/export-snapshot-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-action-recovery-snapshots.mjs --stage final --issue 675",
+      "outputs": [
+        "docs/verification/issues/issue-675/test-output/door-action-recovery-snapshots.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-675/no-phi-output.txt"
+      ]
+    }
+  ]
+}

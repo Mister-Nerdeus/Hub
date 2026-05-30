@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-door-action-recovery-snapshots.mjs --stage snapshot-contract --allow-partial --issue 675
+node scripts/check-door-action-recovery-snapshots.mjs --stage before-door-action --allow-partial --issue 675
+node scripts/check-door-action-recovery-snapshots.mjs --stage failed-action-restore --allow-partial --issue 675
+node scripts/check-door-action-recovery-snapshots.mjs --stage scoped-record --allow-partial --issue 675
+node scripts/check-door-action-recovery-snapshots.mjs --stage export-snapshot --allow-partial --issue 675
+node scripts/check-door-action-recovery-snapshots.mjs --stage final --issue 675
+node scripts/check-no-phi-fields.mjs

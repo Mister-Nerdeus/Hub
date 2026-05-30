@@ -40,7 +40,7 @@ import { SplitBayShape } from "./SplitBayShape";
 import { buildSplitBayShapeViewModel } from "./splitBayShapeViewModel";
 import { SplitBayQuickEditPopover } from "./SplitBayQuickEditPopover";
 import { buildSplitBayQuickEdit } from "./splitBayQuickEditViewModel";
-import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
+import { layoutEditorReducer, panViewportAction, type LayoutEditorAction } from "./layoutEditorReducer";
 import { LayoutToolPalette, type LayoutToolMode } from "./LayoutToolPalette";
 import { buildAddRoomAction } from "./addRoomTool";
 import { buildAddDoorAction } from "./addDoorTool";
@@ -177,6 +177,10 @@ import {
 } from "./clickToPlaceObject";
 import { ObjectPlacementPreview } from "./ObjectPlacementPreview";
 import { PresentationLegend } from "./PresentationLegend";
+import {
+  createDoorRecoverySnapshot,
+  saveDoorRecoverySnapshot
+} from "./layoutDoorRecoverySnapshots";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -307,6 +311,27 @@ export function LayoutEditorStage({
   const selectedZone = findSelectedZone(stageState);
   const selectedSupportAccessPoint = findSelectedSupportAccessPoint(stageState);
   const selectedSplitBay = findSelectedSplitBay(stageState);
+  const dispatchDoorStageAction = (action: LayoutEditorAction) => {
+    const snapshotContext = doorRecoverySnapshotContextFromAction(action);
+    if (
+      snapshotContext != null &&
+      localDraftStorage != null &&
+      stageState.editableLayout != null &&
+      stageState.loadedFloorplan != null
+    ) {
+      saveDoorRecoverySnapshot(
+        localDraftStorage,
+        createDoorRecoverySnapshot({
+          recordId: stageState.loadedFloorplan.recordId,
+          editableLayout: stageState.editableLayout,
+          selectedObjectId: stageState.selectedObjectId,
+          selectedObjectType: stageState.selectedObjectType,
+          ...snapshotContext
+        })
+      );
+    }
+    dispatchStage(action);
+  };
   useEffect(() => {
     if (activeFloorplan == null) {
       return;
@@ -378,12 +403,19 @@ export function LayoutEditorStage({
         return;
       }
       event.preventDefault();
-      dispatchStage({ type: "deleteDoor", doorId: stageState.selectedObjectId });
+      dispatchDoorStageAction({ type: "deleteDoor", doorId: stageState.selectedObjectId });
       setCanvasPopoverOpen(false);
     };
     document.addEventListener("keydown", deleteSelectedDoor);
     return () => document.removeEventListener("keydown", deleteSelectedDoor);
-  }, [editorMode, stageState.readOnly, stageState.selectedObjectType, stageState.selectedObjectId]);
+  }, [
+    editorMode,
+    stageState.editableLayout,
+    stageState.loadedFloorplan,
+    stageState.readOnly,
+    stageState.selectedObjectType,
+    stageState.selectedObjectId
+  ]);
   useEffect(() => {
     if (
       localDraftStorage == null ||
@@ -810,7 +842,7 @@ export function LayoutEditorStage({
       });
       return;
     }
-    dispatchStage(result.action);
+    dispatchDoorStageAction(result.action);
     setAuthoringSequence((value) => value + 1);
     setToolMode("select");
   };
@@ -822,7 +854,7 @@ export function LayoutEditorStage({
     ) {
       return;
     }
-    dispatchStage({
+    dispatchDoorStageAction({
       type: "addSupportAccessPoint",
       accessPointId: `support-access-${String(authoringSequence).padStart(3, "0")}`,
       zoneId: selectedZone.id,
@@ -936,7 +968,7 @@ export function LayoutEditorStage({
   const updateSelectedDoorWidth = (direction: "increase" | "decrease" | number) => {
     const next = computeDoorWidthUpdate(direction);
     if (next != null && doorQuickEditViewModel.doorId != null && selectedDoor != null) {
-      dispatchStage({
+      dispatchDoorStageAction({
         type: "updateDoorWidth",
         doorId: doorQuickEditViewModel.doorId,
         wall: selectedDoor.wall,
@@ -949,7 +981,7 @@ export function LayoutEditorStage({
     if (selectedSupportAccessPoint == null) {
       return;
     }
-    dispatchStage({
+    dispatchDoorStageAction({
       type: "moveSupportAccessPoint",
       accessPointId: selectedSupportAccessPoint.id,
       wall,
@@ -960,7 +992,7 @@ export function LayoutEditorStage({
     if (selectedSupportAccessPoint == null) {
       return;
     }
-    dispatchStage({
+    dispatchDoorStageAction({
       type: "updateSupportAccessPointWidth",
       accessPointId: selectedSupportAccessPoint.id,
       wall: selectedSupportAccessPoint.wall,
@@ -1743,7 +1775,7 @@ export function LayoutEditorStage({
                     viewModel={roomQuickEditViewModel}
                     onRoomTypeChange={(roomType) => {
                       if (roomQuickEditViewModel.roomId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "editSelectedRoomType",
                           roomId: roomQuickEditViewModel.roomId,
                           roomType: editableRoomTypeToAuthoringRoomType(roomType)
@@ -1752,7 +1784,7 @@ export function LayoutEditorStage({
                     }}
                     onRoomIdentityChange={({ roomNumber, label }) => {
                       if (roomQuickEditViewModel.roomId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "editSelectedRoomLabel",
                           roomId: roomQuickEditViewModel.roomId,
                           roomNumber,
@@ -1762,7 +1794,7 @@ export function LayoutEditorStage({
                     }}
                     onWidthStep={(deltaFeet) => {
                       if (roomQuickEditViewModel.widthFeet != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "editSelectedRoomDimensions",
                           dimensions: { widthFeet: roomQuickEditViewModel.widthFeet + deltaFeet }
                         });
@@ -1770,7 +1802,7 @@ export function LayoutEditorStage({
                     }}
                     onHeightStep={(deltaFeet) => {
                       if (roomQuickEditViewModel.heightFeet != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "editSelectedRoomDimensions",
                           dimensions: { heightFeet: roomQuickEditViewModel.heightFeet + deltaFeet }
                         });
@@ -1790,7 +1822,7 @@ export function LayoutEditorStage({
                     onWallChange={(wall) => {
                       const next = computeDoorWallMove(wall);
                       if (next != null && doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "moveDoor",
                           doorId: doorQuickEditViewModel.doorId,
                           wall: next.wall,
@@ -1847,7 +1879,7 @@ export function LayoutEditorStage({
                     onWidthPreset={(widthFeet) => updateSelectedDoorWidth(widthFeet)}
                     onDeleteDoor={() => {
                       if (doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({ type: "deleteDoor", doorId: doorQuickEditViewModel.doorId });
+                        dispatchDoorStageAction({ type: "deleteDoor", doorId: doorQuickEditViewModel.doorId });
                       }
                     }}
                   />
@@ -1870,7 +1902,7 @@ export function LayoutEditorStage({
                     onWidthStep={updateSelectedSupportAccessWidth}
                     onDelete={() => {
                       if (selectedSupportAccessPoint != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "deleteSupportAccessPoint",
                           accessPointId: selectedSupportAccessPoint.id
                         });
@@ -2016,14 +2048,14 @@ export function LayoutEditorStage({
                 hallways={stageState.editableLayout?.hallways ?? []}
                 readOnly={stageState.readOnly}
                 onMoveDoor={(doorId, wall, offsetFeet) =>
-                  dispatchStage({ type: "moveDoor", doorId, wall, offsetFeet })
+                  dispatchDoorStageAction({ type: "moveDoor", doorId, wall, offsetFeet })
                 }
                 onUpdateDoorWidth={(doorId, wall, offsetFeet, widthFeet) =>
-                  dispatchStage({ type: "updateDoorWidth", doorId, wall, offsetFeet, widthFeet })
+                  dispatchDoorStageAction({ type: "updateDoorWidth", doorId, wall, offsetFeet, widthFeet })
                 }
-                onDeleteDoor={(doorId) => dispatchStage({ type: "deleteDoor", doorId })}
+                onDeleteDoor={(doorId) => dispatchDoorStageAction({ type: "deleteDoor", doorId })}
                 onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
-                  dispatchStage({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
+                  dispatchDoorStageAction({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
                 }
               />
             }
@@ -2076,6 +2108,35 @@ function buildAddDoorBlockedWarning(input: {
     message: `Add door blocked: ${input.reason}`,
     roomId: input.roomId ?? undefined
   };
+}
+
+function doorRecoverySnapshotContextFromAction(action: LayoutEditorAction): {
+  actionType: string;
+  doorId?: string;
+  roomId?: string;
+} | null {
+  switch (action.type) {
+    case "addDoorToRoom":
+      return { actionType: "addDoor", doorId: action.doorId, roomId: action.roomId };
+    case "moveDoor":
+      return { actionType: "moveDoor", doorId: action.doorId };
+    case "updateDoorWidth":
+      return { actionType: "updateDoorWidth", doorId: action.doorId };
+    case "assignDoorToRoom":
+      return { actionType: "assignDoor", doorId: action.doorId, roomId: action.roomId };
+    case "deleteDoor":
+      return { actionType: "deleteDoor", doorId: action.doorId };
+    case "addSupportAccessPoint":
+      return { actionType: "supportAccessAdd", doorId: action.accessPointId, roomId: action.zoneId };
+    case "moveSupportAccessPoint":
+      return { actionType: "supportAccessMove", doorId: action.accessPointId };
+    case "updateSupportAccessPointWidth":
+      return { actionType: "supportAccessWidth", doorId: action.accessPointId };
+    case "deleteSupportAccessPoint":
+      return { actionType: "supportAccessDelete", doorId: action.accessPointId };
+    default:
+      return null;
+  }
 }
 
 function findSelectedRoom(state: {

@@ -3,8 +3,10 @@ import type { LayoutEditorFloorplanInput } from "./layoutEditorState";
 export type LayoutEditorRecoveryScreenProps = {
   activeFloorplan: LayoutEditorFloorplanInput | null;
   draftAvailable: boolean;
+  lastValidSnapshotAvailable?: boolean;
   onRestoreLatestDraft: () => void;
   onExportDraftJson: () => void;
+  onExportLastValidSnapshot?: () => void;
   onDiscardDraft: () => void;
   onReturnToLibrary: () => void;
 };
@@ -12,8 +14,10 @@ export type LayoutEditorRecoveryScreenProps = {
 export function LayoutEditorRecoveryScreen({
   activeFloorplan,
   draftAvailable,
+  lastValidSnapshotAvailable = false,
   onRestoreLatestDraft,
   onExportDraftJson,
+  onExportLastValidSnapshot = () => undefined,
   onDiscardDraft,
   onReturnToLibrary
 }: LayoutEditorRecoveryScreenProps) {
@@ -30,6 +34,9 @@ export function LayoutEditorRecoveryScreen({
         </button>
         <button type="button" disabled={!draftAvailable} onClick={onExportDraftJson}>
           Export draft JSON
+        </button>
+        <button type="button" disabled={!lastValidSnapshotAvailable} onClick={onExportLastValidSnapshot}>
+          Export last valid snapshot
         </button>
         <button type="button" disabled={!draftAvailable} onClick={onDiscardDraft}>
           Discard draft

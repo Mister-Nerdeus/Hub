@@ -4,6 +4,7 @@ import {
   loadLayoutLocalDraft,
   resetLayoutLocalDraft
 } from "./layoutLocalDraftPersistence";
+import { loadLatestDoorRecoverySnapshot } from "./layoutDoorRecoverySnapshots";
 import { LayoutEditorRecoveryScreen } from "./LayoutEditorRecoveryScreen";
 
 export type LayoutEditorErrorBoundaryProps = {
@@ -42,12 +43,15 @@ export class LayoutEditorErrorBoundary extends Component<
       return this.props.children;
     }
     const draft = this.loadActiveDraft();
+    const snapshot = this.loadLatestDoorRecoverySnapshot();
     return (
       <LayoutEditorRecoveryScreen
         activeFloorplan={this.props.activeFloorplan}
         draftAvailable={draft != null}
+        lastValidSnapshotAvailable={snapshot != null}
         onRestoreLatestDraft={() => this.restoreLatestDraft()}
         onExportDraftJson={() => this.exportDraftJson()}
+        onExportLastValidSnapshot={() => this.exportLastValidSnapshot()}
         onDiscardDraft={() => this.discardDraft()}
         onReturnToLibrary={this.props.onReturnToLibrary}
       />
@@ -81,6 +85,31 @@ export class LayoutEditorErrorBoundary extends Component<
     const link = document.createElement("a");
     link.href = url;
     link.download = `${draft.recordId}-layout-recovery-draft.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  private loadLatestDoorRecoverySnapshot() {
+    if (
+      this.props.activeFloorplan == null ||
+      typeof window === "undefined" ||
+      window.localStorage == null
+    ) {
+      return null;
+    }
+    return loadLatestDoorRecoverySnapshot(window.localStorage, this.props.activeFloorplan.recordId);
+  }
+
+  private exportLastValidSnapshot() {
+    const snapshot = this.loadLatestDoorRecoverySnapshot();
+    if (snapshot == null || typeof window === "undefined" || typeof document === "undefined") {
+      return;
+    }
+    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${snapshot.recordId}-door-recovery-snapshot.json`;
     link.click();
     URL.revokeObjectURL(url);
   }
