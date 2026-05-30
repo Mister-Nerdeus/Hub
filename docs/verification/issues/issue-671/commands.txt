@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-safe-door-authoring-wrapper.mjs --stage wrapper-contract --allow-partial --issue 671
+node scripts/check-safe-door-authoring-wrapper.mjs --stage invalid-add-door --allow-partial --issue 671
+node scripts/check-safe-door-authoring-wrapper.mjs --stage invalid-assign-door --allow-partial --issue 671
+node scripts/check-safe-door-authoring-wrapper.mjs --stage reducer-non-throw --allow-partial --issue 671
+node scripts/check-no-phi-fields.mjs

@@ -68,6 +68,7 @@ export * from "./floorplans/layoutObjectCreation.js";
 export * from "./floorplans/layoutObjectDuplication.js";
 export * from "./floorplans/doorAuthoringContract.js";
 export * from "./floorplans/doorAuthoringTools.js";
+export * from "./floorplans/safeDoorAuthoring.js";
 export * from "./floorplans/doorAdjacency.js";
 export * from "./floorplans/doorPlacementValidity.js";
 export * from "./floorplans/floorplanValidation.js";

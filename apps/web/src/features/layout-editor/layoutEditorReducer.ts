@@ -1,22 +1,26 @@
 import {
-  addDoorToRoom,
   addSplitBayToEditableLayout,
   alignRoomToReference,
   addRoomToEditableLayout,
-  assignDoorToRoom,
   authoringRoomTypeToEditableRoomType,
   createEditableSupportAccessPoint,
   duplicateLayoutObject,
   generateAutoHallways,
   isProviderPharmacySupportZone,
-  moveDoor,
+  safeAddDoorToRoom,
+  safeAssignDoorToRoom,
+  safeDeleteDoor,
+  safeMoveDoor,
+  safeUpdateDoorWidth,
   snapRoomToGrid,
-  updateDoorWidth,
   validateAuthoringRoomType,
   type AuthoringRoomType,
+  type DoorAuthoringActionType,
+  type DoorAuthoringWarning,
   type EditableDoorWall,
   type EditableLayoutGeometryContract,
   type EditableRoomGeometry,
+  type SafeDoorAuthoringResult,
   type EditableSplitBayDividerStyle,
   type EditableStationType,
   type EditableZoneType
@@ -57,6 +61,7 @@ import {
   buildLayoutValidationWarning,
   validateLayoutValidationWarning
 } from "./layoutValidationWarningContract";
+import { buildDoorAuthoringValidationWarning } from "./layoutDoorAuthoringWarnings";
 import {
   recalculateWarningsForRoom,
   replaceGeneratedWarningsBySources
@@ -354,10 +359,15 @@ export function layoutEditorReducer(
     case "deleteSelectedRoom":
       return deleteSelectedRoom(state);
     case "addDoorToRoom":
-      return applyDoorAuthoring(
+      return applyDoorAuthoringMutation(
         state,
-        addDoorToRoom({
-          layout: requireEditableLayout(state),
+        {
+          actionType: "addDoor",
+          doorId: action.doorId,
+          roomId: action.roomId
+        },
+        (layout) => safeAddDoorToRoom({
+          layout,
           readOnly: state.readOnly,
           doorId: action.doorId,
           roomId: action.roomId,
@@ -367,20 +377,53 @@ export function layoutEditorReducer(
         })
       );
     case "addSupportAccessPoint":
-      return addSupportAccessPoint(state, action);
+      return applySupportAccessMutation(
+        state,
+        {
+          actionType: "supportAccessAdd",
+          doorId: action.accessPointId,
+          ownerId: action.zoneId,
+          blockedMessage: "Support access action blocked: target zone cannot accept this access point."
+        },
+        () => addSupportAccessPoint(state, action)
+      );
     case "moveSupportAccessPoint":
-      return editSupportAccessPoint(state, action.accessPointId, {
-        wall: action.wall,
-        offsetFeet: action.offsetFeet
-      });
+      return applySupportAccessMutation(
+        state,
+        {
+          actionType: "supportAccessMove",
+          doorId: action.accessPointId,
+          blockedMessage: "Support access action blocked: access point could not be moved."
+        },
+        () => editSupportAccessPoint(state, action.accessPointId, {
+          wall: action.wall,
+          offsetFeet: action.offsetFeet
+        })
+      );
     case "updateSupportAccessPointWidth":
-      return editSupportAccessPoint(state, action.accessPointId, {
-        wall: action.wall,
-        offsetFeet: action.offsetFeet,
-        widthFeet: action.widthFeet
-      });
+      return applySupportAccessMutation(
+        state,
+        {
+          actionType: "supportAccessWidth",
+          doorId: action.accessPointId,
+          blockedMessage: "Support access action blocked: width change could not be applied."
+        },
+        () => editSupportAccessPoint(state, action.accessPointId, {
+          wall: action.wall,
+          offsetFeet: action.offsetFeet,
+          widthFeet: action.widthFeet
+        })
+      );
     case "deleteSupportAccessPoint":
-      return deleteSupportAccessPoint(state, action.accessPointId);
+      return applySupportAccessMutation(
+        state,
+        {
+          actionType: "supportAccessDelete",
+          doorId: action.accessPointId,
+          blockedMessage: "Support access action blocked: access point could not be deleted."
+        },
+        () => deleteSupportAccessPoint(state, action.accessPointId)
+      );
     case "addSplitBay":
       return addSplitBay(state, action);
     case "convertSelectedRoomPairToSplitBay":
@@ -388,10 +431,14 @@ export function layoutEditorReducer(
     case "editSplitBayDivider":
       return editSplitBayDivider(state, action.splitBayId, action.dividerStyle);
     case "moveDoor":
-      return applyDoorAuthoring(
+      return applyDoorAuthoringMutation(
         state,
-        moveDoor({
-          layout: requireEditableLayout(state),
+        {
+          actionType: "moveDoor",
+          doorId: action.doorId
+        },
+        (layout) => safeMoveDoor({
+          layout,
           readOnly: state.readOnly,
           doorId: action.doorId,
           wall: action.wall,
@@ -399,10 +446,14 @@ export function layoutEditorReducer(
         })
       );
     case "updateDoorWidth":
-      return applyDoorAuthoring(
+      return applyDoorAuthoringMutation(
         state,
-        updateDoorWidth({
-          layout: requireEditableLayout(state),
+        {
+          actionType: "updateDoorWidth",
+          doorId: action.doorId
+        },
+        (layout) => safeUpdateDoorWidth({
+          layout,
           readOnly: state.readOnly,
           doorId: action.doorId,
           wall: action.wall,
@@ -411,10 +462,14 @@ export function layoutEditorReducer(
         })
       );
     case "doorToolMove":
-      return applyDoorAuthoring(
+      return applyDoorAuthoringMutation(
         state,
-        moveDoor({
-          layout: requireEditableLayout(state),
+        {
+          actionType: "moveDoor",
+          doorId: action.doorId
+        },
+        (layout) => safeMoveDoor({
+          layout,
           readOnly: state.readOnly,
           doorId: action.doorId,
           wall: action.wall,
@@ -422,14 +477,32 @@ export function layoutEditorReducer(
         })
       );
     case "deleteDoor":
-      return deleteDoorFromState(state, action.doorId);
+      return applyDoorAuthoringMutation(
+        state,
+        {
+          actionType: "deleteDoor",
+          doorId: action.doorId,
+          selectionAfterApplied: selectionAfterDoorDelete(state, action.doorId),
+          clearDoorWarningIds: [action.doorId]
+        },
+        (layout) => safeDeleteDoor({
+          layout,
+          readOnly: state.readOnly,
+          doorId: action.doorId
+        })
+      );
     case "removeSelectedRoomDoors":
       return removeSelectedRoomDoors(state);
     case "assignDoorToRoom":
-      return applyDoorAuthoring(
+      return applyDoorAuthoringMutation(
         state,
-        assignDoorToRoom({
-          layout: requireEditableLayout(state),
+        {
+          actionType: "assignDoor",
+          doorId: action.doorId,
+          roomId: action.roomId
+        },
+        (layout) => safeAssignDoorToRoom({
+          layout,
           readOnly: state.readOnly,
           doorId: action.doorId,
           roomId: action.roomId,
@@ -748,6 +821,10 @@ function deleteSupportAccessPoint(state: LayoutEditorState, accessPointId: strin
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
+  const accessPointExists = state.editableLayout.supportAccessPoints?.some((candidate) => candidate.id === accessPointId) === true;
+  if (!accessPointExists) {
+    return state;
+  }
   return withUndoHistory(state, {
     ...state,
     editableLayout: {
@@ -876,42 +953,6 @@ function clamp(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(value, Math.max(min, max)));
 }
 
-function deleteDoorFromState(state: LayoutEditorState, doorId: string): LayoutEditorState {
-  if (state.readOnly || state.editableLayout == null) {
-    return state;
-  }
-  const door = state.editableLayout.doors.find((candidate) => candidate.id === doorId);
-  if (door == null) {
-    return state;
-  }
-  const ownerRoomExists = door.ownerKind === "room" &&
-    state.editableLayout.rooms.some((room) => room.id === door.ownerId);
-  return withUndoHistory(state, {
-    ...state,
-    editableLayout: {
-      ...state.editableLayout,
-      doors: state.editableLayout.doors.filter((candidate) => candidate.id !== doorId)
-    },
-    selectedObjectType: ownerRoomExists ? "room" : null,
-    selectedObjectId: ownerRoomExists ? door.ownerId : null,
-    validationWarnings: state.validationWarnings
-      .filter((warning) => warning.objectType !== "door" || warning.objectId !== doorId)
-      .filter((warning) => warning.relatedObjectType !== "door" || warning.relatedObjectId !== doorId)
-      .concat(
-        buildLayoutValidationWarning({
-          code: "path_sync_stale_after_door_edit",
-          severity: "warning",
-          source: "path_sync",
-          message: "Door authoring changed geometry; route/path sync is stale until path nodes are reviewed.",
-          objectType: ownerRoomExists ? "room" : null,
-          objectId: ownerRoomExists ? door.ownerId : null,
-          isGenerated: true
-        })
-      ),
-    isDirty: true
-  });
-}
-
 function removeSelectedRoomDoors(state: LayoutEditorState): LayoutEditorState {
   if (
     state.readOnly ||
@@ -956,29 +997,184 @@ function removeSelectedRoomDoors(state: LayoutEditorState): LayoutEditorState {
   });
 }
 
-function applyDoorAuthoring(
+type DoorAuthoringSelection = {
+  selectedObjectType: LayoutEditorSelectableObjectType | null;
+  selectedObjectId: string | null;
+};
+
+type DoorAuthoringMutationContext = {
+  actionType: DoorAuthoringActionType;
+  doorId?: string;
+  roomId?: string;
+  ownerId?: string;
+  selectionAfterApplied?: DoorAuthoringSelection;
+  clearDoorWarningIds?: readonly string[];
+};
+
+function applyDoorAuthoringMutation(
   state: LayoutEditorState,
-  result: ReturnType<typeof addDoorToRoom>
+  context: DoorAuthoringMutationContext,
+  mutate: (layout: EditableLayoutGeometryContract) => SafeDoorAuthoringResult
 ): LayoutEditorState {
+  if (state.editableLayout == null) {
+    return appendDoorAuthoringWarning(state, {
+      code: "door_authoring_layout_missing",
+      severity: "blocking",
+      actionType: context.actionType,
+      message: "Door action blocked: editable layout is not loaded.",
+      doorId: context.doorId,
+      roomId: context.roomId,
+      ownerId: context.ownerId
+    });
+  }
+
+  let result: SafeDoorAuthoringResult;
+  try {
+    result = mutate(state.editableLayout);
+  } catch (error) {
+    return appendDoorAuthoringWarning(state, unexpectedDoorAuthoringWarning(context, error));
+  }
+
+  if (result.status === "blocked") {
+    return appendDoorAuthoringWarning(state, result.warning);
+  }
+
+  const selection = context.selectionAfterApplied ?? selectionFromDoorAuthoringResult(result);
+  const clearedWarnings = filterDoorAuthoringWarnings(
+    state.validationWarnings,
+    context.clearDoorWarningIds ?? []
+  );
   return withUndoHistory(state, {
     ...state,
     editableLayout: result.layout,
-    selectedObjectType: result.selectedDoorId == null ? null : "door",
-    selectedObjectId: result.selectedDoorId,
+    selectedObjectType: selection.selectedObjectType,
+    selectedObjectId: selection.selectedObjectId,
     validationWarnings: [
-      ...state.validationWarnings,
+      ...clearedWarnings,
       buildLayoutValidationWarning({
         code: "path_sync_stale_after_door_edit",
         severity: "warning",
         source: "path_sync",
-        message: result.warning,
-        objectType: result.selectedDoorId == null ? null : "door",
-        objectId: result.selectedDoorId,
+        message: result.pathSyncWarning,
+        objectType: selection.selectedObjectType,
+        objectId: selection.selectedObjectId,
         isGenerated: true
       })
     ],
     isDirty: true
   });
+}
+
+function applySupportAccessMutation(
+  state: LayoutEditorState,
+  context: DoorAuthoringMutationContext & { blockedMessage: string },
+  mutate: () => LayoutEditorState
+): LayoutEditorState {
+  if (state.editableLayout == null) {
+    return appendDoorAuthoringWarning(state, {
+      code: "door_authoring_layout_missing",
+      severity: "blocking",
+      actionType: context.actionType,
+      message: "Door action blocked: editable layout is not loaded.",
+      doorId: context.doorId,
+      ownerId: context.ownerId
+    });
+  }
+  if (state.readOnly) {
+    return appendDoorAuthoringWarning(state, {
+      code: "door_authoring_read_only",
+      severity: "blocking",
+      actionType: context.actionType,
+      message: "Door action blocked: read-only plans cannot be edited.",
+      doorId: context.doorId,
+      ownerId: context.ownerId
+    });
+  }
+
+  try {
+    const nextState = mutate();
+    if (nextState === state) {
+      return appendDoorAuthoringWarning(state, {
+        code: "door_authoring_action_blocked",
+        severity: "blocking",
+        actionType: context.actionType,
+        message: context.blockedMessage,
+        doorId: context.doorId,
+        roomId: context.roomId,
+        ownerId: context.ownerId
+      });
+    }
+    return nextState;
+  } catch (error) {
+    return appendDoorAuthoringWarning(state, unexpectedDoorAuthoringWarning(context, error));
+  }
+}
+
+function appendDoorAuthoringWarning(
+  state: LayoutEditorState,
+  warning: DoorAuthoringWarning
+): LayoutEditorState {
+  return {
+    ...state,
+    validationWarnings: [
+      ...state.validationWarnings,
+      buildDoorAuthoringValidationWarning(warning)
+    ]
+  };
+}
+
+function unexpectedDoorAuthoringWarning(
+  context: DoorAuthoringMutationContext,
+  error: unknown
+): DoorAuthoringWarning {
+  return {
+    code: "door_authoring_unexpected_blocked",
+    severity: "blocking",
+    actionType: context.actionType,
+    message: `Door action blocked by editor guard: ${messageFromUnknownError(error)}`,
+    doorId: context.doorId,
+    roomId: context.roomId,
+    ownerId: context.ownerId
+  };
+}
+
+function messageFromUnknownError(error: unknown): string {
+  if (error instanceof Error && error.message.trim().length > 0) {
+    return error.message.trim();
+  }
+  return "previous layout was preserved";
+}
+
+function selectionFromDoorAuthoringResult(result: Extract<SafeDoorAuthoringResult, { status: "applied" }>): DoorAuthoringSelection {
+  if (result.selectedDoorId == null) {
+    return { selectedObjectType: null, selectedObjectId: null };
+  }
+  return { selectedObjectType: "door", selectedObjectId: result.selectedDoorId };
+}
+
+function selectionAfterDoorDelete(state: LayoutEditorState, doorId: string): DoorAuthoringSelection | undefined {
+  const door = state.editableLayout?.doors.find((candidate) => candidate.id === doorId);
+  if (door == null || door.ownerKind !== "room") {
+    return undefined;
+  }
+  const ownerRoomExists = state.editableLayout?.rooms.some((room) => room.id === door.ownerId) === true;
+  if (!ownerRoomExists) {
+    return undefined;
+  }
+  return { selectedObjectType: "room", selectedObjectId: door.ownerId };
+}
+
+function filterDoorAuthoringWarnings(
+  warnings: readonly LayoutEditorValidationWarning[],
+  doorIds: readonly string[]
+): LayoutEditorValidationWarning[] {
+  if (doorIds.length === 0) {
+    return [...warnings];
+  }
+  const removedDoorIds = new Set(doorIds);
+  return warnings
+    .filter((warning) => warning.objectType !== "door" || warning.objectId == null || !removedDoorIds.has(warning.objectId))
+    .filter((warning) => warning.relatedObjectType !== "door" || warning.relatedObjectId == null || !removedDoorIds.has(warning.relatedObjectId));
 }
 
 function generateAutoHallwaysForState(state: LayoutEditorState): LayoutEditorState {
@@ -1172,13 +1368,6 @@ function validateAccepted(result: ReturnType<typeof validateRoomOperationalLabel
     throw new Error(result.reason);
   }
   return result.value;
-}
-
-function requireEditableLayout(state: LayoutEditorState): EditableLayoutGeometryContract {
-  if (state.editableLayout == null) {
-    throw new Error("editable layout is required");
-  }
-  return state.editableLayout;
 }
 
 function restoreLayoutEditHistory(

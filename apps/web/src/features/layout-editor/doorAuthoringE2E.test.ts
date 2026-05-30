@@ -7,7 +7,7 @@ import { buildPlanContractFromEditableLayout } from "@nerdeus/shared";
 import { createDuplicateFloorplanViewModel } from "../floorplans/duplicateFloorplanViewModel";
 import { createEmptyActiveFloorplanState, openSavedFloorplan } from "../floorplans/activeFloorplanState";
 import { createSavedFloorplanStore } from "../floorplans/savedFloorplanStore";
-import { createLayoutEditorStateFromFloorplan } from "./layoutEditorState";
+import { createLayoutEditorStateFromFloorplan, type LayoutEditorState } from "./layoutEditorState";
 import { layoutEditorReducer } from "./layoutEditorReducer";
 
 declare const process: { cwd(): string };
@@ -148,71 +148,77 @@ const readonlyState = createLayoutEditorStateFromFloorplan({
   parentDefaultPlanId: null,
   plan: saved.authoringDraft.sourcePlan
 });
-const readOnlyRejected = throws(() =>
-  layoutEditorReducer(readonlyState, {
+const readOnlyBlocked = blocksWithWarning(
+  readonlyState,
+  {
     type: "addDoorToRoom",
     doorId: "readonly-door",
     roomId: targetRoom.id,
     wall: "north",
     offsetFeet: 1,
     widthFeet: 2
-  })
+  }
 );
 const negativeResults = {
-  nanOffsetRejected: throws(() =>
-    layoutEditorReducer(afterAddOne, {
+  nanOffsetBlocked: blocksWithWarning(
+    afterAddOne,
+    {
       type: "addDoorToRoom",
       doorId: "door-negative-nan-offset",
       roomId: targetRoom.id,
       wall: "north",
       offsetFeet: Number.NaN,
       widthFeet: 2
-    })
+    }
   ),
-  infinityOffsetRejected: throws(() =>
-    layoutEditorReducer(afterAddOne, {
+  infinityOffsetBlocked: blocksWithWarning(
+    afterAddOne,
+    {
       type: "addDoorToRoom",
       doorId: "door-negative-infinity-offset",
       roomId: targetRoom.id,
       wall: "north",
       offsetFeet: Number.POSITIVE_INFINITY,
       widthFeet: 2
-    })
+    }
   ),
-  nanWidthRejected: throws(() =>
-    layoutEditorReducer(afterAddOne, {
+  nanWidthBlocked: blocksWithWarning(
+    afterAddOne,
+    {
       type: "addDoorToRoom",
       doorId: "door-negative-nan-width",
       roomId: targetRoom.id,
       wall: "north",
       offsetFeet: 1,
       widthFeet: Number.NaN
-    })
+    }
   ),
-  nonPositiveWidthRejected: throws(() =>
-    layoutEditorReducer(afterAddOne, {
+  nonPositiveWidthBlocked: blocksWithWarning(
+    afterAddOne,
+    {
       type: "addDoorToRoom",
       doorId: "door-negative-zero-width",
       roomId: targetRoom.id,
       wall: "north",
       offsetFeet: 1,
       widthFeet: 0
-    })
+    }
   ),
-  outsidePerimeterRejected: throws(() =>
-    layoutEditorReducer(afterAddOne, {
+  outsidePerimeterBlocked: blocksWithWarning(
+    afterAddOne,
+    {
       type: "addDoorToRoom",
       doorId: "door-negative-outside",
       roomId: targetRoom.id,
       wall: "north",
       offsetFeet: 999,
       widthFeet: 2
-    })
+    }
   ),
-  readOnlyRejected
+  readOnlyBlocked
 };
 if (Object.values(negativeResults).some((value) => value !== true)) {
-  throw new Error("door negative validation cases must reject");
+  throw new Error("door negative validation cases must become warnings and preserve layout");
 }
 if (JSON.stringify(saved.authoringDraft.sourcePlan.doors) !== originalSourceDoorGeometry) {
   throw new Error("source default doors must remain unchanged");
@@ -282,11 +288,19 @@ writeEvidence("default-nonmutation-output.json", {
   sourcePlanDoorCount: saved.authoringDraft.sourcePlan.doors.length
 });
 
-function throws(callback: () => void): boolean {
+function blocksWithWarning(
+  state: LayoutEditorState,
+  action: Parameters<typeof layoutEditorReducer>[1]
+): boolean {
+  const beforeLayout = JSON.stringify(state.editableLayout);
   try {
-    callback();
-    return false;
+    const next = layoutEditorReducer(state, action);
+    return (
+      JSON.stringify(next.editableLayout) === beforeLayout &&
+      next.validationWarnings.length === state.validationWarnings.length + 1 &&
+      next.validationWarnings.some((warning) => warning.code.startsWith("door_authoring_"))
+    );
   } catch {
-    return true;
+    return false;
   }
 }

@@ -1,0 +1,53 @@
+{
+  "issue": "671",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-671/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-671/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-671/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-safe-door-authoring-wrapper.mjs --stage wrapper-contract --allow-partial --issue 671",
+      "outputs": [
+        "docs/verification/issues/issue-671/safe-wrapper-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-safe-door-authoring-wrapper.mjs --stage invalid-add-door --allow-partial --issue 671",
+      "outputs": [
+        "docs/verification/issues/issue-671/invalid-add-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-safe-door-authoring-wrapper.mjs --stage invalid-assign-door --allow-partial --issue 671",
+      "outputs": [
+        "docs/verification/issues/issue-671/invalid-assign-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-safe-door-authoring-wrapper.mjs --stage reducer-non-throw --allow-partial --issue 671",
+      "outputs": [
+        "docs/verification/issues/issue-671/reducer-non-throw-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-671/no-phi-output.txt"
+      ]
+    }
+  ]
+}
