@@ -27,6 +27,7 @@ const issue = readArg("--issue", "669");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
+const isFinalAuditIssue = Number(issue) >= 678;
 const supportedStages = [
   "go-revocation",
   "manifest-contract",
@@ -82,15 +83,21 @@ if (passed !== "passed" && !allowPartial) process.exit(1);
 function runStage(selectedStage) {
   if (selectedStage === "go-revocation") {
     const manifest = loadDoorAuthoringManifest(issue);
+    const finalAuditProofComplete = isFinalAuditIssue && hasCompletedDoorProof(manifest);
     const passed = manifest.sourceGoNoGoRevoked === true &&
       manifest.sourceGoNoGoStatus === "go_for_full_er_floorplan_reconstruction" &&
       manifest.reconstructionStatus === "no_go_until_door_authoring_crash_hardening_passes" &&
-      manifest.goNoGoStatus !== "go_for_full_er_floorplan_reconstruction";
+      (
+        manifest.goNoGoStatus !== "go_for_full_er_floorplan_reconstruction" ||
+        finalAuditProofComplete
+      );
     const result = {
       status: passed ? "passed" : "failed",
       sourceGoNoGoStatus: manifest.sourceGoNoGoStatus,
       sourceGoNoGoRevoked: manifest.sourceGoNoGoRevoked,
       reconstructionStatus: manifest.reconstructionStatus,
+      goNoGoStatus: manifest.goNoGoStatus,
+      finalAuditProofComplete,
       revocationReason: manifest.revocationReason
     };
     addCheck(checks, "prior reconstruction GO is explicitly revoked", passed, result);
@@ -103,7 +110,7 @@ function runStage(selectedStage) {
     const requiredKeys = Object.keys(doorAuthoringManifestTemplate);
     const missing = requiredKeys.filter((key) => !Object.hasOwn(manifest, key));
     const mismatches = [];
-    for (const [key, expected] of Object.entries({
+    const expectedEntries = Object.entries({
       manifestVersion: "1.0.0",
       batch: "669-678",
       productDisplayName: "ER Pod Shift Simulator",
@@ -115,10 +122,20 @@ function runStage(selectedStage) {
       clinicalSafetyScoringStatus: "not_started",
       staffingComplianceStatus: "not_started",
       patientOutcomePredictionStatus: "not_started",
-      noPhiStatus: "passed",
-      goNoGoStatus: "not_ready"
-    })) {
+      noPhiStatus: "passed"
+    });
+    for (const [key, expected] of expectedEntries) {
       if (manifest[key] !== expected) mismatches.push({ key, expected, actual: manifest[key] });
+    }
+    const allowedGoNoGoStatuses = isFinalAuditIssue && hasCompletedDoorProof(manifest)
+      ? ["not_ready", "go_for_full_er_floorplan_reconstruction"]
+      : ["not_ready"];
+    if (!allowedGoNoGoStatuses.includes(manifest.goNoGoStatus)) {
+      mismatches.push({
+        key: "goNoGoStatus",
+        expected: allowedGoNoGoStatuses.join(" or "),
+        actual: manifest.goNoGoStatus
+      });
     }
     const passed = missing.length === 0 && mismatches.length === 0;
     const result = { status: passed ? "passed" : "failed", missing, mismatches, manifestPath: doorAuthoringManifestPath };
@@ -167,6 +184,33 @@ function runStage(selectedStage) {
   }
 
   throw new Error(`Unsupported stage: ${selectedStage}`);
+}
+
+function hasCompletedDoorProof(manifest) {
+  return [
+    "doorCrashPreflightStatus",
+    "doorCrashReproductionStatus",
+    "safeDoorAuthoringWrapperStatus",
+    "doorCandidateEligibilityStatus",
+    "addDoorPreflightStatus",
+    "doorOwnerModelStatus",
+    "doorRecoverySnapshotsStatus",
+    "recoveryDiagnosticsStatus",
+    "doorRegressionPackStatus"
+  ].every((key) => manifest[key] === "passed") &&
+    [
+      "doorActionsNonThrowing",
+      "leftPodDoorCrashProof",
+      "rightPodDoorCrashProof",
+      "invalidDoorActionsBecomeWarnings",
+      "candidateEligibilityProof",
+      "solidWallDoorRejected",
+      "supportAccessSeparatedFromPatientDoor",
+      "lastValidSnapshotProof",
+      "recoveryDiagnosticsVisible",
+      "doorSaveReloadProof",
+      "noRecoveryScreenDuringDoorWork"
+    ].every((key) => manifest[key] === true);
 }
 
 function evaluateFalseGoFixture(fixture) {

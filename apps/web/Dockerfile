@@ -1,6 +1,10 @@
 # Local-proof default. Use Dockerfile.production for production-shaped builds.
 FROM node:22-alpine
 
+LABEL org.opencontainers.image.title="ER Pod Shift Simulator Web"
+LABEL org.opencontainers.image.description="Operational simulation web editor; no PHI or EHR integration"
+LABEL org.opencontainers.image.revision="door-authoring-crash-hardening-669-678"
+
 WORKDIR /repo
 
 COPY package.json package-lock.json ./

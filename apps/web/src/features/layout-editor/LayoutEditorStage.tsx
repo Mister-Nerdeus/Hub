@@ -1833,7 +1833,7 @@ export function LayoutEditorStage({
                     onNudge={(deltaFeet) => {
                       const next = computeDoorNudge(deltaFeet);
                       if (next != null && doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "moveDoor",
                           doorId: doorQuickEditViewModel.doorId,
                           wall: next.wall,
@@ -1844,7 +1844,7 @@ export function LayoutEditorStage({
                     onCenter={() => {
                       const next = computeDoorCenter();
                       if (next != null && doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "moveDoor",
                           doorId: doorQuickEditViewModel.doorId,
                           wall: next.wall,
@@ -1855,7 +1855,7 @@ export function LayoutEditorStage({
                     onOpposite={() => {
                       const next = computeDoorOpposite();
                       if (next != null && doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "moveDoor",
                           doorId: doorQuickEditViewModel.doorId,
                           wall: next.wall,
@@ -1865,7 +1865,7 @@ export function LayoutEditorStage({
                     }}
                     onAdjacentCandidate={(roomId, wall, offsetFeet) => {
                       if (doorQuickEditViewModel.doorId != null) {
-                        dispatchStage({
+                        dispatchDoorStageAction({
                           type: "assignDoorToRoom",
                           doorId: doorQuickEditViewModel.doorId,
                           roomId,

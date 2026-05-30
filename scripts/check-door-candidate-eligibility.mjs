@@ -148,13 +148,15 @@ async function runStage(selectedStage) {
   if (selectedStage === "placeholder-selection") {
     const popoverSource = readText("apps/web/src/features/layout-editor/DoorQuickEditPopover.tsx");
     const selectorSource = readText("apps/web/src/features/layout-editor/AdjacentDoorCandidateSelector.tsx");
+    const doorEditorSource = readText("apps/web/src/features/layout-editor/DoorEditor.tsx");
     const result = {
       status: "passed",
       quickEditHasPlaceholder: popoverSource.includes('<option value="">Select candidate...</option>'),
       selectorHasPlaceholder: selectorSource.includes('<option value="">Select candidate...</option>'),
       quickEditIgnoresPlaceholder: popoverSource.includes('event.currentTarget.value === ""'),
       selectorIgnoresPlaceholder: selectorSource.includes('event.currentTarget.value === ""'),
-      noFirstCandidateValue: !selectorSource.includes("?? viewModel.candidates[0]")
+      noFirstCandidateValue: !selectorSource.includes("?? viewModel.candidates[0]"),
+      doorEditorDoesNotAutoSelectFirstCandidate: !doorEditorSource.includes("adjacentCandidateViewModel.candidates[0]")
     };
     const passed = Object.entries(result)
       .filter(([key]) => key !== "status")

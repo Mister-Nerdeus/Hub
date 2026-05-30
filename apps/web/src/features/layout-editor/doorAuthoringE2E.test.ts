@@ -215,6 +215,24 @@ const negativeResults = {
       widthFeet: 2
     }
   ),
+  nonPatientDoorTargetBlocked: (() => {
+    const nonPatientRoom = afterAddOne.editableLayout?.rooms.find((room) =>
+      room.roomType === "storage" || room.roomType === "provider_pharmacy"
+    );
+    if (nonPatientRoom == null) {
+      return true;
+    }
+    return blocksWithWarning(
+      afterAddOne,
+      {
+        type: "assignDoorToRoom",
+        doorId: "door-authoring-e2e-one",
+        roomId: nonPatientRoom.id,
+        wall: "north",
+        offsetFeet: 1
+      }
+    );
+  })(),
   readOnlyBlocked
 };
 if (Object.values(negativeResults).some((value) => value !== true)) {

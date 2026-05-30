@@ -105,7 +105,7 @@ async function runStage(selectedStage) {
   if (selectedStage === "invalid-add-door") {
     const { safeAddDoorToRoom } = await loadSharedDist();
     const layout = fixtureLayout();
-    const resultValue = safeAddDoorToRoom({
+    const missingRoomResult = safeAddDoorToRoom({
       layout,
       readOnly: false,
       doorId: "door-invalid-add",
@@ -114,12 +114,31 @@ async function runStage(selectedStage) {
       offsetFeet: 1,
       widthFeet: 3
     });
-    const passed = blockedResultPreservesLayout(resultValue, layout);
+    const storageResult = safeAddDoorToRoom({
+      layout,
+      readOnly: false,
+      doorId: "door-storage-add",
+      roomId: "storage-room",
+      wall: "north",
+      offsetFeet: 1,
+      widthFeet: 3
+    });
+    const providerResult = safeAddDoorToRoom({
+      layout,
+      readOnly: false,
+      doorId: "door-provider-add",
+      roomId: "provider-room",
+      wall: "north",
+      offsetFeet: 1,
+      widthFeet: 3
+    });
+    const passed = [missingRoomResult, storageResult, providerResult]
+      .every((resultValue) => blockedResultPreservesLayout(resultValue, layout));
     const result = {
       status: passed ? "passed" : "failed",
-      resultStatus: resultValue.status,
-      layoutReferencePreserved: resultValue.layout === layout,
-      warning: resultValue.warning ?? null
+      missingRoom: summarizeBlockedResult(missingRoomResult, layout),
+      storageRoom: summarizeBlockedResult(storageResult, layout),
+      providerRoom: summarizeBlockedResult(providerResult, layout)
     };
     addCheck(checks, "invalid add door returns blocked result", passed, result);
     writeJson(`${dir}/invalid-add-door-output.json`, result);
@@ -129,7 +148,7 @@ async function runStage(selectedStage) {
   if (selectedStage === "invalid-assign-door") {
     const { safeAssignDoorToRoom } = await loadSharedDist();
     const layout = fixtureLayout();
-    const resultValue = safeAssignDoorToRoom({
+    const missingRoomResult = safeAssignDoorToRoom({
       layout,
       readOnly: false,
       doorId: "door-01",
@@ -137,12 +156,29 @@ async function runStage(selectedStage) {
       wall: "north",
       offsetFeet: 1
     });
-    const passed = blockedResultPreservesLayout(resultValue, layout);
+    const storageResult = safeAssignDoorToRoom({
+      layout,
+      readOnly: false,
+      doorId: "door-01",
+      roomId: "storage-room",
+      wall: "north",
+      offsetFeet: 1
+    });
+    const providerResult = safeAssignDoorToRoom({
+      layout,
+      readOnly: false,
+      doorId: "door-01",
+      roomId: "provider-room",
+      wall: "north",
+      offsetFeet: 1
+    });
+    const passed = [missingRoomResult, storageResult, providerResult]
+      .every((resultValue) => blockedResultPreservesLayout(resultValue, layout));
     const result = {
       status: passed ? "passed" : "failed",
-      resultStatus: resultValue.status,
-      layoutReferencePreserved: resultValue.layout === layout,
-      warning: resultValue.warning ?? null
+      missingRoom: summarizeBlockedResult(missingRoomResult, layout),
+      storageRoom: summarizeBlockedResult(storageResult, layout),
+      providerRoom: summarizeBlockedResult(providerResult, layout)
     };
     addCheck(checks, "invalid assignment returns blocked result", passed, result);
     writeJson(`${dir}/invalid-assign-door-output.json`, result);
@@ -238,6 +274,14 @@ function blockedResultPreservesLayout(result, layout) {
     result.warning.message.length > 0;
 }
 
+function summarizeBlockedResult(result, layout) {
+  return {
+    resultStatus: result.status,
+    layoutReferencePreserved: result.layout === layout,
+    warning: result.warning ?? null
+  };
+}
+
 function fixtureLayout() {
   return {
     schemaVersion: "1.0.0",
@@ -254,6 +298,34 @@ function fixtureLayout() {
         isHallBed: false,
         isTraumaAdjacent: false,
         xFeet: 0,
+        yFeet: 0,
+        widthFeet: 12,
+        heightFeet: 10
+      },
+      {
+        objectType: "room",
+        id: "storage-room",
+        label: "Storage",
+        roomNumber: "Storage",
+        roomType: "storage",
+        capacityType: "single",
+        isHallBed: false,
+        isTraumaAdjacent: false,
+        xFeet: 14,
+        yFeet: 0,
+        widthFeet: 12,
+        heightFeet: 10
+      },
+      {
+        objectType: "room",
+        id: "provider-room",
+        label: "Provider Pharmacy",
+        roomNumber: "Provider",
+        roomType: "provider_pharmacy",
+        capacityType: "single",
+        isHallBed: false,
+        isTraumaAdjacent: false,
+        xFeet: 28,
         yFeet: 0,
         widthFeet: 12,
         heightFeet: 10

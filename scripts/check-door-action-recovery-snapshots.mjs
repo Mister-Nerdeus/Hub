@@ -108,6 +108,7 @@ function runStage(selectedStage) {
   }
 
   if (selectedStage === "before-door-action") {
+    const rawDoorDispatches = findRawDoorMutationDispatches(stageSource);
     const result = {
       status: "passed",
       stageCreatesSnapshot: stageSource.includes("createDoorRecoverySnapshot"),
@@ -123,9 +124,11 @@ function runStage(selectedStage) {
         "supportAccessMove",
         "supportAccessWidth",
         "supportAccessDelete"
-      ].every((actionType) => stageSource.includes(`actionType: "${actionType}"`))
+      ].every((actionType) => stageSource.includes(`actionType: "${actionType}"`)),
+      allDoorMutationDispatchesUseSnapshotWrapper: rawDoorDispatches.length === 0,
+      rawDoorDispatches
     };
-    const passed = allTrue(result);
+    const passed = allTrue(result, ["rawDoorDispatches"]);
     result.status = passed ? "passed" : "failed";
     addCheck(checks, "door and support-access actions snapshot before reducer dispatch", passed, result);
     writeJson(`${dir}/before-door-action-output.json`, result);
@@ -180,10 +183,28 @@ function runStage(selectedStage) {
   throw new Error(`Unsupported stage: ${selectedStage}`);
 }
 
-function allTrue(result) {
+function allTrue(result, ignoredKeys = []) {
+  const ignored = new Set(["status", ...ignoredKeys]);
   return Object.entries(result)
-    .filter(([key]) => key !== "status")
+    .filter(([key]) => !ignored.has(key))
     .every(([, value]) => value === true);
+}
+
+function findRawDoorMutationDispatches(source) {
+  const mutationTypes = new Set([
+    "addDoorToRoom",
+    "moveDoor",
+    "updateDoorWidth",
+    "assignDoorToRoom",
+    "deleteDoor",
+    "addSupportAccessPoint",
+    "moveSupportAccessPoint",
+    "updateSupportAccessPointWidth",
+    "deleteSupportAccessPoint"
+  ]);
+  return [...source.matchAll(/dispatchStage\(\s*\{\s*type:\s*"([^"]+)"/gs)]
+    .map((match) => match[1])
+    .filter((actionType) => mutationTypes.has(actionType));
 }
 
 function writeCommandsAndCloseout(status) {

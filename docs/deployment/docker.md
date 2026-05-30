@@ -64,3 +64,7 @@ These Dockerfiles do not deploy the app, add auth, configure DNS, or certify pro
 ## Batch 401-420 Editor Review Note
 
 The editor usability and canvas popup changes remain within the existing Docker build paths. The web images copy `apps/web` and `packages/shared`, so shared editor helpers such as layout object duplication are included without adding dependencies or changing runtime services.
+
+## Batch 669-678 Door Authoring Note
+
+Door authoring crash hardening remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the safe door mutation wrappers, candidate eligibility model, recovery snapshot helpers, and recovery diagnostics ship without adding services or dependencies. The API and web images carry the `door-authoring-crash-hardening-669-678` revision label for local Docker proof traceability only.

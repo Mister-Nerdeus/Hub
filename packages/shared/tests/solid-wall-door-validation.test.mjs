@@ -57,7 +57,7 @@ test("solid wall rejects authored doors", () => {
         offsetFeet: 1,
         widthFeet: 3
       }),
-    /cannot accept doors/
+    /patient-room target/
   );
 });
 

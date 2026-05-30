@@ -1,0 +1,38 @@
+{
+  "status": "passed",
+  "dockerFilesUpdated": [
+    "apps/web/Dockerfile",
+    "apps/web/Dockerfile.local",
+    "apps/web/Dockerfile.production",
+    "apps/api/Dockerfile",
+    "apps/api/Dockerfile.local",
+    "apps/api/Dockerfile.production"
+  ],
+  "dockerDocsUpdated": "docs/deployment/docker.md",
+  "revisionLabel": "door-authoring-crash-hardening-669-678",
+  "dependencyChange": "none",
+  "serviceChange": "none",
+  "verification": [
+    {
+      "command": "docker compose config",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "status": "passed"
+    },
+    {
+      "command": "node scripts/check-production-docker-runtime.mjs",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose build web api",
+      "status": "passed"
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web api",
+      "status": "passed"
+    }
+  ],
+  "nonPhiBoundary": "container labels retain no-PHI and no-EHR boundary language"
+}

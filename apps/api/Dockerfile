@@ -1,6 +1,10 @@
 # Local-proof default. Use Dockerfile.production for production-shaped builds.
 FROM python:3.13-slim
 
+LABEL org.opencontainers.image.title="ER Pod Shift Simulator API"
+LABEL org.opencontainers.image.description="Operational simulation API; no PHI or EHR integration"
+LABEL org.opencontainers.image.revision="door-authoring-crash-hardening-669-678"
+
 WORKDIR /app
 
 COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./

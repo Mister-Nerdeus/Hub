@@ -131,7 +131,6 @@ export function DoorEditor({
           </div>
           <AdjacentDoorCandidateSelector
             viewModel={adjacentCandidateViewModel}
-            selectedRoomId={adjacentCandidateViewModel.candidates[0]?.roomId ?? null}
             onSelectCandidate={(roomId, wall, offsetFeet) => onAssignDoorToRoom(door.id, roomId, wall, offsetFeet)}
           />
           <DoorWidthControls

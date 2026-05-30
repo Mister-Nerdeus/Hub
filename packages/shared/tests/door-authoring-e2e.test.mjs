@@ -19,6 +19,28 @@ const twoRoomLayout = validateEditableLayoutGeometryContract({
   ...testEditableLayout,
   rooms: [...testEditableLayout.rooms, secondRoom]
 });
+const nonPatientTargetLayout = validateEditableLayoutGeometryContract({
+  ...twoRoomLayout,
+  rooms: [
+    ...twoRoomLayout.rooms,
+    {
+      ...secondRoom,
+      id: "storage-room",
+      label: "Storage Room",
+      roomNumber: "Storage",
+      roomType: "storage",
+      xFeet: 56
+    },
+    {
+      ...secondRoom,
+      id: "provider-room",
+      label: "Provider Pharmacy",
+      roomNumber: "Provider",
+      roomType: "provider_pharmacy",
+      xFeet: 84
+    }
+  ]
+});
 
 const addedOne = addDoorToRoom({
   layout: twoRoomLayout,
@@ -103,6 +125,29 @@ throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: -1 }), /perimeter/);
 throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: 14, widthFeet: 3 }), /perimeter/);
 throws(() => addDoorToRoom({ ...doorInput(), offsetFeet: 99 }), /perimeter/);
 throws(() => addDoorToRoom({ ...doorInput(), readOnly: true }), /read-only default plans/);
+throws(
+  () => addDoorToRoom({ ...doorInput(), layout: nonPatientTargetLayout, roomId: "storage-room" }),
+  /patient-room target/
+);
+throws(
+  () => addDoorToRoom({ ...doorInput(), layout: nonPatientTargetLayout, roomId: "provider-room" }),
+  /patient-room target/
+);
+throws(
+  () =>
+    assignDoorToRoom({
+      layout: {
+        ...addedOne.layout,
+        rooms: nonPatientTargetLayout.rooms
+      },
+      readOnly: false,
+      doorId: "door-authored-one",
+      roomId: "storage-room",
+      wall: "north",
+      offsetFeet: 1
+    }),
+  /patient-room target/
+);
 
 function doorInput() {
   return {

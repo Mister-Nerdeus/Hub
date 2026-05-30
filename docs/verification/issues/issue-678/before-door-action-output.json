@@ -3,5 +3,7 @@
   "stageCreatesSnapshot": true,
   "stageSavesSnapshot": true,
   "dispatchWrapperPresent": true,
-  "coversDoorActions": true
+  "coversDoorActions": true,
+  "allDoorMutationDispatchesUseSnapshotWrapper": true,
+  "rawDoorDispatches": []
 }

@@ -16,6 +16,9 @@ if (!source.includes("validateDoorPlacementWarning")) throw new Error("DoorEdito
 if (source.includes("assignDoorToAdjacentRoom")) {
   throw new Error("DoorEditor must not silently assign the first adjacent candidate");
 }
+if (source.includes("adjacentCandidateViewModel.candidates[0]")) {
+  throw new Error("DoorEditor candidate selector must start from the neutral placeholder");
+}
 if (source.includes('aria-label="Door room"')) {
   throw new Error("DoorEditor must not expose all-room reassignment outside geometry-valid candidates");
 }

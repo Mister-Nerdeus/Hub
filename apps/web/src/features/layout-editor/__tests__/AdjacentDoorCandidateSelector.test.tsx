@@ -30,6 +30,9 @@ const element = AdjacentDoorCandidateSelector({
 if (element.props["data-adjacent-door-candidate-selector"] !== "ready") {
   throw new Error("selector should expose DOM assertion status");
 }
+if (element.props.children[0].props.children[1].props.value !== "") {
+  throw new Error("selector must start at the neutral placeholder until the user selects a candidate");
+}
 element.props.children[0].props.children[1].props.onChange({ currentTarget: { value: "target" } });
 if (calls.at(-1) !== "target") {
   throw new Error("selector should dispatch the user-selected candidate");
