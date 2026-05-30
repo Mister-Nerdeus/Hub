@@ -12,6 +12,7 @@ import {
   validateCanonicalScenarioSeedContract,
   validateRatioPresetPair,
   validateRoomLoadStarterContract,
+  type ActiveFloorplanContract,
   type CanonicalScenarioSeedContract
 } from "@nerdeus/shared";
 
@@ -20,6 +21,7 @@ export type ScenarioComparisonViewModelInput = {
   scenarioSeed: CanonicalScenarioSeedContract;
   splitBayBridgeReady: boolean;
   imageBackedReferenceProofReady: boolean;
+  activeFloorplanContext?: ActiveFloorplanContract | null;
 };
 
 export type ScenarioRatioCardViewModel = {
@@ -34,6 +36,8 @@ export type ScenarioRatioCardViewModel = {
 
 export type ScenarioComparisonViewModel = {
   canonicalFloorplanId: string;
+  activeFloorplanDisplayName: string;
+  activeFloorplanVersionId: string | null;
   floorplanLabel: string;
   foundationStatus: string;
   referenceImageStatus: string;
@@ -113,16 +117,15 @@ export function createScenarioComparisonViewModel(
     syntheticDataOnly: true
   });
 
-  if (input.canonicalFloorplanId !== CANONICAL_SCENARIO_FLOORPLAN_ID) {
-    throw new Error("Scenario comparison requires the canonical Plan 1 floorplan");
-  }
-
   const fourToOneCard = buildRatioCard(fourToOnePreset, capacity.ratioEligibleCount);
   const threeToOneCard = buildRatioCard(threeToOnePreset, capacity.ratioEligibleCount);
+  const activeFloorplan = input.activeFloorplanContext;
 
   return {
-    canonicalFloorplanId: CANONICAL_SCENARIO_FLOORPLAN_ID,
-    floorplanLabel: "Canonical ER pod floorplan",
+    canonicalFloorplanId: activeFloorplan?.activeFloorplanId ?? CANONICAL_SCENARIO_FLOORPLAN_ID,
+    activeFloorplanDisplayName: activeFloorplan?.displayName ?? "ER Pod Main Layout",
+    activeFloorplanVersionId: activeFloorplan?.activeFloorplanVersionId ?? null,
+    floorplanLabel: "Active floorplan",
     foundationStatus: "Scenario foundation only",
     referenceImageStatus: `${humanizeReferenceStatus(scenarioSeed.referenceImageStatus)} proof ready`,
     capacitySummary: {
@@ -153,6 +156,7 @@ export function createScenarioComparisonViewModel(
       "No optimizer recommendation",
       "No clinical safety score",
       "No staffing compliance certification",
+      "Scenario capacity proof still uses the canonical capacity report until editable-layout capacity mapping is promoted",
       "Manual visual review remains required"
     ],
     cards: [fourToOneCard, threeToOneCard],

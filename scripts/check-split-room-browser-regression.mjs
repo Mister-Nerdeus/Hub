@@ -152,7 +152,7 @@ function runStage(selectedStage, browserProof) {
       afterReloadSplit45Visible: browserProof.afterReloadSplit45Visible
     };
     writeJson(`${dir}/save-reload-output.json`, output);
-    addCheck(checks, "Save Working Copy and reload same saved record preserve split room", output.status === "passed", output);
+    addCheck(checks, "Save Floorplan and reload same saved record preserve split room", output.status === "passed", output);
     return output;
   }
 
@@ -274,7 +274,7 @@ async function openWorkingEditor(browser) {
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
-  await clickGlobalButton(browser, "Save Working Copy");
+  await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(browser, `document.querySelector('[data-command-group="editor-tools"] button')?.disabled === false`, 10_000);
 }
 
@@ -287,8 +287,8 @@ async function createCanonicalPair(browser, roomId, label) {
 
 async function saveAndReload(browser) {
   const savedRecordId = await readActiveRecordId(browser);
-  await clickGlobalButton(browser, "Save Working Copy");
-  await waitForExpression(browser, `document.body.innerText.includes('Saved working copy')`, 10_000);
+  await clickGlobalButton(browser, "Save Floorplan");
+  await waitForExpression(browser, `document.body.innerText.includes('Saved. This floorplan is active for assignments and scenarios.')`, 10_000);
   await browser.navigate(`${browser.baseUrl}/?section=floorplans`, `document.querySelector('.floorplan-library') != null`);
   await clickOpenSavedFloorplan(browser, savedRecordId);
   await clickNavButton(browser, "Editor");

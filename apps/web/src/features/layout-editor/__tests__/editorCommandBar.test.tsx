@@ -10,12 +10,12 @@ declare const process: { cwd(): string };
 
 const viewModel = buildEditorCommandBarViewModel({
   hasActiveFloorplan: true,
-  activeCopyName: "ER Layout Plan 1 Working Copy",
+  activeCopyName: "ER Pod Main Layout",
   activeRecordId: "saved-default-er-layout-plan-1-001",
   activePlanId: "default-er-layout-plan-1",
-  activeSourceLabel: "Saved working copy",
-  localRecoveryDraftLabel: "No local recovery draft for this copy",
-  lastNamedCopySaveLabel: "Not saved this session",
+  activeSourceLabel: "Saved version",
+  localRecoveryDraftLabel: "No local recovery draft for this floorplan",
+  lastNamedCopySaveLabel: "No floorplan save this session",
   reloadProofLabel: "Not verified this session",
   isDirty: true,
   readOnly: false,
@@ -23,20 +23,20 @@ const viewModel = buildEditorCommandBarViewModel({
   redoDisabled: true,
   validationSummary: "2 validation warnings",
   validationDisabled: false,
-  saveStatus: "Named working copy not saved this session"
+  saveStatus: "Floorplan not saved this session"
 });
 
-if (viewModel.saveStatusLabel !== "Not saved since local changes") {
-  throw new Error("command bar should truthfully expose named-copy save status for dirty local edits");
+if (viewModel.saveStatusLabel !== "Not saved since changes") {
+  throw new Error("command bar should truthfully expose active floorplan save status for dirty edits");
 }
 if (viewModel.activeRecordIdLabel !== "saved-default-er-layout-plan-1-001") {
-  throw new Error("command bar should expose active saved record identity");
+  throw new Error("command bar should expose active saved record identity in advanced status");
 }
-if (viewModel.dirtyStateLabel !== "Local editor state: changed") {
+if (viewModel.dirtyStateLabel !== "Editor state: changed") {
   throw new Error("command bar should expose dirty state");
 }
 if (viewModel.changedNotSavedWarningLabel == null) {
-  throw new Error("command bar should warn when local changes are not named-copy saved");
+  throw new Error("command bar should warn when editor changes are not saved to the active floorplan");
 }
 if (viewModel.addObjectDisabled) {
   throw new Error("Add Object shortcut should be enabled for editable layouts");
@@ -49,12 +49,12 @@ const calls: string[] = [];
 const element = EditorCommandBar({
   layoutLabel: "proof-layout",
   hasActiveFloorplan: true,
-  activeCopyName: "ER Layout Plan 1 Working Copy",
+  activeCopyName: "ER Pod Main Layout",
   activeRecordId: "saved-default-er-layout-plan-1-001",
   activePlanId: "default-er-layout-plan-1",
-  activeSourceLabel: "Saved working copy",
-  localRecoveryDraftLabel: "No local recovery draft for this copy",
-  lastNamedCopySaveLabel: "Not saved this session",
+  activeSourceLabel: "Saved version",
+  localRecoveryDraftLabel: "No local recovery draft for this floorplan",
+  lastNamedCopySaveLabel: "No floorplan save this session",
   reloadProofLabel: "Not verified this session",
   hasLocalRecoveryDraft: true,
   readOnly: false,
@@ -62,7 +62,7 @@ const element = EditorCommandBar({
   undoDisabled: false,
   redoDisabled: true,
   jsonStatus: "ready",
-  saveStatus: "Named working copy not saved this session",
+  saveStatus: "Floorplan not saved this session",
   validationSummary: "2 validation warnings",
   validationDisabled: false,
   inspectorCollapsed: false,
@@ -83,6 +83,9 @@ const element = EditorCommandBar({
   },
   onSaveAsNewCopy: () => {
     calls.push("save-as-new-copy");
+  },
+  onDoneEditing: () => {
+    calls.push("done-editing");
   },
   onExportJson: () => {
     calls.push("export");
@@ -111,37 +114,40 @@ if (element.props["data-editor-command-bar"] !== "consolidated") {
   throw new Error("EditorCommandBar must expose consolidated DOM assertion data");
 }
 
-const commandGroups = element.props.children.slice(0, 6);
-const labels = commandGroups
-  .flatMap((group: { props: { children: unknown | unknown[] } }) => asArray(group.props.children))
-  .filter((child: { props?: { children?: string } }) => child?.props?.children != null)
-  .map((child: { props: { children: string } }) => child.props.children);
+const buttons = collectButtons(element.props.children);
+const labels = buttons.map((button) => buttonText(button)).filter(Boolean);
 
-for (const label of ["Undo", "Redo", "Save Working Copy", "Save As New Copy", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset view", "Proceed later"]) {
+for (const label of ["Undo", "Redo", "Save Floorplan", "Done Editing", "Save as New Version", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset view", "Hide inspector", "Proceed later"]) {
   if (!labels.includes(label)) {
     throw new Error(`EditorCommandBar missing ${label}`);
   }
 }
 
-const saveButton = asArray(commandGroups[0].props.children)[0];
-saveButton.props.onClick();
+const saveButton = findButton(buttons, "Save Floorplan");
+clickButton(saveButton, "Save Floorplan");
 if (calls.at(-1) !== "save-working-copy") {
-  throw new Error("Save working copy command should call the save callback");
+  throw new Error("Save Floorplan command should call the save callback");
 }
 
-const validateButton = asArray(commandGroups[4].props.children)[0];
-validateButton.props.onClick();
+const doneButton = findButton(buttons, "Done Editing");
+clickButton(doneButton, "Done Editing");
+if (calls.at(-1) !== "done-editing") {
+  throw new Error("Done Editing command should call the done callback");
+}
+
+const validateButton = findButton(buttons, "Validate");
+clickButton(validateButton, "Validate");
 if (calls.at(-1) !== "validate") {
   throw new Error("Validate command should call the validation callback");
 }
 
-const addObjectButton = asArray(commandGroups[3].props.children)[0];
-addObjectButton.props.onClick();
+const addObjectButton = findButton(buttons, "Add Object");
+clickButton(addObjectButton, "Add Object");
 if (calls.at(-1) !== "add-object") {
   throw new Error("Add Object shortcut should call the object callback");
 }
 
-const proceedButton = asArray(commandGroups[5].props.children)[0];
+const proceedButton = findButton(buttons, "Proceed later");
 if (proceedButton.props.disabled !== true || proceedButton.props.onClick != null) {
   throw new Error("Proceed placeholder must be disabled without an action");
 }
@@ -160,4 +166,54 @@ for (const forbidden of ["PIN", "pin gate", "auth", "security"]) {
 
 function asArray<T>(value: T | T[]): T[] {
   return Array.isArray(value) ? value : [value];
+}
+
+type TestElement = {
+  type?: unknown;
+  props?: {
+    children?: unknown;
+    disabled?: boolean;
+    onClick?: (() => void) | null;
+  };
+};
+
+function collectButtons(node: unknown): TestElement[] {
+  const buttons: TestElement[] = [];
+  for (const child of asArray(node)) {
+    if (child == null || typeof child !== "object") continue;
+    const element = child as TestElement;
+    if (element.type === "button") {
+      buttons.push(element);
+    }
+    buttons.push(...collectButtons(element.props?.children));
+  }
+  return buttons;
+}
+
+function buttonText(button: TestElement): string {
+  return flattenText(button.props?.children).join("");
+}
+
+function flattenText(node: unknown): string[] {
+  if (typeof node === "string") return [node];
+  if (typeof node === "number") return [String(node)];
+  if (node == null || typeof node === "boolean") return [];
+  if (Array.isArray(node)) return node.flatMap(flattenText);
+  if (typeof node === "object") return flattenText((node as TestElement).props?.children);
+  return [];
+}
+
+function findButton(buttons: TestElement[], label: string): Required<TestElement> {
+  const button = buttons.find((candidate) => buttonText(candidate) === label);
+  if (button == null || button.props == null) {
+    throw new Error(`EditorCommandBar missing button ${label}`);
+  }
+  return button as Required<TestElement>;
+}
+
+function clickButton(button: Required<TestElement>, label: string): void {
+  if (typeof button.props.onClick !== "function") {
+    throw new Error(`EditorCommandBar button ${label} should have an action`);
+  }
+  button.props.onClick();
 }

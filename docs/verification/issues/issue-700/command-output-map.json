@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "issue": "700",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-floorplan-readiness-checklist.mjs --stage readiness-contract --allow-partial --issue 700",
+    "5": "node scripts/check-floorplan-readiness-checklist.mjs --stage checklist-render --allow-partial --issue 700",
+    "6": "node scripts/check-floorplan-readiness-checklist.mjs --stage ready-for-assignment --allow-partial --issue 700",
+    "7": "node scripts/check-floorplan-readiness-checklist.mjs --stage ready-for-simulation --allow-partial --issue 700",
+    "8": "node scripts/check-no-phi-fields.mjs"
+  }
+}

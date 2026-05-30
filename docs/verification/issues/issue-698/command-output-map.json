@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "698",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-floorplan-version-history.mjs --stage version-contract --allow-partial --issue 698",
+    "5": "node scripts/check-floorplan-version-history.mjs --stage existing-records-map --allow-partial --issue 698",
+    "6": "node scripts/check-floorplan-version-history.mjs --stage current-version --allow-partial --issue 698",
+    "7": "node scripts/check-floorplan-version-history.mjs --stage restore-version --allow-partial --issue 698",
+    "8": "node scripts/check-floorplan-version-history.mjs --stage archive-version --allow-partial --issue 698",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

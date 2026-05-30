@@ -45,19 +45,19 @@ export function buildEditorSaveStatusViewModel({
     sourceKindLabel: activeSourceLabel,
     modeLabel: readOnly ? "Read-only" : "Editable",
     localEditorStateLabel: isDirty
-      ? "Local editor state: changed"
-      : "Local editor state: unchanged",
+      ? "Editor state: changed"
+      : "Editor state: unchanged",
     namedSaveStatusLabel: isDirty && !readOnly
-      ? "Named working copy: not saved since local changes"
-      : `Named working copy: ${saveStatus}`,
+      ? "Floorplan: not saved since changes"
+      : `Floorplan: ${saveStatus}`,
     localRecoveryDraftLabel,
     lastNamedCopySaveLabel,
     reloadProofLabel,
     canonicalWarningLabel: readOnly
-      ? "Canonical default is read-only. Save Working Copy creates an editable saved copy."
+      ? "This floorplan is read-only. Save Floorplan creates an editable saved version."
       : null,
     localOnlyWarningLabel: isDirty && !readOnly
-      ? "Changes are only in the local editor/recovery draft. Click Save Working Copy to persist this named copy."
+      ? "Changes are only in the editor until Save Floorplan is used."
       : null
   };
 }

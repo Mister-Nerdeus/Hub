@@ -13,6 +13,10 @@ import {
 import { planContractToEditableLayoutGeometry } from "../layout-editor/layoutEditorState";
 import { recordSavedRecordTraceStage } from "../layout-editor/layoutSaveTrace";
 import type { SavedFloorplanPersistence } from "./savedFloorplanPersistence";
+import {
+  createFloorplanVersionLabel,
+  normalizeFloorplanDisplayName
+} from "./floorplanVersionNaming";
 
 export type SavedFloorplanRecord = {
   savedPlanId: string;
@@ -64,7 +68,7 @@ export function createSavedFloorplanStore(
     }
     records.set(record.savedPlanId, cloneSavedRecord(record));
   }
-  let nextSequence = records.size + 1;
+  let nextSequence = nextSequenceAfterExistingRecords([...records.keys()]);
 
   const persist = () => {
     persistence?.save([...records.values()].map(savedRecordToContract));
@@ -80,7 +84,7 @@ export function createSavedFloorplanStore(
       const record = createSavedRecord(copy, {
         savedPlanId: nextSavedPlanId(copy.parentDefaultPlanId, nextSequence++),
         saveKind: "default_duplicate",
-        versionLabel: `v${nextSequence - 1}`
+        versionLabel: createFloorplanVersionLabel({ fallbackIndex: nextSequence - 1 })
       });
       records.set(record.savedPlanId, cloneSavedRecord(record));
       persist();
@@ -93,18 +97,23 @@ export function createSavedFloorplanStore(
         throw new Error(`unknown saved floorplan record: ${savedPlanId}`);
       }
       const validatedDraft = validateAuthoringDraftContract(draft);
+      const displayName = normalizeFloorplanDisplayName(validatedDraft.displayName);
+      const normalizedDraft = validateAuthoringDraftContract({
+        ...validatedDraft,
+        displayName
+      });
       const record = webRecordFromContract(
         validateSavedPlanRecordContract({
           savedPlanId,
           sourceDefaultPlanId: existing.sourceDefaultPlanId,
-          planId: validatedDraft.planId,
-          displayName: validatedDraft.displayName,
+          planId: normalizedDraft.planId,
+          displayName,
           versionLabel: existing.versionLabel,
           createdAt: existing.createdAt,
-          updatedAt: validatedDraft.updatedAt,
+          updatedAt: normalizedDraft.updatedAt,
           saveKind: "manual_save",
-          authoringDraft: validatedDraft,
-          sourceProvenance: validatedDraft.sourceProvenance,
+          authoringDraft: normalizedDraft,
+          sourceProvenance: normalizedDraft.sourceProvenance,
           syntheticDataOnly: true
         })
       );
@@ -114,9 +123,11 @@ export function createSavedFloorplanStore(
       return cloneSavedRecord(record);
     },
     saveAsDraft(draft, options) {
+      assertNonEmptySaveAsOption(options.displayName, "displayName");
+      assertNonEmptySaveAsOption(options.versionLabel, "versionLabel");
       const validatedDraft = validateAuthoringDraftContract({
         ...draft,
-        displayName: options.displayName,
+        displayName: normalizeFloorplanDisplayName(options.displayName),
         versionLabel: options.versionLabel
       });
       const record = webRecordFromContract(
@@ -124,7 +135,7 @@ export function createSavedFloorplanStore(
           savedPlanId: nextSavedPlanId(validatedDraft.sourceDefaultPlanId, nextSequence++),
           sourceDefaultPlanId: validatedDraft.sourceDefaultPlanId,
           planId: validatedDraft.planId,
-          displayName: options.displayName,
+          displayName: normalizeFloorplanDisplayName(options.displayName),
           versionLabel: options.versionLabel,
           createdAt: validatedDraft.createdAt,
           updatedAt: validatedDraft.updatedAt,
@@ -174,7 +185,7 @@ export function createSavedRecord(
     draftId: `draft-${options.savedPlanId ?? plan.planId}`,
     sourceDefaultPlanId: copy.parentDefaultPlanId,
     planId: plan.planId,
-    displayName: plan.name,
+    displayName: normalizeFloorplanDisplayName(plan.name),
     versionLabel: options.versionLabel ?? "v1",
     editableLayout: planContractToEditableLayoutGeometry(plan),
     sourcePlan: plan,
@@ -192,7 +203,7 @@ export function createSavedRecord(
       savedPlanId: options.savedPlanId ?? `saved-${plan.planId}`,
       sourceDefaultPlanId: copy.parentDefaultPlanId,
       planId: plan.planId,
-      displayName: plan.name,
+      displayName: normalizeFloorplanDisplayName(plan.name),
       versionLabel: options.versionLabel ?? "v1",
       createdAt: copy.createdAt,
       updatedAt: copy.updatedAt,
@@ -231,17 +242,29 @@ function assertNoForbiddenPayload(value: unknown, label: string): void {
   }
 }
 
+function assertNonEmptySaveAsOption(value: string, label: "displayName" | "versionLabel"): void {
+  if (value.trim().length === 0) {
+    throw new Error(`save-as floorplan ${label} is required`);
+  }
+}
+
 function webRecordFromContract(record: SavedPlanRecordContract): SavedFloorplanRecord {
+  const displayName = normalizeFloorplanDisplayName(record.displayName);
   const plan = validatePlanContract({
     ...buildPlanContractFromEditableLayout({
       sourcePlan: record.authoringDraft.sourcePlan,
       editableLayout: record.authoringDraft.editableLayout,
       planId: record.planId
     }),
-    name: record.displayName
+    name: displayName
   });
   return {
     ...record,
+    displayName,
+    authoringDraft: {
+      ...record.authoringDraft,
+      displayName
+    },
     recordId: record.savedPlanId,
     readOnly: false,
     parentDefaultPlanId: record.sourceDefaultPlanId,
@@ -267,4 +290,12 @@ function savedRecordToContract(record: SavedFloorplanRecord): SavedPlanRecordCon
 
 function nextSavedPlanId(sourceDefaultPlanId: string, sequence: number): string {
   return `saved-${sourceDefaultPlanId}-${String(sequence).padStart(3, "0")}`;
+}
+
+function nextSequenceAfterExistingRecords(recordIds: readonly string[]): number {
+  const maxExisting = recordIds.reduce((max, recordId) => {
+    const value = Number(recordId.match(/-(\d+)$/u)?.[1] ?? 0);
+    return Number.isFinite(value) && value > max ? value : max;
+  }, 0);
+  return maxExisting + 1;
 }

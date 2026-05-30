@@ -15,6 +15,7 @@ type AppShellProps = {
   sections: readonly AppSection[];
   onSectionChange: (sectionId: AppSectionId) => void;
   onRelockDemo?: () => void;
+  activeFloorplanBanner?: ReactNode;
   children: ReactNode;
 };
 
@@ -23,6 +24,7 @@ export function AppShell({
   sections,
   onSectionChange,
   onRelockDemo,
+  activeFloorplanBanner,
   children
 }: AppShellProps) {
   const primarySections = sections.filter((section) => section.group === "primary");
@@ -55,6 +57,7 @@ export function AppShell({
       </section>
 
       <RuntimeMismatchBanner />
+      {activeFloorplanBanner}
 
       <nav className="app-nav" aria-label="Primary workflow navigation">
         {primarySections.map((section) => (

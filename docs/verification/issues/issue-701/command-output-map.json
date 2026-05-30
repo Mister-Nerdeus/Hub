@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "701",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-active-floorplan-banner-all-modes.mjs --stage banner-contract --allow-partial --issue 701",
+    "5": "node scripts/check-active-floorplan-banner-all-modes.mjs --stage floorplan-mode --allow-partial --issue 701",
+    "6": "node scripts/check-active-floorplan-banner-all-modes.mjs --stage editor-mode --allow-partial --issue 701",
+    "7": "node scripts/check-active-floorplan-banner-all-modes.mjs --stage manual-assignment-mode --allow-partial --issue 701",
+    "8": "node scripts/check-active-floorplan-banner-all-modes.mjs --stage scenario-mode --allow-partial --issue 701",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

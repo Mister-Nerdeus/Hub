@@ -348,10 +348,10 @@ async function runPatientDoorWorkflow(browser, recoveryChecks) {
 }
 
 async function runSaveReloadExportWorkflow(browser, doorId, recoveryChecks) {
-  const saveResult = await clickGlobalButton(browser, "Save Working Copy");
+  const saveResult = await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(
     browser,
-    `document.querySelector('[data-editor-control="save-working-copy"]') != null && document.body.innerText.includes('Saved working copy')`,
+    `document.querySelector('[data-editor-control="save-working-copy"]') != null && document.body.innerText.includes('Saved. This floorplan is active for assignments and scenarios.')`,
     10_000
   );
   const savedRecordId = await readActiveRecordId(browser);
@@ -534,7 +534,7 @@ async function openSavedWorkingEditor(browser) {
   );
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
-  await clickGlobalButton(browser, "Save Working Copy");
+  await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(
     browser,
     `document.querySelector('[data-command-group="editor-tools"] button')?.disabled === false`,

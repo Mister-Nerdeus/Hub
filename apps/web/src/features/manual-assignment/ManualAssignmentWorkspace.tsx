@@ -3,6 +3,7 @@ import "./ManualAssignmentProof.css";
 import {
   isRoomLoadEligibleRoomType,
   listSplitRoomParentIds,
+  type ActiveFloorplanContract,
   syntheticManualAssignmentNurseProfiles,
   syntheticManualAssignmentRoomLoads,
   type EditableLayoutGeometryContract,
@@ -36,6 +37,7 @@ import { createManualAssignmentWorkspaceViewModel } from "./manualAssignmentWork
 export type ManualAssignmentMap = Record<string, string>;
 
 export type ManualAssignmentWorkspaceProps = {
+  activeFloorplan?: ActiveFloorplanContract | null;
   activeEditableLayout?: EditableLayoutGeometryContract | null;
   assignmentsByRoomId?: Readonly<ManualAssignmentMap>;
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
@@ -82,13 +84,14 @@ export const splitRoomManualAssignmentOverlayNurses = splitRoomManualAssignmentN
 }));
 
 export function ManualAssignmentWorkspace({
+  activeFloorplan = null,
   activeEditableLayout = null,
   assignmentsByRoomId = {},
   onAssignmentsChange
 }: ManualAssignmentWorkspaceProps = {}) {
   const source = useMemo(
-    () => buildManualAssignmentSource(activeEditableLayout, assignmentsByRoomId),
-    [activeEditableLayout, assignmentsByRoomId]
+    () => buildManualAssignmentSource(activeFloorplan, activeEditableLayout, assignmentsByRoomId),
+    [activeFloorplan, activeEditableLayout, assignmentsByRoomId]
   );
 
   return (
@@ -106,6 +109,7 @@ type ManualAssignmentSource = {
   displayLabelsByNurseId: Record<string, string>;
   parentSplitBayIds: string[];
   activeLayoutId: string | null;
+  activeFloorplanVersionId: string | null;
   sourceKind: "active-layout" | "synthetic-fixture";
 };
 
@@ -148,6 +152,7 @@ function ManualAssignmentWorkspaceContent({
       aria-labelledby="manual-assignment-workspace-title"
       data-manual-assignment-source={source.sourceKind}
       data-active-layout-id={source.activeLayoutId ?? ""}
+      data-active-floorplan-version-id={source.activeFloorplanVersionId ?? ""}
       data-split-parent-ids={source.parentSplitBayIds.join(",")}
       data-parent-split-bays-assignable="false"
       data-assigned-count={viewModel.assignedRoomCount}
@@ -222,10 +227,12 @@ function ManualAssignmentWorkspaceContent({
 }
 
 function buildManualAssignmentSource(
+  activeFloorplan: ActiveFloorplanContract | null,
   activeEditableLayout: EditableLayoutGeometryContract | null,
   assignmentsByRoomId: Readonly<ManualAssignmentMap>
 ): ManualAssignmentSource {
-  if (activeEditableLayout == null) {
+  const activeLayout = activeFloorplan?.editableLayout ?? activeEditableLayout;
+  if (activeLayout == null) {
     return {
       stateKey: "synthetic-fixture",
       initialState: hydrateManualAssignments(
@@ -238,14 +245,15 @@ function buildManualAssignmentSource(
       displayLabelsByNurseId: {},
       parentSplitBayIds: [],
       activeLayoutId: null,
+      activeFloorplanVersionId: null,
       sourceKind: "synthetic-fixture"
     };
   }
 
   const roomTypesByRoomId = Object.fromEntries(
-    activeEditableLayout.rooms.map((room) => [room.id, room.roomType])
+    activeLayout.rooms.map((room) => [room.id, room.roomType])
   ) as Record<string, SemanticRoomType>;
-  const roomLoads = activeEditableLayout.rooms
+  const roomLoads = activeLayout.rooms
     .filter((room) => isRoomLoadEligibleRoomType(room.roomType))
     .map((room) => buildLayoutRoomLoad(room.id, room.roomNumber, room.roomType));
   const initialState = createManualAssignmentInitialState(
@@ -253,19 +261,20 @@ function buildManualAssignmentSource(
     roomLoads,
     roomTypesByRoomId
   );
-  const splitBayIds = listSplitRoomParentIds(activeEditableLayout);
+  const splitBayIds = listSplitRoomParentIds(activeLayout);
 
   return {
     stateKey: [
       "active-layout",
-      activeEditableLayout.layoutId,
+      activeFloorplan?.activeFloorplanVersionId ?? activeLayout.layoutId,
       splitBayIds.join("|"),
       roomLoads.map((roomLoad) => roomLoad.roomId).join("|")
     ].join(":"),
     initialState: hydrateManualAssignments(initialState, assignmentsByRoomId),
     displayLabelsByNurseId: splitRoomManualAssignmentNurseDisplayLabelsById,
     parentSplitBayIds: splitBayIds,
-    activeLayoutId: activeEditableLayout.layoutId,
+    activeLayoutId: activeLayout.layoutId,
+    activeFloorplanVersionId: activeFloorplan?.activeFloorplanVersionId ?? null,
     sourceKind: "active-layout"
   };
 }

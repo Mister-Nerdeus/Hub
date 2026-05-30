@@ -13,6 +13,7 @@ import {
   nudgeDoor,
   validateSimulationReadyExport,
   type AuthoringDraftContract,
+  type ActiveFloorplanContract,
   type AuthoringRoomType,
   type DoorAuthoringWarning,
   type DoorPathNodeGenerationResult,
@@ -244,10 +245,12 @@ const baseInitialStageState = createLayoutEditorState({
 
 type LayoutEditorStageProps = {
   activeFloorplan?: LayoutEditorFloorplanInput | null;
+  activeFloorplanContract?: ActiveFloorplanContract | null;
   assignmentOverlaySource?: LayoutAssignmentOverlaySource | null;
   onCreateWorkingCopy?: () => void;
   onSaveWorkingCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
   onSaveAsNewCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
+  onDoneEditing?: () => void;
   onEditableLayoutChange?: (layout: LayoutEditorState["editableLayout"]) => void;
 };
 
@@ -258,10 +261,12 @@ export type SaveWorkingCopyResult =
 
 export function LayoutEditorStage({
   activeFloorplan = null,
+  activeFloorplanContract = null,
   assignmentOverlaySource = null,
   onCreateWorkingCopy,
   onSaveWorkingCopy,
   onSaveAsNewCopy,
+  onDoneEditing,
   onEditableLayoutChange
 }: LayoutEditorStageProps) {
   if (
@@ -281,7 +286,7 @@ export function LayoutEditorStage({
   );
   const [floorplanJsonText, setFloorplanJsonText] = useState("");
   const [floorplanJsonStatus, setFloorplanJsonStatus] = useState("Ready");
-  const [saveStatus, setSaveStatus] = useState("Named working copy not saved this session");
+  const [saveStatus, setSaveStatus] = useState("Floorplan not saved this session");
   const [lastNamedCopySaveLabel, setLastNamedCopySaveLabel] = useState("Not saved this session");
   const [reloadProofLabel, setReloadProofLabel] = useState("Not verified this session");
   const [draftRecoveryState, setDraftRecoveryState] = useState<DraftRecoveryState>({ status: "none" });
@@ -355,7 +360,7 @@ export function LayoutEditorStage({
     if (lastAppliedSaveRecordIdRef.current === activeFloorplan.recordId) {
       lastAppliedSaveRecordIdRef.current = null;
     } else {
-      setSaveStatus("Named working copy not saved this session");
+      setSaveStatus("Floorplan not saved this session");
       setLastNamedCopySaveLabel("Not saved this session");
       setReloadProofLabel("Not verified this session");
     }
@@ -754,12 +759,12 @@ export function LayoutEditorStage({
       return;
     }
     const time = formatSaveTime(result.savedAt);
-    const namedCopySaveLabel = `${time} / record ${result.recordId}`;
+    const namedCopySaveLabel = `${time}`;
     lastAppliedSaveRecordIdRef.current = result.recordId;
     setSaveStatus(
       result.status === "saved"
-        ? `Saved working copy ${result.recordId} at ${time}`
-        : `Created new copy ${result.recordId} at ${time}`
+        ? `Saved. This floorplan is active for assignments and scenarios.`
+        : `Saved new version at ${time}. This floorplan is active for assignments and scenarios.`
     );
     setLastNamedCopySaveLabel(namedCopySaveLabel);
     setReloadProofLabel("Not verified after latest named-copy save");
@@ -1351,13 +1356,16 @@ export function LayoutEditorStage({
       id="layout-editor-stage-proof"
       className="layout-editor-stage"
       aria-labelledby="layout-editor-stage-title"
+      data-active-floorplan-version-id={activeFloorplanContract?.activeFloorplanVersionId ?? ""}
     >
       <header className="layout-editor-stage__header">
         <div>
           <p className="eyebrow">Layout editor</p>
-          <h2 id="layout-editor-stage-title">JSON floorplan editor</h2>
+          <h2 id="layout-editor-stage-title">Floorplan editor</h2>
         </div>
-        <dl className="layout-editor-stage__meta" aria-label="Layout editor stage metadata">
+        <details className="layout-editor-stage__meta">
+          <summary>Advanced editor status</summary>
+        <dl aria-label="Layout editor stage metadata">
           <div>
             <dt>Layout</dt>
             <dd>{stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId}</dd>
@@ -1375,6 +1383,7 @@ export function LayoutEditorStage({
             <dd>{stageState.snapMode}</dd>
           </div>
         </dl>
+        </details>
       </header>
 
       <EditorCommandBar
@@ -1412,6 +1421,7 @@ export function LayoutEditorStage({
         }}
         onSaveWorkingCopy={saveWorkingCopy}
         onSaveAsNewCopy={saveAsNewCopy}
+        onDoneEditing={onDoneEditing ?? (() => undefined)}
         onExportJson={exportActiveFloorplanJson}
         onImportJson={importEditableFloorplanJson}
         onValidate={validateSimulationReadyExportFromStage}
@@ -1456,7 +1466,7 @@ export function LayoutEditorStage({
       <EditorNextStepPanel viewModel={nextStepViewModel} />
 
       <details className="layout-editor-stage__json-drawer">
-        <summary>Floorplan JSON</summary>
+        <summary>Advanced editor payload</summary>
         <textarea
           aria-label="Floorplan JSON"
           value={floorplanJsonText}

@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-floorplan-version-history.mjs --stage version-contract --allow-partial --issue 698
+node scripts/check-floorplan-version-history.mjs --stage existing-records-map --allow-partial --issue 698
+node scripts/check-floorplan-version-history.mjs --stage current-version --allow-partial --issue 698
+node scripts/check-floorplan-version-history.mjs --stage restore-version --allow-partial --issue 698
+node scripts/check-floorplan-version-history.mjs --stage archive-version --allow-partial --issue 698
+node scripts/check-no-phi-fields.mjs

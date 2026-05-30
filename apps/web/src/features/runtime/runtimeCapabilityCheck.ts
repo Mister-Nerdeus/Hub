@@ -1,6 +1,6 @@
 export const EXPECTED_EDITOR_CAPABILITIES = {
-  saveWorkingCopy: true,
-  saveAsNewCopy: true,
+  saveFloorplan: true,
+  saveAsNewVersion: true,
   exportJsonBackup: true,
   activeRecordIdentity: true,
   namedSaveStatus: true,
@@ -29,11 +29,11 @@ export function checkRuntimeEditorCapabilities(root?: ParentNode): RuntimeCapabi
       missing
     };
   }
-  if (EXPECTED_EDITOR_CAPABILITIES.saveWorkingCopy && target.querySelector("[data-editor-control='save-working-copy']") == null) {
-    missing.push("Save Working Copy control");
+  if (EXPECTED_EDITOR_CAPABILITIES.saveFloorplan && target.querySelector("[data-editor-control='save-working-copy']") == null) {
+    missing.push("Save Floorplan control");
   }
-  if (EXPECTED_EDITOR_CAPABILITIES.saveAsNewCopy && target.querySelector("[data-editor-control='save-as-new-copy']") == null) {
-    missing.push("Save As New Copy control");
+  if (EXPECTED_EDITOR_CAPABILITIES.saveAsNewVersion && target.querySelector("[data-editor-control='save-as-new-version']") == null) {
+    missing.push("Save as New Version control");
   }
   if (EXPECTED_EDITOR_CAPABILITIES.exportJsonBackup && target.querySelector("[data-editor-control='export-json-backup']") == null) {
     missing.push("Export JSON Backup control");

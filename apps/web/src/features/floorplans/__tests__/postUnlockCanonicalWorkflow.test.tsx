@@ -13,10 +13,10 @@ const landingSource = readFileSync(
 );
 
 if (!appSource.includes("setActiveSection(DEFAULT_APP_SECTION_ID)")) {
-  throw new Error("unlock must route users to the canonical default workflow section");
+  throw new Error("unlock must route users to the active floorplan workflow section");
 }
-if (!appSource.includes("Canonical ER Pod Floorplan")) {
-  throw new Error("unlocked first view must use canonical floorplan naming");
+if (!appSource.includes("<ActiveFloorplanSelector")) {
+  throw new Error("unlocked first view must use active floorplan selector");
 }
 if (!landingSource.includes("Canonical Plan 1 workflow")) {
   throw new Error("landing summary must foreground the Plan 1 workflow");

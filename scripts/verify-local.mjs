@@ -193,6 +193,20 @@ const splitRoomAuthoringCommands = [
   "npm run check:split-room-authoring-go-no-go"
 ];
 
+const activeFloorplanWorkflowCommands = [
+  "npm run check:active-floorplan-workflow-preflight",
+  "npm run check:active-floorplan-source-of-truth",
+  "npm run check:active-floorplan-selector-ux",
+  "npm run check:floorplan-version-naming",
+  "npm run check:floorplan-version-history",
+  "npm run check:save-and-use-floorplan-ux",
+  "npm run check:floorplan-readiness-checklist",
+  "npm run check:active-floorplan-banner-all-modes",
+  "npm run check:floorplan-change-confirmation",
+  "npm run check:active-floorplan-persistence",
+  "npm run check:active-floorplan-workflow-go-no-go"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -286,6 +300,7 @@ const commands = [
   "npm run check:editor-runtime-save-ux-layout-go-no-go",
   ...doorAuthoringCrashHardeningCommands,
   ...splitRoomAuthoringCommands,
+  ...activeFloorplanWorkflowCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

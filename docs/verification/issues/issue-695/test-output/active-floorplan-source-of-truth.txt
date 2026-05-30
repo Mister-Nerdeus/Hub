@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "issue": "695",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "shared ActiveFloorplanContract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "app active floorplan state creates one contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor receives active floorplan contract context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Manual Assignment uses the active floorplan contract instead of editor-only state",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "Scenario Comparison receives active floorplan context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Simulation Review displays active floorplan context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Reports placeholder displays active floorplan context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Manual Assignment does not silently choose synthetic fixture when active floorplan exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "missing": []
+    },
+    "app-state-refactor": {
+      "passed": true,
+      "missing": []
+    },
+    "editor-consumes-active": {
+      "passed": true,
+      "missing": []
+    },
+    "manual-assignment-consumes-active": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "scenario-consumes-active": {
+      "passed": true,
+      "missing": []
+    },
+    "simulation-displays-active": {
+      "passed": true,
+      "missing": []
+    },
+    "reports-displays-active": {
+      "passed": true,
+      "missing": []
+    },
+    "no-synthetic-fallback": {
+      "passed": true,
+      "missing": []
+    }
+  }
+}

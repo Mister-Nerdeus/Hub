@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-floorplan-change-confirmation.mjs --stage confirmation-dialog --allow-partial --issue 702
+node scripts/check-floorplan-change-confirmation.mjs --stage cancel-preserves --allow-partial --issue 702
+node scripts/check-floorplan-change-confirmation.mjs --stage confirm-changes --allow-partial --issue 702
+node scripts/check-floorplan-change-confirmation.mjs --stage assignment-compatibility --allow-partial --issue 702
+node scripts/check-floorplan-change-confirmation.mjs --stage no-synthetic-fallback --allow-partial --issue 702
+node scripts/check-no-phi-fields.mjs

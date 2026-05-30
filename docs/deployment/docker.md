@@ -65,6 +65,10 @@ These Dockerfiles do not deploy the app, add auth, configure DNS, or certify pro
 
 The editor usability and canvas popup changes remain within the existing Docker build paths. The web images copy `apps/web` and `packages/shared`, so shared editor helpers such as layout object duplication are included without adding dependencies or changing runtime services.
 
-## Batch 669-678 Door Authoring Note
+## Batch 669-693 Door And Split-Room Authoring Note
 
-Split-room closeout hardening remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the split-room resolver, atomic creation model, persistence contract, UI workflow, and final closeout validators ship without adding services or dependencies. The API and web images carry the `split-room-closeout-hardening-689-693` revision label for local Docker proof traceability only.
+Split-room closeout hardening remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the split-room resolver, atomic creation model, persistence contract, UI workflow, and final closeout validators ship without adding services or dependencies. This batch previously used the `split-room-closeout-hardening-689-693` Docker revision label for local proof traceability only.
+
+## Batch 694-703 Active Floorplan Workflow Note
+
+The active floorplan workflow remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the active floorplan contract, selector, version history, readiness checklist, banner, confirmation guard, persistence helper, and local validators ship without adding services or dependencies. The API and web images carry the `active-floorplan-workflow-694-703` revision label for local Docker proof traceability only.

@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-active-floorplan-banner-all-modes.mjs --stage banner-contract --allow-partial --issue 701
+node scripts/check-active-floorplan-banner-all-modes.mjs --stage floorplan-mode --allow-partial --issue 701
+node scripts/check-active-floorplan-banner-all-modes.mjs --stage editor-mode --allow-partial --issue 701
+node scripts/check-active-floorplan-banner-all-modes.mjs --stage manual-assignment-mode --allow-partial --issue 701
+node scripts/check-active-floorplan-banner-all-modes.mjs --stage scenario-mode --allow-partial --issue 701
+node scripts/check-no-phi-fields.mjs

@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import type { ActiveFloorplanContract } from "@nerdeus/shared";
 import { SimulationV0ActivityProfileSelector } from "./SimulationV0ActivityProfileSelector";
 import { SimulationV0ArtifactExport } from "./SimulationV0ArtifactExport";
 import { SimulationV0ArtifactProofPanel } from "./SimulationV0ArtifactProofPanel";
@@ -18,10 +19,14 @@ import {
 } from "./simulationV0ReviewState";
 
 type SimulationV0InternalDryRunPanelProps = {
+  activeFloorplan?: ActiveFloorplanContract | null;
   viewModel?: SimulationV0InternalDryRunViewModel;
 };
 
-export function SimulationV0InternalDryRunPanel({ viewModel }: SimulationV0InternalDryRunPanelProps) {
+export function SimulationV0InternalDryRunPanel({
+  activeFloorplan = null,
+  viewModel
+}: SimulationV0InternalDryRunPanelProps) {
   const [reviewState, setReviewState] = useState<SimulationV0ReviewState>(
     () => viewModel?.reviewState ?? simulationV0DefaultReviewState
   );
@@ -40,6 +45,7 @@ export function SimulationV0InternalDryRunPanel({ viewModel }: SimulationV0Inter
         <div>
           <p className="eyebrow">Simulation v0</p>
           <h2 id="simulation-v0-title">{activeViewModel.title}</h2>
+          <p>Selected floorplan: {activeFloorplan?.displayName ?? "ER Pod Main Layout"}</p>
           <p>{activeViewModel.subtitle}</p>
         </div>
         <strong>{activeViewModel.statusLabel}</strong>

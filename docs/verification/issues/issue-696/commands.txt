@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-active-floorplan-selector-ux.mjs --stage selector-view-model --allow-partial --issue 696
+node scripts/check-active-floorplan-selector-ux.mjs --stage normal-mode --allow-partial --issue 696
+node scripts/check-active-floorplan-selector-ux.mjs --stage change-dropdown --allow-partial --issue 696
+node scripts/check-active-floorplan-selector-ux.mjs --stage advanced-library --allow-partial --issue 696
+node scripts/check-active-floorplan-selector-ux.mjs --stage technical-copy-hidden --allow-partial --issue 696
+node scripts/check-no-phi-fields.mjs

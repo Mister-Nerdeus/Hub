@@ -1,4 +1,5 @@
 import { buildEditorCommandBarViewModel } from "./editorCommandBarViewModel";
+import { EditorAdvancedToolsPanel } from "./EditorAdvancedToolsPanel";
 
 export type EditorCommandBarProps = {
   layoutLabel: string;
@@ -26,6 +27,7 @@ export type EditorCommandBarProps = {
   onResetDraft: () => void;
   onSaveWorkingCopy: () => void;
   onSaveAsNewCopy: () => void;
+  onDoneEditing?: () => void;
   onExportJson: () => void;
   onImportJson: () => void;
   onValidate: () => void;
@@ -60,6 +62,7 @@ export function EditorCommandBar({
   onResetDraft,
   onSaveWorkingCopy,
   onSaveAsNewCopy,
+  onDoneEditing = () => undefined,
   onExportJson,
   onImportJson,
   onValidate,
@@ -100,20 +103,13 @@ export function EditorCommandBar({
           disabled={viewModel.saveWorkingCopyDisabled}
           onClick={onSaveWorkingCopy}
         >
-          Save Working Copy
+          Save Floorplan
         </button>
-        <button
-          type="button"
-          data-editor-control="save-as-new-copy"
-          disabled={viewModel.saveAsNewCopyDisabled}
-          onClick={onSaveAsNewCopy}
-        >
-          Save As New Copy
-        </button>
-        <button type="button" data-editor-control="export-json-backup" onClick={onExportJson}>
-          Export JSON Backup
-        </button>
+        <button type="button" onClick={onDoneEditing}>Done Editing</button>
       </div>
+      <p className="editor-command-bar__save-status" role="status">
+        {viewModel.saveStatusLabel}
+      </p>
       <div className="editor-command-bar__primary" data-command-group="edit-history">
         <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
           Undo
@@ -122,17 +118,32 @@ export function EditorCommandBar({
           Redo
         </button>
       </div>
-      <div className="editor-command-bar__primary editor-command-bar__recovery" data-command-group="recovery-import-export">
-        <button type="button" disabled={!hasLocalRecoveryDraft} onClick={onRestoreDraft}>
-          Restore Local Draft
-        </button>
-        <button type="button" className="editor-command-bar__danger" onClick={onResetDraft}>
-          Reset Local Draft
-        </button>
-        <button type="button" onClick={onImportJson}>
-          Import JSON
-        </button>
-      </div>
+      <EditorAdvancedToolsPanel>
+        <div className="editor-command-bar__primary editor-command-bar__primary-save" data-command-group="advanced-save">
+          <button
+            type="button"
+            data-editor-control="save-as-new-version"
+            disabled={viewModel.saveAsNewCopyDisabled}
+            onClick={onSaveAsNewCopy}
+          >
+            Save as New Version
+          </button>
+          <button type="button" data-editor-control="export-json-backup" onClick={onExportJson}>
+            Export JSON Backup
+          </button>
+        </div>
+        <div className="editor-command-bar__primary editor-command-bar__recovery" data-command-group="recovery-import-export">
+          <button type="button" disabled={!hasLocalRecoveryDraft} onClick={onRestoreDraft}>
+            Restore Local Draft
+          </button>
+          <button type="button" className="editor-command-bar__danger" onClick={onResetDraft}>
+            Reset Local Draft
+          </button>
+          <button type="button" onClick={onImportJson}>
+            Import JSON
+          </button>
+        </div>
+      </EditorAdvancedToolsPanel>
       <div className="editor-command-bar__primary" data-command-group="editor-tools">
         <button type="button" disabled={viewModel.addObjectDisabled} onClick={onAddObject}>
           Add Object
@@ -154,6 +165,8 @@ export function EditorCommandBar({
           {viewModel.proceedLabel}
         </button>
       </div>
+      <details className="editor-command-bar__advanced-status">
+        <summary>Advanced status</summary>
       <dl className="editor-command-bar__status" aria-label="Editor status">
         <div>
           <dt>Active copy</dt>
@@ -212,9 +225,9 @@ export function EditorCommandBar({
           <dd>{viewModel.proceedStatusLabel}</dd>
         </div>
       </dl>
-      <p className="editor-command-bar__help" data-save-help="named-copy-local-draft-export">
-        Save Working Copy persists this named saved copy. Local draft is browser recovery only.
-        Export JSON Backup downloads a backup file.
+      </details>
+      <p className="editor-command-bar__help" data-save-help="save-floorplan-active">
+        Save Floorplan keeps this as the active floorplan for assignments and scenarios.
       </p>
       {viewModel.defaultWarningLabel == null ? null : (
         <p className="editor-command-bar__warning" role="status">

@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-save-and-use-floorplan-ux.mjs --stage normal-save-ui --allow-partial --issue 699
+node scripts/check-save-and-use-floorplan-ux.mjs --stage save-result-copy --allow-partial --issue 699
+node scripts/check-save-and-use-floorplan-ux.mjs --stage advanced-save-tools --allow-partial --issue 699
+node scripts/check-save-and-use-floorplan-ux.mjs --stage local-draft-hidden --allow-partial --issue 699
+node scripts/check-save-and-use-floorplan-ux.mjs --stage active-after-save --allow-partial --issue 699
+node scripts/check-no-phi-fields.mjs

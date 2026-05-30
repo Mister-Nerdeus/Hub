@@ -1,0 +1,82 @@
+{
+  "source": "docs/verification/issues/issue-703/test-output/active-floorplan-persistence.txt",
+  "status": "passed",
+  "issue": "703",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "active floorplan persistence contract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "active selection is saved to local storage",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "reload restores the same active floorplan version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "deleted active floorplan fallback is explicit",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "active floorplan version ID is first-class",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Manual Assignment remains active-floorplan backed after reload",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "stageResults": {
+    "persistence-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "save-active-selection": {
+      "passed": true,
+      "missing": []
+    },
+    "reload-restores-active": {
+      "passed": true,
+      "missing": []
+    },
+    "deleted-active-fallback": {
+      "passed": true,
+      "missing": []
+    },
+    "version-id": {
+      "passed": true,
+      "missing": []
+    },
+    "no-synthetic-fallback": {
+      "passed": true,
+      "missing": []
+    }
+  }
+}

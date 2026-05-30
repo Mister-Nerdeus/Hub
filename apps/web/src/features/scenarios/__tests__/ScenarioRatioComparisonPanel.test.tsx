@@ -18,7 +18,10 @@ assertPanel(copySource.includes("Not staffing compliance certification"), "panel
 assertPanel(panelSource.includes("Ratio comparison readiness"), "panel must render readiness-level ratio comparison");
 assertPanel(!panelSource.includes("Placeholder outcome rows"), "panel must not render outcome placeholders in the foundation shell");
 assertPanel(!panelSource.includes("\"Computed\""), "panel must not render computed outcome copy");
-assertPanel(appSource.includes("<ScenarioRatioComparisonPanel />"), "App must wire the comparison UI shell into Scenarios");
+assertPanel(
+  appSource.includes("<ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract} />"),
+  "App must wire the comparison UI shell into Scenarios with active floorplan context"
+);
 
 function assertPanel(condition: boolean, message: string) {
   if (!condition) {

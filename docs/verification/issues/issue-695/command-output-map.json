@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "issue": "695",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-active-floorplan-source-of-truth.mjs --stage contract --allow-partial --issue 695",
+    "5": "node scripts/check-active-floorplan-source-of-truth.mjs --stage app-state-refactor --allow-partial --issue 695",
+    "6": "node scripts/check-active-floorplan-source-of-truth.mjs --stage editor-consumes-active --allow-partial --issue 695",
+    "7": "node scripts/check-active-floorplan-source-of-truth.mjs --stage manual-assignment-consumes-active --allow-partial --issue 695",
+    "8": "node scripts/check-active-floorplan-source-of-truth.mjs --stage scenario-consumes-active --allow-partial --issue 695",
+    "9": "node scripts/check-active-floorplan-source-of-truth.mjs --stage no-synthetic-fallback --allow-partial --issue 695",
+    "10": "node scripts/check-no-phi-fields.mjs"
+  }
+}

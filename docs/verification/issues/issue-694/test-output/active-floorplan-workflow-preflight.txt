@@ -1,0 +1,187 @@
+{
+  "status": "passed",
+  "issue": "694",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "active floorplan workflow manifest exists with required batch metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "batch": "694-703",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+        "requiredKeys": 47
+      }
+    },
+    {
+      "name": "root scripts for Issues 694-703 are wired in package.json and verify-local",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingPackageScripts": [],
+        "missingVerifyLocalScripts": []
+      }
+    },
+    {
+      "name": "workflow status doc records current UX problem",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "existing active floorplan state problem is documented",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "door and split-room browser regression scripts remain wired",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+        "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+      }
+    },
+    {
+      "name": "preflight preserves no simulation/optimizer/collaboration scope drift",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "manifest": {
+          "manifestVersion": "1.0.0",
+          "batch": "694-703",
+          "lastUpdatedIssue": "694",
+          "productDisplayName": "ER Pod Shift Simulator",
+          "sourceDoorAuthoringStatus": "passed",
+          "sourceSplitRoomAuthoringStatus": "passed",
+          "activeFloorplanPreflightStatus": "passed",
+          "activeFloorplanContractStatus": "missing",
+          "activeFloorplanSelectorStatus": "missing",
+          "floorplanVersionNamingStatus": "missing",
+          "floorplanVersionHistoryStatus": "missing",
+          "saveAndUseFloorplanStatus": "missing",
+          "floorplanReadinessChecklistStatus": "missing",
+          "activeFloorplanBannerStatus": "missing",
+          "floorplanChangeConfirmationStatus": "missing",
+          "activeFloorplanPersistenceStatus": "missing",
+          "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+          "singleActiveFloorplanContract": false,
+          "normalModeShowsOneFloorplan": false,
+          "technicalFloorplanDetailsAdvancedOnly": false,
+          "copyCopyRemovedFromNormalUi": false,
+          "savedCopiesDisplayedAsVersions": false,
+          "savedFloorplanBecomesActive": false,
+          "readyForAssignmentStatusVisible": false,
+          "readyForSimulationStatusVisible": false,
+          "allModesShowActiveFloorplan": false,
+          "assignmentCompatibilityGuard": false,
+          "activeFloorplanSurvivesReload": false,
+          "manualAssignmentUsesActiveFloorplan": false,
+          "scenarioUsesActiveFloorplan": false,
+          "simulationDisplaysActiveFloorplan": false,
+          "reportsDisplayActiveFloorplan": false,
+          "noSilentSyntheticFallback": false,
+          "doorAuthoringNonRegression": false,
+          "splitRoomNonRegression": false,
+          "normalUserWorkflowStatus": "not_ready",
+          "advancedDeveloperToolsStatus": "advanced_only",
+          "collaborationStatus": "not_started",
+          "simulationV0Status": "internal_dry_run_only",
+          "optimizerStatus": "not_started",
+          "assignmentRecommendationStatus": "not_started",
+          "clinicalSafetyScoringStatus": "not_started",
+          "staffingComplianceStatus": "not_started",
+          "patientOutcomePredictionStatus": "not_started",
+          "promotionStatus": "blocked",
+          "noPhiStatus": "passed",
+          "goNoGoStatus": "not_ready"
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "status": "passed",
+      "batch": "694-703",
+      "productDisplayName": "ER Pod Shift Simulator",
+      "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+      "requiredKeys": 47
+    },
+    "root-script-wiring": {
+      "status": "passed",
+      "missingPackageScripts": [],
+      "missingVerifyLocalScripts": []
+    },
+    "workflow-status": {
+      "passed": true,
+      "missing": []
+    },
+    "existing-state-problem": {
+      "passed": true,
+      "missing": []
+    },
+    "regression-scripts-wired": {
+      "status": "passed",
+      "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+      "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+    },
+    "no-scope-drift": {
+      "status": "passed",
+      "manifest": {
+        "manifestVersion": "1.0.0",
+        "batch": "694-703",
+        "lastUpdatedIssue": "694",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "sourceDoorAuthoringStatus": "passed",
+        "sourceSplitRoomAuthoringStatus": "passed",
+        "activeFloorplanPreflightStatus": "passed",
+        "activeFloorplanContractStatus": "missing",
+        "activeFloorplanSelectorStatus": "missing",
+        "floorplanVersionNamingStatus": "missing",
+        "floorplanVersionHistoryStatus": "missing",
+        "saveAndUseFloorplanStatus": "missing",
+        "floorplanReadinessChecklistStatus": "missing",
+        "activeFloorplanBannerStatus": "missing",
+        "floorplanChangeConfirmationStatus": "missing",
+        "activeFloorplanPersistenceStatus": "missing",
+        "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+        "singleActiveFloorplanContract": false,
+        "normalModeShowsOneFloorplan": false,
+        "technicalFloorplanDetailsAdvancedOnly": false,
+        "copyCopyRemovedFromNormalUi": false,
+        "savedCopiesDisplayedAsVersions": false,
+        "savedFloorplanBecomesActive": false,
+        "readyForAssignmentStatusVisible": false,
+        "readyForSimulationStatusVisible": false,
+        "allModesShowActiveFloorplan": false,
+        "assignmentCompatibilityGuard": false,
+        "activeFloorplanSurvivesReload": false,
+        "manualAssignmentUsesActiveFloorplan": false,
+        "scenarioUsesActiveFloorplan": false,
+        "simulationDisplaysActiveFloorplan": false,
+        "reportsDisplayActiveFloorplan": false,
+        "noSilentSyntheticFallback": false,
+        "doorAuthoringNonRegression": false,
+        "splitRoomNonRegression": false,
+        "normalUserWorkflowStatus": "not_ready",
+        "advancedDeveloperToolsStatus": "advanced_only",
+        "collaborationStatus": "not_started",
+        "simulationV0Status": "internal_dry_run_only",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "patientOutcomePredictionStatus": "not_started",
+        "promotionStatus": "blocked",
+        "noPhiStatus": "passed",
+        "goNoGoStatus": "not_ready"
+      }
+    }
+  }
+}

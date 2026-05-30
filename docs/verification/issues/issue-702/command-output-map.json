@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "702",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-floorplan-change-confirmation.mjs --stage confirmation-dialog --allow-partial --issue 702",
+    "5": "node scripts/check-floorplan-change-confirmation.mjs --stage cancel-preserves --allow-partial --issue 702",
+    "6": "node scripts/check-floorplan-change-confirmation.mjs --stage confirm-changes --allow-partial --issue 702",
+    "7": "node scripts/check-floorplan-change-confirmation.mjs --stage assignment-compatibility --allow-partial --issue 702",
+    "8": "node scripts/check-floorplan-change-confirmation.mjs --stage no-synthetic-fallback --allow-partial --issue 702",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

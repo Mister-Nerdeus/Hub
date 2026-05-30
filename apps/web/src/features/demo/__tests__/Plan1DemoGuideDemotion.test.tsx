@@ -19,6 +19,6 @@ if (!evidenceSource.includes("<Plan1DemoGuide") || !evidenceSource.includes("Wor
 if (evidenceSource.includes(`<summary>${legacyGuideLabel}</summary>`)) {
   throw new Error("unlocked guide summary must not use legacy guide copy");
 }
-if (!appSource.includes("Canonical ER Pod Floorplan")) {
-  throw new Error("canonical operator workflow must remain in the product route");
+if (!appSource.includes("<ActiveFloorplanSelector")) {
+  throw new Error("active floorplan workflow must remain in the product route");
 }

@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-floorplan-readiness-checklist.mjs --stage readiness-contract --allow-partial --issue 700
+node scripts/check-floorplan-readiness-checklist.mjs --stage checklist-render --allow-partial --issue 700
+node scripts/check-floorplan-readiness-checklist.mjs --stage ready-for-assignment --allow-partial --issue 700
+node scripts/check-floorplan-readiness-checklist.mjs --stage ready-for-simulation --allow-partial --issue 700
+node scripts/check-no-phi-fields.mjs

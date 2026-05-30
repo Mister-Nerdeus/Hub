@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "696",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-active-floorplan-selector-ux.mjs --stage selector-view-model --allow-partial --issue 696",
+    "5": "node scripts/check-active-floorplan-selector-ux.mjs --stage normal-mode --allow-partial --issue 696",
+    "6": "node scripts/check-active-floorplan-selector-ux.mjs --stage change-dropdown --allow-partial --issue 696",
+    "7": "node scripts/check-active-floorplan-selector-ux.mjs --stage advanced-library --allow-partial --issue 696",
+    "8": "node scripts/check-active-floorplan-selector-ux.mjs --stage technical-copy-hidden --allow-partial --issue 696",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

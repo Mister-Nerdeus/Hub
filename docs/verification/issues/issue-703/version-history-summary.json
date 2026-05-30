@@ -1,0 +1,70 @@
+{
+  "source": "docs/verification/issues/issue-703/test-output/floorplan-version-history.txt",
+  "status": "passed",
+  "issue": "703",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "shared floorplan version contract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "existing saved records map to version history without data loss",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "version history marks one current version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "advanced version history can restore version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "advanced version history can archive version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "stageResults": {
+    "version-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "existing-records-map": {
+      "passed": true,
+      "missing": []
+    },
+    "current-version": {
+      "passed": true,
+      "missing": []
+    },
+    "restore-version": {
+      "passed": true,
+      "missing": []
+    },
+    "archive-version": {
+      "passed": true,
+      "missing": []
+    }
+  }
+}

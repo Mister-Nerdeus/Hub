@@ -8,11 +8,12 @@ export type EditorSaveStatusPanelProps = EditorSaveStatusViewModelInput;
 export function EditorSaveStatusPanel(props: EditorSaveStatusPanelProps) {
   const viewModel = buildEditorSaveStatusViewModel(props);
   return (
-    <section
+    <details
       className="editor-save-status-panel"
       aria-label="Active copy and save status"
       data-editor-save-status-panel="true"
     >
+      <summary>Advanced save details</summary>
       <dl>
         <div>
           <dt>Active copy</dt>
@@ -65,6 +66,6 @@ export function EditorSaveStatusPanel(props: EditorSaveStatusPanelProps) {
           {viewModel.localOnlyWarningLabel}
         </p>
       )}
-    </section>
+    </details>
   );
 }

@@ -68,13 +68,13 @@ export function buildEditorCommandBarViewModel({
     lastNamedCopySaveLabel,
     reloadProofLabel,
     defaultWarningLabel: readOnly
-      ? "Canonical default is read-only. Save Working Copy creates a saved editable copy."
+      ? "This floorplan is read-only. Save Floorplan creates an editable saved version."
       : null,
     changedNotSavedWarningLabel: isDirty && !readOnly
-      ? "Changes are in the local editor only. Click Save Working Copy to persist this saved copy."
+      ? "Changes are in the editor only. Click Save Floorplan to persist this floorplan."
       : null,
-    saveStatusLabel: isDirty && !readOnly ? "Not saved since local changes" : saveStatus,
-    dirtyStateLabel: isDirty ? "Local editor state: changed" : "Local editor state: unchanged",
+    saveStatusLabel: isDirty && !readOnly ? "Not saved since changes" : saveStatus,
+    dirtyStateLabel: isDirty ? "Editor state: changed" : "Editor state: unchanged",
     modeLabel: readOnly ? "Read-only" : "Editable",
     validationLabel: validationSummary,
     undoDisabled,

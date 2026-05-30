@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "699",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-save-and-use-floorplan-ux.mjs --stage normal-save-ui --allow-partial --issue 699",
+    "5": "node scripts/check-save-and-use-floorplan-ux.mjs --stage save-result-copy --allow-partial --issue 699",
+    "6": "node scripts/check-save-and-use-floorplan-ux.mjs --stage advanced-save-tools --allow-partial --issue 699",
+    "7": "node scripts/check-save-and-use-floorplan-ux.mjs --stage local-draft-hidden --allow-partial --issue 699",
+    "8": "node scripts/check-save-and-use-floorplan-ux.mjs --stage active-after-save --allow-partial --issue 699",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

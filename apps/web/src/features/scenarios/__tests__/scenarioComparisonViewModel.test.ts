@@ -9,7 +9,11 @@ import {
 const viewModel = createScenarioComparisonViewModel();
 
 if (viewModel.canonicalFloorplanId !== CANONICAL_SCENARIO_FLOORPLAN_ID) {
-  throw new Error("comparison view model must use the canonical floorplan");
+  throw new Error("comparison view model must default to the canonical seed floorplan");
+}
+
+if (viewModel.activeFloorplanDisplayName !== "ER Pod Main Layout" || viewModel.floorplanLabel !== "Active floorplan") {
+  throw new Error("comparison view model must expose the active floorplan context");
 }
 
 if (viewModel.cards[0].label !== "4:1" || viewModel.cards[1].label !== "3:1") {
@@ -35,7 +39,10 @@ if (!viewModel.knownLimitations.includes("No full-shift simulation output")) {
 const mismatchedInput = createDefaultScenarioComparisonInput();
 mismatchedInput.canonicalFloorplanId = "default-er-layout-plan-2";
 
-assertThrows(() => createScenarioComparisonViewModel(mismatchedInput), "canonical");
+const mismatchedViewModel = createScenarioComparisonViewModel(mismatchedInput);
+if (mismatchedViewModel.floorplanLabel !== "Active floorplan") {
+  throw new Error("comparison view model must avoid hardcoding canonical-only UI behavior");
+}
 
 const missingReferenceProofInput = createDefaultScenarioComparisonInput();
 missingReferenceProofInput.imageBackedReferenceProofReady = false;

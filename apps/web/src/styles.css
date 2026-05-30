@@ -6,6 +6,130 @@
     sans-serif;
 }
 
+.active-floorplan-banner,
+.active-floorplan-selector,
+.floorplan-readiness-checklist,
+.floorplan-advanced-panel,
+.editor-advanced-tools-panel,
+.floorplan-version-history,
+.floorplan-change-dialog__panel {
+  border: 1px solid #c9d3df;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.active-floorplan-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  margin: 0 0 16px;
+}
+
+.active-floorplan-banner div,
+.active-floorplan-selector__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.active-floorplan-selector {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  padding: 18px;
+}
+
+.active-floorplan-selector h3 {
+  margin: 0 0 8px;
+}
+
+.active-floorplan-selector p {
+  margin: 4px 0;
+}
+
+.active-floorplan-selector__change label {
+  display: grid;
+  gap: 6px;
+  min-width: 240px;
+  padding-top: 8px;
+}
+
+.floorplan-readiness-checklist {
+  margin-top: 16px;
+  padding: 18px;
+}
+
+.floorplan-readiness-checklist ul,
+.floorplan-version-history ul {
+  display: grid;
+  gap: 8px;
+  padding: 0;
+  margin: 12px 0 0;
+  list-style: none;
+}
+
+.floorplan-readiness-checklist li,
+.floorplan-version-history li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #c9d3df;
+  border-radius: 6px;
+}
+
+.floorplan-readiness-checklist small {
+  grid-column: 2 / -1;
+  color: #40505f;
+}
+
+.floorplan-advanced-panel {
+  margin-top: 16px;
+  padding: 12px 16px;
+}
+
+.floorplan-advanced-panel__body,
+.editor-advanced-tools-panel__body {
+  display: grid;
+  gap: 14px;
+  padding-top: 12px;
+}
+
+.floorplan-change-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(15 23 42 / 0.42);
+}
+
+.floorplan-change-dialog__panel {
+  max-width: 520px;
+  padding: 20px;
+  box-shadow: 0 18px 44px rgb(15 23 42 / 0.22);
+}
+
+.floorplan-change-dialog__panel div {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+@media (max-width: 760px) {
+  .active-floorplan-banner,
+  .active-floorplan-selector {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

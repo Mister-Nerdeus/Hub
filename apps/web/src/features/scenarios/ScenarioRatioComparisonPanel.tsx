@@ -1,12 +1,19 @@
 import {
+  createDefaultScenarioComparisonInput,
   createScenarioComparisonViewModel,
   type ScenarioComparisonViewModel
 } from "./scenarioComparisonViewModel";
+import type { ActiveFloorplanContract } from "@nerdeus/shared";
 import { SCENARIO_RATIO_COMPARISON_COPY } from "./scenarioRatioComparisonCopy";
 
 export function ScenarioRatioComparisonPanel({
-  viewModel = createScenarioComparisonViewModel()
+  activeFloorplan = null,
+  viewModel = createScenarioComparisonViewModel({
+    ...createDefaultScenarioComparisonInput(),
+    activeFloorplanContext: activeFloorplan
+  })
 }: {
+  activeFloorplan?: ActiveFloorplanContract | null;
   viewModel?: ScenarioComparisonViewModel;
 }) {
   return (
@@ -19,7 +26,8 @@ export function ScenarioRatioComparisonPanel({
         <div>
           <p className="eyebrow">{SCENARIO_RATIO_COMPARISON_COPY.floorplanLabel}</p>
           <h3 id="scenario-ratio-comparison-title">{SCENARIO_RATIO_COMPARISON_COPY.title}</h3>
-          <p>{viewModel.floorplanLabel}: {viewModel.canonicalFloorplanId}</p>
+          <p>{viewModel.floorplanLabel}: {viewModel.activeFloorplanDisplayName}</p>
+          <p>Version: {viewModel.activeFloorplanVersionId ?? "Version 1"}</p>
           <p>{viewModel.foundationStatus}</p>
         </div>
         <div className="scenario-ratio-comparison__notices" aria-label="Scenario comparison boundaries">
