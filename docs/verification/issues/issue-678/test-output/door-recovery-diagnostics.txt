@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "layout crash diagnostics contract is wired through recovery boundary and screen",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "hasDiagnosticsType": true,
+        "hasErrorMessage": true,
+        "hasActiveRecordAndPlan": true,
+        "hasSelectedObjectContext": true,
+        "hasDoorActionContext": true,
+        "hasAvailabilityFlags": true,
+        "boundaryBuildsDiagnostics": true,
+        "screenRendersDiagnostics": true,
+        "testCoversActions": true
+      }
+    },
+    {
+      "name": "recovery diagnostics show error message, record ID, and plan ID",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "errorMessageVisible": true,
+        "recordIdVisible": true,
+        "planIdVisible": true,
+        "recoveryScreenVisible": true,
+        "screenshot": "docs/verification/issues/issue-678/screenshots/door-crash-recovery-diagnostics.png"
+      }
+    },
+    {
+      "name": "recovery diagnostics show selected object and last door action",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "lastDoorActionVisible": true,
+        "selectedObjectVisible": true,
+        "diagnosticsText": "ErrorForced layout editor crash for local recovery verification.Record IDdefault-plan-er-layout-plan-1Plan IDdefault-er-layout-plan-1Selected objectdoor:door-01Last door actionmoveDoorDraft availablenoLast valid snapshotyes"
+      }
+    },
+    {
+      "name": "copy diagnostics action writes sanitized diagnostics",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "copyDiagnosticsWorked": true,
+        "copiedDiagnosticsParsed": true,
+        "copiedKeys": [
+          "activePlanId",
+          "activeRecordId",
+          "draftAvailable",
+          "errorMessage",
+          "lastDoorAction",
+          "lastValidSnapshotAvailable",
+          "selectedObjectId",
+          "selectedObjectType"
+        ]
+      }
+    },
+    {
+      "name": "recovery screen exposes last valid snapshot export",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "lastValidSnapshotAvailable": true,
+        "exportSnapshotButtonEnabled": true,
+        "exportCrashDraftButtonPresent": true
+      }
+    },
+    {
+      "name": "recovery diagnostics omit private payload terms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "checkedDiagnosticsOnly": true,
+        "copiedDiagnosticsLength": 344
+      }
+    }
+  ],
+  "stageResults": {
+    "diagnostics-contract": {
+      "status": "passed",
+      "hasDiagnosticsType": true,
+      "hasErrorMessage": true,
+      "hasActiveRecordAndPlan": true,
+      "hasSelectedObjectContext": true,
+      "hasDoorActionContext": true,
+      "hasAvailabilityFlags": true,
+      "boundaryBuildsDiagnostics": true,
+      "screenRendersDiagnostics": true,
+      "testCoversActions": true
+    },
+    "error-message-visible": {
+      "status": "passed",
+      "errorMessageVisible": true,
+      "recordIdVisible": true,
+      "planIdVisible": true,
+      "recoveryScreenVisible": true,
+      "screenshot": "docs/verification/issues/issue-678/screenshots/door-crash-recovery-diagnostics.png"
+    },
+    "last-door-action": {
+      "status": "passed",
+      "lastDoorActionVisible": true,
+      "selectedObjectVisible": true,
+      "diagnosticsText": "ErrorForced layout editor crash for local recovery verification.Record IDdefault-plan-er-layout-plan-1Plan IDdefault-er-layout-plan-1Selected objectdoor:door-01Last door actionmoveDoorDraft availablenoLast valid snapshotyes"
+    },
+    "copy-diagnostics": {
+      "status": "passed",
+      "copyDiagnosticsWorked": true,
+      "copiedDiagnosticsParsed": true,
+      "copiedKeys": [
+        "activePlanId",
+        "activeRecordId",
+        "draftAvailable",
+        "errorMessage",
+        "lastDoorAction",
+        "lastValidSnapshotAvailable",
+        "selectedObjectId",
+        "selectedObjectType"
+      ]
+    },
+    "export-snapshot": {
+      "status": "passed",
+      "lastValidSnapshotAvailable": true,
+      "exportSnapshotButtonEnabled": true,
+      "exportCrashDraftButtonPresent": true
+    },
+    "no-private-payload": {
+      "status": "passed",
+      "checkedDiagnosticsOnly": true,
+      "copiedDiagnosticsLength": 344
+    }
+  }
+}

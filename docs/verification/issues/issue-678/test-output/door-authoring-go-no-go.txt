@@ -1,0 +1,207 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "669 preflight real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "preflight",
+        "label": "669 preflight",
+        "source": "docs/verification/issues/issue-678/test-output/door-authoring-crash-preflight.txt",
+        "outputName": "preflight-summary.json",
+        "blocker": "669 preflight validator did not pass",
+        "status": "passed",
+        "checkCount": 4,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "670 crash reproduction real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "crash-reproduction",
+        "label": "670 crash reproduction",
+        "source": "docs/verification/issues/issue-678/test-output/door-crash-reproduction.txt",
+        "outputName": "crash-reproduction-summary.json",
+        "blocker": "670 crash reproduction validator did not pass",
+        "status": "passed",
+        "checkCount": 5,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "671 safe wrapper real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "safe-wrapper",
+        "label": "671 safe wrapper",
+        "source": "docs/verification/issues/issue-678/test-output/safe-door-authoring-wrapper.txt",
+        "outputName": "safe-wrapper-summary.json",
+        "blocker": "671 safe door authoring wrapper validator did not pass",
+        "status": "passed",
+        "checkCount": 6,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "672 candidate eligibility real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "candidate-eligibility",
+        "label": "672 candidate eligibility",
+        "source": "docs/verification/issues/issue-678/test-output/door-candidate-eligibility.txt",
+        "outputName": "candidate-eligibility-summary.json",
+        "blocker": "672 candidate eligibility validator did not pass",
+        "status": "passed",
+        "checkCount": 6,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "673 add-door preflight real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "add-door-preflight",
+        "label": "673 add-door preflight",
+        "source": "docs/verification/issues/issue-678/test-output/add-door-preflight.txt",
+        "outputName": "add-door-preflight-summary.json",
+        "blocker": "673 add-door preflight validator did not pass",
+        "status": "passed",
+        "checkCount": 7,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "674 owner model real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "owner-model",
+        "label": "674 owner model",
+        "source": "docs/verification/issues/issue-678/test-output/door-owner-model-hardening.txt",
+        "outputName": "owner-model-summary.json",
+        "blocker": "674 owner model validator did not pass",
+        "status": "passed",
+        "checkCount": 5,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "675 recovery snapshots real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "recovery-snapshot",
+        "label": "675 recovery snapshots",
+        "source": "docs/verification/issues/issue-678/test-output/door-action-recovery-snapshots.txt",
+        "outputName": "recovery-snapshot-summary.json",
+        "blocker": "675 recovery snapshot validator did not pass",
+        "status": "passed",
+        "checkCount": 5,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "676 recovery diagnostics real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "recovery-diagnostics",
+        "label": "676 recovery diagnostics",
+        "source": "docs/verification/issues/issue-678/test-output/door-recovery-diagnostics.txt",
+        "outputName": "recovery-diagnostics-summary.json",
+        "blocker": "676 recovery diagnostics validator did not pass",
+        "status": "passed",
+        "checkCount": 6,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "677 browser regression real validator passed",
+      "passed": true,
+      "detail": {
+        "key": "browser-regression",
+        "label": "677 browser regression",
+        "source": "docs/verification/issues/issue-678/test-output/door-authoring-browser-regression.txt",
+        "outputName": "browser-regression-summary.json",
+        "blocker": "677 browser regression validator did not pass",
+        "status": "passed",
+        "checkCount": 6,
+        "failedChecks": [],
+        "sourceExists": true
+      }
+    },
+    {
+      "name": "manifest agrees with real validator outputs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "blockers": []
+      }
+    },
+    {
+      "name": "final browser proof screenshot is available",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "source": "docs/verification/issues/issue-677/screenshots/door-save-reload-proof.png",
+        "target": "docs/verification/issues/issue-678/screenshots/door-authoring-final-proof.png"
+      }
+    }
+  ],
+  "decision": {
+    "doorAuthoringGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "reconstructionStatus": "go_for_full_er_floorplan_reconstruction"
+  },
+  "manifest": {
+    "manifestVersion": "1.0.0",
+    "batch": "669-678",
+    "lastUpdatedIssue": "678",
+    "productDisplayName": "ER Pod Shift Simulator",
+    "sourceBatch": "641-650",
+    "sourceGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "sourceGoNoGoRevoked": true,
+    "revocationReason": "User reproduced editor recovery screen while adding/assigning doors in both top pod areas.",
+    "doorCrashPreflightStatus": "passed",
+    "doorCrashReproductionStatus": "passed",
+    "safeDoorAuthoringWrapperStatus": "passed",
+    "doorCandidateEligibilityStatus": "passed",
+    "addDoorPreflightStatus": "passed",
+    "doorOwnerModelStatus": "passed",
+    "doorRecoverySnapshotsStatus": "passed",
+    "recoveryDiagnosticsStatus": "passed",
+    "doorRegressionPackStatus": "passed",
+    "doorAuthoringGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "doorActionsNonThrowing": true,
+    "leftPodDoorCrashProof": true,
+    "rightPodDoorCrashProof": true,
+    "invalidDoorActionsBecomeWarnings": true,
+    "candidateEligibilityProof": true,
+    "solidWallDoorRejected": true,
+    "supportAccessSeparatedFromPatientDoor": true,
+    "lastValidSnapshotProof": true,
+    "recoveryDiagnosticsVisible": true,
+    "doorSaveReloadProof": true,
+    "noRecoveryScreenDuringDoorWork": true,
+    "reconstructionStatus": "go_for_full_er_floorplan_reconstruction",
+    "collaborationStatus": "not_started",
+    "simulationV0Status": "internal_dry_run_only",
+    "fullFutureSimulationEventModelStatus": "dormant",
+    "optimizerStatus": "not_started",
+    "assignmentRecommendationStatus": "not_started",
+    "clinicalSafetyScoringStatus": "not_started",
+    "staffingComplianceStatus": "not_started",
+    "patientOutcomePredictionStatus": "not_started",
+    "promotionStatus": "blocked",
+    "noPhiStatus": "passed",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction"
+  }
+}

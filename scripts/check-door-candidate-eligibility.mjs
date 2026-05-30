@@ -272,8 +272,15 @@ async function captureDisabledReasonScreenshot() {
   }, async (browser) => {
     await openSavedWorkingEditor(browser);
     await selectRoom(browser, "room-14");
+    await setSelectedRoomType(browser, "standard");
+    const beforeDoorIds = await readObjectIds(browser, "door");
     const addDoorResult = await clickRoomButton(browser, "Add door");
     await waitForExpression(browser, `document.querySelector('[data-door-quick-edit="ready"]') != null`, 10_000);
+    const afterDoorIds = await readObjectIds(browser, "door");
+    const doorId = afterDoorIds.find((id) => !beforeDoorIds.includes(id)) ?? afterDoorIds.at(-1);
+    await selectRoom(browser, "room-19");
+    await setSelectedRoomType(browser, "storage");
+    await selectDoor(browser, doorId);
     await browser.screenshot(screenshotPath);
     const proof = await browser.evaluate(`(() => {
       const root = document.querySelector('[data-door-quick-edit="ready"]');
@@ -290,7 +297,9 @@ async function captureDisabledReasonScreenshot() {
     return proof;
   });
   const proof = {
-    status: "passed",
+    status: result.result.disabledOptions.length > 0 && result.result.recoveryScreenVisible === false
+      ? "passed"
+      : "failed",
     screenshot: screenshotPath,
     serverLogBytes: result.serverLog.length,
     ...result.result
@@ -357,6 +366,37 @@ async function clickRoomButton(browser, label) {
     button.click();
     return { clicked: true, label: ${JSON.stringify(label)} };
   })()`);
+}
+
+async function setSelectedRoomType(browser, roomType) {
+  await browser.evaluate(`(() => {
+    const root = document.querySelector('[data-room-quick-edit="ready"]');
+    const select = root?.querySelector('select');
+    if (select == null) throw new Error('room type select missing');
+    select.value = ${JSON.stringify(roomType)};
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  })()`);
+  await waitForExpression(
+    browser,
+    `document.querySelector('[data-room-quick-edit="ready"] select')?.value === ${JSON.stringify(roomType)}`,
+    10_000
+  );
+}
+
+async function selectDoor(browser, doorId) {
+  if (doorId == null) throw new Error("door id is required for candidate screenshot proof");
+  await browser.evaluate(`(() => {
+    const element = document.querySelector('[data-layout-object-type="door"][data-layout-object-id="${doorId}"]');
+    if (element == null) throw new Error('missing door ${doorId}');
+    element.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    return true;
+  })()`);
+  await waitForExpression(browser, `document.querySelector('[data-door-quick-edit="ready"]') != null`, 10_000);
+}
+
+async function readObjectIds(browser, objectType) {
+  return browser.evaluate(`Array.from(document.querySelectorAll('[data-layout-object-type="${objectType}"]')).map((item) => item.getAttribute('data-layout-object-id')).filter(Boolean)`);
 }
 
 function clickEnabledButton(label) {

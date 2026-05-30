@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "room-owned door owner model is explicit",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "ownerModelStatusPresent": true,
+        "roomDoorEligiblePresent": true,
+        "editorUsesOwnerModel": true,
+        "editorEnablesPatientControlsForRoom": true,
+        "testCoversRoomOwner": true
+      }
+    },
+    {
+      "name": "hallway-owned opening avoids patient-room-only controls",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "ownerModelStatusPresent": true,
+        "editorShowsHallwayControls": true,
+        "quickEditBlocksPatientControls": true,
+        "stageRoomControlsRequireRoomOwner": true,
+        "testCoversHallwayOwner": true
+      }
+    },
+    {
+      "name": "support access owner model remains separate from patient-room doors",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "supportAccessStatusPresent": true,
+        "supportAccessInputPresent": true,
+        "supportAccessResolvesZone": true,
+        "supportAccessOwnerKindsStillSeparate": true,
+        "testCoversSupportAccess": true
+      }
+    },
+    {
+      "name": "missing door owner is a warning model, not a render crash",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingStatusPresent": true,
+        "missingWarningPresent": true,
+        "editorShowsRecoveryPanel": true,
+        "quickEditShowsOwnerWarning": true,
+        "testCoversMissingOwner": true
+      }
+    },
+    {
+      "name": "invalid door owner blocks export path and does not crash editor UI",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "invalidStatusPresent": true,
+        "invalidWarningPresent": true,
+        "reducerCanRecordOwnerWarning": true,
+        "contractBlocksInvalidDoorOwner": true,
+        "testCoversInvalidOwner": true,
+        "contractProof": {
+          "status": "passed",
+          "errorMessage": "door door-solid-wall must not reference solid_wall room solid-wall-01"
+        }
+      }
+    }
+  ]
+}

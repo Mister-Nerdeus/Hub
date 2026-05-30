@@ -1,0 +1,193 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "RED mode detects editor recovery screen",
+      "passed": true,
+      "detail": {
+        "recoveryScreenVisible": true,
+        "detectedAsFailure": true,
+        "runtimeUrl": "http://127.0.0.1:6870/?section=editor&forceLayoutEditorCrash=1"
+      }
+    },
+    {
+      "name": "left/top pod door action does not enter recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomId": "room-02",
+        "runtimeMarker": "641-650-editor-runtime-save-layout",
+        "runtimeMarkerMatched": true,
+        "commandBarExists": true,
+        "addDoorResult": {
+          "clicked": true,
+          "label": "Add door"
+        },
+        "selectedDoorId": "authored-door-001",
+        "candidateResult": {
+          "attempted": false,
+          "reason": "candidate selector disabled",
+          "optionCount": 1
+        },
+        "recoveryScreenVisible": false,
+        "before": {
+          "doorCount": 23,
+          "roomQuickEditVisible": true,
+          "doorQuickEditVisible": false,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+        },
+        "after": {
+          "doorCount": 24,
+          "roomQuickEditVisible": false,
+          "doorQuickEditVisible": true,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\nChanges are in the local editor only. Click Save Working Copy to persist this saved copy.\nChanges are only in the local editor/recovery draft. Click Save Working Copy to persist this named copy.\n0 generated hallway/public-space zones\nnot generated\nValidation1warningpath_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed.Path sync / door:authored-door-001 (1)Review door wall, width, adjacent candidate, and path sync status.path_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed."
+        }
+      }
+    },
+    {
+      "name": "right/top pod door action does not enter recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomId": "room-06",
+        "runtimeMarker": "641-650-editor-runtime-save-layout",
+        "runtimeMarkerMatched": true,
+        "commandBarExists": true,
+        "addDoorResult": {
+          "clicked": true,
+          "label": "Add door"
+        },
+        "selectedDoorId": "authored-door-001",
+        "candidateResult": {
+          "attempted": false,
+          "reason": "candidate selector disabled",
+          "optionCount": 1
+        },
+        "recoveryScreenVisible": false,
+        "before": {
+          "doorCount": 23,
+          "roomQuickEditVisible": true,
+          "doorQuickEditVisible": false,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+        },
+        "after": {
+          "doorCount": 24,
+          "roomQuickEditVisible": false,
+          "doorQuickEditVisible": true,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\nChanges are in the local editor only. Click Save Working Copy to persist this saved copy.\nChanges are only in the local editor/recovery draft. Click Save Working Copy to persist this named copy.\n0 generated hallway/public-space zones\nnot generated\nValidation1warningpath_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed.Path sync / door:authored-door-001 (1)Review door wall, width, adjacent candidate, and path sync status.path_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed."
+        }
+      }
+    },
+    {
+      "name": "grey wall/storage adjacent workflow is detected without recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomId": "room-14",
+        "runtimeMarker": "641-650-editor-runtime-save-layout",
+        "runtimeMarkerMatched": true,
+        "commandBarExists": true,
+        "addDoorResult": {
+          "clicked": false,
+          "reason": "missing enabled room quick-edit button"
+        },
+        "selectedDoorId": null,
+        "candidateResult": {
+          "attempted": false,
+          "reason": "no door selected"
+        },
+        "recoveryScreenVisible": false,
+        "before": {
+          "doorCount": 23,
+          "roomQuickEditVisible": true,
+          "doorQuickEditVisible": false,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+        },
+        "after": {
+          "doorCount": 23,
+          "roomQuickEditVisible": true,
+          "doorQuickEditVisible": false,
+          "recoveryVisible": false,
+          "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+        }
+      }
+    },
+    {
+      "name": "recovery screen remains absent during normal top-pod door work",
+      "passed": true,
+      "detail": {
+        "leftPod": {
+          "status": "passed",
+          "roomId": "room-02",
+          "runtimeMarker": "641-650-editor-runtime-save-layout",
+          "runtimeMarkerMatched": true,
+          "commandBarExists": true,
+          "addDoorResult": {
+            "clicked": true,
+            "label": "Add door"
+          },
+          "selectedDoorId": "authored-door-001",
+          "candidateResult": {
+            "attempted": false,
+            "reason": "candidate selector disabled",
+            "optionCount": 1
+          },
+          "recoveryScreenVisible": false,
+          "before": {
+            "doorCount": 23,
+            "roomQuickEditVisible": true,
+            "doorQuickEditVisible": false,
+            "recoveryVisible": false,
+            "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+          },
+          "after": {
+            "doorCount": 24,
+            "roomQuickEditVisible": false,
+            "doorQuickEditVisible": true,
+            "recoveryVisible": false,
+            "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\nChanges are in the local editor only. Click Save Working Copy to persist this saved copy.\nChanges are only in the local editor/recovery draft. Click Save Working Copy to persist this named copy.\n0 generated hallway/public-space zones\nnot generated\nValidation1warningpath_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed.Path sync / door:authored-door-001 (1)Review door wall, width, adjacent candidate, and path sync status.path_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed."
+          }
+        },
+        "rightPod": {
+          "status": "passed",
+          "roomId": "room-06",
+          "runtimeMarker": "641-650-editor-runtime-save-layout",
+          "runtimeMarkerMatched": true,
+          "commandBarExists": true,
+          "addDoorResult": {
+            "clicked": true,
+            "label": "Add door"
+          },
+          "selectedDoorId": "authored-door-001",
+          "candidateResult": {
+            "attempted": false,
+            "reason": "candidate selector disabled",
+            "optionCount": 1
+          },
+          "recoveryScreenVisible": false,
+          "before": {
+            "doorCount": 23,
+            "roomQuickEditVisible": true,
+            "doorQuickEditVisible": false,
+            "recoveryVisible": false,
+            "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\n0 generated hallway/public-space zones\nnot generated\nValidation0warningsNo layout warnings."
+          },
+          "after": {
+            "doorCount": 24,
+            "roomQuickEditVisible": false,
+            "doorQuickEditVisible": true,
+            "recoveryVisible": false,
+            "warningText": "Manual review requiredPromotion blockedSynthetic operational modeling only\nReady\nChanges are in the local editor only. Click Save Working Copy to persist this saved copy.\nChanges are only in the local editor/recovery draft. Click Save Working Copy to persist this named copy.\n0 generated hallway/public-space zones\nnot generated\nValidation1warningpath_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed.Path sync / door:authored-door-001 (1)Review door wall, width, adjacent candidate, and path sync status.path_sync_stale_after_door_editDoor authoring changed geometry; route/path sync is stale until path nodes are reviewed."
+          }
+        }
+      }
+    }
+  ]
+}

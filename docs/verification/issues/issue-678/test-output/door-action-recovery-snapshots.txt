@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "door recovery snapshot contract includes required context",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "hasSnapshotType": true,
+        "hasRecordId": true,
+        "hasTimestamp": true,
+        "hasActionContext": true,
+        "hasLayoutAndSelection": true,
+        "hasLimit": true
+      }
+    },
+    {
+      "name": "door and support-access actions snapshot before reducer dispatch",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "stageCreatesSnapshot": true,
+        "stageSavesSnapshot": true,
+        "dispatchWrapperPresent": true,
+        "coversDoorActions": true
+      }
+    },
+    {
+      "name": "failed door action restores previous valid layout with warning",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "reducerPreservesStateOnBlockedDoorAction": true,
+        "testChecksLayoutPreserved": true,
+        "testChecksWarning": true
+      }
+    },
+    {
+      "name": "door recovery snapshots are scoped by active record ID",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "storageFiltersByRecord": true,
+        "storageKeepsPerRecordLimit": true,
+        "testChecksPerRecordLimit": true,
+        "testChecksScopedRecord": true
+      }
+    },
+    {
+      "name": "recovery screen can export the last valid door snapshot",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "errorBoundaryLoadsSnapshot": true,
+        "errorBoundaryExportsSnapshot": true,
+        "recoveryScreenHasButton": true,
+        "recoveryScreenHasAvailabilityFlag": true
+      }
+    }
+  ]
+}

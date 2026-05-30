@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "stage": "rendered-copy",
+  "issue": "678",
+  "allowPartial": false,
+  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
+  "checks": [
+    {
+      "name": "every required route rendered",
+      "passed": true,
+      "detail": {
+        "routeCount": 11,
+        "forbiddenFragmentCount": 0,
+        "credentialFindingCount": 0
+      }
+    },
+    {
+      "name": "route screenshots exist and are non-empty",
+      "passed": true,
+      "detail": {
+        "missingScreenshots": []
+      }
+    },
+    {
+      "name": "rendered route text has no forbidden visible fragments",
+      "passed": true,
+      "detail": {
+        "forbiddenCount": 0
+      }
+    },
+    {
+      "name": "rendered route text has no visible access credential",
+      "passed": true,
+      "detail": {
+        "credentialCount": 0
+      }
+    }
+  ]
+}

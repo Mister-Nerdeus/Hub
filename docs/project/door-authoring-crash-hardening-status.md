@@ -1,6 +1,6 @@
 # Door Authoring Crash Hardening Status
 
-Decision: NO-GO for full ER floorplan reconstruction until Issue 678 passes.
+Decision: GO for full ER floorplan reconstruction
 
 ## Revocation
 - Source batch: 641-650
@@ -8,21 +8,24 @@ Decision: NO-GO for full ER floorplan reconstruction until Issue 678 passes.
 - Revoked: true
 - Reason: User reproduced editor recovery screen while adding/assigning doors in both top pod areas.
 
-## Current Batch
-- Last updated issue: 669
-- Door crash preflight: passed
-- Reconstruction status: no_go_until_door_authoring_crash_hardening_passes
+## Final Audit
+- 669 preflight: passed
+- 670 crash reproduction: passed
+- 671 safe wrapper: passed
+- 672 candidate eligibility: passed
+- 673 add-door preflight: passed
+- 674 owner model: passed
+- 675 recovery snapshots: passed
+- 676 recovery diagnostics: passed
+- 677 browser regression: passed
+
+## Remaining Blockers
+- None
 
 ## Gate Rule
-- Final GO must rerun real validators. Manifest flags alone are not sufficient.
-- Door authoring errors must be editor warnings, not render/runtime crashes.
-- Invalid door actions must preserve the previous valid layout.
+- Final GO reran real validators and did not trust manifest flags alone.
+- Door authoring errors are editor warnings, not render/runtime crashes.
+- Invalid door actions preserve the previous valid layout.
 
 ## Boundaries
 - No collaboration, WebSockets, live sessions, optimizer behavior, assignment recommendations, staffing advice, clinical safety scoring, staffing compliance certification, patient outcome prediction, PHI, EHR integration, or production-readiness claims were added.
-
-## Preflight Evidence
-- go-revocation: passed
-- manifest-contract: passed
-- root-script-wiring: passed
-- false-go-negative: passed

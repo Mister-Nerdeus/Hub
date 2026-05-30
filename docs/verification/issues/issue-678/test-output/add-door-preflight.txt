@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "issue": "678",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "add-door preflight contract is wired through the tool and stage",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "sourcePath": "packages/shared/src/floorplans/doorPreflight.ts",
+        "hasPreflightResultType": true,
+        "hasPreflightFunction": true,
+        "addDoorToolUsesPreflight": true,
+        "stageRecordsWarning": true,
+        "stageBuildsPreflightWarning": true
+      }
+    },
+    {
+      "name": "patient room add-door preflight allows and clamps defaults",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "preflight": {
+          "status": "allowed",
+          "wall": "south",
+          "offsetFeet": 0,
+          "widthFeet": 12
+        }
+      }
+    },
+    {
+      "name": "solid wall add-door target is rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "preflight": {
+          "status": "blocked",
+          "reason": "Solid wall / blocked areas cannot receive patient-room doors."
+        }
+      }
+    },
+    {
+      "name": "storage/support add-door target is rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "preflight": {
+          "status": "blocked",
+          "reason": "Storage/support-only rooms do not receive patient-room doors."
+        }
+      }
+    },
+    {
+      "name": "provider/pharmacy add-door routes to support-access tooling instead",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "preflight": {
+          "status": "blocked",
+          "reason": "Provider/pharmacy areas use support access point tooling."
+        },
+        "supportAccessToolPresent": true,
+        "providerQuickEditReasonPresent": true
+      }
+    },
+    {
+      "name": "missing selected room is rejected by add-door preflight",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "preflight": {
+          "status": "blocked",
+          "reason": "Select a patient room before adding a door."
+        }
+      }
+    },
+    {
+      "name": "blocked add-door target produces visible warning without recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "screenshot": "docs/verification/issues/issue-678/screenshots/add-door-blocked-warning.png",
+        "serverLogBytes": 236,
+        "addDoorToolbarResult": {
+          "clicked": true,
+          "label": "Add door"
+        },
+        "warningVisible": true,
+        "warningCodeVisible": true,
+        "recoveryScreenVisible": false,
+        "drawerWarningCount": 1,
+        "validationDrawerText": "Validation1warningadd_door_preflight_blockedAdd door blocked: Storage/support-only rooms do not receive patient-room doors.Door sync / room:room-14 (1)Review door wall, width, adjacent candidate, and path sync status.add_door_preflight_blockedAdd door blocked: Storage/support-only rooms do not receive patient-room doors.",
+        "validationText": "OPERATIONAL WORKSPACE\n\nER Pod Shift Simulator\n\nSynthetic operational modeling only. Manual review required; promotion blocked.\n\nManual review required\nPromotion blocked\nSynthetic operational modeling only\nLock Workspace\nBuild commit\nlocal-dev\nBuild time\n2026-05-30T13:53:12.937Z\nRuntime mode\nlocal-dev\nEditor save UX\nenabled\nBatch marker\n641-650-editor-runtime-save-layout\n\nLocal reset: stop the dev server, pull latest source, restart npm run dev, hard refresh, then verify the build commit and batch marker before testing saves.\n\nFloorplan\nEditor\nManual Assignment\nSimulation Review\nReview / Reports\nAdvanced\nFuture Tools\nLayout editor\n\nLAYOUT EDITOR\n\nJSON floorplan editor\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nUnits\nfeet\nSnap\ndefault\nSave Working Copy\nSave As New Copy\nExport JSON Backup\nUndo\nRedo\nRestore Local Draft\nReset Local Draft\nImport JSON\nAdd Object\nValidate\nReset view\nHide inspector\nProceed later\nActive copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nCreated new copy saved-default-er-layout-plan-1-001 at 09:53 AM\nLast named-copy save\n09:53 AM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged\nValidation\n1 validation warning\nJSON\nReady\nProceed\nFuture step\n\nSave Working Copy persists this named saved copy. Local draft is browser recovery only. Export JSON Backup downloads a backup file.\n\nActive copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nMode\nEditable\nLocal editor state\nLocal editor state: unchanged\nNamed working copy\nNamed working copy: Created new copy saved-default-er-layout-plan-1-001 at 09:53 AM\nLast named-copy save\n09:53 AM / record saved-default-er-layout-plan-1-001\nLocal recovery draft\nNo local recovery draft for this copy\nReload proof\nNot verified after latest named-copy save\nWhat do I do next?\n\nOpen validation drawer.\n\nReview grouped warnings before export.\nFloorplan JSON\nEdit Geometry\nAssignment View\nPresentation View\nSelect\nAdd room\nAdd door\nNew room type\npatient room\ntrauma room\nnurse station\nprovider pharmacy\nsupport\nems entry\nhallway\npublic space\nstorage\nsolid wall\nunknown\nAuto hallways\nAdvanced tools\n-\n100%\n+\nW\nN\nS\nE\nReset\nFit\nPopup mode\nAuto\nOn canvas\nDocked\n\nDrag the hallway/background to pan the map.\n\nBottom Horizontal Hallway\nEMS Entry Hallway\nLeft Vertical Hallway\nMain Hall\nRight Upper Hallway\nRight Vertical Hallway\nTop Horizontal Hallway\nBottom rooms 19-24 scaffold\nEMS entry scaffold\nHallway network scaffold\nLeft-side rooms 15-16 scaffold\nLeft-upper pod 2-5-14 scaffold\nProvider/pharmacy scaffold\nRight-side rooms 11-12 scaffold\nRight-upper pod 6-10-13 scaffold\nBottom Rooms 19-24\nEMS Entry\nHall EMS Entry Zone\nLeft Pod Rooms 2-5 and 14\nLeft Side Rooms 15-16\nLevel 1 Trauma Zone\nMain Hallway Network\nNumbered Room Bank\nNurse Station Core\nLeft Nurse Station Core\nRight Nurse Station Core\nProvider Pharmacy\nRight Pod Rooms 6-10 and 13\nRight Side Rooms 11-12\n0 ft\n5 ft\n10 ft\n15 ft\n20 ft\n25 ft\n30 ft\n35 ft\n40 ft\n45 ft\n50 ft\n55 ft\n60 ft\n65 ft\n70 ft\n75 ft\n80 ft\n85 ft\n90 ft\n5 ft\n10 ft\n15 ft\n20 ft\n25 ft\n30 ft\n35 ft\n40 ft\n45 ft\n50 ft\n55 ft\n60 ft\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\nStorage\n15\n16\n17\n19\n20\n21\n22\n23\n24\nLevel 1 Trauma\nLeft Nurse Station\nRight Nurse Station\nRoom room-14\nClose\nRoom number\nRoom label\n\nOperational labels only.\n\nRoom type\nstandard\ntrauma\nisolation\nbehavioral\nhall_bed\nprocedure\noverflow\nprovider_pharmacy\nstorage\nsolid_wall\nWidth 10 ft\n-W\n+W\nHeight 10 ft\n-H\n+H\nAssign nurse\nAdd door\nRemove attached doors\nDuplicate room\nDelete room\nConvert pair to Split Bay\nRoom\nDoor\nAssignment\nValidation\n\nINSPECTOR\n\n14\nObject type\nroom\nObject ID\nroom-14\nSource units\nfeet\nRoom metadata\nRoom number\n14\nRoom label\n14\nRoom type\nStorage (non-patient)\nCapacity type\nsingle\nHall bed\nNo\nTrauma adjacent\nNo\nGeometry\nX\nY\nWidth\nHeight\nRoom alignment\nTop\nBottom\nLeft\nRight\nWidth\nHeight\nGrid\nRoom type\npatient room\ntrauma room\nnurse station\nprovider pharmacy\nsupport\nems entry\nhallway\npublic space\nstorage\nsolid wall\nunknown\nValidation\n1\nwarning\nadd_door_preflight_blocked\n\nAdd door blocked: Storage/support-only rooms do not receive patient-room doors.\n\nDoor sync / room:room-14 (1)\n\nReview door wall, width, adjacent candidate, and path sync status.\n\nadd_door_preflight_blocked\nAdd door blocked: Storage/support-only rooms do not receive patient-room doors."
+      }
+    }
+  ]
+}
