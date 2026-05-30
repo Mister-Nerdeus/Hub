@@ -1,0 +1,59 @@
+{
+  "issue": "639",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-639/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-639/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-639/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-browser-reload-regression.mjs --stage room-move-only --allow-partial --issue 639",
+      "outputs": [
+        "docs/verification/issues/issue-639/scenario-1-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-browser-reload-regression.mjs --stage door-change-only --allow-partial --issue 639",
+      "outputs": [
+        "docs/verification/issues/issue-639/scenario-2-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-browser-reload-regression.mjs --stage room-and-door --allow-partial --issue 639",
+      "outputs": [
+        "docs/verification/issues/issue-639/scenario-3-room-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-browser-reload-regression.mjs --stage clear-local-draft --allow-partial --issue 639",
+      "outputs": [
+        "docs/verification/issues/issue-639/scenario-4-clear-local-draft-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-layout-editor-browser-reload-regression.mjs --stage unsaved-local-draft-negative --allow-partial --issue 639",
+      "outputs": [
+        "docs/verification/issues/issue-639/scenario-5-unsaved-local-draft-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-639/no-phi-output.txt"
+      ]
+    }
+  ]
+}

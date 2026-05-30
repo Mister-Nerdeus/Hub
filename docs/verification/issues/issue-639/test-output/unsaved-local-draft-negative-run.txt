@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "stage": "unsaved-local-draft-negative",
+  "issue": "639",
+  "checks": [
+    {
+      "name": "scenario 5 unsaved local draft does not equal named save",
+      "passed": true,
+      "detail": {
+        "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+        "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+        "beforeRoom": {
+          "id": "room-02",
+          "x": 44,
+          "y": 28,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "expectedRoom": {
+          "id": "room-02",
+          "x": 56,
+          "y": 34,
+          "widthFeet": 10,
+          "lengthFeet": 10
+        },
+        "exportedRoomAfterReload": null,
+        "beforeDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "expectedDoor": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 4.5,
+          "widthFeet": 4
+        },
+        "exportedDoorAfterReload": null,
+        "namedSavedRoomAfterReload": {
+          "id": "room-02",
+          "label": "2",
+          "xFeet": 44,
+          "yFeet": 28,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "2",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        "namedSavedDoorAfterReload": {
+          "objectType": "door",
+          "id": "door-02",
+          "label": "Door 2",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "wall": "south",
+          "offsetFeet": 3.5,
+          "widthFeet": 3
+        },
+        "localDraftAfterClear": "not-cleared",
+        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 7:58:27 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+        "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-5-local-draft-banner.png",
+        "exportedJson": null
+      }
+    }
+  ]
+}

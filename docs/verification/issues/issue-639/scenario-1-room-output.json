@@ -1,0 +1,106 @@
+{
+  "status": "passed",
+  "recordIdBeforeSave": "saved-default-er-layout-plan-1-001",
+  "recordIdAfterReload": "saved-default-er-layout-plan-1-001",
+  "beforeRoom": {
+    "id": "room-02",
+    "x": 44,
+    "y": 28,
+    "widthFeet": 10,
+    "lengthFeet": 10
+  },
+  "expectedRoom": {
+    "id": "room-02",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10
+  },
+  "exportedRoomAfterReload": {
+    "id": "room-02",
+    "label": "2",
+    "roomType": "standard",
+    "x": 56,
+    "y": 34,
+    "widthFeet": 10,
+    "lengthFeet": 10,
+    "maxPatients": 1,
+    "traumaCapable": false,
+    "isolationCapable": false,
+    "doorPoint": {
+      "x": 49,
+      "y": 38
+    },
+    "zoneId": "zone-left-pod-rooms-2-5-14",
+    "nearestStationId": "station-left",
+    "pathNodeId": "node-door-room-02",
+    "roomOperationalMetadata": {
+      "roomNumber": "2",
+      "roomClass": "standard",
+      "capacityCategory": "single",
+      "traumaAdjacent": false,
+      "isolationReady": false,
+      "behavioralReady": false,
+      "sitterCapable": false,
+      "lineOfSightLevel": "moderate"
+    }
+  },
+  "beforeDoor": {
+    "objectType": "door",
+    "id": "door-02",
+    "label": "Door 2",
+    "ownerKind": "room",
+    "ownerId": "room-02",
+    "wall": "south",
+    "offsetFeet": 3.5,
+    "widthFeet": 3
+  },
+  "expectedDoor": {
+    "objectType": "door",
+    "id": "door-02",
+    "label": "Door 2",
+    "ownerKind": "room",
+    "ownerId": "room-02",
+    "wall": "south",
+    "offsetFeet": 3.5,
+    "widthFeet": 3
+  },
+  "exportedDoorAfterReload": {
+    "id": "door-02",
+    "label": "Door 2",
+    "roomId": "room-02",
+    "x": 61,
+    "y": 44,
+    "widthFeet": 3,
+    "pathNodeId": null,
+    "doorOperationalMetadata": null
+  },
+  "namedSavedRoomAfterReload": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "namedSavedDoorAfterReload": {
+    "objectType": "door",
+    "id": "door-02",
+    "label": "Door 2",
+    "ownerKind": "room",
+    "ownerId": "room-02",
+    "wall": "south",
+    "offsetFeet": 3.5,
+    "widthFeet": 3
+  },
+  "localDraftAfterClear": "not-cleared",
+  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 7:58:32 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+  "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-1-after-reload.png",
+  "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-1-after-reload.json"
+}

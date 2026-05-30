@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-layout-editor-browser-reload-regression.mjs --stage room-move-only --allow-partial --issue 639
+node scripts/check-layout-editor-browser-reload-regression.mjs --stage door-change-only --allow-partial --issue 639
+node scripts/check-layout-editor-browser-reload-regression.mjs --stage room-and-door --allow-partial --issue 639
+node scripts/check-layout-editor-browser-reload-regression.mjs --stage clear-local-draft --allow-partial --issue 639
+node scripts/check-layout-editor-browser-reload-regression.mjs --stage unsaved-local-draft-negative --allow-partial --issue 639
+node scripts/check-no-phi-fields.mjs
