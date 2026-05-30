@@ -98,6 +98,27 @@
         "Inspector scrolls if needed": true,
         "Popup can be docked or remains visible": true
       }
+    },
+    {
+      "name": "required browser screenshots are real UI captures",
+      "passed": true,
+      "detail": {
+        "docs/verification/issues/issue-641/screenshots/runtime-build-info.png": true,
+        "docs/verification/issues/issue-642/screenshots/stale-runtime-warning.png": true,
+        "docs/verification/issues/issue-642/screenshots/expected-save-controls-visible.png": true,
+        "docs/verification/issues/issue-643/screenshots/redesigned-command-bar.png": true,
+        "docs/verification/issues/issue-644/screenshots/active-copy-save-status.png": true,
+        "docs/verification/issues/issue-644/screenshots/canonical-default-warning.png": true,
+        "docs/verification/issues/issue-645/screenshots/truthful-save-language-unsaved.png": true,
+        "docs/verification/issues/issue-645/screenshots/truthful-save-language-saved.png": true,
+        "docs/verification/issues/issue-648/screenshots/canvas-height-desktop.png": true,
+        "docs/verification/issues/issue-648/screenshots/canvas-height-laptop.png": true,
+        "docs/verification/issues/issue-648/screenshots/canvas-height-inspector-collapsed.png": true,
+        "docs/verification/issues/issue-649/screenshots/popup-auto-clamped.png": true,
+        "docs/verification/issues/issue-649/screenshots/popup-docked.png": true,
+        "docs/verification/issues/issue-649/screenshots/popup-small-viewport.png": true,
+        "docs/verification/issues/issue-650/screenshots/final-editor-ready-proof.png": true
+      }
     }
   ]
 }

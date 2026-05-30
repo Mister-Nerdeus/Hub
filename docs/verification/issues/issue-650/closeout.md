@@ -1,10 +1,10 @@
 # Issue 650 Closeout
 
-## Summary
-Issue 650 local closeout evidence for Codex Batch 641-650 editor runtime, save UX, and layout repair.
-
 ## Problem
 Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blockers.
+
+## Summary
+- Local verification artifacts passed for this issue scope.
 
 ## Invariants
 - Operational simulation tool only.
@@ -19,6 +19,7 @@ Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blo
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
 - npm run check:clean-committed-state
+- node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650
 - node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
 - node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
 - node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650

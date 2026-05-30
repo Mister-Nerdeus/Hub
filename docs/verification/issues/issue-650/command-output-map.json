@@ -26,6 +26,12 @@
       ]
     },
     {
+      "command": "node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650",
+      "outputs": [
+        "docs/verification/issues/issue-650/browser-screenshot-evidence-output.json"
+      ]
+    },
+    {
       "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
       "outputs": [
         "docs/verification/issues/issue-650/test-output/editor-runtime-version-proof.txt"

@@ -2,6 +2,7 @@
 import { spawnSync } from "node:child_process";
 import {
   addCheck,
+  assertFile,
   ensureIssueDirs,
   hasFlag,
   manifestPath,
@@ -83,6 +84,28 @@ const manualChecklist = Object.fromEntries([
 writeManualChecklist(manualChecklist);
 addCheck(checks, "manual browser checklist captured", Object.values(manualChecklist).every(Boolean), manualChecklist);
 
+const screenshotProofs = [
+  "docs/verification/issues/issue-641/screenshots/runtime-build-info.png",
+  "docs/verification/issues/issue-642/screenshots/stale-runtime-warning.png",
+  "docs/verification/issues/issue-642/screenshots/expected-save-controls-visible.png",
+  "docs/verification/issues/issue-643/screenshots/redesigned-command-bar.png",
+  "docs/verification/issues/issue-644/screenshots/active-copy-save-status.png",
+  "docs/verification/issues/issue-644/screenshots/canonical-default-warning.png",
+  "docs/verification/issues/issue-645/screenshots/truthful-save-language-unsaved.png",
+  "docs/verification/issues/issue-645/screenshots/truthful-save-language-saved.png",
+  "docs/verification/issues/issue-648/screenshots/canvas-height-desktop.png",
+  "docs/verification/issues/issue-648/screenshots/canvas-height-laptop.png",
+  "docs/verification/issues/issue-648/screenshots/canvas-height-inspector-collapsed.png",
+  "docs/verification/issues/issue-649/screenshots/popup-auto-clamped.png",
+  "docs/verification/issues/issue-649/screenshots/popup-docked.png",
+  "docs/verification/issues/issue-649/screenshots/popup-small-viewport.png",
+  "docs/verification/issues/issue-650/screenshots/final-editor-ready-proof.png"
+];
+const screenshotStatus = Object.fromEntries(
+  screenshotProofs.map((path) => [path, assertFile(path, 5000)])
+);
+addCheck(checks, "required browser screenshots are real UI captures", Object.values(screenshotStatus).every(Boolean), screenshotStatus);
+
 const blockers = buildBlockers(rerunResults, requiredProofs);
 const passed = statusFromChecks(checks) === "passed" && blockers.length === 0;
 const decision = passed
@@ -110,6 +133,7 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   "npm run check:clean-committed-state",
+  "node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650",
   ...validatorCommands.map(([, command]) => command),
   "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650",
   "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 650",
@@ -118,6 +142,7 @@ const commands = [
 writeCommands(issue, commands, {
   "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650": `${dir}/test-output/runtime-save-layout-go-no-go.txt`,
   "npm run check:clean-committed-state": `${dir}/test-output/clean-committed-state.txt`,
+  "node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650": `${dir}/browser-screenshot-evidence-output.json`,
   "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 650": `${dir}/test-output/visible-product-copy.txt`
 });
 writeCloseout(issue, "Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blockers.", passed ? "passed" : "failed", commands, [

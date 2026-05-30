@@ -2,6 +2,7 @@ npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
 npm run check:clean-committed-state
+node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650
 node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
 node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
 node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650
