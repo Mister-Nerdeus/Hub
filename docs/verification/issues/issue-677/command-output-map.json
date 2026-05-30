@@ -1,0 +1,71 @@
+{
+  "issue": "677",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-677/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-677/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-677/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage valid-patient-door --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/valid-patient-door-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage invalid-target-warnings --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/invalid-candidate-warning-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage left-pod --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/left-pod-regression-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage right-pod --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/right-pod-regression-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage save-reload-export --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/save-reload-export-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage no-recovery-screen --allow-partial --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/no-recovery-screen-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+      "outputs": [
+        "docs/verification/issues/issue-677/test-output/door-authoring-browser-regression.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-677/no-phi-output.txt"
+      ]
+    }
+  ]
+}
