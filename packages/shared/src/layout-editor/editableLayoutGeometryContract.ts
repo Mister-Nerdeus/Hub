@@ -26,7 +26,13 @@ export const EDITABLE_DOOR_OWNER_MODEL_STATUSES = [
   "missing",
   "invalid"
 ] as const;
-export const EDITABLE_SPLIT_BAY_DIVIDER_STYLES = ["diagonal", "vertical", "horizontal"] as const;
+export const EDITABLE_SPLIT_BAY_DIVIDER_STYLES = [
+  "diagonal",
+  "diagonal_down",
+  "diagonal_up",
+  "vertical",
+  "horizontal"
+] as const;
 
 export type EditableLayoutUnits = (typeof EDITABLE_LAYOUT_UNITS)[number];
 export type EditableDoorWall = (typeof EDITABLE_DOOR_WALLS)[number];

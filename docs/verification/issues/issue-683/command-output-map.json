@@ -1,0 +1,59 @@
+{
+  "issue": "683",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-683/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-683/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-683/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-atomic-creation.mjs --stage atomic-contract --allow-partial --issue 683",
+      "outputs": [
+        "docs/verification/issues/issue-683/atomic-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-atomic-creation.mjs --stage create-45 --allow-partial --issue 683",
+      "outputs": [
+        "docs/verification/issues/issue-683/create-45-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-atomic-creation.mjs --stage all-canonical-pairs --allow-partial --issue 683",
+      "outputs": [
+        "docs/verification/issues/issue-683/create-23-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-atomic-creation.mjs --stage no-copy-label --allow-partial --issue 683",
+      "outputs": [
+        "docs/verification/issues/issue-683/no-copy-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-atomic-creation.mjs --stage undo-proof --allow-partial --issue 683",
+      "outputs": [
+        "docs/verification/issues/issue-683/undo-proof-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-683/no-phi-output.txt"
+      ]
+    }
+  ]
+}

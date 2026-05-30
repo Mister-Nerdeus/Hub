@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split bay visual contract renders one parent footprint and child metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBayShape": true,
+        "bedRoomIds": true,
+        "oneBayFootprint": true
+      }
+    },
+    {
+      "name": "divider line remains visible",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "dividerClass": true,
+        "dividerCss": true
+      }
+    },
+    {
+      "name": "both child labels render with protected text paint",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "leftChildLabel": true,
+        "rightChildLabel": true,
+        "labelPaintOrder": true
+      }
+    },
+    {
+      "name": "split room visual path has no Copy label",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "hits": []
+      }
+    },
+    {
+      "name": "assignment colors and selection highlight do not cover divider or labels",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "assignmentFillCss": true,
+        "selectionCss": true
+      }
+    }
+  ],
+  "stageResults": {
+    "visual-contract": {
+      "status": "passed",
+      "splitBayShape": true,
+      "bedRoomIds": true,
+      "oneBayFootprint": true
+    },
+    "divider-visible": {
+      "status": "passed",
+      "dividerClass": true,
+      "dividerCss": true
+    },
+    "child-labels-visible": {
+      "status": "passed",
+      "leftChildLabel": true,
+      "rightChildLabel": true,
+      "labelPaintOrder": true
+    },
+    "no-copy-label": {
+      "status": "passed",
+      "hits": []
+    },
+    "selection-highlight-safe": {
+      "status": "passed",
+      "assignmentFillCss": true,
+      "selectionCss": true
+    }
+  }
+}

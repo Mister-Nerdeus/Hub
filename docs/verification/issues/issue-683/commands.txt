@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-atomic-creation.mjs --stage atomic-contract --allow-partial --issue 683
+node scripts/check-split-room-atomic-creation.mjs --stage create-45 --allow-partial --issue 683
+node scripts/check-split-room-atomic-creation.mjs --stage all-canonical-pairs --allow-partial --issue 683
+node scripts/check-split-room-atomic-creation.mjs --stage no-copy-label --allow-partial --issue 683
+node scripts/check-split-room-atomic-creation.mjs --stage undo-proof --allow-partial --issue 683
+node scripts/check-no-phi-fields.mjs

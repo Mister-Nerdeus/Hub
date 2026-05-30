@@ -13,8 +13,7 @@ for (const label of [
   "Zone",
   "Label",
   "Provider/Pharmacy Area",
-  "EMS Entry marker",
-  "Split Bay"
+  "EMS Entry marker"
 ]) {
   if (!labels.includes(label)) {
     throw new Error(`Add Object menu missing ${label}`);

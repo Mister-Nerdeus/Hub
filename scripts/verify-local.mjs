@@ -179,6 +179,20 @@ const doorAuthoringCrashHardeningCommands = [
   "npm run check:door-authoring-go-no-go"
 ];
 
+const splitRoomAuthoringCommands = [
+  "npm run check:split-room-authoring-preflight",
+  "npm run check:split-room-terminology",
+  "npm run check:split-room-workflow-ux",
+  "npm run check:split-room-pair-resolver",
+  "npm run check:split-room-atomic-creation",
+  "npm run check:split-bay-visual-parity",
+  "npm run check:split-room-inspector",
+  "npm run check:split-room-assignment-semantics",
+  "npm run check:split-room-persistence",
+  "npm run check:split-room-browser-regression",
+  "npm run check:split-room-authoring-go-no-go"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -271,6 +285,7 @@ const commands = [
   "npm run check:editor-popup-layout",
   "npm run check:editor-runtime-save-ux-layout-go-no-go",
   ...doorAuthoringCrashHardeningCommands,
+  ...splitRoomAuthoringCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

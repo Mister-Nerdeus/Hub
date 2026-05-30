@@ -1,0 +1,59 @@
+{
+  "issue": "681",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-681/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-681/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-681/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-workflow-ux.mjs --stage room5-action-visible --allow-partial --issue 681",
+      "outputs": [
+        "docs/verification/issues/issue-681/room5-split-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-workflow-ux.mjs --stage canonical-room-actions-visible --allow-partial --issue 681",
+      "outputs": [
+        "docs/verification/issues/issue-681/canonical-action-visibility-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-workflow-ux.mjs --stage preview-action --allow-partial --issue 681",
+      "outputs": [
+        "docs/verification/issues/issue-681/preview-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-workflow-ux.mjs --stage disabled-reasons --allow-partial --issue 681",
+      "outputs": [
+        "docs/verification/issues/issue-681/disabled-reason-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-workflow-ux.mjs --stage no-hidden-advanced-only --allow-partial --issue 681",
+      "outputs": [
+        "docs/verification/issues/issue-681/no-hidden-advanced-only-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-681/no-phi-output.txt"
+      ]
+    }
+  ]
+}

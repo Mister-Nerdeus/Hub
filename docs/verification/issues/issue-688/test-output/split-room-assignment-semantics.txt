@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "assignment semantics contract keeps child rooms assignable and parent non-assignable",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "semantics": {
+          "parentSplitBayId": "split-bay-room-04-room-05",
+          "assignableRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2,
+          "parentAssignable": false
+        }
+      }
+    },
+    {
+      "name": "manual assignment and overlay key assignment by child room ID",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "childRoomAssignmentsByRoomId": true,
+        "selectorsUseRoomIds": true,
+        "overlayChildAssignments": true
+      }
+    },
+    {
+      "name": "capacity count separates physical bay count and patient-care positions",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "counts": {
+          "physicalBayCount": 7,
+          "patientCarePositionCount": 8,
+          "splitRoomPhysicalBayCount": 1,
+          "splitRoomPatientCarePositionCount": 2
+        }
+      }
+    },
+    {
+      "name": "parent split bay is not assignable",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "parentAssignable": false,
+        "warningChildRoomIds": true
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "status": "passed",
+      "semantics": {
+        "parentSplitBayId": "split-bay-room-04-room-05",
+        "assignableRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "physicalBayCount": 1,
+        "patientCarePositionCount": 2,
+        "parentAssignable": false
+      }
+    },
+    "child-assignment": {
+      "status": "passed",
+      "childRoomAssignmentsByRoomId": true,
+      "selectorsUseRoomIds": true,
+      "overlayChildAssignments": true
+    },
+    "capacity-count": {
+      "status": "passed",
+      "counts": {
+        "physicalBayCount": 7,
+        "patientCarePositionCount": 8,
+        "splitRoomPhysicalBayCount": 1,
+        "splitRoomPatientCarePositionCount": 2
+      }
+    },
+    "parent-not-assignable": {
+      "status": "passed",
+      "parentAssignable": false,
+      "warningChildRoomIds": true
+    }
+  }
+}

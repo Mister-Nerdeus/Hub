@@ -1,0 +1,59 @@
+{
+  "issue": "684",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-684/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-684/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-684/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-visual-parity.mjs --stage visual-contract --allow-partial --issue 684",
+      "outputs": [
+        "docs/verification/issues/issue-684/visual-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-visual-parity.mjs --stage divider-visible --allow-partial --issue 684",
+      "outputs": [
+        "docs/verification/issues/issue-684/divider-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-visual-parity.mjs --stage child-labels-visible --allow-partial --issue 684",
+      "outputs": [
+        "docs/verification/issues/issue-684/child-labels-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-visual-parity.mjs --stage no-copy-label --allow-partial --issue 684",
+      "outputs": [
+        "docs/verification/issues/issue-684/no-copy-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-visual-parity.mjs --stage selection-highlight-safe --allow-partial --issue 684",
+      "outputs": [
+        "docs/verification/issues/issue-684/selection-highlight-safe-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-684/no-phi-output.txt"
+      ]
+    }
+  ]
+}

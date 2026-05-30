@@ -143,7 +143,7 @@ export function loadDoorAuthoringManifest(issue = "669") {
     sourceGoNoGoStatus: doorAuthoringManifestTemplate.sourceGoNoGoStatus,
     sourceGoNoGoRevoked: true,
     revocationReason: doorAuthoringManifestTemplate.revocationReason,
-    reconstructionStatus: "no_go_until_door_authoring_crash_hardening_passes",
+    reconstructionStatus: existing.reconstructionStatus ?? "no_go_until_door_authoring_crash_hardening_passes",
     collaborationStatus: "not_started",
     simulationV0Status: "internal_dry_run_only",
     fullFutureSimulationEventModelStatus: "dormant",
@@ -159,11 +159,12 @@ export function loadDoorAuthoringManifest(issue = "669") {
 }
 
 export function updateDoorAuthoringManifest(issue, updates) {
+  const baseManifest = loadDoorAuthoringManifest(issue);
   const manifest = {
-    ...loadDoorAuthoringManifest(issue),
+    ...baseManifest,
     ...updates,
     sourceGoNoGoRevoked: true,
-    reconstructionStatus: updates.reconstructionStatus ?? "no_go_until_door_authoring_crash_hardening_passes",
+    reconstructionStatus: updates.reconstructionStatus ?? baseManifest.reconstructionStatus,
     collaborationStatus: "not_started",
     simulationV0Status: "internal_dry_run_only",
     fullFutureSimulationEventModelStatus: "dormant",
@@ -280,4 +281,3 @@ export function writeEvidenceSlots(issue, scriptOutputName, status, stage, check
   writeJson(`${dir}/test-output/web.txt`, { status: "not-run", issue, stage, reason: "acceptance command evidence slot." });
   writeJson(`${dir}/test-output/web-build.txt`, { status: "not-run", issue, stage, reason: "acceptance command evidence slot." });
 }
-

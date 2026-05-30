@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "issue": "680",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "terminology contract and required help copy are present",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "terminologyFileExists": true,
+        "helpFileExists": true,
+        "requiredCopyPresent": true,
+        "helpPanelUsesRequiredCopyConstant": true
+      }
+    },
+    {
+      "name": "help panel renders near quick edit and inspector workflow",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "quickEditHelpPanel": true,
+        "inspectorHelpPanel": true
+      }
+    },
+    {
+      "name": "split-room workflow copy avoids forbidden user-facing language",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "hits": [],
+        "userFacingLabels": {
+          "create": true,
+          "preview": true,
+          "help": true
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "terminology-contract": {
+      "status": "passed",
+      "terminologyFileExists": true,
+      "helpFileExists": true,
+      "requiredCopyPresent": true,
+      "helpPanelUsesRequiredCopyConstant": true
+    },
+    "help-copy-visible": {
+      "status": "passed",
+      "quickEditHelpPanel": true,
+      "inspectorHelpPanel": true
+    },
+    "no-copy-language": {
+      "status": "passed",
+      "hits": [],
+      "userFacingLabels": {
+        "create": true,
+        "preview": true,
+        "help": true
+      }
+    }
+  }
+}

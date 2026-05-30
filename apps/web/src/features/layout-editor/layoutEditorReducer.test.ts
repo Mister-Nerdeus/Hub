@@ -148,7 +148,75 @@ const duplicateSplitBayConversion = layoutEditorReducer(splitBayRoomSelectedStat
   roomId: "room-01",
   splitBayId: "duplicate-split-bay"
 });
-assert.equal(duplicateSplitBayConversion, splitBayRoomSelectedState);
+assert.equal(duplicateSplitBayConversion.validationWarnings.at(-1)?.code, "split_room_creation_blocked");
+
+const splitRoomCreationLayout = {
+  ...editableLayout,
+  rooms: [
+    ...editableLayout.rooms,
+    {
+      objectType: "room" as const,
+      id: "room-04",
+      label: "4",
+      roomNumber: "4",
+      roomType: "standard" as const,
+      capacityType: "single" as const,
+      isHallBed: false,
+      isTraumaAdjacent: false,
+      xFeet: 44,
+      yFeet: 40,
+      widthFeet: 10,
+      heightFeet: 10
+    },
+    {
+      objectType: "room" as const,
+      id: "room-05",
+      label: "5",
+      roomNumber: "5",
+      roomType: "standard" as const,
+      capacityType: "single" as const,
+      isHallBed: false,
+      isTraumaAdjacent: false,
+      xFeet: 56,
+      yFeet: 40,
+      widthFeet: 10,
+      heightFeet: 10
+    }
+  ],
+  splitBays: []
+};
+const splitRoomCreationState = createLayoutEditorState({
+  editableLayout: splitRoomCreationLayout,
+  selectedObjectType: "room",
+  selectedObjectId: "room-05"
+});
+const splitRoomCreatedState = layoutEditorReducer(splitRoomCreationState, {
+  type: "convertSelectedRoomPairToSplitBay",
+  roomId: "room-05"
+});
+assert.equal(splitRoomCreatedState.selectedObjectType, "split_bay");
+assert.equal(splitRoomCreatedState.selectedObjectId, "split-bay-room-04-room-05");
+assert.deepEqual(splitRoomCreatedState.editableLayout?.splitBays?.[0]?.bedPositionRoomIds, ["room-04", "room-05"]);
+assert.equal(splitRoomCreatedState.history.past.length, 1);
+const splitRoomUndoneState = layoutEditorReducer(splitRoomCreatedState, { type: "undoLayoutEdit" });
+assert.equal(splitRoomUndoneState.editableLayout?.splitBays?.length, 0);
+
+const roomTypeDoorCleanupState = createLayoutEditorState({
+  editableLayout,
+  selectedObjectType: "room",
+  selectedObjectId: "room-01"
+});
+const roomTypeDoorCleanupResult = layoutEditorReducer(roomTypeDoorCleanupState, {
+  type: "editSelectedRoomType",
+  roomId: "room-01",
+  roomType: "solid_wall"
+});
+assert.equal(roomTypeDoorCleanupResult.editableLayout?.rooms.find((room) => room.id === "room-01")?.roomType, "solid_wall");
+assert.equal(
+  roomTypeDoorCleanupResult.editableLayout?.doors.some((door) => door.ownerKind === "room" && door.ownerId === "room-01"),
+  false
+);
+assert.equal(roomTypeDoorCleanupResult.validationWarnings.at(-1)?.message.includes("Solid wall"), true);
 
 const selectedRoomState = layoutEditorReducer(stateWithLayout, {
   type: "selectObject",

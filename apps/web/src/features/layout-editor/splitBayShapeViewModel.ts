@@ -7,6 +7,7 @@ export type SplitBayShapeViewModel = {
   ariaLabel: string;
   hitTargetKey: string;
   label: string;
+  bedRoomIds: readonly [string, string];
   bedLabels: readonly [string, string];
   dividerStyle: EditableSplitBayGeometry["dividerStyle"];
   xPixels: number;
@@ -35,6 +36,7 @@ export function buildSplitBayShapeViewModel(input: {
     ariaLabel: item.ariaLabel,
     hitTargetKey: item.hitTargetKey,
     label: source.label,
+    bedRoomIds: source.bedPositionRoomIds,
     bedLabels,
     dividerStyle: source.dividerStyle,
     xPixels: item.displayRectPixels.xPixels,

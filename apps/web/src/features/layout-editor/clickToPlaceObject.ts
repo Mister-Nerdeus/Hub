@@ -50,10 +50,9 @@ export function placeObjectOnCanvas({
   objectType: AddObjectMenuItemId | null;
   readOnly: boolean;
   target?: EventTarget | null;
-}): "blocked" | "place-room" | "place-split-bay" | "future-object" {
+}): "blocked" | "place-room" | "future-object" {
   if (readOnly || objectType == null) return "blocked";
   if (target != null && !isCanvasPlacementTarget(target)) return "blocked";
-  if (objectType === "split_bay") return "place-split-bay";
   return isRoomPlacementMenuItem(objectType) ? "place-room" : "future-object";
 }
 
@@ -82,8 +81,6 @@ export function getDefaultPlacementSizeForObject(
       return { widthFeet: 18, heightFeet: 4 };
     case "door":
       return { widthFeet: 4, heightFeet: 1 };
-    case "split_bay":
-      return { widthFeet: 16, heightFeet: 10 };
     case "nurse_station":
       return { widthFeet: 8, heightFeet: 4 };
     case "zone":
@@ -118,8 +115,6 @@ function placementLabel(objectType: AddObjectMenuItemId): string {
       return "Storage room";
     case "solid_wall":
       return "Solid wall / blocked area";
-    case "split_bay":
-      return "Split bay";
     default:
       return objectType.replace(/_/g, " ");
   }

@@ -1,0 +1,14 @@
+Docker local runtime verification
+
+Commands:
+- docker compose config
+- docker compose -f docker-compose.production.yml config
+- docker compose up --build -d
+- docker compose --profile tools run --rm migrate
+- Invoke-WebRequest http://localhost:5180/?section=editor
+- Invoke-WebRequest http://localhost:8010/health
+
+Results:
+- web: http://localhost:5180/?section=editor returned HTTP 200
+- api: http://localhost:8010/health returned {"status":"ok","service":"nerdeus-api"}
+- docker compose ps shows web healthy, db healthy, api running

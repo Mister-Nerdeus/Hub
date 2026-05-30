@@ -1,0 +1,59 @@
+{
+  "issue": "687",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-687/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-687/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-687/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-persistence.mjs --stage save-working-copy --allow-partial --issue 687",
+      "outputs": [
+        "docs/verification/issues/issue-687/save-working-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-persistence.mjs --stage reload-same-record --allow-partial --issue 687",
+      "outputs": [
+        "docs/verification/issues/issue-687/reload-same-record-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-persistence.mjs --stage export-json --allow-partial --issue 687",
+      "outputs": [
+        "docs/verification/issues/issue-687/export-json-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-persistence.mjs --stage import-json --allow-partial --issue 687",
+      "outputs": [
+        "docs/verification/issues/issue-687/import-json-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-persistence.mjs --stage schema-validation --allow-partial --issue 687",
+      "outputs": [
+        "docs/verification/issues/issue-687/schema-validation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-687/no-phi-output.txt"
+      ]
+    }
+  ]
+}

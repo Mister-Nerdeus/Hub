@@ -40,11 +40,12 @@ import { SplitBayShape } from "./SplitBayShape";
 import { buildSplitBayShapeViewModel } from "./splitBayShapeViewModel";
 import { SplitBayQuickEditPopover } from "./SplitBayQuickEditPopover";
 import { buildSplitBayQuickEdit } from "./splitBayQuickEditViewModel";
+import { SplitRoomInspectorPanel } from "./SplitRoomInspectorPanel";
+import { SplitRoomPreviewPanel } from "./SplitRoomPreviewPanel";
 import { layoutEditorReducer, panViewportAction, type LayoutEditorAction } from "./layoutEditorReducer";
 import { LayoutToolPalette, type LayoutToolMode } from "./LayoutToolPalette";
 import { buildAddRoomAction } from "./addRoomTool";
 import { buildAddDoorAction } from "./addDoorTool";
-import { buildAddSplitBayAction } from "./addSplitBayTool";
 import { RoomTypeEditor } from "./RoomTypeEditor";
 import { DoorEditor } from "./DoorEditor";
 import { DoorPathNodeSyncControls } from "./DoorPathNodeSyncControls";
@@ -292,6 +293,7 @@ export function LayoutEditorStage({
     xFeet: number;
     yFeet: number;
   } | null>(null);
+  const [splitRoomPreviewOpen, setSplitRoomPreviewOpen] = useState(false);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -517,6 +519,7 @@ export function LayoutEditorStage({
   });
   const splitBayQuickEditViewModel = buildSplitBayQuickEdit({
     splitBay: selectedSplitBay,
+    rooms: stageState.editableLayout?.rooms ?? [],
     readOnly: stageState.readOnly
   });
   const podBorderViewModel = buildPodBorderViewModel({
@@ -550,6 +553,7 @@ export function LayoutEditorStage({
     : null;
   const roomQuickEditViewModel = buildRoomQuickEdit({
     room: selectedRoom,
+    layout: stageState.editableLayout,
     readOnly: stageState.readOnly
   });
   const selectedRoomAttachedDoorCount = selectedRoom == null
@@ -761,25 +765,6 @@ export function LayoutEditorStage({
       setPlacementPreviewPoint(stagePointerToFeet(event, stageState.viewport));
       return;
     }
-    if (placementAction === "place-split-bay") {
-      const pointFeet = stagePointerToFeet(event, stageState.viewport);
-      const defaultPlacementSize = getDefaultPlacementSizeForObject("split_bay");
-      dispatchStage(
-        buildAddSplitBayAction({
-          sequence: authoringSequence,
-          xFeet: pointFeet.xFeet,
-          yFeet: pointFeet.yFeet,
-          widthFeet: defaultPlacementSize.widthFeet,
-          heightFeet: defaultPlacementSize.heightFeet
-        })
-      );
-      setAuthoringSequence((value) => value + 1);
-      setPendingAddObjectId(null);
-      setPendingAddObjectLabel(null);
-      setPlacementPreviewPoint(null);
-      setToolMode("select");
-      return;
-    }
     if (toolMode !== "add_room") {
       return;
     }
@@ -875,10 +860,9 @@ export function LayoutEditorStage({
     }
     dispatchStage({
       type: "convertSelectedRoomPairToSplitBay",
-      roomId: stageState.selectedObjectId,
-      splitBayId: `authored-split-bay-${String(authoringSequence).padStart(3, "0")}`
+      roomId: stageState.selectedObjectId
     });
-    setAuthoringSequence((value) => value + 1);
+    setSplitRoomPreviewOpen(false);
   };
   const selectAddObjectMenuItem = (itemId: AddObjectMenuItemId) => {
     if (stageState.readOnly) {
@@ -899,10 +883,6 @@ export function LayoutEditorStage({
     }
     if (itemId === "door") {
       setToolMode("add_door");
-      return;
-    }
-    if (itemId === "split_bay") {
-      setToolMode("select");
       return;
     }
     setToolMode("select");
@@ -1008,6 +988,21 @@ export function LayoutEditorStage({
       type: "editSplitBayDivider",
       splitBayId: selectedSplitBay.splitBayId,
       dividerStyle
+    });
+  };
+  const unsplitSelectedSplitRoom = () => {
+    if (selectedSplitBay == null) {
+      return;
+    }
+    const confirmed = typeof window === "undefined"
+      ? true
+      : window.confirm(`Unsplit ${selectedSplitBay.label}? Rooms remain available.`);
+    if (!confirmed) {
+      return;
+    }
+    dispatchStage({
+      type: "unsplitSplitRoom",
+      splitBayId: selectedSplitBay.splitBayId
     });
   };
   const applyRoomAlignment = (actionId: RoomAlignmentActionId) => {
@@ -1532,6 +1527,10 @@ export function LayoutEditorStage({
           <p className="layout-editor-stage__pan-helper" data-canvas-pan-helper="true">
             Drag the hallway/background to pan the map.
           </p>
+          <SplitRoomPreviewPanel
+            viewModel={splitRoomPreviewOpen ? roomQuickEditViewModel.splitRoomAction : null}
+            onClose={() => setSplitRoomPreviewOpen(false)}
+          />
           <svg
             className={`layout-editor-stage__svg layout-editor-stage--${editorMode}`}
             viewBox={STAGE_VIEW_BOX}
@@ -1664,6 +1663,11 @@ export function LayoutEditorStage({
                     item,
                     rooms: stageState.editableLayout?.rooms ?? []
                   })}
+                  childAssignments={
+                    item.sourceGeometry.objectType === "split_bay"
+                      ? item.sourceGeometry.bedPositionRoomIds.map((roomId) => assignmentOverlay.roomsById[roomId] ?? null)
+                      : []
+                  }
                   isSelected={isLayoutObjectSelected({
                     objectType: item.objectType,
                     objectId: item.objectId,
@@ -1810,7 +1814,9 @@ export function LayoutEditorStage({
                     }}
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
-                    onConvertToSplitBay={convertSelectedRoomToSplitBay}
+                    onPreviewSplitRoom={() => setSplitRoomPreviewOpen(true)}
+                    onCreateSplitRoom={convertSelectedRoomToSplitBay}
+                    onShowSplitRoomHelp={() => setSplitRoomPreviewOpen(true)}
                     onRemoveAttachedDoors={() => dispatchStage({ type: "removeSelectedRoomDoors" })}
                     attachedDoorCount={selectedRoomAttachedDoorCount}
                     onDuplicateRoom={() => dispatchStage({ type: "duplicateSelectedObject" })}
@@ -1997,49 +2003,62 @@ export function LayoutEditorStage({
           <LayoutInspectorTabs
             selectedObjectType={stageState.selectedObjectType}
             room={
-              <>
-                <LayoutInspectorPanel
-                  viewModel={inspectorViewModel}
-                  roomDimensionDraft={roomDimensionDraft}
-                  onChangeRoomDimensionDraft={(field, value) =>
-                    setRoomDimensionDraft((draft) =>
-                      updateRoomInspectorDimensionDraft(draft, field, value)
-                    )
-                  }
-                  onCommitRoomDimensionDraft={(field) => {
-                    const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
-                    setRoomDimensionDraft(result.draft);
-                    if (result.status === "valid") {
-                      if (selectedRoom != null) {
-                        dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
-                      }
-                      if (selectedStation != null) {
-                        dispatchStage({
-                          type: "editSelectedStationDimensions",
-                          stationId: selectedStation.id,
-                          dimensions: result.changes
-                        });
-                      }
+              stageState.selectedObjectType === "split_bay" ? (
+                <SplitRoomInspectorPanel
+                  viewModel={splitBayQuickEditViewModel}
+                  onSelectChildRoom={(roomId) => dispatchStage({
+                    type: "selectObject",
+                    objectType: "room",
+                    objectId: roomId
+                  })}
+                  onDividerStyleChange={updateSelectedSplitBayDivider}
+                  onUnsplit={unsplitSelectedSplitRoom}
+                />
+              ) : (
+                <>
+                  <LayoutInspectorPanel
+                    viewModel={inspectorViewModel}
+                    roomDimensionDraft={roomDimensionDraft}
+                    onChangeRoomDimensionDraft={(field, value) =>
+                      setRoomDimensionDraft((draft) =>
+                        updateRoomInspectorDimensionDraft(draft, field, value)
+                      )
                     }
-                  }}
-                  onCancelRoomDimensionDraft={(field) =>
-                    setRoomDimensionDraft((draft) =>
-                      cancelRoomInspectorDimensionDraftField(draft, selectedInspectorRect, field)
-                    )
-                  }
-                />
-                <RoomAlignmentControls
-                  viewModel={roomAlignmentViewModel}
-                  onApply={applyRoomAlignment}
-                />
-                <RoomTypeEditor
-                  room={selectedRoom}
-                  readOnly={stageState.readOnly}
-                  onChangeRoomType={(roomId, roomType) =>
-                    dispatchStage({ type: "editSelectedRoomType", roomId, roomType })
-                  }
-                />
-              </>
+                    onCommitRoomDimensionDraft={(field) => {
+                      const result = commitRoomInspectorDimensionDraftField(roomDimensionDraft, field);
+                      setRoomDimensionDraft(result.draft);
+                      if (result.status === "valid") {
+                        if (selectedRoom != null) {
+                          dispatchStage({ type: "editSelectedRoomDimensions", dimensions: result.changes });
+                        }
+                        if (selectedStation != null) {
+                          dispatchStage({
+                            type: "editSelectedStationDimensions",
+                            stationId: selectedStation.id,
+                            dimensions: result.changes
+                          });
+                        }
+                      }
+                    }}
+                    onCancelRoomDimensionDraft={(field) =>
+                      setRoomDimensionDraft((draft) =>
+                        cancelRoomInspectorDimensionDraftField(draft, selectedInspectorRect, field)
+                      )
+                    }
+                  />
+                  <RoomAlignmentControls
+                    viewModel={roomAlignmentViewModel}
+                    onApply={applyRoomAlignment}
+                  />
+                  <RoomTypeEditor
+                    room={selectedRoom}
+                    readOnly={stageState.readOnly}
+                    onChangeRoomType={(roomId, roomType) =>
+                      dispatchStage({ type: "editSelectedRoomType", roomId, roomType })
+                    }
+                  />
+                </>
+              )
             }
             door={
               <DoorEditor

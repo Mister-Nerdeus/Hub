@@ -4,9 +4,13 @@ import {
   addRoomToEditableLayout,
   authoringRoomTypeToEditableRoomType,
   createEditableSupportAccessPoint,
+  createSplitRoomInEditableLayout,
   duplicateLayoutObject,
   generateAutoHallways,
+  isDoorEligibleRoomType,
   isProviderPharmacySupportZone,
+  removeSplitRoomFromEditableLayout,
+  resolveSplitRoomPair,
   safeAddDoorToRoom,
   safeAssignDoorToRoom,
   safeDeleteDoor,
@@ -193,13 +197,14 @@ export type LayoutEditorAction =
   | {
       type: "convertSelectedRoomPairToSplitBay";
       roomId: string;
-      splitBayId: string;
+      splitBayId?: string;
     }
   | {
       type: "editSplitBayDivider";
       splitBayId: string;
       dividerStyle: EditableSplitBayDividerStyle;
     }
+  | { type: "unsplitSplitRoom"; splitBayId: string }
   | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
   | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
@@ -436,6 +441,8 @@ export function layoutEditorReducer(
       return convertSelectedRoomPairToSplitBay(state, action);
     case "editSplitBayDivider":
       return editSplitBayDivider(state, action.splitBayId, action.dividerStyle);
+    case "unsplitSplitRoom":
+      return unsplitSplitRoom(state, action.splitBayId);
     case "moveDoor":
       return applyDoorAuthoringMutation(
         state,
@@ -603,6 +610,30 @@ function editSelectedRoomType(
   if (room.roomType === roomType) {
     return state;
   }
+  const removedDoorIds = new Set(
+    isDoorEligibleRoomType(roomType)
+      ? []
+      : state.editableLayout.doors
+          .filter((door) => door.ownerKind === "room" && door.ownerId === roomId)
+          .map((door) => door.id)
+  );
+  const validationWarnings =
+    removedDoorIds.size === 0
+      ? state.validationWarnings
+      : state.validationWarnings
+          .filter((warning) => warning.objectType !== "door" || warning.objectId == null || !removedDoorIds.has(warning.objectId))
+          .filter((warning) => warning.relatedObjectType !== "door" || warning.relatedObjectId == null || !removedDoorIds.has(warning.relatedObjectId))
+          .concat(
+            buildLayoutValidationWarning({
+              code: "path_sync_stale_after_door_edit",
+              severity: "warning",
+              source: "path_sync",
+              message: "Solid wall / blocked area cannot keep attached doors; attached door geometry was removed and path nodes need review.",
+              objectType: "room",
+              objectId: roomId,
+              isGenerated: true
+            })
+          );
   return withUndoHistory(state, {
     ...state,
     editableLayout: {
@@ -616,8 +647,12 @@ function editSelectedRoomType(
               isTraumaAdjacent: roomType === "trauma"
             }
           : candidate
-      )
+      ),
+      doors: removedDoorIds.size === 0
+        ? state.editableLayout.doors
+        : state.editableLayout.doors.filter((door) => !removedDoorIds.has(door.id))
     },
+    validationWarnings,
     selectedObjectType: "room",
     selectedObjectId: roomId,
     isDirty: true
@@ -875,25 +910,60 @@ function convertSelectedRoomPairToSplitBay(
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
-  const roomA = state.editableLayout.rooms.find((room) => room.id === action.roomId);
-  const roomB = findBestSplitBayPartner(state.editableLayout.rooms, action.roomId);
-  if (roomA == null || roomB == null) {
-    return state;
+  try {
+    void resolveSplitRoomPair({ layout: state.editableLayout, selectedRoomId: action.roomId });
+  } catch {
+    // Existing invalid layout references are handled below without interrupting the editor.
   }
-  if (roomAlreadyInSplitBay(state.editableLayout, roomA.id) || roomAlreadyInSplitBay(state.editableLayout, roomB.id)) {
-    return state;
+  let result: ReturnType<typeof createSplitRoomInEditableLayout>;
+  try {
+    result = createSplitRoomInEditableLayout({
+      layout: state.editableLayout,
+      readOnly: state.readOnly,
+      selectedRoomId: action.roomId
+    });
+  } catch {
+    return {
+      ...state,
+      validationWarnings: [
+        ...state.validationWarnings,
+        buildLayoutValidationWarning({
+          code: "split_room_creation_blocked",
+          severity: "warning",
+          source: "inspector_edit",
+          message: "Create split room blocked: layout references need review.",
+          objectType: "room",
+          objectId: action.roomId,
+          isGenerated: true
+        })
+      ]
+    };
   }
-  return addSplitBay(state, {
-    type: "addSplitBay",
-    splitBayId: action.splitBayId,
-    label: `Split Bay ${roomA.roomNumber}/${roomB.roomNumber}`,
-    roomA,
-    roomB
+  if (result.status === "blocked") {
+    return {
+      ...state,
+      validationWarnings: [
+        ...state.validationWarnings,
+        buildLayoutValidationWarning({
+          code: "split_room_creation_blocked",
+          severity: "warning",
+          source: "inspector_edit",
+          message: `Create split room blocked: ${result.reason}`,
+          objectType: "room",
+          objectId: action.roomId,
+          isGenerated: true
+        })
+      ]
+    };
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: "split_bay",
+    selectedObjectId: result.splitBayId,
+    validationWarnings: state.validationWarnings,
+    isDirty: true
   });
-}
-
-function roomAlreadyInSplitBay(layout: EditableLayoutGeometryContract, roomId: string): boolean {
-  return (layout.splitBays ?? []).some((splitBay) => splitBay.bedPositionRoomIds.includes(roomId));
 }
 
 function editSplitBayDivider(
@@ -918,41 +988,28 @@ function editSplitBayDivider(
   });
 }
 
-function findBestSplitBayPartner(
-  rooms: readonly EditableRoomGeometry[],
-  roomId: string
-): EditableRoomGeometry | null {
-  const selected = rooms.find((room) => room.id === roomId);
-  if (selected == null) return null;
-  const canonicalPartner = canonicalPartnerRoomId(roomId);
-  if (canonicalPartner != null) {
-    return rooms.find((room) => room.id === canonicalPartner) ?? null;
+function unsplitSplitRoom(
+  state: LayoutEditorState,
+  splitBayId: string
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
   }
-  return rooms
-    .filter((room) => room.id !== roomId && room.roomType !== "solid_wall")
-    .sort((left, right) => rectDistanceFeet(selected, left) - rectDistanceFeet(selected, right))[0] ?? null;
-}
-
-function canonicalPartnerRoomId(roomId: string): string | null {
-  const pairs: readonly (readonly [string, string])[] = [
-    ["room-02", "room-03"],
-    ["room-04", "room-05"],
-    ["room-06", "room-07"],
-    ["room-08", "room-09"]
-  ];
-  for (const [left, right] of pairs) {
-    if (roomId === left) return right;
-    if (roomId === right) return left;
+  const result = removeSplitRoomFromEditableLayout({
+    layout: state.editableLayout,
+    splitBayId,
+    readOnly: state.readOnly
+  });
+  if (result.status === "blocked") {
+    return state;
   }
-  return null;
-}
-
-function rectDistanceFeet(left: EditableRoomGeometry, right: EditableRoomGeometry): number {
-  const leftCenterX = left.xFeet + left.widthFeet / 2;
-  const leftCenterY = left.yFeet + left.heightFeet / 2;
-  const rightCenterX = right.xFeet + right.widthFeet / 2;
-  const rightCenterY = right.yFeet + right.heightFeet / 2;
-  return Math.abs(leftCenterX - rightCenterX) + Math.abs(leftCenterY - rightCenterY);
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: "room",
+    selectedObjectId: result.childRoomIds[0],
+    isDirty: true
+  });
 }
 
 function clamp(value: number, min: number, max: number): number {

@@ -1,0 +1,59 @@
+{
+  "issue": "682",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-682/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-682/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-682/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-pair-resolver.mjs --stage canonical-contract --allow-partial --issue 682",
+      "outputs": [
+        "docs/verification/issues/issue-682/canonical-pair-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-pair-resolver.mjs --stage room5-resolves-to-45 --allow-partial --issue 682",
+      "outputs": [
+        "docs/verification/issues/issue-682/room5-resolves-to-45-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-pair-resolver.mjs --stage all-canonical-pairs --allow-partial --issue 682",
+      "outputs": [
+        "docs/verification/issues/issue-682/room3-resolves-to-23-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-pair-resolver.mjs --stage blocked-invalid-room --allow-partial --issue 682",
+      "outputs": [
+        "docs/verification/issues/issue-682/blocked-invalid-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-pair-resolver.mjs --stage shared-usage --allow-partial --issue 682",
+      "outputs": [
+        "docs/verification/issues/issue-682/shared-usage-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-682/no-phi-output.txt"
+      ]
+    }
+  ]
+}

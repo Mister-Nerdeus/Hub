@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-workflow-ux.mjs --stage room5-action-visible --allow-partial --issue 681
+node scripts/check-split-room-workflow-ux.mjs --stage canonical-room-actions-visible --allow-partial --issue 681
+node scripts/check-split-room-workflow-ux.mjs --stage preview-action --allow-partial --issue 681
+node scripts/check-split-room-workflow-ux.mjs --stage disabled-reasons --allow-partial --issue 681
+node scripts/check-split-room-workflow-ux.mjs --stage no-hidden-advanced-only --allow-partial --issue 681
+node scripts/check-no-phi-fields.mjs

@@ -2,7 +2,6 @@ export type AddObjectMenuItemId =
   | "patient_care_room"
   | "storage_room"
   | "solid_wall"
-  | "split_bay"
   | "door"
   | "nurse_station"
   | "hallway"
@@ -35,8 +34,7 @@ export function buildAddObjectMenuViewModel(): AddObjectMenuViewModel {
       { id: "zone", label: "Zone", placementModeLabel: "Place zone" },
       { id: "label", label: "Label", placementModeLabel: "Place label" },
       { id: "provider_pharmacy", label: "Provider/Pharmacy Area", placementModeLabel: "Place provider/pharmacy area" },
-      { id: "ems_entry", label: "EMS Entry marker", placementModeLabel: "Place EMS entry marker" },
-      { id: "split_bay", label: "Split Bay", placementModeLabel: "Place split bay" }
+      { id: "ems_entry", label: "EMS Entry marker", placementModeLabel: "Place EMS entry marker" }
     ]
   };
 }

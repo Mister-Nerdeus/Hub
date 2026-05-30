@@ -1,0 +1,269 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "Room 5 resolves to visible Create Split Room 4/5 action",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        },
+        "expectedUi": {
+          "title": "Split room available",
+          "explanation": "Room 5 can be paired with Room 4.",
+          "createAction": "Create Split Room 4/5",
+          "previewAction": "Preview Split Room 4/5"
+        }
+      }
+    },
+    {
+      "name": "canonical split-room actions are visible from either child room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomChecks": [
+          {
+            "status": "passed",
+            "roomId": "room-04",
+            "pairLabel": "4/5",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-04-room-05",
+              "pairLabel": "4/5",
+              "roomAId": "room-04",
+              "roomBId": "room-05",
+              "roomALabel": "Room 4",
+              "roomBLabel": "Room 5",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "status": "passed",
+            "roomId": "room-03",
+            "pairLabel": "2/3",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-02-room-03",
+              "pairLabel": "2/3",
+              "roomAId": "room-02",
+              "roomBId": "room-03",
+              "roomALabel": "Room 2",
+              "roomBLabel": "Room 3",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "status": "passed",
+            "roomId": "room-07",
+            "pairLabel": "6/7",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-06-room-07",
+              "pairLabel": "6/7",
+              "roomAId": "room-06",
+              "roomBId": "room-07",
+              "roomALabel": "Room 6",
+              "roomBLabel": "Room 7",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "status": "passed",
+            "roomId": "room-09",
+            "pairLabel": "8/9",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-08-room-09",
+              "pairLabel": "8/9",
+              "roomAId": "room-08",
+              "roomBId": "room-09",
+              "roomALabel": "Room 8",
+              "roomBLabel": "Room 9",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          }
+        ],
+        "allCanonical": true
+      }
+    },
+    {
+      "name": "preview action is present and does not mutate layout",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "previewPanelExists": true,
+        "previewActionLabel": true,
+        "previewDoesNotMutateLayout": true
+      }
+    },
+    {
+      "name": "disabled states carry exact blocked reasons",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "invalid": {
+          "status": "blocked",
+          "reason": "No canonical split room pair is configured for the selected room.",
+          "selectedRoomId": "room-01"
+        },
+        "missingPartner": {
+          "status": "blocked",
+          "reason": "Partner room is missing.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        }
+      }
+    },
+    {
+      "name": "Create Split Room action is in normal quick-edit context",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "createIndex": 6459,
+        "advancedIndex": -1
+      }
+    }
+  ],
+  "stageResults": {
+    "room5-action-visible": {
+      "status": "passed",
+      "resolution": {
+        "status": "ready",
+        "pairId": "split-bay-room-04-room-05",
+        "pairLabel": "4/5",
+        "roomAId": "room-04",
+        "roomBId": "room-05",
+        "roomALabel": "Room 4",
+        "roomBLabel": "Room 5",
+        "suggestedDivider": "diagonal_down",
+        "physicalBayCount": 1,
+        "patientCarePositionCount": 2
+      },
+      "expectedUi": {
+        "title": "Split room available",
+        "explanation": "Room 5 can be paired with Room 4.",
+        "createAction": "Create Split Room 4/5",
+        "previewAction": "Preview Split Room 4/5"
+      }
+    },
+    "canonical-room-actions-visible": {
+      "status": "passed",
+      "roomChecks": [
+        {
+          "status": "passed",
+          "roomId": "room-04",
+          "pairLabel": "4/5",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-04-room-05",
+            "pairLabel": "4/5",
+            "roomAId": "room-04",
+            "roomBId": "room-05",
+            "roomALabel": "Room 4",
+            "roomBLabel": "Room 5",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        {
+          "status": "passed",
+          "roomId": "room-03",
+          "pairLabel": "2/3",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-02-room-03",
+            "pairLabel": "2/3",
+            "roomAId": "room-02",
+            "roomBId": "room-03",
+            "roomALabel": "Room 2",
+            "roomBLabel": "Room 3",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        {
+          "status": "passed",
+          "roomId": "room-07",
+          "pairLabel": "6/7",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-06-room-07",
+            "pairLabel": "6/7",
+            "roomAId": "room-06",
+            "roomBId": "room-07",
+            "roomALabel": "Room 6",
+            "roomBLabel": "Room 7",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        {
+          "status": "passed",
+          "roomId": "room-09",
+          "pairLabel": "8/9",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-08-room-09",
+            "pairLabel": "8/9",
+            "roomAId": "room-08",
+            "roomBId": "room-09",
+            "roomALabel": "Room 8",
+            "roomBLabel": "Room 9",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        }
+      ],
+      "allCanonical": true
+    },
+    "preview-action": {
+      "status": "passed",
+      "previewPanelExists": true,
+      "previewActionLabel": true,
+      "previewDoesNotMutateLayout": true
+    },
+    "disabled-reasons": {
+      "status": "passed",
+      "invalid": {
+        "status": "blocked",
+        "reason": "No canonical split room pair is configured for the selected room.",
+        "selectedRoomId": "room-01"
+      },
+      "missingPartner": {
+        "status": "blocked",
+        "reason": "Partner room is missing.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      }
+    },
+    "no-hidden-advanced-only": {
+      "status": "passed",
+      "createIndex": 6459,
+      "advancedIndex": -1
+    }
+  }
+}

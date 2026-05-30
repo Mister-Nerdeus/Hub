@@ -1,0 +1,53 @@
+{
+  "issue": "679",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-679/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-679/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-679/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-authoring-preflight.mjs --stage manifest-contract --allow-partial --issue 679",
+      "outputs": [
+        "docs/verification/issues/issue-679/manifest-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-authoring-preflight.mjs --stage root-script-wiring --allow-partial --issue 679",
+      "outputs": [
+        "docs/verification/issues/issue-679/root-script-wiring-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-authoring-preflight.mjs --stage split-room-status --allow-partial --issue 679",
+      "outputs": [
+        "docs/verification/issues/issue-679/split-room-status-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-authoring-preflight.mjs --stage door-hardening-still-wired --allow-partial --issue 679",
+      "outputs": [
+        "docs/verification/issues/issue-679/door-hardening-still-wired-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-679/no-phi-output.txt"
+      ]
+    }
+  ]
+}

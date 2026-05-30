@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "Split Room inspector renders for selected split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "inspectorReadyDataAttr": true,
+        "stageRendersInspector": true
+      }
+    },
+    {
+      "name": "inspector and quick edit show child labels, IDs, and independent assignment copy",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "childLabels": true,
+        "childIds": true
+      }
+    },
+    {
+      "name": "divider style can be changed from split room inspector and quick edit",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "changeDividerLabel": true,
+        "inspectorCallback": true,
+        "quickEditDividerControl": true
+      }
+    },
+    {
+      "name": "inspector selects each child room and unsplit requires confirmation",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "selectRoomButtons": true,
+        "selectionDispatch": true
+      }
+    },
+    {
+      "name": "split-room inspector visible UI avoids technical split_bay terminology",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "hits": []
+      }
+    }
+  ],
+  "stageResults": {
+    "inspector-visible": {
+      "status": "passed",
+      "inspectorReadyDataAttr": true,
+      "stageRendersInspector": true
+    },
+    "child-room-labels": {
+      "status": "passed",
+      "childLabels": true,
+      "childIds": true
+    },
+    "divider-control": {
+      "status": "passed",
+      "changeDividerLabel": true,
+      "inspectorCallback": true,
+      "quickEditDividerControl": true
+    },
+    "child-selection": {
+      "status": "passed",
+      "selectRoomButtons": true,
+      "selectionDispatch": true
+    },
+    "no-technical-label": {
+      "status": "passed",
+      "hits": []
+    }
+  }
+}

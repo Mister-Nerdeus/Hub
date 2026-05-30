@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split-room manifest exists with required contract fields",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "manifestPath": "docs/verification/split-room-authoring-manifest.json",
+        "missingKeys": [],
+        "batch": "679-688",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "splitRoomGoNoGoStatus": "go_for_full_er_floorplan_reconstruction"
+      }
+    },
+    {
+      "name": "root split-room scripts are wired in package.json and verify-local",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingScripts": [],
+        "driftedScripts": [],
+        "missingVerifyLocal": []
+      }
+    },
+    {
+      "name": "status doc states split-room authoring is not yet user-ready at preflight",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "statusDocExists": true,
+        "notYetUserReadyPhrase": true,
+        "workflowPhrase": true
+      }
+    },
+    {
+      "name": "door-hardening scripts remain wired",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingDoorScripts": [],
+        "doorAuthoringStatus": "passed"
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "status": "passed",
+      "manifestPath": "docs/verification/split-room-authoring-manifest.json",
+      "missingKeys": [],
+      "batch": "679-688",
+      "productDisplayName": "ER Pod Shift Simulator",
+      "splitRoomGoNoGoStatus": "go_for_full_er_floorplan_reconstruction"
+    },
+    "root-script-wiring": {
+      "status": "passed",
+      "missingScripts": [],
+      "driftedScripts": [],
+      "missingVerifyLocal": []
+    },
+    "split-room-status": {
+      "status": "passed",
+      "statusDocExists": true,
+      "notYetUserReadyPhrase": true,
+      "workflowPhrase": true
+    },
+    "door-hardening-still-wired": {
+      "status": "passed",
+      "missingDoorScripts": [],
+      "doorAuthoringStatus": "passed"
+    }
+  }
+}

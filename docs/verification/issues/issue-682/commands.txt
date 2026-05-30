@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-pair-resolver.mjs --stage canonical-contract --allow-partial --issue 682
+node scripts/check-split-room-pair-resolver.mjs --stage room5-resolves-to-45 --allow-partial --issue 682
+node scripts/check-split-room-pair-resolver.mjs --stage all-canonical-pairs --allow-partial --issue 682
+node scripts/check-split-room-pair-resolver.mjs --stage blocked-invalid-room --allow-partial --issue 682
+node scripts/check-split-room-pair-resolver.mjs --stage shared-usage --allow-partial --issue 682
+node scripts/check-no-phi-fields.mjs

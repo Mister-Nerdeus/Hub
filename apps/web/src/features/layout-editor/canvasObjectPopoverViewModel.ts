@@ -98,6 +98,6 @@ function formatObjectType(objectType: LayoutEditorSelectableObjectType): string 
     case "zone":
       return "Zone";
     case "split_bay":
-      return "Split bay";
+      return "Split Room";
   }
 }

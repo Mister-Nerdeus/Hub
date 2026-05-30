@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-bay-visual-parity.mjs --stage visual-contract --allow-partial --issue 684
+node scripts/check-split-bay-visual-parity.mjs --stage divider-visible --allow-partial --issue 684
+node scripts/check-split-bay-visual-parity.mjs --stage child-labels-visible --allow-partial --issue 684
+node scripts/check-split-bay-visual-parity.mjs --stage no-copy-label --allow-partial --issue 684
+node scripts/check-split-bay-visual-parity.mjs --stage selection-highlight-safe --allow-partial --issue 684
+node scripts/check-no-phi-fields.mjs

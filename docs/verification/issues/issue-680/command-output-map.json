@@ -1,0 +1,47 @@
+{
+  "issue": "680",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-680/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-680/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-680/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-terminology.mjs --stage terminology-contract --allow-partial --issue 680",
+      "outputs": [
+        "docs/verification/issues/issue-680/terminology-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-terminology.mjs --stage help-copy-visible --allow-partial --issue 680",
+      "outputs": [
+        "docs/verification/issues/issue-680/help-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-terminology.mjs --stage no-copy-language --allow-partial --issue 680",
+      "outputs": [
+        "docs/verification/issues/issue-680/no-copy-language-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-680/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,12 @@
 import type { EditableSplitBayDividerStyle } from "@nerdeus/shared";
 import type { SplitBayQuickEditViewModel } from "./splitBayQuickEditViewModel";
 
-const DIVIDER_STYLES: readonly EditableSplitBayDividerStyle[] = ["diagonal", "vertical", "horizontal"];
+const DIVIDER_STYLES: readonly EditableSplitBayDividerStyle[] = [
+  "diagonal_down",
+  "diagonal_up",
+  "vertical",
+  "horizontal"
+];
 
 export function SplitBayQuickEditPopover({
   viewModel,
@@ -10,15 +15,21 @@ export function SplitBayQuickEditPopover({
   viewModel: SplitBayQuickEditViewModel;
   onDividerStyleChange: (dividerStyle: EditableSplitBayDividerStyle) => void;
 }) {
-  if (viewModel.status !== "ready" || viewModel.dividerStyle == null || viewModel.bedPositionRoomIds == null) {
-    return <p>No split bay selected.</p>;
+  if (viewModel.status !== "ready" || viewModel.dividerStyle == null || viewModel.childRooms == null) {
+    return <p>No split room selected.</p>;
   }
+  const [childA, childB] = viewModel.childRooms;
   return (
     <div className="split-bay-quick-edit-popover" data-split-bay-quick-edit="ready">
+      <strong>Split Room {viewModel.pairLabel}</strong>
       <dl>
         <div>
-          <dt>Bed positions</dt>
-          <dd>{viewModel.bedPositionRoomIds.join(" / ")}</dd>
+          <dt>Patient-care positions</dt>
+          <dd>{childA.label} / {childB.label}</dd>
+        </div>
+        <div>
+          <dt>Assignment</dt>
+          <dd>Rooms {childA.roomNumber} and {childB.roomNumber} assign independently</dd>
         </div>
       </dl>
       <label>
@@ -40,7 +51,7 @@ export function SplitBayQuickEditPopover({
 }
 
 function formatDividerStyle(style: EditableSplitBayDividerStyle): string {
-  if (style === "diagonal") return "Diagonal";
+  if (style === "diagonal" || style === "diagonal_down" || style === "diagonal_up") return "Diagonal";
   if (style === "vertical") return "Vertical";
   return "Horizontal";
 }

@@ -1,7 +1,6 @@
 import {
   validateEditableLayoutGeometryContract,
   validatePlanContract,
-  buildCanonicalSplitBayEditableOverlays,
   type EditableDoorGeometry,
   type EditableHallwayGeometry,
   type EditableLayoutGeometryContract,
@@ -171,9 +170,7 @@ export function planContractToEditableLayoutGeometry(
     stations: plan.nurseStations.map(planStationToEditableStation),
     hallways: plan.hallways.map(planHallwayToEditableHallway),
     zones: plan.zones.map(planZoneToEditableZone),
-    splitBays: plan.splitBays ?? buildCanonicalSplitBayEditableOverlays(
-      plan.rooms.map(planRoomToEditableRoom)
-    ).splitBays,
+    splitBays: plan.splitBays ?? [],
     limitations: [
       "Editable geometry is derived from validated JSON floorplan data; source plan metadata and path graph remain attached to editor state."
     ]

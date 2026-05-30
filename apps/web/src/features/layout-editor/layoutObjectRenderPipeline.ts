@@ -77,7 +77,7 @@ export function buildLayoutObjectRenderPipeline({
         "split_bay",
         splitBay.id,
         "overlays",
-        `${splitBay.label} ${splitBay.dividerStyle}`,
+        `Split Room ${splitBay.label} ${splitBay.dividerStyle}`,
         splitBay,
         splitBay,
         viewport

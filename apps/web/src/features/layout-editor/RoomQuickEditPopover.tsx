@@ -1,5 +1,6 @@
 import type { EditableRoomType } from "@nerdeus/shared";
 import type { RoomQuickEditViewModel } from "./roomQuickEditViewModel";
+import { SplitRoomHelpPanel } from "./SplitRoomHelpPanel";
 import {
   validateRoomOperationalLabel,
   validateRoomOperationalNumber
@@ -13,7 +14,9 @@ export type RoomQuickEditPopoverProps = {
   onHeightStep: (deltaFeet: number) => void;
   onAssignNurse: () => void;
   onAddDoor: () => void;
-  onConvertToSplitBay?: () => void;
+  onPreviewSplitRoom?: () => void;
+  onCreateSplitRoom?: () => void;
+  onShowSplitRoomHelp?: () => void;
   onRemoveAttachedDoors: () => void;
   onDuplicateRoom: () => void;
   onDeleteRoom: () => void;
@@ -41,7 +44,9 @@ export function RoomQuickEditPopover({
   onHeightStep,
   onAssignNurse,
   onAddDoor,
-  onConvertToSplitBay,
+  onPreviewSplitRoom,
+  onCreateSplitRoom,
+  onShowSplitRoomHelp,
   onRemoveAttachedDoors,
   onDuplicateRoom,
   onDeleteRoom,
@@ -150,22 +155,52 @@ export function RoomQuickEditPopover({
         >
           Remove attached doors
         </button>
-        <button type="button" disabled={viewModel.duplicateDisabled} onClick={onDuplicateRoom}>
-          Duplicate room
-        </button>
+        {viewModel.splitRoomAction.status === "ready" ? null : (
+          <button type="button" disabled={viewModel.duplicateDisabled} onClick={onDuplicateRoom}>
+            Add matching room
+          </button>
+        )}
         <button type="button" disabled={viewModel.deleteDisabled} onClick={onDeleteRoom}>
           Delete room
         </button>
-        {onConvertToSplitBay == null ? null : (
+      </div>
+      <section
+        className="room-quick-edit-popover__split-room"
+        data-split-room-workflow={viewModel.splitRoomAction.status}
+      >
+        <strong>{viewModel.splitRoomAction.title}</strong>
+        <p>{viewModel.splitRoomAction.partnerText}</p>
+        <p>{viewModel.splitRoomAction.description}</p>
+        <div className="room-quick-edit-popover__actions">
+          {viewModel.splitRoomAction.previewActionLabel == null ? null : (
+            <button
+              type="button"
+              disabled={viewModel.splitRoomAction.status !== "ready"}
+              title={viewModel.splitRoomAction.disabledReason ?? undefined}
+              onClick={onPreviewSplitRoom}
+            >
+              {viewModel.splitRoomAction.previewActionLabel}
+            </button>
+          )}
+          {viewModel.splitRoomAction.createActionLabel == null ? null : (
+            <button
+              type="button"
+              disabled={viewModel.splitRoomAction.status !== "ready"}
+              title={viewModel.splitRoomAction.disabledReason ?? undefined}
+              onClick={onCreateSplitRoom}
+            >
+              {viewModel.splitRoomAction.createActionLabel}
+            </button>
+          )}
           <button
             type="button"
-            disabled={viewModel.readOnly || viewModel.roomType === "solid_wall"}
-            onClick={onConvertToSplitBay}
+            onClick={onShowSplitRoomHelp}
           >
-            Convert pair to Split Bay
+            {viewModel.splitRoomAction.helpActionLabel}
           </button>
-        )}
-      </div>
+        </div>
+        <SplitRoomHelpPanel />
+      </section>
     </div>
   );
 }

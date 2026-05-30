@@ -1,0 +1,239 @@
+{
+  "status": "passed",
+  "issue": "687",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "saved working copy carries split room parent and child room IDs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "savedRecordId": "split-room-working-copy-001",
+        "splitBays": [
+          {
+            "id": "split-bay-room-04-room-05",
+            "label": "4/5",
+            "xFeet": 20,
+            "yFeet": 34,
+            "widthFeet": 22,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-04-room-05",
+            "bedPositionRoomIds": [
+              "room-04",
+              "room-05"
+            ],
+            "dividerStyle": "diagonal_down"
+          }
+        ]
+      }
+    },
+    {
+      "name": "reload same saved record preserves split rooms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "reloadedSplitBay": {
+          "id": "split-bay-room-04-room-05",
+          "label": "4/5",
+          "xFeet": 20,
+          "yFeet": 34,
+          "widthFeet": 22,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-room-04-room-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal_down"
+        },
+        "allCanonicalSplitBayCount": 4
+      }
+    },
+    {
+      "name": "export JSON contains split parent and child room IDs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBays": [
+          {
+            "id": "split-bay-room-04-room-05",
+            "label": "4/5",
+            "xFeet": 20,
+            "yFeet": 34,
+            "widthFeet": 22,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-04-room-05",
+            "bedPositionRoomIds": [
+              "room-04",
+              "room-05"
+            ],
+            "dividerStyle": "diagonal_down"
+          }
+        ]
+      }
+    },
+    {
+      "name": "import JSON recreates split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBays": [
+          {
+            "id": "split-bay-room-04-room-05",
+            "label": "4/5",
+            "xFeet": 20,
+            "yFeet": 34,
+            "widthFeet": 22,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-04-room-05",
+            "bedPositionRoomIds": [
+              "room-04",
+              "room-05"
+            ],
+            "dividerStyle": "diagonal_down"
+          }
+        ]
+      }
+    },
+    {
+      "name": "exported/imported split-room JSON validates against schema and persistence paths carry splitBays",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "sourceChecks": [
+          {
+            "path": "packages/shared/src/layout-editor/editableLayoutGeometryContract.ts",
+            "includesSplitBays": true
+          },
+          {
+            "path": "packages/shared/src/floorplans/planContract.ts",
+            "includesSplitBays": true
+          },
+          {
+            "path": "apps/web/src/features/layout-editor/editableLayoutToPlanContract.ts",
+            "includesSplitBays": true
+          },
+          {
+            "path": "apps/web/src/features/floorplans/savedFloorplanStore.ts",
+            "includesSplitBays": true
+          },
+          {
+            "path": "apps/web/src/features/floorplans/floorplanJsonImportExport.ts",
+            "includesSplitBays": true
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "save-working-copy": {
+      "status": "passed",
+      "savedRecordId": "split-room-working-copy-001",
+      "splitBays": [
+        {
+          "id": "split-bay-room-04-room-05",
+          "label": "4/5",
+          "xFeet": 20,
+          "yFeet": 34,
+          "widthFeet": 22,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-room-04-room-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal_down"
+        }
+      ]
+    },
+    "reload-same-record": {
+      "status": "passed",
+      "reloadedSplitBay": {
+        "id": "split-bay-room-04-room-05",
+        "label": "4/5",
+        "xFeet": 20,
+        "yFeet": 34,
+        "widthFeet": 22,
+        "heightFeet": 10,
+        "objectType": "split_bay",
+        "splitBayId": "split-bay-room-04-room-05",
+        "bedPositionRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "dividerStyle": "diagonal_down"
+      },
+      "allCanonicalSplitBayCount": 4
+    },
+    "export-json": {
+      "status": "passed",
+      "splitBays": [
+        {
+          "id": "split-bay-room-04-room-05",
+          "label": "4/5",
+          "xFeet": 20,
+          "yFeet": 34,
+          "widthFeet": 22,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-room-04-room-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal_down"
+        }
+      ]
+    },
+    "import-json": {
+      "status": "passed",
+      "splitBays": [
+        {
+          "id": "split-bay-room-04-room-05",
+          "label": "4/5",
+          "xFeet": 20,
+          "yFeet": 34,
+          "widthFeet": 22,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-room-04-room-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal_down"
+        }
+      ]
+    },
+    "schema-validation": {
+      "status": "passed",
+      "sourceChecks": [
+        {
+          "path": "packages/shared/src/layout-editor/editableLayoutGeometryContract.ts",
+          "includesSplitBays": true
+        },
+        {
+          "path": "packages/shared/src/floorplans/planContract.ts",
+          "includesSplitBays": true
+        },
+        {
+          "path": "apps/web/src/features/layout-editor/editableLayoutToPlanContract.ts",
+          "includesSplitBays": true
+        },
+        {
+          "path": "apps/web/src/features/floorplans/savedFloorplanStore.ts",
+          "includesSplitBays": true
+        },
+        {
+          "path": "apps/web/src/features/floorplans/floorplanJsonImportExport.ts",
+          "includesSplitBays": true
+        }
+      ]
+    }
+  }
+}

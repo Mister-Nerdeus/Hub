@@ -67,4 +67,4 @@ The editor usability and canvas popup changes remain within the existing Docker 
 
 ## Batch 669-678 Door Authoring Note
 
-Door authoring crash hardening remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the safe door mutation wrappers, candidate eligibility model, recovery snapshot helpers, and recovery diagnostics ship without adding services or dependencies. The API and web images carry the `door-authoring-crash-hardening-669-678` revision label for local Docker proof traceability only.
+Split-room authoring remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the split-room resolver, atomic creation model, persistence contract, and UI workflow ship without adding services or dependencies. The API and web images carry the `split-room-authoring-679-688` revision label for local Docker proof traceability only.

@@ -1,0 +1,53 @@
+{
+  "issue": "686",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-686/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-686/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-686/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-assignment-semantics.mjs --stage contract --allow-partial --issue 686",
+      "outputs": [
+        "docs/verification/issues/issue-686/assignment-semantics-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-assignment-semantics.mjs --stage child-assignment --allow-partial --issue 686",
+      "outputs": [
+        "docs/verification/issues/issue-686/child-assignment-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-assignment-semantics.mjs --stage capacity-count --allow-partial --issue 686",
+      "outputs": [
+        "docs/verification/issues/issue-686/capacity-count-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-assignment-semantics.mjs --stage parent-not-assignable --allow-partial --issue 686",
+      "outputs": [
+        "docs/verification/issues/issue-686/parent-not-assignable-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-686/no-phi-output.txt"
+      ]
+    }
+  ]
+}

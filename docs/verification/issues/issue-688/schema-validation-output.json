@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "sourceChecks": [
+    {
+      "path": "packages/shared/src/layout-editor/editableLayoutGeometryContract.ts",
+      "includesSplitBays": true
+    },
+    {
+      "path": "packages/shared/src/floorplans/planContract.ts",
+      "includesSplitBays": true
+    },
+    {
+      "path": "apps/web/src/features/layout-editor/editableLayoutToPlanContract.ts",
+      "includesSplitBays": true
+    },
+    {
+      "path": "apps/web/src/features/floorplans/savedFloorplanStore.ts",
+      "includesSplitBays": true
+    },
+    {
+      "path": "apps/web/src/features/floorplans/floorplanJsonImportExport.ts",
+      "includesSplitBays": true
+    }
+  ]
+}

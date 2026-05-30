@@ -1,0 +1,2263 @@
+{
+  "status": "passed",
+  "issue": "688",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "atomic authoring result contract creates one split parent preserving child IDs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "result": {
+          "status": "created",
+          "layout": {
+            "schemaVersion": "1.0.0",
+            "layoutId": "split-room-authoring-test-layout",
+            "units": "feet",
+            "rooms": [
+              {
+                "id": "room-02",
+                "label": "2",
+                "xFeet": 20,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "2",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-03",
+                "label": "3",
+                "xFeet": 32,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "3",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-04",
+                "label": "4",
+                "xFeet": 20,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "4",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-05",
+                "label": "5",
+                "xFeet": 32,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "5",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-06",
+                "label": "6",
+                "xFeet": 58,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "6",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-07",
+                "label": "7",
+                "xFeet": 70,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "7",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-08",
+                "label": "8",
+                "xFeet": 58,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "8",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-09",
+                "label": "9",
+                "xFeet": 70,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "9",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              }
+            ],
+            "doors": [],
+            "supportAccessPoints": [],
+            "stations": [],
+            "hallways": [],
+            "zones": [],
+            "splitBays": [
+              {
+                "id": "split-bay-room-04-room-05",
+                "label": "4/5",
+                "xFeet": 20,
+                "yFeet": 34,
+                "widthFeet": 22,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-04-room-05",
+                "bedPositionRoomIds": [
+                  "room-04",
+                  "room-05"
+                ],
+                "dividerStyle": "diagonal_down"
+              }
+            ],
+            "limitations": [
+              "Synthetic local split-room authoring proof layout."
+            ]
+          },
+          "splitBayId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "childRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "warnings": []
+        }
+      }
+    },
+    {
+      "name": "Create Split Room 4/5 creates one parent and preserves Room 4 and Room 5",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "result": {
+          "status": "created",
+          "layout": {
+            "schemaVersion": "1.0.0",
+            "layoutId": "split-room-authoring-test-layout",
+            "units": "feet",
+            "rooms": [
+              {
+                "id": "room-02",
+                "label": "2",
+                "xFeet": 20,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "2",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-03",
+                "label": "3",
+                "xFeet": 32,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "3",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-04",
+                "label": "4",
+                "xFeet": 20,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "4",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-05",
+                "label": "5",
+                "xFeet": 32,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "5",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-06",
+                "label": "6",
+                "xFeet": 58,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "6",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-07",
+                "label": "7",
+                "xFeet": 70,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "7",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-08",
+                "label": "8",
+                "xFeet": 58,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "8",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-09",
+                "label": "9",
+                "xFeet": 70,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "9",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              }
+            ],
+            "doors": [],
+            "supportAccessPoints": [],
+            "stations": [],
+            "hallways": [],
+            "zones": [],
+            "splitBays": [
+              {
+                "id": "split-bay-room-04-room-05",
+                "label": "4/5",
+                "xFeet": 20,
+                "yFeet": 34,
+                "widthFeet": 22,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-04-room-05",
+                "bedPositionRoomIds": [
+                  "room-04",
+                  "room-05"
+                ],
+                "dividerStyle": "diagonal_down"
+              }
+            ],
+            "limitations": [
+              "Synthetic local split-room authoring proof layout."
+            ]
+          },
+          "splitBayId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "childRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "warnings": []
+        },
+        "splitBay": {
+          "id": "split-bay-room-04-room-05",
+          "label": "4/5",
+          "xFeet": 20,
+          "yFeet": 34,
+          "widthFeet": 22,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-room-04-room-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal_down"
+        }
+      }
+    },
+    {
+      "name": "all canonical split-room pairs create atomically",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "pairOutputs": [
+          {
+            "roomAId": "room-02",
+            "pairLabel": "2/3",
+            "status": "created",
+            "result": {
+              "status": "created",
+              "layout": {
+                "schemaVersion": "1.0.0",
+                "layoutId": "split-room-authoring-test-layout",
+                "units": "feet",
+                "rooms": [
+                  {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 20,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-03",
+                    "label": "3",
+                    "xFeet": 32,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "3",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-04",
+                    "label": "4",
+                    "xFeet": 20,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "4",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-05",
+                    "label": "5",
+                    "xFeet": 32,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "5",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-06",
+                    "label": "6",
+                    "xFeet": 58,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "6",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-07",
+                    "label": "7",
+                    "xFeet": 70,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "7",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-08",
+                    "label": "8",
+                    "xFeet": 58,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "8",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-09",
+                    "label": "9",
+                    "xFeet": 70,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "9",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                ],
+                "doors": [],
+                "supportAccessPoints": [],
+                "stations": [],
+                "hallways": [],
+                "zones": [],
+                "splitBays": [
+                  {
+                    "id": "split-bay-room-02-room-03",
+                    "label": "2/3",
+                    "xFeet": 20,
+                    "yFeet": 20,
+                    "widthFeet": 22,
+                    "heightFeet": 10,
+                    "objectType": "split_bay",
+                    "splitBayId": "split-bay-room-02-room-03",
+                    "bedPositionRoomIds": [
+                      "room-02",
+                      "room-03"
+                    ],
+                    "dividerStyle": "diagonal_down"
+                  }
+                ],
+                "limitations": [
+                  "Synthetic local split-room authoring proof layout."
+                ]
+              },
+              "splitBayId": "split-bay-room-02-room-03",
+              "pairLabel": "2/3",
+              "childRoomIds": [
+                "room-02",
+                "room-03"
+              ],
+              "warnings": []
+            }
+          },
+          {
+            "roomAId": "room-04",
+            "pairLabel": "4/5",
+            "status": "created",
+            "result": {
+              "status": "created",
+              "layout": {
+                "schemaVersion": "1.0.0",
+                "layoutId": "split-room-authoring-test-layout",
+                "units": "feet",
+                "rooms": [
+                  {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 20,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-03",
+                    "label": "3",
+                    "xFeet": 32,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "3",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-04",
+                    "label": "4",
+                    "xFeet": 20,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "4",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-05",
+                    "label": "5",
+                    "xFeet": 32,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "5",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-06",
+                    "label": "6",
+                    "xFeet": 58,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "6",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-07",
+                    "label": "7",
+                    "xFeet": 70,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "7",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-08",
+                    "label": "8",
+                    "xFeet": 58,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "8",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-09",
+                    "label": "9",
+                    "xFeet": 70,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "9",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                ],
+                "doors": [],
+                "supportAccessPoints": [],
+                "stations": [],
+                "hallways": [],
+                "zones": [],
+                "splitBays": [
+                  {
+                    "id": "split-bay-room-04-room-05",
+                    "label": "4/5",
+                    "xFeet": 20,
+                    "yFeet": 34,
+                    "widthFeet": 22,
+                    "heightFeet": 10,
+                    "objectType": "split_bay",
+                    "splitBayId": "split-bay-room-04-room-05",
+                    "bedPositionRoomIds": [
+                      "room-04",
+                      "room-05"
+                    ],
+                    "dividerStyle": "diagonal_down"
+                  }
+                ],
+                "limitations": [
+                  "Synthetic local split-room authoring proof layout."
+                ]
+              },
+              "splitBayId": "split-bay-room-04-room-05",
+              "pairLabel": "4/5",
+              "childRoomIds": [
+                "room-04",
+                "room-05"
+              ],
+              "warnings": []
+            }
+          },
+          {
+            "roomAId": "room-06",
+            "pairLabel": "6/7",
+            "status": "created",
+            "result": {
+              "status": "created",
+              "layout": {
+                "schemaVersion": "1.0.0",
+                "layoutId": "split-room-authoring-test-layout",
+                "units": "feet",
+                "rooms": [
+                  {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 20,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-03",
+                    "label": "3",
+                    "xFeet": 32,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "3",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-04",
+                    "label": "4",
+                    "xFeet": 20,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "4",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-05",
+                    "label": "5",
+                    "xFeet": 32,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "5",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-06",
+                    "label": "6",
+                    "xFeet": 58,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "6",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-07",
+                    "label": "7",
+                    "xFeet": 70,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "7",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-08",
+                    "label": "8",
+                    "xFeet": 58,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "8",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-09",
+                    "label": "9",
+                    "xFeet": 70,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "9",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                ],
+                "doors": [],
+                "supportAccessPoints": [],
+                "stations": [],
+                "hallways": [],
+                "zones": [],
+                "splitBays": [
+                  {
+                    "id": "split-bay-room-06-room-07",
+                    "label": "6/7",
+                    "xFeet": 58,
+                    "yFeet": 20,
+                    "widthFeet": 22,
+                    "heightFeet": 10,
+                    "objectType": "split_bay",
+                    "splitBayId": "split-bay-room-06-room-07",
+                    "bedPositionRoomIds": [
+                      "room-06",
+                      "room-07"
+                    ],
+                    "dividerStyle": "diagonal_down"
+                  }
+                ],
+                "limitations": [
+                  "Synthetic local split-room authoring proof layout."
+                ]
+              },
+              "splitBayId": "split-bay-room-06-room-07",
+              "pairLabel": "6/7",
+              "childRoomIds": [
+                "room-06",
+                "room-07"
+              ],
+              "warnings": []
+            }
+          },
+          {
+            "roomAId": "room-08",
+            "pairLabel": "8/9",
+            "status": "created",
+            "result": {
+              "status": "created",
+              "layout": {
+                "schemaVersion": "1.0.0",
+                "layoutId": "split-room-authoring-test-layout",
+                "units": "feet",
+                "rooms": [
+                  {
+                    "id": "room-02",
+                    "label": "2",
+                    "xFeet": 20,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "2",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-03",
+                    "label": "3",
+                    "xFeet": 32,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "3",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-04",
+                    "label": "4",
+                    "xFeet": 20,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "4",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-05",
+                    "label": "5",
+                    "xFeet": 32,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "5",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-06",
+                    "label": "6",
+                    "xFeet": 58,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "6",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-07",
+                    "label": "7",
+                    "xFeet": 70,
+                    "yFeet": 20,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "7",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-08",
+                    "label": "8",
+                    "xFeet": 58,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "8",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  },
+                  {
+                    "id": "room-09",
+                    "label": "9",
+                    "xFeet": 70,
+                    "yFeet": 34,
+                    "widthFeet": 10,
+                    "heightFeet": 10,
+                    "objectType": "room",
+                    "roomNumber": "9",
+                    "roomType": "standard",
+                    "capacityType": "single",
+                    "isHallBed": false,
+                    "isTraumaAdjacent": false
+                  }
+                ],
+                "doors": [],
+                "supportAccessPoints": [],
+                "stations": [],
+                "hallways": [],
+                "zones": [],
+                "splitBays": [
+                  {
+                    "id": "split-bay-room-08-room-09",
+                    "label": "8/9",
+                    "xFeet": 58,
+                    "yFeet": 34,
+                    "widthFeet": 22,
+                    "heightFeet": 10,
+                    "objectType": "split_bay",
+                    "splitBayId": "split-bay-room-08-room-09",
+                    "bedPositionRoomIds": [
+                      "room-08",
+                      "room-09"
+                    ],
+                    "dividerStyle": "diagonal_down"
+                  }
+                ],
+                "limitations": [
+                  "Synthetic local split-room authoring proof layout."
+                ]
+              },
+              "splitBayId": "split-bay-room-08-room-09",
+              "pairLabel": "8/9",
+              "childRoomIds": [
+                "room-08",
+                "room-09"
+              ],
+              "warnings": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "atomic creation creates no Copy or Duplicate label",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "labels": [
+          "2/3",
+          "4/5",
+          "6/7",
+          "8/9"
+        ]
+      }
+    },
+    {
+      "name": "operation is undoable, invalid pairs block, and split-room work does not show recovery screen",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "reducerUsesUndoHistory": true,
+        "reducerTestMentionsUndo": true,
+        "invalidPair": {
+          "status": "blocked",
+          "layout": {
+            "schemaVersion": "1.0.0",
+            "layoutId": "split-room-authoring-test-layout",
+            "units": "feet",
+            "rooms": [
+              {
+                "id": "room-02",
+                "label": "2",
+                "xFeet": 20,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "2",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-03",
+                "label": "3",
+                "xFeet": 32,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "3",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-04",
+                "label": "4",
+                "xFeet": 20,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "4",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-05",
+                "label": "5",
+                "xFeet": 32,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "5",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-06",
+                "label": "6",
+                "xFeet": 58,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "6",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-07",
+                "label": "7",
+                "xFeet": 70,
+                "yFeet": 20,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "7",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-08",
+                "label": "8",
+                "xFeet": 58,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "8",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              },
+              {
+                "id": "room-09",
+                "label": "9",
+                "xFeet": 70,
+                "yFeet": 34,
+                "widthFeet": 10,
+                "heightFeet": 10,
+                "objectType": "room",
+                "roomNumber": "9",
+                "roomType": "standard",
+                "capacityType": "single",
+                "isHallBed": false,
+                "isTraumaAdjacent": false
+              }
+            ],
+            "doors": [],
+            "supportAccessPoints": [],
+            "stations": [],
+            "hallways": [],
+            "zones": [],
+            "splitBays": [],
+            "limitations": [
+              "Synthetic local split-room authoring proof layout."
+            ]
+          },
+          "reason": "No canonical split room pair is configured for the selected room."
+        },
+        "noRecoveryScreenMutationPath": true
+      }
+    }
+  ],
+  "stageResults": {
+    "atomic-contract": {
+      "status": "passed",
+      "result": {
+        "status": "created",
+        "layout": {
+          "schemaVersion": "1.0.0",
+          "layoutId": "split-room-authoring-test-layout",
+          "units": "feet",
+          "rooms": [
+            {
+              "id": "room-02",
+              "label": "2",
+              "xFeet": 20,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "2",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-03",
+              "label": "3",
+              "xFeet": 32,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "3",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-04",
+              "label": "4",
+              "xFeet": 20,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "4",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-05",
+              "label": "5",
+              "xFeet": 32,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "5",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-06",
+              "label": "6",
+              "xFeet": 58,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "6",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-07",
+              "label": "7",
+              "xFeet": 70,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "7",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-08",
+              "label": "8",
+              "xFeet": 58,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "8",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-09",
+              "label": "9",
+              "xFeet": 70,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "9",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            }
+          ],
+          "doors": [],
+          "supportAccessPoints": [],
+          "stations": [],
+          "hallways": [],
+          "zones": [],
+          "splitBays": [
+            {
+              "id": "split-bay-room-04-room-05",
+              "label": "4/5",
+              "xFeet": 20,
+              "yFeet": 34,
+              "widthFeet": 22,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-04-room-05",
+              "bedPositionRoomIds": [
+                "room-04",
+                "room-05"
+              ],
+              "dividerStyle": "diagonal_down"
+            }
+          ],
+          "limitations": [
+            "Synthetic local split-room authoring proof layout."
+          ]
+        },
+        "splitBayId": "split-bay-room-04-room-05",
+        "pairLabel": "4/5",
+        "childRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "warnings": []
+      }
+    },
+    "create-45": {
+      "status": "passed",
+      "result": {
+        "status": "created",
+        "layout": {
+          "schemaVersion": "1.0.0",
+          "layoutId": "split-room-authoring-test-layout",
+          "units": "feet",
+          "rooms": [
+            {
+              "id": "room-02",
+              "label": "2",
+              "xFeet": 20,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "2",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-03",
+              "label": "3",
+              "xFeet": 32,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "3",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-04",
+              "label": "4",
+              "xFeet": 20,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "4",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-05",
+              "label": "5",
+              "xFeet": 32,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "5",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-06",
+              "label": "6",
+              "xFeet": 58,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "6",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-07",
+              "label": "7",
+              "xFeet": 70,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "7",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-08",
+              "label": "8",
+              "xFeet": 58,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "8",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-09",
+              "label": "9",
+              "xFeet": 70,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "9",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            }
+          ],
+          "doors": [],
+          "supportAccessPoints": [],
+          "stations": [],
+          "hallways": [],
+          "zones": [],
+          "splitBays": [
+            {
+              "id": "split-bay-room-04-room-05",
+              "label": "4/5",
+              "xFeet": 20,
+              "yFeet": 34,
+              "widthFeet": 22,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-04-room-05",
+              "bedPositionRoomIds": [
+                "room-04",
+                "room-05"
+              ],
+              "dividerStyle": "diagonal_down"
+            }
+          ],
+          "limitations": [
+            "Synthetic local split-room authoring proof layout."
+          ]
+        },
+        "splitBayId": "split-bay-room-04-room-05",
+        "pairLabel": "4/5",
+        "childRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "warnings": []
+      },
+      "splitBay": {
+        "id": "split-bay-room-04-room-05",
+        "label": "4/5",
+        "xFeet": 20,
+        "yFeet": 34,
+        "widthFeet": 22,
+        "heightFeet": 10,
+        "objectType": "split_bay",
+        "splitBayId": "split-bay-room-04-room-05",
+        "bedPositionRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "dividerStyle": "diagonal_down"
+      }
+    },
+    "all-canonical-pairs": {
+      "status": "passed",
+      "pairOutputs": [
+        {
+          "roomAId": "room-02",
+          "pairLabel": "2/3",
+          "status": "created",
+          "result": {
+            "status": "created",
+            "layout": {
+              "schemaVersion": "1.0.0",
+              "layoutId": "split-room-authoring-test-layout",
+              "units": "feet",
+              "rooms": [
+                {
+                  "id": "room-02",
+                  "label": "2",
+                  "xFeet": 20,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "2",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-03",
+                  "label": "3",
+                  "xFeet": 32,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "3",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-04",
+                  "label": "4",
+                  "xFeet": 20,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "4",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-05",
+                  "label": "5",
+                  "xFeet": 32,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "5",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-06",
+                  "label": "6",
+                  "xFeet": 58,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "6",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-07",
+                  "label": "7",
+                  "xFeet": 70,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "7",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-08",
+                  "label": "8",
+                  "xFeet": 58,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "8",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-09",
+                  "label": "9",
+                  "xFeet": 70,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "9",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                }
+              ],
+              "doors": [],
+              "supportAccessPoints": [],
+              "stations": [],
+              "hallways": [],
+              "zones": [],
+              "splitBays": [
+                {
+                  "id": "split-bay-room-02-room-03",
+                  "label": "2/3",
+                  "xFeet": 20,
+                  "yFeet": 20,
+                  "widthFeet": 22,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-02-room-03",
+                  "bedPositionRoomIds": [
+                    "room-02",
+                    "room-03"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                }
+              ],
+              "limitations": [
+                "Synthetic local split-room authoring proof layout."
+              ]
+            },
+            "splitBayId": "split-bay-room-02-room-03",
+            "pairLabel": "2/3",
+            "childRoomIds": [
+              "room-02",
+              "room-03"
+            ],
+            "warnings": []
+          }
+        },
+        {
+          "roomAId": "room-04",
+          "pairLabel": "4/5",
+          "status": "created",
+          "result": {
+            "status": "created",
+            "layout": {
+              "schemaVersion": "1.0.0",
+              "layoutId": "split-room-authoring-test-layout",
+              "units": "feet",
+              "rooms": [
+                {
+                  "id": "room-02",
+                  "label": "2",
+                  "xFeet": 20,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "2",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-03",
+                  "label": "3",
+                  "xFeet": 32,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "3",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-04",
+                  "label": "4",
+                  "xFeet": 20,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "4",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-05",
+                  "label": "5",
+                  "xFeet": 32,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "5",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-06",
+                  "label": "6",
+                  "xFeet": 58,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "6",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-07",
+                  "label": "7",
+                  "xFeet": 70,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "7",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-08",
+                  "label": "8",
+                  "xFeet": 58,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "8",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-09",
+                  "label": "9",
+                  "xFeet": 70,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "9",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                }
+              ],
+              "doors": [],
+              "supportAccessPoints": [],
+              "stations": [],
+              "hallways": [],
+              "zones": [],
+              "splitBays": [
+                {
+                  "id": "split-bay-room-04-room-05",
+                  "label": "4/5",
+                  "xFeet": 20,
+                  "yFeet": 34,
+                  "widthFeet": 22,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-04-room-05",
+                  "bedPositionRoomIds": [
+                    "room-04",
+                    "room-05"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                }
+              ],
+              "limitations": [
+                "Synthetic local split-room authoring proof layout."
+              ]
+            },
+            "splitBayId": "split-bay-room-04-room-05",
+            "pairLabel": "4/5",
+            "childRoomIds": [
+              "room-04",
+              "room-05"
+            ],
+            "warnings": []
+          }
+        },
+        {
+          "roomAId": "room-06",
+          "pairLabel": "6/7",
+          "status": "created",
+          "result": {
+            "status": "created",
+            "layout": {
+              "schemaVersion": "1.0.0",
+              "layoutId": "split-room-authoring-test-layout",
+              "units": "feet",
+              "rooms": [
+                {
+                  "id": "room-02",
+                  "label": "2",
+                  "xFeet": 20,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "2",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-03",
+                  "label": "3",
+                  "xFeet": 32,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "3",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-04",
+                  "label": "4",
+                  "xFeet": 20,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "4",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-05",
+                  "label": "5",
+                  "xFeet": 32,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "5",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-06",
+                  "label": "6",
+                  "xFeet": 58,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "6",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-07",
+                  "label": "7",
+                  "xFeet": 70,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "7",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-08",
+                  "label": "8",
+                  "xFeet": 58,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "8",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-09",
+                  "label": "9",
+                  "xFeet": 70,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "9",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                }
+              ],
+              "doors": [],
+              "supportAccessPoints": [],
+              "stations": [],
+              "hallways": [],
+              "zones": [],
+              "splitBays": [
+                {
+                  "id": "split-bay-room-06-room-07",
+                  "label": "6/7",
+                  "xFeet": 58,
+                  "yFeet": 20,
+                  "widthFeet": 22,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-06-room-07",
+                  "bedPositionRoomIds": [
+                    "room-06",
+                    "room-07"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                }
+              ],
+              "limitations": [
+                "Synthetic local split-room authoring proof layout."
+              ]
+            },
+            "splitBayId": "split-bay-room-06-room-07",
+            "pairLabel": "6/7",
+            "childRoomIds": [
+              "room-06",
+              "room-07"
+            ],
+            "warnings": []
+          }
+        },
+        {
+          "roomAId": "room-08",
+          "pairLabel": "8/9",
+          "status": "created",
+          "result": {
+            "status": "created",
+            "layout": {
+              "schemaVersion": "1.0.0",
+              "layoutId": "split-room-authoring-test-layout",
+              "units": "feet",
+              "rooms": [
+                {
+                  "id": "room-02",
+                  "label": "2",
+                  "xFeet": 20,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "2",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-03",
+                  "label": "3",
+                  "xFeet": 32,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "3",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-04",
+                  "label": "4",
+                  "xFeet": 20,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "4",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-05",
+                  "label": "5",
+                  "xFeet": 32,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "5",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-06",
+                  "label": "6",
+                  "xFeet": 58,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "6",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-07",
+                  "label": "7",
+                  "xFeet": 70,
+                  "yFeet": 20,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "7",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-08",
+                  "label": "8",
+                  "xFeet": 58,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "8",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                },
+                {
+                  "id": "room-09",
+                  "label": "9",
+                  "xFeet": 70,
+                  "yFeet": 34,
+                  "widthFeet": 10,
+                  "heightFeet": 10,
+                  "objectType": "room",
+                  "roomNumber": "9",
+                  "roomType": "standard",
+                  "capacityType": "single",
+                  "isHallBed": false,
+                  "isTraumaAdjacent": false
+                }
+              ],
+              "doors": [],
+              "supportAccessPoints": [],
+              "stations": [],
+              "hallways": [],
+              "zones": [],
+              "splitBays": [
+                {
+                  "id": "split-bay-room-08-room-09",
+                  "label": "8/9",
+                  "xFeet": 58,
+                  "yFeet": 34,
+                  "widthFeet": 22,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-08-room-09",
+                  "bedPositionRoomIds": [
+                    "room-08",
+                    "room-09"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                }
+              ],
+              "limitations": [
+                "Synthetic local split-room authoring proof layout."
+              ]
+            },
+            "splitBayId": "split-bay-room-08-room-09",
+            "pairLabel": "8/9",
+            "childRoomIds": [
+              "room-08",
+              "room-09"
+            ],
+            "warnings": []
+          }
+        }
+      ]
+    },
+    "no-copy-label": {
+      "status": "passed",
+      "labels": [
+        "2/3",
+        "4/5",
+        "6/7",
+        "8/9"
+      ]
+    },
+    "undo-proof": {
+      "status": "passed",
+      "reducerUsesUndoHistory": true,
+      "reducerTestMentionsUndo": true,
+      "invalidPair": {
+        "status": "blocked",
+        "layout": {
+          "schemaVersion": "1.0.0",
+          "layoutId": "split-room-authoring-test-layout",
+          "units": "feet",
+          "rooms": [
+            {
+              "id": "room-02",
+              "label": "2",
+              "xFeet": 20,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "2",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-03",
+              "label": "3",
+              "xFeet": 32,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "3",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-04",
+              "label": "4",
+              "xFeet": 20,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "4",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-05",
+              "label": "5",
+              "xFeet": 32,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "5",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-06",
+              "label": "6",
+              "xFeet": 58,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "6",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-07",
+              "label": "7",
+              "xFeet": 70,
+              "yFeet": 20,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "7",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-08",
+              "label": "8",
+              "xFeet": 58,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "8",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-09",
+              "label": "9",
+              "xFeet": 70,
+              "yFeet": 34,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "9",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            }
+          ],
+          "doors": [],
+          "supportAccessPoints": [],
+          "stations": [],
+          "hallways": [],
+          "zones": [],
+          "splitBays": [],
+          "limitations": [
+            "Synthetic local split-room authoring proof layout."
+          ]
+        },
+        "reason": "No canonical split room pair is configured for the selected room."
+      },
+      "noRecoveryScreenMutationPath": true
+    }
+  }
+}

@@ -47,5 +47,5 @@ export function buildCanonicalSplitBayEditableOverlays(
 }
 
 function labelForSplitBay(roomIds: readonly [string, string]): string {
-  return `Split Bay ${roomIds.map((roomId) => roomId.replace("room-", "")).join("/")}`;
+  return roomIds.map((roomId) => String(Number(roomId.replace("room-", "")))).join("/");
 }

@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-terminology.mjs --stage terminology-contract --allow-partial --issue 680
+node scripts/check-split-room-terminology.mjs --stage help-copy-visible --allow-partial --issue 680
+node scripts/check-split-room-terminology.mjs --stage no-copy-language --allow-partial --issue 680
+node scripts/check-no-phi-fields.mjs

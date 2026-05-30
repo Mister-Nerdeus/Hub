@@ -1,0 +1,59 @@
+{
+  "issue": "685",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-685/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-685/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-685/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector.mjs --stage inspector-visible --allow-partial --issue 685",
+      "outputs": [
+        "docs/verification/issues/issue-685/inspector-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector.mjs --stage child-room-labels --allow-partial --issue 685",
+      "outputs": [
+        "docs/verification/issues/issue-685/child-room-labels-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector.mjs --stage divider-control --allow-partial --issue 685",
+      "outputs": [
+        "docs/verification/issues/issue-685/divider-control-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector.mjs --stage child-selection --allow-partial --issue 685",
+      "outputs": [
+        "docs/verification/issues/issue-685/child-select-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector.mjs --stage no-technical-label --allow-partial --issue 685",
+      "outputs": [
+        "docs/verification/issues/issue-685/no-technical-label-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-685/no-phi-output.txt"
+      ]
+    }
+  ]
+}

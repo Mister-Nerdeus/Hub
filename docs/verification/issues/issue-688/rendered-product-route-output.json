@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "routes": [
+    {
+      "routeId": "locked-access",
+      "section": "floorplans",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/locked-access.png",
+      "screenshotOk": true,
+      "renderedTextLength": 300,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "floorplan",
+      "section": "floorplans",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/floorplan.png",
+      "screenshotOk": true,
+      "renderedTextLength": 3630,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "editor",
+      "section": "editor",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/editor.png",
+      "screenshotOk": true,
+      "renderedTextLength": 4120,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "manual-assignment",
+      "section": "manual-assignment",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/manual-assignment.png",
+      "screenshotOk": true,
+      "renderedTextLength": 2571,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "scenarios",
+      "section": "scenarios",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/scenarios.png",
+      "screenshotOk": true,
+      "renderedTextLength": 2282,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "simulation",
+      "section": "simulation",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/simulation.png",
+      "screenshotOk": true,
+      "renderedTextLength": 6742,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "reports",
+      "section": "reports",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/reports.png",
+      "screenshotOk": true,
+      "renderedTextLength": 778,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "settings",
+      "section": "settings",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/settings.png",
+      "screenshotOk": true,
+      "renderedTextLength": 761,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "advanced-evidence",
+      "section": "developer-evidence",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/advanced-evidence.png",
+      "screenshotOk": true,
+      "renderedTextLength": 46537,
+      "forbiddenFindings": [],
+      "allowedFindings": [
+        "demo",
+        "Demo",
+        "demo workflow",
+        "demo seed",
+        "demo review"
+      ],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "routes",
+      "section": "routes",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/routes.png",
+      "screenshotOk": true,
+      "renderedTextLength": 742,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    },
+    {
+      "routeId": "assignments",
+      "section": "assignments",
+      "screenshotPath": "docs/verification/issues/issue-688/screenshots/assignments.png",
+      "screenshotOk": true,
+      "renderedTextLength": 4158,
+      "forbiddenFindings": [],
+      "allowedFindings": [],
+      "accessCredentialVisible": false
+    }
+  ],
+  "summary": {
+    "routeCount": 11,
+    "forbiddenFragmentCount": 0,
+    "credentialFindingCount": 0
+  }
+}

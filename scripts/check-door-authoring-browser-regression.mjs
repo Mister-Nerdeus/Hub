@@ -73,7 +73,8 @@ if (stage === "final") {
     doorRegressionPackStatus: status === "passed" ? "passed" : "failed",
     doorSaveReloadProof: status === "passed",
     noRecoveryScreenDuringDoorWork: status === "passed",
-    goNoGoStatus: "not_ready"
+    reconstructionStatus: status === "passed" ? "go_for_full_er_floorplan_reconstruction" : "no_go_until_door_authoring_crash_hardening_passes",
+    goNoGoStatus: status === "passed" ? "go_for_full_er_floorplan_reconstruction" : "not_ready"
   });
 }
 
@@ -553,9 +554,18 @@ async function setSelectedRoomType(browser, roomType) {
     const root = document.querySelector('[data-room-quick-edit="ready"]');
     const select = root?.querySelector('select');
     if (select == null) throw new Error('room type select missing');
-    select.value = ${JSON.stringify(roomType)};
+    setNativeSelectValue(select, ${JSON.stringify(roomType)});
+    select.dispatchEvent(new Event('input', { bubbles: true }));
     select.dispatchEvent(new Event('change', { bubbles: true }));
     return true;
+    function setNativeSelectValue(target, value) {
+      const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
+      if (setter == null) {
+        target.value = value;
+        return;
+      }
+      setter.call(target, value);
+    }
   })()`);
   await waitForExpression(
     browser,
@@ -569,9 +579,18 @@ async function setDoorWall(browser, wall) {
     const root = document.querySelector('[data-door-quick-edit="ready"]');
     const select = root?.querySelector('select');
     if (select == null) throw new Error('door wall select missing');
-    select.value = ${JSON.stringify(wall)};
+    setNativeSelectValue(select, ${JSON.stringify(wall)});
+    select.dispatchEvent(new Event('input', { bubbles: true }));
     select.dispatchEvent(new Event('change', { bubbles: true }));
     return true;
+    function setNativeSelectValue(target, value) {
+      const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
+      if (setter == null) {
+        target.value = value;
+        return;
+      }
+      setter.call(target, value);
+    }
   })()`);
 }
 
@@ -583,9 +602,18 @@ async function attemptCandidateSelection(browser, roomId) {
     const option = Array.from(select.options).find((item) => item.value === ${JSON.stringify(roomId)}) ?? null;
     if (option == null) return { selected: false, reason: 'candidate option missing' };
     if (option.disabled) return { selected: false, reason: 'candidate disabled', text: option.textContent.trim() };
-    select.value = option.value;
+    setNativeSelectValue(select, option.value);
+    select.dispatchEvent(new Event('input', { bubbles: true }));
     select.dispatchEvent(new Event('change', { bubbles: true }));
     return { selected: true, value: option.value, text: option.textContent.trim() };
+    function setNativeSelectValue(target, value) {
+      const setter = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value')?.set;
+      if (setter == null) {
+        target.value = value;
+        return;
+      }
+      setter.call(target, value);
+    }
   })()`);
 }
 

@@ -1,0 +1,411 @@
+{
+  "status": "passed",
+  "issue": "682",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "resolver returns canonical contract counts and pair label",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        }
+      }
+    },
+    {
+      "name": "Room 5 and Room 4 resolve to Split Room 4/5",
+      "passed": true,
+      "detail": {
+        "output5": {
+          "status": "passed",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-04-room-05",
+            "pairLabel": "4/5",
+            "roomAId": "room-04",
+            "roomBId": "room-05",
+            "roomALabel": "Room 4",
+            "roomBLabel": "Room 5",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        "output4": {
+          "status": "passed",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-04-room-05",
+            "pairLabel": "4/5",
+            "roomAId": "room-04",
+            "roomBId": "room-05",
+            "roomALabel": "Room 4",
+            "roomBLabel": "Room 5",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        }
+      }
+    },
+    {
+      "name": "all canonical split-room pairs resolve from either room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "status": "passed",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-02-room-03",
+              "pairLabel": "2/3",
+              "roomAId": "room-02",
+              "roomBId": "room-03",
+              "roomALabel": "Room 2",
+              "roomBLabel": "Room 3",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "status": "passed",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-06-room-07",
+              "pairLabel": "6/7",
+              "roomAId": "room-06",
+              "roomBId": "room-07",
+              "roomALabel": "Room 6",
+              "roomBLabel": "Room 7",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          },
+          {
+            "status": "passed",
+            "resolution": {
+              "status": "ready",
+              "pairId": "split-bay-room-08-room-09",
+              "pairLabel": "8/9",
+              "roomAId": "room-08",
+              "roomBId": "room-09",
+              "roomALabel": "Room 8",
+              "roomBLabel": "Room 9",
+              "suggestedDivider": "diagonal_down",
+              "physicalBayCount": 1,
+              "patientCarePositionCount": 2
+            }
+          }
+        ],
+        "allPairs": [
+          {
+            "roomId": "room-02",
+            "pairLabel": "2/3",
+            "status": "ready",
+            "resolvedLabel": "2/3"
+          },
+          {
+            "roomId": "room-03",
+            "pairLabel": "2/3",
+            "status": "ready",
+            "resolvedLabel": "2/3"
+          },
+          {
+            "roomId": "room-04",
+            "pairLabel": "4/5",
+            "status": "ready",
+            "resolvedLabel": "4/5"
+          },
+          {
+            "roomId": "room-05",
+            "pairLabel": "4/5",
+            "status": "ready",
+            "resolvedLabel": "4/5"
+          },
+          {
+            "roomId": "room-06",
+            "pairLabel": "6/7",
+            "status": "ready",
+            "resolvedLabel": "6/7"
+          },
+          {
+            "roomId": "room-07",
+            "pairLabel": "6/7",
+            "status": "ready",
+            "resolvedLabel": "6/7"
+          },
+          {
+            "roomId": "room-08",
+            "pairLabel": "8/9",
+            "status": "ready",
+            "resolvedLabel": "8/9"
+          },
+          {
+            "roomId": "room-09",
+            "pairLabel": "8/9",
+            "status": "ready",
+            "resolvedLabel": "8/9"
+          }
+        ]
+      }
+    },
+    {
+      "name": "resolver blocks invalid, solid-wall, provider/pharmacy, and already split rooms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "invalid": {
+          "status": "blocked",
+          "reason": "No canonical split room pair is configured for the selected room.",
+          "selectedRoomId": "room-01"
+        },
+        "solidWall": {
+          "status": "blocked",
+          "reason": "Room 4 cannot be used because it is solid wall.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        },
+        "provider": {
+          "status": "blocked",
+          "reason": "Room 4 cannot be used because it is provider/pharmacy support.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        },
+        "storage": {
+          "status": "blocked",
+          "reason": "Room 4 cannot be used because it is storage.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        },
+        "geometryMismatch": {
+          "status": "blocked",
+          "reason": "Room geometry does not align for one physical split room.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        },
+        "alreadySplitResolution": {
+          "status": "blocked",
+          "reason": "One or both rooms are already part of a split room.",
+          "selectedRoomId": "room-05",
+          "expectedPartnerId": "room-04"
+        }
+      }
+    },
+    {
+      "name": "UI, reducer, and authoring path use shared resolver",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "uiUsesResolver": true,
+        "reducerUsesResolver": true,
+        "authoringUsesResolver": true
+      }
+    }
+  ],
+  "stageResults": {
+    "canonical-contract": {
+      "status": "passed",
+      "resolution": {
+        "status": "ready",
+        "pairId": "split-bay-room-04-room-05",
+        "pairLabel": "4/5",
+        "roomAId": "room-04",
+        "roomBId": "room-05",
+        "roomALabel": "Room 4",
+        "roomBLabel": "Room 5",
+        "suggestedDivider": "diagonal_down",
+        "physicalBayCount": 1,
+        "patientCarePositionCount": 2
+      }
+    },
+    "room5-resolves-to-45": {
+      "output5": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        }
+      },
+      "output4": {
+        "status": "passed",
+        "resolution": {
+          "status": "ready",
+          "pairId": "split-bay-room-04-room-05",
+          "pairLabel": "4/5",
+          "roomAId": "room-04",
+          "roomBId": "room-05",
+          "roomALabel": "Room 4",
+          "roomBLabel": "Room 5",
+          "suggestedDivider": "diagonal_down",
+          "physicalBayCount": 1,
+          "patientCarePositionCount": 2
+        }
+      }
+    },
+    "all-canonical-pairs": {
+      "status": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-02-room-03",
+            "pairLabel": "2/3",
+            "roomAId": "room-02",
+            "roomBId": "room-03",
+            "roomALabel": "Room 2",
+            "roomBLabel": "Room 3",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        {
+          "status": "passed",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-06-room-07",
+            "pairLabel": "6/7",
+            "roomAId": "room-06",
+            "roomBId": "room-07",
+            "roomALabel": "Room 6",
+            "roomBLabel": "Room 7",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        },
+        {
+          "status": "passed",
+          "resolution": {
+            "status": "ready",
+            "pairId": "split-bay-room-08-room-09",
+            "pairLabel": "8/9",
+            "roomAId": "room-08",
+            "roomBId": "room-09",
+            "roomALabel": "Room 8",
+            "roomBLabel": "Room 9",
+            "suggestedDivider": "diagonal_down",
+            "physicalBayCount": 1,
+            "patientCarePositionCount": 2
+          }
+        }
+      ],
+      "allPairs": [
+        {
+          "roomId": "room-02",
+          "pairLabel": "2/3",
+          "status": "ready",
+          "resolvedLabel": "2/3"
+        },
+        {
+          "roomId": "room-03",
+          "pairLabel": "2/3",
+          "status": "ready",
+          "resolvedLabel": "2/3"
+        },
+        {
+          "roomId": "room-04",
+          "pairLabel": "4/5",
+          "status": "ready",
+          "resolvedLabel": "4/5"
+        },
+        {
+          "roomId": "room-05",
+          "pairLabel": "4/5",
+          "status": "ready",
+          "resolvedLabel": "4/5"
+        },
+        {
+          "roomId": "room-06",
+          "pairLabel": "6/7",
+          "status": "ready",
+          "resolvedLabel": "6/7"
+        },
+        {
+          "roomId": "room-07",
+          "pairLabel": "6/7",
+          "status": "ready",
+          "resolvedLabel": "6/7"
+        },
+        {
+          "roomId": "room-08",
+          "pairLabel": "8/9",
+          "status": "ready",
+          "resolvedLabel": "8/9"
+        },
+        {
+          "roomId": "room-09",
+          "pairLabel": "8/9",
+          "status": "ready",
+          "resolvedLabel": "8/9"
+        }
+      ]
+    },
+    "blocked-invalid-room": {
+      "status": "passed",
+      "invalid": {
+        "status": "blocked",
+        "reason": "No canonical split room pair is configured for the selected room.",
+        "selectedRoomId": "room-01"
+      },
+      "solidWall": {
+        "status": "blocked",
+        "reason": "Room 4 cannot be used because it is solid wall.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      },
+      "provider": {
+        "status": "blocked",
+        "reason": "Room 4 cannot be used because it is provider/pharmacy support.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      },
+      "storage": {
+        "status": "blocked",
+        "reason": "Room 4 cannot be used because it is storage.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      },
+      "geometryMismatch": {
+        "status": "blocked",
+        "reason": "Room geometry does not align for one physical split room.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      },
+      "alreadySplitResolution": {
+        "status": "blocked",
+        "reason": "One or both rooms are already part of a split room.",
+        "selectedRoomId": "room-05",
+        "expectedPartnerId": "room-04"
+      }
+    },
+    "shared-usage": {
+      "status": "passed",
+      "uiUsesResolver": true,
+      "reducerUsesResolver": true,
+      "authoringUsesResolver": true
+    }
+  }
+}

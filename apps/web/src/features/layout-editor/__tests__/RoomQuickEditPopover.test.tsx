@@ -17,7 +17,30 @@ const room: EditableRoomGeometry = {
   isTraumaAdjacent: false
 };
 
-const editableViewModel = buildRoomQuickEdit({ room, readOnly: false });
+const layout = {
+  schemaVersion: "1.0.0" as const,
+  layoutId: "quick-edit-test",
+  units: "feet" as const,
+  rooms: [
+    room,
+    {
+      ...room,
+      id: "room-02",
+      label: "Room 02",
+      roomNumber: "02",
+      xFeet: 13
+    }
+  ],
+  doors: [],
+  supportAccessPoints: [],
+  stations: [],
+  hallways: [],
+  zones: [],
+  splitBays: [],
+  limitations: ["Synthetic quick edit test layout."]
+};
+
+const editableViewModel = buildRoomQuickEdit({ room, layout, readOnly: false });
 if (editableViewModel.status !== "ready") {
   throw new Error("room quick edit should be ready when a room is selected");
 }
@@ -25,7 +48,7 @@ if (editableViewModel.deleteDisabled || editableViewModel.duplicateDisabled) {
   throw new Error("room duplicate/delete controls should be enabled for editable layouts");
 }
 
-const readOnlyViewModel = buildRoomQuickEdit({ room, readOnly: true });
+const readOnlyViewModel = buildRoomQuickEdit({ room, layout, readOnly: true });
 if (!readOnlyViewModel.deleteDisabled || !readOnlyViewModel.duplicateDisabled) {
   throw new Error("room delete/duplicate controls must be protected for read-only layouts");
 }
@@ -39,6 +62,9 @@ const element = RoomQuickEditPopover({
   onHeightStep: () => calls.push("height"),
   onAssignNurse: () => calls.push("assign-nurse"),
   onAddDoor: () => calls.push("add-door"),
+  onPreviewSplitRoom: () => calls.push("preview-split-room"),
+  onCreateSplitRoom: () => calls.push("create-split-room"),
+  onShowSplitRoomHelp: () => calls.push("split-room-help"),
   onRemoveAttachedDoors: () => calls.push("remove-attached-doors"),
   onDuplicateRoom: () => calls.push("duplicate-room"),
   onDeleteRoom: () => calls.push("delete-room")
@@ -61,4 +87,9 @@ for (const [index, expected] of ["assign-nurse", "add-door", "remove-attached-do
   if (calls.at(-1) !== expected) {
     throw new Error(`Expected ${expected} callback`);
   }
+}
+
+const splitRoomSection = children[6];
+if (splitRoomSection.props["data-split-room-workflow"] !== "blocked") {
+  throw new Error("Room 01 should not expose a canonical split room action");
 }

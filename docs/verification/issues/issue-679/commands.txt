@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-authoring-preflight.mjs --stage manifest-contract --allow-partial --issue 679
+node scripts/check-split-room-authoring-preflight.mjs --stage root-script-wiring --allow-partial --issue 679
+node scripts/check-split-room-authoring-preflight.mjs --stage split-room-status --allow-partial --issue 679
+node scripts/check-split-room-authoring-preflight.mjs --stage door-hardening-still-wired --allow-partial --issue 679
+node scripts/check-no-phi-fields.mjs

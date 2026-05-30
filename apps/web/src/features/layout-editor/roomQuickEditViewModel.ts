@@ -1,9 +1,11 @@
 import {
   isNurseAssignableRoomType,
   isPatientCareRoomType,
+  type EditableLayoutGeometryContract,
   type EditableRoomGeometry,
   type EditableRoomType
 } from "@nerdeus/shared";
+import { buildSplitRoomWorkflowViewModel, type SplitRoomWorkflowViewModel } from "./splitRoomWorkflowViewModel";
 
 export type RoomQuickEditViewModel = {
   status: "missing" | "ready";
@@ -20,13 +22,16 @@ export type RoomQuickEditViewModel = {
   addDoorDisabledReason: string | null;
   deleteDisabled: boolean;
   duplicateDisabled: boolean;
+  splitRoomAction: SplitRoomWorkflowViewModel;
 };
 
 export function buildRoomQuickEdit({
   room,
+  layout,
   readOnly
 }: {
   room: EditableRoomGeometry | null;
+  layout?: EditableLayoutGeometryContract | null;
   readOnly: boolean;
 }): RoomQuickEditViewModel {
   if (room == null) {
@@ -44,7 +49,8 @@ export function buildRoomQuickEdit({
       addDoorDisabled: true,
       addDoorDisabledReason: null,
       deleteDisabled: true,
-      duplicateDisabled: true
+      duplicateDisabled: true,
+      splitRoomAction: buildSplitRoomWorkflowViewModel({ layout: layout ?? null, room: null, readOnly: true })
     };
   }
   const assignable = isNurseAssignableRoomType(room.roomType);
@@ -63,7 +69,8 @@ export function buildRoomQuickEdit({
     addDoorDisabled: readOnly || !doorEligible,
     addDoorDisabledReason: doorEligible ? null : addDoorDisabledReasonForRoomType(room.roomType),
     deleteDisabled: readOnly,
-    duplicateDisabled: readOnly
+    duplicateDisabled: readOnly,
+    splitRoomAction: buildSplitRoomWorkflowViewModel({ layout: layout ?? null, room, readOnly })
   };
 }
 

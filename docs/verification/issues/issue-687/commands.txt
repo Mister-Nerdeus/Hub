@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-persistence.mjs --stage save-working-copy --allow-partial --issue 687
+node scripts/check-split-room-persistence.mjs --stage reload-same-record --allow-partial --issue 687
+node scripts/check-split-room-persistence.mjs --stage export-json --allow-partial --issue 687
+node scripts/check-split-room-persistence.mjs --stage import-json --allow-partial --issue 687
+node scripts/check-split-room-persistence.mjs --stage schema-validation --allow-partial --issue 687
+node scripts/check-no-phi-fields.mjs
