@@ -16,6 +16,11 @@ export type SplitBayQuickEditViewModel = {
   ] | null;
   dividerStyle: EditableSplitBayDividerStyle | null;
   readOnly: boolean;
+  unsplitButtonLabel: string | null;
+  unsplitConfirmationTitle: string | null;
+  unsplitPreservationCopy: string | null;
+  unsplitAssignmentCopy: string | null;
+  unsplitStatusMessage: string | null;
 };
 
 export function buildSplitBayQuickEdit(input: {
@@ -32,7 +37,12 @@ export function buildSplitBayQuickEdit(input: {
       bedPositionRoomIds: null,
       childRooms: null,
       dividerStyle: null,
-      readOnly: true
+      readOnly: true,
+      unsplitButtonLabel: null,
+      unsplitConfirmationTitle: null,
+      unsplitPreservationCopy: null,
+      unsplitAssignmentCopy: null,
+      unsplitStatusMessage: null
     };
   }
   const roomById = new Map((input.rooms ?? []).map((room) => [room.id, room]));
@@ -47,6 +57,7 @@ export function buildSplitBayQuickEdit(input: {
     { roomId: string; roomNumber: string; label: string },
     { roomId: string; roomNumber: string; label: string }
   ];
+  const [childA, childB] = childRooms;
   return {
     status: "ready",
     splitBayId: input.splitBay.splitBayId,
@@ -55,6 +66,11 @@ export function buildSplitBayQuickEdit(input: {
     bedPositionRoomIds: input.splitBay.bedPositionRoomIds,
     childRooms,
     dividerStyle: input.splitBay.dividerStyle,
-    readOnly: input.readOnly
+    readOnly: input.readOnly,
+    unsplitButtonLabel: `Unsplit ${input.splitBay.label}`,
+    unsplitConfirmationTitle: `Unsplit Split Room ${input.splitBay.label}?`,
+    unsplitPreservationCopy: `This removes the split-room grouping but preserves ${childA.label} and ${childB.label}.`,
+    unsplitAssignmentCopy: "Child assignments may remain if assignment state exists.",
+    unsplitStatusMessage: `Split Room ${input.splitBay.label} removed. Rooms ${childA.roomNumber} and ${childB.roomNumber} remain available.`
   };
 }

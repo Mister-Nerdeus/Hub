@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-unsplit-confirmation.mjs --stage confirmation-ui --allow-partial --issue 692
+node scripts/check-split-room-unsplit-confirmation.mjs --stage cancel-preserves-split --allow-partial --issue 692
+node scripts/check-split-room-unsplit-confirmation.mjs --stage confirm-removes-parent --allow-partial --issue 692
+node scripts/check-split-room-unsplit-confirmation.mjs --stage child-rooms-preserved --allow-partial --issue 692
+node scripts/check-split-room-unsplit-confirmation.mjs --stage undo-proof --allow-partial --issue 692
+node scripts/check-split-room-unsplit-confirmation.mjs --stage status-copy --allow-partial --issue 692
+node scripts/check-no-phi-fields.mjs

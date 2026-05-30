@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "manifestPath": "docs/verification/split-room-closeout-hardening-manifest.json",
+  "updates": {
+    "splitRoomUnsplitConfirmationStatus": "passed",
+    "unsplitRequiresConfirmation": true,
+    "unsplitCancelPreservesSplit": true,
+    "unsplitPreservesChildRooms": true,
+    "splitRoomStatusCopyCurrentGo": true
+  }
+}

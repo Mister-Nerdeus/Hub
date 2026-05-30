@@ -1,0 +1,63 @@
+{
+  "status": "passed",
+  "issue": "692",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "first Unsplit click opens confirmation without removing the split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "confirmationText": "Unsplit Split Room 4/5?This removes the split-room grouping but preserves Room 4 and Room 5.Child assignments may remain if assignment state exists.CancelConfirm Unsplit",
+        "splitStillExistsAfterRequest": true,
+        "nativeConfirmCalls": 0
+      }
+    },
+    {
+      "name": "Cancel preserves Split Room 4/5",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitExistsAfterCancel": true,
+        "confirmationOpenAfterCancel": false
+      }
+    },
+    {
+      "name": "Confirm removes the parent split grouping",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitExistsAfterConfirm": false,
+        "statusMessage": "Split Room 4/5 removed. Rooms 4 and 5 remain available."
+      }
+    },
+    {
+      "name": "Rooms 4 and 5 remain available after unsplit",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "visibleChildRoomIdsAfterConfirm": [
+          "room-04",
+          "room-05"
+        ]
+      }
+    },
+    {
+      "name": "Undo restores Split Room 4/5 after confirmed unsplit",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitExistsAfterUndo": true,
+        "undoButtonClicked": true
+      }
+    },
+    {
+      "name": "split-room status document starts with current GO status",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "topBlock": "# Split-Room Authoring Status\n\nCurrent Status: GO for full ER floorplan reconstruction.\n\nIssue 688 closed the user workflow: select Room 5, create Split Room 4/5, verify divider and labels, save, reload, export/import JSON, and assign child positions independently.\n\nHistorical note: Issue 679 began with split-room authoring not user-ready. The status changed after the 679–688 truth loop passed."
+      }
+    }
+  ]
+}

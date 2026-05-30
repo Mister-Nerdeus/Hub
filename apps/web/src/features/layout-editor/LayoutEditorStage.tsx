@@ -301,6 +301,7 @@ export function LayoutEditorStage({
     yFeet: number;
   } | null>(null);
   const [splitRoomPreviewOpen, setSplitRoomPreviewOpen] = useState(false);
+  const [splitRoomStatusMessage, setSplitRoomStatusMessage] = useState<string | null>(null);
   const [selectedNewRoomType, setSelectedNewRoomType] =
     useState<AuthoringRoomType>("patient_room");
   const [authoringSequence, setAuthoringSequence] = useState(1);
@@ -320,6 +321,11 @@ export function LayoutEditorStage({
   const selectedZone = findSelectedZone(stageState);
   const selectedSupportAccessPoint = findSelectedSupportAccessPoint(stageState);
   const selectedSplitBay = findSelectedSplitBay(stageState);
+  useEffect(() => {
+    if (selectedSplitBay != null) {
+      setSplitRoomStatusMessage(null);
+    }
+  }, [selectedSplitBay?.splitBayId]);
   const dispatchDoorStageAction = (action: LayoutEditorAction) => {
     const snapshotContext = doorRecoverySnapshotContextFromAction(action);
     if (
@@ -1004,12 +1010,7 @@ export function LayoutEditorStage({
     if (selectedSplitBay == null) {
       return;
     }
-    const confirmed = typeof window === "undefined"
-      ? true
-      : window.confirm(`Unsplit ${selectedSplitBay.label}? Rooms remain available.`);
-    if (!confirmed) {
-      return;
-    }
+    setSplitRoomStatusMessage(splitBayQuickEditViewModel.unsplitStatusMessage);
     dispatchStage({
       type: "unsplitSplitRoom",
       splitBayId: selectedSplitBay.splitBayId
@@ -1541,6 +1542,11 @@ export function LayoutEditorStage({
             viewModel={splitRoomPreviewOpen ? roomQuickEditViewModel.splitRoomAction : null}
             onClose={() => setSplitRoomPreviewOpen(false)}
           />
+          {splitRoomStatusMessage == null ? null : (
+            <p className="split-room-status-message" role="status" data-split-room-status-message="true">
+              {splitRoomStatusMessage}
+            </p>
+          )}
           <svg
             className={`layout-editor-stage__svg layout-editor-stage--${editorMode}`}
             viewBox={STAGE_VIEW_BOX}

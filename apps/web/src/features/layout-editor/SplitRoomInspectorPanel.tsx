@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { EditableSplitBayDividerStyle } from "@nerdeus/shared";
 import type { SplitBayQuickEditViewModel } from "./splitBayQuickEditViewModel";
 import { SplitRoomHelpPanel } from "./SplitRoomHelpPanel";
@@ -21,6 +22,12 @@ export function SplitRoomInspectorPanel({
   onDividerStyleChange: (dividerStyle: EditableSplitBayDividerStyle) => void;
   onUnsplit: () => void;
 }) {
+  const [unsplitConfirmationOpen, setUnsplitConfirmationOpen] = useState(false);
+
+  useEffect(() => {
+    setUnsplitConfirmationOpen(false);
+  }, [viewModel.splitBayId]);
+
   if (viewModel.status !== "ready" || viewModel.pairLabel == null || viewModel.childRooms == null || viewModel.dividerStyle == null) {
     return <p>No split room selected.</p>;
   }
@@ -84,10 +91,42 @@ export function SplitRoomInspectorPanel({
         <button type="button" onClick={() => onSelectChildRoom(childB.roomId)}>
           Select Room {childB.roomNumber}
         </button>
-        <button type="button" disabled={viewModel.readOnly} onClick={onUnsplit}>
-          Unsplit {viewModel.pairLabel}
+        <button
+          type="button"
+          disabled={viewModel.readOnly}
+          data-unsplit-action="request"
+          onClick={() => setUnsplitConfirmationOpen(true)}
+        >
+          {viewModel.unsplitButtonLabel ?? `Unsplit ${viewModel.pairLabel}`}
         </button>
       </div>
+      {unsplitConfirmationOpen ? (
+        <section className="split-room-inspector-panel__unsplit-confirmation" data-unsplit-confirmation="open">
+          <h4>{viewModel.unsplitConfirmationTitle ?? `Unsplit Split Room ${viewModel.pairLabel}?`}</h4>
+          <p>{viewModel.unsplitPreservationCopy}</p>
+          <p>{viewModel.unsplitAssignmentCopy}</p>
+          <div className="split-room-inspector-panel__confirmation-actions">
+            <button
+              type="button"
+              data-unsplit-action="cancel"
+              onClick={() => setUnsplitConfirmationOpen(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              disabled={viewModel.readOnly}
+              data-unsplit-action="confirm"
+              onClick={() => {
+                setUnsplitConfirmationOpen(false);
+                onUnsplit();
+              }}
+            >
+              Confirm Unsplit
+            </button>
+          </div>
+        </section>
+      ) : null}
       <SplitRoomHelpPanel />
     </aside>
   );

@@ -1,5 +1,11 @@
 # Split-Room Authoring Status
 
+Current Status: GO for full ER floorplan reconstruction.
+
+Issue 688 closed the user workflow: select Room 5, create Split Room 4/5, verify divider and labels, save, reload, export/import JSON, and assign child positions independently.
+
+Historical note: Issue 679 began with split-room authoring not user-ready. The status changed after the 679–688 truth loop passed.
+
 ## Batch 679 Preflight
 
 Split-room authoring exists conceptually, but the workflow is not yet user-ready at Issue 679.
