@@ -89,11 +89,15 @@ function formatObjectType(objectType: LayoutEditorSelectableObjectType): string 
       return "Room";
     case "door":
       return "Door";
+    case "support_access":
+      return "Support access";
     case "station":
       return "Station";
     case "hallway":
       return "Hallway";
     case "zone":
       return "Zone";
+    case "split_bay":
+      return "Split bay";
   }
 }

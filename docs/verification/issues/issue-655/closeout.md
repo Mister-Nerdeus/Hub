@@ -29,7 +29,7 @@ Runtime alignment final GO / NO-GO now aggregates 651-655, enforces explicit roo
 - docs/verification/editor-runtime-alignment-hardening-manifest.json
 
 ## Known Limitations
-- No remaining blockers; reconstruction may proceed.
+- No remaining blockers; saved-copy persistence proof may proceed.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass.

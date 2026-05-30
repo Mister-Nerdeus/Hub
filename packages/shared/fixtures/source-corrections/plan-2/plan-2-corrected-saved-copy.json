@@ -162,6 +162,7 @@
           "widthFeet": 3
         }
       ],
+      "supportAccessPoints": [],
       "stations": [
         {
           "id": "station-primary",
@@ -400,6 +401,7 @@
           "zoneType": "provider_pharmacy"
         }
       ],
+      "splitBays": [],
       "limitations": [
         "Editable geometry is derived from validated JSON floorplan data; source plan metadata and path graph remain attached to editor state.",
         "Source-correction pass 1 uses safe manual reference notes only."
@@ -1023,7 +1025,9 @@
           "turnPenaltySeconds": 1,
           "blocked": false
         }
-      ]
+      ],
+      "supportAccessPoints": [],
+      "splitBays": []
     },
     "authoringStatus": "draft_has_warnings",
     "pathSyncStatus": "stale_warning",

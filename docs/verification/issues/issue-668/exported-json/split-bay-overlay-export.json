@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "layoutId": "issue-662-split-bay-overlay",
+  "units": "feet",
+  "rooms": [
+    {
+      "id": "room-02",
+      "label": "Room 02",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "02",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-03",
+      "label": "Room 03",
+      "xFeet": 10,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "03",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  ],
+  "doors": [],
+  "supportAccessPoints": [],
+  "stations": [],
+  "hallways": [],
+  "zones": [],
+  "splitBays": [
+    {
+      "id": "split-bay-02-03",
+      "label": "Split Bay 02/03",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 20,
+      "heightFeet": 10,
+      "objectType": "split_bay",
+      "splitBayId": "split-bay-02-03",
+      "bedPositionRoomIds": [
+        "room-02",
+        "room-03"
+      ],
+      "dividerStyle": "diagonal"
+    }
+  ],
+  "limitations": [
+    "Issue 662 synthetic split-bay overlay fixture."
+  ]
+}

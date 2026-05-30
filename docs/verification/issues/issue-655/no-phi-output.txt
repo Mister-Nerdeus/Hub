@@ -1,1 +1,4 @@
-passed: no PHI, real identity fields, source-system data, medication names, diagnosis text, or clinical notes were added.
+> node scripts/check-no-phi-fields.mjs
+exitCode: 0
+
+No PHI-like fields found.

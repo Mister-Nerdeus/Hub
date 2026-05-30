@@ -9,6 +9,7 @@ export type HallwayZoneQuickEditPopoverProps = {
   onReverseArrow?: () => void;
   onHideArrow?: () => void;
   onShowArrow?: () => void;
+  onAddSupportAccessPoint?: () => void;
 };
 
 const ZONE_TYPES: readonly EditableZoneType[] = ["ems_entry", "trauma", "provider_pharmacy"];
@@ -20,7 +21,8 @@ export function HallwayZoneQuickEditPopover({
   onTogglePresentationVisibility,
   onReverseArrow,
   onHideArrow,
-  onShowArrow
+  onShowArrow,
+  onAddSupportAccessPoint
 }: HallwayZoneQuickEditPopoverProps) {
   if (viewModel.status === "missing") {
     return <p>No hallway or zone selected.</p>;
@@ -86,7 +88,16 @@ export function HallwayZoneQuickEditPopover({
           <p>Arrows are presentation hints only.</p>
         </div>
       ) : (
-        <p>Support markers are operational presentation labels only.</p>
+        <div className="hallway-zone-quick-edit-popover__actions">
+          <button
+            type="button"
+            disabled={viewModel.readOnly || !viewModel.canAddSupportAccessPoint}
+            onClick={onAddSupportAccessPoint}
+          >
+            Add Access Point
+          </button>
+          <p>Support access markers are operational access points only.</p>
+        </div>
       )}
     </div>
   );

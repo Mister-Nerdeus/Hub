@@ -12,6 +12,8 @@ export type DoorQuickEditViewModel = {
   status: "missing" | "ready";
   doorId: string | null;
   label: string;
+  ownerLabel: string | null;
+  ownerKindLabel: string | null;
   wall: EditableDoorWall | null;
   offsetFeet: number | null;
   readOnly: boolean;
@@ -38,6 +40,8 @@ export function buildDoorQuickEdit({
       status: "missing",
       doorId: null,
       label: "No door selected",
+      ownerLabel: null,
+      ownerKindLabel: null,
       wall: null,
       offsetFeet: null,
       readOnly: true,
@@ -51,6 +55,9 @@ export function buildDoorQuickEdit({
   const ownerRoom = door.ownerKind === "room"
     ? rooms.find((room) => room.id === door.ownerId) ?? null
     : null;
+  const ownerHallway = door.ownerKind === "hallway"
+    ? hallways.find((hallway) => hallway.id === door.ownerId) ?? null
+    : null;
   const ownerDoorEligible = ownerRoom == null || isDoorEligibleRoomType(ownerRoom.roomType);
   const adjacency = detectDoorAdjacency({
     layout: {
@@ -59,9 +66,11 @@ export function buildDoorQuickEdit({
       units: "feet",
       rooms: [...rooms],
       doors: [door],
+      supportAccessPoints: [],
       stations: [],
       hallways: [...hallways],
       zones: [],
+      splitBays: [],
       limitations: ["Editor-only adjacent candidate view model."]
     },
     door
@@ -80,6 +89,8 @@ export function buildDoorQuickEdit({
     status: "ready",
     doorId: door.id,
     label: door.label,
+    ownerLabel: ownerRoom?.label ?? ownerHallway?.label ?? door.ownerId,
+    ownerKindLabel: door.ownerKind === "room" ? "Owner room" : "Owner hallway",
     wall: door.wall,
     offsetFeet: door.offsetFeet,
     readOnly: toolsReadOnly,

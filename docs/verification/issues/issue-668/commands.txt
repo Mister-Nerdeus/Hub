@@ -1,0 +1,15 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-saved-copy-readiness-go-no-go.mjs --stage final --issue 658
+node scripts/check-support-access-point-contract.mjs --stage final --issue 668
+node scripts/check-provider-pharmacy-access-ux.mjs --stage final --issue 668
+node scripts/check-room-door-add-feedback.mjs --stage final --issue 668
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage final --issue 668
+node scripts/check-split-bay-authoring-ui.mjs --stage final --issue 668
+node scripts/check-split-bay-renderer.mjs --stage final --issue 668
+node scripts/check-canonical-split-bay-editable-bridge.mjs --stage final --issue 668
+node scripts/check-split-bay-save-reload-export.mjs --stage final --issue 668
+node scripts/check-provider-split-bay-visual-reconstruction.mjs --stage final --issue 668
+node scripts/check-support-access-split-bay-go-no-go.mjs --stage final --issue 668
+node scripts/check-no-phi-fields.mjs

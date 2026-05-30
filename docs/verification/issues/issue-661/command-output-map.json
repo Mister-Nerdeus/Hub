@@ -1,0 +1,59 @@
+{
+  "issue": "661",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage room15-door --allow-partial --issue 661",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage auto-select-door --allow-partial --issue 661",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage door-feedback --allow-partial --issue 661",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage door-highlight --allow-partial --issue 661",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage save-reload-export --allow-partial --issue 661",
+      "outputs": [
+        "docs/verification/issues/issue-661/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-661/no-phi-output.txt"
+      ]
+    }
+  ]
+}

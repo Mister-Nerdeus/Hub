@@ -1,0 +1,59 @@
+{
+  "issue": "662",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage contract --allow-partial --issue 662",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage validation --allow-partial --issue 662",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage no-room-data-duplication --allow-partial --issue 662",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage import-export --allow-partial --issue 662",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage backward-compat --allow-partial --issue 662",
+      "outputs": [
+        "docs/verification/issues/issue-662/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-662/no-phi-output.txt"
+      ]
+    }
+  ]
+}

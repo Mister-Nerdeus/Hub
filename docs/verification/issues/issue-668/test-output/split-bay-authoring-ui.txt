@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "issue": "668",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "Add Object menu includes Split Bay",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Split Bay placement creates one overlay and references two bed-position rooms",
+      "passed": true,
+      "detail": {
+        "layout": {
+          "schemaVersion": "1.0.0",
+          "layoutId": "issue-663-split-bay-ui",
+          "units": "feet",
+          "rooms": [
+            {
+              "id": "room-02",
+              "label": "Room 02",
+              "xFeet": 0,
+              "yFeet": 0,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "02",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-03",
+              "label": "Room 03",
+              "xFeet": 10,
+              "yFeet": 0,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "03",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            }
+          ],
+          "doors": [],
+          "supportAccessPoints": [],
+          "stations": [],
+          "hallways": [],
+          "zones": [],
+          "splitBays": [
+            {
+              "objectType": "split_bay",
+              "id": "split-bay-02-03",
+              "splitBayId": "split-bay-02-03",
+              "label": "Split Bay 02/03",
+              "bedPositionRoomIds": [
+                "room-02",
+                "room-03"
+              ],
+              "dividerStyle": "diagonal",
+              "xFeet": 0,
+              "yFeet": 0,
+              "widthFeet": 20,
+              "heightFeet": 10
+            }
+          ],
+          "limitations": [
+            "Issue 663 synthetic split-bay authoring UI fixture."
+          ]
+        },
+        "selectedSplitBayId": "split-bay-02-03",
+        "createdRoomIds": [
+          "room-02",
+          "room-03"
+        ]
+      }
+    },
+    {
+      "name": "selected room pair can be converted to a split bay",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "split bay editor exposes divider style selection",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "split bay authoring is blocked for read-only layouts",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

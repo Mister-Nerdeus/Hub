@@ -35,6 +35,7 @@ const layoutEditorProofFixtureSource: EditableLayoutGeometryContract = {
       widthFeet: 4
     }
   ],
+  supportAccessPoints: [],
   stations: [
     {
       objectType: "station",
@@ -70,6 +71,7 @@ const layoutEditorProofFixtureSource: EditableLayoutGeometryContract = {
       heightFeet: 8
     }
   ],
+  splitBays: [],
   limitations: ["Proof-only layout fixture; source geometry remains feet-based."]
 };
 

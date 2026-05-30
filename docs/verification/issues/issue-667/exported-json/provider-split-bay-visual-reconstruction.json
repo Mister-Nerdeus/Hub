@@ -1,0 +1,250 @@
+{
+  "schemaVersion": "1.0.0",
+  "layoutId": "issue-667-provider-split-bay-visual",
+  "units": "feet",
+  "rooms": [
+    {
+      "id": "room-02",
+      "label": "Room 02",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "02",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-03",
+      "label": "Room 03",
+      "xFeet": 10,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "03",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-04",
+      "label": "Room 04",
+      "xFeet": 0,
+      "yFeet": 12,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "04",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-05",
+      "label": "Room 05",
+      "xFeet": 10,
+      "yFeet": 12,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "05",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-06",
+      "label": "Room 06",
+      "xFeet": 0,
+      "yFeet": 24,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "06",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-07",
+      "label": "Room 07",
+      "xFeet": 10,
+      "yFeet": 24,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "07",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-08",
+      "label": "Room 08",
+      "xFeet": 0,
+      "yFeet": 36,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "08",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-09",
+      "label": "Room 09",
+      "xFeet": 10,
+      "yFeet": 36,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "09",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-15",
+      "label": "Room 15",
+      "xFeet": 28,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "15",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    },
+    {
+      "id": "room-provider-pharmacy",
+      "label": "Provider/Pharmacy",
+      "xFeet": 42,
+      "yFeet": 0,
+      "widthFeet": 10,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "Support",
+      "roomType": "provider_pharmacy",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  ],
+  "doors": [
+    {
+      "objectType": "door",
+      "id": "door-room-15-south",
+      "label": "Room 15 south door",
+      "ownerKind": "room",
+      "ownerId": "room-15",
+      "wall": "south",
+      "offsetFeet": 3,
+      "widthFeet": 4
+    }
+  ],
+  "supportAccessPoints": [
+    {
+      "objectType": "support_access",
+      "id": "support-access-provider-pharmacy",
+      "label": "Provider/Pharmacy access",
+      "ownerKind": "zone",
+      "ownerId": "zone-provider-pharmacy",
+      "wall": "south",
+      "offsetFeet": 2,
+      "widthFeet": 4
+    }
+  ],
+  "stations": [],
+  "hallways": [],
+  "zones": [
+    {
+      "id": "zone-provider-pharmacy",
+      "label": "Provider/Pharmacy zone",
+      "xFeet": 42,
+      "yFeet": 10,
+      "widthFeet": 14,
+      "heightFeet": 8,
+      "objectType": "zone",
+      "zoneType": "provider_pharmacy"
+    }
+  ],
+  "splitBays": [
+    {
+      "id": "split-bay-02-03",
+      "label": "Split Bay 02/03",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 20,
+      "heightFeet": 10,
+      "objectType": "split_bay",
+      "splitBayId": "split-bay-02-03",
+      "bedPositionRoomIds": [
+        "room-02",
+        "room-03"
+      ],
+      "dividerStyle": "diagonal"
+    },
+    {
+      "id": "split-bay-04-05",
+      "label": "Split Bay 04/05",
+      "xFeet": 0,
+      "yFeet": 12,
+      "widthFeet": 20,
+      "heightFeet": 10,
+      "objectType": "split_bay",
+      "splitBayId": "split-bay-04-05",
+      "bedPositionRoomIds": [
+        "room-04",
+        "room-05"
+      ],
+      "dividerStyle": "diagonal"
+    },
+    {
+      "id": "split-bay-06-07",
+      "label": "Split Bay 06/07",
+      "xFeet": 0,
+      "yFeet": 24,
+      "widthFeet": 20,
+      "heightFeet": 10,
+      "objectType": "split_bay",
+      "splitBayId": "split-bay-06-07",
+      "bedPositionRoomIds": [
+        "room-06",
+        "room-07"
+      ],
+      "dividerStyle": "diagonal"
+    },
+    {
+      "id": "split-bay-08-09",
+      "label": "Split Bay 08/09",
+      "xFeet": 0,
+      "yFeet": 36,
+      "widthFeet": 20,
+      "heightFeet": 10,
+      "objectType": "split_bay",
+      "splitBayId": "split-bay-08-09",
+      "bedPositionRoomIds": [
+        "room-08",
+        "room-09"
+      ],
+      "dividerStyle": "diagonal"
+    }
+  ],
+  "limitations": [
+    "Issue 667 synthetic visual reconstruction problem-area fixture."
+  ]
+}

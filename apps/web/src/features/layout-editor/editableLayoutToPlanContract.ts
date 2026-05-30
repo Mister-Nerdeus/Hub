@@ -91,6 +91,7 @@ export function editableLayoutToPlanContract({
         ? { ...door, pathNodeId: null }
         : door
     ),
+    supportAccessPoints: editableLayout.supportAccessPoints ?? [],
     hallways: editableLayout.hallways.map((hallway) => {
       const sourceHallway = sourceHallwaysById.get(hallway.id);
       const points = [
@@ -144,6 +145,7 @@ export function editableLayoutToPlanContract({
         lengthFeet: geometry.heightFeet
       };
     }),
+    splitBays: editableLayout.splitBays ?? [],
     pathNodes,
     pathEdges: source.pathEdges.filter(
       (edge) => pathNodeIds.has(edge.fromNodeId) && pathNodeIds.has(edge.toNodeId)

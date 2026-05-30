@@ -1,5 +1,22 @@
 {
   "status": "passed",
-  "manifestPath": "docs/verification/simulation-v0-user-facing-refinement-manifest.json",
-  "lastUpdatedIssue": "655"
+  "manifestPath": "docs/verification/editor-runtime-alignment-hardening-manifest.json",
+  "updates": {
+    "rootScriptWiringStatus": "passed",
+    "verifyLocalIncludes641To650": true,
+    "blockerReportingStatus": "passed",
+    "manualChecklistHardeningStatus": "passed",
+    "freshVsExistingRuntimeProofStatus": "passed",
+    "existingLocalhostGoNoGoStatus": "go_for_editable_saved_copy_persistence_proof",
+    "localhost5180RuntimeProofPassed": true,
+    "reconstructionStatus": "go_for_editable_saved_copy_persistence_proof",
+    "goNoGoStatus": "go_for_editable_saved_copy_persistence_proof",
+    "freshRuntimeProofSeparated": true,
+    "existingLocalhostProofSeparated": true,
+    "freshRuntimeCannotOverrideExistingFailure": true,
+    "manualChecklistCannotAutoPass": true,
+    "manualChecklistRequiresHumanOrBrowserProof": true,
+    "rootScriptFailureListedAsBlocker": true,
+    "verifyLocalFailureListedAsBlocker": true
+  }
 }

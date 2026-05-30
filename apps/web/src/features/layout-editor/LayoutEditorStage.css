@@ -700,12 +700,16 @@
   font-weight: 900;
 }
 
-.door-quick-edit-popover {
+.door-quick-edit-popover,
+.support-access-quick-edit-popover,
+.split-bay-quick-edit-popover {
   display: grid;
   gap: 8px;
 }
 
-.door-quick-edit-popover label {
+.door-quick-edit-popover label,
+.support-access-quick-edit-popover label,
+.split-bay-quick-edit-popover label {
   color: #53616f;
   display: grid;
   font-size: 0.68rem;
@@ -713,7 +717,9 @@
   gap: 3px;
 }
 
-.door-quick-edit-popover select {
+.door-quick-edit-popover select,
+.support-access-quick-edit-popover select,
+.split-bay-quick-edit-popover select {
   border: 1px solid #cfd8e3;
   border-radius: 6px;
   color: #111827;
@@ -723,7 +729,8 @@
   padding: 5px 7px;
 }
 
-.door-quick-edit-popover__row {
+.door-quick-edit-popover__row,
+.support-access-quick-edit-popover__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
@@ -734,6 +741,29 @@
   flex: 1 1 100%;
   font-size: 0.72rem;
   font-weight: 900;
+}
+
+.support-access-quick-edit-popover dl,
+.split-bay-quick-edit-popover dl {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+}
+
+.support-access-quick-edit-popover dl div,
+.split-bay-quick-edit-popover dl div {
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.support-access-quick-edit-popover dt,
+.support-access-quick-edit-popover dd,
+.split-bay-quick-edit-popover dt,
+.split-bay-quick-edit-popover dd {
+  font-size: 0.72rem;
+  font-weight: 800;
+  margin: 0;
 }
 
 .station-quick-edit-popover {
@@ -907,6 +937,28 @@
   text-anchor: middle;
 }
 
+.layout-editor-stage__split-bay rect {
+  cursor: pointer;
+  fill: #f6fbff;
+  stroke: #22364a;
+  stroke-width: 1.8;
+}
+
+.layout-editor-stage__split-bay line {
+  stroke: #506276;
+  stroke-dasharray: 5 4;
+  stroke-width: 1.8;
+}
+
+.layout-editor-stage__split-bay text {
+  dominant-baseline: middle;
+  fill: #111827;
+  font-size: 12px;
+  font-weight: 900;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
 .layout-editor-stage__door-hit-target {
   cursor: pointer;
   fill: transparent;
@@ -916,6 +968,19 @@
 .layout-editor-stage__door-marker-capsule {
   cursor: pointer;
   fill: #243447;
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.layout-editor-stage__support-access-hit-target {
+  cursor: pointer;
+  fill: transparent;
+  stroke: transparent;
+}
+
+.layout-editor-stage__support-access-marker {
+  cursor: pointer;
+  fill: #0f766e;
   stroke: #ffffff;
   stroke-width: 2;
 }
@@ -951,6 +1016,8 @@
   stroke-width: 3;
 }
 
+.layout-editor-stage__split-bay--selected rect,
+.layout-editor-stage__support-access--selected .layout-editor-stage__support-access-marker,
 .layout-editor-stage__station--selected .layout-editor-stage__station-presentation,
 .layout-editor-stage__station--selected .layout-editor-stage__station-label-plate {
   stroke: #0f62fe;

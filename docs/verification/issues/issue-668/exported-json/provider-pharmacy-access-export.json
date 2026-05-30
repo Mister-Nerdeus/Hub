@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "layoutId": "issue-660-provider-access",
+  "units": "feet",
+  "rooms": [
+    {
+      "id": "room-provider-pharmacy",
+      "label": "Provider/Pharmacy",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 8,
+      "objectType": "room",
+      "roomNumber": "Support",
+      "roomType": "provider_pharmacy",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  ],
+  "doors": [],
+  "supportAccessPoints": [
+    {
+      "objectType": "support_access",
+      "id": "support-access-provider-pharmacy",
+      "label": "Provider/Pharmacy access",
+      "ownerKind": "zone",
+      "ownerId": "zone-provider-pharmacy",
+      "wall": "east",
+      "offsetFeet": 1,
+      "widthFeet": 3
+    }
+  ],
+  "stations": [],
+  "hallways": [],
+  "zones": [
+    {
+      "id": "zone-provider-pharmacy",
+      "label": "Provider/Pharmacy zone",
+      "xFeet": 0,
+      "yFeet": 10,
+      "widthFeet": 12,
+      "heightFeet": 8,
+      "objectType": "zone",
+      "zoneType": "provider_pharmacy"
+    }
+  ],
+  "splitBays": [],
+  "limitations": [
+    "Issue 660 synthetic provider/pharmacy access UX fixture."
+  ]
+}

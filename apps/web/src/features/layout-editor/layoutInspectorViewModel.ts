@@ -111,6 +111,19 @@ function buildSections(
           ].map(readOnlyField)
         }
       ];
+    case "support_access":
+      return [
+        {
+          title: "Support access geometry",
+          fields: [
+            { label: "Owner kind", value: selectedObject.ownerKind },
+            { label: "Owner ID", value: selectedObject.ownerId },
+            { label: "Wall", value: selectedObject.wall },
+            { label: "Offset", value: formatFeet(selectedObject.offsetFeet) },
+            { label: "Width", value: formatFeet(selectedObject.widthFeet) }
+          ].map(readOnlyField)
+        }
+      ];
     case "station":
       return [
         {
@@ -126,6 +139,18 @@ function buildSections(
         {
           title: "Zone metadata",
           fields: [{ label: "Zone type", value: selectedObject.zoneType }].map(readOnlyField)
+        },
+        rectGeometrySection(selectedObject)
+      ];
+    case "split_bay":
+      return [
+        {
+          title: "Split bay overlay",
+          fields: [
+            { label: "Split bay ID", value: selectedObject.splitBayId },
+            { label: "Bed rooms", value: selectedObject.bedPositionRoomIds.join(" / ") },
+            { label: "Divider", value: selectedObject.dividerStyle }
+          ].map(readOnlyField)
         },
         rectGeometrySection(selectedObject)
       ];

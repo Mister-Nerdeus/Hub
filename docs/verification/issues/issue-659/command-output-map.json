@@ -1,0 +1,53 @@
+{
+  "issue": "659",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-point-contract.mjs --stage contract --allow-partial --issue 659",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/support-access-point-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-point-contract.mjs --stage provider-pharmacy-zone-owner --allow-partial --issue 659",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/support-access-point-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-point-contract.mjs --stage solid-wall-negative --allow-partial --issue 659",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/support-access-point-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-point-contract.mjs --stage non-patient-exclusion --allow-partial --issue 659",
+      "outputs": [
+        "docs/verification/issues/issue-659/test-output/support-access-point-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-659/no-phi-output.txt"
+      ]
+    }
+  ]
+}

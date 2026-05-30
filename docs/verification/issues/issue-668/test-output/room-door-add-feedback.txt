@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "issue": "668",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "Room 15 accepts a normal room-owned authored door",
+      "passed": true,
+      "detail": {
+        "objectType": "door",
+        "id": "door-room-15-south",
+        "label": "Room 15 south door",
+        "ownerKind": "room",
+        "ownerId": "room-15",
+        "wall": "south",
+        "offsetFeet": 4,
+        "widthFeet": 4
+      }
+    },
+    {
+      "name": "Add Door selects the newly created door",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "door quick edit panel exposes wall, offset, width, and owner room context",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "newly selected door has a visible highlight state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Room 15 authored door survives save/reload/export serialization",
+      "passed": true,
+      "detail": [
+        {
+          "objectType": "door",
+          "id": "door-room-15-south",
+          "label": "Room 15 south door",
+          "ownerKind": "room",
+          "ownerId": "room-15",
+          "wall": "south",
+          "offsetFeet": 4,
+          "widthFeet": 4
+        }
+      ]
+    }
+  ]
+}

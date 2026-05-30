@@ -1,0 +1,59 @@
+{
+  "issue": "660",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage provider-zone-selected --allow-partial --issue 660",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage add-access-point --allow-partial --issue 660",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage access-point-edit --allow-partial --issue 660",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage save-reload-export --allow-partial --issue 660",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage provider-exclusion --allow-partial --issue 660",
+      "outputs": [
+        "docs/verification/issues/issue-660/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-660/no-phi-output.txt"
+      ]
+    }
+  ]
+}

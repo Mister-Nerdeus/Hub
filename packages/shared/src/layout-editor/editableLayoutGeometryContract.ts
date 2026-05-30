@@ -18,6 +18,8 @@ export const EDITABLE_ROOM_CAPACITY_TYPES = ["single", "double", "hall", "flex"]
 export const EDITABLE_STATION_TYPES = ["nurse_station", "desk"] as const;
 export const EDITABLE_ZONE_TYPES = ["ems_entry", "trauma", "provider_pharmacy"] as const;
 export const EDITABLE_DOOR_OWNER_KINDS = ["room", "hallway"] as const;
+export const EDITABLE_SUPPORT_ACCESS_OWNER_KINDS = ["zone"] as const;
+export const EDITABLE_SPLIT_BAY_DIVIDER_STYLES = ["diagonal", "vertical", "horizontal"] as const;
 
 export type EditableLayoutUnits = (typeof EDITABLE_LAYOUT_UNITS)[number];
 export type EditableDoorWall = (typeof EDITABLE_DOOR_WALLS)[number];
@@ -26,6 +28,8 @@ export type EditableRoomCapacityType = (typeof EDITABLE_ROOM_CAPACITY_TYPES)[num
 export type EditableStationType = (typeof EDITABLE_STATION_TYPES)[number];
 export type EditableZoneType = (typeof EDITABLE_ZONE_TYPES)[number];
 export type EditableDoorOwnerKind = (typeof EDITABLE_DOOR_OWNER_KINDS)[number];
+export type EditableSupportAccessOwnerKind = (typeof EDITABLE_SUPPORT_ACCESS_OWNER_KINDS)[number];
+export type EditableSplitBayDividerStyle = (typeof EDITABLE_SPLIT_BAY_DIVIDER_STYLES)[number];
 
 export type EditableRectFeet = {
   id: string;
@@ -70,15 +74,35 @@ export type EditableDoorGeometry = {
   widthFeet: number;
 };
 
+export type EditableSupportAccessPointGeometry = {
+  objectType: "support_access";
+  id: string;
+  label: string;
+  ownerKind: EditableSupportAccessOwnerKind;
+  ownerId: string;
+  wall: EditableDoorWall;
+  offsetFeet: number;
+  widthFeet: number;
+};
+
+export type EditableSplitBayGeometry = EditableRectFeet & {
+  objectType: "split_bay";
+  splitBayId: string;
+  bedPositionRoomIds: readonly [string, string];
+  dividerStyle: EditableSplitBayDividerStyle;
+};
+
 export type EditableLayoutGeometryContract = {
   schemaVersion: typeof EDITABLE_LAYOUT_GEOMETRY_SCHEMA_VERSION;
   layoutId: string;
   units: EditableLayoutUnits;
   rooms: EditableRoomGeometry[];
   doors: EditableDoorGeometry[];
+  supportAccessPoints?: EditableSupportAccessPointGeometry[];
   stations: EditableStationGeometry[];
   hallways: EditableHallwayGeometry[];
   zones: EditableZoneGeometry[];
+  splitBays?: EditableSplitBayGeometry[];
   limitations: string[];
 };
 
@@ -105,17 +129,24 @@ export function validateEditableLayoutGeometryContract(
     "units",
     "rooms",
     "doors",
+    "supportAccessPoints",
     "stations",
     "hallways",
     "zones",
+    "splitBays",
     "limitations"
   ]);
 
   const rooms = requireArray(layout.rooms, "rooms").map(validateRoom);
   const hallways = requireArray(layout.hallways, "hallways").map(validateHallway);
   const doors = requireArray(layout.doors, "doors").map(validateDoor);
+  const supportAccessPoints = requireArray(
+    layout.supportAccessPoints ?? [],
+    "supportAccessPoints"
+  ).map(validateSupportAccessPoint);
   const stations = requireArray(layout.stations, "stations").map(validateStation);
   const zones = requireArray(layout.zones, "zones").map(validateZone);
+  const splitBays = requireArray(layout.splitBays ?? [], "splitBays").map(validateSplitBay);
   const limitations = requireArray(layout.limitations, "limitations").map((limitation, index) =>
     requireString(limitation, `limitations[${index}]`)
   );
@@ -126,11 +157,15 @@ export function validateEditableLayoutGeometryContract(
   requireUniqueIds([
     ...rooms,
     ...doors,
+    ...supportAccessPoints,
     ...stations,
     ...hallways,
-    ...zones
+    ...zones,
+    ...splitBays
   ]);
   validateDoorWallSpans(doors, rooms, hallways);
+  validateSupportAccessWallSpans(supportAccessPoints, zones);
+  validateSplitBayReferences(splitBays, rooms);
 
   return {
     schemaVersion: requireLiteral(
@@ -142,9 +177,11 @@ export function validateEditableLayoutGeometryContract(
     units: requireEnum(layout.units, EDITABLE_LAYOUT_UNITS, "units"),
     rooms,
     doors,
+    supportAccessPoints,
     stations,
     hallways,
     zones,
+    splitBays,
     limitations
   };
 }
@@ -262,6 +299,70 @@ function validateDoor(value: unknown, index: number): EditableDoorGeometry {
   };
 }
 
+function validateSupportAccessPoint(
+  value: unknown,
+  index: number
+): EditableSupportAccessPointGeometry {
+  const accessPoint = requireRecord(value, `supportAccessPoints[${index}]`);
+  requireExactKeys(accessPoint, `supportAccessPoints[${index}]`, [
+    "objectType",
+    "id",
+    "label",
+    "ownerKind",
+    "ownerId",
+    "wall",
+    "offsetFeet",
+    "widthFeet"
+  ]);
+  requireLiteral(accessPoint.objectType, "support_access", `supportAccessPoints[${index}].objectType`);
+  return {
+    objectType: "support_access",
+    id: requireString(accessPoint.id, `supportAccessPoints[${index}].id`),
+    label: requireString(accessPoint.label, `supportAccessPoints[${index}].label`),
+    ownerKind: requireEnum(
+      accessPoint.ownerKind,
+      EDITABLE_SUPPORT_ACCESS_OWNER_KINDS,
+      `supportAccessPoints[${index}].ownerKind`
+    ),
+    ownerId: requireString(accessPoint.ownerId, `supportAccessPoints[${index}].ownerId`),
+    wall: requireEnum(accessPoint.wall, EDITABLE_DOOR_WALLS, `supportAccessPoints[${index}].wall`),
+    offsetFeet: requireNumber(accessPoint.offsetFeet, `supportAccessPoints[${index}].offsetFeet`, 0),
+    widthFeet: requireNumber(accessPoint.widthFeet, `supportAccessPoints[${index}].widthFeet`, MIN_DOOR_WIDTH_FEET)
+  };
+}
+
+function validateSplitBay(value: unknown, index: number): EditableSplitBayGeometry {
+  const splitBay = requireRecord(value, `splitBays[${index}]`);
+  requireExactKeys(splitBay, `splitBays[${index}]`, [
+    "objectType",
+    "id",
+    "label",
+    "splitBayId",
+    "bedPositionRoomIds",
+    "dividerStyle",
+    "xFeet",
+    "yFeet",
+    "widthFeet",
+    "heightFeet"
+  ]);
+  const rect = validateRectFields(splitBay, `splitBays[${index}]`, "split_bay", MIN_ROOM_SIZE_FEET);
+  const bedPositionRoomIds = requireTuple2String(
+    splitBay.bedPositionRoomIds,
+    `splitBays[${index}].bedPositionRoomIds`
+  );
+  return {
+    ...rect,
+    objectType: "split_bay",
+    splitBayId: requireString(splitBay.splitBayId, `splitBays[${index}].splitBayId`),
+    bedPositionRoomIds,
+    dividerStyle: requireEnum(
+      splitBay.dividerStyle,
+      EDITABLE_SPLIT_BAY_DIVIDER_STYLES,
+      `splitBays[${index}].dividerStyle`
+    )
+  };
+}
+
 function validateBasicRect(
   value: unknown,
   label: string,
@@ -284,7 +385,7 @@ function validateBasicRect(
 function validateRectFields(
   rect: Record<string, unknown>,
   label: string,
-  objectType: "room" | "station" | "hallway" | "zone",
+  objectType: "room" | "station" | "hallway" | "zone" | "split_bay",
   minimumSizeFeet: number
 ): EditableRectFeet {
   requireLiteral(rect.objectType, objectType, `${label}.objectType`);
@@ -320,6 +421,50 @@ function validateDoorWallSpans(
       : owner.heightFeet;
     if (door.widthFeet > wallLengthFeet || door.offsetFeet + door.widthFeet > wallLengthFeet) {
       throw new Error(`door ${door.id} must remain within the referenced wall length`);
+    }
+  }
+}
+
+function validateSupportAccessWallSpans(
+  accessPoints: EditableSupportAccessPointGeometry[],
+  zones: EditableZoneGeometry[]
+): void {
+  const zonesById = new Map(zones.map((zone) => [zone.id, zone]));
+  for (const accessPoint of accessPoints) {
+    const owner = zonesById.get(accessPoint.ownerId);
+    if (owner == null) {
+      throw new Error(`support access ${accessPoint.id} ownerId must reference a zone`);
+    }
+    const wallLengthFeet = accessPoint.wall === "north" || accessPoint.wall === "south"
+      ? owner.widthFeet
+      : owner.heightFeet;
+    if (
+      accessPoint.widthFeet > wallLengthFeet ||
+      accessPoint.offsetFeet + accessPoint.widthFeet > wallLengthFeet
+    ) {
+      throw new Error(`support access ${accessPoint.id} must remain within the referenced zone wall length`);
+    }
+  }
+}
+
+function validateSplitBayReferences(
+  splitBays: EditableSplitBayGeometry[],
+  rooms: EditableRoomGeometry[]
+): void {
+  const roomIds = new Set(rooms.map((room) => room.id));
+  const usedBedPositionIds = new Set<string>();
+  for (const splitBay of splitBays) {
+    if (splitBay.id !== splitBay.splitBayId) {
+      throw new Error(`split bay ${splitBay.id} id must match splitBayId`);
+    }
+    for (const roomId of splitBay.bedPositionRoomIds) {
+      if (!roomIds.has(roomId)) {
+        throw new Error(`split bay ${splitBay.splitBayId} bedPositionRoomIds must reference existing rooms`);
+      }
+      if (usedBedPositionIds.has(roomId)) {
+        throw new Error(`split bay bed position room ${roomId} must not be referenced by multiple split bays`);
+      }
+      usedBedPositionIds.add(roomId);
     }
   }
 }
@@ -368,6 +513,18 @@ function requireArray(value: unknown, label: string): unknown[] {
     throw new Error(`${label} must be an array`);
   }
   return value;
+}
+
+function requireTuple2String(value: unknown, label: string): readonly [string, string] {
+  if (!Array.isArray(value) || value.length !== 2) {
+    throw new Error(`${label} must contain exactly two room ids`);
+  }
+  const first = requireString(value[0], `${label}[0]`);
+  const second = requireString(value[1], `${label}[1]`);
+  if (first === second) {
+    throw new Error(`${label} must reference two distinct rooms`);
+  }
+  return [first, second];
 }
 
 function requireString(value: unknown, label: string): string {

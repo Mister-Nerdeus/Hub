@@ -101,6 +101,9 @@ export function DoorQuickEditPopover({
           </button>
         ))}
       </div>
+      <p className="door-quick-edit-popover__owner">
+        {viewModel.ownerKindLabel}: {viewModel.ownerLabel}
+      </p>
     </div>
   );
 }

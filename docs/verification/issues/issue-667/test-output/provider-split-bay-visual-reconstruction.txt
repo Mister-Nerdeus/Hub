@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "issue": "667",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "Provider/Pharmacy access points render",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Room 15 has an editable door/access marker",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "split bays 2/3, 4/5, 6/7, and 8/9 render with dividers and bed labels",
+      "passed": true,
+      "detail": [
+        {
+          "id": "split-bay-02-03",
+          "label": "Split Bay 02/03",
+          "xFeet": 0,
+          "yFeet": 0,
+          "widthFeet": 20,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-02-03",
+          "bedPositionRoomIds": [
+            "room-02",
+            "room-03"
+          ],
+          "dividerStyle": "diagonal"
+        },
+        {
+          "id": "split-bay-04-05",
+          "label": "Split Bay 04/05",
+          "xFeet": 0,
+          "yFeet": 12,
+          "widthFeet": 20,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-04-05",
+          "bedPositionRoomIds": [
+            "room-04",
+            "room-05"
+          ],
+          "dividerStyle": "diagonal"
+        },
+        {
+          "id": "split-bay-06-07",
+          "label": "Split Bay 06/07",
+          "xFeet": 0,
+          "yFeet": 24,
+          "widthFeet": 20,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-06-07",
+          "bedPositionRoomIds": [
+            "room-06",
+            "room-07"
+          ],
+          "dividerStyle": "diagonal"
+        },
+        {
+          "id": "split-bay-08-09",
+          "label": "Split Bay 08/09",
+          "xFeet": 0,
+          "yFeet": 36,
+          "widthFeet": 20,
+          "heightFeet": 10,
+          "objectType": "split_bay",
+          "splitBayId": "split-bay-08-09",
+          "bedPositionRoomIds": [
+            "room-08",
+            "room-09"
+          ],
+          "dividerStyle": "diagonal"
+        }
+      ]
+    },
+    {
+      "name": "problem section survives save/reload/export and manual visual review remains required",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-copy-issue-667",
+        "checklist": "docs/review/provider-split-bay-visual-review-checklist.md"
+      }
+    }
+  ]
+}

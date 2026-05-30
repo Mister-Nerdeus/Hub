@@ -3,16 +3,20 @@ import type {
   EditableHallwayGeometry,
   EditableLayoutGeometryContract,
   EditableRoomGeometry,
+  EditableSplitBayGeometry,
   EditableStationGeometry,
+  EditableSupportAccessPointGeometry,
   EditableZoneGeometry
 } from "@nerdeus/shared";
 
 export const LAYOUT_SELECTION_OBJECT_TYPES = [
   "room",
   "door",
+  "support_access",
   "station",
   "hallway",
-  "zone"
+  "zone",
+  "split_bay"
 ] as const;
 
 export type LayoutSelectionObjectType = (typeof LAYOUT_SELECTION_OBJECT_TYPES)[number];
@@ -25,9 +29,11 @@ export type LayoutSelection = {
 export type LayoutSelectableObject =
   | EditableRoomGeometry
   | EditableDoorGeometry
+  | EditableSupportAccessPointGeometry
   | EditableStationGeometry
   | EditableHallwayGeometry
-  | EditableZoneGeometry;
+  | EditableZoneGeometry
+  | EditableSplitBayGeometry;
 
 export function isLayoutSelectionObjectType(value: unknown): value is LayoutSelectionObjectType {
   return (
@@ -80,18 +86,22 @@ function getEditableLayoutObjects(
       return layout.rooms;
     case "door":
       return layout.doors;
+    case "support_access":
+      return layout.supportAccessPoints ?? [];
     case "station":
       return layout.stations;
     case "hallway":
       return layout.hallways;
     case "zone":
       return layout.zones;
+    case "split_bay":
+      return layout.splitBays ?? [];
   }
 }
 
 function requireSelectionObjectType(objectType: LayoutSelectionObjectType): void {
   if (!isLayoutSelectionObjectType(objectType)) {
-    throw new Error("objectType must be room, door, station, hallway, or zone");
+    throw new Error("objectType must be room, door, support_access, station, hallway, zone, or split_bay");
   }
 }
 

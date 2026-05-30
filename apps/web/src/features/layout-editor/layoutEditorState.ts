@@ -1,6 +1,7 @@
 import {
   validateEditableLayoutGeometryContract,
   validatePlanContract,
+  buildCanonicalSplitBayEditableOverlays,
   type EditableDoorGeometry,
   type EditableHallwayGeometry,
   type EditableLayoutGeometryContract,
@@ -96,7 +97,7 @@ export function createLayoutEditorState(
     throw new Error("selectedObjectId and selectedObjectType must both be set or both be null");
   }
   if (selectedObjectType != null && !isLayoutEditorSelectableObjectType(selectedObjectType)) {
-    throw new Error("selectedObjectType must be room, door, station, hallway, or zone");
+    throw new Error("selectedObjectType must be room, door, support_access, station, hallway, zone, or split_bay");
   }
 
   const snapMode = overrides.snapMode ?? "default";
@@ -166,9 +167,13 @@ export function planContractToEditableLayoutGeometry(
       const room = plan.rooms.find((candidate) => candidate.id === door.roomId);
       return room == null ? [] : [planDoorToEditableDoor(door, room)];
     }),
+    supportAccessPoints: plan.supportAccessPoints ?? [],
     stations: plan.nurseStations.map(planStationToEditableStation),
     hallways: plan.hallways.map(planHallwayToEditableHallway),
     zones: plan.zones.map(planZoneToEditableZone),
+    splitBays: plan.splitBays ?? buildCanonicalSplitBayEditableOverlays(
+      plan.rooms.map(planRoomToEditableRoom)
+    ).splitBays,
     limitations: [
       "Editable geometry is derived from validated JSON floorplan data; source plan metadata and path graph remain attached to editor state."
     ]

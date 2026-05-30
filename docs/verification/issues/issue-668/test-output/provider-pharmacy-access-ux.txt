@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "issue": "668",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "provider/pharmacy zone selection exposes support-access action state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "Add Access Point dispatch creates support_access markers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "support access marker editor exposes wall, offset, and width controls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "support access point survives save/reload/export serialization",
+      "passed": true,
+      "detail": {
+        "objectType": "support_access",
+        "id": "support-access-provider-pharmacy",
+        "label": "Provider/Pharmacy access",
+        "ownerKind": "zone",
+        "ownerId": "zone-provider-pharmacy",
+        "wall": "east",
+        "offsetFeet": 1,
+        "widthFeet": 3
+      }
+    },
+    {
+      "name": "provider/pharmacy remains excluded from patient-care assignment and simulation selectors",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "supportAccessPointCount": 1,
+        "providerPharmacyAccessPointCount": 1,
+        "patientRoomDoorCount": 0,
+        "supportAccessPointsArePatientRoomDoors": false,
+        "providerPharmacyPatientCareExcluded": true,
+        "blockers": [],
+        "providerPharmacyExcludedFromAssignment": true,
+        "providerPharmacyExcludedFromRatio": true,
+        "providerPharmacyExcludedFromRoomLoad": true
+      }
+    }
+  ]
+}

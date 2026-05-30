@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "scenario": "fresh pass with existing localhost failure",
+  "freshRuntimeProofStatus": "passed",
+  "existingLocalhostProofStatus": "failed",
+  "blocker": "Fresh automated runtime passes, but existing localhost:5180 is stale, unavailable, or mismatched. Restart dev server and hard refresh before reconstruction."
+}

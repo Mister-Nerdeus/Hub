@@ -1,0 +1,181 @@
+{
+  "status": "passed",
+  "stage": "final",
+  "bridge": {
+    "status": "passed",
+    "splitBays": [
+      {
+        "objectType": "split_bay",
+        "id": "split-bay-02-03",
+        "splitBayId": "split-bay-02-03",
+        "label": "Split Bay 02/03",
+        "bedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "dividerStyle": "diagonal",
+        "xFeet": 0,
+        "yFeet": 0,
+        "widthFeet": 20,
+        "heightFeet": 10
+      },
+      {
+        "objectType": "split_bay",
+        "id": "split-bay-04-05",
+        "splitBayId": "split-bay-04-05",
+        "label": "Split Bay 04/05",
+        "bedPositionRoomIds": [
+          "room-04",
+          "room-05"
+        ],
+        "dividerStyle": "diagonal",
+        "xFeet": 0,
+        "yFeet": 12,
+        "widthFeet": 20,
+        "heightFeet": 10
+      },
+      {
+        "objectType": "split_bay",
+        "id": "split-bay-06-07",
+        "splitBayId": "split-bay-06-07",
+        "label": "Split Bay 06/07",
+        "bedPositionRoomIds": [
+          "room-06",
+          "room-07"
+        ],
+        "dividerStyle": "diagonal",
+        "xFeet": 0,
+        "yFeet": 24,
+        "widthFeet": 20,
+        "heightFeet": 10
+      },
+      {
+        "objectType": "split_bay",
+        "id": "split-bay-08-09",
+        "splitBayId": "split-bay-08-09",
+        "label": "Split Bay 08/09",
+        "bedPositionRoomIds": [
+          "room-08",
+          "room-09"
+        ],
+        "dividerStyle": "diagonal",
+        "xFeet": 0,
+        "yFeet": 36,
+        "widthFeet": 20,
+        "heightFeet": 10
+      }
+    ],
+    "roomPairMappings": {
+      "room-02": "split-bay-02-03",
+      "room-03": "split-bay-02-03",
+      "room-04": "split-bay-04-05",
+      "room-05": "split-bay-04-05",
+      "room-06": "split-bay-06-07",
+      "room-07": "split-bay-06-07",
+      "room-08": "split-bay-08-09",
+      "room-09": "split-bay-08-09"
+    },
+    "blockers": []
+  },
+  "capacity": {
+    "schemaVersion": "1.0.0",
+    "canonicalFloorplanId": "default-er-layout-plan-1",
+    "source": "semantic_selectors",
+    "physicalRoomCount": 18,
+    "bedPositionCount": 22,
+    "splitBayCount": 4,
+    "ordinaryPatientRoomCount": 14,
+    "storageCount": 1,
+    "supportAreaCount": 3,
+    "hallwayCorridorCount": 7,
+    "solidWallCount": 0,
+    "ratioEligibleCount": 22,
+    "assignmentEligibleCount": 22,
+    "excludedCount": 11,
+    "excludedByType": {
+      "storage": 1,
+      "supportArea": 3,
+      "hallway": 7,
+      "solidWall": 0
+    },
+    "selectorNotes": [
+      "Counts are derived from occupancy and split-bay selectors, not raw room-like fixture fields.",
+      "Storage, support areas, hallways, and solid walls are non-patient and excluded from assignment and ratio counts.",
+      "Split bays contribute separate bed positions and paired physical-room count."
+    ]
+  },
+  "bridgeSemantics": [
+    {
+      "objectId": "room-02",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-02-03",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-03",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-02-03",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-04",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-04-05",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-05",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-04-05",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-06",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-06-07",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-07",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-06-07",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-08",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-08-09",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    },
+    {
+      "objectId": "room-09",
+      "occupancyType": "bed_position",
+      "splitBayId": "split-bay-08-09",
+      "physicalRoomCountContribution": 0.5,
+      "bedCountContribution": 1,
+      "assignmentEligible": true,
+      "ratioEligible": true
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "issue": "662",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "split bay overlay contract stores physical bay geometry and divider style",
+      "passed": true,
+      "detail": {
+        "id": "split-bay-02-03",
+        "label": "Split Bay 02/03",
+        "xFeet": 0,
+        "yFeet": 0,
+        "widthFeet": 20,
+        "heightFeet": 10,
+        "objectType": "split_bay",
+        "splitBayId": "split-bay-02-03",
+        "bedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "dividerStyle": "diagonal"
+      }
+    },
+    {
+      "name": "split bay validation rejects missing room references",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBayCount": 1,
+        "referencedBedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "physicalRoomCountContribution": 1,
+        "duplicatesRoomData": false,
+        "blockers": []
+      }
+    },
+    {
+      "name": "split bay overlay does not duplicate room label/type/assignment data",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBayCount": 1,
+        "referencedBedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "physicalRoomCountContribution": 1,
+        "duplicatesRoomData": false,
+        "blockers": []
+      }
+    },
+    {
+      "name": "split bay overlay serializes, imports, exports, saves, and reloads",
+      "passed": true,
+      "detail": {
+        "id": "split-bay-02-03",
+        "label": "Split Bay 02/03",
+        "xFeet": 0,
+        "yFeet": 0,
+        "widthFeet": 20,
+        "heightFeet": 10,
+        "objectType": "split_bay",
+        "splitBayId": "split-bay-02-03",
+        "bedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "dividerStyle": "diagonal"
+      }
+    },
+    {
+      "name": "editable layout contract defaults missing splitBays to [] for backward compatibility",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

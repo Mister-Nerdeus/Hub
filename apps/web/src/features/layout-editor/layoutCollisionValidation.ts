@@ -118,5 +118,9 @@ function codeForCollisionTarget(
       return "room_overlap_hallway";
     case "door":
       throw new Error("doors are wall-relative and are not room collision targets");
+    case "support_access":
+      throw new Error("support access points are wall-relative and are not room collision targets");
+    case "split_bay":
+      throw new Error("split bay overlays are not room collision targets");
   }
 }

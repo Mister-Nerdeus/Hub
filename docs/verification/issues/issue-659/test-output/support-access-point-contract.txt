@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "issue": "659",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "support access contract validates dedicated support_access geometry",
+      "passed": true,
+      "detail": {
+        "validation": {
+          "status": "passed",
+          "supportAccessPointCount": 1,
+          "providerPharmacyAccessPointCount": 1,
+          "patientRoomDoorCount": 1,
+          "supportAccessPointsArePatientRoomDoors": false,
+          "providerPharmacyPatientCareExcluded": true,
+          "blockers": [],
+          "providerPharmacyExcludedFromAssignment": true,
+          "providerPharmacyExcludedFromRatio": true,
+          "providerPharmacyExcludedFromRoomLoad": true
+        },
+        "contract": {
+          "status": "passed",
+          "supportAccessPointCount": 1,
+          "providerPharmacyAccessPointCount": 1,
+          "patientRoomDoorCount": 1,
+          "supportAccessPointsArePatientRoomDoors": false,
+          "providerPharmacyPatientCareExcluded": true,
+          "blockers": []
+        }
+      }
+    },
+    {
+      "name": "provider/pharmacy access point is owned by a provider/pharmacy zone",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "supportAccessPointCount": 1,
+        "providerPharmacyAccessPointCount": 1,
+        "patientRoomDoorCount": 1,
+        "supportAccessPointsArePatientRoomDoors": false,
+        "providerPharmacyPatientCareExcluded": true,
+        "blockers": [],
+        "providerPharmacyExcludedFromAssignment": true,
+        "providerPharmacyExcludedFromRatio": true,
+        "providerPharmacyExcludedFromRoomLoad": true
+      }
+    },
+    {
+      "name": "solid-wall room remains ineligible for normal doors",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "provider/pharmacy remains excluded from assignment, ratio, and room-load selectors",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "supportAccessPointCount": 1,
+        "providerPharmacyAccessPointCount": 1,
+        "patientRoomDoorCount": 1,
+        "supportAccessPointsArePatientRoomDoors": false,
+        "providerPharmacyPatientCareExcluded": true,
+        "blockers": [],
+        "providerPharmacyExcludedFromAssignment": true,
+        "providerPharmacyExcludedFromRatio": true,
+        "providerPharmacyExcludedFromRoomLoad": true
+      }
+    }
+  ]
+}

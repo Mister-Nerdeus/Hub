@@ -207,7 +207,16 @@ export function updateAlignmentManifest(issue, updates) {
   };
   writeJson(alignmentManifestPath, manifest);
   writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
-    status: manifest.goNoGoStatus === "go_for_full_er_floorplan_reconstruction" || manifest.goNoGoStatus === "go_for_additional_runtime_alignment_repair" || manifest.goNoGoStatus === "no_go" ? "passed" : "failed",
+    status: [
+      "go_for_full_er_floorplan_reconstruction",
+      "go_for_editable_saved_copy_persistence_proof",
+      "go_for_support_access_and_split_bay_authoring",
+      "go_for_additional_runtime_alignment_repair",
+      "not_ready",
+      "no_go"
+    ].includes(manifest.goNoGoStatus)
+      ? "passed"
+      : "failed",
     manifestPath: alignmentManifestPath,
     updates
   });
@@ -236,9 +245,12 @@ export function updateSavedCopyPersistenceManifest(issue, updates) {
   };
   writeJson(savedCopyPersistenceManifestPath, manifest);
   writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
-    status: manifest.goNoGoStatus === "go_for_full_er_floorplan_reconstruction" ||
-      manifest.goNoGoStatus === "not_ready" ||
-      manifest.goNoGoStatus === "no_go"
+    status: [
+      "go_for_full_er_floorplan_reconstruction",
+      "go_for_support_access_and_split_bay_authoring",
+      "not_ready",
+      "no_go"
+    ].includes(manifest.goNoGoStatus)
       ? "passed"
       : "failed",
     manifestPath: savedCopyPersistenceManifestPath,

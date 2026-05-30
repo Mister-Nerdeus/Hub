@@ -1,0 +1,53 @@
+{
+  "issue": "665",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-split-bay-editable-bridge.mjs --stage bridge --allow-partial --issue 665",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/canonical-split-bay-editable-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-split-bay-editable-bridge.mjs --stage room-pair-mapping --allow-partial --issue 665",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/canonical-split-bay-editable-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-split-bay-editable-bridge.mjs --stage occupancy-semantics --allow-partial --issue 665",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/canonical-split-bay-editable-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-split-bay-editable-bridge.mjs --stage capacity-count --allow-partial --issue 665",
+      "outputs": [
+        "docs/verification/issues/issue-665/test-output/canonical-split-bay-editable-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-665/no-phi-output.txt"
+      ]
+    }
+  ]
+}

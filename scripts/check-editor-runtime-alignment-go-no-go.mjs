@@ -242,18 +242,18 @@ const additionalReady = blockers.length === 0 &&
   separationPassed;
 
 const decision = fullReady
-  ? "go_for_full_er_floorplan_reconstruction"
+  ? "go_for_editable_saved_copy_persistence_proof"
   : additionalReady
     ? "blocked_with_exact_runtime_alignment_repair_items"
     : "no_go_with_exact_blockers";
 
 const existingLocalhostGoNoGoStatus = fullReady
-  ? "go_for_full_er_floorplan_reconstruction"
+  ? "go_for_editable_saved_copy_persistence_proof"
   : additionalReady
     ? "go_for_additional_runtime_alignment_repair"
     : "no_go";
 const reconstructionStatus = fullReady
-  ? "go_for_full_er_floorplan_reconstruction"
+  ? "go_for_editable_saved_copy_persistence_proof"
   : additionalReady
   ? "no_go_until_runtime_alignment_hardening_passes"
   : "no_go";
@@ -387,7 +387,7 @@ writeCloseout(
     "node scripts/check-no-phi-fields.mjs"
   ],
   [
-    blockers.length > 0 ? `No-go blockers: ${blockers.join("; ")}` : "No remaining blockers; reconstruction may proceed."
+    blockers.length > 0 ? `No-go blockers: ${blockers.join("; ")}` : "No remaining blockers; saved-copy persistence proof may proceed."
   ]
 );
 
@@ -414,7 +414,7 @@ function isAllowlistPassed(comparison, fresh, existing) {
 }
 
 function finalDecisionText(decisionValue, reasonList, full, additional) {
-  if (full) return `# Runtime Alignment GO / NO-GO\n\nDecision: GO for full ER floorplan reconstruction.\n`;
+  if (full) return `# Runtime Alignment GO / NO-GO\n\nDecision: GO for editable saved-copy persistence proof.\n`;
   if (additional) return `# Runtime Alignment GO / NO-GO\n\nDecision: GO for additional runtime alignment repair.\n`;
   return `# Runtime Alignment GO / NO-GO\n\nDecision: NO-GO.\n\nBlockers:\n${reasonList.length === 0 ? "- No blockers collected." : reasonList.map((item) => `- ${item}`).join("\n")}\n`;
 }

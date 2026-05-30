@@ -1,0 +1,95 @@
+{
+  "issue": "668",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-readiness-go-no-go.mjs --stage final --issue 658",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/editor-saved-copy-readiness-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-point-contract.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/support-access-point-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-pharmacy-access-ux.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/provider-pharmacy-access-ux.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-room-door-add-feedback.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/room-door-add-feedback.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-split-bay-overlay-contract.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/editable-split-bay-overlay-contract.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-renderer.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/split-bay-renderer.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-canonical-split-bay-editable-bridge.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/canonical-split-bay-editable-bridge.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-save-reload-export.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/split-bay-save-reload-export.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-provider-split-bay-visual-reconstruction.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/provider-split-bay-visual-reconstruction.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-access-split-bay-go-no-go.mjs --stage final --issue 668",
+      "outputs": [
+        "docs/verification/issues/issue-668/test-output/support-access-split-bay-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-668/no-phi-output.txt"
+      ]
+    }
+  ]
+}

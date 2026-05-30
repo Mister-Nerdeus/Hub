@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-bay-renderer.mjs --stage render --allow-partial --issue 664
+node scripts/check-split-bay-renderer.mjs --stage diagonal-divider --allow-partial --issue 664
+node scripts/check-split-bay-renderer.mjs --stage bed-labels-from-rooms --allow-partial --issue 664
+node scripts/check-split-bay-renderer.mjs --stage selection --allow-partial --issue 664
+node scripts/check-no-phi-fields.mjs

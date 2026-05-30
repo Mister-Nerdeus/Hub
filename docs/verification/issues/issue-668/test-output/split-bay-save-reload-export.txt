@@ -1,0 +1,120 @@
+{
+  "status": "passed",
+  "issue": "668",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "split bay exists before save with stable room IDs and divider style",
+      "passed": true,
+      "detail": {
+        "objectType": "split_bay",
+        "id": "split-bay-02-03",
+        "splitBayId": "split-bay-02-03",
+        "label": "Split Bay 02/03",
+        "bedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "dividerStyle": "diagonal",
+        "xFeet": 0,
+        "yFeet": 0,
+        "widthFeet": 20,
+        "heightFeet": 10
+      }
+    },
+    {
+      "name": "split bay reloads from same saved record",
+      "passed": true,
+      "detail": {
+        "recordId": "saved-copy-issue-666",
+        "mode": "editable",
+        "editableLayout": {
+          "schemaVersion": "1.0.0",
+          "layoutId": "issue-666-split-bay-save",
+          "units": "feet",
+          "rooms": [
+            {
+              "id": "room-02",
+              "label": "Room 02",
+              "xFeet": 0,
+              "yFeet": 0,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "02",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            },
+            {
+              "id": "room-03",
+              "label": "Room 03",
+              "xFeet": 10,
+              "yFeet": 0,
+              "widthFeet": 10,
+              "heightFeet": 10,
+              "objectType": "room",
+              "roomNumber": "03",
+              "roomType": "standard",
+              "capacityType": "single",
+              "isHallBed": false,
+              "isTraumaAdjacent": false
+            }
+          ],
+          "doors": [],
+          "supportAccessPoints": [],
+          "stations": [],
+          "hallways": [],
+          "zones": [],
+          "splitBays": [
+            {
+              "objectType": "split_bay",
+              "id": "split-bay-02-03",
+              "splitBayId": "split-bay-02-03",
+              "label": "Split Bay 02/03",
+              "bedPositionRoomIds": [
+                "room-02",
+                "room-03"
+              ],
+              "dividerStyle": "diagonal",
+              "xFeet": 0,
+              "yFeet": 0,
+              "widthFeet": 20,
+              "heightFeet": 10
+            }
+          ],
+          "limitations": [
+            "Issue 666 synthetic split-bay save/reload/export fixture."
+          ]
+        },
+        "localBrowserDraftOnly": false
+      }
+    },
+    {
+      "name": "JSON backup export contains changed split bay values",
+      "passed": true,
+      "detail": {
+        "id": "split-bay-02-03",
+        "label": "Split Bay 02/03",
+        "xFeet": 0,
+        "yFeet": 0,
+        "widthFeet": 20,
+        "heightFeet": 10,
+        "objectType": "split_bay",
+        "splitBayId": "split-bay-02-03",
+        "bedPositionRoomIds": [
+          "room-02",
+          "room-03"
+        ],
+        "dividerStyle": "diagonal"
+      }
+    },
+    {
+      "name": "local browser draft is not confused with named-copy save",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

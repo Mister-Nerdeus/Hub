@@ -1,0 +1,283 @@
+{
+  "status": "passed",
+  "issue": "668",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "rootScriptWiringStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "blockerReportingStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "manualChecklistHardeningStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "freshVsExistingRuntimeProofStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "existingLocalhostGoNoGoStatus is go_for_editable_saved_copy_persistence_proof",
+      "passed": true,
+      "detail": "go_for_editable_saved_copy_persistence_proof"
+    },
+    {
+      "name": "editableSavedCopyEntryStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "savedCopyPersistenceSmokeStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "savedCopyReadinessGoNoGoStatus is go_for_support_access_and_split_bay_authoring",
+      "passed": true,
+      "detail": "go_for_support_access_and_split_bay_authoring"
+    },
+    {
+      "name": "supportAccessContractStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "providerPharmacyAccessUxStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "roomDoorFeedbackStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayOverlayContractStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayAuthoringUiStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayRendererStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "canonicalSplitBayBridgeStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "splitBayPersistenceStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "providerSplitBayVisualReconstructionStatus is passed",
+      "passed": true,
+      "detail": "passed"
+    },
+    {
+      "name": "rootScripts641To650Present is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "verifyLocalIncludes641To650 is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "rootScriptFailureListedAsBlocker is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "verifyLocalFailureListedAsBlocker is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "manualChecklistCannotAutoPass is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "manualChecklistRequiresHumanOrBrowserProof is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "freshRuntimeProofSeparated is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "existingLocalhostProofSeparated is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "freshRuntimeCannotOverrideExistingFailure is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "localhost5180RuntimeProofPassed is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "canonicalDefaultReadOnlyProof is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "editableSavedCopyOpened is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "editableSavedCopyRecordIdCaptured is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "saveWorkingCopyEnabledForSavedCopy is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "roomMovePersisted is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "doorChangePersisted is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "sameSavedRecordReloaded is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "exportJsonBackupMatched is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "supportAccessPointContractSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "providerPharmacyAccessPointsSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "roomDoorAddFeedbackSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "editableSplitBayOverlaySupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "splitBayAuthoringUiSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "splitBayDiagonalRendererSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "canonicalSplitBayBridgeSupported is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "splitBaySaveReloadExportProof is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "providerPharmacyVisualProof is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "splitBayVisualProof is true",
+      "passed": true,
+      "detail": true
+    },
+    {
+      "name": "collaborationStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "simulationV0Status remains internal_dry_run_only",
+      "passed": true,
+      "detail": "internal_dry_run_only"
+    },
+    {
+      "name": "fullFutureSimulationEventModelStatus remains dormant",
+      "passed": true,
+      "detail": "dormant"
+    },
+    {
+      "name": "optimizerStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "assignmentRecommendationStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "clinicalSafetyScoringStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "staffingComplianceStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "patientOutcomePredictionStatus remains not_started",
+      "passed": true,
+      "detail": "not_started"
+    },
+    {
+      "name": "promotionStatus remains blocked",
+      "passed": true,
+      "detail": "blocked"
+    },
+    {
+      "name": "noPhiStatus remains passed",
+      "passed": true,
+      "detail": "passed"
+    }
+  ]
+}

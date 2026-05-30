@@ -1,9 +1,11 @@
 import {
   addDoorToRoom,
+  addSplitBayToEditableLayout,
   alignRoomToReference,
   addRoomToEditableLayout,
   assignDoorToRoom,
   authoringRoomTypeToEditableRoomType,
+  createEditableSupportAccessPoint,
   duplicateLayoutObject,
   generateAutoHallways,
   moveDoor,
@@ -13,6 +15,8 @@ import {
   type AuthoringRoomType,
   type EditableDoorWall,
   type EditableLayoutGeometryContract,
+  type EditableRoomGeometry,
+  type EditableSplitBayDividerStyle,
   type EditableStationType,
   type EditableZoneType
 } from "@nerdeus/shared";
@@ -148,6 +152,45 @@ export type LayoutEditorAction =
       wall: EditableDoorWall;
       offsetFeet: number;
       widthFeet: number;
+    }
+  | {
+      type: "addSupportAccessPoint";
+      accessPointId: string;
+      zoneId: string;
+      wall: EditableDoorWall;
+      offsetFeet: number;
+      widthFeet: number;
+    }
+  | {
+      type: "moveSupportAccessPoint";
+      accessPointId: string;
+      wall: EditableDoorWall;
+      offsetFeet: number;
+    }
+  | {
+      type: "updateSupportAccessPointWidth";
+      accessPointId: string;
+      wall: EditableDoorWall;
+      offsetFeet: number;
+      widthFeet: number;
+    }
+  | { type: "deleteSupportAccessPoint"; accessPointId: string }
+  | {
+      type: "addSplitBay";
+      splitBayId: string;
+      label: string;
+      roomA: EditableRoomGeometry;
+      roomB: EditableRoomGeometry;
+    }
+  | {
+      type: "convertSelectedRoomPairToSplitBay";
+      roomId: string;
+      splitBayId: string;
+    }
+  | {
+      type: "editSplitBayDivider";
+      splitBayId: string;
+      dividerStyle: EditableSplitBayDividerStyle;
     }
   | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
@@ -322,6 +365,27 @@ export function layoutEditorReducer(
           widthFeet: action.widthFeet
         })
       );
+    case "addSupportAccessPoint":
+      return addSupportAccessPoint(state, action);
+    case "moveSupportAccessPoint":
+      return editSupportAccessPoint(state, action.accessPointId, {
+        wall: action.wall,
+        offsetFeet: action.offsetFeet
+      });
+    case "updateSupportAccessPointWidth":
+      return editSupportAccessPoint(state, action.accessPointId, {
+        wall: action.wall,
+        offsetFeet: action.offsetFeet,
+        widthFeet: action.widthFeet
+      });
+    case "deleteSupportAccessPoint":
+      return deleteSupportAccessPoint(state, action.accessPointId);
+    case "addSplitBay":
+      return addSplitBay(state, action);
+    case "convertSelectedRoomPairToSplitBay":
+      return convertSelectedRoomPairToSplitBay(state, action);
+    case "editSplitBayDivider":
+      return editSplitBayDivider(state, action.splitBayId, action.dividerStyle);
     case "moveDoor":
       return applyDoorAuthoring(
         state,
@@ -582,7 +646,10 @@ function deleteSelectedRoom(state: LayoutEditorState): LayoutEditorState {
     editableLayout: {
       ...state.editableLayout,
       rooms: state.editableLayout.rooms.filter((room) => room.id !== roomId),
-      doors: state.editableLayout.doors.filter((door) => !removedDoorIds.has(door.id))
+      doors: state.editableLayout.doors.filter((door) => !removedDoorIds.has(door.id)),
+      splitBays: (state.editableLayout.splitBays ?? []).filter(
+        (splitBay) => !splitBay.bedPositionRoomIds.includes(roomId)
+      )
     },
     selectedObjectType: null,
     selectedObjectId: null,
@@ -597,6 +664,208 @@ function deleteSelectedRoom(state: LayoutEditorState): LayoutEditorState {
     }),
     isDirty: true
   });
+}
+
+function addSupportAccessPoint(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "addSupportAccessPoint" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const ownerZone = state.editableLayout.zones.find((zone) => zone.id === action.zoneId);
+  if (ownerZone == null || ownerZone.zoneType !== "provider_pharmacy") {
+    return state;
+  }
+  const wallLength = action.wall === "north" || action.wall === "south"
+    ? ownerZone.widthFeet
+    : ownerZone.heightFeet;
+  const accessPoint = createEditableSupportAccessPoint({
+    id: action.accessPointId,
+    label: `${ownerZone.label} access`,
+    ownerId: ownerZone.id,
+    wall: action.wall,
+    offsetFeet: clamp(action.offsetFeet, 0, Math.max(0, wallLength - action.widthFeet)),
+    widthFeet: Math.min(action.widthFeet, wallLength)
+  });
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      supportAccessPoints: [
+        ...(state.editableLayout.supportAccessPoints ?? []).filter((candidate) => candidate.id !== accessPoint.id),
+        accessPoint
+      ]
+    },
+    selectedObjectType: "support_access",
+    selectedObjectId: accessPoint.id,
+    isDirty: true
+  });
+}
+
+function editSupportAccessPoint(
+  state: LayoutEditorState,
+  accessPointId: string,
+  changes: { wall: EditableDoorWall; offsetFeet: number; widthFeet?: number }
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const accessPoint = state.editableLayout.supportAccessPoints?.find((candidate) => candidate.id === accessPointId);
+  if (accessPoint == null) {
+    return state;
+  }
+  const ownerZone = state.editableLayout.zones.find((zone) => zone.id === accessPoint.ownerId);
+  if (ownerZone == null) {
+    return state;
+  }
+  const nextWidth = changes.widthFeet ?? accessPoint.widthFeet;
+  const wallLength = changes.wall === "north" || changes.wall === "south"
+    ? ownerZone.widthFeet
+    : ownerZone.heightFeet;
+  const updated = {
+    ...accessPoint,
+    wall: changes.wall,
+    widthFeet: clamp(nextWidth, 2, wallLength),
+    offsetFeet: clamp(changes.offsetFeet, 0, Math.max(0, wallLength - clamp(nextWidth, 2, wallLength)))
+  };
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      supportAccessPoints: (state.editableLayout.supportAccessPoints ?? []).map((candidate) =>
+        candidate.id === accessPointId ? updated : candidate
+      )
+    },
+    selectedObjectType: "support_access",
+    selectedObjectId: accessPointId,
+    isDirty: true
+  });
+}
+
+function deleteSupportAccessPoint(state: LayoutEditorState, accessPointId: string): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      supportAccessPoints: (state.editableLayout.supportAccessPoints ?? []).filter((candidate) => candidate.id !== accessPointId)
+    },
+    selectedObjectType: null,
+    selectedObjectId: null,
+    isDirty: true
+  });
+}
+
+function addSplitBay(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "addSplitBay" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const result = addSplitBayToEditableLayout({
+    layout: state.editableLayout,
+    readOnly: state.readOnly,
+    splitBayId: action.splitBayId,
+    label: action.label,
+    roomA: action.roomA,
+    roomB: action.roomB,
+    dividerStyle: "diagonal"
+  });
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: result.layout,
+    selectedObjectType: "split_bay",
+    selectedObjectId: result.selectedSplitBayId,
+    isDirty: true
+  });
+}
+
+function convertSelectedRoomPairToSplitBay(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "convertSelectedRoomPairToSplitBay" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const roomA = state.editableLayout.rooms.find((room) => room.id === action.roomId);
+  const roomB = findBestSplitBayPartner(state.editableLayout.rooms, action.roomId);
+  if (roomA == null || roomB == null) {
+    return state;
+  }
+  return addSplitBay(state, {
+    type: "addSplitBay",
+    splitBayId: action.splitBayId,
+    label: `Split Bay ${roomA.roomNumber}/${roomB.roomNumber}`,
+    roomA,
+    roomB
+  });
+}
+
+function editSplitBayDivider(
+  state: LayoutEditorState,
+  splitBayId: string,
+  dividerStyle: EditableSplitBayDividerStyle
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      splitBays: (state.editableLayout.splitBays ?? []).map((splitBay) =>
+        splitBay.splitBayId === splitBayId ? { ...splitBay, dividerStyle } : splitBay
+      )
+    },
+    selectedObjectType: "split_bay",
+    selectedObjectId: splitBayId,
+    isDirty: true
+  });
+}
+
+function findBestSplitBayPartner(
+  rooms: readonly EditableRoomGeometry[],
+  roomId: string
+): EditableRoomGeometry | null {
+  const selected = rooms.find((room) => room.id === roomId);
+  if (selected == null) return null;
+  const canonicalPartner = canonicalPartnerRoomId(roomId);
+  if (canonicalPartner != null) {
+    return rooms.find((room) => room.id === canonicalPartner) ?? null;
+  }
+  return rooms
+    .filter((room) => room.id !== roomId && room.roomType !== "solid_wall")
+    .sort((left, right) => rectDistanceFeet(selected, left) - rectDistanceFeet(selected, right))[0] ?? null;
+}
+
+function canonicalPartnerRoomId(roomId: string): string | null {
+  const pairs: readonly (readonly [string, string])[] = [
+    ["room-02", "room-03"],
+    ["room-04", "room-05"],
+    ["room-06", "room-07"],
+    ["room-08", "room-09"]
+  ];
+  for (const [left, right] of pairs) {
+    if (roomId === left) return right;
+    if (roomId === right) return left;
+  }
+  return null;
+}
+
+function rectDistanceFeet(left: EditableRoomGeometry, right: EditableRoomGeometry): number {
+  const leftCenterX = left.xFeet + left.widthFeet / 2;
+  const leftCenterY = left.yFeet + left.heightFeet / 2;
+  const rightCenterX = right.xFeet + right.widthFeet / 2;
+  const rightCenterY = right.yFeet + right.heightFeet / 2;
+  return Math.abs(leftCenterX - rightCenterX) + Math.abs(leftCenterY - rightCenterY);
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(value, Math.max(min, max)));
 }
 
 function deleteDoorFromState(state: LayoutEditorState, doorId: string): LayoutEditorState {
@@ -1274,7 +1543,7 @@ function selectObject(
   objectId: string
 ): LayoutEditorState {
   if (!isLayoutEditorSelectableObjectType(objectType)) {
-    throw new Error("objectType must be room, door, station, hallway, or zone");
+    throw new Error("objectType must be room, door, support_access, station, hallway, zone, or split_bay");
   }
   if (typeof objectId !== "string" || objectId.length === 0) {
     throw new Error("objectId must be a non-empty string");

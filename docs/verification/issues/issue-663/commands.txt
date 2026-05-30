@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-bay-authoring-ui.mjs --stage add-object-menu --allow-partial --issue 663
+node scripts/check-split-bay-authoring-ui.mjs --stage placement --allow-partial --issue 663
+node scripts/check-split-bay-authoring-ui.mjs --stage convert-selected-pair --allow-partial --issue 663
+node scripts/check-split-bay-authoring-ui.mjs --stage editor --allow-partial --issue 663
+node scripts/check-split-bay-authoring-ui.mjs --stage readonly-negative --allow-partial --issue 663
+node scripts/check-no-phi-fields.mjs

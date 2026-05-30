@@ -13,6 +13,7 @@ export type RoomQuickEditPopoverProps = {
   onHeightStep: (deltaFeet: number) => void;
   onAssignNurse: () => void;
   onAddDoor: () => void;
+  onConvertToSplitBay?: () => void;
   onRemoveAttachedDoors: () => void;
   onDuplicateRoom: () => void;
   onDeleteRoom: () => void;
@@ -40,6 +41,7 @@ export function RoomQuickEditPopover({
   onHeightStep,
   onAssignNurse,
   onAddDoor,
+  onConvertToSplitBay,
   onRemoveAttachedDoors,
   onDuplicateRoom,
   onDeleteRoom,
@@ -154,6 +156,15 @@ export function RoomQuickEditPopover({
         <button type="button" disabled={viewModel.deleteDisabled} onClick={onDeleteRoom}>
           Delete room
         </button>
+        {onConvertToSplitBay == null ? null : (
+          <button
+            type="button"
+            disabled={viewModel.readOnly || viewModel.roomType === "solid_wall"}
+            onClick={onConvertToSplitBay}
+          >
+            Convert pair to Split Bay
+          </button>
+        )}
       </div>
     </div>
   );

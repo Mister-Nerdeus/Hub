@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage contract --allow-partial --issue 662
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage validation --allow-partial --issue 662
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage no-room-data-duplication --allow-partial --issue 662
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage import-export --allow-partial --issue 662
+node scripts/check-editable-split-bay-overlay-contract.mjs --stage backward-compat --allow-partial --issue 662
+node scripts/check-no-phi-fields.mjs

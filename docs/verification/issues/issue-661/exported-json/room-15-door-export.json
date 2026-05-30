@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "1.0.0",
+  "layoutId": "issue-661-room-15-door",
+  "units": "feet",
+  "rooms": [
+    {
+      "id": "room-15",
+      "label": "Room 15",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 12,
+      "heightFeet": 10,
+      "objectType": "room",
+      "roomNumber": "15",
+      "roomType": "standard",
+      "capacityType": "single",
+      "isHallBed": false,
+      "isTraumaAdjacent": false
+    }
+  ],
+  "doors": [
+    {
+      "objectType": "door",
+      "id": "door-room-15-south",
+      "label": "Room 15 south door",
+      "ownerKind": "room",
+      "ownerId": "room-15",
+      "wall": "south",
+      "offsetFeet": 4,
+      "widthFeet": 4
+    }
+  ],
+  "supportAccessPoints": [],
+  "stations": [],
+  "hallways": [],
+  "zones": [],
+  "splitBays": [],
+  "limitations": [
+    "Issue 661 synthetic Room 15 door fixture."
+  ]
+}

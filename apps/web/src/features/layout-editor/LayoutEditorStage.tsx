@@ -14,6 +14,7 @@ import {
   type AuthoringDraftContract,
   type AuthoringRoomType,
   type DoorPathNodeGenerationResult,
+  type EditableSplitBayDividerStyle,
   type EditableDoorWall,
   type PathSyncAuditResult,
   type SimulationReadyExportResult
@@ -27,10 +28,21 @@ import {
 import { editableLayoutToPlanContract } from "./editableLayoutToPlanContract";
 import { DoorShape } from "./DoorShape";
 import { buildDoorShapeViewModel } from "./doorShapeViewModel";
+import { SupportAccessPointShape } from "./SupportAccessPointShape";
+import { buildSupportAccessPointViewModel } from "./supportAccessPointViewModel";
+import {
+  SupportAccessQuickEditPopover,
+  buildSupportAccessQuickEdit
+} from "./SupportAccessQuickEditPopover";
+import { SplitBayShape } from "./SplitBayShape";
+import { buildSplitBayShapeViewModel } from "./splitBayShapeViewModel";
+import { SplitBayQuickEditPopover } from "./SplitBayQuickEditPopover";
+import { buildSplitBayQuickEdit } from "./splitBayQuickEditViewModel";
 import { layoutEditorReducer, panViewportAction } from "./layoutEditorReducer";
 import { LayoutToolPalette, type LayoutToolMode } from "./LayoutToolPalette";
 import { buildAddRoomAction } from "./addRoomTool";
 import { buildAddDoorAction } from "./addDoorTool";
+import { buildAddSplitBayAction } from "./addSplitBayTool";
 import { RoomTypeEditor } from "./RoomTypeEditor";
 import { DoorEditor } from "./DoorEditor";
 import { DoorPathNodeSyncControls } from "./DoorPathNodeSyncControls";
@@ -291,6 +303,8 @@ export function LayoutEditorStage({
   const selectedStation = findSelectedStation(stageState);
   const selectedHallway = findSelectedHallway(stageState);
   const selectedZone = findSelectedZone(stageState);
+  const selectedSupportAccessPoint = findSelectedSupportAccessPoint(stageState);
+  const selectedSplitBay = findSelectedSplitBay(stageState);
   useEffect(() => {
     if (activeFloorplan == null) {
       return;
@@ -448,14 +462,29 @@ export function LayoutEditorStage({
       });
   const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
-  const roomItems = renderItems.filter((item) => item.objectType === "room");
+  const splitBayItems = renderItems.filter((item) => item.objectType === "split_bay");
+  const splitBayBedRoomIds = new Set(
+    stageState.editableLayout?.splitBays?.flatMap((splitBay) => [...splitBay.bedPositionRoomIds]) ?? []
+  );
+  const roomItems = renderItems.filter(
+    (item) => item.objectType === "room" && !splitBayBedRoomIds.has(item.objectId)
+  );
   const doorItems = renderItems.filter((item) => item.objectType === "door");
+  const supportAccessItems = renderItems.filter((item) => item.objectType === "support_access");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
   const hallwayArrows = buildHallwayArrowViewModels(renderItems, hallwayArrowState);
   const selectedDoor =
     stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
       : null;
+  const supportAccessQuickEditViewModel = buildSupportAccessQuickEdit({
+    accessPoint: selectedSupportAccessPoint,
+    readOnly: stageState.readOnly
+  });
+  const splitBayQuickEditViewModel = buildSplitBayQuickEdit({
+    splitBay: selectedSplitBay,
+    readOnly: stageState.readOnly
+  });
   const podBorderViewModel = buildPodBorderViewModel({
     layout: stageState.editableLayout,
     sourcePlanId: stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout",
@@ -696,6 +725,25 @@ export function LayoutEditorStage({
       setPlacementPreviewPoint(stagePointerToFeet(event, stageState.viewport));
       return;
     }
+    if (placementAction === "place-split-bay") {
+      const pointFeet = stagePointerToFeet(event, stageState.viewport);
+      const defaultPlacementSize = getDefaultPlacementSizeForObject("split_bay");
+      dispatchStage(
+        buildAddSplitBayAction({
+          sequence: authoringSequence,
+          xFeet: pointFeet.xFeet,
+          yFeet: pointFeet.yFeet,
+          widthFeet: defaultPlacementSize.widthFeet,
+          heightFeet: defaultPlacementSize.heightFeet
+        })
+      );
+      setAuthoringSequence((value) => value + 1);
+      setPendingAddObjectId(null);
+      setPendingAddObjectLabel(null);
+      setPlacementPreviewPoint(null);
+      setToolMode("select");
+      return;
+    }
     if (toolMode !== "add_room") {
       return;
     }
@@ -739,6 +787,40 @@ export function LayoutEditorStage({
     setAuthoringSequence((value) => value + 1);
     setToolMode("select");
   };
+  const addSupportAccessToSelectedZone = () => {
+    if (
+      stageState.readOnly ||
+      selectedZone == null ||
+      selectedZone.zoneType !== "provider_pharmacy"
+    ) {
+      return;
+    }
+    dispatchStage({
+      type: "addSupportAccessPoint",
+      accessPointId: `support-access-${String(authoringSequence).padStart(3, "0")}`,
+      zoneId: selectedZone.id,
+      wall: "south",
+      offsetFeet: 1,
+      widthFeet: 4
+    });
+    setAuthoringSequence((value) => value + 1);
+    setToolMode("select");
+  };
+  const convertSelectedRoomToSplitBay = () => {
+    if (
+      stageState.readOnly ||
+      stageState.selectedObjectType !== "room" ||
+      stageState.selectedObjectId == null
+    ) {
+      return;
+    }
+    dispatchStage({
+      type: "convertSelectedRoomPairToSplitBay",
+      roomId: stageState.selectedObjectId,
+      splitBayId: `authored-split-bay-${String(authoringSequence).padStart(3, "0")}`
+    });
+    setAuthoringSequence((value) => value + 1);
+  };
   const selectAddObjectMenuItem = (itemId: AddObjectMenuItemId) => {
     if (stageState.readOnly) {
       return;
@@ -758,6 +840,10 @@ export function LayoutEditorStage({
     }
     if (itemId === "door") {
       setToolMode("add_door");
+      return;
+    }
+    if (itemId === "split_bay") {
+      setToolMode("select");
       return;
     }
     setToolMode("select");
@@ -828,6 +914,39 @@ export function LayoutEditorStage({
         widthFeet: next.widthFeet
       });
     }
+  };
+  const moveSelectedSupportAccess = (wall: EditableDoorWall, offsetFeet: number) => {
+    if (selectedSupportAccessPoint == null) {
+      return;
+    }
+    dispatchStage({
+      type: "moveSupportAccessPoint",
+      accessPointId: selectedSupportAccessPoint.id,
+      wall,
+      offsetFeet
+    });
+  };
+  const updateSelectedSupportAccessWidth = (deltaFeet: number) => {
+    if (selectedSupportAccessPoint == null) {
+      return;
+    }
+    dispatchStage({
+      type: "updateSupportAccessPointWidth",
+      accessPointId: selectedSupportAccessPoint.id,
+      wall: selectedSupportAccessPoint.wall,
+      offsetFeet: selectedSupportAccessPoint.offsetFeet,
+      widthFeet: selectedSupportAccessPoint.widthFeet + deltaFeet
+    });
+  };
+  const updateSelectedSplitBayDivider = (dividerStyle: EditableSplitBayDividerStyle) => {
+    if (selectedSplitBay == null) {
+      return;
+    }
+    dispatchStage({
+      type: "editSplitBayDivider",
+      splitBayId: selectedSplitBay.splitBayId,
+      dividerStyle
+    });
   };
   const applyRoomAlignment = (actionId: RoomAlignmentActionId) => {
     dispatchStage({
@@ -1358,6 +1477,8 @@ export function LayoutEditorStage({
             aria-label="Feet-based SVG grid stage"
             data-render-item-count={renderItems.length}
             data-room-render-count={roomItems.length}
+            data-split-bay-render-count={splitBayItems.length}
+            data-support-access-render-count={supportAccessItems.length}
             data-station-render-count={stationItems.length}
             data-provider-pharmacy-zone-render-count={providerPharmacyZoneItems.length}
             data-floorplan-source-kind={stageState.loadedFloorplan?.sourceKind ?? "proof-fixture"}
@@ -1474,6 +1595,22 @@ export function LayoutEditorStage({
                 ))}
             </g>
             <g className="layout-editor-stage__rooms">
+              {splitBayItems.map((item) => (
+                <SplitBayShape
+                  key={item.hitTargetKey}
+                  viewModel={buildSplitBayShapeViewModel({
+                    item,
+                    rooms: stageState.editableLayout?.rooms ?? []
+                  })}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
+                  onSelect={selectStageObject}
+                />
+              ))}
               {roomItems.map((item) => (
                 <RoomShape
                   key={item.hitTargetKey}
@@ -1499,6 +1636,19 @@ export function LayoutEditorStage({
                 <DoorShape
                   key={item.hitTargetKey}
                   viewModel={buildDoorShapeViewModel(item)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
+                  onSelect={selectStageObject}
+                />
+              ))}
+              {supportAccessItems.map((item) => (
+                <SupportAccessPointShape
+                  key={item.hitTargetKey}
+                  viewModel={buildSupportAccessPointViewModel(item)}
                   isSelected={isLayoutObjectSelected({
                     objectType: item.objectType,
                     objectId: item.objectId,
@@ -1598,6 +1748,7 @@ export function LayoutEditorStage({
                     }}
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
+                    onConvertToSplitBay={convertSelectedRoomToSplitBay}
                     onRemoveAttachedDoors={() => dispatchStage({ type: "removeSelectedRoomDoors" })}
                     attachedDoorCount={selectedRoomAttachedDoorCount}
                     onDuplicateRoom={() => dispatchStage({ type: "duplicateSelectedObject" })}
@@ -1670,6 +1821,37 @@ export function LayoutEditorStage({
                       }
                     }}
                   />
+                ) : canvasObjectPopoverViewModel.objectType === "support_access" ? (
+                  <SupportAccessQuickEditPopover
+                    viewModel={supportAccessQuickEditViewModel}
+                    onWallChange={(wall) => {
+                      if (selectedSupportAccessPoint != null) {
+                        moveSelectedSupportAccess(wall, selectedSupportAccessPoint.offsetFeet);
+                      }
+                    }}
+                    onNudge={(deltaFeet) => {
+                      if (selectedSupportAccessPoint != null) {
+                        moveSelectedSupportAccess(
+                          selectedSupportAccessPoint.wall,
+                          selectedSupportAccessPoint.offsetFeet + deltaFeet
+                        );
+                      }
+                    }}
+                    onWidthStep={updateSelectedSupportAccessWidth}
+                    onDelete={() => {
+                      if (selectedSupportAccessPoint != null) {
+                        dispatchStage({
+                          type: "deleteSupportAccessPoint",
+                          accessPointId: selectedSupportAccessPoint.id
+                        });
+                      }
+                    }}
+                  />
+                ) : canvasObjectPopoverViewModel.objectType === "split_bay" ? (
+                  <SplitBayQuickEditPopover
+                    viewModel={splitBayQuickEditViewModel}
+                    onDividerStyleChange={updateSelectedSplitBayDivider}
+                  />
                 ) : canvasObjectPopoverViewModel.objectType === "station" ? (
                   <StationQuickEditPopover
                     viewModel={stationQuickEditViewModel}
@@ -1729,6 +1911,7 @@ export function LayoutEditorStage({
                     onReverseArrow={reverseSelectedHallwayArrow}
                     onHideArrow={() => setSelectedHallwayArrowVisible(false)}
                     onShowArrow={() => setSelectedHallwayArrowVisible(true)}
+                    onAddSupportAccessPoint={addSupportAccessToSelectedZone}
                   />
                 ) : null}
               </CanvasObjectPopover>
@@ -1910,6 +2093,36 @@ function findSelectedZone(state: {
     return null;
   }
   return state.editableLayout.zones.find((zone) => zone.id === state.selectedObjectId) ?? null;
+}
+
+function findSelectedSupportAccessPoint(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "support_access" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.supportAccessPoints?.find((accessPoint) => accessPoint.id === state.selectedObjectId) ?? null;
+}
+
+function findSelectedSplitBay(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "split_bay" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.splitBays?.find((splitBay) => splitBay.id === state.selectedObjectId) ?? null;
 }
 
 function createInitialStageState() {

@@ -3,7 +3,9 @@ import type {
   EditableHallwayGeometry,
   EditableLayoutGeometryContract,
   EditableRoomGeometry,
+  EditableSplitBayGeometry,
   EditableStationGeometry,
+  EditableSupportAccessPointGeometry,
   EditableZoneGeometry
 } from "@nerdeus/shared";
 import { normalizeDoorForOwnerWall } from "@nerdeus/shared";
@@ -43,6 +45,8 @@ export type LayoutObjectRenderItem = {
     | EditableZoneGeometry
     | EditableRoomGeometry
     | EditableDoorGeometry
+    | EditableSupportAccessPointGeometry
+    | EditableSplitBayGeometry
     | EditableStationGeometry;
 };
 
@@ -68,8 +72,22 @@ export function buildLayoutObjectRenderPipeline({
     ...layout.rooms.map((room) =>
       buildRectRenderItem("room", room.id, "rooms", `${room.label} ${room.roomType}`, room, room, viewport)
     ),
+    ...(layout.splitBays ?? []).map((splitBay) =>
+      buildRectRenderItem(
+        "split_bay",
+        splitBay.id,
+        "overlays",
+        `${splitBay.label} ${splitBay.dividerStyle}`,
+        splitBay,
+        splitBay,
+        viewport
+      )
+    ),
     ...layout.doors.map((door) =>
       buildDoorRenderItem(door, layout, viewport)
+    ).filter((item): item is LayoutObjectRenderItem => item != null),
+    ...(layout.supportAccessPoints ?? []).map((accessPoint) =>
+      buildSupportAccessRenderItem(accessPoint, layout, viewport)
     ).filter((item): item is LayoutObjectRenderItem => item != null),
     ...layout.stations.map((station) =>
       buildRectRenderItem(
@@ -147,6 +165,27 @@ function buildDoorRenderItem(
   };
 }
 
+function buildSupportAccessRenderItem(
+  accessPoint: EditableSupportAccessPointGeometry,
+  layout: EditableLayoutGeometryContract,
+  viewport: LayoutViewportTransform
+): LayoutObjectRenderItem | null {
+  const owner = layout.zones.find((zone) => zone.id === accessPoint.ownerId);
+  if (owner == null) {
+    return null;
+  }
+  const displayRectFeet = deriveDoorDisplayRectFeet(accessPoint, owner);
+  return buildRectRenderItem(
+    "support_access",
+    accessPoint.id,
+    "doors",
+    `${accessPoint.label} ${accessPoint.wall}`,
+    displayRectFeet,
+    accessPoint,
+    viewport
+  );
+}
+
 function findDoorOwnerRect(
   door: EditableDoorGeometry,
   layout: EditableLayoutGeometryContract
@@ -166,7 +205,7 @@ function findDoorOwnerRect(
 }
 
 export function deriveDoorDisplayRectFeet(
-  door: EditableDoorGeometry,
+  door: Pick<EditableDoorGeometry, "wall" | "offsetFeet" | "widthFeet">,
   owner: LayoutRectFeet
 ): LayoutRectFeet {
   switch (door.wall) {

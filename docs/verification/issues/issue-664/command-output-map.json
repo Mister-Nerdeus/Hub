@@ -1,0 +1,53 @@
+{
+  "issue": "664",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-renderer.mjs --stage render --allow-partial --issue 664",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/split-bay-renderer.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-renderer.mjs --stage diagonal-divider --allow-partial --issue 664",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/split-bay-renderer.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-renderer.mjs --stage bed-labels-from-rooms --allow-partial --issue 664",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/split-bay-renderer.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-renderer.mjs --stage selection --allow-partial --issue 664",
+      "outputs": [
+        "docs/verification/issues/issue-664/test-output/split-bay-renderer.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-664/no-phi-output.txt"
+      ]
+    }
+  ]
+}

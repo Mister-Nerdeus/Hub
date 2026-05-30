@@ -83,13 +83,45 @@ assert.equal(loadedState.validationWarnings.length, 0);
 assert.equal(loadedState.editAuditTrail.length, 0);
 assert.equal(loadedState.isDirty, false);
 
-const stateWithLayout = createLayoutEditorState({ editableLayout });
+const stateWithLayout = createLayoutEditorState({
+  editableLayout: {
+    ...editableLayout,
+    supportAccessPoints: [
+      {
+        objectType: "support_access",
+        id: "support-access-provider-pharmacy",
+        label: "Provider/Pharmacy access",
+        ownerKind: "zone",
+        ownerId: "zone-entry",
+        wall: "north",
+        offsetFeet: 2,
+        widthFeet: 4
+      }
+    ],
+    splitBays: [
+      {
+        objectType: "split_bay",
+        id: "split-bay-01-02",
+        label: "Split Bay 01/02",
+        splitBayId: "split-bay-01-02",
+        bedPositionRoomIds: ["room-01", "room-02"],
+        dividerStyle: "diagonal",
+        xFeet: 1,
+        yFeet: 1,
+        widthFeet: 18,
+        heightFeet: 10
+      }
+    ]
+  }
+});
 const selectableObjects = [
   ["room", "room-01"],
   ["door", "door-room-01-east"],
+  ["support_access", "support-access-provider-pharmacy"],
   ["station", "station-primary"],
   ["hallway", "hall-main"],
-  ["zone", "zone-entry"]
+  ["zone", "zone-entry"],
+  ["split_bay", "split-bay-01-02"]
 ] as const;
 assert.deepEqual(
   selectableObjects.map(([objectType]) => objectType),

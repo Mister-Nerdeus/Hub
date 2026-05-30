@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-canonical-split-bay-editable-bridge.mjs --stage bridge --allow-partial --issue 665
+node scripts/check-canonical-split-bay-editable-bridge.mjs --stage room-pair-mapping --allow-partial --issue 665
+node scripts/check-canonical-split-bay-editable-bridge.mjs --stage occupancy-semantics --allow-partial --issue 665
+node scripts/check-canonical-split-bay-editable-bridge.mjs --stage capacity-count --allow-partial --issue 665
+node scripts/check-no-phi-fields.mjs

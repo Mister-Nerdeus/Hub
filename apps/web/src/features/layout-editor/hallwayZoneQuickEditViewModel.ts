@@ -8,6 +8,7 @@ export type HallwayZoneQuickEditViewModel = {
   arrowDirectionHint: "horizontal" | "vertical" | "compact";
   presentationVisible: boolean;
   validationStatus: string;
+  canAddSupportAccessPoint: boolean;
   readOnly: boolean;
 };
 
@@ -37,6 +38,7 @@ export function buildHallwayZoneQuickEdit({
       : selected.widthFeet > selected.heightFeet ? "horizontal" : "vertical",
     presentationVisible: true,
     validationStatus: validationWarningCount === 0 ? "No validation warnings" : `${validationWarningCount} validation warnings`,
+    canAddSupportAccessPoint: zone?.zoneType === "provider_pharmacy",
     readOnly
   };
 }
@@ -50,6 +52,7 @@ function missing(readOnly: boolean, validationWarningCount: number): HallwayZone
     arrowDirectionHint: "compact",
     presentationVisible: false,
     validationStatus: validationWarningCount === 0 ? "No validation warnings" : `${validationWarningCount} validation warnings`,
+    canAddSupportAccessPoint: false,
     readOnly
   };
 }

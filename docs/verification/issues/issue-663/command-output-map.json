@@ -1,0 +1,59 @@
+{
+  "issue": "663",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage add-object-menu --allow-partial --issue 663",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage placement --allow-partial --issue 663",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage convert-selected-pair --allow-partial --issue 663",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage editor --allow-partial --issue 663",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bay-authoring-ui.mjs --stage readonly-negative --allow-partial --issue 663",
+      "outputs": [
+        "docs/verification/issues/issue-663/test-output/split-bay-authoring-ui.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-663/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -3,6 +3,11 @@ import {
   validateOptionalOperationalRuntimeText
 } from "./no-phi/runtimeTextGuard.js";
 import { isRoomLoadEligibleRoomType } from "./floorplans/roomTypeRules.js";
+import {
+  validateEditableLayoutGeometryContract,
+  type EditableSupportAccessPointGeometry,
+  type EditableSplitBayGeometry
+} from "./layout-editor/editableLayoutGeometryContract.js";
 
 export const ROOM_TYPES = [
   "standard",
@@ -449,8 +454,10 @@ export type PlanContract = {
   rooms: Room[];
   hallways: Hallway[];
   doors: Door[];
+  supportAccessPoints?: EditableSupportAccessPointGeometry[];
   nurseStations: NurseStation[];
   zones: Zone[];
+  splitBays?: EditableSplitBayGeometry[];
   pathNodes: PathNode[];
   pathEdges: PathEdge[];
 };
@@ -1050,8 +1057,10 @@ export function validatePlanContract(value: unknown): PlanContract {
     "rooms",
     "hallways",
     "doors",
+    "supportAccessPoints",
     "nurseStations",
     "zones",
+    "splitBays",
     "pathNodes",
     "pathEdges"
   ]);
@@ -1077,6 +1086,59 @@ export function validatePlanContract(value: unknown): PlanContract {
     validateNurseStation
   );
   const zones = requireArray(plan.zones, "zones").map(validateZone);
+  const editableZones = zones.map((zone) => ({
+    objectType: "zone" as const,
+    id: zone.id,
+    label: zone.label,
+    zoneType: zone.zoneType === "ems_entry" || zone.zoneType === "ambulance_entry"
+      ? "ems_entry" as const
+      : zone.zoneType === "trauma_zone"
+        ? "trauma" as const
+        : "provider_pharmacy" as const,
+    xFeet: zone.x,
+    yFeet: zone.y,
+    widthFeet: zone.widthFeet,
+    heightFeet: zone.lengthFeet
+  }));
+  const supportAccessPoints = validateEditableLayoutGeometryContract({
+    schemaVersion: "1.0.0",
+    layoutId: `${String(plan.planId ?? "plan")}-support-access-validation`,
+    units: "feet",
+    rooms: [],
+    doors: [],
+    supportAccessPoints: plan.supportAccessPoints ?? [],
+    stations: [],
+    hallways: [],
+    zones: editableZones,
+    splitBays: [],
+    limitations: ["Plan-level support access validation adapter."]
+  }).supportAccessPoints;
+  const splitBays = validateEditableLayoutGeometryContract({
+    schemaVersion: "1.0.0",
+    layoutId: `${String(plan.planId ?? "plan")}-split-bay-validation`,
+    units: "feet",
+    rooms: rooms.map((room) => ({
+      objectType: "room" as const,
+      id: room.id,
+      label: room.label,
+      roomNumber: room.roomOperationalMetadata?.roomNumber ?? room.label,
+      roomType: room.roomType === "psych" ? "behavioral" : room.roomType,
+      capacityType: room.maxPatients > 1 ? "double" as const : "single" as const,
+      isHallBed: room.roomType === "hall_bed",
+      isTraumaAdjacent: room.roomOperationalMetadata?.traumaAdjacent ?? room.traumaCapable,
+      xFeet: room.x,
+      yFeet: room.y,
+      widthFeet: room.widthFeet,
+      heightFeet: room.lengthFeet
+    })),
+    doors: [],
+    supportAccessPoints: [],
+    stations: [],
+    hallways: [],
+    zones: [],
+    splitBays: plan.splitBays ?? [],
+    limitations: ["Plan-level split-bay validation adapter."]
+  }).splitBays;
   const pathNodes = requireArray(plan.pathNodes, "pathNodes").map(validatePathNode);
   const pathEdges = requireArray(plan.pathEdges, "pathEdges").map(validatePathEdge);
 
@@ -1104,7 +1166,18 @@ export function validatePlanContract(value: unknown): PlanContract {
   pathNodes.forEach((node, index) => validatePathNodeReferences(node, index, references));
   pathEdges.forEach((edge, index) => validatePathEdgeReferences(edge, index, references));
 
-  return plan as PlanContract;
+  return {
+    ...plan,
+    rooms,
+    hallways,
+    doors,
+    supportAccessPoints,
+    nurseStations,
+    zones,
+    splitBays,
+    pathNodes,
+    pathEdges
+  } as PlanContract;
 }
 
 export function validatePlanBuilderDefaultsContract(

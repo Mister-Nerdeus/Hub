@@ -49,7 +49,7 @@
       "path": "docs/verification/issues/issue-650/exported-json/after-reload-room-door.json",
       "kind": "json",
       "exists": true,
-      "bytes": 56984,
+      "bytes": 57032,
       "ok": true,
       "parsed": {
         "schemaVersion": "1.0.0",
@@ -2353,7 +2353,9 @@
             "turnPenaltySeconds": 1,
             "blocked": false
           }
-        ]
+        ],
+        "supportAccessPoints": [],
+        "splitBays": []
       }
     },
     "runtimeProofComparison": {
@@ -2369,7 +2371,7 @@
           "baseUrl": "http://127.0.0.1:6850",
           "port": 6850,
           "buildCommit": "local-dev",
-          "buildTime": "2026-05-30T07:13:51.955Z",
+          "buildTime": "2026-05-30T09:00:32.871Z",
           "batchMarker": "641-650-editor-runtime-save-layout",
           "saveWorkingCopyVisible": true,
           "saveAsNewCopyVisible": true,

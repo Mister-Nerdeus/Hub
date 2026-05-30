@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-room-door-add-feedback.mjs --stage room15-door --allow-partial --issue 661
+node scripts/check-room-door-add-feedback.mjs --stage auto-select-door --allow-partial --issue 661
+node scripts/check-room-door-add-feedback.mjs --stage door-feedback --allow-partial --issue 661
+node scripts/check-room-door-add-feedback.mjs --stage door-highlight --allow-partial --issue 661
+node scripts/check-room-door-add-feedback.mjs --stage save-reload-export --allow-partial --issue 661
+node scripts/check-no-phi-fields.mjs
