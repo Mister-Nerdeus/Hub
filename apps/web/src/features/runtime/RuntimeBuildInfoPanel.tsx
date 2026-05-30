@@ -37,7 +37,7 @@ export function RuntimeBuildInfoPanel() {
       </dl>
       <p>
         Local reset: stop the dev server, pull latest source, restart npm run dev,
-        hard refresh, then verify this marker before testing saves.
+        hard refresh, then verify the build commit and batch marker before testing saves.
       </p>
     </aside>
   );

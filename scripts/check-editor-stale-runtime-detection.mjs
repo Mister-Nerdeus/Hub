@@ -27,6 +27,7 @@ const port = Number(readArg("--port", "5180"));
 const chromePort = Number(readArg("--chrome-port", "9850"));
 const initScript =
   "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
+const runtimeMismatchMessage = "Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify the build commit and batch marker before testing saves.";
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
@@ -94,7 +95,40 @@ async function withFreshEditorState(selectedStage) {
       await browser.navigate(`${browser.baseUrl}/?section=editor`, "document.querySelector('[data-editor-command-bar=\"consolidated\"]') != null");
       return runStageForBrowser(selectedStage, browser);
     }
-  );
+  ).catch((error) => {
+    return {
+      name: `runtime stale-detection control check for ${selectedStage}`,
+      passed: false,
+      detail: {
+        stage: selectedStage,
+        remediation: runtimeMismatchMessage,
+        cause: error instanceof Error ? error.message : String(error)
+      },
+      summaryPath: stageSummaryPath(selectedStage),
+      summary: {
+        status: "failed",
+        stage: selectedStage,
+        remediation: runtimeMismatchMessage,
+        cause: error instanceof Error ? error.message : String(error)
+      }
+    };
+  });
+}
+
+function stageSummaryPath(selectedStage) {
+  if (selectedStage === "capability-contract") {
+    return `${dir}/capability-contract-output.json`;
+  }
+  if (selectedStage === "save-control-presence") {
+    return `${dir}/save-control-presence-output.json`;
+  }
+  if (selectedStage === "stale-runtime-banner") {
+    return `${dir}/stale-runtime-banner-output.json`;
+  }
+  if (selectedStage === "stale-runtime-negative") {
+    return `${dir}/stale-runtime-negative-output.json`;
+  }
+  return `${dir}/${selectedStage}-output.json`;
 }
 
 async function runStageForBrowser(selectedStage, browser) {

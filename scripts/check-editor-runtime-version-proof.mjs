@@ -28,6 +28,7 @@ const chromePort = Number(readArg("--chrome-port", "9850"));
 const initScript =
   "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
 const batchMarker = "641-650-editor-runtime-save-layout";
+const runtimeMismatchMessage = "Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify the build commit and batch marker before testing saves.";
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
@@ -92,7 +93,43 @@ function runWithEditorState(selectedStage) {
       await browser.navigate(`${browser.baseUrl}/?section=editor`, "document.querySelector('[data-runtime-build-info=\"true\"]') != null");
       return runStageForBrowser(selectedStage, browser);
     }
-  );
+  ).catch((error) => {
+    return {
+      name: `runtime UX gate for ${selectedStage}`,
+      passed: false,
+      detail: {
+        stage: selectedStage,
+        remediation: runtimeMismatchMessage,
+        cause: error instanceof Error ? error.message : String(error)
+      },
+      summaryPath: stageSummaryPath(selectedStage),
+      summary: {
+        status: "failed",
+        stage: selectedStage,
+        remediation: runtimeMismatchMessage,
+        cause: error instanceof Error ? error.message : String(error)
+      }
+    };
+  });
+}
+
+function stageSummaryPath(selectedStage) {
+  if (selectedStage === "runtime-build-info") {
+    return `${dir}/runtime-build-info-output.json`;
+  }
+  if (selectedStage === "runtime-marker") {
+    return `${dir}/runtime-marker-output.json`;
+  }
+  if (selectedStage === "editor-controls-visibility") {
+    return `${dir}/editor-controls-visibility-output.json`;
+  }
+  if (selectedStage === "stale-runtime-negative") {
+    return `${dir}/stale-runtime-negative-output.json`;
+  }
+  if (selectedStage === "reconstruction-hold") {
+    return `${dir}/reconstruction-hold-output.json`;
+  }
+  return `${dir}/${selectedStage}-output.json`;
 }
 
 async function runStage(selectedStage) {

@@ -30,7 +30,7 @@ export function RuntimeMismatchBanner() {
       <span>
         This editor is missing expected save controls: {missing.join(", ")}.
         Stop the dev server, pull latest source, restart npm run dev, hard refresh,
-        then verify the build commit and batch marker are present before testing saves.
+        and verify the build commit and batch marker before testing saves.
       </span>
     </section>
   );
