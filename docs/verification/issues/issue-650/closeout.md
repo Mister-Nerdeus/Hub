@@ -4,7 +4,7 @@
 Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blockers.
 
 ## Summary
-- Local verification artifacts passed for this issue scope.
+- Local verification identified blockers for this issue scope.
 
 ## Invariants
 - Operational simulation tool only.
@@ -34,17 +34,17 @@ Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blo
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Required local gates passed.
+- One or more local gates failed; see test-output and first-failure.txt.
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-650
 - docs/verification/editor-runtime-save-ux-layout-repair-manifest.json
 
 ## Known Limitations
-- GO is limited to full ER floorplan reconstruction; collaboration, optimizer, recommendations, clinical/staffing/outcome claims, PHI, and EHR integration remain out of scope.
+- NO-GO blockers: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 exited 1; node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650 exited 1; saveControlsRenderedInBrowser missing; Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify batch marker and build commit before testing saves.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass.
 
 ## GO / NO-GO
-- GO for Issue 651.
+- NO-GO until listed blockers are fixed.

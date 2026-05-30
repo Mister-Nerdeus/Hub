@@ -29,7 +29,8 @@ export function RuntimeMismatchBanner() {
       <strong>Runtime mismatch detected.</strong>
       <span>
         This editor is missing expected save controls: {missing.join(", ")}.
-        Stop the dev server, pull latest, restart npm run dev, then hard refresh.
+        Stop the dev server, pull latest source, restart npm run dev, hard refresh,
+        then verify the build commit and batch marker are present before testing saves.
       </span>
     </section>
   );

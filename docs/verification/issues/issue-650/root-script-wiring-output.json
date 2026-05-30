@@ -1,0 +1,67 @@
+{
+  "wired": true,
+  "expectedScripts": {
+    "check:editor-runtime-version-proof": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+    "check:editor-stale-runtime-detection": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
+    "check:editor-save-command-bar-ux": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
+    "check:editor-active-copy-save-status": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
+    "check:editor-truthful-save-language": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
+    "check:editor-room-door-save-reload-proof": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650",
+    "check:editor-save-pipeline-trace": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
+    "check:editor-canvas-height-layout": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
+    "check:editor-popup-layout": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
+    "check:editor-runtime-save-ux-layout-go-no-go": "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650"
+  },
+  "presentScripts": {
+    "check:editor-runtime-version-proof": {
+      "name": "check:editor-runtime-version-proof",
+      "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-stale-runtime-detection": {
+      "name": "check:editor-stale-runtime-detection",
+      "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-save-command-bar-ux": {
+      "name": "check:editor-save-command-bar-ux",
+      "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-active-copy-save-status": {
+      "name": "check:editor-active-copy-save-status",
+      "command": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-truthful-save-language": {
+      "name": "check:editor-truthful-save-language",
+      "command": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-room-door-save-reload-proof": {
+      "name": "check:editor-room-door-save-reload-proof",
+      "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-save-pipeline-trace": {
+      "name": "check:editor-save-pipeline-trace",
+      "command": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-canvas-height-layout": {
+      "name": "check:editor-canvas-height-layout",
+      "command": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-popup-layout": {
+      "name": "check:editor-popup-layout",
+      "command": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
+      "present": true
+    },
+    "check:editor-runtime-save-ux-layout-go-no-go": {
+      "name": "check:editor-runtime-save-ux-layout-go-no-go",
+      "command": "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650",
+      "present": true
+    }
+  }
+}

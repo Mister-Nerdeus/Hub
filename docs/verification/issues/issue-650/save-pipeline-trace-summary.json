@@ -1,7 +1,48 @@
 {
-  "status": "missing",
+  "status": "passed",
   "outputPath": "docs/verification/issues/issue-650/test-output/save-pipeline-trace.txt",
   "payload": {
-    "error": "Unexpected token '>', \"> node scr\"... is not valid JSON"
+    "status": "passed",
+    "issue": "650",
+    "stage": "final",
+    "checks": [
+      {
+        "name": "trace contract has required stages",
+        "passed": true,
+        "detail": [
+          "buildCommit",
+          "beforeEdit",
+          "afterVisibleEdit",
+          "editableLayoutBeforeSave",
+          "authoringDraftBeforeSave",
+          "saveHandlerInput",
+          "savedFloorplanStorePayload",
+          "localStoragePayload",
+          "reopenedPlan",
+          "exportedJsonAfterReload",
+          "failureStage"
+        ]
+      },
+      {
+        "name": "save pipeline hooks all trace stages",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "payload diff has room and door probe fields",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "exported JSON after reload trace is available",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "trace omits private source payload",
+        "passed": true,
+        "detail": null
+      }
+    ]
   }
 }

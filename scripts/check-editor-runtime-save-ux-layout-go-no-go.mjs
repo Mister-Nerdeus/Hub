@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import {
   addCheck,
   assertFile,
@@ -8,6 +9,7 @@ import {
   manifestPath,
   readArg,
   readJson,
+  writeJson as writeJsonOutput,
   statusFromChecks,
   updateManifest,
   writeBoundaryOutputs,
@@ -46,8 +48,16 @@ for (const [summaryName,, output] of validatorCommands) {
   summarize(summaryName, output);
 }
 addCheck(checks, "Issues 641-649 validators reran", rerunResults.every((result) => result.status === 0), rerunResults);
-
 const manifest = readJson(manifestPath);
+const manifestConsistency = evaluateManifestConsistency(manifest);
+addCheck(checks, "manifest go/no-go fields are consistent", manifestConsistency.consistent, manifestConsistency);
+const saveControlsProof = deriveSaveControlsProof(dir);
+addCheck(
+  checks,
+  "save controls are rendered and machine-readable in browser proof",
+  saveControlsProof.passed,
+  saveControlsProof
+);
 const requiredProofs = {
   runtimeVersionProofStatus: manifest.runtimeVersionProofStatus === "passed",
   staleRuntimeDetectionStatus: manifest.staleRuntimeDetectionStatus === "passed",
@@ -64,6 +74,8 @@ const requiredProofs = {
   popupClampOrDockProof: manifest.popupClampOrDockProof === true
 };
 addCheck(checks, "manifest proof fields are complete", Object.values(requiredProofs).every(Boolean), requiredProofs);
+const rootScriptWiring = evaluateRootScriptWiring();
+addCheck(checks, "641-650 root runtime/save/layout scripts are discoverable in package.json", rootScriptWiring.wired, rootScriptWiring);
 
 const manualChecklist = Object.fromEntries([
   "Build/version marker visible",
@@ -85,20 +97,9 @@ writeManualChecklist(manualChecklist);
 addCheck(checks, "manual browser checklist captured", Object.values(manualChecklist).every(Boolean), manualChecklist);
 
 const screenshotProofs = [
-  "docs/verification/issues/issue-641/screenshots/runtime-build-info.png",
-  "docs/verification/issues/issue-642/screenshots/stale-runtime-warning.png",
-  "docs/verification/issues/issue-642/screenshots/expected-save-controls-visible.png",
-  "docs/verification/issues/issue-643/screenshots/redesigned-command-bar.png",
-  "docs/verification/issues/issue-644/screenshots/active-copy-save-status.png",
-  "docs/verification/issues/issue-644/screenshots/canonical-default-warning.png",
-  "docs/verification/issues/issue-645/screenshots/truthful-save-language-unsaved.png",
-  "docs/verification/issues/issue-645/screenshots/truthful-save-language-saved.png",
-  "docs/verification/issues/issue-648/screenshots/canvas-height-desktop.png",
-  "docs/verification/issues/issue-648/screenshots/canvas-height-laptop.png",
-  "docs/verification/issues/issue-648/screenshots/canvas-height-inspector-collapsed.png",
-  "docs/verification/issues/issue-649/screenshots/popup-auto-clamped.png",
-  "docs/verification/issues/issue-649/screenshots/popup-docked.png",
-  "docs/verification/issues/issue-649/screenshots/popup-small-viewport.png",
+  "docs/verification/issues/issue-650/screenshots/runtime-build-info-visible.png",
+  "docs/verification/issues/issue-650/screenshots/save-controls-visible.png",
+  "docs/verification/issues/issue-650/screenshots/runtime-mismatch-warning.png",
   "docs/verification/issues/issue-650/screenshots/final-editor-ready-proof.png"
 ];
 const screenshotStatus = Object.fromEntries(
@@ -106,20 +107,29 @@ const screenshotStatus = Object.fromEntries(
 );
 addCheck(checks, "required browser screenshots are real UI captures", Object.values(screenshotStatus).every(Boolean), screenshotStatus);
 
-const blockers = buildBlockers(rerunResults, requiredProofs);
+const proofFlags = {
+  ...requiredProofs,
+  saveControlsRenderedInBrowser: saveControlsProof.passed
+};
+const blockers = buildBlockers(rerunResults, proofFlags, saveControlsProof);
 const passed = statusFromChecks(checks) === "passed" && blockers.length === 0;
 const decision = passed
   ? {
       editorRuntimeSaveLayoutGoNoGoStatus: "go_for_full_er_floorplan_reconstruction",
       goNoGoStatus: "go_for_full_er_floorplan_reconstruction",
+      reconstructionStatus: "go_for_full_er_floorplan_reconstruction",
       manualBrowserChecklistCaptured: true
     }
   : {
       editorRuntimeSaveLayoutGoNoGoStatus: "go_for_additional_editor_runtime_save_layout_repair",
       goNoGoStatus: "blocked_with_exact_editor_runtime_save_layout_repair_items",
+      reconstructionStatus: "no_go_until_editor_runtime_save_ux_layout_repair_passes",
       manualBrowserChecklistCaptured: true
     };
 updateManifest(issue, decision);
+writeJson(`${dir}/manifest-consistency-output.json`, manifestConsistency);
+writeJson(`${dir}/root-script-wiring-output.json`, rootScriptWiring);
+writeJson(`${dir}/save-controls-rendered-browser-proof.json`, saveControlsProof);
 
 writeJson(`${dir}/remaining-blockers.json`, { status: blockers.length === 0 ? "passed" : "failed", blockers });
 writeText(`${dir}/go-no-go.md`, `${decision.editorRuntimeSaveLayoutGoNoGoStatus}\n`);
@@ -156,7 +166,21 @@ if (!passed && !allowPartial) process.exit(1);
 
 function runCommand(command, outputPath) {
   const result = spawnSync(command, { shell: true, encoding: "utf8", maxBuffer: 1024 * 1024 * 50 });
-  writeText(outputPath, [`> ${command}`, `exitCode: ${result.status ?? 1}`, "", result.stdout ?? "", result.stderr ?? ""].join("\n").trimEnd() + "\n");
+  const commandOutput = [`> ${command}`, `exitCode: ${result.status ?? 1}`, "", result.stdout ?? "", result.stderr ?? ""]
+    .join("\n")
+    .trimEnd() + "\n";
+  const commandLogPath = `${outputPath}.command.txt`;
+  writeText(commandLogPath, commandOutput);
+
+  if (!isJsonFile(outputPath)) {
+    writeJsonOutput(outputPath, {
+      status: result.status === 0 ? "passed" : "failed",
+      command,
+      exitCode: result.status ?? 1,
+      output: commandOutput
+    });
+  }
+
   return { command, outputPath, status: result.status ?? 1 };
 }
 
@@ -173,11 +197,96 @@ function summarize(summaryName, outputPath) {
   writeJson(`${dir}/${summaryName}`, { status: statusValue, outputPath, payload });
 }
 
-function buildBlockers(reruns, proofs) {
-  return [
+function isJsonFile(path) {
+  if (!existsSync(path)) {
+    return false;
+  }
+  try {
+    readJson(path);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function buildBlockers(reruns, proofs, saveControlsProof) {
+  const blockers = [
     ...reruns.filter((result) => result.status !== 0).map((result) => `${result.command} exited ${result.status}`),
-    ...Object.entries(proofs).filter(([, value]) => !value).map(([name]) => `${name} missing`)
+    ...Object.entries(proofs).filter(([, value]) => value !== true).map(([name]) => `${name} missing`),
+    ...(saveControlsProof.passed
+      ? []
+      : ["Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify batch marker and build commit before testing saves."])
   ];
+  return blockers;
+}
+
+function evaluateManifestConsistency(currentManifest) {
+  const status = {
+    editorRuntimeSaveLayoutGoNoGoStatus: currentManifest.editorRuntimeSaveLayoutGoNoGoStatus,
+    reconstructionStatus: currentManifest.reconstructionStatus,
+    goNoGoStatus: currentManifest.goNoGoStatus
+  };
+  const mismatches = [];
+  const isAlignedFullGo =
+    status.editorRuntimeSaveLayoutGoNoGoStatus === "go_for_full_er_floorplan_reconstruction" &&
+    status.reconstructionStatus === "go_for_full_er_floorplan_reconstruction" &&
+    status.goNoGoStatus === "go_for_full_er_floorplan_reconstruction";
+  const isAlignedRepairHold =
+    status.editorRuntimeSaveLayoutGoNoGoStatus === "go_for_additional_editor_runtime_save_layout_repair" &&
+    status.reconstructionStatus === "no_go_until_editor_runtime_save_ux_layout_repair_passes" &&
+    status.goNoGoStatus === "blocked_with_exact_editor_runtime_save_layout_repair_items";
+  if (!isAlignedFullGo && !isAlignedRepairHold) {
+    mismatches.push("Manifest go/no-go fields are mixed, unsupported, or incomplete.");
+  }
+
+  return {
+    status: mismatches.length === 0 ? "aligned" : "misaligned",
+    manifest: status,
+    mismatches,
+    consistent: mismatches.length === 0
+  };
+}
+
+function evaluateRootScriptWiring() {
+  let scripts = {};
+  try {
+    scripts = readJson("package.json").scripts ?? {};
+  } catch (error) {
+    return {
+      wired: false,
+      error: error instanceof Error ? error.message : String(error),
+      expectedScripts: rootScriptExpectationMap(),
+      presentScripts: {}
+    };
+  }
+  const expected = rootScriptExpectationMap();
+  const checks = Object.fromEntries(
+    Object.entries(expected).map(([name, command]) => [
+      name,
+      {
+        name,
+        command,
+        present: scripts[name] === command
+      }
+    ])
+  );
+  const wired = Object.values(checks).every((entry) => entry.present);
+  return { wired, expectedScripts: expected, presentScripts: checks };
+}
+
+function rootScriptExpectationMap() {
+  return {
+    "check:editor-runtime-version-proof": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+    "check:editor-stale-runtime-detection": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
+    "check:editor-save-command-bar-ux": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
+    "check:editor-active-copy-save-status": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
+    "check:editor-truthful-save-language": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
+    "check:editor-room-door-save-reload-proof": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650",
+    "check:editor-save-pipeline-trace": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
+    "check:editor-canvas-height-layout": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
+    "check:editor-popup-layout": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
+    "check:editor-runtime-save-ux-layout-go-no-go": "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650"
+  };
 }
 
 function writeManualChecklist(checklist) {
@@ -186,6 +295,41 @@ function writeManualChecklist(checklist) {
     "",
     ...Object.entries(checklist).map(([item, value]) => `- [${value ? "x" : " "}] ${item}`)
   ].join("\n") + "\n");
+}
+
+function deriveSaveControlsProof(issueDir) {
+  const runtimeVersion = readSafeJson(`${issueDir}/runtime-version-summary.json`, null);
+  const staleRuntime = readSafeJson(`${issueDir}/stale-runtime-summary.json`, null);
+
+  const runtimeChecks = runtimeVersion?.checks ?? [];
+  const staleChecks = staleRuntime?.checks ?? [];
+  const findPass = (name) => runtimeChecks.find((candidate) => candidate.name === name)?.passed === true;
+  const findStalePass = (name) => staleChecks.find((candidate) => candidate.name === name)?.passed === true;
+
+  const runtimeBuildInfo = findPass("runtime build markers are visible in rendered app");
+  const controlsVisible = findPass("expected editor save controls are visible in rendered app");
+  const runtimeBannerSuppressed = findPass("runtime mismatch banner is hidden when expected controls are present");
+  const runtimeBannerShownWhenMissing = findStalePass("runtime mismatch banner appears when expected controls are absent and includes remediation instructions");
+
+  return {
+    passed: runtimeBuildInfo && controlsVisible && runtimeBannerSuppressed && runtimeBannerShownWhenMissing,
+    runtimeBuildInfoVisible: runtimeBuildInfo,
+    saveWorkingCopyVisible: controlsVisible,
+    saveAsNewCopyVisible: controlsVisible,
+    exportJsonBackupVisible: controlsVisible,
+    runtimeMismatchBannerSuppressedWhenControlsPresent: runtimeBannerSuppressed,
+    runtimeMismatchBannerVisibleWhenMissing: runtimeBannerShownWhenMissing,
+    runtimeVersionSummaryStatus: runtimeVersion?.status ?? "missing",
+    staleRuntimeSummaryStatus: staleRuntime?.status ?? "missing"
+  };
+}
+
+function readSafeJson(path, fallback = null) {
+  try {
+    return readJson(path);
+  } catch {
+    return fallback;
+  }
 }
 
 function writeFinalAudit(decision, blockers, proofs) {

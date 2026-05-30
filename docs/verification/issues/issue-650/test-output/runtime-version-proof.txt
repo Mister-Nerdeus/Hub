@@ -1,38 +1,6 @@
-> node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
-exitCode: 0
-
 {
-  "status": "passed",
-  "issue": "650",
-  "stage": "final",
-  "checks": [
-    {
-      "name": "visible runtime build info is wired",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "machine-readable runtime marker is present",
-      "passed": true,
-      "detail": [
-        "data-runtime-build-info=\"true\"",
-        "data-build-commit",
-        "data-build-time",
-        "data-runtime-mode",
-        "data-editor-save-ux",
-        "data-batch-marker",
-        "641-650-editor-runtime-save-layout"
-      ]
-    },
-    {
-      "name": "local dev reset note is present",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "reconstruction remains NO-GO until this batch passes",
-      "passed": true,
-      "detail": null
-    }
-  ]
+  "status": "failed",
+  "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+  "exitCode": 1,
+  "output": "> node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650\nexitCode: 1\n\n\nfile:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207\r\n  throw new Error(`Timed out waiting for app route: ${url}`);\r\n        ^\r\n\r\nError: Timed out waiting for app route: http://127.0.0.1:5180/?section=editor\r\n    at navigate (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207:9)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-runtime-version-proof.mjs:92:7\r\n    at async withExistingBrowserRenderedApp (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:113:20)\r\n    at async runStage (file:///C:/Projects/Hub/scripts/check-editor-runtime-version-proof.mjs:99:23)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-runtime-version-proof.mjs:40:37\r\n\r\nNode.js v22.16.0\n"
 }

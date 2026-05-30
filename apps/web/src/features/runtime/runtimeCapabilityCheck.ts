@@ -1,6 +1,7 @@
 export const EXPECTED_EDITOR_CAPABILITIES = {
   saveWorkingCopy: true,
   saveAsNewCopy: true,
+  exportJsonBackup: true,
   activeRecordIdentity: true,
   namedSaveStatus: true,
   runtimeBuildInfo: true
@@ -33,6 +34,9 @@ export function checkRuntimeEditorCapabilities(root?: ParentNode): RuntimeCapabi
   }
   if (EXPECTED_EDITOR_CAPABILITIES.saveAsNewCopy && target.querySelector("[data-editor-control='save-as-new-copy']") == null) {
     missing.push("Save As New Copy control");
+  }
+  if (EXPECTED_EDITOR_CAPABILITIES.exportJsonBackup && target.querySelector("[data-editor-control='export-json-backup']") == null) {
+    missing.push("Export JSON Backup control");
   }
   if (EXPECTED_EDITOR_CAPABILITIES.activeRecordIdentity && target.querySelector("[data-editor-save-status-panel='true'] [data-active-record-id]") == null) {
     missing.push("active record identity");

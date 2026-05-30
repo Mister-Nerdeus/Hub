@@ -4,7 +4,6 @@ import {
   ensureIssueDirs,
   hasFlag,
   readArg,
-  readText,
   statusFromChecks,
   updateManifest,
   writeBoundaryOutputs,
@@ -14,21 +13,31 @@ import {
   writeJson,
   writeTextIfMissing
 } from "./lib/editor-runtime-save-ux-layout-batch-utils.mjs";
+import {
+  delay,
+  withExistingBrowserRenderedApp
+} from "./lib/app-browser-proof.mjs";
 
-const issue = readArg("--issue", "642");
+const issue = readArg("--issue", "650");
 const stage = readArg("--stage", "final");
 const allowPartial = hasFlag("--allow-partial");
 const dir = `docs/verification/issues/issue-${issue}`;
 const checks = [];
+const port = Number(readArg("--port", "5180"));
+const chromePort = Number(readArg("--chrome-port", "9850"));
+const initScript =
+  "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
 
 ensureIssueDirs(issue);
 writeBoundaryOutputs(issue);
-writeTextIfMissing(`${dir}/first-failure.txt`, "Failure class: stale runtime cannot detect missing expected save controls.\n");
+writeTextIfMissing(`${dir}/first-failure.txt`, "Failure class: stale runtime can no longer be diagnosed from render-time control probes.\n");
 
 const stages = stage === "final"
   ? ["capability-contract", "save-control-presence", "stale-runtime-banner", "stale-runtime-negative"]
   : [stage];
-for (const selectedStage of stages) runStage(selectedStage);
+for (const selectedStage of stages) {
+  await runStage(selectedStage);
+}
 
 const passed = statusFromChecks(checks) === "passed";
 if (passed) {
@@ -38,6 +47,7 @@ if (passed) {
     runtimeMatchesRepoExpectation: true
   });
 }
+
 writeJson(`${dir}/test-output/stale-runtime-detection.txt`, { status: passed ? "passed" : "failed", issue, stage, checks });
 writeEvidencePng(`${dir}/screenshots/stale-runtime-warning.png`);
 writeEvidencePng(`${dir}/screenshots/expected-save-controls-visible.png`);
@@ -46,63 +56,164 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 642",
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 642",
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 642",
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 642",
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 650",
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 650",
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 650",
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 650",
   "node scripts/check-no-phi-fields.mjs"
 ];
 writeCommands(issue, commands, {
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 642": `${dir}/capability-contract-output.json`,
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 642": `${dir}/save-control-presence-output.json`,
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 642": `${dir}/stale-runtime-banner-output.json`,
-  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 642": `${dir}/stale-runtime-negative-output.json`
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage capability-contract --allow-partial --issue 650": `${dir}/capability-contract-output.json`,
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage save-control-presence --allow-partial --issue 650": `${dir}/save-control-presence-output.json`,
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-banner --allow-partial --issue 650": `${dir}/stale-runtime-banner-output.json`,
+  "node scripts/check-editor-stale-runtime-detection.mjs --stage stale-runtime-negative --allow-partial --issue 650": `${dir}/stale-runtime-negative-output.json`
 });
-writeCloseout(issue, "Stale runtime detection declares expected editor capabilities and warns when expected controls are absent.", passed ? "passed" : "failed", commands, [
-  "This issue only detects runtime mismatch; it does not claim persistence is fixed."
+writeCloseout(issue, "Runtime stale detection now probes rendered controls and stale mismatch banner behavior.", passed ? "passed" : "failed", commands, [
+  "Runtime stale detection and banner visibility are tied to browser-rendered controls, not source text."
 ]);
 
 console.log(JSON.stringify({ status: passed ? "passed" : "failed", issue, stage, checks }, null, 2));
 if (!passed && !allowPartial) process.exit(1);
 
-function runStage(selectedStage) {
-  const capability = readText("apps/web/src/features/runtime/runtimeCapabilityCheck.ts");
-  const banner = readText("apps/web/src/features/runtime/RuntimeMismatchBanner.tsx");
-  const commandBar = readText("apps/web/src/features/layout-editor/EditorCommandBar.tsx");
-  const app = readText("apps/web/src/App.tsx");
+async function runStage(selectedStage) {
+  const stageResult = await withFreshEditorState(selectedStage);
+  const passed = stageResult.passed;
+  addCheck(checks, stageResult.name, passed, stageResult.detail);
+  writeJson(stageResult.summaryPath, {
+    status: passed ? "passed" : "failed",
+    ...stageResult.summary
+  });
+}
 
+async function withFreshEditorState(selectedStage) {
+  return withExistingBrowserRenderedApp(
+    { port, chromePort, width: 1440, height: 1000, initScript },
+    async (browser) => {
+      await browser.navigate(`${browser.baseUrl}/?section=editor`, "document.querySelector('[data-runtime-build-info=\"true\"]') != null");
+      await browser.evaluate("localStorage.clear()");
+      await browser.navigate(`${browser.baseUrl}/?section=editor`, "document.querySelector('[data-editor-command-bar=\"consolidated\"]') != null");
+      return runStageForBrowser(selectedStage, browser);
+    }
+  );
+}
+
+async function runStageForBrowser(selectedStage, browser) {
+  const state = await readRuntimeState(browser);
   if (selectedStage === "capability-contract") {
-    const required = ["saveWorkingCopy", "saveAsNewCopy", "activeRecordIdentity", "namedSaveStatus", "runtimeBuildInfo"];
-    const passed = required.every((token) => capability.includes(token));
-    addCheck(checks, "expected editor capabilities are declared centrally", passed, required);
-    writeJson(`${dir}/capability-contract-output.json`, { status: passed ? "passed" : "failed", required });
-    return;
+    const required = ["saveWorkingCopyControlVisible", "saveAsNewCopyControlVisible", "exportJsonBackupVisible", "activeRecordIdVisible", "namedSaveStatusVisible", "runtimeBuildInfoExists"];
+    const passed = required.every((key) => Boolean(state[key]));
+    return {
+      name: "runtime render includes save controls and active-copy identity",
+      passed,
+      detail: required,
+      summaryPath: `${dir}/capability-contract-output.json`,
+      summary: state
+    };
   }
+
   if (selectedStage === "save-control-presence") {
-    const passed = commandBar.includes("data-editor-control=\"save-working-copy\"") &&
-      commandBar.includes("Save Working Copy") &&
-      commandBar.includes("data-editor-control=\"save-as-new-copy\"") &&
-      commandBar.includes("Save As New Copy") &&
-      app.includes("onSaveWorkingCopy={saveActiveWorkingCopy}");
-    addCheck(checks, "expected save controls are present in source UI", passed);
-    writeJson(`${dir}/save-control-presence-output.json`, { status: passed ? "passed" : "failed" });
-    return;
+    const expectedMissing = [];
+    const missing = [
+      ...(!state.saveWorkingCopyControlVisible ? ["Save Working Copy control"] : []),
+      ...(!state.saveAsNewCopyControlVisible ? ["Save As New Copy control"] : []),
+      ...(!state.exportJsonBackupVisible ? ["Export JSON Backup control"] : [])
+    ].filter(Boolean);
+    const passed = missing.length === 0;
+    return {
+      name: "expected save controls are present in rendered editor",
+      passed,
+      detail: { expectedMissing, missing },
+      summaryPath: `${dir}/save-control-presence-output.json`,
+      summary: {
+        ...state,
+        expectedMissing,
+        missing
+      }
+    };
   }
+
   if (selectedStage === "stale-runtime-banner") {
-    const passed = banner.includes("Runtime mismatch detected") &&
-      banner.includes("Stop the dev server") &&
-      banner.includes("hard refresh") &&
-      capability.includes("missing.push");
-    addCheck(checks, "runtime mismatch banner explains restart and hard refresh", passed);
-    writeJson(`${dir}/stale-runtime-banner-output.json`, { status: passed ? "passed" : "failed" });
-    return;
+    await removeSaveControlsForNegativeControlCheck(browser);
+    await delay(350);
+    const staleState = await readRuntimeState(browser);
+    const staleMessage = (staleState.runtimeMismatchBannerText ?? "").toLowerCase();
+    const passed = staleState.runtimeMismatchBannerVisible &&
+      staleMessage.includes("stop the dev server") &&
+      staleMessage.includes("pull latest") &&
+      staleMessage.includes("restart npm run dev") &&
+      staleMessage.includes("hard refresh") &&
+      staleMessage.includes("verify the build commit and batch marker before testing saves");
+    return {
+      name: "stale runtime banner appears when save controls are absent and includes remediation instructions",
+      passed,
+      detail: {
+        staleRuntimeMismatchText: staleState.runtimeMismatchBannerText,
+        staleMissingCount: staleState.missingCapabilities.length
+      },
+      summaryPath: `${dir}/stale-runtime-banner-output.json`,
+      summary: {
+        ...staleState,
+        staleRuntimeMismatchText: staleState.runtimeMismatchBannerText,
+        staleRuntimeMissingCount: staleState.missingCapabilities.length
+      }
+    };
   }
+
   if (selectedStage === "stale-runtime-negative") {
-    const passed = capability.includes("matched: missing.length === 0") &&
-      banner.includes("if (missing.length === 0)");
-    addCheck(checks, "matched runtime suppresses stale warning", passed);
-    writeJson(`${dir}/stale-runtime-negative-output.json`, { status: passed ? "passed" : "failed" });
-    return;
+    const passed = !state.runtimeMismatchBannerVisible &&
+      state.saveWorkingCopyControlVisible &&
+      state.saveAsNewCopyControlVisible &&
+      state.exportJsonBackupVisible;
+    return {
+      name: "stale runtime warning is suppressed when controls are present",
+      passed,
+      detail: {
+        runtimeMismatchBannerVisible: state.runtimeMismatchBannerVisible,
+        missingCapabilities: state.missingCapabilities
+      },
+      summaryPath: `${dir}/stale-runtime-negative-output.json`,
+      summary: state
+    };
   }
+
   throw new Error(`Unsupported stale runtime stage: ${selectedStage}`);
+}
+
+function readRuntimeState(browser) {
+  return browser.evaluate(`(() => {
+    const panel = document.querySelector('[data-runtime-build-info="true"]');
+    const commandBar = document.querySelector('[data-editor-command-bar="consolidated"]');
+    const missing = [];
+    if (panel == null) missing.push("runtime build marker");
+    if (commandBar == null) {
+      missing.push("editor command bar");
+    } else {
+      if (commandBar.querySelector('[data-editor-control="save-working-copy"]') == null) missing.push("Save Working Copy control");
+      if (commandBar.querySelector('[data-editor-control="save-as-new-copy"]') == null) missing.push("Save As New Copy control");
+      if (commandBar.querySelector('[data-editor-control="export-json-backup"]') == null) missing.push("Export JSON Backup control");
+    }
+    const banner = document.querySelector('[data-runtime-mismatch-banner="true"]');
+    return {
+      runtimeBuildInfoExists: panel != null,
+      batchMarker: panel?.getAttribute("data-batch-marker") ?? null,
+      saveWorkingCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-working-copy"]') != null,
+      saveAsNewCopyControlVisible: commandBar?.querySelector('[data-editor-control="save-as-new-copy"]') != null,
+      exportJsonBackupVisible: commandBar?.querySelector('[data-editor-control="export-json-backup"]') != null,
+      activeRecordIdVisible: document.querySelector('[data-editor-save-status-panel="true"] [data-active-record-id]') != null,
+      namedSaveStatusVisible: document.querySelector('[data-editor-save-status-panel="true"] [data-named-save-status]') != null,
+      runtimeMismatchBannerVisible: banner != null,
+      runtimeMismatchBannerText: banner?.textContent?.trim() ?? "",
+      runtimeMismatchMissingCapabilities: banner?.getAttribute("data-missing-capabilities") ?? "",
+      missingCapabilities: missing
+    };
+  })()`);
+}
+
+async function removeSaveControlsForNegativeControlCheck(browser) {
+  await browser.evaluate(`(() => {
+    const commandBar = document.querySelector('[data-editor-command-bar="consolidated"]');
+    if (commandBar == null) return;
+    commandBar.querySelectorAll('[data-editor-control="save-working-copy"], [data-editor-control="save-as-new-copy"], [data-editor-control="export-json-backup"]')
+      .forEach((node) => node.remove());
+  })()`);
 }

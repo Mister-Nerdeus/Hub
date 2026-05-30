@@ -39,16 +39,18 @@ async function captureDesktopEvidence() {
     { port, chromePort, width: 1440, height: 1100, initScript },
     async (browser) => {
       await openFreshEditor(browser);
-      await saveScreenshot(browser, [
+  await saveScreenshot(browser, [
         "docs/verification/issues/issue-641/screenshots/runtime-build-info.png",
-        "docs/verification/issues/issue-650/screenshots/runtime-build-info.png"
+        "docs/verification/issues/issue-650/screenshots/runtime-build-info.png",
+        "docs/verification/issues/issue-650/screenshots/runtime-build-info-visible.png"
       ]);
-      await saveScreenshot(browser, [
+  await saveScreenshot(browser, [
         "docs/verification/issues/issue-642/screenshots/expected-save-controls-visible.png",
         "docs/verification/issues/issue-643/screenshots/redesigned-command-bar.png",
         "docs/verification/issues/issue-644/screenshots/canonical-default-warning.png",
         "docs/verification/issues/issue-650/screenshots/expected-save-controls-visible.png",
         "docs/verification/issues/issue-650/screenshots/redesigned-command-bar.png",
+        "docs/verification/issues/issue-650/screenshots/save-controls-visible.png",
         "docs/verification/issues/issue-650/screenshots/canonical-default-warning.png"
       ]);
 
@@ -114,13 +116,14 @@ async function captureDesktopEvidence() {
       ]);
 
       await openFreshEditor(browser);
-      await browser.evaluate(`(() => {
+  await browser.evaluate(`(() => {
         document.querySelectorAll('[data-editor-control="save-working-copy"], [data-editor-control="save-as-new-copy"]').forEach((node) => node.remove());
       })()`);
       await waitForExpression(browser, `document.querySelector('[data-runtime-mismatch-banner="true"]') != null`, 10_000);
       await saveScreenshot(browser, [
         "docs/verification/issues/issue-642/screenshots/stale-runtime-warning.png",
-        "docs/verification/issues/issue-650/screenshots/stale-runtime-warning.png"
+        "docs/verification/issues/issue-650/screenshots/stale-runtime-warning.png",
+        "docs/verification/issues/issue-650/screenshots/runtime-mismatch-warning.png"
       ]);
     }
   );

@@ -70,6 +70,60 @@ export async function withBrowserRenderedApp(options, callback) {
   }
 }
 
+export async function withExistingBrowserRenderedApp(options, callback) {
+  const port = Number(options.port ?? 5180);
+  const chromePort = Number(options.chromePort ?? 9850);
+  const baseUrl = options.baseUrl ?? `http://127.0.0.1:${port}`;
+  const width = options.width ?? 1440;
+  const height = options.height ?? 1000;
+  const chromePath = findChrome();
+  const targetPath = options.path ?? "/?section=editor";
+  const targetUrl = baseUrl.endsWith("/")
+    ? `${baseUrl.slice(0, -1)}${targetPath}`
+    : `${baseUrl}${targetPath}`;
+  const initScript = options.initScript;
+
+  await waitForHttp(baseUrl, 20_000);
+  await assertPortFree(chromePort);
+
+  const chrome = spawn(
+    chromePath,
+    [
+      "--headless=new",
+      "--disable-gpu",
+      "--disable-extensions",
+      "--no-first-run",
+      "--remote-debugging-address=127.0.0.1",
+      `--remote-debugging-port=${chromePort}`,
+      `--window-size=${width},${height}`,
+      "about:blank"
+    ],
+    { stdio: ["ignore", "pipe", "pipe"] }
+  );
+
+  try {
+    const cdp = await connectCdp(chromePort);
+    await cdp.send("Page.enable");
+    await cdp.send("Runtime.enable");
+    if (initScript != null) {
+      await cdp.send("Page.addScriptToEvaluateOnNewDocument", { source: initScript });
+    }
+
+    await navigate(cdp, targetUrl, "document.body != null");
+    const result = await callback({
+      cdp,
+      baseUrl,
+      screenshot: (path) => screenshot(cdp, path),
+      navigate: (url, readyExpression) => navigate(cdp, url, readyExpression),
+      evaluate: (expression) => evaluate(cdp, expression)
+    });
+    await cdp.close();
+    return result;
+  } finally {
+    chrome.kill();
+  }
+}
+
 export async function enterDemoPin(browser, pin) {
   return browser.evaluate(`(() => {
     const input = document.querySelector('input[aria-label="Access code"], input[aria-label="Demo PIN"]');

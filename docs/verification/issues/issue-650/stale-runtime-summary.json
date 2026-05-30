@@ -1,7 +1,10 @@
 {
-  "status": "missing",
+  "status": "failed",
   "outputPath": "docs/verification/issues/issue-650/test-output/stale-runtime-detection.txt",
   "payload": {
-    "error": "Unexpected token '>', \"> node scr\"... is not valid JSON"
+    "status": "failed",
+    "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
+    "exitCode": 1,
+    "output": "> node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650\nexitCode: 1\n\n\nfile:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207\r\n  throw new Error(`Timed out waiting for app route: ${url}`);\r\n        ^\r\n\r\nError: Timed out waiting for app route: http://127.0.0.1:5180/?section=editor\r\n    at navigate (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207:9)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:92:7\r\n    at async withExistingBrowserRenderedApp (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:113:20)\r\n    at async runStage (file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:79:23)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:39:3\r\n\r\nNode.js v22.16.0\n"
   }
 }

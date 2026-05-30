@@ -2,8 +2,9 @@
   "status": "passed",
   "manifestPath": "docs/verification/editor-runtime-save-ux-layout-repair-manifest.json",
   "updates": {
-    "editorRuntimeSaveLayoutGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
-    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "editorRuntimeSaveLayoutGoNoGoStatus": "go_for_additional_editor_runtime_save_layout_repair",
+    "goNoGoStatus": "blocked_with_exact_editor_runtime_save_layout_repair_items",
+    "reconstructionStatus": "no_go_until_editor_runtime_save_ux_layout_repair_passes",
     "manualBrowserChecklistCaptured": true
   }
 }

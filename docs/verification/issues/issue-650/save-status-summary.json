@@ -1,7 +1,42 @@
 {
-  "status": "missing",
+  "status": "passed",
   "outputPath": "docs/verification/issues/issue-650/test-output/truthful-save-language.txt",
   "payload": {
-    "error": "Unexpected token '>', \"> node scr\"... is not valid JSON"
+    "status": "passed",
+    "issue": "650",
+    "stage": "final",
+    "checks": [
+      {
+        "name": "truthful save language contract is present",
+        "passed": true,
+        "detail": [
+          "Local editor state: changed",
+          "Local editor state: unchanged",
+          "Named working copy: not saved since local changes",
+          "Local recovery draft",
+          "Reload proof"
+        ]
+      },
+      {
+        "name": "ambiguous No unsaved edits text is absent",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "local draft and named save status are separated",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "changed local state warns named save is required",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "reload proof status is separate from named save status",
+        "passed": true,
+        "detail": null
+      }
+    ]
   }
 }
