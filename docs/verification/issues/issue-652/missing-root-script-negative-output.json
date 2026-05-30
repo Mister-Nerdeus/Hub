@@ -1,1 +1,12 @@
-{"status":"not_run","expectedMissing":["check:editor-runtime-version-proof"],"actualMissing":[],"blockers":["Pending missing-script fixture."]}
+{
+  "status": "passed",
+  "expectedMissing": [
+    "check:editor-runtime-version-proof"
+  ],
+  "actualMissing": [
+    "check:editor-runtime-version-proof"
+  ],
+  "blockers": [
+    "Missing root script: check:editor-runtime-version-proof. Expected command: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650. Actual: missing."
+  ]
+}

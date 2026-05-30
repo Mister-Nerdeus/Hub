@@ -1,25 +1,40 @@
 # Issue 654 Closeout
 
+## Problem
+Fresh and existing runtime proof channels are collected independently and compared as separate blockers.
+
 ## Summary
-- Fresh runtime proof and existing localhost proof channels were separated and compared.
+- Local validation artifacts passed for this issue scope.
 
 ## Files Changed
-- scripts/check-editor-fresh-vs-existing-runtime-proof.mjs
-- scripts/lib/app-browser-proof.mjs
+- Source, scripts, manifest, and issue-specific evidence updates.
 
 ## Commands Run
-- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage final --issue 654
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-runtime-proof --allow-partial --issue 654
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-localhost-proof --allow-partial --issue 654
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-pass-existing-fail-negative --allow-partial --issue 654
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-pass-fresh-fail-negative --allow-partial --issue 654
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-unavailable-negative --allow-partial --issue 654
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage final --allow-partial --issue 654
+- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Not re-run in this pass.
+- Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-654/fresh-runtime-proof-output.json
-- docs/verification/issues/issue-654/existing-localhost-proof-output.json
-- docs/verification/issues/issue-654/runtime-proof-comparison-output.json
+- docs/verification/issues/issue-654
+- docs/verification/editor-runtime-alignment-hardening-manifest.json
 
 ## Known Limitations
-- Runtime proofs are placeholders for this pass and should be re-captured on an environment with required app state.
+- Fresh automated runtime proof uses fresh dev startup and fresh proof port 6850.
+- Existing localhost proof is captured from 127.0.0.1:5180.
+- Fresh success does not override existing runtime failures.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass in generated issue artifacts.
+- Non-PHI rules still pass.
+
+## GO / NO-GO
+- Local issue GO threshold passed.

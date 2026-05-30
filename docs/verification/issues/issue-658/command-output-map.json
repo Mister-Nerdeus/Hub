@@ -1,0 +1,53 @@
+{
+  "issue": "658",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-658/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-658/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-658/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-runtime-alignment-go-no-go.mjs --stage final --issue 655",
+      "outputs": [
+        "docs/verification/issues/issue-655/test-output/runtime-alignment-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-entry-flow.mjs --stage final --issue 656",
+      "outputs": [
+        "docs/verification/issues/issue-656/test-output/saved-copy-entry-flow.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-persistence-smoke.mjs --stage final --issue 657",
+      "outputs": [
+        "docs/verification/issues/issue-657/test-output/saved-copy-persistence-smoke.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-reconstruction-readiness-go-no-go.mjs --stage final --issue 658",
+      "outputs": [
+        "docs/verification/issues/issue-658/test-output/reconstruction-readiness-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-658/no-phi-output.txt"
+      ]
+    }
+  ]
+}

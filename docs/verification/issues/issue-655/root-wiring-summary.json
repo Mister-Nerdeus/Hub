@@ -1,1 +1,26 @@
-{"status":"not_run","command":"node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage final --issue 651","present":false}
+{
+  "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage final --issue 651",
+  "present": true,
+  "packageScriptsPresent": true,
+  "verifyLocalIncludes": true,
+  "missing": [],
+  "mismatched": [],
+  "payload": {
+    "present": true,
+    "missing": [],
+    "mismatched": [],
+    "blockers": [],
+    "required": [
+      "check:editor-runtime-version-proof",
+      "check:editor-stale-runtime-detection",
+      "check:editor-save-command-bar-ux",
+      "check:editor-active-copy-save-status",
+      "check:editor-truthful-save-language",
+      "check:editor-room-door-save-reload-proof",
+      "check:editor-save-pipeline-trace",
+      "check:editor-canvas-height-layout",
+      "check:editor-popup-layout",
+      "check:editor-runtime-save-ux-layout-go-no-go"
+    ]
+  }
+}

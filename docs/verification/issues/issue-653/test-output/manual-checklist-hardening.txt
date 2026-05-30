@@ -1,1 +1,32 @@
-{"status":"not-run","issue":"653","stage":"final","reason":"not executed in this pass."}
+{
+  "status": "passed",
+  "issue": "653",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "missing manual checklist fails with explicit blockers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "unchecked template is treated as incomplete",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "partial checklist fails with unchecked required items",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "completed checklist passes only when browser/runtime evidence exists",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "auto-pass is blocked for fully checked checklist",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

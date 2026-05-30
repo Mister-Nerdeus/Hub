@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "savedRecordId": "saved-default-er-layout-plan-1-001",
+  "activeRecordIdAfterReload": "saved-default-er-layout-plan-1-001",
+  "sameSavedRecordReloaded": true,
+  "roomAfterReload": {
+    "id": "room-02",
+    "label": "2",
+    "xFeet": 56,
+    "yFeet": 34,
+    "widthFeet": 10,
+    "heightFeet": 10,
+    "objectType": "room",
+    "roomNumber": "2",
+    "roomType": "standard",
+    "capacityType": "single",
+    "isHallBed": false,
+    "isTraumaAdjacent": false
+  },
+  "doorAfterReload": {
+    "objectType": "door",
+    "id": "door-02",
+    "label": "Door 2",
+    "ownerKind": "room",
+    "ownerId": "room-02",
+    "wall": "south",
+    "offsetFeet": 4.5,
+    "widthFeet": 4
+  }
+}

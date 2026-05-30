@@ -1,6 +1,13 @@
 {
-  "status": "not_run",
-  "expectedMissing": ["check:editor-runtime-version-proof"],
-  "actualMissing": [],
-  "blockers": ["Pending execution of missing-root-script fixture."]
+  "status": "passed",
+  "expected": "check:editor-runtime-version-proof",
+  "expectedMissing": [
+    "check:editor-runtime-version-proof"
+  ],
+  "actualMissing": [
+    "check:editor-runtime-version-proof"
+  ],
+  "blockers": [
+    "Missing root script: check:editor-runtime-version-proof"
+  ]
 }

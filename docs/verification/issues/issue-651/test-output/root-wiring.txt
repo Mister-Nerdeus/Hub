@@ -1,1 +1,72 @@
-{"status":"not-run","issue":"651","stage":"final","reason":"not executed in this pass."}
+{
+  "status": "passed",
+  "issue": "651",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "all 641-650 runtime/save/layout root scripts exist with exact expected commands",
+      "passed": true,
+      "detail": {
+        "present": true,
+        "missing": [],
+        "mismatched": [],
+        "blockers": []
+      }
+    },
+    {
+      "name": "verify-local includes all 641-650 root checks and excludes stale 631-640 script aliases",
+      "passed": true,
+      "detail": {
+        "present": true,
+        "missing": [],
+        "stale": [],
+        "blockers": [],
+        "required": [
+          "check:editor-runtime-version-proof",
+          "check:editor-stale-runtime-detection",
+          "check:editor-save-command-bar-ux",
+          "check:editor-active-copy-save-status",
+          "check:editor-truthful-save-language",
+          "check:editor-room-door-save-reload-proof",
+          "check:editor-save-pipeline-trace",
+          "check:editor-canvas-height-layout",
+          "check:editor-popup-layout",
+          "check:editor-runtime-save-ux-layout-go-no-go"
+        ]
+      }
+    },
+    {
+      "name": "missing root script negative fixture fails as expected",
+      "passed": true,
+      "detail": {
+        "present": false,
+        "missing": [
+          "check:editor-runtime-version-proof"
+        ],
+        "mismatched": [],
+        "blockers": [
+          "Missing root script: check:editor-runtime-version-proof"
+        ]
+      }
+    },
+    {
+      "name": "stale command variant negative fixture fails as expected",
+      "passed": true,
+      "detail": {
+        "present": false,
+        "missing": [],
+        "mismatched": [
+          {
+            "name": "check:editor-runtime-version-proof",
+            "expected": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+            "actual": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 --allow-partial"
+          }
+        ],
+        "blockers": [
+          "Expected command for check:editor-runtime-version-proof: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650. Actual: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 --allow-partial"
+        ]
+      }
+    }
+  ]
+}

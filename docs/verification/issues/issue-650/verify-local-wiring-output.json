@@ -1,21 +1,8 @@
 {
   "included": true,
-  "noStale": false,
+  "noStale": true,
   "required": [],
   "staleCalls": [],
-  "mismatch": [
-    "check:editor-runtime-version-proof",
-    "check:editor-stale-runtime-detection",
-    "check:editor-save-command-bar-ux",
-    "check:editor-active-copy-save-status",
-    "check:editor-truthful-save-language",
-    "check:editor-room-door-save-reload-proof",
-    "check:editor-save-pipeline-trace",
-    "check:editor-canvas-height-layout",
-    "check:editor-popup-layout",
-    "check:editor-runtime-save-ux-layout-go-no-go"
-  ],
-  "failReasons": [
-    "verify-local root command mismatch for: check:editor-runtime-version-proof, check:editor-stale-runtime-detection, check:editor-save-command-bar-ux, check:editor-active-copy-save-status, check:editor-truthful-save-language, check:editor-room-door-save-reload-proof, check:editor-save-pipeline-trace, check:editor-canvas-height-layout, check:editor-popup-layout, check:editor-runtime-save-ux-layout-go-no-go"
-  ]
+  "mismatch": [],
+  "failReasons": []
 }

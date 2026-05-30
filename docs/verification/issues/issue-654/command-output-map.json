@@ -1,65 +1,65 @@
 {
+  "issue": "654",
   "commands": [
     {
+      "command": "npm --workspace packages/shared test",
       "outputs": [
-        "docs/verification/issues/issue-654\\test-output\\shared.txt"
-      ],
-      "command": "npm --workspace packages/shared test"
+        "docs/verification/issues/issue-654/test-output/shared.txt"
+      ]
     },
     {
+      "command": "npm --workspace apps/web test",
       "outputs": [
-        "docs/verification/issues/issue-654\\test-output\\web.txt"
-      ],
-      "command": "npm --workspace apps/web test"
+        "docs/verification/issues/issue-654/test-output/web.txt"
+      ]
     },
     {
+      "command": "npm --workspace apps/web run build",
       "outputs": [
-        "docs/verification/issues/issue-654\\test-output\\web-build.txt"
-      ],
-      "command": "npm --workspace apps/web run build"
+        "docs/verification/issues/issue-654/test-output/web-build.txt"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-runtime-proof --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\fresh-runtime-proof-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-runtime-proof --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/fresh-runtime-proof-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-localhost-proof --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\existing-localhost-proof-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-localhost-proof --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/existing-localhost-proof-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-pass-existing-fail-negative --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\fresh-pass-existing-fail-negative-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage fresh-pass-existing-fail-negative --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/fresh-pass-existing-fail-negative-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-pass-fresh-fail-negative --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\existing-pass-fresh-fail-negative-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-pass-fresh-fail-negative --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/existing-pass-fresh-fail-negative-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-unavailable-negative --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\existing-unavailable-negative-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage existing-unavailable-negative --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/existing-unavailable-negative-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage final --allow-partial --issue 654",
       "outputs": [
-        "docs/verification/issues/issue-654\\runtime-proof-comparison-output.json"
-      ],
-      "command": "node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage final --allow-partial --issue 654"
+        "docs/verification/issues/issue-654/runtime-proof-comparison-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-654\\no-phi-output.txt"
-      ],
-      "command": "node scripts/check-no-phi-fields.mjs"
+        "docs/verification/issues/issue-654/no-phi-output.txt"
+      ]
     }
-  ],
-  "issue": 654
+  ]
 }

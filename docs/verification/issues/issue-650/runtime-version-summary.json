@@ -3,8 +3,63 @@
   "outputPath": "docs/verification/issues/issue-650/test-output/runtime-version-proof.txt",
   "payload": {
     "status": "passed",
-    "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
-    "exitCode": 0,
-    "output": "> node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"runtime build markers are visible in rendered app\",\n      \"passed\": true,\n      \"detail\": [\n        \"buildCommit\",\n        \"buildTime\",\n        \"runtimeMode\",\n        \"editorSaveUx\",\n        \"runtimeBuildInfoExists\"\n      ]\n    },\n    {\n      \"name\": \"machine-readable runtime marker is present\",\n      \"passed\": true,\n      \"detail\": [\n        \"641-650-editor-runtime-save-layout\"\n      ]\n    },\n    {\n      \"name\": \"expected editor save controls are visible in rendered app\",\n      \"passed\": true,\n      \"detail\": {\n        \"requiredControls\": [\n          \"save-working-copy\",\n          \"save-as-new-copy\",\n          \"export-json-backup\"\n        ],\n        \"requiredChecks\": [\n          {\n            \"control\": \"save-working-copy\",\n            \"visible\": true\n          },\n          {\n            \"control\": \"save-as-new-copy\",\n            \"visible\": true\n          },\n          {\n            \"control\": \"export-json-backup\",\n            \"visible\": true\n          }\n        ],\n        \"missing\": []\n      }\n    },\n    {\n      \"name\": \"runtime mismatch banner is hidden when expected controls are present\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"reconstruction remains NO-GO until this batch passes\",\n      \"passed\": true,\n      \"detail\": \"reconstruction status is controlled by the final GO gate\"\n    }\n  ]\n}\n"
+    "issue": "650",
+    "stage": "final",
+    "checks": [
+      {
+        "name": "runtime build markers are visible in rendered app",
+        "passed": true,
+        "detail": [
+          "buildCommit",
+          "buildTime",
+          "runtimeMode",
+          "editorSaveUx",
+          "runtimeBuildInfoExists"
+        ]
+      },
+      {
+        "name": "machine-readable runtime marker is present",
+        "passed": true,
+        "detail": [
+          "641-650-editor-runtime-save-layout"
+        ]
+      },
+      {
+        "name": "expected editor save controls are visible in rendered app",
+        "passed": true,
+        "detail": {
+          "requiredControls": [
+            "save-working-copy",
+            "save-as-new-copy",
+            "export-json-backup"
+          ],
+          "requiredChecks": [
+            {
+              "control": "save-working-copy",
+              "visible": true
+            },
+            {
+              "control": "save-as-new-copy",
+              "visible": true
+            },
+            {
+              "control": "export-json-backup",
+              "visible": true
+            }
+          ],
+          "missing": []
+        }
+      },
+      {
+        "name": "runtime mismatch banner is hidden when expected controls are present",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "reconstruction remains NO-GO until this batch passes",
+        "passed": true,
+        "detail": "reconstruction status is controlled by the final GO gate"
+      }
+    ]
   }
 }

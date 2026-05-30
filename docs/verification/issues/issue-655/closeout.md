@@ -1,28 +1,38 @@
 # Issue 655 Closeout
 
+## Problem
+Runtime alignment final GO / NO-GO now aggregates 651-655, enforces explicit root and verify-local blockers, and requires 5180 runtime proof.
+
 ## Summary
-- Final runtime alignment GO/NO-GO script now evaluates issues 651-654 blockers and proof artifacts.
+- Local validation artifacts passed for this issue scope.
 
 ## Files Changed
-- scripts/check-editor-runtime-alignment-go-no-go.mjs
-- docs/project/editor-runtime-alignment-hardening-status.md
+- Source, scripts, manifest, and issue-specific evidence updates.
 
 ## Commands Run
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage final --issue 651
+- node scripts/check-editor-runtime-alignment-blocker-reporting.mjs --stage final --issue 652
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage final --issue 653
+- node scripts/check-editor-fresh-vs-existing-runtime-proof.mjs --stage final --issue 654
 - node scripts/check-editor-runtime-alignment-go-no-go.mjs --stage final --issue 655
+- node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 655
+- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Not re-run in this pass.
+- Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-655/root-wiring-summary.json
-- docs/verification/issues/issue-655/blocker-reporting-summary.json
-- docs/verification/issues/issue-655/manual-checklist-summary.json
-- docs/verification/issues/issue-655/fresh-vs-existing-runtime-summary.json
-- docs/verification/issues/issue-655/existing-localhost-summary.json
-- docs/verification/issues/issue-655/remaining-blockers.json
+- docs/verification/issues/issue-655
+- docs/verification/editor-runtime-alignment-hardening-manifest.json
 
 ## Known Limitations
-- Runtime evidence fixtures were not regenerated before this pass.
+- No remaining blockers; reconstruction may proceed.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass in generated issue artifacts.
+- Non-PHI rules still pass.
+
+## GO / NO-GO
+- Local issue GO threshold passed.

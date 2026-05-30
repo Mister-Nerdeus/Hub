@@ -1,1 +1,49 @@
-{"status":"not-run","issue":"655","stage":"final"}
+{
+  "status": "passed",
+  "issue": "655",
+  "stage": "final",
+  "decision": "go_for_full_er_floorplan_reconstruction",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "existing localhost screenshot and control proof must show required runtime signals at :5180",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "all 641-650 root scripts must be wired in package.json and include expected commands",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "verify-local.mjs must include all 641-650 runtime/save/layout root commands",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "root-script failures must be explicit blockers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "verify-local wiring failures must be explicit blockers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "manual browser checklist cannot auto-pass and must carry browser/runtime evidence",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fresh and existing runtime proofs must be separated and compared",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "fresh automation should not override existing localhost failure",
+      "passed": true,
+      "detail": null
+    }
+  ]
+}

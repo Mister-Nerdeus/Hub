@@ -1,24 +1,37 @@
 # Issue 651 Closeout
 
+## Problem
+Root script wiring and verify-local wiring for 641-650 runtime/save/layout gates are explicit and exact.
+
 ## Summary
-- Root-script and verify-local runtime/save/layout wiring checks are represented in new issue-651 artifacts.
+- Local validation artifacts passed for this issue scope.
 
 ## Files Changed
-- scripts/check-editor-runtime-alignment-root-wiring.mjs
-- docs/verification/editor-runtime-alignment-hardening-manifest.json
+- Source, scripts, manifest, and issue-specific evidence updates.
 
 ## Commands Run
-- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage final --issue 651
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage package-scripts --allow-partial --issue 651
+- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage verify-local-wiring --allow-partial --issue 651
+- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage missing-root-script-negative --allow-partial --issue 651
+- node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage stale-command-negative --allow-partial --issue 651
+- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Not re-run in this pass.
+- Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-651/package-root-script-output.json
-- docs/verification/issues/issue-651/verify-local-wiring-output.json
+- docs/verification/issues/issue-651
+- docs/verification/editor-runtime-alignment-hardening-manifest.json
 
 ## Known Limitations
-- Runtime proof artifacts from issue 654 were not regenerated in this pass.
+- Root scripts must be present in package.json with expected commands.
+- verify-local must call all 10 required root scripts and not call stale 631-640 aliases.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass in generated issue artifacts.
+- Non-PHI rules still pass.
+
+## GO / NO-GO
+- Local issue GO threshold passed.

@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "issue": "656",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "canonical default remains read-only and distinct from saved copy",
+      "passed": true,
+      "detail": {
+        "canonicalRecordId": "default-plan-er-layout-plan-1",
+        "canonicalStatusText": "Active copy\nER Layout Plan 1\nRecord ID\ndefault-plan-er-layout-plan-1\nPlan ID\ndefault-er-layout-plan-1\nSource\nCanonical default\nMode\nRead-only\nLocal editor state\nLocal editor state: unchanged\nNamed working copy\nNamed working copy: Named working copy not saved this session\nLast named-copy save\nNot saved this session\nLocal recovery draft\nNo local recovery draft for this copy\nReload proof\nNot verified this session\n\nCanonical default is read-only. Save Working Copy creates an editable saved copy.",
+        "canonicalModeLabel": "Read-only",
+        "canonicalDefaultReadOnly": true,
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "savedCardName": "ER Layout Plan 1 Copy",
+        "savedCardReadOnlyLabel": "Editable working copy",
+        "savedCardDiscovered": true,
+        "editableSavedCopyOpened": true,
+        "activeRecordId": "saved-default-er-layout-plan-1-001",
+        "activeSourceText": "Saved working copy",
+        "modeLabel": "Editable",
+        "editorModeEditable": true,
+        "saveWorkingCopyEnabled": true,
+        "addObjectEnabled": true
+      }
+    },
+    {
+      "name": "editable saved copy is discoverable in floorplan library",
+      "passed": true,
+      "detail": {
+        "canonicalRecordId": "default-plan-er-layout-plan-1",
+        "canonicalStatusText": "Active copy\nER Layout Plan 1\nRecord ID\ndefault-plan-er-layout-plan-1\nPlan ID\ndefault-er-layout-plan-1\nSource\nCanonical default\nMode\nRead-only\nLocal editor state\nLocal editor state: unchanged\nNamed working copy\nNamed working copy: Named working copy not saved this session\nLast named-copy save\nNot saved this session\nLocal recovery draft\nNo local recovery draft for this copy\nReload proof\nNot verified this session\n\nCanonical default is read-only. Save Working Copy creates an editable saved copy.",
+        "canonicalModeLabel": "Read-only",
+        "canonicalDefaultReadOnly": true,
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "savedCardName": "ER Layout Plan 1 Copy",
+        "savedCardReadOnlyLabel": "Editable working copy",
+        "savedCardDiscovered": true,
+        "editableSavedCopyOpened": true,
+        "activeRecordId": "saved-default-er-layout-plan-1-001",
+        "activeSourceText": "Saved working copy",
+        "modeLabel": "Editable",
+        "editorModeEditable": true,
+        "saveWorkingCopyEnabled": true,
+        "addObjectEnabled": true
+      }
+    },
+    {
+      "name": "Open Saved Floorplan activates the same saved record ID",
+      "passed": true,
+      "detail": {
+        "canonicalRecordId": "default-plan-er-layout-plan-1",
+        "canonicalStatusText": "Active copy\nER Layout Plan 1\nRecord ID\ndefault-plan-er-layout-plan-1\nPlan ID\ndefault-er-layout-plan-1\nSource\nCanonical default\nMode\nRead-only\nLocal editor state\nLocal editor state: unchanged\nNamed working copy\nNamed working copy: Named working copy not saved this session\nLast named-copy save\nNot saved this session\nLocal recovery draft\nNo local recovery draft for this copy\nReload proof\nNot verified this session\n\nCanonical default is read-only. Save Working Copy creates an editable saved copy.",
+        "canonicalModeLabel": "Read-only",
+        "canonicalDefaultReadOnly": true,
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "savedCardName": "ER Layout Plan 1 Copy",
+        "savedCardReadOnlyLabel": "Editable working copy",
+        "savedCardDiscovered": true,
+        "editableSavedCopyOpened": true,
+        "activeRecordId": "saved-default-er-layout-plan-1-001",
+        "activeSourceText": "Saved working copy",
+        "modeLabel": "Editable",
+        "editorModeEditable": true,
+        "saveWorkingCopyEnabled": true,
+        "addObjectEnabled": true
+      }
+    },
+    {
+      "name": "editor opens saved copy in editable mode with Save Working Copy enabled",
+      "passed": true,
+      "detail": {
+        "canonicalRecordId": "default-plan-er-layout-plan-1",
+        "canonicalStatusText": "Active copy\nER Layout Plan 1\nRecord ID\ndefault-plan-er-layout-plan-1\nPlan ID\ndefault-er-layout-plan-1\nSource\nCanonical default\nMode\nRead-only\nLocal editor state\nLocal editor state: unchanged\nNamed working copy\nNamed working copy: Named working copy not saved this session\nLast named-copy save\nNot saved this session\nLocal recovery draft\nNo local recovery draft for this copy\nReload proof\nNot verified this session\n\nCanonical default is read-only. Save Working Copy creates an editable saved copy.",
+        "canonicalModeLabel": "Read-only",
+        "canonicalDefaultReadOnly": true,
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "savedCardName": "ER Layout Plan 1 Copy",
+        "savedCardReadOnlyLabel": "Editable working copy",
+        "savedCardDiscovered": true,
+        "editableSavedCopyOpened": true,
+        "activeRecordId": "saved-default-er-layout-plan-1-001",
+        "activeSourceText": "Saved working copy",
+        "modeLabel": "Editable",
+        "editorModeEditable": true,
+        "saveWorkingCopyEnabled": true,
+        "addObjectEnabled": true
+      }
+    }
+  ]
+}

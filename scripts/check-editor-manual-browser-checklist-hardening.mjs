@@ -54,7 +54,7 @@ const evidenceConfig = {
 };
 
 if (stage === "missing-checklist-fails" || stage === "final") {
-  if (!existsChecklist(manualChecklistPath)) {
+  if (stage !== "final" && !existsChecklist(manualChecklistPath)) {
     writeChecklistTemplate(manualChecklistPath);
   }
   const result = evaluateChecklistFromState({}, { requireExistingEvidence: false });
@@ -68,7 +68,9 @@ if (stage === "unchecked-template" || stage === "final") {
     acc[item] = false;
     return acc;
   }, {});
-  writeChecklistTemplate(manualChecklistPath);
+  if (stage !== "final") {
+    writeChecklistTemplate(manualChecklistPath);
+  }
   const result = evaluateChecklistFromState(uncheckedItems);
   writeJson(`${dir}/unchecked-template-output.json`, result);
   addCheck(checks, "unchecked template is treated as incomplete", !result.passed);

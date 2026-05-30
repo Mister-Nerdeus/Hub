@@ -1,53 +1,53 @@
 {
+  "issue": "651",
   "commands": [
     {
+      "command": "npm --workspace packages/shared test",
       "outputs": [
-        "docs/verification/issues/issue-651\\test-output\\shared.txt"
-      ],
-      "command": "npm --workspace packages/shared test"
+        "docs/verification/issues/issue-651/test-output/shared.txt"
+      ]
     },
     {
+      "command": "npm --workspace apps/web test",
       "outputs": [
-        "docs/verification/issues/issue-651\\test-output\\web.txt"
-      ],
-      "command": "npm --workspace apps/web test"
+        "docs/verification/issues/issue-651/test-output/web.txt"
+      ]
     },
     {
+      "command": "npm --workspace apps/web run build",
       "outputs": [
-        "docs/verification/issues/issue-651\\test-output\\web-build.txt"
-      ],
-      "command": "npm --workspace apps/web run build"
+        "docs/verification/issues/issue-651/test-output/web-build.txt"
+      ]
     },
     {
+      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage package-scripts --allow-partial --issue 651",
       "outputs": [
-        "docs/verification/issues/issue-651\\package-root-script-output.json"
-      ],
-      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage package-scripts --allow-partial --issue 651"
+        "docs/verification/issues/issue-651/package-root-script-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage verify-local-wiring --allow-partial --issue 651",
       "outputs": [
-        "docs/verification/issues/issue-651\\verify-local-wiring-output.json"
-      ],
-      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage verify-local-wiring --allow-partial --issue 651"
+        "docs/verification/issues/issue-651/verify-local-wiring-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage missing-root-script-negative --allow-partial --issue 651",
       "outputs": [
-        "docs/verification/issues/issue-651\\missing-root-script-negative-output.json"
-      ],
-      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage missing-root-script-negative --allow-partial --issue 651"
+        "docs/verification/issues/issue-651/missing-root-script-negative-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage stale-command-negative --allow-partial --issue 651",
       "outputs": [
-        "docs/verification/issues/issue-651\\stale-command-negative-output.json"
-      ],
-      "command": "node scripts/check-editor-runtime-alignment-root-wiring.mjs --stage stale-command-negative --allow-partial --issue 651"
+        "docs/verification/issues/issue-651/stale-command-negative-output.json"
+      ]
     },
     {
+      "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-651\\no-phi-output.txt"
-      ],
-      "command": "node scripts/check-no-phi-fields.mjs"
+        "docs/verification/issues/issue-651/no-phi-output.txt"
+      ]
     }
-  ],
-  "issue": 651
+  ]
 }

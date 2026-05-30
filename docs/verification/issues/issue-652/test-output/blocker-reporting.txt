@@ -1,1 +1,69 @@
-{"status":"not-run","issue":"652","stage":"final","reason":"not executed in this pass."}
+{
+  "status": "passed",
+  "issue": "652",
+  "stage": "final",
+  "blockers": [],
+  "checks": [
+    {
+      "name": "root-script wiring blockers are explicit and include expected vs actual",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "mismatched": [],
+        "blockers": []
+      }
+    },
+    {
+      "name": "verify-local wiring blockers are explicit and include missing or stale checks",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "stale": [],
+        "blockers": []
+      }
+    },
+    {
+      "name": "missing root script negative fixture fails explicitly",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "expectedMissing": [
+          "check:editor-runtime-version-proof"
+        ],
+        "actualMissing": [
+          "check:editor-runtime-version-proof"
+        ],
+        "blockers": [
+          "Missing root script: check:editor-runtime-version-proof. Expected command: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650. Actual: missing."
+        ]
+      }
+    },
+    {
+      "name": "stale root command negative fixture fails explicitly",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "expected": {
+          "name": "check:editor-runtime-version-proof",
+          "expected": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650"
+        },
+        "actual": {
+          "name": "check:editor-runtime-version-proof",
+          "actual": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 --old"
+        },
+        "mismatched": [
+          {
+            "name": "check:editor-runtime-version-proof",
+            "expected": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
+            "actual": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 --old"
+          }
+        ],
+        "blockers": [
+          "Stale root script command: check:editor-runtime-version-proof. Expected command: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650. Actual command: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 --old."
+        ]
+      }
+    }
+  ]
+}

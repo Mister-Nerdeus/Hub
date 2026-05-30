@@ -1,1 +1,81 @@
-{"status":"not-run","issue":"654","stage":"final"}
+{
+  "status": "passed",
+  "issue": "654",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "fresh runtime proof captures expected marker and controls",
+      "passed": true,
+      "detail": {
+        "proofType": "fresh-runtime",
+        "baseUrl": "http://127.0.0.1:6850",
+        "port": 6850,
+        "buildCommit": "local-dev",
+        "buildTime": "2026-05-30T07:19:40.444Z",
+        "batchMarker": "641-650-editor-runtime-save-layout",
+        "saveWorkingCopyVisible": true,
+        "saveAsNewCopyVisible": true,
+        "exportJsonBackupVisible": true,
+        "activeRecordIdVisible": true,
+        "namedSaveStatusVisible": true,
+        "runtimeMismatchBannerVisible": false,
+        "status": "passed",
+        "batchMarkerMatched": true,
+        "runtimeBuildInfoExists": true
+      }
+    },
+    {
+      "name": "existing localhost proof captures expected marker and controls",
+      "passed": true,
+      "detail": {
+        "proofType": "existing-localhost",
+        "baseUrl": "http://127.0.0.1:5180",
+        "port": 5180,
+        "buildCommit": "local-dev",
+        "buildTime": "local-dev",
+        "batchMarker": "641-650-editor-runtime-save-layout",
+        "saveWorkingCopyVisible": true,
+        "saveAsNewCopyVisible": true,
+        "exportJsonBackupVisible": true,
+        "activeRecordIdVisible": true,
+        "namedSaveStatusVisible": true,
+        "runtimeMismatchBannerVisible": false,
+        "status": "passed",
+        "batchMarkerMatched": true,
+        "runtimeBuildInfoExists": true
+      }
+    },
+    {
+      "name": "fresh runtime pass cannot override existing localhost failure",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scenario": "fresh pass with existing localhost failure",
+        "freshRuntimeProofStatus": "passed",
+        "existingLocalhostProofStatus": "failed",
+        "blocker": "Fresh automated runtime passes, but existing localhost:5180 is stale, unavailable, or mismatched. Restart dev server and hard refresh before reconstruction."
+      }
+    },
+    {
+      "name": "existing localhost pass and fresh runtime failure fixture is explicit",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scenario": "existing pass with fresh runtime failure",
+        "existingLocalhostProofStatus": "passed",
+        "freshRuntimeProofStatus": "failed",
+        "blocker": "Existing localhost passes, but fresh automated runtime proof failed. Verify test infrastructure or source-rendered runtime before GO."
+      }
+    },
+    {
+      "name": "existing-unavailable fixture proves hard failure",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scenario": "existing localhost unavailable",
+        "blocker": "Existing localhost proof must fail when localhost:5180 is unavailable.",
+        "existingLocalhostProofStatus": "failed"
+      }
+    }
+  ]
+}

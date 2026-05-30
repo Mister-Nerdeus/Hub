@@ -1,1 +1,9 @@
-{"status":"not_run","updates":{"blockerReportingStatus":"failed","rootScriptFailureListedAsBlocker":false,"verifyLocalFailureListedAsBlocker":false}}
+{
+  "status": "passed",
+  "manifest": "docs/verification/editor-runtime-alignment-hardening-manifest.json",
+  "updates": {
+    "blockerReportingStatus": "passed",
+    "rootScriptFailureListedAsBlocker": true,
+    "verifyLocalFailureListedAsBlocker": true
+  }
+}

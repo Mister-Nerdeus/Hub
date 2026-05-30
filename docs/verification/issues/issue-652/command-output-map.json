@@ -1,53 +1,53 @@
 {
+  "issue": "652",
   "commands": [
     {
       "command": "npm --workspace packages/shared test",
       "outputs": [
-        "docs/verification/issues/issue-652\\test-output\\shared.txt"
+        "docs/verification/issues/issue-652/test-output/shared.txt"
       ]
     },
     {
       "command": "npm --workspace apps/web test",
       "outputs": [
-        "docs/verification/issues/issue-652\\test-output\\web.txt"
+        "docs/verification/issues/issue-652/test-output/web.txt"
       ]
     },
     {
       "command": "npm --workspace apps/web run build",
       "outputs": [
-        "docs/verification/issues/issue-652\\test-output\\web-build.txt"
+        "docs/verification/issues/issue-652/test-output/web-build.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-alignment-blocker-reporting.mjs --stage root-wiring-blocker --allow-partial --issue 652",
       "outputs": [
-        "docs/verification/issues/issue-652\\root-wiring-blocker-output.json"
+        "docs/verification/issues/issue-652/root-wiring-blocker-output.json"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-alignment-blocker-reporting.mjs --stage verify-local-blocker --allow-partial --issue 652",
       "outputs": [
-        "docs/verification/issues/issue-652\\verify-local-blocker-output.json"
+        "docs/verification/issues/issue-652/verify-local-blocker-output.json"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-alignment-blocker-reporting.mjs --stage missing-root-script-negative --allow-partial --issue 652",
       "outputs": [
-        "docs/verification/issues/issue-652\\missing-root-script-negative-output.json"
+        "docs/verification/issues/issue-652/missing-root-script-negative-output.json"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-alignment-blocker-reporting.mjs --stage stale-root-command-negative --allow-partial --issue 652",
       "outputs": [
-        "docs/verification/issues/issue-652\\stale-root-command-negative-output.json"
+        "docs/verification/issues/issue-652/stale-root-command-negative-output.json"
       ]
     },
     {
       "command": "node scripts/check-no-phi-fields.mjs",
       "outputs": [
-        "docs/verification/issues/issue-652\\no-phi-output.txt"
+        "docs/verification/issues/issue-652/no-phi-output.txt"
       ]
     }
-  ],
-  "issue": 652
+  ]
 }

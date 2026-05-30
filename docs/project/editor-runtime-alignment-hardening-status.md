@@ -10,13 +10,24 @@
 
 ## Current Alignment Readiness
 
-- rootScriptWiringStatus: missing
-- blockerReportingStatus: missing
-- manualChecklistHardeningStatus: missing
-- freshVsExistingRuntimeProofStatus: missing
-- existingLocalhostGoNoGoStatus: not_ready
-- reconstructionStatus: no_go_until_runtime_alignment_hardening_passes
-- goNoGoStatus: no_go
+- rootScriptWiringStatus: passed
+- blockerReportingStatus: passed
+- manualChecklistHardeningStatus: passed
+- freshVsExistingRuntimeProofStatus: passed
+- existingLocalhostGoNoGoStatus: go_for_full_er_floorplan_reconstruction
+- editableSavedCopyEntryStatus: passed
+- savedCopyPersistenceSmokeStatus: passed
+- reconstructionReadinessGoNoGoStatus: go_for_full_er_floorplan_reconstruction
+- reconstructionStatus: go_for_full_er_floorplan_reconstruction
+- goNoGoStatus: go_for_full_er_floorplan_reconstruction
+
+## Runtime Proof Summary
+
+- Fresh runtime proof and existing localhost:5180 proof are separated.
+- Existing localhost:5180 shows the current runtime marker and save controls.
+- Manual checklist hardening requires checked human/browser evidence and cannot auto-pass.
+- Editable saved-copy entry proof uses the saved copy, not the canonical default.
+- Saved-copy persistence proof reloads the same saved record after room and door edits.
 
 ## Policy
 

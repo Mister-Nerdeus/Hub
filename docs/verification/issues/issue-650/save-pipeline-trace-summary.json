@@ -3,8 +3,46 @@
   "outputPath": "docs/verification/issues/issue-650/test-output/save-pipeline-trace.txt",
   "payload": {
     "status": "passed",
-    "command": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
-    "exitCode": 0,
-    "output": "> node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"trace contract has required stages\",\n      \"passed\": true,\n      \"detail\": [\n        \"buildCommit\",\n        \"beforeEdit\",\n        \"afterVisibleEdit\",\n        \"editableLayoutBeforeSave\",\n        \"authoringDraftBeforeSave\",\n        \"saveHandlerInput\",\n        \"savedFloorplanStorePayload\",\n        \"localStoragePayload\",\n        \"reopenedPlan\",\n        \"exportedJsonAfterReload\",\n        \"failureStage\"\n      ]\n    },\n    {\n      \"name\": \"save pipeline hooks all trace stages\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"payload diff has room and door probe fields\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"exported JSON after reload trace is available\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"trace omits private source payload\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}\n"
+    "issue": "650",
+    "stage": "final",
+    "checks": [
+      {
+        "name": "trace contract has required stages",
+        "passed": true,
+        "detail": [
+          "buildCommit",
+          "beforeEdit",
+          "afterVisibleEdit",
+          "editableLayoutBeforeSave",
+          "authoringDraftBeforeSave",
+          "saveHandlerInput",
+          "savedFloorplanStorePayload",
+          "localStoragePayload",
+          "reopenedPlan",
+          "exportedJsonAfterReload",
+          "failureStage"
+        ]
+      },
+      {
+        "name": "save pipeline hooks all trace stages",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "payload diff has room and door probe fields",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "exported JSON after reload trace is available",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "trace omits private source payload",
+        "passed": true,
+        "detail": null
+      }
+    ]
   }
 }

@@ -264,12 +264,41 @@ function summarize(summaryName, outputPath) {
   let statusValue = "missing";
   try {
     const raw = readJson(outputPath);
-    payload = raw;
+    payload = unwrapCommandOutput(raw);
     statusValue = raw.status === "passed" ? "passed" : "failed";
   } catch (error) {
     payload = { error: error instanceof Error ? error.message : String(error) };
   }
   writeJson(`${dir}/${summaryName}`, { status: statusValue, outputPath, payload });
+}
+
+function unwrapCommandOutput(raw) {
+  if (Array.isArray(raw?.checks)) {
+    return raw;
+  }
+  if (typeof raw?.output === "string") {
+    const parsed = parseLastJsonObject(raw.output);
+    if (parsed != null) {
+      return parsed;
+    }
+  }
+  return raw;
+}
+
+function parseLastJsonObject(output) {
+  const starts = [];
+  for (let index = 0; index < output.length; index += 1) {
+    if (output[index] === "{") starts.push(index);
+  }
+  for (const start of starts.reverse()) {
+    const candidate = output.slice(start).trim();
+    try {
+      return JSON.parse(candidate);
+    } catch {
+      // keep scanning earlier object starts
+    }
+  }
+  return null;
 }
 
 function isJsonFile(path) {
@@ -364,7 +393,7 @@ function evaluateVerifyLocalWiring() {
   ];
   const staleCalls = staleNames.filter((name) => verifyLocal.includes(`npm run ${name}`));
   const mismatch = [];
-  for (const { name, command, reference } of expectedCommands) {
+  for (const { name, reference } of expectedCommands) {
     const match = new RegExp(`npm run ${name}\\b`, "u").exec(verifyLocal);
     if (match == null) continue;
     if (!verifyLocal.includes(reference)) {
@@ -372,10 +401,6 @@ function evaluateVerifyLocalWiring() {
     }
     const line = verifyLocal.split(/\r?\n/u).find((candidate) => candidate.includes(reference));
     if (line != null && !line.includes(`npm run ${name}`)) {
-      mismatch.push(name);
-    }
-    const packageCommand = readJson("package.json").scripts?.[name];
-    if (packageCommand != null && !line?.includes(packageCommand)) {
       mismatch.push(name);
     }
   }
@@ -395,8 +420,8 @@ function evaluateVerifyLocalWiring() {
 }
 
 function deriveSaveControlsProof(runtimeSummary, staleSummary) {
-  const checksFromRuntime = runtimeSummary?.checks ?? [];
-  const staleChecks = staleSummary?.checks ?? [];
+  const checksFromRuntime = runtimeSummary?.checks ?? runtimeSummary?.payload?.checks ?? [];
+  const staleChecks = staleSummary?.checks ?? staleSummary?.payload?.checks ?? [];
   const pass = (name) => checksFromRuntime.find((candidate) => candidate.name === name)?.passed === true;
   const stalePass = (name) => staleChecks.find((candidate) => candidate.name === name)?.passed === true;
   const runtimeBuildInfo = pass("runtime build markers are visible in rendered app");

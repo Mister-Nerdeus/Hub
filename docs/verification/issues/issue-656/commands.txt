@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-saved-copy-entry-flow.mjs --stage canonical-readonly --allow-partial --issue 656
+node scripts/check-editor-saved-copy-entry-flow.mjs --stage editable-copy-discovery --allow-partial --issue 656
+node scripts/check-editor-saved-copy-entry-flow.mjs --stage open-saved-copy --allow-partial --issue 656
+node scripts/check-editor-saved-copy-entry-flow.mjs --stage editor-editable-mode --allow-partial --issue 656
+node scripts/check-no-phi-fields.mjs

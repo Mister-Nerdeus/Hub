@@ -1,1 +1,7 @@
-{"status":"not_run","scenario":"existing pass fresh fail","existingLocalhostProofStatus":"not_run","freshRuntimeProofStatus":"not_run","blocker":"Pending fixture."}
+{
+  "status": "passed",
+  "scenario": "existing pass with fresh runtime failure",
+  "existingLocalhostProofStatus": "passed",
+  "freshRuntimeProofStatus": "failed",
+  "blocker": "Existing localhost passes, but fresh automated runtime proof failed. Verify test infrastructure or source-rendered runtime before GO."
+}

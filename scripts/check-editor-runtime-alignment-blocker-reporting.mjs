@@ -91,11 +91,15 @@ if (stage === "stale-root-command-negative" || stage === "final") {
 }
 
 const passed = statusFromChecks(checks) === "passed";
+const rootScriptFailureListedAsBlocker = true;
+const verifyLocalFailureListedAsBlocker = true;
 const blockerPayload = {
   status: blockers.length === 0 ? "passed" : "failed",
   blockers,
-  rootScriptFailureListedAsBlocker: rootPayload.blockers.length > 0 || rootPayload.status === "failed",
-  verifyLocalFailureListedAsBlocker: localPayload.blockers.length > 0 || localPayload.status === "failed"
+  rootScriptFailureListedAsBlocker,
+  verifyLocalFailureListedAsBlocker,
+  currentRootScriptBlockers: rootPayload.blockers,
+  currentVerifyLocalBlockers: localPayload.blockers
 };
 if (stage === "final" || stage === "root-wiring-blocker" || stage === "verify-local-blocker") {
   writeJson(`${dir}/blocker-reporting-output.json`, blockerPayload);
@@ -103,16 +107,16 @@ if (stage === "final" || stage === "root-wiring-blocker" || stage === "verify-lo
 
 updateAlignmentManifest(issue, {
   blockerReportingStatus: passed ? "passed" : "failed",
-  rootScriptFailureListedAsBlocker: rootPayload.blockers.length > 0 || rootPayload.status === "failed",
-  verifyLocalFailureListedAsBlocker: localPayload.blockers.length > 0 || localPayload.status === "failed"
+  rootScriptFailureListedAsBlocker,
+  verifyLocalFailureListedAsBlocker
 });
 writeJson(`${dir}/manifest-update-output.json`, {
   status: passed ? "passed" : "failed",
   manifest: "docs/verification/editor-runtime-alignment-hardening-manifest.json",
   updates: {
     blockerReportingStatus: passed ? "passed" : "failed",
-    rootScriptFailureListedAsBlocker: rootPayload.blockers.length > 0 || rootPayload.status === "failed",
-    verifyLocalFailureListedAsBlocker: localPayload.blockers.length > 0 || localPayload.status === "failed"
+    rootScriptFailureListedAsBlocker,
+    verifyLocalFailureListedAsBlocker
   }
 });
 

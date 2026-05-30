@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-runtime-alignment-go-no-go.mjs --stage final --issue 655
+node scripts/check-editor-saved-copy-entry-flow.mjs --stage final --issue 656
+node scripts/check-editor-saved-copy-persistence-smoke.mjs --stage final --issue 657
+node scripts/check-editor-reconstruction-readiness-go-no-go.mjs --stage final --issue 658
+node scripts/check-no-phi-fields.mjs

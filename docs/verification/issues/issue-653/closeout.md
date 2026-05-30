@@ -1,26 +1,39 @@
 # Issue 653 Closeout
 
+## Problem
+Manual browser checklist hardening requires explicit human/browser evidence and blocks auto-pass.
+
 ## Summary
-- Manual browser checklist hardening now blocks missing, unchecked, partial, and synthetic auto-pass cases.
+- Local validation artifacts passed for this issue scope.
 
 ## Files Changed
-- scripts/check-editor-manual-browser-checklist-hardening.mjs
-- docs/verification/issues/issue-650/manual-browser-checklist.md
+- Source, scripts, manifest, and issue-specific evidence updates.
 
 ## Commands Run
-- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage final --issue 653
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage missing-checklist-fails --allow-partial --issue 653
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage unchecked-template --allow-partial --issue 653
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage partial-checklist-negative --allow-partial --issue 653
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage completed-checklist-with-evidence --allow-partial --issue 653
+- node scripts/check-editor-manual-browser-checklist-hardening.mjs --stage auto-pass-negative --allow-partial --issue 653
+- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
-- Not re-run in this pass.
+- Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-653/missing-checklist-output.json
-- docs/verification/issues/issue-653/unchecked-template-output.json
-- docs/verification/issues/issue-653/partial-checklist-negative-output.json
-- docs/verification/issues/issue-653/auto-pass-negative-output.json
+- docs/verification/issues/issue-653
+- docs/verification/editor-runtime-alignment-hardening-manifest.json
 
 ## Known Limitations
-- Browser evidence files are not regenerated in this pass.
+- Missing, unchecked, partial, and synthetic auto-pass fixtures are explicit in JSON evidence outputs.
+- Completed checklist proof requires non-placeholder screenshot and runtime JSON evidence.
+- No production-readiness, PHI, optimizer, assignment, or clinical claims were added.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass in generated issue artifacts.
+- Non-PHI rules still pass.
+
+## GO / NO-GO
+- Local issue GO threshold passed.

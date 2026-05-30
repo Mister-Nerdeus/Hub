@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname, join } from "node:path";
 
 export const alignmentManifestPath = "docs/verification/editor-runtime-alignment-hardening-manifest.json";
+export const savedCopyPersistenceManifestPath = "docs/verification/editor-saved-copy-persistence-manifest.json";
 
 export const alignmentManifestVersion = "1.0.0";
 
@@ -21,7 +22,7 @@ export const runtimeAlignmentRootScriptMap = {
 
 export const alignmentManifestTemplate = {
   manifestVersion: alignmentManifestVersion,
-  batch: "651-655",
+  batch: "651-658",
   lastUpdatedIssue: "651",
   productDisplayName: "ER Pod Shift Simulator",
 
@@ -33,6 +34,10 @@ export const alignmentManifestTemplate = {
   manualChecklistHardeningStatus: "missing",
   freshVsExistingRuntimeProofStatus: "missing",
   existingLocalhostGoNoGoStatus: "not_ready",
+  editableSavedCopyEntryStatus: "missing",
+  savedCopyPersistenceSmokeStatus: "missing",
+  reconstructionReadinessGoNoGoStatus: "not_ready",
+  editorReconstructionReadinessGoNoGoStatus: "not_ready",
 
   rootScripts641To650Present: false,
   verifyLocalIncludes641To650: false,
@@ -45,8 +50,56 @@ export const alignmentManifestTemplate = {
   freshRuntimeCannotOverrideExistingFailure: false,
   localhost5180RuntimeProofPassed: false,
 
-  reconstructionStatus: "no_go_until_runtime_alignment_hardening_passes",
+  canonicalDefaultReadOnlyProof: false,
+  editableSavedCopyOpened: false,
+  editableSavedCopyRecordIdCaptured: false,
+  saveWorkingCopyEnabledForSavedCopy: false,
 
+  roomMovePersisted: false,
+  doorChangePersisted: false,
+  sameSavedRecordReloaded: false,
+  exportJsonBackupMatched: false,
+
+  reconstructionStatus: "no_go_until_runtime_alignment_and_saved_copy_persistence_pass",
+
+  collaborationStatus: "not_started",
+  simulationV0Status: "internal_dry_run_only",
+  fullFutureSimulationEventModelStatus: "dormant",
+  optimizerStatus: "not_started",
+  assignmentRecommendationStatus: "not_started",
+  clinicalSafetyScoringStatus: "not_started",
+  staffingComplianceStatus: "not_started",
+  patientOutcomePredictionStatus: "not_started",
+  promotionStatus: "blocked",
+  noPhiStatus: "passed",
+
+  goNoGoStatus: "not_ready"
+};
+
+export const savedCopyPersistenceManifestTemplate = {
+  manifestVersion: alignmentManifestVersion,
+  batch: "656-658",
+  lastUpdatedIssue: "656",
+  productDisplayName: "ER Pod Shift Simulator",
+
+  sourceBatch: "651-655",
+  sourceGoNoGoStatus: "not_ready",
+
+  editableSavedCopyEntryStatus: "missing",
+  savedCopyPersistenceSmokeStatus: "missing",
+  editorReconstructionReadinessGoNoGoStatus: "not_ready",
+
+  canonicalDefaultReadOnlyProof: false,
+  editableSavedCopyOpened: false,
+  editableSavedCopyRecordIdCaptured: false,
+  saveWorkingCopyEnabledForSavedCopy: false,
+
+  roomMovePersisted: false,
+  doorChangePersisted: false,
+  sameSavedRecordReloaded: false,
+  exportJsonBackupMatched: false,
+
+  reconstructionStatus: "no_go_until_runtime_alignment_and_saved_copy_persistence_pass",
   collaborationStatus: "not_started",
   simulationV0Status: "internal_dry_run_only",
   fullFutureSimulationEventModelStatus: "dormant",
@@ -136,9 +189,12 @@ export function loadAlignmentManifest(issue = "651") {
   if (!existsSync(abs(alignmentManifestPath))) {
     return { ...alignmentManifestTemplate, lastUpdatedIssue: issue };
   }
+  const existing = readJson(alignmentManifestPath);
   return {
     ...alignmentManifestTemplate,
-    ...readJson(alignmentManifestPath),
+    ...existing,
+    manifestVersion: alignmentManifestVersion,
+    batch: alignmentManifestTemplate.batch,
     lastUpdatedIssue: issue
   };
 }
@@ -153,6 +209,39 @@ export function updateAlignmentManifest(issue, updates) {
   writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
     status: manifest.goNoGoStatus === "go_for_full_er_floorplan_reconstruction" || manifest.goNoGoStatus === "go_for_additional_runtime_alignment_repair" || manifest.goNoGoStatus === "no_go" ? "passed" : "failed",
     manifestPath: alignmentManifestPath,
+    updates
+  });
+  return manifest;
+}
+
+export function loadSavedCopyPersistenceManifest(issue = "656") {
+  if (!existsSync(abs(savedCopyPersistenceManifestPath))) {
+    return { ...savedCopyPersistenceManifestTemplate, lastUpdatedIssue: issue };
+  }
+  const existing = readJson(savedCopyPersistenceManifestPath);
+  return {
+    ...savedCopyPersistenceManifestTemplate,
+    ...existing,
+    manifestVersion: alignmentManifestVersion,
+    batch: savedCopyPersistenceManifestTemplate.batch,
+    lastUpdatedIssue: issue
+  };
+}
+
+export function updateSavedCopyPersistenceManifest(issue, updates) {
+  const manifest = {
+    ...loadSavedCopyPersistenceManifest(issue),
+    ...updates,
+    lastUpdatedIssue: issue
+  };
+  writeJson(savedCopyPersistenceManifestPath, manifest);
+  writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
+    status: manifest.goNoGoStatus === "go_for_full_er_floorplan_reconstruction" ||
+      manifest.goNoGoStatus === "not_ready" ||
+      manifest.goNoGoStatus === "no_go"
+      ? "passed"
+      : "failed",
+    manifestPath: savedCopyPersistenceManifestPath,
     updates
   });
   return manifest;

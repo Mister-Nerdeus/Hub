@@ -1,0 +1,53 @@
+{
+  "issue": "656",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-656/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-656/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-656/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-entry-flow.mjs --stage canonical-readonly --allow-partial --issue 656",
+      "outputs": [
+        "docs/verification/issues/issue-656/canonical-readonly-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-entry-flow.mjs --stage editable-copy-discovery --allow-partial --issue 656",
+      "outputs": [
+        "docs/verification/issues/issue-656/editable-copy-discovery-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-entry-flow.mjs --stage open-saved-copy --allow-partial --issue 656",
+      "outputs": [
+        "docs/verification/issues/issue-656/open-saved-copy-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-editor-saved-copy-entry-flow.mjs --stage editor-editable-mode --allow-partial --issue 656",
+      "outputs": [
+        "docs/verification/issues/issue-656/editor-editable-mode-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-656/no-phi-output.txt"
+      ]
+    }
+  ]
+}

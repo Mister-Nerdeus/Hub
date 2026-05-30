@@ -3,8 +3,39 @@
   "outputPath": "docs/verification/issues/issue-650/test-output/save-command-bar-ux.txt",
   "payload": {
     "status": "passed",
-    "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
-    "exitCode": 0,
-    "output": "> node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"Save Working Copy is primary and visible\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Save As New Copy is visible\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"Export JSON is labeled as backup/export and not primary save\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"local draft reset is separated as recovery/danger action\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"command groups are explicit\",\n      \"passed\": true,\n      \"detail\": [\n        \"primary-save\",\n        \"edit-history\",\n        \"recovery-import-export\",\n        \"validation-view\"\n      ]\n    }\n  ]\n}\n"
+    "issue": "650",
+    "stage": "final",
+    "checks": [
+      {
+        "name": "Save Working Copy is primary and visible",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "Save As New Copy is visible",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "Export JSON is labeled as backup/export and not primary save",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "local draft reset is separated as recovery/danger action",
+        "passed": true,
+        "detail": null
+      },
+      {
+        "name": "command groups are explicit",
+        "passed": true,
+        "detail": [
+          "primary-save",
+          "edit-history",
+          "recovery-import-export",
+          "validation-view"
+        ]
+      }
+    ]
   }
 }

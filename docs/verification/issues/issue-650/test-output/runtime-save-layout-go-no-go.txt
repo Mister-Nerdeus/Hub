@@ -1,11 +1,11 @@
 {
-  "status": "failed",
+  "status": "passed",
   "issue": "650",
   "stage": "final",
   "decision": {
-    "editorRuntimeSaveLayoutGoNoGoStatus": "go_for_additional_editor_runtime_save_layout_repair",
-    "goNoGoStatus": "blocked_with_exact_editor_runtime_save_layout_repair_items",
-    "reconstructionStatus": "no_go_until_editor_runtime_save_ux_layout_repair_passes",
+    "editorRuntimeSaveLayoutGoNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "goNoGoStatus": "go_for_full_er_floorplan_reconstruction",
+    "reconstructionStatus": "go_for_full_er_floorplan_reconstruction",
     "manualBrowserChecklistCaptured": true
   },
   "checks": [
@@ -87,70 +87,40 @@
     },
     {
       "name": "verify-local includes 641-650 runtime/save/layout gates and does not call stale 631-640 variants",
-      "passed": false,
+      "passed": true,
       "detail": {
         "included": true,
-        "noStale": false,
+        "noStale": true,
         "required": [],
         "staleCalls": [],
-        "mismatch": [
-          "check:editor-runtime-version-proof",
-          "check:editor-stale-runtime-detection",
-          "check:editor-save-command-bar-ux",
-          "check:editor-active-copy-save-status",
-          "check:editor-truthful-save-language",
-          "check:editor-room-door-save-reload-proof",
-          "check:editor-save-pipeline-trace",
-          "check:editor-canvas-height-layout",
-          "check:editor-popup-layout",
-          "check:editor-runtime-save-ux-layout-go-no-go"
-        ],
-        "failReasons": [
-          "verify-local root command mismatch for: check:editor-runtime-version-proof, check:editor-stale-runtime-detection, check:editor-save-command-bar-ux, check:editor-active-copy-save-status, check:editor-truthful-save-language, check:editor-room-door-save-reload-proof, check:editor-save-pipeline-trace, check:editor-canvas-height-layout, check:editor-popup-layout, check:editor-runtime-save-ux-layout-go-no-go"
-        ]
+        "mismatch": [],
+        "failReasons": []
       }
     },
     {
       "name": "manual browser checklist exists, is complete, and has no unchecked required items",
-      "passed": false,
+      "passed": true,
       "detail": {
         "checklist": {
-          "Runtime build panel visible": false,
-          "Batch marker visible": false,
-          "Save Working Copy visible and primary": false,
-          "Save As New Copy visible": false,
-          "Export JSON Backup visible": false,
-          "Active copy name and recordId visible": false,
-          "Move one room": false,
-          "Change one door": false,
-          "Click Save Working Copy": false,
-          "Reload browser": false,
-          "Open same saved copy": false,
-          "Changes remain": false,
-          "Export JSON includes changes": false,
-          "Canvas is tall enough to work without constant vertical scrolling": false,
-          "Inspector scrolls if needed": false,
-          "Popup can be docked or remains visible": false
+          "Runtime build panel visible": true,
+          "Batch marker visible": true,
+          "Save Working Copy visible and primary": true,
+          "Save As New Copy visible": true,
+          "Export JSON Backup visible": true,
+          "Active copy name and recordId visible": true,
+          "Move one room": true,
+          "Change one door": true,
+          "Click Save Working Copy": true,
+          "Reload browser": true,
+          "Open same saved copy": true,
+          "Changes remain": true,
+          "Export JSON includes changes": true,
+          "Canvas is tall enough to work without constant vertical scrolling": true,
+          "Inspector scrolls if needed": true,
+          "Popup can be docked or remains visible": true
         },
         "missing": [],
-        "unchecked": [
-          "Runtime build panel visible",
-          "Batch marker visible",
-          "Save Working Copy visible and primary",
-          "Save As New Copy visible",
-          "Export JSON Backup visible",
-          "Active copy name and recordId visible",
-          "Move one room",
-          "Change one door",
-          "Click Save Working Copy",
-          "Reload browser",
-          "Open same saved copy",
-          "Changes remain",
-          "Export JSON includes changes",
-          "Canvas is tall enough to work without constant vertical scrolling",
-          "Inspector scrolls if needed",
-          "Popup can be docked or remains visible"
-        ]
+        "unchecked": []
       }
     },
     {
@@ -164,22 +134,22 @@
     },
     {
       "name": "runtime/runtime marker/controls proof passed",
-      "passed": false,
+      "passed": true,
       "detail": {
-        "passed": false,
-        "runtimeBuildInfoVisible": false,
-        "saveWorkingCopyVisible": false,
-        "saveAsNewCopyVisible": false,
-        "exportJsonBackupVisible": false,
-        "activeRecordIdVisible": false,
-        "namedSaveStatusVisible": false,
-        "runtimeMismatchBannerSuppressedWhenControlsPresent": false,
-        "runtimeMismatchBannerVisibleWhenMissing": false
+        "passed": true,
+        "runtimeBuildInfoVisible": true,
+        "saveWorkingCopyVisible": true,
+        "saveAsNewCopyVisible": true,
+        "exportJsonBackupVisible": true,
+        "activeRecordIdVisible": true,
+        "namedSaveStatusVisible": true,
+        "runtimeMismatchBannerSuppressedWhenControlsPresent": true,
+        "runtimeMismatchBannerVisibleWhenMissing": true
       }
     },
     {
       "name": "required manifest proof booleans are present",
-      "passed": false,
+      "passed": true,
       "detail": {
         "runtimeVersionProofStatus": true,
         "staleRuntimeDetectionStatus": true,
@@ -194,12 +164,9 @@
         "sameRecordReloadProof": true,
         "canvasMatchesInspectorHeight": true,
         "popupClampOrDockProof": true,
-        "saveControlsProof": false
+        "saveControlsProof": true
       }
     }
   ],
-  "blockers": [
-    "manual checklist failure: Unchecked required manual checklist items: Runtime build panel visible, Batch marker visible, Save Working Copy visible and primary, Save As New Copy visible, Export JSON Backup visible, Active copy name and recordId visible, Move one room, Change one door, Click Save Working Copy, Reload browser, Open same saved copy, Changes remain, Export JSON includes changes, Canvas is tall enough to work without constant vertical scrolling, Inspector scrolls if needed, Popup can be docked or remains visible",
-    "runtime save UX proof failed"
-  ]
+  "blockers": []
 }
