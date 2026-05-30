@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-door-authoring-crash-reproduction.mjs --stage red-mode-detects-recovery --allow-partial --issue 670
+node scripts/check-door-authoring-crash-reproduction.mjs --stage left-pod --allow-partial --issue 670
+node scripts/check-door-authoring-crash-reproduction.mjs --stage right-pod --allow-partial --issue 670
+node scripts/check-door-authoring-crash-reproduction.mjs --stage grey-wall-adjacent --allow-partial --issue 670
+node scripts/check-door-authoring-crash-reproduction.mjs --stage recovery-screen-negative --allow-partial --issue 670
+node scripts/check-no-phi-fields.mjs
