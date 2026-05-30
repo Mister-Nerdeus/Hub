@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname, join } from "node:path";
 
 export const splitRoomManifestPath = "docs/verification/split-room-authoring-manifest.json";
+export const splitRoomCloseoutHardeningManifestPath = "docs/verification/split-room-closeout-hardening-manifest.json";
 export const splitRoomManifestVersion = "1.0.0";
 export const dockerRevisionLabel = "split-room-authoring-679-688";
 
@@ -71,6 +72,52 @@ export const splitRoomManifestTemplate = {
   noRecoveryScreenDuringSplitRoomWork: false,
 
   reconstructionStatus: "go_for_controlled_reconstruction_but_split_room_authoring_needs_ux_hardening",
+  doorAuthoringStatus: "passed",
+  collaborationStatus: "not_started",
+  simulationV0Status: "internal_dry_run_only",
+  optimizerStatus: "not_started",
+  assignmentRecommendationStatus: "not_started",
+  clinicalSafetyScoringStatus: "not_started",
+  staffingComplianceStatus: "not_started",
+  patientOutcomePredictionStatus: "not_started",
+  promotionStatus: "blocked",
+  noPhiStatus: "passed",
+  goNoGoStatus: "not_ready"
+};
+
+export const splitRoomCloseoutHardeningManifestTemplate = {
+  manifestVersion: splitRoomManifestVersion,
+  batch: "689-693",
+  lastUpdatedIssue: "689",
+  productDisplayName: "ER Pod Shift Simulator",
+
+  sourceBatch: "679-688",
+  sourceSplitRoomGoNoGoStatus: "go_for_full_er_floorplan_reconstruction",
+  sourceDoorAuthoringStatus: "go_for_full_er_floorplan_reconstruction",
+
+  splitRoomAdjacencyHardeningStatus: "missing",
+  splitRoomManualAssignmentBrowserStatus: "missing",
+  splitDoorEvidenceNamingStatus: "missing",
+  splitRoomUnsplitConfirmationStatus: "missing",
+  splitRoomCloseoutGoNoGoStatus: "not_ready",
+
+  splitRoomSeparatedAlignedRoomsBlocked: false,
+  splitRoomCanonicalPairsStillPass: false,
+  splitRoomOverlapBlocked: false,
+  splitRoomChildManualAssignmentProof: false,
+  splitRoomParentNotAssignableProof: false,
+  splitRoomChildBurdenProof: false,
+  splitRoomIndependentColorProof: false,
+  doorProofArtifactTyped: false,
+  splitRoomProofArtifactTyped: false,
+  genericBrowserProofCollisionRemoved: false,
+  finalAuditReferencesTypedArtifacts: false,
+  unsplitRequiresConfirmation: false,
+  unsplitCancelPreservesSplit: false,
+  unsplitPreservesChildRooms: false,
+  splitRoomStatusCopyCurrentGo: false,
+
+  reconstructionStatus: "go_for_controlled_reconstruction_but_split_room_closeout_hardening_pending",
   doorAuthoringStatus: "passed",
   collaborationStatus: "not_started",
   simulationV0Status: "internal_dry_run_only",
@@ -188,6 +235,58 @@ export function updateSplitRoomManifest(issue, updates) {
   return manifest;
 }
 
+export function loadSplitRoomCloseoutHardeningManifest(issue = "689") {
+  const existing = exists(splitRoomCloseoutHardeningManifestPath)
+    ? readJson(splitRoomCloseoutHardeningManifestPath)
+    : {};
+  return {
+    ...splitRoomCloseoutHardeningManifestTemplate,
+    ...existing,
+    manifestVersion: splitRoomCloseoutHardeningManifestTemplate.manifestVersion,
+    batch: splitRoomCloseoutHardeningManifestTemplate.batch,
+    productDisplayName: splitRoomCloseoutHardeningManifestTemplate.productDisplayName,
+    sourceBatch: splitRoomCloseoutHardeningManifestTemplate.sourceBatch,
+    sourceSplitRoomGoNoGoStatus: splitRoomCloseoutHardeningManifestTemplate.sourceSplitRoomGoNoGoStatus,
+    sourceDoorAuthoringStatus: splitRoomCloseoutHardeningManifestTemplate.sourceDoorAuthoringStatus,
+    doorAuthoringStatus: "passed",
+    collaborationStatus: "not_started",
+    simulationV0Status: "internal_dry_run_only",
+    optimizerStatus: "not_started",
+    assignmentRecommendationStatus: "not_started",
+    clinicalSafetyScoringStatus: "not_started",
+    staffingComplianceStatus: "not_started",
+    patientOutcomePredictionStatus: "not_started",
+    promotionStatus: "blocked",
+    noPhiStatus: "passed",
+    lastUpdatedIssue: issue
+  };
+}
+
+export function updateSplitRoomCloseoutHardeningManifest(issue, updates) {
+  const manifest = {
+    ...loadSplitRoomCloseoutHardeningManifest(issue),
+    ...updates,
+    doorAuthoringStatus: "passed",
+    collaborationStatus: "not_started",
+    simulationV0Status: "internal_dry_run_only",
+    optimizerStatus: "not_started",
+    assignmentRecommendationStatus: "not_started",
+    clinicalSafetyScoringStatus: "not_started",
+    staffingComplianceStatus: "not_started",
+    patientOutcomePredictionStatus: "not_started",
+    promotionStatus: "blocked",
+    noPhiStatus: "passed",
+    lastUpdatedIssue: issue
+  };
+  writeJson(splitRoomCloseoutHardeningManifestPath, manifest);
+  writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
+    status: "passed",
+    manifestPath: splitRoomCloseoutHardeningManifestPath,
+    updates
+  });
+  return manifest;
+}
+
 export function addCheck(checks, name, passed, detail = null) {
   checks.push({ name, passed: Boolean(passed), detail });
 }
@@ -266,7 +365,7 @@ export function writeEvidenceSlots(issue, scriptOutputName, status, stage, check
   }
 }
 
-export function writeCloseout(issue, title, status, commands, limitations = []) {
+export function writeCloseout(issue, title, status, commands, limitations = [], evidencePaths = [splitRoomManifestPath]) {
   const dir = `docs/verification/issues/issue-${issue}`;
   writeText(`${dir}/closeout.md`, `# Issue ${issue} Closeout
 
@@ -287,7 +386,7 @@ ${commands.map((command) => `- ${command}`).join("\n")}
 
 ## Evidence Artifacts
 - ${dir}
-- ${splitRoomManifestPath}
+${evidencePaths.map((path) => `- ${path}`).join("\n")}
 
 ## Known Limitations
 ${(limitations.length === 0 ? ["Full ER floorplan reconstruction remains gated by local verification artifacts."] : limitations).map((item) => `- ${item}`).join("\n")}
@@ -311,13 +410,13 @@ export function writeStageSummary(issue, scriptOutputName, status, stage, checks
 export function buildSplitRoomTestLayout() {
   const rooms = [
     room("room-02", "2", 20, 20),
-    room("room-03", "3", 32, 20),
+    room("room-03", "3", 30, 20),
     room("room-04", "4", 20, 34),
-    room("room-05", "5", 32, 34),
+    room("room-05", "5", 30, 34),
     room("room-06", "6", 58, 20),
-    room("room-07", "7", 70, 20),
+    room("room-07", "7", 68, 20),
     room("room-08", "8", 58, 34),
-    room("room-09", "9", 70, 34)
+    room("room-09", "9", 68, 34)
   ];
   return {
     schemaVersion: "1.0.0",

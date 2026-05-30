@@ -4,6 +4,7 @@ import {
   type EditableRoomGeometry
 } from "../layout-editor/editableLayoutGeometryContract.js";
 import { isPatientCareRoomType } from "./roomTypeRules.js";
+import { evaluateSplitRoomAdjacency } from "./splitRoomAdjacency.js";
 import {
   splitRoomPairForRoomId,
   type SplitRoomPairResolution
@@ -40,8 +41,9 @@ export function resolveSplitRoomPair(input: {
       expectedPartnerId
     );
   }
-  if (!roomsHaveCompatibleGeometry(selectedRoom, partnerRoom)) {
-    return blocked(input.selectedRoomId, "Room geometry does not align for one physical split room.", expectedPartnerId);
+  const adjacency = evaluateSplitRoomAdjacency(selectedRoom, partnerRoom);
+  if (adjacency.status === "blocked") {
+    return blocked(input.selectedRoomId, adjacency.reason, expectedPartnerId);
   }
 
   const roomA = layout.rooms.find((room) => room.id === canonicalPair.roomAId);
@@ -78,15 +80,6 @@ function blocked(
 
 function roomAlreadySplit(layout: EditableLayoutGeometryContract, roomId: string): boolean {
   return (layout.splitBays ?? []).some((splitBay) => splitBay.bedPositionRoomIds.includes(roomId));
-}
-
-function roomsHaveCompatibleGeometry(
-  roomA: EditableRoomGeometry,
-  roomB: EditableRoomGeometry
-): boolean {
-  const sameRow = roomA.yFeet === roomB.yFeet && roomA.heightFeet === roomB.heightFeet;
-  const sameColumn = roomA.xFeet === roomB.xFeet && roomA.widthFeet === roomB.widthFeet;
-  return sameRow || sameColumn;
 }
 
 function displayRoom(room: EditableRoomGeometry): string {

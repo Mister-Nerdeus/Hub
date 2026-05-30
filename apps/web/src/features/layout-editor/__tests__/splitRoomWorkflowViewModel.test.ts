@@ -6,13 +6,13 @@ const layout = {
   units: "feet" as const,
   rooms: [
     room("room-02", "2", 0, 0),
-    room("room-03", "3", 12, 0),
-    room("room-04", "4", 0, 12),
-    room("room-05", "5", 12, 12),
-    room("room-06", "6", 0, 24),
-    room("room-07", "7", 12, 24),
-    room("room-08", "8", 0, 36),
-    room("room-09", "9", 12, 36)
+    room("room-03", "3", 10, 0),
+    room("room-04", "4", 0, 10),
+    room("room-05", "5", 10, 10),
+    room("room-06", "6", 0, 20),
+    room("room-07", "7", 10, 20),
+    room("room-08", "8", 0, 30),
+    room("room-09", "9", 10, 30)
   ],
   doors: [],
   supportAccessPoints: [],

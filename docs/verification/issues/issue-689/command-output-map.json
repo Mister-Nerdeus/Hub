@@ -1,0 +1,71 @@
+{
+  "issue": "689",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-689/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-689/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-689/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage adjacency-contract --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/adjacency-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage horizontal-adjacent-valid --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/horizontal-adjacent-valid-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage vertical-adjacent-valid --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/vertical-adjacent-valid-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage same-row-separated-blocked --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/same-row-separated-blocked-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage same-column-separated-blocked --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/same-column-separated-blocked-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage overlap-blocked --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/overlap-blocked-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-adjacency-hardening.mjs --stage canonical-pairs-still-pass --allow-partial --issue 689",
+      "outputs": [
+        "docs/verification/issues/issue-689/canonical-pairs-still-pass-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-689/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -52,6 +52,7 @@ export * from "./floorplans/roomBedBayTypes.js";
 export * from "./floorplans/roomBedBayRules.js";
 export * from "./floorplans/splitBayContract.js";
 export * from "./floorplans/splitRoomContracts.js";
+export * from "./floorplans/splitRoomAdjacency.js";
 export * from "./floorplans/splitRoomPairResolver.js";
 export * from "./floorplans/splitRoomAuthoring.js";
 export * from "./floorplans/splitRoomAssignmentSemantics.js";

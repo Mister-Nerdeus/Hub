@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-adjacency-hardening.mjs --stage adjacency-contract --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage horizontal-adjacent-valid --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage vertical-adjacent-valid --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage same-row-separated-blocked --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage same-column-separated-blocked --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage overlap-blocked --allow-partial --issue 689
+node scripts/check-split-room-adjacency-hardening.mjs --stage canonical-pairs-still-pass --allow-partial --issue 689
+node scripts/check-no-phi-fields.mjs

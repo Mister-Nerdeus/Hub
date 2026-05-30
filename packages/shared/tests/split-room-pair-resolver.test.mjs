@@ -1,10 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  evaluateSplitRoomAdjacency,
   createSplitRoomInEditableLayout,
   resolveSplitRoomPair,
   countEditableLayoutCapacity,
-  buildSplitRoomAssignmentSemantics
+  buildSplitRoomAssignmentSemantics,
+  SPLIT_ROOM_ADJACENCY_TOLERANCE_FEET
 } from "../dist/index.js";
 
 const baseLayout = {
@@ -13,13 +15,13 @@ const baseLayout = {
   units: "feet",
   rooms: [
     room("room-02", "2", 0, 0),
-    room("room-03", "3", 12, 0),
-    room("room-04", "4", 0, 12),
-    room("room-05", "5", 12, 12),
-    room("room-06", "6", 0, 24),
-    room("room-07", "7", 12, 24),
-    room("room-08", "8", 0, 36),
-    room("room-09", "9", 12, 36)
+    room("room-03", "3", 10, 0),
+    room("room-04", "4", 0, 10),
+    room("room-05", "5", 10, 10),
+    room("room-06", "6", 0, 20),
+    room("room-07", "7", 10, 20),
+    room("room-08", "8", 0, 30),
+    room("room-09", "9", 10, 30)
   ],
   doors: [],
   supportAccessPoints: [],
@@ -29,6 +31,31 @@ const baseLayout = {
   splitBays: [],
   limitations: ["Synthetic split-room authoring test layout."]
 };
+
+test("split room adjacency accepts physically touching horizontal and vertical pairs", () => {
+  const horizontal = evaluateSplitRoomAdjacency(room("room-04", "4", 0, 0), room("room-05", "5", 10, 0));
+  assert.deepEqual(horizontal, {
+    status: "adjacent",
+    orientation: "horizontal",
+    gapFeet: 0
+  });
+
+  const vertical = evaluateSplitRoomAdjacency(room("room-04", "4", 0, 0), room("room-05", "5", 0, 10));
+  assert.deepEqual(vertical, {
+    status: "adjacent",
+    orientation: "vertical",
+    gapFeet: 0
+  });
+});
+
+test("split room adjacency accepts only near-touching gaps inside tolerance", () => {
+  const nearTouching = evaluateSplitRoomAdjacency(
+    room("room-04", "4", 0, 0),
+    room("room-05", "5", 10 + SPLIT_ROOM_ADJACENCY_TOLERANCE_FEET / 2, 0)
+  );
+  assert.equal(nearTouching.status, "adjacent");
+  assert.equal(nearTouching.gapFeet, SPLIT_ROOM_ADJACENCY_TOLERANCE_FEET / 2);
+});
 
 test("split room resolver resolves canonical pairs from either child room", () => {
   assert.equal(resolveSplitRoomPair({ layout: baseLayout, selectedRoomId: "room-05" }).pairLabel, "4/5");
@@ -82,6 +109,31 @@ test("split room resolver blocks invalid and already split rooms", () => {
   assert.match(alreadySplit.reason, /already part of a split room/u);
 });
 
+test("split room resolver blocks separated same-row and same-column rooms", () => {
+  const sameRowSeparatedLayout = withRoomOverrides(baseLayout, {
+    "room-05": { xFeet: 12 }
+  });
+  const sameRowSeparated = resolveSplitRoomPair({ layout: sameRowSeparatedLayout, selectedRoomId: "room-05" });
+  assert.equal(sameRowSeparated.status, "blocked");
+  assert.match(sameRowSeparated.reason, /not adjacent enough to form one physical bay/u);
+
+  const sameColumnSeparatedLayout = withRoomOverrides(baseLayout, {
+    "room-05": { xFeet: 0, yFeet: 22 }
+  });
+  const sameColumnSeparated = resolveSplitRoomPair({ layout: sameColumnSeparatedLayout, selectedRoomId: "room-05" });
+  assert.equal(sameColumnSeparated.status, "blocked");
+  assert.match(sameColumnSeparated.reason, /not adjacent enough to form one physical bay/u);
+});
+
+test("split room resolver blocks overlapping canonical rooms", () => {
+  const overlappingLayout = withRoomOverrides(baseLayout, {
+    "room-05": { xFeet: 8 }
+  });
+  const overlapping = resolveSplitRoomPair({ layout: overlappingLayout, selectedRoomId: "room-05" });
+  assert.equal(overlapping.status, "blocked");
+  assert.match(overlapping.reason, /not adjacent enough to form one physical bay/u);
+});
+
 function room(id, number, xFeet, yFeet, roomType = "standard") {
   return {
     objectType: "room",
@@ -96,5 +148,15 @@ function room(id, number, xFeet, yFeet, roomType = "standard") {
     yFeet,
     widthFeet: 10,
     heightFeet: 10
+  };
+}
+
+function withRoomOverrides(layout, overridesByRoomId) {
+  return {
+    ...layout,
+    rooms: layout.rooms.map((candidate) => ({
+      ...candidate,
+      ...(overridesByRoomId[candidate.id] ?? {})
+    }))
   };
 }

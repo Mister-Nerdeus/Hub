@@ -177,7 +177,7 @@ const splitRoomCreationLayout = {
       capacityType: "single" as const,
       isHallBed: false,
       isTraumaAdjacent: false,
-      xFeet: 56,
+      xFeet: 54,
       yFeet: 40,
       widthFeet: 10,
       heightFeet: 10
