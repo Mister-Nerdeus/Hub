@@ -8,7 +8,14 @@ export function NurseAssignmentCards({ cards }: NurseAssignmentCardsProps) {
   return (
     <div className="manual-nurse-card-grid" aria-label="Nurse assignment cards">
       {cards.map((card) => (
-        <article className="manual-nurse-card" key={card.nurseId} style={{ borderColor: card.color }}>
+        <article
+          className="manual-nurse-card"
+          key={card.nurseId}
+          data-manual-nurse-card-id={card.nurseId}
+          data-assigned-room-ids={card.assignedRoomIds.join(",")}
+          data-assigned-room-labels={card.assignedRoomLabels.join(",")}
+          style={{ borderColor: card.color }}
+        >
           <div className="manual-nurse-card__header">
             <span className="manual-nurse-card__swatch" style={{ background: card.color }} />
             <div>

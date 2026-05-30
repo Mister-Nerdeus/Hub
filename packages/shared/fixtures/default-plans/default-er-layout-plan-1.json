@@ -82,7 +82,7 @@
         "id": "room-03",
         "label": "3",
         "roomType": "standard",
-        "x": 56,
+        "x": 54,
         "y": 28,
         "widthFeet": 10,
         "lengthFeet": 10,
@@ -90,7 +90,7 @@
         "traumaCapable": false,
         "isolationCapable": false,
         "doorPoint": {
-          "x": 61,
+          "x": 59,
           "y": 38
         },
         "zoneId": "zone-left-pod-rooms-2-5-14",
@@ -140,7 +140,7 @@
         "id": "room-05",
         "label": "5",
         "roomType": "standard",
-        "x": 56,
+        "x": 54,
         "y": 40,
         "widthFeet": 10,
         "lengthFeet": 10,
@@ -148,7 +148,7 @@
         "traumaCapable": false,
         "isolationCapable": false,
         "doorPoint": {
-          "x": 61,
+          "x": 59,
           "y": 50
         },
         "zoneId": "zone-left-pod-rooms-2-5-14",
@@ -227,7 +227,7 @@
         "id": "room-07",
         "label": "7",
         "roomType": "standard",
-        "x": 104,
+        "x": 102,
         "y": 28,
         "widthFeet": 10,
         "lengthFeet": 10,
@@ -235,7 +235,7 @@
         "traumaCapable": false,
         "isolationCapable": false,
         "doorPoint": {
-          "x": 109,
+          "x": 107,
           "y": 38
         },
         "zoneId": "zone-right-pod-rooms-6-10-13",
@@ -285,7 +285,7 @@
         "id": "room-09",
         "label": "9",
         "roomType": "standard",
-        "x": 104,
+        "x": 102,
         "y": 40,
         "widthFeet": 10,
         "lengthFeet": 10,
@@ -293,7 +293,7 @@
         "traumaCapable": false,
         "isolationCapable": false,
         "doorPoint": {
-          "x": 109,
+          "x": 107,
           "y": 50
         },
         "zoneId": "zone-right-pod-rooms-6-10-13",
@@ -907,7 +907,7 @@
         "id": "door-03",
         "label": "Door 3",
         "roomId": "room-03",
-        "x": 61,
+        "x": 59,
         "y": 38,
         "widthFeet": 3,
         "pathNodeId": "node-door-room-03",
@@ -943,7 +943,7 @@
         "id": "door-05",
         "label": "Door 5",
         "roomId": "room-05",
-        "x": 61,
+        "x": 59,
         "y": 50,
         "widthFeet": 3,
         "pathNodeId": "node-door-room-05",
@@ -979,7 +979,7 @@
         "id": "door-07",
         "label": "Door 7",
         "roomId": "room-07",
-        "x": 109,
+        "x": 107,
         "y": 38,
         "widthFeet": 3,
         "pathNodeId": "node-door-room-07",
@@ -1015,7 +1015,7 @@
         "id": "door-09",
         "label": "Door 9",
         "roomId": "room-09",
-        "x": 109,
+        "x": 107,
         "y": 50,
         "widthFeet": 3,
         "pathNodeId": "node-door-room-09",
@@ -1801,7 +1801,7 @@
       {
         "id": "node-door-room-03",
         "nodeType": "room_door",
-        "x": 61,
+        "x": 59,
         "y": 38,
         "linkedObjectId": "door-03"
       },
@@ -1815,7 +1815,7 @@
       {
         "id": "node-door-room-05",
         "nodeType": "room_door",
-        "x": 61,
+        "x": 59,
         "y": 50,
         "linkedObjectId": "door-05"
       },
@@ -1836,7 +1836,7 @@
       {
         "id": "node-door-room-07",
         "nodeType": "room_door",
-        "x": 109,
+        "x": 107,
         "y": 38,
         "linkedObjectId": "door-07"
       },
@@ -1850,7 +1850,7 @@
       {
         "id": "node-door-room-09",
         "nodeType": "room_door",
-        "x": 109,
+        "x": 107,
         "y": 50,
         "linkedObjectId": "door-09"
       },
@@ -2073,7 +2073,7 @@
         "id": "edge-room-03-hall-mid",
         "fromNodeId": "node-door-room-03",
         "toNodeId": "node-hall-mid",
-        "lengthFeet": 27,
+        "lengthFeet": 29,
         "hallwayWidthFeet": 10,
         "congestionFactor": 1.1,
         "doorPenaltySeconds": 3,
@@ -2095,7 +2095,7 @@
         "id": "edge-room-05-hall-mid",
         "fromNodeId": "node-door-room-05",
         "toNodeId": "node-hall-mid",
-        "lengthFeet": 15,
+        "lengthFeet": 17,
         "hallwayWidthFeet": 10,
         "congestionFactor": 1.1,
         "doorPenaltySeconds": 3,
@@ -2128,7 +2128,7 @@
         "id": "edge-room-07-hall-east",
         "fromNodeId": "node-door-room-07",
         "toNodeId": "node-hall-east",
-        "lengthFeet": 25,
+        "lengthFeet": 27,
         "hallwayWidthFeet": 10,
         "congestionFactor": 1.1,
         "doorPenaltySeconds": 3,
@@ -2150,7 +2150,7 @@
         "id": "edge-room-09-hall-east",
         "fromNodeId": "node-door-room-09",
         "toNodeId": "node-hall-east",
-        "lengthFeet": 13,
+        "lengthFeet": 15,
         "hallwayWidthFeet": 10,
         "congestionFactor": 1.1,
         "doorPenaltySeconds": 3,

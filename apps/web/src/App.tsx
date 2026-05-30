@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AuthoringDraftContract } from "@nerdeus/shared";
+import type { AuthoringDraftContract, EditableLayoutGeometryContract } from "@nerdeus/shared";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
@@ -38,7 +38,11 @@ import {
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
-import { ManualAssignmentWorkspace } from "./features/manual-assignment/ManualAssignmentWorkspace";
+import {
+  ManualAssignmentWorkspace,
+  splitRoomManualAssignmentOverlayNurses,
+  type ManualAssignmentMap
+} from "./features/manual-assignment/ManualAssignmentWorkspace";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
@@ -87,6 +91,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
 
   const [activeFloorplanState, setActiveFloorplanState] = useState(createEmptyActiveFloorplanState);
   const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
+  const [activeEditorLayout, setActiveEditorLayout] =
+    useState<EditableLayoutGeometryContract | null>(null);
+  const [manualAssignmentsByRoomId, setManualAssignmentsByRoomId] =
+    useState<ManualAssignmentMap>({});
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
   const canonicalFloorplanHeaderViewModel = createCanonicalFloorplanHeaderViewModel({
@@ -254,6 +262,19 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setActiveSection(DEFAULT_APP_SECTION_ID);
   }
 
+  const captureEditorLayout = useCallback((layout: EditableLayoutGeometryContract | null) => {
+    setActiveEditorLayout(layout);
+  }, []);
+
+  const captureManualAssignments = useCallback((assignments: ManualAssignmentMap) => {
+    setManualAssignmentsByRoomId(assignments);
+  }, []);
+
+  const assignmentOverlaySource = {
+    assignmentsByRoomId: manualAssignmentsByRoomId,
+    nurses: splitRoomManualAssignmentOverlayNurses
+  };
+
   if (!workspaceAccessState.unlocked) {
     return (
       <WorkspaceAccessEntryScreen
@@ -316,11 +337,13 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           >
             <LayoutEditorStage
               activeFloorplan={activeFloorplanState.activeFloorplan}
+              assignmentOverlaySource={assignmentOverlaySource}
               onCreateWorkingCopy={() =>
                 duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
               }
               onSaveWorkingCopy={saveActiveWorkingCopy}
               onSaveAsNewCopy={saveActiveAsNewCopy}
+              onEditableLayoutChange={captureEditorLayout}
             />
           </LayoutEditorErrorBoundary>
         </section>
@@ -343,7 +366,11 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "manual-assignment" ? (
         <section className="workflow-section" aria-labelledby="manual-assignment-section-title">
           <h2 id="manual-assignment-section-title">Manual Assignment</h2>
-          <ManualAssignmentWorkspace />
+          <ManualAssignmentWorkspace
+            activeEditableLayout={activeEditorLayout}
+            assignmentsByRoomId={manualAssignmentsByRoomId}
+            onAssignmentsChange={captureManualAssignments}
+          />
         </section>
       ) : null}
 

@@ -17,12 +17,17 @@ export function SplitBayShape({
 }: SplitBayShapeProps) {
   const divider = dividerLine(viewModel);
   const [firstAssignment, secondAssignment] = childAssignments;
+  const childAssignmentColors = childAssignments
+    .map((assignment) => assignment?.assignmentColor ?? "")
+    .join("|");
   return (
     <g
       className={selectedClassName("layout-editor-stage__split-bay", isSelected)}
       data-hit-target-key={viewModel.hitTargetKey}
       data-layout-object-type="split_bay"
       data-layout-object-id={viewModel.objectId}
+      data-split-bay-child-room-ids={viewModel.bedRoomIds.join("|")}
+      data-split-bay-child-assignment-colors={childAssignmentColors}
       data-split-bay-divider-style={viewModel.dividerStyle}
       role="img"
       aria-label={viewModel.ariaLabel}

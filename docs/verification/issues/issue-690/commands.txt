@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-split-room-manual-assignment-browser.mjs --stage user-flow --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage child-room-4-assignment --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage child-room-5-assignment --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage parent-not-assignable --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage assigned-counts --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage child-burden-output --allow-partial --issue 690
+node scripts/check-split-room-manual-assignment-browser.mjs --stage editor-overlay-colors --allow-partial --issue 690
+node scripts/check-no-phi-fields.mjs

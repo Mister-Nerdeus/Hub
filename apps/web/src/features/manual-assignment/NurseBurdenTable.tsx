@@ -19,7 +19,13 @@ export function NurseBurdenTable({ rows }: NurseBurdenTableProps) {
         <span role="columnheader">Total</span>
       </div>
       {rows.map((row) => (
-        <div className="manual-burden-table__row" role="row" key={row.nurseId}>
+        <div
+          className="manual-burden-table__row"
+          role="row"
+          key={row.nurseId}
+          data-burden-nurse-id={row.nurseId}
+          data-burden-room-ids={row.assignedRoomIds.join(",")}
+        >
           <span role="cell">{row.displayLabel}</span>
           <span role="cell">{row.assignedRoomCount}</span>
           <span role="cell">{row.acuityBurden}</span>

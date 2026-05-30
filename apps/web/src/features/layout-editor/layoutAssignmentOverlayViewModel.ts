@@ -5,6 +5,66 @@ import type {
 } from "./layoutAssignmentOverlay";
 import { roomTypeSuppressesAssignmentOverlay } from "./roomPresentationStyles";
 
+export type LayoutAssignmentOverlayNurse = {
+  nurseId: string;
+  displayLabel: string;
+  color: string;
+};
+
+export type LayoutAssignmentOverlaySource = {
+  assignmentsByRoomId: Readonly<Record<string, string>>;
+  nurses: readonly LayoutAssignmentOverlayNurse[];
+};
+
+export function createLayoutAssignmentOverlay(
+  layout: EditableLayoutGeometryContract | null,
+  source?: LayoutAssignmentOverlaySource | null
+): LayoutAssignmentOverlay {
+  if (source == null || Object.keys(source.assignmentsByRoomId).length === 0) {
+    return createSyntheticLayoutAssignmentOverlay(layout);
+  }
+  if (layout == null) {
+    return { syntheticDataOnly: true, roomsById: {}, legend: [] };
+  }
+
+  const nursesById = new Map(source.nurses.map((nurse) => [nurse.nurseId, nurse]));
+  const roomsById: Record<string, LayoutAssignmentOverlayRoom> = {};
+
+  layout.rooms.forEach((room) => {
+    if (roomTypeSuppressesAssignmentOverlay(room.roomType)) {
+      roomsById[room.id] = {
+        roomId: room.id,
+        assignmentColor: null,
+        assignmentLabel: "Room type excluded",
+        burdenLevel: "none",
+        warningState: "none",
+        unassignedOccupied: false
+      };
+      return;
+    }
+
+    const nurseId = source.assignmentsByRoomId[room.id] ?? null;
+    const nurse = nurseId == null ? null : nursesById.get(nurseId) ?? null;
+    roomsById[room.id] = {
+      roomId: room.id,
+      assignmentColor: nurse?.color ?? null,
+      assignmentLabel: nurse?.displayLabel ?? "Unassigned occupied",
+      burdenLevel: nurse == null ? "none" : "medium",
+      warningState: "none",
+      unassignedOccupied: nurse == null
+    };
+  });
+
+  return {
+    syntheticDataOnly: true,
+    roomsById,
+    legend: source.nurses.map((nurse) => ({
+      label: nurse.displayLabel,
+      color: nurse.color
+    }))
+  };
+}
+
 export function createSyntheticLayoutAssignmentOverlay(
   layout: EditableLayoutGeometryContract | null
 ): LayoutAssignmentOverlay {

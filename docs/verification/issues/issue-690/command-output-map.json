@@ -1,0 +1,71 @@
+{
+  "issue": "690",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-690/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-690/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-690/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage user-flow --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/manual-assignment-user-flow-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage child-room-4-assignment --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/child-room-4-assignment-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage child-room-5-assignment --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/child-room-5-assignment-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage parent-not-assignable --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/parent-not-assignable-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage assigned-counts --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/assigned-count-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage child-burden-output --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/burden-child-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-manual-assignment-browser.mjs --stage editor-overlay-colors --allow-partial --issue 690",
+      "outputs": [
+        "docs/verification/issues/issue-690/editor-overlay-independent-colors-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-690/no-phi-output.txt"
+      ]
+    }
+  ]
+}

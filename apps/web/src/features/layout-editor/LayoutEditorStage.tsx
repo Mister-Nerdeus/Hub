@@ -116,7 +116,10 @@ import {
 } from "./stationResizeHandlesViewModel";
 import { RoomShape } from "./RoomShape";
 import { buildRoomShapeViewModel } from "./roomShapeViewModel";
-import { createSyntheticLayoutAssignmentOverlay } from "./layoutAssignmentOverlayViewModel";
+import {
+  createLayoutAssignmentOverlay,
+  type LayoutAssignmentOverlaySource
+} from "./layoutAssignmentOverlayViewModel";
 import { createRoomMoveSnapAccumulator } from "./roomDragMove";
 import {
   accumulateRoomDragDelta,
@@ -241,9 +244,11 @@ const baseInitialStageState = createLayoutEditorState({
 
 type LayoutEditorStageProps = {
   activeFloorplan?: LayoutEditorFloorplanInput | null;
+  assignmentOverlaySource?: LayoutAssignmentOverlaySource | null;
   onCreateWorkingCopy?: () => void;
   onSaveWorkingCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
   onSaveAsNewCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
+  onEditableLayoutChange?: (layout: LayoutEditorState["editableLayout"]) => void;
 };
 
 export type SaveWorkingCopyResult =
@@ -253,9 +258,11 @@ export type SaveWorkingCopyResult =
 
 export function LayoutEditorStage({
   activeFloorplan = null,
+  assignmentOverlaySource = null,
   onCreateWorkingCopy,
   onSaveWorkingCopy,
-  onSaveAsNewCopy
+  onSaveAsNewCopy,
+  onEditableLayoutChange
 }: LayoutEditorStageProps) {
   if (
     typeof window !== "undefined" &&
@@ -457,6 +464,9 @@ export function LayoutEditorStage({
     stageState.editAuditTrail,
     stageState.isDirty
   ]);
+  useEffect(() => {
+    onEditableLayoutChange?.(stageState.editableLayout);
+  }, [stageState.editableLayout, onEditableLayoutChange]);
   const grid = buildLayoutGridViewModel({
     workspaceBoundsFeet: stageState.layoutBoundsFeet,
     viewportSizePixels: DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS,
@@ -530,7 +540,7 @@ export function LayoutEditorStage({
   const providerPharmacyZoneItems = zoneItems.filter(
     (item) => item.objectId === "zone-provider-pharmacy"
   );
-  const assignmentOverlay = createSyntheticLayoutAssignmentOverlay(stageState.editableLayout);
+  const assignmentOverlay = createLayoutAssignmentOverlay(stageState.editableLayout, assignmentOverlaySource);
   const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
     renderItems,
     selectedObjectType: stageState.selectedObjectType,

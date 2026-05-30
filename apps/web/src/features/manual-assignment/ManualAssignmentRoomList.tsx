@@ -21,6 +21,10 @@ export function ManualAssignmentRoomList({
             room.unassignedOccupied ? "manual-room-card--unassigned" : ""
           ].join(" ")}
           key={room.roomId}
+          data-manual-room-id={room.roomId}
+          data-manual-room-label={room.label}
+          data-assigned-nurse-id={room.assignedNurseId ?? ""}
+          data-assignment-disabled={room.assignmentDisabled ? "true" : "false"}
           style={room.assignedColor ? { borderColor: room.assignedColor } : undefined}
         >
           <button
@@ -28,6 +32,8 @@ export function ManualAssignmentRoomList({
             type="button"
             onClick={() => onRoomClick(room.roomId)}
             aria-label={room.controlLabel}
+            disabled={room.assignmentDisabled}
+            title={room.assignmentDisabledReason ?? undefined}
           >
             <span className="manual-room-card__title">{room.label}</span>
             <span className="manual-room-card__meta">Acuity {room.acuity}</span>

@@ -31,3 +31,15 @@ export function buildSplitRoomAssignmentSemantics(input: {
 export function parentSplitBayIsAssignable(): false {
   return false;
 }
+
+export function listSplitRoomParentIds(layoutValue: EditableLayoutGeometryContract): string[] {
+  const layout = validateEditableLayoutGeometryContract(layoutValue);
+  return (layout.splitBays ?? []).map((splitBay) => splitBay.splitBayId).sort();
+}
+
+export function listSplitRoomChildRoomIds(layoutValue: EditableLayoutGeometryContract): string[] {
+  const layout = validateEditableLayoutGeometryContract(layoutValue);
+  return [
+    ...new Set((layout.splitBays ?? []).flatMap((splitBay) => [...splitBay.bedPositionRoomIds]))
+  ].sort();
+}
