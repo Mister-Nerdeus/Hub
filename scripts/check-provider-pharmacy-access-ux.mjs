@@ -2,6 +2,7 @@
 import { readFileSync } from "node:fs";
 import {
   createEditableSupportAccessPoint,
+  isProviderPharmacySupportZone,
   validateEditableLayoutGeometryContract,
   validateSupportAccessPointLayout
 } from "../packages/shared/dist/index.js";
@@ -57,7 +58,24 @@ const exported = JSON.parse(JSON.stringify(reloaded));
 const providerExclusion = validateSupportAccessPointLayout(reloaded);
 
 if (stage === "provider-zone-selected" || stage === "final") {
-  addCheck(checks, "provider/pharmacy zone selection exposes support-access action state", zoneViewModel.includes("canAddSupportAccessPoint") && zonePopover.includes("Add Access Point"));
+  const genericZoneIsExcluded = !isProviderPharmacySupportZone({
+    objectType: "zone",
+    id: "zone-nurse-station-core",
+    label: "Nurse Station Core",
+    zoneType: "operational",
+    xFeet: 0,
+    yFeet: 0,
+    widthFeet: 10,
+    heightFeet: 6
+  });
+  addCheck(
+    checks,
+    "provider/pharmacy zone selection exposes support-access action state without enabling generic zones",
+    zoneViewModel.includes("canAddSupportAccessPoint") &&
+      zoneViewModel.includes("isProviderPharmacySupportZone") &&
+      zonePopover.includes("Add Access Point") &&
+      genericZoneIsExcluded
+  );
 }
 if (stage === "add-access-point" || stage === "final") {
   addCheck(checks, "Add Access Point dispatch creates support_access markers", stageSource.includes("addSupportAccessPoint") && reloaded.supportAccessPoints?.[0]?.objectType === "support_access");

@@ -21,5 +21,16 @@
     "supportAccessPointsArePatientRoomDoors": false,
     "providerPharmacyPatientCareExcluded": true,
     "blockers": []
+  },
+  "genericZoneNegative": {
+    "status": "blocked",
+    "supportAccessPointCount": 1,
+    "providerPharmacyAccessPointCount": 0,
+    "patientRoomDoorCount": 1,
+    "supportAccessPointsArePatientRoomDoors": false,
+    "providerPharmacyPatientCareExcluded": true,
+    "blockers": [
+      "support-access-generic-zone-negative ownerId must reference a provider/pharmacy support zone"
+    ]
   }
 }

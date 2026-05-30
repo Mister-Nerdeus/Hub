@@ -11,6 +11,7 @@ import {
 } from "../floorplans/activeFloorplanState";
 import { createDuplicateFloorplanViewModel } from "../floorplans/duplicateFloorplanViewModel";
 import { createSavedFloorplanStore } from "../floorplans/savedFloorplanStore";
+import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
 import { layoutEditorReducer } from "./layoutEditorReducer";
 import { createLayoutEditorStateFromFloorplan } from "./layoutEditorState";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
@@ -58,6 +59,25 @@ if (defaultEditorState.sourcePlan.pathEdges.length !== defaultFixture.plan.pathE
 }
 if (defaultEditorState.loadedFloorplan?.sourceKind !== "default-json") {
   throw new Error("editor loaded floorplan must identify default JSON source");
+}
+const supportAccessEligibleZoneIds = defaultEditorState.editableLayout.zones
+  .filter((zone) =>
+    buildHallwayZoneQuickEdit({
+      hallway: null,
+      zone,
+      readOnly: false,
+      validationWarningCount: 0
+    }).canAddSupportAccessPoint
+  )
+  .map((zone) => zone.id);
+if (!supportAccessEligibleZoneIds.includes("zone-provider-pharmacy")) {
+  throw new Error("provider/pharmacy zone must expose support-access authoring");
+}
+if (supportAccessEligibleZoneIds.some((zoneId) => !/pharmacy/u.test(zoneId))) {
+  throw new Error("support-access authoring must stay hidden on non-provider/pharmacy zones");
+}
+if (!defaultEditorState.editableLayout.zones.some((zone) => zone.zoneType === "operational")) {
+  throw new Error("generic operational zones must not be mapped to provider/pharmacy");
 }
 
 const defaultFirstRoom = defaultEditorState.editableLayout.rooms[0];

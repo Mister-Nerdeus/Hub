@@ -339,8 +339,11 @@ function mapEditableZoneType(zoneType: PlanContract["zones"][number]["zoneType"]
       return "ems_entry";
     case "trauma_zone":
       return "trauma";
-    default:
+    case "pharmacy":
+    case "medication_room":
       return "provider_pharmacy";
+    default:
+      return "operational";
   }
 }
 

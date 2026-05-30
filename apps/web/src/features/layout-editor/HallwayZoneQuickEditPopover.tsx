@@ -12,7 +12,7 @@ export type HallwayZoneQuickEditPopoverProps = {
   onAddSupportAccessPoint?: () => void;
 };
 
-const ZONE_TYPES: readonly EditableZoneType[] = ["ems_entry", "trauma", "provider_pharmacy"];
+const ZONE_TYPES: readonly EditableZoneType[] = ["operational", "ems_entry", "trauma", "provider_pharmacy"];
 
 export function HallwayZoneQuickEditPopover({
   viewModel,

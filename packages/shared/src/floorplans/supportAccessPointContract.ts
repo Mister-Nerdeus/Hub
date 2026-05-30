@@ -35,7 +35,10 @@ export function createEditableSupportAccessPoint(input: {
 }
 
 export function isProviderPharmacySupportZone(zone: EditableZoneGeometry | null | undefined): boolean {
-  return zone?.zoneType === "provider_pharmacy";
+  if (zone?.zoneType !== "provider_pharmacy") {
+    return false;
+  }
+  return /pharmacy/u.test(`${zone.id} ${zone.label}`.toLowerCase());
 }
 
 export function summarizeSupportAccessPointContract(input: {
@@ -55,6 +58,9 @@ export function summarizeSupportAccessPointContract(input: {
     }
     if (!input.zones.some((zone) => zone.id === accessPoint.ownerId)) {
       return [`${accessPoint.id} ownerId must reference a zone`];
+    }
+    if (!providerZoneIds.has(accessPoint.ownerId)) {
+      return [`${accessPoint.id} ownerId must reference a provider/pharmacy support zone`];
     }
     return [];
   });

@@ -138,6 +138,18 @@ for (const [objectType, objectId] of selectableObjects) {
   assert.equal(selectedState.editableLayout?.rooms[0]?.xFeet, 0);
 }
 
+const splitBayRoomSelectedState = createLayoutEditorState({
+  editableLayout: stateWithLayout.editableLayout,
+  selectedObjectType: "room",
+  selectedObjectId: "room-01"
+});
+const duplicateSplitBayConversion = layoutEditorReducer(splitBayRoomSelectedState, {
+  type: "convertSelectedRoomPairToSplitBay",
+  roomId: "room-01",
+  splitBayId: "duplicate-split-bay"
+});
+assert.equal(duplicateSplitBayConversion, splitBayRoomSelectedState);
+
 const selectedRoomState = layoutEditorReducer(stateWithLayout, {
   type: "selectObject",
   objectType: "room",

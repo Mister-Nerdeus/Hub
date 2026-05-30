@@ -32,6 +32,21 @@
       }
     },
     {
+      "name": "support access contract rejects generic operational zone owners",
+      "passed": true,
+      "detail": {
+        "status": "blocked",
+        "supportAccessPointCount": 1,
+        "providerPharmacyAccessPointCount": 0,
+        "patientRoomDoorCount": 1,
+        "supportAccessPointsArePatientRoomDoors": false,
+        "providerPharmacyPatientCareExcluded": true,
+        "blockers": [
+          "support-access-generic-zone-negative ownerId must reference a provider/pharmacy support zone"
+        ]
+      }
+    },
+    {
       "name": "provider/pharmacy access point is owned by a provider/pharmacy zone",
       "passed": true,
       "detail": {

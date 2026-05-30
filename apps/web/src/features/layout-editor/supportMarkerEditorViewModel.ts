@@ -32,11 +32,18 @@ export function buildSupportMarkerEditorViewModel(input: {
     status: "ready",
     zoneId: input.zone.id,
     label: input.zone.label,
-    markerKindLabel: input.zone.zoneType === "ems_entry" ? "EMS Entry marker" : "Provider/Pharmacy label",
+    markerKindLabel: markerKindLabel(input.zone.zoneType),
     presentationVisible: true,
     readOnly: input.readOnly,
     validationMessage: validateSupportMarkerLabel(input.zone.label)
   };
+}
+
+function markerKindLabel(zoneType: EditableZoneGeometry["zoneType"]): string {
+  if (zoneType === "ems_entry") return "EMS Entry marker";
+  if (zoneType === "provider_pharmacy") return "Provider/Pharmacy label";
+  if (zoneType === "trauma") return "Trauma zone label";
+  return "Operational zone label";
 }
 
 export function validateSupportMarkerLabel(value: string): string {

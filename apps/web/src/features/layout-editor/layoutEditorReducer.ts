@@ -8,6 +8,7 @@ import {
   createEditableSupportAccessPoint,
   duplicateLayoutObject,
   generateAutoHallways,
+  isProviderPharmacySupportZone,
   moveDoor,
   snapRoomToGrid,
   updateDoorWidth,
@@ -674,7 +675,7 @@ function addSupportAccessPoint(
     return state;
   }
   const ownerZone = state.editableLayout.zones.find((zone) => zone.id === action.zoneId);
-  if (ownerZone == null || ownerZone.zoneType !== "provider_pharmacy") {
+  if (ownerZone == null || !isProviderPharmacySupportZone(ownerZone)) {
     return state;
   }
   const wallLength = action.wall === "north" || action.wall === "south"
@@ -796,6 +797,9 @@ function convertSelectedRoomPairToSplitBay(
   if (roomA == null || roomB == null) {
     return state;
   }
+  if (roomAlreadyInSplitBay(state.editableLayout, roomA.id) || roomAlreadyInSplitBay(state.editableLayout, roomB.id)) {
+    return state;
+  }
   return addSplitBay(state, {
     type: "addSplitBay",
     splitBayId: action.splitBayId,
@@ -803,6 +807,10 @@ function convertSelectedRoomPairToSplitBay(
     roomA,
     roomB
   });
+}
+
+function roomAlreadyInSplitBay(layout: EditableLayoutGeometryContract, roomId: string): boolean {
+  return (layout.splitBays ?? []).some((splitBay) => splitBay.bedPositionRoomIds.includes(roomId));
 }
 
 function editSplitBayDivider(

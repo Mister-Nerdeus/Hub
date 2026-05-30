@@ -44,6 +44,20 @@ if (zoneViewModel.status !== "zone" || zoneViewModel.zoneType !== "provider_phar
 if (zoneViewModel.validationStatus !== "2 validation warnings") {
   throw new Error("zone quick edit should expose validation status");
 }
+const genericZoneViewModel = buildHallwayZoneQuickEdit({
+  hallway: null,
+  zone: {
+    ...zone,
+    id: "zone-main-hallways",
+    label: "Main Hallway Network",
+    zoneType: "operational"
+  },
+  readOnly: false,
+  validationWarningCount: 0
+});
+if (genericZoneViewModel.canAddSupportAccessPoint) {
+  throw new Error("generic operational zones must not expose support access authoring");
+}
 
 const calls: string[] = [];
 const element = HallwayZoneQuickEditPopover({

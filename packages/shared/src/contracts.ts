@@ -1090,11 +1090,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     objectType: "zone" as const,
     id: zone.id,
     label: zone.label,
-    zoneType: zone.zoneType === "ems_entry" || zone.zoneType === "ambulance_entry"
-      ? "ems_entry" as const
-      : zone.zoneType === "trauma_zone"
-        ? "trauma" as const
-        : "provider_pharmacy" as const,
+    zoneType: editableZoneTypeForPlanZone(zone.zoneType),
     xFeet: zone.x,
     yFeet: zone.y,
     widthFeet: zone.widthFeet,
@@ -1178,6 +1174,21 @@ export function validatePlanContract(value: unknown): PlanContract {
     pathNodes,
     pathEdges
   } as PlanContract;
+}
+
+function editableZoneTypeForPlanZone(zoneType: ZoneType) {
+  switch (zoneType) {
+    case "ems_entry":
+    case "ambulance_entry":
+      return "ems_entry" as const;
+    case "trauma_zone":
+      return "trauma" as const;
+    case "pharmacy":
+    case "medication_room":
+      return "provider_pharmacy" as const;
+    default:
+      return "operational" as const;
+  }
 }
 
 export function validatePlanBuilderDefaultsContract(

@@ -1,4 +1,8 @@
-import type { EditableHallwayGeometry, EditableZoneGeometry } from "@nerdeus/shared";
+import {
+  isProviderPharmacySupportZone,
+  type EditableHallwayGeometry,
+  type EditableZoneGeometry
+} from "@nerdeus/shared";
 
 export type HallwayZoneQuickEditViewModel = {
   status: "missing" | "hallway" | "zone";
@@ -38,7 +42,7 @@ export function buildHallwayZoneQuickEdit({
       : selected.widthFeet > selected.heightFeet ? "horizontal" : "vertical",
     presentationVisible: true,
     validationStatus: validationWarningCount === 0 ? "No validation warnings" : `${validationWarningCount} validation warnings`,
-    canAddSupportAccessPoint: zone?.zoneType === "provider_pharmacy",
+    canAddSupportAccessPoint: isProviderPharmacySupportZone(zone),
     readOnly
   };
 }

@@ -7,6 +7,7 @@ import {
   decreaseDoorWidth,
   generateDoorPathNodes,
   increaseDoorWidth,
+  isProviderPharmacySupportZone,
   moveToOppositeWall,
   moveToWall,
   nudgeDoor,
@@ -791,7 +792,7 @@ export function LayoutEditorStage({
     if (
       stageState.readOnly ||
       selectedZone == null ||
-      selectedZone.zoneType !== "provider_pharmacy"
+      !isProviderPharmacySupportZone(selectedZone)
     ) {
       return;
     }

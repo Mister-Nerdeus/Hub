@@ -16,7 +16,7 @@ export const EDITABLE_ROOM_TYPES = [
 ] as const;
 export const EDITABLE_ROOM_CAPACITY_TYPES = ["single", "double", "hall", "flex"] as const;
 export const EDITABLE_STATION_TYPES = ["nurse_station", "desk"] as const;
-export const EDITABLE_ZONE_TYPES = ["ems_entry", "trauma", "provider_pharmacy"] as const;
+export const EDITABLE_ZONE_TYPES = ["operational", "ems_entry", "trauma", "provider_pharmacy"] as const;
 export const EDITABLE_DOOR_OWNER_KINDS = ["room", "hallway"] as const;
 export const EDITABLE_SUPPORT_ACCESS_OWNER_KINDS = ["zone"] as const;
 export const EDITABLE_SPLIT_BAY_DIVIDER_STYLES = ["diagonal", "vertical", "horizontal"] as const;

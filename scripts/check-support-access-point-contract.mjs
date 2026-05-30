@@ -44,9 +44,42 @@ const contract = summarizeSupportAccessPointContract({
   zones: layout.zones,
   patientRoomDoorCount: layout.doors.length
 });
+const genericZoneNegative = summarizeSupportAccessPointContract({
+  supportAccessPoints: [
+    createEditableSupportAccessPoint({
+      id: "support-access-generic-zone-negative",
+      label: "Generic zone access negative",
+      ownerId: "zone-nurse-station-core",
+      wall: "south",
+      offsetFeet: 1,
+      widthFeet: 3
+    })
+  ],
+  zones: [
+    ...layout.zones,
+    {
+      objectType: "zone",
+      id: "zone-nurse-station-core",
+      label: "Nurse Station Core",
+      zoneType: "operational",
+      xFeet: 0,
+      yFeet: 12,
+      widthFeet: 12,
+      heightFeet: 8
+    }
+  ],
+  patientRoomDoorCount: layout.doors.length
+});
 
 if (stage === "contract" || stage === "final") {
   addCheck(checks, "support access contract validates dedicated support_access geometry", validation.status === "passed" && contract.status === "passed", { validation, contract });
+  addCheck(
+    checks,
+    "support access contract rejects generic operational zone owners",
+    genericZoneNegative.status === "blocked" &&
+      genericZoneNegative.blockers.some((blocker) => blocker.includes("provider/pharmacy support zone")),
+    genericZoneNegative
+  );
 }
 if (stage === "provider-pharmacy-zone-owner" || stage === "final") {
   addCheck(checks, "provider/pharmacy access point is owned by a provider/pharmacy zone", validation.providerPharmacyAccessPointCount === 1, validation);
@@ -96,7 +129,7 @@ updateAuthoringReadinessManifest(issue, {
   goNoGoStatus: "not_ready"
 });
 
-writeJson(`${dir}/support-access-point-contract-output.json`, { status: passed ? "passed" : "failed", stage, validation, contract });
+writeJson(`${dir}/support-access-point-contract-output.json`, { status: passed ? "passed" : "failed", stage, validation, contract, genericZoneNegative });
 writeIssueResult({
   issue,
   scriptName: "check-support-access-point-contract",

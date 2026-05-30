@@ -336,16 +336,27 @@ function planZoneToEditableZone(zone: PlanContract["zones"][number]): EditableZo
     objectType: "zone",
     id: zone.id,
     label: zone.label,
-    zoneType: zone.zoneType === "ems_entry" || zone.zoneType === "ambulance_entry"
-      ? "ems_entry"
-      : zone.zoneType === "trauma_zone"
-        ? "trauma"
-        : "provider_pharmacy",
+    zoneType: editableZoneTypeForPlanZone(zone.zoneType),
     xFeet: zone.x,
     yFeet: zone.y,
     widthFeet: zone.widthFeet,
     heightFeet: zone.lengthFeet
   };
+}
+
+function editableZoneTypeForPlanZone(zoneType: PlanContract["zones"][number]["zoneType"]): EditableZoneGeometry["zoneType"] {
+  switch (zoneType) {
+    case "ems_entry":
+    case "ambulance_entry":
+      return "ems_entry";
+    case "trauma_zone":
+      return "trauma";
+    case "pharmacy":
+    case "medication_room":
+      return "provider_pharmacy";
+    default:
+      return "operational";
+  }
 }
 
 function deriveDoorWall(

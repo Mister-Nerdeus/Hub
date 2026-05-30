@@ -1,5 +1,6 @@
 {
   "status": "passed",
+  "expected": "check:editor-runtime-version-proof",
   "expectedMissing": [
     "check:editor-runtime-version-proof"
   ],
@@ -7,6 +8,6 @@
     "check:editor-runtime-version-proof"
   ],
   "blockers": [
-    "Missing root script: check:editor-runtime-version-proof. Expected command: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650. Actual: missing."
+    "Missing root script: check:editor-runtime-version-proof"
   ]
 }
