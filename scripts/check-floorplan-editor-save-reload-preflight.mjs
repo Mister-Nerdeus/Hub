@@ -74,9 +74,12 @@ writeCommands(issue, commands, {
   "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage root-script-wiring --allow-partial --issue 631": `${dir}/root-script-wiring-output.json`,
   "node scripts/check-floorplan-editor-save-reload-preflight.mjs --stage false-go-negative --allow-partial --issue 631": `${dir}/false-go-negative-output.json`
 });
+const manifestAfterChecks = readJson(saveReloadManifestPath);
 writeCloseout(issue, "Previous reconstruction GO is revoked until same-record save/reload proof passes.", passed ? "passed" : "failed", commands, [
   "This issue is preflight only and intentionally performs no product feature work.",
-  "Issues 632-640 remain missing until their local browser and audit gates are implemented."
+  manifestAfterChecks.saveReloadGoNoGoStatus === "go_for_full_er_floorplan_reconstruction"
+    ? "Issues 632-640 have since passed their local browser and audit gates; this preflight remains as the revocation fixture."
+    : "Issues 632-640 remain missing until their local browser and audit gates are implemented."
 ]);
 
 console.log(JSON.stringify({ status: passed ? "passed" : "failed", stage, issue, checks }, null, 2));

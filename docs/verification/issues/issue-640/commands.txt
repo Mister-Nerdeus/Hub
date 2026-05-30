@@ -11,8 +11,6 @@ npm run check:layout-editor-door-change-persistence
 npm run check:layout-editor-local-draft-vs-named-save
 npm run check:layout-editor-truthful-save-status
 npm run check:layout-editor-browser-reload-regression
-node scripts/check-floorplan-editor-save-reload-go-no-go.mjs --stage final --issue 640
 node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 640
 node scripts/check-no-phi-fields.mjs
-docker compose config
-docker compose -f docker-compose.production.yml config
+node scripts/check-floorplan-editor-save-reload-go-no-go.mjs --stage final --issue 640

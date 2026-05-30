@@ -1,0 +1,70 @@
+{
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:floorplan-editor-save-reload-go-no-go",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/save-reload-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "npm run check:docs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/docs.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/clean-committed-state.txt"
+      ]
+    },
+    {
+      "command": "npm run check:dependencies",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/dependencies.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/no-phi.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 640",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/test-output/visible-product-copy.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/docker/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/reviews/2026-05-29-batch-631-640-code-review/docker/docker-compose-production-config.txt"
+      ]
+    }
+  ]
+}

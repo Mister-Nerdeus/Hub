@@ -8,6 +8,67 @@
   },
   "checks": [
     {
+      "name": "Issue 640 reran required local validators",
+      "passed": true,
+      "detail": [
+        {
+          "command": "npm run check:floorplan-editor-save-reload-preflight",
+          "outputPath": "docs/verification/issues/issue-640/test-output/preflight.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-save-failure-repro",
+          "outputPath": "docs/verification/issues/issue-640/test-output/save-failure-repro.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-active-copy-identity",
+          "outputPath": "docs/verification/issues/issue-640/test-output/active-copy-identity.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-save-pipeline-trace",
+          "outputPath": "docs/verification/issues/issue-640/test-output/save-pipeline-trace.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-room-move-persistence",
+          "outputPath": "docs/verification/issues/issue-640/test-output/room-move-persistence.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-door-change-persistence",
+          "outputPath": "docs/verification/issues/issue-640/test-output/door-change-persistence.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-local-draft-vs-named-save",
+          "outputPath": "docs/verification/issues/issue-640/test-output/local-draft-vs-named-save.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-truthful-save-status",
+          "outputPath": "docs/verification/issues/issue-640/test-output/truthful-save-status.txt",
+          "status": 0
+        },
+        {
+          "command": "npm run check:layout-editor-browser-reload-regression",
+          "outputPath": "docs/verification/issues/issue-640/test-output/browser-reload-regression.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 640",
+          "outputPath": "docs/verification/issues/issue-640/test-output/visible-product-copy.txt",
+          "status": 0
+        },
+        {
+          "command": "node scripts/check-no-phi-fields.mjs",
+          "outputPath": "docs/verification/issues/issue-640/no-phi-output.txt",
+          "status": 0
+        }
+      ]
+    },
+    {
       "name": "Issues 631-639 validator outputs are present and passed",
       "passed": true,
       "detail": [
@@ -209,7 +270,7 @@
                 "passed": true,
                 "detail": {
                   "recordId": "saved-default-er-layout-plan-1-001",
-                  "saveStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nCreated new copy saved-default-er-layout-plan-1-001 at 08:07 PM\nLast named-copy save\n08:07 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "saveStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nCreated new copy saved-default-er-layout-plan-1-001 at 08:30 PM\nLast named-copy save\n08:30 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               },
               {
@@ -575,7 +636,7 @@
                       "lineOfSightLevel": "moderate"
                     }
                   },
-                  "dirtyStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "dirtyStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:30 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               },
               {
@@ -995,9 +1056,9 @@
                     "isHallBed": false,
                     "isTraumaAdjacent": false
                   },
-                  "bannerBeforeRestoreText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:34 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
-                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
-                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "bannerBeforeRestoreText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:30:44 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:30:44 PM. Named working copy was not saved by this restore.",
+                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:30 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               },
               {
@@ -1134,8 +1195,8 @@
                 "name": "restoring local draft does not mark named copy saved",
                 "passed": true,
                 "detail": {
-                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:08:34 PM. Named working copy was not saved by this restore.",
-                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:08 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "bannerAfterRestoreText": "Restored local recovery draft from 5/29/2026, 8:30:44 PM. Named working copy was not saved by this restore.",
+                  "namedStatusAfterRestore": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nRestored local recovery draft from 08:30 PM; named copy not saved by restore\nNamed working copy\nNot saved since local changes\nLast named-copy save\nNot saved this session\nReload proof\nNot verified this session\nState\nLocal editor state: changed locally\nValidation\nNo validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               }
             ]
@@ -1160,7 +1221,7 @@
                 "passed": true,
                 "detail": {
                   "recordId": "saved-default-er-layout-plan-1-001",
-                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:30 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               },
               {
@@ -1181,8 +1242,8 @@
                     ],
                     "statusText": "No unsaved edits"
                   },
-                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step",
-                  "savedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nSaved working copy saved-default-er-layout-plan-1-001 at 08:08 PM\nLast named-copy save\n08:08 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
+                  "unsavedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nNot saved since local changes\nLast named-copy save\n08:30 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: changed locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step",
+                  "savedStatusText": "Active copy\nER Layout Plan 1 Working Copy\nRecord ID\nsaved-default-er-layout-plan-1-001\nPlan ID\ndefault-er-layout-plan-1\nSource\nSaved working copy\nLayout\ndefault-er-layout-plan-1\nMode\nEditable\nLocal recovery draft\nNo local recovery draft for this copy\nNamed working copy\nSaved working copy saved-default-er-layout-plan-1-001 at 08:30 PM\nLast named-copy save\n08:30 PM / record saved-default-er-layout-plan-1-001\nReload proof\nNot verified after latest named-copy save\nState\nLocal editor state: unchanged locally\nValidation\n8 validation warnings\nJSON\nReady\nProceed\nFuture step"
                 }
               }
             ]
@@ -1301,7 +1362,7 @@
                     "widthFeet": 3
                   },
                   "localDraftAfterClear": "not-cleared",
-                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:59 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:30:59 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
                   "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-1-after-reload.png",
                   "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-1-after-reload.json"
                 }
@@ -1410,7 +1471,7 @@
                     "widthFeet": 4
                   },
                   "localDraftAfterClear": "not-cleared",
-                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:06 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:05 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
                   "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-2-after-reload.png",
                   "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-2-after-reload.json"
                 }
@@ -1519,7 +1580,7 @@
                     "widthFeet": 4
                   },
                   "localDraftAfterClear": "not-cleared",
-                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:13 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:12 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
                   "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-3-after-reload.png",
                   "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-3-after-reload.json"
                 }
@@ -1700,7 +1761,7 @@
                     "widthFeet": 3
                   },
                   "localDraftAfterClear": "not-cleared",
-                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:26 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+                  "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:24 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
                   "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-5-local-draft-banner.png",
                   "exportedJson": null
                 }

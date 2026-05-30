@@ -25,7 +25,7 @@ Previous reconstruction GO is revoked until same-record save/reload proof passes
 
 ## Known Limitations
 - This issue is preflight only and intentionally performs no product feature work.
-- Issues 632-640 remain missing until their local browser and audit gates are implemented.
+- Issues 632-640 have since passed their local browser and audit gates; this preflight remains as the revocation fixture.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass; no PHI, EHR data, real patient identity, real staff identity, medication names, diagnosis text, clinical notes, optimizer behavior, assignment recommendation, clinical safety score, staffing compliance certification, or patient outcome prediction was added.

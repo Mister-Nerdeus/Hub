@@ -80,12 +80,6 @@
       ]
     },
     {
-      "command": "node scripts/check-floorplan-editor-save-reload-go-no-go.mjs --stage final --issue 640",
-      "outputs": [
-        "docs/verification/issues/issue-640/test-output/save-reload-go-no-go.txt"
-      ]
-    },
-    {
       "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 640",
       "outputs": [
         "docs/verification/issues/issue-640/test-output/visible-product-copy.txt"
@@ -98,15 +92,9 @@
       ]
     },
     {
-      "command": "docker compose config",
+      "command": "node scripts/check-floorplan-editor-save-reload-go-no-go.mjs --stage final --issue 640",
       "outputs": [
-        "docs/verification/issues/issue-640/test-output/docker-compose-config.txt"
-      ]
-    },
-    {
-      "command": "docker compose -f docker-compose.production.yml config",
-      "outputs": [
-        "docs/verification/issues/issue-640/test-output/docker-compose-production-config.txt"
+        "docs/verification/issues/issue-640/test-output/save-reload-go-no-go.txt"
       ]
     }
   ]

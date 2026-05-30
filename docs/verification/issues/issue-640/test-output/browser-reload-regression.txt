@@ -1,3 +1,7 @@
+> npm run check:layout-editor-browser-reload-regression
+startedAt: 2026-05-30T00:30:56.653Z
+exitCode: 0
+
 
 > nerdeus-er-pod-shift-simulator@0.1.0 check:layout-editor-browser-reload-regression
 > node scripts/check-layout-editor-browser-reload-regression.mjs --stage final --issue 639
@@ -111,7 +115,7 @@
           "widthFeet": 3
         },
         "localDraftAfterClear": "not-cleared",
-        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:08:59 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:30:59 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
         "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-1-after-reload.png",
         "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-1-after-reload.json"
       }
@@ -220,7 +224,7 @@
           "widthFeet": 4
         },
         "localDraftAfterClear": "not-cleared",
-        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:06 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:05 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
         "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-2-after-reload.png",
         "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-2-after-reload.json"
       }
@@ -329,7 +333,7 @@
           "widthFeet": 4
         },
         "localDraftAfterClear": "not-cleared",
-        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:13 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
+        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:12 PM. This is not a named working-copy save. Dirty state: unchanged locally.Restore draftDiscard draftExport draft JSON",
         "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-3-after-reload.png",
         "exportedJson": "docs/verification/issues/issue-639/exported-json/scenario-3-after-reload.json"
       }
@@ -510,7 +514,7 @@
           "widthFeet": 3
         },
         "localDraftAfterClear": "not-cleared",
-        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:09:26 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
+        "localDraftBannerText": "Local recovery draft for ER Layout Plan 1 Working Copy, plan default-er-layout-plan-1, captured 5/29/2026, 8:31:24 PM. This is not a named working-copy save. Dirty state: draft changed locally.Restore draftDiscard draftExport draft JSON",
         "screenshot": "docs/verification/issues/issue-639/screenshots/scenario-5-local-draft-banner.png",
         "exportedJson": null
       }
