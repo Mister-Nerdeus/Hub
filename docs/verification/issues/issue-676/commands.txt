@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-door-recovery-diagnostics.mjs --stage diagnostics-contract --allow-partial --issue 676
+node scripts/check-door-recovery-diagnostics.mjs --stage error-message-visible --allow-partial --issue 676
+node scripts/check-door-recovery-diagnostics.mjs --stage last-door-action --allow-partial --issue 676
+node scripts/check-door-recovery-diagnostics.mjs --stage copy-diagnostics --allow-partial --issue 676
+node scripts/check-door-recovery-diagnostics.mjs --stage no-private-payload --allow-partial --issue 676
+node scripts/check-door-recovery-diagnostics.mjs --stage final --issue 676
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,65 @@
+{
+  "issue": "676",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-676/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-676/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-676/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage diagnostics-contract --allow-partial --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/diagnostics-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage error-message-visible --allow-partial --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/error-message-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage last-door-action --allow-partial --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/last-door-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage copy-diagnostics --allow-partial --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/copy-diagnostics-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage no-private-payload --allow-partial --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/no-private-payload-output.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-recovery-diagnostics.mjs --stage final --issue 676",
+      "outputs": [
+        "docs/verification/issues/issue-676/test-output/door-recovery-diagnostics.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-676/no-phi-output.txt"
+      ]
+    }
+  ]
+}

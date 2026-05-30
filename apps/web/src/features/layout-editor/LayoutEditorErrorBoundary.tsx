@@ -1,6 +1,10 @@
 import { Component, type ErrorInfo, type ReactNode } from "react";
 import type { LayoutEditorFloorplanInput } from "./layoutEditorState";
 import {
+  buildLayoutCrashDiagnostics,
+  serializeLayoutCrashDiagnostics
+} from "./layoutCrashDiagnostics";
+import {
   loadLayoutLocalDraft,
   resetLayoutLocalDraft
 } from "./layoutLocalDraftPersistence";
@@ -44,13 +48,26 @@ export class LayoutEditorErrorBoundary extends Component<
     }
     const draft = this.loadActiveDraft();
     const snapshot = this.loadLatestDoorRecoverySnapshot();
+    const diagnostics = buildLayoutCrashDiagnostics({
+      errorMessage: this.state.message,
+      activeFloorplan: this.props.activeFloorplan,
+      selectedObjectId: snapshot?.selectedObjectId ?? null,
+      selectedObjectType: snapshot?.selectedObjectType ?? null,
+      lastDoorAction: snapshot?.actionType ?? null,
+      draftAvailable: draft != null,
+      lastValidSnapshotAvailable: snapshot != null
+    });
     return (
       <LayoutEditorRecoveryScreen
         activeFloorplan={this.props.activeFloorplan}
+        diagnostics={diagnostics}
         draftAvailable={draft != null}
         lastValidSnapshotAvailable={snapshot != null}
         onRestoreLatestDraft={() => this.restoreLatestDraft()}
+        onRestoreLastValidSnapshot={() => this.restoreLastValidSnapshot()}
+        onCopyDiagnostics={() => this.copyDiagnostics(diagnostics)}
         onExportDraftJson={() => this.exportDraftJson()}
+        onExportCrashDiagnostics={() => this.exportCrashDiagnostics(diagnostics)}
         onExportLastValidSnapshot={() => this.exportLastValidSnapshot()}
         onDiscardDraft={() => this.discardDraft()}
         onReturnToLibrary={this.props.onReturnToLibrary}
@@ -75,18 +92,31 @@ export class LayoutEditorErrorBoundary extends Component<
     this.setState({ hasError: false, message: null });
   }
 
+  private restoreLastValidSnapshot() {
+    this.clearForcedCrashTrigger();
+    this.setState({ hasError: false, message: null });
+  }
+
+  private copyDiagnostics(diagnostics: ReturnType<typeof buildLayoutCrashDiagnostics>) {
+    if (typeof navigator === "undefined" || navigator.clipboard == null) {
+      return;
+    }
+    void navigator.clipboard.writeText(serializeLayoutCrashDiagnostics(diagnostics));
+  }
+
   private exportDraftJson() {
     const draft = this.loadActiveDraft();
     if (draft == null || typeof window === "undefined" || typeof document === "undefined") {
       return;
     }
-    const blob = new Blob([JSON.stringify(draft, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${draft.recordId}-layout-recovery-draft.json`;
-    link.click();
-    URL.revokeObjectURL(url);
+    this.exportJsonBlob(JSON.stringify(draft, null, 2), `${draft.recordId}-layout-recovery-draft.json`);
+  }
+
+  private exportCrashDiagnostics(diagnostics: ReturnType<typeof buildLayoutCrashDiagnostics>) {
+    this.exportJsonBlob(
+      serializeLayoutCrashDiagnostics(diagnostics),
+      `${diagnostics.activeRecordId ?? "layout-editor"}-crash-diagnostics.json`
+    );
   }
 
   private loadLatestDoorRecoverySnapshot() {
@@ -105,11 +135,18 @@ export class LayoutEditorErrorBoundary extends Component<
     if (snapshot == null || typeof window === "undefined" || typeof document === "undefined") {
       return;
     }
-    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
+    this.exportJsonBlob(JSON.stringify(snapshot, null, 2), `${snapshot.recordId}-door-recovery-snapshot.json`);
+  }
+
+  private exportJsonBlob(content: string, filename: string) {
+    if (typeof window === "undefined" || typeof document === "undefined") {
+      return;
+    }
+    const blob = new Blob([content], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${snapshot.recordId}-door-recovery-snapshot.json`;
+    link.download = filename;
     link.click();
     URL.revokeObjectURL(url);
   }

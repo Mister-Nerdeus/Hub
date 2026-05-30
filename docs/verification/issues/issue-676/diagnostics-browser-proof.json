@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "screenshot": "docs/verification/issues/issue-676/screenshots/door-crash-recovery-diagnostics.png",
+  "serverLogBytes": 1707,
+  "active": {
+    "recordId": "default-plan-er-layout-plan-1",
+    "planId": "default-er-layout-plan-1"
+  },
+  "recoveryScreenVisible": true,
+  "errorMessageVisible": true,
+  "recordIdVisible": true,
+  "planIdVisible": true,
+  "selectedObjectVisible": true,
+  "lastDoorActionVisible": true,
+  "lastValidSnapshotAvailable": true,
+  "exportSnapshotButtonEnabled": true,
+  "exportCrashDraftButtonPresent": true,
+  "copyDiagnosticsWorked": true,
+  "copiedDiagnosticsParsed": true,
+  "copiedKeys": [
+    "activePlanId",
+    "activeRecordId",
+    "draftAvailable",
+    "errorMessage",
+    "lastDoorAction",
+    "lastValidSnapshotAvailable",
+    "selectedObjectId",
+    "selectedObjectType"
+  ],
+  "copiedDiagnosticsLength": 344,
+  "privatePayloadClear": true,
+  "diagnosticsText": "ErrorForced layout editor crash for local recovery verification.Record IDdefault-plan-er-layout-plan-1Plan IDdefault-er-layout-plan-1Selected objectdoor:door-01Last door actionmoveDoorDraft availablenoLast valid snapshotyes"
+}
