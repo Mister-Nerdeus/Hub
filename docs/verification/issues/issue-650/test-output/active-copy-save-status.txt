@@ -1,45 +1,6 @@
 {
   "status": "passed",
-  "issue": "650",
-  "stage": "final",
-  "checks": [
-    {
-      "name": "dedicated active copy save status panel is rendered",
-      "passed": true,
-      "detail": [
-        "Active copy",
-        "Record ID",
-        "Plan ID",
-        "Source",
-        "Mode",
-        "Local recovery draft",
-        "Reload proof"
-      ]
-    },
-    {
-      "name": "recordId is visible and machine-readable",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "source kind is visible",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "named save status and timestamp are visible",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "canonical default is clearly marked read-only",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "save result includes recordId",
-      "passed": true,
-      "detail": null
-    }
-  ]
+  "command": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
+  "exitCode": 0,
+  "output": "> node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"dedicated active copy save status panel is rendered\",\n      \"passed\": true,\n      \"detail\": [\n        \"Active copy\",\n        \"Record ID\",\n        \"Plan ID\",\n        \"Source\",\n        \"Mode\",\n        \"Local recovery draft\",\n        \"Reload proof\"\n      ]\n    },\n    {\n      \"name\": \"recordId is visible and machine-readable\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"source kind is visible\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"named save status and timestamp are visible\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"canonical default is clearly marked read-only\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"save result includes recordId\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}\n"
 }

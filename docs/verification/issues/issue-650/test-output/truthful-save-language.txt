@@ -1,38 +1,6 @@
 {
   "status": "passed",
-  "issue": "650",
-  "stage": "final",
-  "checks": [
-    {
-      "name": "truthful save language contract is present",
-      "passed": true,
-      "detail": [
-        "Local editor state: changed",
-        "Local editor state: unchanged",
-        "Named working copy: not saved since local changes",
-        "Local recovery draft",
-        "Reload proof"
-      ]
-    },
-    {
-      "name": "ambiguous No unsaved edits text is absent",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "local draft and named save status are separated",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "changed local state warns named save is required",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "reload proof status is separate from named save status",
-      "passed": true,
-      "detail": null
-    }
-  ]
+  "command": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
+  "exitCode": 0,
+  "output": "> node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"truthful save language contract is present\",\n      \"passed\": true,\n      \"detail\": [\n        \"Local editor state: changed\",\n        \"Local editor state: unchanged\",\n        \"Named working copy: not saved since local changes\",\n        \"Local recovery draft\",\n        \"Reload proof\"\n      ]\n    },\n    {\n      \"name\": \"ambiguous No unsaved edits text is absent\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"local draft and named save status are separated\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"changed local state warns named save is required\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"reload proof status is separate from named save status\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}\n"
 }

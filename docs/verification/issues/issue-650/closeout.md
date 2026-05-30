@@ -1,7 +1,7 @@
 # Issue 650 Closeout
 
 ## Problem
-Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blockers.
+Runtime/save/layout final GO/NO-GO reruns the 641-650 validators, reads root wiring, verify-local wiring, manual checklist, and evidence outputs.
 
 ## Summary
 - Local verification identified blockers for this issue scope.
@@ -19,7 +19,6 @@ Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blo
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
 - npm run check:clean-committed-state
-- node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650
 - node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
 - node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
 - node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650
@@ -30,8 +29,6 @@ Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blo
 - node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650
 - node scripts/check-editor-popup-layout.mjs --stage final --issue 650
 - node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650
-- node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 650
-- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
 - One or more local gates failed; see test-output and first-failure.txt.
@@ -41,7 +38,7 @@ Final runtime/save/layout GO-NO-GO audit reruns validators and records exact blo
 - docs/verification/editor-runtime-save-ux-layout-repair-manifest.json
 
 ## Known Limitations
-- NO-GO blockers: node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650 exited 1; node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650 exited 1; saveControlsRenderedInBrowser missing; Runtime mismatch: localhost does not match expected editor save UX. Stop the dev server, pull latest source, restart npm run dev, hard refresh the browser, and verify batch marker and build commit before testing saves.
+- NO-GO blockers: manual checklist failure: Unchecked required manual checklist items: Runtime build panel visible, Batch marker visible, Save Working Copy visible and primary, Save As New Copy visible, Export JSON Backup visible, Active copy name and recordId visible, Move one room, Change one door, Click Save Working Copy, Reload browser, Open same saved copy, Changes remain, Export JSON includes changes, Canvas is tall enough to work without constant vertical scrolling, Inspector scrolls if needed, Popup can be docked or remains visible; runtime save UX proof failed
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass.

@@ -1,10 +1,10 @@
 {
-  "status": "failed",
+  "status": "passed",
   "outputPath": "docs/verification/issues/issue-650/test-output/stale-runtime-detection.txt",
   "payload": {
-    "status": "failed",
+    "status": "passed",
     "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
-    "exitCode": 1,
-    "output": "> node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650\nexitCode: 1\n\n\nfile:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207\r\n  throw new Error(`Timed out waiting for app route: ${url}`);\r\n        ^\r\n\r\nError: Timed out waiting for app route: http://127.0.0.1:5180/?section=editor\r\n    at navigate (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:207:9)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:92:7\r\n    at async withExistingBrowserRenderedApp (file:///C:/Projects/Hub/scripts/lib/app-browser-proof.mjs:113:20)\r\n    at async runStage (file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:79:23)\r\n    at async file:///C:/Projects/Hub/scripts/check-editor-stale-runtime-detection.mjs:39:3\r\n\r\nNode.js v22.16.0\n"
+    "exitCode": 0,
+    "output": "> node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"runtime render includes save controls and active-copy identity\",\n      \"passed\": true,\n      \"detail\": [\n        \"saveWorkingCopyControlVisible\",\n        \"saveAsNewCopyControlVisible\",\n        \"exportJsonBackupVisible\",\n        \"activeRecordIdVisible\",\n        \"namedSaveStatusVisible\",\n        \"runtimeBuildInfoExists\"\n      ]\n    },\n    {\n      \"name\": \"expected save controls are present in rendered editor\",\n      \"passed\": true,\n      \"detail\": {\n        \"expectedMissing\": [],\n        \"missing\": []\n      }\n    },\n    {\n      \"name\": \"stale runtime banner appears when save controls are absent and includes remediation instructions\",\n      \"passed\": true,\n      \"detail\": {\n        \"staleRuntimeMismatchText\": \"Runtime mismatch detected.This editor is missing expected save controls: Save Working Copy control, Save As New Copy control, Export JSON Backup control. Stop the dev server, pull latest source, restart npm run dev, hard refresh, and verify the build commit and batch marker before testing saves.\",\n        \"staleMissingCount\": 3\n      }\n    },\n    {\n      \"name\": \"stale runtime warning is suppressed when controls are present\",\n      \"passed\": true,\n      \"detail\": {\n        \"runtimeMismatchBannerVisible\": false,\n        \"missingCapabilities\": []\n      }\n    }\n  ]\n}\n"
   }
 }

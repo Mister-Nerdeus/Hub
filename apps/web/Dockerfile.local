@@ -10,6 +10,7 @@ RUN npm ci
 COPY tsconfig.base.json ./
 COPY apps/web apps/web
 COPY packages/shared packages/shared
+RUN npm --workspace @nerdeus/shared run build
 
 WORKDIR /repo/apps/web
 

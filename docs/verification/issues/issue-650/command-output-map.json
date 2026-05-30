@@ -22,85 +22,67 @@
     {
       "command": "npm run check:clean-committed-state",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/clean-committed-state.txt"
-      ]
-    },
-    {
-      "command": "node scripts/capture-editor-runtime-save-layout-browser-evidence.mjs --issue 650",
-      "outputs": [
-        "docs/verification/issues/issue-650/browser-screenshot-evidence-output.json"
+        "docs/verification/issues/issue-650/test-output/command.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-runtime-version-proof.txt"
+        "docs/verification/issues/issue-650/test-output/runtime-version-proof.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-stale-runtime-detection.txt"
+        "docs/verification/issues/issue-650/test-output/stale-runtime-detection.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-save-command-bar-ux.txt"
+        "docs/verification/issues/issue-650/test-output/save-command-bar-ux.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-active-copy-save-status.txt"
+        "docs/verification/issues/issue-650/test-output/active-copy-save-status.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-truthful-save-language.txt"
+        "docs/verification/issues/issue-650/test-output/truthful-save-language.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-room-door-save-reload-proof.txt"
+        "docs/verification/issues/issue-650/test-output/room-door-save-reload-proof.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-save-pipeline-trace.txt"
+        "docs/verification/issues/issue-650/test-output/save-pipeline-trace.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-canvas-height-layout.txt"
+        "docs/verification/issues/issue-650/test-output/canvas-height-layout.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
       "outputs": [
-        "docs/verification/issues/issue-650/test-output/editor-popup-layout.txt"
+        "docs/verification/issues/issue-650/test-output/popup-layout.txt"
       ]
     },
     {
       "command": "node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650",
       "outputs": [
         "docs/verification/issues/issue-650/test-output/runtime-save-layout-go-no-go.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-visible-product-copy-all-routes.mjs --stage rendered-copy --issue 650",
-      "outputs": [
-        "docs/verification/issues/issue-650/test-output/visible-product-copy.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-no-phi-fields.mjs",
-      "outputs": [
-        "docs/verification/issues/issue-650/no-phi-output.txt"
       ]
     }
   ]

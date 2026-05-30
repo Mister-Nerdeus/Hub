@@ -63,7 +63,7 @@ export async function withBrowserRenderedApp(options, callback) {
     await cdp.close();
     return { result, serverLog };
   } finally {
-    chrome.kill();
+    await stopChildProcess(chrome);
     if (process.platform === "win32") {
       spawnSync("taskkill", ["/PID", String(server.pid), "/T", "/F"], { stdio: "ignore" });
     } else {
@@ -122,7 +122,7 @@ export async function withExistingBrowserRenderedApp(options, callback) {
     await cdp.close();
     return result;
   } finally {
-    chrome.kill();
+    await stopChildProcess(chrome);
   }
 }
 
@@ -325,6 +325,18 @@ async function waitForHttp(url, timeoutMs) {
     await delay(250);
   }
   throw new Error(`Timed out waiting for ${url}`);
+}
+
+async function stopChildProcess(childProcess) {
+  if (childProcess.exitCode != null || childProcess.signalCode != null) return;
+  await new Promise((resolveStop) => {
+    const timeout = setTimeout(resolveStop, 5_000);
+    childProcess.once("close", () => {
+      clearTimeout(timeout);
+      resolveStop();
+    });
+    childProcess.kill();
+  });
 }
 
 function assertPortFree(portNumber) {

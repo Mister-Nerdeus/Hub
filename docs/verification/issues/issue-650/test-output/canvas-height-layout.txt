@@ -1,32 +1,6 @@
 {
   "status": "passed",
-  "issue": "650",
-  "stage": "final",
-  "checks": [
-    {
-      "name": "canvas height contract prevents aspect ratio collapse",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "canvas height tracks inspector height and inspector scrolls internally",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "desktop layout exposes measured canvas height and inspector state",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "laptop/tablet responsive canvas minimum is defined",
-      "passed": true,
-      "detail": null
-    },
-    {
-      "name": "workspace avoids full-page horizontal overflow",
-      "passed": true,
-      "detail": null
-    }
-  ]
+  "command": "node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650",
+  "exitCode": 0,
+  "output": "> node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"canvas height contract prevents aspect ratio collapse\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"canvas height tracks inspector height and inspector scrolls internally\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"desktop layout exposes measured canvas height and inspector state\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"laptop/tablet responsive canvas minimum is defined\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"workspace avoids full-page horizontal overflow\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}\n"
 }

@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "issue": "650",
+  "stage": "final",
+  "batchMarker": "641-650-editor-runtime-save-layout",
+  "checks": [
+    {
+      "name": "runtime build markers are visible in rendered app",
+      "passed": true,
+      "detail": [
+        "buildCommit",
+        "buildTime",
+        "runtimeMode",
+        "editorSaveUx",
+        "runtimeBuildInfoExists"
+      ]
+    },
+    {
+      "name": "machine-readable runtime marker is present",
+      "passed": true,
+      "detail": [
+        "641-650-editor-runtime-save-layout"
+      ]
+    },
+    {
+      "name": "expected editor save controls are visible in rendered app",
+      "passed": true,
+      "detail": {
+        "requiredControls": [
+          "save-working-copy",
+          "save-as-new-copy",
+          "export-json-backup"
+        ],
+        "requiredChecks": [
+          {
+            "control": "save-working-copy",
+            "visible": true
+          },
+          {
+            "control": "save-as-new-copy",
+            "visible": true
+          },
+          {
+            "control": "export-json-backup",
+            "visible": true
+          }
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "runtime mismatch banner is hidden when expected controls are present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reconstruction remains NO-GO until this batch passes",
+      "passed": true,
+      "detail": "reconstruction status is controlled by the final GO gate"
+    }
+  ],
+  "proofType": "existing-localhost",
+  "baseUrl": "http://127.0.0.1:5180",
+  "port": 5180,
+  "buildCommit": "233527ed",
+  "buildTime": "2026-05-30T02:25:39.0083756-04:00",
+  "saveWorkingCopyVisible": true,
+  "saveAsNewCopyVisible": true,
+  "exportJsonBackupVisible": true,
+  "activeRecordIdVisible": true,
+  "namedSaveStatusVisible": true,
+  "runtimeMismatchBannerVisible": false,
+  "batchMarkerMatched": true,
+  "runtimeBuildInfoExists": true
+}

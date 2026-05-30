@@ -3,29 +3,8 @@
   "outputPath": "docs/verification/issues/issue-650/test-output/popup-layout.txt",
   "payload": {
     "status": "passed",
-    "issue": "650",
-    "stage": "final",
-    "checks": [
-      {
-        "name": "popup mode control exposes Auto, On canvas, and Docked",
-        "passed": true,
-        "detail": null
-      },
-      {
-        "name": "canvas popover clamps inside canvas",
-        "passed": true,
-        "detail": null
-      },
-      {
-        "name": "docked mode renders in side inspector",
-        "passed": true,
-        "detail": null
-      },
-      {
-        "name": "auto mode docks on constrained canvas",
-        "passed": true,
-        "detail": null
-      }
-    ]
+    "command": "node scripts/check-editor-popup-layout.mjs --stage final --issue 650",
+    "exitCode": 0,
+    "output": "> node scripts/check-editor-popup-layout.mjs --stage final --issue 650\nexitCode: 0\n\n{\n  \"status\": \"passed\",\n  \"issue\": \"650\",\n  \"stage\": \"final\",\n  \"checks\": [\n    {\n      \"name\": \"popup mode control exposes Auto, On canvas, and Docked\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"canvas popover clamps inside canvas\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"docked mode renders in side inspector\",\n      \"passed\": true,\n      \"detail\": null\n    },\n    {\n      \"name\": \"auto mode docks on constrained canvas\",\n      \"passed\": true,\n      \"detail\": null\n    }\n  ]\n}\n"
   }
 }

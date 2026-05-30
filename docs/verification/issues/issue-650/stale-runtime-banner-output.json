@@ -1,3 +1,20 @@
 {
-  "status": "passed"
+  "status": "passed",
+  "runtimeBuildInfoExists": true,
+  "batchMarker": "641-650-editor-runtime-save-layout",
+  "saveWorkingCopyControlVisible": false,
+  "saveAsNewCopyControlVisible": false,
+  "exportJsonBackupVisible": false,
+  "activeRecordIdVisible": true,
+  "namedSaveStatusVisible": true,
+  "runtimeMismatchBannerVisible": true,
+  "runtimeMismatchBannerText": "Runtime mismatch detected.This editor is missing expected save controls: Save Working Copy control, Save As New Copy control, Export JSON Backup control. Stop the dev server, pull latest source, restart npm run dev, hard refresh, and verify the build commit and batch marker before testing saves.",
+  "runtimeMismatchMissingCapabilities": "Save Working Copy control, Save As New Copy control, Export JSON Backup control",
+  "missingCapabilities": [
+    "Save Working Copy control",
+    "Save As New Copy control",
+    "Export JSON Backup control"
+  ],
+  "staleRuntimeMismatchText": "Runtime mismatch detected.This editor is missing expected save controls: Save Working Copy control, Save As New Copy control, Export JSON Backup control. Stop the dev server, pull latest source, restart npm run dev, hard refresh, and verify the build commit and batch marker before testing saves.",
+  "staleRuntimeMissingCount": 3
 }

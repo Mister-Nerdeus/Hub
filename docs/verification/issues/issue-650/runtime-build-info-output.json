@@ -1,3 +1,32 @@
 {
-  "status": "passed"
+  "status": "passed",
+  "state": {
+    "runtimeBuildInfoExists": true,
+    "batchMarker": "641-650-editor-runtime-save-layout",
+    "runtimeBuildInfoVisible": true,
+    "runtimeMode": "local-dev",
+    "editorSaveUx": "enabled",
+    "buildCommit": "233527ed",
+    "buildTime": "2026-05-30T02:25:39.0083756-04:00",
+    "commandBarExists": true,
+    "saveWorkingCopyControlVisible": true,
+    "saveAsNewCopyControlVisible": true,
+    "exportJsonBackupVisible": true,
+    "activeRecordIdVisible": true,
+    "activeRecordId": "default-plan-er-layout-plan-1",
+    "namedSaveStatusVisible": true,
+    "runtimeMismatchBannerVisible": false,
+    "runtimeMismatchBannerText": "",
+    "runtimeMismatchMissingCapabilities": "",
+    "commandBarRoomVisible": true,
+    "commandBarDoorVisible": true,
+    "missingCapabilities": []
+  },
+  "required": [
+    "buildCommit",
+    "buildTime",
+    "runtimeMode",
+    "editorSaveUx",
+    "runtimeBuildInfoExists"
+  ]
 }
