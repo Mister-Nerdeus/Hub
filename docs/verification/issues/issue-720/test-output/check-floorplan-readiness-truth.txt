@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "720",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "no-split-room-readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "invalid-split-room-readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "no-split-room-readiness": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "invalid-split-room-readiness": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

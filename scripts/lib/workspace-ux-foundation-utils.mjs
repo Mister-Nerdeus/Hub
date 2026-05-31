@@ -29,6 +29,7 @@ export const workspaceUxRootScripts = {
   "check:next-workflow-step-card": "node scripts/check-next-workflow-step-card.mjs --stage final --issue 717",
   "check:simulation-copy-overclaim": "node scripts/check-simulation-copy-overclaim.mjs --stage final --issue 718",
   "check:compact-readiness-summary": "node scripts/check-compact-readiness-summary.mjs --stage final --issue 719",
+  "check:floorplan-readiness-truth": "node scripts/check-floorplan-readiness-truth.mjs --stage final --issue 720",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
