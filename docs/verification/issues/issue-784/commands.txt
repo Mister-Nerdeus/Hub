@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-geometry-hit-testing.mjs --stage all-editable-kinds --issue 784
+node scripts/check-geometry-hit-testing.mjs --stage reference-does-not-steal-hit --issue 784
+node scripts/check-no-phi-fields.mjs

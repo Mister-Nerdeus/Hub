@@ -18,7 +18,7 @@
   "outerWallRendererStatus": "passed",
   "supportStorageAreaContractStatus": "passed",
   "supportStorageAreaRendererStatus": "passed",
-  "geometryHitTestingStatus": "missing",
+  "geometryHitTestingStatus": "passed",
   "renderLayerOrderStatus": "missing",
   "hallwayWallScreenshotProofStatus": "missing",
   "splitRoomParentBedContractStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "783",
+  "lastUpdatedIssue": "784",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -65,5 +65,6 @@
   "outerWallsModeledAsGeometry": true,
   "wallsRenderDistinctlyFromRooms": true,
   "nonPatientAreasModeledSeparately": true,
-  "supportAreasDistinctFromPatientRooms": true
+  "supportAreasDistinctFromPatientRooms": true,
+  "editableGeometryKindsSelectable": true
 }

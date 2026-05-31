@@ -1648,6 +1648,7 @@ export function LayoutEditorStage({
             data-editor-mode={editorMode}
             data-reference-overlay-visible={referenceOverlayVisible ? "true" : "false"}
             data-artifact-quarantine-policy={artifactQuarantinePolicy.unknownVisuals}
+            data-hit-testing-contract="geometry-truth-v1"
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             data-pan-x-feet={stageState.viewport.panXFeet}
             data-pan-y-feet={stageState.viewport.panYFeet}
