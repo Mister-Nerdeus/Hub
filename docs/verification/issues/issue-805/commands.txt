@@ -1,0 +1,4 @@
+node scripts/check-geometry-no-overclaim.mjs --stage reference-artifacts --issue 805
+node scripts/check-geometry-no-overclaim.mjs --stage split-room-targets --issue 805
+node scripts/check-geometry-no-overclaim.mjs --stage hallway-wall-sources --issue 805
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "issue": "805",
+  "stage": "split-room-targets",
+  "checks": [
+    {
+      "name": "split parent is not modeled as two independent rooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "bed positions generate stable assignment targets",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

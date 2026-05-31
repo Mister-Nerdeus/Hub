@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "issue": "805",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "reference artifacts are locked and not editable rooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "locked references explain non-editable state",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "split parent is not modeled as two independent rooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "bed positions generate stable assignment targets",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "hallway visuals declare geometry source IDs",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "wall visuals declare geometry source IDs",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "805",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-no-overclaim.mjs --stage reference-artifacts --issue 805",
+      "outputs": [
+        "docs/verification/issues/issue-805/reference-artifacts-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-no-overclaim.mjs --stage split-room-targets --issue 805",
+      "outputs": [
+        "docs/verification/issues/issue-805/split-room-targets-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-no-overclaim.mjs --stage hallway-wall-sources --issue 805",
+      "outputs": [
+        "docs/verification/issues/issue-805/hallway-wall-sources-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-805/no-phi-output.txt"
+      ]
+    }
+  ]
+}
