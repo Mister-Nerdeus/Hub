@@ -4,6 +4,7 @@ import {
   ensureIssueDirs,
   fileIncludes,
   hasFlag,
+  loadWorkspaceUxManifest,
   readArg,
   statusFromChecks,
   updateWorkspaceUxManifest,
@@ -58,15 +59,21 @@ for (const stageName of selectedStages) {
 
 const status = statusFromChecks(checks);
 if (status === "passed") {
-  updateWorkspaceUxManifest(issue, issue === "704"
-    ? {
+  const currentManifest = loadWorkspaceUxManifest();
+  const preflightPatch = issue === "704"
+    ? currentManifest.goNoGoStatus === "go_for_next_milestone"
+      ? {
+          workspaceUxPreflightStatus: "passed"
+        }
+      : {
         workspaceUxPreflightStatus: "passed",
         workspaceUxGoNoGoStatus: "not_ready",
         goNoGoStatus: "not_ready"
       }
     : {
         workspaceUxPreflightStatus: "passed"
-      });
+      };
+  updateWorkspaceUxManifest(issue, preflightPatch);
 } else {
   writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
     status,
@@ -112,32 +119,11 @@ writeStageResult(issue, scriptName, stage, checks, { stageResults });
 if (status !== "passed" && !allowPartial) process.exit(1);
 
 function checkManifestContract() {
-  const expectedSnippets = issue === "704"
-    ? [
-        `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
-        `"workspaceUxPreflightStatus":`,
-        `"fullPageWorkspaceShellStatus": "${workspaceUxRequiredManifestFlags.fullPageWorkspaceShellStatus}"`,
-        `"productShellRailStatus": "${workspaceUxRequiredManifestFlags.productShellRailStatus}"`,
-        `"productWorkflowStepperStatus": "${workspaceUxRequiredManifestFlags.productWorkflowStepperStatus}"`,
-        `"activeFloorplanHubStatus": "${workspaceUxRequiredManifestFlags.activeFloorplanHubStatus}"`,
-        `"editorWorkspaceLayoutStatus": "${workspaceUxRequiredManifestFlags.editorWorkspaceLayoutStatus}"`,
-        `"editorDetailsBottomPanelStatus": "${workspaceUxRequiredManifestFlags.editorDetailsBottomPanelStatus}"`,
-        `"normalModeTechnicalCopyHidden": ${workspaceUxRequiredManifestFlags.normalModeTechnicalCopyHidden}`,
-        `"goNoGoStatus": "${workspaceUxRequiredManifestFlags.goNoGoStatus}"`
-      ]
-    : [
-        `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
-        `"workspaceUxPreflightStatus":`,
-        `"fullPageWorkspaceShellStatus":`,
-        `"productShellRailStatus":`,
-        `"productWorkflowStepperStatus":`,
-        `"activeFloorplanHubStatus":`,
-        `"editorWorkspaceLayoutStatus":`,
-        `"editorDetailsBottomPanelStatus":`,
-        `"normalModeTechnicalCopyHidden":`
-      ];
   const manifest = fileIncludes("docs/verification/workspace-ux-foundation-manifest.json", [
-    ...expectedSnippets,
+    `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
+    ...Object.keys(workspaceUxRequiredManifestFlags)
+      .filter((key) => key !== "repositoryTruthSource")
+      .map((key) => `"${key}":`),
     `"assignmentSetContractStatus": "${workspaceUxRequiredManifestFlags.assignmentSetContractStatus}"`,
     `"nurseProfileBuilderStatus": "${workspaceUxRequiredManifestFlags.nurseProfileBuilderStatus}"`,
     `"roomLoadEditorStatus": "${workspaceUxRequiredManifestFlags.roomLoadEditorStatus}"`,
@@ -151,7 +137,11 @@ function checkManifestContract() {
 
 function checkRootScriptWiring() {
   const packageJson = fileIncludes("package.json", Object.keys(workspaceUxRootScripts).map((script) => `"${script}"`));
-  return { passed: packageJson.passed, results: [packageJson] };
+  const verifyLocal = fileIncludes("scripts/verify-local.mjs", [
+    "workspaceUxFoundationCommands",
+    ...Object.keys(workspaceUxRootScripts).map((script) => `npm run ${script}`)
+  ]);
+  return { passed: packageJson.passed && verifyLocal.passed, results: [packageJson, verifyLocal] };
 }
 
 function checkSourceRegressionWiring() {

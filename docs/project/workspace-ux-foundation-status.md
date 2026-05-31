@@ -20,10 +20,10 @@ Not implemented in Milestone A:
 - Durable assignment sets.
 - Nurse profile builder.
 - Room load editor.
-- Scoring.
-- Simulation.
+- Scoring (Burden scoring).
+- Simulation (Scenario simulation).
 - Optimizer.
-- Reports.
+- Reports (Management reports).
 - Clinical safety, staffing compliance, patient outcome, PHI, or EHR claims.
 
 Next milestone: durable assignment foundation.

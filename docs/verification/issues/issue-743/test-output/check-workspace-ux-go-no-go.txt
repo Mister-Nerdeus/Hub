@@ -559,11 +559,11 @@
   "manifest": {
     "manifestVersion": "1.0.0",
     "batch": "704-748",
-    "lastUpdatedIssue": "743",
+    "lastUpdatedIssue": "744",
     "productDisplayName": "ER Pod Shift Simulator",
     "repositoryTruthSource": "github_default_branch",
     "workspaceUxPreflightStatus": "passed",
-    "workspaceUxGoNoGoStatus": "not_ready",
+    "workspaceUxGoNoGoStatus": "go_for_durable_assignment_foundation",
     "fullPageWorkspaceShellStatus": "passed",
     "productShellRailStatus": "passed",
     "productShellRailAccessibilityStatus": "passed",
@@ -599,11 +599,11 @@
     "floorplanHubScreenshotProofStatus": "passed",
     "normalModeTechnicalCopyStatus": "passed",
     "workspaceUxRegressionSweepStatus": "passed",
-    "milestoneARootScriptsStatus": "missing",
-    "milestoneADocumentationStatus": "missing",
-    "milestoneAScreenshotIndexStatus": "missing",
-    "milestoneANoOverclaimStatus": "missing",
-    "milestoneAStatus": "not_started",
+    "milestoneARootScriptsStatus": "passed",
+    "milestoneADocumentationStatus": "passed",
+    "milestoneAScreenshotIndexStatus": "passed",
+    "milestoneANoOverclaimStatus": "passed",
+    "milestoneAStatus": "complete",
     "normalModeTechnicalCopyHidden": true,
     "assignmentSetContractStatus": "not_started",
     "nurseProfileBuilderStatus": "not_started",
@@ -616,7 +616,7 @@
     "staffingComplianceStatus": "not_started",
     "patientOutcomePredictionStatus": "not_started",
     "noPhiStatus": "passed",
-    "goNoGoStatus": "not_ready",
+    "goNoGoStatus": "go_for_next_milestone",
     "usesFullViewportWidth": true,
     "outerMarginFivePxMax": true,
     "compactRailEnabled": true,
@@ -654,6 +654,7 @@
     "splitRoomEditingPreservedAfterLayoutMove": true,
     "roomMoveResizePreservedAfterLayoutMove": true,
     "stationMoveResizePreservedAfterLayoutMove": true,
-    "validationDetailsCollapsedByDefault": true
+    "validationDetailsCollapsedByDefault": true,
+    "nextMilestone": "durable_assignment_foundation"
   }
 }

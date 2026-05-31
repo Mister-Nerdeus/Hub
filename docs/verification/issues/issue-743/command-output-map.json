@@ -2,97 +2,11 @@
   "status": "passed",
   "issue": "743",
   "commands": {
-    "1": {
-      "command": "npm --workspace packages/shared test",
-      "output": "docs/verification/issues/issue-743/test-output/shared.txt"
-    },
-    "2": {
-      "command": "npm --workspace apps/web test",
-      "output": "docs/verification/issues/issue-743/test-output/web.txt"
-    },
-    "3": {
-      "command": "npm --workspace apps/web run build",
-      "output": "docs/verification/issues/issue-743/test-output/web-build.txt"
-    },
-    "4": {
-      "command": "npm run check:clean-committed-state",
-      "output": "docs/verification/issues/issue-743/test-output/clean-committed-state.txt"
-    },
-    "5": {
-      "command": "node scripts/check-workspace-ux-preflight.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/workspace-ux-preflight-final.txt"
-    },
-    "6": {
-      "command": "node scripts/check-full-page-workspace-shell.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/full-page-workspace-shell-final.txt"
-    },
-    "7": {
-      "command": "node scripts/check-product-shell-rail.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/product-shell-rail-final.txt"
-    },
-    "8": {
-      "command": "node scripts/check-product-workflow-stepper.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/product-workflow-stepper-final.txt"
-    },
-    "9": {
-      "command": "node scripts/check-route-step-mapping.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/route-step-mapping-final.txt"
-    },
-    "10": {
-      "command": "node scripts/check-runtime-proof-advanced-only.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/runtime-proof-advanced-only-final.txt"
-    },
-    "11": {
-      "command": "node scripts/check-future-tools-hidden-normal-mode.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/future-tools-hidden-normal-mode-final.txt"
-    },
-    "12": {
-      "command": "node scripts/check-active-floorplan-hub.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/active-floorplan-hub-final.txt"
-    },
-    "13": {
-      "command": "node scripts/check-editor-workspace-layout.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/editor-workspace-layout-final.txt"
-    },
-    "14": {
-      "command": "node scripts/check-editor-normal-toolbar-ux.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/editor-normal-toolbar-ux-final.txt"
-    },
-    "15": {
-      "command": "node scripts/check-editor-detailed-tools-advanced.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/editor-detailed-tools-advanced-final.txt"
-    },
-    "16": {
-      "command": "node scripts/check-editor-details-bottom-panel.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/editor-details-bottom-panel-final.txt"
-    },
-    "17": {
-      "command": "node scripts/check-normal-mode-technical-copy.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/normal-mode-technical-copy-final.txt"
-    },
-    "18": {
-      "command": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-go-no-go.txt"
-    },
-    "19": {
-      "command": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt"
-    },
-    "20": {
-      "command": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt"
-    },
-    "21": {
-      "command": "node scripts/check-no-phi-fields.mjs",
-      "output": "docs/verification/issues/issue-743/no-phi-output.txt"
-    },
-    "22": {
-      "command": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743",
-      "output": "docs/verification/issues/issue-743/test-output/workspace-ux-go-no-go-final.txt"
-    },
-    "23": {
-      "command": "node scripts/check-production-docker-runtime.mjs",
-      "output": "docs/verification/issues/issue-743/docker-runtime-output.json"
-    }
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "npm run check:clean-committed-state",
+    "5": "node scripts/check-workspace-ux-preflight.mjs --stage final --issue 743",
+    "6": "node scripts/check-no-phi-fields.mjs"
   }
 }

@@ -10,9 +10,18 @@ Milestone A Closeout
 - Local validator status: passed.
 
 ## Files Changed
+- apps/api/Dockerfile
+- apps/web/Dockerfile
 - docs/project/workspace-ux-foundation-status.md
-- docs/verification/workspace-ux-foundation-manifest.json
-- scripts/check-milestone-a-closeout.mjs
+- scripts/check-workspace-ux-preflight.mjs
+- scripts/lib/workspace-ux-foundation-utils.mjs
+- scripts/verify-local.mjs
+- docs/verification/issues/issue-704/
+- docs/verification/issues/issue-734/
+- docs/verification/issues/issue-735/
+- docs/verification/issues/issue-743/
+- docs/verification/issues/issue-745/
+- docs/verification/issues/issue-747/
 - docs/verification/issues/issue-748/
 
 ## Commands Run
@@ -24,6 +33,9 @@ Milestone A Closeout
 - node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 748
 - node scripts/check-production-docker-runtime.mjs
 - node scripts/check-no-phi-fields.mjs
+- node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 734
+- node scripts/check-split-room-browser-regression.mjs --stage final --issue 735
+- node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703
 
 ## Tests Passed/Failed
 - Required local validator gates passed.
