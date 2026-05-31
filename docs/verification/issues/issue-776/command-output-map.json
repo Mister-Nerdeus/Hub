@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "776",
+  "commands": [
+    {
+      "command": "node scripts/check-reference-overlay-screenshot-proof.mjs --stage screenshot-set --issue 776",
+      "outputs": [
+        "docs/verification/issues/issue-776/screenshot-set-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-776/no-phi-output.txt"
+      ]
+    }
+  ]
+}
