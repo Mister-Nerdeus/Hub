@@ -35,6 +35,7 @@ export const workspaceUxRootScripts = {
   "check:editor-canvas-expansion": "node scripts/check-editor-canvas-expansion.mjs --stage final --issue 723",
   "check:editor-toolbar-docking": "node scripts/check-editor-toolbar-docking.mjs --stage final --issue 724",
   "check:editor-normal-toolbar-ux": "node scripts/check-editor-normal-toolbar-ux.mjs --stage final --issue 725",
+  "check:editor-undo-redo-advanced": "node scripts/check-editor-undo-redo-advanced.mjs --stage final --issue 726",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };

@@ -110,7 +110,11 @@ export function EditorCommandBar({
       <p className="editor-command-bar__save-status" role="status">
         {viewModel.saveStatusLabel}
       </p>
-      <div className="editor-command-bar__primary" data-command-group="edit-history">
+      <div
+        className="editor-command-bar__primary"
+        data-command-group="edit-history"
+        data-editor-undo-redo-surface="advanced"
+      >
         <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
           Undo
         </button>

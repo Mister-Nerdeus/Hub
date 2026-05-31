@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "726",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "undo-redo-hidden-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "undo-redo-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "undo-redo-hidden-normal": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "undo-redo-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}
