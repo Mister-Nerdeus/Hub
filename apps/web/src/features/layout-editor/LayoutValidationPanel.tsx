@@ -21,6 +21,7 @@ export function LayoutValidationPanel({ viewModel, maxVisibleWarnings }: LayoutV
       aria-readonly="true"
       data-validation-panel={maxVisibleWarnings == null ? "full" : "summary"}
       data-split-room-validation="parent-bed-model"
+      data-geometry-truth-validation-panel="detailed"
     >
       <header className="layout-validation-panel__header">
         <p className="eyebrow">Validation</p>

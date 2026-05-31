@@ -38,7 +38,7 @@
   "legacySplitRoomMigrationStatus": "passed",
   "geometrySaveReloadProofStatus": "passed",
   "geometryImportExportProofStatus": "passed",
-  "geometryValidationSummaryIntegrationStatus": "missing",
+  "geometryValidationSummaryIntegrationStatus": "passed",
   "geometryNoOverclaimStatus": "missing",
   "geometryRegressionSweepStatus": "missing",
   "geometryTruthScreenshotIndexStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "803",
+  "lastUpdatedIssue": "804",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -82,5 +82,6 @@
   "invalidSplitRoomsBlocked": true,
   "legacySplitRoomsDoNotBreakEditor": true,
   "newGeometrySurvivesReload": true,
-  "geometryRoundTripPreservesTargets": true
+  "geometryRoundTripPreservesTargets": true,
+  "geometryTruthWarningsSurfaceInValidation": true
 }

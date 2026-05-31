@@ -14,6 +14,7 @@ export function EditorValidationSummaryRow({ viewModel }: EditorValidationSummar
       className="editor-validation-summary-row"
       aria-label="Editor validation summary"
       data-editor-validation-summary-row="compact"
+      data-geometry-truth-validation-summary="visible"
     >
       <span>Validation</span>
       <strong>{statusLabel}</strong>

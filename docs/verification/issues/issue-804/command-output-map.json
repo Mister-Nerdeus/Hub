@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "804",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-validation-summary-integration.mjs --stage summary-row --issue 804",
+      "outputs": [
+        "docs/verification/issues/issue-804/summary-row-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-validation-summary-integration.mjs --stage detailed-panel --issue 804",
+      "outputs": [
+        "docs/verification/issues/issue-804/detailed-panel-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-804/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-804/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-804/no-phi-output.txt"
+      ]
+    }
+  ]
+}
