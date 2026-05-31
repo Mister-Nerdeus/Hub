@@ -145,6 +145,7 @@ import { EditorCommandBar } from "./EditorCommandBar";
 import { EditorDetailsPanel } from "./EditorDetailsPanel";
 import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
+import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
@@ -572,6 +573,10 @@ export function LayoutEditorStage({
     (item) => item.objectId === "zone-provider-pharmacy"
   );
   const assignmentOverlay = createLayoutAssignmentOverlay(stageState.editableLayout, assignmentOverlaySource);
+  const referenceOverlayViewModel = {
+    ...defaultReferenceOverlayViewModel,
+    visible: referenceOverlayVisible
+  };
   const roomResizeHandlesViewModel = buildSelectedRoomResizeHandlesViewModel({
     renderItems,
     selectedObjectType: stageState.selectedObjectType,
@@ -1657,18 +1662,10 @@ export function LayoutEditorStage({
               rx="0"
             />
             <g className="layout-editor-stage__background-objects">
-              {podBorderViewModel == null || !referenceOverlayVisible ? null : (
-                <g
-                  className="layout-editor-stage__reference-overlay"
-                  data-reference-overlay="true"
-                  data-reference-overlay-id={defaultReferenceOverlayViewModel.overlayId}
-                  data-reference-overlay-locked="true"
-                  data-reference-overlay-editable-geometry="false"
-                  data-reference-overlay-reason={defaultReferenceOverlayViewModel.reasonLocked}
-                  opacity={defaultReferenceOverlayViewModel.opacity}
-                >
+              {podBorderViewModel == null ? null : (
+                <ReferenceOverlayRenderer viewModel={referenceOverlayViewModel}>
                   <PodBorderShape viewModel={podBorderViewModel} />
-                </g>
+                </ReferenceOverlayRenderer>
               )}
               {hallwayItems.map((item) => (
                 <HallwayShape

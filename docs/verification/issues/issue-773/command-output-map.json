@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "773",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-773/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-773/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-locked-reference-styling.mjs --stage faded-style --issue 773",
+      "outputs": [
+        "docs/verification/issues/issue-773/faded-style-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-locked-reference-styling.mjs --stage no-edit-handles --issue 773",
+      "outputs": [
+        "docs/verification/issues/issue-773/no-edit-handles-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-773/no-phi-output.txt"
+      ]
+    }
+  ]
+}

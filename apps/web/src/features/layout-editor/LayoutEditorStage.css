@@ -854,6 +854,30 @@
   stroke: none;
 }
 
+.layout-editor-stage__reference-overlay {
+  pointer-events: none;
+}
+
+.layout-editor-stage__reference-overlay--faded,
+.layout-editor-stage__reference-overlay--dashed-faded {
+  filter: grayscale(0.25);
+}
+
+.layout-editor-stage__reference-overlay--faded rect,
+.layout-editor-stage__reference-overlay--faded line,
+.layout-editor-stage__reference-overlay--faded path,
+.layout-editor-stage__reference-overlay--dashed-faded rect,
+.layout-editor-stage__reference-overlay--dashed-faded line,
+.layout-editor-stage__reference-overlay--dashed-faded path {
+  stroke: #6b7280;
+}
+
+.layout-editor-stage__reference-overlay--dashed-faded rect,
+.layout-editor-stage__reference-overlay--dashed-faded line,
+.layout-editor-stage__reference-overlay--dashed-faded path {
+  stroke-dasharray: 7 5;
+}
+
 .layout-editor-stage__svg[data-canvas-pan="grabbing"],
 .layout-editor-stage__svg[data-canvas-pan="grabbing"] .layout-editor-stage__viewport-frame {
   cursor: grabbing;

@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-locked-reference-styling.mjs --stage faded-style --issue 773
+node scripts/check-locked-reference-styling.mjs --stage no-edit-handles --issue 773
+node scripts/check-no-phi-fields.mjs
