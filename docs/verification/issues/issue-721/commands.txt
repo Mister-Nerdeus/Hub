@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-active-floorplan-persistence-resilience.mjs --stage corrupted-localstorage --allow-partial --issue 721
+node scripts/check-active-floorplan-persistence-resilience.mjs --stage fallback-floorplan --allow-partial --issue 721
+node scripts/check-no-phi-fields.mjs
