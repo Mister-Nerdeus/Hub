@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "787",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "bed-position-targets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "bed-position-targets": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

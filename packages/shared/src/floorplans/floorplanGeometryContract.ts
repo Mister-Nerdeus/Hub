@@ -55,6 +55,13 @@ export {
   type SupportStorageAreaContract,
   type SupportStorageAreaKind
 } from "./supportAreaContract.js";
+export {
+  createSplitRoomContract,
+  validateBedPositionContract,
+  validateSplitRoomContract,
+  type BedPositionContract,
+  type SplitRoomContract
+} from "./splitRoomContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

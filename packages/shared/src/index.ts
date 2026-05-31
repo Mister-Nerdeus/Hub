@@ -80,6 +80,7 @@ export * from "./floorplans/geometryMigration.js";
 export * from "./floorplans/referenceOverlayContract.js";
 export * from "./floorplans/hallwayGeometryContract.js";
 export * from "./floorplans/wallGeometryContract.js";
+export * from "./floorplans/splitRoomContract.js";
 export * from "./floorplans/floorplanGeometryContract.js";
 export * from "./floorplans/addRoomContract.js";
 export * from "./floorplans/layoutObjectCreation.js";

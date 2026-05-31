@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+node scripts/check-split-room-parent-bed-contract.mjs --stage contract --issue 787
+node scripts/check-split-room-parent-bed-contract.mjs --stage bed-position-targets --issue 787
+node scripts/check-no-phi-fields.mjs
