@@ -1,0 +1,2 @@
+## docker image inspect hub-api-production:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+sha256:c9ad23b6029f177107fca8a276a2a98f7d70b292e1c0690e9f6c7b9c195aac2f editor-assignment-ux-704-713
