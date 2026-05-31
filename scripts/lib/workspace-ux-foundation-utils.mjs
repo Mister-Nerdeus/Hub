@@ -20,6 +20,7 @@ export const workspaceUxRootScripts = {
   "check:product-workflow-stepper": "node scripts/check-product-workflow-stepper.mjs --stage final --issue 708",
   "check:route-step-mapping": "node scripts/check-route-step-mapping.mjs --stage final --issue 709",
   "check:runtime-proof-advanced-only": "node scripts/check-runtime-proof-advanced-only.mjs --stage final --issue 710",
+  "check:future-tools-hidden-normal-mode": "node scripts/check-future-tools-hidden-normal-mode.mjs --stage final --issue 711",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
 

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "711",
+  "commands": {
+    "1": "node scripts/check-future-tools-hidden-normal-mode.mjs --stage future-tools-hidden --allow-partial --issue 711",
+    "2": "node scripts/check-future-tools-hidden-normal-mode.mjs --stage advanced-evidence-only --allow-partial --issue 711",
+    "3": "node scripts/check-no-phi-fields.mjs"
+  }
+}
