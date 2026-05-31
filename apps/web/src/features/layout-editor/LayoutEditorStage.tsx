@@ -186,6 +186,7 @@ import {
   createDoorRecoverySnapshot,
   saveDoorRecoverySnapshot
 } from "./layoutDoorRecoverySnapshots";
+import { LayoutEditorWorkspace } from "./LayoutEditorWorkspace";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -1352,6 +1353,7 @@ export function LayoutEditorStage({
   };
 
   return (
+    <LayoutEditorWorkspace>
     <section
       id="layout-editor-stage-proof"
       className="layout-editor-stage"
@@ -2139,6 +2141,7 @@ export function LayoutEditorStage({
       </div>
       <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
+    </LayoutEditorWorkspace>
   );
 }
 

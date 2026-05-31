@@ -1,8 +1,15 @@
+.layout-editor-workspace {
+  display: grid;
+  gap: 5px;
+  min-height: calc(100vh - 10px);
+  width: 100%;
+}
+
 .layout-editor-stage {
   display: grid;
   gap: 10px;
-  margin: 0 auto;
-  max-width: 1480px;
+  margin: 0;
+  max-width: none;
   width: 100%;
 }
 

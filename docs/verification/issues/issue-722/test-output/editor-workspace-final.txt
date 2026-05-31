@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "722",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "workspace-wrapper",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "full-page-editor",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "workspace-wrapper": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "full-page-editor": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    }
+  }
+}
