@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "800",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-screenshot-proof.mjs --stage screenshot-set --issue 800",
+      "outputs": [
+        "docs/verification/issues/issue-800/screenshot-set-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-800/no-phi-output.txt"
+      ]
+    }
+  ]
+}

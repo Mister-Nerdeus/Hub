@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "800",
+  "stage": "screenshot-set",
+  "requiredScreenshots": [
+    "split-room-parent-selected.png",
+    "split-room-bed-a-selected.png",
+    "split-room-bed-b-selected.png",
+    "split-room-resized-parent.png",
+    "split-room-divider-controls.png"
+  ],
+  "checks": [
+    {
+      "name": "required split-room screenshot set exists",
+      "passed": true,
+      "detail": {
+        "requiredScreenshots": [
+          "split-room-parent-selected.png",
+          "split-room-bed-a-selected.png",
+          "split-room-bed-b-selected.png",
+          "split-room-resized-parent.png",
+          "split-room-divider-controls.png"
+        ]
+      }
+    }
+  ]
+}
