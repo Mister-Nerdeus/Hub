@@ -2,14 +2,14 @@
 
 ## Status
 
-Geometry truth repair is in progress. Durable assignment foundation remains blocked until rendered editor objects are classified, hallways and boundaries are modeled as geometry, reference overlays are separated from editable objects, and split rooms use a physical parent room with assignable bed positions.
+Geometry truth repair is in progress with the core geometry model now documented and locally verified through Issue 808. Durable assignment foundation remains blocked until the final GO/NO-GO and closeout issues confirm all batch gates together.
 
 ## Current Preflight Findings
 
-- Hallways render in the editor, but the current contract does not yet declare geometry layers or rendered object identity for every visible object.
-- Outer walls and structural boundaries are still represented through older room/support visual conventions instead of first-class wall geometry.
-- Reference/background and artifact-like visuals are not yet separated by a locked, toggleable reference overlay contract.
-- Legacy split-room behavior still relies on split bay child room references; the target model is one parent room with two assignable bed positions.
+- Geometry layers, rendered object identity, and editable geometry registries are defined for normal editor rendering.
+- Hallways, outer walls, support/storage areas, and reference overlays have explicit contracts and local renderer evidence.
+- Split rooms use the documented parent-room plus two assignable bed-position model.
+- Legacy split-bay data has a non-destructive migration bridge with unsafe records flagged for review.
 
 ## Scope Boundaries
 
