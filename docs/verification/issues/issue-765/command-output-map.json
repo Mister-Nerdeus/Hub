@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "765",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-765/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-765/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-765/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-preflight.mjs --stage manifest-contract --issue 765",
+      "outputs": [
+        "docs/verification/issues/issue-765/manifest-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-preflight.mjs --stage failure-reproduction --issue 765",
+      "outputs": [
+        "docs/verification/issues/issue-765/failure-reproduction-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-preflight.mjs --stage scope-boundary --issue 765",
+      "outputs": [
+        "docs/verification/issues/issue-765/scope-boundary-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-765/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+Reproduced before repair from default-branch source evidence:
+- Hallways render, but rendered objects do not yet declare a geometry layer contract.
+- Outer walls are not first-class wall geometry.
+- Reference/background visuals are not locked toggleable overlays.
+- Legacy split rooms still reference child rooms through split bay geometry.
