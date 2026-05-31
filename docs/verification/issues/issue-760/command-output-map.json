@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "760",
+  "commands": {
+    "1": "node scripts/check-editor-bottom-panel-height.mjs --stage max-height --issue 760",
+    "2": "node scripts/check-editor-bottom-panel-height.mjs --stage internal-scroll --issue 760",
+    "3": "node scripts/check-editor-bottom-panel-height.mjs --stage canvas-remains-visible --issue 760"
+  }
+}

@@ -27,6 +27,8 @@ export type LayoutInspectorViewModel = {
   objectId: string | null;
   sourceUnits: "feet";
   isReadOnly: boolean;
+  normalSections: readonly LayoutInspectorSection[];
+  advancedSections: readonly LayoutInspectorSection[];
   sections: readonly LayoutInspectorSection[];
 };
 
@@ -53,9 +55,14 @@ export function buildLayoutInspectorViewModel(
       objectId: selectedObjectId,
       sourceUnits: "feet",
       isReadOnly: true,
+      normalSections: [],
+      advancedSections: [],
       sections: []
     };
   }
+
+  const normalSections = buildNormalSections(layout, selectedObject);
+  const advancedSections = buildAdvancedSections(selectedObject, selectedObjectType, selectedObjectId);
 
   return {
     status: "selected",
@@ -64,7 +71,9 @@ export function buildLayoutInspectorViewModel(
     objectId: selectedObjectId,
     sourceUnits: "feet",
     isReadOnly: selectedObject.objectType !== "room" && selectedObject.objectType !== "station",
-    sections: buildSections(selectedObject)
+    normalSections,
+    advancedSections,
+    sections: normalSections
   };
 }
 
@@ -76,11 +85,14 @@ function emptyInspector(): LayoutInspectorViewModel {
     objectId: null,
     sourceUnits: "feet",
     isReadOnly: true,
+    normalSections: [],
+    advancedSections: [],
     sections: []
   };
 }
 
-function buildSections(
+function buildNormalSections(
+  layout: EditableLayoutGeometryContract,
   selectedObject: NonNullable<ReturnType<typeof findEditableLayoutObject>>
 ): readonly LayoutInspectorSection[] {
   switch (selectedObject.objectType) {
@@ -112,10 +124,9 @@ function buildSections(
     case "door":
       return [
         {
-          title: "Door geometry",
+          title: "Door location",
           fields: [
-            { label: "Owner kind", value: selectedObject.ownerKind },
-            { label: "Owner ID", value: selectedObject.ownerId },
+            { label: "Connected room", value: connectedOwnerLabel(layout, selectedObject.ownerKind, selectedObject.ownerId) },
             { label: "Wall", value: selectedObject.wall },
             { label: "Offset", value: formatFeet(selectedObject.offsetFeet) },
             { label: "Width", value: formatFeet(selectedObject.widthFeet) }
@@ -125,10 +136,9 @@ function buildSections(
     case "support_access":
       return [
         {
-          title: "Support access geometry",
+          title: "Door location",
           fields: [
-            { label: "Owner kind", value: selectedObject.ownerKind },
-            { label: "Owner ID", value: selectedObject.ownerId },
+            { label: "Connected room", value: connectedOwnerLabel(layout, selectedObject.ownerKind, selectedObject.ownerId) },
             { label: "Wall", value: selectedObject.wall },
             { label: "Offset", value: formatFeet(selectedObject.offsetFeet) },
             { label: "Width", value: formatFeet(selectedObject.widthFeet) }
@@ -156,16 +166,40 @@ function buildSections(
     case "split_bay":
       return [
         {
-          title: "Split bay overlay",
+          title: "Split room pair",
           fields: [
-            { label: "Split bay ID", value: selectedObject.splitBayId },
-            { label: "Bed rooms", value: selectedObject.bedPositionRoomIds.join(" / ") },
-            { label: "Divider", value: selectedObject.dividerStyle }
+            { label: "Split room pair", value: formatSplitRoomPair(layout, selectedObject.bedPositionRoomIds) },
+            { label: "Divider style", value: selectedObject.dividerStyle }
           ].map(readOnlyField)
         },
         rectGeometrySection(selectedObject)
       ];
   }
+}
+
+function buildAdvancedSections(
+  selectedObject: NonNullable<ReturnType<typeof findEditableLayoutObject>>,
+  objectType: LayoutSelectionObjectType,
+  objectId: string
+): readonly LayoutInspectorSection[] {
+  const fields: LayoutInspectorField[] = [
+    readOnlyField({ label: "Object ID", value: objectId }),
+    readOnlyField({ label: "Object type", value: objectType }),
+    readOnlyField({ label: "Source units", value: "feet" }),
+    readOnlyField({ label: "Raw validation state", value: "selected" })
+  ];
+
+  if ("ownerId" in selectedObject) {
+    fields.push(
+      readOnlyField({ label: "Owner ID", value: selectedObject.ownerId }),
+      readOnlyField({ label: "Owner kind", value: selectedObject.ownerKind })
+    );
+  }
+  if ("splitBayId" in selectedObject) {
+    fields.push(readOnlyField({ label: "Split bay ID", value: selectedObject.splitBayId }));
+  }
+
+  return [{ title: "Technical metadata", fields }];
 }
 
 function readOnlyField(field: Omit<LayoutInspectorField, "isEditable">): LayoutInspectorField {
@@ -223,4 +257,28 @@ function formatRoomType(roomType: string): string {
   if (roomType === "provider_pharmacy") return "Provider / pharmacy support (non-patient)";
   if (roomType === "solid_wall") return "Solid wall / blocked area";
   return roomType.replaceAll("_", " ");
+}
+
+function connectedOwnerLabel(
+  layout: EditableLayoutGeometryContract,
+  ownerKind: string,
+  ownerId: string
+): string {
+  if (ownerKind === "room") {
+    const room = layout.rooms.find((entry) => entry.id === ownerId);
+    return room == null ? "Room connection unavailable" : `${room.roomNumber} - ${room.label}`;
+  }
+  if (ownerKind === "hallway") {
+    const hallway = layout.hallways.find((entry) => entry.id === ownerId);
+    return hallway == null ? "Hallway connection unavailable" : hallway.label;
+  }
+  return "Layout boundary";
+}
+
+function formatSplitRoomPair(layout: EditableLayoutGeometryContract, roomIds: readonly string[]): string {
+  const labels = roomIds.map((roomId) => {
+    const room = layout.rooms.find((entry) => entry.id === roomId);
+    return room == null ? "Room unavailable" : room.roomNumber;
+  });
+  return labels.join(" / ");
 }

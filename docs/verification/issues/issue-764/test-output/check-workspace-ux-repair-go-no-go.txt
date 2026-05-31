@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "764",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "repair manifest statuses passed",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "durable assignment foundation stayed blocked before audit",
+      "passed": true,
+      "detail": {
+        "durableAssignmentFoundationStatus": "not_started"
+      }
+    },
+    {
+      "name": "status doc keeps Milestone B out of scope",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "missing": []
+}

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "issue": "749",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-workspace-ux-repair-preflight.mjs --stage manifest-contract --issue 749",
+    "5": "node scripts/check-workspace-ux-repair-preflight.mjs --stage failure-reproduction --issue 749",
+    "6": "node scripts/check-workspace-ux-repair-preflight.mjs --stage scope-boundary --issue 749",
+    "7": "node scripts/check-no-phi-fields.mjs"
+  }
+}

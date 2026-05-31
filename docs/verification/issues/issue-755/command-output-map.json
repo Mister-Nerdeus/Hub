@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "755",
+  "commands": {
+    "1": "node scripts/check-compact-readiness-details-repair.mjs --stage dense-details-layout --issue 755",
+    "2": "node scripts/check-compact-readiness-details-repair.mjs --stage needs-work-first --issue 755",
+    "3": "node scripts/check-compact-readiness-details-repair.mjs --stage no-giant-readiness-cards --issue 755"
+  }
+}

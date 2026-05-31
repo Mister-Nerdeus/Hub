@@ -1,0 +1,4 @@
+node scripts/check-global-horizontal-overflow.mjs --stage shell --issue 750
+node scripts/check-global-horizontal-overflow.mjs --stage floorplan-hub --issue 750
+node scripts/check-global-horizontal-overflow.mjs --stage editor --issue 750
+node scripts/check-global-horizontal-overflow.mjs --stage narrow-desktop --issue 750

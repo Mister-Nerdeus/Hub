@@ -1,0 +1,3 @@
+node scripts/check-workflow-stepper-gating.mjs --stage step-states --issue 756
+node scripts/check-workflow-stepper-gating.mjs --stage simulation-report-gated --issue 756
+node scripts/check-workflow-stepper-gating.mjs --stage no-readiness-overclaim --issue 756

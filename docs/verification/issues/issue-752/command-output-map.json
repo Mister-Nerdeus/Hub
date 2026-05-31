@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "752",
+  "commands": {
+    "1": "node scripts/check-active-floorplan-hub-layout-balance.mjs --stage no-giant-empty-card --issue 752",
+    "2": "node scripts/check-active-floorplan-hub-layout-balance.mjs --stage preview-balanced --issue 752",
+    "3": "node scripts/check-active-floorplan-hub-layout-balance.mjs --stage actions-clear --issue 752"
+  }
+}

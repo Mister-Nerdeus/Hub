@@ -9,8 +9,7 @@ export type FloorplanReadinessItemId =
   | "split_rooms_reviewed"
   | "hallways_routes_reviewed"
   | "floorplan_saved"
-  | "active_for_assignment"
-  | "active_for_simulation";
+  | "active_for_assignment";
 
 export type FloorplanReadinessItemContract = {
   itemId: FloorplanReadinessItemId;
@@ -25,6 +24,6 @@ export type FloorplanReadinessContract = {
   versionId: string;
   displayName: string;
   assignmentStatus: "needs_work" | "ready_for_assignment";
-  simulationStatus: "needs_work" | "ready_for_simulation";
+  simulationStatus: "blocked_until_assignment_contract";
   items: FloorplanReadinessItemContract[];
 };

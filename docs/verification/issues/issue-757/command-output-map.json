@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "issue": "757",
+  "commands": {
+    "1": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage repaired-layout --issue 757",
+    "2": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage no-horizontal-overflow --issue 757"
+  }
+}

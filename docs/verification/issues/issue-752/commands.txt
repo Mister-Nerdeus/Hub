@@ -1,0 +1,3 @@
+node scripts/check-active-floorplan-hub-layout-balance.mjs --stage no-giant-empty-card --issue 752
+node scripts/check-active-floorplan-hub-layout-balance.mjs --stage preview-balanced --issue 752
+node scripts/check-active-floorplan-hub-layout-balance.mjs --stage actions-clear --issue 752

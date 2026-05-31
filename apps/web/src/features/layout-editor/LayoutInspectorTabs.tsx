@@ -34,30 +34,36 @@ export function LayoutInspectorTabs({
     assignment,
     validation
   };
+  const activeTabDefinition = LAYOUT_INSPECTOR_TABS.find((tab) => tab.id === activeTab);
+  const activeTabLabel = activeTabDefinition?.label ?? "Selected object";
 
   return (
     <aside
       className="layout-inspector-tabs"
       aria-label="Tabbed layout inspector"
       data-selected-object-details="true"
+      data-selected-object-first="true"
     >
-      <div className="layout-inspector-tabs__list" role="tablist" aria-label="Inspector tabs">
-        {LAYOUT_INSPECTOR_TABS.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            className={activeTab === tab.id ? "layout-inspector-tabs__tab--active" : ""}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
-      <div className="layout-inspector-tabs__panel" role="tabpanel" aria-label={`${activeTab} inspector tab`}>
+      <div className="layout-inspector-tabs__panel layout-inspector-tabs__panel--primary" role="tabpanel" aria-label={`${activeTabLabel} details`}>
         {panelByTab[activeTab]}
       </div>
+      <details className="layout-inspector-tabs__more" data-secondary-tabs-collapsed="true">
+        <summary>More details</summary>
+        <div className="layout-inspector-tabs__list" role="tablist" aria-label="Secondary inspector tabs">
+          {LAYOUT_INSPECTOR_TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              className={activeTab === tab.id ? "layout-inspector-tabs__tab--active" : ""}
+              onClick={() => setActiveTab(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </details>
     </aside>
   );
 }

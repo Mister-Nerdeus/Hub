@@ -54,7 +54,7 @@ export function createFloorplanReadinessViewModel(
       "hallways_routes_reviewed",
       "Hallways/routes reviewed",
       layout.hallways.length > 0,
-      "Review hallways and route context before simulation."
+      "Review hallways and route context before assignment setup."
     ),
     item(
       "floorplan_saved",
@@ -67,12 +67,6 @@ export function createFloorplanReadinessViewModel(
       "Active for assignment",
       activeFloorplan.selectedForAssignment,
       "Use this floorplan for assignment."
-    ),
-    item(
-      "active_for_simulation",
-      "Active for simulation",
-      activeFloorplan.selectedForSimulation,
-      "Use this floorplan for simulation."
     )
   ];
   const assignmentIds = new Set([
@@ -86,9 +80,6 @@ export function createFloorplanReadinessViewModel(
   const assignmentReady = items
     .filter((entry) => assignmentIds.has(entry.itemId))
     .every((entry) => entry.status === "passed");
-  const simulationReady = assignmentReady
-    && items.every((entry) => entry.status === "passed")
-    && activeFloorplan.selectedForSimulation;
 
   return {
     schemaVersion: "1.0.0",
@@ -96,7 +87,7 @@ export function createFloorplanReadinessViewModel(
     versionId: activeFloorplan.activeFloorplanVersionId,
     displayName: activeFloorplan.displayName,
     assignmentStatus: assignmentReady ? "ready_for_assignment" : "needs_work",
-    simulationStatus: simulationReady ? "ready_for_simulation" : "needs_work",
+    simulationStatus: "blocked_until_assignment_contract",
     items
   };
 }

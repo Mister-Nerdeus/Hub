@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "issue": "754",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "no-active-for-simulation-item",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-floorplan-only-ready-for-simulation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "no-active-for-simulation-item": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "no-floorplan-only-ready-for-simulation": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    }
+  }
+}

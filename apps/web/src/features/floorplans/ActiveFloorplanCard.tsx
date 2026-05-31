@@ -25,10 +25,6 @@ export function ActiveFloorplanCard({
       data-active-floorplan-card="layout-v1"
       data-card-status-label={conciseStatus}
     >
-      <div className="active-floorplan-card__thumbnail-area" aria-hidden="true" data-card-thumbnail-area="true">
-        <span>{viewModel.displayName.slice(0, 2).toUpperCase()}</span>
-      </div>
-
       <div className="active-floorplan-card__metadata">
         <p className="eyebrow">Active floorplan</p>
         <h3 id="active-floorplan-selector-title" className="active-floorplan-card__title">
@@ -65,7 +61,7 @@ export function ActiveFloorplanCard({
             </select>
           </label>
         </details>
-        <button type="button" onClick={onOpenAdvanced}>Advanced</button>
+        <button type="button" aria-controls="floorplan-advanced-panel" onClick={onOpenAdvanced}>Advanced</button>
       </div>
     </section>
   );

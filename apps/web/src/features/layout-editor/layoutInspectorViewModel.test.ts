@@ -43,8 +43,9 @@ const objectCases = [
     objectId: "door-room-01-east",
     expectedTitle: "Room 01 east door",
     expectedIsReadOnly: true,
-    expectedSections: ["Door geometry"],
+    expectedSections: ["Door location"],
     expectedFields: [
+      ["Connected room", "01 - Room 01"],
       ["Wall", "east"],
       ["Offset", "3 ft"],
       ["Width", "4 ft"]
@@ -152,6 +153,13 @@ assert.deepEqual(
 const serializedFields = JSON.stringify(roomViewModel.sections);
 assert.equal(serializedFields.includes("pixel"), false);
 assert.equal(serializedFields.includes("px"), false);
+assert.equal(JSON.stringify(roomViewModel.normalSections).includes("Object ID"), false);
+assert.ok(
+  roomViewModel.advancedSections.some((section) =>
+    section.fields.some((field) => field.label === "Object ID" && field.value === "room-01")
+  ),
+  "technical object ID belongs in advanced inspector sections"
+);
 
 const storageViewModel = buildLayoutInspectorViewModel({
   layout: {

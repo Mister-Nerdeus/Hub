@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "issue": "753",
+  "commands": {
+    "1": "node scripts/check-floorplan-advanced-open-behavior.mjs --stage button-opens-panel --issue 753",
+    "2": "node scripts/check-floorplan-advanced-open-behavior.mjs --stage focus-accessible --issue 753"
+  }
+}
