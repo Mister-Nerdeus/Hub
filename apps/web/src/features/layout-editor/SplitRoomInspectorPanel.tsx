@@ -85,6 +85,61 @@ export function SplitRoomInspectorPanel({
           <dd>Rooms {childA.roomNumber} and {childB.roomNumber} assign independently</dd>
         </div>
       </dl>
+      <section
+        className="split-room-inspector-panel__normal-model"
+        data-split-room-normal-inspector="parent-bed-model"
+      >
+        <dl>
+          <div>
+            <dt>Parent room</dt>
+            <dd>{viewModel.pairLabel}</dd>
+          </div>
+          <div>
+            <dt>Bed label</dt>
+            <dd>{childA.roomNumber}A / {childB.roomNumber}B</dd>
+          </div>
+          <div>
+            <dt>Bed position</dt>
+            <dd>A and B</dd>
+          </div>
+          <div>
+            <dt>Divider orientation</dt>
+            <dd>{selectedDividerOrientation}</dd>
+          </div>
+          <div>
+            <dt>Divider ratio</dt>
+            <dd>{Math.round(selectedDividerRatio * 100)} / {Math.round((1 - selectedDividerRatio) * 100)}</dd>
+          </div>
+          <div>
+            <dt>Assignable target</dt>
+            <dd>Yes</dd>
+          </div>
+        </dl>
+      </section>
+      <details
+        className="split-room-inspector-panel__advanced-model"
+        data-split-room-advanced-inspector="parent-bed-model"
+      >
+        <summary>Technical fields</summary>
+        <dl>
+          <div>
+            <dt>splitRoomId</dt>
+            <dd>{viewModel.splitBayId}</dd>
+          </div>
+          <div>
+            <dt>bedPositionId</dt>
+            <dd>{childA.roomId}:bed-a / {childB.roomId}:bed-b</dd>
+          </div>
+          <div>
+            <dt>parentRoomId</dt>
+            <dd>{viewModel.splitBayId}</dd>
+          </div>
+          <div>
+            <dt>relativeBounds</dt>
+            <dd>{selectedDividerOrientation}:{selectedDividerRatio}</dd>
+          </div>
+        </dl>
+      </details>
       <label>
         Change Divider
         <select

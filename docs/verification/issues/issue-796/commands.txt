@@ -1,0 +1,5 @@
+node scripts/check-split-room-inspector.mjs --stage normal-inspector --issue 796
+node scripts/check-split-room-inspector.mjs --stage advanced-technical-fields --issue 796
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

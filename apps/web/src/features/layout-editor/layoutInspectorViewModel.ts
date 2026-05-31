@@ -175,7 +175,12 @@ function buildNormalSections(
           title: "Split room pair",
           fields: [
             { label: "Split room pair", value: formatSplitRoomPair(layout, selectedObject.bedPositionRoomIds) },
-            { label: "Divider style", value: selectedObject.dividerStyle }
+            { label: "Parent room", value: selectedObject.label },
+            { label: "Bed label", value: formatSplitRoomBedLabels(layout, selectedObject.bedPositionRoomIds) },
+            { label: "Bed position", value: "A and B" },
+            { label: "Divider orientation", value: formatSplitRoomDividerOrientation(selectedObject.dividerStyle) },
+            { label: "Divider ratio", value: "50 / 50" },
+            { label: "Assignable target", value: "Yes" }
           ].map(readOnlyField)
         },
         rectGeometrySection(selectedObject)
@@ -202,7 +207,12 @@ function buildAdvancedSections(
     );
   }
   if ("splitBayId" in selectedObject) {
-    fields.push(readOnlyField({ label: "Split bay ID", value: selectedObject.splitBayId }));
+    fields.push(
+      readOnlyField({ label: "splitRoomId", value: selectedObject.splitBayId }),
+      readOnlyField({ label: "bedPositionId", value: selectedObject.bedPositionRoomIds.map((roomId, index) => `${roomId}:bed-${index === 0 ? "a" : "b"}`).join(" / ") }),
+      readOnlyField({ label: "parentRoomId", value: selectedObject.splitBayId }),
+      readOnlyField({ label: "relativeBounds", value: "stored on bed positions" })
+    );
   }
 
   return [{ title: "Technical metadata", fields }];
@@ -287,4 +297,17 @@ function formatSplitRoomPair(layout: EditableLayoutGeometryContract, roomIds: re
     return room == null ? "Room unavailable" : room.roomNumber;
   });
   return labels.join(" / ");
+}
+
+function formatSplitRoomBedLabels(layout: EditableLayoutGeometryContract, roomIds: readonly string[]): string {
+  const labels = roomIds.map((roomId, index) => {
+    const room = layout.rooms.find((entry) => entry.id === roomId);
+    const suffix = index === 0 ? "A" : "B";
+    return `${room?.roomNumber ?? "Room"}${suffix}`;
+  });
+  return labels.join(" / ");
+}
+
+function formatSplitRoomDividerOrientation(dividerStyle: string): string {
+  return dividerStyle === "horizontal" ? "horizontal" : "vertical";
 }
