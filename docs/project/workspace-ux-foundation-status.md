@@ -1,17 +1,17 @@
 # Workspace UX Foundation Status
 
-Milestone A turns the current proof/workbench layout into a full-page operational workspace shell.
+Milestone A turns the current proof/workbench layout into a full-page operational workspace shell for floorplan-centered workflow setup.
 
-Current status: preflight pending local verification.
+Current status: local Workspace UX GO/NO-GO passed. Final closeout issues are documenting evidence, screenshots, and no-overclaim boundaries before the durable assignment foundation begins.
 
-Implemented in this milestone only after its issue gates pass:
+Implemented in Milestone A:
 
-- Full-page workspace shell.
+- Shell and full-page workspace frame.
 - Compact workflow rail.
-- Top workflow stepper.
+- Workflow stepper.
 - Active floorplan hub.
 - Compact readiness summary.
-- Canvas-first editor layout.
+- Editor layout with canvas-first workspace.
 - Bottom selected-object details panel.
 - Advanced-only technical and developer evidence surfaces.
 
@@ -20,10 +20,10 @@ Not implemented in Milestone A:
 - Durable assignment sets.
 - Nurse profile builder.
 - Room load editor.
-- Burden scoring.
-- Scenario simulation.
+- Scoring.
+- Simulation.
 - Optimizer.
-- Management reports.
+- Reports.
 - Clinical safety, staffing compliance, patient outcome, PHI, or EHR claims.
 
-Next milestone after GO: durable assignment foundation.
+Next milestone: durable assignment foundation.
