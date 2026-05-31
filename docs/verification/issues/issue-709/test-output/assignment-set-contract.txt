@@ -1,67 +1,10 @@
 {
   "status": "passed",
   "issue": "709",
-  "stage": "final",
+  "stage": "raw-map-migration-bridge",
   "checks": [
     {
-      "name": "assignment set contract includes required durable floorplan-linked fields",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "contract": {
-          "passed": true,
-          "missing": []
-        },
-        "exports": {
-          "passed": true,
-          "missing": []
-        },
-        "noPhi": {
-          "passed": true,
-          "present": []
-        }
-      }
-    },
-    {
-      "name": "assignment set validation checks nurse references, room loads, and floorplan compatibility",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "missing": []
-      }
-    },
-    {
-      "name": "assignment sets persist through local-first assignment set store",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "persistence": {
-          "passed": true,
-          "missing": []
-        },
-        "store": {
-          "passed": true,
-          "missing": []
-        }
-      }
-    },
-    {
-      "name": "assignment set links to the active floorplan version and exposes compatibility",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "app": {
-          "passed": true,
-          "missing": []
-        },
-        "store": {
-          "passed": true,
-          "missing": []
-        }
-      }
-    },
-    {
-      "name": "assignment set is loaded from persisted records and manual assignment writes back to it",
+      "name": "raw manual assignment map is only a migration bridge around the durable assignment set",
       "passed": true,
       "detail": {
         "passed": true,
@@ -72,53 +15,13 @@
         "workspace": {
           "passed": true,
           "missing": []
-        }
+        },
+        "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
       }
     }
   ],
   "stageResults": {
-    "contract": {
-      "passed": true,
-      "contract": {
-        "passed": true,
-        "missing": []
-      },
-      "exports": {
-        "passed": true,
-        "missing": []
-      },
-      "noPhi": {
-        "passed": true,
-        "present": []
-      }
-    },
-    "validation": {
-      "passed": true,
-      "missing": []
-    },
-    "persistence": {
-      "passed": true,
-      "persistence": {
-        "passed": true,
-        "missing": []
-      },
-      "store": {
-        "passed": true,
-        "missing": []
-      }
-    },
-    "active-floorplan-link": {
-      "passed": true,
-      "app": {
-        "passed": true,
-        "missing": []
-      },
-      "store": {
-        "passed": true,
-        "missing": []
-      }
-    },
-    "reload-proof": {
+    "raw-map-migration-bridge": {
       "passed": true,
       "app": {
         "passed": true,
@@ -127,7 +30,8 @@
       "workspace": {
         "passed": true,
         "missing": []
-      }
+      },
+      "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
     }
   }
 }

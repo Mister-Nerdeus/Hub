@@ -15,6 +15,7 @@ Structured Room Load Editor MVP
 - npm --workspace apps/web run build
 - node scripts/check-room-load-editor.mjs --stage contract --allow-partial --issue 711
 - node scripts/check-room-load-editor.mjs --stage structured-inputs --allow-partial --issue 711
+- node scripts/check-room-load-editor.mjs --stage enum-values --allow-partial --issue 711
 - node scripts/check-room-load-editor.mjs --stage load-change-burden --allow-partial --issue 711
 - node scripts/check-room-load-editor.mjs --stage split-room-child-load --allow-partial --issue 711
 - node scripts/check-room-load-editor.mjs --stage persistence --allow-partial --issue 711

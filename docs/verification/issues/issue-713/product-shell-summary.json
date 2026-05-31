@@ -79,6 +79,40 @@
           "present": []
         }
       }
+    },
+    {
+      "name": "runtime and proof details are hidden from the normal product shell",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "runtimeHidden": {
+          "passed": true,
+          "present": []
+        },
+        "advanced": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "normal mode does not expose Future Tools",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "shell": {
+          "passed": true,
+          "present": []
+        },
+        "sidebar": {
+          "passed": true,
+          "present": []
+        },
+        "navigation": {
+          "passed": true,
+          "missing": []
+        }
+      }
     }
   ],
   "stageResults": {
@@ -136,6 +170,32 @@
       "runtimeHidden": {
         "passed": true,
         "present": []
+      }
+    },
+    "runtime-proof-hidden": {
+      "passed": true,
+      "runtimeHidden": {
+        "passed": true,
+        "present": []
+      },
+      "advanced": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "future-tools-hidden": {
+      "passed": true,
+      "shell": {
+        "passed": true,
+        "present": []
+      },
+      "sidebar": {
+        "passed": true,
+        "present": []
+      },
+      "navigation": {
+        "passed": true,
+        "missing": []
       }
     }
   }

@@ -79,6 +79,26 @@
         "passed": true,
         "missing": []
       }
+    },
+    {
+      "name": "normal manual assignment does not silently fall back to synthetic fixtures",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "fixtureBoundary": {
+          "passed": true,
+          "missing": []
+        },
+        "normalMode": "blocked until active floorplan assignment set is loaded"
+      }
     }
   ],
   "stageResults": {
@@ -130,6 +150,22 @@
     "assignment-issues": {
       "passed": true,
       "missing": []
+    },
+    "no-synthetic-fallback-normal-mode": {
+      "passed": true,
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "fixtureBoundary": {
+        "passed": true,
+        "missing": []
+      },
+      "normalMode": "blocked until active floorplan assignment set is loaded"
     }
   }
 }

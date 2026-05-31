@@ -25,7 +25,7 @@ writeNoScopeOutputs(issue);
 writeScreenshots();
 
 const stages = stage === "final"
-  ? ["toolbar-contract", "normal-toolbar", "explicit-add-actions", "advanced-tools"]
+  ? ["toolbar-contract", "normal-toolbar", "explicit-add-actions", "detailed-toolbar-advanced", "advanced-tools"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -37,6 +37,7 @@ if (status === "passed") {
     editorNormalToolbarUxStatus: "passed",
     normalToolbarMatchesMockup: true,
     explicitAddActionsVisible: true,
+    legacyDetailedToolbarNormalModeHidden: true,
     advancedToolsContainTechnicalDetails: true,
     doorAndSplitRoomRegressionPassed: true
   });
@@ -176,13 +177,45 @@ function runStage(name) {
     addCheck(checks, "advanced tools contain technical details and preserve save/door/split-room wiring", result.passed, result);
     return result;
   }
+  if (name === "detailed-toolbar-advanced") {
+    const commandBar = fileIncludes("apps/web/src/features/layout-editor/EditorCommandBar.tsx", [
+      "EditorAdvancedToolsPanel",
+      "data-normal-technical-copy-hidden=\"true\""
+    ]);
+    const normalToolbar = fileExcludes("apps/web/src/features/layout-editor/EditorNormalToolbar.tsx", [
+      "Add Object",
+      "Validate",
+      "Reset View",
+      "Show Inspector",
+      "Hide Inspector"
+    ]);
+    const advancedPanel = fileIncludes("apps/web/src/features/layout-editor/EditorAdvancedToolsPanel.tsx", [
+      "<summary>Advanced</summary>",
+      "Detailed Editing Tools"
+    ]);
+    const advancedContent = fileIncludes("apps/web/src/features/layout-editor/EditorCommandBar.tsx", [
+      "Import JSON",
+      "Export JSON Backup"
+    ]);
+    const result = {
+      passed: commandBar.passed && normalToolbar.passed && advancedPanel.passed && advancedContent.passed,
+      commandBar,
+      normalToolbar,
+      advancedPanel,
+      advancedContent
+    };
+    writeJson(`${dir}/detailed-toolbar-advanced-output.json`, result);
+    addCheck(checks, "legacy detailed editor controls are available only under Advanced", result.passed, result);
+    return result;
+  }
   throw new Error(`Unsupported editor normal toolbar UX stage: ${name}`);
 }
 
 function writeScreenshots() {
   const screenshots = [
     "editor-normal-toolbar.png",
-    "editor-advanced-tools-open.png"
+    "editor-advanced-tools-open.png",
+    "editor-detailed-tools-advanced.png"
   ];
   for (const screenshot of screenshots) writePlaceholderPng(`${dir}/screenshots/${screenshot}`);
   writeJson(`${dir}/screenshot-index.json`, {
@@ -199,6 +232,7 @@ function requiredCommands() {
     "node scripts/check-editor-normal-toolbar-ux.mjs --stage toolbar-contract --allow-partial --issue 707",
     "node scripts/check-editor-normal-toolbar-ux.mjs --stage normal-toolbar --allow-partial --issue 707",
     "node scripts/check-editor-normal-toolbar-ux.mjs --stage explicit-add-actions --allow-partial --issue 707",
+    "node scripts/check-editor-normal-toolbar-ux.mjs --stage detailed-toolbar-advanced --allow-partial --issue 707",
     "node scripts/check-editor-normal-toolbar-ux.mjs --stage advanced-tools --allow-partial --issue 707",
     "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 707",
     "node scripts/check-split-room-browser-regression.mjs --stage final --issue 707",

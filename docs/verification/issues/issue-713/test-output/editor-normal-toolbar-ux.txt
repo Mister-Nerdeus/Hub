@@ -65,6 +65,29 @@
       }
     },
     {
+      "name": "legacy detailed editor controls are available only under Advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "commandBar": {
+          "passed": true,
+          "missing": []
+        },
+        "normalToolbar": {
+          "passed": true,
+          "present": []
+        },
+        "advancedPanel": {
+          "passed": true,
+          "missing": []
+        },
+        "advancedContent": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
       "name": "advanced tools contain technical details and preserve save/door/split-room wiring",
       "passed": true,
       "detail": {
@@ -142,6 +165,25 @@
         "missing": []
       },
       "stageWiring": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "detailed-toolbar-advanced": {
+      "passed": true,
+      "commandBar": {
+        "passed": true,
+        "missing": []
+      },
+      "normalToolbar": {
+        "passed": true,
+        "present": []
+      },
+      "advancedPanel": {
+        "passed": true,
+        "missing": []
+      },
+      "advancedContent": {
         "passed": true,
         "missing": []
       }

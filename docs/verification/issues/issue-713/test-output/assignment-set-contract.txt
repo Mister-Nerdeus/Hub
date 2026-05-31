@@ -61,6 +61,22 @@
       }
     },
     {
+      "name": "raw manual assignment map is only a migration bridge around the durable assignment set",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+      }
+    },
+    {
       "name": "assignment set is loaded from persisted records and manual assignment writes back to it",
       "passed": true,
       "detail": {
@@ -117,6 +133,18 @@
         "passed": true,
         "missing": []
       }
+    },
+    "raw-map-migration-bridge": {
+      "passed": true,
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
     },
     "reload-proof": {
       "passed": true,

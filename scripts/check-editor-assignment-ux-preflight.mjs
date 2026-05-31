@@ -27,7 +27,7 @@ ensureIssueDirs(issue);
 writeNoScopeOutputs(issue);
 
 const stages = stage === "final"
-  ? ["manifest-contract", "root-script-wiring", "source-regression-wiring", "scope-boundary"]
+  ? ["manifest-contract", "root-script-wiring", "source-regression-wiring", "repository-truth-source", "scope-boundary"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -62,6 +62,7 @@ function runStage(name) {
       "batch",
       "lastUpdatedIssue",
       "productDisplayName",
+      "repositoryTruthSource",
       "sourceActiveFloorplanWorkflowStatus",
       "sourceDoorAuthoringStatus",
       "sourceSplitRoomAuthoringStatus",
@@ -77,6 +78,23 @@ function runStage(name) {
       "manualAssignmentThreeColumnUxStatus",
       "assignmentSetHandoffStatus",
       "editorAssignmentUxGoNoGoStatus",
+      "normalShellUsesWorkflowSteps",
+      "runtimeProofAdvancedOnly",
+      "activeFloorplanHubMatchesMockup",
+      "normalToolbarMatchesMockup",
+      "legacyDetailedToolbarNormalModeHidden",
+      "splitRoomReadinessTruthful",
+      "simulationReadinessNotOverclaimed",
+      "corruptedActiveFloorplanStorageHandled",
+      "assignmentSetLinkedToFloorplanVersion",
+      "assignmentSetPersistsAcrossReload",
+      "nurseProfilesStructured",
+      "roomLoadsStructuredOnly",
+      "splitRoomChildrenHaveIndependentLoads",
+      "manualAssignmentUsesAssignmentSet",
+      "manualAssignmentNoSyntheticFallbackNormalMode",
+      "manualAssignmentThreeColumnUxReady",
+      "scenarioReceivesSelectedAssignmentSet",
       "scenarioBuilderStatus",
       "simulationReviewStatus",
       "reportsStatus",
@@ -90,10 +108,16 @@ function runStage(name) {
     ];
     const missing = requiredKeys.filter((key) => !(key in manifest));
     const result = {
-      status: missing.length === 0 && manifest.batch === "704-713" && manifest.productDisplayName === "ER Pod Shift Simulator" ? "passed" : "failed",
+      status: missing.length === 0
+        && manifest.batch === "704-713"
+        && manifest.productDisplayName === "ER Pod Shift Simulator"
+        && manifest.repositoryTruthSource === "github_default_branch"
+        ? "passed"
+        : "failed",
       missing,
       batch: manifest.batch,
       productDisplayName: manifest.productDisplayName,
+      repositoryTruthSource: manifest.repositoryTruthSource,
       editorAssignmentUxGoNoGoStatus: manifest.editorAssignmentUxGoNoGoStatus
     };
     writeJson(`${dir}/manifest-contract-output.json`, result);
@@ -129,6 +153,18 @@ function runStage(name) {
     };
     writeJson(`${dir}/source-regression-wiring-output.json`, result);
     addCheck(checks, "active floorplan, door, and split-room regression scripts remain wired", result.status === "passed", result);
+    return result;
+  }
+  if (name === "repository-truth-source") {
+    const manifest = loadManifest();
+    const result = {
+      status: manifest.repositoryTruthSource === "github_default_branch" ? "passed" : "failed",
+      repositoryTruthSource: manifest.repositoryTruthSource,
+      expectedRepositoryTruthSource: "github_default_branch",
+      screenshotAuthority: "evidence_only"
+    };
+    writeJson(`${dir}/repository-truth-source-output.json`, result);
+    addCheck(checks, "repository default branch is declared as the repository truth source", result.status === "passed", result);
     return result;
   }
   if (name === "scope-boundary") {
@@ -176,6 +212,7 @@ function requiredCommands() {
     "node scripts/check-editor-assignment-ux-preflight.mjs --stage manifest-contract --allow-partial --issue 704",
     "node scripts/check-editor-assignment-ux-preflight.mjs --stage root-script-wiring --allow-partial --issue 704",
     "node scripts/check-editor-assignment-ux-preflight.mjs --stage source-regression-wiring --allow-partial --issue 704",
+    "node scripts/check-editor-assignment-ux-preflight.mjs --stage repository-truth-source --allow-partial --issue 704",
     "node scripts/check-editor-assignment-ux-preflight.mjs --stage scope-boundary --allow-partial --issue 704",
     "node scripts/check-no-phi-fields.mjs"
   ];

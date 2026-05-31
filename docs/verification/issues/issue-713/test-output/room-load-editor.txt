@@ -42,6 +42,25 @@
       }
     },
     {
+      "name": "room load contract stores approved enum values and no clinical timing text",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "validation": {
+          "passed": true,
+          "missing": []
+        },
+        "noClinicalTiming": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
       "name": "room load changes update assignment state and burden/warning view models immediately",
       "passed": true,
       "detail": {
@@ -128,6 +147,21 @@
       "workspace": {
         "passed": true,
         "missing": []
+      }
+    },
+    "enum-values": {
+      "passed": true,
+      "contract": {
+        "passed": true,
+        "missing": []
+      },
+      "validation": {
+        "passed": true,
+        "missing": []
+      },
+      "noClinicalTiming": {
+        "passed": true,
+        "present": []
       }
     },
     "load-change-burden": {

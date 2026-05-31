@@ -2,17 +2,17 @@
   "status": "passed",
   "issue": "712",
   "patch": {
-    "assignmentSetHandoffStatus": "passed",
-    "assignmentSetSaveReloadHandoffStatus": "passed",
-    "assignmentSetSurvivesReload": true,
-    "scenarioReceivesSelectedAssignmentSet": true,
-    "clearAssignmentsRequiresConfirmation": true
+    "manualAssignmentThreeColumnUxStatus": "passed",
+    "manualAssignmentUsesAssignmentSet": true,
+    "manualAssignmentNoSyntheticFallbackNormalMode": true,
+    "manualAssignmentThreeColumnUxReady": true
   },
   "manifest": {
     "manifestVersion": "1.0.0",
     "batch": "704-713",
     "lastUpdatedIssue": "712",
     "productDisplayName": "ER Pod Shift Simulator",
+    "repositoryTruthSource": "github_default_branch",
     "sourceActiveFloorplanWorkflowStatus": "passed",
     "sourceDoorAuthoringStatus": "passed",
     "sourceSplitRoomAuthoringStatus": "passed",
@@ -31,6 +31,7 @@
     "normalShellUsesWorkflowSteps": true,
     "activeFloorplanHubMatchesMockup": true,
     "normalToolbarMatchesMockup": true,
+    "legacyDetailedToolbarNormalModeHidden": true,
     "splitRoomReadinessTruthful": true,
     "simulationReadinessNotOverclaimed": true,
     "corruptedActiveFloorplanStorageHandled": true,
@@ -40,6 +41,7 @@
     "roomLoadsStructuredOnly": true,
     "splitRoomChildrenHaveIndependentLoads": true,
     "manualAssignmentUsesAssignmentSet": true,
+    "manualAssignmentNoSyntheticFallbackNormalMode": true,
     "manualAssignmentThreeColumnUxReady": true,
     "scenarioReceivesSelectedAssignmentSet": true,
     "scenarioBuilderStatus": "foundation_only",

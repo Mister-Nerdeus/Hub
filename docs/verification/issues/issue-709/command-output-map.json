@@ -9,7 +9,8 @@
     "5": "node scripts/check-assignment-set-contract.mjs --stage validation --allow-partial --issue 709",
     "6": "node scripts/check-assignment-set-contract.mjs --stage persistence --allow-partial --issue 709",
     "7": "node scripts/check-assignment-set-contract.mjs --stage active-floorplan-link --allow-partial --issue 709",
-    "8": "node scripts/check-assignment-set-contract.mjs --stage reload-proof --allow-partial --issue 709",
-    "9": "node scripts/check-no-phi-fields.mjs"
+    "8": "node scripts/check-assignment-set-contract.mjs --stage raw-map-migration-bridge --allow-partial --issue 709",
+    "9": "node scripts/check-assignment-set-contract.mjs --stage reload-proof --allow-partial --issue 709",
+    "10": "node scripts/check-no-phi-fields.mjs"
   }
 }

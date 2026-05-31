@@ -16,6 +16,7 @@ Editor Normal Toolbar Match + Advanced Separation
 - node scripts/check-editor-normal-toolbar-ux.mjs --stage toolbar-contract --allow-partial --issue 707
 - node scripts/check-editor-normal-toolbar-ux.mjs --stage normal-toolbar --allow-partial --issue 707
 - node scripts/check-editor-normal-toolbar-ux.mjs --stage explicit-add-actions --allow-partial --issue 707
+- node scripts/check-editor-normal-toolbar-ux.mjs --stage detailed-toolbar-advanced --allow-partial --issue 707
 - node scripts/check-editor-normal-toolbar-ux.mjs --stage advanced-tools --allow-partial --issue 707
 - node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 707
 - node scripts/check-split-room-browser-regression.mjs --stage final --issue 707

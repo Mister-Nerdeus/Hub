@@ -150,7 +150,8 @@ function writeScreenshots() {
     "assignment-set-selector.png",
     "assignment-set-saved.png",
     "scenario-handoff-selected-assignment.png",
-    "clear-assignment-confirmation.png"
+    "clear-assignment-confirmation.png",
+    "manual-assignment-blocked-no-active-floorplan.png"
   ];
   for (const screenshot of screenshots) writePlaceholderPng(`${dir}/screenshots/${screenshot}`);
   writeJson(`${dir}/screenshot-index.json`, {

@@ -25,7 +25,7 @@ writeNoScopeOutputs(issue);
 writeScreenshots();
 
 const stages = stage === "final"
-  ? ["layout-contract", "floorplan-overview", "room-table", "filter-chips", "nurse-cards", "burden-breakdown", "assignment-issues"]
+  ? ["layout-contract", "floorplan-overview", "room-table", "filter-chips", "nurse-cards", "burden-breakdown", "assignment-issues", "no-synthetic-fallback-normal-mode"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -36,6 +36,7 @@ if (status === "passed") {
   updateManifest(issue, {
     manualAssignmentThreeColumnUxStatus: "passed",
     manualAssignmentUsesAssignmentSet: true,
+    manualAssignmentNoSyntheticFallbackNormalMode: true,
     manualAssignmentThreeColumnUxReady: true
   });
 }
@@ -148,6 +149,30 @@ function runStage(name) {
     addCheck(checks, "assignment issues panel is visible", result.passed, result);
     return result;
   }
+  if (name === "no-synthetic-fallback-normal-mode") {
+    const workspace = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
+      "data-normal-manual-assignment-no-synthetic-fallback=\"true\"",
+      "sourceKind: \"assignment-set-required\"",
+      "sourceKind: \"assignment-set\""
+    ]);
+    const app = fileIncludes("apps/web/src/App.tsx", [
+      "assignmentSet={activeAssignmentSet}",
+      "createDefaultAssignmentSetForFloorplan(activeFloorplanContract)"
+    ]);
+    const fixtureBoundary = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
+      "sourceKind: \"synthetic-fixture\""
+    ]);
+    const result = {
+      passed: workspace.passed && app.passed && fixtureBoundary.passed,
+      workspace,
+      app,
+      fixtureBoundary,
+      normalMode: "blocked until active floorplan assignment set is loaded"
+    };
+    writeJson(`${dir}/no-synthetic-fallback-normal-mode-output.json`, result);
+    addCheck(checks, "normal manual assignment does not silently fall back to synthetic fixtures", result.passed, result);
+    return result;
+  }
   throw new Error(`Unsupported manual assignment UX stage: ${name}`);
 }
 
@@ -159,7 +184,8 @@ function writeScreenshots() {
     "assignment-set-selector.png",
     "assignment-set-saved.png",
     "scenario-handoff-selected-assignment.png",
-    "clear-assignment-confirmation.png"
+    "clear-assignment-confirmation.png",
+    "manual-assignment-blocked-no-active-floorplan.png"
   ];
   for (const screenshot of screenshots) writePlaceholderPng(`${dir}/screenshots/${screenshot}`);
   writeJson(`${dir}/screenshot-index.json`, {
@@ -178,6 +204,7 @@ function requiredCommands() {
     "node scripts/check-manual-assignment-three-column-ux.mjs --stage room-table --allow-partial --issue 712",
     "node scripts/check-manual-assignment-three-column-ux.mjs --stage filter-chips --allow-partial --issue 712",
     "node scripts/check-manual-assignment-three-column-ux.mjs --stage nurse-cards --allow-partial --issue 712",
+    "node scripts/check-manual-assignment-three-column-ux.mjs --stage no-synthetic-fallback-normal-mode --allow-partial --issue 712",
     "node scripts/check-assignment-set-save-reload-handoff.mjs --stage assignment-selector --allow-partial --issue 712",
     "node scripts/check-assignment-set-save-reload-handoff.mjs --stage save-assignment --allow-partial --issue 712",
     "node scripts/check-assignment-set-save-reload-handoff.mjs --stage reload-assignment --allow-partial --issue 712",

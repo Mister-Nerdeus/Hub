@@ -26,7 +26,7 @@ writeNoScopeOutputs(issue);
 writeScreenshots();
 
 const stages = stage === "final"
-  ? ["contract", "structured-inputs", "load-change-burden", "split-room-child-load", "persistence"]
+  ? ["contract", "structured-inputs", "enum-values", "load-change-burden", "split-room-child-load", "persistence"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -118,6 +118,29 @@ function runStage(name) {
     addCheck(checks, "room load editor exposes structured controls and no free-text clinical inputs", result.passed, result);
     return result;
   }
+  if (name === "enum-values") {
+    const contract = fileIncludes("packages/shared/src/assignments/roomLoadContract.ts", [
+      "ROOM_LOAD_FREQUENCY_LEVELS = [\"none\", \"low\", \"medium\", \"high\", \"continuous\"]",
+      "ROOM_LOAD_PROCEDURE_BURDEN_LEVELS = [\"none\", \"low\", \"medium\", \"high\", \"very_high\"]",
+      "ROOM_LOAD_TURNOVER_LEVELS = [\"low\", \"normal\", \"high\", \"surge\"]"
+    ]);
+    const validation = fileIncludes("packages/shared/src/assignments/assignmentSetValidation.ts", [
+      "ROOM_LOAD_FREQUENCY_LEVELS",
+      "ROOM_LOAD_PROCEDURE_BURDEN_LEVELS",
+      "ROOM_LOAD_TURNOVER_LEVELS"
+    ]);
+    const noClinicalTiming = fileExcludes("packages/shared/src/assignments/roomLoadContract.ts", [
+      "Q4H",
+      "Q8H",
+      "q4h",
+      "q8h"
+    ]);
+    const result = { passed: contract.passed && validation.passed && noClinicalTiming.passed, contract, validation, noClinicalTiming };
+    writeJson(`${dir}/enum-value-output.json`, result);
+    writeText(`${dir}/no-clinical-timing-value-output.txt`, `status: ${noClinicalTiming.passed ? "passed" : "failed"}\nRoom load contract stores enum frequency values, not clinical timing text.\n`);
+    addCheck(checks, "room load contract stores approved enum values and no clinical timing text", result.passed, result);
+    return result;
+  }
   if (name === "load-change-burden") {
     const editor = fileIncludes("apps/web/src/features/manual-assignment/RoomLoadEditor.tsx", [
       "onRoomLoadChange?.(nextRoomLoad)",
@@ -201,6 +224,7 @@ function requiredCommands() {
     "npm --workspace apps/web run build",
     "node scripts/check-room-load-editor.mjs --stage contract --allow-partial --issue 711",
     "node scripts/check-room-load-editor.mjs --stage structured-inputs --allow-partial --issue 711",
+    "node scripts/check-room-load-editor.mjs --stage enum-values --allow-partial --issue 711",
     "node scripts/check-room-load-editor.mjs --stage load-change-burden --allow-partial --issue 711",
     "node scripts/check-room-load-editor.mjs --stage split-room-child-load --allow-partial --issue 711",
     "node scripts/check-room-load-editor.mjs --stage persistence --allow-partial --issue 711",

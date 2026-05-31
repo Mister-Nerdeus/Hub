@@ -1,10 +1,10 @@
 {
   "status": "passed",
   "issue": "707",
-  "stage": "final",
+  "stage": "detailed-toolbar-advanced",
   "checks": [
     {
-      "name": "editor toolbar uses normal toolbar plus advanced separation",
+      "name": "legacy detailed editor controls are available only under Advanced",
       "passed": true,
       "detail": {
         "passed": true,
@@ -14,78 +14,13 @@
         },
         "normalToolbar": {
           "passed": true,
-          "missing": []
-        },
-        "stageWiring": {
-          "passed": true,
-          "missing": []
-        }
-      }
-    },
-    {
-      "name": "normal editor toolbar exposes direct user actions without technical controls",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "normalToolbar": {
-          "passed": true,
-          "missing": []
-        },
-        "normalHidden": {
-          "passed": true,
           "present": []
-        }
-      }
-    },
-    {
-      "name": "explicit Add Room, Add Door, Add Split Room, and Add Nurse Station actions are wired",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "addRoom": {
+        },
+        "advancedPanel": {
           "passed": true,
           "missing": []
         },
-        "addDoor": {
-          "passed": true,
-          "missing": []
-        },
-        "addSplitRoom": {
-          "passed": true,
-          "missing": []
-        },
-        "addNurseStation": {
-          "passed": true,
-          "missing": []
-        },
-        "stageWiring": {
-          "passed": true,
-          "missing": []
-        }
-      }
-    },
-    {
-      "name": "advanced tools contain technical details and preserve save/door/split-room wiring",
-      "passed": true,
-      "detail": {
-        "passed": true,
-        "advanced": {
-          "passed": true,
-          "missing": []
-        },
-        "panel": {
-          "passed": true,
-          "missing": []
-        },
-        "saveRegression": {
-          "passed": true,
-          "missing": []
-        },
-        "doorRegression": {
-          "passed": true,
-          "missing": []
-        },
-        "splitRegression": {
+        "advancedContent": {
           "passed": true,
           "missing": []
         }
@@ -93,7 +28,7 @@
     }
   ],
   "stageResults": {
-    "toolbar-contract": {
+    "detailed-toolbar-advanced": {
       "passed": true,
       "commandBar": {
         "passed": true,
@@ -101,66 +36,13 @@
       },
       "normalToolbar": {
         "passed": true,
-        "missing": []
-      },
-      "stageWiring": {
-        "passed": true,
-        "missing": []
-      }
-    },
-    "normal-toolbar": {
-      "passed": true,
-      "normalToolbar": {
-        "passed": true,
-        "missing": []
-      },
-      "normalHidden": {
-        "passed": true,
         "present": []
-      }
-    },
-    "explicit-add-actions": {
-      "passed": true,
-      "addRoom": {
+      },
+      "advancedPanel": {
         "passed": true,
         "missing": []
       },
-      "addDoor": {
-        "passed": true,
-        "missing": []
-      },
-      "addSplitRoom": {
-        "passed": true,
-        "missing": []
-      },
-      "addNurseStation": {
-        "passed": true,
-        "missing": []
-      },
-      "stageWiring": {
-        "passed": true,
-        "missing": []
-      }
-    },
-    "advanced-tools": {
-      "passed": true,
-      "advanced": {
-        "passed": true,
-        "missing": []
-      },
-      "panel": {
-        "passed": true,
-        "missing": []
-      },
-      "saveRegression": {
-        "passed": true,
-        "missing": []
-      },
-      "doorRegression": {
-        "passed": true,
-        "missing": []
-      },
-      "splitRegression": {
+      "advancedContent": {
         "passed": true,
         "missing": []
       }

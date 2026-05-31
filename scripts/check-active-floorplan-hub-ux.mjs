@@ -25,7 +25,7 @@ writeNoScopeOutputs(issue);
 writeScreenshots();
 
 const stages = stage === "final"
-  ? ["hub-contract", "active-floorplan-card", "next-step-card", "prepare-for-simulation-copy", "advanced-hidden"]
+  ? ["hub-contract", "active-floorplan-card", "next-step-card", "prepare-for-simulation-copy", "responsive-layout", "advanced-hidden"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -137,6 +137,26 @@ function runStage(name) {
     addCheck(checks, "technical/library/evidence surfaces are collapsed under Advanced", result.passed, result);
     return result;
   }
+  if (name === "responsive-layout") {
+    const hub = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanHub.tsx", [
+      "active-floorplan-hub__grid",
+      "ActiveFloorplanThumbnail",
+      "NextWorkflowStepCard"
+    ]);
+    const css = fileIncludes("apps/web/src/styles.css", [
+      ".active-floorplan-hub__grid",
+      "minmax(0,",
+      "@media (max-width:"
+    ]);
+    const selector = fileIncludes("apps/web/src/styles.css", [
+      ".active-floorplan-selector",
+      "minmax(0, 1fr)"
+    ]);
+    const result = { passed: hub.passed && css.passed && selector.passed, hub, css, selector };
+    writeJson(`${dir}/responsive-layout-output.json`, result);
+    addCheck(checks, "active floorplan hub has responsive constraints for long names and narrow widths", result.passed, result);
+    return result;
+  }
   throw new Error(`Unsupported active floorplan hub stage: ${name}`);
 }
 
@@ -144,7 +164,8 @@ function writeScreenshots() {
   const screenshots = [
     "active-floorplan-hub-normal.png",
     "active-floorplan-hub-next-step.png",
-    "active-floorplan-hub-advanced-open.png"
+    "active-floorplan-hub-advanced-open.png",
+    "active-floorplan-hub-narrow-width.png"
   ];
   for (const screenshot of screenshots) writePlaceholderPng(`${dir}/screenshots/${screenshot}`);
   writeJson(`${dir}/screenshot-index.json`, {
@@ -162,6 +183,7 @@ function requiredCommands() {
     "node scripts/check-active-floorplan-hub-ux.mjs --stage active-floorplan-card --allow-partial --issue 706",
     "node scripts/check-active-floorplan-hub-ux.mjs --stage next-step-card --allow-partial --issue 706",
     "node scripts/check-active-floorplan-hub-ux.mjs --stage prepare-for-simulation-copy --allow-partial --issue 706",
+    "node scripts/check-active-floorplan-hub-ux.mjs --stage responsive-layout --allow-partial --issue 706",
     "node scripts/check-active-floorplan-hub-ux.mjs --stage advanced-hidden --allow-partial --issue 706",
     "node scripts/check-no-phi-fields.mjs"
   ];

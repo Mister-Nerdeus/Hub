@@ -18,6 +18,8 @@ Product Shell Workflow Stepper + Sidebar Alignment
 - node scripts/check-product-shell-workflow.mjs --stage stepper --allow-partial --issue 705
 - node scripts/check-product-shell-workflow.mjs --stage active-step --allow-partial --issue 705
 - node scripts/check-product-shell-workflow.mjs --stage advanced-evidence --allow-partial --issue 705
+- node scripts/check-product-shell-workflow.mjs --stage runtime-proof-hidden --allow-partial --issue 705
+- node scripts/check-product-shell-workflow.mjs --stage future-tools-hidden --allow-partial --issue 705
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

@@ -12,7 +12,8 @@
         "missing": [],
         "batch": "704-713",
         "productDisplayName": "ER Pod Shift Simulator",
-        "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+        "repositoryTruthSource": "github_default_branch",
+        "editorAssignmentUxGoNoGoStatus": "not_ready"
       }
     },
     {
@@ -35,6 +36,16 @@
       }
     },
     {
+      "name": "repository default branch is declared as the repository truth source",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "repositoryTruthSource": "github_default_branch",
+        "expectedRepositoryTruthSource": "github_default_branch",
+        "screenshotAuthority": "evidence_only"
+      }
+    },
+    {
       "name": "preflight records batch boundaries and incomplete downstream workflows",
       "passed": true,
       "detail": {
@@ -53,7 +64,8 @@
       "missing": [],
       "batch": "704-713",
       "productDisplayName": "ER Pod Shift Simulator",
-      "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+      "repositoryTruthSource": "github_default_branch",
+      "editorAssignmentUxGoNoGoStatus": "not_ready"
     },
     "root-script-wiring": {
       "status": "passed",
@@ -65,6 +77,12 @@
       "activeFloorplan": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703",
       "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
       "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+    },
+    "repository-truth-source": {
+      "status": "passed",
+      "repositoryTruthSource": "github_default_branch",
+      "expectedRepositoryTruthSource": "github_default_branch",
+      "screenshotAuthority": "evidence_only"
     },
     "scope-boundary": {
       "status": "passed",

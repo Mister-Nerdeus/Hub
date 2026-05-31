@@ -17,6 +17,7 @@ Active Floorplan Hub Mockup-Level Layout
 - node scripts/check-active-floorplan-hub-ux.mjs --stage active-floorplan-card --allow-partial --issue 706
 - node scripts/check-active-floorplan-hub-ux.mjs --stage next-step-card --allow-partial --issue 706
 - node scripts/check-active-floorplan-hub-ux.mjs --stage prepare-for-simulation-copy --allow-partial --issue 706
+- node scripts/check-active-floorplan-hub-ux.mjs --stage responsive-layout --allow-partial --issue 706
 - node scripts/check-active-floorplan-hub-ux.mjs --stage advanced-hidden --allow-partial --issue 706
 - node scripts/check-no-phi-fields.mjs
 

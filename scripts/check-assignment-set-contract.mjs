@@ -24,7 +24,7 @@ ensureIssueDirs(issue);
 writeNoScopeOutputs(issue);
 
 const stages = stage === "final"
-  ? ["contract", "validation", "persistence", "active-floorplan-link", "reload-proof"]
+  ? ["contract", "validation", "persistence", "active-floorplan-link", "raw-map-migration-bridge", "reload-proof"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -154,6 +154,28 @@ function runStage(name) {
     addCheck(checks, "assignment set is loaded from persisted records and manual assignment writes back to it", result.passed, result);
     return result;
   }
+  if (name === "raw-map-migration-bridge") {
+    const app = fileIncludes("apps/web/src/App.tsx", [
+      "manualAssignmentsByRoomId",
+      "setManualAssignmentsByRoomId(next.assignmentsByRoomId)",
+      "assignmentSet={activeAssignmentSet}",
+      "onAssignmentSetChange={captureAssignmentSet}"
+    ]);
+    const workspace = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
+      "assignmentSet: AssignmentSetContract | null",
+      "sourceKind: \"assignment-set\"",
+      "assignmentsByRoomId?: Readonly<ManualAssignmentMap>"
+    ]);
+    const result = {
+      passed: app.passed && workspace.passed,
+      app,
+      workspace,
+      bridgeScope: "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+    };
+    writeJson(`${dir}/raw-map-migration-bridge-output.json`, result);
+    addCheck(checks, "raw manual assignment map is only a migration bridge around the durable assignment set", result.passed, result);
+    return result;
+  }
   throw new Error(`Unsupported assignment set contract stage: ${name}`);
 }
 
@@ -166,6 +188,7 @@ function requiredCommands() {
     "node scripts/check-assignment-set-contract.mjs --stage validation --allow-partial --issue 709",
     "node scripts/check-assignment-set-contract.mjs --stage persistence --allow-partial --issue 709",
     "node scripts/check-assignment-set-contract.mjs --stage active-floorplan-link --allow-partial --issue 709",
+    "node scripts/check-assignment-set-contract.mjs --stage raw-map-migration-bridge --allow-partial --issue 709",
     "node scripts/check-assignment-set-contract.mjs --stage reload-proof --allow-partial --issue 709",
     "node scripts/check-no-phi-fields.mjs"
   ];

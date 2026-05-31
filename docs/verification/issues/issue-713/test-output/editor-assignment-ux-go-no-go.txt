@@ -20,7 +20,8 @@
               "missing": [],
               "batch": "704-713",
               "productDisplayName": "ER Pod Shift Simulator",
-              "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+              "repositoryTruthSource": "github_default_branch",
+              "editorAssignmentUxGoNoGoStatus": "not_ready"
             }
           },
           {
@@ -43,6 +44,16 @@
             }
           },
           {
+            "name": "repository default branch is declared as the repository truth source",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "repositoryTruthSource": "github_default_branch",
+              "expectedRepositoryTruthSource": "github_default_branch",
+              "screenshotAuthority": "evidence_only"
+            }
+          },
+          {
             "name": "preflight records batch boundaries and incomplete downstream workflows",
             "passed": true,
             "detail": {
@@ -61,7 +72,8 @@
             "missing": [],
             "batch": "704-713",
             "productDisplayName": "ER Pod Shift Simulator",
-            "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+            "repositoryTruthSource": "github_default_branch",
+            "editorAssignmentUxGoNoGoStatus": "not_ready"
           },
           "root-script-wiring": {
             "status": "passed",
@@ -73,6 +85,12 @@
             "activeFloorplan": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703",
             "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
             "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+          },
+          "repository-truth-source": {
+            "status": "passed",
+            "repositoryTruthSource": "github_default_branch",
+            "expectedRepositoryTruthSource": "github_default_branch",
+            "screenshotAuthority": "evidence_only"
           },
           "scope-boundary": {
             "status": "passed",
@@ -169,6 +187,40 @@
                 "present": []
               }
             }
+          },
+          {
+            "name": "runtime and proof details are hidden from the normal product shell",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "runtimeHidden": {
+                "passed": true,
+                "present": []
+              },
+              "advanced": {
+                "passed": true,
+                "missing": []
+              }
+            }
+          },
+          {
+            "name": "normal mode does not expose Future Tools",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "shell": {
+                "passed": true,
+                "present": []
+              },
+              "sidebar": {
+                "passed": true,
+                "present": []
+              },
+              "navigation": {
+                "passed": true,
+                "missing": []
+              }
+            }
           }
         ],
         "stageResults": {
@@ -226,6 +278,32 @@
             "runtimeHidden": {
               "passed": true,
               "present": []
+            }
+          },
+          "runtime-proof-hidden": {
+            "passed": true,
+            "runtimeHidden": {
+              "passed": true,
+              "present": []
+            },
+            "advanced": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          "future-tools-hidden": {
+            "passed": true,
+            "shell": {
+              "passed": true,
+              "present": []
+            },
+            "sidebar": {
+              "passed": true,
+              "present": []
+            },
+            "navigation": {
+              "passed": true,
+              "missing": []
             }
           }
         }
@@ -309,6 +387,25 @@
             }
           },
           {
+            "name": "active floorplan hub has responsive constraints for long names and narrow widths",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "hub": {
+                "passed": true,
+                "missing": []
+              },
+              "css": {
+                "passed": true,
+                "missing": []
+              },
+              "selector": {
+                "passed": true,
+                "missing": []
+              }
+            }
+          },
+          {
             "name": "technical/library/evidence surfaces are collapsed under Advanced",
             "passed": true,
             "detail": {
@@ -375,6 +472,21 @@
             "selector": {
               "passed": true,
               "present": []
+            }
+          },
+          "responsive-layout": {
+            "passed": true,
+            "hub": {
+              "passed": true,
+              "missing": []
+            },
+            "css": {
+              "passed": true,
+              "missing": []
+            },
+            "selector": {
+              "passed": true,
+              "missing": []
             }
           },
           "advanced-hidden": {
@@ -462,6 +574,29 @@
             }
           },
           {
+            "name": "legacy detailed editor controls are available only under Advanced",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "commandBar": {
+                "passed": true,
+                "missing": []
+              },
+              "normalToolbar": {
+                "passed": true,
+                "present": []
+              },
+              "advancedPanel": {
+                "passed": true,
+                "missing": []
+              },
+              "advancedContent": {
+                "passed": true,
+                "missing": []
+              }
+            }
+          },
+          {
             "name": "advanced tools contain technical details and preserve save/door/split-room wiring",
             "passed": true,
             "detail": {
@@ -539,6 +674,25 @@
               "missing": []
             },
             "stageWiring": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          "detailed-toolbar-advanced": {
+            "passed": true,
+            "commandBar": {
+              "passed": true,
+              "missing": []
+            },
+            "normalToolbar": {
+              "passed": true,
+              "present": []
+            },
+            "advancedPanel": {
+              "passed": true,
+              "missing": []
+            },
+            "advancedContent": {
               "passed": true,
               "missing": []
             }
@@ -826,6 +980,22 @@
             }
           },
           {
+            "name": "raw manual assignment map is only a migration bridge around the durable assignment set",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "app": {
+                "passed": true,
+                "missing": []
+              },
+              "workspace": {
+                "passed": true,
+                "missing": []
+              },
+              "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+            }
+          },
+          {
             "name": "assignment set is loaded from persisted records and manual assignment writes back to it",
             "passed": true,
             "detail": {
@@ -882,6 +1052,18 @@
               "passed": true,
               "missing": []
             }
+          },
+          "raw-map-migration-bridge": {
+            "passed": true,
+            "app": {
+              "passed": true,
+              "missing": []
+            },
+            "workspace": {
+              "passed": true,
+              "missing": []
+            },
+            "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
           },
           "reload-proof": {
             "passed": true,
@@ -1069,6 +1251,25 @@
             }
           },
           {
+            "name": "room load contract stores approved enum values and no clinical timing text",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "contract": {
+                "passed": true,
+                "missing": []
+              },
+              "validation": {
+                "passed": true,
+                "missing": []
+              },
+              "noClinicalTiming": {
+                "passed": true,
+                "present": []
+              }
+            }
+          },
+          {
             "name": "room load changes update assignment state and burden/warning view models immediately",
             "passed": true,
             "detail": {
@@ -1155,6 +1356,21 @@
             "workspace": {
               "passed": true,
               "missing": []
+            }
+          },
+          "enum-values": {
+            "passed": true,
+            "contract": {
+              "passed": true,
+              "missing": []
+            },
+            "validation": {
+              "passed": true,
+              "missing": []
+            },
+            "noClinicalTiming": {
+              "passed": true,
+              "present": []
             }
           },
           "load-change-burden": {
@@ -1290,6 +1506,26 @@
               "passed": true,
               "missing": []
             }
+          },
+          {
+            "name": "normal manual assignment does not silently fall back to synthetic fixtures",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "workspace": {
+                "passed": true,
+                "missing": []
+              },
+              "app": {
+                "passed": true,
+                "missing": []
+              },
+              "fixtureBoundary": {
+                "passed": true,
+                "missing": []
+              },
+              "normalMode": "blocked until active floorplan assignment set is loaded"
+            }
           }
         ],
         "stageResults": {
@@ -1341,6 +1577,22 @@
           "assignment-issues": {
             "passed": true,
             "missing": []
+          },
+          "no-synthetic-fallback-normal-mode": {
+            "passed": true,
+            "workspace": {
+              "passed": true,
+              "missing": []
+            },
+            "app": {
+              "passed": true,
+              "missing": []
+            },
+            "fixtureBoundary": {
+              "passed": true,
+              "missing": []
+            },
+            "normalMode": "blocked until active floorplan assignment set is loaded"
           }
         }
       }
@@ -2742,156 +2994,7 @@
                     ]
                   }
                 }
-              ],
-              "stageResults": {
-                "valid-patient-door": {
-                  "valid": {
-                    "status": "passed",
-                    "roomId": "room-02",
-                    "doorId": "authored-door-001",
-                    "beforeDoorCount": 23,
-                    "afterDoorCount": 24,
-                    "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
-                  },
-                  "move": {
-                    "status": "passed",
-                    "doorId": "authored-door-001",
-                    "initialWall": "south",
-                    "movedWall": "west",
-                    "nudgeClicked": true
-                  },
-                  "width": {
-                    "status": "passed",
-                    "doorId": "authored-door-001",
-                    "widthPresetFeet": 6,
-                    "widthClicked": true
-                  },
-                  "adjacent": {
-                    "status": "passed",
-                    "doorId": "authored-door-001",
-                    "candidateRoomId": "room-19",
-                    "candidateText": "19 / south / hallway adjacent",
-                    "selected": true
-                  },
-                  "deleted": {
-                    "status": "passed",
-                    "doorId": "authored-door-001",
-                    "beforeDoorCount": 24,
-                    "afterDoorCount": 23
-                  }
-                },
-                "invalid-target-warnings": {
-                  "invalidCandidate": {
-                    "status": "passed",
-                    "doorId": "authored-door-001",
-                    "candidateRoomId": "room-19",
-                    "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
-                    "disabled": true,
-                    "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
-                  },
-                  "solidWall": {
-                    "status": "passed",
-                    "roomId": "room-14",
-                    "warningVisible": true,
-                    "doorCountPreserved": true
-                  },
-                  "supportSpace": {
-                    "status": "passed",
-                    "roomId": "room-14",
-                    "warningVisible": true,
-                    "doorCountPreserved": true
-                  },
-                  "providerSupport": {
-                    "status": "passed",
-                    "beforeSupportAccessCount": 0,
-                    "afterSupportAccessCount": 1,
-                    "usedSupportAccessWorkflow": true
-                  }
-                },
-                "left-pod": {
-                  "status": "passed",
-                  "roomId": "room-02",
-                  "beforeDoorCount": 23,
-                  "afterDoorCount": 24,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
-                },
-                "right-pod": {
-                  "status": "passed",
-                  "roomId": "room-06",
-                  "beforeDoorCount": 24,
-                  "afterDoorCount": 25,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
-                },
-                "save-reload-export": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "savedRecordId": "saved-default-er-layout-plan-1-001",
-                  "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
-                  "exportedDoor": {
-                    "id": "authored-door-001",
-                    "widthFeet": 6,
-                    "roomId": "room-02"
-                  },
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
-                },
-                "no-recovery-screen": {
-                  "status": "passed",
-                  "checks": [
-                    {
-                      "label": "valid-patient-door-add",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "door-move",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "door-nudge",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "door-width",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "save-reload-export",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "door-delete",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "support-space-reject",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "solid-wall-reject",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "invalid-candidate-disabled",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "adjacent-valid-candidate",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "provider-pharmacy-support-access",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "room-02-pod-regression",
-                      "recoveryScreenVisible": false
-                    },
-                    {
-                      "label": "room-06-pod-regression",
-                      "recoveryScreenVisible": false
-                    }
-                  ]
-                }
-              }
+              ]
             }
           },
           {
@@ -3045,119 +3148,7 @@
                     "recoveryScreenVisible": false
                   }
                 }
-              ],
-              "stageResults": {
-                "room5-user-flow": {
-                  "status": "passed",
-                  "room5ActionVisible": true,
-                  "room5CreateClicked": true,
-                  "split45Visible": true,
-                  "split45LabelsVisible": true,
-                  "split45DividerVisible": true
-                },
-                "all-canonical-pairs": {
-                  "status": "passed",
-                  "splitBayIds": [
-                    "split-bay-room-02-room-03",
-                    "split-bay-room-04-room-05",
-                    "split-bay-room-06-room-07",
-                    "split-bay-room-08-room-09"
-                  ]
-                },
-                "assignment-child-room": {
-                  "status": "passed",
-                  "childAssignmentFills": 2,
-                  "assignmentColorsIndependent": true
-                },
-                "save-reload": {
-                  "status": "passed",
-                  "savedRecordId": "saved-default-er-layout-plan-1-001",
-                  "afterReloadSplit45Visible": true
-                },
-                "export-json": {
-                  "status": "passed",
-                  "splitBays": [
-                    {
-                      "id": "split-bay-room-02-room-03",
-                      "label": "2/3",
-                      "xFeet": 44,
-                      "yFeet": 28,
-                      "widthFeet": 20,
-                      "heightFeet": 10,
-                      "objectType": "split_bay",
-                      "splitBayId": "split-bay-room-02-room-03",
-                      "bedPositionRoomIds": [
-                        "room-02",
-                        "room-03"
-                      ],
-                      "dividerStyle": "diagonal_down"
-                    },
-                    {
-                      "id": "split-bay-room-04-room-05",
-                      "label": "4/5",
-                      "xFeet": 44,
-                      "yFeet": 40,
-                      "widthFeet": 20,
-                      "heightFeet": 10,
-                      "objectType": "split_bay",
-                      "splitBayId": "split-bay-room-04-room-05",
-                      "bedPositionRoomIds": [
-                        "room-04",
-                        "room-05"
-                      ],
-                      "dividerStyle": "diagonal_down"
-                    },
-                    {
-                      "id": "split-bay-room-06-room-07",
-                      "label": "6/7",
-                      "xFeet": 92,
-                      "yFeet": 28,
-                      "widthFeet": 20,
-                      "heightFeet": 10,
-                      "objectType": "split_bay",
-                      "splitBayId": "split-bay-room-06-room-07",
-                      "bedPositionRoomIds": [
-                        "room-06",
-                        "room-07"
-                      ],
-                      "dividerStyle": "diagonal_down"
-                    },
-                    {
-                      "id": "split-bay-room-08-room-09",
-                      "label": "8/9",
-                      "xFeet": 92,
-                      "yFeet": 40,
-                      "widthFeet": 20,
-                      "heightFeet": 10,
-                      "objectType": "split_bay",
-                      "splitBayId": "split-bay-room-08-room-09",
-                      "bedPositionRoomIds": [
-                        "room-08",
-                        "room-09"
-                      ],
-                      "dividerStyle": "diagonal_down"
-                    }
-                  ]
-                },
-                "import-json": {
-                  "status": "passed",
-                  "importedSplitBayIds": [
-                    "split-bay-room-02-room-03",
-                    "split-bay-room-04-room-05",
-                    "split-bay-room-06-room-07",
-                    "split-bay-room-08-room-09"
-                  ]
-                },
-                "no-copy-label": {
-                  "status": "passed",
-                  "copyLabelVisible": false,
-                  "bodyCopyHits": []
-                },
-                "no-recovery-screen": {
-                  "status": "passed",
-                  "recoveryScreenVisible": false
-                }
-              }
+              ]
             }
           },
           {
@@ -4390,156 +4381,7 @@
                   ]
                 }
               }
-            ],
-            "stageResults": {
-              "valid-patient-door": {
-                "valid": {
-                  "status": "passed",
-                  "roomId": "room-02",
-                  "doorId": "authored-door-001",
-                  "beforeDoorCount": 23,
-                  "afterDoorCount": 24,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
-                },
-                "move": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "initialWall": "south",
-                  "movedWall": "west",
-                  "nudgeClicked": true
-                },
-                "width": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "widthPresetFeet": 6,
-                  "widthClicked": true
-                },
-                "adjacent": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "candidateRoomId": "room-19",
-                  "candidateText": "19 / south / hallway adjacent",
-                  "selected": true
-                },
-                "deleted": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "beforeDoorCount": 24,
-                  "afterDoorCount": 23
-                }
-              },
-              "invalid-target-warnings": {
-                "invalidCandidate": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "candidateRoomId": "room-19",
-                  "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
-                  "disabled": true,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
-                },
-                "solidWall": {
-                  "status": "passed",
-                  "roomId": "room-14",
-                  "warningVisible": true,
-                  "doorCountPreserved": true
-                },
-                "supportSpace": {
-                  "status": "passed",
-                  "roomId": "room-14",
-                  "warningVisible": true,
-                  "doorCountPreserved": true
-                },
-                "providerSupport": {
-                  "status": "passed",
-                  "beforeSupportAccessCount": 0,
-                  "afterSupportAccessCount": 1,
-                  "usedSupportAccessWorkflow": true
-                }
-              },
-              "left-pod": {
-                "status": "passed",
-                "roomId": "room-02",
-                "beforeDoorCount": 23,
-                "afterDoorCount": 24,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
-              },
-              "right-pod": {
-                "status": "passed",
-                "roomId": "room-06",
-                "beforeDoorCount": 24,
-                "afterDoorCount": 25,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
-              },
-              "save-reload-export": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "savedRecordId": "saved-default-er-layout-plan-1-001",
-                "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
-                "exportedDoor": {
-                  "id": "authored-door-001",
-                  "widthFeet": 6,
-                  "roomId": "room-02"
-                },
-                "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
-              },
-              "no-recovery-screen": {
-                "status": "passed",
-                "checks": [
-                  {
-                    "label": "valid-patient-door-add",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-move",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-nudge",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-width",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "save-reload-export",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-delete",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "support-space-reject",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "solid-wall-reject",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "invalid-candidate-disabled",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "adjacent-valid-candidate",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "provider-pharmacy-support-access",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "room-02-pod-regression",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "room-06-pod-regression",
-                    "recoveryScreenVisible": false
-                  }
-                ]
-              }
-            }
+            ]
           },
           "splitRoomRegression": {
             "source": "docs/verification/issues/issue-713/test-output/split-room-browser-regression.txt",
@@ -4689,119 +4531,7 @@
                   "recoveryScreenVisible": false
                 }
               }
-            ],
-            "stageResults": {
-              "room5-user-flow": {
-                "status": "passed",
-                "room5ActionVisible": true,
-                "room5CreateClicked": true,
-                "split45Visible": true,
-                "split45LabelsVisible": true,
-                "split45DividerVisible": true
-              },
-              "all-canonical-pairs": {
-                "status": "passed",
-                "splitBayIds": [
-                  "split-bay-room-02-room-03",
-                  "split-bay-room-04-room-05",
-                  "split-bay-room-06-room-07",
-                  "split-bay-room-08-room-09"
-                ]
-              },
-              "assignment-child-room": {
-                "status": "passed",
-                "childAssignmentFills": 2,
-                "assignmentColorsIndependent": true
-              },
-              "save-reload": {
-                "status": "passed",
-                "savedRecordId": "saved-default-er-layout-plan-1-001",
-                "afterReloadSplit45Visible": true
-              },
-              "export-json": {
-                "status": "passed",
-                "splitBays": [
-                  {
-                    "id": "split-bay-room-02-room-03",
-                    "label": "2/3",
-                    "xFeet": 44,
-                    "yFeet": 28,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-02-room-03",
-                    "bedPositionRoomIds": [
-                      "room-02",
-                      "room-03"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-04-room-05",
-                    "label": "4/5",
-                    "xFeet": 44,
-                    "yFeet": 40,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-04-room-05",
-                    "bedPositionRoomIds": [
-                      "room-04",
-                      "room-05"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-06-room-07",
-                    "label": "6/7",
-                    "xFeet": 92,
-                    "yFeet": 28,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-06-room-07",
-                    "bedPositionRoomIds": [
-                      "room-06",
-                      "room-07"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-08-room-09",
-                    "label": "8/9",
-                    "xFeet": 92,
-                    "yFeet": 40,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-08-room-09",
-                    "bedPositionRoomIds": [
-                      "room-08",
-                      "room-09"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  }
-                ]
-              },
-              "import-json": {
-                "status": "passed",
-                "importedSplitBayIds": [
-                  "split-bay-room-02-room-03",
-                  "split-bay-room-04-room-05",
-                  "split-bay-room-06-room-07",
-                  "split-bay-room-08-room-09"
-                ]
-              },
-              "no-copy-label": {
-                "status": "passed",
-                "copyLabelVisible": false,
-                "bodyCopyHits": []
-              },
-              "no-recovery-screen": {
-                "status": "passed",
-                "recoveryScreenVisible": false
-              }
-            }
+            ]
           }
         },
         "finalDecision": {
@@ -4991,7 +4721,156 @@
               ]
             }
           }
-        ]
+        ],
+        "stageResults": {
+          "valid-patient-door": {
+            "valid": {
+              "status": "passed",
+              "roomId": "room-02",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 23,
+              "afterDoorCount": 24,
+              "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
+            },
+            "move": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "initialWall": "south",
+              "movedWall": "west",
+              "nudgeClicked": true
+            },
+            "width": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "widthPresetFeet": 6,
+              "widthClicked": true
+            },
+            "adjacent": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent",
+              "selected": true
+            },
+            "deleted": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 24,
+              "afterDoorCount": 23
+            }
+          },
+          "invalid-target-warnings": {
+            "invalidCandidate": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+              "disabled": true,
+              "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
+            },
+            "solidWall": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "supportSpace": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "providerSupport": {
+              "status": "passed",
+              "beforeSupportAccessCount": 0,
+              "afterSupportAccessCount": 1,
+              "usedSupportAccessWorkflow": true
+            }
+          },
+          "left-pod": {
+            "status": "passed",
+            "roomId": "room-02",
+            "beforeDoorCount": 23,
+            "afterDoorCount": 24,
+            "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
+          },
+          "right-pod": {
+            "status": "passed",
+            "roomId": "room-06",
+            "beforeDoorCount": 24,
+            "afterDoorCount": 25,
+            "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
+          },
+          "save-reload-export": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
+            "exportedDoor": {
+              "id": "authored-door-001",
+              "widthFeet": 6,
+              "roomId": "room-02"
+            },
+            "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
+          },
+          "no-recovery-screen": {
+            "status": "passed",
+            "checks": [
+              {
+                "label": "valid-patient-door-add",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-move",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-nudge",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-width",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "save-reload-export",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-delete",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "support-space-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "solid-wall-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "invalid-candidate-disabled",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "adjacent-valid-candidate",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "provider-pharmacy-support-access",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-02-pod-regression",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-06-pod-regression",
+                "recoveryScreenVisible": false
+              }
+            ]
+          }
+        }
       }
     },
     {
@@ -5145,7 +5024,119 @@
               "recoveryScreenVisible": false
             }
           }
-        ]
+        ],
+        "stageResults": {
+          "room5-user-flow": {
+            "status": "passed",
+            "room5ActionVisible": true,
+            "room5CreateClicked": true,
+            "split45Visible": true,
+            "split45LabelsVisible": true,
+            "split45DividerVisible": true
+          },
+          "all-canonical-pairs": {
+            "status": "passed",
+            "splitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          },
+          "assignment-child-room": {
+            "status": "passed",
+            "childAssignmentFills": 2,
+            "assignmentColorsIndependent": true
+          },
+          "save-reload": {
+            "status": "passed",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "afterReloadSplit45Visible": true
+          },
+          "export-json": {
+            "status": "passed",
+            "splitBays": [
+              {
+                "id": "split-bay-room-02-room-03",
+                "label": "2/3",
+                "xFeet": 44,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-02-room-03",
+                "bedPositionRoomIds": [
+                  "room-02",
+                  "room-03"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-04-room-05",
+                "label": "4/5",
+                "xFeet": 44,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-04-room-05",
+                "bedPositionRoomIds": [
+                  "room-04",
+                  "room-05"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-06-room-07",
+                "label": "6/7",
+                "xFeet": 92,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-06-room-07",
+                "bedPositionRoomIds": [
+                  "room-06",
+                  "room-07"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-08-room-09",
+                "label": "8/9",
+                "xFeet": 92,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-08-room-09",
+                "bedPositionRoomIds": [
+                  "room-08",
+                  "room-09"
+                ],
+                "dividerStyle": "diagonal_down"
+              }
+            ]
+          },
+          "import-json": {
+            "status": "passed",
+            "importedSplitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          },
+          "no-copy-label": {
+            "status": "passed",
+            "copyLabelVisible": false,
+            "bodyCopyHits": []
+          },
+          "no-recovery-screen": {
+            "status": "passed",
+            "recoveryScreenVisible": false
+          }
+        }
       }
     },
     {
@@ -5154,13 +5145,14 @@
       "detail": []
     },
     {
-      "name": "no downstream scope drift is declared",
+      "name": "repository truth source is github default branch",
       "passed": true,
       "detail": {
         "manifestVersion": "1.0.0",
         "batch": "704-713",
         "lastUpdatedIssue": "713",
         "productDisplayName": "ER Pod Shift Simulator",
+        "repositoryTruthSource": "github_default_branch",
         "sourceActiveFloorplanWorkflowStatus": "passed",
         "sourceDoorAuthoringStatus": "passed",
         "sourceSplitRoomAuthoringStatus": "passed",
@@ -5175,10 +5167,11 @@
         "roomLoadEditorStatus": "passed",
         "manualAssignmentThreeColumnUxStatus": "passed",
         "assignmentSetHandoffStatus": "passed",
-        "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder",
+        "editorAssignmentUxGoNoGoStatus": "not_ready",
         "normalShellUsesWorkflowSteps": true,
         "activeFloorplanHubMatchesMockup": true,
         "normalToolbarMatchesMockup": true,
+        "legacyDetailedToolbarNormalModeHidden": true,
         "splitRoomReadinessTruthful": true,
         "simulationReadinessNotOverclaimed": true,
         "corruptedActiveFloorplanStorageHandled": true,
@@ -5188,6 +5181,7 @@
         "roomLoadsStructuredOnly": true,
         "splitRoomChildrenHaveIndependentLoads": true,
         "manualAssignmentUsesAssignmentSet": true,
+        "manualAssignmentNoSyntheticFallbackNormalMode": true,
         "manualAssignmentThreeColumnUxReady": true,
         "scenarioReceivesSelectedAssignmentSet": true,
         "scenarioBuilderStatus": "foundation_only",
@@ -5199,7 +5193,143 @@
         "staffingComplianceStatus": "not_started",
         "patientOutcomePredictionStatus": "not_started",
         "noPhiStatus": "passed",
-        "goNoGoStatus": "go_for_next_batch",
+        "goNoGoStatus": "not_ready",
+        "runtimeProofAdvancedOnly": true,
+        "activeFloorplanBannerPreserved": true,
+        "scenariosVisibleAsNormalWorkflowStep": true,
+        "nextStepCardVisible": true,
+        "prepareForSimulationNotOverclaimed": true,
+        "advancedTechnicalDetailsHidden": true,
+        "explicitAddActionsVisible": true,
+        "advancedToolsContainTechnicalDetails": true,
+        "doorAndSplitRoomRegressionPassed": true,
+        "assignmentSetNoPhi": true,
+        "normalAssignmentUsesNurseProfiles": true,
+        "nurseProfilesNoPhi": true,
+        "roomLoadChangesUpdateBurden": true,
+        "assignmentSetSaveReloadHandoffStatus": "passed",
+        "assignmentSetSurvivesReload": true,
+        "clearAssignmentsRequiresConfirmation": true
+      }
+    },
+    {
+      "name": "manual assignment does not use synthetic fallback in normal mode",
+      "passed": true,
+      "detail": {
+        "manifestVersion": "1.0.0",
+        "batch": "704-713",
+        "lastUpdatedIssue": "713",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "repositoryTruthSource": "github_default_branch",
+        "sourceActiveFloorplanWorkflowStatus": "passed",
+        "sourceDoorAuthoringStatus": "passed",
+        "sourceSplitRoomAuthoringStatus": "passed",
+        "editorAssignmentUxPreflightStatus": "passed",
+        "productShellWorkflowStatus": "passed",
+        "activeFloorplanHubUxStatus": "passed",
+        "editorNormalToolbarUxStatus": "passed",
+        "floorplanReadinessTruthStatus": "passed",
+        "activeFloorplanPersistenceResilienceStatus": "passed",
+        "assignmentSetContractStatus": "passed",
+        "nurseProfileBuilderStatus": "passed",
+        "roomLoadEditorStatus": "passed",
+        "manualAssignmentThreeColumnUxStatus": "passed",
+        "assignmentSetHandoffStatus": "passed",
+        "editorAssignmentUxGoNoGoStatus": "not_ready",
+        "normalShellUsesWorkflowSteps": true,
+        "activeFloorplanHubMatchesMockup": true,
+        "normalToolbarMatchesMockup": true,
+        "legacyDetailedToolbarNormalModeHidden": true,
+        "splitRoomReadinessTruthful": true,
+        "simulationReadinessNotOverclaimed": true,
+        "corruptedActiveFloorplanStorageHandled": true,
+        "assignmentSetLinkedToFloorplanVersion": true,
+        "assignmentSetPersistsAcrossReload": true,
+        "nurseProfilesStructured": true,
+        "roomLoadsStructuredOnly": true,
+        "splitRoomChildrenHaveIndependentLoads": true,
+        "manualAssignmentUsesAssignmentSet": true,
+        "manualAssignmentNoSyntheticFallbackNormalMode": true,
+        "manualAssignmentThreeColumnUxReady": true,
+        "scenarioReceivesSelectedAssignmentSet": true,
+        "scenarioBuilderStatus": "foundation_only",
+        "simulationReviewStatus": "internal_dry_run_only",
+        "reportsStatus": "placeholder_only",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "patientOutcomePredictionStatus": "not_started",
+        "noPhiStatus": "passed",
+        "goNoGoStatus": "not_ready",
+        "runtimeProofAdvancedOnly": true,
+        "activeFloorplanBannerPreserved": true,
+        "scenariosVisibleAsNormalWorkflowStep": true,
+        "nextStepCardVisible": true,
+        "prepareForSimulationNotOverclaimed": true,
+        "advancedTechnicalDetailsHidden": true,
+        "explicitAddActionsVisible": true,
+        "advancedToolsContainTechnicalDetails": true,
+        "doorAndSplitRoomRegressionPassed": true,
+        "assignmentSetNoPhi": true,
+        "normalAssignmentUsesNurseProfiles": true,
+        "nurseProfilesNoPhi": true,
+        "roomLoadChangesUpdateBurden": true,
+        "assignmentSetSaveReloadHandoffStatus": "passed",
+        "assignmentSetSurvivesReload": true,
+        "clearAssignmentsRequiresConfirmation": true
+      }
+    },
+    {
+      "name": "no downstream scope drift is declared",
+      "passed": true,
+      "detail": {
+        "manifestVersion": "1.0.0",
+        "batch": "704-713",
+        "lastUpdatedIssue": "713",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "repositoryTruthSource": "github_default_branch",
+        "sourceActiveFloorplanWorkflowStatus": "passed",
+        "sourceDoorAuthoringStatus": "passed",
+        "sourceSplitRoomAuthoringStatus": "passed",
+        "editorAssignmentUxPreflightStatus": "passed",
+        "productShellWorkflowStatus": "passed",
+        "activeFloorplanHubUxStatus": "passed",
+        "editorNormalToolbarUxStatus": "passed",
+        "floorplanReadinessTruthStatus": "passed",
+        "activeFloorplanPersistenceResilienceStatus": "passed",
+        "assignmentSetContractStatus": "passed",
+        "nurseProfileBuilderStatus": "passed",
+        "roomLoadEditorStatus": "passed",
+        "manualAssignmentThreeColumnUxStatus": "passed",
+        "assignmentSetHandoffStatus": "passed",
+        "editorAssignmentUxGoNoGoStatus": "not_ready",
+        "normalShellUsesWorkflowSteps": true,
+        "activeFloorplanHubMatchesMockup": true,
+        "normalToolbarMatchesMockup": true,
+        "legacyDetailedToolbarNormalModeHidden": true,
+        "splitRoomReadinessTruthful": true,
+        "simulationReadinessNotOverclaimed": true,
+        "corruptedActiveFloorplanStorageHandled": true,
+        "assignmentSetLinkedToFloorplanVersion": true,
+        "assignmentSetPersistsAcrossReload": true,
+        "nurseProfilesStructured": true,
+        "roomLoadsStructuredOnly": true,
+        "splitRoomChildrenHaveIndependentLoads": true,
+        "manualAssignmentUsesAssignmentSet": true,
+        "manualAssignmentNoSyntheticFallbackNormalMode": true,
+        "manualAssignmentThreeColumnUxReady": true,
+        "scenarioReceivesSelectedAssignmentSet": true,
+        "scenarioBuilderStatus": "foundation_only",
+        "simulationReviewStatus": "internal_dry_run_only",
+        "reportsStatus": "placeholder_only",
+        "optimizerStatus": "not_started",
+        "assignmentRecommendationStatus": "not_started",
+        "clinicalSafetyScoringStatus": "not_started",
+        "staffingComplianceStatus": "not_started",
+        "patientOutcomePredictionStatus": "not_started",
+        "noPhiStatus": "passed",
+        "goNoGoStatus": "not_ready",
         "runtimeProofAdvancedOnly": true,
         "activeFloorplanBannerPreserved": true,
         "scenariosVisibleAsNormalWorkflowStep": true,
@@ -5234,7 +5364,8 @@
             "missing": [],
             "batch": "704-713",
             "productDisplayName": "ER Pod Shift Simulator",
-            "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+            "repositoryTruthSource": "github_default_branch",
+            "editorAssignmentUxGoNoGoStatus": "not_ready"
           }
         },
         {
@@ -5257,6 +5388,16 @@
           }
         },
         {
+          "name": "repository default branch is declared as the repository truth source",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "repositoryTruthSource": "github_default_branch",
+            "expectedRepositoryTruthSource": "github_default_branch",
+            "screenshotAuthority": "evidence_only"
+          }
+        },
+        {
           "name": "preflight records batch boundaries and incomplete downstream workflows",
           "passed": true,
           "detail": {
@@ -5275,7 +5416,8 @@
           "missing": [],
           "batch": "704-713",
           "productDisplayName": "ER Pod Shift Simulator",
-          "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder"
+          "repositoryTruthSource": "github_default_branch",
+          "editorAssignmentUxGoNoGoStatus": "not_ready"
         },
         "root-script-wiring": {
           "status": "passed",
@@ -5287,6 +5429,12 @@
           "activeFloorplan": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703",
           "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
           "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+        },
+        "repository-truth-source": {
+          "status": "passed",
+          "repositoryTruthSource": "github_default_branch",
+          "expectedRepositoryTruthSource": "github_default_branch",
+          "screenshotAuthority": "evidence_only"
         },
         "scope-boundary": {
           "status": "passed",
@@ -5379,6 +5527,40 @@
               "present": []
             }
           }
+        },
+        {
+          "name": "runtime and proof details are hidden from the normal product shell",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "runtimeHidden": {
+              "passed": true,
+              "present": []
+            },
+            "advanced": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        },
+        {
+          "name": "normal mode does not expose Future Tools",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "shell": {
+              "passed": true,
+              "present": []
+            },
+            "sidebar": {
+              "passed": true,
+              "present": []
+            },
+            "navigation": {
+              "passed": true,
+              "missing": []
+            }
+          }
         }
       ],
       "stageResults": {
@@ -5436,6 +5618,32 @@
           "runtimeHidden": {
             "passed": true,
             "present": []
+          }
+        },
+        "runtime-proof-hidden": {
+          "passed": true,
+          "runtimeHidden": {
+            "passed": true,
+            "present": []
+          },
+          "advanced": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        "future-tools-hidden": {
+          "passed": true,
+          "shell": {
+            "passed": true,
+            "present": []
+          },
+          "sidebar": {
+            "passed": true,
+            "present": []
+          },
+          "navigation": {
+            "passed": true,
+            "missing": []
           }
         }
       }
@@ -5515,6 +5723,25 @@
           }
         },
         {
+          "name": "active floorplan hub has responsive constraints for long names and narrow widths",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "hub": {
+              "passed": true,
+              "missing": []
+            },
+            "css": {
+              "passed": true,
+              "missing": []
+            },
+            "selector": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        },
+        {
           "name": "technical/library/evidence surfaces are collapsed under Advanced",
           "passed": true,
           "detail": {
@@ -5581,6 +5808,21 @@
           "selector": {
             "passed": true,
             "present": []
+          }
+        },
+        "responsive-layout": {
+          "passed": true,
+          "hub": {
+            "passed": true,
+            "missing": []
+          },
+          "css": {
+            "passed": true,
+            "missing": []
+          },
+          "selector": {
+            "passed": true,
+            "missing": []
           }
         },
         "advanced-hidden": {
@@ -5664,6 +5906,29 @@
           }
         },
         {
+          "name": "legacy detailed editor controls are available only under Advanced",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "commandBar": {
+              "passed": true,
+              "missing": []
+            },
+            "normalToolbar": {
+              "passed": true,
+              "present": []
+            },
+            "advancedPanel": {
+              "passed": true,
+              "missing": []
+            },
+            "advancedContent": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        },
+        {
           "name": "advanced tools contain technical details and preserve save/door/split-room wiring",
           "passed": true,
           "detail": {
@@ -5741,6 +6006,25 @@
             "missing": []
           },
           "stageWiring": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        "detailed-toolbar-advanced": {
+          "passed": true,
+          "commandBar": {
+            "passed": true,
+            "missing": []
+          },
+          "normalToolbar": {
+            "passed": true,
+            "present": []
+          },
+          "advancedPanel": {
+            "passed": true,
+            "missing": []
+          },
+          "advancedContent": {
             "passed": true,
             "missing": []
           }
@@ -6016,6 +6300,22 @@
           }
         },
         {
+          "name": "raw manual assignment map is only a migration bridge around the durable assignment set",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "app": {
+              "passed": true,
+              "missing": []
+            },
+            "workspace": {
+              "passed": true,
+              "missing": []
+            },
+            "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+          }
+        },
+        {
           "name": "assignment set is loaded from persisted records and manual assignment writes back to it",
           "passed": true,
           "detail": {
@@ -6072,6 +6372,18 @@
             "passed": true,
             "missing": []
           }
+        },
+        "raw-map-migration-bridge": {
+          "passed": true,
+          "app": {
+            "passed": true,
+            "missing": []
+          },
+          "workspace": {
+            "passed": true,
+            "missing": []
+          },
+          "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
         },
         "reload-proof": {
           "passed": true,
@@ -6251,6 +6563,25 @@
           }
         },
         {
+          "name": "room load contract stores approved enum values and no clinical timing text",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "contract": {
+              "passed": true,
+              "missing": []
+            },
+            "validation": {
+              "passed": true,
+              "missing": []
+            },
+            "noClinicalTiming": {
+              "passed": true,
+              "present": []
+            }
+          }
+        },
+        {
           "name": "room load changes update assignment state and burden/warning view models immediately",
           "passed": true,
           "detail": {
@@ -6337,6 +6668,21 @@
           "workspace": {
             "passed": true,
             "missing": []
+          }
+        },
+        "enum-values": {
+          "passed": true,
+          "contract": {
+            "passed": true,
+            "missing": []
+          },
+          "validation": {
+            "passed": true,
+            "missing": []
+          },
+          "noClinicalTiming": {
+            "passed": true,
+            "present": []
           }
         },
         "load-change-burden": {
@@ -6468,6 +6814,26 @@
             "passed": true,
             "missing": []
           }
+        },
+        {
+          "name": "normal manual assignment does not silently fall back to synthetic fixtures",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "workspace": {
+              "passed": true,
+              "missing": []
+            },
+            "app": {
+              "passed": true,
+              "missing": []
+            },
+            "fixtureBoundary": {
+              "passed": true,
+              "missing": []
+            },
+            "normalMode": "blocked until active floorplan assignment set is loaded"
+          }
         }
       ],
       "stageResults": {
@@ -6519,6 +6885,22 @@
         "assignment-issues": {
           "passed": true,
           "missing": []
+        },
+        "no-synthetic-fallback-normal-mode": {
+          "passed": true,
+          "workspace": {
+            "passed": true,
+            "missing": []
+          },
+          "app": {
+            "passed": true,
+            "missing": []
+          },
+          "fixtureBoundary": {
+            "passed": true,
+            "missing": []
+          },
+          "normalMode": "blocked until active floorplan assignment set is loaded"
         }
       }
     },
@@ -7912,156 +8294,7 @@
                   ]
                 }
               }
-            ],
-            "stageResults": {
-              "valid-patient-door": {
-                "valid": {
-                  "status": "passed",
-                  "roomId": "room-02",
-                  "doorId": "authored-door-001",
-                  "beforeDoorCount": 23,
-                  "afterDoorCount": 24,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
-                },
-                "move": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "initialWall": "south",
-                  "movedWall": "west",
-                  "nudgeClicked": true
-                },
-                "width": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "widthPresetFeet": 6,
-                  "widthClicked": true
-                },
-                "adjacent": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "candidateRoomId": "room-19",
-                  "candidateText": "19 / south / hallway adjacent",
-                  "selected": true
-                },
-                "deleted": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "beforeDoorCount": 24,
-                  "afterDoorCount": 23
-                }
-              },
-              "invalid-target-warnings": {
-                "invalidCandidate": {
-                  "status": "passed",
-                  "doorId": "authored-door-001",
-                  "candidateRoomId": "room-19",
-                  "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
-                  "disabled": true,
-                  "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
-                },
-                "solidWall": {
-                  "status": "passed",
-                  "roomId": "room-14",
-                  "warningVisible": true,
-                  "doorCountPreserved": true
-                },
-                "supportSpace": {
-                  "status": "passed",
-                  "roomId": "room-14",
-                  "warningVisible": true,
-                  "doorCountPreserved": true
-                },
-                "providerSupport": {
-                  "status": "passed",
-                  "beforeSupportAccessCount": 0,
-                  "afterSupportAccessCount": 1,
-                  "usedSupportAccessWorkflow": true
-                }
-              },
-              "left-pod": {
-                "status": "passed",
-                "roomId": "room-02",
-                "beforeDoorCount": 23,
-                "afterDoorCount": 24,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
-              },
-              "right-pod": {
-                "status": "passed",
-                "roomId": "room-06",
-                "beforeDoorCount": 24,
-                "afterDoorCount": 25,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
-              },
-              "save-reload-export": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "savedRecordId": "saved-default-er-layout-plan-1-001",
-                "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
-                "exportedDoor": {
-                  "id": "authored-door-001",
-                  "widthFeet": 6,
-                  "roomId": "room-02"
-                },
-                "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
-              },
-              "no-recovery-screen": {
-                "status": "passed",
-                "checks": [
-                  {
-                    "label": "valid-patient-door-add",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-move",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-nudge",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-width",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "save-reload-export",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "door-delete",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "support-space-reject",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "solid-wall-reject",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "invalid-candidate-disabled",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "adjacent-valid-candidate",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "provider-pharmacy-support-access",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "room-02-pod-regression",
-                    "recoveryScreenVisible": false
-                  },
-                  {
-                    "label": "room-06-pod-regression",
-                    "recoveryScreenVisible": false
-                  }
-                ]
-              }
-            }
+            ]
           }
         },
         {
@@ -8215,119 +8448,7 @@
                   "recoveryScreenVisible": false
                 }
               }
-            ],
-            "stageResults": {
-              "room5-user-flow": {
-                "status": "passed",
-                "room5ActionVisible": true,
-                "room5CreateClicked": true,
-                "split45Visible": true,
-                "split45LabelsVisible": true,
-                "split45DividerVisible": true
-              },
-              "all-canonical-pairs": {
-                "status": "passed",
-                "splitBayIds": [
-                  "split-bay-room-02-room-03",
-                  "split-bay-room-04-room-05",
-                  "split-bay-room-06-room-07",
-                  "split-bay-room-08-room-09"
-                ]
-              },
-              "assignment-child-room": {
-                "status": "passed",
-                "childAssignmentFills": 2,
-                "assignmentColorsIndependent": true
-              },
-              "save-reload": {
-                "status": "passed",
-                "savedRecordId": "saved-default-er-layout-plan-1-001",
-                "afterReloadSplit45Visible": true
-              },
-              "export-json": {
-                "status": "passed",
-                "splitBays": [
-                  {
-                    "id": "split-bay-room-02-room-03",
-                    "label": "2/3",
-                    "xFeet": 44,
-                    "yFeet": 28,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-02-room-03",
-                    "bedPositionRoomIds": [
-                      "room-02",
-                      "room-03"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-04-room-05",
-                    "label": "4/5",
-                    "xFeet": 44,
-                    "yFeet": 40,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-04-room-05",
-                    "bedPositionRoomIds": [
-                      "room-04",
-                      "room-05"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-06-room-07",
-                    "label": "6/7",
-                    "xFeet": 92,
-                    "yFeet": 28,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-06-room-07",
-                    "bedPositionRoomIds": [
-                      "room-06",
-                      "room-07"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  },
-                  {
-                    "id": "split-bay-room-08-room-09",
-                    "label": "8/9",
-                    "xFeet": 92,
-                    "yFeet": 40,
-                    "widthFeet": 20,
-                    "heightFeet": 10,
-                    "objectType": "split_bay",
-                    "splitBayId": "split-bay-room-08-room-09",
-                    "bedPositionRoomIds": [
-                      "room-08",
-                      "room-09"
-                    ],
-                    "dividerStyle": "diagonal_down"
-                  }
-                ]
-              },
-              "import-json": {
-                "status": "passed",
-                "importedSplitBayIds": [
-                  "split-bay-room-02-room-03",
-                  "split-bay-room-04-room-05",
-                  "split-bay-room-06-room-07",
-                  "split-bay-room-08-room-09"
-                ]
-              },
-              "no-copy-label": {
-                "status": "passed",
-                "copyLabelVisible": false,
-                "bodyCopyHits": []
-              },
-              "no-recovery-screen": {
-                "status": "passed",
-                "recoveryScreenVisible": false
-              }
-            }
+            ]
           }
         },
         {
@@ -9560,156 +9681,7 @@
                 ]
               }
             }
-          ],
-          "stageResults": {
-            "valid-patient-door": {
-              "valid": {
-                "status": "passed",
-                "roomId": "room-02",
-                "doorId": "authored-door-001",
-                "beforeDoorCount": 23,
-                "afterDoorCount": 24,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
-              },
-              "move": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "initialWall": "south",
-                "movedWall": "west",
-                "nudgeClicked": true
-              },
-              "width": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "widthPresetFeet": 6,
-                "widthClicked": true
-              },
-              "adjacent": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "candidateRoomId": "room-19",
-                "candidateText": "19 / south / hallway adjacent",
-                "selected": true
-              },
-              "deleted": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "beforeDoorCount": 24,
-                "afterDoorCount": 23
-              }
-            },
-            "invalid-target-warnings": {
-              "invalidCandidate": {
-                "status": "passed",
-                "doorId": "authored-door-001",
-                "candidateRoomId": "room-19",
-                "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
-                "disabled": true,
-                "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
-              },
-              "solidWall": {
-                "status": "passed",
-                "roomId": "room-14",
-                "warningVisible": true,
-                "doorCountPreserved": true
-              },
-              "supportSpace": {
-                "status": "passed",
-                "roomId": "room-14",
-                "warningVisible": true,
-                "doorCountPreserved": true
-              },
-              "providerSupport": {
-                "status": "passed",
-                "beforeSupportAccessCount": 0,
-                "afterSupportAccessCount": 1,
-                "usedSupportAccessWorkflow": true
-              }
-            },
-            "left-pod": {
-              "status": "passed",
-              "roomId": "room-02",
-              "beforeDoorCount": 23,
-              "afterDoorCount": 24,
-              "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
-            },
-            "right-pod": {
-              "status": "passed",
-              "roomId": "room-06",
-              "beforeDoorCount": 24,
-              "afterDoorCount": 25,
-              "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
-            },
-            "save-reload-export": {
-              "status": "passed",
-              "doorId": "authored-door-001",
-              "savedRecordId": "saved-default-er-layout-plan-1-001",
-              "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
-              "exportedDoor": {
-                "id": "authored-door-001",
-                "widthFeet": 6,
-                "roomId": "room-02"
-              },
-              "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
-            },
-            "no-recovery-screen": {
-              "status": "passed",
-              "checks": [
-                {
-                  "label": "valid-patient-door-add",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "door-move",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "door-nudge",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "door-width",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "save-reload-export",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "door-delete",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "support-space-reject",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "solid-wall-reject",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "invalid-candidate-disabled",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "adjacent-valid-candidate",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "provider-pharmacy-support-access",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "room-02-pod-regression",
-                  "recoveryScreenVisible": false
-                },
-                {
-                  "label": "room-06-pod-regression",
-                  "recoveryScreenVisible": false
-                }
-              ]
-            }
-          }
+          ]
         },
         "splitRoomRegression": {
           "source": "docs/verification/issues/issue-713/test-output/split-room-browser-regression.txt",
@@ -9859,119 +9831,7 @@
                 "recoveryScreenVisible": false
               }
             }
-          ],
-          "stageResults": {
-            "room5-user-flow": {
-              "status": "passed",
-              "room5ActionVisible": true,
-              "room5CreateClicked": true,
-              "split45Visible": true,
-              "split45LabelsVisible": true,
-              "split45DividerVisible": true
-            },
-            "all-canonical-pairs": {
-              "status": "passed",
-              "splitBayIds": [
-                "split-bay-room-02-room-03",
-                "split-bay-room-04-room-05",
-                "split-bay-room-06-room-07",
-                "split-bay-room-08-room-09"
-              ]
-            },
-            "assignment-child-room": {
-              "status": "passed",
-              "childAssignmentFills": 2,
-              "assignmentColorsIndependent": true
-            },
-            "save-reload": {
-              "status": "passed",
-              "savedRecordId": "saved-default-er-layout-plan-1-001",
-              "afterReloadSplit45Visible": true
-            },
-            "export-json": {
-              "status": "passed",
-              "splitBays": [
-                {
-                  "id": "split-bay-room-02-room-03",
-                  "label": "2/3",
-                  "xFeet": 44,
-                  "yFeet": 28,
-                  "widthFeet": 20,
-                  "heightFeet": 10,
-                  "objectType": "split_bay",
-                  "splitBayId": "split-bay-room-02-room-03",
-                  "bedPositionRoomIds": [
-                    "room-02",
-                    "room-03"
-                  ],
-                  "dividerStyle": "diagonal_down"
-                },
-                {
-                  "id": "split-bay-room-04-room-05",
-                  "label": "4/5",
-                  "xFeet": 44,
-                  "yFeet": 40,
-                  "widthFeet": 20,
-                  "heightFeet": 10,
-                  "objectType": "split_bay",
-                  "splitBayId": "split-bay-room-04-room-05",
-                  "bedPositionRoomIds": [
-                    "room-04",
-                    "room-05"
-                  ],
-                  "dividerStyle": "diagonal_down"
-                },
-                {
-                  "id": "split-bay-room-06-room-07",
-                  "label": "6/7",
-                  "xFeet": 92,
-                  "yFeet": 28,
-                  "widthFeet": 20,
-                  "heightFeet": 10,
-                  "objectType": "split_bay",
-                  "splitBayId": "split-bay-room-06-room-07",
-                  "bedPositionRoomIds": [
-                    "room-06",
-                    "room-07"
-                  ],
-                  "dividerStyle": "diagonal_down"
-                },
-                {
-                  "id": "split-bay-room-08-room-09",
-                  "label": "8/9",
-                  "xFeet": 92,
-                  "yFeet": 40,
-                  "widthFeet": 20,
-                  "heightFeet": 10,
-                  "objectType": "split_bay",
-                  "splitBayId": "split-bay-room-08-room-09",
-                  "bedPositionRoomIds": [
-                    "room-08",
-                    "room-09"
-                  ],
-                  "dividerStyle": "diagonal_down"
-                }
-              ]
-            },
-            "import-json": {
-              "status": "passed",
-              "importedSplitBayIds": [
-                "split-bay-room-02-room-03",
-                "split-bay-room-04-room-05",
-                "split-bay-room-06-room-07",
-                "split-bay-room-08-room-09"
-              ]
-            },
-            "no-copy-label": {
-              "status": "passed",
-              "copyLabelVisible": false,
-              "bodyCopyHits": []
-            },
-            "no-recovery-screen": {
-              "status": "passed",
-              "recoveryScreenVisible": false
-            }
-          }
+          ]
         }
       },
       "finalDecision": {
@@ -10157,7 +10017,156 @@
             ]
           }
         }
-      ]
+      ],
+      "stageResults": {
+        "valid-patient-door": {
+          "valid": {
+            "status": "passed",
+            "roomId": "room-02",
+            "doorId": "authored-door-001",
+            "beforeDoorCount": 23,
+            "afterDoorCount": 24,
+            "screenshot": "docs/verification/issues/issue-713/screenshots/valid-door-added.png"
+          },
+          "move": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "initialWall": "south",
+            "movedWall": "west",
+            "nudgeClicked": true
+          },
+          "width": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "widthPresetFeet": 6,
+            "widthClicked": true
+          },
+          "adjacent": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "candidateRoomId": "room-19",
+            "candidateText": "19 / south / hallway adjacent",
+            "selected": true
+          },
+          "deleted": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "beforeDoorCount": 24,
+            "afterDoorCount": 23
+          }
+        },
+        "invalid-target-warnings": {
+          "invalidCandidate": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "candidateRoomId": "room-19",
+            "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+            "disabled": true,
+            "screenshot": "docs/verification/issues/issue-713/screenshots/invalid-door-warning.png"
+          },
+          "solidWall": {
+            "status": "passed",
+            "roomId": "room-14",
+            "warningVisible": true,
+            "doorCountPreserved": true
+          },
+          "supportSpace": {
+            "status": "passed",
+            "roomId": "room-14",
+            "warningVisible": true,
+            "doorCountPreserved": true
+          },
+          "providerSupport": {
+            "status": "passed",
+            "beforeSupportAccessCount": 0,
+            "afterSupportAccessCount": 1,
+            "usedSupportAccessWorkflow": true
+          }
+        },
+        "left-pod": {
+          "status": "passed",
+          "roomId": "room-02",
+          "beforeDoorCount": 23,
+          "afterDoorCount": 24,
+          "screenshot": "docs/verification/issues/issue-713/screenshots/left-pod-door-proof.png"
+        },
+        "right-pod": {
+          "status": "passed",
+          "roomId": "room-06",
+          "beforeDoorCount": 24,
+          "afterDoorCount": 25,
+          "screenshot": "docs/verification/issues/issue-713/screenshots/right-pod-door-proof.png"
+        },
+        "save-reload-export": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "savedRecordId": "saved-default-er-layout-plan-1-001",
+          "exportedJson": "docs/verification/issues/issue-713/exported-json/door-regression-after-reload.json",
+          "exportedDoor": {
+            "id": "authored-door-001",
+            "widthFeet": 6,
+            "roomId": "room-02"
+          },
+          "screenshot": "docs/verification/issues/issue-713/screenshots/door-save-reload-proof.png"
+        },
+        "no-recovery-screen": {
+          "status": "passed",
+          "checks": [
+            {
+              "label": "valid-patient-door-add",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-move",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-nudge",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-width",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "save-reload-export",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-delete",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "support-space-reject",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "solid-wall-reject",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "invalid-candidate-disabled",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "adjacent-valid-candidate",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "provider-pharmacy-support-access",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "room-02-pod-regression",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "room-06-pod-regression",
+              "recoveryScreenVisible": false
+            }
+          ]
+        }
+      }
     },
     "splitRoomRegression": {
       "source": "docs/verification/issues/issue-713/test-output/split-room-browser-regression.txt",
@@ -10307,7 +10316,119 @@
             "recoveryScreenVisible": false
           }
         }
-      ]
+      ],
+      "stageResults": {
+        "room5-user-flow": {
+          "status": "passed",
+          "room5ActionVisible": true,
+          "room5CreateClicked": true,
+          "split45Visible": true,
+          "split45LabelsVisible": true,
+          "split45DividerVisible": true
+        },
+        "all-canonical-pairs": {
+          "status": "passed",
+          "splitBayIds": [
+            "split-bay-room-02-room-03",
+            "split-bay-room-04-room-05",
+            "split-bay-room-06-room-07",
+            "split-bay-room-08-room-09"
+          ]
+        },
+        "assignment-child-room": {
+          "status": "passed",
+          "childAssignmentFills": 2,
+          "assignmentColorsIndependent": true
+        },
+        "save-reload": {
+          "status": "passed",
+          "savedRecordId": "saved-default-er-layout-plan-1-001",
+          "afterReloadSplit45Visible": true
+        },
+        "export-json": {
+          "status": "passed",
+          "splitBays": [
+            {
+              "id": "split-bay-room-02-room-03",
+              "label": "2/3",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-02-room-03",
+              "bedPositionRoomIds": [
+                "room-02",
+                "room-03"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-04-room-05",
+              "label": "4/5",
+              "xFeet": 44,
+              "yFeet": 40,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-04-room-05",
+              "bedPositionRoomIds": [
+                "room-04",
+                "room-05"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-06-room-07",
+              "label": "6/7",
+              "xFeet": 92,
+              "yFeet": 28,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-06-room-07",
+              "bedPositionRoomIds": [
+                "room-06",
+                "room-07"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-08-room-09",
+              "label": "8/9",
+              "xFeet": 92,
+              "yFeet": 40,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-08-room-09",
+              "bedPositionRoomIds": [
+                "room-08",
+                "room-09"
+              ],
+              "dividerStyle": "diagonal_down"
+            }
+          ]
+        },
+        "import-json": {
+          "status": "passed",
+          "importedSplitBayIds": [
+            "split-bay-room-02-room-03",
+            "split-bay-room-04-room-05",
+            "split-bay-room-06-room-07",
+            "split-bay-room-08-room-09"
+          ]
+        },
+        "no-copy-label": {
+          "status": "passed",
+          "copyLabelVisible": false,
+          "bodyCopyHits": []
+        },
+        "no-recovery-screen": {
+          "status": "passed",
+          "recoveryScreenVisible": false
+        }
+      }
     }
   },
   "finalDecision": {

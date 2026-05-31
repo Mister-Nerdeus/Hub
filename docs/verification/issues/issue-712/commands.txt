@@ -6,6 +6,7 @@ node scripts/check-manual-assignment-three-column-ux.mjs --stage floorplan-overv
 node scripts/check-manual-assignment-three-column-ux.mjs --stage room-table --allow-partial --issue 712
 node scripts/check-manual-assignment-three-column-ux.mjs --stage filter-chips --allow-partial --issue 712
 node scripts/check-manual-assignment-three-column-ux.mjs --stage nurse-cards --allow-partial --issue 712
+node scripts/check-manual-assignment-three-column-ux.mjs --stage no-synthetic-fallback-normal-mode --allow-partial --issue 712
 node scripts/check-assignment-set-save-reload-handoff.mjs --stage assignment-selector --allow-partial --issue 712
 node scripts/check-assignment-set-save-reload-handoff.mjs --stage save-assignment --allow-partial --issue 712
 node scripts/check-assignment-set-save-reload-handoff.mjs --stage reload-assignment --allow-partial --issue 712

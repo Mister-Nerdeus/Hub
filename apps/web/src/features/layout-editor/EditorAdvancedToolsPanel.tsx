@@ -13,6 +13,7 @@ export function EditorAdvancedToolsPanel({ children }: EditorAdvancedToolsPanelP
     >
       <summary>Advanced</summary>
       <div className="editor-advanced-tools-panel__body">
+        <h3>Detailed Editing Tools</h3>
         {children}
       </div>
     </details>

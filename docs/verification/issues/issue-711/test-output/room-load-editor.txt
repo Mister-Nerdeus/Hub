@@ -1,42 +1,42 @@
 {
   "status": "passed",
   "issue": "711",
-  "stage": "persistence",
+  "stage": "enum-values",
   "checks": [
     {
-      "name": "room load edits persist through the durable assignment set store",
+      "name": "room load contract stores approved enum values and no clinical timing text",
       "passed": true,
       "detail": {
         "passed": true,
-        "actions": {
+        "contract": {
           "passed": true,
           "missing": []
         },
-        "persistence": {
+        "validation": {
           "passed": true,
           "missing": []
         },
-        "app": {
+        "noClinicalTiming": {
           "passed": true,
-          "missing": []
+          "present": []
         }
       }
     }
   ],
   "stageResults": {
-    "persistence": {
+    "enum-values": {
       "passed": true,
-      "actions": {
+      "contract": {
         "passed": true,
         "missing": []
       },
-      "persistence": {
+      "validation": {
         "passed": true,
         "missing": []
       },
-      "app": {
+      "noClinicalTiming": {
         "passed": true,
-        "missing": []
+        "present": []
       }
     }
   }

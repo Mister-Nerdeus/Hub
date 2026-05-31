@@ -66,7 +66,21 @@ const manifestMismatches = Object.entries(expected)
   .filter(([key, value]) => manifest[key] !== value)
   .map(([key, value]) => ({ key, expected: value, actual: manifest[key] }));
 addCheck(checks, "manifest statuses align with rerun validators", manifestMismatches.length === 0, manifestMismatches);
-addCheck(checks, "no downstream scope drift is declared", manifest.optimizerStatus === "not_started" && manifest.assignmentRecommendationStatus === "not_started" && manifest.noPhiStatus === "passed", manifest);
+addCheck(checks, "repository truth source is github default branch", manifest.repositoryTruthSource === "github_default_branch", manifest);
+addCheck(
+  checks,
+  "manual assignment does not use synthetic fallback in normal mode",
+  manifest.manualAssignmentNoSyntheticFallbackNormalMode === true,
+  manifest
+);
+addCheck(
+  checks,
+  "no downstream scope drift is declared",
+  manifest.optimizerStatus === "not_started"
+    && manifest.assignmentRecommendationStatus === "not_started"
+    && manifest.noPhiStatus === "passed",
+  manifest
+);
 
 const status = statusFromChecks(checks);
 const blockers = checks.filter((check) => !check.passed).map((check) => ({ blocker: check.name, detail: check.detail }));

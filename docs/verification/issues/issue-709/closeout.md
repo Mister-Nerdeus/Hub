@@ -17,6 +17,7 @@ Assignment Set Contract + Persistence Foundation
 - node scripts/check-assignment-set-contract.mjs --stage validation --allow-partial --issue 709
 - node scripts/check-assignment-set-contract.mjs --stage persistence --allow-partial --issue 709
 - node scripts/check-assignment-set-contract.mjs --stage active-floorplan-link --allow-partial --issue 709
+- node scripts/check-assignment-set-contract.mjs --stage raw-map-migration-bridge --allow-partial --issue 709
 - node scripts/check-assignment-set-contract.mjs --stage reload-proof --allow-partial --issue 709
 - node scripts/check-no-phi-fields.mjs
 

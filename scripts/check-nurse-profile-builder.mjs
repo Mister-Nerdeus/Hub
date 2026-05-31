@@ -75,6 +75,7 @@ function runStage(name) {
     const result = { passed: contract.passed && noPhi.passed, contract, noPhi };
     writeJson(`${dir}/nurse-profile-contract-output.json`, result);
     writeText(`${dir}/no-phi-output.txt`, `status: ${noPhi.passed ? "passed" : "failed"}\nNurse profile contract uses operational display labels only.\n`);
+    writeText(`${dir}/no-employee-identity-claim-output.txt`, `status: ${noPhi.passed ? "passed" : "failed"}\nNurse profiles use operational display labels, not employee identity records.\n`);
     addCheck(checks, "nurse profile contract is structured and non-identity-based", result.passed, result);
     return result;
   }

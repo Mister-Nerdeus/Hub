@@ -27,7 +27,7 @@ writeNoScopeOutputs(issue);
 writeScreenshots();
 
 const stages = stage === "final"
-  ? ["shell-contract", "sidebar-workflow", "stepper", "active-step", "advanced-evidence"]
+  ? ["shell-contract", "sidebar-workflow", "stepper", "active-step", "advanced-evidence", "runtime-proof-hidden", "future-tools-hidden"]
   : [stage];
 const checks = [];
 const stageResults = {};
@@ -138,6 +138,34 @@ function runStage(name) {
     addCheck(checks, "runtime/build/proof details are only in advanced evidence surfaces", result.passed, result);
     return result;
   }
+  if (name === "runtime-proof-hidden") {
+    const runtimeHidden = fileExcludes("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", [
+      "Runtime evidence",
+      "RuntimeBuildInfoPanel",
+      "RuntimeMismatchBanner",
+      "Operational workspace"
+    ]);
+    const advanced = fileIncludes("apps/web/src/features/app-shell/DeveloperEvidencePage.tsx", [
+      "data-runtime-build-info-advanced-only=\"true\"",
+      "RuntimeBuildInfoPanel",
+      "RuntimeMismatchBanner"
+    ]);
+    const result = { passed: runtimeHidden.passed && advanced.passed, runtimeHidden, advanced };
+    writeJson(`${dir}/runtime-proof-hidden-output.json`, result);
+    addCheck(checks, "runtime and proof details are hidden from the normal product shell", result.passed, result);
+    return result;
+  }
+  if (name === "future-tools-hidden") {
+    const shell = fileExcludes("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", ["Future Tools"]);
+    const sidebar = fileExcludes("apps/web/src/features/app-shell/ProductSidebar.tsx", ["Future Tools"]);
+    const navigation = fileIncludes("apps/web/src/features/app-shell/appNavigation.ts", [
+      "export const FUTURE_APP_SECTIONS: readonly AppSection[] = []"
+    ]);
+    const result = { passed: shell.passed && sidebar.passed && navigation.passed, shell, sidebar, navigation };
+    writeJson(`${dir}/future-tools-hidden-output.json`, result);
+    addCheck(checks, "normal mode does not expose Future Tools", result.passed, result);
+    return result;
+  }
   throw new Error(`Unsupported product shell workflow stage: ${name}`);
 }
 
@@ -166,6 +194,8 @@ function requiredCommands() {
     "node scripts/check-product-shell-workflow.mjs --stage stepper --allow-partial --issue 705",
     "node scripts/check-product-shell-workflow.mjs --stage active-step --allow-partial --issue 705",
     "node scripts/check-product-shell-workflow.mjs --stage advanced-evidence --allow-partial --issue 705",
+    "node scripts/check-product-shell-workflow.mjs --stage runtime-proof-hidden --allow-partial --issue 705",
+    "node scripts/check-product-shell-workflow.mjs --stage future-tools-hidden --allow-partial --issue 705",
     "node scripts/check-no-phi-fields.mjs"
   ];
 }
