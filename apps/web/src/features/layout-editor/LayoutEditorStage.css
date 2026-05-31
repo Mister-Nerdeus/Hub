@@ -564,6 +564,54 @@
   overflow: auto;
 }
 
+.editor-details-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 8px;
+}
+
+.editor-details-panel__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.editor-details-panel__eyebrow {
+  color: #53616f;
+  font-size: 0.68rem;
+  font-weight: 900;
+  margin: 0 0 2px;
+  text-transform: uppercase;
+}
+
+.editor-details-panel h3 {
+  color: #111827;
+  font-size: 0.94rem;
+  line-height: 1.2;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.editor-details-panel button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 900;
+  padding: 6px 9px;
+}
+
+.editor-details-panel__body {
+  display: grid;
+  gap: 8px;
+}
+
 .layout-editor-stage__docked-popover {
   background: #ffffff;
   border: 1px solid #9aaabc;

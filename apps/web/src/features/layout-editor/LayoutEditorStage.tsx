@@ -141,6 +141,7 @@ import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from ".
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
+import { EditorDetailsPanel } from "./EditorDetailsPanel";
 import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
@@ -297,6 +298,7 @@ export function LayoutEditorStage({
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(true);
+  const [detailsPanelCollapsed, setDetailsPanelCollapsed] = useState(false);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
@@ -1467,7 +1469,7 @@ export function LayoutEditorStage({
                 saveStatus={saveStatus}
                 validationSummary={viewportLayoutViewModel.validationSummary}
                 validationDisabled={validationDisabled}
-                inspectorCollapsed={inspectorCollapsed}
+                inspectorCollapsed={detailsPanelCollapsed}
                 onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
                 onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
                 onRestoreDraft={restoreRecoveryDraft}
@@ -1489,7 +1491,7 @@ export function LayoutEditorStage({
                 onValidate={validateSimulationReadyExportFromStage}
                 onResetView={() => dispatchStage({ type: "resetViewport" })}
                 onAddObject={() => setAddObjectMenuOpen((value) => !value)}
-                onToggleInspector={() => setInspectorCollapsed((value) => !value)}
+                onToggleInspector={() => setDetailsPanelCollapsed((value) => !value)}
               />
               <div
                 className="layout-editor-stage__legacy-toolbar"
@@ -2048,8 +2050,12 @@ export function LayoutEditorStage({
             )}
           </svg>
         </div>
-        {inspectorCollapsed ? null : (
-        <div className="layout-editor-stage__side-panels" ref={workspaceMeasurements.sidePanelRef}>
+      </div>
+      <EditorDetailsPanel
+        selectedObjectType={stageState.selectedObjectType}
+        collapsed={detailsPanelCollapsed}
+        onToggleCollapsed={() => setDetailsPanelCollapsed((value) => !value)}
+      >
           {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (
             <section className="layout-editor-stage__docked-popover" data-popup-docked-panel="true">
               <header>
@@ -2170,9 +2176,7 @@ export function LayoutEditorStage({
               </>
             }
           />
-        </div>
-        )}
-      </div>
+      </EditorDetailsPanel>
       <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
     </LayoutEditorWorkspace>

@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "731",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-right-inspector-removed-normal.mjs --stage right-inspector-removed-normal --allow-partial --issue 730",
+    "3": "node scripts/check-right-inspector-removed-normal.mjs --stage editor-canvas-width-expanded --allow-partial --issue 730",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

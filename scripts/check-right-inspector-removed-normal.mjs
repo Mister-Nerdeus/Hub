@@ -2,6 +2,7 @@
 import {
   addCheck,
   ensureIssueDirs,
+  fileExcludes,
   fileIncludes,
   hasFlag,
   readArg,
@@ -30,8 +31,10 @@ const stages = {
   "right-inspector-removed-normal": () => checkAll([
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "const [inspectorCollapsed, setInspectorCollapsed] = useState(true);",
-      "{inspectorCollapsed ? null : (",
-      "<LayoutInspectorTabs"
+      "<EditorDetailsPanel"
+    ]),
+    fileExcludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
+      "className=\"layout-editor-stage__side-panels\""
     ])
   ]),
   "editor-canvas-width-expanded": () => checkAll([

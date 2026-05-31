@@ -40,6 +40,7 @@ export const workspaceUxRootScripts = {
   "check:compact-canvas-controls": "node scripts/check-compact-canvas-controls.mjs --stage final --issue 728",
   "check:editor-technical-status-advanced": "node scripts/check-editor-technical-status-advanced.mjs --stage final --issue 729",
   "check:right-inspector-removed-normal": "node scripts/check-right-inspector-removed-normal.mjs --stage final --issue 730",
+  "check:editor-details-bottom-panel": "node scripts/check-editor-details-bottom-panel.mjs --stage final --issue 731",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
