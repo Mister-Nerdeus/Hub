@@ -56,6 +56,7 @@ Editor/Assignment UX GO/NO-GO Audit
 - node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 743
 - node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 743
 - node scripts/check-split-room-browser-regression.mjs --stage final --issue 743
+- npm run check:production-docker-runtime
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
