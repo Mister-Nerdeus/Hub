@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+node scripts/check-geometry-layer-contract.mjs --stage layer-enum --issue 766
+node scripts/check-geometry-layer-contract.mjs --stage selectability-contract --issue 766
+node scripts/check-geometry-layer-contract.mjs --stage editability-contract --issue 766
+node scripts/check-no-phi-fields.mjs

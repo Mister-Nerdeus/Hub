@@ -1,0 +1,83 @@
+{
+  "status": "passed",
+  "issue": "766",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "layer-enum",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "selectability-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "editability-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "layer-enum": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "selectability-contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "editability-contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

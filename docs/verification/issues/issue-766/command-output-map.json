@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "766",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-766/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-layer-contract.mjs --stage layer-enum --issue 766",
+      "outputs": [
+        "docs/verification/issues/issue-766/layer-enum-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-layer-contract.mjs --stage selectability-contract --issue 766",
+      "outputs": [
+        "docs/verification/issues/issue-766/selectability-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-layer-contract.mjs --stage editability-contract --issue 766",
+      "outputs": [
+        "docs/verification/issues/issue-766/editability-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-766/no-phi-output.txt"
+      ]
+    }
+  ]
+}
