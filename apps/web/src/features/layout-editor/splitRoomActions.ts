@@ -15,6 +15,11 @@ export type ConvertRoomToSplitRoomInput = {
 
 export const DEFAULT_SPLIT_ROOM_DIVIDER_RATIO = 0.5;
 
+export type SplitRoomParentMoveResult = {
+  parentRoom: EditableRoomGeometry;
+  splitRoom: SplitRoomContract;
+};
+
 export function convertSingleRoomToSplitRoom(
   input: ConvertRoomToSplitRoomInput
 ): SplitRoomContract {
@@ -40,6 +45,38 @@ export function splitRoomIdForParentRoom(room: EditableRoomGeometry): string {
 
 export function requiresRoomMergeForSplitConversion(): false {
   return false;
+}
+
+export function moveSplitRoomParent(input: {
+  parentRoom: EditableRoomGeometry;
+  splitRoom: SplitRoomContract;
+  deltaXFeet: number;
+  deltaYFeet: number;
+}): SplitRoomParentMoveResult {
+  return {
+    parentRoom: {
+      ...input.parentRoom,
+      xFeet: input.parentRoom.xFeet + input.deltaXFeet,
+      yFeet: input.parentRoom.yFeet + input.deltaYFeet
+    },
+    splitRoom: {
+      ...input.splitRoom,
+      bedPositions: input.splitRoom.bedPositions.map((bedPosition) => ({ ...bedPosition }))
+    }
+  };
+}
+
+export function splitRoomBedPositionAbsoluteBounds(input: {
+  parentRoom: EditableRoomGeometry;
+  bedPosition: BedPositionContract;
+}) {
+  const { parentRoom, bedPosition } = input;
+  return {
+    xFeet: parentRoom.xFeet + parentRoom.widthFeet * bedPosition.relativeBounds.xRatio,
+    yFeet: parentRoom.yFeet + parentRoom.heightFeet * bedPosition.relativeBounds.yRatio,
+    widthFeet: parentRoom.widthFeet * bedPosition.relativeBounds.widthRatio,
+    heightFeet: parentRoom.heightFeet * bedPosition.relativeBounds.heightRatio
+  };
 }
 
 function createTwoBedPositions(input: {

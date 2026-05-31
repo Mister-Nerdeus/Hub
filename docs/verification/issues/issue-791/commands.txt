@@ -1,0 +1,5 @@
+node scripts/check-split-room-parent-move.mjs --stage parent-move --issue 791
+node scripts/check-split-room-parent-move.mjs --stage beds-move-with-parent --issue 791
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

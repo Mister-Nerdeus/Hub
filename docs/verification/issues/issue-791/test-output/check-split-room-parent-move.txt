@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "791",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "moving split room updates the parent room footprint",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "stage declares parent move behavior contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "bed absolute bounds are derived from moved parent and stable relative bounds",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "splitRoomParentMoveStatus": "passed",
+    "bedPositionsMoveWithParent": true
+  }
+}
