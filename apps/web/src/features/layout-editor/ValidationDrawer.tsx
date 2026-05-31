@@ -15,7 +15,7 @@ export function ValidationDrawer({ viewModel }: ValidationDrawerProps) {
       data-validation-drawer="compact-bottom"
       data-warning-count={viewModel.warningCount}
     >
-      <details>
+      <details data-validation-details-collapsed-by-default="true">
         <summary>
           <span>Validation</span>
           <strong>{viewModel.warningCount}</strong>

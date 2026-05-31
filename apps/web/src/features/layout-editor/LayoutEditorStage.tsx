@@ -91,6 +91,7 @@ import {
 } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import { EditorValidationSummaryRow } from "./EditorValidationSummaryRow";
 import { ValidationDrawer } from "./ValidationDrawer";
 import { buildValidationDrawerViewModel } from "./validationDrawerViewModel";
 import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
@@ -2179,6 +2180,7 @@ export function LayoutEditorStage({
             }
           />
       </EditorDetailsPanel>
+      <EditorValidationSummaryRow viewModel={validationPanelViewModel} />
       <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
     </LayoutEditorWorkspace>

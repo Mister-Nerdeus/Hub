@@ -656,6 +656,29 @@
   overflow-wrap: anywhere;
 }
 
+.editor-validation-summary-row {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 7px 10px;
+}
+
+.editor-validation-summary-row span {
+  color: #53616f;
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.editor-validation-summary-row strong {
+  color: #111827;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
 .layout-editor-stage__docked-popover {
   background: #ffffff;
   border: 1px solid #9aaabc;
