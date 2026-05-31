@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "issue": "785",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "layer-order",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "labels-handles-top",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "positions": {
+              "stations": 72132,
+              "labels": 73082,
+              "resizeHandles": 73800,
+              "popover": 74901
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "layer-order": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "labels-handles-top": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "positions": {
+            "stations": 72132,
+            "labels": 73082,
+            "resizeHandles": 73800,
+            "popover": 74901
+          }
+        }
+      ]
+    }
+  }
+}

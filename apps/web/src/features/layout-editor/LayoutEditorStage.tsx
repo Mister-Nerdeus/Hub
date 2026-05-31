@@ -150,6 +150,7 @@ import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { artifactQuarantinePolicy } from "./artifactQuarantine";
+import { LAYOUT_EDITOR_RENDER_LAYER_ORDER } from "./renderLayerOrder";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -1649,6 +1650,7 @@ export function LayoutEditorStage({
             data-reference-overlay-visible={referenceOverlayVisible ? "true" : "false"}
             data-artifact-quarantine-policy={artifactQuarantinePolicy.unknownVisuals}
             data-hit-testing-contract="geometry-truth-v1"
+            data-render-layer-order={LAYOUT_EDITOR_RENDER_LAYER_ORDER.join("|")}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             data-pan-x-feet={stageState.viewport.panXFeet}
             data-pan-y-feet={stageState.viewport.panYFeet}
@@ -1736,22 +1738,6 @@ export function LayoutEditorStage({
                   y2={line.y2Pixels}
                 />
               ))}
-            </g>
-            <g className="layout-editor-stage__labels">
-              {grid.verticalLines
-                .filter((line) => line.isMajor)
-                .map((line) => (
-                  <text key={`${line.id}-label`} x={line.x1Pixels + 3} y="14">
-                    {line.label}
-                  </text>
-                ))}
-              {grid.horizontalLines
-                .filter((line) => line.isMajor && line.valueFeet > 0)
-                .map((line) => (
-                  <text key={`${line.id}-label`} x="4" y={line.y1Pixels - 4}>
-                    {line.label}
-                  </text>
-                ))}
             </g>
             <g className="layout-editor-stage__rooms">
               {splitBayItems.map((item) => (
@@ -1841,6 +1827,22 @@ export function LayoutEditorStage({
                   onMoveEnd={editorMode === "edit" ? endStationMove : undefined}
                 />
               ))}
+            </g>
+            <g className="layout-editor-stage__labels">
+              {grid.verticalLines
+                .filter((line) => line.isMajor)
+                .map((line) => (
+                  <text key={`${line.id}-label`} x={line.x1Pixels + 3} y="14">
+                    {line.label}
+                  </text>
+                ))}
+              {grid.horizontalLines
+                .filter((line) => line.isMajor && line.valueFeet > 0)
+                .map((line) => (
+                  <text key={`${line.id}-label`} x="4" y={line.y1Pixels - 4}>
+                    {line.label}
+                  </text>
+                ))}
             </g>
             {editorMode === "edit" && roomResizeHandlesViewModel != null ? (
               <RoomResizeHandles
