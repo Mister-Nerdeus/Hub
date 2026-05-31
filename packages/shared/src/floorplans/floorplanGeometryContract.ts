@@ -24,6 +24,14 @@ export {
   type EditableGeometryKind,
   type EditableGeometryRegistryEntry
 } from "./editableGeometryRegistry.js";
+export {
+  ASSIGNMENT_TARGET_KINDS,
+  assignmentTargetIdForGeometry,
+  createAssignmentTargetContract,
+  validateAssignmentTargetContract,
+  type AssignmentTargetContract,
+  type AssignmentTargetKind
+} from "./assignmentTargetContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 
