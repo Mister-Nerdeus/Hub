@@ -1,7 +1,7 @@
 # Issue 710 Closeout
 
 ## Problem
-Nurse Profile Builder MVP
+Active Floorplan Hub Component
 
 ## Summary
 - Local validator status: passed.
@@ -13,11 +13,8 @@ Nurse Profile Builder MVP
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-nurse-profile-builder.mjs --stage contract --allow-partial --issue 710
-- node scripts/check-nurse-profile-builder.mjs --stage builder-ui --allow-partial --issue 710
-- node scripts/check-nurse-profile-builder.mjs --stage add-nurse --allow-partial --issue 710
-- node scripts/check-nurse-profile-builder.mjs --stage edit-nurse --allow-partial --issue 710
-- node scripts/check-nurse-profile-builder.mjs --stage deactivate-nurse --allow-partial --issue 710
+- node scripts/check-active-floorplan-hub.mjs --stage hub-contract --allow-partial --issue 710
+- node scripts/check-active-floorplan-hub.mjs --stage hub-composition --allow-partial --issue 710
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -29,7 +26,7 @@ Nurse Profile Builder MVP
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Nurse profiles are operational display records only.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

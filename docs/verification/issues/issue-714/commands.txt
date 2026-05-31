@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-simulation-copy-overclaim.mjs --stage no-use-for-simulation-floorplan-only --allow-partial --issue 714
+node scripts/check-simulation-copy-overclaim.mjs --stage prepare-copy --allow-partial --issue 714
+node scripts/check-no-phi-fields.mjs

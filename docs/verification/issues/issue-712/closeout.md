@@ -1,7 +1,7 @@
 # Issue 712 Closeout
 
 ## Problem
-Manual Assignment Three-Column UX
+Floorplan Thumbnail Preview
 
 ## Summary
 - Local validator status: passed.
@@ -13,17 +13,8 @@ Manual Assignment Three-Column UX
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage layout-contract --allow-partial --issue 712
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage floorplan-overview --allow-partial --issue 712
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage room-table --allow-partial --issue 712
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage filter-chips --allow-partial --issue 712
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage nurse-cards --allow-partial --issue 712
-- node scripts/check-manual-assignment-three-column-ux.mjs --stage no-synthetic-fallback-normal-mode --allow-partial --issue 712
-- node scripts/check-assignment-set-save-reload-handoff.mjs --stage assignment-selector --allow-partial --issue 712
-- node scripts/check-assignment-set-save-reload-handoff.mjs --stage save-assignment --allow-partial --issue 712
-- node scripts/check-assignment-set-save-reload-handoff.mjs --stage reload-assignment --allow-partial --issue 712
-- node scripts/check-assignment-set-save-reload-handoff.mjs --stage scenario-handoff --allow-partial --issue 712
-- node scripts/check-assignment-set-save-reload-handoff.mjs --stage clear-confirmation --allow-partial --issue 712
+- node scripts/check-floorplan-thumbnail-preview.mjs --stage thumbnail-contract --allow-partial --issue 712
+- node scripts/check-floorplan-thumbnail-preview.mjs --stage active-layout-preview --allow-partial --issue 712
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -35,8 +26,7 @@ Manual Assignment Three-Column UX
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Manual assignment remains local-first and foundation-level.
-- No optimizer or assignment recommendation behavior was added.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

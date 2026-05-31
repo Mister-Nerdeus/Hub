@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-assignment-set-contract contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "packages/shared/src/assignments/assignmentSetContract.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-assignment-set-contract validation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "packages/shared/src/assignments/assignmentSetValidation.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "packages/shared/src/assignments/assignmentSetContract.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "validation": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "packages/shared/src/assignments/assignmentSetValidation.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

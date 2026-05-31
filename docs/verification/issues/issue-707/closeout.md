@@ -1,7 +1,7 @@
 # Issue 707 Closeout
 
 ## Problem
-Editor Normal Toolbar Match + Advanced Separation
+Route-to-Step Mapping
 
 ## Summary
 - Local validator status: passed.
@@ -13,13 +13,9 @@ Editor Normal Toolbar Match + Advanced Separation
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-editor-normal-toolbar-ux.mjs --stage toolbar-contract --allow-partial --issue 707
-- node scripts/check-editor-normal-toolbar-ux.mjs --stage normal-toolbar --allow-partial --issue 707
-- node scripts/check-editor-normal-toolbar-ux.mjs --stage explicit-add-actions --allow-partial --issue 707
-- node scripts/check-editor-normal-toolbar-ux.mjs --stage detailed-toolbar-advanced --allow-partial --issue 707
-- node scripts/check-editor-normal-toolbar-ux.mjs --stage advanced-tools --allow-partial --issue 707
-- node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 707
-- node scripts/check-split-room-browser-regression.mjs --stage final --issue 707
+- node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 707
+- node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 707
+- node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 707
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

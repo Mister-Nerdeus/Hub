@@ -1,7 +1,7 @@
 # Issue 711 Closeout
 
 ## Problem
-Structured Room Load Editor MVP
+Active Floorplan Card Layout Fix
 
 ## Summary
 - Local validator status: passed.
@@ -13,12 +13,9 @@ Structured Room Load Editor MVP
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-load-editor.mjs --stage contract --allow-partial --issue 711
-- node scripts/check-room-load-editor.mjs --stage structured-inputs --allow-partial --issue 711
-- node scripts/check-room-load-editor.mjs --stage enum-values --allow-partial --issue 711
-- node scripts/check-room-load-editor.mjs --stage load-change-burden --allow-partial --issue 711
-- node scripts/check-room-load-editor.mjs --stage split-room-child-load --allow-partial --issue 711
-- node scripts/check-room-load-editor.mjs --stage persistence --allow-partial --issue 711
+- node scripts/check-active-floorplan-card-layout.mjs --stage normal-width --allow-partial --issue 711
+- node scripts/check-active-floorplan-card-layout.mjs --stage narrow-width --allow-partial --issue 711
+- node scripts/check-active-floorplan-card-layout.mjs --stage no-title-collision --allow-partial --issue 711
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -30,8 +27,7 @@ Structured Room Load Editor MVP
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Room loads are abstract operational inputs stored in the assignment set.
-- No optimizer or recommendation behavior was added.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

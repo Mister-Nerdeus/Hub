@@ -1,7 +1,7 @@
 # Issue 705 Closeout
 
 ## Problem
-Product Shell Workflow Stepper + Sidebar Alignment
+Compact Product Shell Rail
 
 ## Summary
 - Local validator status: passed.
@@ -13,13 +13,9 @@ Product Shell Workflow Stepper + Sidebar Alignment
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-product-shell-workflow.mjs --stage shell-contract --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage sidebar-workflow --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage stepper --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage active-step --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage advanced-evidence --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage runtime-proof-hidden --allow-partial --issue 705
-- node scripts/check-product-shell-workflow.mjs --stage future-tools-hidden --allow-partial --issue 705
+- node scripts/check-product-shell-rail.mjs --stage compact-rail --allow-partial --issue 705
+- node scripts/check-product-shell-rail.mjs --stage workflow-items --allow-partial --issue 705
+- node scripts/check-product-shell-rail.mjs --stage rail-width --allow-partial --issue 705
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

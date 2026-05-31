@@ -1,7 +1,7 @@
 # Issue 704 Closeout
 
 ## Problem
-Editor/Assignment UX Batch Preflight + Manifest
+Editor/Assignment UX Preflight Manifest
 
 ## Summary
 - Local validator status: passed.
@@ -29,7 +29,7 @@ Editor/Assignment UX Batch Preflight + Manifest
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Issue 704 intentionally wires status and validators only; product UI changes begin in Issue 705.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

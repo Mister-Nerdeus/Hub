@@ -104,11 +104,14 @@ function runStage(name) {
     return result;
   }
   if (name === "no-synthetic-fallback") {
-    const result = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
-      "data-normal-manual-assignment-no-synthetic-fallback=\"true\"",
+    const workspace = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
       "source.sourceKind === \"assignment-set-required\"",
       "data-active-floorplan-version-id"
     ]);
+    const blockedState = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentBlockedState.tsx", [
+      "data-normal-manual-assignment-no-synthetic-fallback=\"true\""
+    ]);
+    const result = { passed: workspace.passed && blockedState.passed, workspace, blockedState };
     writeJson(`${dir}/no-synthetic-fallback-output.json`, result);
     addCheck(checks, "Manual Assignment does not silently choose synthetic fixture when active floorplan exists", result.passed, result);
     return result;

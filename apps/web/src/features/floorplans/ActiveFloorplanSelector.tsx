@@ -36,7 +36,7 @@ export function ActiveFloorplanSelector({
           Use for Assignment
         </button>
         <button type="button" disabled={!viewModel.canUseForSimulation} onClick={onPrepareForSimulation}>
-          Prepare for Simulation
+          Prepare for Scenario Setup
         </button>
         <details className="active-floorplan-selector__change">
           <summary>Change Floorplan</summary>

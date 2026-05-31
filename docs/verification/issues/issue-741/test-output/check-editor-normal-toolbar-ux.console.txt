@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-editor-normal-toolbar-ux normal-toolbar",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorNormalToolbar.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-normal-toolbar-ux explicit-add-actions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "normal-toolbar": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorNormalToolbar.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "explicit-add-actions": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

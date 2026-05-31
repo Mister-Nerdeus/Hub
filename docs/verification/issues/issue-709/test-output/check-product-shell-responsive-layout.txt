@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "709",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-product-shell-responsive-layout content-width",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-product-shell-responsive-layout narrow-desktop",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "content-width": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "narrow-desktop": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

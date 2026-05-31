@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "readiness contract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "readiness checklist renders human-readable items",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "component": {
+          "passed": true,
+          "missing": []
+        },
+        "viewModel": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "assignment readiness status is visible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "simulation preparation status is visible without floorplan-only readiness or clinical claims",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "noOverclaim": {
+          "passed": true,
+          "present": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "readiness-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "checklist-render": {
+      "passed": true,
+      "component": {
+        "passed": true,
+        "missing": []
+      },
+      "viewModel": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "ready-for-assignment": {
+      "passed": true,
+      "missing": []
+    },
+    "ready-for-simulation": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "noOverclaim": {
+        "passed": true,
+        "present": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    }
+  }
+}

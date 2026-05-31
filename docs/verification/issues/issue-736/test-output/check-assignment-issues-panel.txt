@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "736",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-assignment-issues-panel issues-panel",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/AssignmentIssuesPanel.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "issues-panel": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/AssignmentIssuesPanel.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-room-load-contract contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "packages/shared/src/assignments/roomLoadContract.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-room-load-contract enum-values",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "packages/shared/src/assignments/roomLoadContract.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "packages/shared/src/assignments/roomLoadContract.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "enum-values": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "packages/shared/src/assignments/roomLoadContract.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -39,6 +39,8 @@ import { NurseAssignmentCardStack } from "./NurseAssignmentCardStack";
 import { RoomAssignmentTable } from "./RoomAssignmentTable";
 import type { RoomAssignmentFilter } from "./RoomAssignmentFilters";
 import { RoomLoadEditor } from "./RoomLoadEditor";
+import { ClearAssignmentsConfirmationDialog } from "./ClearAssignmentsConfirmationDialog";
+import { ManualAssignmentBlockedState } from "./ManualAssignmentBlockedState";
 import { createManualBurdenViewModel } from "./manualBurdenViewModel";
 import {
   createManualAssignmentWorkspaceViewModel,
@@ -52,6 +54,7 @@ export type ManualAssignmentWorkspaceProps = {
   activeEditableLayout?: EditableLayoutGeometryContract | null;
   assignmentSet?: AssignmentSetContract | null;
   assignmentsByRoomId?: Readonly<ManualAssignmentMap>;
+  allowSyntheticFixture?: boolean;
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
   onAssignmentSetChange?: (assignmentSet: AssignmentSetContract) => void;
 };
@@ -101,16 +104,33 @@ export function ManualAssignmentWorkspace({
   activeEditableLayout = null,
   assignmentSet = null,
   assignmentsByRoomId = {},
+  allowSyntheticFixture = false,
   onAssignmentsChange,
   onAssignmentSetChange
 }: ManualAssignmentWorkspaceProps = {}) {
   const source = useMemo(
-    () => buildManualAssignmentSource(activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId),
-    [activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId]
+    () => buildManualAssignmentSource(activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId, allowSyntheticFixture),
+    [activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId, allowSyntheticFixture]
   );
 
   if (source.sourceKind === "assignment-set-required") {
-    return <ManualAssignmentSetRequired source={source} />;
+    return (
+      <ManualAssignmentBlockedState
+        reason="assignment_set_required"
+        activeLayoutId={source.activeLayoutId}
+        activeFloorplanVersionId={source.activeFloorplanVersionId}
+      />
+    );
+  }
+
+  if (source.sourceKind === "active-floorplan-required") {
+    return (
+      <ManualAssignmentBlockedState
+        reason="active_floorplan_required"
+        activeLayoutId={source.activeLayoutId}
+        activeFloorplanVersionId={source.activeFloorplanVersionId}
+      />
+    );
   }
 
   return (
@@ -131,7 +151,7 @@ type ManualAssignmentSource = {
   activeLayoutId: string | null;
   activeFloorplanVersionId: string | null;
   assignmentSet: AssignmentSetContract | null;
-  sourceKind: "assignment-set" | "assignment-set-required" | "active-layout" | "synthetic-fixture";
+  sourceKind: "assignment-set" | "assignment-set-required" | "active-floorplan-required" | "active-layout" | "synthetic-fixture";
 };
 
 type ManualAssignmentWorkspaceContentProps = {
@@ -139,29 +159,6 @@ type ManualAssignmentWorkspaceContentProps = {
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
   onAssignmentSetChange?: (assignmentSet: AssignmentSetContract) => void;
 };
-
-function ManualAssignmentSetRequired({ source }: { source: ManualAssignmentSource }) {
-  return (
-    <section
-      className="manual-assignment-workspace"
-      aria-labelledby="manual-assignment-workspace-title"
-      data-manual-assignment-source={source.sourceKind}
-      data-normal-manual-assignment-no-synthetic-fallback="true"
-      data-active-layout-id={source.activeLayoutId ?? ""}
-      data-active-floorplan-version-id={source.activeFloorplanVersionId ?? ""}
-    >
-      <div className="manual-assignment-workspace__header">
-        <div>
-          <p className="eyebrow">Durable assignment set</p>
-          <h2 id="manual-assignment-workspace-title">Manual Assignment</h2>
-        </div>
-      </div>
-      <p className="manual-assignment-workspace__note">
-        Loading the durable assignment set for this active floorplan version.
-      </p>
-    </section>
-  );
-}
 
 function ManualAssignmentWorkspaceContent({
   source,
@@ -225,15 +222,10 @@ function ManualAssignmentWorkspaceContent({
   }
 
   const clearAssignmentsControl = clearConfirmationVisible ? (
-    <div className="manual-assignment-clear-confirmation" data-clear-assignments-confirmation="required">
-      <span>Confirm clear?</span>
-      <button type="button" onClick={confirmClearAssignments}>
-        Confirm Clear Assignments
-      </button>
-      <button type="button" onClick={() => setClearConfirmationVisible(false)}>
-        Cancel
-      </button>
-    </div>
+    <ClearAssignmentsConfirmationDialog
+      onCancel={() => setClearConfirmationVisible(false)}
+      onConfirm={confirmClearAssignments}
+    />
   ) : (
     <button
       type="button"
@@ -363,7 +355,8 @@ function buildManualAssignmentSource(
   activeFloorplan: ActiveFloorplanContract | null,
   activeEditableLayout: EditableLayoutGeometryContract | null,
   assignmentSet: AssignmentSetContract | null,
-  assignmentsByRoomId: Readonly<ManualAssignmentMap>
+  assignmentsByRoomId: Readonly<ManualAssignmentMap>,
+  allowSyntheticFixture: boolean
 ): ManualAssignmentSource {
   const activeLayout = activeFloorplan?.editableLayout ?? activeEditableLayout;
   if (activeFloorplan != null && assignmentSet == null) {
@@ -411,6 +404,19 @@ function buildManualAssignmentSource(
       activeFloorplanVersionId: activeFloorplan?.activeFloorplanVersionId ?? assignmentSet.floorplanVersionId,
       assignmentSet,
       sourceKind: "assignment-set"
+    };
+  }
+
+  if (activeLayout == null && !allowSyntheticFixture) {
+    return {
+      stateKey: "active-floorplan-required",
+      initialState: createManualAssignmentInitialState([], []),
+      displayLabelsByNurseId: {},
+      parentSplitBayIds: [],
+      activeLayoutId: null,
+      activeFloorplanVersionId: null,
+      assignmentSet: null,
+      sourceKind: "active-floorplan-required"
     };
   }
 

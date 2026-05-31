@@ -5,6 +5,7 @@ import type { ActiveFloorplanSelectorViewModel } from "./activeFloorplanSelector
 import { ActiveFloorplanThumbnail } from "./ActiveFloorplanThumbnail";
 import { FloorplanAdvancedPanel } from "./FloorplanAdvancedPanel";
 import { FloorplanReadinessChecklist } from "./FloorplanReadinessChecklist";
+import { FloorplanReadinessSummary } from "./FloorplanReadinessSummary";
 import type { FloorplanVersionHistoryItem } from "./floorplanVersionHistory";
 import { formatFloorplanSavedTime } from "./floorplanVersionNaming";
 import { NextWorkflowStepCard } from "./NextWorkflowStepCard";
@@ -63,10 +64,11 @@ export function ActiveFloorplanHub({
       </div>
       <NextWorkflowStepCard
         canUseForAssignment={selectorViewModel.canUseForAssignment}
-        canPrepareForSimulation={selectorViewModel.canUseForSimulation}
+        canPrepareForScenarioSetup={selectorViewModel.canUseForSimulation}
         onUseForAssignment={onUseForAssignment}
-        onPrepareForSimulation={onPrepareForSimulation}
+        onPrepareForScenarioSetup={onPrepareForSimulation}
       />
+      <FloorplanReadinessSummary viewModel={readinessViewModel} />
       <FloorplanReadinessChecklist viewModel={readinessViewModel} />
       <section className="active-floorplan-version-summary" aria-labelledby="active-floorplan-version-summary-title">
         <h3 id="active-floorplan-version-summary-title">Version summary</h3>

@@ -35,6 +35,7 @@ export function readPersistedActiveFloorplanSelection(
     typeof parsed.activeFloorplanId !== "string" ||
     typeof parsed.activeFloorplanVersionId !== "string"
   ) {
+    storage.removeItem(key);
     return null;
   }
   return {

@@ -60,7 +60,7 @@ function runStage(name) {
       "Active floorplan",
       "Edit Floorplan",
       "Use for Assignment",
-      "Prepare for Simulation",
+      "Prepare for Scenario Setup",
       "Change Floorplan",
       "Advanced"
     ]);

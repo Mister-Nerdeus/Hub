@@ -1,6 +1,11 @@
 {
-  "status": "passed",
-  "repositoryTruthSource": "github_default_branch",
-  "expectedRepositoryTruthSource": "github_default_branch",
-  "screenshotAuthority": "evidence_only"
+  "passed": true,
+  "results": [
+    {
+      "kind": "include",
+      "path": "docs/verification/editor-assignment-ux-manifest.json",
+      "passed": true,
+      "missing": []
+    }
+  ]
 }

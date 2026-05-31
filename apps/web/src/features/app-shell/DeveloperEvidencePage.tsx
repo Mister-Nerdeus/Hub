@@ -48,6 +48,7 @@ import { createSimulationTimelineViewModel } from "../simulation/simulationTimel
 import { SimulationRunRetrievalProof } from "../simulation/SimulationRunRetrievalProof";
 import { manualAssignmentBasic, manualAssignmentRoomLoads } from "../../fixtures/manualAssignmentBasic";
 import { planErPodPhase2 } from "../../fixtures/planErPodPhase2";
+import { AdvancedEvidencePanel } from "./AdvancedEvidencePanel";
 import "./developerEvidencePage.css";
 
 type DeveloperEvidencePageProps = {
@@ -107,10 +108,9 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
 
   function evidenceSection(title: string, content: ReactNode) {
     return (
-      <section className="developer-evidence__panel">
-        <h3>{title}</h3>
+      <AdvancedEvidencePanel title={title}>
         {content}
-      </section>
+      </AdvancedEvidencePanel>
     );
   }
 

@@ -52,9 +52,7 @@ export function createActiveFloorplanSelectorViewModel(input: {
     selectedVersionLabel,
     versionOptions,
     canUseForAssignment: input.activeFloorplan.workflowStatus !== "no_floorplan_selected",
-    canUseForSimulation: input.activeFloorplan.workflowStatus === "ready_for_simulation"
-      || input.activeFloorplan.workflowStatus === "ready_for_assignment"
-      || input.activeFloorplan.workflowStatus === "saved",
+    canUseForSimulation: input.activeFloorplan.workflowStatus === "ready_for_simulation",
     technicalDetailsVisible: false
   };
 }

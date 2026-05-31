@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-no-synthetic-fallback-normal-mode blocked-state",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ManualAssignmentBlockedState.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-no-synthetic-fallback-normal-mode synthetic-dev-only",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ManualAssignmentBlockedState.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "blocked-state": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ManualAssignmentBlockedState.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "synthetic-dev-only": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ManualAssignmentBlockedState.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

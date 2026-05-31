@@ -1,0 +1,151 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-editor-assignment-ux-preflight manifest-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "docs/verification/editor-assignment-ux-manifest.json",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-assignment-ux-preflight root-script-wiring",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "custom",
+            "label": "root scripts for 704-741 are wired",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-assignment-ux-preflight source-regression-wiring",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "package.json",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-assignment-ux-preflight repository-truth-source",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "docs/verification/editor-assignment-ux-manifest.json",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-assignment-ux-preflight scope-boundary",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
+            "passed": true,
+            "present": []
+          },
+          {
+            "kind": "include",
+            "path": "docs/verification/editor-assignment-ux-manifest.json",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "docs/verification/editor-assignment-ux-manifest.json",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "root-script-wiring": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "custom",
+          "label": "root scripts for 704-741 are wired",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "source-regression-wiring": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "package.json",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "repository-truth-source": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "docs/verification/editor-assignment-ux-manifest.json",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "scope-boundary": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/scenarios/ScenarioRatioComparisonPanel.tsx",
+          "passed": true,
+          "present": []
+        },
+        {
+          "kind": "include",
+          "path": "docs/verification/editor-assignment-ux-manifest.json",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

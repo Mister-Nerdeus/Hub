@@ -60,7 +60,7 @@ import {
   buildHallwayShapeViewModel,
   buildZoneShapeViewModel
 } from "./hallwayZoneShapeViewModel";
-import { LayoutInspectorPanel } from "./LayoutInspectorPanel";
+import { InspectorPanel } from "./InspectorPanel";
 import { buildLayoutInspectorViewModel } from "./layoutInspectorViewModel";
 import {
   cancelRoomInspectorDimensionDraftField,
@@ -2054,7 +2054,7 @@ export function LayoutEditorStage({
                 />
               ) : (
                 <>
-                  <LayoutInspectorPanel
+                  <InspectorPanel
                     viewModel={inspectorViewModel}
                     roomDimensionDraft={roomDimensionDraft}
                     onChangeRoomDimensionDraft={(field, value) =>

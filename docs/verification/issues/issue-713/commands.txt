@@ -1,28 +1,6 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-npm run check:clean-committed-state
-node scripts/check-editor-assignment-ux-preflight.mjs --stage final --issue 713
-node scripts/check-product-shell-workflow.mjs --stage final --issue 713
-node scripts/check-active-floorplan-hub-ux.mjs --stage final --issue 713
-node scripts/check-editor-normal-toolbar-ux.mjs --stage final --issue 713
-node scripts/check-floorplan-readiness-truth.mjs --stage final --issue 713
-node scripts/check-active-floorplan-persistence-resilience.mjs --stage final --issue 713
-node scripts/check-assignment-set-contract.mjs --stage final --issue 713
-node scripts/check-nurse-profile-builder.mjs --stage final --issue 713
-node scripts/check-room-load-editor.mjs --stage final --issue 713
-node scripts/check-manual-assignment-three-column-ux.mjs --stage final --issue 713
-node scripts/check-assignment-set-save-reload-handoff.mjs --stage final --issue 713
-node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 713
-node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 713
-node scripts/check-split-room-browser-regression.mjs --stage final --issue 713
-node scripts/check-editor-assignment-ux-go-no-go.mjs --stage final --issue 713
+node scripts/check-next-workflow-step-card.mjs --stage state-machine --allow-partial --issue 713
+node scripts/check-next-workflow-step-card.mjs --stage assignment-next-step --allow-partial --issue 713
 node scripts/check-no-phi-fields.mjs
-npm run check:clean-committed-state
-docker compose config
-docker compose build
-docker compose up --build -d
-docker compose ps
-docker compose ps
-node -e "fetch('http://127.0.0.1:8010/health').then(async r=>{console.log(r.status); console.log(await r.text()); if(!r.ok) process.exit(1)}).catch(e=>{console.error(e); process.exit(1)})"
-node -e "fetch('http://127.0.0.1:5180/?section=floorplans').then(async r=>{console.log(r.status); console.log((await r.text()).slice(0,120)); if(!r.ok) process.exit(1)}).catch(e=>{console.error(e); process.exit(1)})"

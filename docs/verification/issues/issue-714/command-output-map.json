@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "714",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-simulation-copy-overclaim.mjs --stage no-use-for-simulation-floorplan-only --allow-partial --issue 714",
+    "5": "node scripts/check-simulation-copy-overclaim.mjs --stage prepare-copy --allow-partial --issue 714",
+    "6": "node scripts/check-no-phi-fields.mjs"
+  }
+}

@@ -6,6 +6,7 @@ import type {
   RoomInspectorDimensionDraftState
 } from "./roomInspectorDimensionDraft";
 import type { RoomInspectorDimensionField } from "./roomInspectorDimensionEdit";
+import { InspectorAdvancedDetails } from "./InspectorAdvancedDetails";
 
 export type LayoutInspectorPanelProps = {
   viewModel: LayoutInspectorViewModel;
@@ -33,18 +34,10 @@ export function LayoutInspectorPanel({
         <h3>{viewModel.title}</h3>
       </header>
 
-      <dl className="layout-inspector-panel__identity">
+      <dl className="layout-inspector-panel__identity" data-inspector-normal-groups="Room identity Room type & capacity Operational capabilities Geometry">
         <div>
           <dt>Object type</dt>
           <dd>{viewModel.objectType ?? "none"}</dd>
-        </div>
-        <div>
-          <dt>Object ID</dt>
-          <dd>{viewModel.objectId ?? "none"}</dd>
-        </div>
-        <div>
-          <dt>Source units</dt>
-          <dd>{viewModel.sourceUnits}</dd>
         </div>
       </dl>
 
@@ -75,6 +68,7 @@ export function LayoutInspectorPanel({
       ) : (
         <p className="layout-inspector-panel__empty">{viewModel.title}</p>
       )}
+      <InspectorAdvancedDetails viewModel={viewModel} />
     </aside>
   );
 }

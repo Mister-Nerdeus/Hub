@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "718",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-editor-normal-toolbar-ux.mjs --stage normal-toolbar --allow-partial --issue 718",
+    "5": "node scripts/check-editor-normal-toolbar-ux.mjs --stage explicit-add-actions --allow-partial --issue 718",
+    "6": "node scripts/check-no-phi-fields.mjs"
+  }
+}

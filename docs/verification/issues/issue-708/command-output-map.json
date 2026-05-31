@@ -5,12 +5,9 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-floorplan-readiness-truth.mjs --stage split-room-readiness --allow-partial --issue 708",
-    "5": "node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 708",
-    "6": "node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 708",
-    "7": "node scripts/check-floorplan-readiness-truth.mjs --stage simulation-readiness-copy --allow-partial --issue 708",
-    "8": "node scripts/check-active-floorplan-persistence-resilience.mjs --stage corrupted-localstorage --allow-partial --issue 708",
-    "9": "node scripts/check-active-floorplan-persistence-resilience.mjs --stage fallback-floorplan --allow-partial --issue 708",
-    "10": "node scripts/check-no-phi-fields.mjs"
+    "4": "node scripts/check-advanced-evidence-migration.mjs --stage runtime-proof-hidden --allow-partial --issue 708",
+    "5": "node scripts/check-advanced-evidence-migration.mjs --stage future-tools-hidden --allow-partial --issue 708",
+    "6": "node scripts/check-advanced-evidence-migration.mjs --stage evidence-accessible --allow-partial --issue 708",
+    "7": "node scripts/check-no-phi-fields.mjs"
   }
 }

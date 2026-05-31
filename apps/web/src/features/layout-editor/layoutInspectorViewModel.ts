@@ -86,12 +86,22 @@ function buildSections(
     case "room":
       return [
         {
-          title: "Room metadata",
+          title: "Room identity",
           fields: [
             { label: "Room number", value: selectedObject.roomNumber },
-            { label: "Room label", value: selectedObject.label },
+            { label: "Room label", value: selectedObject.label }
+          ].map(readOnlyField)
+        },
+        {
+          title: "Room type & capacity",
+          fields: [
             { label: "Room type", value: formatRoomType(selectedObject.roomType) },
-            { label: "Capacity type", value: selectedObject.capacityType },
+            { label: "Capacity type", value: selectedObject.capacityType }
+          ].map(readOnlyField)
+        },
+        {
+          title: "Operational capabilities",
+          fields: [
             { label: "Hall bed", value: formatBoolean(selectedObject.isHallBed) },
             { label: "Trauma adjacent", value: formatBoolean(selectedObject.isTraumaAdjacent) }
           ].map(readOnlyField)

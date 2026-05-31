@@ -1,7 +1,7 @@
 # Issue 709 Closeout
 
 ## Problem
-Assignment Set Contract + Persistence Foundation
+Product Shell Responsive Layout
 
 ## Summary
 - Local validator status: passed.
@@ -13,12 +13,8 @@ Assignment Set Contract + Persistence Foundation
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-assignment-set-contract.mjs --stage contract --allow-partial --issue 709
-- node scripts/check-assignment-set-contract.mjs --stage validation --allow-partial --issue 709
-- node scripts/check-assignment-set-contract.mjs --stage persistence --allow-partial --issue 709
-- node scripts/check-assignment-set-contract.mjs --stage active-floorplan-link --allow-partial --issue 709
-- node scripts/check-assignment-set-contract.mjs --stage raw-map-migration-bridge --allow-partial --issue 709
-- node scripts/check-assignment-set-contract.mjs --stage reload-proof --allow-partial --issue 709
+- node scripts/check-product-shell-responsive-layout.mjs --stage content-width --allow-partial --issue 709
+- node scripts/check-product-shell-responsive-layout.mjs --stage narrow-desktop --allow-partial --issue 709
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -30,8 +26,7 @@ Assignment Set Contract + Persistence Foundation
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Assignment set persistence is local-first browser storage only.
-- No optimizer or recommendation behavior was added.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

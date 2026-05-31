@@ -1,7 +1,7 @@
 # Issue 708 Closeout
 
 ## Problem
-Readiness Truth Hardening
+Advanced/Evidence Migration
 
 ## Summary
 - Local validator status: passed.
@@ -13,12 +13,9 @@ Readiness Truth Hardening
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-floorplan-readiness-truth.mjs --stage split-room-readiness --allow-partial --issue 708
-- node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 708
-- node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 708
-- node scripts/check-floorplan-readiness-truth.mjs --stage simulation-readiness-copy --allow-partial --issue 708
-- node scripts/check-active-floorplan-persistence-resilience.mjs --stage corrupted-localstorage --allow-partial --issue 708
-- node scripts/check-active-floorplan-persistence-resilience.mjs --stage fallback-floorplan --allow-partial --issue 708
+- node scripts/check-advanced-evidence-migration.mjs --stage runtime-proof-hidden --allow-partial --issue 708
+- node scripts/check-advanced-evidence-migration.mjs --stage future-tools-hidden --allow-partial --issue 708
+- node scripts/check-advanced-evidence-migration.mjs --stage evidence-accessible --allow-partial --issue 708
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
@@ -30,7 +27,7 @@ Readiness Truth Hardening
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- Simulation readiness remains blocked until assignment set, scenario context, and assumptions are available.
+- None beyond the issue scope.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

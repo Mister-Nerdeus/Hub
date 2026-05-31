@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "738",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-clear-assignments-confirmation clear-confirmation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ClearAssignmentsConfirmationDialog.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "clear-confirmation": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ClearAssignmentsConfirmationDialog.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

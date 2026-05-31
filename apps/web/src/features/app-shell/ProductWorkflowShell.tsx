@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { PRODUCT_DISPLAY_NAME } from "@nerdeus/shared";
 import type { AppSection, AppSectionId } from "./appNavigation";
 import { createProductWorkflowStepperViewModel } from "./productWorkflowStepViewModel";
-import { ProductSidebar } from "./ProductSidebar";
+import { ProductSidebarRail } from "./ProductSidebarRail";
 import { ProductWorkflowStepper } from "./ProductWorkflowStepper";
 import { DemoRelockButton } from "../demo-pin/DemoRelockButton";
 
@@ -27,7 +27,7 @@ export function ProductWorkflowShell({
 
   return (
     <main className="app-shell product-workflow-shell" data-product-shell-workflow="floorplan-assignments-scenarios-simulation-reports">
-      <ProductSidebar
+      <ProductSidebarRail
         activeSection={activeSection}
         sections={sections}
         onSectionChange={onSectionChange}

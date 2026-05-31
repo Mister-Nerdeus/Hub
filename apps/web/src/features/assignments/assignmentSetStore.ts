@@ -18,6 +18,7 @@ export type AssignmentSetStore = {
   load(assignmentSetId: string): AssignmentSetContract | null;
   loadForFloorplanVersion(floorplanVersionId: string): AssignmentSetContract | null;
   save(assignmentSet: AssignmentSetContract): AssignmentSetContract;
+  delete(assignmentSetId: string): void;
 };
 
 export function createAssignmentSetStore(storage: AssignmentSetStorage | null): AssignmentSetStore {
@@ -49,6 +50,10 @@ export function createAssignmentSetStore(storage: AssignmentSetStorage | null): 
       ];
       persist();
       return cloneAssignmentSet(validated);
+    },
+    delete(assignmentSetId) {
+      assignmentSets = assignmentSets.filter((candidate) => candidate.assignmentSetId !== assignmentSetId);
+      persist();
     }
   };
 }

@@ -52,15 +52,25 @@ export function deactivateNurseProfile(
   nurseProfileId: string,
   nowIso = new Date().toISOString()
 ): AssignmentSetContract {
-  const assignmentsByRoomId = Object.fromEntries(
-    Object.entries(assignmentSet.assignmentsByRoomId).filter(([, assignedNurseId]) => assignedNurseId !== nurseProfileId)
-  );
   return validateAssignmentSetContract({
     ...assignmentSet,
     nurseProfiles: assignmentSet.nurseProfiles.map((candidate) =>
       candidate.nurseProfileId === nurseProfileId ? { ...candidate, active: false } : candidate
     ),
-    assignmentsByRoomId,
     updatedAt: nowIso
   });
+}
+
+export function listInactiveNurseAssignmentRoomIds(
+  assignmentSet: AssignmentSetContract
+): string[] {
+  const inactiveNurseIds = new Set(
+    assignmentSet.nurseProfiles
+      .filter((nurse) => !nurse.active)
+      .map((nurse) => nurse.nurseProfileId)
+  );
+  return Object.entries(assignmentSet.assignmentsByRoomId)
+    .filter(([, nurseId]) => inactiveNurseIds.has(nurseId))
+    .map(([roomId]) => roomId)
+    .sort();
 }

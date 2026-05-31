@@ -36,18 +36,12 @@ export function validateAssignmentSetContract(value: unknown): AssignmentSetCont
   );
   const assignments = requireRecord(record.assignmentsByRoomId, "assignmentSet.assignmentsByRoomId");
   const nurseIds = new Set(nurseProfiles.map((nurse) => nurse.nurseProfileId));
-  const activeNurseIds = new Set(
-    nurseProfiles.filter((nurse) => nurse.active).map((nurse) => nurse.nurseProfileId)
-  );
   for (const [roomId, nurseId] of Object.entries(assignments)) {
     if (typeof nurseId !== "string" || nurseId.trim().length === 0) {
       throw new Error(`assignment for ${roomId} must reference a nurse profile ID`);
     }
     if (!nurseIds.has(nurseId)) {
       throw new Error(`assignment for ${roomId} references unknown nurse profile ${nurseId}`);
-    }
-    if (!activeNurseIds.has(nurseId)) {
-      throw new Error(`assignment for ${roomId} references inactive nurse profile ${nurseId}`);
     }
     if (roomLoadsByRoomId[roomId] == null) {
       throw new Error(`assignment for ${roomId} references room without a structured room load`);

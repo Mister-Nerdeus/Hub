@@ -1,7 +1,7 @@
 # Issue 706 Closeout
 
 ## Problem
-Active Floorplan Hub Mockup-Level Layout
+Top Workflow Stepper
 
 ## Summary
 - Local validator status: passed.
@@ -13,12 +13,9 @@ Active Floorplan Hub Mockup-Level Layout
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-active-floorplan-hub-ux.mjs --stage hub-contract --allow-partial --issue 706
-- node scripts/check-active-floorplan-hub-ux.mjs --stage active-floorplan-card --allow-partial --issue 706
-- node scripts/check-active-floorplan-hub-ux.mjs --stage next-step-card --allow-partial --issue 706
-- node scripts/check-active-floorplan-hub-ux.mjs --stage prepare-for-simulation-copy --allow-partial --issue 706
-- node scripts/check-active-floorplan-hub-ux.mjs --stage responsive-layout --allow-partial --issue 706
-- node scripts/check-active-floorplan-hub-ux.mjs --stage advanced-hidden --allow-partial --issue 706
+- node scripts/check-product-workflow-stepper.mjs --stage stepper-contract --allow-partial --issue 706
+- node scripts/check-product-workflow-stepper.mjs --stage active-step --allow-partial --issue 706
+- node scripts/check-product-workflow-stepper.mjs --stage keyboard-nav --allow-partial --issue 706
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

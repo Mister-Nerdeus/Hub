@@ -73,6 +73,7 @@ import {
   type AssignmentSetStore
 } from "./features/assignments/assignmentSetStore";
 import { createAssignmentSetViewModel } from "./features/assignments/assignmentSetViewModel";
+import { migrateRawAssignmentMapToAssignmentSet } from "./features/assignments/rawAssignmentMapBridge";
 import {
   ManualAssignmentWorkspace,
   splitRoomManualAssignmentOverlayNurses,
@@ -197,7 +198,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       return;
     }
     const existing = assignmentSetStore.loadForFloorplanVersion(activeFloorplanContract.activeFloorplanVersionId);
-    const next = existing ?? assignmentSetStore.save(createDefaultAssignmentSetForFloorplan(activeFloorplanContract));
+    const draftAssignmentSet = existing ?? createDefaultAssignmentSetForFloorplan(activeFloorplanContract);
+    const next = existing ?? assignmentSetStore.save(
+      migrateRawAssignmentMapToAssignmentSet(draftAssignmentSet, manualAssignmentsByRoomId)
+    );
     setActiveAssignmentSet(next);
     setScenarioAssignmentSet(next);
     setAssignmentSets(assignmentSetStore.list());

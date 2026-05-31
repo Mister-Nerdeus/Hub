@@ -66,20 +66,19 @@ test("assignment set contract rejects duplicate nurse profile ids", () => {
   );
 });
 
-test("assignment set contract rejects assignments to inactive nurses", () => {
+test("assignment set contract preserves existing assignments to inactive nurses for review", () => {
   const nurseProfiles = createDefaultNurseProfiles();
 
-  assert.throws(
-    () => validateAssignmentSetContract(buildAssignmentSet({
-      nurseProfiles: [
-        {
-          ...nurseProfiles[0],
-          active: false
-        }
-      ]
-    })),
-    /inactive nurse profile/u
-  );
+  const assignmentSet = validateAssignmentSetContract(buildAssignmentSet({
+    nurseProfiles: [
+      {
+        ...nurseProfiles[0],
+        active: false
+      }
+    ]
+  }));
+
+  assert.equal(assignmentSet.assignmentsByRoomId["room-01"], "nurse-blue");
 });
 
 test("assignment set contract rejects identity-like nurse labels", () => {

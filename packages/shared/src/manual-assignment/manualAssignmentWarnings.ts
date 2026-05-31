@@ -34,6 +34,12 @@ export function buildManualAssignmentWarnings(input: BuildManualAssignmentWarnin
   for (const nurse of input.nurses) {
     const assignments = assignmentsByNurse.get(nurse.nurseId) ?? [];
     const occupiedRooms = assignments.map((assignment) => roomLoadsById.get(assignment.roomId)).filter(isOccupiedRoomLoad);
+    if (!nurse.active && assignments.length > 0) {
+      warnings.push(makeWarning("INACTIVE_NURSE_ASSIGNMENT_REVIEW", "warning", "Inactive nurse profile has existing room assignments that need review.", [nurse.nurseId], assignments.map((assignment) => assignment.roomId), [
+        "nurse active false",
+        `assigned rooms ${assignments.length}`
+      ]));
+    }
     if (occupiedRooms.length > nurse.targetPatientCount) {
       warnings.push(makeWarning("OVER_TARGET_RATIO", "warning", "Assigned occupied room count is over target.", [nurse.nurseId], occupiedRooms.map((room) => room.roomId), [
         `occupied ${occupiedRooms.length}`,
