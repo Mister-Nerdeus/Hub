@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "778",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-778/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-778/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-renderer.mjs --stage renderer --issue 778",
+      "outputs": [
+        "docs/verification/issues/issue-778/renderer-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-renderer.mjs --stage selectable-hallways --issue 778",
+      "outputs": [
+        "docs/verification/issues/issue-778/selectable-hallways-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-778/no-phi-output.txt"
+      ]
+    }
+  ]
+}

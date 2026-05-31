@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-hallway-renderer.mjs --stage renderer --issue 778
+node scripts/check-hallway-renderer.mjs --stage selectable-hallways --issue 778
+node scripts/check-no-phi-fields.mjs
