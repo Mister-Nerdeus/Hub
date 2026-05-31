@@ -1,0 +1,105 @@
+{
+  "status": "passed",
+  "issue": "747",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "no-assignment-truth-overclaim",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-simulation-overclaim",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-report-overclaim",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "no-optimizer-overclaim",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "no-assignment-truth-overclaim": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "no-simulation-overclaim": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "no-report-overclaim": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "no-optimizer-overclaim": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,6 @@
+node scripts/check-milestone-a-no-overclaim.mjs --stage no-assignment-truth-overclaim --issue 747
+node scripts/check-milestone-a-no-overclaim.mjs --stage no-simulation-overclaim --issue 747
+node scripts/check-milestone-a-no-overclaim.mjs --stage no-report-overclaim --issue 747
+node scripts/check-milestone-a-no-overclaim.mjs --stage no-optimizer-overclaim --issue 747
+node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747
+node scripts/check-no-phi-fields.mjs
