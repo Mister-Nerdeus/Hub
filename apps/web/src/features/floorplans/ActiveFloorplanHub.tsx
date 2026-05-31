@@ -5,6 +5,11 @@ import { ActiveFloorplanSelector } from "./ActiveFloorplanSelector";
 import type { ActiveFloorplanSelectorViewModel } from "./activeFloorplanSelectorViewModel";
 import { FloorplanReadinessChecklist } from "./FloorplanReadinessChecklist";
 import { createFloorplanThumbnailViewModel } from "./floorplanThumbnailViewModel";
+import { NextWorkflowStepCard } from "./NextWorkflowStepCard";
+import {
+  createNextWorkflowStepViewModel,
+  type NextWorkflowTargetSection
+} from "./nextWorkflowStepViewModel";
 
 type ActiveFloorplanHubProps = {
   activeFloorplan: ActiveFloorplanContract | null;
@@ -16,6 +21,7 @@ type ActiveFloorplanHubProps = {
   onUseForAssignment: () => void;
   onUseForSimulation: () => void;
   onChangeFloorplan: (versionId: string) => void;
+  onNavigateToSection: (targetSection: NextWorkflowTargetSection) => void;
 };
 
 export function ActiveFloorplanHub({
@@ -27,9 +33,15 @@ export function ActiveFloorplanHub({
   onEditFloorplan,
   onUseForAssignment,
   onUseForSimulation,
-  onChangeFloorplan
+  onChangeFloorplan,
+  onNavigateToSection
 }: ActiveFloorplanHubProps) {
   const thumbnailViewModel = createFloorplanThumbnailViewModel(activeFloorplan);
+  const nextWorkflowStepViewModel = createNextWorkflowStepViewModel({
+    activeFloorplan,
+    assignmentSetState: "not_started",
+    scenarioAssumptionsState: "not_started"
+  });
 
   return (
     <section
@@ -67,15 +79,12 @@ export function ActiveFloorplanHub({
           <ActiveFloorplanThumbnail viewModel={thumbnailViewModel} />
         </div>
 
-        <section
-          className="active-floorplan-hub__next-step"
-          aria-labelledby="active-floorplan-next-step-title"
-          data-floorplan-next-step-slot="true"
-        >
-          <p className="eyebrow">What do I do next?</p>
-          <h3 id="active-floorplan-next-step-title">Prepare assignment setup</h3>
-          <p>Review this floorplan, then open Assignments when the floorplan is ready.</p>
-        </section>
+        <div data-floorplan-next-step-slot="true">
+          <NextWorkflowStepCard
+            viewModel={nextWorkflowStepViewModel}
+            onNavigate={onNavigateToSection}
+          />
+        </div>
 
         <section
           className="active-floorplan-hub__version"

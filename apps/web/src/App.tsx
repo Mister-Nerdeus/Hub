@@ -435,6 +435,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
                 setActiveSection("simulation");
               }}
               onChangeFloorplan={selectFloorplanVersion}
+              onNavigateToSection={(section) => setActiveSection(section)}
               advancedContent={(
                 <>
                   <FloorplanLandingSummary

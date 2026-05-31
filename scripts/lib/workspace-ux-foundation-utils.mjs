@@ -26,6 +26,8 @@ export const workspaceUxRootScripts = {
   "check:active-floorplan-hub": "node scripts/check-active-floorplan-hub.mjs --stage final --issue 714",
   "check:active-floorplan-card-layout": "node scripts/check-active-floorplan-card-layout.mjs --stage final --issue 715",
   "check:floorplan-thumbnail-preview": "node scripts/check-floorplan-thumbnail-preview.mjs --stage final --issue 716",
+  "check:next-workflow-step-card": "node scripts/check-next-workflow-step-card.mjs --stage final --issue 717",
+  "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
 

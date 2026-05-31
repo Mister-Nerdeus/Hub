@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "issue": "717",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-next-workflow-step-card.mjs --stage state-machine --allow-partial --issue 717",
+    "3": "node scripts/check-next-workflow-step-card.mjs --stage assignment-next-step --allow-partial --issue 717",
+    "4": "node scripts/check-milestone-a-no-overclaim.mjs --stage no-assignment-truth-overclaim --issue 717",
+    "5": "node scripts/check-no-phi-fields.mjs"
+  }
+}
