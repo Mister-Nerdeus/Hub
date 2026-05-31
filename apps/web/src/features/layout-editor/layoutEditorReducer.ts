@@ -73,6 +73,7 @@ import {
 import { moveRoomByDeltaFeet } from "./roomDragMove";
 import { moveStationByDeltaFeet } from "./stationDragMove";
 import {
+  editSelectedHallwayDimensionsInLayout,
   editSelectedRoomDimensionsInLayout,
   type RoomInspectorDimensionChanges
 } from "./roomInspectorDimensionEdit";
@@ -132,6 +133,11 @@ export type LayoutEditorAction =
       deltaYFeet: number;
     }
   | { type: "editSelectedRoomDimensions"; dimensions: RoomInspectorDimensionChanges }
+  | {
+      type: "editSelectedHallwayDimensions";
+      hallwayId: string;
+      dimensions: RoomInspectorDimensionChanges;
+    }
   | {
       type: "editSelectedStationDimensions";
       stationId: string;
@@ -355,6 +361,8 @@ export function layoutEditorReducer(
       });
     case "editSelectedRoomDimensions":
       return editSelectedRoomDimensions(state, action.dimensions);
+    case "editSelectedHallwayDimensions":
+      return editSelectedHallwayDimensions(state, action.hallwayId, action.dimensions);
     case "editSelectedStationDimensions":
       return editSelectedStationDimensions(state, action.stationId, action.dimensions);
     case "editSelectedRoomLabel":
@@ -1337,6 +1345,48 @@ function editSelectedHallwayLabel(
   return withUndoHistory(state, {
     ...state,
     editableLayout: updatedLayout,
+    selectedObjectType: "hallway",
+    selectedObjectId: hallwayId,
+    isDirty: true
+  });
+}
+
+function editSelectedHallwayDimensions(
+  state: LayoutEditorState,
+  hallwayId: string,
+  dimensions: RoomInspectorDimensionChanges
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  if (state.selectedObjectType !== "hallway" || state.selectedObjectId !== hallwayId) {
+    return state;
+  }
+
+  const beforeHallway = state.editableLayout.hallways.find((hallway) => hallway.id === hallwayId);
+  if (beforeHallway == null) {
+    throw new Error(`unknown hallway: ${hallwayId}`);
+  }
+
+  const editedLayout = editSelectedHallwayDimensionsInLayout({
+    layout: state.editableLayout,
+    selectedObjectType: state.selectedObjectType,
+    selectedObjectId: state.selectedObjectId,
+    hallwayId,
+    changes: dimensions,
+    snapMode: state.snapMode
+  });
+  const afterHallway = editedLayout.hallways.find((hallway) => hallway.id === hallwayId);
+  if (afterHallway == null) {
+    throw new Error(`unknown hallway: ${hallwayId}`);
+  }
+  if (roomRectEquals(beforeHallway, afterHallway)) {
+    return state;
+  }
+
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: editedLayout,
     selectedObjectType: "hallway",
     selectedObjectId: hallwayId,
     isDirty: true

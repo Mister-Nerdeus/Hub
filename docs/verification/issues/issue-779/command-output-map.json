@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "779",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-779/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-779/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-inspector-controls.mjs --stage normal-controls --issue 779",
+      "outputs": [
+        "docs/verification/issues/issue-779/normal-controls-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-inspector-controls.mjs --stage advanced-ids-hidden --issue 779",
+      "outputs": [
+        "docs/verification/issues/issue-779/advanced-ids-hidden-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-779/no-phi-output.txt"
+      ]
+    }
+  ]
+}

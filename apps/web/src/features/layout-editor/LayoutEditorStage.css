@@ -1560,6 +1560,52 @@
   margin: 0;
 }
 
+.hallway-inspector-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.hallway-inspector-panel h3 {
+  color: #111827;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.hallway-inspector-panel label,
+.hallway-inspector-panel fieldset {
+  display: grid;
+  gap: 6px;
+}
+
+.hallway-inspector-panel fieldset {
+  border: 1px solid #d7e0ea;
+  border-radius: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 10px;
+}
+
+.hallway-inspector-panel legend {
+  color: #243447;
+  font-size: 0.75rem;
+  font-weight: 900;
+  padding: 0 4px;
+}
+
+.hallway-inspector-panel input {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-weight: 800;
+  min-width: 0;
+  padding: 5px 7px;
+}
+
 .split-room-inspector-panel dl {
   display: grid;
   gap: 8px;

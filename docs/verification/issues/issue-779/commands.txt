@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-hallway-inspector-controls.mjs --stage normal-controls --issue 779
+node scripts/check-hallway-inspector-controls.mjs --stage advanced-ids-hidden --issue 779
+node scripts/check-no-phi-fields.mjs

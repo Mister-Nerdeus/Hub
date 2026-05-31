@@ -1,4 +1,8 @@
-import type { EditableLayoutGeometryContract, EditableRoomGeometry } from "@nerdeus/shared";
+import type {
+  EditableHallwayGeometry,
+  EditableLayoutGeometryContract,
+  EditableRoomGeometry
+} from "@nerdeus/shared";
 
 import {
   snapRectFeet,
@@ -19,6 +23,11 @@ export type RoomInspectorDimensionField = (typeof ROOM_INSPECTOR_DIMENSION_FIELD
 
 export type RoomInspectorDimensionChanges = Partial<
   Pick<EditableRoomGeometry, RoomInspectorDimensionField>
+>;
+
+type EditableInspectorRectGeometry = Pick<
+  EditableRoomGeometry,
+  "id" | "xFeet" | "yFeet" | "widthFeet" | "heightFeet"
 >;
 
 export type EditSelectedRoomDimensionsInLayoutInput = {
@@ -54,7 +63,7 @@ export function editSelectedRoomDimensionsInLayout({
     rooms: layout.rooms.map((room) =>
       room.id === roomId
         ? applyInspectorDimensionChanges({
-            room,
+            rect: room,
             changes,
             snapMode,
             minimumSizeFeet
@@ -64,26 +73,67 @@ export function editSelectedRoomDimensionsInLayout({
   };
 }
 
-function applyInspectorDimensionChanges({
-  room,
+export function editSelectedHallwayDimensionsInLayout({
+  layout,
+  selectedObjectType,
+  selectedObjectId,
+  hallwayId,
+  changes,
+  snapMode,
+  minimumSizeFeet = 1
+}: {
+  layout: EditableLayoutGeometryContract;
+  selectedObjectType: LayoutEditorSelectableObjectType | null;
+  selectedObjectId: string | null;
+  hallwayId: string;
+  changes: RoomInspectorDimensionChanges;
+  snapMode: LayoutSnapEngineMode;
+  minimumSizeFeet?: number;
+}): EditableLayoutGeometryContract {
+  if (selectedObjectType !== "hallway" || selectedObjectId !== hallwayId) {
+    return layout;
+  }
+
+  const hallwayIndex = layout.hallways.findIndex((hallway) => hallway.id === hallwayId);
+  if (hallwayIndex < 0) {
+    throw new Error(`unknown hallway: ${hallwayId}`);
+  }
+
+  return {
+    ...layout,
+    hallways: layout.hallways.map((hallway) =>
+      hallway.id === hallwayId
+        ? applyInspectorDimensionChanges<EditableHallwayGeometry>({
+            rect: hallway,
+            changes,
+            snapMode,
+            minimumSizeFeet
+          })
+        : hallway
+    )
+  };
+}
+
+function applyInspectorDimensionChanges<TRect extends EditableInspectorRectGeometry>({
+  rect,
   changes,
   snapMode,
   minimumSizeFeet
 }: {
-  room: EditableRoomGeometry;
+  rect: TRect;
   changes: RoomInspectorDimensionChanges;
   snapMode: LayoutSnapEngineMode;
   minimumSizeFeet: number;
-}): EditableRoomGeometry {
+}): TRect {
   const minimumSize = requirePositive(minimumSizeFeet, "minimumSizeFeet");
   const merged = {
-    ...room,
+    ...rect,
     ...normalizeFiniteChanges(changes)
   };
   const snapped = snapRectFeet(merged, snapSizeFeetForMode(snapMode));
 
   return {
-    ...room,
+    ...rect,
     xFeet: snapped.xFeet,
     yFeet: snapped.yFeet,
     widthFeet: Math.max(snapped.widthFeet, minimumSize),

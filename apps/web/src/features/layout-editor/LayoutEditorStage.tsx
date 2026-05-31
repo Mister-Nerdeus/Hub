@@ -135,6 +135,7 @@ import { DoorWallGuideOverlay } from "./DoorWallGuideOverlay";
 import { buildDoorWallGuideViewModel } from "./doorWallGuideViewModel";
 import { RoomAlignmentControls } from "./RoomAlignmentControls";
 import { buildRoomAlignmentViewModel, type RoomAlignmentActionId } from "./roomAlignmentViewModel";
+import { HallwayInspectorPanel } from "./HallwayInspectorPanel";
 import { HallwayArrowEditor } from "./HallwayArrowEditor";
 import { buildHallwayArrowEditorViewModel } from "./hallwayArrowEditorViewModel";
 import { SupportMarkerEditor } from "./SupportMarkerEditor";
@@ -2099,7 +2100,31 @@ export function LayoutEditorStage({
           <LayoutInspectorTabs
             selectedObjectType={stageState.selectedObjectType}
             room={
-              stageState.selectedObjectType === "split_bay" ? (
+              stageState.selectedObjectType === "hallway" ? (
+                <HallwayInspectorPanel
+                  hallway={selectedHallway}
+                  viewModel={inspectorViewModel}
+                  readOnly={stageState.readOnly}
+                  onLabelChange={(label) => {
+                    if (selectedHallway != null) {
+                      dispatchStage({
+                        type: "editSelectedHallwayLabel",
+                        hallwayId: selectedHallway.id,
+                        label
+                      });
+                    }
+                  }}
+                  onDimensionChange={(dimensions) => {
+                    if (selectedHallway != null) {
+                      dispatchStage({
+                        type: "editSelectedHallwayDimensions",
+                        hallwayId: selectedHallway.id,
+                        dimensions
+                      });
+                    }
+                  }}
+                />
+              ) : stageState.selectedObjectType === "split_bay" ? (
                 <SplitRoomInspectorPanel
                   viewModel={splitBayQuickEditViewModel}
                   onSelectChildRoom={(roomId) => dispatchStage({

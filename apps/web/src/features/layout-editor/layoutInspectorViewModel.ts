@@ -70,7 +70,7 @@ export function buildLayoutInspectorViewModel(
     objectType: selectedObjectType,
     objectId: selectedObjectId,
     sourceUnits: "feet",
-    isReadOnly: selectedObject.objectType !== "room" && selectedObject.objectType !== "station",
+    isReadOnly: !["room", "station", "hallway"].includes(selectedObject.objectType),
     normalSections,
     advancedSections,
     sections: normalSections
@@ -154,7 +154,13 @@ function buildNormalSections(
         rectGeometrySection(selectedObject, "Station geometry", true)
       ];
     case "hallway":
-      return [rectGeometrySection(selectedObject, "Hallway geometry")];
+      return [
+        {
+          title: "Hallway metadata",
+          fields: [readOnlyField({ label: "Hallway label", value: selectedObject.label })]
+        },
+        rectGeometrySection(selectedObject, "Hallway geometry", true)
+      ];
     case "zone":
       return [
         {

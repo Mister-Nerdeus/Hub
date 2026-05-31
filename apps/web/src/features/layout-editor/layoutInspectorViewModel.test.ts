@@ -66,9 +66,10 @@ const objectCases = [
     objectType: "hallway",
     objectId: "hall-main",
     expectedTitle: "Main hallway",
-    expectedIsReadOnly: true,
-    expectedSections: ["Hallway geometry"],
+    expectedIsReadOnly: false,
+    expectedSections: ["Hallway metadata", "Hallway geometry"],
     expectedFields: [
+      ["Hallway label", "Main hallway"],
       ["X", "0 ft"],
       ["Width", "64 ft"]
     ]
