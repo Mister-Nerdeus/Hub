@@ -154,6 +154,7 @@ import {
 import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
 import { CanvasObjectPopover } from "./CanvasObjectPopover";
 import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
+import { CanvasViewportControls } from "./CanvasViewportControls";
 import { EditorPopupModeControl, type EditorPopupMode } from "./EditorPopupModeControl";
 import { useEditorWorkspaceMeasurements } from "./useEditorWorkspaceMeasurements";
 import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
@@ -1570,6 +1571,19 @@ export function LayoutEditorStage({
         {...viewportLayoutViewModel.dataAttributes}
       >
         <div className="layout-editor-stage__shell" data-proof-only="true" ref={workspaceMeasurements.shellRef}>
+          <CanvasViewportControls
+            viewport={stageState.viewport}
+            popupMode={popupMode}
+            onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
+            onZoomOut={() => dispatchStage({ type: "zoomViewport", direction: "out" })}
+            onPanNorth={() => dispatchStage(panViewportAction("north"))}
+            onPanSouth={() => dispatchStage(panViewportAction("south"))}
+            onPanWest={() => dispatchStage(panViewportAction("west"))}
+            onPanEast={() => dispatchStage(panViewportAction("east"))}
+            onReset={() => dispatchStage({ type: "resetViewport" })}
+            onFit={() => dispatchStage({ type: "fitViewport" })}
+            onPopupModeChange={setPopupMode}
+          />
           <p className="layout-editor-stage__pan-helper" data-canvas-pan-helper="true">
             Drag the hallway/background to pan the map.
           </p>

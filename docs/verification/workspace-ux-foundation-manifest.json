@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "704-748",
-  "lastUpdatedIssue": "727",
+  "lastUpdatedIssue": "728",
   "productDisplayName": "ER Pod Shift Simulator",
   "repositoryTruthSource": "github_default_branch",
   "workspaceUxPreflightStatus": "passed",
@@ -30,7 +30,7 @@
   "editorNormalToolbarExtractionStatus": "passed",
   "editorUndoRedoAdvancedStatus": "passed",
   "editorDetailedToolsAdvancedStatus": "passed",
-  "compactCanvasControlsStatus": "missing",
+  "compactCanvasControlsStatus": "passed",
   "editorTechnicalStatusAdvancedStatus": "missing",
   "rightInspectorRemovedNormalStatus": "missing",
   "editorDetailsBottomPanelStatus": "missing",
@@ -85,5 +85,6 @@
   "toolbarDockedAboveCanvas": true,
   "normalToolbarMatchesMockup": true,
   "undoRedoAdvancedOnly": true,
-  "legacyDetailedToolbarNormalModeHidden": true
+  "legacyDetailedToolbarNormalModeHidden": true,
+  "canvasControlsDoNotCrowdToolbar": true
 }

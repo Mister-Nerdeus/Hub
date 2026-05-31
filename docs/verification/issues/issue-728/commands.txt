@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-compact-canvas-controls.mjs --stage compact-controls --allow-partial --issue 728
+node scripts/check-compact-canvas-controls.mjs --stage controls-do-not-crowd-toolbar --allow-partial --issue 728
+node scripts/check-no-phi-fields.mjs
