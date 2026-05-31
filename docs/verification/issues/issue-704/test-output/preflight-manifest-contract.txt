@@ -1,0 +1,35 @@
+{
+  "status": "failed",
+  "issue": "704",
+  "stage": "manifest-contract",
+  "checks": [
+    {
+      "name": "manifest-contract",
+      "passed": false,
+      "detail": {
+        "passed": false,
+        "results": [
+          {
+            "passed": false,
+            "missing": [
+              "\"editorWorkspaceLayoutStatus\": \"missing\""
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "passed": false,
+      "results": [
+        {
+          "passed": false,
+          "missing": [
+            "\"editorWorkspaceLayoutStatus\": \"missing\""
+          ]
+        }
+      ]
+    }
+  }
+}

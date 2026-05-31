@@ -207,6 +207,10 @@ const activeFloorplanWorkflowCommands = [
   "npm run check:active-floorplan-workflow-go-no-go"
 ];
 
+const workspaceUxFoundationCommands = [
+  "npm run check:workspace-ux-preflight"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -301,6 +305,7 @@ const commands = [
   ...doorAuthoringCrashHardeningCommands,
   ...splitRoomAuthoringCommands,
   ...activeFloorplanWorkflowCommands,
+  ...workspaceUxFoundationCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",
