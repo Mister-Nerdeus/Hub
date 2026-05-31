@@ -10,6 +10,7 @@
 .active-floorplan-hub,
 .active-floorplan-selector,
 .floorplan-readiness-checklist,
+.floorplan-readiness-summary,
 .floorplan-advanced-panel,
 .editor-advanced-tools-panel,
 .floorplan-version-history,
@@ -185,6 +186,48 @@
   padding: 18px;
 }
 
+.floorplan-readiness-summary {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.floorplan-readiness-summary__header h3,
+.floorplan-readiness-summary__header p {
+  margin: 0;
+}
+
+.floorplan-readiness-summary__items {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+}
+
+.floorplan-readiness-summary__items div {
+  background: #f7fafc;
+  border: 1px solid #d7e0ea;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.floorplan-readiness-summary__items dt {
+  color: #526272;
+  font-size: 0.75rem;
+  font-weight: 900;
+  margin: 0 0 4px;
+}
+
+.floorplan-readiness-summary__items dd {
+  color: #172431;
+  font-weight: 900;
+  margin: 0;
+}
+
+.floorplan-readiness-summary__details .floorplan-readiness-checklist {
+  margin-top: 10px;
+}
+
 .floorplan-readiness-checklist ul,
 .floorplan-version-history ul {
   display: grid;
@@ -254,6 +297,10 @@
     grid-column: 2 / -1;
     justify-content: flex-start;
   }
+
+  .floorplan-readiness-summary__items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 760px) {
@@ -271,6 +318,10 @@
   .active-floorplan-card__actions {
     grid-column: auto;
     justify-content: flex-start;
+  }
+
+  .floorplan-readiness-summary__items {
+    grid-template-columns: 1fr;
   }
 }
 

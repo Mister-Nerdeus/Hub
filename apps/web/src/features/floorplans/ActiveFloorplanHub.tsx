@@ -3,7 +3,7 @@ import type { ActiveFloorplanContract, FloorplanReadinessContract } from "@nerde
 import { ActiveFloorplanThumbnail } from "./ActiveFloorplanThumbnail";
 import { ActiveFloorplanSelector } from "./ActiveFloorplanSelector";
 import type { ActiveFloorplanSelectorViewModel } from "./activeFloorplanSelectorViewModel";
-import { FloorplanReadinessChecklist } from "./FloorplanReadinessChecklist";
+import { FloorplanReadinessSummary } from "./FloorplanReadinessSummary";
 import { createFloorplanThumbnailViewModel } from "./floorplanThumbnailViewModel";
 import { NextWorkflowStepCard } from "./NextWorkflowStepCard";
 import {
@@ -99,7 +99,7 @@ export function ActiveFloorplanHub({
           data-floorplan-readiness-summary-slot="true"
         >
           {readinessViewModel == null ? null : (
-            <FloorplanReadinessChecklist viewModel={readinessViewModel} />
+            <FloorplanReadinessSummary viewModel={readinessViewModel} />
           )}
         </div>
       </div>

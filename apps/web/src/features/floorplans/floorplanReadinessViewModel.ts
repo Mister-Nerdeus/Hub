@@ -99,6 +99,36 @@ export function createFloorplanReadinessViewModel(
   };
 }
 
+export type CompactReadinessSummaryItem = {
+  label: "Floorplan" | "Assignment" | "Scenario" | "Simulation";
+  status: "Ready" | "Needs assignment set" | "Not ready" | "Blocked" | "Needs work";
+};
+
+export function createCompactReadinessSummary(
+  viewModel: FloorplanReadinessContract
+): CompactReadinessSummaryItem[] {
+  const floorplanItemIds = new Set([
+    "rooms_labeled",
+    "patient_care_rooms_identified",
+    "doors_access_points_reviewed",
+    "nurse_stations_placed",
+    "provider_pharmacy_area_placed",
+    "split_rooms_reviewed",
+    "hallways_routes_reviewed",
+    "floorplan_saved"
+  ]);
+  const floorplanReady = viewModel.items
+    .filter((entry) => floorplanItemIds.has(entry.itemId))
+    .every((entry) => entry.status === "passed");
+
+  return [
+    { label: "Floorplan", status: floorplanReady ? "Ready" : "Needs work" },
+    { label: "Assignment", status: "Needs assignment set" },
+    { label: "Scenario", status: "Not ready" },
+    { label: "Simulation", status: "Blocked" }
+  ];
+}
+
 function item(
   itemId: FloorplanReadinessItemContract["itemId"],
   label: string,

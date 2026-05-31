@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "704-748",
-  "lastUpdatedIssue": "718",
+  "lastUpdatedIssue": "719",
   "productDisplayName": "ER Pod Shift Simulator",
   "repositoryTruthSource": "github_default_branch",
   "workspaceUxPreflightStatus": "passed",
@@ -20,7 +20,7 @@
   "floorplanThumbnailPreviewStatus": "passed",
   "nextWorkflowStepCardStatus": "passed",
   "simulationCopyOverclaimStatus": "passed",
-  "compactReadinessSummaryStatus": "missing",
+  "compactReadinessSummaryStatus": "passed",
   "floorplanReadinessTruthStatus": "missing",
   "activeFloorplanPersistenceResilienceStatus": "missing",
   "editorWorkspaceLayoutStatus": "missing",
@@ -76,5 +76,6 @@
   "actionsDoNotOverlapMetadata": true,
   "thumbnailUsesActiveLayout": true,
   "nextStepReflectsWorkflowTruth": true,
-  "floorplanOnlyDoesNotNavigateToSimulation": true
+  "floorplanOnlyDoesNotNavigateToSimulation": true,
+  "detailsCollapsedByDefault": true
 }
