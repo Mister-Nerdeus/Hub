@@ -5,7 +5,6 @@ type ActiveFloorplanSelectorProps = {
   viewModel: ActiveFloorplanSelectorViewModel;
   onEditFloorplan: () => void;
   onUseForAssignment: () => void;
-  onUseForSimulation: () => void;
   onChangeFloorplan: (versionId: string) => void;
   onOpenAdvanced: () => void;
 };
@@ -14,7 +13,6 @@ export function ActiveFloorplanSelector({
   viewModel,
   onEditFloorplan,
   onUseForAssignment,
-  onUseForSimulation,
   onChangeFloorplan,
   onOpenAdvanced
 }: ActiveFloorplanSelectorProps) {
@@ -23,7 +21,6 @@ export function ActiveFloorplanSelector({
       viewModel={viewModel}
       onEditFloorplan={onEditFloorplan}
       onUseForAssignment={onUseForAssignment}
-      onUseForSimulation={onUseForSimulation}
       onChangeFloorplan={onChangeFloorplan}
       onOpenAdvanced={onOpenAdvanced}
     />

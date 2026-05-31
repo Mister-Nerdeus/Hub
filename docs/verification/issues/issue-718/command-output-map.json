@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "718",
+  "commands": {
+    "1": "npm --workspace apps/web test",
+    "2": "npm --workspace apps/web run build",
+    "3": "node scripts/check-simulation-copy-overclaim.mjs --stage no-use-for-simulation-floorplan-only --allow-partial --issue 718",
+    "4": "node scripts/check-simulation-copy-overclaim.mjs --stage prepare-copy --allow-partial --issue 718",
+    "5": "node scripts/check-milestone-a-no-overclaim.mjs --stage no-simulation-overclaim --issue 718",
+    "6": "node scripts/check-no-phi-fields.mjs"
+  }
+}

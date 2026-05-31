@@ -7,7 +7,6 @@ import {
   createActiveFloorplanSummaryViewModel,
   createEmptyActiveFloorplanState,
   markActiveFloorplanForAssignment,
-  markActiveFloorplanForSimulation,
   openDefaultFloorplan,
   openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
@@ -429,10 +428,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
               onUseForAssignment={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForAssignment(state));
                 setActiveSection("manual-assignment");
-              }}
-              onUseForSimulation={() => {
-                setActiveFloorplanState((state) => markActiveFloorplanForSimulation(state));
-                setActiveSection("simulation");
               }}
               onChangeFloorplan={selectFloorplanVersion}
               onNavigateToSection={(section) => setActiveSection(section)}

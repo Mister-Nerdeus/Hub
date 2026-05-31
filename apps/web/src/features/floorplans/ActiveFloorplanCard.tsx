@@ -4,7 +4,6 @@ type ActiveFloorplanCardProps = {
   viewModel: ActiveFloorplanSelectorViewModel;
   onEditFloorplan: () => void;
   onUseForAssignment: () => void;
-  onUseForSimulation: () => void;
   onChangeFloorplan: (versionId: string) => void;
   onOpenAdvanced: () => void;
 };
@@ -13,7 +12,6 @@ export function ActiveFloorplanCard({
   viewModel,
   onEditFloorplan,
   onUseForAssignment,
-  onUseForSimulation,
   onChangeFloorplan,
   onOpenAdvanced
 }: ActiveFloorplanCardProps) {
@@ -45,9 +43,6 @@ export function ActiveFloorplanCard({
         <button type="button" onClick={onEditFloorplan}>Edit Floorplan</button>
         <button type="button" disabled={!viewModel.canUseForAssignment} onClick={onUseForAssignment}>
           Use for Assignment
-        </button>
-        <button type="button" disabled={!viewModel.canUseForSimulation} onClick={onUseForSimulation}>
-          Use for Simulation
         </button>
         <details className="active-floorplan-selector__change">
           <summary>Change Floorplan</summary>

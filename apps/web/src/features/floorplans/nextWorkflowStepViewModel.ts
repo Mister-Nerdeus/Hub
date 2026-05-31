@@ -57,7 +57,7 @@ export function createNextWorkflowStepViewModel(input: {
 
   return {
     stateId: "continue_to_scenario_setup",
-    title: "Continue to scenario setup",
+    title: "Prepare for Scenario Setup",
     actionLabel: "Open Scenario",
     description: "Assignment readiness is represented only by a placeholder state in Milestone A.",
     targetSection: "scenarios",

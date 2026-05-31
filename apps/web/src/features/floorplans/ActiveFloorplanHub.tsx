@@ -19,7 +19,6 @@ type ActiveFloorplanHubProps = {
   advancedContent: ReactNode;
   onEditFloorplan: () => void;
   onUseForAssignment: () => void;
-  onUseForSimulation: () => void;
   onChangeFloorplan: (versionId: string) => void;
   onNavigateToSection: (targetSection: NextWorkflowTargetSection) => void;
 };
@@ -32,7 +31,6 @@ export function ActiveFloorplanHub({
   advancedContent,
   onEditFloorplan,
   onUseForAssignment,
-  onUseForSimulation,
   onChangeFloorplan,
   onNavigateToSection
 }: ActiveFloorplanHubProps) {
@@ -69,7 +67,6 @@ export function ActiveFloorplanHub({
             viewModel={selectorViewModel}
             onEditFloorplan={onEditFloorplan}
             onUseForAssignment={onUseForAssignment}
-            onUseForSimulation={onUseForSimulation}
             onChangeFloorplan={onChangeFloorplan}
             onOpenAdvanced={() => document.getElementById("floorplan-advanced-panel")?.scrollIntoView()}
           />

@@ -22,7 +22,6 @@ export type ActiveFloorplanSelectorViewModel = {
   selectedVersionLabel: string;
   versionOptions: ActiveFloorplanSelectorVersionOption[];
   canUseForAssignment: boolean;
-  canUseForSimulation: boolean;
   technicalDetailsVisible: false;
 };
 
@@ -52,15 +51,12 @@ export function createActiveFloorplanSelectorViewModel(input: {
     selectedVersionLabel,
     versionOptions,
     canUseForAssignment: input.activeFloorplan.workflowStatus !== "no_floorplan_selected",
-    canUseForSimulation: input.activeFloorplan.workflowStatus === "ready_for_simulation"
-      || input.activeFloorplan.workflowStatus === "ready_for_assignment"
-      || input.activeFloorplan.workflowStatus === "saved",
     technicalDetailsVisible: false
   };
 }
 
 export function workflowStatusLabel(status: ActiveFloorplanContract["workflowStatus"]): string {
-  if (status === "ready_for_simulation") return "Ready for simulation";
+  if (status === "ready_for_simulation") return "Ready for assignment setup";
   if (status === "ready_for_assignment") return "Ready for assignment";
   if (status === "saved") return "Saved";
   if (status === "draft") return "Draft";
