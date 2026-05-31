@@ -74,6 +74,7 @@ export * from "./floorplans/hallwayCorridorContract.js";
 export * from "./floorplans/supportAreaContract.js";
 export * from "./floorplans/geometryLayerContract.js";
 export * from "./floorplans/renderedObjectContract.js";
+export * from "./floorplans/editableGeometryRegistry.js";
 export * from "./floorplans/floorplanGeometryContract.js";
 export * from "./floorplans/addRoomContract.js";
 export * from "./floorplans/layoutObjectCreation.js";

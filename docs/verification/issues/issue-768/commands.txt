@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+node scripts/check-editable-geometry-registry.mjs --stage registry-contract --issue 768
+node scripts/check-editable-geometry-registry.mjs --stage required-object-kinds --issue 768
+node scripts/check-no-phi-fields.mjs

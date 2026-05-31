@@ -15,6 +15,15 @@ export {
   type RenderedObjectContract,
   type RenderedObjectSourceKind
 } from "./renderedObjectContract.js";
+export {
+  EDITABLE_GEOMETRY_KINDS,
+  EDITABLE_GEOMETRY_REGISTRY,
+  editableGeometryRegistryEntryFor,
+  isEditableGeometryKind,
+  validateEditableGeometryRegistry,
+  type EditableGeometryKind,
+  type EditableGeometryRegistryEntry
+} from "./editableGeometryRegistry.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

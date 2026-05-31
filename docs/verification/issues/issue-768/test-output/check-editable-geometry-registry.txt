@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "768",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "registry-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "required-object-kinds",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "registry-contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "required-object-kinds": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}
