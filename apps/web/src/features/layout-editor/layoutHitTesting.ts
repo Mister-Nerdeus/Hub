@@ -5,7 +5,9 @@ export const EDITABLE_GEOMETRY_HIT_TEST_KINDS = [
   "station",
   "hallway",
   "zone",
-  "split_bay"
+  "split_bay",
+  "split_room_parent",
+  "bed_position"
 ] as const;
 
 export const LOCKED_GEOMETRY_HIT_TEST_KINDS = [

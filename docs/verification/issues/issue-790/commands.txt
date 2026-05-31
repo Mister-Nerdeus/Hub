@@ -1,0 +1,6 @@
+node scripts/check-split-bed-position-selection.mjs --stage bed-a-selectable --issue 790
+node scripts/check-split-bed-position-selection.mjs --stage bed-b-selectable --issue 790
+node scripts/check-split-bed-position-selection.mjs --stage parent-separate-selection --issue 790
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

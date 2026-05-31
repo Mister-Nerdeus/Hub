@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "790",
+  "commands": [
+    {
+      "command": "node scripts/check-split-bed-position-selection.mjs --stage bed-a-selectable --issue 790",
+      "outputs": [
+        "docs/verification/issues/issue-790/bed-a-selectable-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bed-position-selection.mjs --stage bed-b-selectable --issue 790",
+      "outputs": [
+        "docs/verification/issues/issue-790/bed-b-selectable-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bed-position-selection.mjs --stage parent-separate-selection --issue 790",
+      "outputs": [
+        "docs/verification/issues/issue-790/parent-separate-selection-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-790/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-790/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-790/no-phi-output.txt"
+      ]
+    }
+  ]
+}

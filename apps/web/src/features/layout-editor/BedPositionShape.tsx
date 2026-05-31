@@ -13,7 +13,7 @@ type BedPositionShapeProps = {
   bedPosition: BedPositionContract;
   parentBounds: BedPositionParentBoundsPixels;
   isSelected?: boolean;
-  onSelect?: (bedPositionId: string) => void;
+  onSelect?: (objectType: "bed_position", objectId: string) => void;
 };
 
 export function BedPositionShape({
@@ -29,16 +29,26 @@ export function BedPositionShape({
       data-renderer-contract={BED_POSITION_RENDERER_CONTRACT}
       data-layout-object-type="bed_position"
       data-layout-object-id={bedPosition.bedPositionId}
+      data-geometry-kind="bed_position"
+      data-geometry-source-id={bedPosition.bedPositionId}
+      data-selectable="true"
+      data-editable="true"
+      data-removable="false"
+      data-selection-scope="split-room-bed-position"
       data-parent-room-id={bedPosition.parentRoomId}
       data-assignment-target={bedPosition.assignmentTarget ? "true" : "false"}
       role="img"
       aria-label={`Bed position ${bedPosition.label}`}
       tabIndex={0}
-      onClick={() => onSelect?.(bedPosition.bedPositionId)}
+      onClick={(event) => {
+        event.stopPropagation();
+        onSelect?.("bed_position", bedPosition.bedPositionId);
+      }}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          onSelect?.(bedPosition.bedPositionId);
+          event.stopPropagation();
+          onSelect?.("bed_position", bedPosition.bedPositionId);
         }
       }}
     >

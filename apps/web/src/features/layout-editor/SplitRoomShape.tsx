@@ -13,7 +13,7 @@ type SplitRoomShapeProps = {
   isSelected?: boolean;
   selectedBedPositionId?: string | null;
   onSelectParent?: (splitRoomId: string) => void;
-  onSelectBedPosition?: (bedPositionId: string) => void;
+  onSelectBedPosition?: (objectType: "bed_position", objectId: string) => void;
 };
 
 export function SplitRoomShape({
@@ -31,6 +31,12 @@ export function SplitRoomShape({
       data-renderer-contract={SPLIT_ROOM_RENDERER_CONTRACT}
       data-layout-object-type="split_room_parent"
       data-layout-object-id={splitRoom.splitRoomId}
+      data-geometry-kind="split_room_parent"
+      data-geometry-source-id={splitRoom.splitRoomId}
+      data-selectable="true"
+      data-editable="true"
+      data-removable="true"
+      data-selection-scope="split-room-parent"
       data-parent-room-id={splitRoom.parentRoomId}
       data-bed-position-count={splitRoom.bedPositions.length}
       data-divider-orientation={splitRoom.dividerOrientation}
