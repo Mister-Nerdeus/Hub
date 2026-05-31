@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+npm --workspace apps/web run build
+node scripts/check-geometry-migration-guard.mjs --stage existing-layout-loads --issue 770
+node scripts/check-geometry-migration-guard.mjs --stage unknown-artifact-quarantine --issue 770
+node scripts/check-no-phi-fields.mjs

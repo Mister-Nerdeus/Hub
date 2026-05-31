@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "770",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "existing-layout-loads",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown-artifact-quarantine",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "existing-layout-loads": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "unknown-artifact-quarantine": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "770",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-770/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-770/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-migration-guard.mjs --stage existing-layout-loads --issue 770",
+      "outputs": [
+        "docs/verification/issues/issue-770/existing-layout-loads-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-migration-guard.mjs --stage unknown-artifact-quarantine --issue 770",
+      "outputs": [
+        "docs/verification/issues/issue-770/unknown-artifact-quarantine-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-770/no-phi-output.txt"
+      ]
+    }
+  ]
+}

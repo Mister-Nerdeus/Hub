@@ -4,7 +4,7 @@
   "renderedObjectIdentityContractStatus": "passed",
   "editableGeometryRegistryStatus": "passed",
   "assignmentTargetContractStatus": "passed",
-  "geometryMigrationGuardStatus": "missing",
+  "geometryMigrationGuardStatus": "passed",
   "referenceOverlayContractStatus": "missing",
   "referenceOverlayToggleUiStatus": "missing",
   "lockedReferenceStylingStatus": "missing",
@@ -48,9 +48,10 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "769",
+  "lastUpdatedIssue": "770",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
-  "splitBedPositionsAreAssignmentTargets": true
+  "splitBedPositionsAreAssignmentTargets": true,
+  "existingFloorplansLoadAfterGeometryContracts": true
 }
