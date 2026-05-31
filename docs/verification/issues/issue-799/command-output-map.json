@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "799",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-parent-bed-browser-regression.mjs --stage full-flow --issue 799",
+      "outputs": [
+        "docs/verification/issues/issue-799/full-flow-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-799/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-799/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-799/no-phi-output.txt"
+      ]
+    }
+  ]
+}

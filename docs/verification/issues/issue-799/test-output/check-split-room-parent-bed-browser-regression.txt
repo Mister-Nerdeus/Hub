@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "799",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "browser flow actions exist for convert, resize, move, divider, and unsplit",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser renderer can show parent split room",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser renderer can select bed A and bed B independently",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser inspector exposes divider and unsplit controls",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "splitRoomParentBedBrowserRegressionStatus": "passed"
+  }
+}

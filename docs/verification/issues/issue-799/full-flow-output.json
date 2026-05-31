@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "issue": "799",
+  "stage": "full-flow",
+  "source": "local-contract-browser-regression",
+  "browserFlow": {
+    "openEditor": true,
+    "selectNormalRoom": true,
+    "convertToSplitRoom": true,
+    "selectBedA": true,
+    "selectBedB": true,
+    "resizeParentRoom": true,
+    "moveParentRoom": true,
+    "changeDividerOrientation": true,
+    "changeDividerRatio": true,
+    "unsplitRoom": true,
+    "noCrashContract": true
+  },
+  "checks": [
+    {
+      "name": "browser flow actions exist for convert, resize, move, divider, and unsplit",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser renderer can show parent split room",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser renderer can select bed A and bed B independently",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "browser inspector exposes divider and unsplit controls",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}
