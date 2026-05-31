@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "810",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required geometry truth manifest statuses passed",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "status doc keeps next milestone gated by stable assignment targets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "missing": []
+}

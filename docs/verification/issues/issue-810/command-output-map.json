@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "810",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-810/go-no-go-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-810/go-no-go-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-810/go-no-go-output.json"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-810/go-no-go-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-preflight.mjs --stage final --issue 810",
+      "outputs": [
+        "docs/verification/issues/issue-810/go-no-go-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-810/no-phi-output.txt"
+      ]
+    }
+  ]
+}
