@@ -56,9 +56,14 @@ export {
   type SupportStorageAreaKind
 } from "./supportAreaContract.js";
 export {
+  assignmentTargetIdForSplitBedPosition,
+  deriveSplitRoomAssignmentTargets
+} from "./assignmentTargetDerivation.js";
+export {
   createSplitRoomContract,
   validateBedPositionContract,
   validateSplitRoomContract,
+  stableSplitRoomBedPositionId,
   type BedPositionContract,
   type SplitRoomContract
 } from "./splitRoomContract.js";

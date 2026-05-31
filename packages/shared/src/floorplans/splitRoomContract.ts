@@ -20,6 +20,13 @@ export type SplitRoomContract = {
   bedPositions: BedPositionContract[];
 };
 
+export function stableSplitRoomBedPositionId(input: {
+  parentRoomId: string;
+  bedSuffix: "a" | "b";
+}): string {
+  return `${requireString(input.parentRoomId, "parentRoomId")}:bed-${input.bedSuffix}`;
+}
+
 export function createSplitRoomContract(value: SplitRoomContract): SplitRoomContract {
   return validateSplitRoomContract(value);
 }

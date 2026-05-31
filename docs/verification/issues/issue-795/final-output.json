@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "issue": "795",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split beds derive active assignment target contracts",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "assignment target derivation is exported from shared package",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "split bed target IDs are derived from stable bed position IDs",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "split room contract exposes stable bed position ID helper",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

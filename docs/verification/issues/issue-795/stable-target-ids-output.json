@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "795",
+  "stage": "stable-target-ids",
+  "checks": [
+    {
+      "name": "split bed target IDs are derived from stable bed position IDs",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "split room contract exposes stable bed position ID helper",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

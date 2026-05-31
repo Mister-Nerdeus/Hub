@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "795",
+  "stage": "split-bed-targets",
+  "checks": [
+    {
+      "name": "split beds derive active assignment target contracts",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "assignment target derivation is exported from shared package",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

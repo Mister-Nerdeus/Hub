@@ -1,0 +1,4 @@
+node scripts/check-split-room-assignment-target-generation.mjs --stage split-bed-targets --issue 795
+node scripts/check-split-room-assignment-target-generation.mjs --stage stable-target-ids --issue 795
+npm --workspace packages/shared test
+node scripts/check-no-phi-fields.mjs

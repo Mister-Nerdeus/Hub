@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "795",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-assignment-target-generation.mjs --stage split-bed-targets --issue 795",
+      "outputs": [
+        "docs/verification/issues/issue-795/split-bed-targets-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-assignment-target-generation.mjs --stage stable-target-ids --issue 795",
+      "outputs": [
+        "docs/verification/issues/issue-795/stable-target-ids-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-795/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-795/no-phi-output.txt"
+      ]
+    }
+  ]
+}
