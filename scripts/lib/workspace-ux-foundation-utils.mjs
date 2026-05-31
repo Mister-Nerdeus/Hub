@@ -48,6 +48,10 @@ export const workspaceUxRootScripts = {
   "check:floorplan-hub-screenshot-proof": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage final --issue 740",
   "check:normal-mode-technical-copy": "node scripts/check-normal-mode-technical-copy.mjs --stage final --issue 741",
   "check:workspace-ux-regression-sweep": "node scripts/check-workspace-ux-regression-sweep.mjs --stage final --issue 742",
+  "check:milestone-a-root-scripts": "node scripts/check-milestone-a-root-scripts.mjs --stage final --issue 744",
+  "check:milestone-a-documentation": "node scripts/check-milestone-a-documentation.mjs --stage final --issue 745",
+  "check:milestone-a-screenshot-index": "node scripts/check-milestone-a-screenshot-index.mjs --stage final --issue 746",
+  "check:milestone-a-closeout": "node scripts/check-milestone-a-closeout.mjs --stage final --issue 748",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
