@@ -7,7 +7,7 @@
 
 .layout-editor-stage {
   display: grid;
-  gap: 10px;
+  gap: 5px;
   margin: 0;
   max-width: none;
   width: 100%;
@@ -453,7 +453,7 @@
   background: #ffffff;
   border: 1px solid #c4d0dc;
   border-radius: 8px;
-  min-height: var(--editor-canvas-min-height, 820px);
+  min-height: var(--editor-canvas-min-height, max(620px, calc(100vh - 220px)));
   overflow: hidden;
   position: relative;
 }
@@ -471,8 +471,8 @@
 .layout-editor-stage__workspace {
   align-items: stretch;
   display: grid;
-  gap: 12px;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  gap: 8px;
+  grid-template-columns: minmax(0, 4fr) minmax(220px, 260px);
   overflow-x: hidden;
 }
 
