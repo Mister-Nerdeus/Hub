@@ -1,0 +1,4 @@
+node scripts/check-split-room-browser-regression.mjs --stage final --issue 735
+node scripts/check-editor-details-bottom-panel.mjs --stage split-room-controls-preserved --allow-partial --issue 735
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
