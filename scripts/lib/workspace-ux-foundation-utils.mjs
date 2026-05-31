@@ -42,6 +42,7 @@ export const workspaceUxRootScripts = {
   "check:right-inspector-removed-normal": "node scripts/check-right-inspector-removed-normal.mjs --stage final --issue 730",
   "check:editor-details-bottom-panel": "node scripts/check-editor-details-bottom-panel.mjs --stage final --issue 731",
   "check:editor-details-normal-sections": "node scripts/check-editor-details-normal-sections.mjs --stage final --issue 732",
+  "check:technical-inspector-fields-advanced": "node scripts/check-technical-inspector-fields-advanced.mjs --stage final --issue 733",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };

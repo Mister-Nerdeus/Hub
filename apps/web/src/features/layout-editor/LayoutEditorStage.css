@@ -612,6 +612,50 @@
   gap: 8px;
 }
 
+.editor-details-panel__advanced {
+  background: #f8fafc;
+  border: 1px solid #d9e1e8;
+  border-radius: 8px;
+  padding: 7px 9px;
+}
+
+.editor-details-panel__advanced summary {
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.inspector-advanced-details {
+  display: grid;
+  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 8px 0 0;
+}
+
+.inspector-advanced-details div {
+  background: #ffffff;
+  border: 1px solid #d9e1e8;
+  border-radius: 6px;
+  min-width: 0;
+  padding: 6px 8px;
+}
+
+.inspector-advanced-details dt {
+  color: #53616f;
+  font-size: 0.62rem;
+  font-weight: 800;
+  margin: 0 0 2px;
+}
+
+.inspector-advanced-details dd {
+  color: #111827;
+  font-size: 0.74rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
 .layout-editor-stage__docked-popover {
   background: #ffffff;
   border: 1px solid #9aaabc;

@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "733",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "technical-fields-hidden-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "technical-fields-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "technical-fields-hidden-normal": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "technical-fields-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

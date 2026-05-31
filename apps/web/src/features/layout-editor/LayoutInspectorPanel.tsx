@@ -35,16 +35,8 @@ export function LayoutInspectorPanel({
 
       <dl className="layout-inspector-panel__identity">
         <div>
-          <dt>Object type</dt>
+          <dt>Selection type</dt>
           <dd>{viewModel.objectType ?? "none"}</dd>
-        </div>
-        <div>
-          <dt>Object ID</dt>
-          <dd>{viewModel.objectId ?? "none"}</dd>
-        </div>
-        <div>
-          <dt>Source units</dt>
-          <dd>{viewModel.sourceUnits}</dd>
         </div>
       </dl>
 

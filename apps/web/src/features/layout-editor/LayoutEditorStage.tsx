@@ -166,6 +166,7 @@ import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
 import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
+import { InspectorAdvancedDetails } from "./InspectorAdvancedDetails";
 import {
   recordDraftTraceStage,
   recordEditableLayoutTraceStage,
@@ -2055,6 +2056,7 @@ export function LayoutEditorStage({
         selectedObjectType={stageState.selectedObjectType}
         collapsed={detailsPanelCollapsed}
         onToggleCollapsed={() => setDetailsPanelCollapsed((value) => !value)}
+        advancedDetails={<InspectorAdvancedDetails viewModel={inspectorViewModel} />}
       >
           {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (
             <section className="layout-editor-stage__docked-popover" data-popup-docked-panel="true">

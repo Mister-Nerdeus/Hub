@@ -5,6 +5,7 @@ export type EditorDetailsPanelProps = {
   selectedObjectType: LayoutEditorSelectableObjectType | null;
   collapsed: boolean;
   onToggleCollapsed: () => void;
+  advancedDetails?: ReactNode;
   children: ReactNode;
 };
 
@@ -12,6 +13,7 @@ export function EditorDetailsPanel({
   selectedObjectType,
   collapsed,
   onToggleCollapsed,
+  advancedDetails,
   children
 }: EditorDetailsPanelProps) {
   if (selectedObjectType == null) {
@@ -42,6 +44,15 @@ export function EditorDetailsPanel({
       {collapsed ? null : (
         <div className="editor-details-panel__body" data-selected-object-details-visible="true">
           {children}
+          {advancedDetails == null ? null : (
+            <details
+              className="editor-details-panel__advanced"
+              data-technical-inspector-fields-advanced="true"
+            >
+              <summary>Advanced details</summary>
+              {advancedDetails}
+            </details>
+          )}
         </div>
       )}
     </section>
