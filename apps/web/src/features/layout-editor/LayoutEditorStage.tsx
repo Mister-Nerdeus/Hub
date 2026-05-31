@@ -56,6 +56,7 @@ import { buildPodBorderViewModel } from "./podBorderViewModel";
 import { LayoutDeltaPreviewPanel } from "./LayoutDeltaPreviewPanel";
 import { buildLayoutDeltaPreviewViewModel } from "./layoutDeltaPreviewViewModel";
 import { HallwayShape } from "./HallwayShape";
+import { WallShape } from "./WallShape";
 import {
   buildHallwayShapeViewModel,
   buildZoneShapeViewModel
@@ -541,6 +542,17 @@ export function LayoutEditorStage({
         viewport: stageState.viewport
       });
   const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
+  const outerWallViewModel = {
+    wallId: "workspace-outer-boundary",
+    kind: "outer_wall" as const,
+    xPixels: grid.workspaceBoundary.xPixels,
+    yPixels: grid.workspaceBoundary.yPixels,
+    widthPixels: grid.workspaceBoundary.widthPixels,
+    heightPixels: grid.workspaceBoundary.heightPixels,
+    editable: false,
+    blocksTravel: true,
+    ariaLabel: "Outer wall boundary"
+  };
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
   const splitBayItems = renderItems.filter((item) => item.objectType === "split_bay");
   const splitBayBedRoomIds = new Set(
@@ -1656,14 +1668,7 @@ export function LayoutEditorStage({
               height={STAGE_HEIGHT_PIXELS}
               rx="0"
             />
-            <rect
-              className="layout-editor-stage__workspace-boundary"
-              x={grid.workspaceBoundary.xPixels}
-              y={grid.workspaceBoundary.yPixels}
-              width={grid.workspaceBoundary.widthPixels}
-              height={grid.workspaceBoundary.heightPixels}
-              rx="0"
-            />
+            <WallShape viewModel={outerWallViewModel} />
             <g className="layout-editor-stage__background-objects">
               {podBorderViewModel == null ? null : (
                 <ReferenceOverlayRenderer viewModel={referenceOverlayViewModel}>

@@ -106,7 +106,7 @@ function checkEditorNormal() {
       "data-reference-overlay-visible",
       "className=\"layout-editor-stage__grid\"",
       "className=\"layout-editor-stage__labels\"",
-      "className=\"layout-editor-stage__workspace-boundary\"",
+      "<WallShape",
       "<ReferenceOverlayRenderer",
       "<HallwayShape",
       "<ZoneShape",
@@ -147,7 +147,7 @@ function registryCoversNormalSelectors() {
   const registry = readText("apps/web/src/features/layout-editor/renderedObjectRegistry.ts");
   const requiredSelectors = [
     ".layout-editor-stage__viewport-frame",
-    ".layout-editor-stage__workspace-boundary",
+    ".layout-editor-stage__wall",
     ".layout-editor-stage__grid",
     ".layout-editor-stage__labels",
     ".layout-editor-stage__reference-overlay",

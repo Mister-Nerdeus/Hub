@@ -21,7 +21,7 @@ const POPOVER_LAYER: GeometryLayer = "popover_overlay";
 
 export const RENDERED_OBJECT_REGISTRY: readonly RenderedObjectRegistryEntry[] = [
   measurementOverlay("viewport-frame", ".layout-editor-stage__viewport-frame"),
-  measurementOverlay("workspace-boundary", ".layout-editor-stage__workspace-boundary"),
+  lockedGeometry("outer-wall-boundary", ".layout-editor-stage__wall"),
   measurementOverlay("grid", ".layout-editor-stage__grid", "grid"),
   labelOverlay("grid-labels", ".layout-editor-stage__labels"),
   referenceOverlay("floorplan-reference-overlay", ".layout-editor-stage__reference-overlay"),
@@ -87,6 +87,22 @@ function referenceOverlay(renderId: string, selector: string): RenderedObjectReg
     editable: false,
     removable: false,
     reasonLocked: "Reference overlay is locked background evidence."
+  };
+}
+
+function lockedGeometry(renderId: string, selector: string): RenderedObjectRegistryEntry {
+  return {
+    renderId,
+    selector,
+    visibleInNormalEditorMode: true,
+    normalEditorCategory: "selectable_locked_geometry",
+    layer: "locked_geometry",
+    sourceKind: "locked",
+    sourceObjectId: renderId,
+    selectable: true,
+    editable: false,
+    removable: false,
+    reasonLocked: "Locked geometry can be selected for inspection but not edited in normal mode."
   };
 }
 

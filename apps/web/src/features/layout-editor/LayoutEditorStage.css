@@ -1228,10 +1228,24 @@
   text-align: right;
 }
 
-.layout-editor-stage__workspace-boundary {
+.layout-editor-stage__wall rect {
+  cursor: pointer;
   fill: none;
-  stroke: #2f4659;
-  stroke-width: 1.5;
+  stroke: #1f2937;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.layout-editor-stage__wall--outer_wall rect {
+  stroke: #111827;
+}
+
+.layout-editor-stage__wall--solid_wall rect,
+.layout-editor-stage__wall--blocked_boundary rect {
+  fill: #323947;
+  stroke: #111827;
 }
 
 .layout-editor-stage__hallway rect {

@@ -15,7 +15,7 @@
   "hallwayRendererStatus": "passed",
   "hallwayInspectorControlsStatus": "passed",
   "outerWallGeometryContractStatus": "passed",
-  "outerWallRendererStatus": "missing",
+  "outerWallRendererStatus": "passed",
   "supportStorageAreaContractStatus": "missing",
   "supportStorageAreaRendererStatus": "missing",
   "geometryHitTestingStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "780",
+  "lastUpdatedIssue": "781",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -62,5 +62,6 @@
   "hallwaysAreFirstClassGeometry": true,
   "editableHallwaysVisibleAndSelectable": true,
   "hallwaysEditableInInspector": true,
-  "outerWallsModeledAsGeometry": true
+  "outerWallsModeledAsGeometry": true,
+  "wallsRenderDistinctlyFromRooms": true
 }

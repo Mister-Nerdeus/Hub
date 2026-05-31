@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "781",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-781/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-781/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-outer-wall-renderer.mjs --stage renderer --issue 781",
+      "outputs": [
+        "docs/verification/issues/issue-781/renderer-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-outer-wall-renderer.mjs --stage distinct-wall-styles --issue 781",
+      "outputs": [
+        "docs/verification/issues/issue-781/distinct-wall-styles-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-781/no-phi-output.txt"
+      ]
+    }
+  ]
+}
