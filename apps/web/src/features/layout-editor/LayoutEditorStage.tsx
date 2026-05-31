@@ -296,7 +296,7 @@ export function LayoutEditorStage({
   const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
-  const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
+  const [inspectorCollapsed, setInspectorCollapsed] = useState(true);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
