@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "740",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage screenshot-set --allow-partial --issue 740",
+    "3": "node scripts/check-no-phi-fields.mjs"
+  }
+}

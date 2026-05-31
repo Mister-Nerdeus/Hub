@@ -1,0 +1,3 @@
+npm --workspace apps/web run build
+node scripts/check-floorplan-hub-screenshot-proof.mjs --stage screenshot-set --allow-partial --issue 740
+node scripts/check-no-phi-fields.mjs
