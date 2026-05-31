@@ -8,7 +8,7 @@
   "referenceOverlayContractStatus": "passed",
   "referenceOverlayToggleUiStatus": "passed",
   "lockedReferenceStylingStatus": "passed",
-  "nonClickableArtifactDetectorStatus": "missing",
+  "nonClickableArtifactDetectorStatus": "passed",
   "artifactQuarantineCleanupStatus": "missing",
   "referenceOverlayScreenshotProofStatus": "missing",
   "hallwayGeometryContractStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "773",
+  "lastUpdatedIssue": "774",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -56,5 +56,6 @@
   "existingFloorplansLoadAfterGeometryContracts": true,
   "referenceOverlayLockedAndToggleable": true,
   "referenceOverlayCanBeHidden": true,
-  "referenceObjectsClearlyNonEditable": true
+  "referenceObjectsClearlyNonEditable": true,
+  "noUnclassifiedVisibleEditorArtifacts": true
 }

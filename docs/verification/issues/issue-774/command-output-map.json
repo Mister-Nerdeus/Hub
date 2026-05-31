@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "774",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-774/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-774/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-non-clickable-rendered-artifacts.mjs --stage editor-normal --issue 774",
+      "outputs": [
+        "docs/verification/issues/issue-774/editor-normal-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-non-clickable-rendered-artifacts.mjs --stage rendered-object-registry --issue 774",
+      "outputs": [
+        "docs/verification/issues/issue-774/rendered-object-registry-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-774/no-phi-output.txt"
+      ]
+    }
+  ]
+}

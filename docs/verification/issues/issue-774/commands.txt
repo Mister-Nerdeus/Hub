@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-non-clickable-rendered-artifacts.mjs --stage editor-normal --issue 774
+node scripts/check-non-clickable-rendered-artifacts.mjs --stage rendered-object-registry --issue 774
+node scripts/check-no-phi-fields.mjs

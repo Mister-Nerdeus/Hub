@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "issue": "774",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editor-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "rendered-object-registry",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "invalid": [],
+            "categoryCount": 4
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "editor-normal": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "rendered-object-registry": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "invalid": [],
+          "categoryCount": 4
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}
