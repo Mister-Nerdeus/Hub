@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "issue": "746",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "all source screenshots exist",
+      "passed": true,
+      "detail": {
+        "missingSources": []
+      }
+    },
+    {
+      "name": "source screenshots are real captures, not placeholders",
+      "passed": true,
+      "detail": {
+        "undersizedSources": []
+      }
+    },
+    {
+      "name": "final screenshot index covers required groups",
+      "passed": true,
+      "detail": {
+        "missingGroups": []
+      }
+    }
+  ],
+  "screenshotIndex": {
+    "status": "passed",
+    "groups": [
+      {
+        "group": "Shell",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/shell-floorplan-hub-normal.png"
+        ]
+      },
+      {
+        "group": "Floorplan hub",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/floorplan-hub-readiness-details-open.png"
+        ]
+      },
+      {
+        "group": "Editor normal",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/editor-full-page-normal.png"
+        ]
+      },
+      {
+        "group": "Editor bottom details",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/editor-bottom-details-open.png"
+        ]
+      },
+      {
+        "group": "Advanced/Evidence",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/floorplan-hub-advanced-open.png",
+          "docs/verification/issues/issue-746/screenshots/editor-advanced-tools-open.png"
+        ]
+      },
+      {
+        "group": "Narrow desktop",
+        "screenshots": [
+          "docs/verification/issues/issue-746/screenshots/floorplan-hub-narrow-desktop.png",
+          "docs/verification/issues/issue-746/screenshots/editor-narrow-desktop.png"
+        ]
+      }
+    ]
+  }
+}
