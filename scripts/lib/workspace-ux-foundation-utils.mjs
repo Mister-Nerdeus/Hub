@@ -44,6 +44,7 @@ export const workspaceUxRootScripts = {
   "check:editor-details-normal-sections": "node scripts/check-editor-details-normal-sections.mjs --stage final --issue 732",
   "check:technical-inspector-fields-advanced": "node scripts/check-technical-inspector-fields-advanced.mjs --stage final --issue 733",
   "check:editor-compact-validation-row": "node scripts/check-editor-compact-validation-row.mjs --stage final --issue 738",
+  "check:editor-screenshot-proof": "node scripts/check-editor-screenshot-proof.mjs --stage final --issue 739",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
