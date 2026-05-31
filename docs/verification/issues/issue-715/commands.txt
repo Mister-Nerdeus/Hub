@@ -1,0 +1,5 @@
+npm --workspace apps/web run build
+node scripts/check-active-floorplan-card-layout.mjs --stage normal-width --allow-partial --issue 715
+node scripts/check-active-floorplan-card-layout.mjs --stage narrow-width --allow-partial --issue 715
+node scripts/check-active-floorplan-card-layout.mjs --stage no-title-collision --allow-partial --issue 715
+node scripts/check-no-phi-fields.mjs
