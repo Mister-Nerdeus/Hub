@@ -1,0 +1,5 @@
+npm --workspace apps/web run build
+node scripts/check-product-shell-rail-accessibility.mjs --stage accessible-labels --allow-partial --issue 707
+node scripts/check-product-shell-rail-accessibility.mjs --stage keyboard-focus --allow-partial --issue 707
+node scripts/check-product-shell-rail-accessibility.mjs --stage active-state --allow-partial --issue 707
+node scripts/check-no-phi-fields.mjs

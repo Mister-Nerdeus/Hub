@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "issue": "707",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-product-shell-rail-accessibility.mjs --stage accessible-labels --allow-partial --issue 707",
+    "3": "node scripts/check-product-shell-rail-accessibility.mjs --stage keyboard-focus --allow-partial --issue 707",
+    "4": "node scripts/check-product-shell-rail-accessibility.mjs --stage active-state --allow-partial --issue 707",
+    "5": "node scripts/check-no-phi-fields.mjs"
+  }
+}

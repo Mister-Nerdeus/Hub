@@ -44,6 +44,7 @@ export function ProductSidebarRail({
             type="button"
             className={`app-nav__button product-sidebar__button product-sidebar-rail__button ${section.id === activeSection ? "app-nav__button--active product-sidebar__button--active" : ""}`}
             aria-label={section.label}
+            aria-current={section.id === activeSection ? "page" : undefined}
             aria-pressed={section.id === activeSection}
             title={section.label}
             onClick={() => onSectionChange(section.id)}
@@ -65,6 +66,7 @@ export function ProductSidebarRail({
               type="button"
               className={`app-nav__button product-sidebar__button product-sidebar__button--advanced product-sidebar-rail__button ${section.id === activeSection ? "app-nav__button--active product-sidebar__button--active" : ""}`}
               aria-label={section.label}
+              aria-current={section.id === activeSection ? "page" : undefined}
               aria-pressed={section.id === activeSection}
               title={section.label}
               onClick={() => onSectionChange(section.id)}
