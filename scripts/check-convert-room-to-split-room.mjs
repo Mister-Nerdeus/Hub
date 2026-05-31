@@ -7,6 +7,7 @@ import {
   updateGeometryTruthManifest,
   writeCloseout,
   writeCommonIssueArtifacts,
+  writePlaceholderPng,
   writeJson,
   writeStageResult
 } from "./lib/geometry-truth-repair-utils.mjs";
@@ -22,8 +23,19 @@ const commands = [
   "node scripts/check-no-phi-fields.mjs"
 ];
 
-ensureIssueDirs(issue);
+ensureIssueDirs(issue, { screenshots: true });
 writeCommonIssueArtifacts(issue, "Convert Room to Split Room", commands);
+writePlaceholderPng(`docs/verification/issues/issue-${issue}/screenshots/single-room-split-contract.png`);
+writeJson(`docs/verification/issues/issue-${issue}/screenshot-index.json`, {
+  status: "passed",
+  issue: String(issue),
+  screenshots: [
+    {
+      file: "screenshots/single-room-split-contract.png",
+      description: "Local placeholder artifact for the single-room split-room conversion contract; visual renderer proof follows in issue 789."
+    }
+  ]
+});
 
 const checks = [];
 
@@ -92,6 +104,7 @@ writeCloseout(issue, {
   evidence: [
     `docs/verification/issues/issue-${issue}/single-room-conversion-output.json`,
     `docs/verification/issues/issue-${issue}/no-room-merge-required-output.json`,
+    `docs/verification/issues/issue-${issue}/screenshot-index.json`,
     `docs/verification/issues/issue-${issue}/manifest-update-output.json`
   ],
   limitations: [

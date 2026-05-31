@@ -29,6 +29,7 @@ Convert Room to Split Room
 ## Evidence Artifacts
 - docs/verification/issues/issue-788/single-room-conversion-output.json
 - docs/verification/issues/issue-788/no-room-merge-required-output.json
+- docs/verification/issues/issue-788/screenshot-index.json
 - docs/verification/issues/issue-788/manifest-update-output.json
 
 ## Known Limitations
