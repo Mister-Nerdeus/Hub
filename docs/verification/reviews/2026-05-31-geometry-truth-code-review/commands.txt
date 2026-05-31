@@ -1,0 +1,14 @@
+git status --short
+git log --oneline -20
+rg --files | rg -i "(^|/)(dockerfile|docker|compose|\\.dockerignore)|docker"
+rg "workspace-ux-foundation-704-748" -n
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:production-docker-runtime
+docker compose config
+docker compose -f docker-compose.production.yml config
+node scripts/check-no-phi-fields.mjs
+git diff --check
+node --input-type=module <legacy split migration review script>
+node scripts/check-production-docker-runtime.mjs --smoke

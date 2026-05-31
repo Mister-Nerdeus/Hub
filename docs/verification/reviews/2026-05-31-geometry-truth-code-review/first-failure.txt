@@ -1,0 +1,1 @@
+Finding: legacy split-room migration reported safe migration while returning only a SplitRoomContract. It did not return parent room geometry, so downstream split-room validation could fail SPLIT_PARENT_ROOM_MISSING even after a successful migration.

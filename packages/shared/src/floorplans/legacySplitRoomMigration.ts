@@ -8,6 +8,7 @@ import {
 export type LegacySplitRoomMigrationResult =
   | {
       status: "migrated";
+      parentRoom: EditableRoomGeometry;
       splitRoom: SplitRoomContract;
       reviewRequired: false;
     }
@@ -33,19 +34,21 @@ export function migrateLegacySplitBayToParentBed(input: {
   }
 
   const dividerOrientation = input.splitBay.dividerStyle === "horizontal" ? "horizontal" : "vertical";
+  const parentRoom = createLegacySplitParentRoom(input.splitBay, firstRoom, secondRoom);
   return {
     status: "migrated",
     reviewRequired: false,
+    parentRoom,
     splitRoom: createSplitRoomContract({
       splitRoomId: input.splitBay.splitBayId,
-      parentRoomId: input.splitBay.splitBayId,
+      parentRoomId: parentRoom.id,
       splitMode: "two_bed",
       dividerOrientation,
       dividerRatio: 0.5,
       bedPositions: [
         {
-          bedPositionId: stableSplitRoomBedPositionId({ parentRoomId: input.splitBay.splitBayId, bedSuffix: "a" }),
-          parentRoomId: input.splitBay.splitBayId,
+          bedPositionId: stableSplitRoomBedPositionId({ parentRoomId: parentRoom.id, bedSuffix: "a" }),
+          parentRoomId: parentRoom.id,
           label: `${firstRoom.roomNumber}A`,
           assignmentTarget: true,
           relativeBounds: dividerOrientation === "horizontal"
@@ -53,8 +56,8 @@ export function migrateLegacySplitBayToParentBed(input: {
             : { xRatio: 0, yRatio: 0, widthRatio: 0.5, heightRatio: 1 }
         },
         {
-          bedPositionId: stableSplitRoomBedPositionId({ parentRoomId: input.splitBay.splitBayId, bedSuffix: "b" }),
-          parentRoomId: input.splitBay.splitBayId,
+          bedPositionId: stableSplitRoomBedPositionId({ parentRoomId: parentRoom.id, bedSuffix: "b" }),
+          parentRoomId: parentRoom.id,
           label: `${secondRoom.roomNumber}B`,
           assignmentTarget: true,
           relativeBounds: dividerOrientation === "horizontal"
@@ -64,6 +67,45 @@ export function migrateLegacySplitBayToParentBed(input: {
       ]
     })
   };
+}
+
+function createLegacySplitParentRoom(
+  splitBay: EditableSplitBayGeometry,
+  firstRoom: EditableRoomGeometry,
+  secondRoom: EditableRoomGeometry
+): EditableRoomGeometry {
+  return {
+    objectType: "room",
+    id: splitBay.splitBayId,
+    label: splitBay.label,
+    roomNumber: splitBay.label,
+    roomType: legacySplitParentRoomType(firstRoom, secondRoom),
+    capacityType: "double",
+    isHallBed: false,
+    isTraumaAdjacent: firstRoom.isTraumaAdjacent || secondRoom.isTraumaAdjacent,
+    xFeet: splitBay.xFeet,
+    yFeet: splitBay.yFeet,
+    widthFeet: splitBay.widthFeet,
+    heightFeet: splitBay.heightFeet
+  };
+}
+
+function legacySplitParentRoomType(
+  firstRoom: EditableRoomGeometry,
+  secondRoom: EditableRoomGeometry
+): EditableRoomGeometry["roomType"] {
+  const parentCompatibleTypes = new Set<EditableRoomGeometry["roomType"]>([
+    "standard",
+    "trauma",
+    "isolation",
+    "behavioral",
+    "procedure",
+    "overflow"
+  ]);
+  if (firstRoom.roomType === secondRoom.roomType && parentCompatibleTypes.has(firstRoom.roomType)) {
+    return firstRoom.roomType;
+  }
+  return "standard";
 }
 
 function needsReview(

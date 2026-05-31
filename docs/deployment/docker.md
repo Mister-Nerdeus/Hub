@@ -72,3 +72,7 @@ Split-room closeout hardening remains within the existing local and production-s
 ## Batch 694-703 Active Floorplan Workflow Note
 
 The active floorplan workflow remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so the active floorplan contract, selector, version history, readiness checklist, banner, confirmation guard, persistence helper, and local validators ship without adding services or dependencies. The API and web images carry the `active-floorplan-workflow-694-703` revision label for local Docker proof traceability only.
+
+## Batch 765-811 Geometry Truth Repair Note
+
+Geometry truth repair remains within the existing local and production-shaped Docker build paths. The web images copy `apps/web` and `packages/shared`, so geometry layer contracts, rendered object identity, reference overlay separation, hallway/wall/support geometry, split-room parent and bed position behavior, and assignment target derivation ship without adding services or dependencies. The API and web images carry the `geometry-truth-repair-765-811` revision label for local Docker proof traceability only.

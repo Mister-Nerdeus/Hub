@@ -32,12 +32,15 @@ if (stage === "safe-migration" || stage === "final") {
   const shared = fileIncludes("packages/shared/src/floorplans/legacySplitRoomMigration.ts", [
     "migrateLegacySplitBayToParentBed",
     'status: "migrated"',
+    "createLegacySplitParentRoom",
+    "parentRoom",
     "createSplitRoomContract",
     "stableSplitRoomBedPositionId",
     "assignmentTarget: true"
   ]);
   const app = fileIncludes("apps/web/src/features/layout-editor/splitRoomMigration.ts", [
     "migrateEditableLayoutLegacySplitRooms",
+    "migratedParentRooms",
     "splitRoomMigrations",
     "migrateLegacySplitBayToParentBed"
   ]);

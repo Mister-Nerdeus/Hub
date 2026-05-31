@@ -6,13 +6,18 @@ import {
 export function migrateEditableLayoutLegacySplitRooms(
   layout: EditableLayoutGeometryContract
 ) {
+  const splitRoomMigrations = (layout.splitBays ?? []).map((splitBay) =>
+    migrateLegacySplitBayToParentBed({
+      splitBay,
+      rooms: layout.rooms
+    })
+  );
+
   return {
     layout,
-    splitRoomMigrations: (layout.splitBays ?? []).map((splitBay) =>
-      migrateLegacySplitBayToParentBed({
-        splitBay,
-        rooms: layout.rooms
-      })
-    )
+    migratedParentRooms: splitRoomMigrations.flatMap((migration) =>
+      migration.status === "migrated" ? [migration.parentRoom] : []
+    ),
+    splitRoomMigrations
   };
 }

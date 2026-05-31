@@ -1,0 +1,65 @@
+{
+  "status": "passed",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:production-docker-runtime",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/production-docker-runtime.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/git-diff-check.txt"
+      ]
+    },
+    {
+      "command": "node --input-type=module <legacy split migration review script>",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/legacy-split-migration-review.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-production-docker-runtime.mjs --smoke",
+      "outputs": [
+        "docs/verification/reviews/2026-05-31-geometry-truth-code-review/test-output/production-docker-smoke.txt"
+      ]
+    }
+  ]
+}
