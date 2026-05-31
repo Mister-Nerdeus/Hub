@@ -142,7 +142,7 @@ import { buildHallwayArrowEditorViewModel } from "./hallwayArrowEditorViewModel"
 import { SupportMarkerEditor } from "./SupportMarkerEditor";
 import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from "./supportMarkerEditorViewModel";
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
-import { ZoneShape } from "./ZoneShape";
+import { SupportAreaShape } from "./SupportAreaShape";
 import { EditorCommandBar } from "./EditorCommandBar";
 import { EditorDetailsPanel } from "./EditorDetailsPanel";
 import { EditorNormalToolbar } from "./EditorNormalToolbar";
@@ -1689,7 +1689,7 @@ export function LayoutEditorStage({
                 />
               ))}
               {zoneItems.map((item) => (
-                <ZoneShape
+                <SupportAreaShape
                   key={item.hitTargetKey}
                   viewModel={buildZoneShapeViewModel(item)}
                   isSelected={isLayoutObjectSelected({

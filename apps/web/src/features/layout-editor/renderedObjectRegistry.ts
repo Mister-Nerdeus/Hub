@@ -26,7 +26,7 @@ export const RENDERED_OBJECT_REGISTRY: readonly RenderedObjectRegistryEntry[] = 
   labelOverlay("grid-labels", ".layout-editor-stage__labels"),
   referenceOverlay("floorplan-reference-overlay", ".layout-editor-stage__reference-overlay"),
   editableGeometry("hallway", ".layout-editor-stage__hallway"),
-  editableGeometry("support-area", ".layout-editor-stage__zone"),
+  editableGeometry("support-area", ".layout-editor-stage__support-area"),
   editableGeometry("split-room-parent", ".layout-editor-stage__split-bay"),
   editableGeometry("room", ".layout-editor-stage__room"),
   editableGeometry("door", ".layout-editor-stage__door"),

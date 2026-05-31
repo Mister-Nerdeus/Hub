@@ -1261,25 +1261,30 @@
   vector-effect: non-scaling-stroke;
 }
 
-.layout-editor-stage__zone rect {
+.layout-editor-stage__support-area rect {
   cursor: pointer;
-  fill: #dcebd6;
-  opacity: 0.72;
-  stroke: #6c8d63;
-  stroke-dasharray: 5 4;
-  stroke-width: 1;
+  fill: #f1f5d8;
+  opacity: 0.88;
+  stroke: #64722f;
+  stroke-dasharray: 7 3;
+  stroke-width: 1.4;
 }
 
-.layout-editor-stage__zone--ems_entry rect {
-  fill: #dcebd6;
+.layout-editor-stage__support-area--ems_entry rect {
+  fill: #e7f3d6;
 }
 
-.layout-editor-stage__zone--operational rect {
+.layout-editor-stage__support-area--operational rect {
   fill: #e7edf3;
 }
 
+.layout-editor-stage__support-area--provider_pharmacy rect {
+  fill: #f7ecd2;
+  stroke: #87631f;
+}
+
 .layout-editor-stage__hallway text,
-.layout-editor-stage__zone text {
+.layout-editor-stage__support-area text {
   fill: #243447;
   font-size: 9px;
   font-weight: 900;
@@ -1419,7 +1424,7 @@
 }
 
 .layout-editor-stage__hallway--selected rect,
-.layout-editor-stage__zone--selected rect,
+.layout-editor-stage__support-area--selected rect,
 .layout-editor-stage__room--selected rect,
 .layout-editor-stage__door--selected rect,
 .layout-editor-stage__station--selected rect {

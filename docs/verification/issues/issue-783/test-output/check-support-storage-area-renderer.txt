@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "issue": "783",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "renderer",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "non-assignable-visuals",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "renderer": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "non-assignable-visuals": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

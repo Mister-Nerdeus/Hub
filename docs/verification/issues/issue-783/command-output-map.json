@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "783",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-783/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-783/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-storage-area-renderer.mjs --stage renderer --issue 783",
+      "outputs": [
+        "docs/verification/issues/issue-783/renderer-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-storage-area-renderer.mjs --stage non-assignable-visuals --issue 783",
+      "outputs": [
+        "docs/verification/issues/issue-783/non-assignable-visuals-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-783/no-phi-output.txt"
+      ]
+    }
+  ]
+}
