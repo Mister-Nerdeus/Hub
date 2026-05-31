@@ -1493,7 +1493,11 @@ export function LayoutEditorStage({
                 onAddObject={() => setAddObjectMenuOpen((value) => !value)}
                 onToggleInspector={() => setInspectorCollapsed((value) => !value)}
               />
-              <div className="layout-editor-stage__legacy-toolbar" data-editor-detailed-tools-advanced="pending">
+              <div
+                className="layout-editor-stage__legacy-toolbar"
+                aria-label="Advanced editor controls"
+                data-editor-detailed-tools-advanced="true"
+              >
                 <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
                 {editorMode === "edit" ? (
                   <>

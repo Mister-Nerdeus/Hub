@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "727",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-editor-detailed-tools-advanced.mjs --stage detailed-toolbar-advanced --allow-partial --issue 727",
+    "3": "node scripts/check-editor-detailed-tools-advanced.mjs --stage normal-mode-hidden --allow-partial --issue 727",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}
