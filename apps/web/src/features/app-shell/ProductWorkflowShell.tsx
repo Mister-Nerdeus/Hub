@@ -5,8 +5,6 @@ import { createProductWorkflowStepperViewModel } from "./productWorkflowStepView
 import { ProductSidebar } from "./ProductSidebar";
 import { ProductWorkflowStepper } from "./ProductWorkflowStepper";
 import { DemoRelockButton } from "../demo-pin/DemoRelockButton";
-import { RuntimeBuildInfoPanel } from "../runtime/RuntimeBuildInfoPanel";
-import { RuntimeMismatchBanner } from "../runtime/RuntimeMismatchBanner";
 
 type ProductWorkflowShellProps = {
   activeSection: AppSectionId;
@@ -49,11 +47,6 @@ export function ProductWorkflowShell({
                 <DemoRelockButton onRelock={onRelockDemo} />
               </div>
             )}
-            <details className="workspace-header__advanced-evidence" data-runtime-build-info-advanced-only="true">
-              <summary>Runtime evidence</summary>
-              <RuntimeMismatchBanner />
-              <RuntimeBuildInfoPanel />
-            </details>
           </div>
         </section>
 

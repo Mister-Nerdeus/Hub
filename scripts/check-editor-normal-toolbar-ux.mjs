@@ -144,6 +144,10 @@ function runStage(name) {
       "data-advanced-tools-contain-technical-details=\"true\"",
       "<summary>Advanced</summary>"
     ]);
+    const recoveryAdvanced = fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
+      "data-draft-recovery-advanced-only=\"true\"",
+      "<LayoutDraftRecoveryBanner"
+    ]);
     const saveRegression = fileIncludes("apps/web/src/features/layout-editor/EditorNormalToolbar.tsx", [
       "data-editor-control=\"save-working-copy\"",
       "onSaveWorkingCopy"
@@ -157,9 +161,10 @@ function runStage(name) {
       "onAddSplitRoom={convertSelectedRoomToSplitBay}"
     ]);
     const result = {
-      passed: advanced.passed && panel.passed && saveRegression.passed && doorRegression.passed && splitRegression.passed,
+      passed: advanced.passed && panel.passed && recoveryAdvanced.passed && saveRegression.passed && doorRegression.passed && splitRegression.passed,
       advanced,
       panel,
+      recoveryAdvanced,
       saveRegression,
       doorRegression,
       splitRegression

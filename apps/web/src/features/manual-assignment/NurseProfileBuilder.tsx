@@ -24,6 +24,9 @@ export function NurseProfileBuilder({
     const profile = assignmentSet.nurseProfiles.find((candidate) => candidate.nurseProfileId === nurseProfileId);
     if (profile == null) return;
     const next = { ...profile, ...patch };
+    if (next.displayLabel.trim().length === 0) return;
+    if (!Number.isFinite(next.targetPatientCount) || next.targetPatientCount < 0) return;
+    if (!Number.isFinite(next.maxPatientCount) || next.maxPatientCount < 0) return;
     if (next.maxPatientCount < next.targetPatientCount) {
       next.maxPatientCount = next.targetPatientCount;
     }

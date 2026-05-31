@@ -105,7 +105,8 @@ function runStage(name) {
   }
   if (name === "no-synthetic-fallback") {
     const result = fileIncludes("apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx", [
-      "activeFloorplan?.editableLayout ?? activeEditableLayout",
+      "data-normal-manual-assignment-no-synthetic-fallback=\"true\"",
+      "source.sourceKind === \"assignment-set-required\"",
       "data-active-floorplan-version-id"
     ]);
     writeJson(`${dir}/no-synthetic-fallback-output.json`, result);

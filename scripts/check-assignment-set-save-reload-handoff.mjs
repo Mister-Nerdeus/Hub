@@ -118,6 +118,7 @@ function runStage(name) {
       "selectedAssignmentSet?: AssignmentSetContract | null",
       "data-scenario-assignment-handoff=\"selected-assignment-set\"",
       "data-selected-assignment-set-id={selectedAssignmentSet.assignmentSetId}",
+      "data-assignment-warning-count={assignmentReview.warningCount}",
       "Scenario setup remains foundation-only until scoring assumptions are ready."
     ]);
     const result = { passed: app.passed && scenario.passed, app, scenario };

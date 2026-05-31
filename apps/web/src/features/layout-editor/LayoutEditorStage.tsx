@@ -1447,12 +1447,20 @@ export function LayoutEditorStage({
         saveStatus={saveStatus}
       />
 
-      <LayoutDraftRecoveryBanner
-        state={draftRecoveryState}
-        onRestore={restoreRecoveryDraft}
-        onDiscard={discardRecoveryDraft}
-        onExportJson={exportRecoveryDraftJson}
-      />
+      {draftRecoveryState.status === "none" ? null : (
+        <details
+          className="layout-draft-recovery-advanced"
+          data-draft-recovery-advanced-only="true"
+        >
+          <summary>Advanced</summary>
+          <LayoutDraftRecoveryBanner
+            state={draftRecoveryState}
+            onRestore={restoreRecoveryDraft}
+            onDiscard={discardRecoveryDraft}
+            onExportJson={exportRecoveryDraftJson}
+          />
+        </details>
+      )}
 
       {addObjectMenuOpen ? (
         <AddObjectMenu

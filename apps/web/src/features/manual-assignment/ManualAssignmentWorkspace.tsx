@@ -109,6 +109,10 @@ export function ManualAssignmentWorkspace({
     [activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId]
   );
 
+  if (source.sourceKind === "assignment-set-required") {
+    return <ManualAssignmentSetRequired source={source} />;
+  }
+
   return (
     <ManualAssignmentWorkspaceContent
       key={source.stateKey}
@@ -127,7 +131,7 @@ type ManualAssignmentSource = {
   activeLayoutId: string | null;
   activeFloorplanVersionId: string | null;
   assignmentSet: AssignmentSetContract | null;
-  sourceKind: "assignment-set" | "active-layout" | "synthetic-fixture";
+  sourceKind: "assignment-set" | "assignment-set-required" | "active-layout" | "synthetic-fixture";
 };
 
 type ManualAssignmentWorkspaceContentProps = {
@@ -135,6 +139,29 @@ type ManualAssignmentWorkspaceContentProps = {
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
   onAssignmentSetChange?: (assignmentSet: AssignmentSetContract) => void;
 };
+
+function ManualAssignmentSetRequired({ source }: { source: ManualAssignmentSource }) {
+  return (
+    <section
+      className="manual-assignment-workspace"
+      aria-labelledby="manual-assignment-workspace-title"
+      data-manual-assignment-source={source.sourceKind}
+      data-normal-manual-assignment-no-synthetic-fallback="true"
+      data-active-layout-id={source.activeLayoutId ?? ""}
+      data-active-floorplan-version-id={source.activeFloorplanVersionId ?? ""}
+    >
+      <div className="manual-assignment-workspace__header">
+        <div>
+          <p className="eyebrow">Durable assignment set</p>
+          <h2 id="manual-assignment-workspace-title">Manual Assignment</h2>
+        </div>
+      </div>
+      <p className="manual-assignment-workspace__note">
+        Loading the durable assignment set for this active floorplan version.
+      </p>
+    </section>
+  );
+}
 
 function ManualAssignmentWorkspaceContent({
   source,
@@ -339,6 +366,23 @@ function buildManualAssignmentSource(
   assignmentsByRoomId: Readonly<ManualAssignmentMap>
 ): ManualAssignmentSource {
   const activeLayout = activeFloorplan?.editableLayout ?? activeEditableLayout;
+  if (activeFloorplan != null && assignmentSet == null) {
+    const splitBayIds = listSplitRoomParentIds(activeFloorplan.editableLayout);
+    return {
+      stateKey: [
+        "assignment-set-required",
+        activeFloorplan.activeFloorplanVersionId,
+        splitBayIds.join("|")
+      ].join(":"),
+      initialState: createManualAssignmentInitialState([], []),
+      displayLabelsByNurseId: {},
+      parentSplitBayIds: splitBayIds,
+      activeLayoutId: activeFloorplan.editableLayout.layoutId,
+      activeFloorplanVersionId: activeFloorplan.activeFloorplanVersionId,
+      assignmentSet: null,
+      sourceKind: "assignment-set-required"
+    };
+  }
   if (activeLayout != null && assignmentSet != null) {
     const roomTypesByRoomId = Object.fromEntries(
       activeLayout.rooms.map((room) => [room.id, room.roomType])
@@ -351,7 +395,7 @@ function buildManualAssignmentSource(
         "assignment-set",
         assignmentSet.assignmentSetId,
         assignmentSet.floorplanVersionId,
-        assignmentSet.nurseProfiles.map((nurse) => `${nurse.nurseProfileId}:${nurse.displayLabel}:${nurse.active}`).join("|"),
+        assignmentSet.nurseProfiles.map(nurseProfileStateKey).join("|"),
         splitBayIds.join("|"),
         roomLoads.map((roomLoad) => roomLoad.roomId).join("|")
       ].join(":"),
@@ -417,6 +461,21 @@ function buildManualAssignmentSource(
     assignmentSet: null,
     sourceKind: "active-layout"
   };
+}
+
+function nurseProfileStateKey(profile: NurseProfileContract): string {
+  return [
+    profile.nurseProfileId,
+    profile.displayLabel,
+    profile.color,
+    profile.role,
+    profile.targetPatientCount,
+    profile.maxPatientCount,
+    profile.traumaQualified,
+    profile.psychQualified,
+    profile.chargeQualified,
+    profile.active
+  ].join(":");
 }
 
 function nurseProfileToManualAssignmentNurse(profile: NurseProfileContract): ManualAssignmentNurse {

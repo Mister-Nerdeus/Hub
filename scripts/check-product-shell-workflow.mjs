@@ -118,13 +118,14 @@ function runStage(name) {
     return result;
   }
   if (name === "advanced-evidence") {
-    const advanced = fileIncludes("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", [
-      "workspace-header__advanced-evidence",
+    const advanced = fileIncludes("apps/web/src/features/app-shell/DeveloperEvidencePage.tsx", [
+      "Runtime evidence",
       "data-runtime-build-info-advanced-only=\"true\"",
       "RuntimeBuildInfoPanel",
       "RuntimeMismatchBanner"
     ]);
-    const runtimeHidden = fileExcludes("apps/web/src/features/app-shell/AppShell.tsx", [
+    const runtimeHidden = fileExcludes("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", [
+      "Runtime evidence",
       "RuntimeBuildInfoPanel",
       "RuntimeMismatchBanner",
       "Operational workspace",

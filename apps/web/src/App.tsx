@@ -548,11 +548,11 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
               onEditFloorplan={() => setActiveSection("editor")}
               onUseForAssignment={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForAssignment(state));
-                setActiveSection("manual-assignment");
+                setActiveSection("assignments");
               }}
               onPrepareForSimulation={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForSimulation(state));
-                setActiveSection("simulation");
+                setActiveSection("assignments");
               }}
               onChangeFloorplan={selectFloorplanVersion}
               onOpenAdvanced={() => document.getElementById("floorplan-advanced-panel")?.scrollIntoView()}
