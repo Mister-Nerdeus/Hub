@@ -38,6 +38,8 @@ import {
   buildSupportAccessQuickEdit
 } from "./SupportAccessQuickEditPopover";
 import { SplitBayShape } from "./SplitBayShape";
+import { BED_POSITION_RENDERER_CONTRACT } from "./BedPositionShape";
+import { SPLIT_ROOM_RENDERER_CONTRACT } from "./SplitRoomShape";
 import { buildSplitBayShapeViewModel } from "./splitBayShapeViewModel";
 import { SplitBayQuickEditPopover } from "./SplitBayQuickEditPopover";
 import { buildSplitBayQuickEdit } from "./splitBayQuickEditViewModel";
@@ -1641,6 +1643,8 @@ export function LayoutEditorStage({
             data-render-item-count={renderItems.length}
             data-room-render-count={roomItems.length}
             data-split-bay-render-count={splitBayItems.length}
+            data-split-room-renderer-contract={SPLIT_ROOM_RENDERER_CONTRACT}
+            data-bed-position-renderer-contract={BED_POSITION_RENDERER_CONTRACT}
             data-support-access-render-count={supportAccessItems.length}
             data-station-render-count={stationItems.length}
             data-provider-pharmacy-zone-render-count={providerPharmacyZoneItems.length}

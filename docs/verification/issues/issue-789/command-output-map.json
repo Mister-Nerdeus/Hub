@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "789",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-renderer.mjs --stage parent-outline --issue 789",
+      "outputs": [
+        "docs/verification/issues/issue-789/parent-outline-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-renderer.mjs --stage bed-positions-visible --issue 789",
+      "outputs": [
+        "docs/verification/issues/issue-789/bed-positions-visible-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-789/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-789/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-789/no-phi-output.txt"
+      ]
+    }
+  ]
+}
