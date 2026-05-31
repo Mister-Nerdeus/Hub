@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "issue": "794",
+  "stage": "label-generation",
+  "examples": {
+    "5": [
+      "5A",
+      "5B"
+    ],
+    "12": [
+      "12A",
+      "12B"
+    ]
+  },
+  "checks": [
+    {
+      "name": "label generator creates stable A/B labels such as 12A and 12B",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "split room conversion uses shared label generator",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

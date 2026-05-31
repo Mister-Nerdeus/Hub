@@ -36,6 +36,7 @@ export function BedPositionShape({
       data-removable="false"
       data-selection-scope="split-room-bed-position"
       data-parent-room-id={bedPosition.parentRoomId}
+      data-bed-position-label={bedPosition.label}
       data-assignment-target={bedPosition.assignmentTarget ? "true" : "false"}
       role="img"
       aria-label={`Bed position ${bedPosition.label}`}

@@ -1,0 +1,5 @@
+node scripts/check-split-room-bed-labels.mjs --stage label-generation --issue 794
+node scripts/check-split-room-bed-labels.mjs --stage labels-visible --issue 794
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

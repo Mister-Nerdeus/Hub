@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "794",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-bed-labels.mjs --stage label-generation --issue 794",
+      "outputs": [
+        "docs/verification/issues/issue-794/label-generation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-bed-labels.mjs --stage labels-visible --issue 794",
+      "outputs": [
+        "docs/verification/issues/issue-794/labels-visible-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-794/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-794/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-794/no-phi-output.txt"
+      ]
+    }
+  ]
+}

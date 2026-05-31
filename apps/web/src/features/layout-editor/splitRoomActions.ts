@@ -4,6 +4,8 @@ import type {
   SplitRoomContract
 } from "@nerdeus/shared";
 
+import { splitRoomBedLabels } from "./splitRoomLabeling";
+
 export type SplitRoomDividerOrientation = SplitRoomContract["dividerOrientation"];
 
 export type ConvertRoomToSplitRoomInput = {
@@ -162,15 +164,16 @@ function createTwoBedPositions(input: {
   dividerRatio: number;
 }): BedPositionContract[] {
   const labelRoot = input.parentRoom.roomNumber || input.parentRoom.label;
+  const [bedALabel, bedBLabel] = splitRoomBedLabels(labelRoot);
   if (input.dividerOrientation === "horizontal") {
     return [
-      createBedPosition(input.parentRoom, "a", `${labelRoot}A`, {
+      createBedPosition(input.parentRoom, "a", bedALabel, {
         xRatio: 0,
         yRatio: 0,
         widthRatio: 1,
         heightRatio: input.dividerRatio
       }),
-      createBedPosition(input.parentRoom, "b", `${labelRoot}B`, {
+      createBedPosition(input.parentRoom, "b", bedBLabel, {
         xRatio: 0,
         yRatio: input.dividerRatio,
         widthRatio: 1,
@@ -179,13 +182,13 @@ function createTwoBedPositions(input: {
     ];
   }
   return [
-    createBedPosition(input.parentRoom, "a", `${labelRoot}A`, {
+    createBedPosition(input.parentRoom, "a", bedALabel, {
       xRatio: 0,
       yRatio: 0,
       widthRatio: input.dividerRatio,
       heightRatio: 1
     }),
-    createBedPosition(input.parentRoom, "b", `${labelRoot}B`, {
+    createBedPosition(input.parentRoom, "b", bedBLabel, {
       xRatio: input.dividerRatio,
       yRatio: 0,
       widthRatio: 1 - input.dividerRatio,

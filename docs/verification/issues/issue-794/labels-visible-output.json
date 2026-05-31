@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "794",
+  "stage": "labels-visible",
+  "examples": {
+    "5": [
+      "5A",
+      "5B"
+    ],
+    "12": [
+      "12A",
+      "12B"
+    ]
+  },
+  "checks": [
+    {
+      "name": "bed position renderer exposes and displays stable labels",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}
