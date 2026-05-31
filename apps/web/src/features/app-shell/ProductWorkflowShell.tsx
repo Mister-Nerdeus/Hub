@@ -31,6 +31,7 @@ export function ProductWorkflowShell({
       data-product-shell-workflow="floorplan-assignments-scenario-simulation-report"
       data-full-page-workspace-shell="true"
       data-outer-margin-max-px="5"
+      data-responsive-shell-layout="compact-rail-narrow-desktop"
     >
       <ProductSidebarRail
         activeSection={activeSection}

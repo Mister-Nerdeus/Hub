@@ -22,6 +22,7 @@ export const workspaceUxRootScripts = {
   "check:runtime-proof-advanced-only": "node scripts/check-runtime-proof-advanced-only.mjs --stage final --issue 710",
   "check:future-tools-hidden-normal-mode": "node scripts/check-future-tools-hidden-normal-mode.mjs --stage final --issue 711",
   "check:advanced-evidence-entry": "node scripts/check-advanced-evidence-entry.mjs --stage final --issue 712",
+  "check:product-shell-responsive-layout": "node scripts/check-product-shell-responsive-layout.mjs --stage final --issue 713",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
 

@@ -315,16 +315,18 @@
 @media (max-width: 860px) {
   .app-shell,
   .product-workflow-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: 64px minmax(0, 1fr);
   }
 
   .product-sidebar {
-    grid-template-rows: auto;
-    padding: 12px;
-    width: auto;
+    padding: 8px 5px;
+    width: 64px;
   }
 
-  .product-sidebar__nav,
+  .product-sidebar__nav {
+    grid-template-columns: 1fr;
+  }
+
   .product-workflow-stepper {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
