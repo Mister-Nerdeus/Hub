@@ -3,6 +3,7 @@ import type { EditableSplitBayDividerStyle } from "@nerdeus/shared";
 import type { SplitBayQuickEditViewModel } from "./splitBayQuickEditViewModel";
 import { SplitRoomHelpPanel } from "./SplitRoomHelpPanel";
 import { splitRoomDisplayName } from "./splitRoomTerminology";
+import type { SplitRoomDividerOrientation } from "./splitRoomActions";
 
 const DIVIDER_STYLES: readonly EditableSplitBayDividerStyle[] = [
   "diagonal_down",
@@ -15,11 +16,21 @@ export function SplitRoomInspectorPanel({
   viewModel,
   onSelectChildRoom,
   onDividerStyleChange,
+  onDividerOrientationChange,
+  onDividerRatioChange,
+  onDividerRatioReset,
+  dividerOrientation,
+  dividerRatio,
   onUnsplit
 }: {
   viewModel: SplitBayQuickEditViewModel;
   onSelectChildRoom: (roomId: string) => void;
   onDividerStyleChange: (dividerStyle: EditableSplitBayDividerStyle) => void;
+  onDividerOrientationChange?: (dividerOrientation: SplitRoomDividerOrientation) => void;
+  onDividerRatioChange?: (dividerRatio: number) => void;
+  onDividerRatioReset?: () => void;
+  dividerOrientation?: SplitRoomDividerOrientation;
+  dividerRatio?: number;
   onUnsplit: () => void;
 }) {
   const [unsplitConfirmationOpen, setUnsplitConfirmationOpen] = useState(false);
@@ -32,6 +43,8 @@ export function SplitRoomInspectorPanel({
     return <p>No split room selected.</p>;
   }
   const [childA, childB] = viewModel.childRooms;
+  const selectedDividerOrientation = dividerOrientation ?? dividerOrientationFromStyle(viewModel.dividerStyle);
+  const selectedDividerRatio = dividerRatio ?? 0.5;
   return (
     <aside className="split-room-inspector-panel" data-split-room-inspector="ready">
       <header>
@@ -84,6 +97,46 @@ export function SplitRoomInspectorPanel({
           ))}
         </select>
       </label>
+      <section
+        className="split-room-inspector-panel__divider-controls"
+        data-split-divider-controls="parent-bed-model"
+        data-divider-orientation={selectedDividerOrientation}
+        data-divider-ratio={selectedDividerRatio}
+      >
+        <label>
+          Divider orientation
+          <select
+            value={selectedDividerOrientation}
+            disabled={viewModel.readOnly}
+            data-divider-orientation-control="true"
+            onChange={(event) => onDividerOrientationChange?.(event.currentTarget.value as SplitRoomDividerOrientation)}
+          >
+            <option value="vertical">Vertical</option>
+            <option value="horizontal">Horizontal</option>
+          </select>
+        </label>
+        <label>
+          Divider ratio
+          <input
+            type="range"
+            min="0.2"
+            max="0.8"
+            step="0.05"
+            value={selectedDividerRatio}
+            disabled={viewModel.readOnly}
+            data-divider-ratio-control="true"
+            onChange={(event) => onDividerRatioChange?.(Number(event.currentTarget.value))}
+          />
+        </label>
+        <button
+          type="button"
+          disabled={viewModel.readOnly}
+          data-divider-ratio-reset="50-50"
+          onClick={() => onDividerRatioReset?.()}
+        >
+          Reset 50/50
+        </button>
+      </section>
       <div className="split-room-inspector-panel__actions">
         <button type="button" onClick={() => onSelectChildRoom(childA.roomId)}>
           Select Room {childA.roomNumber}
@@ -136,4 +189,8 @@ function formatDividerStyle(style: EditableSplitBayDividerStyle): string {
   if (style === "vertical") return "vertical";
   if (style === "horizontal") return "horizontal";
   return "diagonal";
+}
+
+function dividerOrientationFromStyle(style: EditableSplitBayDividerStyle): SplitRoomDividerOrientation {
+  return style === "horizontal" ? "horizontal" : "vertical";
 }

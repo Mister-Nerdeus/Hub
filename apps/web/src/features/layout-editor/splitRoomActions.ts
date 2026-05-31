@@ -124,6 +124,38 @@ export function recalculateSplitRoomBedRelativeBounds(
   ];
 }
 
+export function updateSplitRoomDividerOrientation(
+  splitRoom: SplitRoomContract,
+  dividerOrientation: SplitRoomDividerOrientation
+): SplitRoomContract {
+  const nextSplitRoom = {
+    ...splitRoom,
+    dividerOrientation
+  };
+  return {
+    ...nextSplitRoom,
+    bedPositions: recalculateSplitRoomBedRelativeBounds(nextSplitRoom)
+  };
+}
+
+export function updateSplitRoomDividerRatio(
+  splitRoom: SplitRoomContract,
+  dividerRatio: number
+): SplitRoomContract {
+  const nextSplitRoom = {
+    ...splitRoom,
+    dividerRatio: clampRatio(dividerRatio)
+  };
+  return {
+    ...nextSplitRoom,
+    bedPositions: recalculateSplitRoomBedRelativeBounds(nextSplitRoom)
+  };
+}
+
+export function resetSplitRoomDividerToEven(splitRoom: SplitRoomContract): SplitRoomContract {
+  return updateSplitRoomDividerRatio(splitRoom, DEFAULT_SPLIT_ROOM_DIVIDER_RATIO);
+}
+
 function createTwoBedPositions(input: {
   parentRoom: EditableRoomGeometry;
   dividerOrientation: SplitRoomDividerOrientation;

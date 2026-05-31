@@ -1,0 +1,5 @@
+node scripts/check-split-divider-controls.mjs --stage orientation-controls --issue 793
+node scripts/check-split-divider-controls.mjs --stage ratio-controls --issue 793
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
