@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "issue": "802",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "hallways survive save/reload proof",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "walls survive save/reload proof",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "support areas survive save/reload proof",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "split bed positions survive save/reload proof",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "geometrySaveReloadProofStatus": "passed",
+    "newGeometrySurvivesReload": true
+  }
+}

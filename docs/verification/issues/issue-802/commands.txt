@@ -1,0 +1,7 @@
+node scripts/check-geometry-save-reload-proof.mjs --stage hallways --issue 802
+node scripts/check-geometry-save-reload-proof.mjs --stage walls --issue 802
+node scripts/check-geometry-save-reload-proof.mjs --stage support-areas --issue 802
+node scripts/check-geometry-save-reload-proof.mjs --stage split-bed-positions --issue 802
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

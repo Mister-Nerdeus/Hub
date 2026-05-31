@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "802",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-save-reload-proof.mjs --stage hallways --issue 802",
+      "outputs": [
+        "docs/verification/issues/issue-802/hallways-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-save-reload-proof.mjs --stage walls --issue 802",
+      "outputs": [
+        "docs/verification/issues/issue-802/walls-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-save-reload-proof.mjs --stage support-areas --issue 802",
+      "outputs": [
+        "docs/verification/issues/issue-802/support-areas-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-save-reload-proof.mjs --stage split-bed-positions --issue 802",
+      "outputs": [
+        "docs/verification/issues/issue-802/split-bed-positions-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-802/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-802/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-802/no-phi-output.txt"
+      ]
+    }
+  ]
+}
