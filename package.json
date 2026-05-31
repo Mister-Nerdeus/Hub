@@ -86,6 +86,7 @@
     "check:product-shell-rail-accessibility": "node scripts/check-product-shell-rail-accessibility.mjs --stage final --issue 707",
     "check:product-workflow-stepper": "node scripts/check-product-workflow-stepper.mjs --stage final --issue 708",
     "check:route-step-mapping": "node scripts/check-route-step-mapping.mjs --stage final --issue 709",
+    "check:runtime-proof-advanced-only": "node scripts/check-runtime-proof-advanced-only.mjs --stage final --issue 710",
     "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743",
     "check:layout-assignment-overlay": "npm --workspace packages/shared run build && node scripts/check-layout-assignment-overlay.mjs",
     "check:room-type-semantics": "npm --workspace packages/shared run build && node scripts/check-room-type-semantics.mjs --stage final",
