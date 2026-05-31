@@ -2,7 +2,7 @@
 
 Milestone A turns the current proof/workbench layout into a full-page operational workspace shell for floorplan-centered workflow setup.
 
-Current status: local Workspace UX GO/NO-GO passed. Final closeout issues are documenting evidence, screenshots, and no-overclaim boundaries before the durable assignment foundation begins.
+Current status: complete. Local Workspace UX GO/NO-GO passed, final evidence is indexed, and no-overclaim boundaries remain in force.
 
 Implemented in Milestone A:
 
@@ -27,3 +27,10 @@ Not implemented in Milestone A:
 - Clinical safety, staffing compliance, patient outcome, PHI, or EHR claims.
 
 Next milestone: durable assignment foundation.
+
+Entry criteria for the durable assignment foundation:
+
+- Keep the active floorplan as the source context.
+- Add durable assignment data without adding scoring, simulation, optimizer, or report readiness claims.
+- Preserve Advanced/Evidence as the home for technical proof surfaces.
+- Keep non-PHI and no-EHR boundaries active.

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "smoke": "not-run",
+  "composeFile": "docker-compose.production.yml",
+  "nginxFile": "apps/web/nginx.production.conf",
+  "webDockerfile": "apps/web/Dockerfile.production",
+  "apiDockerfile": "apps/api/Dockerfile.production"
+}
