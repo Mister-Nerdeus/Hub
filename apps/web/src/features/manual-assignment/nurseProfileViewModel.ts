@@ -1,6 +1,7 @@
 import {
   validateManualAssignmentNurse,
-  type ManualAssignmentNurse
+  type ManualAssignmentNurse,
+  type NurseProfileContract
 } from "@nerdeus/shared";
 
 export type NurseProfileCardViewModel = {
@@ -33,6 +34,38 @@ export function createNurseProfileViewModel(
       activeLabel: validated.active ? "Active" : "Inactive"
     };
   });
+}
+
+export type NurseProfileBuilderCardViewModel = {
+  nurseProfileId: string;
+  displayLabel: string;
+  color: string;
+  role: NurseProfileContract["role"];
+  targetPatientCount: number;
+  maxPatientCount: number;
+  traumaQualified: boolean;
+  psychQualified: boolean;
+  chargeQualified: boolean;
+  active: boolean;
+  statusLabel: "Active" | "Inactive";
+};
+
+export function createNurseProfileBuilderViewModel(
+  nurseProfiles: NurseProfileContract[]
+): NurseProfileBuilderCardViewModel[] {
+  return nurseProfiles.map((profile) => ({
+    nurseProfileId: profile.nurseProfileId,
+    displayLabel: profile.displayLabel,
+    color: profile.color,
+    role: profile.role,
+    targetPatientCount: profile.targetPatientCount,
+    maxPatientCount: profile.maxPatientCount,
+    traumaQualified: profile.traumaQualified,
+    psychQualified: profile.psychQualified,
+    chargeQualified: profile.chargeQualified,
+    active: profile.active,
+    statusLabel: profile.active ? "Active" : "Inactive"
+  }));
 }
 
 function qualificationLabels(nurse: ManualAssignmentNurse): string[] {

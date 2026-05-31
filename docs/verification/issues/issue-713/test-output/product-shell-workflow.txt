@@ -1,0 +1,201 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "product shell wraps normal workflow with active floorplan banner slot",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "shell": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "normal sidebar uses workflow steps and exposes scenarios normally",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "sidebar": {
+          "passed": true,
+          "missing": []
+        },
+        "navigation": {
+          "passed": true,
+          "missing": []
+        },
+        "noFutureTools": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "top stepper defines Floorplan, Assignments, Scenario, Simulation, Report",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor and manual assignment subflows map to correct workflow steps",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "editorMap": {
+          "passed": true,
+          "missing": []
+        },
+        "assignmentMap": {
+          "passed": true,
+          "missing": []
+        },
+        "activeStep": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "runtime/build/proof details are only in advanced evidence surfaces",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "advanced": {
+          "passed": true,
+          "missing": []
+        },
+        "runtimeHidden": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "runtime and proof details are hidden from the normal product shell",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "runtimeHidden": {
+          "passed": true,
+          "present": []
+        },
+        "advanced": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "normal mode does not expose Future Tools",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "shell": {
+          "passed": true,
+          "present": []
+        },
+        "sidebar": {
+          "passed": true,
+          "present": []
+        },
+        "navigation": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "shell-contract": {
+      "passed": true,
+      "shell": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "sidebar-workflow": {
+      "passed": true,
+      "sidebar": {
+        "passed": true,
+        "missing": []
+      },
+      "navigation": {
+        "passed": true,
+        "missing": []
+      },
+      "noFutureTools": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "stepper": {
+      "passed": true,
+      "missing": []
+    },
+    "active-step": {
+      "passed": true,
+      "editorMap": {
+        "passed": true,
+        "missing": []
+      },
+      "assignmentMap": {
+        "passed": true,
+        "missing": []
+      },
+      "activeStep": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "advanced-evidence": {
+      "passed": true,
+      "advanced": {
+        "passed": true,
+        "missing": []
+      },
+      "runtimeHidden": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "runtime-proof-hidden": {
+      "passed": true,
+      "runtimeHidden": {
+        "passed": true,
+        "present": []
+      },
+      "advanced": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "future-tools-hidden": {
+      "passed": true,
+      "shell": {
+        "passed": true,
+        "present": []
+      },
+      "sidebar": {
+        "passed": true,
+        "present": []
+      },
+      "navigation": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

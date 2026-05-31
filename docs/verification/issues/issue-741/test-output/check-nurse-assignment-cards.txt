@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-nurse-assignment-cards nurse-cards",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/NurseAssignmentCardStack.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-nurse-assignment-cards burden-breakdown",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/NurseAssignmentCardStack.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "nurse-cards": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/NurseAssignmentCardStack.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "burden-breakdown": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/NurseAssignmentCardStack.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

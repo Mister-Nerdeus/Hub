@@ -21,13 +21,10 @@ export function useEditorWorkspaceMeasurements(inspectorCollapsed: boolean): Edi
       const viewportHeight = typeof window === "undefined" ? DESKTOP_MIN_CANVAS_HEIGHT : window.innerHeight;
       const viewportWidth = typeof window === "undefined" ? 1440 : window.innerWidth;
       const minHeight = viewportWidth >= 1200 ? DESKTOP_MIN_CANVAS_HEIGHT : LAPTOP_MIN_CANVAS_HEIGHT;
-      const inspectorHeight = inspectorCollapsed
-        ? 0
-        : Math.ceil(sidePanelRef.current?.getBoundingClientRect().height ?? 0);
       const availableHeight = Math.max(minHeight, viewportHeight - 180);
       const nextHeight = Math.min(
         MAX_CANVAS_HEIGHT,
-        Math.max(minHeight, inspectorHeight, availableHeight)
+        Math.max(minHeight, availableHeight)
       );
       setCanvasHeight(nextHeight);
     };

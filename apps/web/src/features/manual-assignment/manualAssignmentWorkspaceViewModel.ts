@@ -53,6 +53,10 @@ export type ManualAssignmentNurseCard = {
   assignedRoomLabels: string[];
   targetPatientCount: number;
   maxPatientCount: number;
+  traumaQualified: boolean;
+  psychQualified: boolean;
+  chargeQualified: boolean;
+  active: boolean;
   walkingSummary: string;
   roomSpread: number;
   walkingBurdenUnits: number;
@@ -135,6 +139,10 @@ export function createManualAssignmentWorkspaceViewModel(
         assignedRoomLabels: assignedRoomIds.map(labelRoom),
         targetPatientCount: nurse.targetPatientCount,
         maxPatientCount: nurse.maxPatientCount,
+        traumaQualified: nurse.traumaQualified,
+        psychQualified: nurse.psychQualified,
+        chargeQualified: nurse.chargeQualified,
+        active: nurse.active,
         walkingSummary: walkingByNurse[nurse.nurseId]?.displaySummary ?? "0 walk units / spread 0",
         roomSpread: walkingByNurse[nurse.nurseId]?.roomToRoomSpread ?? 0,
         walkingBurdenUnits: walkingByNurse[nurse.nurseId]?.estimatedWalkingBurdenUnits ?? 0

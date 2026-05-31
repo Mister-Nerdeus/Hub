@@ -1,0 +1,19 @@
+docker --version
+docker compose version
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose up --build -d
+docker compose --profile tools run --rm migrate
+node scripts/verify-docker-plan-api.mjs
+docker compose ps
+docker image inspect hub-api:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+docker image inspect hub-web:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+node -e fetch('http://localhost:8010/health').then(async (r) => { console.log(r.status, await r.text()); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })
+node -e fetch('http://localhost:5180/?section=editor').then(async (r) => { console.log(r.status); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })
+node scripts/check-production-docker-runtime.mjs
+node scripts/check-production-docker-runtime.mjs --smoke
+docker image inspect hub-api-production:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+docker image inspect hub-web-production:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+node scripts/check-no-phi-fields.mjs
+git rev-parse --short HEAD
+Get-Date -Format o

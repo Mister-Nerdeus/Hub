@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-assignment-set-persistence persistence",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/assignments/assignmentSetPersistence.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-assignment-set-persistence reload-proof",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/assignments/assignmentSetStore.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "persistence": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/assignments/assignmentSetPersistence.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "reload-proof": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/assignments/assignmentSetStore.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-active-floorplan-persistence-resilience corrupted-localstorage",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/activeFloorplanPersistence.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-active-floorplan-persistence-resilience fallback-floorplan",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/App.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "corrupted-localstorage": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/activeFloorplanPersistence.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "fallback-floorplan": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/App.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

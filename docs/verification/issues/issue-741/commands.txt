@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-scenario-handoff-gate.mjs --stage selected-context --allow-partial --issue 741
+node scripts/check-scenario-handoff-gate.mjs --stage missing-assignment-block --allow-partial --issue 741
+node scripts/check-scenario-handoff-gate.mjs --stage no-simulation-charts --allow-partial --issue 741
+node scripts/check-no-phi-fields.mjs

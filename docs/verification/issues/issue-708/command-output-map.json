@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "issue": "708",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 708",
+    "5": "node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 708",
+    "6": "node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 708",
+    "7": "node scripts/check-no-phi-fields.mjs"
+  }
+}

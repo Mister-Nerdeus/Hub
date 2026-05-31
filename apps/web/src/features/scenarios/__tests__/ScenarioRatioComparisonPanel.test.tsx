@@ -19,7 +19,8 @@ assertPanel(panelSource.includes("Ratio comparison readiness"), "panel must rend
 assertPanel(!panelSource.includes("Placeholder outcome rows"), "panel must not render outcome placeholders in the foundation shell");
 assertPanel(!panelSource.includes("\"Computed\""), "panel must not render computed outcome copy");
 assertPanel(
-  appSource.includes("<ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract} />"),
+  appSource.includes("activeFloorplan={activeFloorplanContract}") &&
+    appSource.includes("selectedAssignmentSet={scenarioAssignmentSet ?? activeAssignmentSet}"),
   "App must wire the comparison UI shell into Scenarios with active floorplan context"
 );
 

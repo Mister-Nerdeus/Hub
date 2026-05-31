@@ -1,0 +1,36 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-assignment-ux-preflight.mjs --stage final --issue 713
+node scripts/check-product-shell-workflow.mjs --stage final --issue 713
+node scripts/check-active-floorplan-hub-ux.mjs --stage final --issue 713
+node scripts/check-editor-normal-toolbar-ux.mjs --stage final --issue 713
+node scripts/check-floorplan-readiness-truth.mjs --stage final --issue 713
+node scripts/check-active-floorplan-persistence-resilience.mjs --stage final --issue 713
+node scripts/check-assignment-set-contract.mjs --stage final --issue 713
+node scripts/check-nurse-profile-builder.mjs --stage final --issue 713
+node scripts/check-room-load-editor.mjs --stage final --issue 713
+node scripts/check-manual-assignment-three-column-ux.mjs --stage final --issue 713
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage final --issue 713
+node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 713
+node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 713
+node scripts/check-split-room-browser-regression.mjs --stage final --issue 713
+node scripts/check-editor-assignment-ux-go-no-go.mjs --stage final --issue 713
+node scripts/check-no-phi-fields.mjs
+docker --version
+docker compose version
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose up --build -d
+docker compose --profile tools run --rm migrate
+node scripts/verify-docker-plan-api.mjs
+docker compose ps
+docker image inspect hub-api:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+docker image inspect hub-web:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+node -e fetch('http://localhost:8010/health').then(async (r) => { console.log(r.status, await r.text()); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })
+node -e fetch('http://localhost:5180/?section=editor').then(async (r) => { console.log(r.status); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })
+node scripts/check-production-docker-runtime.mjs
+node scripts/check-production-docker-runtime.mjs --smoke
+docker image inspect hub-api-production:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+docker image inspect hub-web-production:latest --format {{.Id}} {{index .Config.Labels "org.opencontainers.image.revision"}}
+node scripts/check-no-phi-fields.mjs

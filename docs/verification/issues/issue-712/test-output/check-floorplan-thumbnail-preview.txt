@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "712",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-floorplan-thumbnail-preview thumbnail-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/floorplanThumbnailViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-floorplan-thumbnail-preview active-layout-preview",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/ActiveFloorplanThumbnail.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "thumbnail-contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/floorplanThumbnailViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "active-layout-preview": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/ActiveFloorplanThumbnail.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

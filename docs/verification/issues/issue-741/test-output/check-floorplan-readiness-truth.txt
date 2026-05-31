@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-floorplan-readiness-truth no-split-room-readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-floorplan-readiness-truth invalid-split-room-readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "no-split-room-readiness": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "invalid-split-room-readiness": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

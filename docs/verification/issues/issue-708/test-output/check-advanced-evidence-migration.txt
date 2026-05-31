@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "issue": "708",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-advanced-evidence-migration runtime-proof-hidden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/AdvancedEvidencePanel.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-advanced-evidence-migration future-tools-hidden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appNavigation.ts",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-advanced-evidence-migration evidence-accessible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appNavigation.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "runtime-proof-hidden": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/AdvancedEvidencePanel.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "future-tools-hidden": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appNavigation.ts",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "evidence-accessible": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appNavigation.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

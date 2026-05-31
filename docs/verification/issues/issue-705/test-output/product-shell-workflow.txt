@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "issue": "705",
+  "stage": "future-tools-hidden",
+  "checks": [
+    {
+      "name": "normal mode does not expose Future Tools",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "shell": {
+          "passed": true,
+          "present": []
+        },
+        "sidebar": {
+          "passed": true,
+          "present": []
+        },
+        "navigation": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "future-tools-hidden": {
+      "passed": true,
+      "shell": {
+        "passed": true,
+        "present": []
+      },
+      "sidebar": {
+        "passed": true,
+        "present": []
+      },
+      "navigation": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

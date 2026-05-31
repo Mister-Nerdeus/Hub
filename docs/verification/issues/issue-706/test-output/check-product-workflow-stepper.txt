@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "issue": "706",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-product-workflow-stepper stepper-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowStepper.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-product-workflow-stepper active-step",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/productWorkflowStepViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-product-workflow-stepper keyboard-nav",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowStepper.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "stepper-contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowStepper.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "active-step": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/productWorkflowStepViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "keyboard-nav": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowStepper.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

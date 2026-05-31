@@ -1,0 +1,131 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 881B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 542B 0.0s done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.local
+#3 transferring dockerfile: 712B done
+#3 DONE 0.0s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 ...
+
+#5 [api internal] load metadata for docker.io/library/python:3.13-slim
+#5 DONE 0.5s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.5s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 295B done
+#6 DONE 0.0s
+
+#7 [web internal] load build context
+#7 DONE 0.0s
+
+#8 [api internal] load build context
+#8 transferring context: 916.69kB 0.1s done
+#8 DONE 0.1s
+
+#9 [web  1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#9 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#9 DONE 0.1s
+
+#10 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#10 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#10 DONE 0.1s
+
+#11 [api 2/5] WORKDIR /app
+#11 CACHED
+
+#12 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#12 CACHED
+
+#13 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#13 CACHED
+
+#14 [api 5/5] COPY apps/api/ ./
+#14 CACHED
+
+#15 [api] exporting to image
+#15 exporting layers done
+#15 exporting manifest sha256:d0eb259d46eff4f893a97fab8d8c0efb5fba59b34a9578cb284c832626d51c37 done
+#15 exporting config sha256:4c527d712ccb6083e4ce47f31abb95049aad8a126000338d539aea3f95c7b6bf done
+#15 exporting attestation manifest sha256:ade9e4390e00c23ab92273fa3b9a26a70d5f979c99d7f3506886479acb049707 0.1s done
+#15 exporting manifest list sha256:b7cc6ec33cd2a4690a027761ad896c684527958e83ab7d3802da03d3cddea8b6
+#15 exporting manifest list sha256:b7cc6ec33cd2a4690a027761ad896c684527958e83ab7d3802da03d3cddea8b6 0.0s done
+#15 naming to docker.io/library/hub-api:latest done
+#15 unpacking to docker.io/library/hub-api:latest 0.0s done
+#15 DONE 0.2s
+
+#7 [web internal] load build context
+#7 ...
+
+#16 [api] resolving provenance for metadata file
+#16 DONE 0.1s
+
+#7 [web internal] load build context
+#7 transferring context: 12.13MB 2.0s done
+#7 DONE 2.0s
+
+#17 [web  6/11] RUN npm ci
+#17 CACHED
+
+#18 [web  9/11] COPY packages/shared packages/shared
+#18 CACHED
+
+#19 [web 10/11] RUN npm --workspace @nerdeus/shared run build
+#19 CACHED
+
+#20 [web  4/11] COPY apps/web/package.json apps/web/package.json
+#20 CACHED
+
+#21 [web  7/11] COPY tsconfig.base.json ./
+#21 CACHED
+
+#22 [web  8/11] COPY apps/web apps/web
+#22 CACHED
+
+#23 [web  2/11] WORKDIR /repo
+#23 CACHED
+
+#24 [web  3/11] COPY package.json package-lock.json ./
+#24 CACHED
+
+#25 [web  5/11] COPY packages/shared/package.json packages/shared/package.json
+#25 CACHED
+
+#26 [web 11/11] WORKDIR /repo/apps/web
+#26 CACHED
+
+#27 [web] exporting to image
+#27 exporting layers done
+#27 exporting manifest sha256:7ec8cdb0e2103dba90032f68ee8730bbf371f5e33c7a4e38f32e421e7902d8e2 done
+#27 exporting config sha256:dcfd9d2ebd6283e4cb7b8276779d9351cd273028dea74069d346106771dadc2d done
+#27 exporting attestation manifest sha256:08b160b406de86b06b325306c850b4fcb3cb89f48e007957655c7b44cc5b4f5e
+#27 exporting attestation manifest sha256:08b160b406de86b06b325306c850b4fcb3cb89f48e007957655c7b44cc5b4f5e 0.1s done
+#27 exporting manifest list sha256:3233903fb20da8ebf7228a916efbe51fcf1f8bbd91eca30a62405025c936e0d9 0.0s done
+#27 naming to docker.io/library/hub-web:latest done
+#27 unpacking to docker.io/library/hub-web:latest 0.0s done
+#27 DONE 0.2s
+
+#28 [web] resolving provenance for metadata file
+#28 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Container hub-db-1 Running 
+ Container hub-api-1 Recreate 
+ Container hub-api-1 Recreated 
+ Container hub-web-1 Recreate 
+ Container hub-web-1 Recreated 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 

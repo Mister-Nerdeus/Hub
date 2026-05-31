@@ -1,0 +1,172 @@
+{
+  "source": "docs/verification/issues/issue-713/test-output/manual-assignment-three-column-ux.txt",
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual assignment renders a three-column assignment-set-backed layout",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "layout": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "floorplan overview shows active floorplan assignment context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "room assignment table is filterable and assignment-capable",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "table": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "room filters include unassigned, high burden, trauma, and split rooms",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "nurse cards show burden, walking burden, qualification status, and warning breakdowns",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "cards": {
+          "passed": true,
+          "missing": []
+        },
+        "viewModel": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "burden explanation panel is visible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "assignment issues panel is visible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "normal manual assignment does not silently fall back to synthetic fixtures",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "fixtureBoundary": {
+          "passed": true,
+          "missing": []
+        },
+        "normalMode": "blocked until active floorplan assignment set is loaded"
+      }
+    }
+  ],
+  "stageResults": {
+    "layout-contract": {
+      "passed": true,
+      "layout": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "floorplan-overview": {
+      "passed": true,
+      "missing": []
+    },
+    "room-table": {
+      "passed": true,
+      "table": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "filter-chips": {
+      "passed": true,
+      "missing": []
+    },
+    "nurse-cards": {
+      "passed": true,
+      "cards": {
+        "passed": true,
+        "missing": []
+      },
+      "viewModel": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "burden-breakdown": {
+      "passed": true,
+      "missing": []
+    },
+    "assignment-issues": {
+      "passed": true,
+      "missing": []
+    },
+    "no-synthetic-fallback-normal-mode": {
+      "passed": true,
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "fixtureBoundary": {
+        "passed": true,
+        "missing": []
+      },
+      "normalMode": "blocked until active floorplan assignment set is loaded"
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "status": "passed",
+  "issue": "719",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-editor-workspace-layout full-page-editor",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorWorkspace.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-workspace-layout toolbar-above-canvas",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-workspace-layout canvas-expanded",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "full-page-editor": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorWorkspace.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "toolbar-above-canvas": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "canvas-expanded": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

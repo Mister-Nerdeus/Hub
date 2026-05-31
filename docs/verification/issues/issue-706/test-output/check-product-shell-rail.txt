@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "issue": "706",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-product-shell-rail compact-rail",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-product-shell-rail workflow-items",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appNavigation.ts",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-product-shell-rail rail-width",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "compact-rail": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "workflow-items": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appNavigation.ts",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "rail-width": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

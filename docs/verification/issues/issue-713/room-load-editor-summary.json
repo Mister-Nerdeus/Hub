@@ -1,0 +1,214 @@
+{
+  "source": "docs/verification/issues/issue-713/test-output/room-load-editor.txt",
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "room load contract includes only structured non-PHI operational fields",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "validation": {
+          "passed": true,
+          "missing": []
+        },
+        "noPhi": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "room load editor exposes structured controls and no free-text clinical inputs",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "editor": {
+          "passed": true,
+          "missing": []
+        },
+        "noFreeText": {
+          "passed": true,
+          "present": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "room load contract stores approved enum values and no clinical timing text",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "validation": {
+          "passed": true,
+          "missing": []
+        },
+        "noClinicalTiming": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "room load changes update assignment state and burden/warning view models immediately",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "editor": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "reducer": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "split-room child positions retain independent room-load records by room ID",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "store": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "editor": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "room load edits persist through the durable assignment set store",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "actions": {
+          "passed": true,
+          "missing": []
+        },
+        "persistence": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "contract": {
+        "passed": true,
+        "missing": []
+      },
+      "validation": {
+        "passed": true,
+        "missing": []
+      },
+      "noPhi": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "structured-inputs": {
+      "passed": true,
+      "editor": {
+        "passed": true,
+        "missing": []
+      },
+      "noFreeText": {
+        "passed": true,
+        "present": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "enum-values": {
+      "passed": true,
+      "contract": {
+        "passed": true,
+        "missing": []
+      },
+      "validation": {
+        "passed": true,
+        "missing": []
+      },
+      "noClinicalTiming": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "load-change-burden": {
+      "passed": true,
+      "editor": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "reducer": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "split-room-child-load": {
+      "passed": true,
+      "store": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "editor": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "persistence": {
+      "passed": true,
+      "actions": {
+        "passed": true,
+        "missing": []
+      },
+      "persistence": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

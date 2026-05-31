@@ -1,0 +1,200 @@
+ Image hub-api-production Building 
+ Image hub-web-production Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.10kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.production
+#2 transferring dockerfile: 591B done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.production
+#3 transferring dockerfile: 1.03kB done
+#3 DONE 0.0s
+
+#4 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
+#4 ...
+
+#5 [auth] library/nginx:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/node:22-alpine
+#6 DONE 0.3s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 DONE 0.3s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 295B done
+#8 DONE 0.0s
+
+#9 [api 1/7] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.0s done
+#9 DONE 0.1s
+
+#10 [api internal] load build context
+#10 transferring context: 313.65kB 0.1s done
+#10 DONE 0.1s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 295B done
+#8 DONE 0.0s
+
+#9 [api 1/7] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#9 DONE 0.1s
+
+#4 [web internal] load metadata for docker.io/library/nginx:1.27-alpine
+#4 DONE 0.4s
+
+#11 [api 6/7] COPY apps/api/alembic.ini ./alembic.ini
+#11 CACHED
+
+#12 [api 2/7] WORKDIR /app
+#12 CACHED
+
+#13 [api 5/7] COPY apps/api/app ./app
+#13 CACHED
+
+#14 [api 3/7] COPY apps/api/requirements.txt ./
+#14 CACHED
+
+#15 [api 4/7] RUN pip install --no-cache-dir -r requirements.txt
+#15 CACHED
+
+#16 [api 7/7] COPY apps/api/alembic ./alembic
+#16 CACHED
+
+#17 [web internal] load build context
+#17 ...
+
+#18 [web build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#18 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#18 DONE 0.1s
+
+#19 [web stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#19 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#19 DONE 0.1s
+
+#17 [web internal] load build context
+#17 ...
+
+#20 [api] exporting to image
+#20 exporting layers done
+#20 exporting manifest sha256:cd82b04610510f49f8862c1b52aacac8d45b17597ce630e11b2132ee9c22b522 0.0s done
+#20 exporting config sha256:b60af051dfc3cf9c57c8276c8ceb2ae95b35c0f99b3a2cf6c3134e39b7719a0d 0.0s done
+#20 exporting attestation manifest sha256:95ec94cffe573f6c7044097377b7b7624b9ef37020270d0f8f8a6e6cb279c9da 0.1s done
+#20 exporting manifest list sha256:b19a2012ddf6d7e7bc048c99fa1aee617515e6450c1c4e1aa164d419ee98452e 0.0s done
+#20 naming to docker.io/library/hub-api-production:latest done
+#20 unpacking to docker.io/library/hub-api-production:latest 0.0s done
+#20 DONE 0.3s
+
+#17 [web internal] load build context
+#17 ...
+
+#21 [api] resolving provenance for metadata file
+#21 DONE 0.2s
+
+#17 [web internal] load build context
+#17 transferring context: 12.16MB 2.5s done
+#17 DONE 2.6s
+
+#22 [web build 10/10] RUN npm --workspace apps/web run build
+#22 CACHED
+
+#23 [web build  5/10] COPY packages/shared/package.json packages/shared/package.json
+#23 CACHED
+
+#24 [web stage-1 2/3] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
+#24 CACHED
+
+#25 [web build  2/10] WORKDIR /repo
+#25 CACHED
+
+#26 [web build  6/10] RUN npm ci
+#26 CACHED
+
+#27 [web build  8/10] COPY apps/web apps/web
+#27 CACHED
+
+#28 [web build  3/10] COPY package.json package-lock.json ./
+#28 CACHED
+
+#29 [web build  4/10] COPY apps/web/package.json apps/web/package.json
+#29 CACHED
+
+#30 [web build  9/10] COPY packages/shared packages/shared
+#30 CACHED
+
+#31 [web build  7/10] COPY tsconfig.base.json ./
+#31 CACHED
+
+#32 [web stage-1 3/3] COPY apps/web/nginx.production.conf /etc/nginx/conf.d/default.conf
+#32 CACHED
+
+#33 [web] exporting to image
+#33 exporting layers done
+#33 exporting manifest sha256:e0931f26333c133a92cdcbed2514d2646e4fa141e076e57f4557231531c9912e done
+#33 exporting config sha256:fe448d6338741b6ce2e98c556bb4192feb66b92c9e24ab6323d596a44deddc86 done
+#33 exporting attestation manifest sha256:f8b0a912d1a4084dd46f07f4e63e8600f02f268b37c5341712e9138345595dbd 0.1s done
+#33 exporting manifest list sha256:be35cb49d1700a7ee53e5b216998ed45ba2535047f91b85e5bb458c127918a5b
+#33 exporting manifest list sha256:be35cb49d1700a7ee53e5b216998ed45ba2535047f91b85e5bb458c127918a5b 0.0s done
+#33 naming to docker.io/library/hub-web-production:latest done
+#33 unpacking to docker.io/library/hub-web-production:latest 0.0s done
+#33 DONE 0.2s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image hub-web-production Built 
+ Image hub-api-production Built 
+ Network hub-production-runtime-check_default Creating 
+ Network hub-production-runtime-check_default Created 
+ Volume hub-production-runtime-check_hub-postgres-data Creating 
+ Volume hub-production-runtime-check_hub-postgres-data Created 
+ Container hub-production-runtime-check-db-1 Creating 
+ Container hub-production-runtime-check-db-1 Created 
+ Container hub-production-runtime-check-api-1 Creating 
+ Container hub-production-runtime-check-api-1 Created 
+ Container hub-production-runtime-check-web-1 Creating 
+ Container hub-production-runtime-check-web-1 Created 
+ Container hub-production-runtime-check-db-1 Starting 
+ Container hub-production-runtime-check-db-1 Started 
+ Container hub-production-runtime-check-db-1 Waiting 
+ Container hub-production-runtime-check-db-1 Healthy 
+ Container hub-production-runtime-check-api-1 Starting 
+ Container hub-production-runtime-check-api-1 Started 
+ Container hub-production-runtime-check-web-1 Starting 
+ Container hub-production-runtime-check-web-1 Started 
+ Container hub-production-runtime-check-db-1 Running 
+ Container hub-production-runtime-check-db-1 Waiting 
+ Container hub-production-runtime-check-db-1 Healthy 
+ Container hub-production-runtime-check-migrate-run-d2f268e430a7 Creating 
+ Container hub-production-runtime-check-migrate-run-d2f268e430a7 Created 
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_base, Create base plan persistence table.
+INFO  [alembic.runtime.migration] Running upgrade 0001_base -> 0002_align_plan_layout_json, Align plan table to layout_json persistence.
+INFO  [alembic.runtime.migration] Running upgrade 0002_align_plan_layout_json -> 0003_simulation_runs, Add simulation run persistence.
+ Container hub-production-runtime-check-web-1 Stopping 
+ Container hub-production-runtime-check-web-1 Stopped 
+ Container hub-production-runtime-check-web-1 Removing 
+ Container hub-production-runtime-check-web-1 Removed 
+ Container hub-production-runtime-check-api-1 Stopping 
+ Container hub-production-runtime-check-api-1 Stopped 
+ Container hub-production-runtime-check-api-1 Removing 
+ Container hub-production-runtime-check-api-1 Removed 
+ Container hub-production-runtime-check-db-1 Stopping 
+ Container hub-production-runtime-check-db-1 Stopped 
+ Container hub-production-runtime-check-db-1 Removing 
+ Container hub-production-runtime-check-db-1 Removed 
+ Volume hub-production-runtime-check_hub-postgres-data Removing 
+ Network hub-production-runtime-check_default Removing 
+ Volume hub-production-runtime-check_hub-postgres-data Removed 
+ Network hub-production-runtime-check_default Removed 
+{
+  "status": "passed",
+  "smoke": "passed",
+  "composeFile": "docker-compose.production.yml",
+  "nginxFile": "apps/web/nginx.production.conf",
+  "webDockerfile": "apps/web/Dockerfile.production",
+  "apiDockerfile": "apps/api/Dockerfile.production"
+}

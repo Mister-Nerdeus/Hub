@@ -207,6 +207,49 @@ const activeFloorplanWorkflowCommands = [
   "npm run check:active-floorplan-workflow-go-no-go"
 ];
 
+const editorAssignmentUxCommands = [
+  "npm run check:editor-assignment-ux-preflight",
+  "npm run check:full-page-workspace-shell",
+  "npm run check:product-shell-rail",
+  "npm run check:product-workflow-stepper",
+  "npm run check:route-step-mapping",
+  "npm run check:advanced-evidence-migration",
+  "npm run check:product-shell-responsive-layout",
+  "npm run check:active-floorplan-hub",
+  "npm run check:active-floorplan-card-layout",
+  "npm run check:floorplan-thumbnail-preview",
+  "npm run check:next-workflow-step-card",
+  "npm run check:simulation-copy-overclaim",
+  "npm run check:compact-readiness-summary",
+  "npm run check:floorplan-readiness-truth",
+  "npm run check:active-floorplan-persistence-resilience",
+  "npm run check:editor-workspace-layout",
+  "npm run check:editor-normal-toolbar-ux",
+  "npm run check:editor-detailed-tools-advanced",
+  "npm run check:editor-details-bottom-panel",
+  "npm run check:assignment-set-contract",
+  "npm run check:assignment-set-persistence",
+  "npm run check:assignment-set-floorplan-link",
+  "npm run check:raw-map-migration-bridge",
+  "npm run check:nurse-profile-contract",
+  "npm run check:nurse-profile-builder",
+  "npm run check:inactive-nurse-assignment-guard",
+  "npm run check:room-load-contract",
+  "npm run check:room-load-editor-ui",
+  "npm run check:room-load-persistence",
+  "npm run check:split-room-child-loads",
+  "npm run check:room-load-burden-recalculation",
+  "npm run check:manual-assignment-layout",
+  "npm run check:room-assignment-table",
+  "npm run check:nurse-assignment-cards",
+  "npm run check:assignment-issues-panel",
+  "npm run check:save-assignment-set-ux",
+  "npm run check:clear-assignments-confirmation",
+  "npm run check:scenario-handoff-gate",
+  "npm run check:no-synthetic-fallback-normal-mode",
+  "npm run check:editor-assignment-ux-go-no-go"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -301,6 +344,7 @@ const commands = [
   ...doorAuthoringCrashHardeningCommands,
   ...splitRoomAuthoringCommands,
   ...activeFloorplanWorkflowCommands,
+  ...editorAssignmentUxCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

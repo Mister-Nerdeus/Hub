@@ -12,27 +12,30 @@ export function FloorplanReadinessChecklist({ viewModel }: FloorplanReadinessChe
       data-assignment-readiness={viewModel.assignmentStatus}
       data-simulation-readiness={viewModel.simulationStatus}
     >
-      <div>
-        <p className="eyebrow">Readiness</p>
-        <h3 id="floorplan-readiness-title">Floorplan readiness</h3>
-        <p>{readinessLabel(viewModel.assignmentStatus)}</p>
-        <p>{readinessLabel(viewModel.simulationStatus)}</p>
-      </div>
-      <ul>
-        {viewModel.items.map((item) => (
-          <li key={item.itemId} data-readiness-item={item.itemId} data-readiness-status={item.status}>
-            <span>{item.status === "passed" ? "Ready" : "Needs work"}</span>
-            <strong>{item.label}</strong>
-            <small>{item.reason}</small>
-          </li>
-        ))}
-      </ul>
+      <details data-readiness-details-collapsed-by-default="true">
+        <summary>
+          <span>
+            <span className="eyebrow">Readiness</span>
+            <strong id="floorplan-readiness-title">Floorplan readiness details</strong>
+          </span>
+          <span>{readinessLabel(viewModel.assignmentStatus)} / {readinessLabel(viewModel.simulationStatus)}</span>
+        </summary>
+        <ul>
+          {viewModel.items.map((item) => (
+            <li key={item.itemId} data-readiness-item={item.itemId} data-readiness-status={item.status}>
+              <span>{item.status === "passed" ? "Ready" : "Needs work"}</span>
+              <strong>{item.label}</strong>
+              <small>{item.reason}</small>
+            </li>
+          ))}
+        </ul>
+      </details>
     </section>
   );
 }
 
 function readinessLabel(status: FloorplanReadinessContract["assignmentStatus"] | FloorplanReadinessContract["simulationStatus"]): string {
   if (status === "ready_for_assignment") return "Ready for assignment";
-  if (status === "ready_for_simulation") return "Ready for simulation";
+  if (status === "ready_for_simulation") return "Prepared for simulation setup";
   return "Needs work";
 }

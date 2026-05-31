@@ -294,8 +294,8 @@
 .manual-assignment-workspace {
   display: grid;
   gap: 16px;
-  margin: 0 auto;
-  max-width: 1180px;
+  margin: 0;
+  max-width: none;
   width: 100%;
 }
 
@@ -368,6 +368,156 @@
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
 }
 
+.manual-assignment-layout,
+.manual-assignment-layout__column,
+.assignment-floorplan-overview,
+.room-assignment-table,
+.nurse-assignment-card-stack,
+.assignment-issues-panel,
+.burden-explanation-panel,
+.assignment-set-selector {
+  display: grid;
+  gap: 12px;
+}
+
+.manual-assignment-layout__columns {
+  align-items: start;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(240px, 0.8fr) minmax(320px, 1fr) minmax(300px, 1fr);
+}
+
+.assignment-floorplan-overview__stats,
+.manual-nurse-card__stats {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.assignment-floorplan-overview__stats div,
+.manual-nurse-card__stats div {
+  background: #f7f9fb;
+  border: 1px solid #e2e8ef;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.assignment-floorplan-overview__stats dt,
+.manual-nurse-card__stats dt {
+  color: #526171;
+  font-size: 0.68rem;
+  font-weight: 900;
+  margin: 0 0 3px;
+  text-transform: uppercase;
+}
+
+.assignment-floorplan-overview__stats dd,
+.manual-nurse-card__stats dd {
+  color: #111827;
+  font-size: 0.82rem;
+  font-weight: 900;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.room-assignment-filters,
+.assignment-set-selector__actions,
+.assignment-set-selector__options,
+.manual-assignment-clear-confirmation {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.room-assignment-filters__chip,
+.assignment-set-selector__actions button,
+.assignment-set-selector__option,
+.manual-assignment-clear-confirmation button {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #263340;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-height: 34px;
+  padding: 7px 10px;
+}
+
+.room-assignment-filters__chip {
+  align-items: center;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.room-assignment-filters__chip--active,
+.assignment-set-selector__option--active {
+  background: #edf6f2;
+  box-shadow: inset 0 0 0 2px #111827;
+}
+
+.room-assignment-filters__chip span,
+.room-assignment-table__filter-label,
+.assignment-set-selector__message,
+.manual-assignment-clear-confirmation span {
+  color: #526171;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+.assignment-set-selector {
+  background: #ffffff;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  margin: 0;
+  max-width: none;
+  padding: 16px;
+  width: 100%;
+}
+
+.assignment-set-selector__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.assignment-set-selector__option {
+  display: grid;
+  gap: 3px;
+  min-width: 220px;
+  text-align: left;
+}
+
+.assignment-set-selector__option span,
+.assignment-set-selector__option strong,
+.assignment-set-selector__option small {
+  overflow-wrap: anywhere;
+}
+
+.assignment-set-selector__option small {
+  color: #526171;
+  font-size: 0.72rem;
+}
+
+.manual-nurse-card__breakdown {
+  border-top: 1px solid #e2e8ef;
+  padding-top: 8px;
+}
+
+.manual-nurse-card__breakdown summary {
+  color: #263340;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.manual-nurse-card__breakdown p {
+  margin: 6px 0;
+}
+
 .manual-nurse-selector,
 .manual-room-list,
 .manual-nurse-card-grid {
@@ -397,6 +547,122 @@
 .manual-nurse-selector__button--selected {
   background: #edf6f2;
   box-shadow: inset 0 0 0 2px #111827;
+}
+
+.nurse-profile-builder__grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;
+}
+
+.nurse-profile-builder__card {
+  border: 1px solid #d8e0e8;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.nurse-profile-builder__card label {
+  color: #526171;
+  display: grid;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 4px;
+}
+
+.nurse-profile-builder__card input,
+.nurse-profile-builder__card select {
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  min-height: 32px;
+  min-width: 0;
+  padding: 4px 6px;
+}
+
+.nurse-profile-builder__check {
+  align-items: center;
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.nurse-profile-builder__status {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.nurse-profile-builder__status span {
+  color: #263340;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.room-load-editor__grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;
+}
+
+.room-load-editor__card {
+  border: 1px solid #d8e0e8;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.room-load-editor__card-header {
+  align-items: start;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.room-load-editor__card-header strong {
+  color: #111827;
+  font-size: 0.9rem;
+  font-weight: 900;
+}
+
+.room-load-editor__card-header span {
+  color: #526171;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-align: right;
+}
+
+.room-load-editor__card label {
+  color: #526171;
+  display: grid;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 4px;
+}
+
+.room-load-editor__card select {
+  border: 1px solid #cfd8e3;
+  border-radius: 6px;
+  color: #111827;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 800;
+  min-height: 32px;
+  min-width: 0;
+  padding: 4px 6px;
+}
+
+.room-load-editor__check {
+  align-items: center;
+  display: flex !important;
+  gap: 8px !important;
 }
 
 .manual-assignment-workspace__note {
@@ -607,8 +873,10 @@
 @media (max-width: 920px) {
   .manual-assignment-proof__grid,
   .manual-assignment-proof__cards,
+  .manual-assignment-layout__columns,
   .manual-assignment-workspace__grid,
   .manual-nurse-selector,
+  .room-load-editor__grid,
   .four-patient-comparison__grid {
     grid-template-columns: 1fr;
   }
@@ -618,6 +886,7 @@
   .manual-assignment-proof__header,
   .manual-assignment-proof__section-header,
   .manual-assignment-workspace__header,
+  .assignment-set-selector__header,
   .manual-assignment-workspace__panel-header {
     align-items: stretch;
     flex-direction: column;

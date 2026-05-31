@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "issue": "706",
+  "stage": "responsive-layout",
+  "checks": [
+    {
+      "name": "active floorplan hub has responsive constraints for long names and narrow widths",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "hub": {
+          "passed": true,
+          "missing": []
+        },
+        "css": {
+          "passed": true,
+          "missing": []
+        },
+        "selector": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "responsive-layout": {
+      "passed": true,
+      "hub": {
+        "passed": true,
+        "missing": []
+      },
+      "css": {
+        "passed": true,
+        "missing": []
+      },
+      "selector": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

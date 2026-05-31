@@ -1,0 +1,48 @@
+## node scripts/check-active-floorplan-persistence-resilience.mjs --stage final --issue 713
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "corrupted active-floorplan localStorage JSON is caught and cleared",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "invalid or missing active-floorplan storage falls back to canonical active floorplan",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "state": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "corrupted-localstorage": {
+      "passed": true,
+      "missing": []
+    },
+    "fallback-floorplan": {
+      "passed": true,
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "state": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

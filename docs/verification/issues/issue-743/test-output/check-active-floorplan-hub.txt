@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-active-floorplan-hub hub-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/ActiveFloorplanHub.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-active-floorplan-hub hub-composition",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/App.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "hub-contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/ActiveFloorplanHub.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "hub-composition": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/App.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

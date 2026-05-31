@@ -3,17 +3,23 @@ import {
   createScenarioComparisonViewModel,
   type ScenarioComparisonViewModel
 } from "./scenarioComparisonViewModel";
-import type { ActiveFloorplanContract } from "@nerdeus/shared";
+import {
+  type ActiveFloorplanContract,
+  type AssignmentSetContract
+} from "@nerdeus/shared";
 import { SCENARIO_RATIO_COMPARISON_COPY } from "./scenarioRatioComparisonCopy";
+import { ScenarioHandoffGate } from "./ScenarioHandoffGate";
 
 export function ScenarioRatioComparisonPanel({
   activeFloorplan = null,
+  selectedAssignmentSet = null,
   viewModel = createScenarioComparisonViewModel({
     ...createDefaultScenarioComparisonInput(),
     activeFloorplanContext: activeFloorplan
   })
 }: {
   activeFloorplan?: ActiveFloorplanContract | null;
+  selectedAssignmentSet?: AssignmentSetContract | null;
   viewModel?: ScenarioComparisonViewModel;
 }) {
   return (
@@ -36,6 +42,11 @@ export function ScenarioRatioComparisonPanel({
           ))}
         </div>
       </header>
+
+      <ScenarioHandoffGate
+        activeFloorplan={activeFloorplan}
+        selectedAssignmentSet={selectedAssignmentSet}
+      />
 
       <div className="scenario-ratio-comparison__foundation" data-scenario-foundation-shell="ready">
         <section>

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "issue": "728",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-nurse-profile-builder.mjs --stage builder-ui --allow-partial --issue 728",
+    "5": "node scripts/check-nurse-profile-builder.mjs --stage add-nurse --allow-partial --issue 728",
+    "6": "node scripts/check-nurse-profile-builder.mjs --stage edit-nurse --allow-partial --issue 728",
+    "7": "node scripts/check-nurse-profile-builder.mjs --stage deactivate-nurse --allow-partial --issue 728",
+    "8": "node scripts/check-no-phi-fields.mjs"
+  }
+}

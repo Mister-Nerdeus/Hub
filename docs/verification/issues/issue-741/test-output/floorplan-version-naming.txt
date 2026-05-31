@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "naming contract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Copy Copy and old IDs normalize to clean display name",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "normalizedExamples": [
+          "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+          "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+          "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+        ]
+      }
+    },
+    {
+      "name": "version labels are user-facing",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "old technical record IDs remain advanced-only",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "Save As New Copy path is user-facing Save as New Version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "naming-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "copy-copy-normalization": {
+      "passed": true,
+      "normalizedExamples": [
+        "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+        "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+        "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+      ]
+    },
+    "version-labels": {
+      "passed": true,
+      "missing": []
+    },
+    "old-record-display": {
+      "passed": true,
+      "missing": []
+    },
+    "save-as-new-version": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-compact-readiness-summary.mjs --stage summary-visible --allow-partial --issue 716
+node scripts/check-compact-readiness-summary.mjs --stage details-collapsed --allow-partial --issue 716
+node scripts/check-no-phi-fields.mjs

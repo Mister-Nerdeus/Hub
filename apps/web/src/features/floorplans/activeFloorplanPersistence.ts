@@ -23,12 +23,19 @@ export function readPersistedActiveFloorplanSelection(
   if (raw == null || raw.trim().length === 0) {
     return null;
   }
-  const parsed = JSON.parse(raw) as Partial<PersistedActiveFloorplanSelection>;
+  let parsed: Partial<PersistedActiveFloorplanSelection>;
+  try {
+    parsed = JSON.parse(raw) as Partial<PersistedActiveFloorplanSelection>;
+  } catch {
+    storage.removeItem(key);
+    return null;
+  }
   if (
     parsed.schemaVersion !== "1.0.0" ||
     typeof parsed.activeFloorplanId !== "string" ||
     typeof parsed.activeFloorplanVersionId !== "string"
   ) {
+    storage.removeItem(key);
     return null;
   }
   return {

@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-room-load-burden-recalculation load-change-burden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "load-change-burden": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ManualAssignmentWorkspace.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

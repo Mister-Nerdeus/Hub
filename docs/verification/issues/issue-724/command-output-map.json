@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "724",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-assignment-set-persistence.mjs --stage persistence --allow-partial --issue 724",
+    "5": "node scripts/check-assignment-set-persistence.mjs --stage reload-proof --allow-partial --issue 724",
+    "6": "node scripts/check-no-phi-fields.mjs"
+  }
+}

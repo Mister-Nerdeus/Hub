@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "issue": "711",
+  "stage": "enum-values",
+  "checks": [
+    {
+      "name": "room load contract stores approved enum values and no clinical timing text",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "validation": {
+          "passed": true,
+          "missing": []
+        },
+        "noClinicalTiming": {
+          "passed": true,
+          "present": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "enum-values": {
+      "passed": true,
+      "contract": {
+        "passed": true,
+        "missing": []
+      },
+      "validation": {
+        "passed": true,
+        "missing": []
+      },
+      "noClinicalTiming": {
+        "passed": true,
+        "present": []
+      }
+    }
+  }
+}

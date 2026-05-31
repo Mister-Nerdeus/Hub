@@ -41,11 +41,14 @@ import { RoutePreviewProof } from "../route-preview/RoutePreviewProof";
 import { createRoutePreviewProofViewModel } from "../route-preview/routePreviewProofViewModel";
 import { OperationalReportsProof } from "../reports/OperationalReportsProof";
 import { createReportProofViewModel } from "../reports/reportProofViewModel";
+import { RuntimeBuildInfoPanel } from "../runtime/RuntimeBuildInfoPanel";
+import { RuntimeMismatchBanner } from "../runtime/RuntimeMismatchBanner";
 import { SimulationTimelineProof } from "../simulation/SimulationTimelineProof";
 import { createSimulationTimelineViewModel } from "../simulation/simulationTimelineViewModel";
 import { SimulationRunRetrievalProof } from "../simulation/SimulationRunRetrievalProof";
 import { manualAssignmentBasic, manualAssignmentRoomLoads } from "../../fixtures/manualAssignmentBasic";
 import { planErPodPhase2 } from "../../fixtures/planErPodPhase2";
+import { AdvancedEvidencePanel } from "./AdvancedEvidencePanel";
 import "./developerEvidencePage.css";
 
 type DeveloperEvidencePageProps = {
@@ -105,10 +108,9 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
 
   function evidenceSection(title: string, content: ReactNode) {
     return (
-      <section className="developer-evidence__panel">
-        <h3>{title}</h3>
+      <AdvancedEvidencePanel title={title}>
         {content}
-      </section>
+      </AdvancedEvidencePanel>
     );
   }
 
@@ -117,6 +119,13 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
       <h2 id="developer-evidence-title">Developer/Evidence</h2>
       <p className="developer-evidence__intro">Proof-only workflow modules are preserved here only.</p>
       <div className="developer-evidence__grid">
+        {evidenceSection(
+          "Runtime evidence",
+          <div data-runtime-build-info-advanced-only="true">
+            <RuntimeMismatchBanner />
+            <RuntimeBuildInfoPanel />
+          </div>
+        )}
         {evidenceSection("Simulation API retrieval", <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />)}
         {evidenceSection(
           "Workflow evidence",

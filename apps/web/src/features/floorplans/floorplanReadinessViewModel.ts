@@ -1,4 +1,5 @@
 import {
+  EDITABLE_SPLIT_BAY_DIVIDER_STYLES,
   isRoomLoadEligibleRoomType,
   type ActiveFloorplanContract,
   type FloorplanReadinessContract,
@@ -10,6 +11,7 @@ export function createFloorplanReadinessViewModel(
 ): FloorplanReadinessContract {
   const layout = activeFloorplan.editableLayout;
   const patientCareRooms = layout.rooms.filter((room) => isRoomLoadEligibleRoomType(room.roomType));
+  const splitRoomReadiness = hasValidSplitRoomReadiness(activeFloorplan);
   const items: FloorplanReadinessItemContract[] = [
     item(
       "rooms_labeled",
@@ -45,8 +47,9 @@ export function createFloorplanReadinessViewModel(
     item(
       "split_rooms_reviewed",
       "Split rooms reviewed",
-      (layout.splitBays?.length ?? 0) >= 0,
-      "Split rooms are reviewed for this workflow step."
+      splitRoomReadiness.passed,
+      splitRoomReadiness.reason,
+      splitRoomReadiness.passedReason
     ),
     item(
       "hallways_routes_reviewed",
@@ -68,9 +71,28 @@ export function createFloorplanReadinessViewModel(
     ),
     item(
       "active_for_simulation",
-      "Active for simulation",
+      "Prepared for scenario setup",
       activeFloorplan.selectedForSimulation,
-      "Use this floorplan for simulation."
+      "Prepare this floorplan for scenario setup after assignments are saved.",
+      "Floorplan is selected for scenario setup. Assignment set, scenario, and assumptions are still required."
+    ),
+    item(
+      "assignment_set_ready",
+      "Assignment set ready",
+      false,
+      "A durable assignment set linked to this floorplan version is required before simulation readiness."
+    ),
+    item(
+      "scenario_context_ready",
+      "Scenario context ready",
+      false,
+      "Scenario setup is foundation-only until assignment context is selected."
+    ),
+    item(
+      "scenario_assumptions_ready",
+      "Scenario assumptions ready",
+      false,
+      "Scenario assumptions are not ready in the floorplan-only workflow."
     )
   ];
   const assignmentIds = new Set([
@@ -84,9 +106,17 @@ export function createFloorplanReadinessViewModel(
   const assignmentReady = items
     .filter((entry) => assignmentIds.has(entry.itemId))
     .every((entry) => entry.status === "passed");
-  const simulationReady = assignmentReady
-    && items.every((entry) => entry.status === "passed")
-    && activeFloorplan.selectedForSimulation;
+  const simulationReadinessIds = new Set<FloorplanReadinessItemContract["itemId"]>([
+    "floorplan_saved",
+    "active_for_assignment",
+    "active_for_simulation",
+    "assignment_set_ready",
+    "scenario_context_ready",
+    "scenario_assumptions_ready"
+  ]);
+  const simulationReady = items
+    .filter((entry) => simulationReadinessIds.has(entry.itemId))
+    .every((entry) => entry.status === "passed");
 
   return {
     schemaVersion: "1.0.0",
@@ -103,12 +133,60 @@ function item(
   itemId: FloorplanReadinessItemContract["itemId"],
   label: string,
   passed: boolean,
-  reason: string
+  reason: string,
+  passedReason = "Ready."
 ): FloorplanReadinessItemContract {
   return {
     itemId,
     label,
     status: passed ? "passed" : "needs_work",
-    reason: passed ? "Ready." : reason
+    reason: passed ? passedReason : reason
+  };
+}
+
+function hasValidSplitRoomReadiness(activeFloorplan: ActiveFloorplanContract): {
+  passed: boolean;
+  reason: string;
+  passedReason?: string;
+} {
+  const layout = activeFloorplan.editableLayout;
+  const splitBays = layout.splitBays ?? [];
+  if (splitBays.length === 0) {
+    return {
+      passed: true,
+      reason: "Split rooms are reviewed for this workflow step.",
+      passedReason: "No split rooms present."
+    };
+  }
+
+  const roomsById = new Map(layout.rooms.map((room) => [room.id, room]));
+  const invalidSplitBay = splitBays.find((splitBay) => {
+    if (splitBay.objectType !== "split_bay") return true;
+    if (splitBay.id !== splitBay.splitBayId) return true;
+    if (splitBay.splitBayId.trim().length === 0) return true;
+    if (splitBay.label.trim().length === 0) return true;
+    if (!EDITABLE_SPLIT_BAY_DIVIDER_STYLES.includes(splitBay.dividerStyle)) return true;
+    if (!Number.isFinite(splitBay.xFeet) || !Number.isFinite(splitBay.yFeet)) return true;
+    if (!Number.isFinite(splitBay.widthFeet) || splitBay.widthFeet <= 0) return true;
+    if (!Number.isFinite(splitBay.heightFeet) || splitBay.heightFeet <= 0) return true;
+    if (splitBay.bedPositionRoomIds.length !== 2) return true;
+    if (new Set(splitBay.bedPositionRoomIds).size !== splitBay.bedPositionRoomIds.length) return true;
+    return splitBay.bedPositionRoomIds.some((roomId) => {
+      const childRoom = roomsById.get(roomId);
+      return childRoom == null || !isRoomLoadEligibleRoomType(childRoom.roomType);
+    });
+  });
+
+  if (invalidSplitBay != null) {
+    return {
+      passed: false,
+      reason: `Review split room ${invalidSplitBay.splitBayId || invalidSplitBay.id}: child room references must be valid and independently assignable, divider style must be supported, and geometry must be persistence-compatible.`
+    };
+  }
+
+  return {
+    passed: true,
+    reason: "Split rooms are reviewed for this workflow step.",
+    passedReason: "Split rooms have valid child room references."
   };
 }

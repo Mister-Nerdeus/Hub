@@ -15,8 +15,8 @@ const landingSource = readFileSync(
 if (!appSource.includes("setActiveSection(DEFAULT_APP_SECTION_ID)")) {
   throw new Error("unlock must route users to the active floorplan workflow section");
 }
-if (!appSource.includes("<ActiveFloorplanSelector")) {
-  throw new Error("unlocked first view must use active floorplan selector");
+if (!appSource.includes("<ActiveFloorplanHub")) {
+  throw new Error("unlocked first view must use active floorplan hub");
 }
 if (!landingSource.includes("Canonical Plan 1 workflow")) {
   throw new Error("landing summary must foreground the Plan 1 workflow");

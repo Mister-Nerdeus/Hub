@@ -1,0 +1,189 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "normal floorplan page renders one active floorplan hub",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "hub": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "hub includes active floorplan card and thumbnail",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "card": {
+          "passed": true,
+          "missing": []
+        },
+        "thumbnail": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "next-step guidance is prominent with readiness and version summary",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "next": {
+          "passed": true,
+          "missing": []
+        },
+        "composition": {
+          "passed": true,
+          "missing": []
+        },
+        "versionSummary": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "floorplan hub uses Prepare for Simulation without claiming floorplan-only readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "checklist": {
+          "passed": true,
+          "present": []
+        },
+        "selector": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "active floorplan hub has responsive constraints for long names and narrow widths",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "hub": {
+          "passed": true,
+          "missing": []
+        },
+        "css": {
+          "passed": true,
+          "missing": []
+        },
+        "selector": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "technical/library/evidence surfaces are collapsed under Advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "normalHidden": {
+          "passed": true,
+          "present": []
+        },
+        "advanced": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "hub-contract": {
+      "passed": true,
+      "hub": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "active-floorplan-card": {
+      "passed": true,
+      "card": {
+        "passed": true,
+        "missing": []
+      },
+      "thumbnail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "next-step-card": {
+      "passed": true,
+      "next": {
+        "passed": true,
+        "missing": []
+      },
+      "composition": {
+        "passed": true,
+        "missing": []
+      },
+      "versionSummary": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "prepare-for-simulation-copy": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "checklist": {
+        "passed": true,
+        "present": []
+      },
+      "selector": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "responsive-layout": {
+      "passed": true,
+      "hub": {
+        "passed": true,
+        "missing": []
+      },
+      "css": {
+        "passed": true,
+        "missing": []
+      },
+      "selector": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "advanced-hidden": {
+      "passed": true,
+      "normalHidden": {
+        "passed": true,
+        "present": []
+      },
+      "advanced": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

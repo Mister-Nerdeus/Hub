@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-active-floorplan-card-layout normal-width",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/styles.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-active-floorplan-card-layout narrow-width",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/styles.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-active-floorplan-card-layout no-title-collision",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/ActiveFloorplanCard.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/styles.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "normal-width": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/styles.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "narrow-width": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/styles.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "no-title-collision": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/ActiveFloorplanCard.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/styles.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

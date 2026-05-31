@@ -1,0 +1,179 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 881B done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 542B done
+#2 DONE 0.0s
+
+#3 [web internal] load build definition from Dockerfile.local
+#3 transferring dockerfile: 712B done
+#3 DONE 0.0s
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 ...
+
+#5 [auth] library/node:pull token for registry-1.docker.io
+#5 DONE 0.0s
+
+#6 [auth] library/python:pull token for registry-1.docker.io
+#6 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 ...
+
+#4 [web internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.6s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 295B done
+#8 DONE 0.0s
+
+#9 [web  1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#9 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#9 DONE 0.0s
+
+#10 [web internal] load build context
+#10 ...
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 295B done
+#8 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/python:3.13-slim
+#7 DONE 0.9s
+
+#10 [web internal] load build context
+#10 ...
+
+#11 [api 1/5] FROM docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3
+#11 resolve docker.io/library/python:3.13-slim@sha256:b04b5d7233d2ad9c379e22ea8927cd1378cd15c60d4ef876c065b25ea8fb3bf3 0.1s done
+#11 DONE 0.2s
+
+#10 [web internal] load build context
+#10 ...
+
+#12 [api internal] load build context
+#12 transferring context: 916.69kB 0.9s done
+#12 DONE 0.9s
+
+#13 [api 2/5] WORKDIR /app
+#13 CACHED
+
+#14 [api 3/5] COPY apps/api/requirements.txt apps/api/requirements-dev.txt ./
+#14 CACHED
+
+#15 [api 4/5] RUN pip install --no-cache-dir -r requirements-dev.txt
+#15 CACHED
+
+#10 [web internal] load build context
+#10 ...
+
+#16 [api 5/5] COPY apps/api/ ./
+#16 DONE 0.3s
+
+#10 [web internal] load build context
+#10 ...
+
+#17 [api] exporting to image
+#17 exporting layers 0.4s done
+#17 exporting manifest sha256:6eb34f154d8f66113ac4777818234600ce72aa1878e540eb6257905ad737e6c2 0.1s done
+#17 exporting config sha256:8d9dcaa8c512ed2063863bf9b78468ce8d4d6bc85029da1792f34a1f1807cc44 0.1s done
+#17 exporting attestation manifest sha256:46f12273400d84e44a18d9275236f53733338d8b4353cc1a1333f644cce8d337 0.1s done
+#17 exporting manifest list sha256:5e9052b34429b3db9fafa4c6816b33be8fa2e66fbe1d54ffba8db8c44c66ba85 0.1s done
+#17 naming to docker.io/library/hub-api:latest 0.0s done
+#17 unpacking to docker.io/library/hub-api:latest 0.3s done
+#17 DONE 1.4s
+
+#10 [web internal] load build context
+#10 ...
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.1s
+
+#10 [web internal] load build context
+#10 transferring context: 11.72MB 6.1s
+#10 transferring context: 12.16MB 6.2s done
+#10 DONE 6.3s
+
+#19 [web  3/11] COPY package.json package-lock.json ./
+#19 CACHED
+
+#20 [web  4/11] COPY apps/web/package.json apps/web/package.json
+#20 CACHED
+
+#21 [web  2/11] WORKDIR /repo
+#21 CACHED
+
+#22 [web  5/11] COPY packages/shared/package.json packages/shared/package.json
+#22 CACHED
+
+#23 [web  6/11] RUN npm ci
+#23 5.028 
+#23 5.028 added 27 packages, and audited 30 packages in 5s
+#23 5.028 
+#23 5.029 9 packages are looking for funding
+#23 5.029   run `npm fund` for details
+#23 5.030 
+#23 5.030 found 0 vulnerabilities
+#23 5.032 npm notice
+#23 5.032 npm notice New major version of npm available! 10.9.8 -> 11.16.0
+#23 5.032 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+#23 5.032 npm notice To update run: npm install -g npm@11.16.0
+#23 5.032 npm notice
+#23 DONE 5.3s
+
+#24 [web  7/11] COPY tsconfig.base.json ./
+#24 DONE 0.1s
+
+#25 [web  8/11] COPY apps/web apps/web
+#25 DONE 0.2s
+
+#26 [web  9/11] COPY packages/shared packages/shared
+#26 DONE 0.2s
+
+#27 [web 10/11] RUN npm --workspace @nerdeus/shared run build
+#27 0.429 
+#27 0.429 > @nerdeus/shared@0.1.0 build
+#27 0.429 > tsc -p tsconfig.json
+#27 0.429 
+#27 DONE 5.1s
+
+#28 [web 11/11] WORKDIR /repo/apps/web
+#28 DONE 0.1s
+
+#29 [web] exporting to image
+#29 exporting layers
+#29 exporting layers 5.2s done
+#29 exporting manifest sha256:3147fcf5be323368e958c87706a9e3514890a3170fbea274170e4996ed07d677 0.0s done
+#29 exporting config sha256:934bc8dc605aec309b0e52ab1581a012c9414345ea4dac4ac4c0195275cd4261 0.0s done
+#29 exporting attestation manifest sha256:2ca21c19e2fb0843ed7a7dc25050ce88b0b77bf4dfc9cde9e3fe2248fcb3f07f 0.1s done
+#29 exporting manifest list sha256:195a8cab4b0cd7bc522a0cd369c91759df734c454b9a50c93dd80a1ff92aa3c4
+#29 exporting manifest list sha256:195a8cab4b0cd7bc522a0cd369c91759df734c454b9a50c93dd80a1ff92aa3c4 0.0s done
+#29 naming to docker.io/library/hub-web:latest done
+#29 unpacking to docker.io/library/hub-web:latest
+#29 unpacking to docker.io/library/hub-web:latest 1.4s done
+#29 DONE 6.8s
+
+#30 [web] resolving provenance for metadata file
+#30 DONE 0.0s
+ Image hub-api Built 
+ Image hub-web Built 
+ Network hub_default Creating 
+ Network hub_default Created 
+ Container hub-db-1 Creating 
+ Container hub-db-1 Created 
+ Container hub-api-1 Creating 
+ Container hub-api-1 Created 
+ Container hub-web-1 Creating 
+ Container hub-web-1 Created 
+ Container hub-db-1 Starting 
+ Container hub-db-1 Started 
+ Container hub-db-1 Waiting 
+ Container hub-db-1 Healthy 
+ Container hub-api-1 Starting 
+ Container hub-api-1 Started 
+ Container hub-web-1 Starting 
+ Container hub-web-1 Started 

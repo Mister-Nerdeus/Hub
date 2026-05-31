@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "commit": "a4ab67186f6a06686ac565ba714e66d19effde3d",
+  "commands": {
+    "sharedTests": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/test-output/shared.txt",
+    "webTests": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/test-output/web.txt",
+    "webBuild": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/test-output/web-build.txt",
+    "editorAssignmentGoNoGo": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/test-output/editor-assignment-ux-go-no-go.txt",
+    "noPhi": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/test-output/no-phi-output.txt",
+    "dockerVersion": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-version.txt",
+    "dockerComposeVersion": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-version.txt",
+    "dockerComposeConfig": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-config.txt",
+    "dockerComposeDown": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-down.txt",
+    "dockerComposeUpBuild": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-up-build.txt",
+    "dockerComposeMigrate": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-migrate.txt",
+    "dockerComposePs": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/docker-compose-ps-final.txt",
+    "webContainerCommit": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/web-container-build-commit.txt",
+    "webImageRevision": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/web-image-revision-label.txt",
+    "apiImageRevision": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/api-image-revision-label.txt",
+    "apiHealth": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/api-health.txt",
+    "apiPlans": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/api-plans.txt",
+    "webStatus": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/web-status-after-health.txt",
+    "productionDockerRuntime": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/production-docker-runtime.txt",
+    "productionDockerRuntimeSmoke": "docs/verification/reviews/2026-05-31-batch-704-741-post-review/docker/production-docker-runtime-smoke.txt"
+  }
+}

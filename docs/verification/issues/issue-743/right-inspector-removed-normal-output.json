@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "kind": "include",
+      "path": "apps/web/src/features/layout-editor/EditorDetailsPanel.tsx",
+      "passed": true,
+      "missing": []
+    },
+    {
+      "kind": "exclude",
+      "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+      "passed": true,
+      "present": []
+    }
+  ]
+}

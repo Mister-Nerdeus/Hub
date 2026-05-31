@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "704",
+  "stage": "repository-truth-source",
+  "checks": [
+    {
+      "name": "repository default branch is declared as the repository truth source",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "repositoryTruthSource": "github_default_branch",
+        "expectedRepositoryTruthSource": "github_default_branch",
+        "screenshotAuthority": "evidence_only"
+      }
+    }
+  ],
+  "stageResults": {
+    "repository-truth-source": {
+      "status": "passed",
+      "repositoryTruthSource": "github_default_branch",
+      "expectedRepositoryTruthSource": "github_default_branch",
+      "screenshotAuthority": "evidence_only"
+    }
+  }
+}

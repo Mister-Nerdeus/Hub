@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "issue": "719",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-editor-workspace-layout.mjs --stage full-page-editor --allow-partial --issue 719",
+    "5": "node scripts/check-editor-workspace-layout.mjs --stage toolbar-above-canvas --allow-partial --issue 719",
+    "6": "node scripts/check-editor-workspace-layout.mjs --stage canvas-expanded --allow-partial --issue 719",
+    "7": "node scripts/check-no-phi-fields.mjs"
+  }
+}

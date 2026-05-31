@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split-room readiness validates data when split rooms exist",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "source": {
+          "passed": true,
+          "missing": []
+        },
+        "noAlwaysPass": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "no split rooms pass with explicit no-split-room reason",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "invalid split-room references fail readiness",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "simulation readiness requires assignment/scenario/assumption context and copy is not overclaimed",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "model": {
+          "passed": true,
+          "missing": []
+        },
+        "checklist": {
+          "passed": true,
+          "missing": []
+        },
+        "selector": {
+          "passed": true,
+          "missing": []
+        },
+        "noClaim": [
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "split-room-readiness": {
+      "passed": true,
+      "source": {
+        "passed": true,
+        "missing": []
+      },
+      "noAlwaysPass": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "no-split-room-readiness": {
+      "passed": true,
+      "missing": []
+    },
+    "invalid-split-room-readiness": {
+      "passed": true,
+      "missing": []
+    },
+    "simulation-readiness-copy": {
+      "passed": true,
+      "model": {
+        "passed": true,
+        "missing": []
+      },
+      "checklist": {
+        "passed": true,
+        "missing": []
+      },
+      "selector": {
+        "passed": true,
+        "missing": []
+      },
+      "noClaim": [
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    }
+  }
+}

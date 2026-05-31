@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-scenario-handoff-gate.mjs --stage selected-context --allow-partial --issue 741",
+    "5": "node scripts/check-scenario-handoff-gate.mjs --stage missing-assignment-block --allow-partial --issue 741",
+    "6": "node scripts/check-scenario-handoff-gate.mjs --stage no-simulation-charts --allow-partial --issue 741",
+    "7": "node scripts/check-no-phi-fields.mjs"
+  }
+}

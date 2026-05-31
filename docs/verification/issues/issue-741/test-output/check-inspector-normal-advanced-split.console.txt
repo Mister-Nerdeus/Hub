@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-inspector-normal-advanced-split normal-groups",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/layoutInspectorViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-inspector-normal-advanced-split technical-fields-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/InspectorAdvancedDetails.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "normal-groups": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/layoutInspectorViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "technical-fields-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/InspectorAdvancedDetails.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

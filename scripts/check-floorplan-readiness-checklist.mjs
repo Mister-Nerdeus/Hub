@@ -67,12 +67,13 @@ function runStage(name) {
     return result;
   }
   if (name === "ready-for-simulation") {
-    const includes = fileIncludes("apps/web/src/features/floorplans/FloorplanReadinessChecklist.tsx", ["Ready for simulation"]);
+    const includes = fileIncludes("apps/web/src/features/floorplans/FloorplanReadinessChecklist.tsx", ["Prepared for simulation setup"]);
+    const noOverclaim = fileExcludes("apps/web/src/features/floorplans/FloorplanReadinessChecklist.tsx", ["Ready for simulation"]);
     const excludes = fileExcludes("apps/web/src/features/floorplans/floorplanReadinessViewModel.ts", ["clinical safety", "safe staffing", "patient outcome"]);
-    const result = { passed: includes.passed && excludes.passed, includes, excludes };
+    const result = { passed: includes.passed && noOverclaim.passed && excludes.passed, includes, noOverclaim, excludes };
     writeJson(`${dir}/ready-for-simulation-output.json`, result);
     writeText(`${dir}/no-clinical-claim-output.txt`, `status: ${excludes.passed ? "passed" : "failed"}\n`);
-    addCheck(checks, "simulation readiness status is visible without clinical claims", result.passed, result);
+    addCheck(checks, "simulation preparation status is visible without floorplan-only readiness or clinical claims", result.passed, result);
     return result;
   }
   throw new Error(`Unsupported readiness stage: ${name}`);

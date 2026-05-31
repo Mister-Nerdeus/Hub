@@ -69,7 +69,7 @@ function runStage(name) {
     return result;
   }
   if (name === "scenario-mode") {
-    const result = fileIncludes("apps/web/src/App.tsx", ["ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract}"]);
+    const result = fileIncludes("apps/web/src/App.tsx", ["ScenarioRatioComparisonPanel", "activeFloorplan={activeFloorplanContract}"]);
     writeJson(`${dir}/scenario-mode-output.json`, result);
     addCheck(checks, "scenario mode shares active floorplan context", result.passed, result);
     return result;

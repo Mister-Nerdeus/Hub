@@ -1,0 +1,113 @@
+{
+  "status": "passed",
+  "issue": "728",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-nurse-profile-builder builder-ui",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/NurseProfileBuilder.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-nurse-profile-builder add-nurse",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-nurse-profile-builder edit-nurse",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/NurseProfileBuilder.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-nurse-profile-builder deactivate-nurse",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "builder-ui": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/NurseProfileBuilder.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "add-nurse": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "edit-nurse": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/NurseProfileBuilder.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "deactivate-nurse": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

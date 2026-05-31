@@ -1,0 +1,220 @@
+{
+  "source": "docs/verification/issues/issue-713/test-output/editor-normal-toolbar-ux.txt",
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editor toolbar uses normal toolbar plus advanced separation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "commandBar": {
+          "passed": true,
+          "missing": []
+        },
+        "normalToolbar": {
+          "passed": true,
+          "missing": []
+        },
+        "stageWiring": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "normal editor toolbar exposes direct user actions without technical controls",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "normalToolbar": {
+          "passed": true,
+          "missing": []
+        },
+        "normalHidden": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "explicit Add Room, Add Door, Add Split Room, and Add Nurse Station actions are wired",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "addRoom": {
+          "passed": true,
+          "missing": []
+        },
+        "addDoor": {
+          "passed": true,
+          "missing": []
+        },
+        "addSplitRoom": {
+          "passed": true,
+          "missing": []
+        },
+        "addNurseStation": {
+          "passed": true,
+          "missing": []
+        },
+        "stageWiring": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "legacy detailed editor controls are available only under Advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "commandBar": {
+          "passed": true,
+          "missing": []
+        },
+        "normalToolbar": {
+          "passed": true,
+          "present": []
+        },
+        "advancedPanel": {
+          "passed": true,
+          "missing": []
+        },
+        "advancedContent": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "advanced tools contain technical details and preserve save/door/split-room wiring",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "advanced": {
+          "passed": true,
+          "missing": []
+        },
+        "panel": {
+          "passed": true,
+          "missing": []
+        },
+        "recoveryAdvanced": {
+          "passed": true,
+          "missing": []
+        },
+        "saveRegression": {
+          "passed": true,
+          "missing": []
+        },
+        "doorRegression": {
+          "passed": true,
+          "missing": []
+        },
+        "splitRegression": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "toolbar-contract": {
+      "passed": true,
+      "commandBar": {
+        "passed": true,
+        "missing": []
+      },
+      "normalToolbar": {
+        "passed": true,
+        "missing": []
+      },
+      "stageWiring": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "normal-toolbar": {
+      "passed": true,
+      "normalToolbar": {
+        "passed": true,
+        "missing": []
+      },
+      "normalHidden": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "explicit-add-actions": {
+      "passed": true,
+      "addRoom": {
+        "passed": true,
+        "missing": []
+      },
+      "addDoor": {
+        "passed": true,
+        "missing": []
+      },
+      "addSplitRoom": {
+        "passed": true,
+        "missing": []
+      },
+      "addNurseStation": {
+        "passed": true,
+        "missing": []
+      },
+      "stageWiring": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "detailed-toolbar-advanced": {
+      "passed": true,
+      "commandBar": {
+        "passed": true,
+        "missing": []
+      },
+      "normalToolbar": {
+        "passed": true,
+        "present": []
+      },
+      "advancedPanel": {
+        "passed": true,
+        "missing": []
+      },
+      "advancedContent": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "advanced-tools": {
+      "passed": true,
+      "advanced": {
+        "passed": true,
+        "missing": []
+      },
+      "panel": {
+        "passed": true,
+        "missing": []
+      },
+      "recoveryAdvanced": {
+        "passed": true,
+        "missing": []
+      },
+      "saveRegression": {
+        "passed": true,
+        "missing": []
+      },
+      "doorRegression": {
+        "passed": true,
+        "missing": []
+      },
+      "splitRegression": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-editor-detailed-tools-advanced detailed-toolbar-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorAdvancedToolsPanel.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-detailed-tools-advanced normal-mode-hidden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "detailed-toolbar-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorAdvancedToolsPanel.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "normal-mode-hidden": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorCommandBar.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

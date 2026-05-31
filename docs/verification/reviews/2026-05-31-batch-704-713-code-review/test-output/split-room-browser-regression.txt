@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "browser flow selects Room 5 and creates Split Room 4/5",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "room5ActionVisible": true,
+        "room5CreateClicked": true,
+        "split45Visible": true,
+        "split45LabelsVisible": true,
+        "split45DividerVisible": true
+      }
+    },
+    {
+      "name": "browser flow creates 2/3, 4/5, 6/7, and 8/9 split rooms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBayIds": [
+          "split-bay-room-02-room-03",
+          "split-bay-room-04-room-05",
+          "split-bay-room-06-room-07",
+          "split-bay-room-08-room-09"
+        ]
+      }
+    },
+    {
+      "name": "split-room child positions can show independent assignment colors",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "childAssignmentFills": 2,
+        "assignmentColorsIndependent": true
+      }
+    },
+    {
+      "name": "Save Floorplan and reload same saved record preserve split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "afterReloadSplit45Visible": true
+      }
+    },
+    {
+      "name": "export JSON includes split parent and child room IDs",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "splitBays": [
+          {
+            "id": "split-bay-room-02-room-03",
+            "label": "2/3",
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 20,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-02-room-03",
+            "bedPositionRoomIds": [
+              "room-02",
+              "room-03"
+            ],
+            "dividerStyle": "diagonal_down"
+          },
+          {
+            "id": "split-bay-room-04-room-05",
+            "label": "4/5",
+            "xFeet": 44,
+            "yFeet": 40,
+            "widthFeet": 20,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-04-room-05",
+            "bedPositionRoomIds": [
+              "room-04",
+              "room-05"
+            ],
+            "dividerStyle": "diagonal_down"
+          },
+          {
+            "id": "split-bay-room-06-room-07",
+            "label": "6/7",
+            "xFeet": 92,
+            "yFeet": 28,
+            "widthFeet": 20,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-06-room-07",
+            "bedPositionRoomIds": [
+              "room-06",
+              "room-07"
+            ],
+            "dividerStyle": "diagonal_down"
+          },
+          {
+            "id": "split-bay-room-08-room-09",
+            "label": "8/9",
+            "xFeet": 92,
+            "yFeet": 40,
+            "widthFeet": 20,
+            "heightFeet": 10,
+            "objectType": "split_bay",
+            "splitBayId": "split-bay-room-08-room-09",
+            "bedPositionRoomIds": [
+              "room-08",
+              "room-09"
+            ],
+            "dividerStyle": "diagonal_down"
+          }
+        ]
+      }
+    },
+    {
+      "name": "import JSON preserves split room",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "importedSplitBayIds": [
+          "split-bay-room-02-room-03",
+          "split-bay-room-04-room-05",
+          "split-bay-room-06-room-07",
+          "split-bay-room-08-room-09"
+        ]
+      }
+    },
+    {
+      "name": "browser split-room flow shows no Copy or Duplicate label",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "copyLabelVisible": false,
+        "bodyCopyHits": []
+      }
+    },
+    {
+      "name": "split-room browser flow avoids recovery screen",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "recoveryScreenVisible": false
+      }
+    }
+  ]
+}

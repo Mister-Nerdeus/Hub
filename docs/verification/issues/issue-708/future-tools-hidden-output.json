@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "kind": "include",
+      "path": "apps/web/src/features/app-shell/appNavigation.ts",
+      "passed": true,
+      "missing": []
+    },
+    {
+      "kind": "exclude",
+      "path": "apps/web/src/features/app-shell/ProductSidebarRail.tsx",
+      "passed": true,
+      "present": []
+    }
+  ]
+}

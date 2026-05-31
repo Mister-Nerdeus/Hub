@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "717",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 717",
+    "5": "node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 717",
+    "6": "node scripts/check-no-phi-fields.mjs"
+  }
+}

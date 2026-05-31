@@ -10,7 +10,10 @@ export type FloorplanReadinessItemId =
   | "hallways_routes_reviewed"
   | "floorplan_saved"
   | "active_for_assignment"
-  | "active_for_simulation";
+  | "active_for_simulation"
+  | "assignment_set_ready"
+  | "scenario_context_ready"
+  | "scenario_assumptions_ready";
 
 export type FloorplanReadinessItemContract = {
   itemId: FloorplanReadinessItemId;

@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-manual-assignment-layout layout-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/ManualAssignmentLayout.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "layout-contract": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/ManualAssignmentLayout.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

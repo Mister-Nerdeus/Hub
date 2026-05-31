@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "issue": "722",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-editor-details-bottom-panel.mjs --stage right-inspector-removed-normal --allow-partial --issue 722",
+    "5": "node scripts/check-editor-details-bottom-panel.mjs --stage bottom-details-panel --allow-partial --issue 722",
+    "6": "node scripts/check-editor-details-bottom-panel.mjs --stage canvas-width-expanded --allow-partial --issue 722",
+    "7": "node scripts/check-editor-details-bottom-panel.mjs --stage technical-fields-advanced --allow-partial --issue 722",
+    "8": "node scripts/check-no-phi-fields.mjs"
+  }
+}

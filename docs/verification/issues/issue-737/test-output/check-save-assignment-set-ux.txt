@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "737",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-save-assignment-set-ux assignment-selector",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/assignments/AssignmentSetSelector.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-save-assignment-set-ux save-assignment",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/App.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "assignment-selector": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/assignments/AssignmentSetSelector.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "save-assignment": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/App.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

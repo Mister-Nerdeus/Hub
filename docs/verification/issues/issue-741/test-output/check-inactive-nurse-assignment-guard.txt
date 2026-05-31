@@ -1,0 +1,59 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-inactive-nurse-assignment-guard inactive-block",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/manualAssignmentReducer.ts",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "packages/shared/src/manual-assignment/manualAssignmentWarnings.ts",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "inactive-block": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/manualAssignmentReducer.ts",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "packages/shared/src/manual-assignment/manualAssignmentWarnings.ts",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/manual-assignment/nurseProfileActions.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

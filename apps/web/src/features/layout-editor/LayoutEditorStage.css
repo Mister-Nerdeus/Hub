@@ -1,8 +1,15 @@
 .layout-editor-stage {
   display: grid;
-  gap: 10px;
-  margin: 0 auto;
-  max-width: 1480px;
+  gap: 5px;
+  margin: 0;
+  max-width: none;
+  width: 100%;
+}
+
+.layout-editor-workspace {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
   width: 100%;
 }
 
@@ -36,6 +43,14 @@
 .editor-command-bar__primary {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.editor-normal-toolbar {
+  align-items: center;
+  display: flex;
+  flex: 1 1 620px;
   flex-wrap: wrap;
   gap: 6px;
 }
@@ -77,6 +92,26 @@
   font-weight: 800;
   line-height: 1.35;
   margin: 0;
+}
+
+.editor-advanced-tools-panel {
+  background: #f8fafc;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.editor-advanced-tools-panel summary {
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.editor-advanced-tools-panel__body {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .editor-command-bar__status {
@@ -464,8 +499,8 @@
 .layout-editor-stage__workspace {
   align-items: stretch;
   display: grid;
-  gap: 12px;
-  grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+  gap: 5px;
+  grid-template-columns: minmax(0, 1fr);
   overflow-x: hidden;
 }
 
@@ -473,11 +508,50 @@
   grid-template-columns: minmax(0, 1fr);
 }
 
-.layout-editor-stage__side-panels {
+.layout-editor-stage__workspace[data-editor-canvas-primary="true"] {
+  min-width: 0;
+}
+
+.editor-details-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
   display: grid;
-  gap: 12px;
-  max-height: var(--editor-canvas-height, 820px);
+  overflow: hidden;
+}
+
+.editor-details-panel summary {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 9px 12px;
+}
+
+.editor-details-panel summary span {
+  color: #111827;
+  font-size: 0.86rem;
+  font-weight: 900;
+}
+
+.editor-details-panel summary small {
+  color: #53616f;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.editor-details-panel__body,
+.editor-details-panel__content {
+  display: grid;
+  gap: 10px;
+}
+
+.editor-details-panel__body {
+  border-top: 1px solid #d9e1e8;
+  max-height: min(42vh, 460px);
   overflow: auto;
+  padding: 10px;
 }
 
 .layout-editor-stage__docked-popover {

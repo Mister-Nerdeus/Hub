@@ -1,0 +1,74 @@
+# Issue 743 Closeout
+
+## Problem
+Editor/Assignment UX GO/NO-GO Audit
+
+## Summary
+- Local validator status: passed.
+
+## Files Changed
+- Batch source, docs, scripts, manifest, and issue evidence as applicable.
+
+## Commands Run
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- npm run check:clean-committed-state
+- node scripts/check-editor-assignment-ux-preflight.mjs --stage final --issue 743
+- node scripts/check-full-page-workspace-shell.mjs --stage final --issue 743
+- node scripts/check-product-shell-rail.mjs --stage final --issue 743
+- node scripts/check-product-workflow-stepper.mjs --stage final --issue 743
+- node scripts/check-route-step-mapping.mjs --stage final --issue 743
+- node scripts/check-advanced-evidence-migration.mjs --stage final --issue 743
+- node scripts/check-product-shell-responsive-layout.mjs --stage final --issue 743
+- node scripts/check-active-floorplan-hub.mjs --stage final --issue 743
+- node scripts/check-active-floorplan-card-layout.mjs --stage final --issue 743
+- node scripts/check-floorplan-thumbnail-preview.mjs --stage final --issue 743
+- node scripts/check-next-workflow-step-card.mjs --stage final --issue 743
+- node scripts/check-simulation-copy-overclaim.mjs --stage final --issue 743
+- node scripts/check-compact-readiness-summary.mjs --stage final --issue 743
+- node scripts/check-floorplan-readiness-truth.mjs --stage final --issue 743
+- node scripts/check-active-floorplan-persistence-resilience.mjs --stage final --issue 743
+- node scripts/check-editor-workspace-layout.mjs --stage final --issue 743
+- node scripts/check-editor-normal-toolbar-ux.mjs --stage final --issue 743
+- node scripts/check-editor-detailed-tools-advanced.mjs --stage final --issue 743
+- node scripts/check-editor-details-bottom-panel.mjs --stage final --issue 743
+- node scripts/check-assignment-set-contract.mjs --stage final --issue 743
+- node scripts/check-assignment-set-persistence.mjs --stage final --issue 743
+- node scripts/check-assignment-set-floorplan-link.mjs --stage final --issue 743
+- node scripts/check-raw-map-migration-bridge.mjs --stage final --issue 743
+- node scripts/check-nurse-profile-contract.mjs --stage final --issue 743
+- node scripts/check-nurse-profile-builder.mjs --stage final --issue 743
+- node scripts/check-inactive-nurse-assignment-guard.mjs --stage final --issue 743
+- node scripts/check-room-load-contract.mjs --stage final --issue 743
+- node scripts/check-room-load-editor-ui.mjs --stage final --issue 743
+- node scripts/check-room-load-persistence.mjs --stage final --issue 743
+- node scripts/check-split-room-child-loads.mjs --stage final --issue 743
+- node scripts/check-room-load-burden-recalculation.mjs --stage final --issue 743
+- node scripts/check-manual-assignment-layout.mjs --stage final --issue 743
+- node scripts/check-room-assignment-table.mjs --stage final --issue 743
+- node scripts/check-nurse-assignment-cards.mjs --stage final --issue 743
+- node scripts/check-assignment-issues-panel.mjs --stage final --issue 743
+- node scripts/check-save-assignment-set-ux.mjs --stage final --issue 743
+- node scripts/check-clear-assignments-confirmation.mjs --stage final --issue 743
+- node scripts/check-scenario-handoff-gate.mjs --stage final --issue 743
+- node scripts/check-no-synthetic-fallback-normal-mode.mjs --stage final --issue 743
+- node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 743
+- node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 743
+- node scripts/check-split-room-browser-regression.mjs --stage final --issue 743
+- npm run check:production-docker-runtime
+- node scripts/check-no-phi-fields.mjs
+
+## Tests Passed/Failed
+- Required local validator gates passed.
+
+## Evidence Artifacts
+- docs/verification/issues/issue-743
+- docs/verification/editor-assignment-ux-manifest.json
+- docs/project/editor-assignment-ux-status.md
+
+## Known Limitations
+- None beyond the issue scope.
+
+## Non-PHI Confirmation
+- Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

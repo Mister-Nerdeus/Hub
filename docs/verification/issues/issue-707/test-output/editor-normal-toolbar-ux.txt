@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "issue": "707",
+  "stage": "detailed-toolbar-advanced",
+  "checks": [
+    {
+      "name": "legacy detailed editor controls are available only under Advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "commandBar": {
+          "passed": true,
+          "missing": []
+        },
+        "normalToolbar": {
+          "passed": true,
+          "present": []
+        },
+        "advancedPanel": {
+          "passed": true,
+          "missing": []
+        },
+        "advancedContent": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "detailed-toolbar-advanced": {
+      "passed": true,
+      "commandBar": {
+        "passed": true,
+        "missing": []
+      },
+      "normalToolbar": {
+        "passed": true,
+        "present": []
+      },
+      "advancedPanel": {
+        "passed": true,
+        "missing": []
+      },
+      "advancedContent": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

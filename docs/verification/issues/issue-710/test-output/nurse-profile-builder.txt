@@ -1,0 +1,119 @@
+{
+  "status": "passed",
+  "issue": "710",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "nurse profile contract is structured and non-identity-based",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "noPhi": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "manual assignment renders assignment-set-backed nurse profile builder",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "builder": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "user can add a structured nurse profile to the assignment set",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "user can edit display label, color, role, limits, and qualifications",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "inactive nurses cannot receive new room assignments",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "actions": {
+          "passed": true,
+          "missing": []
+        },
+        "reducer": {
+          "passed": true,
+          "missing": []
+        },
+        "builder": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "contract": {
+        "passed": true,
+        "missing": []
+      },
+      "noPhi": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "builder-ui": {
+      "passed": true,
+      "builder": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "add-nurse": {
+      "passed": true,
+      "missing": []
+    },
+    "edit-nurse": {
+      "passed": true,
+      "missing": []
+    },
+    "deactivate-nurse": {
+      "passed": true,
+      "actions": {
+        "passed": true,
+        "missing": []
+      },
+      "reducer": {
+        "passed": true,
+        "missing": []
+      },
+      "builder": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

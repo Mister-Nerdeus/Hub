@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "issue": "734",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-room-load-burden-recalculation.mjs --stage load-change-burden --allow-partial --issue 734",
+    "5": "node scripts/check-no-phi-fields.mjs"
+  }
+}

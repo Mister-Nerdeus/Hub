@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "issue": "709",
+  "stage": "raw-map-migration-bridge",
+  "checks": [
+    {
+      "name": "raw manual assignment map is only a migration bridge around the durable assignment set",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "workspace": {
+          "passed": true,
+          "missing": []
+        },
+        "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+      }
+    }
+  ],
+  "stageResults": {
+    "raw-map-migration-bridge": {
+      "passed": true,
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "workspace": {
+        "passed": true,
+        "missing": []
+      },
+      "bridgeScope": "raw manualAssignmentsByRoomId remains a UI migration bridge; assignment set is the durable model"
+    }
+  }
+}

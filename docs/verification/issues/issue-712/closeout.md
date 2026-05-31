@@ -1,0 +1,33 @@
+# Issue 712 Closeout
+
+## Problem
+Active Floorplan Card Layout Fix
+
+## Summary
+- Local validator status: passed.
+
+## Files Changed
+- Batch source, docs, scripts, manifest, and issue evidence as applicable.
+
+## Commands Run
+- npm --workspace packages/shared test
+- npm --workspace apps/web test
+- npm --workspace apps/web run build
+- node scripts/check-active-floorplan-card-layout.mjs --stage normal-width --allow-partial --issue 712
+- node scripts/check-active-floorplan-card-layout.mjs --stage narrow-width --allow-partial --issue 712
+- node scripts/check-active-floorplan-card-layout.mjs --stage no-title-collision --allow-partial --issue 712
+- node scripts/check-no-phi-fields.mjs
+
+## Tests Passed/Failed
+- Required local validator gates passed.
+
+## Evidence Artifacts
+- docs/verification/issues/issue-712
+- docs/verification/editor-assignment-ux-manifest.json
+- docs/project/editor-assignment-ux-status.md
+
+## Known Limitations
+- None beyond the issue scope.
+
+## Non-PHI Confirmation
+- Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

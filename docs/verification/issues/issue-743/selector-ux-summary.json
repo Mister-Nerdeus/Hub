@@ -1,0 +1,98 @@
+{
+  "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "selector view model hides technical details",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "normal mode renders one active floorplan selector without technical copy",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "saved versions are selected from dropdown",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "old card grid and version history are advanced-only",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "hub": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "technical floorplan copy is absent from normal selector",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "present": []
+      }
+    }
+  ],
+  "stageResults": {
+    "selector-view-model": {
+      "passed": true,
+      "missing": []
+    },
+    "normal-mode": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "change-dropdown": {
+      "passed": true,
+      "missing": []
+    },
+    "advanced-library": {
+      "passed": true,
+      "hub": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "technical-copy-hidden": {
+      "passed": true,
+      "present": []
+    }
+  }
+}

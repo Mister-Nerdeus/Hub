@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-room-load-contract.mjs --stage contract --allow-partial --issue 730
+node scripts/check-room-load-contract.mjs --stage enum-values --allow-partial --issue 730
+node scripts/check-no-phi-fields.mjs
