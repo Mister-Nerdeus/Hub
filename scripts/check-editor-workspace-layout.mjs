@@ -69,7 +69,7 @@ const stages = {
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "StationShape",
       "type: \"moveStation\"",
-      "onMove={moveStation}"
+      "onMove={editorMode === \"edit\" ? moveStation : undefined}"
     ])
   ]),
   "station-resize-preserved": () => checkAll([

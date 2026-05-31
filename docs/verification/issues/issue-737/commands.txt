@@ -1,0 +1,4 @@
+node scripts/check-editor-workspace-layout.mjs --stage station-move-preserved --allow-partial --issue 737
+node scripts/check-editor-workspace-layout.mjs --stage station-resize-preserved --allow-partial --issue 737
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs
