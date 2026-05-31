@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+node scripts/check-support-storage-area-contract.mjs --stage contract --issue 782
+node scripts/check-support-storage-area-contract.mjs --stage non-patient-area-kinds --issue 782
+node scripts/check-no-phi-fields.mjs

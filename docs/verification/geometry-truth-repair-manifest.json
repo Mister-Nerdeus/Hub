@@ -16,7 +16,7 @@
   "hallwayInspectorControlsStatus": "passed",
   "outerWallGeometryContractStatus": "passed",
   "outerWallRendererStatus": "passed",
-  "supportStorageAreaContractStatus": "missing",
+  "supportStorageAreaContractStatus": "passed",
   "supportStorageAreaRendererStatus": "missing",
   "geometryHitTestingStatus": "missing",
   "renderLayerOrderStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "781",
+  "lastUpdatedIssue": "782",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -63,5 +63,6 @@
   "editableHallwaysVisibleAndSelectable": true,
   "hallwaysEditableInInspector": true,
   "outerWallsModeledAsGeometry": true,
-  "wallsRenderDistinctlyFromRooms": true
+  "wallsRenderDistinctlyFromRooms": true,
+  "nonPatientAreasModeledSeparately": true
 }

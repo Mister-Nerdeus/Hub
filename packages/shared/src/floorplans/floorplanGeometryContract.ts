@@ -48,6 +48,13 @@ export {
   type WallGeometryContract,
   type WallGeometryKind
 } from "./wallGeometryContract.js";
+export {
+  SUPPORT_STORAGE_AREA_KINDS,
+  createSupportStorageAreaContract,
+  validateSupportStorageAreaContract,
+  type SupportStorageAreaContract,
+  type SupportStorageAreaKind
+} from "./supportAreaContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

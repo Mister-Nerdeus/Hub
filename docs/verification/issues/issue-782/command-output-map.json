@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "782",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-782/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-storage-area-contract.mjs --stage contract --issue 782",
+      "outputs": [
+        "docs/verification/issues/issue-782/contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-support-storage-area-contract.mjs --stage non-patient-area-kinds --issue 782",
+      "outputs": [
+        "docs/verification/issues/issue-782/non-patient-area-kinds-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-782/no-phi-output.txt"
+      ]
+    }
+  ]
+}
