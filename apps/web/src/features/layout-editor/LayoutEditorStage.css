@@ -40,6 +40,14 @@
   gap: 6px;
 }
 
+.editor-normal-toolbar {
+  align-items: center;
+  display: flex;
+  flex: 1 1 620px;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .editor-command-bar button {
   background: #ffffff;
   border: 1px solid #9aaabc;
@@ -77,6 +85,26 @@
   font-weight: 800;
   line-height: 1.35;
   margin: 0;
+}
+
+.editor-advanced-tools-panel {
+  background: #f8fafc;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.editor-advanced-tools-panel summary {
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.editor-advanced-tools-panel__body {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .editor-command-bar__status {

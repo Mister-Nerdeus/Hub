@@ -39,10 +39,7 @@ if (viewModel.changedNotSavedWarningLabel == null) {
   throw new Error("command bar should warn when editor changes are not saved to the active floorplan");
 }
 if (viewModel.addObjectDisabled) {
-  throw new Error("Add Object shortcut should be enabled for editable layouts");
-}
-if (!viewModel.proceedDisabled || viewModel.proceedStatusLabel !== "Future step") {
-  throw new Error("Proceed control must remain a disabled future placeholder");
+  throw new Error("editor creation shortcuts should be enabled for editable layouts");
 }
 
 const calls: string[] = [];
@@ -102,6 +99,18 @@ const element = EditorCommandBar({
   onAddObject: () => {
     calls.push("add-object");
   },
+  onAddRoom: () => {
+    calls.push("add-room");
+  },
+  onAddDoor: () => {
+    calls.push("add-door");
+  },
+  onAddSplitRoom: () => {
+    calls.push("add-split-room");
+  },
+  onAddNurseStation: () => {
+    calls.push("add-nurse-station");
+  },
   onToggleInspector: () => {
     calls.push("toggle-inspector");
   }
@@ -117,9 +126,15 @@ if (element.props["data-editor-command-bar"] !== "consolidated") {
 const buttons = collectButtons(element.props.children);
 const labels = buttons.map((button) => buttonText(button)).filter(Boolean);
 
-for (const label of ["Undo", "Redo", "Save Floorplan", "Done Editing", "Save as New Version", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset view", "Hide inspector", "Proceed later"]) {
+for (const label of ["Save Floorplan", "Done Editing", "Add Room", "Add Door", "Add Split Room", "Add Nurse Station"]) {
   if (!labels.includes(label)) {
-    throw new Error(`EditorCommandBar missing ${label}`);
+    throw new Error(`normal EditorCommandBar toolbar missing ${label}`);
+  }
+}
+
+for (const label of ["Undo", "Redo", "Save as New Version", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset View", "Hide Inspector"]) {
+  if (!labels.includes(label)) {
+    throw new Error(`advanced EditorCommandBar tools missing ${label}`);
   }
 }
 
@@ -141,15 +156,34 @@ if (calls.at(-1) !== "validate") {
   throw new Error("Validate command should call the validation callback");
 }
 
+const addRoomButton = findButton(buttons, "Add Room");
+clickButton(addRoomButton, "Add Room");
+if (calls.at(-1) !== "add-room") {
+  throw new Error("Add Room command should call the room callback");
+}
+
+const addDoorButton = findButton(buttons, "Add Door");
+clickButton(addDoorButton, "Add Door");
+if (calls.at(-1) !== "add-door") {
+  throw new Error("Add Door command should call the door callback");
+}
+
+const addSplitRoomButton = findButton(buttons, "Add Split Room");
+clickButton(addSplitRoomButton, "Add Split Room");
+if (calls.at(-1) !== "add-split-room") {
+  throw new Error("Add Split Room command should call the split-room callback");
+}
+
+const addNurseStationButton = findButton(buttons, "Add Nurse Station");
+clickButton(addNurseStationButton, "Add Nurse Station");
+if (calls.at(-1) !== "add-nurse-station") {
+  throw new Error("Add Nurse Station command should call the nurse station callback");
+}
+
 const addObjectButton = findButton(buttons, "Add Object");
 clickButton(addObjectButton, "Add Object");
 if (calls.at(-1) !== "add-object") {
-  throw new Error("Add Object shortcut should call the object callback");
-}
-
-const proceedButton = findButton(buttons, "Proceed later");
-if (proceedButton.props.disabled !== true || proceedButton.props.onClick != null) {
-  throw new Error("Proceed placeholder must be disabled without an action");
+  throw new Error("Advanced Add Object shortcut should call the object callback");
 }
 
 const repoRoot = resolve(process.cwd(), "../..");
@@ -184,6 +218,9 @@ function collectButtons(node: unknown): TestElement[] {
     const element = child as TestElement;
     if (element.type === "button") {
       buttons.push(element);
+    }
+    if (typeof element.type === "function") {
+      buttons.push(...collectButtons(element.type(element.props ?? {})));
     }
     buttons.push(...collectButtons(element.props?.children));
   }

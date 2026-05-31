@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "issue": "712",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-manual-assignment-three-column-ux.mjs --stage layout-contract --allow-partial --issue 712",
+    "5": "node scripts/check-manual-assignment-three-column-ux.mjs --stage floorplan-overview --allow-partial --issue 712",
+    "6": "node scripts/check-manual-assignment-three-column-ux.mjs --stage room-table --allow-partial --issue 712",
+    "7": "node scripts/check-manual-assignment-three-column-ux.mjs --stage filter-chips --allow-partial --issue 712",
+    "8": "node scripts/check-manual-assignment-three-column-ux.mjs --stage nurse-cards --allow-partial --issue 712",
+    "9": "node scripts/check-assignment-set-save-reload-handoff.mjs --stage assignment-selector --allow-partial --issue 712",
+    "10": "node scripts/check-assignment-set-save-reload-handoff.mjs --stage save-assignment --allow-partial --issue 712",
+    "11": "node scripts/check-assignment-set-save-reload-handoff.mjs --stage reload-assignment --allow-partial --issue 712",
+    "12": "node scripts/check-assignment-set-save-reload-handoff.mjs --stage scenario-handoff --allow-partial --issue 712",
+    "13": "node scripts/check-assignment-set-save-reload-handoff.mjs --stage clear-confirmation --allow-partial --issue 712",
+    "14": "node scripts/check-no-phi-fields.mjs"
+  }
+}

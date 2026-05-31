@@ -46,9 +46,10 @@ if (status !== "passed" && !allowPartial) process.exit(1);
 
 function runStage(name) {
   if (name === "normal-save-ui") {
-    const includes = fileIncludes("apps/web/src/features/layout-editor/EditorCommandBar.tsx", ["Save Floorplan", "Done Editing", "EditorAdvancedToolsPanel"]);
+    const commandBar = fileIncludes("apps/web/src/features/layout-editor/EditorCommandBar.tsx", ["EditorNormalToolbar", "EditorAdvancedToolsPanel"]);
+    const normalToolbar = fileIncludes("apps/web/src/features/layout-editor/EditorNormalToolbar.tsx", ["Save Floorplan", "Done Editing"]);
     const excludes = fileExcludes("apps/web/src/features/layout-editor/EditorCommandBar.tsx", [">Save Working Copy<", ">Save As New Copy<"]);
-    const result = { passed: includes.passed && excludes.passed, includes, excludes };
+    const result = { passed: commandBar.passed && normalToolbar.passed && excludes.passed, commandBar, normalToolbar, excludes };
     writeJson(`${dir}/normal-save-ui-output.json`, result);
     addCheck(checks, "normal save UI is Save Floorplan and Done Editing", result.passed, result);
     return result;

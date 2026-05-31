@@ -1,0 +1,8 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-editor-assignment-ux-preflight.mjs --stage manifest-contract --allow-partial --issue 704
+node scripts/check-editor-assignment-ux-preflight.mjs --stage root-script-wiring --allow-partial --issue 704
+node scripts/check-editor-assignment-ux-preflight.mjs --stage source-regression-wiring --allow-partial --issue 704
+node scripts/check-editor-assignment-ux-preflight.mjs --stage scope-boundary --allow-partial --issue 704
+node scripts/check-no-phi-fields.mjs

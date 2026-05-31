@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editor-assignment manifest exists with required batch metadata",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "batch": "704-713",
+        "productDisplayName": "ER Pod Shift Simulator",
+        "editorAssignmentUxGoNoGoStatus": "not_ready"
+      }
+    },
+    {
+      "name": "root scripts for Issues 704-713 are wired in package.json and verify-local",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missingPackageScripts": [],
+        "missingVerifyLocalScripts": []
+      }
+    },
+    {
+      "name": "active floorplan, door, and split-room regression scripts remain wired",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "activeFloorplan": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703",
+        "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+        "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+      }
+    },
+    {
+      "name": "preflight records batch boundaries and incomplete downstream workflows",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "statusDoc": {
+          "passed": true,
+          "missing": []
+        },
+        "manifestBoundaryPassed": true
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "status": "passed",
+      "missing": [],
+      "batch": "704-713",
+      "productDisplayName": "ER Pod Shift Simulator",
+      "editorAssignmentUxGoNoGoStatus": "not_ready"
+    },
+    "root-script-wiring": {
+      "status": "passed",
+      "missingPackageScripts": [],
+      "missingVerifyLocalScripts": []
+    },
+    "source-regression-wiring": {
+      "status": "passed",
+      "activeFloorplan": "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703",
+      "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+      "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+    },
+    "scope-boundary": {
+      "status": "passed",
+      "statusDoc": {
+        "passed": true,
+        "missing": []
+      },
+      "manifestBoundaryPassed": true
+    }
+  }
+}

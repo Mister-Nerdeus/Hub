@@ -1,21 +1,25 @@
-import { useEffect, useMemo, useReducer } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import "./ManualAssignmentProof.css";
 import {
   isRoomLoadEligibleRoomType,
   listSplitRoomParentIds,
   type ActiveFloorplanContract,
+  type AssignmentSetContract,
   syntheticManualAssignmentNurseProfiles,
   syntheticManualAssignmentRoomLoads,
   type EditableLayoutGeometryContract,
   type ManualAssignmentNurse,
   type ManualAssignmentRoomLoad,
   type ManualRoomAssignment,
+  type NurseProfileContract,
+  type RoomLoadContract,
   type SemanticRoomType
 } from "@nerdeus/shared";
 import {
   assignRoomToNurse,
   clearManualAssignments,
   reassignRoomToNurse,
+  setManualAssignmentRoomLoad,
   setActiveManualAssignmentNurse,
   unassignRoom
 } from "./manualAssignmentActions";
@@ -25,22 +29,31 @@ import {
   createManualAssignmentInitialState,
   type ManualAssignmentState
 } from "./manualAssignmentState";
-import { AssignmentColorLegend } from "./AssignmentColorLegend";
-import { AssignmentWarningsPanel } from "./AssignmentWarningsPanel";
+import { AssignmentFloorplanOverview } from "./AssignmentFloorplanOverview";
+import { AssignmentIssuesPanel } from "./AssignmentIssuesPanel";
+import { BurdenExplanationPanel } from "./BurdenExplanationPanel";
 import { FourPatientComparisonPanel } from "./FourPatientComparisonPanel";
-import { ManualAssignmentRoomList } from "./ManualAssignmentRoomList";
-import { NurseAssignmentCards } from "./NurseAssignmentCards";
-import { NurseBurdenTable } from "./NurseBurdenTable";
+import { ManualAssignmentLayout } from "./ManualAssignmentLayout";
+import { NurseProfileBuilder } from "./NurseProfileBuilder";
+import { NurseAssignmentCardStack } from "./NurseAssignmentCardStack";
+import { RoomAssignmentTable } from "./RoomAssignmentTable";
+import type { RoomAssignmentFilter } from "./RoomAssignmentFilters";
+import { RoomLoadEditor } from "./RoomLoadEditor";
 import { createManualBurdenViewModel } from "./manualBurdenViewModel";
-import { createManualAssignmentWorkspaceViewModel } from "./manualAssignmentWorkspaceViewModel";
+import {
+  createManualAssignmentWorkspaceViewModel,
+  type ManualAssignmentRoomCard
+} from "./manualAssignmentWorkspaceViewModel";
 
 export type ManualAssignmentMap = Record<string, string>;
 
 export type ManualAssignmentWorkspaceProps = {
   activeFloorplan?: ActiveFloorplanContract | null;
   activeEditableLayout?: EditableLayoutGeometryContract | null;
+  assignmentSet?: AssignmentSetContract | null;
   assignmentsByRoomId?: Readonly<ManualAssignmentMap>;
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
+  onAssignmentSetChange?: (assignmentSet: AssignmentSetContract) => void;
 };
 
 export const splitRoomManualAssignmentNurseDisplayLabelsById: Record<string, string> = {
@@ -86,12 +99,14 @@ export const splitRoomManualAssignmentOverlayNurses = splitRoomManualAssignmentN
 export function ManualAssignmentWorkspace({
   activeFloorplan = null,
   activeEditableLayout = null,
+  assignmentSet = null,
   assignmentsByRoomId = {},
-  onAssignmentsChange
+  onAssignmentsChange,
+  onAssignmentSetChange
 }: ManualAssignmentWorkspaceProps = {}) {
   const source = useMemo(
-    () => buildManualAssignmentSource(activeFloorplan, activeEditableLayout, assignmentsByRoomId),
-    [activeFloorplan, activeEditableLayout, assignmentsByRoomId]
+    () => buildManualAssignmentSource(activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId),
+    [activeFloorplan, activeEditableLayout, assignmentSet, assignmentsByRoomId]
   );
 
   return (
@@ -99,6 +114,7 @@ export function ManualAssignmentWorkspace({
       key={source.stateKey}
       source={source}
       onAssignmentsChange={onAssignmentsChange}
+      onAssignmentSetChange={onAssignmentSetChange}
     />
   );
 }
@@ -110,17 +126,20 @@ type ManualAssignmentSource = {
   parentSplitBayIds: string[];
   activeLayoutId: string | null;
   activeFloorplanVersionId: string | null;
-  sourceKind: "active-layout" | "synthetic-fixture";
+  assignmentSet: AssignmentSetContract | null;
+  sourceKind: "assignment-set" | "active-layout" | "synthetic-fixture";
 };
 
 type ManualAssignmentWorkspaceContentProps = {
   source: ManualAssignmentSource;
   onAssignmentsChange?: (assignmentsByRoomId: ManualAssignmentMap) => void;
+  onAssignmentSetChange?: (assignmentSet: AssignmentSetContract) => void;
 };
 
 function ManualAssignmentWorkspaceContent({
   source,
-  onAssignmentsChange
+  onAssignmentsChange,
+  onAssignmentSetChange
 }: ManualAssignmentWorkspaceContentProps) {
   const [state, dispatch] = useReducer(manualAssignmentReducer, source.initialState);
   const viewModel = createManualAssignmentWorkspaceViewModel(state, {
@@ -129,10 +148,37 @@ function ManualAssignmentWorkspaceContent({
   const burdenViewModel = createManualBurdenViewModel(state, {
     displayLabelsByNurseId: source.displayLabelsByNurseId
   });
+  const [activeRoomFilter, setActiveRoomFilter] = useState<RoomAssignmentFilter>("all");
+  const [clearConfirmationVisible, setClearConfirmationVisible] = useState(false);
+  const roomFilterCounts = createRoomFilterCounts(
+    viewModel.roomCards,
+    state.roomLoadsByRoomId,
+    source.parentSplitBayIds
+  );
+  const filteredRoomCards = filterRoomCards(
+    viewModel.roomCards,
+    activeRoomFilter,
+    state.roomLoadsByRoomId,
+    source.parentSplitBayIds
+  );
 
   useEffect(() => {
-    onAssignmentsChange?.(manualAssignmentMapFromState(state));
-  }, [state.assignmentsByRoomId, onAssignmentsChange]);
+    const assignments = manualAssignmentMapFromState(state);
+    onAssignmentsChange?.(assignments);
+    if (source.assignmentSet != null) {
+      onAssignmentSetChange?.({
+        ...source.assignmentSet,
+        assignmentsByRoomId: assignments,
+        updatedAt: new Date().toISOString()
+      });
+    }
+  }, [
+    state.assignmentsByRoomId,
+    onAssignmentSetChange,
+    onAssignmentsChange,
+    source.assignmentSet?.assignmentSetId,
+    source.assignmentSet?.floorplanVersionId
+  ]);
 
   function assignSelectedNurse(roomId: string) {
     if (viewModel.activeNurseId == null) return;
@@ -145,6 +191,31 @@ function ManualAssignmentWorkspaceContent({
         : reassignRoomToNurse(roomId, viewModel.activeNurseId)
     );
   }
+
+  function confirmClearAssignments() {
+    dispatch(clearManualAssignments());
+    setClearConfirmationVisible(false);
+  }
+
+  const clearAssignmentsControl = clearConfirmationVisible ? (
+    <div className="manual-assignment-clear-confirmation" data-clear-assignments-confirmation="required">
+      <span>Confirm clear?</span>
+      <button type="button" onClick={confirmClearAssignments}>
+        Confirm Clear Assignments
+      </button>
+      <button type="button" onClick={() => setClearConfirmationVisible(false)}>
+        Cancel
+      </button>
+    </div>
+  ) : (
+    <button
+      type="button"
+      data-clear-assignments-requires-confirmation="true"
+      onClick={() => setClearConfirmationVisible(true)}
+    >
+      Clear Assignments
+    </button>
+  );
 
   return (
     <section
@@ -159,7 +230,7 @@ function ManualAssignmentWorkspaceContent({
     >
       <div className="manual-assignment-workspace__header">
         <div>
-          <p className="eyebrow">Synthetic operational assignment state</p>
+          <p className="eyebrow">{source.sourceKind === "assignment-set" ? "Durable assignment set" : "Operational assignment state"}</p>
           <h2 id="manual-assignment-workspace-title">Manual Assignment</h2>
         </div>
         <div className="manual-assignment-workspace__metrics" aria-label="Manual assignment status">
@@ -168,70 +239,137 @@ function ManualAssignmentWorkspaceContent({
         </div>
       </div>
 
-      <AssignmentColorLegend items={viewModel.colorLegend} />
-
-      <section className="manual-assignment-workspace__panel" aria-labelledby="nurse-selection-title">
-        <div className="manual-assignment-workspace__panel-header">
-          <h3 id="nurse-selection-title">Nurse Selection</h3>
-          <button type="button" onClick={() => dispatch(clearManualAssignments())}>
-            Clear All
-          </button>
-        </div>
-        <div className="manual-nurse-selector" role="group" aria-label="Active nurse">
-          {viewModel.nurseOptions.map((nurse) => (
-            <button
-              className={nurse.selected ? "manual-nurse-selector__button manual-nurse-selector__button--selected" : "manual-nurse-selector__button"}
-              disabled={!nurse.active}
-              key={nurse.nurseId}
-              type="button"
-              data-manual-nurse-id={nurse.nurseId}
-              onClick={() => dispatch(setActiveManualAssignmentNurse(nurse.nurseId))}
-              style={{ borderColor: nurse.color }}
-            >
-              <span style={{ background: nurse.color }} />
-              {nurse.displayLabel}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <div className="manual-assignment-workspace__grid">
-        <section className="manual-assignment-workspace__panel" aria-labelledby="manual-rooms-title">
-          <h3 id="manual-rooms-title">Rooms</h3>
-          <ManualAssignmentRoomList
-            rooms={viewModel.roomCards}
+      <ManualAssignmentLayout
+        floorplanOverview={(
+          <AssignmentFloorplanOverview
+            activeLayoutId={source.activeLayoutId}
+            activeFloorplanVersionId={source.activeFloorplanVersionId}
+            assignmentSet={source.assignmentSet}
+            assignedRoomCount={viewModel.assignedRoomCount}
+            unassignedOccupiedRoomCount={viewModel.unassignedOccupiedRoomCount}
+            roomCount={viewModel.roomCards.length}
+            splitParentIds={source.parentSplitBayIds}
+            colorLegend={viewModel.colorLegend}
+            nurseOptions={viewModel.nurseOptions}
+            onSelectNurse={(nurseId) => dispatch(setActiveManualAssignmentNurse(nurseId))}
+            clearAssignmentsControl={clearAssignmentsControl}
+          />
+        )}
+        roomAssignmentTable={(
+          <RoomAssignmentTable
+            rooms={filteredRoomCards}
+            totalRoomCount={viewModel.roomCards.length}
+            activeFilter={activeRoomFilter}
+            filterCounts={roomFilterCounts}
+            onFilterChange={setActiveRoomFilter}
             onRoomClick={assignSelectedNurse}
             onUnassignRoom={(roomId) => dispatch(unassignRoom(roomId))}
           />
-        </section>
+        )}
+        nurseAssignmentCards={(
+          <NurseAssignmentCardStack
+            cards={viewModel.nurseCards}
+            burdenRows={burdenViewModel.burdenRows}
+            warnings={burdenViewModel.warnings}
+          />
+        )}
+        assignmentIssues={<AssignmentIssuesPanel warnings={burdenViewModel.warnings} />}
+        burdenExplanation={<BurdenExplanationPanel rows={burdenViewModel.burdenRows} />}
+      >
+        {source.assignmentSet == null || onAssignmentSetChange == null ? null : (
+          <NurseProfileBuilder
+            assignmentSet={source.assignmentSet}
+            onAssignmentSetChange={onAssignmentSetChange}
+          />
+        )}
 
-        <section className="manual-assignment-workspace__panel" aria-labelledby="manual-nurse-cards-title">
-          <h3 id="manual-nurse-cards-title">Nurse Cards</h3>
-          <NurseAssignmentCards cards={viewModel.nurseCards} />
-        </section>
-      </div>
+        {source.assignmentSet == null || onAssignmentSetChange == null ? null : (
+          <RoomLoadEditor
+            assignmentSet={source.assignmentSet}
+            onAssignmentSetChange={onAssignmentSetChange}
+            onRoomLoadChange={(roomLoad) => dispatch(setManualAssignmentRoomLoad(roomLoadContractToManualRoomLoad(roomLoad)))}
+          />
+        )}
 
-      <section className="manual-assignment-workspace__panel" aria-labelledby="manual-burden-title">
-        <h3 id="manual-burden-title">Burden Components</h3>
-        <NurseBurdenTable rows={burdenViewModel.burdenRows} />
-      </section>
-
-      <section className="manual-assignment-workspace__panel" aria-labelledby="manual-warnings-title">
-        <h3 id="manual-warnings-title">Warnings</h3>
-        <AssignmentWarningsPanel warnings={burdenViewModel.warnings} />
-      </section>
-
-      <FourPatientComparisonPanel />
+        <FourPatientComparisonPanel />
+      </ManualAssignmentLayout>
     </section>
   );
+}
+
+function createRoomFilterCounts(
+  rooms: ManualAssignmentRoomCard[],
+  roomLoadsByRoomId: ManualAssignmentState["roomLoadsByRoomId"],
+  splitParentIds: string[]
+): Record<RoomAssignmentFilter, number> {
+  return {
+    all: rooms.length,
+    unassigned: filterRoomCards(rooms, "unassigned", roomLoadsByRoomId, splitParentIds).length,
+    "high-burden": filterRoomCards(rooms, "high-burden", roomLoadsByRoomId, splitParentIds).length,
+    trauma: filterRoomCards(rooms, "trauma", roomLoadsByRoomId, splitParentIds).length,
+    "split-rooms": filterRoomCards(rooms, "split-rooms", roomLoadsByRoomId, splitParentIds).length
+  };
+}
+
+function filterRoomCards(
+  rooms: ManualAssignmentRoomCard[],
+  activeFilter: RoomAssignmentFilter,
+  roomLoadsByRoomId: ManualAssignmentState["roomLoadsByRoomId"],
+  splitParentIds: string[]
+): ManualAssignmentRoomCard[] {
+  if (activeFilter === "all") return rooms;
+  return rooms.filter((room) => {
+    const roomLoad = roomLoadsByRoomId[room.roomId];
+    if (activeFilter === "unassigned") return room.unassignedOccupied;
+    if (activeFilter === "high-burden") {
+      return room.acuity >= 4 || Boolean(roomLoad?.sitterRequired) || roomLoad?.procedureBurden === "high";
+    }
+    if (activeFilter === "trauma") return Boolean(roomLoad?.traumaActive);
+    if (activeFilter === "split-rooms") {
+      return splitParentIds.some((parentId) => room.roomId.startsWith(`${parentId}-`) || room.roomId.includes(parentId));
+    }
+    return true;
+  });
 }
 
 function buildManualAssignmentSource(
   activeFloorplan: ActiveFloorplanContract | null,
   activeEditableLayout: EditableLayoutGeometryContract | null,
+  assignmentSet: AssignmentSetContract | null,
   assignmentsByRoomId: Readonly<ManualAssignmentMap>
 ): ManualAssignmentSource {
   const activeLayout = activeFloorplan?.editableLayout ?? activeEditableLayout;
+  if (activeLayout != null && assignmentSet != null) {
+    const roomTypesByRoomId = Object.fromEntries(
+      activeLayout.rooms.map((room) => [room.id, room.roomType])
+    ) as Record<string, SemanticRoomType>;
+    const nurses = assignmentSet.nurseProfiles.map(nurseProfileToManualAssignmentNurse);
+    const roomLoads = Object.values(assignmentSet.roomLoadsByRoomId).map(roomLoadContractToManualRoomLoad);
+    const splitBayIds = listSplitRoomParentIds(activeLayout);
+    return {
+      stateKey: [
+        "assignment-set",
+        assignmentSet.assignmentSetId,
+        assignmentSet.floorplanVersionId,
+        assignmentSet.nurseProfiles.map((nurse) => `${nurse.nurseProfileId}:${nurse.displayLabel}:${nurse.active}`).join("|"),
+        splitBayIds.join("|"),
+        roomLoads.map((roomLoad) => roomLoad.roomId).join("|")
+      ].join(":"),
+      initialState: hydrateManualAssignments(
+        createManualAssignmentInitialState(nurses, roomLoads, roomTypesByRoomId),
+        assignmentSet.assignmentsByRoomId
+      ),
+      displayLabelsByNurseId: Object.fromEntries(
+        assignmentSet.nurseProfiles.map((nurse) => [nurse.nurseProfileId, nurse.displayLabel])
+      ),
+      parentSplitBayIds: splitBayIds,
+      activeLayoutId: activeLayout.layoutId,
+      activeFloorplanVersionId: activeFloorplan?.activeFloorplanVersionId ?? assignmentSet.floorplanVersionId,
+      assignmentSet,
+      sourceKind: "assignment-set"
+    };
+  }
+
   if (activeLayout == null) {
     return {
       stateKey: "synthetic-fixture",
@@ -246,6 +384,7 @@ function buildManualAssignmentSource(
       parentSplitBayIds: [],
       activeLayoutId: null,
       activeFloorplanVersionId: null,
+      assignmentSet: null,
       sourceKind: "synthetic-fixture"
     };
   }
@@ -275,7 +414,46 @@ function buildManualAssignmentSource(
     parentSplitBayIds: splitBayIds,
     activeLayoutId: activeLayout.layoutId,
     activeFloorplanVersionId: activeFloorplan?.activeFloorplanVersionId ?? null,
+    assignmentSet: null,
     sourceKind: "active-layout"
+  };
+}
+
+function nurseProfileToManualAssignmentNurse(profile: NurseProfileContract): ManualAssignmentNurse {
+  return {
+    nurseId: profile.nurseProfileId,
+    displayLabel: profile.displayLabel,
+    color: profile.color,
+    role: profile.role,
+    targetPatientCount: profile.targetPatientCount,
+    maxPatientCount: profile.maxPatientCount,
+    traumaQualified: profile.traumaQualified,
+    psychQualified: profile.psychQualified,
+    chargeQualified: profile.chargeQualified,
+    active: profile.active,
+    syntheticDataOnly: true
+  };
+}
+
+function roomLoadContractToManualRoomLoad(roomLoad: RoomLoadContract): ManualAssignmentRoomLoad {
+  return {
+    roomId: roomLoad.roomId,
+    occupied: roomLoad.occupied,
+    acuity: roomLoad.acuity,
+    traumaActive: roomLoad.traumaActive,
+    isolationActive: roomLoad.isolationActive,
+    behavioralRisk: roomLoad.behavioralRisk,
+    fallRisk: roomLoad.fallRisk,
+    sitterRequired: roomLoad.sitterRequired,
+    medicationFrequency: roomLoad.medicationFrequency === "continuous" ? "high" : roomLoad.medicationFrequency,
+    monitoringFrequency: roomLoad.monitoringFrequency === "continuous" ? "high" : roomLoad.monitoringFrequency,
+    procedureBurden: roomLoad.procedureBurden === "very_high" ? "high" : roomLoad.procedureBurden,
+    expectedTurnover: roomLoad.expectedTurnover === "normal"
+      ? "medium"
+      : roomLoad.expectedTurnover === "surge"
+        ? "high"
+        : roomLoad.expectedTurnover,
+    syntheticDataOnly: true
   };
 }
 

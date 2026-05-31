@@ -3,19 +3,24 @@ import {
   createScenarioComparisonViewModel,
   type ScenarioComparisonViewModel
 } from "./scenarioComparisonViewModel";
-import type { ActiveFloorplanContract } from "@nerdeus/shared";
+import type { ActiveFloorplanContract, AssignmentSetContract } from "@nerdeus/shared";
 import { SCENARIO_RATIO_COMPARISON_COPY } from "./scenarioRatioComparisonCopy";
 
 export function ScenarioRatioComparisonPanel({
   activeFloorplan = null,
+  selectedAssignmentSet = null,
   viewModel = createScenarioComparisonViewModel({
     ...createDefaultScenarioComparisonInput(),
     activeFloorplanContext: activeFloorplan
   })
 }: {
   activeFloorplan?: ActiveFloorplanContract | null;
+  selectedAssignmentSet?: AssignmentSetContract | null;
   viewModel?: ScenarioComparisonViewModel;
 }) {
+  const assignmentReview = selectedAssignmentSet == null
+    ? null
+    : createSelectedAssignmentSetReview(selectedAssignmentSet);
   return (
     <section
       className="scenario-ratio-comparison"
@@ -36,6 +41,38 @@ export function ScenarioRatioComparisonPanel({
           ))}
         </div>
       </header>
+
+      {selectedAssignmentSet == null || assignmentReview == null ? null : (
+        <section
+          className="scenario-ratio-comparison__handoff"
+          aria-labelledby="scenario-assignment-handoff-title"
+          data-scenario-assignment-handoff="selected-assignment-set"
+          data-selected-assignment-set-id={selectedAssignmentSet.assignmentSetId}
+          data-assignment-warning-review={assignmentReview.reviewStatus}
+        >
+          <h4 id="scenario-assignment-handoff-title">Selected assignment set</h4>
+          <p>{selectedAssignmentSet.displayName}</p>
+          <dl>
+            <div>
+              <dt>Floorplan version</dt>
+              <dd>{selectedAssignmentSet.floorplanVersionId}</dd>
+            </div>
+            <div>
+              <dt>Assignments</dt>
+              <dd>{assignmentReview.assignedRoomCount}</dd>
+            </div>
+            <div>
+              <dt>Structured room loads</dt>
+              <dd>{assignmentReview.roomLoadCount}</dd>
+            </div>
+            <div>
+              <dt>Review status</dt>
+              <dd>{assignmentReview.reviewStatus === "review_required" ? "Warnings need review before scenario setup" : "Ready for scenario setup review"}</dd>
+            </div>
+          </dl>
+          <p>Scenario setup remains foundation-only until scoring assumptions are ready.</p>
+        </section>
+      )}
 
       <div className="scenario-ratio-comparison__foundation" data-scenario-foundation-shell="ready">
         <section>
@@ -151,4 +188,16 @@ export function ScenarioRatioComparisonPanel({
       </section>
     </section>
   );
+}
+
+function createSelectedAssignmentSetReview(assignmentSet: AssignmentSetContract) {
+  const assignedRoomIds = new Set(Object.keys(assignmentSet.assignmentsByRoomId));
+  const unassignedOccupiedCount = Object.values(assignmentSet.roomLoadsByRoomId)
+    .filter((roomLoad) => roomLoad.occupied && !assignedRoomIds.has(roomLoad.roomId)).length;
+  return {
+    assignedRoomCount: assignedRoomIds.size,
+    roomLoadCount: Object.keys(assignmentSet.roomLoadsByRoomId).length,
+    unassignedOccupiedCount,
+    reviewStatus: unassignedOccupiedCount > 0 ? "review_required" : "ready_for_scenario_review"
+  };
 }

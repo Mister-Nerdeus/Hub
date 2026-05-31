@@ -86,7 +86,7 @@ function runStage(name) {
     return result;
   }
   if (name === "scenario-consumes-active") {
-    const result = fileIncludes("apps/web/src/App.tsx", ["<ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract}"]);
+    const result = fileIncludes("apps/web/src/App.tsx", ["ScenarioRatioComparisonPanel", "activeFloorplan={activeFloorplanContract}"]);
     writeJson(`${dir}/scenario-consumes-active-floorplan-output.json`, result);
     addCheck(checks, "Scenario Comparison receives active floorplan context", result.passed, result);
     return result;

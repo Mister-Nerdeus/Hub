@@ -4,7 +4,7 @@ type ActiveFloorplanSelectorProps = {
   viewModel: ActiveFloorplanSelectorViewModel;
   onEditFloorplan: () => void;
   onUseForAssignment: () => void;
-  onUseForSimulation: () => void;
+  onPrepareForSimulation: () => void;
   onChangeFloorplan: (versionId: string) => void;
   onOpenAdvanced: () => void;
 };
@@ -13,7 +13,7 @@ export function ActiveFloorplanSelector({
   viewModel,
   onEditFloorplan,
   onUseForAssignment,
-  onUseForSimulation,
+  onPrepareForSimulation,
   onChangeFloorplan,
   onOpenAdvanced
 }: ActiveFloorplanSelectorProps) {
@@ -35,8 +35,8 @@ export function ActiveFloorplanSelector({
         <button type="button" disabled={!viewModel.canUseForAssignment} onClick={onUseForAssignment}>
           Use for Assignment
         </button>
-        <button type="button" disabled={!viewModel.canUseForSimulation} onClick={onUseForSimulation}>
-          Use for Simulation
+        <button type="button" disabled={!viewModel.canUseForSimulation} onClick={onPrepareForSimulation}>
+          Prepare for Simulation
         </button>
         <details className="active-floorplan-selector__change">
           <summary>Change Floorplan</summary>

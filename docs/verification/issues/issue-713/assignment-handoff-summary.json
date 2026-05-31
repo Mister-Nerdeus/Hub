@@ -1,0 +1,140 @@
+{
+  "source": "docs/verification/issues/issue-713/test-output/assignment-set-save-reload-handoff.txt",
+  "status": "passed",
+  "issue": "713",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "assignment set selector is shown in the Assignments workflow and Manual Assignment subflow",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "selector": {
+          "passed": true,
+          "missing": []
+        },
+        "viewModel": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "user can explicitly save the active assignment set",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "selector": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "assignment set reloads from local-first storage for the active floorplan version",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "store": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "scenario screen receives and displays the selected assignment set",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "app": {
+          "passed": true,
+          "missing": []
+        },
+        "scenario": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "clear assignments requires confirmation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "workspace": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "assignment-selector": {
+      "passed": true,
+      "selector": {
+        "passed": true,
+        "missing": []
+      },
+      "viewModel": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "save-assignment": {
+      "passed": true,
+      "selector": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "reload-assignment": {
+      "passed": true,
+      "store": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "scenario-handoff": {
+      "passed": true,
+      "app": {
+        "passed": true,
+        "missing": []
+      },
+      "scenario": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "clear-confirmation": {
+      "passed": true,
+      "workspace": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

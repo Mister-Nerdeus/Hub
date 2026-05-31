@@ -1,5 +1,6 @@
 import { buildEditorCommandBarViewModel } from "./editorCommandBarViewModel";
 import { EditorAdvancedToolsPanel } from "./EditorAdvancedToolsPanel";
+import { EditorNormalToolbar } from "./EditorNormalToolbar";
 
 export type EditorCommandBarProps = {
   layoutLabel: string;
@@ -33,6 +34,10 @@ export type EditorCommandBarProps = {
   onValidate: () => void;
   onResetView: () => void;
   onAddObject: () => void;
+  onAddRoom: () => void;
+  onAddDoor: () => void;
+  onAddSplitRoom: () => void;
+  onAddNurseStation: () => void;
   onToggleInspector: () => void;
 };
 
@@ -68,6 +73,10 @@ export function EditorCommandBar({
   onValidate,
   onResetView,
   onAddObject,
+  onAddRoom,
+  onAddDoor,
+  onAddSplitRoom,
+  onAddNurseStation,
   onToggleInspector
 }: EditorCommandBarProps) {
   const viewModel = buildEditorCommandBarViewModel({
@@ -93,32 +102,30 @@ export function EditorCommandBar({
       className="editor-command-bar"
       aria-label="Editor command bar"
       data-editor-command-bar="consolidated"
-      data-proceed-placeholder="disabled"
+      data-normal-technical-copy-hidden="true"
     >
-      <div className="editor-command-bar__primary editor-command-bar__primary-save" data-command-group="primary-save">
-        <button
-          type="button"
-          className="editor-command-bar__save-primary"
-          data-editor-control="save-working-copy"
-          disabled={viewModel.saveWorkingCopyDisabled}
-          onClick={onSaveWorkingCopy}
-        >
-          Save Floorplan
-        </button>
-        <button type="button" onClick={onDoneEditing}>Done Editing</button>
-      </div>
+      <EditorNormalToolbar
+        saveWorkingCopyDisabled={viewModel.saveWorkingCopyDisabled}
+        addObjectDisabled={viewModel.addObjectDisabled}
+        onSaveWorkingCopy={onSaveWorkingCopy}
+        onDoneEditing={onDoneEditing}
+        onAddRoom={onAddRoom}
+        onAddDoor={onAddDoor}
+        onAddSplitRoom={onAddSplitRoom}
+        onAddNurseStation={onAddNurseStation}
+      />
       <p className="editor-command-bar__save-status" role="status">
         {viewModel.saveStatusLabel}
       </p>
-      <div className="editor-command-bar__primary" data-command-group="edit-history">
-        <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
-          Undo
-        </button>
-        <button type="button" disabled={viewModel.redoDisabled} onClick={onRedo}>
-          Redo
-        </button>
-      </div>
       <EditorAdvancedToolsPanel>
+        <div className="editor-command-bar__primary" data-command-group="edit-history">
+          <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
+            Undo
+          </button>
+          <button type="button" disabled={viewModel.redoDisabled} onClick={onRedo}>
+            Redo
+          </button>
+        </div>
         <div className="editor-command-bar__primary editor-command-bar__primary-save" data-command-group="advanced-save">
           <button
             type="button"
@@ -143,89 +150,77 @@ export function EditorCommandBar({
             Import JSON
           </button>
         </div>
+        <div className="editor-command-bar__primary" data-command-group="editor-tools">
+          <button type="button" disabled={viewModel.addObjectDisabled} onClick={onAddObject}>
+            Add Object
+          </button>
+        </div>
+        <div className="editor-command-bar__primary" data-command-group="validation-view">
+          <button type="button" disabled={viewModel.validationDisabled} onClick={onValidate}>
+            Validate
+          </button>
+          <button type="button" onClick={onResetView}>
+            Reset View
+          </button>
+          <button type="button" onClick={onToggleInspector} aria-pressed={inspectorCollapsed}>
+            {inspectorCollapsed ? "Show Inspector" : "Hide Inspector"}
+          </button>
+        </div>
+        <dl className="editor-command-bar__status" aria-label="Editor status">
+          <div>
+            <dt>Active copy</dt>
+            <dd>{viewModel.activeCopyName}</dd>
+          </div>
+          <div>
+            <dt>Record ID</dt>
+            <dd>{viewModel.activeRecordIdLabel}</dd>
+          </div>
+          <div>
+            <dt>Plan ID</dt>
+            <dd>{viewModel.activePlanIdLabel}</dd>
+          </div>
+          <div>
+            <dt>Source</dt>
+            <dd>{viewModel.activeSourceLabel}</dd>
+          </div>
+          <div>
+            <dt>Layout</dt>
+            <dd>{layoutLabel}</dd>
+          </div>
+          <div>
+            <dt>Mode</dt>
+            <dd>{viewModel.modeLabel}</dd>
+          </div>
+          <div>
+            <dt>Local recovery draft</dt>
+            <dd>{viewModel.localRecoveryDraftLabel}</dd>
+          </div>
+          <div>
+            <dt>Named working copy</dt>
+            <dd>{viewModel.saveStatusLabel}</dd>
+          </div>
+          <div>
+            <dt>Last named-copy save</dt>
+            <dd>{viewModel.lastNamedCopySaveLabel}</dd>
+          </div>
+          <div>
+            <dt>Reload proof</dt>
+            <dd>{viewModel.reloadProofLabel}</dd>
+          </div>
+          <div>
+            <dt>State</dt>
+            <dd>{viewModel.dirtyStateLabel}</dd>
+          </div>
+          <div>
+            <dt>Validation</dt>
+            <dd>{viewModel.validationLabel}</dd>
+          </div>
+          <div>
+            <dt>JSON</dt>
+            <dd role="status">{jsonStatus}</dd>
+          </div>
+        </dl>
       </EditorAdvancedToolsPanel>
-      <div className="editor-command-bar__primary" data-command-group="editor-tools">
-        <button type="button" disabled={viewModel.addObjectDisabled} onClick={onAddObject}>
-          Add Object
-        </button>
-      </div>
-      <div className="editor-command-bar__primary" data-command-group="validation-view">
-        <button type="button" disabled={viewModel.validationDisabled} onClick={onValidate}>
-          Validate
-        </button>
-        <button type="button" onClick={onResetView}>
-          Reset view
-        </button>
-        <button type="button" onClick={onToggleInspector} aria-pressed={inspectorCollapsed}>
-          {inspectorCollapsed ? "Show inspector" : "Hide inspector"}
-        </button>
-      </div>
-      <div className="editor-command-bar__primary" data-command-group="next">
-        <button type="button" disabled aria-disabled="true">
-          {viewModel.proceedLabel}
-        </button>
-      </div>
-      <details className="editor-command-bar__advanced-status">
-        <summary>Advanced status</summary>
-      <dl className="editor-command-bar__status" aria-label="Editor status">
-        <div>
-          <dt>Active copy</dt>
-          <dd>{viewModel.activeCopyName}</dd>
-        </div>
-        <div>
-          <dt>Record ID</dt>
-          <dd>{viewModel.activeRecordIdLabel}</dd>
-        </div>
-        <div>
-          <dt>Plan ID</dt>
-          <dd>{viewModel.activePlanIdLabel}</dd>
-        </div>
-        <div>
-          <dt>Source</dt>
-          <dd>{viewModel.activeSourceLabel}</dd>
-        </div>
-        <div>
-          <dt>Layout</dt>
-          <dd>{layoutLabel}</dd>
-        </div>
-        <div>
-          <dt>Mode</dt>
-          <dd>{viewModel.modeLabel}</dd>
-        </div>
-        <div>
-          <dt>Local recovery draft</dt>
-          <dd>{viewModel.localRecoveryDraftLabel}</dd>
-        </div>
-        <div>
-          <dt>Named working copy</dt>
-          <dd>{viewModel.saveStatusLabel}</dd>
-        </div>
-        <div>
-          <dt>Last named-copy save</dt>
-          <dd>{viewModel.lastNamedCopySaveLabel}</dd>
-        </div>
-        <div>
-          <dt>Reload proof</dt>
-          <dd>{viewModel.reloadProofLabel}</dd>
-        </div>
-        <div>
-          <dt>State</dt>
-          <dd>{viewModel.dirtyStateLabel}</dd>
-        </div>
-        <div>
-          <dt>Validation</dt>
-          <dd>{viewModel.validationLabel}</dd>
-        </div>
-        <div>
-          <dt>JSON</dt>
-          <dd role="status">{jsonStatus}</dd>
-        </div>
-        <div>
-          <dt>Proceed</dt>
-          <dd>{viewModel.proceedStatusLabel}</dd>
-        </div>
-      </dl>
-      </details>
       <p className="editor-command-bar__help" data-save-help="save-floorplan-active">
         Save Floorplan keeps this as the active floorplan for assignments and scenarios.
       </p>

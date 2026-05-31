@@ -31,7 +31,7 @@ export type ManualAssignmentSyntheticLabel = (typeof MANUAL_ASSIGNMENT_SYNTHETIC
 
 export type ManualAssignmentNurse = {
   nurseId: string;
-  displayLabel: ManualAssignmentSyntheticLabel;
+  displayLabel: string;
   color: string;
   role: ManualAssignmentNurseRole;
   targetPatientCount: number;

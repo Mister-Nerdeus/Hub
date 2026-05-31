@@ -207,6 +207,21 @@ const activeFloorplanWorkflowCommands = [
   "npm run check:active-floorplan-workflow-go-no-go"
 ];
 
+const editorAssignmentUxCommands = [
+  "npm run check:editor-assignment-ux-preflight",
+  "npm run check:product-shell-workflow",
+  "npm run check:active-floorplan-hub-ux",
+  "npm run check:editor-normal-toolbar-ux",
+  "npm run check:floorplan-readiness-truth",
+  "npm run check:active-floorplan-persistence-resilience",
+  "npm run check:assignment-set-contract",
+  "npm run check:nurse-profile-builder",
+  "npm run check:room-load-editor",
+  "npm run check:manual-assignment-three-column-ux",
+  "npm run check:assignment-set-save-reload-handoff",
+  "npm run check:editor-assignment-ux-go-no-go"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -301,6 +316,7 @@ const commands = [
   ...doorAuthoringCrashHardeningCommands,
   ...splitRoomAuthoringCommands,
   ...activeFloorplanWorkflowCommands,
+  ...editorAssignmentUxCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

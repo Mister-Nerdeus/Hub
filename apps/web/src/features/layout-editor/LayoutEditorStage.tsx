@@ -1427,6 +1427,10 @@ export function LayoutEditorStage({
         onValidate={validateSimulationReadyExportFromStage}
         onResetView={() => dispatchStage({ type: "resetViewport" })}
         onAddObject={() => setAddObjectMenuOpen((value) => !value)}
+        onAddRoom={() => selectAddObjectMenuItem("patient_care_room")}
+        onAddDoor={addDoorToSelectedRoom}
+        onAddSplitRoom={convertSelectedRoomToSplitBay}
+        onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
         onToggleInspector={() => setInspectorCollapsed((value) => !value)}
       />
 

@@ -60,7 +60,7 @@ function runStage(name) {
       "Active floorplan",
       "Edit Floorplan",
       "Use for Assignment",
-      "Use for Simulation",
+      "Prepare for Simulation",
       "Change Floorplan",
       "Advanced"
     ]);
@@ -83,7 +83,9 @@ function runStage(name) {
     return result;
   }
   if (name === "advanced-library") {
-    const result = fileIncludes("apps/web/src/App.tsx", ["<FloorplanAdvancedPanel>", "<FloorplanLibrary", "<FloorplanVersionHistoryPanel"]);
+    const hub = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanHub.tsx", ["<FloorplanAdvancedPanel>", "{advancedContent}"]);
+    const app = fileIncludes("apps/web/src/App.tsx", ["advancedContent={(", "<FloorplanLibrary", "<FloorplanVersionHistoryPanel"]);
+    const result = { passed: hub.passed && app.passed, hub, app };
     writeJson(`${dir}/advanced-library-output.json`, result);
     addCheck(checks, "old card grid and version history are advanced-only", result.passed, result);
     return result;

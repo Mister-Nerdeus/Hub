@@ -7,7 +7,11 @@
 }
 
 .active-floorplan-banner,
+.active-floorplan-hub,
 .active-floorplan-selector,
+.active-floorplan-thumbnail,
+.next-workflow-step-card,
+.active-floorplan-version-summary,
 .floorplan-readiness-checklist,
 .floorplan-advanced-panel,
 .editor-advanced-tools-panel,
@@ -40,6 +44,180 @@
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 16px;
   padding: 18px;
+}
+
+.active-floorplan-hub {
+  display: grid;
+  gap: 16px;
+  padding: 18px;
+}
+
+.active-floorplan-hub__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.active-floorplan-hub__header h3 {
+  margin: 0;
+}
+
+.active-floorplan-hub__header span {
+  background: #edf6f2;
+  border: 1px solid #b8d2c5;
+  border-radius: 999px;
+  color: #1e403b;
+  font-size: 0.78rem;
+  font-weight: 900;
+  padding: 6px 10px;
+}
+
+.active-floorplan-hub__grid {
+  align-items: stretch;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+}
+
+.active-floorplan-hub .active-floorplan-selector,
+.active-floorplan-hub .floorplan-readiness-checklist,
+.active-floorplan-hub .floorplan-advanced-panel {
+  margin-top: 0;
+}
+
+.active-floorplan-thumbnail {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 12px;
+}
+
+.active-floorplan-thumbnail svg {
+  display: block;
+  width: 100%;
+}
+
+.active-floorplan-thumbnail__background {
+  fill: #f5f8fb;
+}
+
+.active-floorplan-thumbnail__hallway {
+  fill: #d9e7ef;
+  stroke: #8aa0b0;
+}
+
+.active-floorplan-thumbnail__room {
+  fill: #ffffff;
+  stroke: #22364a;
+  stroke-width: 1.3;
+}
+
+.active-floorplan-thumbnail__room[data-room-type="storage"],
+.active-floorplan-thumbnail__room[data-room-type="solid_wall"] {
+  fill: #b8c0ca;
+  stroke: #5f6975;
+}
+
+.active-floorplan-thumbnail__station {
+  fill: #f4ead5;
+  stroke: #8b6f3d;
+  stroke-width: 1.4;
+}
+
+.active-floorplan-thumbnail figcaption {
+  color: #40505f;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.next-workflow-step-card {
+  align-items: center;
+  border-color: #7c9db5;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 16px;
+}
+
+.next-workflow-step-card h3,
+.active-floorplan-version-summary h3 {
+  margin: 0;
+}
+
+.next-workflow-step-card p {
+  color: #40505f;
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin: 4px 0 0;
+}
+
+.next-workflow-step-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.next-workflow-step-card__actions button,
+.active-floorplan-selector__actions button,
+.active-floorplan-selector__change summary {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 900;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.next-workflow-step-card__actions button:first-child,
+.active-floorplan-selector__actions button:first-child {
+  background: #17324d;
+  border-color: #17324d;
+  color: #ffffff;
+}
+
+.next-workflow-step-card__actions button:disabled,
+.active-floorplan-selector__actions button:disabled {
+  color: #8492a1;
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.active-floorplan-version-summary {
+  padding: 14px;
+}
+
+.active-floorplan-version-summary dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 12px 0 0;
+}
+
+.active-floorplan-version-summary div {
+  background: #f7f9fb;
+  border: 1px solid #d8e0e8;
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.active-floorplan-version-summary dt {
+  color: #526171;
+  font-size: 0.7rem;
+  font-weight: 900;
+  margin: 0 0 3px;
+}
+
+.active-floorplan-version-summary dd {
+  color: #111827;
+  font-size: 0.86rem;
+  font-weight: 900;
+  margin: 0;
 }
 
 .active-floorplan-selector h3 {
@@ -124,7 +302,10 @@
 
 @media (max-width: 760px) {
   .active-floorplan-banner,
-  .active-floorplan-selector {
+  .active-floorplan-selector,
+  .active-floorplan-hub__grid,
+  .next-workflow-step-card,
+  .active-floorplan-version-summary dl {
     display: grid;
     grid-template-columns: 1fr;
   }
@@ -2396,6 +2577,7 @@ h1 {
 
 .scenario-ratio-comparison__card,
 .scenario-ratio-comparison__foundation section,
+.scenario-ratio-comparison__handoff,
 .scenario-ratio-comparison__limitations,
 .scenario-ratio-comparison__summary-grid section {
   background: #f7f9fb;
@@ -2415,7 +2597,8 @@ h1 {
 }
 
 .scenario-ratio-comparison__card dl div,
-.scenario-ratio-comparison__foundation dl div {
+.scenario-ratio-comparison__foundation dl div,
+.scenario-ratio-comparison__handoff dl div {
   background: #ffffff;
   border: 1px solid #e2e8ef;
   border-radius: 6px;
@@ -2423,7 +2606,8 @@ h1 {
   padding: 8px;
 }
 
-.scenario-ratio-comparison__foundation dl {
+.scenario-ratio-comparison__foundation dl,
+.scenario-ratio-comparison__handoff dl {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -3057,6 +3241,7 @@ h1 {
   .plan-1-demo-guide__next,
   .scenario-ratio-comparison__cards,
   .scenario-ratio-comparison__foundation,
+  .scenario-ratio-comparison__handoff dl,
   .scenario-ratio-comparison__summary-grid {
     grid-template-columns: 1fr;
   }

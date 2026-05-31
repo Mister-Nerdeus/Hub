@@ -1,0 +1,14 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-manual-assignment-three-column-ux.mjs --stage layout-contract --allow-partial --issue 712
+node scripts/check-manual-assignment-three-column-ux.mjs --stage floorplan-overview --allow-partial --issue 712
+node scripts/check-manual-assignment-three-column-ux.mjs --stage room-table --allow-partial --issue 712
+node scripts/check-manual-assignment-three-column-ux.mjs --stage filter-chips --allow-partial --issue 712
+node scripts/check-manual-assignment-three-column-ux.mjs --stage nurse-cards --allow-partial --issue 712
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage assignment-selector --allow-partial --issue 712
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage save-assignment --allow-partial --issue 712
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage reload-assignment --allow-partial --issue 712
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage scenario-handoff --allow-partial --issue 712
+node scripts/check-assignment-set-save-reload-handoff.mjs --stage clear-confirmation --allow-partial --issue 712
+node scripts/check-no-phi-fields.mjs

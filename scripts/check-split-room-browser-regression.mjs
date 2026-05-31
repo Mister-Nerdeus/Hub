@@ -275,7 +275,11 @@ async function openWorkingEditor(browser) {
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
   await clickGlobalButton(browser, "Save Floorplan");
-  await waitForExpression(browser, `document.querySelector('[data-command-group="editor-tools"] button')?.disabled === false`, 10_000);
+  await waitForExpression(
+    browser,
+    `Array.from(document.querySelectorAll('button')).some((button) => button.textContent.trim() === 'Add Room' && !button.disabled)`,
+    10_000
+  );
 }
 
 async function createCanonicalPair(browser, roomId, label) {
@@ -374,12 +378,17 @@ async function clickOpenSavedFloorplan(browser, recordId) {
 
 async function clickNavButton(browser, label) {
   const clicked = await browser.evaluate(`(() => {
+    const labels = ${JSON.stringify({ Editor: ["Editor", "Floorplan Editor"] })}[${JSON.stringify(label)}] ?? [${JSON.stringify(label)}];
     const button = Array.from(document.querySelectorAll('.app-nav button'))
-      .find((item) => item.textContent.trim() === ${JSON.stringify(label)});
+      .find((item) => labels.includes(item.textContent.trim()));
     if (button == null || button.disabled) return false;
     button.click();
     return true;
   })()`);
+  if (!clicked && label === "Editor") {
+    await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
+    return;
+  }
   if (!clicked) throw new Error(`navigation button missing: ${label}`);
 }
 

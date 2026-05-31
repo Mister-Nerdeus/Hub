@@ -20,7 +20,7 @@ export function manualAssignmentReducer(
     case "clearAssignments":
       return { ...state, assignmentsByRoomId: {} };
     case "setActiveNurse":
-      if (action.nurseId !== null && !state.nurses.some((nurse) => nurse.nurseId === action.nurseId)) return state;
+      if (action.nurseId !== null && !state.nurses.some((nurse) => nurse.nurseId === action.nurseId && nurse.active)) return state;
       return { ...state, activeNurseId: action.nurseId };
     case "setRoomLoad":
       if (!state.roomLoadsByRoomId[action.roomLoad.roomId]) return state;
@@ -41,7 +41,7 @@ export function manualAssignmentReducer(
 }
 
 function assignRoom(state: ManualAssignmentState, roomId: string, nurseId: string): ManualAssignmentState {
-  if (!state.roomLoadsByRoomId[roomId] || !state.nurses.some((nurse) => nurse.nurseId === nurseId)) return state;
+  if (!state.roomLoadsByRoomId[roomId] || !state.nurses.some((nurse) => nurse.nurseId === nurseId && nurse.active)) return state;
   const roomType = state.roomTypesByRoomId?.[roomId];
   if (roomType != null && !isNurseAssignableRoomType(roomType)) return state;
   const assignment: ManualRoomAssignment = {

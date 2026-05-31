@@ -22,14 +22,15 @@ function assert228(condition: boolean, message: string) {
 const appSource = readFileSync(resolve(repoRoot, "apps/web/src/App.tsx"), "utf8");
 const appEvidenceSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/DeveloperEvidencePage.tsx"), "utf8");
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
+const productShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/ProductWorkflowShell.tsx"), "utf8");
 
 assert228(appSource.includes("<WorkspaceAccessEntryScreen"), "default app render should start with the workspace access screen");
 assert228(appSource.includes("if (!workspaceAccessState.unlocked)"), "app shell should be gated behind workspace access");
-assert228(appShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
-assert228(!appShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
-assert228(appSource.includes("<ActiveFloorplanSelector"), "unlocked mode must expose active floorplan selector");
+assert228(productShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
+assert228(!productShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
+assert228(appSource.includes("<ActiveFloorplanHub"), "unlocked mode must expose active floorplan hub");
 assert228(appSource.includes("DEVELOPER_EVIDENCE_SECTION_ID"), "developer/evidence mode section should be available in shell navigation");
-assert228(appShellSource.includes("app-nav"), "shell should include navigation container");
+assert228(productShellSource.includes("ProductSidebar"), "shell should include navigation container");
 
 assert228(!appSource.includes("Proof-only workflow modules are preserved here only."), "default mode should hide proof-only intro text outside dev mode");
 assert228(!appSource.includes("Plan builder defaults"), "default mode should not embed proof module names");
@@ -44,13 +45,13 @@ writeEvidence("navigation-contract-output.json", {
   issue: "228",
   shellSections: [
     "floorplans",
-    "editor",
-    "routes",
     "assignments",
     "scenarios",
     "simulation",
     "reports",
-    "settings",
+    "help",
+    "editor",
+    "manual-assignment",
     "developer-evidence"
   ],
   proofContentIsIsolated: true,

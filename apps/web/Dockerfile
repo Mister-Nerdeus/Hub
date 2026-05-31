@@ -3,7 +3,7 @@ FROM node:22-alpine
 
 LABEL org.opencontainers.image.title="ER Pod Shift Simulator Web"
 LABEL org.opencontainers.image.description="Operational simulation web editor; no PHI or EHR integration"
-LABEL org.opencontainers.image.revision="split-room-closeout-hardening-689-693"
+LABEL org.opencontainers.image.revision="editor-assignment-ux-704-713"
 
 WORKDIR /repo
 

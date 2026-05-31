@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "issue": "711",
+  "stage": "persistence",
+  "checks": [
+    {
+      "name": "room load edits persist through the durable assignment set store",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "actions": {
+          "passed": true,
+          "missing": []
+        },
+        "persistence": {
+          "passed": true,
+          "missing": []
+        },
+        "app": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "persistence": {
+      "passed": true,
+      "actions": {
+        "passed": true,
+        "missing": []
+      },
+      "persistence": {
+        "passed": true,
+        "missing": []
+      },
+      "app": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  }
+}

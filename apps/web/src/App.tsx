@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AuthoringDraftContract } from "@nerdeus/shared";
+import type { AssignmentSetContract, AuthoringDraftContract } from "@nerdeus/shared";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
+import { ActiveFloorplanHub } from "./features/floorplans/ActiveFloorplanHub";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
   createActiveFloorplanContract,
@@ -12,12 +13,10 @@ import {
   openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
-import { ActiveFloorplanSelector } from "./features/floorplans/ActiveFloorplanSelector";
 import { createActiveFloorplanSelectorViewModel } from "./features/floorplans/activeFloorplanSelectorViewModel";
 import { ActiveFloorplanBanner } from "./features/floorplans/ActiveFloorplanBanner";
 import { createActiveFloorplanBannerViewModel } from "./features/floorplans/activeFloorplanBannerViewModel";
 import { ActiveFloorplanContext } from "./features/floorplans/activeFloorplanContext";
-import { FloorplanAdvancedPanel } from "./features/floorplans/FloorplanAdvancedPanel";
 import { FloorplanChangeConfirmationDialog } from "./features/floorplans/FloorplanChangeConfirmationDialog";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
@@ -66,7 +65,14 @@ import {
   type AppSectionId
 } from "./features/app-shell/appNavigation";
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
-import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
+import { AssignmentSetSelector } from "./features/assignments/AssignmentSetSelector";
+import {
+  createAssignmentSetStore,
+  createDefaultAssignmentSetForFloorplan,
+  updateAssignmentSetAssignments,
+  type AssignmentSetStore
+} from "./features/assignments/assignmentSetStore";
+import { createAssignmentSetViewModel } from "./features/assignments/assignmentSetViewModel";
 import {
   ManualAssignmentWorkspace,
   splitRoomManualAssignmentOverlayNurses,
@@ -114,6 +120,14 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [savedFloorplans, setSavedFloorplans] = useState<SavedFloorplanRecord[]>(() =>
     savedFloorplanStore.list()
   );
+  const assignmentSetStoreRef = useRef<AssignmentSetStore | null>(null);
+  if (assignmentSetStoreRef.current == null) {
+    assignmentSetStoreRef.current = createAssignmentSetStore(getLocalStorage());
+  }
+  const assignmentSetStore = assignmentSetStoreRef.current;
+  const [assignmentSets, setAssignmentSets] = useState<AssignmentSetContract[]>(() =>
+    assignmentSetStore.list()
+  );
   const floorplanLibraryViewModel = createFloorplanLibraryViewModel(undefined, savedFloorplans);
   const demoPinGateViewModel = createDemoPinGateViewModel(workspaceAccessState);
   const legacyFloorplanFixturesPanelViewModel = createLegacyFloorplanFixturesPanelViewModel();
@@ -125,6 +139,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
   const [manualAssignmentsByRoomId, setManualAssignmentsByRoomId] =
     useState<ManualAssignmentMap>({});
+  const [activeAssignmentSet, setActiveAssignmentSet] = useState<AssignmentSetContract | null>(null);
+  const [scenarioAssignmentSet, setScenarioAssignmentSet] = useState<AssignmentSetContract | null>(null);
+  const [assignmentSaveMessage, setAssignmentSaveMessage] = useState<string | null>(null);
   const [archivedVersionIds, setArchivedVersionIds] = useState<Set<string>>(() => new Set());
   const [pendingFloorplanChangeVersionId, setPendingFloorplanChangeVersionId] = useState<string | null>(null);
   const activeFloorplanContract = createActiveFloorplanContract(activeFloorplanState, savedFloorplans);
@@ -151,6 +168,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const manualAssignmentCompatibility = activeFloorplanContract == null
     ? null
     : summarizeManualAssignmentCompatibility(activeFloorplanContract, manualAssignmentsByRoomId);
+  const activeAssignmentSetViewModel = activeFloorplanContract == null || activeAssignmentSet == null
+    ? null
+    : createAssignmentSetViewModel(activeAssignmentSet, activeFloorplanContract.activeFloorplanVersionId);
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
   const canonicalFloorplanHeaderViewModel = createCanonicalFloorplanHeaderViewModel({
@@ -168,6 +188,22 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       activeFloorplanVersionId: activeFloorplanContract.activeFloorplanVersionId
     });
   }, [activeFloorplanContract?.activeFloorplanId, activeFloorplanContract?.activeFloorplanVersionId]);
+
+  useEffect(() => {
+    if (activeFloorplanContract == null) {
+      setActiveAssignmentSet(null);
+      setScenarioAssignmentSet(null);
+      setManualAssignmentsByRoomId({});
+      return;
+    }
+    const existing = assignmentSetStore.loadForFloorplanVersion(activeFloorplanContract.activeFloorplanVersionId);
+    const next = existing ?? assignmentSetStore.save(createDefaultAssignmentSetForFloorplan(activeFloorplanContract));
+    setActiveAssignmentSet(next);
+    setScenarioAssignmentSet(next);
+    setAssignmentSets(assignmentSetStore.list());
+    setManualAssignmentsByRoomId(next.assignmentsByRoomId);
+    setAssignmentSaveMessage(null);
+  }, [activeFloorplanContract?.activeFloorplanVersionId, assignmentSetStore]);
 
   function openDefault(planId: string) {
     setActiveFloorplanState((state) => openDefaultFloorplan(state, planId));
@@ -369,10 +405,90 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setManualAssignmentsByRoomId(assignments);
   }, []);
 
+  const captureAssignmentSet = useCallback((assignmentSet: AssignmentSetContract) => {
+    const saved = assignmentSetStore.save(updateAssignmentSetAssignments(assignmentSet, assignmentSet.assignmentsByRoomId));
+    setActiveAssignmentSet(saved);
+    setScenarioAssignmentSet((current) =>
+      current?.assignmentSetId === saved.assignmentSetId ? saved : current
+    );
+    setAssignmentSets(assignmentSetStore.list());
+    setManualAssignmentsByRoomId(saved.assignmentsByRoomId);
+    return saved;
+  }, [assignmentSetStore]);
+
+  function selectAssignmentSet(assignmentSetId: string) {
+    const selected = assignmentSetStore.load(assignmentSetId);
+    if (selected == null) return;
+    setActiveAssignmentSet(selected);
+    setManualAssignmentsByRoomId(selected.assignmentsByRoomId);
+    setAssignmentSaveMessage(null);
+  }
+
+  function saveActiveAssignmentSet() {
+    if (activeAssignmentSet == null) return;
+    const saved = captureAssignmentSet(activeAssignmentSet);
+    setAssignmentSaveMessage(`${saved.displayName} saved locally.`);
+  }
+
+  function useActiveAssignmentSetForScenarioSetup() {
+    if (activeAssignmentSet == null) return;
+    const saved = captureAssignmentSet({
+      ...activeAssignmentSet,
+      status: "ready_for_scenario"
+    });
+    setScenarioAssignmentSet(saved);
+    setAssignmentSaveMessage(`${saved.displayName} selected for scenario setup.`);
+    setActiveSection("scenarios");
+  }
+
   const assignmentOverlaySource = {
     assignmentsByRoomId: manualAssignmentsByRoomId,
-    nurses: splitRoomManualAssignmentOverlayNurses
+    nurses: activeAssignmentSet == null
+      ? splitRoomManualAssignmentOverlayNurses
+      : activeAssignmentSet.nurseProfiles.map((nurse) => ({
+          nurseId: nurse.nurseProfileId,
+          displayLabel: nurse.displayLabel,
+          color: nurse.color
+        }))
   };
+  const assignmentWorkflowContent = (
+    <>
+      <AssignmentSetSelector
+        assignmentSets={assignmentSets}
+        activeAssignmentSet={activeAssignmentSet}
+        selectedScenarioAssignmentSet={scenarioAssignmentSet}
+        activeFloorplanVersionId={activeFloorplanContract?.activeFloorplanVersionId ?? null}
+        saveMessage={assignmentSaveMessage}
+        onSelectAssignmentSet={selectAssignmentSet}
+        onSaveAssignmentSet={saveActiveAssignmentSet}
+        onUseForScenarioSetup={useActiveAssignmentSetForScenarioSetup}
+      />
+      {activeAssignmentSetViewModel == null ? null : (
+        <p
+          className="workflow-section__placeholder"
+          data-assignment-set-active="true"
+          data-assignment-set-id={activeAssignmentSetViewModel.assignmentSetId}
+          data-assignment-set-floorplan-version-id={activeAssignmentSetViewModel.floorplanVersionId}
+          data-assignment-set-compatibility={activeAssignmentSetViewModel.compatibilityStatus}
+          data-assignment-set-count={assignmentSets.length}
+        >
+          {activeAssignmentSetViewModel.displayName}: {activeAssignmentSetViewModel.assignedRoomCount} assigned, {activeAssignmentSetViewModel.roomLoadCount} structured room loads.
+        </p>
+      )}
+      {manualAssignmentCompatibility == null || manualAssignmentCompatibility.status !== "incompatible" ? null : (
+        <p className="floorplan-status-message" role="status">
+          Assignment set is incompatible with this floorplan. Missing room IDs: {manualAssignmentCompatibility.missingRoomIds.join(", ")}
+        </p>
+      )}
+      <ManualAssignmentWorkspace
+        activeFloorplan={activeFloorplanContract}
+        assignmentSet={activeAssignmentSet}
+        assignmentsByRoomId={manualAssignmentsByRoomId}
+        onAssignmentsChange={captureManualAssignments}
+        onAssignmentSetChange={captureAssignmentSet}
+      />
+    </>
+  );
 
   if (!workspaceAccessState.unlocked) {
     return (
@@ -423,27 +539,25 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           {floorplanStatusMessage == null ? null : (
             <p className="floorplan-status-message" role="status">{floorplanStatusMessage}</p>
           )}
-          {activeFloorplanSelectorViewModel == null ? null : (
-            <ActiveFloorplanSelector
-              viewModel={activeFloorplanSelectorViewModel}
+          {activeFloorplanContract == null || activeFloorplanSelectorViewModel == null || floorplanReadinessViewModel == null ? null : (
+            <ActiveFloorplanHub
+              activeFloorplan={activeFloorplanContract}
+              selectorViewModel={activeFloorplanSelectorViewModel}
+              readinessViewModel={floorplanReadinessViewModel}
+              versions={floorplanVersions}
               onEditFloorplan={() => setActiveSection("editor")}
               onUseForAssignment={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForAssignment(state));
                 setActiveSection("manual-assignment");
               }}
-              onUseForSimulation={() => {
+              onPrepareForSimulation={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForSimulation(state));
                 setActiveSection("simulation");
               }}
               onChangeFloorplan={selectFloorplanVersion}
               onOpenAdvanced={() => document.getElementById("floorplan-advanced-panel")?.scrollIntoView()}
-            />
-          )}
-          {floorplanReadinessViewModel == null ? null : (
-            <FloorplanReadinessChecklist viewModel={floorplanReadinessViewModel} />
-          )}
-          <FloorplanAdvancedPanel>
-            <div id="floorplan-advanced-panel">
+              advancedContent={(
+                <div id="floorplan-advanced-panel">
               <FloorplanLandingSummary
                 activeFloorplan={activeFloorplanSummaryViewModel}
                 onOpenEditor={() => setActiveSection("editor")}
@@ -478,7 +592,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
                 <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
               </details>
             </div>
-          </FloorplanAdvancedPanel>
+              )}
+            />
+          )}
         </section>
       ) : null}
 
@@ -517,36 +633,30 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "assignments" ? (
         <section className="workflow-section" aria-labelledby="assignments-title">
           <h2 id="assignments-title">Assignments</h2>
-          <AssignmentWorkflow activePlan={activeFloorplanState.activeFloorplan?.plan ?? null} />
+          {assignmentWorkflowContent}
         </section>
       ) : null}
 
       {activeSection === "manual-assignment" ? (
         <section className="workflow-section" aria-labelledby="manual-assignment-section-title">
           <h2 id="manual-assignment-section-title">Manual Assignment</h2>
-          {manualAssignmentCompatibility == null || manualAssignmentCompatibility.status !== "incompatible" ? null : (
-            <p className="floorplan-status-message" role="status">
-              Assignment set is incompatible with this floorplan. Missing room IDs: {manualAssignmentCompatibility.missingRoomIds.join(", ")}
-            </p>
-          )}
-          <ManualAssignmentWorkspace
-            activeFloorplan={activeFloorplanContract}
-            assignmentsByRoomId={manualAssignmentsByRoomId}
-            onAssignmentsChange={captureManualAssignments}
-          />
+          {assignmentWorkflowContent}
         </section>
       ) : null}
 
       {activeSection === "scenarios" ? (
         <section className="workflow-section" aria-labelledby="scenarios-title">
           <h2 id="scenarios-title">Scenarios</h2>
-          <ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract} />
+          <ScenarioRatioComparisonPanel
+            activeFloorplan={activeFloorplanContract}
+            selectedAssignmentSet={scenarioAssignmentSet ?? activeAssignmentSet}
+          />
         </section>
       ) : null}
 
       {activeSection === "simulation" ? (
         <section className="workflow-section" aria-labelledby="simulation-title">
-          <h2 id="simulation-title">Simulation Review</h2>
+          <h2 id="simulation-title">Simulation</h2>
           <SimulationV0InternalDryRunPanel
             activeFloorplan={activeFloorplanContract}
             viewModel={simulationV0ViewModel}
@@ -558,7 +668,16 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
         <section className="workflow-section" aria-labelledby="reports-title">
           <h2 id="reports-title">Reports</h2>
           <p>Selected floorplan: {activeFloorplanContract?.displayName ?? "ER Pod Main Layout"}</p>
-          <p className="workflow-section__placeholder">Reports workflow placeholder while assignments and simulation outputs remain in proof mode.</p>
+          <p className="workflow-section__placeholder">Reports workflow placeholder while assignments and simulation outputs remain in foundation mode.</p>
+        </section>
+      ) : null}
+
+      {activeSection === "help" ? (
+        <section className="workflow-section" aria-labelledby="help-title">
+          <h2 id="help-title">Help</h2>
+          <p className="workflow-section__placeholder">
+            This workspace uses synthetic operational data only. Finish Floorplan and Assignments before scenario setup.
+          </p>
         </section>
       ) : null}
 

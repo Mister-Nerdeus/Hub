@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "issue": "705",
+  "commands": {
+    "1": "npm --workspace packages/shared test",
+    "2": "npm --workspace apps/web test",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-product-shell-workflow.mjs --stage shell-contract --allow-partial --issue 705",
+    "5": "node scripts/check-product-shell-workflow.mjs --stage sidebar-workflow --allow-partial --issue 705",
+    "6": "node scripts/check-product-shell-workflow.mjs --stage stepper --allow-partial --issue 705",
+    "7": "node scripts/check-product-shell-workflow.mjs --stage active-step --allow-partial --issue 705",
+    "8": "node scripts/check-product-shell-workflow.mjs --stage advanced-evidence --allow-partial --issue 705",
+    "9": "node scripts/check-no-phi-fields.mjs"
+  }
+}

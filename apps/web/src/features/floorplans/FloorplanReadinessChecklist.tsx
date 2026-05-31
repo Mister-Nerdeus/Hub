@@ -33,6 +33,6 @@ export function FloorplanReadinessChecklist({ viewModel }: FloorplanReadinessChe
 
 function readinessLabel(status: FloorplanReadinessContract["assignmentStatus"] | FloorplanReadinessContract["simulationStatus"]): string {
   if (status === "ready_for_assignment") return "Ready for assignment";
-  if (status === "ready_for_simulation") return "Ready for simulation";
+  if (status === "ready_for_simulation") return "Prepared for simulation setup";
   return "Needs work";
 }
