@@ -1390,26 +1390,6 @@ export function LayoutEditorStage({
         </details>
       </header>
 
-      <EditorSaveStatusPanel
-        activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
-        activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
-        activePlanId={stageState.loadedFloorplan?.planId ?? null}
-        activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
-        localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
-        lastNamedCopySaveLabel={lastNamedCopySaveLabel}
-        reloadProofLabel={reloadProofLabel}
-        readOnly={stageState.readOnly}
-        isDirty={stageState.isDirty}
-        saveStatus={saveStatus}
-      />
-
-      <LayoutDraftRecoveryBanner
-        state={draftRecoveryState}
-        onRestore={restoreRecoveryDraft}
-        onDiscard={discardRecoveryDraft}
-        onExportJson={exportRecoveryDraftJson}
-      />
-
       {addObjectMenuOpen ? (
         <AddObjectMenu
           viewModel={addObjectMenuViewModel}
@@ -1424,16 +1404,6 @@ export function LayoutEditorStage({
       )}
 
       <EditorNextStepPanel viewModel={nextStepViewModel} />
-
-      <details className="layout-editor-stage__json-drawer">
-        <summary>Advanced editor payload</summary>
-        <textarea
-          aria-label="Floorplan JSON"
-          value={floorplanJsonText}
-          onChange={(event) => setFloorplanJsonText(event.target.value)}
-          spellCheck={false}
-        />
-      </details>
 
       <div
         className="layout-editor-stage__tool-strip"
@@ -1451,6 +1421,33 @@ export function LayoutEditorStage({
           onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
           advancedContent={(
             <div className="layout-editor-stage__advanced-toolbar-content">
+              <EditorSaveStatusPanel
+                activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
+                activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
+                activePlanId={stageState.loadedFloorplan?.planId ?? null}
+                activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+                localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
+                lastNamedCopySaveLabel={lastNamedCopySaveLabel}
+                reloadProofLabel={reloadProofLabel}
+                readOnly={stageState.readOnly}
+                isDirty={stageState.isDirty}
+                saveStatus={saveStatus}
+              />
+              <LayoutDraftRecoveryBanner
+                state={draftRecoveryState}
+                onRestore={restoreRecoveryDraft}
+                onDiscard={discardRecoveryDraft}
+                onExportJson={exportRecoveryDraftJson}
+              />
+              <details className="layout-editor-stage__json-drawer">
+                <summary>Advanced editor payload</summary>
+                <textarea
+                  aria-label="Floorplan JSON"
+                  value={floorplanJsonText}
+                  onChange={(event) => setFloorplanJsonText(event.target.value)}
+                  spellCheck={false}
+                />
+              </details>
               <EditorCommandBar
                 layoutLabel={stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout"}
                 hasActiveFloorplan={activeFloorplan != null}

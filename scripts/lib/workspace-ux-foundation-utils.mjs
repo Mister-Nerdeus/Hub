@@ -38,6 +38,7 @@ export const workspaceUxRootScripts = {
   "check:editor-undo-redo-advanced": "node scripts/check-editor-undo-redo-advanced.mjs --stage final --issue 726",
   "check:editor-detailed-tools-advanced": "node scripts/check-editor-detailed-tools-advanced.mjs --stage final --issue 727",
   "check:compact-canvas-controls": "node scripts/check-compact-canvas-controls.mjs --stage final --issue 728",
+  "check:editor-technical-status-advanced": "node scripts/check-editor-technical-status-advanced.mjs --stage final --issue 729",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
