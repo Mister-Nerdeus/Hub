@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "792",
+  "stage": "parent-resize",
+  "checks": [
+    {
+      "name": "resizing split room updates parent footprint dimensions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "stage declares parent resize behavior contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

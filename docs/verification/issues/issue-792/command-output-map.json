@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "792",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-parent-resize.mjs --stage parent-resize --issue 792",
+      "outputs": [
+        "docs/verification/issues/issue-792/parent-resize-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-parent-resize.mjs --stage bed-relative-bounds-recalculate --issue 792",
+      "outputs": [
+        "docs/verification/issues/issue-792/bed-relative-bounds-recalculate-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-792/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-792/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-792/no-phi-output.txt"
+      ]
+    }
+  ]
+}

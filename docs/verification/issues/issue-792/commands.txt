@@ -1,0 +1,5 @@
+node scripts/check-split-room-parent-resize.mjs --stage parent-resize --issue 792
+node scripts/check-split-room-parent-resize.mjs --stage bed-relative-bounds-recalculate --issue 792
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

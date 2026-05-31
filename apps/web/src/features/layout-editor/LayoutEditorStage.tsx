@@ -1648,6 +1648,7 @@ export function LayoutEditorStage({
             data-split-bed-selection-contract="independent-bed-positions"
             data-split-parent-selection-contract="separate-parent-room"
             data-split-room-parent-move-contract="move-parent-footprint-bed-ratios-stable"
+            data-split-room-parent-resize-contract="resize-parent-recalculate-bed-relative-bounds"
             data-support-access-render-count={supportAccessItems.length}
             data-station-render-count={stationItems.length}
             data-provider-pharmacy-zone-render-count={providerPharmacyZoneItems.length}

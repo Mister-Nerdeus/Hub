@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "792",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "resizing split room updates parent footprint dimensions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "stage declares parent resize behavior contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "bed relative bounds recalculate from divider orientation and ratio",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "splitRoomParentResizeStatus": "passed",
+    "bedPositionsResizeRelativeToParent": true
+  }
+}

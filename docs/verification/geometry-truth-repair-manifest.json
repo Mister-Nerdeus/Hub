@@ -26,7 +26,7 @@
   "splitRoomRendererStatus": "passed",
   "splitBedPositionSelectionStatus": "passed",
   "splitRoomParentMoveStatus": "passed",
-  "splitRoomParentResizeStatus": "missing",
+  "splitRoomParentResizeStatus": "passed",
   "splitDividerControlsStatus": "missing",
   "splitRoomBedLabelsStatus": "missing",
   "splitRoomAssignmentTargetGenerationStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "791",
+  "lastUpdatedIssue": "792",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -72,5 +72,6 @@
   "singleRoomCanBecomeSplitRoom": true,
   "splitRoomRendersParentAndBedPositions": true,
   "splitBedsSelectableIndependently": true,
-  "bedPositionsMoveWithParent": true
+  "bedPositionsMoveWithParent": true,
+  "bedPositionsResizeRelativeToParent": true
 }

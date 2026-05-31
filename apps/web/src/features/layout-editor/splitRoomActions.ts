@@ -20,6 +20,11 @@ export type SplitRoomParentMoveResult = {
   splitRoom: SplitRoomContract;
 };
 
+export type SplitRoomParentResizeResult = {
+  parentRoom: EditableRoomGeometry;
+  splitRoom: SplitRoomContract;
+};
+
 export function convertSingleRoomToSplitRoom(
   input: ConvertRoomToSplitRoomInput
 ): SplitRoomContract {
@@ -77,6 +82,46 @@ export function splitRoomBedPositionAbsoluteBounds(input: {
     widthFeet: parentRoom.widthFeet * bedPosition.relativeBounds.widthRatio,
     heightFeet: parentRoom.heightFeet * bedPosition.relativeBounds.heightRatio
   };
+}
+
+export function resizeSplitRoomParent(input: {
+  parentRoom: EditableRoomGeometry;
+  splitRoom: SplitRoomContract;
+  widthFeet: number;
+  heightFeet: number;
+}): SplitRoomParentResizeResult {
+  const parentRoom = {
+    ...input.parentRoom,
+    widthFeet: Math.max(4, input.widthFeet),
+    heightFeet: Math.max(4, input.heightFeet)
+  };
+  return {
+    parentRoom,
+    splitRoom: {
+      ...input.splitRoom,
+      bedPositions: recalculateSplitRoomBedRelativeBounds(input.splitRoom)
+    }
+  };
+}
+
+export function recalculateSplitRoomBedRelativeBounds(
+  splitRoom: SplitRoomContract
+): BedPositionContract[] {
+  const [first, second] = splitRoom.bedPositions;
+  if (first == null || second == null) {
+    return splitRoom.bedPositions.map((bedPosition) => ({ ...bedPosition }));
+  }
+  const dividerRatio = clampRatio(splitRoom.dividerRatio);
+  if (splitRoom.dividerOrientation === "horizontal") {
+    return [
+      { ...first, relativeBounds: { xRatio: 0, yRatio: 0, widthRatio: 1, heightRatio: dividerRatio } },
+      { ...second, relativeBounds: { xRatio: 0, yRatio: dividerRatio, widthRatio: 1, heightRatio: 1 - dividerRatio } }
+    ];
+  }
+  return [
+    { ...first, relativeBounds: { xRatio: 0, yRatio: 0, widthRatio: dividerRatio, heightRatio: 1 } },
+    { ...second, relativeBounds: { xRatio: dividerRatio, yRatio: 0, widthRatio: 1 - dividerRatio, heightRatio: 1 } }
+  ];
 }
 
 function createTwoBedPositions(input: {
