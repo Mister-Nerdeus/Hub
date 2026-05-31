@@ -145,6 +145,7 @@ import { EditorCommandBar } from "./EditorCommandBar";
 import { EditorDetailsPanel } from "./EditorDetailsPanel";
 import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
+import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -312,6 +313,7 @@ export function LayoutEditorStage({
   const [pendingAddObjectId, setPendingAddObjectId] = useState<AddObjectMenuItemId | null>(null);
   const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
   const [hallwayArrowState, setHallwayArrowState] = useState<Record<string, { visible?: boolean; reversed?: boolean }>>({});
+  const [referenceOverlayVisible, setReferenceOverlayVisible] = useState(defaultReferenceOverlayViewModel.visible);
   const [placementPreviewPoint, setPlacementPreviewPoint] = useState<{
     xFeet: number;
     yFeet: number;
@@ -1434,6 +1436,8 @@ export function LayoutEditorStage({
           onAddDoor={addDoorToSelectedRoom}
           onAddSplitRoom={convertSelectedRoomToSplitBay}
           onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
+          referenceOverlayVisible={referenceOverlayVisible}
+          onToggleReferenceOverlay={() => setReferenceOverlayVisible((visible) => !visible)}
           advancedContent={(
             <div className="layout-editor-stage__advanced-toolbar-content">
               <EditorSaveStatusPanel
@@ -1623,6 +1627,7 @@ export function LayoutEditorStage({
             data-validation-warning-count={stageState.validationWarnings.length}
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
+            data-reference-overlay-visible={referenceOverlayVisible ? "true" : "false"}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             data-pan-x-feet={stageState.viewport.panXFeet}
             data-pan-y-feet={stageState.viewport.panYFeet}
@@ -1652,8 +1657,18 @@ export function LayoutEditorStage({
               rx="0"
             />
             <g className="layout-editor-stage__background-objects">
-              {podBorderViewModel == null ? null : (
-                <PodBorderShape viewModel={podBorderViewModel} />
+              {podBorderViewModel == null || !referenceOverlayVisible ? null : (
+                <g
+                  className="layout-editor-stage__reference-overlay"
+                  data-reference-overlay="true"
+                  data-reference-overlay-id={defaultReferenceOverlayViewModel.overlayId}
+                  data-reference-overlay-locked="true"
+                  data-reference-overlay-editable-geometry="false"
+                  data-reference-overlay-reason={defaultReferenceOverlayViewModel.reasonLocked}
+                  opacity={defaultReferenceOverlayViewModel.opacity}
+                >
+                  <PodBorderShape viewModel={podBorderViewModel} />
+                </g>
               )}
               {hallwayItems.map((item) => (
                 <HallwayShape

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ReferenceOverlayToggle } from "./ReferenceOverlayToggle";
 
 export type EditorNormalToolbarProps = {
   saveDisabled: boolean;
@@ -9,6 +10,8 @@ export type EditorNormalToolbarProps = {
   onAddDoor: () => void;
   onAddSplitRoom: () => void;
   onAddNurseStation: () => void;
+  referenceOverlayVisible: boolean;
+  onToggleReferenceOverlay: () => void;
   advancedContent: ReactNode;
 };
 
@@ -21,6 +24,8 @@ export function EditorNormalToolbar({
   onAddDoor,
   onAddSplitRoom,
   onAddNurseStation,
+  referenceOverlayVisible,
+  onToggleReferenceOverlay,
   advancedContent
 }: EditorNormalToolbarProps) {
   return (
@@ -65,6 +70,10 @@ export function EditorNormalToolbar({
         >
           Add Nurse Station
         </button>
+        <ReferenceOverlayToggle
+          visible={referenceOverlayVisible}
+          onToggle={onToggleReferenceOverlay}
+        />
       </div>
       <details className="editor-normal-toolbar__advanced" data-editor-normal-action="advanced">
         <summary>Advanced</summary>

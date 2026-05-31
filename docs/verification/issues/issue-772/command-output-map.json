@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "772",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-772/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-772/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-overlay-toggle-ui.mjs --stage toggle-visible --issue 772",
+      "outputs": [
+        "docs/verification/issues/issue-772/toggle-visible-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-reference-overlay-toggle-ui.mjs --stage hides-reference-only --issue 772",
+      "outputs": [
+        "docs/verification/issues/issue-772/hides-reference-only-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-772/no-phi-output.txt"
+      ]
+    }
+  ]
+}

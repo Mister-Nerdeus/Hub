@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-reference-overlay-toggle-ui.mjs --stage toggle-visible --issue 772
+node scripts/check-reference-overlay-toggle-ui.mjs --stage hides-reference-only --issue 772
+node scripts/check-no-phi-fields.mjs
