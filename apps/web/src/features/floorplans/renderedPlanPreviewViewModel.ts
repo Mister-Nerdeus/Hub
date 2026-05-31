@@ -15,7 +15,7 @@ export type RenderedPlanPreviewPlanViewModel = {
   drawCountSummary: string;
   limitationSummary: string;
   routeStatusText: "Route ready" | "Route blocked";
-  simulationStatusText: "Simulation ready" | "Simulation blocked";
+  routeExportStatusText: "Route export ready" | "Route export blocked";
   manualReviewRequired: true;
   promotionBlocked: true;
   limitations: readonly string[];
@@ -138,7 +138,7 @@ export function createRenderedPlanPreviewPlanViewModel(
     ].join(", "),
     limitationSummary: "Operational approximation only; not exact CAD/source parity and not clinical or staffing compliance.",
     routeStatusText: plan.routeReadinessStatus === "ready" ? "Route ready" : "Route blocked",
-    simulationStatusText: plan.simulationReadyExportStatus === "simulation_ready" ? "Simulation ready" : "Simulation blocked",
+    routeExportStatusText: plan.simulationReadyExportStatus === "simulation_ready" ? "Route export ready" : "Route export blocked",
     manualReviewRequired: true,
     promotionBlocked: true,
     limitations: plan.limitations,

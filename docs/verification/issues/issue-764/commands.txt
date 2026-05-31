@@ -1,20 +1,11 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-npm run check:clean-committed-state
-node scripts/check-global-horizontal-overflow.mjs --stage final --issue 764
-node scripts/check-active-floorplan-card-repair.mjs --stage final --issue 764
-node scripts/check-active-floorplan-hub-layout-balance.mjs --stage final --issue 764
-node scripts/check-floorplan-advanced-open-behavior.mjs --stage final --issue 764
+node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 754
 node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 764
-node scripts/check-compact-readiness-details-repair.mjs --stage final --issue 764
-node scripts/check-workflow-stepper-gating.mjs --stage final --issue 764
-node scripts/check-floorplan-hub-screenshot-proof.mjs --stage repaired-layout --issue 764
-node scripts/check-editor-bottom-details-copy-repair.mjs --stage final --issue 764
-node scripts/check-inspector-normal-advanced-section-split.mjs --stage final --issue 764
-node scripts/check-editor-bottom-panel-height.mjs --stage final --issue 764
-node scripts/check-editor-details-tab-simplification.mjs --stage final --issue 764
-node scripts/check-advanced-toolbar-responsive-repair.mjs --stage final --issue 764
-node scripts/check-editor-screenshot-proof.mjs --stage repaired-layout --issue 764
+node scripts/check-workspace-ux-repair-go-no-go.mjs --stage final --issue 764
 node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 764
 node scripts/check-no-phi-fields.mjs
+node scripts/check-docs-contracts.mjs
+docker compose config
+docker compose build web

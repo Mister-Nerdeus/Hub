@@ -19,11 +19,11 @@ export function PathSyncStatusPanel({ audit }: PathSyncStatusPanelProps) {
       className="path-sync-status-panel"
       aria-label="Path sync status"
       data-path-sync-status={audit.pathSyncStatus}
-      data-simulation-ready={audit.simulationReady ? "true" : "false"}
+      data-route-export-ready={audit.simulationReady ? "true" : "false"}
     >
       <h3>Path sync</h3>
       <p role="status">{audit.pathSyncStatus}</p>
-      <p>{audit.simulationReady ? "Simulation-ready export eligible" : "Simulation-ready export blocked"}</p>
+      <p>{audit.simulationReady ? "Route-ready export eligible" : "Route-ready export blocked"}</p>
       <dl>
         <div>
           <dt>Rooms</dt>

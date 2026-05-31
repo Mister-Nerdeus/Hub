@@ -14,10 +14,10 @@ export function SimulationReadyExportPanel({
   showValidateButton = true
 }: SimulationReadyExportPanelProps) {
   return (
-    <section className="simulation-ready-export-panel" aria-label="Simulation-ready export">
+    <section className="simulation-ready-export-panel" aria-label="Route-ready export">
       {showValidateButton ? (
         <button type="button" disabled={disabled} onClick={onValidateExport}>
-          Validate simulation-ready export
+          Validate route-ready export
         </button>
       ) : null}
       <p role="status">{result?.status ?? "not validated"}</p>
@@ -36,7 +36,7 @@ export function SimulationReadyExportPanel({
             <dd>{result.warningIssues.length}</dd>
           </div>
           <div>
-            <dt>Simulation-ready plan</dt>
+            <dt>Route-ready plan</dt>
             <dd>{result.simulationReadyPlan == null ? "blocked" : "present"}</dd>
           </div>
         </dl>

@@ -56,7 +56,6 @@ export function createActiveFloorplanSelectorViewModel(input: {
 }
 
 export function workflowStatusLabel(status: ActiveFloorplanContract["workflowStatus"]): string {
-  if (status === "ready_for_simulation") return "Ready for assignment setup";
   if (status === "ready_for_assignment") return "Ready for assignment";
   if (status === "saved") return "Saved";
   if (status === "draft") return "Draft";

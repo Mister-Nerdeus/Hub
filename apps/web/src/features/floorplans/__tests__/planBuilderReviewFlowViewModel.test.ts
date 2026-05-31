@@ -27,8 +27,8 @@ if (viewModel.routeExportReadinessIsApproval !== false) {
   throw new Error("route/export readiness must never be treated as approval");
 }
 
-if (viewModel.simulationReadinessIsPromotionReadiness !== false) {
-  throw new Error("simulation readiness must never be treated as promotion readiness");
+if (viewModel.routeExportReadinessIsPromotionReadiness !== false) {
+  throw new Error("route export readiness must never be treated as promotion readiness");
 }
 
 if (!viewModel.manualReviewRequired || !viewModel.promotionBlocked) {
@@ -36,7 +36,7 @@ if (!viewModel.manualReviewRequired || !viewModel.promotionBlocked) {
 }
 
 for (const plan of viewModel.plans) {
-  if (!plan.routeReady || !plan.simulationReady) {
+  if (!plan.routeReady || !plan.routeExportReady) {
     throw new Error(`${plan.planId} should expose ready route/export status`);
   }
   if (!plan.manualReviewRequired || plan.manualReviewApproved) {
@@ -56,7 +56,7 @@ const routeReadyPlan = createPlanBuilderReviewFlowPlanViewModel({
   sampleRecordCountsAsApproval: false
 });
 if (routeReadyPlan.manualReviewApproved || routeReadyPlan.canPromote !== false) {
-  throw new Error("route and simulation readiness must not imply review or promotion readiness");
+  throw new Error("route and export readiness must not imply review or promotion readiness");
 }
 
 const samplePlan = createPlanBuilderReviewFlowPlanViewModel({
@@ -82,15 +82,15 @@ writeEvidence("route-ready-not-approved-negative-output.json", {
   issue: "333",
   status: "passed",
   routeReady: routeReadyPlan.routeReady,
-  simulationReady: routeReadyPlan.simulationReady,
+  routeExportReady: routeReadyPlan.routeExportReady,
   manualReviewApproved: routeReadyPlan.manualReviewApproved,
   canPromote: routeReadyPlan.canPromote
 });
 
-writeEvidence("simulation-ready-not-promotion-ready-negative-output.json", {
+writeEvidence("route-export-ready-not-promotion-ready-negative-output.json", {
   issue: "333",
   status: "passed",
-  simulationReady: routeReadyPlan.simulationReady,
+  routeExportReady: routeReadyPlan.routeExportReady,
   promotionBlocked: routeReadyPlan.promotionBlocked,
   canPromote: routeReadyPlan.canPromote
 });

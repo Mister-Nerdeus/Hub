@@ -1,26 +1,72 @@
 {
   "status": "passed",
   "issue": "764",
-  "commands": {
-    "1": "npm --workspace packages/shared test",
-    "2": "npm --workspace apps/web test",
-    "3": "npm --workspace apps/web run build",
-    "4": "npm run check:clean-committed-state",
-    "5": "node scripts/check-global-horizontal-overflow.mjs --stage final --issue 764",
-    "6": "node scripts/check-active-floorplan-card-repair.mjs --stage final --issue 764",
-    "7": "node scripts/check-active-floorplan-hub-layout-balance.mjs --stage final --issue 764",
-    "8": "node scripts/check-floorplan-advanced-open-behavior.mjs --stage final --issue 764",
-    "9": "node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 764",
-    "10": "node scripts/check-compact-readiness-details-repair.mjs --stage final --issue 764",
-    "11": "node scripts/check-workflow-stepper-gating.mjs --stage final --issue 764",
-    "12": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage repaired-layout --issue 764",
-    "13": "node scripts/check-editor-bottom-details-copy-repair.mjs --stage final --issue 764",
-    "14": "node scripts/check-inspector-normal-advanced-section-split.mjs --stage final --issue 764",
-    "15": "node scripts/check-editor-bottom-panel-height.mjs --stage final --issue 764",
-    "16": "node scripts/check-editor-details-tab-simplification.mjs --stage final --issue 764",
-    "17": "node scripts/check-advanced-toolbar-responsive-repair.mjs --stage final --issue 764",
-    "18": "node scripts/check-editor-screenshot-proof.mjs --stage repaired-layout --issue 764",
-    "19": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 764",
-    "20": "node scripts/check-no-phi-fields.mjs"
-  }
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 754",
+      "outputs": [
+        "docs/verification/issues/issue-764/review-follow-up-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 764",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/check-floorplan-simulation-readiness-overclaim-repair.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-workspace-ux-repair-go-no-go.mjs --stage final --issue 764",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/check-workspace-ux-repair-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 764",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/check-milestone-a-no-overclaim.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-764/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-docs-contracts.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/docs-contracts.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/docker-compose-config-review.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-764/test-output/docker-compose-build-web-review.txt"
+      ]
+    }
+  ]
 }

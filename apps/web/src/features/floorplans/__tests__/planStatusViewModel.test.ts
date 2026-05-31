@@ -25,7 +25,7 @@ if (reviewCandidate == null) {
 
 const badges = createPlanStatusBadges(reviewCandidate);
 const badgeLabels = badges.map((badge) => badge.label);
-for (const label of ["Route Ready", "Simulation Ready", "Manual Review Required", "Promotion Blocked"]) {
+for (const label of ["Route Ready", "Route Export Ready", "Manual Review Required", "Promotion Blocked"]) {
   if (!badgeLabels.includes(label)) {
     throw new Error(`missing badge ${label}`);
   }
@@ -35,7 +35,7 @@ if (badgeLabels.some((label) => /approved/i.test(label))) {
 }
 
 const filters = createPlanLibraryFilters(items);
-for (const label of ["Needs Manual Review", "Route Ready", "Simulation Ready", "Promotion Blocked", "Default Fixtures", "Review Candidates"]) {
+for (const label of ["Needs Manual Review", "Route Ready", "Route Export Ready", "Promotion Blocked", "Default Fixtures", "Review Candidates"]) {
   if (!filters.some((filter) => filter.label === label)) {
     throw new Error(`missing filter ${label}`);
   }

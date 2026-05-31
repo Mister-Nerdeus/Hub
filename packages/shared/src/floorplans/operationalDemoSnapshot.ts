@@ -74,7 +74,7 @@ export type OperationalDemoOperatorPlan = {
   planId: OperationalDemoPlanId;
   displayName: string;
   routeReadinessLabel: "Route ready" | "Route blocked";
-  simulationExportLabel: "Simulation-ready export" | "Simulation export blocked";
+  simulationExportLabel: "Route-ready export" | "Route export blocked";
   manualReviewStatusLabel: "Manual review required";
   promotionStatusLabel: "Promotion blocked";
   safeRenderedEvidenceReference: {
@@ -143,8 +143,8 @@ function buildOperatorPlan(plan: OperationalDemoSourcePlan): OperationalDemoOper
     displayName: plan.displayName,
     routeReadinessLabel: plan.routeReadinessStatus === "ready" ? "Route ready" : "Route blocked",
     simulationExportLabel: plan.simulationReadyExportStatus === "simulation_ready"
-      ? "Simulation-ready export"
-      : "Simulation export blocked",
+      ? "Route-ready export"
+      : "Route export blocked",
     manualReviewStatusLabel: "Manual review required",
     promotionStatusLabel: "Promotion blocked",
     safeRenderedEvidenceReference: {

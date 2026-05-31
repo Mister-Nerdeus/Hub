@@ -71,7 +71,6 @@ export type ActiveFloorplanState = {
   activeFloorplan: ActiveFloorplanRecord | null;
   activeCanonicalFloorplanId: typeof CANONICAL_FLOORPLAN_ID;
   selectedForAssignmentVersionId: string | null;
-  selectedForSimulationVersionId: string | null;
   activeFloorplanHasUnsavedChanges: boolean;
   selection: ActiveFloorplanSelectionState;
   sequence: number;
@@ -110,7 +109,6 @@ export function createEmptyActiveFloorplanState(): ActiveFloorplanState {
       activeFloorplan: null,
       activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
       selectedForAssignmentVersionId: null,
-      selectedForSimulationVersionId: null,
       activeFloorplanHasUnsavedChanges: false,
       selection: createEmptySelectionState(),
       sequence: -1
@@ -148,7 +146,6 @@ export function openDefaultFloorplan(
     activeFloorplan,
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: activeFloorplan.recordId,
-    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -163,8 +160,7 @@ export function openDefaultFloorplanWithoutSelection(
   const next = openDefaultFloorplan(state, planId, fixtures);
   return {
     ...next,
-    selectedForAssignmentVersionId: state.selectedForAssignmentVersionId,
-    selectedForSimulationVersionId: null
+    selectedForAssignmentVersionId: state.selectedForAssignmentVersionId
   };
 }
 
@@ -195,7 +191,6 @@ export function openSavedFloorplan(
     activeFloorplan,
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: record.recordId,
-    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -239,7 +234,6 @@ export function openReviewCandidateFloorplan(
     },
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: candidate.savedPlanId,
-    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -250,13 +244,6 @@ export function markActiveFloorplanForAssignment(state: ActiveFloorplanState): A
   return {
     ...state,
     selectedForAssignmentVersionId: state.activeFloorplan?.recordId ?? null
-  };
-}
-
-export function markActiveFloorplanForSimulation(state: ActiveFloorplanState): ActiveFloorplanState {
-  return {
-    ...state,
-    selectedForSimulationVersionId: state.activeFloorplan?.recordId ?? null
   };
 }
 
@@ -272,7 +259,6 @@ export function createActiveFloorplanContract(
   const editableLayout = savedRecord?.authoringDraft.editableLayout
     ?? planContractToEditableLayoutGeometry(active.plan);
   const selectedForAssignment = state.selectedForAssignmentVersionId === active.recordId;
-  const selectedForSimulation = state.selectedForSimulationVersionId === active.recordId;
 
   return {
     schemaVersion: "1.0.0",
@@ -287,14 +273,12 @@ export function createActiveFloorplanContract(
     workflowStatus: workflowStatusForActiveFloorplan({
       active,
       selectedForAssignment,
-      selectedForSimulation,
       hasUnsavedChanges: state.activeFloorplanHasUnsavedChanges
     }),
     editableLayout,
     savedAt: savedRecord?.updatedAt ?? null,
     hasUnsavedChanges: state.activeFloorplanHasUnsavedChanges,
-    selectedForAssignment,
-    selectedForSimulation
+    selectedForAssignment
   };
 }
 
@@ -364,14 +348,10 @@ function sourceKindLabel(floorplan: ActiveFloorplanRecord): string {
 function workflowStatusForActiveFloorplan(input: {
   active: ActiveFloorplanRecord;
   selectedForAssignment: boolean;
-  selectedForSimulation: boolean;
   hasUnsavedChanges: boolean;
 }): ActiveFloorplanContract["workflowStatus"] {
   if (input.hasUnsavedChanges) {
     return "draft";
-  }
-  if (input.selectedForSimulation) {
-    return "ready_for_simulation";
   }
   if (input.selectedForAssignment) {
     return "ready_for_assignment";

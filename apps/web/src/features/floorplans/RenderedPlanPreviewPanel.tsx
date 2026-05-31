@@ -60,7 +60,7 @@ export function RenderedPlanPreviewPanel({ viewModel }: RenderedPlanPreviewPanel
                 </div>
                 <div>
                   <dt>Export</dt>
-                  <dd>{plan.simulationStatusText}</dd>
+                  <dd>{plan.routeExportStatusText}</dd>
                 </div>
                 <div>
                   <dt>Review</dt>

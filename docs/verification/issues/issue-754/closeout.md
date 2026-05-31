@@ -11,8 +11,19 @@ Remove Floorplan-Only Simulation Readiness
 
 ## Files Changed
 - packages/shared/src/floorplans/floorplanReadinessContract.ts
+- packages/shared/src/floorplans/activeFloorplanContract.ts
+- packages/shared/src/floorplans/floorplanVersionContract.ts
 - apps/web/src/features/floorplans/floorplanReadinessViewModel.ts
 - apps/web/src/features/floorplans/FloorplanReadinessChecklist.tsx
+- apps/web/src/features/floorplans/activeFloorplanState.ts
+- apps/web/src/features/floorplans/activeFloorplanSelectorViewModel.ts
+- apps/web/src/features/floorplans/renderedPlanPreviewViewModel.ts
+- apps/web/src/features/floorplans/statusLabels.ts
+- apps/web/src/features/floorplans/planStatusViewModel.ts
+- apps/web/src/features/floorplans/planBuilderReviewFlowViewModel.ts
+- apps/web/src/features/floorplans/planBuilderReviewFlowTypes.ts
+- apps/web/src/features/layout-editor/PathSyncStatusPanel.tsx
+- apps/web/src/features/layout-editor/SimulationReadyExportPanel.tsx
 - scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs
 - docs/verification/issues/issue-754/
 
@@ -34,5 +45,4 @@ Remove Floorplan-Only Simulation Readiness
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.
 
 ## Next Recommended Issue
-- Issue 764 is the repair GO/NO-GO; after it passes, durable assignment foundation may start in the next milestone without adding scoring, simulation, optimizer, reports, or clinical claims.
-
+- Continue with the Milestone A repair GO/NO-GO after the workspace UX repair validators pass; durable assignment foundation remains blocked until that audit passes.

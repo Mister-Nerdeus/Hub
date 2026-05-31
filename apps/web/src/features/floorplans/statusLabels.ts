@@ -7,8 +7,8 @@ export function routeStatusLabel(status: "ready" | "blocked" | "not_applicable")
 export function simulationExportStatusLabel(
   status: "simulation_ready" | "blocked" | "not_applicable"
 ): string {
-  if (status === "simulation_ready") return "Simulation-ready export";
-  if (status === "blocked") return "Simulation export blocked";
+  if (status === "simulation_ready") return "Route-ready export";
+  if (status === "blocked") return "Route export blocked";
   return "Not applicable";
 }
 

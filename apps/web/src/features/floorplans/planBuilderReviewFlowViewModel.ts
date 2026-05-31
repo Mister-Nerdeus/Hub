@@ -17,7 +17,7 @@ export function createPlanBuilderReviewFlowViewModel(
     manualReviewRequired: plans.some((plan) => plan.manualReviewRequired),
     promotionBlocked: plans.every((plan) => plan.promotionBlocked),
     routeExportReadinessIsApproval: false,
-    simulationReadinessIsPromotionReadiness: false,
+    routeExportReadinessIsPromotionReadiness: false,
     plans
   };
 }
@@ -26,7 +26,7 @@ export function createPlanBuilderReviewFlowPlanViewModel(
   plan: PlanBuilderReviewFlowPlanSnapshot
 ): PlanBuilderReviewFlowPlanViewModel {
   const routeReady = plan.routeReadinessStatus === "ready";
-  const simulationReady = plan.simulationReadyExportStatus === "simulation_ready";
+  const routeExportReady = plan.simulationReadyExportStatus === "simulation_ready";
   const manualReviewApproved =
     (plan.manualReviewStatus === "approved_for_promotion_review" ||
       plan.manualReviewStatus === "approved_with_notes") &&
@@ -38,7 +38,7 @@ export function createPlanBuilderReviewFlowPlanViewModel(
     planId: plan.planId,
     displayName: plan.displayName,
     routeReady,
-    simulationReady,
+    routeExportReady,
     manualReviewRequired,
     manualReviewApproved,
     promotionBlocked: plan.promotionStatus === "blocked",
@@ -49,7 +49,7 @@ export function createPlanBuilderReviewFlowPlanViewModel(
     sampleRecordCountsAsApproval: false,
     statusText: {
       route: routeReady ? "Route ready" : "Route blocked",
-      simulation: simulationReady ? "Simulation ready" : "Simulation blocked",
+      routeExport: routeExportReady ? "Route export ready" : "Route export blocked",
       manualReview: manualReviewRequired ? "Manual review required" : "Human review recorded",
       promotion: "Promotion blocked"
     },

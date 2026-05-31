@@ -4,56 +4,83 @@
 Workspace UX Repair GO/NO-GO Audit
 
 ## Code Review
-- The repair GO/NO-GO blocks durable assignment foundation until each targeted UX and truth repair writes a passed local manifest status.
+- Follow-up review found an additional floorplan-only simulation-readiness leak outside the original readiness summary: active floorplan state and shared workflow/version contracts still allowed `ready_for_simulation`, and some advanced/editor display copy still said "simulation-ready export".
+- The follow-up removes the active floorplan simulation workflow state, removes the shared floorplan workflow/version simulation-ready status, changes visible copy to route/export readiness, and strengthens the Issue 754 validator so these surfaces are checked.
 
 ## Summary
 - Local validator status: passed.
+- Docker config/build status: passed.
+- Branch remains within Milestone A UX repair scope; durable assignment foundation is still not started.
 
 ## Files Changed
-- scripts/check-workspace-ux-repair-go-no-go.mjs
-- docs/project/workspace-ux-foundation-status.md
-- docs/verification/workspace-ux-repair-manifest.json
+- packages/shared/src/floorplans/floorplanReadinessContract.ts
+- packages/shared/src/floorplans/activeFloorplanContract.ts
+- packages/shared/src/floorplans/floorplanVersionContract.ts
+- packages/shared/src/floorplans/operationalDemoSnapshot.ts
+- packages/shared/src/floorplans/simulationReadyExportContract.ts
+- packages/shared/tests/operational-demo-snapshot.test.mjs
+- apps/web/src/features/floorplans/floorplanReadinessViewModel.ts
+- apps/web/src/features/floorplans/FloorplanReadinessChecklist.tsx
+- apps/web/src/features/floorplans/activeFloorplanState.ts
+- apps/web/src/features/floorplans/activeFloorplanSelectorViewModel.ts
+- apps/web/src/features/floorplans/RenderedPlanPreviewPanel.tsx
+- apps/web/src/features/floorplans/renderedPlanPreviewViewModel.ts
+- apps/web/src/features/floorplans/statusLabels.ts
+- apps/web/src/features/floorplans/planStatusViewModel.ts
+- apps/web/src/features/floorplans/planBuilderReviewFlowViewModel.ts
+- apps/web/src/features/floorplans/planBuilderReviewFlowTypes.ts
+- apps/web/src/features/floorplans/__tests__/operatorStatusLabels.test.ts
+- apps/web/src/features/floorplans/__tests__/planBuilderReviewFlowViewModel.test.ts
+- apps/web/src/features/floorplans/__tests__/planStatusViewModel.test.ts
+- apps/web/src/features/layout-editor/PathSyncStatusPanel.tsx
+- apps/web/src/features/layout-editor/PathSyncStatusPanel.test.tsx
+- apps/web/src/features/layout-editor/SimulationReadyExportPanel.tsx
+- apps/web/src/features/layout-editor/SimulationReadyExportPanel.test.tsx
+- scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs
 - docs/verification/issues/issue-764/
 
 ## Commands Run
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- npm run check:clean-committed-state
-- node scripts/check-global-horizontal-overflow.mjs --stage final --issue 764
-- node scripts/check-active-floorplan-card-repair.mjs --stage final --issue 764
-- node scripts/check-active-floorplan-hub-layout-balance.mjs --stage final --issue 764
-- node scripts/check-floorplan-advanced-open-behavior.mjs --stage final --issue 764
+- node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 754
 - node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage final --issue 764
-- node scripts/check-compact-readiness-details-repair.mjs --stage final --issue 764
-- node scripts/check-workflow-stepper-gating.mjs --stage final --issue 764
-- node scripts/check-floorplan-hub-screenshot-proof.mjs --stage repaired-layout --issue 764
-- node scripts/check-editor-bottom-details-copy-repair.mjs --stage final --issue 764
-- node scripts/check-inspector-normal-advanced-section-split.mjs --stage final --issue 764
-- node scripts/check-editor-bottom-panel-height.mjs --stage final --issue 764
-- node scripts/check-editor-details-tab-simplification.mjs --stage final --issue 764
-- node scripts/check-advanced-toolbar-responsive-repair.mjs --stage final --issue 764
-- node scripts/check-editor-screenshot-proof.mjs --stage repaired-layout --issue 764
+- node scripts/check-workspace-ux-repair-go-no-go.mjs --stage final --issue 764
 - node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 764
 - node scripts/check-no-phi-fields.mjs
+- node scripts/check-docs-contracts.mjs
+- docker compose config
+- docker compose build web
 
 ## Tests Passed/Failed
-- Required local validator gates passed.
+- Passed: packages/shared tests.
+- Passed: apps/web tests.
+- Passed: apps/web build.
+- Passed: strengthened floorplan simulation overclaim repair validator.
+- Passed: workspace UX repair GO/NO-GO.
+- Passed: milestone no-overclaim check.
+- Passed: no-PHI scanner.
+- Passed: Docker compose config and web image build.
+- Failed: docs contracts, due to pre-existing broad evidence-index/closeout backlog outside this repair follow-up.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-764/go-no-go-output.json
-- docs/verification/issues/issue-764/manifest-update-output.json
-- docs/verification/workspace-ux-repair-manifest.json
+- docs/verification/issues/issue-764/test-output/check-floorplan-simulation-readiness-overclaim-repair.txt
+- docs/verification/issues/issue-764/test-output/check-workspace-ux-repair-go-no-go.txt
+- docs/verification/issues/issue-764/test-output/check-milestone-a-no-overclaim.txt
+- docs/verification/issues/issue-764/test-output/shared.txt
+- docs/verification/issues/issue-764/test-output/web.txt
+- docs/verification/issues/issue-764/test-output/web-build.txt
+- docs/verification/issues/issue-764/test-output/docs-contracts.txt
+- docs/verification/issues/issue-764/test-output/docker-compose-config-review.txt
+- docs/verification/issues/issue-764/test-output/docker-compose-build-web-review.txt
 
 ## Known Limitations
-- This audit authorizes the next foundation milestone only; it does not implement durable assignment sets.
+- Scenario and simulation readiness remain intentionally blocked for later milestones.
+- Underlying legacy route-export contract identifiers still use `simulationReadyExport*` names; this follow-up removed the floorplan-only workflow state and user-visible simulation-readiness copy without broad contract renaming outside this UX repair batch.
+- `node scripts/check-docs-contracts.mjs` still fails on pre-existing evidence-index and closeout metadata gaps across historical issues; this repair does not attempt that repository-wide docs cleanup.
 
 ## Non-PHI Confirmation
-- Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.
+- Non-PHI rules still pass. `node scripts/check-no-phi-fields.mjs` reported no PHI-like fields.
 
 ## Next Recommended Issue
-- Issue 764 is the repair GO/NO-GO; after it passes, durable assignment foundation may start in the next milestone without adding scoring, simulation, optimizer, reports, or clinical claims.
-
-
-Additional limitation: node scripts/check-docs-contracts.mjs currently fails on pre-existing evidence-index and closeout requirements across older issues; this repair batch did not broaden that historical docs gate.
-
+- Durable assignment foundation may start in the next milestone only after preserving these repair gates; scoring, scenario simulation, optimizer, reports, and clinical claims remain out of scope for this repair branch.
