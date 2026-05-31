@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "726",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-editor-undo-redo-advanced.mjs --stage undo-redo-hidden-normal --allow-partial --issue 726",
+    "3": "node scripts/check-editor-undo-redo-advanced.mjs --stage undo-redo-advanced --allow-partial --issue 726",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

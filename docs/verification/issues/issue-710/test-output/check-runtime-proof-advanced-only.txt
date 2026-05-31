@@ -1,0 +1,99 @@
+{
+  "status": "passed",
+  "issue": "710",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "runtime-build-hidden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "runtime-mismatch-hidden",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "evidence-accessible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "runtime-build-hidden": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "runtime-mismatch-hidden": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "evidence-accessible": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-editor-toolbar-docking.mjs --stage toolbar-above-canvas --allow-partial --issue 724
+node scripts/check-editor-toolbar-docking.mjs --stage no-toolbar-canvas-gap --allow-partial --issue 724
+node scripts/check-no-phi-fields.mjs

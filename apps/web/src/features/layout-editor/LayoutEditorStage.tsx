@@ -91,6 +91,7 @@ import {
 } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import { EditorValidationSummaryRow } from "./EditorValidationSummaryRow";
 import { ValidationDrawer } from "./ValidationDrawer";
 import { buildValidationDrawerViewModel } from "./validationDrawerViewModel";
 import { PathSyncStatusPanel } from "./PathSyncStatusPanel";
@@ -141,6 +142,8 @@ import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from ".
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
+import { EditorDetailsPanel } from "./EditorDetailsPanel";
+import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
@@ -153,6 +156,7 @@ import {
 import { applyCanvasWheelNavigation } from "./layoutCanvasWheelNavigation";
 import { CanvasObjectPopover } from "./CanvasObjectPopover";
 import { buildCanvasObjectPopover } from "./canvasObjectPopoverViewModel";
+import { CanvasViewportControls } from "./CanvasViewportControls";
 import { EditorPopupModeControl, type EditorPopupMode } from "./EditorPopupModeControl";
 import { useEditorWorkspaceMeasurements } from "./useEditorWorkspaceMeasurements";
 import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
@@ -163,6 +167,7 @@ import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
 import { buildHallwayZoneQuickEdit } from "./hallwayZoneQuickEditViewModel";
+import { InspectorAdvancedDetails } from "./InspectorAdvancedDetails";
 import {
   recordDraftTraceStage,
   recordEditableLayoutTraceStage,
@@ -186,6 +191,7 @@ import {
   createDoorRecoverySnapshot,
   saveDoorRecoverySnapshot
 } from "./layoutDoorRecoverySnapshots";
+import { LayoutEditorWorkspace } from "./LayoutEditorWorkspace";
 import "./LayoutEditorStage.css";
 
 const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
@@ -293,7 +299,8 @@ export function LayoutEditorStage({
   const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
-  const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
+  const [inspectorCollapsed, setInspectorCollapsed] = useState(true);
+  const [detailsPanelCollapsed, setDetailsPanelCollapsed] = useState(false);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
@@ -1352,6 +1359,7 @@ export function LayoutEditorStage({
   };
 
   return (
+    <LayoutEditorWorkspace>
     <section
       id="layout-editor-stage-proof"
       className="layout-editor-stage"
@@ -1386,70 +1394,6 @@ export function LayoutEditorStage({
         </details>
       </header>
 
-      <EditorCommandBar
-        layoutLabel={stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout"}
-        hasActiveFloorplan={activeFloorplan != null}
-        activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
-        activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
-        activePlanId={stageState.loadedFloorplan?.planId ?? null}
-        activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
-        localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
-        lastNamedCopySaveLabel={lastNamedCopySaveLabel}
-        reloadProofLabel={reloadProofLabel}
-        hasLocalRecoveryDraft={availableRecoveryDraft != null}
-        readOnly={stageState.readOnly}
-        isDirty={stageState.isDirty}
-        undoDisabled={stageState.history.past.length === 0}
-        redoDisabled={stageState.history.future.length === 0}
-        jsonStatus={floorplanJsonStatus}
-        saveStatus={saveStatus}
-        validationSummary={viewportLayoutViewModel.validationSummary}
-        validationDisabled={validationDisabled}
-        inspectorCollapsed={inspectorCollapsed}
-        onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
-        onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
-        onRestoreDraft={restoreRecoveryDraft}
-        onResetDraft={() => {
-          if (localDraftStorage != null && stageState.loadedFloorplan != null) {
-            resetLayoutLocalDraft(localDraftStorage, stageState.loadedFloorplan.recordId);
-          }
-          if (activeFloorplan == null) {
-            dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
-          } else {
-            dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
-          }
-        }}
-        onSaveWorkingCopy={saveWorkingCopy}
-        onSaveAsNewCopy={saveAsNewCopy}
-        onDoneEditing={onDoneEditing ?? (() => undefined)}
-        onExportJson={exportActiveFloorplanJson}
-        onImportJson={importEditableFloorplanJson}
-        onValidate={validateSimulationReadyExportFromStage}
-        onResetView={() => dispatchStage({ type: "resetViewport" })}
-        onAddObject={() => setAddObjectMenuOpen((value) => !value)}
-        onToggleInspector={() => setInspectorCollapsed((value) => !value)}
-      />
-
-      <EditorSaveStatusPanel
-        activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
-        activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
-        activePlanId={stageState.loadedFloorplan?.planId ?? null}
-        activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
-        localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
-        lastNamedCopySaveLabel={lastNamedCopySaveLabel}
-        reloadProofLabel={reloadProofLabel}
-        readOnly={stageState.readOnly}
-        isDirty={stageState.isDirty}
-        saveStatus={saveStatus}
-      />
-
-      <LayoutDraftRecoveryBanner
-        state={draftRecoveryState}
-        onRestore={restoreRecoveryDraft}
-        onDiscard={discardRecoveryDraft}
-        onExportJson={exportRecoveryDraftJson}
-      />
-
       {addObjectMenuOpen ? (
         <AddObjectMenu
           viewModel={addObjectMenuViewModel}
@@ -1465,77 +1409,160 @@ export function LayoutEditorStage({
 
       <EditorNextStepPanel viewModel={nextStepViewModel} />
 
-      <details className="layout-editor-stage__json-drawer">
-        <summary>Advanced editor payload</summary>
-        <textarea
-          aria-label="Floorplan JSON"
-          value={floorplanJsonText}
-          onChange={(event) => setFloorplanJsonText(event.target.value)}
-          spellCheck={false}
-        />
-      </details>
-
-      <div className="layout-editor-stage__tool-strip">
-        <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
-        {editorMode === "edit" ? (
-          <>
-            <LayoutToolPalette
-              mode={toolMode}
-              selectedRoomType={selectedNewRoomType}
-              readOnly={stageState.readOnly}
-              onCreateWorkingCopy={onCreateWorkingCopy}
-              onModeChange={(mode) => {
-                setToolMode(mode);
-                if (mode === "add_door") {
-                  addDoorToSelectedRoom();
-                }
-              }}
-              onRoomTypeChange={setSelectedNewRoomType}
-              onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
-            />
-            <details className="layout-editor-stage__advanced-tools">
-              <summary>Advanced tools</summary>
-              <div className="layout-editor-stage__advanced-tools-body">
-                <AutoHallwayControls
-                  readOnly={stageState.readOnly}
-                  generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
-                    hallway.id.startsWith("generated-hallway-")
-                  ).length ?? 0}
-                  onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+      <div
+        className="layout-editor-stage__tool-strip"
+        data-editor-toolbar-docked="above-canvas"
+        data-toolbar-directly-above-canvas="true"
+      >
+        <EditorNormalToolbar
+          saveDisabled={activeFloorplan == null}
+          addDisabled={stageState.readOnly}
+          onSaveFloorplan={saveWorkingCopy}
+          onDoneEditing={onDoneEditing ?? (() => undefined)}
+          onAddRoom={() => selectAddObjectMenuItem("patient_care_room")}
+          onAddDoor={addDoorToSelectedRoom}
+          onAddSplitRoom={convertSelectedRoomToSplitBay}
+          onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
+          advancedContent={(
+            <div className="layout-editor-stage__advanced-toolbar-content">
+              <EditorSaveStatusPanel
+                activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
+                activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
+                activePlanId={stageState.loadedFloorplan?.planId ?? null}
+                activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+                localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
+                lastNamedCopySaveLabel={lastNamedCopySaveLabel}
+                reloadProofLabel={reloadProofLabel}
+                readOnly={stageState.readOnly}
+                isDirty={stageState.isDirty}
+                saveStatus={saveStatus}
+              />
+              <LayoutDraftRecoveryBanner
+                state={draftRecoveryState}
+                onRestore={restoreRecoveryDraft}
+                onDiscard={discardRecoveryDraft}
+                onExportJson={exportRecoveryDraftJson}
+              />
+              <details className="layout-editor-stage__json-drawer">
+                <summary>Advanced editor payload</summary>
+                <textarea
+                  aria-label="Floorplan JSON"
+                  value={floorplanJsonText}
+                  onChange={(event) => setFloorplanJsonText(event.target.value)}
+                  spellCheck={false}
                 />
-                <DoorPathNodeSyncControls
-                  readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
-                  generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
-                  generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
-                  pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
-                  warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
-                  onGenerate={generateDoorPathNodesFromStage}
+              </details>
+              <EditorCommandBar
+                layoutLabel={stageState.loadedFloorplan?.planId ?? stageState.editableLayout?.layoutId ?? "layout"}
+                hasActiveFloorplan={activeFloorplan != null}
+                activeCopyName={stageState.loadedFloorplan?.name ?? "No active copy"}
+                activeRecordId={stageState.loadedFloorplan?.recordId ?? null}
+                activePlanId={stageState.loadedFloorplan?.planId ?? null}
+                activeSourceLabel={sourceKindDisplayLabel(stageState.loadedFloorplan?.sourceKind ?? null)}
+                localRecoveryDraftLabel={localRecoveryDraftStatusLabel(draftRecoveryState)}
+                lastNamedCopySaveLabel={lastNamedCopySaveLabel}
+                reloadProofLabel={reloadProofLabel}
+                hasLocalRecoveryDraft={availableRecoveryDraft != null}
+                readOnly={stageState.readOnly}
+                isDirty={stageState.isDirty}
+                undoDisabled={stageState.history.past.length === 0}
+                redoDisabled={stageState.history.future.length === 0}
+                jsonStatus={floorplanJsonStatus}
+                saveStatus={saveStatus}
+                validationSummary={viewportLayoutViewModel.validationSummary}
+                validationDisabled={validationDisabled}
+                inspectorCollapsed={detailsPanelCollapsed}
+                onUndo={() => dispatchStage({ type: "undoLayoutEdit" })}
+                onRedo={() => dispatchStage({ type: "redoLayoutEdit" })}
+                onRestoreDraft={restoreRecoveryDraft}
+                onResetDraft={() => {
+                  if (localDraftStorage != null && stageState.loadedFloorplan != null) {
+                    resetLayoutLocalDraft(localDraftStorage, stageState.loadedFloorplan.recordId);
+                  }
+                  if (activeFloorplan == null) {
+                    dispatchStage({ type: "loadLayout", layout: layoutEditorProofFixture });
+                  } else {
+                    dispatchStage({ type: "loadActiveFloorplan", floorplan: activeFloorplan });
+                  }
+                }}
+                onSaveWorkingCopy={saveWorkingCopy}
+                onSaveAsNewCopy={saveAsNewCopy}
+                onDoneEditing={onDoneEditing ?? (() => undefined)}
+                onExportJson={exportActiveFloorplanJson}
+                onImportJson={importEditableFloorplanJson}
+                onValidate={validateSimulationReadyExportFromStage}
+                onResetView={() => dispatchStage({ type: "resetViewport" })}
+                onAddObject={() => setAddObjectMenuOpen((value) => !value)}
+                onToggleInspector={() => setDetailsPanelCollapsed((value) => !value)}
+              />
+              <div
+                className="layout-editor-stage__legacy-toolbar"
+                aria-label="Advanced editor controls"
+                data-editor-detailed-tools-advanced="true"
+              >
+                <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
+                {editorMode === "edit" ? (
+                  <>
+                    <LayoutToolPalette
+                      mode={toolMode}
+                      selectedRoomType={selectedNewRoomType}
+                      readOnly={stageState.readOnly}
+                      onCreateWorkingCopy={onCreateWorkingCopy}
+                      onModeChange={(mode) => {
+                        setToolMode(mode);
+                        if (mode === "add_door") {
+                          addDoorToSelectedRoom();
+                        }
+                      }}
+                      onRoomTypeChange={setSelectedNewRoomType}
+                      onGenerateHallways={() => dispatchStage({ type: "generateAutoHallways" })}
+                    />
+                    <details className="layout-editor-stage__advanced-tools">
+                      <summary>Advanced tools</summary>
+                      <div className="layout-editor-stage__advanced-tools-body">
+                        <AutoHallwayControls
+                          readOnly={stageState.readOnly}
+                          generatedCount={stageState.editableLayout?.hallways.filter((hallway) =>
+                            hallway.id.startsWith("generated-hallway-")
+                          ).length ?? 0}
+                          onGenerate={() => dispatchStage({ type: "generateAutoHallways" })}
+                        />
+                        <DoorPathNodeSyncControls
+                          readOnly={stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null}
+                          generatedNodeCount={doorPathNodeGenerationResult?.generatedNodes.length ?? 0}
+                          generatedEdgeCount={doorPathNodeGenerationResult?.generatedEdgeIds.length ?? 0}
+                          pathSyncStatus={doorPathNodeGenerationResult?.pathSyncStatus ?? null}
+                          warningCodes={doorPathNodeGenerationResult?.warningCodes ?? []}
+                          onGenerate={generateDoorPathNodesFromStage}
+                        />
+                        {simulationReadyExportResult == null ? null : (
+                          <SimulationReadyExportPanel
+                            result={simulationReadyExportResult}
+                            disabled={validationDisabled}
+                            onValidateExport={validateSimulationReadyExportFromStage}
+                            showValidateButton={false}
+                          />
+                        )}
+                      </div>
+                    </details>
+                  </>
+                ) : null}
+                <LayoutViewportToolbar
+                  viewport={stageState.viewport}
+                  onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
+                  onZoomOut={() => dispatchStage({ type: "zoomViewport", direction: "out" })}
+                  onPanNorth={() => dispatchStage(panViewportAction("north"))}
+                  onPanSouth={() => dispatchStage(panViewportAction("south"))}
+                  onPanWest={() => dispatchStage(panViewportAction("west"))}
+                  onPanEast={() => dispatchStage(panViewportAction("east"))}
+                  onReset={() => dispatchStage({ type: "resetViewport" })}
+                  onFit={() => dispatchStage({ type: "fitViewport" })}
                 />
-                {simulationReadyExportResult == null ? null : (
-                  <SimulationReadyExportPanel
-                    result={simulationReadyExportResult}
-                    disabled={validationDisabled}
-                    onValidateExport={validateSimulationReadyExportFromStage}
-                    showValidateButton={false}
-                  />
-                )}
+                <EditorPopupModeControl mode={popupMode} onModeChange={setPopupMode} />
               </div>
-            </details>
-          </>
-        ) : null}
-
-        <LayoutViewportToolbar
-          viewport={stageState.viewport}
-          onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
-          onZoomOut={() => dispatchStage({ type: "zoomViewport", direction: "out" })}
-          onPanNorth={() => dispatchStage(panViewportAction("north"))}
-          onPanSouth={() => dispatchStage(panViewportAction("south"))}
-          onPanWest={() => dispatchStage(panViewportAction("west"))}
-          onPanEast={() => dispatchStage(panViewportAction("east"))}
-          onReset={() => dispatchStage({ type: "resetViewport" })}
-          onFit={() => dispatchStage({ type: "fitViewport" })}
+            </div>
+          )}
         />
-        <EditorPopupModeControl mode={popupMode} onModeChange={setPopupMode} />
       </div>
 
       <div
@@ -1545,6 +1572,19 @@ export function LayoutEditorStage({
         {...viewportLayoutViewModel.dataAttributes}
       >
         <div className="layout-editor-stage__shell" data-proof-only="true" ref={workspaceMeasurements.shellRef}>
+          <CanvasViewportControls
+            viewport={stageState.viewport}
+            popupMode={popupMode}
+            onZoomIn={() => dispatchStage({ type: "zoomViewport", direction: "in" })}
+            onZoomOut={() => dispatchStage({ type: "zoomViewport", direction: "out" })}
+            onPanNorth={() => dispatchStage(panViewportAction("north"))}
+            onPanSouth={() => dispatchStage(panViewportAction("south"))}
+            onPanWest={() => dispatchStage(panViewportAction("west"))}
+            onPanEast={() => dispatchStage(panViewportAction("east"))}
+            onReset={() => dispatchStage({ type: "resetViewport" })}
+            onFit={() => dispatchStage({ type: "fitViewport" })}
+            onPopupModeChange={setPopupMode}
+          />
           <p className="layout-editor-stage__pan-helper" data-canvas-pan-helper="true">
             Drag the hallway/background to pan the map.
           </p>
@@ -2012,8 +2052,13 @@ export function LayoutEditorStage({
             )}
           </svg>
         </div>
-        {inspectorCollapsed ? null : (
-        <div className="layout-editor-stage__side-panels" ref={workspaceMeasurements.sidePanelRef}>
+      </div>
+      <EditorDetailsPanel
+        selectedObjectType={stageState.selectedObjectType}
+        collapsed={detailsPanelCollapsed}
+        onToggleCollapsed={() => setDetailsPanelCollapsed((value) => !value)}
+        advancedDetails={<InspectorAdvancedDetails viewModel={inspectorViewModel} />}
+      >
           {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (
             <section className="layout-editor-stage__docked-popover" data-popup-docked-panel="true">
               <header>
@@ -2134,11 +2179,11 @@ export function LayoutEditorStage({
               </>
             }
           />
-        </div>
-        )}
-      </div>
+      </EditorDetailsPanel>
+      <EditorValidationSummaryRow viewModel={validationPanelViewModel} />
       <ValidationDrawer viewModel={validationDrawerViewModel} />
     </section>
+    </LayoutEditorWorkspace>
   );
 }
 

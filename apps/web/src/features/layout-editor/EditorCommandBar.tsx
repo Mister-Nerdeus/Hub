@@ -1,4 +1,5 @@
 import { buildEditorCommandBarViewModel } from "./editorCommandBarViewModel";
+import { EditorAdvancedStatusPanel } from "./EditorAdvancedStatusPanel";
 import { EditorAdvancedToolsPanel } from "./EditorAdvancedToolsPanel";
 
 export type EditorCommandBarProps = {
@@ -110,7 +111,11 @@ export function EditorCommandBar({
       <p className="editor-command-bar__save-status" role="status">
         {viewModel.saveStatusLabel}
       </p>
-      <div className="editor-command-bar__primary" data-command-group="edit-history">
+      <div
+        className="editor-command-bar__primary"
+        data-command-group="edit-history"
+        data-editor-undo-redo-surface="advanced"
+      >
         <button type="button" disabled={viewModel.undoDisabled} onClick={onUndo}>
           Undo
         </button>
@@ -165,67 +170,11 @@ export function EditorCommandBar({
           {viewModel.proceedLabel}
         </button>
       </div>
-      <details className="editor-command-bar__advanced-status">
-        <summary>Advanced status</summary>
-      <dl className="editor-command-bar__status" aria-label="Editor status">
-        <div>
-          <dt>Active copy</dt>
-          <dd>{viewModel.activeCopyName}</dd>
-        </div>
-        <div>
-          <dt>Record ID</dt>
-          <dd>{viewModel.activeRecordIdLabel}</dd>
-        </div>
-        <div>
-          <dt>Plan ID</dt>
-          <dd>{viewModel.activePlanIdLabel}</dd>
-        </div>
-        <div>
-          <dt>Source</dt>
-          <dd>{viewModel.activeSourceLabel}</dd>
-        </div>
-        <div>
-          <dt>Layout</dt>
-          <dd>{layoutLabel}</dd>
-        </div>
-        <div>
-          <dt>Mode</dt>
-          <dd>{viewModel.modeLabel}</dd>
-        </div>
-        <div>
-          <dt>Local recovery draft</dt>
-          <dd>{viewModel.localRecoveryDraftLabel}</dd>
-        </div>
-        <div>
-          <dt>Named working copy</dt>
-          <dd>{viewModel.saveStatusLabel}</dd>
-        </div>
-        <div>
-          <dt>Last named-copy save</dt>
-          <dd>{viewModel.lastNamedCopySaveLabel}</dd>
-        </div>
-        <div>
-          <dt>Reload proof</dt>
-          <dd>{viewModel.reloadProofLabel}</dd>
-        </div>
-        <div>
-          <dt>State</dt>
-          <dd>{viewModel.dirtyStateLabel}</dd>
-        </div>
-        <div>
-          <dt>Validation</dt>
-          <dd>{viewModel.validationLabel}</dd>
-        </div>
-        <div>
-          <dt>JSON</dt>
-          <dd role="status">{jsonStatus}</dd>
-        </div>
-        <div>
-          <dt>Proceed</dt>
-          <dd>{viewModel.proceedStatusLabel}</dd>
-        </div>
-      </dl>
-      </details>
+      <EditorAdvancedStatusPanel
+        viewModel={viewModel}
+        layoutLabel={layoutLabel}
+        jsonStatus={jsonStatus}
+      />
       <p className="editor-command-bar__help" data-save-help="save-floorplan-active">
         Save Floorplan keeps this as the active floorplan for assignments and scenarios.
       </p>

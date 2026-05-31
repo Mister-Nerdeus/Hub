@@ -13,21 +13,19 @@ const primaryLabels = PRIMARY_APP_SECTIONS.map((section) => section.label);
 const advancedLabels = ADVANCED_APP_SECTIONS.map((section) => section.label);
 const futureLabels = FUTURE_APP_SECTIONS.map((section) => section.label);
 
-for (const label of ["Floorplan", "Editor", "Manual Assignment", "Simulation Review", "Review / Reports"]) {
+for (const label of ["Floorplan", "Assignments", "Scenario", "Simulation", "Report", "Help"]) {
   assert(primaryLabels.includes(label), `primary navigation missing ${label}`);
 }
 
 assert(!primaryLabels.includes("Floorplans"), "primary navigation must use singular floorplan language");
-assert(!primaryLabels.includes("Developer/Evidence"), "Developer/Evidence must not remain primary");
-assert(advancedLabels.includes("Developer/Evidence"), "Developer/Evidence must remain accessible under Advanced");
+assert(!primaryLabels.includes("Advanced/Evidence"), "Advanced/Evidence must not remain primary");
+assert(advancedLabels.includes("Advanced/Evidence"), "Advanced/Evidence must remain accessible under Advanced");
+assert(advancedLabels.includes("Floorplan Editor"), "Editor must remain reachable as a Floorplan subflow");
+assert(advancedLabels.includes("Manual Assignment"), "Manual Assignment must remain reachable as an Assignments subflow");
 
-for (const label of ["Review Candidates", "Assignment Workflow", "Scenarios", "Settings"]) {
-  assert(futureLabels.includes(label), `future tools missing ${label}`);
-}
-
-assert(!futureLabels.includes("Simulation"), "Simulation must not remain under Future Tools");
+assert(futureLabels.length === 0, "Future Tools must not appear in normal workflow navigation");
 
 assert(
-  APP_SECTIONS.find((section) => section.id === "assignments")?.label !== "Assignments",
-  "legacy Assignments label should not compete with Manual Assignment"
+  APP_SECTIONS.find((section) => section.id === "assignments")?.label === "Assignments",
+  "Assignments must be the normal workflow label"
 );

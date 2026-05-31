@@ -21,19 +21,20 @@ function assert228Shell(condition: boolean, message: string) {
 
 const appShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/AppShell.tsx"), "utf8");
 const appNavigationSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/appNavigation.ts"), "utf8");
+const productWorkflowShellSource = readFileSync(resolve(repoRoot, "apps/web/src/features/app-shell/ProductWorkflowShell.tsx"), "utf8");
 
-assert228Shell(appShellSource.includes("app-shell"), "app shell wrapper should render");
-assert228Shell(appShellSource.includes("workflow-content"), "app shell should define workflow content container");
-assert228Shell(appNavigationSource.includes("Developer/Evidence"), "developer/evidence section label should be in navigation model");
-assert228Shell(appShellSource.includes("app-nav__button"), "app shell should expose navigation button classes");
+assert228Shell(productWorkflowShellSource.includes("app-shell"), "app shell wrapper should render");
+assert228Shell(productWorkflowShellSource.includes("workflow-content"), "app shell should define workflow content container");
+assert228Shell(appNavigationSource.includes("Advanced/Evidence"), "advanced/evidence section label should be in navigation model");
+assert228Shell(productWorkflowShellSource.includes("data-full-page-workspace-shell"), "app shell should use full-page workspace shell");
 assert228Shell(!appShellSource.includes("Plan builder defaults"), "app shell markup should not include proof module names");
 assert228Shell(appShellSource.includes("AppShellProps"), "app shell file should define shell props contract");
 
 writeEvidence("app-shell-output.json", {
   issue: "228",
   status: "passed",
-  appShellContainsNavigation: appShellSource.includes("app-nav"),
+  appShellContainsNavigation: productWorkflowShellSource.includes("ProductSidebarRail"),
   developerEvidenceVisibleInNav: appNavigationSource.includes("developer-evidence"),
-  hasWorkflowContainer: appShellSource.includes("workflow-content"),
+  hasWorkflowContainer: productWorkflowShellSource.includes("workflow-content"),
   proofModuleTextHidden: !appShellSource.includes("Plan builder defaults")
 });

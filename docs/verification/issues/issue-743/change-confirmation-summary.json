@@ -1,0 +1,70 @@
+{
+  "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "confirmation dialog copy exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "cancel preserves active floorplan",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "confirm changes floorplan and clears assignments explicitly",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "assignment compatibility guard lists missing room IDs",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "floorplan change does not trigger silent synthetic fallback",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "stageResults": {
+    "confirmation-dialog": {
+      "passed": true,
+      "missing": []
+    },
+    "cancel-preserves": {
+      "passed": true,
+      "missing": []
+    },
+    "confirm-changes": {
+      "passed": true,
+      "missing": []
+    },
+    "assignment-compatibility": {
+      "passed": true,
+      "missing": []
+    },
+    "no-synthetic-fallback": {
+      "passed": true,
+      "missing": []
+    }
+  }
+}

@@ -1,0 +1,3257 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "preflight validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-preflight.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "active floorplan workflow manifest exists with required batch metadata",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "batch": "694-703",
+              "productDisplayName": "ER Pod Shift Simulator",
+              "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+              "requiredKeys": 52
+            }
+          },
+          {
+            "name": "root scripts for Issues 694-703 are wired in package.json and verify-local",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "missingPackageScripts": [],
+              "missingVerifyLocalScripts": []
+            }
+          },
+          {
+            "name": "workflow status doc records current UX problem",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "existing active floorplan state problem is documented",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "door and split-room browser regression scripts remain wired",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+              "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+            }
+          },
+          {
+            "name": "preflight preserves no simulation/optimizer/collaboration scope drift",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "manifest": {
+                "manifestVersion": "1.0.0",
+                "batch": "694-703",
+                "lastUpdatedIssue": "743",
+                "productDisplayName": "ER Pod Shift Simulator",
+                "sourceDoorAuthoringStatus": "passed",
+                "sourceSplitRoomAuthoringStatus": "passed",
+                "activeFloorplanPreflightStatus": "passed",
+                "activeFloorplanContractStatus": "passed",
+                "activeFloorplanSelectorStatus": "passed",
+                "floorplanVersionNamingStatus": "passed",
+                "floorplanVersionHistoryStatus": "passed",
+                "saveAndUseFloorplanStatus": "passed",
+                "floorplanReadinessChecklistStatus": "passed",
+                "activeFloorplanBannerStatus": "passed",
+                "floorplanChangeConfirmationStatus": "passed",
+                "activeFloorplanPersistenceStatus": "passed",
+                "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+                "singleActiveFloorplanContract": true,
+                "normalModeShowsOneFloorplan": true,
+                "technicalFloorplanDetailsAdvancedOnly": true,
+                "copyCopyRemovedFromNormalUi": true,
+                "savedCopiesDisplayedAsVersions": true,
+                "savedFloorplanBecomesActive": true,
+                "readyForAssignmentStatusVisible": true,
+                "readyForSimulationStatusVisible": true,
+                "allModesShowActiveFloorplan": true,
+                "assignmentCompatibilityGuard": true,
+                "activeFloorplanSurvivesReload": true,
+                "manualAssignmentUsesActiveFloorplan": true,
+                "scenarioUsesActiveFloorplan": true,
+                "simulationDisplaysActiveFloorplan": true,
+                "reportsDisplayActiveFloorplan": true,
+                "noSilentSyntheticFallback": true,
+                "doorAuthoringNonRegression": true,
+                "splitRoomNonRegression": true,
+                "normalUserWorkflowStatus": "ready_for_controlled_reconstruction",
+                "advancedDeveloperToolsStatus": "advanced_only",
+                "collaborationStatus": "not_started",
+                "simulationV0Status": "internal_dry_run_only",
+                "optimizerStatus": "not_started",
+                "assignmentRecommendationStatus": "not_started",
+                "clinicalSafetyScoringStatus": "not_started",
+                "staffingComplianceStatus": "not_started",
+                "patientOutcomePredictionStatus": "not_started",
+                "promotionStatus": "blocked",
+                "noPhiStatus": "passed",
+                "goNoGoStatus": "not_ready",
+                "oneCurrentVersion": true,
+                "versionHistoryAdvancedOnly": true,
+                "normalSaveIsSimple": true,
+                "advancedSaveToolsHidden": true,
+                "technicalIdsHiddenInBanner": true
+              }
+            }
+          }
+        ],
+        "stageResults": {
+          "manifest-contract": {
+            "status": "passed",
+            "batch": "694-703",
+            "productDisplayName": "ER Pod Shift Simulator",
+            "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+            "requiredKeys": 52
+          },
+          "root-script-wiring": {
+            "status": "passed",
+            "missingPackageScripts": [],
+            "missingVerifyLocalScripts": []
+          },
+          "workflow-status": {
+            "passed": true,
+            "missing": []
+          },
+          "existing-state-problem": {
+            "passed": true,
+            "missing": []
+          },
+          "regression-scripts-wired": {
+            "status": "passed",
+            "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+            "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+          },
+          "no-scope-drift": {
+            "status": "passed",
+            "manifest": {
+              "manifestVersion": "1.0.0",
+              "batch": "694-703",
+              "lastUpdatedIssue": "743",
+              "productDisplayName": "ER Pod Shift Simulator",
+              "sourceDoorAuthoringStatus": "passed",
+              "sourceSplitRoomAuthoringStatus": "passed",
+              "activeFloorplanPreflightStatus": "passed",
+              "activeFloorplanContractStatus": "passed",
+              "activeFloorplanSelectorStatus": "passed",
+              "floorplanVersionNamingStatus": "passed",
+              "floorplanVersionHistoryStatus": "passed",
+              "saveAndUseFloorplanStatus": "passed",
+              "floorplanReadinessChecklistStatus": "passed",
+              "activeFloorplanBannerStatus": "passed",
+              "floorplanChangeConfirmationStatus": "passed",
+              "activeFloorplanPersistenceStatus": "passed",
+              "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+              "singleActiveFloorplanContract": true,
+              "normalModeShowsOneFloorplan": true,
+              "technicalFloorplanDetailsAdvancedOnly": true,
+              "copyCopyRemovedFromNormalUi": true,
+              "savedCopiesDisplayedAsVersions": true,
+              "savedFloorplanBecomesActive": true,
+              "readyForAssignmentStatusVisible": true,
+              "readyForSimulationStatusVisible": true,
+              "allModesShowActiveFloorplan": true,
+              "assignmentCompatibilityGuard": true,
+              "activeFloorplanSurvivesReload": true,
+              "manualAssignmentUsesActiveFloorplan": true,
+              "scenarioUsesActiveFloorplan": true,
+              "simulationDisplaysActiveFloorplan": true,
+              "reportsDisplayActiveFloorplan": true,
+              "noSilentSyntheticFallback": true,
+              "doorAuthoringNonRegression": true,
+              "splitRoomNonRegression": true,
+              "normalUserWorkflowStatus": "ready_for_controlled_reconstruction",
+              "advancedDeveloperToolsStatus": "advanced_only",
+              "collaborationStatus": "not_started",
+              "simulationV0Status": "internal_dry_run_only",
+              "optimizerStatus": "not_started",
+              "assignmentRecommendationStatus": "not_started",
+              "clinicalSafetyScoringStatus": "not_started",
+              "staffingComplianceStatus": "not_started",
+              "patientOutcomePredictionStatus": "not_started",
+              "promotionStatus": "blocked",
+              "noPhiStatus": "passed",
+              "goNoGoStatus": "not_ready",
+              "oneCurrentVersion": true,
+              "versionHistoryAdvancedOnly": true,
+              "normalSaveIsSimple": true,
+              "advancedSaveToolsHidden": true,
+              "technicalIdsHiddenInBanner": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "sourceOfTruth validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-source-of-truth.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "shared ActiveFloorplanContract exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "app active floorplan state creates one contract",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "editor receives active floorplan contract context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Manual Assignment uses the active floorplan contract instead of editor-only state",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          },
+          {
+            "name": "Scenario Comparison receives active floorplan context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Simulation Review displays active floorplan context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Reports placeholder displays active floorplan context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Manual Assignment does not silently choose synthetic fixture when active floorplan exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        ],
+        "stageResults": {
+          "contract": {
+            "passed": true,
+            "missing": []
+          },
+          "app-state-refactor": {
+            "passed": true,
+            "missing": []
+          },
+          "editor-consumes-active": {
+            "passed": true,
+            "missing": []
+          },
+          "manual-assignment-consumes-active": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          },
+          "scenario-consumes-active": {
+            "passed": true,
+            "missing": []
+          },
+          "simulation-displays-active": {
+            "passed": true,
+            "missing": []
+          },
+          "reports-displays-active": {
+            "passed": true,
+            "missing": []
+          },
+          "no-synthetic-fallback": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      }
+    },
+    {
+      "name": "selectorUx validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "selector view model hides technical details",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "normal mode renders one active floorplan selector without technical copy",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          },
+          {
+            "name": "saved versions are selected from dropdown",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "old card grid and version history are advanced-only",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "technical floorplan copy is absent from normal selector",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "present": []
+            }
+          }
+        ],
+        "stageResults": {
+          "selector-view-model": {
+            "passed": true,
+            "missing": []
+          },
+          "normal-mode": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          },
+          "change-dropdown": {
+            "passed": true,
+            "missing": []
+          },
+          "advanced-library": {
+            "passed": true,
+            "missing": []
+          },
+          "technical-copy-hidden": {
+            "passed": true,
+            "present": []
+          }
+        }
+      }
+    },
+    {
+      "name": "versionNaming validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-naming.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "naming contract exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Copy Copy and old IDs normalize to clean display name",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "normalizedExamples": [
+                "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+                "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+                "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+              ]
+            }
+          },
+          {
+            "name": "version labels are user-facing",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "old technical record IDs remain advanced-only",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Save As New Copy path is user-facing Save as New Version",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          }
+        ],
+        "stageResults": {
+          "naming-contract": {
+            "passed": true,
+            "missing": []
+          },
+          "copy-copy-normalization": {
+            "passed": true,
+            "normalizedExamples": [
+              "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+              "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+              "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+            ]
+          },
+          "version-labels": {
+            "passed": true,
+            "missing": []
+          },
+          "old-record-display": {
+            "passed": true,
+            "missing": []
+          },
+          "save-as-new-version": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "versionHistory validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-history.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "shared floorplan version contract exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "existing saved records map to version history without data loss",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "version history marks one current version",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "advanced version history can restore version",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "advanced version history can archive version",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        ],
+        "stageResults": {
+          "version-contract": {
+            "passed": true,
+            "missing": []
+          },
+          "existing-records-map": {
+            "passed": true,
+            "missing": []
+          },
+          "current-version": {
+            "passed": true,
+            "missing": []
+          },
+          "restore-version": {
+            "passed": true,
+            "missing": []
+          },
+          "archive-version": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      }
+    },
+    {
+      "name": "saveAndUse validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "normal save UI is Save Floorplan and Done Editing",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          },
+          {
+            "name": "save result copy says floorplan is active",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "advanced save tools contain version, JSON, and recovery actions",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "local draft tools are inside advanced panel",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "saving makes saved floorplan active",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        ],
+        "stageResults": {
+          "normal-save-ui": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          },
+          "save-result-copy": {
+            "passed": true,
+            "missing": []
+          },
+          "advanced-save-tools": {
+            "passed": true,
+            "missing": []
+          },
+          "local-draft-hidden": {
+            "passed": true,
+            "missing": []
+          },
+          "active-after-save": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      }
+    },
+    {
+      "name": "readinessChecklist validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "readiness contract exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "readiness checklist renders human-readable items",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "component": {
+                "passed": true,
+                "missing": []
+              },
+              "viewModel": {
+                "passed": true,
+                "missing": []
+              }
+            }
+          },
+          {
+            "name": "assignment readiness status is visible",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "simulation readiness status is visible without clinical claims",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          }
+        ],
+        "stageResults": {
+          "readiness-contract": {
+            "passed": true,
+            "missing": []
+          },
+          "checklist-render": {
+            "passed": true,
+            "component": {
+              "passed": true,
+              "missing": []
+            },
+            "viewModel": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          "ready-for-assignment": {
+            "passed": true,
+            "missing": []
+          },
+          "ready-for-simulation": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "banner validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "banner view model uses human name, status, and version label",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "app shell renders banner for floorplan mode",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "editor receives active floorplan banner context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "manual assignment mode shares active floorplan banner context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "scenario mode shares active floorplan context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "simulation mode displays active floorplan context",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "reports mode displays active floorplan and banner hides IDs",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "includes": {
+                "passed": true,
+                "missing": []
+              },
+              "excludes": {
+                "passed": true,
+                "present": []
+              }
+            }
+          }
+        ],
+        "stageResults": {
+          "banner-contract": {
+            "passed": true,
+            "missing": []
+          },
+          "floorplan-mode": {
+            "passed": true,
+            "missing": []
+          },
+          "editor-mode": {
+            "passed": true,
+            "missing": []
+          },
+          "manual-assignment-mode": {
+            "passed": true,
+            "missing": []
+          },
+          "scenario-mode": {
+            "passed": true,
+            "missing": []
+          },
+          "simulation-mode": {
+            "passed": true,
+            "missing": []
+          },
+          "reports-mode": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "changeConfirmation validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "confirmation dialog copy exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "cancel preserves active floorplan",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "confirm changes floorplan and clears assignments explicitly",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "assignment compatibility guard lists missing room IDs",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "floorplan change does not trigger silent synthetic fallback",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        ],
+        "stageResults": {
+          "confirmation-dialog": {
+            "passed": true,
+            "missing": []
+          },
+          "cancel-preserves": {
+            "passed": true,
+            "missing": []
+          },
+          "confirm-changes": {
+            "passed": true,
+            "missing": []
+          },
+          "assignment-compatibility": {
+            "passed": true,
+            "missing": []
+          },
+          "no-synthetic-fallback": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      }
+    },
+    {
+      "name": "persistence validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-persistence.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "active floorplan persistence contract exists",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "active selection is saved to local storage",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "reload restores the same active floorplan version",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "deleted active floorplan fallback is explicit",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "active floorplan version ID is first-class",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          },
+          {
+            "name": "Manual Assignment remains active-floorplan backed after reload",
+            "passed": true,
+            "detail": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        ],
+        "stageResults": {
+          "persistence-contract": {
+            "passed": true,
+            "missing": []
+          },
+          "save-active-selection": {
+            "passed": true,
+            "missing": []
+          },
+          "reload-restores-active": {
+            "passed": true,
+            "missing": []
+          },
+          "deleted-active-fallback": {
+            "passed": true,
+            "missing": []
+          },
+          "version-id": {
+            "passed": true,
+            "missing": []
+          },
+          "no-synthetic-fallback": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      }
+    },
+    {
+      "name": "doorRegression validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "valid patient-room door add, move, width, adjacent assignment, and delete pass in browser",
+            "passed": true,
+            "detail": {
+              "valid": {
+                "status": "passed",
+                "roomId": "room-02",
+                "doorId": "authored-door-001",
+                "beforeDoorCount": 23,
+                "afterDoorCount": 24,
+                "screenshot": "docs/verification/issues/issue-743/screenshots/valid-door-added.png"
+              },
+              "move": {
+                "status": "passed",
+                "doorId": "authored-door-001",
+                "initialWall": "south",
+                "movedWall": "west",
+                "nudgeClicked": true
+              },
+              "width": {
+                "status": "passed",
+                "doorId": "authored-door-001",
+                "widthPresetFeet": 6,
+                "widthClicked": true
+              },
+              "adjacent": {
+                "status": "passed",
+                "doorId": "authored-door-001",
+                "candidateRoomId": "room-19",
+                "candidateText": "19 / south / hallway adjacent",
+                "selected": true
+              },
+              "deleted": {
+                "status": "passed",
+                "doorId": "authored-door-001",
+                "beforeDoorCount": 24,
+                "afterDoorCount": 23
+              }
+            }
+          },
+          {
+            "name": "invalid targets produce warnings or disabled candidates while provider/pharmacy uses support access",
+            "passed": true,
+            "detail": {
+              "invalidCandidate": {
+                "status": "passed",
+                "doorId": "authored-door-001",
+                "candidateRoomId": "room-19",
+                "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+                "disabled": true,
+                "screenshot": "docs/verification/issues/issue-743/screenshots/invalid-door-warning.png"
+              },
+              "solidWall": {
+                "status": "passed",
+                "roomId": "room-14",
+                "warningVisible": true,
+                "doorCountPreserved": true
+              },
+              "supportSpace": {
+                "status": "passed",
+                "roomId": "room-14",
+                "warningVisible": true,
+                "doorCountPreserved": true
+              },
+              "providerSupport": {
+                "status": "passed",
+                "beforeSupportAccessCount": 0,
+                "afterSupportAccessCount": 1,
+                "usedSupportAccessWorkflow": true
+              }
+            }
+          },
+          {
+            "name": "left/top pod door workflow stays out of recovery",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "roomId": "room-02",
+              "beforeDoorCount": 23,
+              "afterDoorCount": 24,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/left-pod-door-proof.png"
+            }
+          },
+          {
+            "name": "right/top pod door workflow stays out of recovery",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "roomId": "room-06",
+              "beforeDoorCount": 24,
+              "afterDoorCount": 25,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/right-pod-door-proof.png"
+            }
+          },
+          {
+            "name": "valid door edit persists through save, reopen, and export",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "savedRecordId": "saved-default-er-layout-plan-1-001",
+              "exportedJson": "docs/verification/issues/issue-743/exported-json/door-regression-after-reload.json",
+              "exportedDoor": {
+                "id": "authored-door-001",
+                "widthFeet": 6,
+                "roomId": "room-02"
+              },
+              "screenshot": "docs/verification/issues/issue-743/screenshots/door-save-reload-proof.png"
+            }
+          },
+          {
+            "name": "recovery screen remains absent during regression pack",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "checks": [
+                {
+                  "label": "valid-patient-door-add",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "door-move",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "door-nudge",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "door-width",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "save-reload-export",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "door-delete",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "support-space-reject",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "solid-wall-reject",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "invalid-candidate-disabled",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "adjacent-valid-candidate",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "provider-pharmacy-support-access",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "room-02-pod-regression",
+                  "recoveryScreenVisible": false
+                },
+                {
+                  "label": "room-06-pod-regression",
+                  "recoveryScreenVisible": false
+                }
+              ]
+            }
+          }
+        ],
+        "stageResults": {
+          "valid-patient-door": {
+            "valid": {
+              "status": "passed",
+              "roomId": "room-02",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 23,
+              "afterDoorCount": 24,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/valid-door-added.png"
+            },
+            "move": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "initialWall": "south",
+              "movedWall": "west",
+              "nudgeClicked": true
+            },
+            "width": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "widthPresetFeet": 6,
+              "widthClicked": true
+            },
+            "adjacent": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent",
+              "selected": true
+            },
+            "deleted": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 24,
+              "afterDoorCount": 23
+            }
+          },
+          "invalid-target-warnings": {
+            "invalidCandidate": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+              "disabled": true,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/invalid-door-warning.png"
+            },
+            "solidWall": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "supportSpace": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "providerSupport": {
+              "status": "passed",
+              "beforeSupportAccessCount": 0,
+              "afterSupportAccessCount": 1,
+              "usedSupportAccessWorkflow": true
+            }
+          },
+          "left-pod": {
+            "status": "passed",
+            "roomId": "room-02",
+            "beforeDoorCount": 23,
+            "afterDoorCount": 24,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/left-pod-door-proof.png"
+          },
+          "right-pod": {
+            "status": "passed",
+            "roomId": "room-06",
+            "beforeDoorCount": 24,
+            "afterDoorCount": 25,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/right-pod-door-proof.png"
+          },
+          "save-reload-export": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "exportedJson": "docs/verification/issues/issue-743/exported-json/door-regression-after-reload.json",
+            "exportedDoor": {
+              "id": "authored-door-001",
+              "widthFeet": 6,
+              "roomId": "room-02"
+            },
+            "screenshot": "docs/verification/issues/issue-743/screenshots/door-save-reload-proof.png"
+          },
+          "no-recovery-screen": {
+            "status": "passed",
+            "checks": [
+              {
+                "label": "valid-patient-door-add",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-move",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-nudge",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-width",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "save-reload-export",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-delete",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "support-space-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "solid-wall-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "invalid-candidate-disabled",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "adjacent-valid-candidate",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "provider-pharmacy-support-access",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-02-pod-regression",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-06-pod-regression",
+                "recoveryScreenVisible": false
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "splitRoomRegression validator passed from local evidence",
+      "passed": true,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt",
+        "status": "passed",
+        "issue": "743",
+        "stage": "final",
+        "checks": [
+          {
+            "name": "browser flow selects Room 5 and creates Split Room 4/5",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "room5ActionVisible": true,
+              "room5CreateClicked": true,
+              "split45Visible": true,
+              "split45LabelsVisible": true,
+              "split45DividerVisible": true
+            }
+          },
+          {
+            "name": "browser flow creates 2/3, 4/5, 6/7, and 8/9 split rooms",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "splitBayIds": [
+                "split-bay-room-02-room-03",
+                "split-bay-room-04-room-05",
+                "split-bay-room-06-room-07",
+                "split-bay-room-08-room-09"
+              ]
+            }
+          },
+          {
+            "name": "split-room child positions can show independent assignment colors",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "childAssignmentFills": 2,
+              "assignmentColorsIndependent": true
+            }
+          },
+          {
+            "name": "Save Floorplan and reload same saved record preserve split room",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "savedRecordId": "saved-default-er-layout-plan-1-001",
+              "afterReloadSplit45Visible": true
+            }
+          },
+          {
+            "name": "export JSON includes split parent and child room IDs",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "splitBays": [
+                {
+                  "id": "split-bay-room-02-room-03",
+                  "label": "2/3",
+                  "xFeet": 44,
+                  "yFeet": 28,
+                  "widthFeet": 20,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-02-room-03",
+                  "bedPositionRoomIds": [
+                    "room-02",
+                    "room-03"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                },
+                {
+                  "id": "split-bay-room-04-room-05",
+                  "label": "4/5",
+                  "xFeet": 44,
+                  "yFeet": 40,
+                  "widthFeet": 20,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-04-room-05",
+                  "bedPositionRoomIds": [
+                    "room-04",
+                    "room-05"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                },
+                {
+                  "id": "split-bay-room-06-room-07",
+                  "label": "6/7",
+                  "xFeet": 92,
+                  "yFeet": 28,
+                  "widthFeet": 20,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-06-room-07",
+                  "bedPositionRoomIds": [
+                    "room-06",
+                    "room-07"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                },
+                {
+                  "id": "split-bay-room-08-room-09",
+                  "label": "8/9",
+                  "xFeet": 92,
+                  "yFeet": 40,
+                  "widthFeet": 20,
+                  "heightFeet": 10,
+                  "objectType": "split_bay",
+                  "splitBayId": "split-bay-room-08-room-09",
+                  "bedPositionRoomIds": [
+                    "room-08",
+                    "room-09"
+                  ],
+                  "dividerStyle": "diagonal_down"
+                }
+              ]
+            }
+          },
+          {
+            "name": "import JSON preserves split room",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "importedSplitBayIds": [
+                "split-bay-room-02-room-03",
+                "split-bay-room-04-room-05",
+                "split-bay-room-06-room-07",
+                "split-bay-room-08-room-09"
+              ]
+            }
+          },
+          {
+            "name": "browser split-room flow shows no Copy or Duplicate label",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "copyLabelVisible": false,
+              "bodyCopyHits": []
+            }
+          },
+          {
+            "name": "split-room browser flow avoids recovery screen",
+            "passed": true,
+            "detail": {
+              "status": "passed",
+              "recoveryScreenVisible": false
+            }
+          }
+        ],
+        "stageResults": {
+          "room5-user-flow": {
+            "status": "passed",
+            "room5ActionVisible": true,
+            "room5CreateClicked": true,
+            "split45Visible": true,
+            "split45LabelsVisible": true,
+            "split45DividerVisible": true
+          },
+          "all-canonical-pairs": {
+            "status": "passed",
+            "splitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          },
+          "assignment-child-room": {
+            "status": "passed",
+            "childAssignmentFills": 2,
+            "assignmentColorsIndependent": true
+          },
+          "save-reload": {
+            "status": "passed",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "afterReloadSplit45Visible": true
+          },
+          "export-json": {
+            "status": "passed",
+            "splitBays": [
+              {
+                "id": "split-bay-room-02-room-03",
+                "label": "2/3",
+                "xFeet": 44,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-02-room-03",
+                "bedPositionRoomIds": [
+                  "room-02",
+                  "room-03"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-04-room-05",
+                "label": "4/5",
+                "xFeet": 44,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-04-room-05",
+                "bedPositionRoomIds": [
+                  "room-04",
+                  "room-05"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-06-room-07",
+                "label": "6/7",
+                "xFeet": 92,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-06-room-07",
+                "bedPositionRoomIds": [
+                  "room-06",
+                  "room-07"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-08-room-09",
+                "label": "8/9",
+                "xFeet": 92,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-08-room-09",
+                "bedPositionRoomIds": [
+                  "room-08",
+                  "room-09"
+                ],
+                "dividerStyle": "diagonal_down"
+              }
+            ]
+          },
+          "import-json": {
+            "status": "passed",
+            "importedSplitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          },
+          "no-copy-label": {
+            "status": "passed",
+            "copyLabelVisible": false,
+            "bodyCopyHits": []
+          },
+          "no-recovery-screen": {
+            "status": "passed",
+            "recoveryScreenVisible": false
+          }
+        }
+      }
+    },
+    {
+      "name": "final audit inspects code paths beyond manifest flags",
+      "passed": true,
+      "detail": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "name": "manifest statuses align with rerun validators",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "summaries": {
+    "preflight": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-preflight.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "active floorplan workflow manifest exists with required batch metadata",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "batch": "694-703",
+            "productDisplayName": "ER Pod Shift Simulator",
+            "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+            "requiredKeys": 52
+          }
+        },
+        {
+          "name": "root scripts for Issues 694-703 are wired in package.json and verify-local",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "missingPackageScripts": [],
+            "missingVerifyLocalScripts": []
+          }
+        },
+        {
+          "name": "workflow status doc records current UX problem",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "existing active floorplan state problem is documented",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "door and split-room browser regression scripts remain wired",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+            "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+          }
+        },
+        {
+          "name": "preflight preserves no simulation/optimizer/collaboration scope drift",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "manifest": {
+              "manifestVersion": "1.0.0",
+              "batch": "694-703",
+              "lastUpdatedIssue": "743",
+              "productDisplayName": "ER Pod Shift Simulator",
+              "sourceDoorAuthoringStatus": "passed",
+              "sourceSplitRoomAuthoringStatus": "passed",
+              "activeFloorplanPreflightStatus": "passed",
+              "activeFloorplanContractStatus": "passed",
+              "activeFloorplanSelectorStatus": "passed",
+              "floorplanVersionNamingStatus": "passed",
+              "floorplanVersionHistoryStatus": "passed",
+              "saveAndUseFloorplanStatus": "passed",
+              "floorplanReadinessChecklistStatus": "passed",
+              "activeFloorplanBannerStatus": "passed",
+              "floorplanChangeConfirmationStatus": "passed",
+              "activeFloorplanPersistenceStatus": "passed",
+              "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+              "singleActiveFloorplanContract": true,
+              "normalModeShowsOneFloorplan": true,
+              "technicalFloorplanDetailsAdvancedOnly": true,
+              "copyCopyRemovedFromNormalUi": true,
+              "savedCopiesDisplayedAsVersions": true,
+              "savedFloorplanBecomesActive": true,
+              "readyForAssignmentStatusVisible": true,
+              "readyForSimulationStatusVisible": true,
+              "allModesShowActiveFloorplan": true,
+              "assignmentCompatibilityGuard": true,
+              "activeFloorplanSurvivesReload": true,
+              "manualAssignmentUsesActiveFloorplan": true,
+              "scenarioUsesActiveFloorplan": true,
+              "simulationDisplaysActiveFloorplan": true,
+              "reportsDisplayActiveFloorplan": true,
+              "noSilentSyntheticFallback": true,
+              "doorAuthoringNonRegression": true,
+              "splitRoomNonRegression": true,
+              "normalUserWorkflowStatus": "ready_for_controlled_reconstruction",
+              "advancedDeveloperToolsStatus": "advanced_only",
+              "collaborationStatus": "not_started",
+              "simulationV0Status": "internal_dry_run_only",
+              "optimizerStatus": "not_started",
+              "assignmentRecommendationStatus": "not_started",
+              "clinicalSafetyScoringStatus": "not_started",
+              "staffingComplianceStatus": "not_started",
+              "patientOutcomePredictionStatus": "not_started",
+              "promotionStatus": "blocked",
+              "noPhiStatus": "passed",
+              "goNoGoStatus": "not_ready",
+              "oneCurrentVersion": true,
+              "versionHistoryAdvancedOnly": true,
+              "normalSaveIsSimple": true,
+              "advancedSaveToolsHidden": true,
+              "technicalIdsHiddenInBanner": true
+            }
+          }
+        }
+      ],
+      "stageResults": {
+        "manifest-contract": {
+          "status": "passed",
+          "batch": "694-703",
+          "productDisplayName": "ER Pod Shift Simulator",
+          "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+          "requiredKeys": 52
+        },
+        "root-script-wiring": {
+          "status": "passed",
+          "missingPackageScripts": [],
+          "missingVerifyLocalScripts": []
+        },
+        "workflow-status": {
+          "passed": true,
+          "missing": []
+        },
+        "existing-state-problem": {
+          "passed": true,
+          "missing": []
+        },
+        "regression-scripts-wired": {
+          "status": "passed",
+          "door": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 677",
+          "splitRoom": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 688"
+        },
+        "no-scope-drift": {
+          "status": "passed",
+          "manifest": {
+            "manifestVersion": "1.0.0",
+            "batch": "694-703",
+            "lastUpdatedIssue": "743",
+            "productDisplayName": "ER Pod Shift Simulator",
+            "sourceDoorAuthoringStatus": "passed",
+            "sourceSplitRoomAuthoringStatus": "passed",
+            "activeFloorplanPreflightStatus": "passed",
+            "activeFloorplanContractStatus": "passed",
+            "activeFloorplanSelectorStatus": "passed",
+            "floorplanVersionNamingStatus": "passed",
+            "floorplanVersionHistoryStatus": "passed",
+            "saveAndUseFloorplanStatus": "passed",
+            "floorplanReadinessChecklistStatus": "passed",
+            "activeFloorplanBannerStatus": "passed",
+            "floorplanChangeConfirmationStatus": "passed",
+            "activeFloorplanPersistenceStatus": "passed",
+            "activeFloorplanWorkflowGoNoGoStatus": "not_ready",
+            "singleActiveFloorplanContract": true,
+            "normalModeShowsOneFloorplan": true,
+            "technicalFloorplanDetailsAdvancedOnly": true,
+            "copyCopyRemovedFromNormalUi": true,
+            "savedCopiesDisplayedAsVersions": true,
+            "savedFloorplanBecomesActive": true,
+            "readyForAssignmentStatusVisible": true,
+            "readyForSimulationStatusVisible": true,
+            "allModesShowActiveFloorplan": true,
+            "assignmentCompatibilityGuard": true,
+            "activeFloorplanSurvivesReload": true,
+            "manualAssignmentUsesActiveFloorplan": true,
+            "scenarioUsesActiveFloorplan": true,
+            "simulationDisplaysActiveFloorplan": true,
+            "reportsDisplayActiveFloorplan": true,
+            "noSilentSyntheticFallback": true,
+            "doorAuthoringNonRegression": true,
+            "splitRoomNonRegression": true,
+            "normalUserWorkflowStatus": "ready_for_controlled_reconstruction",
+            "advancedDeveloperToolsStatus": "advanced_only",
+            "collaborationStatus": "not_started",
+            "simulationV0Status": "internal_dry_run_only",
+            "optimizerStatus": "not_started",
+            "assignmentRecommendationStatus": "not_started",
+            "clinicalSafetyScoringStatus": "not_started",
+            "staffingComplianceStatus": "not_started",
+            "patientOutcomePredictionStatus": "not_started",
+            "promotionStatus": "blocked",
+            "noPhiStatus": "passed",
+            "goNoGoStatus": "not_ready",
+            "oneCurrentVersion": true,
+            "versionHistoryAdvancedOnly": true,
+            "normalSaveIsSimple": true,
+            "advancedSaveToolsHidden": true,
+            "technicalIdsHiddenInBanner": true
+          }
+        }
+      }
+    },
+    "sourceOfTruth": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-source-of-truth.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "shared ActiveFloorplanContract exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "app active floorplan state creates one contract",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "editor receives active floorplan contract context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Manual Assignment uses the active floorplan contract instead of editor-only state",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        },
+        {
+          "name": "Scenario Comparison receives active floorplan context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Simulation Review displays active floorplan context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Reports placeholder displays active floorplan context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Manual Assignment does not silently choose synthetic fixture when active floorplan exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      ],
+      "stageResults": {
+        "contract": {
+          "passed": true,
+          "missing": []
+        },
+        "app-state-refactor": {
+          "passed": true,
+          "missing": []
+        },
+        "editor-consumes-active": {
+          "passed": true,
+          "missing": []
+        },
+        "manual-assignment-consumes-active": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        },
+        "scenario-consumes-active": {
+          "passed": true,
+          "missing": []
+        },
+        "simulation-displays-active": {
+          "passed": true,
+          "missing": []
+        },
+        "reports-displays-active": {
+          "passed": true,
+          "missing": []
+        },
+        "no-synthetic-fallback": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    "selectorUx": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "selector view model hides technical details",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "normal mode renders one active floorplan selector without technical copy",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        },
+        {
+          "name": "saved versions are selected from dropdown",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "old card grid and version history are advanced-only",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "technical floorplan copy is absent from normal selector",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "present": []
+          }
+        }
+      ],
+      "stageResults": {
+        "selector-view-model": {
+          "passed": true,
+          "missing": []
+        },
+        "normal-mode": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        },
+        "change-dropdown": {
+          "passed": true,
+          "missing": []
+        },
+        "advanced-library": {
+          "passed": true,
+          "missing": []
+        },
+        "technical-copy-hidden": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    "versionNaming": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-version-naming.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "naming contract exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Copy Copy and old IDs normalize to clean display name",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "normalizedExamples": [
+              "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+              "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+              "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+            ]
+          }
+        },
+        {
+          "name": "version labels are user-facing",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "old technical record IDs remain advanced-only",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Save As New Copy path is user-facing Save as New Version",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      ],
+      "stageResults": {
+        "naming-contract": {
+          "passed": true,
+          "missing": []
+        },
+        "copy-copy-normalization": {
+          "passed": true,
+          "normalizedExamples": [
+            "ER Layout Plan 1 Copy Copy -> ER Pod Main Layout",
+            "ER Layout Plan 1 Copy -> ER Pod Main Layout",
+            "saved-default-er-layout-plan-1-002 -> ER Pod Main Layout"
+          ]
+        },
+        "version-labels": {
+          "passed": true,
+          "missing": []
+        },
+        "old-record-display": {
+          "passed": true,
+          "missing": []
+        },
+        "save-as-new-version": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        }
+      }
+    },
+    "versionHistory": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-version-history.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "shared floorplan version contract exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "existing saved records map to version history without data loss",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "version history marks one current version",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "advanced version history can restore version",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "advanced version history can archive version",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      ],
+      "stageResults": {
+        "version-contract": {
+          "passed": true,
+          "missing": []
+        },
+        "existing-records-map": {
+          "passed": true,
+          "missing": []
+        },
+        "current-version": {
+          "passed": true,
+          "missing": []
+        },
+        "restore-version": {
+          "passed": true,
+          "missing": []
+        },
+        "archive-version": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    "saveAndUse": {
+      "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "normal save UI is Save Floorplan and Done Editing",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        },
+        {
+          "name": "save result copy says floorplan is active",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "advanced save tools contain version, JSON, and recovery actions",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "local draft tools are inside advanced panel",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "saving makes saved floorplan active",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      ],
+      "stageResults": {
+        "normal-save-ui": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        },
+        "save-result-copy": {
+          "passed": true,
+          "missing": []
+        },
+        "advanced-save-tools": {
+          "passed": true,
+          "missing": []
+        },
+        "local-draft-hidden": {
+          "passed": true,
+          "missing": []
+        },
+        "active-after-save": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    "readinessChecklist": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "readiness contract exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "readiness checklist renders human-readable items",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "component": {
+              "passed": true,
+              "missing": []
+            },
+            "viewModel": {
+              "passed": true,
+              "missing": []
+            }
+          }
+        },
+        {
+          "name": "assignment readiness status is visible",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "simulation readiness status is visible without clinical claims",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      ],
+      "stageResults": {
+        "readiness-contract": {
+          "passed": true,
+          "missing": []
+        },
+        "checklist-render": {
+          "passed": true,
+          "component": {
+            "passed": true,
+            "missing": []
+          },
+          "viewModel": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        "ready-for-assignment": {
+          "passed": true,
+          "missing": []
+        },
+        "ready-for-simulation": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        }
+      }
+    },
+    "banner": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "banner view model uses human name, status, and version label",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "app shell renders banner for floorplan mode",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "editor receives active floorplan banner context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "manual assignment mode shares active floorplan banner context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "scenario mode shares active floorplan context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "simulation mode displays active floorplan context",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "reports mode displays active floorplan and banner hides IDs",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "includes": {
+              "passed": true,
+              "missing": []
+            },
+            "excludes": {
+              "passed": true,
+              "present": []
+            }
+          }
+        }
+      ],
+      "stageResults": {
+        "banner-contract": {
+          "passed": true,
+          "missing": []
+        },
+        "floorplan-mode": {
+          "passed": true,
+          "missing": []
+        },
+        "editor-mode": {
+          "passed": true,
+          "missing": []
+        },
+        "manual-assignment-mode": {
+          "passed": true,
+          "missing": []
+        },
+        "scenario-mode": {
+          "passed": true,
+          "missing": []
+        },
+        "simulation-mode": {
+          "passed": true,
+          "missing": []
+        },
+        "reports-mode": {
+          "passed": true,
+          "includes": {
+            "passed": true,
+            "missing": []
+          },
+          "excludes": {
+            "passed": true,
+            "present": []
+          }
+        }
+      }
+    },
+    "changeConfirmation": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "confirmation dialog copy exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "cancel preserves active floorplan",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "confirm changes floorplan and clears assignments explicitly",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "assignment compatibility guard lists missing room IDs",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "floorplan change does not trigger silent synthetic fallback",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      ],
+      "stageResults": {
+        "confirmation-dialog": {
+          "passed": true,
+          "missing": []
+        },
+        "cancel-preserves": {
+          "passed": true,
+          "missing": []
+        },
+        "confirm-changes": {
+          "passed": true,
+          "missing": []
+        },
+        "assignment-compatibility": {
+          "passed": true,
+          "missing": []
+        },
+        "no-synthetic-fallback": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    "persistence": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-persistence.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "active floorplan persistence contract exists",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "active selection is saved to local storage",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "reload restores the same active floorplan version",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "deleted active floorplan fallback is explicit",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "active floorplan version ID is first-class",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        },
+        {
+          "name": "Manual Assignment remains active-floorplan backed after reload",
+          "passed": true,
+          "detail": {
+            "passed": true,
+            "missing": []
+          }
+        }
+      ],
+      "stageResults": {
+        "persistence-contract": {
+          "passed": true,
+          "missing": []
+        },
+        "save-active-selection": {
+          "passed": true,
+          "missing": []
+        },
+        "reload-restores-active": {
+          "passed": true,
+          "missing": []
+        },
+        "deleted-active-fallback": {
+          "passed": true,
+          "missing": []
+        },
+        "version-id": {
+          "passed": true,
+          "missing": []
+        },
+        "no-synthetic-fallback": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    "doorRegression": {
+      "source": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "valid patient-room door add, move, width, adjacent assignment, and delete pass in browser",
+          "passed": true,
+          "detail": {
+            "valid": {
+              "status": "passed",
+              "roomId": "room-02",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 23,
+              "afterDoorCount": 24,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/valid-door-added.png"
+            },
+            "move": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "initialWall": "south",
+              "movedWall": "west",
+              "nudgeClicked": true
+            },
+            "width": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "widthPresetFeet": 6,
+              "widthClicked": true
+            },
+            "adjacent": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent",
+              "selected": true
+            },
+            "deleted": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "beforeDoorCount": 24,
+              "afterDoorCount": 23
+            }
+          }
+        },
+        {
+          "name": "invalid targets produce warnings or disabled candidates while provider/pharmacy uses support access",
+          "passed": true,
+          "detail": {
+            "invalidCandidate": {
+              "status": "passed",
+              "doorId": "authored-door-001",
+              "candidateRoomId": "room-19",
+              "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+              "disabled": true,
+              "screenshot": "docs/verification/issues/issue-743/screenshots/invalid-door-warning.png"
+            },
+            "solidWall": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "supportSpace": {
+              "status": "passed",
+              "roomId": "room-14",
+              "warningVisible": true,
+              "doorCountPreserved": true
+            },
+            "providerSupport": {
+              "status": "passed",
+              "beforeSupportAccessCount": 0,
+              "afterSupportAccessCount": 1,
+              "usedSupportAccessWorkflow": true
+            }
+          }
+        },
+        {
+          "name": "left/top pod door workflow stays out of recovery",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "roomId": "room-02",
+            "beforeDoorCount": 23,
+            "afterDoorCount": 24,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/left-pod-door-proof.png"
+          }
+        },
+        {
+          "name": "right/top pod door workflow stays out of recovery",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "roomId": "room-06",
+            "beforeDoorCount": 24,
+            "afterDoorCount": 25,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/right-pod-door-proof.png"
+          }
+        },
+        {
+          "name": "valid door edit persists through save, reopen, and export",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "exportedJson": "docs/verification/issues/issue-743/exported-json/door-regression-after-reload.json",
+            "exportedDoor": {
+              "id": "authored-door-001",
+              "widthFeet": 6,
+              "roomId": "room-02"
+            },
+            "screenshot": "docs/verification/issues/issue-743/screenshots/door-save-reload-proof.png"
+          }
+        },
+        {
+          "name": "recovery screen remains absent during regression pack",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "checks": [
+              {
+                "label": "valid-patient-door-add",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-move",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-nudge",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-width",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "save-reload-export",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "door-delete",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "support-space-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "solid-wall-reject",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "invalid-candidate-disabled",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "adjacent-valid-candidate",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "provider-pharmacy-support-access",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-02-pod-regression",
+                "recoveryScreenVisible": false
+              },
+              {
+                "label": "room-06-pod-regression",
+                "recoveryScreenVisible": false
+              }
+            ]
+          }
+        }
+      ],
+      "stageResults": {
+        "valid-patient-door": {
+          "valid": {
+            "status": "passed",
+            "roomId": "room-02",
+            "doorId": "authored-door-001",
+            "beforeDoorCount": 23,
+            "afterDoorCount": 24,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/valid-door-added.png"
+          },
+          "move": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "initialWall": "south",
+            "movedWall": "west",
+            "nudgeClicked": true
+          },
+          "width": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "widthPresetFeet": 6,
+            "widthClicked": true
+          },
+          "adjacent": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "candidateRoomId": "room-19",
+            "candidateText": "19 / south / hallway adjacent",
+            "selected": true
+          },
+          "deleted": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "beforeDoorCount": 24,
+            "afterDoorCount": 23
+          }
+        },
+        "invalid-target-warnings": {
+          "invalidCandidate": {
+            "status": "passed",
+            "doorId": "authored-door-001",
+            "candidateRoomId": "room-19",
+            "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+            "disabled": true,
+            "screenshot": "docs/verification/issues/issue-743/screenshots/invalid-door-warning.png"
+          },
+          "solidWall": {
+            "status": "passed",
+            "roomId": "room-14",
+            "warningVisible": true,
+            "doorCountPreserved": true
+          },
+          "supportSpace": {
+            "status": "passed",
+            "roomId": "room-14",
+            "warningVisible": true,
+            "doorCountPreserved": true
+          },
+          "providerSupport": {
+            "status": "passed",
+            "beforeSupportAccessCount": 0,
+            "afterSupportAccessCount": 1,
+            "usedSupportAccessWorkflow": true
+          }
+        },
+        "left-pod": {
+          "status": "passed",
+          "roomId": "room-02",
+          "beforeDoorCount": 23,
+          "afterDoorCount": 24,
+          "screenshot": "docs/verification/issues/issue-743/screenshots/left-pod-door-proof.png"
+        },
+        "right-pod": {
+          "status": "passed",
+          "roomId": "room-06",
+          "beforeDoorCount": 24,
+          "afterDoorCount": 25,
+          "screenshot": "docs/verification/issues/issue-743/screenshots/right-pod-door-proof.png"
+        },
+        "save-reload-export": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "savedRecordId": "saved-default-er-layout-plan-1-001",
+          "exportedJson": "docs/verification/issues/issue-743/exported-json/door-regression-after-reload.json",
+          "exportedDoor": {
+            "id": "authored-door-001",
+            "widthFeet": 6,
+            "roomId": "room-02"
+          },
+          "screenshot": "docs/verification/issues/issue-743/screenshots/door-save-reload-proof.png"
+        },
+        "no-recovery-screen": {
+          "status": "passed",
+          "checks": [
+            {
+              "label": "valid-patient-door-add",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-move",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-nudge",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-width",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "save-reload-export",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "door-delete",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "support-space-reject",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "solid-wall-reject",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "invalid-candidate-disabled",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "adjacent-valid-candidate",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "provider-pharmacy-support-access",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "room-02-pod-regression",
+              "recoveryScreenVisible": false
+            },
+            {
+              "label": "room-06-pod-regression",
+              "recoveryScreenVisible": false
+            }
+          ]
+        }
+      }
+    },
+    "splitRoomRegression": {
+      "source": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt",
+      "status": "passed",
+      "issue": "743",
+      "stage": "final",
+      "checks": [
+        {
+          "name": "browser flow selects Room 5 and creates Split Room 4/5",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "room5ActionVisible": true,
+            "room5CreateClicked": true,
+            "split45Visible": true,
+            "split45LabelsVisible": true,
+            "split45DividerVisible": true
+          }
+        },
+        {
+          "name": "browser flow creates 2/3, 4/5, 6/7, and 8/9 split rooms",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "splitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          }
+        },
+        {
+          "name": "split-room child positions can show independent assignment colors",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "childAssignmentFills": 2,
+            "assignmentColorsIndependent": true
+          }
+        },
+        {
+          "name": "Save Floorplan and reload same saved record preserve split room",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "savedRecordId": "saved-default-er-layout-plan-1-001",
+            "afterReloadSplit45Visible": true
+          }
+        },
+        {
+          "name": "export JSON includes split parent and child room IDs",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "splitBays": [
+              {
+                "id": "split-bay-room-02-room-03",
+                "label": "2/3",
+                "xFeet": 44,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-02-room-03",
+                "bedPositionRoomIds": [
+                  "room-02",
+                  "room-03"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-04-room-05",
+                "label": "4/5",
+                "xFeet": 44,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-04-room-05",
+                "bedPositionRoomIds": [
+                  "room-04",
+                  "room-05"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-06-room-07",
+                "label": "6/7",
+                "xFeet": 92,
+                "yFeet": 28,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-06-room-07",
+                "bedPositionRoomIds": [
+                  "room-06",
+                  "room-07"
+                ],
+                "dividerStyle": "diagonal_down"
+              },
+              {
+                "id": "split-bay-room-08-room-09",
+                "label": "8/9",
+                "xFeet": 92,
+                "yFeet": 40,
+                "widthFeet": 20,
+                "heightFeet": 10,
+                "objectType": "split_bay",
+                "splitBayId": "split-bay-room-08-room-09",
+                "bedPositionRoomIds": [
+                  "room-08",
+                  "room-09"
+                ],
+                "dividerStyle": "diagonal_down"
+              }
+            ]
+          }
+        },
+        {
+          "name": "import JSON preserves split room",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "importedSplitBayIds": [
+              "split-bay-room-02-room-03",
+              "split-bay-room-04-room-05",
+              "split-bay-room-06-room-07",
+              "split-bay-room-08-room-09"
+            ]
+          }
+        },
+        {
+          "name": "browser split-room flow shows no Copy or Duplicate label",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "copyLabelVisible": false,
+            "bodyCopyHits": []
+          }
+        },
+        {
+          "name": "split-room browser flow avoids recovery screen",
+          "passed": true,
+          "detail": {
+            "status": "passed",
+            "recoveryScreenVisible": false
+          }
+        }
+      ],
+      "stageResults": {
+        "room5-user-flow": {
+          "status": "passed",
+          "room5ActionVisible": true,
+          "room5CreateClicked": true,
+          "split45Visible": true,
+          "split45LabelsVisible": true,
+          "split45DividerVisible": true
+        },
+        "all-canonical-pairs": {
+          "status": "passed",
+          "splitBayIds": [
+            "split-bay-room-02-room-03",
+            "split-bay-room-04-room-05",
+            "split-bay-room-06-room-07",
+            "split-bay-room-08-room-09"
+          ]
+        },
+        "assignment-child-room": {
+          "status": "passed",
+          "childAssignmentFills": 2,
+          "assignmentColorsIndependent": true
+        },
+        "save-reload": {
+          "status": "passed",
+          "savedRecordId": "saved-default-er-layout-plan-1-001",
+          "afterReloadSplit45Visible": true
+        },
+        "export-json": {
+          "status": "passed",
+          "splitBays": [
+            {
+              "id": "split-bay-room-02-room-03",
+              "label": "2/3",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-02-room-03",
+              "bedPositionRoomIds": [
+                "room-02",
+                "room-03"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-04-room-05",
+              "label": "4/5",
+              "xFeet": 44,
+              "yFeet": 40,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-04-room-05",
+              "bedPositionRoomIds": [
+                "room-04",
+                "room-05"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-06-room-07",
+              "label": "6/7",
+              "xFeet": 92,
+              "yFeet": 28,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-06-room-07",
+              "bedPositionRoomIds": [
+                "room-06",
+                "room-07"
+              ],
+              "dividerStyle": "diagonal_down"
+            },
+            {
+              "id": "split-bay-room-08-room-09",
+              "label": "8/9",
+              "xFeet": 92,
+              "yFeet": 40,
+              "widthFeet": 20,
+              "heightFeet": 10,
+              "objectType": "split_bay",
+              "splitBayId": "split-bay-room-08-room-09",
+              "bedPositionRoomIds": [
+                "room-08",
+                "room-09"
+              ],
+              "dividerStyle": "diagonal_down"
+            }
+          ]
+        },
+        "import-json": {
+          "status": "passed",
+          "importedSplitBayIds": [
+            "split-bay-room-02-room-03",
+            "split-bay-room-04-room-05",
+            "split-bay-room-06-room-07",
+            "split-bay-room-08-room-09"
+          ]
+        },
+        "no-copy-label": {
+          "status": "passed",
+          "copyLabelVisible": false,
+          "bodyCopyHits": []
+        },
+        "no-recovery-screen": {
+          "status": "passed",
+          "recoveryScreenVisible": false
+        }
+      }
+    }
+  },
+  "finalDecision": {
+    "activeFloorplanWorkflowGoNoGoStatus": "go_for_editor_simplification_and_assignment_persistence",
+    "goNoGoStatus": "go_for_next_batch"
+  },
+  "blockers": []
+}

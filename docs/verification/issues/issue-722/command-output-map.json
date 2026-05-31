@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "722",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-editor-workspace-layout.mjs --stage workspace-wrapper --allow-partial --issue 722",
+    "3": "node scripts/check-editor-workspace-layout.mjs --stage full-page-editor --allow-partial --issue 722",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

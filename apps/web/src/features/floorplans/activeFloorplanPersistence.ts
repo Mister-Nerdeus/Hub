@@ -19,22 +19,36 @@ export function readPersistedActiveFloorplanSelection(
   if (storage == null) {
     return null;
   }
-  const raw = storage.getItem(key);
+  let raw: string | null;
+  try {
+    raw = storage.getItem(key);
+  } catch {
+    return null;
+  }
   if (raw == null || raw.trim().length === 0) {
     return null;
   }
-  const parsed = JSON.parse(raw) as Partial<PersistedActiveFloorplanSelection>;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return null;
+  }
+  if (parsed == null || typeof parsed !== "object" || Array.isArray(parsed)) {
+    return null;
+  }
+  const candidate = parsed as Partial<PersistedActiveFloorplanSelection>;
   if (
-    parsed.schemaVersion !== "1.0.0" ||
-    typeof parsed.activeFloorplanId !== "string" ||
-    typeof parsed.activeFloorplanVersionId !== "string"
+    candidate.schemaVersion !== "1.0.0" ||
+    typeof candidate.activeFloorplanId !== "string" ||
+    typeof candidate.activeFloorplanVersionId !== "string"
   ) {
     return null;
   }
   return {
     schemaVersion: "1.0.0",
-    activeFloorplanId: parsed.activeFloorplanId,
-    activeFloorplanVersionId: parsed.activeFloorplanVersionId
+    activeFloorplanId: candidate.activeFloorplanId,
+    activeFloorplanVersionId: candidate.activeFloorplanVersionId
   };
 }
 

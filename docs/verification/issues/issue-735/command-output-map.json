@@ -1,0 +1,35 @@
+{
+  "issue": "735",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-735/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-735/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-735/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 735",
+      "outputs": [
+        "docs/verification/issues/issue-735/test-output/split-room-browser-regression.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-735/no-phi-output.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-editor-compact-validation-row.mjs --stage compact-validation-row --allow-partial --issue 738
+node scripts/check-editor-compact-validation-row.mjs --stage validation-details-collapsed --allow-partial --issue 738
+node scripts/check-no-phi-fields.mjs

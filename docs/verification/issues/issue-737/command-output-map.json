@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "737",
+  "commands": {
+    "1": "node scripts/check-editor-workspace-layout.mjs --stage station-move-preserved --allow-partial --issue 737",
+    "2": "node scripts/check-editor-workspace-layout.mjs --stage station-resize-preserved --allow-partial --issue 737",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

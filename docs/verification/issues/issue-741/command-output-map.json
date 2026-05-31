@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-normal-mode-technical-copy.mjs --stage floorplan --allow-partial --issue 741",
+    "3": "node scripts/check-normal-mode-technical-copy.mjs --stage editor --allow-partial --issue 741",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

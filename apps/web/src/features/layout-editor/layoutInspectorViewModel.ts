@@ -4,6 +4,7 @@ import {
   findEditableLayoutObject,
   type LayoutSelectionObjectType
 } from "./layoutSelectionModel";
+import { EDITOR_DETAILS_NORMAL_SECTIONS } from "./inspectorViewModel";
 import type { RoomInspectorDimensionField } from "./roomInspectorDimensionEdit";
 
 export type LayoutInspectorField = {
@@ -86,17 +87,27 @@ function buildSections(
     case "room":
       return [
         {
-          title: "Room metadata",
+          title: EDITOR_DETAILS_NORMAL_SECTIONS.roomIdentity,
           fields: [
             { label: "Room number", value: selectedObject.roomNumber },
-            { label: "Room label", value: selectedObject.label },
+            { label: "Room label", value: selectedObject.label }
+          ].map(readOnlyField)
+        },
+        {
+          title: EDITOR_DETAILS_NORMAL_SECTIONS.roomTypeCapacity,
+          fields: [
             { label: "Room type", value: formatRoomType(selectedObject.roomType) },
-            { label: "Capacity type", value: selectedObject.capacityType },
+            { label: "Capacity type", value: selectedObject.capacityType }
+          ].map(readOnlyField)
+        },
+        {
+          title: EDITOR_DETAILS_NORMAL_SECTIONS.operationalCapabilities,
+          fields: [
             { label: "Hall bed", value: formatBoolean(selectedObject.isHallBed) },
             { label: "Trauma adjacent", value: formatBoolean(selectedObject.isTraumaAdjacent) }
           ].map(readOnlyField)
         },
-        rectGeometrySection(selectedObject, "Geometry", true)
+        rectGeometrySection(selectedObject, EDITOR_DETAILS_NORMAL_SECTIONS.geometry, true)
       ];
     case "door":
       return [

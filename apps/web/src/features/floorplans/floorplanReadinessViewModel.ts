@@ -10,6 +10,7 @@ export function createFloorplanReadinessViewModel(
 ): FloorplanReadinessContract {
   const layout = activeFloorplan.editableLayout;
   const patientCareRooms = layout.rooms.filter((room) => isRoomLoadEligibleRoomType(room.roomType));
+  const splitRoomReadiness = evaluateSplitRoomReadiness(layout);
   const items: FloorplanReadinessItemContract[] = [
     item(
       "rooms_labeled",
@@ -45,8 +46,9 @@ export function createFloorplanReadinessViewModel(
     item(
       "split_rooms_reviewed",
       "Split rooms reviewed",
-      (layout.splitBays?.length ?? 0) >= 0,
-      "Split rooms are reviewed for this workflow step."
+      splitRoomReadiness.passed,
+      splitRoomReadiness.reason,
+      splitRoomReadiness.passedReason
     ),
     item(
       "hallways_routes_reviewed",
@@ -99,16 +101,81 @@ export function createFloorplanReadinessViewModel(
   };
 }
 
+export type CompactReadinessSummaryItem = {
+  label: "Floorplan" | "Assignment" | "Scenario" | "Simulation";
+  status: "Ready" | "Needs assignment set" | "Not ready" | "Blocked" | "Needs work";
+};
+
+export function createCompactReadinessSummary(
+  viewModel: FloorplanReadinessContract
+): CompactReadinessSummaryItem[] {
+  const floorplanItemIds = new Set([
+    "rooms_labeled",
+    "patient_care_rooms_identified",
+    "doors_access_points_reviewed",
+    "nurse_stations_placed",
+    "provider_pharmacy_area_placed",
+    "split_rooms_reviewed",
+    "hallways_routes_reviewed",
+    "floorplan_saved"
+  ]);
+  const floorplanReady = viewModel.items
+    .filter((entry) => floorplanItemIds.has(entry.itemId))
+    .every((entry) => entry.status === "passed");
+
+  return [
+    { label: "Floorplan", status: floorplanReady ? "Ready" : "Needs work" },
+    { label: "Assignment", status: "Needs assignment set" },
+    { label: "Scenario", status: "Not ready" },
+    { label: "Simulation", status: "Blocked" }
+  ];
+}
+
 function item(
   itemId: FloorplanReadinessItemContract["itemId"],
   label: string,
   passed: boolean,
-  reason: string
+  reason: string,
+  passedReason = "Ready."
 ): FloorplanReadinessItemContract {
   return {
     itemId,
     label,
     status: passed ? "passed" : "needs_work",
-    reason: passed ? "Ready." : reason
+    reason: passed ? passedReason : reason
+  };
+}
+
+function evaluateSplitRoomReadiness(
+  layout: ActiveFloorplanContract["editableLayout"]
+): { passed: boolean; reason: string; passedReason?: string } {
+  const splitBays = layout.splitBays ?? [];
+  if (splitBays.length === 0) {
+    return {
+      passed: true,
+      reason: "No split rooms present.",
+      passedReason: "No split rooms present."
+    };
+  }
+
+  const roomIds = new Set(layout.rooms.map((room) => room.id));
+  const invalidSplitBays = splitBays.filter((bay) => {
+    const hasValidGeometry = bay.widthFeet > 0 && bay.heightFeet > 0;
+    const hasDistinctLinkedRooms = bay.bedPositionRoomIds[0] !== bay.bedPositionRoomIds[1];
+    const linkedRoomsExist = bay.bedPositionRoomIds.every((roomId) => roomIds.has(roomId));
+    return !hasValidGeometry || !hasDistinctLinkedRooms || !linkedRoomsExist;
+  });
+
+  if (invalidSplitBays.length === 0) {
+    return {
+      passed: true,
+      reason: "Split rooms are reviewed for this workflow step.",
+      passedReason: "Split rooms reviewed."
+    };
+  }
+
+  return {
+    passed: false,
+    reason: "Review split rooms with missing paired room references or invalid geometry."
   };
 }

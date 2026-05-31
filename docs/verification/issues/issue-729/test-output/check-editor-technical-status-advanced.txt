@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "issue": "729",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "technical-status-hidden-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "present": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "technical-status-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "technical-status-hidden-normal": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "present": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "technical-status-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

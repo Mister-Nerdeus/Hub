@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "713",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-product-shell-responsive-layout.mjs --stage content-width --allow-partial --issue 713",
+    "3": "node scripts/check-product-shell-responsive-layout.mjs --stage narrow-desktop --allow-partial --issue 713",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

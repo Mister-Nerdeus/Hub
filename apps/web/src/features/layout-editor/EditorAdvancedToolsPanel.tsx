@@ -6,9 +6,9 @@ type EditorAdvancedToolsPanelProps = {
 
 export function EditorAdvancedToolsPanel({ children }: EditorAdvancedToolsPanelProps) {
   return (
-    <details className="editor-advanced-tools-panel">
+    <details className="editor-advanced-tools-panel" data-editor-advanced-tools-panel="true">
       <summary>Advanced</summary>
-      <div className="editor-advanced-tools-panel__body">
+      <div className="editor-advanced-tools-panel__body" data-editor-advanced-tools-body="true">
         {children}
       </div>
     </details>

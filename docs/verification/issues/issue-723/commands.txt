@@ -1,0 +1,5 @@
+npm --workspace apps/web run build
+node scripts/check-editor-canvas-expansion.mjs --stage canvas-primary --allow-partial --issue 723
+node scripts/check-editor-canvas-expansion.mjs --stage canvas-width-expanded --allow-partial --issue 723
+node scripts/check-editor-canvas-expansion.mjs --stage canvas-height-expanded --allow-partial --issue 723
+node scripts/check-no-phi-fields.mjs

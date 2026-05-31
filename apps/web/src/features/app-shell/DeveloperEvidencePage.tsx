@@ -46,6 +46,7 @@ import { createSimulationTimelineViewModel } from "../simulation/simulationTimel
 import { SimulationRunRetrievalProof } from "../simulation/SimulationRunRetrievalProof";
 import { manualAssignmentBasic, manualAssignmentRoomLoads } from "../../fixtures/manualAssignmentBasic";
 import { planErPodPhase2 } from "../../fixtures/planErPodPhase2";
+import { AdvancedEvidencePanel } from "./AdvancedEvidencePanel";
 import "./developerEvidencePage.css";
 
 type DeveloperEvidencePageProps = {
@@ -113,8 +114,9 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
   }
 
   return (
+    <AdvancedEvidencePanel>
     <div className="developer-evidence">
-      <h2 id="developer-evidence-title">Developer/Evidence</h2>
+      <h2 id="developer-evidence-title">Advanced/Evidence</h2>
       <p className="developer-evidence__intro">Proof-only workflow modules are preserved here only.</p>
       <div className="developer-evidence__grid">
         {evidenceSection("Simulation API retrieval", <SimulationRunRetrievalProof apiBaseUrl={apiBaseUrl} />)}
@@ -171,5 +173,6 @@ export function DeveloperEvidencePage({ apiBaseUrl }: DeveloperEvidencePageProps
         {evidenceSection("Plan renderer", <PlanRenderer plan={draftPlan} />)}
       </div>
     </div>
+    </AdvancedEvidencePanel>
   );
 }

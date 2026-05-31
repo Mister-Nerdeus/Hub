@@ -1,0 +1,5 @@
+npm --workspace apps/web run build
+node scripts/check-floorplan-thumbnail-preview.mjs --stage thumbnail-contract --allow-partial --issue 716
+node scripts/check-floorplan-thumbnail-preview.mjs --stage active-layout-preview --allow-partial --issue 716
+node scripts/check-floorplan-thumbnail-preview.mjs --stage empty-state --allow-partial --issue 716
+node scripts/check-no-phi-fields.mjs

@@ -56,15 +56,16 @@ function runStage(name) {
     return result;
   }
   if (name === "normal-mode") {
-    const includes = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx", [
+    const includes = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanCard.tsx", [
+      'data-normal-floorplan-selector="single-active-floorplan"',
       "Active floorplan",
       "Edit Floorplan",
       "Use for Assignment",
-      "Use for Simulation",
       "Change Floorplan",
       "Advanced"
     ]);
-    const excludes = fileExcludes("apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx", [
+    const excludes = fileExcludes("apps/web/src/features/floorplans/ActiveFloorplanCard.tsx", [
+      "Use for Simulation",
       "recordId",
       "canonical fixture",
       "saved-default",
@@ -77,19 +78,19 @@ function runStage(name) {
     return result;
   }
   if (name === "change-dropdown") {
-    const result = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx", ["<select", "Saved versions", "onChangeFloorplan"]);
+    const result = fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanCard.tsx", ["<select", "Saved versions", "onChangeFloorplan"]);
     writeJson(`${dir}/change-dropdown-output.json`, result);
     addCheck(checks, "saved versions are selected from dropdown", result.passed, result);
     return result;
   }
   if (name === "advanced-library") {
-    const result = fileIncludes("apps/web/src/App.tsx", ["<FloorplanAdvancedPanel>", "<FloorplanLibrary", "<FloorplanVersionHistoryPanel"]);
+    const result = fileIncludes("apps/web/src/App.tsx", ["<ActiveFloorplanHub", "advancedContent={(", "<FloorplanLibrary", "<FloorplanVersionHistoryPanel"]);
     writeJson(`${dir}/advanced-library-output.json`, result);
     addCheck(checks, "old card grid and version history are advanced-only", result.passed, result);
     return result;
   }
   if (name === "technical-copy-hidden") {
-    const excludes = fileExcludes("apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx", [
+    const excludes = fileExcludes("apps/web/src/features/floorplans/ActiveFloorplanCard.tsx", [
       "Record ID",
       "JSON",
       "reload proof",

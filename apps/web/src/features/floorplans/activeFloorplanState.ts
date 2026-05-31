@@ -148,7 +148,7 @@ export function openDefaultFloorplan(
     activeFloorplan,
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: activeFloorplan.recordId,
-    selectedForSimulationVersionId: activeFloorplan.recordId,
+    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -164,7 +164,7 @@ export function openDefaultFloorplanWithoutSelection(
   return {
     ...next,
     selectedForAssignmentVersionId: state.selectedForAssignmentVersionId,
-    selectedForSimulationVersionId: state.selectedForSimulationVersionId
+    selectedForSimulationVersionId: null
   };
 }
 
@@ -195,7 +195,7 @@ export function openSavedFloorplan(
     activeFloorplan,
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: record.recordId,
-    selectedForSimulationVersionId: record.recordId,
+    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1
@@ -239,7 +239,7 @@ export function openReviewCandidateFloorplan(
     },
     activeCanonicalFloorplanId: CANONICAL_FLOORPLAN_ID,
     selectedForAssignmentVersionId: candidate.savedPlanId,
-    selectedForSimulationVersionId: candidate.savedPlanId,
+    selectedForSimulationVersionId: null,
     activeFloorplanHasUnsavedChanges: false,
     selection: createEmptySelectionState(),
     sequence: state.sequence + 1

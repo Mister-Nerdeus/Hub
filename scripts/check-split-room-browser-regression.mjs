@@ -271,9 +271,9 @@ async function runBrowserProof() {
 }
 
 async function openWorkingEditor(browser) {
-  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
-  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(browser, `document.querySelector('[data-command-group="editor-tools"] button')?.disabled === false`, 10_000);
 }
@@ -288,11 +288,17 @@ async function createCanonicalPair(browser, roomId, label) {
 async function saveAndReload(browser) {
   const savedRecordId = await readActiveRecordId(browser);
   await clickGlobalButton(browser, "Save Floorplan");
-  await waitForExpression(browser, `document.body.innerText.includes('Saved. This floorplan is active for assignments and scenarios.')`, 10_000);
+  await waitForExpression(
+    browser,
+    `(() => {
+      const recordId = document.querySelector('[data-active-record-id]')?.getAttribute('data-active-record-id') ?? null;
+      return recordId != null && recordId !== 'No active record';
+    })()`,
+    10_000
+  );
   await browser.navigate(`${browser.baseUrl}/?section=floorplans`, `document.querySelector('.floorplan-library') != null`);
   await clickOpenSavedFloorplan(browser, savedRecordId);
-  await clickNavButton(browser, "Editor");
-  await waitForExpression(browser, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`, 10_000);
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   return savedRecordId;
 }
 
@@ -356,7 +362,7 @@ async function readObjectIds(browser, objectType) {
 
 async function readActiveRecordId(browser) {
   const recordId = await browser.evaluate(`document.querySelector('[data-active-record-id]')?.getAttribute('data-active-record-id') ?? null`);
-  if (recordId == null) throw new Error("active record ID was not visible");
+  if (recordId == null || recordId === "No active record") throw new Error("active record ID was not visible");
   return recordId;
 }
 

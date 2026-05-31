@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "742",
+  "commands": {
+    "1": "node scripts/check-workspace-ux-regression-sweep.mjs --stage shell --allow-partial --issue 742",
+    "2": "node scripts/check-workspace-ux-regression-sweep.mjs --stage hub --allow-partial --issue 742",
+    "3": "node scripts/check-workspace-ux-regression-sweep.mjs --stage editor --allow-partial --issue 742",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "status": "passed",
+  "issue": "734",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "valid patient-room door add, move, width, adjacent assignment, and delete pass in browser",
+      "passed": true,
+      "detail": {
+        "valid": {
+          "status": "passed",
+          "roomId": "room-02",
+          "doorId": "authored-door-001",
+          "beforeDoorCount": 23,
+          "afterDoorCount": 24,
+          "screenshot": "docs/verification/issues/issue-734/screenshots/valid-door-added.png"
+        },
+        "move": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "initialWall": "south",
+          "movedWall": "west",
+          "nudgeClicked": true
+        },
+        "width": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "widthPresetFeet": 6,
+          "widthClicked": true
+        },
+        "adjacent": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "candidateRoomId": "room-19",
+          "candidateText": "19 / south / hallway adjacent",
+          "selected": true
+        },
+        "deleted": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "beforeDoorCount": 24,
+          "afterDoorCount": 23
+        }
+      }
+    },
+    {
+      "name": "invalid targets produce warnings or disabled candidates while provider/pharmacy uses support access",
+      "passed": true,
+      "detail": {
+        "invalidCandidate": {
+          "status": "passed",
+          "doorId": "authored-door-001",
+          "candidateRoomId": "room-19",
+          "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+          "disabled": true,
+          "screenshot": "docs/verification/issues/issue-734/screenshots/invalid-door-warning.png"
+        },
+        "solidWall": {
+          "status": "passed",
+          "roomId": "room-14",
+          "warningVisible": true,
+          "doorCountPreserved": true
+        },
+        "supportSpace": {
+          "status": "passed",
+          "roomId": "room-14",
+          "warningVisible": true,
+          "doorCountPreserved": true
+        },
+        "providerSupport": {
+          "status": "passed",
+          "beforeSupportAccessCount": 0,
+          "afterSupportAccessCount": 1,
+          "usedSupportAccessWorkflow": true
+        }
+      }
+    },
+    {
+      "name": "left/top pod door workflow stays out of recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomId": "room-02",
+        "beforeDoorCount": 23,
+        "afterDoorCount": 24,
+        "screenshot": "docs/verification/issues/issue-734/screenshots/left-pod-door-proof.png"
+      }
+    },
+    {
+      "name": "right/top pod door workflow stays out of recovery",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomId": "room-06",
+        "beforeDoorCount": 24,
+        "afterDoorCount": 25,
+        "screenshot": "docs/verification/issues/issue-734/screenshots/right-pod-door-proof.png"
+      }
+    },
+    {
+      "name": "valid door edit persists through save, reopen, and export",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "savedRecordId": "saved-default-er-layout-plan-1-001",
+        "exportedJson": "docs/verification/issues/issue-734/exported-json/door-regression-after-reload.json",
+        "exportedDoor": {
+          "id": "authored-door-001",
+          "widthFeet": 6,
+          "roomId": "room-02"
+        },
+        "screenshot": "docs/verification/issues/issue-734/screenshots/door-save-reload-proof.png"
+      }
+    },
+    {
+      "name": "recovery screen remains absent during regression pack",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "checks": [
+          {
+            "label": "valid-patient-door-add",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "door-move",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "door-nudge",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "door-width",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "save-reload-export",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "door-delete",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "support-space-reject",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "solid-wall-reject",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "invalid-candidate-disabled",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "adjacent-valid-candidate",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "provider-pharmacy-support-access",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "room-02-pod-regression",
+            "recoveryScreenVisible": false
+          },
+          {
+            "label": "room-06-pod-regression",
+            "recoveryScreenVisible": false
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "valid-patient-door": {
+      "valid": {
+        "status": "passed",
+        "roomId": "room-02",
+        "doorId": "authored-door-001",
+        "beforeDoorCount": 23,
+        "afterDoorCount": 24,
+        "screenshot": "docs/verification/issues/issue-734/screenshots/valid-door-added.png"
+      },
+      "move": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "initialWall": "south",
+        "movedWall": "west",
+        "nudgeClicked": true
+      },
+      "width": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "widthPresetFeet": 6,
+        "widthClicked": true
+      },
+      "adjacent": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "candidateRoomId": "room-19",
+        "candidateText": "19 / south / hallway adjacent",
+        "selected": true
+      },
+      "deleted": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "beforeDoorCount": 24,
+        "afterDoorCount": 23
+      }
+    },
+    "invalid-target-warnings": {
+      "invalidCandidate": {
+        "status": "passed",
+        "doorId": "authored-door-001",
+        "candidateRoomId": "room-19",
+        "candidateText": "19 / south / hallway adjacent - Storage/support-only targets do not receive patient-room door assignments.",
+        "disabled": true,
+        "screenshot": "docs/verification/issues/issue-734/screenshots/invalid-door-warning.png"
+      },
+      "solidWall": {
+        "status": "passed",
+        "roomId": "room-14",
+        "warningVisible": true,
+        "doorCountPreserved": true
+      },
+      "supportSpace": {
+        "status": "passed",
+        "roomId": "room-14",
+        "warningVisible": true,
+        "doorCountPreserved": true
+      },
+      "providerSupport": {
+        "status": "passed",
+        "beforeSupportAccessCount": 0,
+        "afterSupportAccessCount": 1,
+        "usedSupportAccessWorkflow": true
+      }
+    },
+    "left-pod": {
+      "status": "passed",
+      "roomId": "room-02",
+      "beforeDoorCount": 23,
+      "afterDoorCount": 24,
+      "screenshot": "docs/verification/issues/issue-734/screenshots/left-pod-door-proof.png"
+    },
+    "right-pod": {
+      "status": "passed",
+      "roomId": "room-06",
+      "beforeDoorCount": 24,
+      "afterDoorCount": 25,
+      "screenshot": "docs/verification/issues/issue-734/screenshots/right-pod-door-proof.png"
+    },
+    "save-reload-export": {
+      "status": "passed",
+      "doorId": "authored-door-001",
+      "savedRecordId": "saved-default-er-layout-plan-1-001",
+      "exportedJson": "docs/verification/issues/issue-734/exported-json/door-regression-after-reload.json",
+      "exportedDoor": {
+        "id": "authored-door-001",
+        "widthFeet": 6,
+        "roomId": "room-02"
+      },
+      "screenshot": "docs/verification/issues/issue-734/screenshots/door-save-reload-proof.png"
+    },
+    "no-recovery-screen": {
+      "status": "passed",
+      "checks": [
+        {
+          "label": "valid-patient-door-add",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "door-move",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "door-nudge",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "door-width",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "save-reload-export",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "door-delete",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "support-space-reject",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "solid-wall-reject",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "invalid-candidate-disabled",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "adjacent-valid-candidate",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "provider-pharmacy-support-access",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "room-02-pod-regression",
+          "recoveryScreenVisible": false
+        },
+        {
+          "label": "room-06-pod-regression",
+          "recoveryScreenVisible": false
+        }
+      ]
+    }
+  }
+}

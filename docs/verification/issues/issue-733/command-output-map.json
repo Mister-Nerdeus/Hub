@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "733",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-technical-inspector-fields-advanced.mjs --stage technical-fields-hidden-normal --allow-partial --issue 733",
+    "3": "node scripts/check-technical-inspector-fields-advanced.mjs --stage technical-fields-advanced --allow-partial --issue 733",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

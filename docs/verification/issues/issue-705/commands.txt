@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-full-page-workspace-shell.mjs --stage full-width-shell --allow-partial --issue 705
+node scripts/check-full-page-workspace-shell.mjs --stage five-pixel-margin --allow-partial --issue 705
+node scripts/check-full-page-workspace-shell.mjs --stage no-centered-form-shell --allow-partial --issue 705
+node scripts/check-no-phi-fields.mjs

@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-editor-undo-redo-advanced.mjs --stage undo-redo-hidden-normal --allow-partial --issue 726
+node scripts/check-editor-undo-redo-advanced.mjs --stage undo-redo-advanced --allow-partial --issue 726
+node scripts/check-no-phi-fields.mjs

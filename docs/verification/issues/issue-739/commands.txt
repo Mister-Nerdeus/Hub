@@ -1,0 +1,3 @@
+npm --workspace apps/web run build
+node scripts/check-editor-screenshot-proof.mjs --stage screenshot-set --allow-partial --issue 739
+node scripts/check-no-phi-fields.mjs

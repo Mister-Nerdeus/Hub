@@ -1,0 +1,5 @@
+npm --workspace apps/web run build
+node scripts/check-runtime-proof-advanced-only.mjs --stage runtime-build-hidden --allow-partial --issue 710
+node scripts/check-runtime-proof-advanced-only.mjs --stage runtime-mismatch-hidden --allow-partial --issue 710
+node scripts/check-runtime-proof-advanced-only.mjs --stage evidence-accessible --allow-partial --issue 710
+node scripts/check-no-phi-fields.mjs

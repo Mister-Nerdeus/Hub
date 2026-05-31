@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "732",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-editor-details-normal-sections.mjs --stage normal-sections --allow-partial --issue 732",
+    "3": "node scripts/check-no-phi-fields.mjs"
+  }
+}

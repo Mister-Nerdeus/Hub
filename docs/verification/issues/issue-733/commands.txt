@@ -1,0 +1,4 @@
+npm --workspace apps/web run build
+node scripts/check-technical-inspector-fields-advanced.mjs --stage technical-fields-hidden-normal --allow-partial --issue 733
+node scripts/check-technical-inspector-fields-advanced.mjs --stage technical-fields-advanced --allow-partial --issue 733
+node scripts/check-no-phi-fields.mjs

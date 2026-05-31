@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-milestone-a-closeout.mjs --stage final --issue 748
+node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 748
+node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 748
+node scripts/check-production-docker-runtime.mjs
+node scripts/check-no-phi-fields.mjs
+node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 734
+node scripts/check-split-room-browser-regression.mjs --stage final --issue 735
+node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 703

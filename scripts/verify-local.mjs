@@ -207,6 +207,50 @@ const activeFloorplanWorkflowCommands = [
   "npm run check:active-floorplan-workflow-go-no-go"
 ];
 
+const workspaceUxFoundationCommands = [
+  "npm run check:workspace-ux-preflight",
+  "npm run check:full-page-workspace-shell",
+  "npm run check:product-shell-rail",
+  "npm run check:product-shell-rail-accessibility",
+  "npm run check:product-workflow-stepper",
+  "npm run check:route-step-mapping",
+  "npm run check:runtime-proof-advanced-only",
+  "npm run check:future-tools-hidden-normal-mode",
+  "npm run check:advanced-evidence-entry",
+  "npm run check:product-shell-responsive-layout",
+  "npm run check:active-floorplan-hub",
+  "npm run check:active-floorplan-card-layout",
+  "npm run check:floorplan-thumbnail-preview",
+  "npm run check:next-workflow-step-card",
+  "npm run check:simulation-copy-overclaim",
+  "npm run check:compact-readiness-summary",
+  "npm run check:floorplan-readiness-truth",
+  "npm run check:active-floorplan-persistence-resilience",
+  "npm run check:editor-workspace-layout",
+  "npm run check:editor-canvas-expansion",
+  "npm run check:editor-toolbar-docking",
+  "npm run check:editor-normal-toolbar-ux",
+  "npm run check:editor-undo-redo-advanced",
+  "npm run check:editor-detailed-tools-advanced",
+  "npm run check:compact-canvas-controls",
+  "npm run check:editor-technical-status-advanced",
+  "npm run check:right-inspector-removed-normal",
+  "npm run check:editor-details-bottom-panel",
+  "npm run check:editor-details-normal-sections",
+  "npm run check:technical-inspector-fields-advanced",
+  "npm run check:editor-compact-validation-row",
+  "npm run check:editor-screenshot-proof",
+  "npm run check:floorplan-hub-screenshot-proof",
+  "npm run check:normal-mode-technical-copy",
+  "npm run check:workspace-ux-regression-sweep",
+  "npm run check:milestone-a-root-scripts",
+  "npm run check:milestone-a-documentation",
+  "npm run check:milestone-a-screenshot-index",
+  "npm run check:milestone-a-no-overclaim",
+  "npm run check:workspace-ux-go-no-go",
+  "npm run check:milestone-a-closeout"
+];
+
 const requiredRootScripts = Object.keys(runtimeAlignmentRootScriptMap);
 const staleRuntimeLayoutRootScripts = [
   "check:floorplan-editor-save-reload-preflight",
@@ -301,6 +345,7 @@ const commands = [
   ...doorAuthoringCrashHardeningCommands,
   ...splitRoomAuthoringCommands,
   ...activeFloorplanWorkflowCommands,
+  ...workspaceUxFoundationCommands,
   "npm run check:layout-editor-station-move",
   "npm run check:layout-editor-station-resize",
   "npm run check:floorplan-editor-reconstruction-go-no-go",

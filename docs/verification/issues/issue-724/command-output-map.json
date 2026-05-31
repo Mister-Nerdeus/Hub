@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "724",
+  "commands": {
+    "1": "npm --workspace apps/web run build",
+    "2": "node scripts/check-editor-toolbar-docking.mjs --stage toolbar-above-canvas --allow-partial --issue 724",
+    "3": "node scripts/check-editor-toolbar-docking.mjs --stage no-toolbar-canvas-gap --allow-partial --issue 724",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

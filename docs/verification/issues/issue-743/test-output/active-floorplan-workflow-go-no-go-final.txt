@@ -1,0 +1,331 @@
+{
+  "status": "failed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "preflight validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-preflight.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-workflow-preflight.txt'"
+      }
+    },
+    {
+      "name": "sourceOfTruth validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-source-of-truth.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-source-of-truth.txt'"
+      }
+    },
+    {
+      "name": "selectorUx validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-selector-ux.txt'"
+      }
+    },
+    {
+      "name": "versionNaming validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-naming.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-naming.txt'"
+      }
+    },
+    {
+      "name": "versionHistory validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-history.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-history.txt'"
+      }
+    },
+    {
+      "name": "saveAndUse validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\save-and-use-floorplan-ux.txt'"
+      }
+    },
+    {
+      "name": "readinessChecklist validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-readiness-checklist.txt'"
+      }
+    },
+    {
+      "name": "banner validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-banner-all-modes.txt'"
+      }
+    },
+    {
+      "name": "changeConfirmation validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-change-confirmation.txt'"
+      }
+    },
+    {
+      "name": "persistence validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-persistence.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-persistence.txt'"
+      }
+    },
+    {
+      "name": "doorRegression validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\door-authoring-browser-regression.txt'"
+      }
+    },
+    {
+      "name": "splitRoomRegression validator passed from local evidence",
+      "passed": false,
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\split-room-browser-regression.txt'"
+      }
+    },
+    {
+      "name": "final audit inspects code paths beyond manifest flags",
+      "passed": false,
+      "detail": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": false,
+          "missing": [
+            "data-normal-floorplan-selector=\"single-active-floorplan\""
+          ]
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    {
+      "name": "manifest statuses align with rerun validators",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "summaries": {
+    "preflight": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-preflight.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-workflow-preflight.txt'"
+    },
+    "sourceOfTruth": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-source-of-truth.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-source-of-truth.txt'"
+    },
+    "selectorUx": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-selector-ux.txt'"
+    },
+    "versionNaming": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-version-naming.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-naming.txt'"
+    },
+    "versionHistory": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-version-history.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-history.txt'"
+    },
+    "saveAndUse": {
+      "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\save-and-use-floorplan-ux.txt'"
+    },
+    "readinessChecklist": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-readiness-checklist.txt'"
+    },
+    "banner": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-banner-all-modes.txt'"
+    },
+    "changeConfirmation": {
+      "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-change-confirmation.txt'"
+    },
+    "persistence": {
+      "source": "docs/verification/issues/issue-743/test-output/active-floorplan-persistence.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-persistence.txt'"
+    },
+    "doorRegression": {
+      "source": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\door-authoring-browser-regression.txt'"
+    },
+    "splitRoomRegression": {
+      "source": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt",
+      "status": "failed",
+      "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\split-room-browser-regression.txt'"
+    }
+  },
+  "finalDecision": {
+    "activeFloorplanWorkflowGoNoGoStatus": "go_for_additional_active_floorplan_repair",
+    "goNoGoStatus": "blocked_with_exact_active_floorplan_items"
+  },
+  "blockers": [
+    {
+      "blocker": "preflight validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-workflow-preflight.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-workflow-preflight.txt'"
+      }
+    },
+    {
+      "blocker": "sourceOfTruth validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-source-of-truth.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-source-of-truth.txt'"
+      }
+    },
+    {
+      "blocker": "selectorUx validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-selector-ux.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-selector-ux.txt'"
+      }
+    },
+    {
+      "blocker": "versionNaming validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-naming.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-naming.txt'"
+      }
+    },
+    {
+      "blocker": "versionHistory validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-version-history.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-version-history.txt'"
+      }
+    },
+    {
+      "blocker": "saveAndUse validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\save-and-use-floorplan-ux.txt'"
+      }
+    },
+    {
+      "blocker": "readinessChecklist validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-readiness-checklist.txt'"
+      }
+    },
+    {
+      "blocker": "banner validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-banner-all-modes.txt'"
+      }
+    },
+    {
+      "blocker": "changeConfirmation validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/floorplan-change-confirmation.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\floorplan-change-confirmation.txt'"
+      }
+    },
+    {
+      "blocker": "persistence validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/active-floorplan-persistence.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\active-floorplan-persistence.txt'"
+      }
+    },
+    {
+      "blocker": "doorRegression validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/door-authoring-browser-regression.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\door-authoring-browser-regression.txt'"
+      }
+    },
+    {
+      "blocker": "splitRoomRegression validator passed from local evidence",
+      "detail": {
+        "source": "docs/verification/issues/issue-743/test-output/split-room-browser-regression.txt",
+        "status": "failed",
+        "error": "ENOENT: no such file or directory, open 'C:\\Projects\\Hub\\docs\\verification\\issues\\issue-743\\test-output\\split-room-browser-regression.txt'"
+      }
+    },
+    {
+      "blocker": "final audit inspects code paths beyond manifest flags",
+      "detail": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": false,
+          "missing": [
+            "data-normal-floorplan-selector=\"single-active-floorplan\""
+          ]
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  ]
+}

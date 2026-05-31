@@ -36,7 +36,11 @@ export function LayoutInspectorTabs({
   };
 
   return (
-    <aside className="layout-inspector-tabs" aria-label="Tabbed layout inspector">
+    <aside
+      className="layout-inspector-tabs"
+      aria-label="Tabbed layout inspector"
+      data-selected-object-details="true"
+    >
       <div className="layout-inspector-tabs__list" role="tablist" aria-label="Inspector tabs">
         {LAYOUT_INSPECTOR_TABS.map((tab) => (
           <button
