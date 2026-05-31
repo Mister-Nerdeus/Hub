@@ -49,6 +49,8 @@
     "45": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 743",
     "46": "node scripts/check-split-room-browser-regression.mjs --stage final --issue 743",
     "47": "npm run check:production-docker-runtime",
-    "48": "node scripts/check-no-phi-fields.mjs"
+    "48": "Invoke-WebRequest -Uri http://localhost:5180/health -UseBasicParsing",
+    "49": "Invoke-WebRequest -Uri http://localhost:5180/v1/plans -UseBasicParsing",
+    "50": "node scripts/check-no-phi-fields.mjs"
   }
 }
