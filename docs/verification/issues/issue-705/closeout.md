@@ -1,7 +1,7 @@
 # Issue 705 Closeout
 
 ## Problem
-Compact Product Shell Rail
+Full-Page Workspace Shell
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,9 @@ Compact Product Shell Rail
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-product-shell-rail.mjs --stage compact-rail --allow-partial --issue 705
-- node scripts/check-product-shell-rail.mjs --stage workflow-items --allow-partial --issue 705
-- node scripts/check-product-shell-rail.mjs --stage rail-width --allow-partial --issue 705
+- node scripts/check-full-page-workspace-shell.mjs --stage full-width-shell --allow-partial --issue 705
+- node scripts/check-full-page-workspace-shell.mjs --stage five-pixel-margin --allow-partial --issue 705
+- node scripts/check-full-page-workspace-shell.mjs --stage no-centered-form-shell --allow-partial --issue 705
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

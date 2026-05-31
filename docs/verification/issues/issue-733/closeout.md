@@ -1,7 +1,7 @@
 # Issue 733 Closeout
 
 ## Problem
-Manual Assignment Three-Column Layout
+Split-Room Child Independent Loads
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,7 @@ Manual Assignment Three-Column Layout
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-manual-assignment-layout.mjs --stage layout-contract --allow-partial --issue 733
+- node scripts/check-split-room-child-loads.mjs --stage independent-loads --allow-partial --issue 733
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

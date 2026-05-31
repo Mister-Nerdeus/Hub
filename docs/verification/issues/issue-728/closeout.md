@@ -1,7 +1,7 @@
 # Issue 728 Closeout
 
 ## Problem
-Room Load Contract
+Nurse Profile Builder UI
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,10 @@ Room Load Contract
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-load-contract.mjs --stage contract --allow-partial --issue 728
-- node scripts/check-room-load-contract.mjs --stage enum-values --allow-partial --issue 728
+- node scripts/check-nurse-profile-builder.mjs --stage builder-ui --allow-partial --issue 728
+- node scripts/check-nurse-profile-builder.mjs --stage add-nurse --allow-partial --issue 728
+- node scripts/check-nurse-profile-builder.mjs --stage edit-nurse --allow-partial --issue 728
+- node scripts/check-nurse-profile-builder.mjs --stage deactivate-nurse --allow-partial --issue 728
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

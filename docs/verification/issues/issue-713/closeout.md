@@ -1,7 +1,7 @@
 # Issue 713 Closeout
 
 ## Problem
-Next-Step Card State Machine
+Floorplan Thumbnail Preview
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Next-Step Card State Machine
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-next-workflow-step-card.mjs --stage state-machine --allow-partial --issue 713
-- node scripts/check-next-workflow-step-card.mjs --stage assignment-next-step --allow-partial --issue 713
+- node scripts/check-floorplan-thumbnail-preview.mjs --stage thumbnail-contract --allow-partial --issue 713
+- node scripts/check-floorplan-thumbnail-preview.mjs --stage active-layout-preview --allow-partial --issue 713
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

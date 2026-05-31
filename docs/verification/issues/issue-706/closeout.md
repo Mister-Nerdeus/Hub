@@ -1,7 +1,7 @@
 # Issue 706 Closeout
 
 ## Problem
-Top Workflow Stepper
+Compact Product Shell Rail
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,9 @@ Top Workflow Stepper
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-product-workflow-stepper.mjs --stage stepper-contract --allow-partial --issue 706
-- node scripts/check-product-workflow-stepper.mjs --stage active-step --allow-partial --issue 706
-- node scripts/check-product-workflow-stepper.mjs --stage keyboard-nav --allow-partial --issue 706
+- node scripts/check-product-shell-rail.mjs --stage compact-rail --allow-partial --issue 706
+- node scripts/check-product-shell-rail.mjs --stage workflow-items --allow-partial --issue 706
+- node scripts/check-product-shell-rail.mjs --stage rail-width --allow-partial --issue 706
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

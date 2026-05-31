@@ -1,0 +1,108 @@
+{
+  "source": "docs/verification/issues/issue-743/test-output/active-floorplan-banner-all-modes.txt",
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "banner view model uses human name, status, and version label",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "app shell renders banner for floorplan mode",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor receives active floorplan banner context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "manual assignment mode shares active floorplan banner context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "scenario mode shares active floorplan context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "simulation mode displays active floorplan context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "reports mode displays active floorplan and banner hides IDs",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "banner-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "floorplan-mode": {
+      "passed": true,
+      "missing": []
+    },
+    "editor-mode": {
+      "passed": true,
+      "missing": []
+    },
+    "manual-assignment-mode": {
+      "passed": true,
+      "missing": []
+    },
+    "scenario-mode": {
+      "passed": true,
+      "missing": []
+    },
+    "simulation-mode": {
+      "passed": true,
+      "missing": []
+    },
+    "reports-mode": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    }
+  }
+}

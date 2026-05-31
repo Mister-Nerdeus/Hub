@@ -2,19 +2,27 @@
   "status": "passed",
   "issue": "740",
   "patch": {
-    "noSyntheticFallbackNormalModeStatus": "passed",
-    "manualAssignmentNoSyntheticFallbackNormalMode": true
+    "clearAssignmentsConfirmationStatus": "passed",
+    "clearAssignmentsRequiresConfirmation": true
   },
   "manifest": {
     "manifestVersion": "1.0.0",
-    "batch": "704-741",
+    "batch": "704-743",
     "lastUpdatedIssue": "740",
     "productDisplayName": "ER Pod Shift Simulator",
     "repositoryTruthSource": "github_default_branch",
+    "layoutGuardrails": [
+      "compact_rail",
+      "full_page_workspace",
+      "max_5px_outer_margin",
+      "editor_canvas_priority",
+      "editor_details_bottom_collapsible_panel"
+    ],
     "sourceActiveFloorplanWorkflowStatus": "passed",
     "sourceDoorAuthoringStatus": "passed",
     "sourceSplitRoomAuthoringStatus": "passed",
     "editorAssignmentUxPreflightStatus": "passed",
+    "fullPageWorkspaceShellStatus": "passed",
     "productShellRailStatus": "passed",
     "productWorkflowStepperStatus": "passed",
     "routeStepMappingStatus": "passed",
@@ -28,9 +36,10 @@
     "compactReadinessSummaryStatus": "passed",
     "floorplanReadinessTruthStatus": "passed",
     "activeFloorplanPersistenceResilienceStatus": "passed",
+    "editorWorkspaceLayoutStatus": "passed",
     "editorNormalToolbarExtractionStatus": "passed",
     "editorDetailedToolsAdvancedStatus": "passed",
-    "inspectorNormalAdvancedSplitStatus": "passed",
+    "editorDetailsBottomPanelStatus": "passed",
     "assignmentSetContractStatus": "passed",
     "assignmentSetPersistenceStatus": "passed",
     "assignmentSetFloorplanLinkStatus": "passed",
@@ -102,8 +111,14 @@
     "clinicalSafetyScoringStatus": "not_started",
     "staffingComplianceStatus": "not_started",
     "patientOutcomePredictionStatus": "not_started",
-    "noPhiStatus": "pending",
-    "goNoGoStatus": "not_ready",
-    "doorAndSplitRoomRegressionPassed": false
+    "noPhiStatus": "passed",
+    "goNoGoStatus": "go_for_next_batch",
+    "doorAndSplitRoomRegressionPassed": true,
+    "usesFullViewportWidth": true,
+    "outerMarginFivePxMax": true,
+    "editorCanvasPrimary": true,
+    "toolbarDockedAboveCanvas": true,
+    "rightInspectorRemovedNormalMode": true,
+    "editorCanvasWidthExpanded": true
   }
 }

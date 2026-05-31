@@ -532,7 +532,13 @@ async function openSavedWorkingEditor(browser) {
   );
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
-  await clickGlobalButton(browser, "Save Floorplan");
+  await waitForExpression(
+    browser,
+    `Array.from(document.querySelectorAll('button')).some((button) => button.textContent.trim() === 'Save Floorplan' && !button.disabled)`,
+    10_000
+  );
+  const saveResult = await clickGlobalButton(browser, "Save Floorplan");
+  if (!saveResult.clicked) throw new Error(`Save Floorplan button was not clickable: ${JSON.stringify(saveResult)}`);
   await waitForExpression(
     browser,
     `Array.from(document.querySelectorAll('button')).some((button) => button.textContent.trim() === 'Add Room' && !button.disabled)`,

@@ -5,8 +5,9 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-product-shell-responsive-layout.mjs --stage content-width --allow-partial --issue 709",
-    "5": "node scripts/check-product-shell-responsive-layout.mjs --stage narrow-desktop --allow-partial --issue 709",
-    "6": "node scripts/check-no-phi-fields.mjs"
+    "4": "node scripts/check-advanced-evidence-migration.mjs --stage runtime-proof-hidden --allow-partial --issue 709",
+    "5": "node scripts/check-advanced-evidence-migration.mjs --stage future-tools-hidden --allow-partial --issue 709",
+    "6": "node scripts/check-advanced-evidence-migration.mjs --stage evidence-accessible --allow-partial --issue 709",
+    "7": "node scripts/check-no-phi-fields.mjs"
   }
 }

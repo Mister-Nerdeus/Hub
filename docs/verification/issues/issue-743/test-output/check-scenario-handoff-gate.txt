@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-scenario-handoff-gate selected-context",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-scenario-handoff-gate missing-assignment-block",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-scenario-handoff-gate no-simulation-charts",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "selected-context": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "missing-assignment-block": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "no-simulation-charts": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/scenarios/ScenarioHandoffGate.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

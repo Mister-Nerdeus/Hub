@@ -1,7 +1,7 @@
 # Issue 720 Closeout
 
 ## Problem
-Inspector Normal/Advanced Split
+Editor Normal Toolbar Extraction
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Inspector Normal/Advanced Split
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-inspector-normal-advanced-split.mjs --stage normal-groups --allow-partial --issue 720
-- node scripts/check-inspector-normal-advanced-split.mjs --stage technical-fields-advanced --allow-partial --issue 720
+- node scripts/check-editor-normal-toolbar-ux.mjs --stage normal-toolbar --allow-partial --issue 720
+- node scripts/check-editor-normal-toolbar-ux.mjs --stage explicit-add-actions --allow-partial --issue 720
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

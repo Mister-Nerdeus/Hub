@@ -132,7 +132,7 @@ for (const label of ["Save Floorplan", "Done Editing", "Add Room", "Add Door", "
   }
 }
 
-for (const label of ["Undo", "Redo", "Save as New Version", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset View", "Hide Inspector"]) {
+for (const label of ["Undo", "Redo", "Save as New Version", "Restore Local Draft", "Reset Local Draft", "Import JSON", "Export JSON Backup", "Add Object", "Validate", "Reset View", "Hide Details"]) {
   if (!labels.includes(label)) {
     throw new Error(`advanced EditorCommandBar tools missing ${label}`);
   }

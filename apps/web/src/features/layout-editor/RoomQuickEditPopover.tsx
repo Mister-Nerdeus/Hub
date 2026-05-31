@@ -164,6 +164,11 @@ export function RoomQuickEditPopover({
           Delete room
         </button>
       </div>
+      {viewModel.addDoorDisabledReason == null ? null : (
+        <p className="room-quick-edit-popover__validation" role="status">
+          {viewModel.addDoorDisabledReason}
+        </p>
+      )}
       <section
         className="room-quick-edit-popover__split-room"
         data-split-room-workflow={viewModel.splitRoomAction.status}

@@ -1,7 +1,7 @@
 # Issue 729 Closeout
 
 ## Problem
-Room Load Editor UI
+Inactive Nurse Assignment Guard
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,7 @@ Room Load Editor UI
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-load-editor-ui.mjs --stage structured-inputs --allow-partial --issue 729
+- node scripts/check-inactive-nurse-assignment-guard.mjs --stage inactive-block --allow-partial --issue 729
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

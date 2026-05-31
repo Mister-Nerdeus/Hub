@@ -2,6 +2,19 @@ import type { EditableRoomGeometry } from "@nerdeus/shared";
 import { RoomQuickEditPopover } from "../RoomQuickEditPopover";
 import { buildRoomQuickEdit } from "../roomQuickEditViewModel";
 
+type RenderedElement = {
+  props: {
+    className?: string;
+    children?: unknown;
+    [key: string]: unknown;
+  };
+};
+type RenderedChild = RenderedElement | null | undefined | boolean;
+
+function isRenderedElement(child: RenderedChild): child is RenderedElement {
+  return typeof child === "object" && child != null && "props" in child;
+}
+
 const room: EditableRoomGeometry = {
   objectType: "room",
   id: "room-01",
@@ -77,19 +90,37 @@ if (element.props["data-room-quick-edit"] !== "ready") {
   throw new Error("RoomQuickEditPopover must expose ready DOM assertion data");
 }
 
-const children = element.props.children;
-const actionButtons = children[5].props.children;
+const children: RenderedChild[] = Array.isArray(element.props.children) ? element.props.children : [element.props.children];
+const actionGroup = children.find(
+  (child): child is RenderedElement => isRenderedElement(child) && child.props?.className === "room-quick-edit-popover__actions"
+);
+if (actionGroup == null) {
+  throw new Error("RoomQuickEditPopover must render the primary action group");
+}
+const actionButtons = actionGroup.props.children as Array<{ props: { disabled?: boolean; onClick?: () => void } }>;
 for (const [index, expected] of ["assign-nurse", "add-door", "remove-attached-doors", "duplicate-room", "delete-room"].entries()) {
-  if (actionButtons[index].props.disabled) {
+  const actionButton = actionButtons[index];
+  if (actionButton == null) {
+    throw new Error(`Missing ${expected} button`);
+  }
+  if (actionButton.props.disabled) {
     continue;
   }
-  actionButtons[index].props.onClick();
+  if (actionButton.props.onClick == null) {
+    throw new Error(`Missing ${expected} callback`);
+  }
+  actionButton.props.onClick();
   if (calls.at(-1) !== expected) {
     throw new Error(`Expected ${expected} callback`);
   }
 }
 
-const splitRoomSection = children[6];
+const splitRoomSection = children.find(
+  (child): child is RenderedElement => isRenderedElement(child) && child.props?.["data-split-room-workflow"] != null
+);
+if (splitRoomSection == null) {
+  throw new Error("RoomQuickEditPopover must render split-room workflow context");
+}
 if (splitRoomSection.props["data-split-room-workflow"] !== "blocked") {
   throw new Error("Room 01 should not expose a canonical split room action");
 }

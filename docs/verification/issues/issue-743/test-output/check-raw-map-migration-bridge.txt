@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-raw-map-migration-bridge migration-bridge",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/assignments/rawAssignmentMapBridge.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-raw-map-migration-bridge assignment-set-primary",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/App.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "migration-bridge": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/assignments/rawAssignmentMapBridge.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "assignment-set-primary": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/App.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

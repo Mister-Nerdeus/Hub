@@ -1,6 +1,6 @@
 # Editor + Assignment UX Status
 
-Batch 704-741 implements Option A: compact left workflow rail plus full top workflow stepper.
+Batch 704-743 implements the full-page operational workspace, durable assignment foundation, and editor/assignment UX gates.
 
 Final audit status: passed
 

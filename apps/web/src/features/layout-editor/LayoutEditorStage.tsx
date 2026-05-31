@@ -141,6 +141,8 @@ import { buildSupportMarkerEditorViewModel, validateSupportMarkerLabel } from ".
 import { LayoutInspectorTabs } from "./LayoutInspectorTabs";
 import { ZoneShape } from "./ZoneShape";
 import { EditorCommandBar } from "./EditorCommandBar";
+import { EditorDetailsPanel } from "./EditorDetailsPanel";
+import { LayoutEditorWorkspace } from "./LayoutEditorWorkspace";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
@@ -293,7 +295,7 @@ export function LayoutEditorStage({
   const [availableRecoveryDraft, setAvailableRecoveryDraft] = useState<ReturnType<typeof loadLayoutLocalDraft>["draft"]>(null);
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
-  const [inspectorCollapsed, setInspectorCollapsed] = useState(false);
+  const [inspectorCollapsed, setInspectorCollapsed] = useState(true);
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
@@ -1358,6 +1360,7 @@ export function LayoutEditorStage({
       aria-labelledby="layout-editor-stage-title"
       data-active-floorplan-version-id={activeFloorplanContract?.activeFloorplanVersionId ?? ""}
     >
+      <LayoutEditorWorkspace>
       <header className="layout-editor-stage__header">
         <div>
           <p className="eyebrow">Layout editor</p>
@@ -1554,6 +1557,7 @@ export function LayoutEditorStage({
         className={viewportLayoutViewModel.workspaceClassName}
         style={workspaceMeasurements.workspaceStyle}
         data-editor-canvas-height={workspaceMeasurements.canvasHeight}
+        data-editor-canvas-primary="true"
         {...viewportLayoutViewModel.dataAttributes}
       >
         <div className="layout-editor-stage__shell" data-proof-only="true" ref={workspaceMeasurements.shellRef}>
@@ -2024,8 +2028,12 @@ export function LayoutEditorStage({
             )}
           </svg>
         </div>
-        {inspectorCollapsed ? null : (
-        <div className="layout-editor-stage__side-panels" ref={workspaceMeasurements.sidePanelRef}>
+      </div>
+      <EditorDetailsPanel
+        open={!inspectorCollapsed}
+        onOpenChange={(open) => setInspectorCollapsed(!open)}
+      >
+        <div className="editor-details-panel__content" ref={workspaceMeasurements.sidePanelRef}>
           {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (
             <section className="layout-editor-stage__docked-popover" data-popup-docked-panel="true">
               <header>
@@ -2147,9 +2155,9 @@ export function LayoutEditorStage({
             }
           />
         </div>
-        )}
-      </div>
+      </EditorDetailsPanel>
       <ValidationDrawer viewModel={validationDrawerViewModel} />
+      </LayoutEditorWorkspace>
     </section>
   );
 }

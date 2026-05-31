@@ -1,7 +1,7 @@
 # Issue 715 Closeout
 
 ## Problem
-Compact Readiness Summary
+Simulation Copy Overclaim Fix
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Compact Readiness Summary
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-compact-readiness-summary.mjs --stage summary-visible --allow-partial --issue 715
-- node scripts/check-compact-readiness-summary.mjs --stage details-collapsed --allow-partial --issue 715
+- node scripts/check-simulation-copy-overclaim.mjs --stage no-use-for-simulation-floorplan-only --allow-partial --issue 715
+- node scripts/check-simulation-copy-overclaim.mjs --stage prepare-copy --allow-partial --issue 715
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

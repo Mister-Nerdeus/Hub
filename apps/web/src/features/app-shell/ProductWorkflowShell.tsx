@@ -26,7 +26,12 @@ export function ProductWorkflowShell({
   const stepperViewModel = createProductWorkflowStepperViewModel(activeSection);
 
   return (
-    <main className="app-shell product-workflow-shell" data-product-shell-workflow="floorplan-assignments-scenarios-simulation-reports">
+    <main
+      className="app-shell product-workflow-shell"
+      data-product-shell-workflow="floorplan-assignments-scenarios-simulation-reports"
+      data-full-page-workspace-shell="true"
+      data-outer-margin-max-px="5"
+    >
       <ProductSidebarRail
         activeSection={activeSection}
         sections={sections}

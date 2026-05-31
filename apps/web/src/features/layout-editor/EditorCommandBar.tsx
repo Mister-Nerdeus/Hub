@@ -102,6 +102,7 @@ export function EditorCommandBar({
       className="editor-command-bar"
       aria-label="Editor command bar"
       data-editor-command-bar="consolidated"
+      data-editor-toolbar-position="above-canvas"
       data-normal-technical-copy-hidden="true"
     >
       <EditorNormalToolbar
@@ -163,7 +164,7 @@ export function EditorCommandBar({
             Reset View
           </button>
           <button type="button" onClick={onToggleInspector} aria-pressed={inspectorCollapsed}>
-            {inspectorCollapsed ? "Show Inspector" : "Hide Inspector"}
+            {inspectorCollapsed ? "Show Details" : "Hide Details"}
           </button>
         </div>
         <dl className="editor-command-bar__status" aria-label="Editor status">

@@ -1,0 +1,5 @@
+First review failures:
+- Door browser regression initially timed out waiting for enabled Add Room because Save Floorplan was clicked before the script waited for the actionable save control.
+- Web tests then failed on brittle child-index assumptions after adding visible Add door disabled reason copy.
+
+Both failures were fixed and the affected gates now pass.

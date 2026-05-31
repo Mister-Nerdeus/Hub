@@ -1,7 +1,7 @@
 # Issue 736 Closeout
 
 ## Problem
-Assignment Issues Panel
+Room Assignment Table + Filters
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,8 @@ Assignment Issues Panel
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-assignment-issues-panel.mjs --stage issues-panel --allow-partial --issue 736
+- node scripts/check-room-assignment-table.mjs --stage room-table --allow-partial --issue 736
+- node scripts/check-room-assignment-table.mjs --stage filter-chips --allow-partial --issue 736
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

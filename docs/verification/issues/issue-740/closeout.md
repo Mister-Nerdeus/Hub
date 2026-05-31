@@ -1,7 +1,7 @@
 # Issue 740 Closeout
 
 ## Problem
-No Synthetic Fallback in Normal Assignment
+Clear Assignments Confirmation
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,7 @@ No Synthetic Fallback in Normal Assignment
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-no-synthetic-fallback-normal-mode.mjs --stage blocked-state --allow-partial --issue 740
-- node scripts/check-no-synthetic-fallback-normal-mode.mjs --stage synthetic-dev-only --allow-partial --issue 740
+- node scripts/check-clear-assignments-confirmation.mjs --stage clear-confirmation --allow-partial --issue 740
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

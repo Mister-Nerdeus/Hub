@@ -1,7 +1,7 @@
 # Issue 707 Closeout
 
 ## Problem
-Route-to-Step Mapping
+Top Workflow Stepper
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,9 @@ Route-to-Step Mapping
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 707
-- node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 707
-- node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 707
+- node scripts/check-product-workflow-stepper.mjs --stage stepper-contract --allow-partial --issue 707
+- node scripts/check-product-workflow-stepper.mjs --stage active-step --allow-partial --issue 707
+- node scripts/check-product-workflow-stepper.mjs --stage keyboard-nav --allow-partial --issue 707
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

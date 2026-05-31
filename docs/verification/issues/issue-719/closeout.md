@@ -1,7 +1,7 @@
 # Issue 719 Closeout
 
 ## Problem
-Move Legacy Editor Toolbar to Advanced
+Editor Workspace Full-Page Layout
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,9 @@ Move Legacy Editor Toolbar to Advanced
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-editor-detailed-tools-advanced.mjs --stage detailed-toolbar-advanced --allow-partial --issue 719
-- node scripts/check-editor-detailed-tools-advanced.mjs --stage normal-mode-hidden --allow-partial --issue 719
+- node scripts/check-editor-workspace-layout.mjs --stage full-page-editor --allow-partial --issue 719
+- node scripts/check-editor-workspace-layout.mjs --stage toolbar-above-canvas --allow-partial --issue 719
+- node scripts/check-editor-workspace-layout.mjs --stage canvas-expanded --allow-partial --issue 719
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

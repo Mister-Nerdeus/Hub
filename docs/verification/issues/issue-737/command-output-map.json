@@ -5,8 +5,8 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-save-assignment-set-ux.mjs --stage assignment-selector --allow-partial --issue 737",
-    "5": "node scripts/check-save-assignment-set-ux.mjs --stage save-assignment --allow-partial --issue 737",
+    "4": "node scripts/check-nurse-assignment-cards.mjs --stage nurse-cards --allow-partial --issue 737",
+    "5": "node scripts/check-nurse-assignment-cards.mjs --stage burden-breakdown --allow-partial --issue 737",
     "6": "node scripts/check-no-phi-fields.mjs"
   }
 }

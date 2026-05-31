@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-full-page-workspace-shell full-width-shell",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-full-page-workspace-shell five-pixel-margin",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-full-page-workspace-shell no-centered-form-shell",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "present": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appShell.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "full-width-shell": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "five-pixel-margin": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/ProductWorkflowShell.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "no-centered-form-shell": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "present": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appShell.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

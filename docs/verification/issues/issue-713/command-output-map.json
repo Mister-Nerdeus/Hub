@@ -5,8 +5,8 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-next-workflow-step-card.mjs --stage state-machine --allow-partial --issue 713",
-    "5": "node scripts/check-next-workflow-step-card.mjs --stage assignment-next-step --allow-partial --issue 713",
+    "4": "node scripts/check-floorplan-thumbnail-preview.mjs --stage thumbnail-contract --allow-partial --issue 713",
+    "5": "node scripts/check-floorplan-thumbnail-preview.mjs --stage active-layout-preview --allow-partial --issue 713",
     "6": "node scripts/check-no-phi-fields.mjs"
   }
 }

@@ -1,7 +1,7 @@
 # Issue 730 Closeout
 
 ## Problem
-Room Load Persistence in Assignment Set
+Room Load Contract
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Room Load Persistence in Assignment Set
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-load-persistence.mjs --stage persistence --allow-partial --issue 730
-- node scripts/check-room-load-persistence.mjs --stage reload-proof --allow-partial --issue 730
+- node scripts/check-room-load-contract.mjs --stage contract --allow-partial --issue 730
+- node scripts/check-room-load-contract.mjs --stage enum-values --allow-partial --issue 730
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

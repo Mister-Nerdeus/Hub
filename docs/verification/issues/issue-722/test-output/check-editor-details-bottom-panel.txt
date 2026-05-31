@@ -1,0 +1,137 @@
+{
+  "status": "passed",
+  "issue": "722",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-editor-details-bottom-panel right-inspector-removed-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorDetailsPanel.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-details-bottom-panel bottom-details-panel",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/EditorDetailsPanel.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-details-bottom-panel canvas-width-expanded",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-editor-details-bottom-panel technical-fields-advanced",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/layout-editor/InspectorAdvancedDetails.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "right-inspector-removed-normal": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorDetailsPanel.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "bottom-details-panel": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/EditorDetailsPanel.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "canvas-width-expanded": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/LayoutEditorStage.css",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "technical-fields-advanced": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/layout-editor/InspectorAdvancedDetails.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

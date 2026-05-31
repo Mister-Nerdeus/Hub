@@ -1,7 +1,7 @@
 # Issue 712 Closeout
 
 ## Problem
-Floorplan Thumbnail Preview
+Active Floorplan Card Layout Fix
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,9 @@ Floorplan Thumbnail Preview
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-floorplan-thumbnail-preview.mjs --stage thumbnail-contract --allow-partial --issue 712
-- node scripts/check-floorplan-thumbnail-preview.mjs --stage active-layout-preview --allow-partial --issue 712
+- node scripts/check-active-floorplan-card-layout.mjs --stage normal-width --allow-partial --issue 712
+- node scripts/check-active-floorplan-card-layout.mjs --stage narrow-width --allow-partial --issue 712
+- node scripts/check-active-floorplan-card-layout.mjs --stage no-title-collision --allow-partial --issue 712
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

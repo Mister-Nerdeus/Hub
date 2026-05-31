@@ -1,7 +1,7 @@
 # Issue 714 Closeout
 
 ## Problem
-Simulation Copy Overclaim Fix
+Next-Step Card State Machine
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Simulation Copy Overclaim Fix
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-simulation-copy-overclaim.mjs --stage no-use-for-simulation-floorplan-only --allow-partial --issue 714
-- node scripts/check-simulation-copy-overclaim.mjs --stage prepare-copy --allow-partial --issue 714
+- node scripts/check-next-workflow-step-card.mjs --stage state-machine --allow-partial --issue 714
+- node scripts/check-next-workflow-step-card.mjs --stage assignment-next-step --allow-partial --issue 714
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

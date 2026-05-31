@@ -5,9 +5,9 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-product-shell-rail.mjs --stage compact-rail --allow-partial --issue 705",
-    "5": "node scripts/check-product-shell-rail.mjs --stage workflow-items --allow-partial --issue 705",
-    "6": "node scripts/check-product-shell-rail.mjs --stage rail-width --allow-partial --issue 705",
+    "4": "node scripts/check-full-page-workspace-shell.mjs --stage full-width-shell --allow-partial --issue 705",
+    "5": "node scripts/check-full-page-workspace-shell.mjs --stage five-pixel-margin --allow-partial --issue 705",
+    "6": "node scripts/check-full-page-workspace-shell.mjs --stage no-centered-form-shell --allow-partial --issue 705",
     "7": "node scripts/check-no-phi-fields.mjs"
   }
 }

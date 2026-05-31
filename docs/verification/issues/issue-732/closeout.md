@@ -1,7 +1,7 @@
 # Issue 732 Closeout
 
 ## Problem
-Room Load Burden Recalculation
+Room Load Persistence in Assignment Set
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,8 @@ Room Load Burden Recalculation
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-load-burden-recalculation.mjs --stage load-change-burden --allow-partial --issue 732
+- node scripts/check-room-load-persistence.mjs --stage persistence --allow-partial --issue 732
+- node scripts/check-room-load-persistence.mjs --stage reload-proof --allow-partial --issue 732
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

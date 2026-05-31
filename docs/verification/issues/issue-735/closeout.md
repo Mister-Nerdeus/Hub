@@ -1,7 +1,7 @@
 # Issue 735 Closeout
 
 ## Problem
-Nurse Assignment Cards + Why High Breakdown
+Manual Assignment Three-Column Layout
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,7 @@ Nurse Assignment Cards + Why High Breakdown
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-nurse-assignment-cards.mjs --stage nurse-cards --allow-partial --issue 735
-- node scripts/check-nurse-assignment-cards.mjs --stage burden-breakdown --allow-partial --issue 735
+- node scripts/check-manual-assignment-layout.mjs --stage layout-contract --allow-partial --issue 735
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

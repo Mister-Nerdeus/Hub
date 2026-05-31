@@ -1,7 +1,7 @@
 # Issue 726 Closeout
 
 ## Problem
-Nurse Profile Builder UI
+Raw Assignment Map Migration Bridge
 
 ## Summary
 - Local validator status: passed.
@@ -13,10 +13,8 @@ Nurse Profile Builder UI
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-nurse-profile-builder.mjs --stage builder-ui --allow-partial --issue 726
-- node scripts/check-nurse-profile-builder.mjs --stage add-nurse --allow-partial --issue 726
-- node scripts/check-nurse-profile-builder.mjs --stage edit-nurse --allow-partial --issue 726
-- node scripts/check-nurse-profile-builder.mjs --stage deactivate-nurse --allow-partial --issue 726
+- node scripts/check-raw-map-migration-bridge.mjs --stage migration-bridge --allow-partial --issue 726
+- node scripts/check-raw-map-migration-bridge.mjs --stage assignment-set-primary --allow-partial --issue 726
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

@@ -1,7 +1,7 @@
 # Issue 734 Closeout
 
 ## Problem
-Room Assignment Table + Filters
+Room Load Burden Recalculation
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,7 @@ Room Assignment Table + Filters
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-room-assignment-table.mjs --stage room-table --allow-partial --issue 734
-- node scripts/check-room-assignment-table.mjs --stage filter-chips --allow-partial --issue 734
+- node scripts/check-room-load-burden-recalculation.mjs --stage load-change-burden --allow-partial --issue 734
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

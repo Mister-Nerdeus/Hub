@@ -2,24 +2,27 @@
   "status": "passed",
   "issue": "741",
   "patch": {
-    "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder",
-    "goNoGoStatus": "go_for_next_batch",
-    "noPhiStatus": "passed",
-    "sourceActiveFloorplanWorkflowStatus": "passed",
-    "sourceDoorAuthoringStatus": "passed",
-    "sourceSplitRoomAuthoringStatus": "passed",
-    "doorAndSplitRoomRegressionPassed": true
+    "scenarioHandoffGateStatus": "passed",
+    "scenarioReceivesSelectedAssignmentSet": true
   },
   "manifest": {
     "manifestVersion": "1.0.0",
-    "batch": "704-741",
+    "batch": "704-743",
     "lastUpdatedIssue": "741",
     "productDisplayName": "ER Pod Shift Simulator",
     "repositoryTruthSource": "github_default_branch",
+    "layoutGuardrails": [
+      "compact_rail",
+      "full_page_workspace",
+      "max_5px_outer_margin",
+      "editor_canvas_priority",
+      "editor_details_bottom_collapsible_panel"
+    ],
     "sourceActiveFloorplanWorkflowStatus": "passed",
     "sourceDoorAuthoringStatus": "passed",
     "sourceSplitRoomAuthoringStatus": "passed",
     "editorAssignmentUxPreflightStatus": "passed",
+    "fullPageWorkspaceShellStatus": "passed",
     "productShellRailStatus": "passed",
     "productWorkflowStepperStatus": "passed",
     "routeStepMappingStatus": "passed",
@@ -33,9 +36,10 @@
     "compactReadinessSummaryStatus": "passed",
     "floorplanReadinessTruthStatus": "passed",
     "activeFloorplanPersistenceResilienceStatus": "passed",
+    "editorWorkspaceLayoutStatus": "passed",
     "editorNormalToolbarExtractionStatus": "passed",
     "editorDetailedToolsAdvancedStatus": "passed",
-    "inspectorNormalAdvancedSplitStatus": "passed",
+    "editorDetailsBottomPanelStatus": "passed",
     "assignmentSetContractStatus": "passed",
     "assignmentSetPersistenceStatus": "passed",
     "assignmentSetFloorplanLinkStatus": "passed",
@@ -56,7 +60,7 @@
     "clearAssignmentsConfirmationStatus": "passed",
     "scenarioHandoffGateStatus": "passed",
     "noSyntheticFallbackNormalModeStatus": "passed",
-    "editorAssignmentUxGoNoGoStatus": "go_for_room_burden_scoring_and_scenario_builder",
+    "editorAssignmentUxGoNoGoStatus": "not_ready",
     "compactRailEnabled": true,
     "normalShellUsesWorkflowSteps": true,
     "fullStepperVisible": true,
@@ -109,6 +113,12 @@
     "patientOutcomePredictionStatus": "not_started",
     "noPhiStatus": "passed",
     "goNoGoStatus": "go_for_next_batch",
-    "doorAndSplitRoomRegressionPassed": true
+    "doorAndSplitRoomRegressionPassed": true,
+    "usesFullViewportWidth": true,
+    "outerMarginFivePxMax": true,
+    "editorCanvasPrimary": true,
+    "toolbarDockedAboveCanvas": true,
+    "rightInspectorRemovedNormalMode": true,
+    "editorCanvasWidthExpanded": true
   }
 }

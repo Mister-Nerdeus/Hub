@@ -1,7 +1,7 @@
 # Issue 711 Closeout
 
 ## Problem
-Active Floorplan Card Layout Fix
+Active Floorplan Hub Component
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,8 @@ Active Floorplan Card Layout Fix
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-active-floorplan-card-layout.mjs --stage normal-width --allow-partial --issue 711
-- node scripts/check-active-floorplan-card-layout.mjs --stage narrow-width --allow-partial --issue 711
-- node scripts/check-active-floorplan-card-layout.mjs --stage no-title-collision --allow-partial --issue 711
+- node scripts/check-active-floorplan-hub.mjs --stage hub-contract --allow-partial --issue 711
+- node scripts/check-active-floorplan-hub.mjs --stage hub-composition --allow-partial --issue 711
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

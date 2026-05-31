@@ -1,7 +1,7 @@
 # Issue 739 Closeout
 
 ## Problem
-Scenario Handoff Gate
+Save Assignment Set UX
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,8 @@ Scenario Handoff Gate
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-scenario-handoff-gate.mjs --stage selected-context --allow-partial --issue 739
-- node scripts/check-scenario-handoff-gate.mjs --stage missing-assignment-block --allow-partial --issue 739
-- node scripts/check-scenario-handoff-gate.mjs --stage no-simulation-charts --allow-partial --issue 739
+- node scripts/check-save-assignment-set-ux.mjs --stage assignment-selector --allow-partial --issue 739
+- node scripts/check-save-assignment-set-ux.mjs --stage save-assignment --allow-partial --issue 739
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

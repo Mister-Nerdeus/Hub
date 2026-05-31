@@ -1,7 +1,7 @@
 # Issue 722 Closeout
 
 ## Problem
-Assignment Set Persistence
+Inspector Becomes Bottom Details Panel
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,10 @@ Assignment Set Persistence
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-assignment-set-persistence.mjs --stage persistence --allow-partial --issue 722
-- node scripts/check-assignment-set-persistence.mjs --stage reload-proof --allow-partial --issue 722
+- node scripts/check-editor-details-bottom-panel.mjs --stage right-inspector-removed-normal --allow-partial --issue 722
+- node scripts/check-editor-details-bottom-panel.mjs --stage bottom-details-panel --allow-partial --issue 722
+- node scripts/check-editor-details-bottom-panel.mjs --stage canvas-width-expanded --allow-partial --issue 722
+- node scripts/check-editor-details-bottom-panel.mjs --stage technical-fields-advanced --allow-partial --issue 722
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

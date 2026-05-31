@@ -1,7 +1,7 @@
 # Issue 737 Closeout
 
 ## Problem
-Save Assignment Set UX
+Nurse Assignment Cards + Why High Breakdown
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Save Assignment Set UX
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-save-assignment-set-ux.mjs --stage assignment-selector --allow-partial --issue 737
-- node scripts/check-save-assignment-set-ux.mjs --stage save-assignment --allow-partial --issue 737
+- node scripts/check-nurse-assignment-cards.mjs --stage nurse-cards --allow-partial --issue 737
+- node scripts/check-nurse-assignment-cards.mjs --stage burden-breakdown --allow-partial --issue 737
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

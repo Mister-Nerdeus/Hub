@@ -44,16 +44,20 @@ for (const snippet of [
   "inspectorCollapsed",
   "layout-editor-stage__json-drawer",
   "data-canvas-layout",
-  "layout-editor-stage__workspace--inspector-collapsed"
+  "layout-editor-stage__workspace--inspector-collapsed",
+  "EditorDetailsPanel"
 ]) {
   if (!stageSource.includes(snippet) && !cssSource.includes(snippet) && !viewModelSource.includes(snippet)) {
     throw new Error(`editor viewport layout missing ${snippet}`);
   }
 }
 
-if (!cssSource.includes("max-width: 1480px")) {
-  throw new Error("editor shell should allow a wider canvas");
+if (!cssSource.includes("max-width: none")) {
+  throw new Error("editor shell should use the full workspace width");
 }
-if (!cssSource.includes("grid-template-columns: minmax(0, 1fr) minmax(240px, 300px)")) {
-  throw new Error("editor workspace should reserve most width for the canvas");
+if (!cssSource.includes("grid-template-columns: minmax(0, 1fr)")) {
+  throw new Error("editor workspace should reserve normal width for the canvas");
+}
+if (!stageSource.includes("data-editor-canvas-primary=\"true\"")) {
+  throw new Error("editor workspace should mark the canvas as the primary work area");
 }

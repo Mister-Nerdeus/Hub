@@ -1,7 +1,7 @@
 # Issue 725 Closeout
 
 ## Problem
-Nurse Profile Contract
+Assignment Set Floorplan Version Link
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,8 @@ Nurse Profile Contract
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-nurse-profile-contract.mjs --stage contract --allow-partial --issue 725
+- node scripts/check-assignment-set-floorplan-link.mjs --stage active-floorplan-link --allow-partial --issue 725
+- node scripts/check-assignment-set-floorplan-link.mjs --stage compatibility --allow-partial --issue 725
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

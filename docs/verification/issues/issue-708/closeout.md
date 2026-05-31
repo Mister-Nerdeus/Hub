@@ -1,7 +1,7 @@
 # Issue 708 Closeout
 
 ## Problem
-Advanced/Evidence Migration
+Route-to-Step Mapping
 
 ## Summary
 - Local validator status: passed.
@@ -13,9 +13,9 @@ Advanced/Evidence Migration
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-advanced-evidence-migration.mjs --stage runtime-proof-hidden --allow-partial --issue 708
-- node scripts/check-advanced-evidence-migration.mjs --stage future-tools-hidden --allow-partial --issue 708
-- node scripts/check-advanced-evidence-migration.mjs --stage evidence-accessible --allow-partial --issue 708
+- node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 708
+- node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 708
+- node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 708
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

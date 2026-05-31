@@ -1,7 +1,7 @@
 # Issue 727 Closeout
 
 ## Problem
-Inactive Nurse Assignment Guard
+Nurse Profile Contract
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,7 @@ Inactive Nurse Assignment Guard
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-inactive-nurse-assignment-guard.mjs --stage inactive-block --allow-partial --issue 727
+- node scripts/check-nurse-profile-contract.mjs --stage contract --allow-partial --issue 727
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

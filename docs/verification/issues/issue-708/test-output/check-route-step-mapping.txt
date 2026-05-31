@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "issue": "708",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-route-step-mapping editor-floorplan-map",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-route-step-mapping assignment-map",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-route-step-mapping scenarios-normal",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/app-shell/appNavigation.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "editor-floorplan-map": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "assignment-map": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/productWorkflowSteps.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "scenarios-normal": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/app-shell/appNavigation.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

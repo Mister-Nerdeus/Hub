@@ -1,7 +1,7 @@
 # Issue 709 Closeout
 
 ## Problem
-Product Shell Responsive Layout
+Advanced/Evidence Migration
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,9 @@ Product Shell Responsive Layout
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-product-shell-responsive-layout.mjs --stage content-width --allow-partial --issue 709
-- node scripts/check-product-shell-responsive-layout.mjs --stage narrow-desktop --allow-partial --issue 709
+- node scripts/check-advanced-evidence-migration.mjs --stage runtime-proof-hidden --allow-partial --issue 709
+- node scripts/check-advanced-evidence-migration.mjs --stage future-tools-hidden --allow-partial --issue 709
+- node scripts/check-advanced-evidence-migration.mjs --stage evidence-accessible --allow-partial --issue 709
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

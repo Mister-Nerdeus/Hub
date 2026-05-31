@@ -1,7 +1,7 @@
 # Issue 716 Closeout
 
 ## Problem
-Readiness Truth Logic
+Compact Readiness Summary
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Readiness Truth Logic
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 716
-- node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 716
+- node scripts/check-compact-readiness-summary.mjs --stage summary-visible --allow-partial --issue 716
+- node scripts/check-compact-readiness-summary.mjs --stage details-collapsed --allow-partial --issue 716
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

@@ -31,7 +31,7 @@ export function ProductSidebarRail({
       className="product-sidebar product-sidebar-rail"
       aria-label="Product workflow rail"
       data-product-sidebar-rail="compact"
-      data-rail-width-target="72-96"
+      data-rail-width-target="56-80"
     >
       <nav
         className="app-nav product-sidebar__nav product-sidebar-rail__nav"

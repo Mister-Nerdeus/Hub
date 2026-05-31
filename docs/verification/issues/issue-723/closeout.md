@@ -1,7 +1,7 @@
 # Issue 723 Closeout
 
 ## Problem
-Assignment Set Floorplan Version Link
+Assignment Set Contract
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Assignment Set Floorplan Version Link
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-assignment-set-floorplan-link.mjs --stage active-floorplan-link --allow-partial --issue 723
-- node scripts/check-assignment-set-floorplan-link.mjs --stage compatibility --allow-partial --issue 723
+- node scripts/check-assignment-set-contract.mjs --stage contract --allow-partial --issue 723
+- node scripts/check-assignment-set-contract.mjs --stage validation --allow-partial --issue 723
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

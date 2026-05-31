@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "issue": "715",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check-simulation-copy-overclaim no-use-for-simulation-floorplan-only",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx",
+            "passed": true,
+            "present": []
+          },
+          {
+            "kind": "exclude",
+            "path": "apps/web/src/features/floorplans/NextWorkflowStepCard.tsx",
+            "passed": true,
+            "present": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/App.tsx",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "check-simulation-copy-overclaim prepare-copy",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx",
+            "passed": true,
+            "missing": []
+          },
+          {
+            "kind": "include",
+            "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "no-use-for-simulation-floorplan-only": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx",
+          "passed": true,
+          "present": []
+        },
+        {
+          "kind": "exclude",
+          "path": "apps/web/src/features/floorplans/NextWorkflowStepCard.tsx",
+          "passed": true,
+          "present": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/App.tsx",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "prepare-copy": {
+      "passed": true,
+      "results": [
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx",
+          "passed": true,
+          "missing": []
+        },
+        {
+          "kind": "include",
+          "path": "apps/web/src/features/floorplans/floorplanReadinessViewModel.ts",
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

@@ -1,7 +1,7 @@
 # Issue 738 Closeout
 
 ## Problem
-Clear Assignments Confirmation
+Assignment Issues Panel
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,7 @@ Clear Assignments Confirmation
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-clear-assignments-confirmation.mjs --stage clear-confirmation --allow-partial --issue 738
+- node scripts/check-assignment-issues-panel.mjs --stage issues-panel --allow-partial --issue 738
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

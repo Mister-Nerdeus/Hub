@@ -1,7 +1,7 @@
 # Issue 724 Closeout
 
 ## Problem
-Raw Assignment Map Migration Bridge
+Assignment Set Persistence
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Raw Assignment Map Migration Bridge
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-raw-map-migration-bridge.mjs --stage migration-bridge --allow-partial --issue 724
-- node scripts/check-raw-map-migration-bridge.mjs --stage assignment-set-primary --allow-partial --issue 724
+- node scripts/check-assignment-set-persistence.mjs --stage persistence --allow-partial --issue 724
+- node scripts/check-assignment-set-persistence.mjs --stage reload-proof --allow-partial --issue 724
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

@@ -1,7 +1,7 @@
 # Issue 731 Closeout
 
 ## Problem
-Split-Room Child Independent Loads
+Room Load Editor UI
 
 ## Summary
 - Local validator status: passed.
@@ -13,7 +13,7 @@ Split-Room Child Independent Loads
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-split-room-child-loads.mjs --stage independent-loads --allow-partial --issue 731
+- node scripts/check-room-load-editor-ui.mjs --stage structured-inputs --allow-partial --issue 731
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

@@ -17,8 +17,9 @@ import {
   writeTextIfMissing
 } from "./editor-assignment-ux-utils.mjs";
 
-export const editorAssignmentUx704741Scripts = [
+export const editorAssignmentUx704743Scripts = [
   "check-editor-assignment-ux-preflight",
+  "check-full-page-workspace-shell",
   "check-product-shell-rail",
   "check-product-workflow-stepper",
   "check-route-step-mapping",
@@ -32,9 +33,10 @@ export const editorAssignmentUx704741Scripts = [
   "check-compact-readiness-summary",
   "check-floorplan-readiness-truth",
   "check-active-floorplan-persistence-resilience",
+  "check-editor-workspace-layout",
   "check-editor-normal-toolbar-ux",
   "check-editor-detailed-tools-advanced",
-  "check-inspector-normal-advanced-split",
+  "check-editor-details-bottom-panel",
   "check-assignment-set-contract",
   "check-assignment-set-persistence",
   "check-assignment-set-floorplan-link",
@@ -77,7 +79,9 @@ const issueConfigs = {
           "\"scenarioBuilderStatus\": \"foundation_only\"",
           "\"simulationReviewStatus\": \"internal_dry_run_only\"",
           "\"reportsStatus\": \"placeholder_only\"",
-          "\"optimizerStatus\": \"not_started\""
+          "\"optimizerStatus\": \"not_started\"",
+          "\"full_page_workspace\"",
+          "\"editor_details_bottom_collapsible_panel\""
         ])
       ],
       "root-script-wiring": [rootScriptsPresent()],
@@ -97,8 +101,32 @@ const issueConfigs = {
       ]
     }
   },
-  "check-product-shell-rail": {
+  "check-full-page-workspace-shell": {
     issue: "705",
+    title: "Full-Page Workspace Shell",
+    ui: true,
+    manifestPatch: {
+      fullPageWorkspaceShellStatus: "passed",
+      usesFullViewportWidth: true,
+      outerMarginFivePxMax: true
+    },
+    stages: {
+      "full-width-shell": [
+        include("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", ["data-full-page-workspace-shell=\"true\""]),
+        include("apps/web/src/features/app-shell/appShell.css", ["width: 100vw", "max-width: none"])
+      ],
+      "five-pixel-margin": [
+        include("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", ["data-outer-margin-max-px=\"5\""]),
+        include("apps/web/src/features/app-shell/appShell.css", ["padding: 5px", "gap: 5px"])
+      ],
+      "no-centered-form-shell": [
+        exclude("apps/web/src/features/app-shell/appShell.css", ["max-width: 1180px"]),
+        include("apps/web/src/features/app-shell/appShell.css", [".workflow-content", "margin: 0", "max-width: none"])
+      ]
+    }
+  },
+  "check-product-shell-rail": {
+    issue: "706",
     title: "Compact Product Shell Rail",
     ui: true,
     manifestPatch: {
@@ -116,13 +144,13 @@ const issueConfigs = {
         exclude("apps/web/src/features/app-shell/ProductWorkflowShell.tsx", ["Future Tools"])
       ],
       "rail-width": [
-        include("apps/web/src/features/app-shell/appShell.css", ["grid-template-columns: 84px", "width: 84px"]),
-        include("apps/web/src/features/app-shell/ProductSidebarRail.tsx", ["data-rail-width-target=\"72-96\""])
+        include("apps/web/src/features/app-shell/appShell.css", ["grid-template-columns: 72px", "width: 72px"]),
+        include("apps/web/src/features/app-shell/ProductSidebarRail.tsx", ["data-rail-width-target=\"56-80\""])
       ]
     }
   },
   "check-product-workflow-stepper": {
-    issue: "706",
+    issue: "707",
     title: "Top Workflow Stepper",
     ui: true,
     manifestPatch: {
@@ -144,7 +172,7 @@ const issueConfigs = {
     }
   },
   "check-route-step-mapping": {
-    issue: "707",
+    issue: "708",
     title: "Route-to-Step Mapping",
     manifestPatch: {
       routeStepMappingStatus: "passed",
@@ -159,7 +187,7 @@ const issueConfigs = {
     }
   },
   "check-advanced-evidence-migration": {
-    issue: "708",
+    issue: "709",
     title: "Advanced/Evidence Migration",
     ui: true,
     manifestPatch: {
@@ -181,7 +209,7 @@ const issueConfigs = {
     }
   },
   "check-product-shell-responsive-layout": {
-    issue: "709",
+    issue: "710",
     title: "Product Shell Responsive Layout",
     ui: true,
     manifestPatch: {
@@ -189,12 +217,12 @@ const issueConfigs = {
       compactRailNoContentCrowding: true
     },
     stages: {
-      "content-width": [include("apps/web/src/features/app-shell/appShell.css", ["grid-template-columns: 84px minmax(0, 1fr)", "max-width: 1180px", "min-width: 0"])],
+      "content-width": [include("apps/web/src/features/app-shell/appShell.css", ["grid-template-columns: 72px minmax(0, 1fr)", "max-width: none", "min-width: 0"])],
       "narrow-desktop": [include("apps/web/src/features/app-shell/appShell.css", ["@media (max-width: 860px)", "grid-template-columns: 1fr"])]
     }
   },
   "check-active-floorplan-hub": {
-    issue: "710",
+    issue: "711",
     title: "Active Floorplan Hub Component",
     ui: true,
     manifestPatch: {
@@ -207,7 +235,7 @@ const issueConfigs = {
     }
   },
   "check-active-floorplan-card-layout": {
-    issue: "711",
+    issue: "712",
     title: "Active Floorplan Card Layout Fix",
     ui: true,
     manifestPatch: {
@@ -222,7 +250,7 @@ const issueConfigs = {
     }
   },
   "check-floorplan-thumbnail-preview": {
-    issue: "712",
+    issue: "713",
     title: "Floorplan Thumbnail Preview",
     ui: true,
     manifestPatch: {
@@ -235,7 +263,7 @@ const issueConfigs = {
     }
   },
   "check-next-workflow-step-card": {
-    issue: "713",
+    issue: "714",
     title: "Next-Step Card State Machine",
     ui: true,
     manifestPatch: {
@@ -251,7 +279,7 @@ const issueConfigs = {
     }
   },
   "check-simulation-copy-overclaim": {
-    issue: "714",
+    issue: "715",
     title: "Simulation Copy Overclaim Fix",
     ui: true,
     manifestPatch: {
@@ -271,7 +299,7 @@ const issueConfigs = {
     }
   },
   "check-compact-readiness-summary": {
-    issue: "715",
+    issue: "716",
     title: "Compact Readiness Summary",
     ui: true,
     manifestPatch: {
@@ -284,7 +312,7 @@ const issueConfigs = {
     }
   },
   "check-floorplan-readiness-truth": {
-    issue: "716",
+    issue: "717",
     title: "Readiness Truth Logic",
     manifestPatch: {
       floorplanReadinessTruthStatus: "passed",
@@ -296,7 +324,7 @@ const issueConfigs = {
     }
   },
   "check-active-floorplan-persistence-resilience": {
-    issue: "717",
+    issue: "718",
     title: "Active Floorplan Persistence Resilience",
     manifestPatch: {
       activeFloorplanPersistenceResilienceStatus: "passed",
@@ -307,8 +335,33 @@ const issueConfigs = {
       "fallback-floorplan": [include("apps/web/src/App.tsx", ["restoreInitialActiveFloorplanState", "createEmptyActiveFloorplanState", "return fallback"])]
     }
   },
+  "check-editor-workspace-layout": {
+    issue: "719",
+    title: "Editor Workspace Full-Page Layout",
+    ui: true,
+    manifestPatch: {
+      editorWorkspaceLayoutStatus: "passed",
+      editorCanvasPrimary: true,
+      toolbarDockedAboveCanvas: true
+    },
+    stages: {
+      "full-page-editor": [
+        include("apps/web/src/features/layout-editor/LayoutEditorWorkspace.tsx", ["data-editor-workspace-layout=\"full-page\"", "children"]),
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.css", [".layout-editor-stage", "max-width: none", "margin: 0"])
+      ],
+      "toolbar-above-canvas": [
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", ["<LayoutEditorWorkspace", "<EditorCommandBar"]),
+        include("apps/web/src/features/layout-editor/EditorCommandBar.tsx", ["data-editor-toolbar-position=\"above-canvas\""]),
+        exclude("apps/web/src/features/layout-editor/LayoutEditorStage.css", ["large empty gap"])
+      ],
+      "canvas-expanded": [
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.css", [".layout-editor-stage__workspace", "grid-template-columns: minmax(0, 1fr)", "data-editor-canvas-primary"]),
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", ["data-editor-canvas-primary=\"true\""])
+      ]
+    }
+  },
   "check-editor-normal-toolbar-ux": {
-    issue: "718",
+    issue: "720",
     title: "Editor Normal Toolbar Extraction",
     ui: true,
     manifestPatch: {
@@ -321,7 +374,7 @@ const issueConfigs = {
     }
   },
   "check-editor-detailed-tools-advanced": {
-    issue: "719",
+    issue: "721",
     title: "Move Legacy Editor Toolbar to Advanced",
     ui: true,
     manifestPatch: {
@@ -333,21 +386,33 @@ const issueConfigs = {
       "normal-mode-hidden": [include("apps/web/src/features/layout-editor/EditorCommandBar.tsx", ["data-normal-technical-copy-hidden=\"true\"", "EditorAdvancedToolsPanel"])]
     }
   },
-  "check-inspector-normal-advanced-split": {
-    issue: "720",
-    title: "Inspector Normal/Advanced Split",
+  "check-editor-details-bottom-panel": {
+    issue: "722",
+    title: "Inspector Becomes Bottom Details Panel",
     ui: true,
     manifestPatch: {
-      inspectorNormalAdvancedSplitStatus: "passed",
+      editorDetailsBottomPanelStatus: "passed",
+      rightInspectorRemovedNormalMode: true,
+      editorCanvasWidthExpanded: true,
       technicalInspectorFieldsAdvancedOnly: true
     },
     stages: {
-      "normal-groups": [include("apps/web/src/features/layout-editor/layoutInspectorViewModel.ts", ["Room identity", "Room type & capacity", "Operational capabilities", "Geometry"])],
+      "right-inspector-removed-normal": [
+        include("apps/web/src/features/layout-editor/EditorDetailsPanel.tsx", ["data-editor-details-panel=\"bottom-collapsible\"", "data-right-inspector-removed-normal=\"true\""]),
+        exclude("apps/web/src/features/layout-editor/LayoutEditorStage.css", ["minmax(240px, 300px)"])
+      ],
+      "bottom-details-panel": [
+        include("apps/web/src/features/layout-editor/EditorDetailsPanel.tsx", ["Selected room details", "Room identity", "Room type & capacity", "Operational capabilities", "Geometry"]),
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", ["<EditorDetailsPanel"])
+      ],
+      "canvas-width-expanded": [
+        include("apps/web/src/features/layout-editor/LayoutEditorStage.css", ["grid-template-columns: minmax(0, 1fr)", ".editor-details-panel"])
+      ],
       "technical-fields-advanced": [include("apps/web/src/features/layout-editor/InspectorAdvancedDetails.tsx", ["Object ID", "Source units", "Raw validation", "Record IDs"])]
     }
   },
   "check-assignment-set-contract": {
-    issue: "721",
+    issue: "723",
     title: "Assignment Set Contract",
     manifestPatch: {
       assignmentSetContractStatus: "passed",
@@ -359,7 +424,7 @@ const issueConfigs = {
     }
   },
   "check-assignment-set-persistence": {
-    issue: "722",
+    issue: "724",
     title: "Assignment Set Persistence",
     manifestPatch: {
       assignmentSetPersistenceStatus: "passed",
@@ -371,7 +436,7 @@ const issueConfigs = {
     }
   },
   "check-assignment-set-floorplan-link": {
-    issue: "723",
+    issue: "725",
     title: "Assignment Set Floorplan Version Link",
     manifestPatch: {
       assignmentSetFloorplanLinkStatus: "passed",
@@ -383,7 +448,7 @@ const issueConfigs = {
     }
   },
   "check-raw-map-migration-bridge": {
-    issue: "724",
+    issue: "726",
     title: "Raw Assignment Map Migration Bridge",
     manifestPatch: {
       rawAssignmentMapBridgeStatus: "passed",
@@ -395,7 +460,7 @@ const issueConfigs = {
     }
   },
   "check-nurse-profile-contract": {
-    issue: "725",
+    issue: "727",
     title: "Nurse Profile Contract",
     manifestPatch: {
       nurseProfileContractStatus: "passed",
@@ -406,7 +471,7 @@ const issueConfigs = {
     }
   },
   "check-nurse-profile-builder": {
-    issue: "726",
+    issue: "728",
     title: "Nurse Profile Builder UI",
     ui: true,
     manifestPatch: {
@@ -421,7 +486,7 @@ const issueConfigs = {
     }
   },
   "check-inactive-nurse-assignment-guard": {
-    issue: "727",
+    issue: "729",
     title: "Inactive Nurse Assignment Guard",
     manifestPatch: {
       inactiveNurseAssignmentGuardStatus: "passed",
@@ -436,7 +501,7 @@ const issueConfigs = {
     }
   },
   "check-room-load-contract": {
-    issue: "728",
+    issue: "730",
     title: "Room Load Contract",
     manifestPatch: {
       roomLoadContractStatus: "passed",
@@ -448,7 +513,7 @@ const issueConfigs = {
     }
   },
   "check-room-load-editor-ui": {
-    issue: "729",
+    issue: "731",
     title: "Room Load Editor UI",
     ui: true,
     manifestPatch: {
@@ -460,7 +525,7 @@ const issueConfigs = {
     }
   },
   "check-room-load-persistence": {
-    issue: "730",
+    issue: "732",
     title: "Room Load Persistence in Assignment Set",
     manifestPatch: {
       roomLoadPersistenceStatus: "passed",
@@ -472,7 +537,7 @@ const issueConfigs = {
     }
   },
   "check-split-room-child-loads": {
-    issue: "731",
+    issue: "733",
     title: "Split-Room Child Independent Loads",
     ui: true,
     manifestPatch: {
@@ -484,7 +549,7 @@ const issueConfigs = {
     }
   },
   "check-room-load-burden-recalculation": {
-    issue: "732",
+    issue: "734",
     title: "Room Load Burden Recalculation",
     manifestPatch: {
       roomLoadBurdenRecalculationStatus: "passed",
@@ -495,7 +560,7 @@ const issueConfigs = {
     }
   },
   "check-manual-assignment-layout": {
-    issue: "733",
+    issue: "735",
     title: "Manual Assignment Three-Column Layout",
     ui: true,
     manifestPatch: {
@@ -507,7 +572,7 @@ const issueConfigs = {
     }
   },
   "check-room-assignment-table": {
-    issue: "734",
+    issue: "736",
     title: "Room Assignment Table + Filters",
     ui: true,
     manifestPatch: {
@@ -520,7 +585,7 @@ const issueConfigs = {
     }
   },
   "check-nurse-assignment-cards": {
-    issue: "735",
+    issue: "737",
     title: "Nurse Assignment Cards + Why High Breakdown",
     ui: true,
     manifestPatch: {
@@ -533,7 +598,7 @@ const issueConfigs = {
     }
   },
   "check-assignment-issues-panel": {
-    issue: "736",
+    issue: "738",
     title: "Assignment Issues Panel",
     ui: true,
     manifestPatch: {
@@ -545,7 +610,7 @@ const issueConfigs = {
     }
   },
   "check-save-assignment-set-ux": {
-    issue: "737",
+    issue: "739",
     title: "Save Assignment Set UX",
     ui: true,
     manifestPatch: {
@@ -558,7 +623,7 @@ const issueConfigs = {
     }
   },
   "check-clear-assignments-confirmation": {
-    issue: "738",
+    issue: "740",
     title: "Clear Assignments Confirmation",
     ui: true,
     manifestPatch: {
@@ -570,7 +635,7 @@ const issueConfigs = {
     }
   },
   "check-scenario-handoff-gate": {
-    issue: "739",
+    issue: "741",
     title: "Scenario Handoff Gate",
     ui: true,
     manifestPatch: {
@@ -584,7 +649,7 @@ const issueConfigs = {
     }
   },
   "check-no-synthetic-fallback-normal-mode": {
-    issue: "740",
+    issue: "742",
     title: "No Synthetic Fallback in Normal Assignment",
     ui: true,
     manifestPatch: {
@@ -647,7 +712,7 @@ export function runEditorAssignmentIssueCheck(scriptKey) {
 }
 
 function runGoNoGo() {
-  const issue = readArg("--issue", "741");
+  const issue = readArg("--issue", "743");
   const stage = readArg("--stage", "final");
   const allowPartial = hasFlag("--allow-partial");
   if (stage !== "final") throw new Error(`Unsupported check-editor-assignment-ux-go-no-go stage: ${stage}`);
@@ -656,7 +721,7 @@ function runGoNoGo() {
   writeScreenshots(issue, "check-editor-assignment-ux-go-no-go");
 
   const checks = [];
-  for (const scriptKey of editorAssignmentUx704741Scripts) {
+  for (const scriptKey of editorAssignmentUx704743Scripts) {
     const outputPath = `docs/verification/issues/issue-${issue}/test-output/${scriptKey}.txt`;
     const result = readStatusFile(outputPath);
     addCheck(checks, `${scriptKey} rerun passed`, result.status === "passed", result);
@@ -687,7 +752,7 @@ ${blockers.length === 0 ? "- None." : blockers.map((blocker) => `- ${blocker.nam
 `);
   writeText("docs/project/editor-assignment-ux-status.md", `# Editor + Assignment UX Status
 
-Batch 704-741 implements Option A: compact left workflow rail plus full top workflow stepper.
+Batch 704-743 implements the full-page operational workspace, durable assignment foundation, and editor/assignment UX gates.
 
 Final audit status: ${status}
 
@@ -725,10 +790,11 @@ ${blockers.length === 0 ? "- None." : blockers.map((blocker) => `- ${blocker.nam
     "npm --workspace packages/shared test",
     "npm --workspace apps/web test",
     "npm --workspace apps/web run build",
-    ...editorAssignmentUx704741Scripts.map((scriptKey) => `node scripts/${scriptKey}.mjs --stage final --issue 741`),
-    "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 741",
-    "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 741",
-    "node scripts/check-split-room-browser-regression.mjs --stage final --issue 741",
+    "npm run check:clean-committed-state",
+    ...editorAssignmentUx704743Scripts.map((scriptKey) => `node scripts/${scriptKey}.mjs --stage final --issue 743`),
+    "node scripts/check-active-floorplan-workflow-go-no-go.mjs --stage final --issue 743",
+    "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 743",
+    "node scripts/check-split-room-browser-regression.mjs --stage final --issue 743",
     "node scripts/check-no-phi-fields.mjs"
   ], status);
   writeStageResult(issue, "check-editor-assignment-ux-go-no-go", stage, checks, { blockers });
@@ -746,11 +812,11 @@ function exclude(path, snippets) {
 function rootScriptsPresent() {
   return {
     kind: "custom",
-    label: "root scripts for 704-741 are wired",
+    label: "root scripts for 704-743 are wired",
     run() {
       const packageJson = readFileSync("package.json", "utf8");
       const missing = [
-        ...editorAssignmentUx704741Scripts,
+        ...editorAssignmentUx704743Scripts,
         "check-editor-assignment-ux-go-no-go"
       ].map((scriptKey) => scriptKey.replace(/^check-/, "check:"))
         .filter((rootScript) => !packageJson.includes(`"${rootScript}"`));

@@ -5,8 +5,7 @@
     "1": "npm --workspace packages/shared test",
     "2": "npm --workspace apps/web test",
     "3": "npm --workspace apps/web run build",
-    "4": "node scripts/check-no-synthetic-fallback-normal-mode.mjs --stage blocked-state --allow-partial --issue 740",
-    "5": "node scripts/check-no-synthetic-fallback-normal-mode.mjs --stage synthetic-dev-only --allow-partial --issue 740",
-    "6": "node scripts/check-no-phi-fields.mjs"
+    "4": "node scripts/check-clear-assignments-confirmation.mjs --stage clear-confirmation --allow-partial --issue 740",
+    "5": "node scripts/check-no-phi-fields.mjs"
   }
 }

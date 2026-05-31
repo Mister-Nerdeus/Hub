@@ -294,8 +294,8 @@
 .manual-assignment-workspace {
   display: grid;
   gap: 16px;
-  margin: 0 auto;
-  max-width: 1180px;
+  margin: 0;
+  max-width: none;
   width: 100%;
 }
 
@@ -471,8 +471,8 @@
   background: #ffffff;
   border: 1px solid #cfd8e3;
   border-radius: 8px;
-  margin: 0 auto;
-  max-width: 1180px;
+  margin: 0;
+  max-width: none;
   padding: 16px;
   width: 100%;
 }

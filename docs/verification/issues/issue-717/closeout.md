@@ -1,7 +1,7 @@
 # Issue 717 Closeout
 
 ## Problem
-Active Floorplan Persistence Resilience
+Readiness Truth Logic
 
 ## Summary
 - Local validator status: passed.
@@ -13,8 +13,8 @@ Active Floorplan Persistence Resilience
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-active-floorplan-persistence-resilience.mjs --stage corrupted-localstorage --allow-partial --issue 717
-- node scripts/check-active-floorplan-persistence-resilience.mjs --stage fallback-floorplan --allow-partial --issue 717
+- node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 717
+- node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 717
 - node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed

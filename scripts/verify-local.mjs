@@ -209,6 +209,7 @@ const activeFloorplanWorkflowCommands = [
 
 const editorAssignmentUxCommands = [
   "npm run check:editor-assignment-ux-preflight",
+  "npm run check:full-page-workspace-shell",
   "npm run check:product-shell-rail",
   "npm run check:product-workflow-stepper",
   "npm run check:route-step-mapping",
@@ -222,9 +223,10 @@ const editorAssignmentUxCommands = [
   "npm run check:compact-readiness-summary",
   "npm run check:floorplan-readiness-truth",
   "npm run check:active-floorplan-persistence-resilience",
+  "npm run check:editor-workspace-layout",
   "npm run check:editor-normal-toolbar-ux",
   "npm run check:editor-detailed-tools-advanced",
-  "npm run check:inspector-normal-advanced-split",
+  "npm run check:editor-details-bottom-panel",
   "npm run check:assignment-set-contract",
   "npm run check:assignment-set-persistence",
   "npm run check:assignment-set-floorplan-link",

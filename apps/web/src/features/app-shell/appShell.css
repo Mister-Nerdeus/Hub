@@ -2,15 +2,17 @@
 .product-workflow-shell {
   background: #eef3f4;
   display: grid;
-  grid-template-columns: 84px minmax(0, 1fr);
+  gap: 5px;
+  grid-template-columns: 72px minmax(0, 1fr);
   min-height: 100vh;
+  width: 100vw;
 }
 
 .product-workflow-shell__main {
   display: grid;
-  gap: 16px;
+  gap: 5px;
   min-width: 0;
-  padding: 24px clamp(16px, 3vw, 40px);
+  padding: 5px;
 }
 
 .product-sidebar {
@@ -20,8 +22,8 @@
   display: grid;
   gap: 18px;
   grid-template-rows: auto 1fr;
-  padding: 16px 10px;
-  width: 84px;
+  padding: 8px 6px;
+  width: 72px;
 }
 
 .product-sidebar__nav {
@@ -103,10 +105,10 @@
 .workspace-header {
   align-items: flex-start;
   display: flex;
-  gap: 16px;
+  gap: 10px;
   justify-content: space-between;
-  margin: 0 auto;
-  max-width: 1180px;
+  margin: 0;
+  max-width: none;
   width: 100%;
 }
 
@@ -241,10 +243,10 @@
 .product-workflow-stepper {
   align-items: stretch;
   display: grid;
-  gap: 8px;
+  gap: 5px;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  margin: 0 auto;
-  max-width: 1180px;
+  margin: 0;
+  max-width: none;
   width: 100%;
 }
 
@@ -288,10 +290,10 @@
 
 .workflow-content {
   display: grid;
-  gap: 20px;
-  margin: 0 auto;
-  max-width: 1180px;
-  padding-bottom: 24px;
+  gap: 5px;
+  margin: 0;
+  max-width: none;
+  padding-bottom: 5px;
   width: 100%;
 }
 
@@ -308,10 +310,11 @@
 }
 
 .workflow-section {
-  background: #ffffff;
-  border: 1px solid #cfd8e3;
-  border-radius: 8px;
-  padding: 14px 16px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  min-width: 0;
+  padding: 0;
 }
 
 .workflow-section h2 {
@@ -334,6 +337,7 @@
   .product-sidebar {
     grid-template-rows: auto;
     padding: 12px;
+    width: auto;
   }
 
   .product-sidebar__nav,
