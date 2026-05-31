@@ -54,25 +54,29 @@ const stages = {
   "room-move-preserved": () => checkAll([
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "accumulateRoomDragDelta",
-      "dispatchStage({ type: \"moveRoom\""
+      "type: \"moveRoom\"",
+      "onMove={moveRoom}"
     ])
   ]),
   "room-resize-preserved": () => checkAll([
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "RoomResizeHandles",
-      "dispatchStage({ type: \"resizeRoom\""
+      "type: \"resizeRoom\"",
+      "onResize={resizeRoom}"
     ])
   ]),
   "station-move-preserved": () => checkAll([
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "StationShape",
-      "dispatchStage({ type: \"moveStation\""
+      "type: \"moveStation\"",
+      "onMove={moveStation}"
     ])
   ]),
   "station-resize-preserved": () => checkAll([
     fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
       "StationResizeHandles",
-      "dispatchStage({ type: \"resizeStation\""
+      "type: \"resizeStation\"",
+      "onResize={resizeStation}"
     ])
   ])
 };
