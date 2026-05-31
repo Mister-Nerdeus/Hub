@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "issue": "801",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "safe legacy split bay migrates to parent-bed split room",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor migration wrapper preserves layout and reports split migrations",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "unsafe legacy split room records are flagged for review",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "legacySplitRoomMigrationStatus": "passed",
+    "legacySplitRoomsDoNotBreakEditor": true
+  }
+}

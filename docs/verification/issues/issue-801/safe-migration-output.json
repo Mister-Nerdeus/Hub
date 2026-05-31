@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "801",
+  "stage": "safe-migration",
+  "checks": [
+    {
+      "name": "safe legacy split bay migrates to parent-bed split room",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor migration wrapper preserves layout and reports split migrations",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

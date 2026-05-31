@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "801",
+  "commands": [
+    {
+      "command": "node scripts/check-legacy-split-room-migration.mjs --stage safe-migration --issue 801",
+      "outputs": [
+        "docs/verification/issues/issue-801/safe-migration-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-legacy-split-room-migration.mjs --stage unsafe-needs-review --issue 801",
+      "outputs": [
+        "docs/verification/issues/issue-801/unsafe-needs-review-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-801/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-801/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-801/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-801/no-phi-output.txt"
+      ]
+    }
+  ]
+}

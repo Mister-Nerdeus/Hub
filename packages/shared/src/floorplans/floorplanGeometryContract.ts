@@ -66,6 +66,10 @@ export {
   type SplitRoomValidationIssueCode
 } from "./splitRoomValidation.js";
 export {
+  migrateLegacySplitBayToParentBed,
+  type LegacySplitRoomMigrationResult
+} from "./legacySplitRoomMigration.js";
+export {
   createSplitRoomContract,
   validateBedPositionContract,
   validateSplitRoomContract,
