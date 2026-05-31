@@ -9,7 +9,7 @@
   "referenceOverlayToggleUiStatus": "passed",
   "lockedReferenceStylingStatus": "passed",
   "nonClickableArtifactDetectorStatus": "passed",
-  "artifactQuarantineCleanupStatus": "missing",
+  "artifactQuarantineCleanupStatus": "passed",
   "referenceOverlayScreenshotProofStatus": "missing",
   "hallwayGeometryContractStatus": "missing",
   "hallwayRendererStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "774",
+  "lastUpdatedIssue": "775",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -57,5 +57,6 @@
   "referenceOverlayLockedAndToggleable": true,
   "referenceOverlayCanBeHidden": true,
   "referenceObjectsClearlyNonEditable": true,
-  "noUnclassifiedVisibleEditorArtifacts": true
+  "noUnclassifiedVisibleEditorArtifacts": true,
+  "unknownArtifactsNotNormalEditableGeometry": true
 }

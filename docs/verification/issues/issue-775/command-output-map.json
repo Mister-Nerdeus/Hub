@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "775",
+  "commands": [
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-775/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-775/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-artifact-quarantine-cleanup.mjs --stage unknown-visuals-quarantined --issue 775",
+      "outputs": [
+        "docs/verification/issues/issue-775/unknown-visuals-quarantined-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-artifact-quarantine-cleanup.mjs --stage valid-geometry-preserved --issue 775",
+      "outputs": [
+        "docs/verification/issues/issue-775/valid-geometry-preserved-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-775/no-phi-output.txt"
+      ]
+    }
+  ]
+}

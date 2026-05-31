@@ -1,0 +1,5 @@
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-artifact-quarantine-cleanup.mjs --stage unknown-visuals-quarantined --issue 775
+node scripts/check-artifact-quarantine-cleanup.mjs --stage valid-geometry-preserved --issue 775
+node scripts/check-no-phi-fields.mjs

@@ -147,6 +147,7 @@ import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
 import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
+import { artifactQuarantinePolicy } from "./artifactQuarantine";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -1633,6 +1634,7 @@ export function LayoutEditorStage({
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
             data-reference-overlay-visible={referenceOverlayVisible ? "true" : "false"}
+            data-artifact-quarantine-policy={artifactQuarantinePolicy.unknownVisuals}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             data-pan-x-feet={stageState.viewport.panXFeet}
             data-pan-y-feet={stageState.viewport.panYFeet}
