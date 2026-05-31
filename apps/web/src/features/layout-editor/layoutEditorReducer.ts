@@ -99,6 +99,15 @@ import {
   type LayoutUndoRedoSnapshot
 } from "./layoutUndoRedoHistory";
 import type { LayoutLocalDraftRecord } from "./layoutLocalDraftPersistence";
+import {
+  convertSingleRoomToSplitRoom,
+  moveSplitRoomParent,
+  resizeSplitRoomParent,
+  resetSplitRoomDividerToEven,
+  updateSplitRoomDividerOrientation,
+  updateSplitRoomDividerRatio,
+  type SplitRoomDividerOrientation
+} from "./splitRoomActions";
 
 export type LayoutEditorAction =
   | { type: "loadLayout"; layout: EditableLayoutGeometryContract }
@@ -205,6 +214,26 @@ export type LayoutEditorAction =
       roomId: string;
       splitBayId?: string;
     }
+  | {
+      type: "convertSelectedRoomToSplitRoom";
+      roomId: string;
+      splitRoomId?: string;
+    }
+  | { type: "moveSplitRoomParent"; splitRoomId: string; deltaXFeet: number; deltaYFeet: number }
+  | {
+      type: "resizeSplitRoomParent";
+      splitRoomId: string;
+      handle: RoomResizeHandle;
+      deltaXFeet: number;
+      deltaYFeet: number;
+    }
+  | {
+      type: "editSplitRoomDividerOrientation";
+      splitRoomId: string;
+      dividerOrientation: SplitRoomDividerOrientation;
+    }
+  | { type: "editSplitRoomDividerRatio"; splitRoomId: string; dividerRatio: number }
+  | { type: "resetSplitRoomDivider"; splitRoomId: string }
   | {
       type: "editSplitBayDivider";
       splitBayId: string;
@@ -447,6 +476,24 @@ export function layoutEditorReducer(
       return addSplitBay(state, action);
     case "convertSelectedRoomPairToSplitBay":
       return convertSelectedRoomPairToSplitBay(state, action);
+    case "convertSelectedRoomToSplitRoom":
+      return convertSelectedRoomToSplitRoom(state, action);
+    case "moveSplitRoomParent":
+      return moveSelectedSplitRoomParent(state, action.splitRoomId, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
+    case "resizeSplitRoomParent":
+      return resizeSelectedSplitRoomParent(state, action.splitRoomId, action.handle, {
+        deltaXFeet: action.deltaXFeet,
+        deltaYFeet: action.deltaYFeet
+      });
+    case "editSplitRoomDividerOrientation":
+      return editSplitRoomDividerOrientation(state, action.splitRoomId, action.dividerOrientation);
+    case "editSplitRoomDividerRatio":
+      return editSplitRoomDividerRatio(state, action.splitRoomId, action.dividerRatio);
+    case "resetSplitRoomDivider":
+      return resetSplitRoomDivider(state, action.splitRoomId);
     case "editSplitBayDivider":
       return editSplitBayDivider(state, action.splitBayId, action.dividerStyle);
     case "unsplitSplitRoom":
@@ -915,6 +962,8 @@ function convertSelectedRoomPairToSplitBay(
   state: LayoutEditorState,
   action: Extract<LayoutEditorAction, { type: "convertSelectedRoomPairToSplitBay" }>
 ): LayoutEditorState {
+  // Legacy split-bay compatibility path only. Normal editor split creation dispatches
+  // convertSelectedRoomToSplitRoom and does not resolve/merge a room pair.
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
@@ -974,6 +1023,228 @@ function convertSelectedRoomPairToSplitBay(
   });
 }
 
+function convertSelectedRoomToSplitRoom(
+  state: LayoutEditorState,
+  action: Extract<LayoutEditorAction, { type: "convertSelectedRoomToSplitRoom" }>
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const parentRoom = state.editableLayout.rooms.find((room) => room.id === action.roomId);
+  if (parentRoom == null) {
+    return state;
+  }
+  if ((state.editableLayout.splitRooms ?? []).some((splitRoom) => splitRoom.parentRoomId === parentRoom.id)) {
+    return state;
+  }
+  const splitRoom = convertSingleRoomToSplitRoom({
+    room: parentRoom,
+    splitRoomId: action.splitRoomId
+  });
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      splitRooms: [
+        ...(state.editableLayout.splitRooms ?? []),
+        splitRoom
+      ].sort((left, right) => left.splitRoomId.localeCompare(right.splitRoomId))
+    },
+    selectedObjectType: "split_room_parent",
+    selectedObjectId: splitRoom.splitRoomId,
+    validationWarnings: state.validationWarnings,
+    isDirty: true
+  });
+}
+
+function moveSelectedSplitRoomParent(
+  state: LayoutEditorState,
+  splitRoomId: string,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const splitRoom = (state.editableLayout.splitRooms ?? []).find((candidate) => candidate.splitRoomId === splitRoomId);
+  if (splitRoom == null) {
+    return state;
+  }
+  const beforeRoom = state.editableLayout.rooms.find((room) => room.id === splitRoom.parentRoomId);
+  if (beforeRoom == null) {
+    return state;
+  }
+  const result = moveSplitRoomParent({
+    parentRoom: beforeRoom,
+    splitRoom,
+    deltaXFeet: delta.deltaXFeet,
+    deltaYFeet: delta.deltaYFeet
+  });
+  const movedLayout = {
+    ...state.editableLayout,
+    rooms: state.editableLayout.rooms.map((room) =>
+      room.id === result.parentRoom.id ? result.parentRoom : room
+    ),
+    splitRooms: (state.editableLayout.splitRooms ?? []).map((candidate) =>
+      candidate.splitRoomId === splitRoomId ? result.splitRoom : candidate
+    )
+  };
+  const auditEntry = createRoomMoveAuditEntry({
+    roomId: beforeRoom.id,
+    before: { xFeet: beforeRoom.xFeet, yFeet: beforeRoom.yFeet },
+    after: { xFeet: result.parentRoom.xFeet, yFeet: result.parentRoom.yFeet },
+    deltaFeet: {
+      deltaXFeet: result.parentRoom.xFeet - beforeRoom.xFeet,
+      deltaYFeet: result.parentRoom.yFeet - beforeRoom.yFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+  return withUndoHistory(
+    state,
+    applyLayoutEditEffects({
+      state,
+      editableLayout: movedLayout,
+      validationWarnings: recalculateWarningsForRoom({
+        existingWarnings: state.validationWarnings,
+        layout: movedLayout,
+        roomId: beforeRoom.id,
+        boundsFeet: state.layoutBoundsFeet
+      }),
+      selectedObjectType: "split_room_parent",
+      selectedObjectId: splitRoomId,
+      auditEntry
+    })
+  );
+}
+
+function resizeSelectedSplitRoomParent(
+  state: LayoutEditorState,
+  splitRoomId: string,
+  handle: RoomResizeHandle,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const splitRoom = (state.editableLayout.splitRooms ?? []).find((candidate) => candidate.splitRoomId === splitRoomId);
+  if (splitRoom == null) {
+    return state;
+  }
+  const beforeRoom = state.editableLayout.rooms.find((room) => room.id === splitRoom.parentRoomId);
+  if (beforeRoom == null) {
+    return state;
+  }
+  const nextRect = nextResizeRect(beforeRoom, handle, delta);
+  const result = resizeSplitRoomParent({
+    parentRoom: { ...beforeRoom, xFeet: nextRect.xFeet, yFeet: nextRect.yFeet },
+    splitRoom,
+    widthFeet: nextRect.widthFeet,
+    heightFeet: nextRect.heightFeet
+  });
+  const afterRoom = {
+    ...result.parentRoom,
+    xFeet: nextRect.xFeet,
+    yFeet: nextRect.yFeet
+  };
+  if (roomRectEquals(beforeRoom, afterRoom)) {
+    return state;
+  }
+  const resizedLayout = {
+    ...state.editableLayout,
+    rooms: state.editableLayout.rooms.map((room) =>
+      room.id === afterRoom.id ? afterRoom : room
+    ),
+    splitRooms: (state.editableLayout.splitRooms ?? []).map((candidate) =>
+      candidate.splitRoomId === splitRoomId ? result.splitRoom : candidate
+    )
+  };
+  const auditEntry = createRoomResizeAuditEntry({
+    roomId: beforeRoom.id,
+    resizeHandle: handle,
+    before: roomRectForAudit(beforeRoom),
+    after: roomRectForAudit(afterRoom),
+    deltaFeet: {
+      deltaXFeet: afterRoom.xFeet - beforeRoom.xFeet,
+      deltaYFeet: afterRoom.yFeet - beforeRoom.yFeet,
+      deltaWidthFeet: afterRoom.widthFeet - beforeRoom.widthFeet,
+      deltaHeightFeet: afterRoom.heightFeet - beforeRoom.heightFeet
+    },
+    createdAtOrder: state.editAuditTrail.length + 1
+  });
+  return withUndoHistory(
+    state,
+    applyLayoutEditEffects({
+      state,
+      editableLayout: resizedLayout,
+      validationWarnings: replaceGeneratedWarningsBySources({
+        existingWarnings: state.validationWarnings,
+        replacementWarnings: validateRoomResizeWarnings({
+          layout: resizedLayout,
+          roomId: beforeRoom.id,
+          boundsFeet: state.layoutBoundsFeet
+        }),
+        sources: ["resize", "door_sync"]
+      }),
+      selectedObjectType: "split_room_parent",
+      selectedObjectId: splitRoomId,
+      auditEntry
+    })
+  );
+}
+
+function editSplitRoomDividerOrientation(
+  state: LayoutEditorState,
+  splitRoomId: string,
+  dividerOrientation: SplitRoomDividerOrientation
+): LayoutEditorState {
+  return updateSplitRoomInState(state, splitRoomId, (splitRoom) =>
+    updateSplitRoomDividerOrientation(splitRoom, dividerOrientation)
+  );
+}
+
+function editSplitRoomDividerRatio(
+  state: LayoutEditorState,
+  splitRoomId: string,
+  dividerRatio: number
+): LayoutEditorState {
+  return updateSplitRoomInState(state, splitRoomId, (splitRoom) =>
+    updateSplitRoomDividerRatio(splitRoom, dividerRatio)
+  );
+}
+
+function resetSplitRoomDivider(
+  state: LayoutEditorState,
+  splitRoomId: string
+): LayoutEditorState {
+  return updateSplitRoomInState(state, splitRoomId, resetSplitRoomDividerToEven);
+}
+
+function updateSplitRoomInState(
+  state: LayoutEditorState,
+  splitRoomId: string,
+  updater: (splitRoom: NonNullable<EditableLayoutGeometryContract["splitRooms"]>[number]) => NonNullable<EditableLayoutGeometryContract["splitRooms"]>[number]
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const splitRooms = state.editableLayout.splitRooms ?? [];
+  const existing = splitRooms.find((splitRoom) => splitRoom.splitRoomId === splitRoomId);
+  if (existing == null) {
+    return state;
+  }
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      splitRooms: splitRooms.map((splitRoom) =>
+        splitRoom.splitRoomId === splitRoomId ? updater(splitRoom) : splitRoom
+      )
+    },
+    selectedObjectType: "split_room_parent",
+    selectedObjectId: splitRoomId,
+    isDirty: true
+  });
+}
+
 function editSplitBayDivider(
   state: LayoutEditorState,
   splitBayId: string,
@@ -1003,6 +1274,19 @@ function unsplitSplitRoom(
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
+  const splitRoom = (state.editableLayout.splitRooms ?? []).find((candidate) => candidate.splitRoomId === splitBayId);
+  if (splitRoom != null) {
+    return withUndoHistory(state, {
+      ...state,
+      editableLayout: {
+        ...state.editableLayout,
+        splitRooms: (state.editableLayout.splitRooms ?? []).filter((candidate) => candidate.splitRoomId !== splitBayId)
+      },
+      selectedObjectType: "room",
+      selectedObjectId: splitRoom.parentRoomId,
+      isDirty: true
+    });
+  }
   const result = removeSplitRoomFromEditableLayout({
     layout: state.editableLayout,
     splitBayId,
@@ -1018,6 +1302,45 @@ function unsplitSplitRoom(
     selectedObjectId: result.childRoomIds[0],
     isDirty: true
   });
+}
+
+function nextResizeRect(
+  room: EditableRoomGeometry,
+  handle: RoomResizeHandle,
+  delta: { deltaXFeet: number; deltaYFeet: number }
+): Pick<EditableRoomGeometry, "xFeet" | "yFeet" | "widthFeet" | "heightFeet"> {
+  let xFeet = room.xFeet;
+  let yFeet = room.yFeet;
+  let widthFeet = room.widthFeet;
+  let heightFeet = room.heightFeet;
+  if (handle.includes("east")) {
+    widthFeet += delta.deltaXFeet;
+  }
+  if (handle.includes("west")) {
+    xFeet += delta.deltaXFeet;
+    widthFeet -= delta.deltaXFeet;
+  }
+  if (handle.includes("south")) {
+    heightFeet += delta.deltaYFeet;
+  }
+  if (handle.includes("north")) {
+    yFeet += delta.deltaYFeet;
+    heightFeet -= delta.deltaYFeet;
+  }
+  const minSize = 4;
+  if (widthFeet < minSize) {
+    if (handle.includes("west")) {
+      xFeet -= minSize - widthFeet;
+    }
+    widthFeet = minSize;
+  }
+  if (heightFeet < minSize) {
+    if (handle.includes("north")) {
+      yFeet -= minSize - heightFeet;
+    }
+    heightFeet = minSize;
+  }
+  return { xFeet, yFeet, widthFeet, heightFeet };
 }
 
 function clamp(value: number, min: number, max: number): number {
@@ -1853,7 +2176,7 @@ function selectObject(
   objectId: string
 ): LayoutEditorState {
   if (!isLayoutEditorSelectableObjectType(objectType)) {
-    throw new Error("objectType must be room, door, support_access, station, hallway, zone, or split_bay");
+    throw new Error("objectType must be room, door, support_access, station, hallway, zone, split_room_parent, bed_position, outer_wall, or split_bay");
   }
   if (typeof objectId !== "string" || objectId.length === 0) {
     throw new Error("objectId must be a non-empty string");

@@ -1,0 +1,4 @@
+node scripts/check-split-divider-reducer-actions.mjs --stage orientation-action --issue 824
+node scripts/check-split-divider-reducer-actions.mjs --stage ratio-action --issue 824
+node scripts/check-split-divider-reducer-actions.mjs --stage reset-action --issue 824
+node scripts/check-split-divider-reducer-actions.mjs --stage legacy-divider-not-new-path --issue 824

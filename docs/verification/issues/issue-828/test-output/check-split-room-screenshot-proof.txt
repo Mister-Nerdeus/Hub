@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "issue": "828",
+  "stage": "real-browser-screenshots",
+  "checks": [
+    {
+      "name": "browser screenshot validator does not use placeholder generation",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "hard browser regression script can generate real screenshots",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "real screenshot files exist when hard browser proof has run",
+      "passed": true,
+      "detail": {
+        "existing": [
+          "split-room-parent-selected.png",
+          "split-room-bed-a-selected.png",
+          "split-room-bed-b-selected.png",
+          "split-room-resized-parent.png",
+          "split-room-divider-controls.png"
+        ],
+        "requiredScreenshots": [
+          "split-room-parent-selected.png",
+          "split-room-bed-a-selected.png",
+          "split-room-bed-b-selected.png",
+          "split-room-resized-parent.png",
+          "split-room-divider-controls.png"
+        ]
+      }
+    }
+  ]
+}

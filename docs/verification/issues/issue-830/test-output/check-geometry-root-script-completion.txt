@@ -1,0 +1,127 @@
+{
+  "status": "passed",
+  "issue": "830",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check:geometry-truth-hardening-preflight root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
+        "actual": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815"
+      }
+    },
+    {
+      "name": "check:geometry-truth-hardening-go-no-go root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830",
+        "actual": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830"
+      }
+    },
+    {
+      "name": "check:geometry-root-script-completion root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 817",
+        "actual": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 817"
+      }
+    },
+    {
+      "name": "check:legacy-split-bay-normal-flow root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
+        "actual": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818"
+      }
+    },
+    {
+      "name": "check:split-room-reducer-wiring root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
+        "actual": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819"
+      }
+    },
+    {
+      "name": "check:editable-layout-split-room-state root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",
+        "actual": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820"
+      }
+    },
+    {
+      "name": "check:split-room-render-path root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-room-render-path.mjs --stage final --issue 821",
+        "actual": "node scripts/check-split-room-render-path.mjs --stage final --issue 821"
+      }
+    },
+    {
+      "name": "check:split-bed-selection-state root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-bed-selection-state.mjs --stage final --issue 822",
+        "actual": "node scripts/check-split-bed-selection-state.mjs --stage final --issue 822"
+      }
+    },
+    {
+      "name": "check:split-parent-move-resize-wiring root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-parent-move-resize-wiring.mjs --stage final --issue 823",
+        "actual": "node scripts/check-split-parent-move-resize-wiring.mjs --stage final --issue 823"
+      }
+    },
+    {
+      "name": "check:split-divider-reducer-actions root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-divider-reducer-actions.mjs --stage final --issue 824",
+        "actual": "node scripts/check-split-divider-reducer-actions.mjs --stage final --issue 824"
+      }
+    },
+    {
+      "name": "check:split-room-inspector-normal-flow root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-room-inspector-normal-flow.mjs --stage final --issue 825",
+        "actual": "node scripts/check-split-room-inspector-normal-flow.mjs --stage final --issue 825"
+      }
+    },
+    {
+      "name": "check:wall-selection-behavior root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826",
+        "actual": "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826"
+      }
+    },
+    {
+      "name": "check:hard-geometry-save-reload-proof root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827",
+        "actual": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827"
+      }
+    },
+    {
+      "name": "check:real-screenshot-proof-required root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
+        "actual": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828"
+      }
+    },
+    {
+      "name": "check:split-room-hard-browser-regression root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829",
+        "actual": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829"
+      }
+    }
+  ]
+}

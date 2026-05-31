@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "826",
+  "commands": [
+    {
+      "command": "node scripts/check-wall-selection-behavior.mjs --stage wall-click-selection --issue 826",
+      "outputs": [
+        "docs/verification/issues/issue-826/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-wall-selection-behavior.mjs --stage wall-keyboard-selection --issue 826",
+      "outputs": [
+        "docs/verification/issues/issue-826/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-wall-selection-behavior.mjs --stage selectable-contract-has-handler --issue 826",
+      "outputs": [
+        "docs/verification/issues/issue-826/commands.txt"
+      ]
+    }
+  ]
+}

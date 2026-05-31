@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "822",
+  "commands": [
+    {
+      "command": "node scripts/check-split-bed-selection-state.mjs --stage selection-types --issue 822",
+      "outputs": [
+        "docs/verification/issues/issue-822/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bed-selection-state.mjs --stage bed-position-selectable --issue 822",
+      "outputs": [
+        "docs/verification/issues/issue-822/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bed-selection-state.mjs --stage parent-separate-selection --issue 822",
+      "outputs": [
+        "docs/verification/issues/issue-822/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-bed-selection-state.mjs --stage bed-does-not-resize-parent --issue 822",
+      "outputs": [
+        "docs/verification/issues/issue-822/commands.txt"
+      ]
+    }
+  ]
+}

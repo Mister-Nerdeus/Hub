@@ -8,6 +8,10 @@ import {
   type EditableSupportAccessPointGeometry,
   type EditableSplitBayGeometry
 } from "./layout-editor/editableLayoutGeometryContract.js";
+import {
+  validateSplitRoomContract,
+  type SplitRoomContract
+} from "./floorplans/splitRoomContract.js";
 
 export const ROOM_TYPES = [
   "standard",
@@ -457,6 +461,8 @@ export type PlanContract = {
   supportAccessPoints?: EditableSupportAccessPointGeometry[];
   nurseStations: NurseStation[];
   zones: Zone[];
+  splitRooms?: SplitRoomContract[];
+  /** Legacy split-bay overlays are compatibility-only. Normal editor authoring uses splitRooms. */
   splitBays?: EditableSplitBayGeometry[];
   pathNodes: PathNode[];
   pathEdges: PathEdge[];
@@ -1060,6 +1066,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     "supportAccessPoints",
     "nurseStations",
     "zones",
+    "splitRooms",
     "splitBays",
     "pathNodes",
     "pathEdges"
@@ -1086,6 +1093,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     validateNurseStation
   );
   const zones = requireArray(plan.zones, "zones").map(validateZone);
+  const splitRooms = requireArray(plan.splitRooms ?? [], "splitRooms").map(validateSplitRoomContract);
   const editableZones = zones.map((zone) => ({
     objectType: "zone" as const,
     id: zone.id,
@@ -1132,6 +1140,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     stations: [],
     hallways: [],
     zones: [],
+    splitRooms,
     splitBays: plan.splitBays ?? [],
     limitations: ["Plan-level split-bay validation adapter."]
   }).splitBays;
@@ -1170,6 +1179,7 @@ export function validatePlanContract(value: unknown): PlanContract {
     supportAccessPoints,
     nurseStations,
     zones,
+    splitRooms,
     splitBays,
     pathNodes,
     pathEdges

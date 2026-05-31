@@ -36,7 +36,7 @@ export type SavedFloorplanRecord = {
   plan: PlanContract;
 };
 
-// Saved records preserve authored splitBays through the validated plan and authoring-draft contracts.
+// Saved records preserve authored splitRooms and legacy splitBays through the validated plan and authoring-draft contracts.
 export type SavedFloorplanStore = {
   list(): SavedFloorplanRecord[];
   save(copy: EditableFloorplanCopy): SavedFloorplanRecord;

@@ -1,0 +1,3 @@
+node scripts/check-editable-layout-split-room-state.mjs --stage split-rooms-collection --issue 820
+node scripts/check-editable-layout-split-room-state.mjs --stage no-fake-child-rooms --issue 820
+node scripts/check-editable-layout-split-room-state.mjs --stage legacy-split-bays-compat-only --issue 820

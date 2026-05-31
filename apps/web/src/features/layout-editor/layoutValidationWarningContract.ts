@@ -175,11 +175,16 @@ function requireNullableObjectType(
     value === "door" ||
     value === "station" ||
     value === "hallway" ||
-    value === "zone"
+    value === "zone" ||
+    value === "split_room_parent" ||
+    value === "bed_position" ||
+    value === "outer_wall" ||
+    value === "split_bay" ||
+    value === "support_access"
   ) {
     return value;
   }
-  throw new Error(`${label} must be room, door, station, hallway, zone, or null`);
+  throw new Error(`${label} must be a supported layout object type or null`);
 }
 
 function requireNullableString(value: unknown, label: string): string | null {

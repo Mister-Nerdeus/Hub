@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "817",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-root-script-completion.mjs --stage required-hardening-scripts --issue 817",
+      "outputs": [
+        "docs/verification/issues/issue-817/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:geometry-truth-hardening-preflight",
+      "outputs": [
+        "docs/verification/issues/issue-817/commands.txt"
+      ]
+    }
+  ]
+}

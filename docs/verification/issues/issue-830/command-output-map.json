@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "830",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage validator-execution-required --issue 816",
+      "outputs": [
+        "docs/verification/issues/issue-830/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage manifest-not-sole-proof --issue 816",
+      "outputs": [
+        "docs/verification/issues/issue-830/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage split-room-browser-required --issue 816",
+      "outputs": [
+        "docs/verification/issues/issue-830/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage placeholder-proof-rejected --issue 816",
+      "outputs": [
+        "docs/verification/issues/issue-830/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830",
+      "outputs": [
+        "docs/verification/issues/issue-830/commands.txt"
+      ]
+    }
+  ]
+}

@@ -12,9 +12,10 @@ export type WallShapeViewModel = {
 
 type WallShapeProps = {
   viewModel: WallShapeViewModel;
+  onSelect?: (objectType: WallShapeViewModel["kind"], objectId: string) => void;
 };
 
-export function WallShape({ viewModel }: WallShapeProps) {
+export function WallShape({ viewModel, onSelect }: WallShapeProps) {
   return (
     <g
       className={`layout-editor-stage__wall layout-editor-stage__wall--${viewModel.kind}`}
@@ -33,6 +34,13 @@ export function WallShape({ viewModel }: WallShapeProps) {
       role="img"
       aria-label={viewModel.ariaLabel}
       tabIndex={0}
+      onClick={() => onSelect?.(viewModel.kind, viewModel.wallId)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect?.(viewModel.kind, viewModel.wallId);
+        }
+      }}
     >
       <rect
         x={viewModel.xPixels}

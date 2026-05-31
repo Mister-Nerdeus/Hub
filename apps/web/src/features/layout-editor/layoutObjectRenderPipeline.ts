@@ -8,6 +8,7 @@ import type {
   EditableSupportAccessPointGeometry,
   EditableZoneGeometry
 } from "@nerdeus/shared";
+import type { SplitRoomContract } from "@nerdeus/shared";
 import { normalizeDoorForOwnerWall } from "@nerdeus/shared";
 
 import {
@@ -29,6 +30,12 @@ export const LAYOUT_OBJECT_RENDER_LAYER_ORDER = [
 
 export type LayoutObjectRenderLayer = (typeof LAYOUT_OBJECT_RENDER_LAYER_ORDER)[number];
 
+type SplitRoomParentRenderSource = SplitRoomContract & {
+  objectType: "split_room_parent";
+  id: string;
+  label: string;
+};
+
 export type LayoutObjectRenderItem = {
   objectType: LayoutSelectionObjectType;
   objectId: string;
@@ -47,7 +54,8 @@ export type LayoutObjectRenderItem = {
     | EditableDoorGeometry
     | EditableSupportAccessPointGeometry
     | EditableSplitBayGeometry
-    | EditableStationGeometry;
+    | EditableStationGeometry
+    | SplitRoomParentRenderSource;
 };
 
 export type BuildLayoutObjectRenderPipelineInput = {
@@ -72,6 +80,27 @@ export function buildLayoutObjectRenderPipeline({
     ...layout.rooms.map((room) =>
       buildRectRenderItem("room", room.id, "rooms", `${room.label} ${room.roomType}`, room, room, viewport)
     ),
+    ...(layout.splitRooms ?? []).flatMap((splitRoom) => {
+      const parentRoom = layout.rooms.find((room) => room.id === splitRoom.parentRoomId);
+      return parentRoom == null
+        ? []
+        : [
+            buildRectRenderItem(
+              "split_room_parent",
+              splitRoom.splitRoomId,
+              "overlays",
+              `Split Room ${parentRoom.roomNumber} ${splitRoom.dividerOrientation}`,
+              parentRoom,
+              {
+                ...splitRoom,
+                objectType: "split_room_parent",
+                id: splitRoom.splitRoomId,
+                label: `Split Room ${parentRoom.roomNumber}`
+              },
+              viewport
+            )
+          ];
+    }),
     ...(layout.splitBays ?? []).map((splitBay) =>
       buildRectRenderItem(
         "split_bay",

@@ -1,0 +1,6 @@
+status: passed
+commands:
+- node scripts/check-production-docker-runtime.mjs
+- docker compose -f docker-compose.production.yml config
+- PRODUCTION_DOCKER_SMOKE_PORT=5191 node scripts/check-production-docker-runtime.mjs --smoke
+result: production Docker validator, compose config, image build, migrations, /, /health, /v1/plans, and exact /v1 smoke checks passed.

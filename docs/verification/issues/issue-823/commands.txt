@@ -1,0 +1,4 @@
+node scripts/check-split-parent-move-resize-wiring.mjs --stage parent-move --issue 823
+node scripts/check-split-parent-move-resize-wiring.mjs --stage parent-resize --issue 823
+node scripts/check-split-parent-move-resize-wiring.mjs --stage beds-relative-after-resize --issue 823
+node scripts/check-split-parent-move-resize-wiring.mjs --stage no-fake-child-room-resize --issue 823

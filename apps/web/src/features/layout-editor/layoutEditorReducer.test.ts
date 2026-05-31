@@ -98,6 +98,31 @@ const stateWithLayout = createLayoutEditorState({
         widthFeet: 4
       }
     ],
+    splitRooms: [
+      {
+        splitRoomId: "split-room-room-01",
+        parentRoomId: "room-01",
+        splitMode: "two_bed",
+        dividerOrientation: "vertical",
+        dividerRatio: 0.5,
+        bedPositions: [
+          {
+            bedPositionId: "room-01:bed-a",
+            parentRoomId: "room-01",
+            label: "1A",
+            assignmentTarget: true,
+            relativeBounds: { xRatio: 0, yRatio: 0, widthRatio: 0.5, heightRatio: 1 }
+          },
+          {
+            bedPositionId: "room-01:bed-b",
+            parentRoomId: "room-01",
+            label: "1B",
+            assignmentTarget: true,
+            relativeBounds: { xRatio: 0.5, yRatio: 0, widthRatio: 0.5, heightRatio: 1 }
+          }
+        ]
+      }
+    ],
     splitBays: [
       {
         objectType: "split_bay",
@@ -121,6 +146,9 @@ const selectableObjects = [
   ["station", "station-primary"],
   ["hallway", "hall-main"],
   ["zone", "zone-entry"],
+  ["split_room_parent", "split-room-room-01"],
+  ["bed_position", "room-01:bed-a"],
+  ["outer_wall", "workspace-outer-boundary"],
   ["split_bay", "split-bay-01-02"]
 ] as const;
 assert.deepEqual(

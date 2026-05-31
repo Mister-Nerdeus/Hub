@@ -1,0 +1,3 @@
+node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829
+node scripts/check-split-room-hard-browser-regression.mjs --stage save-reload-flow --issue 829
+node scripts/check-split-room-hard-browser-regression.mjs --stage unsplit-flow --issue 829

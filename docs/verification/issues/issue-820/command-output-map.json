@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "820",
+  "commands": [
+    {
+      "command": "node scripts/check-editable-layout-split-room-state.mjs --stage split-rooms-collection --issue 820",
+      "outputs": [
+        "docs/verification/issues/issue-820/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-layout-split-room-state.mjs --stage no-fake-child-rooms --issue 820",
+      "outputs": [
+        "docs/verification/issues/issue-820/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-editable-layout-split-room-state.mjs --stage legacy-split-bays-compat-only --issue 820",
+      "outputs": [
+        "docs/verification/issues/issue-820/commands.txt"
+      ]
+    }
+  ]
+}

@@ -96,7 +96,7 @@ export function createLayoutEditorState(
     throw new Error("selectedObjectId and selectedObjectType must both be set or both be null");
   }
   if (selectedObjectType != null && !isLayoutEditorSelectableObjectType(selectedObjectType)) {
-    throw new Error("selectedObjectType must be room, door, support_access, station, hallway, zone, or split_bay");
+    throw new Error("selectedObjectType must be room, door, support_access, station, hallway, zone, split_room_parent, bed_position, outer_wall, or split_bay");
   }
 
   const snapMode = overrides.snapMode ?? "default";
@@ -170,6 +170,7 @@ export function planContractToEditableLayoutGeometry(
     stations: plan.nurseStations.map(planStationToEditableStation),
     hallways: plan.hallways.map(planHallwayToEditableHallway),
     zones: plan.zones.map(planZoneToEditableZone),
+    splitRooms: plan.splitRooms ?? [],
     splitBays: plan.splitBays ?? [],
     limitations: [
       "Editable geometry is derived from validated JSON floorplan data; source plan metadata and path graph remain attached to editor state."

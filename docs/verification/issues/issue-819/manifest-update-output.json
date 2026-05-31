@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "819",
+  "patch": {
+    "splitRoomReducerWiringStatus": "passed",
+    "reducerUsesSingleRoomSplitConversion": true,
+    "normalSplitRoomCreationDoesNotResolveRoomPair": true,
+    "splitRoomConversionPreservesParentFootprint": true
+  },
+  "manifest": {
+    "geometryTruthHardeningPreflightStatus": "passed",
+    "geometryGoNoGoHardeningStatus": "passed",
+    "geometryRootScriptHardeningStatus": "passed",
+    "legacySplitBayNormalFlowStatus": "passed",
+    "splitRoomReducerWiringStatus": "passed",
+    "editableLayoutSplitRoomStateStatus": "missing",
+    "splitRoomRenderPathStatus": "missing",
+    "splitBedSelectionStateStatus": "missing",
+    "splitParentMoveResizeWiringStatus": "missing",
+    "splitDividerReducerActionsStatus": "missing",
+    "splitRoomInspectorNormalFlowStatus": "missing",
+    "wallSelectionBehaviorStatus": "missing",
+    "hardGeometrySaveReloadStatus": "missing",
+    "realGeometryScreenshotProofStatus": "missing",
+    "splitRoomHardBrowserRegressionStatus": "missing",
+    "geometryTruthHardGoNoGoStatus": "not_ready",
+    "durableAssignmentFoundationStatus": "blocked_until_split_room_editor_behavior_verified",
+    "goNoGoStatus": "not_ready",
+    "legacySplitBayNormalFlowDetected": true,
+    "lastUpdatedIssue": "819",
+    "goNoGoRunsBehaviorValidators": true,
+    "manifestAloneCannotPassGoNoGo": true,
+    "browserRegressionRequiredForGo": true,
+    "placeholderProofRejectedForGo": true,
+    "requiredHardeningRootScriptsPresent": true,
+    "normalEditorDoesNotDispatchPairSplitBayAction": true,
+    "normalAddSplitRoomUsesSplitRoomNaming": true,
+    "reducerUsesSingleRoomSplitConversion": true,
+    "normalSplitRoomCreationDoesNotResolveRoomPair": true,
+    "splitRoomConversionPreservesParentFootprint": true
+  }
+}

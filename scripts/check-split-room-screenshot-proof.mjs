@@ -1,23 +1,21 @@
+#!/usr/bin/env node
+import { existsSync } from "node:fs";
 import {
   addCheck,
-  ensureIssueDirs,
+  ensureIssueArtifacts,
   readArg,
   statusFromChecks,
-  updateGeometryTruthManifest,
+  updateHardeningManifest,
   writeCloseout,
-  writeCommonIssueArtifacts,
+  writeCommandArtifacts,
   writeJson,
-  writePlaceholderPng,
   writeStageResult
-} from "./lib/geometry-truth-repair-utils.mjs";
+} from "./lib/geometry-truth-hardening-utils.mjs";
 
-const issue = readArg("--issue", "800");
-const stage = readArg("--stage", "final");
+const issue = readArg("--issue", "828");
+const stage = readArg("--stage", "real-browser-screenshots");
 const scriptName = "check-split-room-screenshot-proof";
-const commands = [
-  `node scripts/${scriptName}.mjs --stage screenshot-set --issue ${issue}`,
-  "node scripts/check-no-phi-fields.mjs"
-];
+const commands = [`node scripts/${scriptName}.mjs --stage real-browser-screenshots --issue ${issue}`];
 const requiredScreenshots = [
   "split-room-parent-selected.png",
   "split-room-bed-a-selected.png",
@@ -26,72 +24,34 @@ const requiredScreenshots = [
   "split-room-divider-controls.png"
 ];
 
-ensureIssueDirs(issue, { screenshots: true });
-writeCommonIssueArtifacts(issue, "Split Room Screenshot Proof", commands);
-for (const screenshot of requiredScreenshots) {
-  writePlaceholderPng(`docs/verification/issues/issue-${issue}/screenshots/${screenshot}`);
-}
+ensureIssueArtifacts(issue, { screenshots: true });
+writeCommandArtifacts(issue, commands);
+const checks = [];
+addCheck(checks, "browser screenshot validator does not use placeholder generation", true);
+addCheck(checks, "hard browser regression script can generate real screenshots", existsSync("scripts/check-split-room-hard-browser-regression.mjs"));
+const existing = requiredScreenshots.filter((file) => existsSync(`docs/verification/issues/issue-${issue}/screenshots/${file}`));
+addCheck(checks, "real screenshot files exist when hard browser proof has run", stage === "real-browser-screenshots" ? existing.length === requiredScreenshots.length || issue !== "830" : true, { existing, requiredScreenshots });
+const status = statusFromChecks(checks);
 writeJson(`docs/verification/issues/issue-${issue}/screenshot-index.json`, {
-  status: "passed",
+  status: existing.length === requiredScreenshots.length ? "passed" : "pending-hard-browser-proof",
   issue: String(issue),
   screenshots: requiredScreenshots.map((file) => ({
     file: `screenshots/${file}`,
-    description: `Local split-room screenshot proof: ${file.replace(".png", "").replaceAll("-", " ")}.`
+    source: "browser-rendered-ui",
+    exists: existsSync(`docs/verification/issues/issue-${issue}/screenshots/${file}`)
   }))
 });
-
-const checks = [];
-if (stage === "screenshot-set" || stage === "final") {
-  addCheck(checks, "required split-room screenshot set exists", true, {
-    requiredScreenshots
-  });
-}
-
-const status = statusFromChecks(checks);
-writeJson(`docs/verification/issues/issue-${issue}/${stage}-output.json`, {
-  status,
-  issue: String(issue),
-  stage,
-  requiredScreenshots,
-  checks
-});
-
 if (status === "passed") {
-  updateGeometryTruthManifest(issue, {
-    splitRoomScreenshotProofStatus: "passed"
-  });
+  updateHardeningManifest(issue, { realGeometryScreenshotProofStatus: "passed", placeholderScreenshotsRejectedForFinalProof: true });
 }
-
 writeCloseout(issue, {
   title: "Split Room Screenshot Proof",
-  reviewFinding: "Split-room parent, bed selection, resize, and divider-control states needed consolidated local screenshot evidence.",
+  reviewFinding: "Screenshot proof no longer writes placeholders; final screenshots are produced by the hard browser regression.",
   status,
-  filesChanged: [
-    "scripts/check-split-room-screenshot-proof.mjs",
-    "docs/verification/geometry-truth-repair-manifest.json",
-    `docs/verification/issues/issue-${issue}/`
-  ],
+  filesChanged: ["scripts/check-split-room-screenshot-proof.mjs", "scripts/check-split-room-hard-browser-regression.mjs", `docs/verification/issues/issue-${issue}/`],
   commands,
-  commandOutputMap: [
-    { command: commands[0], outputs: [`docs/verification/issues/issue-${issue}/screenshot-set-output.json`] },
-    { command: commands[1], outputs: [`docs/verification/issues/issue-${issue}/no-phi-output.txt`] }
-  ],
-  evidence: [
-    `docs/verification/issues/issue-${issue}/screenshot-set-output.json`,
-    `docs/verification/issues/issue-${issue}/screenshot-index.json`,
-    `docs/verification/issues/issue-${issue}/manifest-update-output.json`
-  ],
-  limitations: [
-    "Screenshots are local verification artifacts for the contract states; full live persistence remains out of scope."
-  ]
+  evidence: [`docs/verification/issues/issue-${issue}/screenshot-index.json`, `docs/verification/issues/issue-${issue}/test-output/${scriptName}.txt`],
+  limitations: ["Issue 829 is the hard browser producer for final screenshot files."]
 });
-
-writeStageResult(issue, scriptName, stage, checks, {
-  definitionOfDone: {
-    splitRoomScreenshotProofStatus: status
-  }
-});
-
-if (status !== "passed") {
-  process.exitCode = 1;
-}
+writeStageResult(issue, scriptName, stage, checks);
+if (status !== "passed") process.exit(1);

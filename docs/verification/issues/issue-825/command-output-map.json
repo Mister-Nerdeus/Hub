@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "825",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-inspector-normal-flow.mjs --stage no-split-bay-quick-edit-normal --issue 825",
+      "outputs": [
+        "docs/verification/issues/issue-825/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector-normal-flow.mjs --stage split-room-inspector-used --issue 825",
+      "outputs": [
+        "docs/verification/issues/issue-825/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-inspector-normal-flow.mjs --stage bed-position-details --issue 825",
+      "outputs": [
+        "docs/verification/issues/issue-825/commands.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "issue": "827",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editable layout export preserves splitRooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "plan import/export validates splitRooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared authoring save/reload builder preserves splitRooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "proof helper tracks splitRooms and bed position IDs",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "hallways/walls/support geometry contracts remain present",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

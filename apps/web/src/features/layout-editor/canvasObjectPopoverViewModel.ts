@@ -97,6 +97,12 @@ function formatObjectType(objectType: LayoutEditorSelectableObjectType): string 
       return "Hallway";
     case "zone":
       return "Zone";
+    case "split_room_parent":
+      return "Split Room";
+    case "bed_position":
+      return "Bed Position";
+    case "outer_wall":
+      return "Wall";
     case "split_bay":
       return "Split Room";
   }

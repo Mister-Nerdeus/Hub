@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "815",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage manifest-contract --issue 815",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage reproduce-legacy-split-bay-flow --issue 815",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage scope-boundary --issue 815",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-815/commands.txt"
+      ]
+    }
+  ]
+}

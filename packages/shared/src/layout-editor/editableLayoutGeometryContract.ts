@@ -1,3 +1,8 @@
+import {
+  validateSplitRoomContract,
+  type SplitRoomContract
+} from "../floorplans/splitRoomContract.js";
+
 export const EDITABLE_LAYOUT_GEOMETRY_SCHEMA_VERSION = "1.0.0" as const;
 
 export const EDITABLE_LAYOUT_UNITS = ["feet"] as const;
@@ -116,6 +121,8 @@ export type EditableLayoutGeometryContract = {
   stations: EditableStationGeometry[];
   hallways: EditableHallwayGeometry[];
   zones: EditableZoneGeometry[];
+  splitRooms?: SplitRoomContract[];
+  /** Legacy split-bay overlays are compatibility-only. Normal editor authoring uses splitRooms. */
   splitBays?: EditableSplitBayGeometry[];
   limitations: string[];
 };
@@ -147,6 +154,7 @@ export function validateEditableLayoutGeometryContract(
     "stations",
     "hallways",
     "zones",
+    "splitRooms",
     "splitBays",
     "limitations"
   ]);
@@ -160,6 +168,7 @@ export function validateEditableLayoutGeometryContract(
   ).map(validateSupportAccessPoint);
   const stations = requireArray(layout.stations, "stations").map(validateStation);
   const zones = requireArray(layout.zones, "zones").map(validateZone);
+  const splitRooms = requireArray(layout.splitRooms ?? [], "splitRooms").map(validateSplitRoomContract);
   const splitBays = requireArray(layout.splitBays ?? [], "splitBays").map(validateSplitBay);
   const limitations = requireArray(layout.limitations, "limitations").map((limitation, index) =>
     requireString(limitation, `limitations[${index}]`)
@@ -175,10 +184,12 @@ export function validateEditableLayoutGeometryContract(
     ...stations,
     ...hallways,
     ...zones,
-    ...splitBays
+    ...splitBays,
+    ...splitRooms.map((splitRoom) => ({ id: splitRoom.splitRoomId }))
   ]);
   validateDoorWallSpans(doors, rooms, hallways);
   validateSupportAccessWallSpans(supportAccessPoints, zones);
+  validateSplitRoomReferences(splitRooms, rooms);
   validateSplitBayReferences(splitBays, rooms);
 
   return {
@@ -195,6 +206,7 @@ export function validateEditableLayoutGeometryContract(
     stations,
     hallways,
     zones,
+    splitRooms,
     splitBays,
     limitations
   };
@@ -479,6 +491,33 @@ function validateSplitBayReferences(
         throw new Error(`split bay bed position room ${roomId} must not be referenced by multiple split bays`);
       }
       usedBedPositionIds.add(roomId);
+    }
+  }
+}
+
+function validateSplitRoomReferences(
+  splitRooms: SplitRoomContract[],
+  rooms: EditableRoomGeometry[]
+): void {
+  const roomIds = new Set(rooms.map((room) => room.id));
+  const usedParentRoomIds = new Set<string>();
+  const usedBedPositionIds = new Set<string>();
+  for (const splitRoom of splitRooms) {
+    if (!roomIds.has(splitRoom.parentRoomId)) {
+      throw new Error(`split room ${splitRoom.splitRoomId} parentRoomId must reference an existing room`);
+    }
+    if (usedParentRoomIds.has(splitRoom.parentRoomId)) {
+      throw new Error(`split room parent ${splitRoom.parentRoomId} must not be referenced by multiple split rooms`);
+    }
+    usedParentRoomIds.add(splitRoom.parentRoomId);
+    for (const bedPosition of splitRoom.bedPositions) {
+      if (bedPosition.parentRoomId !== splitRoom.parentRoomId) {
+        throw new Error(`split room ${splitRoom.splitRoomId} bed positions must reference the parent room`);
+      }
+      if (usedBedPositionIds.has(bedPosition.bedPositionId)) {
+        throw new Error(`bed position ${bedPosition.bedPositionId} must be unique`);
+      }
+      usedBedPositionIds.add(bedPosition.bedPositionId);
     }
   }
 }

@@ -1,3 +1,4 @@
+import type { PointerEvent } from "react";
 import type { SplitRoomContract } from "@nerdeus/shared";
 
 import {
@@ -14,6 +15,9 @@ type SplitRoomShapeProps = {
   selectedBedPositionId?: string | null;
   onSelectParent?: (splitRoomId: string) => void;
   onSelectBedPosition?: (objectType: "bed_position", objectId: string) => void;
+  onMoveStart?: (splitRoomId: string, event: PointerEvent<SVGGElement>) => void;
+  onMove?: (splitRoomId: string, event: PointerEvent<SVGGElement>) => void;
+  onMoveEnd?: (splitRoomId: string, event: PointerEvent<SVGGElement>) => void;
 };
 
 export function SplitRoomShape({
@@ -22,7 +26,10 @@ export function SplitRoomShape({
   isSelected = false,
   selectedBedPositionId = null,
   onSelectParent,
-  onSelectBedPosition
+  onSelectBedPosition,
+  onMoveStart,
+  onMove,
+  onMoveEnd
 }: SplitRoomShapeProps) {
   const divider = dividerLine(splitRoom, parentBounds);
   return (
@@ -51,6 +58,10 @@ export function SplitRoomShape({
           onSelectParent?.(splitRoom.splitRoomId);
         }
       }}
+      onPointerDown={(event) => onMoveStart?.(splitRoom.splitRoomId, event)}
+      onPointerMove={(event) => onMove?.(splitRoom.splitRoomId, event)}
+      onPointerUp={(event) => onMoveEnd?.(splitRoom.splitRoomId, event)}
+      onPointerCancel={(event) => onMoveEnd?.(splitRoom.splitRoomId, event)}
     >
       <rect
         className="layout-editor-stage__split-room-parent-outline"

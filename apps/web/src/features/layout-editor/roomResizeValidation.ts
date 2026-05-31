@@ -173,6 +173,12 @@ function codeForResizeCollisionTarget(
       throw new Error("doors are wall-relative and are not room resize collision targets");
     case "support_access":
       throw new Error("support access points are wall-relative and are not room resize collision targets");
+    case "split_room_parent":
+      throw new Error("split room parent overlays use parent room resize collision targets");
+    case "bed_position":
+      throw new Error("bed positions are relative overlays and are not room resize collision targets");
+    case "outer_wall":
+      throw new Error("outer walls are boundary geometry and are not room resize collision targets");
     case "split_bay":
       throw new Error("split bay overlays are not room resize collision targets");
   }

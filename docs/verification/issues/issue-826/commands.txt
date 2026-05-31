@@ -1,0 +1,3 @@
+node scripts/check-wall-selection-behavior.mjs --stage wall-click-selection --issue 826
+node scripts/check-wall-selection-behavior.mjs --stage wall-keyboard-selection --issue 826
+node scripts/check-wall-selection-behavior.mjs --stage selectable-contract-has-handler --issue 826

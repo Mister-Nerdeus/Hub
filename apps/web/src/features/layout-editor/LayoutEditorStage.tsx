@@ -17,10 +17,10 @@ import {
   type AuthoringRoomType,
   type DoorAuthoringWarning,
   type DoorPathNodeGenerationResult,
-  type EditableSplitBayDividerStyle,
   type EditableDoorWall,
   type PathSyncAuditResult,
-  type SimulationReadyExportResult
+  type SimulationReadyExportResult,
+  type SplitRoomContract
 } from "@nerdeus/shared";
 
 import { layoutEditorProofFixture } from "../../fixtures/layout-editor/layoutEditorProofFixture";
@@ -37,12 +37,8 @@ import {
   SupportAccessQuickEditPopover,
   buildSupportAccessQuickEdit
 } from "./SupportAccessQuickEditPopover";
-import { SplitBayShape } from "./SplitBayShape";
 import { BED_POSITION_RENDERER_CONTRACT } from "./BedPositionShape";
-import { SPLIT_ROOM_RENDERER_CONTRACT } from "./SplitRoomShape";
-import { buildSplitBayShapeViewModel } from "./splitBayShapeViewModel";
-import { SplitBayQuickEditPopover } from "./SplitBayQuickEditPopover";
-import { buildSplitBayQuickEdit } from "./splitBayQuickEditViewModel";
+import { SplitRoomShape, SPLIT_ROOM_RENDERER_CONTRACT } from "./SplitRoomShape";
 import { SplitRoomInspectorPanel } from "./SplitRoomInspectorPanel";
 import { SplitRoomPreviewPanel } from "./SplitRoomPreviewPanel";
 import { layoutEditorReducer, panViewportAction, type LayoutEditorAction } from "./layoutEditorReducer";
@@ -153,7 +149,7 @@ import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { artifactQuarantinePolicy } from "./artifactQuarantine";
 import { LAYOUT_EDITOR_RENDER_LAYER_ORDER } from "./renderLayerOrder";
-import { requiresRoomMergeForSplitConversion } from "./splitRoomActions";
+import { requiresRoomMergeForSplitConversion, type SplitRoomDividerOrientation } from "./splitRoomActions";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -346,12 +342,15 @@ export function LayoutEditorStage({
   const selectedHallway = findSelectedHallway(stageState);
   const selectedZone = findSelectedZone(stageState);
   const selectedSupportAccessPoint = findSelectedSupportAccessPoint(stageState);
-  const selectedSplitBay = findSelectedSplitBay(stageState);
+  const selectedSplitRoom = findSelectedSplitRoom(stageState);
+  const selectedSplitRoomParentRoom = findSplitRoomParentRoom(stageState, selectedSplitRoom);
+  const selectedBedPosition = findSelectedBedPosition(stageState);
+  const selectedBedSplitRoom = findSplitRoomForBedPosition(stageState, selectedBedPosition?.bedPositionId ?? null);
   useEffect(() => {
-    if (selectedSplitBay != null) {
+    if (selectedSplitRoom != null || selectedBedPosition != null) {
       setSplitRoomStatusMessage(null);
     }
-  }, [selectedSplitBay?.splitBayId]);
+  }, [selectedSplitRoom?.splitRoomId, selectedBedPosition?.bedPositionId]);
   const dispatchDoorStageAction = (action: LayoutEditorAction) => {
     const snapshotContext = doorRecoverySnapshotContextFromAction(action);
     if (
@@ -558,12 +557,12 @@ export function LayoutEditorStage({
     ariaLabel: "Outer wall boundary"
   };
   const zoneItems = renderItems.filter((item) => item.objectType === "zone");
-  const splitBayItems = renderItems.filter((item) => item.objectType === "split_bay");
-  const splitBayBedRoomIds = new Set(
-    stageState.editableLayout?.splitBays?.flatMap((splitBay) => [...splitBay.bedPositionRoomIds]) ?? []
+  const splitRoomItems = renderItems.filter((item) => item.objectType === "split_room_parent");
+  const splitParentRoomIds = new Set(
+    stageState.editableLayout?.splitRooms?.map((splitRoom) => splitRoom.parentRoomId) ?? []
   );
   const roomItems = renderItems.filter(
-    (item) => item.objectType === "room" && !splitBayBedRoomIds.has(item.objectId)
+    (item) => item.objectType === "room" && !splitParentRoomIds.has(item.objectId)
   );
   const doorItems = renderItems.filter((item) => item.objectType === "door");
   const supportAccessItems = renderItems.filter((item) => item.objectType === "support_access");
@@ -575,11 +574,6 @@ export function LayoutEditorStage({
       : null;
   const supportAccessQuickEditViewModel = buildSupportAccessQuickEdit({
     accessPoint: selectedSupportAccessPoint,
-    readOnly: stageState.readOnly
-  });
-  const splitBayQuickEditViewModel = buildSplitBayQuickEdit({
-    splitBay: selectedSplitBay,
-    rooms: stageState.editableLayout?.rooms ?? [],
     readOnly: stageState.readOnly
   });
   const podBorderViewModel = buildPodBorderViewModel({
@@ -684,6 +678,19 @@ export function LayoutEditorStage({
     }
     roomDragRef.current = {
       roomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY,
+      accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
+    };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const startSplitRoomParentMove = (splitRoomId: string, event: PointerEvent<SVGGElement>) => {
+    selectStageObject("split_room_parent", splitRoomId);
+    if (stageState.readOnly) {
+      return;
+    }
+    roomDragRef.current = {
+      roomId: splitRoomId,
       lastClientX: event.clientX,
       lastClientY: event.clientY,
       accumulator: createRoomMoveSnapAccumulator(stageState.snapMode)
@@ -914,7 +921,7 @@ export function LayoutEditorStage({
     setAuthoringSequence((value) => value + 1);
     setToolMode("select");
   };
-  const convertSelectedRoomToSplitBay = () => {
+  const convertSelectedRoomToSplitRoom = () => {
     if (
       stageState.readOnly ||
       stageState.selectedObjectType !== "room" ||
@@ -923,7 +930,7 @@ export function LayoutEditorStage({
       return;
     }
     dispatchStage({
-      type: "convertSelectedRoomPairToSplitBay",
+      type: "convertSelectedRoomToSplitRoom",
       roomId: stageState.selectedObjectId
     });
     setSplitRoomPreviewOpen(false);
@@ -1044,24 +1051,43 @@ export function LayoutEditorStage({
       widthFeet: selectedSupportAccessPoint.widthFeet + deltaFeet
     });
   };
-  const updateSelectedSplitBayDivider = (dividerStyle: EditableSplitBayDividerStyle) => {
-    if (selectedSplitBay == null) {
+  const updateSelectedSplitRoomDividerOrientation = (dividerOrientation: SplitRoomDividerOrientation) => {
+    if (selectedSplitRoom == null) {
       return;
     }
     dispatchStage({
-      type: "editSplitBayDivider",
-      splitBayId: selectedSplitBay.splitBayId,
-      dividerStyle
+      type: "editSplitRoomDividerOrientation",
+      splitRoomId: selectedSplitRoom.splitRoomId,
+      dividerOrientation
+    });
+  };
+  const updateSelectedSplitRoomDividerRatio = (dividerRatio: number) => {
+    if (selectedSplitRoom == null) {
+      return;
+    }
+    dispatchStage({
+      type: "editSplitRoomDividerRatio",
+      splitRoomId: selectedSplitRoom.splitRoomId,
+      dividerRatio
+    });
+  };
+  const resetSelectedSplitRoomDivider = () => {
+    if (selectedSplitRoom == null) {
+      return;
+    }
+    dispatchStage({
+      type: "resetSplitRoomDivider",
+      splitRoomId: selectedSplitRoom.splitRoomId
     });
   };
   const unsplitSelectedSplitRoom = () => {
-    if (selectedSplitBay == null) {
+    if (selectedSplitRoom == null) {
       return;
     }
-    setSplitRoomStatusMessage(splitBayQuickEditViewModel.unsplitStatusMessage);
+    setSplitRoomStatusMessage("Split Room removed. Parent room footprint remains available.");
     dispatchStage({
       type: "unsplitSplitRoom",
-      splitBayId: selectedSplitBay.splitBayId
+      splitBayId: selectedSplitRoom.splitRoomId
     });
   };
   const applyRoomAlignment = (actionId: RoomAlignmentActionId) => {
@@ -1140,6 +1166,41 @@ export function LayoutEditorStage({
   };
   const endRoomMove = (roomId: string, event: PointerEvent<SVGGElement>) => {
     if (roomDragRef.current?.roomId === roomId) {
+      roomDragRef.current = null;
+    }
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  };
+  const moveSplitRoomParentFromStage = (splitRoomId: string, event: PointerEvent<SVGGElement>) => {
+    const drag = roomDragRef.current;
+    if (drag == null || drag.roomId !== splitRoomId) {
+      return;
+    }
+
+    const deltaXFeet = pixelsDeltaToFeet(event.clientX - drag.lastClientX, stageState.viewport);
+    const deltaYFeet = pixelsDeltaToFeet(event.clientY - drag.lastClientY, stageState.viewport);
+    const accumulation = accumulateRoomDragDelta(drag.accumulator, { deltaXFeet, deltaYFeet });
+
+    roomDragRef.current = {
+      roomId: splitRoomId,
+      lastClientX: event.clientX,
+      lastClientY: event.clientY,
+      accumulator: accumulation.accumulator
+    };
+
+    if (accumulation.emittedDelta.deltaXFeet === 0 && accumulation.emittedDelta.deltaYFeet === 0) {
+      return;
+    }
+
+    dispatchStage({
+      type: "moveSplitRoomParent",
+      splitRoomId,
+      ...accumulation.emittedDelta
+    });
+  };
+  const endSplitRoomParentMove = (splitRoomId: string, event: PointerEvent<SVGGElement>) => {
+    if (roomDragRef.current?.roomId === splitRoomId) {
       roomDragRef.current = null;
     }
     if (event.currentTarget.hasPointerCapture(event.pointerId)) {
@@ -1252,7 +1313,10 @@ export function LayoutEditorStage({
     if (stageState.readOnly) {
       return;
     }
-    if (stageState.selectedObjectType !== "room" || stageState.selectedObjectId !== roomId) {
+    if (
+      stageState.selectedObjectId !== roomId ||
+      (stageState.selectedObjectType !== "room" && stageState.selectedObjectType !== "split_room_parent")
+    ) {
       return;
     }
     roomResizeRef.current = {
@@ -1287,13 +1351,23 @@ export function LayoutEditorStage({
       return;
     }
 
-    dispatchStage({
-      type: "resizeRoom",
-      roomId,
-      handle,
-      deltaXFeet,
-      deltaYFeet
-    });
+    dispatchStage(
+      stageState.selectedObjectType === "split_room_parent"
+        ? {
+            type: "resizeSplitRoomParent",
+            splitRoomId: roomId,
+            handle,
+            deltaXFeet,
+            deltaYFeet
+          }
+        : {
+            type: "resizeRoom",
+            roomId,
+            handle,
+            deltaXFeet,
+            deltaYFeet
+          }
+    );
   };
   const endRoomResize = (
     roomId: string,
@@ -1457,7 +1531,7 @@ export function LayoutEditorStage({
           onDoneEditing={onDoneEditing ?? (() => undefined)}
           onAddRoom={() => selectAddObjectMenuItem("patient_care_room")}
           onAddDoor={addDoorToSelectedRoom}
-          onAddSplitRoom={convertSelectedRoomToSplitBay}
+          onAddSplitRoom={convertSelectedRoomToSplitRoom}
           onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
           referenceOverlayVisible={referenceOverlayVisible}
           onToggleReferenceOverlay={() => setReferenceOverlayVisible((visible) => !visible)}
@@ -1642,7 +1716,8 @@ export function LayoutEditorStage({
             aria-label="Feet-based SVG grid stage"
             data-render-item-count={renderItems.length}
             data-room-render-count={roomItems.length}
-            data-split-bay-render-count={splitBayItems.length}
+            data-split-bay-render-count={stageState.editableLayout?.splitBays?.length ?? 0}
+            data-split-room-parent-render-count={splitRoomItems.length}
             data-split-room-renderer-contract={SPLIT_ROOM_RENDERER_CONTRACT}
             data-bed-position-renderer-contract={BED_POSITION_RENDERER_CONTRACT}
             data-split-bed-selection-contract="independent-bed-positions"
@@ -1681,7 +1756,7 @@ export function LayoutEditorStage({
               height={STAGE_HEIGHT_PIXELS}
               rx="0"
             />
-            <WallShape viewModel={outerWallViewModel} />
+            <WallShape viewModel={outerWallViewModel} onSelect={(_, wallId) => selectStageObject("outer_wall", wallId)} />
             <g className="layout-editor-stage__background-objects">
               {podBorderViewModel == null ? null : (
                 <ReferenceOverlayRenderer viewModel={referenceOverlayViewModel}>
@@ -1750,27 +1825,37 @@ export function LayoutEditorStage({
               ))}
             </g>
             <g className="layout-editor-stage__rooms">
-              {splitBayItems.map((item) => (
-                <SplitBayShape
-                  key={item.hitTargetKey}
-                  viewModel={buildSplitBayShapeViewModel({
-                    item,
-                    rooms: stageState.editableLayout?.rooms ?? []
-                  })}
-                  childAssignments={
-                    item.sourceGeometry.objectType === "split_bay"
-                      ? item.sourceGeometry.bedPositionRoomIds.map((roomId) => assignmentOverlay.roomsById[roomId] ?? null)
-                      : []
-                  }
-                  isSelected={isLayoutObjectSelected({
-                    objectType: item.objectType,
-                    objectId: item.objectId,
-                    selectedObjectType: stageState.selectedObjectType,
-                    selectedObjectId: stageState.selectedObjectId
-                  })}
-                  onSelect={selectStageObject}
-                />
-              ))}
+              {splitRoomItems.map((item) => {
+                const splitRoom = stageState.editableLayout?.splitRooms?.find(
+                  (candidate) => candidate.splitRoomId === item.objectId
+                );
+                return splitRoom == null ? null : (
+                  <SplitRoomShape
+                    key={item.hitTargetKey}
+                    splitRoom={splitRoom}
+                    parentBounds={{
+                      xPixels: item.displayRectPixels.xPixels,
+                      yPixels: item.displayRectPixels.yPixels,
+                      widthPixels: item.displayRectPixels.widthPixels,
+                      heightPixels: item.displayRectPixels.heightPixels
+                    }}
+                    isSelected={isLayoutObjectSelected({
+                      objectType: "split_room_parent",
+                      objectId: splitRoom.splitRoomId,
+                      selectedObjectType: stageState.selectedObjectType,
+                      selectedObjectId: stageState.selectedObjectId
+                    })}
+                    selectedBedPositionId={
+                      stageState.selectedObjectType === "bed_position" ? stageState.selectedObjectId : null
+                    }
+                    onSelectParent={(splitRoomId) => selectStageObject("split_room_parent", splitRoomId)}
+                    onSelectBedPosition={selectStageObject}
+                    onMoveStart={startSplitRoomParentMove}
+                    onMove={moveSplitRoomParentFromStage}
+                    onMoveEnd={endSplitRoomParentMove}
+                  />
+                );
+              })}
               {roomItems.map((item) => (
                 <RoomShape
                   key={item.hitTargetKey}
@@ -1925,7 +2010,7 @@ export function LayoutEditorStage({
                     onAssignNurse={() => setEditorMode("assignment")}
                     onAddDoor={addDoorToSelectedRoom}
                     onPreviewSplitRoom={() => setSplitRoomPreviewOpen(true)}
-                    onCreateSplitRoom={convertSelectedRoomToSplitBay}
+                    onCreateSplitRoom={convertSelectedRoomToSplitRoom}
                     onShowSplitRoomHelp={() => setSplitRoomPreviewOpen(true)}
                     onRemoveAttachedDoors={() => dispatchStage({ type: "removeSelectedRoomDoors" })}
                     attachedDoorCount={selectedRoomAttachedDoorCount}
@@ -2025,10 +2110,19 @@ export function LayoutEditorStage({
                       }
                     }}
                   />
-                ) : canvasObjectPopoverViewModel.objectType === "split_bay" ? (
-                  <SplitBayQuickEditPopover
-                    viewModel={splitBayQuickEditViewModel}
-                    onDividerStyleChange={updateSelectedSplitBayDivider}
+                ) : canvasObjectPopoverViewModel.objectType === "split_room_parent" || canvasObjectPopoverViewModel.objectType === "bed_position" ? (
+                  <SplitRoomInspectorPanel
+                    splitRoom={selectedSplitRoom ?? selectedBedSplitRoom}
+                    parentRoom={selectedSplitRoomParentRoom ?? findSplitRoomParentRoom(stageState, selectedBedSplitRoom)}
+                    selectedBedPositionId={selectedBedPosition?.bedPositionId ?? null}
+                    readOnly={stageState.readOnly}
+                    advanced={false}
+                    onSelectParent={(splitRoomId) => selectStageObject("split_room_parent", splitRoomId)}
+                    onSelectBedPosition={(bedPositionId) => selectStageObject("bed_position", bedPositionId)}
+                    onDividerOrientationChange={updateSelectedSplitRoomDividerOrientation}
+                    onDividerRatioChange={updateSelectedSplitRoomDividerRatio}
+                    onDividerRatioReset={resetSelectedSplitRoomDivider}
+                    onUnsplit={unsplitSelectedSplitRoom}
                   />
                 ) : canvasObjectPopoverViewModel.objectType === "station" ? (
                   <StationQuickEditPopover
@@ -2142,15 +2236,26 @@ export function LayoutEditorStage({
                     }
                   }}
                 />
-              ) : stageState.selectedObjectType === "split_bay" ? (
+              ) : stageState.selectedObjectType === "split_room_parent" || stageState.selectedObjectType === "bed_position" ? (
                 <SplitRoomInspectorPanel
-                  viewModel={splitBayQuickEditViewModel}
-                  onSelectChildRoom={(roomId) => dispatchStage({
+                  splitRoom={selectedSplitRoom ?? selectedBedSplitRoom}
+                  parentRoom={selectedSplitRoomParentRoom ?? findSplitRoomParentRoom(stageState, selectedBedSplitRoom)}
+                  selectedBedPositionId={selectedBedPosition?.bedPositionId ?? null}
+                  readOnly={stageState.readOnly}
+                  advanced={false}
+                  onSelectParent={(splitRoomId) => dispatchStage({
                     type: "selectObject",
-                    objectType: "room",
-                    objectId: roomId
+                    objectType: "split_room_parent",
+                    objectId: splitRoomId
                   })}
-                  onDividerStyleChange={updateSelectedSplitBayDivider}
+                  onSelectBedPosition={(bedPositionId) => dispatchStage({
+                    type: "selectObject",
+                    objectType: "bed_position",
+                    objectId: bedPositionId
+                  })}
+                  onDividerOrientationChange={updateSelectedSplitRoomDividerOrientation}
+                  onDividerRatioChange={updateSelectedSplitRoomDividerRatio}
+                  onDividerRatioReset={resetSelectedSplitRoomDivider}
                   onUnsplit={unsplitSelectedSplitRoom}
                 />
               ) : (
@@ -2372,19 +2477,58 @@ function findSelectedSupportAccessPoint(state: {
   return state.editableLayout.supportAccessPoints?.find((accessPoint) => accessPoint.id === state.selectedObjectId) ?? null;
 }
 
-function findSelectedSplitBay(state: {
+function findSelectedSplitRoom(state: {
   editableLayout: typeof baseInitialStageState.editableLayout;
   selectedObjectType: string | null;
   selectedObjectId: string | null;
 }) {
   if (
     state.editableLayout == null ||
-    state.selectedObjectType !== "split_bay" ||
+    state.selectedObjectType !== "split_room_parent" ||
     state.selectedObjectId == null
   ) {
     return null;
   }
-  return state.editableLayout.splitBays?.find((splitBay) => splitBay.id === state.selectedObjectId) ?? null;
+  return state.editableLayout.splitRooms?.find((splitRoom) => splitRoom.splitRoomId === state.selectedObjectId) ?? null;
+}
+
+function findSelectedBedPosition(state: {
+  editableLayout: typeof baseInitialStageState.editableLayout;
+  selectedObjectType: string | null;
+  selectedObjectId: string | null;
+}) {
+  if (
+    state.editableLayout == null ||
+    state.selectedObjectType !== "bed_position" ||
+    state.selectedObjectId == null
+  ) {
+    return null;
+  }
+  return state.editableLayout.splitRooms
+    ?.flatMap((splitRoom) => splitRoom.bedPositions)
+    .find((bedPosition) => bedPosition.bedPositionId === state.selectedObjectId) ?? null;
+}
+
+function findSplitRoomForBedPosition(
+  state: { editableLayout: typeof baseInitialStageState.editableLayout },
+  bedPositionId: string | null
+) {
+  if (state.editableLayout == null || bedPositionId == null) {
+    return null;
+  }
+  return state.editableLayout.splitRooms?.find((splitRoom) =>
+    splitRoom.bedPositions.some((bedPosition) => bedPosition.bedPositionId === bedPositionId)
+  ) ?? null;
+}
+
+function findSplitRoomParentRoom(
+  state: { editableLayout: typeof baseInitialStageState.editableLayout },
+  splitRoom: SplitRoomContract | null
+) {
+  if (state.editableLayout == null || splitRoom == null) {
+    return null;
+  }
+  return state.editableLayout.rooms.find((room) => room.id === splitRoom.parentRoomId) ?? null;
 }
 
 function createInitialStageState() {

@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "827",
+  "commands": [
+    {
+      "command": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage split-rooms --issue 827",
+      "outputs": [
+        "docs/verification/issues/issue-827/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage hallways-walls-support --issue 827",
+      "outputs": [
+        "docs/verification/issues/issue-827/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage stable-assignment-targets --issue 827",
+      "outputs": [
+        "docs/verification/issues/issue-827/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage no-legacy-fallback --issue 827",
+      "outputs": [
+        "docs/verification/issues/issue-827/commands.txt"
+      ]
+    }
+  ]
+}

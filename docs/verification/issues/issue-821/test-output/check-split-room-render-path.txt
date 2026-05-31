@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "821",
+  "stage": "data-object-types-correct",
+  "checks": [
+    {
+      "name": "normal editor imports and renders SplitRoomShape",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "normal editor does not import/render SplitBayShape",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "SplitRoomShape renders BedPositionShape",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "BedPositionShape exposes bed_position object type",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

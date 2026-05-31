@@ -105,4 +105,4 @@ assert.equal(
 );
 
 assert.throws(() => buildRoomResizeHandlesViewModel(null), /selected room/);
-assert.throws(() => buildRoomResizeHandlesViewModel(hallwayItem), /room render item/);
+assert.throws(() => buildRoomResizeHandlesViewModel(hallwayItem), /room or split_room_parent render item/);

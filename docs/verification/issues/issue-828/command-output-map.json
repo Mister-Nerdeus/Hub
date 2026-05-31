@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "issue": "828",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-screenshot-proof.mjs --stage real-browser-screenshots --issue 828",
+      "outputs": [
+        "docs/verification/issues/issue-828/commands.txt"
+      ]
+    }
+  ]
+}

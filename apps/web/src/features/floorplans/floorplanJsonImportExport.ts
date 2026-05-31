@@ -11,7 +11,7 @@ const FORBIDDEN_FLOORPLAN_JSON_KEYS = [
 
 export function exportFloorplanJson(plan: PlanContract): string {
   rejectPrivateDocumentPayload(plan, "floorplan");
-  // validatePlanContract preserves authored splitBays in the exported operational JSON.
+  // validatePlanContract preserves authored splitRooms and legacy splitBays in exported operational JSON.
   const validated = validatePlanContract(plan);
   return `${JSON.stringify(validated, null, 2)}\n`;
 }

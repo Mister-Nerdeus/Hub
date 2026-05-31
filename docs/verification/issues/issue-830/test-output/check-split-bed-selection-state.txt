@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "830",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "selection types include split parent and beds",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "bed selection stops parent click propagation",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "parent selection is separate",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "resize handles limited to parent selection, not bed selection",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

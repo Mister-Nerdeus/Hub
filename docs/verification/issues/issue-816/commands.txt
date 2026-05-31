@@ -1,0 +1,5 @@
+node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage validator-execution-required --issue 816
+node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage manifest-not-sole-proof --issue 816
+node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage split-room-browser-required --issue 816
+node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage placeholder-proof-rejected --issue 816
+node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830

@@ -169,6 +169,48 @@ function buildNormalSections(
         },
         rectGeometrySection(selectedObject)
       ];
+    case "split_room_parent": {
+      const parentRoom = layout.rooms.find((room) => room.id === selectedObject.parentRoomId);
+      return [
+        {
+          title: "Split room parent",
+          fields: [
+            { label: "Parent room", value: parentRoom == null ? selectedObject.parentRoomId : `${parentRoom.roomNumber} - ${parentRoom.label}` },
+            { label: "Divider orientation", value: selectedObject.dividerOrientation },
+            { label: "Divider ratio", value: `${Math.round(selectedObject.dividerRatio * 100)} / ${Math.round((1 - selectedObject.dividerRatio) * 100)}` },
+            { label: "Bed labels", value: selectedObject.bedPositions.map((bedPosition) => bedPosition.label).join(" / ") }
+          ].map(readOnlyField)
+        },
+        parentRoom == null ? emptyGeometrySection() : rectGeometrySection(parentRoom, "Parent footprint", true)
+      ];
+    }
+    case "bed_position": {
+      const splitRoom = (layout.splitRooms ?? []).find((candidate) =>
+        candidate.bedPositions.some((bedPosition) => bedPosition.bedPositionId === selectedObject.bedPositionId)
+      );
+      return [
+        {
+          title: "Bed position",
+          fields: [
+            { label: "Operational label", value: selectedObject.label },
+            { label: "Parent room", value: selectedObject.parentRoomId },
+            { label: "Assignment target", value: formatBoolean(selectedObject.assignmentTarget) },
+            { label: "Divider orientation", value: splitRoom?.dividerOrientation ?? "Unavailable" }
+          ].map(readOnlyField)
+        }
+      ];
+    }
+    case "outer_wall":
+      return [
+        {
+          title: "Wall",
+          fields: [
+            { label: "Wall label", value: selectedObject.label },
+            { label: "Editable", value: "No" },
+            { label: "Locked", value: "Yes" }
+          ].map(readOnlyField)
+        }
+      ];
     case "split_bay":
       return [
         {
@@ -214,8 +256,28 @@ function buildAdvancedSections(
       readOnlyField({ label: "relativeBounds", value: "stored on bed positions" })
     );
   }
+  if ("splitRoomId" in selectedObject) {
+    fields.push(
+      readOnlyField({ label: "splitRoomId", value: selectedObject.splitRoomId }),
+      readOnlyField({ label: "parentRoomId", value: selectedObject.parentRoomId }),
+      readOnlyField({ label: "bedPositionIds", value: selectedObject.bedPositions.map((bedPosition) => bedPosition.bedPositionId).join(" / ") })
+    );
+  }
+  if ("bedPositionId" in selectedObject) {
+    fields.push(
+      readOnlyField({ label: "bedPositionId", value: selectedObject.bedPositionId }),
+      readOnlyField({ label: "parentRoomId", value: selectedObject.parentRoomId })
+    );
+  }
 
   return [{ title: "Technical metadata", fields }];
+}
+
+function emptyGeometrySection(): LayoutInspectorSection {
+  return {
+    title: "Geometry",
+    fields: [readOnlyField({ label: "Status", value: "Parent room unavailable" })]
+  };
 }
 
 function readOnlyField(field: Omit<LayoutInspectorField, "isEditable">): LayoutInspectorField {

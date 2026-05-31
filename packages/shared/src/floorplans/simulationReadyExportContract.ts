@@ -132,6 +132,7 @@ export function buildPlanContractFromEditableLayout(input: {
         ? zone
         : { ...zone, label: geometry.label, x: geometry.xFeet, y: geometry.yFeet, widthFeet: geometry.widthFeet, lengthFeet: geometry.heightFeet };
     }),
+    splitRooms: editableLayout.splitRooms ?? [],
     splitBays: editableLayout.splitBays ?? [],
     pathNodes,
     pathEdges: source.pathEdges.filter((edge) => pathNodeIds.has(edge.fromNodeId) && pathNodeIds.has(edge.toNodeId))

@@ -19,6 +19,9 @@ export function defaultInspectorTabForSelection(
 ): LayoutInspectorTabId {
   if (selectedObjectType === "door") return "door";
   if (selectedObjectType === "split_bay") return "room";
+  if (selectedObjectType === "split_room_parent") return "room";
+  if (selectedObjectType === "bed_position") return "room";
+  if (selectedObjectType === "outer_wall") return "room";
   if (selectedObjectType === "station") return "room";
   if (selectedObjectType === "room") return "room";
   return "validation";

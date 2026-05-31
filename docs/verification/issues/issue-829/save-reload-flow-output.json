@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "stage": "save-reload-flow",
+  "singleRoomToSplitRoomBrowserFlowPassed": true,
+  "selectedNormalRoomId": "room-02",
+  "splitBedTargetsStableAfterReload": true,
+  "beforeReloadTargets": [
+    "room-02:bed-a",
+    "room-02:bed-b"
+  ],
+  "afterReloadTargets": [
+    "room-02:bed-a",
+    "room-02:bed-b"
+  ],
+  "newSplitBayCount": 0,
+  "unsplitPassed": true,
+  "finalState": {
+    "parentCount": 0,
+    "bedCount": 0,
+    "splitBayCount": 0,
+    "parentRoomStillExists": true
+  }
+}

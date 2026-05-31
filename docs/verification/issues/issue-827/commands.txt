@@ -1,0 +1,4 @@
+node scripts/check-hard-geometry-save-reload-proof.mjs --stage split-rooms --issue 827
+node scripts/check-hard-geometry-save-reload-proof.mjs --stage hallways-walls-support --issue 827
+node scripts/check-hard-geometry-save-reload-proof.mjs --stage stable-assignment-targets --issue 827
+node scripts/check-hard-geometry-save-reload-proof.mjs --stage no-legacy-fallback --issue 827

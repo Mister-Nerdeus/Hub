@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "821",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-render-path.mjs --stage split-room-shape-used --issue 821",
+      "outputs": [
+        "docs/verification/issues/issue-821/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-render-path.mjs --stage split-bay-shape-not-normal-path --issue 821",
+      "outputs": [
+        "docs/verification/issues/issue-821/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-render-path.mjs --stage bed-position-shape-used --issue 821",
+      "outputs": [
+        "docs/verification/issues/issue-821/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-render-path.mjs --stage data-object-types-correct --issue 821",
+      "outputs": [
+        "docs/verification/issues/issue-821/commands.txt"
+      ]
+    }
+  ]
+}

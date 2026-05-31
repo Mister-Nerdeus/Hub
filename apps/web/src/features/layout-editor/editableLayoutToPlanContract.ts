@@ -145,6 +145,7 @@ export function editableLayoutToPlanContract({
         lengthFeet: geometry.heightFeet
       };
     }),
+    splitRooms: editableLayout.splitRooms ?? [],
     splitBays: editableLayout.splitBays ?? [],
     pathNodes,
     pathEdges: source.pathEdges.filter(

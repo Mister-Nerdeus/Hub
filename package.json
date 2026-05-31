@@ -285,7 +285,22 @@
     "check:geometry-import-export-proof": "node scripts/check-geometry-import-export-proof.mjs --stage final --issue 803",
     "check:geometry-validation-summary-integration": "node scripts/check-geometry-validation-summary-integration.mjs --stage final --issue 804",
     "check:geometry-no-overclaim": "node scripts/check-geometry-no-overclaim.mjs --stage final --issue 805",
-    "check:geometry-regression-sweep": "node scripts/check-geometry-regression-sweep.mjs --stage final --issue 806"
+    "check:geometry-regression-sweep": "node scripts/check-geometry-regression-sweep.mjs --stage final --issue 806",
+    "check:geometry-truth-hardening-preflight": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
+    "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830",
+    "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 817",
+    "check:legacy-split-bay-normal-flow": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
+    "check:split-room-reducer-wiring": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
+    "check:editable-layout-split-room-state": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",
+    "check:split-room-render-path": "node scripts/check-split-room-render-path.mjs --stage final --issue 821",
+    "check:split-bed-selection-state": "node scripts/check-split-bed-selection-state.mjs --stage final --issue 822",
+    "check:split-parent-move-resize-wiring": "node scripts/check-split-parent-move-resize-wiring.mjs --stage final --issue 823",
+    "check:split-divider-reducer-actions": "node scripts/check-split-divider-reducer-actions.mjs --stage final --issue 824",
+    "check:split-room-inspector-normal-flow": "node scripts/check-split-room-inspector-normal-flow.mjs --stage final --issue 825",
+    "check:wall-selection-behavior": "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826",
+    "check:hard-geometry-save-reload-proof": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827",
+    "check:real-screenshot-proof-required": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
+    "check:split-room-hard-browser-regression": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829"
   },
   "engines": {
     "node": ">=22"

@@ -1,0 +1,5 @@
+node scripts/check-split-room-reducer-wiring.mjs --stage reducer-action --issue 819
+node scripts/check-split-room-reducer-wiring.mjs --stage uses-single-room-conversion --issue 819
+node scripts/check-split-room-reducer-wiring.mjs --stage no-pair-resolution-normal-flow --issue 819
+node scripts/check-split-room-reducer-wiring.mjs --stage parent-footprint-preserved --issue 819
+node scripts/check-split-room-reducer-wiring.mjs --stage no-fake-child-rooms --issue 819

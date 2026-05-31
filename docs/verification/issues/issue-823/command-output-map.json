@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "823",
+  "commands": [
+    {
+      "command": "node scripts/check-split-parent-move-resize-wiring.mjs --stage parent-move --issue 823",
+      "outputs": [
+        "docs/verification/issues/issue-823/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-parent-move-resize-wiring.mjs --stage parent-resize --issue 823",
+      "outputs": [
+        "docs/verification/issues/issue-823/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-parent-move-resize-wiring.mjs --stage beds-relative-after-resize --issue 823",
+      "outputs": [
+        "docs/verification/issues/issue-823/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-parent-move-resize-wiring.mjs --stage no-fake-child-room-resize --issue 823",
+      "outputs": [
+        "docs/verification/issues/issue-823/commands.txt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+node scripts/check-split-room-render-path.mjs --stage split-room-shape-used --issue 821
+node scripts/check-split-room-render-path.mjs --stage split-bay-shape-not-normal-path --issue 821
+node scripts/check-split-room-render-path.mjs --stage bed-position-shape-used --issue 821
+node scripts/check-split-room-render-path.mjs --stage data-object-types-correct --issue 821

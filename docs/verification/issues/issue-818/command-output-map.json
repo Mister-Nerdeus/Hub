@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "818",
+  "commands": [
+    {
+      "command": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage normal-flow-clean --issue 818",
+      "outputs": [
+        "docs/verification/issues/issue-818/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage legacy-only-if-marked --issue 818",
+      "outputs": [
+        "docs/verification/issues/issue-818/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage no-pair-split-dispatch-normal --issue 818",
+      "outputs": [
+        "docs/verification/issues/issue-818/commands.txt"
+      ]
+    }
+  ]
+}

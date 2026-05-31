@@ -27,7 +27,7 @@ export type RoomResizeHandleViewModel = {
 };
 
 export type RoomResizeHandlesViewModel = {
-  objectType: "room";
+  objectType: "room" | "split_room_parent";
   objectId: string;
   isDisplayOnly: false;
   handles: readonly RoomResizeHandleViewModel[];
@@ -46,12 +46,12 @@ export function buildSelectedRoomResizeHandlesViewModel({
   selectedObjectType,
   selectedObjectId
 }: BuildSelectedRoomResizeHandlesViewModelInput): RoomResizeHandlesViewModel | null {
-  if (selectedObjectType !== "room" || selectedObjectId == null) {
+  if ((selectedObjectType !== "room" && selectedObjectType !== "split_room_parent") || selectedObjectId == null) {
     return null;
   }
 
   const selectedRoomItem = renderItems.find(
-    (item) => item.objectType === "room" && item.objectId === selectedObjectId
+    (item) => item.objectType === selectedObjectType && item.objectId === selectedObjectId
   );
   return selectedRoomItem == null ? null : buildRoomResizeHandlesViewModel(selectedRoomItem);
 }
@@ -62,8 +62,8 @@ export function buildRoomResizeHandlesViewModel(
   if (selectedRoomItem == null) {
     throw new Error("resize handles require a selected room render item");
   }
-  if (selectedRoomItem.objectType !== "room") {
-    throw new Error("resize handles require a room render item");
+  if (selectedRoomItem.objectType !== "room" && selectedRoomItem.objectType !== "split_room_parent") {
+    throw new Error("resize handles require a room or split_room_parent render item");
   }
 
   const { xPixels, yPixels, widthPixels, heightPixels } = selectedRoomItem.displayRectPixels;
@@ -83,7 +83,7 @@ export function buildRoomResizeHandlesViewModel(
   };
 
   return {
-    objectType: "room",
+    objectType: selectedRoomItem.objectType,
     objectId: selectedRoomItem.objectId,
     isDisplayOnly: false,
     handles: ROOM_RESIZE_HANDLE_ORDER.map((handle) => ({
