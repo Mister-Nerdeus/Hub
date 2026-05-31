@@ -1,0 +1,4 @@
+node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 709
+node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 709
+node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 709
+node scripts/check-no-phi-fields.mjs

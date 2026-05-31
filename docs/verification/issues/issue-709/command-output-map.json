@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "709",
+  "commands": {
+    "1": "node scripts/check-route-step-mapping.mjs --stage editor-floorplan-map --allow-partial --issue 709",
+    "2": "node scripts/check-route-step-mapping.mjs --stage assignment-map --allow-partial --issue 709",
+    "3": "node scripts/check-route-step-mapping.mjs --stage scenarios-normal --allow-partial --issue 709",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

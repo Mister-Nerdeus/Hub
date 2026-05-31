@@ -1,7 +1,7 @@
 {
   "manifestVersion": "1.0.0",
   "batch": "704-748",
-  "lastUpdatedIssue": "708",
+  "lastUpdatedIssue": "709",
   "productDisplayName": "ER Pod Shift Simulator",
   "repositoryTruthSource": "github_default_branch",
   "workspaceUxPreflightStatus": "passed",
@@ -10,7 +10,7 @@
   "productShellRailStatus": "passed",
   "productShellRailAccessibilityStatus": "passed",
   "productWorkflowStepperStatus": "passed",
-  "routeStepMappingStatus": "missing",
+  "routeStepMappingStatus": "passed",
   "runtimeProofAdvancedOnlyStatus": "missing",
   "futureToolsHiddenNormalModeStatus": "missing",
   "advancedEvidenceEntryStatus": "missing",
@@ -63,5 +63,8 @@
   "outerMarginFivePxMax": true,
   "compactRailEnabled": true,
   "railItemsHaveAccessibleLabels": true,
-  "fullStepperVisible": true
+  "fullStepperVisible": true,
+  "editorMapsToFloorplan": true,
+  "manualAssignmentMapsToAssignments": true,
+  "scenariosVisibleAsNormalWorkflowStep": true
 }
