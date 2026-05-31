@@ -1,0 +1,84 @@
+{
+  "source": "docs/verification/issues/issue-743/test-output/save-and-use-floorplan-ux.txt",
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "normal save UI is Save Floorplan and Done Editing",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    },
+    {
+      "name": "save result copy says floorplan is active",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "advanced save tools contain version, JSON, and recovery actions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "local draft tools are inside advanced panel",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "saving makes saved floorplan active",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "stageResults": {
+    "normal-save-ui": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    },
+    "save-result-copy": {
+      "passed": true,
+      "missing": []
+    },
+    "advanced-save-tools": {
+      "passed": true,
+      "missing": []
+    },
+    "local-draft-hidden": {
+      "passed": true,
+      "missing": []
+    },
+    "active-after-save": {
+      "passed": true,
+      "missing": []
+    }
+  }
+}

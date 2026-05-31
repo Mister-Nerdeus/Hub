@@ -42,10 +42,16 @@ const stages = {
   "hub-composition": () => checkAll([
     fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanHub.tsx", [
       "ActiveFloorplanSelector",
-      "FloorplanReadinessChecklist",
-      "What do I do next?",
+      "FloorplanReadinessSummary",
+      "NextWorkflowStepCard",
       "Version summary",
       "Advanced/Evidence"
+    ]),
+    fileIncludes("apps/web/src/features/floorplans/FloorplanReadinessSummary.tsx", [
+      "FloorplanReadinessChecklist"
+    ]),
+    fileIncludes("apps/web/src/features/floorplans/NextWorkflowStepCard.tsx", [
+      "What do I do next?"
     ]),
     fileIncludes("apps/web/src/App.tsx", [
       "ActiveFloorplanHub",

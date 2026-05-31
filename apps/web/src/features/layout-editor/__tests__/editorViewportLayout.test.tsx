@@ -51,9 +51,12 @@ for (const snippet of [
   }
 }
 
-if (!cssSource.includes("max-width: 1480px")) {
-  throw new Error("editor shell should allow a wider canvas");
+if (!cssSource.includes("max-width: none")) {
+  throw new Error("editor shell should use the full workspace width");
 }
-if (!cssSource.includes("grid-template-columns: minmax(0, 1fr) minmax(240px, 300px)")) {
-  throw new Error("editor workspace should reserve most width for the canvas");
+if (!cssSource.includes("grid-template-columns: minmax(0, 4fr) minmax(220px, 260px)")) {
+  throw new Error("editor workspace should reserve most width for the canvas before details collapse");
+}
+if (!cssSource.includes("grid-template-columns: minmax(0, 1fr)")) {
+  throw new Error("editor workspace should allow full-width canvas when the right inspector is removed");
 }

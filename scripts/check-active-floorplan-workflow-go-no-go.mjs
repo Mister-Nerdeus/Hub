@@ -48,7 +48,7 @@ for (const [key, summary] of Object.entries(summaries)) {
 
 const codeChecks = [
   fileIncludes("apps/web/src/App.tsx", ["ActiveFloorplanContext.Provider", "activeFloorplan={activeFloorplanContract}", "writePersistedActiveFloorplanSelection"]),
-  fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanSelector.tsx", ["data-normal-floorplan-selector=\"single-active-floorplan\""]),
+  fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanCard.tsx", ["data-normal-floorplan-selector=\"single-active-floorplan\""]),
   fileIncludes("apps/web/src/features/floorplans/ActiveFloorplanBanner.tsx", ["data-technical-ids-hidden"]),
   fileIncludes("apps/web/src/features/floorplans/FloorplanChangeConfirmationDialog.tsx", ["Change active floorplan?"])
 ];

@@ -28,7 +28,7 @@ const objectCases = [
     objectId: "room-01",
     expectedTitle: "Room 01",
     expectedIsReadOnly: false,
-    expectedSections: ["Room metadata", "Geometry"],
+    expectedSections: ["Room identity", "Room type & capacity", "Operational capabilities", "Geometry"],
     expectedFields: [
       ["Room number", "01"],
       ["Room type", "standard"],

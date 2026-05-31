@@ -1,0 +1,86 @@
+{
+  "source": "docs/verification/issues/issue-743/test-output/floorplan-readiness-checklist.txt",
+  "status": "passed",
+  "issue": "743",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "readiness contract exists",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "readiness checklist renders human-readable items",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "component": {
+          "passed": true,
+          "missing": []
+        },
+        "viewModel": {
+          "passed": true,
+          "missing": []
+        }
+      }
+    },
+    {
+      "name": "assignment readiness status is visible",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "simulation readiness status is visible without clinical claims",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "includes": {
+          "passed": true,
+          "missing": []
+        },
+        "excludes": {
+          "passed": true,
+          "present": []
+        }
+      }
+    }
+  ],
+  "stageResults": {
+    "readiness-contract": {
+      "passed": true,
+      "missing": []
+    },
+    "checklist-render": {
+      "passed": true,
+      "component": {
+        "passed": true,
+        "missing": []
+      },
+      "viewModel": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    "ready-for-assignment": {
+      "passed": true,
+      "missing": []
+    },
+    "ready-for-simulation": {
+      "passed": true,
+      "includes": {
+        "passed": true,
+        "missing": []
+      },
+      "excludes": {
+        "passed": true,
+        "present": []
+      }
+    }
+  }
+}

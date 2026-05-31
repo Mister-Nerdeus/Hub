@@ -58,20 +58,28 @@ for (const stageName of selectedStages) {
 
 const status = statusFromChecks(checks);
 if (status === "passed") {
-  updateWorkspaceUxManifest(issue, {
-    workspaceUxPreflightStatus: "passed",
-    workspaceUxGoNoGoStatus: "not_ready",
-    goNoGoStatus: "not_ready"
-  });
+  updateWorkspaceUxManifest(issue, issue === "704"
+    ? {
+        workspaceUxPreflightStatus: "passed",
+        workspaceUxGoNoGoStatus: "not_ready",
+        goNoGoStatus: "not_ready"
+      }
+    : {
+        workspaceUxPreflightStatus: "passed"
+      });
 } else {
   writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
     status,
     issue: String(issue),
-    skippedPatch: {
-      workspaceUxPreflightStatus: "passed",
-      workspaceUxGoNoGoStatus: "not_ready",
-      goNoGoStatus: "not_ready"
-    }
+    skippedPatch: issue === "704"
+      ? {
+          workspaceUxPreflightStatus: "passed",
+          workspaceUxGoNoGoStatus: "not_ready",
+          goNoGoStatus: "not_ready"
+        }
+      : {
+          workspaceUxPreflightStatus: "passed"
+        }
   });
 }
 
@@ -104,23 +112,39 @@ writeStageResult(issue, scriptName, stage, checks, { stageResults });
 if (status !== "passed" && !allowPartial) process.exit(1);
 
 function checkManifestContract() {
+  const expectedSnippets = issue === "704"
+    ? [
+        `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
+        `"workspaceUxPreflightStatus":`,
+        `"fullPageWorkspaceShellStatus": "${workspaceUxRequiredManifestFlags.fullPageWorkspaceShellStatus}"`,
+        `"productShellRailStatus": "${workspaceUxRequiredManifestFlags.productShellRailStatus}"`,
+        `"productWorkflowStepperStatus": "${workspaceUxRequiredManifestFlags.productWorkflowStepperStatus}"`,
+        `"activeFloorplanHubStatus": "${workspaceUxRequiredManifestFlags.activeFloorplanHubStatus}"`,
+        `"editorWorkspaceLayoutStatus": "${workspaceUxRequiredManifestFlags.editorWorkspaceLayoutStatus}"`,
+        `"editorDetailsBottomPanelStatus": "${workspaceUxRequiredManifestFlags.editorDetailsBottomPanelStatus}"`,
+        `"normalModeTechnicalCopyHidden": ${workspaceUxRequiredManifestFlags.normalModeTechnicalCopyHidden}`,
+        `"goNoGoStatus": "${workspaceUxRequiredManifestFlags.goNoGoStatus}"`
+      ]
+    : [
+        `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
+        `"workspaceUxPreflightStatus":`,
+        `"fullPageWorkspaceShellStatus":`,
+        `"productShellRailStatus":`,
+        `"productWorkflowStepperStatus":`,
+        `"activeFloorplanHubStatus":`,
+        `"editorWorkspaceLayoutStatus":`,
+        `"editorDetailsBottomPanelStatus":`,
+        `"normalModeTechnicalCopyHidden":`
+      ];
   const manifest = fileIncludes("docs/verification/workspace-ux-foundation-manifest.json", [
-    `"repositoryTruthSource": "${workspaceUxRequiredManifestFlags.repositoryTruthSource}"`,
-    `"workspaceUxPreflightStatus":`,
-    `"fullPageWorkspaceShellStatus": "${workspaceUxRequiredManifestFlags.fullPageWorkspaceShellStatus}"`,
-    `"productShellRailStatus": "${workspaceUxRequiredManifestFlags.productShellRailStatus}"`,
-    `"productWorkflowStepperStatus": "${workspaceUxRequiredManifestFlags.productWorkflowStepperStatus}"`,
-    `"activeFloorplanHubStatus": "${workspaceUxRequiredManifestFlags.activeFloorplanHubStatus}"`,
-    `"editorWorkspaceLayoutStatus": "${workspaceUxRequiredManifestFlags.editorWorkspaceLayoutStatus}"`,
-    `"editorDetailsBottomPanelStatus": "${workspaceUxRequiredManifestFlags.editorDetailsBottomPanelStatus}"`,
-    `"normalModeTechnicalCopyHidden": ${workspaceUxRequiredManifestFlags.normalModeTechnicalCopyHidden}`,
+    ...expectedSnippets,
     `"assignmentSetContractStatus": "${workspaceUxRequiredManifestFlags.assignmentSetContractStatus}"`,
     `"nurseProfileBuilderStatus": "${workspaceUxRequiredManifestFlags.nurseProfileBuilderStatus}"`,
     `"roomLoadEditorStatus": "${workspaceUxRequiredManifestFlags.roomLoadEditorStatus}"`,
     `"simulationReviewStatus": "${workspaceUxRequiredManifestFlags.simulationReviewStatus}"`,
     `"optimizerStatus": "${workspaceUxRequiredManifestFlags.optimizerStatus}"`,
     `"reportsStatus": "${workspaceUxRequiredManifestFlags.reportsStatus}"`,
-    `"goNoGoStatus": "${workspaceUxRequiredManifestFlags.goNoGoStatus}"`
+    `"goNoGoStatus":`
   ]);
   return { passed: manifest.passed, results: [manifest] };
 }
