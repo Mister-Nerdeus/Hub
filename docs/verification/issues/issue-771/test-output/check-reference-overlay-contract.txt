@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "771",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "locked-toggleable",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "locked-toggleable": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}
