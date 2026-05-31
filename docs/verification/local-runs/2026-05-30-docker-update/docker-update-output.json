@@ -1,0 +1,123 @@
+{
+  "status": "passed",
+  "createdAt": "2026-05-30T21:51:31.6469253-04:00",
+  "gitCommit": "81676aa6",
+  "dockerVersion": "Docker version 29.4.1, build 055a478",
+  "dockerComposeVersion": "Docker Compose version v5.1.3",
+  "batch": "704-713",
+  "sourceChangesRequired": false,
+  "dependencyChange": "none",
+  "serviceChange": "none",
+  "results": [
+    {
+      "name": "docker-version",
+      "command": "docker --version",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-version.txt"
+    },
+    {
+      "name": "docker-compose-version",
+      "command": "docker compose version",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-compose-version.txt"
+    },
+    {
+      "name": "docker-compose-config",
+      "command": "docker compose config",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-compose-config.txt"
+    },
+    {
+      "name": "docker-compose-production-config",
+      "command": "docker compose -f docker-compose.production.yml config",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-compose-production-config.txt"
+    },
+    {
+      "name": "docker-compose-up-build",
+      "command": "docker compose up --build -d",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-compose-up-build.txt"
+    },
+    {
+      "name": "docker-migrate",
+      "command": "docker compose --profile tools run --rm migrate",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-migrate.txt"
+    },
+    {
+      "name": "docker-plan-api",
+      "command": "node scripts/verify-docker-plan-api.mjs",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-plan-api.txt"
+    },
+    {
+      "name": "docker-compose-ps",
+      "command": "docker compose ps",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-compose-ps.txt"
+    },
+    {
+      "name": "docker-image-api-local",
+      "command": "docker image inspect hub-api:latest --format {{.Id}} {{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-image-api-local.txt"
+    },
+    {
+      "name": "docker-image-web-local",
+      "command": "docker image inspect hub-web:latest --format {{.Id}} {{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-image-web-local.txt"
+    },
+    {
+      "name": "docker-api-health",
+      "command": "node -e fetch('http://localhost:8010/health').then(async (r) => { console.log(r.status, await r.text()); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-api-health.txt"
+    },
+    {
+      "name": "docker-web-editor-route",
+      "command": "node -e fetch('http://localhost:5180/?section=editor').then(async (r) => { console.log(r.status); if (!r.ok) process.exit(1); }).catch((error) => { console.error(error); process.exit(1); })",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-web-editor-route.txt"
+    },
+    {
+      "name": "production-docker-runtime",
+      "command": "node scripts/check-production-docker-runtime.mjs",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\production-docker-runtime.txt"
+    },
+    {
+      "name": "production-docker-runtime-smoke",
+      "command": "node scripts/check-production-docker-runtime.mjs --smoke",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\production-docker-runtime-smoke.txt"
+    },
+    {
+      "name": "docker-image-api-production",
+      "command": "docker image inspect hub-api-production:latest --format {{.Id}} {{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-image-api-production.txt"
+    },
+    {
+      "name": "docker-image-web-production",
+      "command": "docker image inspect hub-web-production:latest --format {{.Id}} {{index .Config.Labels \"org.opencontainers.image.revision\"}}",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-image-web-production.txt"
+    },
+    {
+      "name": "docker-no-phi",
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "exitCode": 0,
+      "output": "docs\\verification\\local-runs\\2026-05-30-docker-update\\docker-no-phi.txt"
+    }
+  ],
+  "nonPhiBoundary": {
+    "scanner": "passed",
+    "containerLabels": "retain no-PHI and no-EHR boundary language"
+  },
+  "knownLimitations": [
+    "No registry push or public-domain deployment was performed.",
+    "Production smoke used a temporary local Compose project and removed its containers and volume after the check."
+  ]
+}

@@ -1,4 +1,5 @@
 import {
+  EDITABLE_SPLIT_BAY_DIVIDER_STYLES,
   isRoomLoadEligibleRoomType,
   type ActiveFloorplanContract,
   type FloorplanReadinessContract,
@@ -158,19 +159,28 @@ function hasValidSplitRoomReadiness(activeFloorplan: ActiveFloorplanContract): {
     };
   }
 
-  const roomIds = new Set(layout.rooms.map((room) => room.id));
+  const roomsById = new Map(layout.rooms.map((room) => [room.id, room]));
   const invalidSplitBay = splitBays.find((splitBay) => {
     if (splitBay.objectType !== "split_bay") return true;
+    if (splitBay.id !== splitBay.splitBayId) return true;
     if (splitBay.splitBayId.trim().length === 0) return true;
     if (splitBay.label.trim().length === 0) return true;
+    if (!EDITABLE_SPLIT_BAY_DIVIDER_STYLES.includes(splitBay.dividerStyle)) return true;
+    if (!Number.isFinite(splitBay.xFeet) || !Number.isFinite(splitBay.yFeet)) return true;
+    if (!Number.isFinite(splitBay.widthFeet) || splitBay.widthFeet <= 0) return true;
+    if (!Number.isFinite(splitBay.heightFeet) || splitBay.heightFeet <= 0) return true;
     if (splitBay.bedPositionRoomIds.length !== 2) return true;
-    return splitBay.bedPositionRoomIds.some((roomId) => !roomIds.has(roomId));
+    if (new Set(splitBay.bedPositionRoomIds).size !== splitBay.bedPositionRoomIds.length) return true;
+    return splitBay.bedPositionRoomIds.some((roomId) => {
+      const childRoom = roomsById.get(roomId);
+      return childRoom == null || !isRoomLoadEligibleRoomType(childRoom.roomType);
+    });
   });
 
   if (invalidSplitBay != null) {
     return {
       passed: false,
-      reason: `Review split room ${invalidSplitBay.splitBayId || invalidSplitBay.id}: child room references must be valid and independently assignable.`
+      reason: `Review split room ${invalidSplitBay.splitBayId || invalidSplitBay.id}: child room references must be valid and independently assignable, divider style must be supported, and geometry must be persistence-compatible.`
     };
   }
 

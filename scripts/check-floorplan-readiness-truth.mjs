@@ -49,7 +49,8 @@ function runStage(name) {
     const source = fileIncludes("apps/web/src/features/floorplans/floorplanReadinessViewModel.ts", [
       "hasValidSplitRoomReadiness",
       "splitBay.bedPositionRoomIds.length !== 2",
-      "Split rooms have valid child room references."
+      "Split rooms have valid child room references.",
+      "EDITABLE_SPLIT_BAY_DIVIDER_STYLES"
     ]);
     const noAlwaysPass = fileExcludes("apps/web/src/features/floorplans/floorplanReadinessViewModel.ts", [
       "(layout.splitBays?.length ?? 0) >= 0"
@@ -72,7 +73,8 @@ function runStage(name) {
     const result = fileIncludes("apps/web/src/features/floorplans/floorplanReadinessViewModel.ts", [
       "invalidSplitBay",
       "child room references must be valid and independently assignable",
-      "roomIds.has(roomId)"
+      "divider style must be supported",
+      "roomsById.get(roomId)"
     ]);
     writeJson(`${dir}/invalid-split-room-readiness-output.json`, result);
     addCheck(checks, "invalid split-room references fail readiness", result.passed, result);

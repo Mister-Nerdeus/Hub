@@ -1,7 +1,7 @@
 # Issue 708 Closeout
 
 ## Problem
-Active Floorplan Persistence Resilience
+Readiness Truth Hardening
 
 ## Summary
 - Local validator status: passed.
@@ -13,6 +13,10 @@ Active Floorplan Persistence Resilience
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
+- node scripts/check-floorplan-readiness-truth.mjs --stage split-room-readiness --allow-partial --issue 708
+- node scripts/check-floorplan-readiness-truth.mjs --stage no-split-room-readiness --allow-partial --issue 708
+- node scripts/check-floorplan-readiness-truth.mjs --stage invalid-split-room-readiness --allow-partial --issue 708
+- node scripts/check-floorplan-readiness-truth.mjs --stage simulation-readiness-copy --allow-partial --issue 708
 - node scripts/check-active-floorplan-persistence-resilience.mjs --stage corrupted-localstorage --allow-partial --issue 708
 - node scripts/check-active-floorplan-persistence-resilience.mjs --stage fallback-floorplan --allow-partial --issue 708
 - node scripts/check-no-phi-fields.mjs
@@ -26,7 +30,7 @@ Active Floorplan Persistence Resilience
 - docs/project/editor-assignment-ux-status.md
 
 ## Known Limitations
-- None beyond the issue scope.
+- Simulation readiness remains blocked until assignment set, scenario context, and assumptions are available.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass when node scripts/check-no-phi-fields.mjs is run.

@@ -177,6 +177,7 @@ Project GO / NO-GO decision: ${finalDecision.goNoGoStatus}
 
 Scope boundaries:
 
+- This batch is editor and assignment productization only.
 - Scenario Builder remains foundation-only.
 - Simulation Review remains internal dry-run only.
 - Reports remain placeholder-only.

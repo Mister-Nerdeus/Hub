@@ -38,11 +38,15 @@ for (const name of stages) {
 
 const status = statusFromChecks(checks);
 if (status === "passed") {
-  updateManifest(issue, {
-    editorAssignmentUxPreflightStatus: "passed",
-    editorAssignmentUxGoNoGoStatus: "not_ready",
-    goNoGoStatus: "not_ready"
-  });
+  updateManifest(issue, issue === "704"
+    ? {
+        editorAssignmentUxPreflightStatus: "passed",
+        editorAssignmentUxGoNoGoStatus: "not_ready",
+        goNoGoStatus: "not_ready"
+      }
+    : {
+        editorAssignmentUxPreflightStatus: "passed"
+      });
 }
 writeCommandsAndCloseout(issue, "Editor/Assignment UX Batch Preflight + Manifest", requiredCommands(), status, [
   "Issue 704 intentionally wires status and validators only; product UI changes begin in Issue 705."
@@ -136,6 +140,9 @@ function runStage(name) {
       "Optimization and assignment recommendations remain not started.",
       "This batch is editor and assignment productization only."
     ]);
+    const preflightGoNoGoStatusAllowed = issue === "704"
+      ? manifest.goNoGoStatus === "not_ready"
+      : ["not_ready", "go_for_next_batch", "blocked_with_exact_editor_assignment_items", "no_go_with_exact_blockers"].includes(manifest.goNoGoStatus);
     const manifestBoundaryPassed =
       manifest.scenarioBuilderStatus === "foundation_only"
       && manifest.simulationReviewStatus === "internal_dry_run_only"
@@ -145,7 +152,7 @@ function runStage(name) {
       && manifest.clinicalSafetyScoringStatus === "not_started"
       && manifest.staffingComplianceStatus === "not_started"
       && manifest.patientOutcomePredictionStatus === "not_started"
-      && manifest.goNoGoStatus === "not_ready";
+      && preflightGoNoGoStatusAllowed;
     const result = {
       status: statusDoc.passed && manifestBoundaryPassed ? "passed" : "failed",
       statusDoc,

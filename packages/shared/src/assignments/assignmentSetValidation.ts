@@ -14,11 +14,16 @@ import {
   ROOM_LOAD_TURNOVER_LEVELS,
   type RoomLoadContract
 } from "./roomLoadContract.js";
+import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
 
 export function validateAssignmentSetContract(value: unknown): AssignmentSetContract {
   const record = requireRecord(value, "assignmentSet");
   const nurseProfiles = requireArray(record.nurseProfiles, "assignmentSet.nurseProfiles")
     .map(validateNurseProfileContract);
+  requireUnique(
+    "assignmentSet.nurseProfiles.nurseProfileId",
+    nurseProfiles.map((nurse) => nurse.nurseProfileId)
+  );
   const roomLoads = requireRecord(record.roomLoadsByRoomId, "assignmentSet.roomLoadsByRoomId");
   const roomLoadsByRoomId = Object.fromEntries(
     Object.entries(roomLoads).map(([roomId, roomLoad]) => {
@@ -31,12 +36,18 @@ export function validateAssignmentSetContract(value: unknown): AssignmentSetCont
   );
   const assignments = requireRecord(record.assignmentsByRoomId, "assignmentSet.assignmentsByRoomId");
   const nurseIds = new Set(nurseProfiles.map((nurse) => nurse.nurseProfileId));
+  const activeNurseIds = new Set(
+    nurseProfiles.filter((nurse) => nurse.active).map((nurse) => nurse.nurseProfileId)
+  );
   for (const [roomId, nurseId] of Object.entries(assignments)) {
     if (typeof nurseId !== "string" || nurseId.trim().length === 0) {
       throw new Error(`assignment for ${roomId} must reference a nurse profile ID`);
     }
     if (!nurseIds.has(nurseId)) {
       throw new Error(`assignment for ${roomId} references unknown nurse profile ${nurseId}`);
+    }
+    if (!activeNurseIds.has(nurseId)) {
+      throw new Error(`assignment for ${roomId} references inactive nurse profile ${nurseId}`);
     }
     if (roomLoadsByRoomId[roomId] == null) {
       throw new Error(`assignment for ${roomId} references room without a structured room load`);
@@ -47,7 +58,10 @@ export function validateAssignmentSetContract(value: unknown): AssignmentSetCont
     schemaVersion: requireLiteral(record.schemaVersion, "1.0.0", "assignmentSet.schemaVersion"),
     assignmentSetId: requireString(record.assignmentSetId, "assignmentSet.assignmentSetId"),
     floorplanVersionId: requireString(record.floorplanVersionId, "assignmentSet.floorplanVersionId"),
-    displayName: requireString(record.displayName, "assignmentSet.displayName"),
+    displayName: validateOperationalRuntimeText(
+      requireString(record.displayName, "assignmentSet.displayName"),
+      "assignmentSet.displayName"
+    ),
     status: requireEnum(record.status, ASSIGNMENT_SET_STATUSES, "assignmentSet.status"),
     nurseProfiles,
     assignmentsByRoomId: Object.fromEntries(
@@ -61,20 +75,27 @@ export function validateAssignmentSetContract(value: unknown): AssignmentSetCont
 
 export function validateNurseProfileContract(value: unknown): NurseProfileContract {
   const record = requireRecord(value, "nurseProfile");
-  const displayLabel = requireString(record.displayLabel, "nurseProfile.displayLabel");
+  const displayLabel = validateOperationalRuntimeText(
+    requireString(record.displayLabel, "nurseProfile.displayLabel"),
+    "nurseProfile.displayLabel"
+  );
   if (displayLabel.trim().length === 0) {
     throw new Error("nurseProfile.displayLabel must be an operational display label");
   }
-  const targetPatientCount = requireNonNegativeNumber(record.targetPatientCount, "nurseProfile.targetPatientCount");
-  const maxPatientCount = requireNonNegativeNumber(record.maxPatientCount, "nurseProfile.maxPatientCount");
+  const targetPatientCount = requireNonNegativeInteger(record.targetPatientCount, "nurseProfile.targetPatientCount");
+  const maxPatientCount = requireNonNegativeInteger(record.maxPatientCount, "nurseProfile.maxPatientCount");
   if (maxPatientCount < targetPatientCount) {
     throw new Error("nurseProfile.maxPatientCount must be greater than or equal to targetPatientCount");
+  }
+  const color = requireString(record.color, "nurseProfile.color");
+  if (!/^#[0-9a-fA-F]{6}$/u.test(color)) {
+    throw new Error("nurseProfile.color must be a hex color");
   }
   return {
     schemaVersion: requireLiteral(record.schemaVersion, "1.0.0", "nurseProfile.schemaVersion"),
     nurseProfileId: requireString(record.nurseProfileId, "nurseProfile.nurseProfileId"),
     displayLabel,
-    color: requireString(record.color, "nurseProfile.color"),
+    color,
     role: requireEnum(record.role, NURSE_PROFILE_ROLES, "nurseProfile.role"),
     targetPatientCount,
     maxPatientCount,
@@ -155,9 +176,9 @@ function requireBoolean(value: unknown, label: string): boolean {
   return value;
 }
 
-function requireNonNegativeNumber(value: unknown, label: string): number {
-  if (typeof value !== "number" || !Number.isFinite(value) || value < 0) {
-    throw new Error(`${label} must be a non-negative number`);
+function requireNonNegativeInteger(value: unknown, label: string): number {
+  if (typeof value !== "number" || !Number.isInteger(value) || value < 0) {
+    throw new Error(`${label} must be a non-negative integer`);
   }
   return value;
 }
@@ -186,4 +207,10 @@ function requireEnum<T extends readonly (string | number)[]>(
     throw new Error(`${label} must be one of ${allowed.join(", ")}`);
   }
   return value as T[number];
+}
+
+function requireUnique(label: string, values: readonly string[]): void {
+  if (new Set(values).size !== values.length) {
+    throw new Error(`${label} must be unique`);
+  }
 }

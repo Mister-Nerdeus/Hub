@@ -85,6 +85,10 @@ function runStage(name) {
       "validateRoomLoadContract",
       "assignmentSetMatchesFloorplanVersion",
       "references unknown nurse profile",
+      "references inactive nurse profile",
+      "validateOperationalRuntimeText",
+      "assignmentSet.nurseProfiles.nurseProfileId",
+      "must be unique",
       "structured room load"
     ]);
     writeJson(`${dir}/validation-output.json`, result);

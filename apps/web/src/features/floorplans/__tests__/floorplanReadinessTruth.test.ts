@@ -5,6 +5,10 @@ const baseContract = createActiveFloorplanContract(createEmptyActiveFloorplanSta
 if (baseContract == null) {
   throw new Error("canonical active floorplan contract should be available for readiness checks");
 }
+const firstRoom = baseContract.editableLayout.rooms[0];
+if (firstRoom == null) {
+  throw new Error("canonical active floorplan contract should include rooms");
+}
 
 const baseReadiness = createFloorplanReadinessViewModel(baseContract);
 const noSplitRooms = baseReadiness.items.find((item) => item.itemId === "split_rooms_reviewed");
@@ -44,4 +48,64 @@ const invalidSplitRoomReadiness = createFloorplanReadinessViewModel({
 const invalidSplitRooms = invalidSplitRoomReadiness.items.find((item) => item.itemId === "split_rooms_reviewed");
 if (invalidSplitRooms?.status !== "needs_work") {
   throw new Error("invalid split-room child references must fail readiness");
+}
+
+const invalidDividerStyleReadiness = createFloorplanReadinessViewModel({
+  ...baseContract,
+  editableLayout: {
+    ...baseContract.editableLayout,
+    splitBays: [
+      {
+        id: "split-bay-invalid-divider",
+        label: "Invalid divider",
+        xFeet: 1,
+        yFeet: 1,
+        widthFeet: 10,
+        heightFeet: 10,
+        objectType: "split_bay",
+        splitBayId: "split-bay-invalid-divider",
+        bedPositionRoomIds: ["room-01", "room-02"],
+        dividerStyle: "unsupported-divider"
+      } as any
+    ]
+  }
+});
+const invalidDividerSplitRooms = invalidDividerStyleReadiness.items.find((item) => item.itemId === "split_rooms_reviewed");
+if (invalidDividerSplitRooms?.status !== "needs_work") {
+  throw new Error("invalid split-room divider style must fail readiness");
+}
+
+const invalidChildRoomReadiness = createFloorplanReadinessViewModel({
+  ...baseContract,
+  editableLayout: {
+    ...baseContract.editableLayout,
+    rooms: [
+      ...baseContract.editableLayout.rooms,
+      {
+        ...firstRoom,
+        id: "room-storage-child",
+        label: "Storage child",
+        roomNumber: "Storage child",
+        roomType: "storage"
+      }
+    ],
+    splitBays: [
+      {
+        id: "split-bay-storage-child",
+        label: "Storage child",
+        xFeet: 1,
+        yFeet: 1,
+        widthFeet: 10,
+        heightFeet: 10,
+        objectType: "split_bay",
+        splitBayId: "split-bay-storage-child",
+        bedPositionRoomIds: [firstRoom.id, "room-storage-child"],
+        dividerStyle: "diagonal_down"
+      }
+    ]
+  }
+});
+const invalidChildSplitRooms = invalidChildRoomReadiness.items.find((item) => item.itemId === "split_rooms_reviewed");
+if (invalidChildSplitRooms?.status !== "needs_work") {
+  throw new Error("split-room child positions must be assignment-eligible room loads");
 }

@@ -526,11 +526,9 @@ async function runPodRegression(browser, { roomId, screenshot, recoveryChecks })
 }
 
 async function openSavedWorkingEditor(browser) {
-  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-runtime-build-info="true"]') != null`);
-  await waitForExpression(
-    browser,
-    `document.querySelector('[data-runtime-build-info="true"]')?.getAttribute('data-batch-marker') === ${JSON.stringify(editorRuntimeBuildMarker)}`,
-    10_000
+  await browser.navigate(
+    `${browser.baseUrl}/?section=editor`,
+    `document.querySelector('[data-editor-command-bar="consolidated"]') != null`
   );
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);

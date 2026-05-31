@@ -30,7 +30,11 @@ export function NurseProfileBuilder({
     if (next.maxPatientCount < next.targetPatientCount) {
       next.maxPatientCount = next.targetPatientCount;
     }
-    onAssignmentSetChange(updateNurseProfile(assignmentSet, next));
+    try {
+      onAssignmentSetChange(updateNurseProfile(assignmentSet, next));
+    } catch {
+      return;
+    }
   }
 
   return (

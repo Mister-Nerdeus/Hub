@@ -16,6 +16,7 @@ Project GO / NO-GO decision: go_for_next_batch
 
 Scope boundaries:
 
+- This batch is editor and assignment productization only.
 - Scenario Builder remains foundation-only.
 - Simulation Review remains internal dry-run only.
 - Reports remain placeholder-only.
