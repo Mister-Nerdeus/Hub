@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "797",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-unsplit-action.mjs --stage unsplit-action --issue 797",
+      "outputs": [
+        "docs/verification/issues/issue-797/unsplit-action-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-unsplit-action.mjs --stage parent-footprint-preserved --issue 797",
+      "outputs": [
+        "docs/verification/issues/issue-797/parent-footprint-preserved-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-797/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-797/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-797/no-phi-output.txt"
+      ]
+    }
+  ]
+}

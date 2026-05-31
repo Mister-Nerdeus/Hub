@@ -27,6 +27,12 @@ export type SplitRoomParentResizeResult = {
   splitRoom: SplitRoomContract;
 };
 
+export type SplitRoomUnsplitResult = {
+  parentRoom: EditableRoomGeometry;
+  removedSplitRoomId: string;
+  bedPositionsRemoved: true;
+};
+
 export function convertSingleRoomToSplitRoom(
   input: ConvertRoomToSplitRoomInput
 ): SplitRoomContract {
@@ -156,6 +162,17 @@ export function updateSplitRoomDividerRatio(
 
 export function resetSplitRoomDividerToEven(splitRoom: SplitRoomContract): SplitRoomContract {
   return updateSplitRoomDividerRatio(splitRoom, DEFAULT_SPLIT_ROOM_DIVIDER_RATIO);
+}
+
+export function unsplitSplitRoomToParentRoom(input: {
+  parentRoom: EditableRoomGeometry;
+  splitRoom: SplitRoomContract;
+}): SplitRoomUnsplitResult {
+  return {
+    parentRoom: { ...input.parentRoom },
+    removedSplitRoomId: input.splitRoom.splitRoomId,
+    bedPositionsRemoved: true
+  };
 }
 
 function createTwoBedPositions(input: {

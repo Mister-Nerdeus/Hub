@@ -203,6 +203,7 @@ export function SplitRoomInspectorPanel({
           type="button"
           disabled={viewModel.readOnly}
           data-unsplit-action="request"
+          data-unsplit-preserves-parent-footprint="true"
           onClick={() => setUnsplitConfirmationOpen(true)}
         >
           {viewModel.unsplitButtonLabel ?? `Unsplit ${viewModel.pairLabel}`}
@@ -225,6 +226,7 @@ export function SplitRoomInspectorPanel({
               type="button"
               disabled={viewModel.readOnly}
               data-unsplit-action="confirm"
+              data-unsplit-preserves-parent-footprint="true"
               onClick={() => {
                 setUnsplitConfirmationOpen(false);
                 onUnsplit();

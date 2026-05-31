@@ -1,0 +1,5 @@
+node scripts/check-split-room-unsplit-action.mjs --stage unsplit-action --issue 797
+node scripts/check-split-room-unsplit-action.mjs --stage parent-footprint-preserved --issue 797
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

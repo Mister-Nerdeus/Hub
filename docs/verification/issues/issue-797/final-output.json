@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "issue": "797",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "unsplit action removes split model and bed positions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "inspector exposes request and confirm unsplit actions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "unsplit preserves parent room footprint",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "inspector declares parent footprint preservation",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}
