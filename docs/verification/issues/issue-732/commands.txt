@@ -1,0 +1,3 @@
+npm --workspace apps/web run build
+node scripts/check-editor-details-normal-sections.mjs --stage normal-sections --allow-partial --issue 732
+node scripts/check-no-phi-fields.mjs
