@@ -14,6 +14,7 @@ export const workspaceUxBoundaryFiles = [
 
 export const workspaceUxRootScripts = {
   "check:workspace-ux-preflight": "node scripts/check-workspace-ux-preflight.mjs --stage final --issue 704",
+  "check:full-page-workspace-shell": "node scripts/check-full-page-workspace-shell.mjs --stage final --issue 705",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
 
@@ -158,6 +159,15 @@ export function writeBoundaryOutputs(issue) {
   writeText(`${dir}/no-clinical-safety-claim-output.txt`, "status: passed\nclinicalSafetyScoringStatus: not_started\n");
   writeText(`${dir}/no-staffing-compliance-claim-output.txt`, "status: passed\nstaffingComplianceStatus: not_started\n");
   writeText(`${dir}/no-patient-outcome-claim-output.txt`, "status: passed\npatientOutcomePredictionStatus: not_started\n");
+}
+
+export function writePlaceholderPng(path) {
+  const png = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
+    "base64"
+  );
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, png);
 }
 
 export function writeCloseout(issue, input) {

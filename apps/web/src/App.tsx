@@ -562,6 +562,15 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
         </section>
       ) : null}
 
+      {activeSection === "help" ? (
+        <section className="workflow-section" aria-labelledby="help-title">
+          <h2 id="help-title">Help</h2>
+          <p className="workflow-section__placeholder">
+            This workspace uses synthetic operational data only. Finish Floorplan and Assignments before scenario setup.
+          </p>
+        </section>
+      ) : null}
+
       {activeSection === "settings" ? (
         <section className="workflow-section" aria-labelledby="settings-title">
           <h2 id="settings-title">Settings</h2>
