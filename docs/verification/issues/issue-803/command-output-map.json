@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "803",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-import-export-proof.mjs --stage export-import-roundtrip --issue 803",
+      "outputs": [
+        "docs/verification/issues/issue-803/export-import-roundtrip-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-geometry-import-export-proof.mjs --stage assignment-targets-preserved --issue 803",
+      "outputs": [
+        "docs/verification/issues/issue-803/assignment-targets-preserved-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-803/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-803/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-803/no-phi-output.txt"
+      ]
+    }
+  ]
+}

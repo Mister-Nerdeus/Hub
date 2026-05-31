@@ -1,0 +1,5 @@
+node scripts/check-geometry-import-export-proof.mjs --stage export-import-roundtrip --issue 803
+node scripts/check-geometry-import-export-proof.mjs --stage assignment-targets-preserved --issue 803
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

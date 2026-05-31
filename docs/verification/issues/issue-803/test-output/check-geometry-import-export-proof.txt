@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "803",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "geometry import/export roundtrip is structured JSON",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "assignment targets are preserved across import/export",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "geometryImportExportProofStatus": "passed",
+    "geometryRoundTripPreservesTargets": true
+  }
+}
