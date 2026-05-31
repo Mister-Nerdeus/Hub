@@ -11,7 +11,7 @@
   "nonClickableArtifactDetectorStatus": "passed",
   "artifactQuarantineCleanupStatus": "passed",
   "referenceOverlayScreenshotProofStatus": "passed",
-  "hallwayGeometryContractStatus": "missing",
+  "hallwayGeometryContractStatus": "passed",
   "hallwayRendererStatus": "missing",
   "hallwayInspectorControlsStatus": "missing",
   "outerWallGeometryContractStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "776",
+  "lastUpdatedIssue": "777",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -58,5 +58,6 @@
   "referenceOverlayCanBeHidden": true,
   "referenceObjectsClearlyNonEditable": true,
   "noUnclassifiedVisibleEditorArtifacts": true,
-  "unknownArtifactsNotNormalEditableGeometry": true
+  "unknownArtifactsNotNormalEditableGeometry": true,
+  "hallwaysAreFirstClassGeometry": true
 }

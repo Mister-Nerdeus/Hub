@@ -32,6 +32,15 @@ export {
   type AssignmentTargetContract,
   type AssignmentTargetKind
 } from "./assignmentTargetContract.js";
+export {
+  HALLWAY_GEOMETRY_KINDS,
+  HALLWAY_GEOMETRY_ORIENTATIONS,
+  createHallwayGeometryContract,
+  validateHallwayGeometryContract,
+  type HallwayGeometryContract,
+  type HallwayGeometryKind,
+  type HallwayGeometryOrientation
+} from "./hallwayGeometryContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

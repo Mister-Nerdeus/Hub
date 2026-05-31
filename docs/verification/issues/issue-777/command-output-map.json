@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "777",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-777/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-geometry-contract.mjs --stage contract --issue 777",
+      "outputs": [
+        "docs/verification/issues/issue-777/contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-hallway-geometry-contract.mjs --stage required-fields --issue 777",
+      "outputs": [
+        "docs/verification/issues/issue-777/required-fields-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-777/no-phi-output.txt"
+      ]
+    }
+  ]
+}

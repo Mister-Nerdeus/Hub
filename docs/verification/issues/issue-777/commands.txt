@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+node scripts/check-hallway-geometry-contract.mjs --stage contract --issue 777
+node scripts/check-hallway-geometry-contract.mjs --stage required-fields --issue 777
+node scripts/check-no-phi-fields.mjs
