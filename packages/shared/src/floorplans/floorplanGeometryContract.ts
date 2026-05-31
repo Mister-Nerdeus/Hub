@@ -41,6 +41,13 @@ export {
   type HallwayGeometryKind,
   type HallwayGeometryOrientation
 } from "./hallwayGeometryContract.js";
+export {
+  WALL_GEOMETRY_KINDS,
+  createWallGeometryContract,
+  validateWallGeometryContract,
+  type WallGeometryContract,
+  type WallGeometryKind
+} from "./wallGeometryContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

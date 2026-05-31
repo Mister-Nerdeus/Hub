@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "780",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-780/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-outer-wall-geometry-contract.mjs --stage contract --issue 780",
+      "outputs": [
+        "docs/verification/issues/issue-780/contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-outer-wall-geometry-contract.mjs --stage blocks-travel-field --issue 780",
+      "outputs": [
+        "docs/verification/issues/issue-780/blocks-travel-field-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-780/no-phi-output.txt"
+      ]
+    }
+  ]
+}
