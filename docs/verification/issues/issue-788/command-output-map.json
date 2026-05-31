@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "788",
+  "commands": [
+    {
+      "command": "node scripts/check-convert-room-to-split-room.mjs --stage single-room-conversion --issue 788",
+      "outputs": [
+        "docs/verification/issues/issue-788/single-room-conversion-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-convert-room-to-split-room.mjs --stage no-room-merge-required --issue 788",
+      "outputs": [
+        "docs/verification/issues/issue-788/no-room-merge-required-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-788/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-788/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-788/no-phi-output.txt"
+      ]
+    }
+  ]
+}

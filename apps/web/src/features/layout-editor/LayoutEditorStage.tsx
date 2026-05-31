@@ -151,6 +151,7 @@ import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { artifactQuarantinePolicy } from "./artifactQuarantine";
 import { LAYOUT_EDITOR_RENDER_LAYER_ORDER } from "./renderLayerOrder";
+import { requiresRoomMergeForSplitConversion } from "./splitRoomActions";
 import { buildEditorViewportLayoutViewModel } from "./editorViewportLayoutViewModel";
 import { EditorNextStepPanel } from "./EditorNextStepPanel";
 import { buildEditorNextStep } from "./editorNextStepViewModel";
@@ -1651,6 +1652,7 @@ export function LayoutEditorStage({
             data-artifact-quarantine-policy={artifactQuarantinePolicy.unknownVisuals}
             data-hit-testing-contract="geometry-truth-v1"
             data-render-layer-order={LAYOUT_EDITOR_RENDER_LAYER_ORDER.join("|")}
+            data-split-room-merge-required={requiresRoomMergeForSplitConversion() ? "true" : "false"}
             data-canvas-pan={canvasPanActive ? "grabbing" : "grab"}
             data-pan-x-feet={stageState.viewport.panXFeet}
             data-pan-y-feet={stageState.viewport.panYFeet}

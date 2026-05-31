@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "issue": "788",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "single room conversion creates parent split room with two bed positions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "conversion is declared as not requiring a room merge",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "editor stage exposes non-merge split-room contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

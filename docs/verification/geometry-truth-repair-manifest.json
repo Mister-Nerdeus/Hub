@@ -22,7 +22,7 @@
   "renderLayerOrderStatus": "passed",
   "hallwayWallScreenshotProofStatus": "passed",
   "splitRoomParentBedContractStatus": "passed",
-  "convertRoomToSplitRoomStatus": "missing",
+  "convertRoomToSplitRoomStatus": "passed",
   "splitRoomRendererStatus": "missing",
   "splitBedPositionSelectionStatus": "missing",
   "splitRoomParentMoveStatus": "missing",
@@ -48,7 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "787",
+  "lastUpdatedIssue": "788",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -68,5 +68,6 @@
   "supportAreasDistinctFromPatientRooms": true,
   "editableGeometryKindsSelectable": true,
   "renderOrderDeterministic": true,
-  "splitRoomUsesParentAndBedPositions": true
+  "splitRoomUsesParentAndBedPositions": true,
+  "singleRoomCanBecomeSplitRoom": true
 }

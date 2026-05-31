@@ -1,0 +1,5 @@
+node scripts/check-convert-room-to-split-room.mjs --stage single-room-conversion --issue 788
+node scripts/check-convert-room-to-split-room.mjs --stage no-room-merge-required --issue 788
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

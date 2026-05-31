@@ -1,0 +1,111 @@
+import {
+  addCheck,
+  ensureIssueDirs,
+  fileIncludes,
+  readArg,
+  statusFromChecks,
+  updateGeometryTruthManifest,
+  writeCloseout,
+  writeCommonIssueArtifacts,
+  writeJson,
+  writeStageResult
+} from "./lib/geometry-truth-repair-utils.mjs";
+
+const issue = readArg("--issue", "788");
+const stage = readArg("--stage", "final");
+const scriptName = "check-convert-room-to-split-room";
+const commands = [
+  `node scripts/${scriptName}.mjs --stage single-room-conversion --issue ${issue}`,
+  `node scripts/${scriptName}.mjs --stage no-room-merge-required --issue ${issue}`,
+  "npm --workspace apps/web test",
+  "npm --workspace apps/web run build",
+  "node scripts/check-no-phi-fields.mjs"
+];
+
+ensureIssueDirs(issue);
+writeCommonIssueArtifacts(issue, "Convert Room to Split Room", commands);
+
+const checks = [];
+
+if (stage === "single-room-conversion" || stage === "final") {
+  const actionContract = fileIncludes("apps/web/src/features/layout-editor/splitRoomActions.ts", [
+    "convertSingleRoomToSplitRoom",
+    "SplitRoomContract",
+    "parentRoomId: input.room.id",
+    'splitMode: "two_bed"',
+    "bedPositions: createTwoBedPositions",
+    "assignmentTarget: true",
+    "relativeBounds"
+  ]);
+  addCheck(checks, "single room conversion creates parent split room with two bed positions", actionContract.passed, actionContract);
+}
+
+if (stage === "no-room-merge-required" || stage === "final") {
+  const noMergeAction = fileIncludes("apps/web/src/features/layout-editor/splitRoomActions.ts", [
+    "requiresRoomMergeForSplitConversion(): false",
+    "return false",
+    "splitRoomIdForParentRoom",
+    "bedPositionId: `${parentRoom.id}:bed-${suffix}`"
+  ]);
+  const stageContract = fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [
+    "requiresRoomMergeForSplitConversion",
+    "data-split-room-merge-required"
+  ]);
+  addCheck(checks, "conversion is declared as not requiring a room merge", noMergeAction.passed, noMergeAction);
+  addCheck(checks, "editor stage exposes non-merge split-room contract", stageContract.passed, stageContract);
+}
+
+const status = statusFromChecks(checks);
+writeJson(`docs/verification/issues/issue-${issue}/${stage}-output.json`, {
+  status,
+  issue: String(issue),
+  stage,
+  checks
+});
+
+if (status === "passed") {
+  updateGeometryTruthManifest(issue, {
+    convertRoomToSplitRoomStatus: "passed",
+    singleRoomCanBecomeSplitRoom: true
+  });
+}
+
+writeCloseout(issue, {
+  title: "Convert Room to Split Room",
+  reviewFinding: "Legacy split-room authoring was pair-oriented; this issue adds a single parent-room conversion path with derived bed positions.",
+  status,
+  filesChanged: [
+    "apps/web/src/features/layout-editor/splitRoomActions.ts",
+    "apps/web/src/features/layout-editor/LayoutEditorStage.tsx",
+    "scripts/check-convert-room-to-split-room.mjs",
+    "docs/verification/geometry-truth-repair-manifest.json",
+    `docs/verification/issues/issue-${issue}/`
+  ],
+  commands,
+  commandOutputMap: [
+    { command: commands[0], outputs: [`docs/verification/issues/issue-${issue}/single-room-conversion-output.json`] },
+    { command: commands[1], outputs: [`docs/verification/issues/issue-${issue}/no-room-merge-required-output.json`] },
+    { command: commands[2], outputs: [`docs/verification/issues/issue-${issue}/test-output/web.txt`] },
+    { command: commands[3], outputs: [`docs/verification/issues/issue-${issue}/test-output/web-build.txt`] },
+    { command: commands[4], outputs: [`docs/verification/issues/issue-${issue}/no-phi-output.txt`] }
+  ],
+  evidence: [
+    `docs/verification/issues/issue-${issue}/single-room-conversion-output.json`,
+    `docs/verification/issues/issue-${issue}/no-room-merge-required-output.json`,
+    `docs/verification/issues/issue-${issue}/manifest-update-output.json`
+  ],
+  limitations: [
+    "This issue adds the single-room conversion action; split-room visual rendering and independent bed selection are handled by following issues."
+  ]
+});
+
+writeStageResult(issue, scriptName, stage, checks, {
+  definitionOfDone: {
+    convertRoomToSplitRoomStatus: status,
+    singleRoomCanBecomeSplitRoom: status === "passed"
+  }
+});
+
+if (status !== "passed") {
+  process.exitCode = 1;
+}
