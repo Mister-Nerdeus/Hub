@@ -23,6 +23,8 @@ export function ProductWorkflowStepper({
           type="button"
           className={step.active ? "product-workflow-stepper__step product-workflow-stepper__step--active" : "product-workflow-stepper__step"}
           aria-current={step.active ? "step" : undefined}
+          aria-label={`${step.number} ${step.label}`}
+          data-step-completion-state="not-complete"
           onClick={() => onSectionChange(step.sectionId)}
         >
           <span>{step.number}</span>
