@@ -12,12 +12,11 @@ import {
   openSavedFloorplan
 } from "./features/floorplans/activeFloorplanState";
 import { createDuplicateFloorplanViewModel } from "./features/floorplans/duplicateFloorplanViewModel";
-import { ActiveFloorplanSelector } from "./features/floorplans/ActiveFloorplanSelector";
+import { ActiveFloorplanHub } from "./features/floorplans/ActiveFloorplanHub";
 import { createActiveFloorplanSelectorViewModel } from "./features/floorplans/activeFloorplanSelectorViewModel";
 import { ActiveFloorplanBanner } from "./features/floorplans/ActiveFloorplanBanner";
 import { createActiveFloorplanBannerViewModel } from "./features/floorplans/activeFloorplanBannerViewModel";
 import { ActiveFloorplanContext } from "./features/floorplans/activeFloorplanContext";
-import { FloorplanAdvancedPanel } from "./features/floorplans/FloorplanAdvancedPanel";
 import { FloorplanChangeConfirmationDialog } from "./features/floorplans/FloorplanChangeConfirmationDialog";
 import { FloorplanLibrary } from "./features/floorplans/FloorplanLibrary";
 import { createFloorplanLibraryViewModel } from "./features/floorplans/floorplanLibraryViewModel";
@@ -420,12 +419,11 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
           <h2 id="floorplans-title">Floorplan</h2>
-          {floorplanStatusMessage == null ? null : (
-            <p className="floorplan-status-message" role="status">{floorplanStatusMessage}</p>
-          )}
           {activeFloorplanSelectorViewModel == null ? null : (
-            <ActiveFloorplanSelector
-              viewModel={activeFloorplanSelectorViewModel}
+            <ActiveFloorplanHub
+              selectorViewModel={activeFloorplanSelectorViewModel}
+              readinessViewModel={floorplanReadinessViewModel}
+              statusMessage={floorplanStatusMessage}
               onEditFloorplan={() => setActiveSection("editor")}
               onUseForAssignment={() => {
                 setActiveFloorplanState((state) => markActiveFloorplanForAssignment(state));
@@ -436,49 +434,45 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
                 setActiveSection("simulation");
               }}
               onChangeFloorplan={selectFloorplanVersion}
-              onOpenAdvanced={() => document.getElementById("floorplan-advanced-panel")?.scrollIntoView()}
+              advancedContent={(
+                <>
+                  <FloorplanLandingSummary
+                    activeFloorplan={activeFloorplanSummaryViewModel}
+                    onOpenEditor={() => setActiveSection("editor")}
+                    onOpenManualAssignment={() => setActiveSection("manual-assignment")}
+                    onOpenScenarioComparison={() => setActiveSection("scenarios")}
+                    onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
+                    demoPinUnlocked={workspaceAccessState.unlocked}
+                  />
+                  <CanonicalFloorplanHeader viewModel={canonicalFloorplanHeaderViewModel} />
+                  <ActiveFloorplanSummary
+                    viewModel={activeFloorplanSummaryViewModel}
+                    onLaunchEditor={() => setActiveSection("editor")}
+                  />
+                  <FloorplanVersionHistoryPanel
+                    versions={floorplanVersions}
+                    onRestoreVersion={(versionId) => {
+                      setArchivedVersionIds((state) => restoreFloorplanVersion(state, versionId));
+                      requestOpenSaved(versionId);
+                    }}
+                    onArchiveVersion={(versionId) => setArchivedVersionIds((state) => archiveFloorplanVersion(state, versionId))}
+                  />
+                  <FloorplanLibrary
+                    viewModel={floorplanLibraryViewModel}
+                    onOpenDefaultPlan={openDefault}
+                    onDuplicateDefaultPlan={duplicateDefault}
+                    onOpenSavedPlan={requestOpenSaved}
+                    onDeleteSavedPlan={deleteSaved}
+                    demoPinUnlocked={workspaceAccessState.unlocked}
+                  />
+                  <details className="floorplan-demo-proof">
+                    <summary>Advanced evidence</summary>
+                    <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
+                  </details>
+                </>
+              )}
             />
           )}
-          {floorplanReadinessViewModel == null ? null : (
-            <FloorplanReadinessChecklist viewModel={floorplanReadinessViewModel} />
-          )}
-          <FloorplanAdvancedPanel>
-            <div id="floorplan-advanced-panel">
-              <FloorplanLandingSummary
-                activeFloorplan={activeFloorplanSummaryViewModel}
-                onOpenEditor={() => setActiveSection("editor")}
-                onOpenManualAssignment={() => setActiveSection("manual-assignment")}
-                onOpenScenarioComparison={() => setActiveSection("scenarios")}
-                onFocusLibrary={() => document.getElementById("floorplan-library-title")?.scrollIntoView()}
-                demoPinUnlocked={workspaceAccessState.unlocked}
-              />
-              <CanonicalFloorplanHeader viewModel={canonicalFloorplanHeaderViewModel} />
-              <ActiveFloorplanSummary
-                viewModel={activeFloorplanSummaryViewModel}
-                onLaunchEditor={() => setActiveSection("editor")}
-              />
-              <FloorplanVersionHistoryPanel
-                versions={floorplanVersions}
-                onRestoreVersion={(versionId) => {
-                  setArchivedVersionIds((state) => restoreFloorplanVersion(state, versionId));
-                  requestOpenSaved(versionId);
-                }}
-                onArchiveVersion={(versionId) => setArchivedVersionIds((state) => archiveFloorplanVersion(state, versionId))}
-              />
-              <FloorplanLibrary
-                viewModel={floorplanLibraryViewModel}
-                onOpenDefaultPlan={openDefault}
-                onDuplicateDefaultPlan={duplicateDefault}
-                onOpenSavedPlan={requestOpenSaved}
-                onDeleteSavedPlan={deleteSaved}
-                demoPinUnlocked={workspaceAccessState.unlocked}
-              />
-              <details className="floorplan-demo-proof">
-                <summary>Advanced evidence</summary>
-                <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
-              </details>
-            </div>
-          </FloorplanAdvancedPanel>
         </section>
       ) : null}
 

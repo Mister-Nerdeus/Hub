@@ -19,6 +19,6 @@ if (!evidenceSource.includes("<Plan1DemoGuide") || !evidenceSource.includes("Wor
 if (evidenceSource.includes(`<summary>${legacyGuideLabel}</summary>`)) {
   throw new Error("unlocked guide summary must not use legacy guide copy");
 }
-if (!appSource.includes("<ActiveFloorplanSelector")) {
+if (!appSource.includes("<ActiveFloorplanHub")) {
   throw new Error("active floorplan workflow must remain in the product route");
 }

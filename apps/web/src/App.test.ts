@@ -28,7 +28,7 @@ assert228(appSource.includes("<WorkspaceAccessEntryScreen"), "default app render
 assert228(appSource.includes("if (!workspaceAccessState.unlocked)"), "app shell should be gated behind workspace access");
 assert228(productWorkflowShellSource.includes("PRODUCT_DISPLAY_NAME"), "shell should provide app header through shared identity");
 assert228(!appShellSource.includes("Nerdeus ER Pod Shift Simulator"), "shell should not use old product-facing title");
-assert228(appSource.includes("<ActiveFloorplanSelector"), "unlocked mode must expose active floorplan selector");
+assert228(appSource.includes("<ActiveFloorplanHub"), "unlocked mode must expose active floorplan hub");
 assert228(appSource.includes("DEVELOPER_EVIDENCE_SECTION_ID"), "developer/evidence mode section should be available in shell navigation");
 assert228(productWorkflowShellSource.includes("ProductSidebarRail"), "shell should include navigation container");
 

@@ -7,6 +7,7 @@
 }
 
 .active-floorplan-banner,
+.active-floorplan-hub,
 .active-floorplan-selector,
 .floorplan-readiness-checklist,
 .floorplan-advanced-panel,
@@ -25,6 +26,60 @@
   gap: 16px;
   padding: 12px 16px;
   margin: 0 0 16px;
+}
+
+.active-floorplan-hub {
+  display: grid;
+  gap: 12px;
+  padding: 12px;
+}
+
+.active-floorplan-hub__header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.active-floorplan-hub__header h2,
+.active-floorplan-hub__header p {
+  margin: 0;
+}
+
+.active-floorplan-hub__status {
+  color: #172431;
+  font-weight: 900;
+}
+
+.active-floorplan-hub__grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr);
+}
+
+.active-floorplan-hub__thumbnail,
+.active-floorplan-hub__next-step,
+.active-floorplan-hub__version {
+  background: #f7fafc;
+  border: 1px solid #d7e0ea;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.active-floorplan-hub__thumbnail h3,
+.active-floorplan-hub__next-step h3,
+.active-floorplan-hub__version h3 {
+  margin: 0 0 8px;
+}
+
+.active-floorplan-hub__thumbnail p,
+.active-floorplan-hub__next-step p,
+.active-floorplan-hub__version p {
+  margin: 4px 0;
+}
+
+.active-floorplan-hub__readiness {
+  grid-column: 1 / -1;
 }
 
 .active-floorplan-banner div,
@@ -124,8 +179,13 @@
 
 @media (max-width: 760px) {
   .active-floorplan-banner,
-  .active-floorplan-selector {
+  .active-floorplan-selector,
+  .active-floorplan-hub__header {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .active-floorplan-hub__grid {
     grid-template-columns: 1fr;
   }
 }
