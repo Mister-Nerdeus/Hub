@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "floorplan",
+  "checks": [
+    {
+      "name": "floorplan normal mode technical copy hidden",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "stage": "floorplan",
+        "forbiddenCopy": [
+          "Runtime",
+          "JSON",
+          "Record ID",
+          "Plan ID",
+          "Reload proof",
+          "Recovery draft",
+          "Synthetic fixture",
+          "Future Tools",
+          "Developer evidence"
+        ],
+        "hits": []
+      }
+    }
+  ],
+  "stageResults": {
+    "floorplan": {
+      "status": "passed",
+      "stage": "floorplan",
+      "forbiddenCopy": [
+        "Runtime",
+        "JSON",
+        "Record ID",
+        "Plan ID",
+        "Reload proof",
+        "Recovery draft",
+        "Synthetic fixture",
+        "Future Tools",
+        "Developer evidence"
+      ],
+      "hits": []
+    }
+  }
+}

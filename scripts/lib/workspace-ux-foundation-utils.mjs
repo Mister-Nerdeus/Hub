@@ -46,6 +46,7 @@ export const workspaceUxRootScripts = {
   "check:editor-compact-validation-row": "node scripts/check-editor-compact-validation-row.mjs --stage final --issue 738",
   "check:editor-screenshot-proof": "node scripts/check-editor-screenshot-proof.mjs --stage final --issue 739",
   "check:floorplan-hub-screenshot-proof": "node scripts/check-floorplan-hub-screenshot-proof.mjs --stage final --issue 740",
+  "check:normal-mode-technical-copy": "node scripts/check-normal-mode-technical-copy.mjs --stage final --issue 741",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };

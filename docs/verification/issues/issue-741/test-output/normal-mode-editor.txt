@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "issue": "741",
+  "stage": "editor",
+  "checks": [
+    {
+      "name": "editor normal mode technical copy hidden",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "stage": "editor",
+        "forbiddenCopy": [
+          "Runtime",
+          "JSON",
+          "Record ID",
+          "Plan ID",
+          "Reload proof",
+          "Recovery draft",
+          "Synthetic fixture",
+          "Future Tools",
+          "Developer evidence"
+        ],
+        "hits": []
+      }
+    }
+  ],
+  "stageResults": {
+    "editor": {
+      "status": "passed",
+      "stage": "editor",
+      "forbiddenCopy": [
+        "Runtime",
+        "JSON",
+        "Record ID",
+        "Plan ID",
+        "Reload proof",
+        "Recovery draft",
+        "Synthetic fixture",
+        "Future Tools",
+        "Developer evidence"
+      ],
+      "hits": []
+    }
+  }
+}
