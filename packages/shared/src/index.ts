@@ -77,6 +77,7 @@ export * from "./floorplans/renderedObjectContract.js";
 export * from "./floorplans/editableGeometryRegistry.js";
 export * from "./floorplans/assignmentTargetContract.js";
 export * from "./floorplans/assignmentTargetDerivation.js";
+export * from "./floorplans/splitRoomValidation.js";
 export * from "./floorplans/geometryMigration.js";
 export * from "./floorplans/referenceOverlayContract.js";
 export * from "./floorplans/hallwayGeometryContract.js";

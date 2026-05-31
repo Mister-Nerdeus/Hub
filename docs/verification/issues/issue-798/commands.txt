@@ -1,0 +1,6 @@
+node scripts/check-split-room-validation.mjs --stage valid-split-room --issue 798
+node scripts/check-split-room-validation.mjs --stage invalid-split-room --issue 798
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

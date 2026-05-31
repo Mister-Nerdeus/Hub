@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "798",
+  "commands": [
+    {
+      "command": "node scripts/check-split-room-validation.mjs --stage valid-split-room --issue 798",
+      "outputs": [
+        "docs/verification/issues/issue-798/valid-split-room-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-validation.mjs --stage invalid-split-room --issue 798",
+      "outputs": [
+        "docs/verification/issues/issue-798/invalid-split-room-output.json"
+      ]
+    },
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-798/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-798/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-798/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-798/no-phi-output.txt"
+      ]
+    }
+  ]
+}

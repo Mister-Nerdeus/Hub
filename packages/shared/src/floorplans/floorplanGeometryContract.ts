@@ -60,6 +60,12 @@ export {
   deriveSplitRoomAssignmentTargets
 } from "./assignmentTargetDerivation.js";
 export {
+  splitRoomValidationBlocksAssignments,
+  validateSplitRoomGeometry,
+  type SplitRoomValidationIssue,
+  type SplitRoomValidationIssueCode
+} from "./splitRoomValidation.js";
+export {
   createSplitRoomContract,
   validateBedPositionContract,
   validateSplitRoomContract,

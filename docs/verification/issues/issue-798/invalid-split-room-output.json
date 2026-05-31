@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "798",
+  "stage": "invalid-split-room",
+  "checks": [
+    {
+      "name": "invalid split rooms are blocking validation issues",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    },
+    {
+      "name": "validation panel declares split-room validation surface",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}
