@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "issue": "806",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "reference-overlay manifest flags passed",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "hallways-walls-support manifest flags passed",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "split-room-parent-bed manifest flags passed",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    }
+  ],
+  "definitionOfDone": {
+    "geometryRegressionSweepStatus": "passed"
+  }
+}
