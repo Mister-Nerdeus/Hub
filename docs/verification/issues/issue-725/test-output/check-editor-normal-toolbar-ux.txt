@@ -1,0 +1,77 @@
+{
+  "status": "passed",
+  "issue": "725",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "normal-toolbar",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "present": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "explicit-add-actions",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "normal-toolbar": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "present": []
+        }
+      ]
+    },
+    "explicit-add-actions": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}
