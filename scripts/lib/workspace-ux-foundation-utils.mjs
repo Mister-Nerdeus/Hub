@@ -15,6 +15,7 @@ export const workspaceUxBoundaryFiles = [
 export const workspaceUxRootScripts = {
   "check:workspace-ux-preflight": "node scripts/check-workspace-ux-preflight.mjs --stage final --issue 704",
   "check:full-page-workspace-shell": "node scripts/check-full-page-workspace-shell.mjs --stage final --issue 705",
+  "check:product-shell-rail": "node scripts/check-product-shell-rail.mjs --stage final --issue 706",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };
 

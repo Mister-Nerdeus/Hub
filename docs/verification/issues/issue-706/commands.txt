@@ -1,0 +1,4 @@
+node scripts/check-product-shell-rail.mjs --stage compact-rail --allow-partial --issue 706
+node scripts/check-product-shell-rail.mjs --stage workflow-items --allow-partial --issue 706
+node scripts/check-product-shell-rail.mjs --stage rail-width --allow-partial --issue 706
+node scripts/check-no-phi-fields.mjs
