@@ -1,0 +1,4 @@
+node scripts/check-workspace-ux-regression-sweep.mjs --stage shell --allow-partial --issue 742
+node scripts/check-workspace-ux-regression-sweep.mjs --stage hub --allow-partial --issue 742
+node scripts/check-workspace-ux-regression-sweep.mjs --stage editor --allow-partial --issue 742
+node scripts/check-no-phi-fields.mjs
