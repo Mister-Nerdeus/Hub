@@ -45,10 +45,10 @@
   "geometryTruthDocumentationStatus": "passed",
   "geometryTruthRootScriptsStatus": "passed",
   "geometryTruthGoNoGoStatus": "go_for_durable_assignment_foundation",
-  "geometryTruthRepairStatus": "in_progress",
-  "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
+  "geometryTruthRepairStatus": "complete",
+  "durableAssignmentFoundationStatus": "ready_for_durable_assignment_foundation",
   "goNoGoStatus": "go_for_next_milestone",
-  "lastUpdatedIssue": "810",
+  "lastUpdatedIssue": "811",
   "allRenderedObjectsHaveLayer": true,
   "visibleObjectsDeclareSelectableEditableRemovable": true,
   "requiredGeometryKindsRegistered": true,
@@ -85,5 +85,7 @@
   "geometryRoundTripPreservesTargets": true,
   "geometryTruthWarningsSurfaceInValidation": true,
   "assignmentTargetsStable": true,
-  "splitRoomParentBedModelStatus": "passed"
+  "splitRoomParentBedModelStatus": "passed",
+  "nextMilestone": "durable_assignment_foundation",
+  "durableAssignmentEntryCriteria": "stable_assignment_targets"
 }

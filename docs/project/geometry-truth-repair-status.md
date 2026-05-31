@@ -2,7 +2,7 @@
 
 ## Status
 
-Geometry truth repair is in progress with the core geometry model now documented and locally verified through Issue 808. Durable assignment foundation remains blocked until the final GO/NO-GO and closeout issues confirm all batch gates together.
+Geometry truth repair is complete. Durable assignment foundation may start next, with entry criteria limited to stable assignment targets.
 
 ## Current Preflight Findings
 
@@ -18,4 +18,4 @@ Geometry truth repair is in progress with the core geometry model now documented
 
 ## Entry Criteria For Next Milestone
 
-Durable assignment foundation may start only after stable assignment targets are derived from normal room positions, split-room bed positions, and hall-bed positions, with local verification artifacts passing.
+Durable assignment foundation entry criteria: stable assignment targets derived from normal room positions, split-room bed positions, and hall-bed positions, with local verification artifacts passing.
