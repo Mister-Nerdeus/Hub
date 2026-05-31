@@ -8,6 +8,13 @@ export {
   type GeometryLayerContract,
   type GeometryLayerSourceKind
 } from "./geometryLayerContract.js";
+export {
+  RENDERED_OBJECT_SOURCE_KINDS,
+  createRenderedObjectContract,
+  validateRenderedObjectContract,
+  type RenderedObjectContract,
+  type RenderedObjectSourceKind
+} from "./renderedObjectContract.js";
 
 export const FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION = "1.0.0" as const;
 

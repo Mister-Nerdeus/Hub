@@ -1,0 +1,4 @@
+npm --workspace packages/shared test
+node scripts/check-rendered-object-identity-contract.mjs --stage contract --issue 767
+node scripts/check-rendered-object-identity-contract.mjs --stage locked-reason --issue 767
+node scripts/check-no-phi-fields.mjs

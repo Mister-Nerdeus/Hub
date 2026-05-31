@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "issue": "767",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-767/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-rendered-object-identity-contract.mjs --stage contract --issue 767",
+      "outputs": [
+        "docs/verification/issues/issue-767/contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-rendered-object-identity-contract.mjs --stage locked-reason --issue 767",
+      "outputs": [
+        "docs/verification/issues/issue-767/locked-reason-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-767/no-phi-output.txt"
+      ]
+    }
+  ]
+}

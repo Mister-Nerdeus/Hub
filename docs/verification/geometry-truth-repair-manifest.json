@@ -1,7 +1,7 @@
 {
   "geometryTruthPreflightStatus": "passed",
   "geometryLayerContractStatus": "passed",
-  "renderedObjectIdentityContractStatus": "missing",
+  "renderedObjectIdentityContractStatus": "passed",
   "editableGeometryRegistryStatus": "missing",
   "assignmentTargetContractStatus": "missing",
   "geometryMigrationGuardStatus": "missing",
@@ -48,6 +48,7 @@
   "geometryTruthRepairStatus": "in_progress",
   "durableAssignmentFoundationStatus": "blocked_until_geometry_targets_stable",
   "goNoGoStatus": "not_ready",
-  "lastUpdatedIssue": "766",
-  "allRenderedObjectsHaveLayer": true
+  "lastUpdatedIssue": "767",
+  "allRenderedObjectsHaveLayer": true,
+  "visibleObjectsDeclareSelectableEditableRemovable": true
 }
