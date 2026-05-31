@@ -1,10 +1,13 @@
 import type { ReactNode } from "react";
-import type { FloorplanReadinessContract } from "@nerdeus/shared";
+import type { ActiveFloorplanContract, FloorplanReadinessContract } from "@nerdeus/shared";
+import { ActiveFloorplanThumbnail } from "./ActiveFloorplanThumbnail";
 import { ActiveFloorplanSelector } from "./ActiveFloorplanSelector";
 import type { ActiveFloorplanSelectorViewModel } from "./activeFloorplanSelectorViewModel";
 import { FloorplanReadinessChecklist } from "./FloorplanReadinessChecklist";
+import { createFloorplanThumbnailViewModel } from "./floorplanThumbnailViewModel";
 
 type ActiveFloorplanHubProps = {
+  activeFloorplan: ActiveFloorplanContract | null;
   selectorViewModel: ActiveFloorplanSelectorViewModel;
   readinessViewModel: FloorplanReadinessContract | null;
   statusMessage: string | null;
@@ -16,6 +19,7 @@ type ActiveFloorplanHubProps = {
 };
 
 export function ActiveFloorplanHub({
+  activeFloorplan,
   selectorViewModel,
   readinessViewModel,
   statusMessage,
@@ -25,6 +29,8 @@ export function ActiveFloorplanHub({
   onUseForSimulation,
   onChangeFloorplan
 }: ActiveFloorplanHubProps) {
+  const thumbnailViewModel = createFloorplanThumbnailViewModel(activeFloorplan);
+
   return (
     <section
       className="active-floorplan-hub"
@@ -57,15 +63,9 @@ export function ActiveFloorplanHub({
           />
         </div>
 
-        <section
-          className="active-floorplan-hub__thumbnail"
-          aria-labelledby="active-floorplan-thumbnail-title"
-          data-floorplan-thumbnail-slot="true"
-        >
-          <p className="eyebrow">Preview</p>
-          <h3 id="active-floorplan-thumbnail-title">Thumbnail</h3>
-          <p>{selectorViewModel.displayName}</p>
-        </section>
+        <div data-floorplan-thumbnail-slot="true">
+          <ActiveFloorplanThumbnail viewModel={thumbnailViewModel} />
+        </div>
 
         <section
           className="active-floorplan-hub__next-step"

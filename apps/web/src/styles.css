@@ -78,6 +78,41 @@
   margin: 4px 0;
 }
 
+.active-floorplan-thumbnail__svg {
+  background: #ffffff;
+  border: 1px solid #d7e0ea;
+  border-radius: 6px;
+  display: block;
+  height: 148px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.active-floorplan-thumbnail__shape--hallway {
+  fill: #d9e2ec;
+  stroke: #a5b4c3;
+}
+
+.active-floorplan-thumbnail__shape--room {
+  fill: #eaf4f6;
+  stroke: #4f7f8d;
+}
+
+.active-floorplan-thumbnail__shape--provider_pharmacy {
+  fill: #f7e7cf;
+  stroke: #a9671f;
+}
+
+.active-floorplan-thumbnail__shape--station {
+  fill: #d7ece2;
+  stroke: #27704a;
+}
+
+.active-floorplan-thumbnail__empty {
+  color: #5c6b78;
+  font-weight: 800;
+}
+
 .active-floorplan-hub__readiness {
   grid-column: 1 / -1;
 }

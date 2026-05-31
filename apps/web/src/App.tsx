@@ -421,6 +421,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           <h2 id="floorplans-title">Floorplan</h2>
           {activeFloorplanSelectorViewModel == null ? null : (
             <ActiveFloorplanHub
+              activeFloorplan={activeFloorplanContract}
               selectorViewModel={activeFloorplanSelectorViewModel}
               readinessViewModel={floorplanReadinessViewModel}
               statusMessage={floorplanStatusMessage}
