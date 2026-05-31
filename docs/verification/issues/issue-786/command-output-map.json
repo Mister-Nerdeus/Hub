@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "786",
+  "commands": [
+    {
+      "command": "node scripts/check-hallway-wall-screenshot-proof.mjs --stage screenshot-set --issue 786",
+      "outputs": [
+        "docs/verification/issues/issue-786/screenshot-set-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-786/no-phi-output.txt"
+      ]
+    }
+  ]
+}
