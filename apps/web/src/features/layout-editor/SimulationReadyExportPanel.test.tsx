@@ -32,7 +32,7 @@ const result: SimulationReadyExportResult = {
     limitations: ["Route access audit only."]
   },
   privateSourcePayloadStored: false,
-  limitations: ["Simulation-ready export requires fresh or explicitly reviewed path sync."]
+  limitations: ["Route-ready export requires fresh or explicitly reviewed path sync."]
 };
 
 const element = SimulationReadyExportPanel({

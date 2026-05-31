@@ -10,7 +10,6 @@ export type FloorplanVersionContract = {
     | "draft"
     | "saved"
     | "ready_for_assignment"
-    | "ready_for_simulation"
     | "archived";
   savedAt: string;
   parentVersionId: string | null;

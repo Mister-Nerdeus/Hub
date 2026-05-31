@@ -2,7 +2,13 @@
 
 Milestone A turns the current proof/workbench layout into a full-page operational workspace shell for floorplan-centered workflow setup.
 
-Current status: complete. Local Workspace UX GO/NO-GO passed, final evidence is indexed, and no-overclaim boundaries remain in force.
+Current status: repair batch in progress. Local Workspace UX GO/NO-GO previously passed, but Milestone A repair issues 749-764 must pass before durable assignment foundation starts.
+
+Workspace UX repair status:
+
+- Durable assignment foundation remains not started until `docs/verification/workspace-ux-repair-manifest.json` reaches GO status.
+- No durable assignment sets, scoring, scenario simulation, optimizer, reports, or clinical claims are implemented by this repair batch.
+- Repair evidence is local-first and lives under `docs/verification/issues/issue-749/` through `docs/verification/issues/issue-764/`.
 
 Implemented in Milestone A:
 
@@ -26,7 +32,7 @@ Not implemented in Milestone A:
 - Reports (Management reports).
 - Clinical safety, staffing compliance, patient outcome, PHI, or EHR claims.
 
-Next milestone: durable assignment foundation.
+Next milestone: durable assignment foundation, after the repair GO/NO-GO passes.
 
 Entry criteria for the durable assignment foundation:
 

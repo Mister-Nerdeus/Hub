@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "754",
+  "commands": [
+    {
+      "command": "node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage no-active-for-simulation-item --issue 754",
+      "outputs": [
+        "docs/verification/issues/issue-754/no-active-for-simulation-item-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage no-floorplan-only-ready-for-simulation --issue 754",
+      "outputs": [
+        "docs/verification/issues/issue-754/no-floorplan-only-ready-for-simulation-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-milestone-a-no-overclaim.mjs --stage no-simulation-overclaim --issue 754",
+      "outputs": [
+        "docs/verification/issues/issue-754/no-simulation-overclaim-output.json"
+      ]
+    }
+  ]
+}

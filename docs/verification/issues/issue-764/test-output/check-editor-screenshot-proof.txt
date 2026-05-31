@@ -1,0 +1,149 @@
+{
+  "status": "passed",
+  "issue": "764",
+  "stage": "repaired-layout",
+  "checks": [
+    {
+      "name": "screenshot set exists",
+      "passed": true,
+      "detail": {
+        "screenshots": [
+          {
+            "name": "editor-repaired-normal.png",
+            "path": "docs/verification/issues/issue-764/screenshots/editor-repaired-normal.png",
+            "passed": true
+          },
+          {
+            "name": "editor-repaired-bottom-details-compact.png",
+            "path": "docs/verification/issues/issue-764/screenshots/editor-repaired-bottom-details-compact.png",
+            "passed": true
+          },
+          {
+            "name": "editor-repaired-advanced-open.png",
+            "path": "docs/verification/issues/issue-764/screenshots/editor-repaired-advanced-open.png",
+            "passed": true
+          },
+          {
+            "name": "editor-repaired-narrow-desktop.png",
+            "path": "docs/verification/issues/issue-764/screenshots/editor-repaired-narrow-desktop.png",
+            "passed": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "canvas dominates viewport",
+      "passed": true,
+      "detail": {
+        "viewportHeight": 900,
+        "canvasHeight": 853,
+        "detailsHeight": 53.046875,
+        "sidePanelsWidth": 0
+      }
+    },
+    {
+      "name": "no permanent right inspector",
+      "passed": true,
+      "detail": {
+        "viewportHeight": 900,
+        "canvasHeight": 853,
+        "detailsHeight": 53.046875,
+        "sidePanelsWidth": 0
+      }
+    }
+  ],
+  "proof": {
+    "normal": {
+      "maxOverflow": 0,
+      "overflowMetrics": {
+        "viewportWidth": 1414,
+        "documentScrollWidth": 1399,
+        "documentClientWidth": 1399,
+        "bodyScrollWidth": 1399,
+        "bodyClientWidth": 1399
+      },
+      "layoutMetrics": {
+        "viewportHeight": 900,
+        "canvasHeight": 853,
+        "detailsHeight": 53.046875,
+        "sidePanelsWidth": 0
+      },
+      "textMetrics": {
+        "forbiddenPresent": []
+      },
+      "canvasDominates": true,
+      "noPermanentRightInspector": true,
+      "bottomDetailsCompact": true,
+      "normalDetailsTechnicalFree": true
+    },
+    "bottomOpen": {
+      "maxOverflow": 0,
+      "overflowMetrics": {
+        "viewportWidth": 1414,
+        "documentScrollWidth": 1399,
+        "documentClientWidth": 1399,
+        "bodyScrollWidth": 1399,
+        "bodyClientWidth": 1399
+      },
+      "layoutMetrics": {
+        "viewportHeight": 900,
+        "canvasHeight": 853,
+        "detailsHeight": 306,
+        "sidePanelsWidth": 0
+      },
+      "textMetrics": {
+        "forbiddenPresent": []
+      },
+      "canvasDominates": true,
+      "noPermanentRightInspector": true,
+      "bottomDetailsCompact": true,
+      "normalDetailsTechnicalFree": true
+    },
+    "advancedOpen": {
+      "maxOverflow": 0,
+      "overflowMetrics": {
+        "viewportWidth": 1414,
+        "documentScrollWidth": 1399,
+        "documentClientWidth": 1399,
+        "bodyScrollWidth": 1399,
+        "bodyClientWidth": 1399
+      },
+      "layoutMetrics": {
+        "viewportHeight": 900,
+        "canvasHeight": 853,
+        "detailsHeight": 306,
+        "sidePanelsWidth": 0
+      },
+      "textMetrics": {
+        "forbiddenPresent": []
+      },
+      "canvasDominates": true,
+      "noPermanentRightInspector": true,
+      "bottomDetailsCompact": true,
+      "normalDetailsTechnicalFree": true
+    },
+    "narrow": {
+      "maxOverflow": 0,
+      "overflowMetrics": {
+        "viewportWidth": 1024,
+        "documentScrollWidth": 1009,
+        "documentClientWidth": 1009,
+        "bodyScrollWidth": 1009,
+        "bodyClientWidth": 1009
+      },
+      "layoutMetrics": {
+        "viewportHeight": 900,
+        "canvasHeight": 753,
+        "detailsHeight": 306,
+        "sidePanelsWidth": 0
+      },
+      "textMetrics": {
+        "forbiddenPresent": []
+      },
+      "canvasDominates": true,
+      "noPermanentRightInspector": true,
+      "bottomDetailsCompact": true,
+      "normalDetailsTechnicalFree": true
+    }
+  }
+}

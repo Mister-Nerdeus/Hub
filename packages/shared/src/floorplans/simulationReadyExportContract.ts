@@ -147,7 +147,7 @@ export function validateSimulationReadyExport(input: {
   } catch {
     const draftId = typeof input.authoringDraft?.draftId === "string" ? input.authoringDraft.draftId : "unknown-draft";
     return blockedResult("blocked_private_source_payload", draftId, "unknown-plan", "blocked", null, [
-      "Private source payload is not allowed in simulation-ready export."
+      "Private source payload is not allowed in route-ready export."
     ]);
   }
 
@@ -182,7 +182,7 @@ export function validateSimulationReadyExport(input: {
       pathSyncStatus: draft.pathSyncStatus,
       routeAccessSummary,
       privateSourcePayloadStored: false,
-      limitations: ["Simulation-ready export requires fresh or explicitly reviewed path sync."]
+      limitations: ["Route-ready export requires fresh or explicitly reviewed path sync."]
     };
   }
   if (!routeAccessSummary.simulationReady) {
@@ -196,7 +196,7 @@ export function validateSimulationReadyExport(input: {
       pathSyncStatus: draft.pathSyncStatus,
       routeAccessSummary,
       privateSourcePayloadStored: false,
-      limitations: ["Draft can be saved with warnings, but simulation-ready export is blocked until route access passes."]
+      limitations: ["Draft can be saved with warnings, but route-ready export is blocked until route access passes."]
     };
   }
   return {
@@ -209,7 +209,7 @@ export function validateSimulationReadyExport(input: {
     pathSyncStatus: draft.pathSyncStatus,
     routeAccessSummary,
     privateSourcePayloadStored: false,
-    limitations: ["Simulation-ready validation confirms contract shape and route access only; no clinical safety claim is made."]
+    limitations: ["Route-ready validation confirms contract shape and route access only; no clinical safety claim is made."]
   };
 }
 
@@ -244,7 +244,7 @@ function blockedResult(
     pathSyncStatus,
     routeAccessSummary: fallbackSummary,
     privateSourcePayloadStored: false,
-    limitations: ["Simulation-ready export blocked by validation."]
+    limitations: ["Route-ready export blocked by validation."]
   };
 }
 

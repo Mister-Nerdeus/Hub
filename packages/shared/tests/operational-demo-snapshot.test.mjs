@@ -58,7 +58,7 @@ test("operator snapshot exposes safe display labels only", () => {
   assert.equal(snapshot.promotionStatus, "blocked");
   assert.equal(snapshot.manualReviewRequired, true);
   assert.equal(snapshot.operatorPlans[0].routeReadinessLabel, "Route ready");
-  assert.equal(snapshot.operatorPlans[0].simulationExportLabel, "Simulation-ready export");
+  assert.equal(snapshot.operatorPlans[0].simulationExportLabel, "Route-ready export");
   assert.equal(snapshot.operatorPlans[0].manualReviewStatusLabel, "Manual review required");
   assert.equal(snapshot.operatorPlans[0].promotionStatusLabel, "Promotion blocked");
 

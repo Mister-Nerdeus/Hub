@@ -5,7 +5,6 @@ export type ActiveFloorplanWorkflowStatus =
   | "draft"
   | "saved"
   | "ready_for_assignment"
-  | "ready_for_simulation"
   | "archived";
 
 export type ActiveFloorplanContract = {
@@ -19,5 +18,4 @@ export type ActiveFloorplanContract = {
   savedAt: string | null;
   hasUnsavedChanges: boolean;
   selectedForAssignment: boolean;
-  selectedForSimulation: boolean;
 };

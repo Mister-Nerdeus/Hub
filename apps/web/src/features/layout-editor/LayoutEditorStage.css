@@ -2,6 +2,8 @@
   display: grid;
   gap: 5px;
   min-height: calc(100vh - 10px);
+  min-width: 0;
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -10,6 +12,8 @@
   gap: 5px;
   margin: 0;
   max-width: none;
+  min-width: 0;
+  overflow-x: hidden;
   width: 100%;
 }
 
@@ -98,8 +102,10 @@
   display: grid;
   gap: 8px;
   margin-top: 8px;
-  max-width: min(1040px, calc(100vw - 120px));
-  min-width: min(720px, calc(100vw - 120px));
+  max-height: min(70vh, 640px);
+  max-width: min(1040px, calc(100vw - 24px));
+  min-width: min(520px, calc(100vw - 24px));
+  overflow: auto;
   padding: 10px;
   position: absolute;
   right: 0;
@@ -570,6 +576,9 @@
   border-radius: 8px;
   display: grid;
   gap: 8px;
+  max-height: min(34vh, 320px);
+  min-height: 0;
+  overflow: hidden;
   padding: 8px;
 }
 
@@ -610,6 +619,9 @@
 .editor-details-panel__body {
   display: grid;
   gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 2px;
 }
 
 .editor-details-panel__advanced {
@@ -630,6 +642,13 @@
   display: grid;
   gap: 6px;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 8px 0 0;
+}
+
+.inspector-advanced-details__section h4 {
+  color: #243447;
+  font-size: 0.78rem;
+  line-height: 1.2;
   margin: 8px 0 0;
 }
 
@@ -2139,14 +2158,15 @@
   border: 1px solid #c4d0dc;
   border-radius: 8px;
   display: grid;
-  gap: 12px;
-  padding: 10px;
+  gap: 8px;
+  padding: 8px;
 }
 
 .layout-inspector-tabs__list {
   display: grid;
   gap: 6px;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 8px;
 }
 
 .layout-inspector-tabs__list button {
@@ -2168,7 +2188,19 @@
 
 .layout-inspector-tabs__panel {
   display: grid;
-  gap: 12px;
+  gap: 8px;
+}
+
+.layout-inspector-tabs__more {
+  border-top: 1px solid #e1e7ef;
+  padding-top: 6px;
+}
+
+.layout-inspector-tabs__more summary {
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 900;
 }
 
 .layout-editor-stage--presentation {
@@ -2257,6 +2289,13 @@
 
   .layout-editor-stage__workspace {
     grid-template-columns: 1fr;
+  }
+
+  .editor-normal-toolbar__advanced-body {
+    left: 0;
+    right: auto;
+    min-width: min(100%, calc(100vw - 24px));
+    width: min(100%, calc(100vw - 24px));
   }
 
   .editor-command-bar__status {

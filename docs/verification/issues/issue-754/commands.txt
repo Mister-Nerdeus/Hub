@@ -1,0 +1,3 @@
+node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage no-active-for-simulation-item --issue 754
+node scripts/check-floorplan-simulation-readiness-overclaim-repair.mjs --stage no-floorplan-only-ready-for-simulation --issue 754
+node scripts/check-milestone-a-no-overclaim.mjs --stage no-simulation-overclaim --issue 754

@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "756",
+  "commands": {
+    "1": "node scripts/check-workflow-stepper-gating.mjs --stage step-states --issue 756",
+    "2": "node scripts/check-workflow-stepper-gating.mjs --stage simulation-report-gated --issue 756",
+    "3": "node scripts/check-workflow-stepper-gating.mjs --stage no-readiness-overclaim --issue 756"
+  }
+}

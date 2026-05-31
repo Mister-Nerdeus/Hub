@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "issue": "761",
+  "commands": {
+    "1": "node scripts/check-editor-details-tab-simplification.mjs --stage selected-object-first --issue 761",
+    "2": "node scripts/check-editor-details-tab-simplification.mjs --stage secondary-tabs-collapsed --issue 761"
+  }
+}

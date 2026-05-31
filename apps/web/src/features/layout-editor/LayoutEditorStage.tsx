@@ -198,6 +198,7 @@ const STAGE_PIXELS_PER_FOOT = DEFAULT_LAYOUT_STAGE_PIXELS_PER_FOOT;
 const STAGE_WIDTH_PIXELS = DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS.widthPixels;
 const STAGE_HEIGHT_PIXELS = DEFAULT_LAYOUT_STAGE_VIEWPORT_PIXELS.heightPixels;
 const STAGE_VIEW_BOX = `0 0 ${STAGE_WIDTH_PIXELS} ${STAGE_HEIGHT_PIXELS}`;
+const DETAILS_PANEL_COLLAPSED_SESSION_KEY = "nerdeus.layoutEditor.detailsPanelCollapsed.v1";
 
 type RoomDragState = {
   roomId: string;
@@ -300,7 +301,10 @@ export function LayoutEditorStage({
   const [toolMode, setToolMode] = useState<LayoutToolMode>("select");
   const [editorMode, setEditorMode] = useState<LayoutEditorMode>(DEFAULT_LAYOUT_EDITOR_MODE);
   const [inspectorCollapsed, setInspectorCollapsed] = useState(true);
-  const [detailsPanelCollapsed, setDetailsPanelCollapsed] = useState(false);
+  const [detailsPanelCollapsed, setDetailsPanelCollapsed] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.sessionStorage.getItem(DETAILS_PANEL_COLLAPSED_SESSION_KEY) !== "open";
+  });
   const [canvasPanActive, setCanvasPanActive] = useState(false);
   const [canvasPopoverOpen, setCanvasPopoverOpen] = useState(false);
   const [popupMode, setPopupMode] = useState<EditorPopupMode>("auto");
@@ -512,6 +516,13 @@ export function LayoutEditorStage({
     validationWarningCount: stageState.validationWarnings.length
   });
   const workspaceMeasurements = useEditorWorkspaceMeasurements(inspectorCollapsed);
+  const toggleDetailsPanelCollapsed = () => {
+    setDetailsPanelCollapsed((value) => {
+      const nextValue = !value;
+      window.sessionStorage.setItem(DETAILS_PANEL_COLLAPSED_SESSION_KEY, nextValue ? "collapsed" : "open");
+      return nextValue;
+    });
+  };
   const validationDisabled = stageState.readOnly || stageState.sourcePlan == null || stageState.editableLayout == null;
   const deltaPreviewViewModel = buildLayoutDeltaPreviewViewModel({
     isDirty: stageState.isDirty,
@@ -1493,7 +1504,7 @@ export function LayoutEditorStage({
                 onValidate={validateSimulationReadyExportFromStage}
                 onResetView={() => dispatchStage({ type: "resetViewport" })}
                 onAddObject={() => setAddObjectMenuOpen((value) => !value)}
-                onToggleInspector={() => setDetailsPanelCollapsed((value) => !value)}
+                onToggleInspector={toggleDetailsPanelCollapsed}
               />
               <div
                 className="layout-editor-stage__legacy-toolbar"
@@ -2056,7 +2067,7 @@ export function LayoutEditorStage({
       <EditorDetailsPanel
         selectedObjectType={stageState.selectedObjectType}
         collapsed={detailsPanelCollapsed}
-        onToggleCollapsed={() => setDetailsPanelCollapsed((value) => !value)}
+        onToggleCollapsed={toggleDetailsPanelCollapsed}
         advancedDetails={<InspectorAdvancedDetails viewModel={inspectorViewModel} />}
       >
           {canvasObjectPopoverViewModel == null || canvasObjectPopoverViewModel.placement !== "docked" ? null : (

@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import type { ActiveFloorplanContract, FloorplanReadinessContract } from "@nerdeus/shared";
 import { ActiveFloorplanThumbnail } from "./ActiveFloorplanThumbnail";
 import { ActiveFloorplanSelector } from "./ActiveFloorplanSelector";
@@ -34,12 +34,21 @@ export function ActiveFloorplanHub({
   onChangeFloorplan,
   onNavigateToSection
 }: ActiveFloorplanHubProps) {
+  const advancedPanelRef = useRef<HTMLDivElement | null>(null);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
   const thumbnailViewModel = createFloorplanThumbnailViewModel(activeFloorplan);
   const nextWorkflowStepViewModel = createNextWorkflowStepViewModel({
     activeFloorplan,
     assignmentSetState: "not_started",
     scenarioAssumptionsState: "not_started"
   });
+  const openAdvancedPanel = () => {
+    setAdvancedOpen(true);
+    window.requestAnimationFrame(() => {
+      advancedPanelRef.current?.focus();
+      advancedPanelRef.current?.scrollIntoView({ block: "nearest" });
+    });
+  };
 
   return (
     <section
@@ -68,7 +77,7 @@ export function ActiveFloorplanHub({
             onEditFloorplan={onEditFloorplan}
             onUseForAssignment={onUseForAssignment}
             onChangeFloorplan={onChangeFloorplan}
-            onOpenAdvanced={() => document.getElementById("floorplan-advanced-panel")?.scrollIntoView()}
+            onOpenAdvanced={openAdvancedPanel}
           />
         </div>
 
@@ -106,10 +115,17 @@ export function ActiveFloorplanHub({
 
       <details
         className="floorplan-advanced-panel active-floorplan-hub__advanced"
-        data-floorplan-hub-advanced-evidence="collapsed"
+        data-floorplan-hub-advanced-evidence={advancedOpen ? "open" : "collapsed"}
+        open={advancedOpen}
+        onToggle={(event) => setAdvancedOpen(event.currentTarget.open)}
       >
         <summary>Advanced/Evidence</summary>
-        <div id="floorplan-advanced-panel" className="floorplan-advanced-panel__body">
+        <div
+          id="floorplan-advanced-panel"
+          className="floorplan-advanced-panel__body"
+          ref={advancedPanelRef}
+          tabIndex={-1}
+        >
           {advancedContent}
         </div>
       </details>

@@ -26,6 +26,7 @@ export function EditorDetailsPanel({
       aria-label="Selected object details"
       data-editor-details-panel="bottom"
       data-bottom-details-panel="true"
+      data-bottom-panel-internal-scroll="true"
     >
       <header className="editor-details-panel__header">
         <div>

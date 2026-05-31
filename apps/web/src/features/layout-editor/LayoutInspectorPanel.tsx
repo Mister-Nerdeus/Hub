@@ -33,16 +33,9 @@ export function LayoutInspectorPanel({
         <h3>{viewModel.title}</h3>
       </header>
 
-      <dl className="layout-inspector-panel__identity">
-        <div>
-          <dt>Selection type</dt>
-          <dd>{viewModel.objectType ?? "none"}</dd>
-        </div>
-      </dl>
-
       {viewModel.status === "selected" ? (
-        <div className="layout-inspector-panel__sections">
-          {viewModel.sections.map((section) => (
+        <div className="layout-inspector-panel__sections" data-normal-inspector-sections="operational">
+          {viewModel.normalSections.map((section) => (
             <section key={section.title} className="layout-inspector-panel__section">
               <h4>{section.title}</h4>
               <dl>

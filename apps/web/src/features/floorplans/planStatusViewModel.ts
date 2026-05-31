@@ -2,7 +2,7 @@ import type { PlanBuilderLibraryItemViewModel } from "./planBuilderLibraryViewMo
 
 export type PlanStatusBadgeKind =
   | "route-ready"
-  | "simulation-ready"
+  | "route-export-ready"
   | "manual-review-required"
   | "promotion-blocked"
   | "default-fixture-unchanged";
@@ -16,7 +16,7 @@ export type PlanStatusBadgeViewModel = {
 export type PlanLibraryFilterId =
   | "needs-manual-review"
   | "route-ready"
-  | "simulation-ready"
+  | "route-export-ready"
   | "promotion-blocked"
   | "default-fixtures"
   | "review-candidates";
@@ -32,8 +32,8 @@ export function createPlanStatusBadges(item: PlanBuilderLibraryItemViewModel): P
   if (item.routeStatusLabel === "Route ready") {
     badges.push({ kind: "route-ready", label: "Route Ready", tone: "ready" });
   }
-  if (item.simulationExportStatusLabel === "Simulation-ready export") {
-    badges.push({ kind: "simulation-ready", label: "Simulation Ready", tone: "ready" });
+  if (item.simulationExportStatusLabel === "Route-ready export") {
+    badges.push({ kind: "route-export-ready", label: "Route Export Ready", tone: "ready" });
   }
   if (item.manualReviewStatusLabel === "Manual review required") {
     badges.push({ kind: "manual-review-required", label: "Manual Review Required", tone: "attention" });
@@ -60,9 +60,9 @@ export function createPlanLibraryFilters(items: PlanBuilderLibraryItemViewModel[
       itemCount: items.filter((item) => item.routeStatusLabel === "Route ready").length
     },
     {
-      id: "simulation-ready",
-      label: "Simulation Ready",
-      itemCount: items.filter((item) => item.simulationExportStatusLabel === "Simulation-ready export").length
+      id: "route-export-ready",
+      label: "Route Export Ready",
+      itemCount: items.filter((item) => item.simulationExportStatusLabel === "Route-ready export").length
     },
     {
       id: "promotion-blocked",

@@ -25,7 +25,7 @@ export type PlanBuilderReviewFlowPlanViewModel = {
   planId: PlanReviewFlowPlanId;
   displayName: string;
   routeReady: boolean;
-  simulationReady: boolean;
+  routeExportReady: boolean;
   manualReviewRequired: boolean;
   manualReviewApproved: boolean;
   promotionBlocked: boolean;
@@ -36,7 +36,7 @@ export type PlanBuilderReviewFlowPlanViewModel = {
   sampleRecordCountsAsApproval: false;
   statusText: {
     route: "Route ready" | "Route blocked";
-    simulation: "Simulation ready" | "Simulation blocked";
+    routeExport: "Route export ready" | "Route export blocked";
     manualReview: "Manual review required" | "Human review recorded";
     promotion: "Promotion blocked";
   };
@@ -52,6 +52,6 @@ export type PlanBuilderReviewFlowViewModel = {
   manualReviewRequired: boolean;
   promotionBlocked: boolean;
   routeExportReadinessIsApproval: false;
-  simulationReadinessIsPromotionReadiness: false;
+  routeExportReadinessIsPromotionReadiness: false;
   plans: PlanBuilderReviewFlowPlanViewModel[];
 };

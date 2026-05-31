@@ -1,0 +1,109 @@
+{
+  "status": "passed",
+  "issue": "749",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manifest-contract",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "failure-reproduction",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "mode": "recorded-first-failure",
+        "findings": [
+          "Floorplan card title wraps vertically.",
+          "Horizontal scrollbar appears in normal mode.",
+          "Readiness details are too large.",
+          "Floorplan-only state still references simulation readiness.",
+          "Editor bottom details expose technical labels."
+        ]
+      }
+    },
+    {
+      "name": "scope-boundary",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          },
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "root-script-wiring",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "results": [
+          {
+            "passed": true,
+            "missing": []
+          }
+        ]
+      }
+    }
+  ],
+  "stageResults": {
+    "manifest-contract": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "failure-reproduction": {
+      "passed": true,
+      "mode": "recorded-first-failure",
+      "findings": [
+        "Floorplan card title wraps vertically.",
+        "Horizontal scrollbar appears in normal mode.",
+        "Readiness details are too large.",
+        "Floorplan-only state still references simulation readiness.",
+        "Editor bottom details expose technical labels."
+      ]
+    },
+    "scope-boundary": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        },
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    },
+    "root-script-wiring": {
+      "passed": true,
+      "results": [
+        {
+          "passed": true,
+          "missing": []
+        }
+      ]
+    }
+  }
+}

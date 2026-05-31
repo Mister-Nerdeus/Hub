@@ -36,8 +36,8 @@ if (element.type !== "section") {
 if (element.props["data-path-sync-status"] !== "stale_warning") {
   throw new Error("PathSyncStatusPanel must expose path sync status");
 }
-if (element.props["data-simulation-ready"] !== "false") {
-  throw new Error("PathSyncStatusPanel must expose simulation-ready state");
+if (element.props["data-route-export-ready"] !== "false") {
+  throw new Error("PathSyncStatusPanel must expose route-export state");
 }
 
 mkdirSync(evidenceDir, { recursive: true });
@@ -50,7 +50,7 @@ writeFileSync(resolve(evidenceDir, "path-sync-panel-output.json"), `${JSON.strin
   roomsMissingDoor: audit.roomsMissingDoor,
   roomsMissingPathNode: audit.roomsMissingPathNode,
   unreachableRoomIds: audit.unreachableRoomIds,
-  simulationReady: audit.simulationReady,
+  routeExportReady: audit.simulationReady,
   visibleInEditorPanel: true,
-  visibleSimulationReadyText: "Simulation-ready export blocked"
+  visibleRouteExportText: "Route-ready export blocked"
 }, null, 2)}\n`);
