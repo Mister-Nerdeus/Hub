@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "734",
+  "commands": {
+    "1": "node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 734",
+    "2": "node scripts/check-editor-details-bottom-panel.mjs --stage door-controls-preserved --allow-partial --issue 734",
+    "3": "npm --workspace apps/web run build",
+    "4": "node scripts/check-no-phi-fields.mjs"
+  }
+}

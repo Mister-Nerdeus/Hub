@@ -1,0 +1,4 @@
+node scripts/check-door-authoring-browser-regression.mjs --stage final --issue 734
+node scripts/check-editor-details-bottom-panel.mjs --stage door-controls-preserved --allow-partial --issue 734
+npm --workspace apps/web run build
+node scripts/check-no-phi-fields.mjs

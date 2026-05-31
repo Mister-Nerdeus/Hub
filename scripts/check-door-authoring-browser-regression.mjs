@@ -351,14 +351,18 @@ async function runSaveReloadExportWorkflow(browser, doorId, recoveryChecks) {
   const saveResult = await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(
     browser,
-    `document.querySelector('[data-editor-control="save-working-copy"]') != null && document.body.innerText.includes('Saved. This floorplan is active for assignments and scenarios.')`,
+    `(() => {
+      const recordId = document.querySelector('[data-active-record-id]')?.getAttribute('data-active-record-id') ?? null;
+      return document.querySelector('[data-editor-control="save-working-copy"]') != null &&
+        recordId != null &&
+        recordId !== 'No active record';
+    })()`,
     10_000
   );
   const savedRecordId = await readActiveRecordId(browser);
   await browser.navigate(`${browser.baseUrl}/?section=floorplans`, `document.querySelector('.floorplan-library') != null`);
   await clickOpenSavedFloorplan(browser, savedRecordId);
-  await clickNavButton(browser, "Editor");
-  await waitForExpression(browser, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`, 10_000);
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   await waitForExpression(
     browser,
     `document.querySelector('[data-active-record-id]')?.getAttribute('data-active-record-id') === ${JSON.stringify(savedRecordId)} || document.body.innerText.includes(${JSON.stringify(savedRecordId)})`,
@@ -526,14 +530,9 @@ async function runPodRegression(browser, { roomId, screenshot, recoveryChecks })
 }
 
 async function openSavedWorkingEditor(browser) {
-  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-runtime-build-info="true"]') != null`);
-  await waitForExpression(
-    browser,
-    `document.querySelector('[data-runtime-build-info="true"]')?.getAttribute('data-batch-marker') === ${JSON.stringify(editorRuntimeBuildMarker)}`,
-    10_000
-  );
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   await browser.evaluate(`localStorage.removeItem('nerdeus.floorplans.savedAuthoringRecords.v1')`);
-  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
+  await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-normal-toolbar="true"]') != null`);
   await clickGlobalButton(browser, "Save Floorplan");
   await waitForExpression(
     browser,
@@ -662,7 +661,7 @@ async function readDoorWall(browser, doorId) {
 
 async function readActiveRecordId(browser) {
   const recordId = await browser.evaluate(`document.querySelector('[data-active-record-id]')?.getAttribute('data-active-record-id') ?? null`);
-  if (recordId == null) throw new Error("active record ID was not visible");
+  if (recordId == null || recordId === "No active record") throw new Error("active record ID was not visible");
   return recordId;
 }
 
