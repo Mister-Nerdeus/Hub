@@ -33,6 +33,7 @@ export const workspaceUxRootScripts = {
   "check:active-floorplan-persistence-resilience": "node scripts/check-active-floorplan-persistence-resilience.mjs --stage final --issue 721",
   "check:editor-workspace-layout": "node scripts/check-editor-workspace-layout.mjs --stage final --issue 722",
   "check:editor-canvas-expansion": "node scripts/check-editor-canvas-expansion.mjs --stage final --issue 723",
+  "check:editor-toolbar-docking": "node scripts/check-editor-toolbar-docking.mjs --stage final --issue 724",
   "check:milestone-a-no-overclaim": "node scripts/check-milestone-a-no-overclaim.mjs --stage final --issue 747",
   "check:workspace-ux-go-no-go": "node scripts/check-workspace-ux-go-no-go.mjs --stage final --issue 743"
 };

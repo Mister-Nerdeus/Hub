@@ -1477,7 +1477,11 @@ export function LayoutEditorStage({
         />
       </details>
 
-      <div className="layout-editor-stage__tool-strip">
+      <div
+        className="layout-editor-stage__tool-strip"
+        data-editor-toolbar-docked="above-canvas"
+        data-toolbar-directly-above-canvas="true"
+      >
         <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
         {editorMode === "edit" ? (
           <>

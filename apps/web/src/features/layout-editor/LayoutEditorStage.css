@@ -40,6 +40,10 @@
   padding: 8px;
 }
 
+.layout-editor-stage__tool-strip[data-editor-toolbar-docked="above-canvas"] {
+  margin-bottom: 0;
+}
+
 .editor-command-bar__primary {
   align-items: center;
   display: flex;
