@@ -18,9 +18,10 @@ export function DoorDestinationLabel({ viewModel, visible }: DoorDestinationLabe
       data-door-id={viewModel.doorId}
       data-door-destination-kind={viewModel.leadsToKind}
       data-door-destination-warning={viewModel.isUnknown ? "true" : "false"}
+      data-door-destination-readable="normal-zoom"
       data-travel-role={viewModel.travelRole}
       role="note"
-      aria-label={`Leads to ${viewModel.label}`}
+      aria-label={viewModel.isUnknown ? `Unknown destination: ${viewModel.label}` : `Leads to ${viewModel.label}`}
     >
       <text x={viewModel.xPixels} y={viewModel.yPixels} textAnchor="middle">
         {viewModel.isUnknown ? `Unknown: ${viewModel.label}` : `Leads to ${viewModel.label}`}

@@ -5,6 +5,7 @@ import {
   editableRoomTypeToAuthoringRoomType,
   centerDoorOnWall,
   decreaseDoorWidth,
+  deriveRouteGraphFromGeometry,
   generateDoorPathNodes,
   increaseDoorWidth,
   isProviderPharmacySupportZone,
@@ -12,6 +13,7 @@ import {
   moveToWall,
   nudgeDoor,
   validateDoorDestinationsForLayout,
+  validateRouteGraphConnectivity,
   validateSimulationReadyExport,
   type AuthoringDraftContract,
   type ActiveFloorplanContract,
@@ -177,6 +179,8 @@ import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
 import { buildDoorQuickEdit } from "./doorQuickEditViewModel";
 import { DoorDestinationInspectorPanel } from "./DoorDestinationInspectorPanel";
 import { EntryExitInspectorPanel } from "./EntryExitInspectorPanel";
+import { LockedGeometryInspectorPanel } from "./LockedGeometryInspectorPanel";
+import { RouteGraphOverlay } from "./RouteGraphOverlay";
 import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
@@ -327,6 +331,7 @@ export function LayoutEditorStage({
   const [pendingAddObjectLabel, setPendingAddObjectLabel] = useState<string | null>(null);
   const [hallwayArrowState, setHallwayArrowState] = useState<Record<string, { visible?: boolean; reversed?: boolean }>>({});
   const [referenceOverlayVisible, setReferenceOverlayVisible] = useState(defaultReferenceOverlayViewModel.visible);
+  const [routeGraphVisible, setRouteGraphVisible] = useState(false);
   const [placementPreviewPoint, setPlacementPreviewPoint] = useState<{
     xFeet: number;
     yFeet: number;
@@ -519,6 +524,22 @@ export function LayoutEditorStage({
     selectedObjectId: stageState.selectedObjectId,
     selectedObjectType: stageState.selectedObjectType
   });
+  const routeGraph = stageState.editableLayout == null
+    ? null
+    : deriveRouteGraphFromGeometry(stageState.editableLayout);
+  const routeGraphWarnings = stageState.editableLayout == null || routeGraph == null
+    ? []
+    : validateRouteGraphConnectivity(stageState.editableLayout, routeGraph).warnings.map((issue) =>
+        buildLayoutValidationWarning({
+          code: issue.code,
+          severity: issue.severity === "error" ? "blocking" : "warning",
+          source: "route_graph",
+          message: issue.message,
+          objectType: issue.sourceObjectType,
+          objectId: issue.sourceObjectId,
+          isGenerated: true
+        })
+      );
   const doorDestinationWarnings = stageState.editableLayout == null
     ? []
     : validateDoorDestinationsForLayout(stageState.editableLayout).issues.map((issue) =>
@@ -533,7 +554,7 @@ export function LayoutEditorStage({
         })
       );
   const validationPanelViewModel = buildLayoutValidationPanelViewModel({
-    warnings: [...stageState.validationWarnings, ...doorDestinationWarnings]
+    warnings: [...stageState.validationWarnings, ...doorDestinationWarnings, ...routeGraphWarnings]
   });
   const validationDrawerViewModel = buildValidationDrawerViewModel(validationPanelViewModel);
   const nextStepViewModel = buildEditorNextStep({
@@ -1564,6 +1585,8 @@ export function LayoutEditorStage({
           onAddNurseStation={() => selectAddObjectMenuItem("nurse_station")}
           referenceOverlayVisible={referenceOverlayVisible}
           onToggleReferenceOverlay={() => setReferenceOverlayVisible((visible) => !visible)}
+          routeGraphVisible={routeGraphVisible}
+          onToggleRouteGraph={() => setRouteGraphVisible((visible) => !visible)}
           advancedContent={(
             <div className="layout-editor-stage__advanced-toolbar-content">
               <EditorSaveStatusPanel
@@ -1761,6 +1784,9 @@ export function LayoutEditorStage({
             data-read-only={stageState.readOnly ? "true" : "false"}
             data-editor-mode={editorMode}
             data-reference-overlay-visible={referenceOverlayVisible ? "true" : "false"}
+            data-route-graph-overlay-visible={routeGraphVisible ? "true" : "false"}
+            data-route-node-count={routeGraph?.nodes.length ?? 0}
+            data-route-edge-count={routeGraph?.edges.length ?? 0}
             data-artifact-quarantine-policy={artifactQuarantinePolicy.unknownVisuals}
             data-hit-testing-contract="geometry-truth-v1"
             data-render-layer-order={LAYOUT_EDITOR_RENDER_LAYER_ORDER.join("|")}
@@ -1835,6 +1861,11 @@ export function LayoutEditorStage({
             {editorMode === "presentation" ? (
               <HallwayArrowOverlay arrows={hallwayArrows} />
             ) : null}
+            <RouteGraphOverlay
+              graph={routeGraph}
+              viewport={stageState.viewport}
+              visible={routeGraphVisible}
+            />
             <g
               className="layout-editor-stage__grid"
               data-grid-state={
@@ -2362,6 +2393,7 @@ export function LayoutEditorStage({
                       )
                     }
                   />
+                  <LockedGeometryInspectorPanel viewModel={inspectorViewModel} />
                   <RoomAlignmentControls
                     viewModel={roomAlignmentViewModel}
                     onApply={applyRoomAlignment}

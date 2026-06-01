@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "issue": "846",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "perimeter walls are selectable",
+      "passed": true,
+      "detail": {
+        "lockedGeometrySelectable": true,
+        "lockedGeometryExplainsWhyLocked": true,
+        "noMoveDeleteControls": true,
+        "referenceOverlayIsSeparate": true,
+        "noMysteryUnclickableArtifacts": true
+      }
+    },
+    {
+      "name": "locked geometry explains why locked",
+      "passed": true,
+      "detail": {
+        "lockedGeometrySelectable": true,
+        "lockedGeometryExplainsWhyLocked": true,
+        "noMoveDeleteControls": true,
+        "referenceOverlayIsSeparate": true,
+        "noMysteryUnclickableArtifacts": true
+      }
+    },
+    {
+      "name": "locked walls do not show move/delete controls",
+      "passed": true,
+      "detail": {
+        "lockedGeometrySelectable": true,
+        "lockedGeometryExplainsWhyLocked": true,
+        "noMoveDeleteControls": true,
+        "referenceOverlayIsSeparate": true,
+        "noMysteryUnclickableArtifacts": true
+      }
+    },
+    {
+      "name": "reference overlay remains visually separate",
+      "passed": true,
+      "detail": {
+        "lockedGeometrySelectable": true,
+        "lockedGeometryExplainsWhyLocked": true,
+        "noMoveDeleteControls": true,
+        "referenceOverlayIsSeparate": true,
+        "noMysteryUnclickableArtifacts": true
+      }
+    },
+    {
+      "name": "no mystery unclickable artifacts remain",
+      "passed": true,
+      "detail": {
+        "lockedGeometrySelectable": true,
+        "lockedGeometryExplainsWhyLocked": true,
+        "noMoveDeleteControls": true,
+        "referenceOverlayIsSeparate": true,
+        "noMysteryUnclickableArtifacts": true
+      }
+    },
+    {
+      "name": "technical IDs advanced-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "screenshots captured",
+      "passed": true,
+      "detail": [
+        "locked-perimeter-wall-selected.png",
+        "locked-geometry-inspector.png"
+      ]
+    }
+  ]
+}

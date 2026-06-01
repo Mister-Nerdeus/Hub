@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "856",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-856/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-856/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-856/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-856/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856",
+      "outputs": [
+        "docs/verification/issues/issue-856/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-856/no-phi-output.txt"
+      ]
+    }
+  ]
+}

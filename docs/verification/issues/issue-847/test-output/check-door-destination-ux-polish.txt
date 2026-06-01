@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "issue": "847",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "selected door shows Leads to",
+      "passed": true,
+      "detail": {
+        "selectedDoorShowsLeadsTo": true,
+        "unknownDestinationVisiblyWarns": true,
+        "doorDestinationReadableInPresentationMode": true
+      }
+    },
+    {
+      "name": "unknown destination visibly warns",
+      "passed": true,
+      "detail": {
+        "selectedDoorShowsLeadsTo": true,
+        "unknownDestinationVisiblyWarns": true,
+        "doorDestinationReadableInPresentationMode": true
+      }
+    },
+    {
+      "name": "presentation mode can show all destinations",
+      "passed": true,
+      "detail": {
+        "selectedDoorShowsLeadsTo": true,
+        "unknownDestinationVisiblyWarns": true,
+        "doorDestinationReadableInPresentationMode": true
+      }
+    },
+    {
+      "name": "technical IDs advanced-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "no simulation/scoring copy in door destination UI",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "screenshots captured",
+      "passed": true,
+      "detail": [
+        "selected-door-leads-to.png",
+        "unknown-door-warning.png",
+        "presentation-door-destinations.png"
+      ]
+    }
+  ]
+}

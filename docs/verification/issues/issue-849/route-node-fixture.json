@@ -1,0 +1,173 @@
+[
+  {
+    "routeNodeId": "route-node:bed_position:room-03:bed-a",
+    "sourceKind": "bed_position",
+    "sourceId": "room-03:bed-a",
+    "label": "Room 03A",
+    "xFeet": 19.5,
+    "yFeet": 5,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:bed_position:room-03:bed-b",
+    "sourceKind": "bed_position",
+    "sourceId": "room-03:bed-b",
+    "label": "Room 03B",
+    "xFeet": 26.5,
+    "yFeet": 5,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:door:door-clean-storage-west",
+    "sourceKind": "door",
+    "sourceId": "door-clean-storage-west",
+    "label": "Clean storage west door",
+    "xFeet": 34,
+    "yFeet": 29,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:door:door-room-01-south",
+    "sourceKind": "door",
+    "sourceId": "door-room-01-south",
+    "label": "Room 01 south door",
+    "xFeet": 6,
+    "yFeet": 10,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:door:door-room-02-north",
+    "sourceKind": "door",
+    "sourceId": "door-room-02-north",
+    "label": "Room 02 north door",
+    "xFeet": 6,
+    "yFeet": 24,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:door:door-room-03-south",
+    "sourceKind": "door",
+    "sourceId": "door-room-03-south",
+    "label": "Room 03 south door",
+    "xFeet": 23,
+    "yFeet": 10,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:door:door-room-04-west",
+    "sourceKind": "door",
+    "sourceId": "door-room-04-west",
+    "label": "Room 04 west door",
+    "xFeet": 16,
+    "yFeet": 29,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:entry_exit:entry-main-hall",
+    "sourceKind": "entry_exit",
+    "sourceId": "entry-main-hall",
+    "label": "Main hall entry",
+    "xFeet": 62,
+    "yFeet": 16,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:entry_exit:exit-east",
+    "sourceKind": "entry_exit",
+    "sourceId": "exit-east",
+    "label": "East exit",
+    "xFeet": 67,
+    "yFeet": 16,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:hallway:hall-east",
+    "sourceKind": "hallway",
+    "sourceId": "hall-east",
+    "label": "East connector",
+    "xFeet": 50,
+    "yFeet": 17,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "hallway",
+    "sourceId": "hall-main",
+    "label": "Main hallway",
+    "xFeet": 29,
+    "yFeet": 16,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:room:room-01",
+    "sourceKind": "room",
+    "sourceId": "room-01",
+    "label": "Room 01",
+    "xFeet": 6,
+    "yFeet": 5,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:room:room-02",
+    "sourceKind": "room",
+    "sourceId": "room-02",
+    "label": "Room 02",
+    "xFeet": 6,
+    "yFeet": 29,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:room:room-03",
+    "sourceKind": "room",
+    "sourceId": "room-03",
+    "label": "Room 03 split",
+    "xFeet": 23,
+    "yFeet": 5,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:room:room-04",
+    "sourceKind": "room",
+    "sourceId": "room-04",
+    "label": "Room 04",
+    "xFeet": 22,
+    "yFeet": 29,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:room:room-storage-clean",
+    "sourceKind": "room",
+    "sourceId": "room-storage-clean",
+    "label": "Clean storage",
+    "xFeet": 39,
+    "yFeet": 29,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:support_access:support-access-provider-pharmacy-west",
+    "sourceKind": "support_access",
+    "sourceId": "support-access-provider-pharmacy-west",
+    "label": "Provider pharmacy access",
+    "xFeet": 56,
+    "yFeet": 4,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:zone:zone-entry",
+    "sourceKind": "zone",
+    "sourceId": "zone-entry",
+    "label": "Entry zone",
+    "xFeet": 60,
+    "yFeet": 16,
+    "traversable": true
+  },
+  {
+    "routeNodeId": "route-node:zone:zone-provider-pharmacy",
+    "sourceKind": "zone",
+    "sourceId": "zone-provider-pharmacy",
+    "label": "Provider pharmacy support",
+    "xFeet": 61,
+    "yFeet": 5,
+    "traversable": true
+  }
+]

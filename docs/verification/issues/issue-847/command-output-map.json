@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "847",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-847/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-847/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-847/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-door-destination-ux-polish.mjs --stage final --issue 847",
+      "outputs": [
+        "docs/verification/issues/issue-847/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-847/no-phi-output.txt"
+      ]
+    }
+  ]
+}

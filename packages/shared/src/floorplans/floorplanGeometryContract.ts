@@ -82,6 +82,37 @@ export {
   type DoorDestinationValidationSeverity
 } from "./doorDestinationValidation.js";
 export {
+  canonicalErPodGeometryFixture
+} from "./canonicalErPodGeometryFixture.js";
+export {
+  ROUTE_NODE_SOURCE_KINDS,
+  routeNodeIdFor,
+  validateRouteNodeContract,
+  type RouteNodeContract,
+  type RouteNodeSourceKind
+} from "./routeNodeContract.js";
+export {
+  ROUTE_EDGE_SOURCE_KINDS,
+  routeEdgeIdFor,
+  validateRouteEdgeContract,
+  type RouteEdgeContract,
+  type RouteEdgeSourceKind
+} from "./routeEdgeContract.js";
+export {
+  validateRouteGraphContract,
+  validateRouteGraphWarning,
+  type RouteGraphContract,
+  type RouteGraphWarningContract,
+  type RouteGraphWarningSeverity
+} from "./routeGraphContract.js";
+export {
+  deriveRouteGraphFromGeometry
+} from "./deriveRouteGraphFromGeometry.js";
+export {
+  validateRouteGraphConnectivity,
+  type RouteGraphValidationResult
+} from "./routeGraphValidation.js";
+export {
   SUPPORT_STORAGE_AREA_KINDS,
   createSupportStorageAreaContract,
   validateSupportStorageAreaContract,

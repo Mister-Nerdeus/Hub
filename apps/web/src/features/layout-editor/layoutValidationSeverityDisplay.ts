@@ -28,6 +28,8 @@ export function formatLayoutValidationSource(source: LayoutValidationWarningSour
       return "Door sync";
     case "door_destination":
       return "Door destination";
+    case "route_graph":
+      return "Route connectivity";
     case "path_sync":
       return "Path sync";
     case "inspector_edit":

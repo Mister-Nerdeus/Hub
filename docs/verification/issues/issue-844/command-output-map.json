@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "844",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-844/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-844/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-844/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-final-geometry-evidence-audit.mjs --stage final --issue 844",
+      "outputs": [
+        "docs/verification/issues/issue-844/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-844/no-phi-output.txt"
+      ]
+    }
+  ]
+}

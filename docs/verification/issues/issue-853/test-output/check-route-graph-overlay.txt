@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "issue": "853",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "overlay is optional and toggleable",
+      "passed": true,
+      "detail": {
+        "routeGraphOverlayVisible": true,
+        "routeNodeCount": 77,
+        "routeEdgeCount": 57,
+        "blockedEdgeCount": 0,
+        "routeWarningMarkerCount": 1,
+        "routeGraphOverlayConnectivityOnly": true
+      }
+    },
+    {
+      "name": "overlay shows nodes and edges",
+      "passed": true,
+      "detail": {
+        "routeGraphOverlayVisible": true,
+        "routeNodeCount": 77,
+        "routeEdgeCount": 57,
+        "blockedEdgeCount": 0,
+        "routeWarningMarkerCount": 1,
+        "routeGraphOverlayConnectivityOnly": true
+      }
+    },
+    {
+      "name": "unknown destinations show warning markers",
+      "passed": true,
+      "detail": {
+        "routeGraphOverlayVisible": true,
+        "routeNodeCount": 77,
+        "routeEdgeCount": 57,
+        "blockedEdgeCount": 0,
+        "routeWarningMarkerCount": 1,
+        "routeGraphOverlayConnectivityOnly": true
+      }
+    },
+    {
+      "name": "overlay is connectivity-only",
+      "passed": true,
+      "detail": {
+        "routeGraphOverlayVisible": true,
+        "routeNodeCount": 77,
+        "routeEdgeCount": 57,
+        "blockedEdgeCount": 0,
+        "routeWarningMarkerCount": 1,
+        "routeGraphOverlayConnectivityOnly": true
+      }
+    },
+    {
+      "name": "source has route overlay component",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "no travel-time or burden labels",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "screenshots captured",
+      "passed": true,
+      "detail": [
+        "route-graph-overlay-visible.png",
+        "route-graph-overlay-warning.png"
+      ]
+    }
+  ]
+}

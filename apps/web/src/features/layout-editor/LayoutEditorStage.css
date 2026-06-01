@@ -1450,16 +1450,89 @@
 
 .layout-editor-stage__door-destination-label text {
   fill: #17324d;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 900;
   paint-order: stroke;
   pointer-events: none;
   stroke: #ffffff;
-  stroke-width: 3px;
+  stroke-width: 3.4px;
 }
 
 .layout-editor-stage__door-destination-label--warning text {
   fill: #8f1d14;
+}
+
+.route-graph-overlay {
+  pointer-events: none;
+}
+
+.route-graph-overlay__edge {
+  stroke: #0f766e;
+  stroke-linecap: round;
+  stroke-width: 2.4;
+}
+
+.route-graph-overlay__edge--blocked {
+  stroke: #b42318;
+  stroke-dasharray: 7 5;
+}
+
+.route-graph-overlay__nodes circle {
+  fill: #ffffff;
+  stroke: #0f766e;
+  stroke-width: 2;
+}
+
+.route-graph-overlay__warnings text {
+  fill: #b42318;
+  font-size: 13px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3px;
+}
+
+.locked-geometry-inspector-panel {
+  background: #f8fafc;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+}
+
+.locked-geometry-inspector-panel h4,
+.locked-geometry-inspector-panel p {
+  margin: 0;
+}
+
+.locked-geometry-inspector-panel h4 {
+  color: #111827;
+  font-size: 0.9rem;
+}
+
+.locked-geometry-inspector-panel p,
+.locked-geometry-inspector-panel dd,
+.locked-geometry-inspector-panel dt {
+  color: #243447;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.locked-geometry-inspector-panel dl {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.locked-geometry-inspector-panel div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.locked-geometry-inspector-panel dd,
+.locked-geometry-inspector-panel dt {
+  margin: 0;
 }
 
 .layout-editor-stage__station rect {

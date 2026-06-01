@@ -1,0 +1,316 @@
+{
+  "status": "passed",
+  "issue": "844",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "geometry hardening manifest is GO-ready",
+      "passed": true,
+      "detail": {
+        "geometryTruthHardeningPreflightStatus": "passed",
+        "geometryGoNoGoHardeningStatus": "passed",
+        "geometryRootScriptHardeningStatus": "passed",
+        "legacySplitBayNormalFlowStatus": "passed",
+        "splitRoomReducerWiringStatus": "passed",
+        "editableLayoutSplitRoomStateStatus": "passed",
+        "splitRoomRenderPathStatus": "passed",
+        "splitBedSelectionStateStatus": "passed",
+        "splitParentMoveResizeWiringStatus": "passed",
+        "splitDividerReducerActionsStatus": "passed",
+        "splitRoomInspectorNormalFlowStatus": "passed",
+        "wallSelectionBehaviorStatus": "passed",
+        "hardGeometrySaveReloadStatus": "passed",
+        "realGeometryScreenshotProofStatus": "passed",
+        "splitRoomHardBrowserRegressionStatus": "passed",
+        "geometryTruthHardGoNoGoStatus": "go_for_durable_assignment_foundation",
+        "durableAssignmentFoundationStatus": "go_for_durable_assignment_foundation",
+        "goNoGoStatus": "go_for_next_milestone",
+        "legacySplitBayNormalFlowDetected": true,
+        "lastUpdatedIssue": "832",
+        "goNoGoRunsBehaviorValidators": true,
+        "manifestAloneCannotPassGoNoGo": true,
+        "browserRegressionRequiredForGo": true,
+        "placeholderProofRejectedForGo": true,
+        "requiredHardeningRootScriptsPresent": true,
+        "normalEditorDoesNotDispatchPairSplitBayAction": true,
+        "normalAddSplitRoomUsesSplitRoomNaming": true,
+        "reducerUsesSingleRoomSplitConversion": true,
+        "normalSplitRoomCreationDoesNotResolveRoomPair": true,
+        "splitRoomConversionPreservesParentFootprint": true,
+        "editableLayoutHasSplitRoomsCollection": true,
+        "splitBedsNotStoredAsFakeRooms": true,
+        "normalEditorUsesSplitRoomShape": true,
+        "legacySplitBayShapeRemovedFromNormalPath": true,
+        "bedPositionIsRealSelectableObject": true,
+        "splitParentIsSeparateSelectableObject": true,
+        "splitParentMovesAsOneFootprint": true,
+        "splitParentResizeRecalculatesBedBounds": true,
+        "splitDividerRatioUpdatesBedBounds": true,
+        "legacyDividerStyleNotUsedForNewSplitRooms": true,
+        "legacySplitBayQuickEditRemovedFromNormalFlow": true,
+        "splitRoomInspectorDrivesNormalEditing": true,
+        "selectableWallsActuallySelectable": true,
+        "newGeometryPersistsWithoutLegacyFallback": true,
+        "assignmentTargetIdsStableAfterReload": true,
+        "placeholderScreenshotsRejectedForFinalProof": true,
+        "singleRoomToSplitRoomBrowserFlowPassed": true,
+        "splitBedTargetsStableAfterReload": true,
+        "legacySplitBayNormalFlowRemoved": true,
+        "singleRoomSplitRoomEditorFlowVerified": true,
+        "splitRoomBrowserBehaviorVerified": true,
+        "assignmentTargetsStable": true,
+        "legacySplitBayQuarantineStatus": "passed",
+        "legacySplitBayOnlyCompatibility": true,
+        "normalFlowHasNoSplitBayLeakage": true,
+        "currentSplitRoomActionsUseSplitRoomNaming": true,
+        "hardeningRootScriptsVerifiedFromPackageJson": true,
+        "geometryHardeningCloseoutConsistencyStatus": "passed",
+        "hardeningManifestLastUpdatedIssueCorrect": true,
+        "durableAssignmentFoundationStatusContradictionResolved": true
+      }
+    },
+    {
+      "name": "boundary door destination manifest is GO-ready",
+      "passed": true,
+      "detail": {
+        "boundaryDoorDestinationPreflightStatus": "passed",
+        "perimeterWallContractStatus": "passed",
+        "entryExitContractStatus": "passed",
+        "doorDestinationContractStatus": "passed",
+        "boundaryDoorDestinationRendererStatus": "passed",
+        "doorDestinationInspectorStatus": "passed",
+        "doorDestinationValidationStatus": "passed",
+        "boundaryDoorDestinationSaveReloadStatus": "passed",
+        "doorExitDestinationBrowserProofStatus": "passed",
+        "boundaryDoorDestinationRootScriptsStatus": "passed",
+        "boundaryDoorDestinationDocumentationStatus": "passed",
+        "boundaryDoorDestinationGoNoGoStatus": "go_for_assignment_foundation_or_route_graph",
+        "entryExitPointsAreFirstClassGeometry": true,
+        "entryExitDestinationsModeled": true,
+        "lastUpdatedIssue": "843",
+        "doorsCanDeclareWhereTheyLead": true,
+        "doorDestinationsAreOperationalLabels": true,
+        "perimeterWallIsLayoutGeometry": true,
+        "perimeterWallBlocksTravel": true,
+        "wallDoorExitTruthGapReproduced": true,
+        "perimeterWallVisible": true,
+        "entryExitPointsVisible": true,
+        "doorDestinationLabelsVisible": true,
+        "perimeterWallsPersist": true,
+        "entryExitPointsPersist": true,
+        "doorDestinationsPersist": true,
+        "doorLeadsToEditableInNormalInspector": true,
+        "entryExitDestinationEditableInNormalInspector": true,
+        "technicalDestinationIdsAdvancedOnly": true,
+        "unknownDoorDestinationsWarn": true,
+        "invalidDoorDestinationsBlocked": true,
+        "validationDoesNotClaimClinicalSafety": true,
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "doorExitDestinationBrowserProofPassed": true,
+        "requiredBoundaryDoorDestinationRootScriptsPresent": true,
+        "perimeterWallReady": true,
+        "entryExitReady": true,
+        "doorDestinationsReady": true,
+        "goNoGoStatus": "go_for_next_milestone"
+      }
+    },
+    {
+      "name": "required root scripts visible in package.json",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:geometry-truth-hardening-preflight": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
+          "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 831",
+          "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 831",
+          "check:legacy-split-bay-normal-flow": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
+          "check:split-room-reducer-wiring": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
+          "check:editable-layout-split-room-state": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",
+          "check:split-room-render-path": "node scripts/check-split-room-render-path.mjs --stage final --issue 821",
+          "check:split-bed-selection-state": "node scripts/check-split-bed-selection-state.mjs --stage final --issue 822",
+          "check:split-parent-move-resize-wiring": "node scripts/check-split-parent-move-resize-wiring.mjs --stage final --issue 823",
+          "check:split-divider-reducer-actions": "node scripts/check-split-divider-reducer-actions.mjs --stage final --issue 824",
+          "check:split-room-inspector-normal-flow": "node scripts/check-split-room-inspector-normal-flow.mjs --stage final --issue 825",
+          "check:wall-selection-behavior": "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826",
+          "check:hard-geometry-save-reload-proof": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827",
+          "check:real-screenshot-proof-required": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
+          "check:split-room-hard-browser-regression": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829",
+          "check:boundary-door-destination-preflight": "node scripts/check-boundary-door-destination-preflight.mjs --stage final --issue 833",
+          "check:perimeter-wall-contract": "node scripts/check-perimeter-wall-contract.mjs --stage final --issue 834",
+          "check:entry-exit-contract": "node scripts/check-entry-exit-contract.mjs --stage final --issue 835",
+          "check:door-destination-contract": "node scripts/check-door-destination-contract.mjs --stage final --issue 836",
+          "check:boundary-door-destination-renderer": "node scripts/check-boundary-door-destination-renderer.mjs --stage final --issue 837",
+          "check:door-destination-inspector": "node scripts/check-door-destination-inspector.mjs --stage final --issue 838",
+          "check:door-destination-validation": "node scripts/check-door-destination-validation.mjs --stage final --issue 839",
+          "check:boundary-door-destination-save-reload": "node scripts/check-boundary-door-destination-save-reload.mjs --stage final --issue 840",
+          "check:door-exit-destination-browser-proof": "node scripts/check-door-exit-destination-browser-proof.mjs --stage final --issue 841",
+          "check:boundary-door-destination-go-no-go": "node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843",
+          "check:final-geometry-evidence-audit": "node scripts/check-final-geometry-evidence-audit.mjs --stage final --issue 844",
+          "check:canonical-er-pod-geometry-fixture": "node scripts/check-canonical-er-pod-geometry-fixture.mjs --stage final --issue 845",
+          "check:locked-geometry-ux-proof": "node scripts/check-locked-geometry-ux-proof.mjs --stage final --issue 846",
+          "check:door-destination-ux-polish": "node scripts/check-door-destination-ux-polish.mjs --stage final --issue 847",
+          "check:route-graph-preflight": "node scripts/check-route-graph-preflight.mjs --stage final --issue 848",
+          "check:route-node-contract": "node scripts/check-route-node-contract.mjs --stage final --issue 849",
+          "check:route-edge-contract": "node scripts/check-route-edge-contract.mjs --stage final --issue 850",
+          "check:route-graph-derivation": "node scripts/check-route-graph-derivation.mjs --stage final --issue 851",
+          "check:route-graph-validation": "node scripts/check-route-graph-validation.mjs --stage final --issue 852",
+          "check:route-graph-overlay": "node scripts/check-route-graph-overlay.mjs --stage final --issue 853",
+          "check:route-graph-save-reload-proof": "node scripts/check-route-graph-save-reload-proof.mjs --stage final --issue 854",
+          "check:route-graph-browser-proof": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 855",
+          "check:route-graph-go-no-go": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856"
+        }
+      }
+    },
+    {
+      "name": "issue 829 split-room browser artifacts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          {
+            "file": "screenshots/split-room-parent-selected.png",
+            "exists": true,
+            "bytes": 211056
+          },
+          {
+            "file": "screenshots/split-room-bed-a-selected.png",
+            "exists": true,
+            "bytes": 191026
+          },
+          {
+            "file": "screenshots/split-room-bed-b-selected.png",
+            "exists": true,
+            "bytes": 191026
+          },
+          {
+            "file": "screenshots/split-room-resized-parent.png",
+            "exists": true,
+            "bytes": 210553
+          },
+          {
+            "file": "screenshots/split-room-divider-controls.png",
+            "exists": true,
+            "bytes": 210554
+          }
+        ],
+        "screenshotIndexExists": true,
+        "noPlaceholderFinalProof": true
+      }
+    },
+    {
+      "name": "issue 841 door/exit/destination browser artifacts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          {
+            "file": "screenshots/perimeter-wall-selected.png",
+            "exists": true,
+            "bytes": 211731
+          },
+          {
+            "file": "screenshots/entry-exit-destination-visible.png",
+            "exists": true,
+            "bytes": 214551
+          },
+          {
+            "file": "screenshots/door-destination-edited.png",
+            "exists": true,
+            "bytes": 225634
+          },
+          {
+            "file": "screenshots/presentation-destination-labels.png",
+            "exists": true,
+            "bytes": 170742
+          },
+          {
+            "file": "screenshots/unknown-destination-warning.png",
+            "exists": true,
+            "bytes": 172576
+          }
+        ],
+        "screenshotIndexExists": true,
+        "noPlaceholderFinalProof": true
+      }
+    },
+    {
+      "name": "placeholder screenshots rejected",
+      "passed": true,
+      "detail": {
+        "splitRoomProof": {
+          "status": "passed",
+          "files": [
+            {
+              "file": "screenshots/split-room-parent-selected.png",
+              "exists": true,
+              "bytes": 211056
+            },
+            {
+              "file": "screenshots/split-room-bed-a-selected.png",
+              "exists": true,
+              "bytes": 191026
+            },
+            {
+              "file": "screenshots/split-room-bed-b-selected.png",
+              "exists": true,
+              "bytes": 191026
+            },
+            {
+              "file": "screenshots/split-room-resized-parent.png",
+              "exists": true,
+              "bytes": 210553
+            },
+            {
+              "file": "screenshots/split-room-divider-controls.png",
+              "exists": true,
+              "bytes": 210554
+            }
+          ],
+          "screenshotIndexExists": true,
+          "noPlaceholderFinalProof": true
+        },
+        "doorProof": {
+          "status": "passed",
+          "files": [
+            {
+              "file": "screenshots/perimeter-wall-selected.png",
+              "exists": true,
+              "bytes": 211731
+            },
+            {
+              "file": "screenshots/entry-exit-destination-visible.png",
+              "exists": true,
+              "bytes": 214551
+            },
+            {
+              "file": "screenshots/door-destination-edited.png",
+              "exists": true,
+              "bytes": 225634
+            },
+            {
+              "file": "screenshots/presentation-destination-labels.png",
+              "exists": true,
+              "bytes": 170742
+            },
+            {
+              "file": "screenshots/unknown-destination-warning.png",
+              "exists": true,
+              "bytes": 172576
+            }
+          ],
+          "screenshotIndexExists": true,
+          "noPlaceholderFinalProof": true
+        }
+      }
+    },
+    {
+      "name": "no simulation or optimizer claims introduced by audit files",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

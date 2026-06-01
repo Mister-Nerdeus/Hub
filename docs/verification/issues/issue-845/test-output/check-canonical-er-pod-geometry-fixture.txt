@@ -1,0 +1,457 @@
+{
+  "status": "passed",
+  "issue": "845",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "fixture has normal rooms",
+      "passed": true,
+      "detail": [
+        {
+          "id": "room-01",
+          "label": "Room 01",
+          "xFeet": 0,
+          "yFeet": 0,
+          "widthFeet": 12,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "01",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        {
+          "id": "room-02",
+          "label": "Room 02",
+          "xFeet": 0,
+          "yFeet": 24,
+          "widthFeet": 12,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "02",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        {
+          "id": "room-03",
+          "label": "Room 03 split",
+          "xFeet": 16,
+          "yFeet": 0,
+          "widthFeet": 14,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "03",
+          "roomType": "overflow",
+          "capacityType": "double",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        {
+          "id": "room-04",
+          "label": "Room 04",
+          "xFeet": 16,
+          "yFeet": 24,
+          "widthFeet": 12,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "04",
+          "roomType": "standard",
+          "capacityType": "single",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        },
+        {
+          "id": "room-storage-clean",
+          "label": "Clean storage",
+          "xFeet": 34,
+          "yFeet": 24,
+          "widthFeet": 10,
+          "heightFeet": 10,
+          "objectType": "room",
+          "roomNumber": "Storage",
+          "roomType": "storage",
+          "capacityType": "flex",
+          "isHallBed": false,
+          "isTraumaAdjacent": false
+        }
+      ]
+    },
+    {
+      "name": "fixture has split room with two bed positions",
+      "passed": true,
+      "detail": [
+        {
+          "splitRoomId": "split-room-room-03",
+          "parentRoomId": "room-03",
+          "splitMode": "two_bed",
+          "dividerOrientation": "vertical",
+          "dividerRatio": 0.5,
+          "bedPositions": [
+            {
+              "bedPositionId": "room-03:bed-a",
+              "parentRoomId": "room-03",
+              "label": "Room 03A",
+              "assignmentTarget": true,
+              "relativeBounds": {
+                "xRatio": 0,
+                "yRatio": 0,
+                "widthRatio": 0.5,
+                "heightRatio": 1
+              }
+            },
+            {
+              "bedPositionId": "room-03:bed-b",
+              "parentRoomId": "room-03",
+              "label": "Room 03B",
+              "assignmentTarget": true,
+              "relativeBounds": {
+                "xRatio": 0.5,
+                "yRatio": 0,
+                "widthRatio": 0.5,
+                "heightRatio": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fixture has perimeter walls",
+      "passed": true,
+      "detail": [
+        {
+          "perimeterWallId": "perimeter-er-pod",
+          "label": "ER pod boundary",
+          "segments": [
+            {
+              "segmentId": "perimeter-er-pod-north",
+              "label": "North boundary",
+              "xFeet": -2,
+              "yFeet": -2,
+              "widthFeet": 70,
+              "heightFeet": 0.5,
+              "orientation": "horizontal",
+              "blocksTravel": true,
+              "locked": true
+            },
+            {
+              "segmentId": "perimeter-er-pod-east",
+              "label": "East boundary",
+              "xFeet": 68,
+              "yFeet": -2,
+              "widthFeet": 0.5,
+              "heightFeet": 40,
+              "orientation": "vertical",
+              "blocksTravel": true,
+              "locked": true
+            },
+            {
+              "segmentId": "perimeter-er-pod-south",
+              "label": "South boundary",
+              "xFeet": -2,
+              "yFeet": 38,
+              "widthFeet": 70,
+              "heightFeet": 0.5,
+              "orientation": "horizontal",
+              "blocksTravel": true,
+              "locked": true
+            },
+            {
+              "segmentId": "perimeter-er-pod-west",
+              "label": "West boundary",
+              "xFeet": -2,
+              "yFeet": -2,
+              "widthFeet": 0.5,
+              "heightFeet": 40,
+              "orientation": "vertical",
+              "blocksTravel": true,
+              "locked": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "fixture has entry exits",
+      "passed": true,
+      "detail": [
+        {
+          "entryExitId": "entry-main-hall",
+          "label": "Main hall entry",
+          "kind": "main_entry",
+          "xFeet": 58,
+          "yFeet": 14,
+          "widthFeet": 8,
+          "heightFeet": 4,
+          "connectsFromId": "hall-main",
+          "connectsTo": {
+            "destinationKind": "hallway",
+            "destinationId": "hall-main",
+            "displayLabel": "Main hallway"
+          },
+          "blocksTravel": false
+        },
+        {
+          "entryExitId": "exit-east",
+          "label": "East exit",
+          "kind": "external_exit",
+          "xFeet": 66,
+          "yFeet": 12,
+          "widthFeet": 2,
+          "heightFeet": 8,
+          "connectsFromId": "hall-east",
+          "connectsTo": {
+            "destinationKind": "external",
+            "displayLabel": "External exit"
+          },
+          "blocksTravel": false
+        }
+      ]
+    },
+    {
+      "name": "fixture has door destinations",
+      "passed": true,
+      "detail": [
+        {
+          "doorId": "door-room-01-south",
+          "ownerKind": "room",
+          "ownerId": "room-01",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-02-north",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-03-south",
+          "ownerKind": "room",
+          "ownerId": "room-03",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-04-west",
+          "ownerKind": "room",
+          "ownerId": "room-04",
+          "leadsToKind": "unknown",
+          "leadsToLabel": "Unknown destination",
+          "travelRole": "unknown"
+        },
+        {
+          "doorId": "door-clean-storage-west",
+          "ownerKind": "room",
+          "ownerId": "room-storage-clean",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-east",
+          "leadsToLabel": "East connector",
+          "travelRole": "supply_flow"
+        },
+        {
+          "doorId": "support-access-provider-pharmacy-west",
+          "ownerKind": "zone",
+          "ownerId": "zone-provider-pharmacy",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-east",
+          "leadsToLabel": "East connector",
+          "travelRole": "staff_flow"
+        }
+      ]
+    },
+    {
+      "name": "fixture has hallways",
+      "passed": true,
+      "detail": [
+        {
+          "id": "hall-main",
+          "label": "Main hallway",
+          "xFeet": 0,
+          "yFeet": 12,
+          "widthFeet": 58,
+          "heightFeet": 8,
+          "objectType": "hallway"
+        },
+        {
+          "id": "hall-east",
+          "label": "East connector",
+          "xFeet": 46,
+          "yFeet": 0,
+          "widthFeet": 8,
+          "heightFeet": 34,
+          "objectType": "hallway"
+        }
+      ]
+    },
+    {
+      "name": "fixture has support or storage areas",
+      "passed": true,
+      "detail": {
+        "rooms": [
+          {
+            "id": "room-01",
+            "label": "Room 01",
+            "xFeet": 0,
+            "yFeet": 0,
+            "widthFeet": 12,
+            "heightFeet": 10,
+            "objectType": "room",
+            "roomNumber": "01",
+            "roomType": "standard",
+            "capacityType": "single",
+            "isHallBed": false,
+            "isTraumaAdjacent": false
+          },
+          {
+            "id": "room-02",
+            "label": "Room 02",
+            "xFeet": 0,
+            "yFeet": 24,
+            "widthFeet": 12,
+            "heightFeet": 10,
+            "objectType": "room",
+            "roomNumber": "02",
+            "roomType": "standard",
+            "capacityType": "single",
+            "isHallBed": false,
+            "isTraumaAdjacent": false
+          },
+          {
+            "id": "room-03",
+            "label": "Room 03 split",
+            "xFeet": 16,
+            "yFeet": 0,
+            "widthFeet": 14,
+            "heightFeet": 10,
+            "objectType": "room",
+            "roomNumber": "03",
+            "roomType": "overflow",
+            "capacityType": "double",
+            "isHallBed": false,
+            "isTraumaAdjacent": false
+          },
+          {
+            "id": "room-04",
+            "label": "Room 04",
+            "xFeet": 16,
+            "yFeet": 24,
+            "widthFeet": 12,
+            "heightFeet": 10,
+            "objectType": "room",
+            "roomNumber": "04",
+            "roomType": "standard",
+            "capacityType": "single",
+            "isHallBed": false,
+            "isTraumaAdjacent": false
+          },
+          {
+            "id": "room-storage-clean",
+            "label": "Clean storage",
+            "xFeet": 34,
+            "yFeet": 24,
+            "widthFeet": 10,
+            "heightFeet": 10,
+            "objectType": "room",
+            "roomNumber": "Storage",
+            "roomType": "storage",
+            "capacityType": "flex",
+            "isHallBed": false,
+            "isTraumaAdjacent": false
+          }
+        ],
+        "zones": [
+          {
+            "id": "zone-entry",
+            "label": "Entry zone",
+            "xFeet": 56,
+            "yFeet": 12,
+            "widthFeet": 8,
+            "heightFeet": 8,
+            "objectType": "zone",
+            "zoneType": "ems_entry"
+          },
+          {
+            "id": "zone-provider-pharmacy",
+            "label": "Provider pharmacy support",
+            "xFeet": 56,
+            "yFeet": 0,
+            "widthFeet": 10,
+            "heightFeet": 10,
+            "objectType": "zone",
+            "zoneType": "provider_pharmacy"
+          }
+        ]
+      }
+    },
+    {
+      "name": "fixture has explicit unknown destination",
+      "passed": true,
+      "detail": [
+        {
+          "doorId": "door-room-01-south",
+          "ownerKind": "room",
+          "ownerId": "room-01",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-02-north",
+          "ownerKind": "room",
+          "ownerId": "room-02",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-03-south",
+          "ownerKind": "room",
+          "ownerId": "room-03",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-main",
+          "leadsToLabel": "Main hallway",
+          "travelRole": "patient_flow"
+        },
+        {
+          "doorId": "door-room-04-west",
+          "ownerKind": "room",
+          "ownerId": "room-04",
+          "leadsToKind": "unknown",
+          "leadsToLabel": "Unknown destination",
+          "travelRole": "unknown"
+        },
+        {
+          "doorId": "door-clean-storage-west",
+          "ownerKind": "room",
+          "ownerId": "room-storage-clean",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-east",
+          "leadsToLabel": "East connector",
+          "travelRole": "supply_flow"
+        },
+        {
+          "doorId": "support-access-provider-pharmacy-west",
+          "ownerKind": "zone",
+          "ownerId": "zone-provider-pharmacy",
+          "leadsToKind": "hallway",
+          "leadsToId": "hall-east",
+          "leadsToLabel": "East connector",
+          "travelRole": "staff_flow"
+        }
+      ]
+    }
+  ]
+}

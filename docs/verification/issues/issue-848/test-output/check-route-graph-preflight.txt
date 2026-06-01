@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "issue": "848",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "route graph root scripts are visible in package.json",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:final-geometry-evidence-audit": "node scripts/check-final-geometry-evidence-audit.mjs --stage final --issue 844",
+          "check:canonical-er-pod-geometry-fixture": "node scripts/check-canonical-er-pod-geometry-fixture.mjs --stage final --issue 845",
+          "check:locked-geometry-ux-proof": "node scripts/check-locked-geometry-ux-proof.mjs --stage final --issue 846",
+          "check:door-destination-ux-polish": "node scripts/check-door-destination-ux-polish.mjs --stage final --issue 847",
+          "check:route-graph-preflight": "node scripts/check-route-graph-preflight.mjs --stage final --issue 848",
+          "check:route-node-contract": "node scripts/check-route-node-contract.mjs --stage final --issue 849",
+          "check:route-edge-contract": "node scripts/check-route-edge-contract.mjs --stage final --issue 850",
+          "check:route-graph-derivation": "node scripts/check-route-graph-derivation.mjs --stage final --issue 851",
+          "check:route-graph-validation": "node scripts/check-route-graph-validation.mjs --stage final --issue 852",
+          "check:route-graph-overlay": "node scripts/check-route-graph-overlay.mjs --stage final --issue 853",
+          "check:route-graph-save-reload-proof": "node scripts/check-route-graph-save-reload-proof.mjs --stage final --issue 854",
+          "check:route-graph-browser-proof": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 855",
+          "check:route-graph-go-no-go": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856"
+        }
+      }
+    },
+    {
+      "name": "route graph manifest is scoped connectivity-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "route graph status doc states out-of-scope work as blocked",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "route graph status doc has no clinical outcome claims",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

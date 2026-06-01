@@ -119,7 +119,7 @@ export function DoorDestinationInspectorPanel({
       </label>
       {current.leadsToKind === "unknown" ? (
         <p className="layout-inspector-panel__field-error" role="status">
-          Destination is marked unknown.
+          Unknown destination: route connectivity will warn until this door has a destination.
         </p>
       ) : null}
     </section>

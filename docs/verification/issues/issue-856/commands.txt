@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:clean-committed-state
+node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856
+node scripts/check-no-phi-fields.mjs

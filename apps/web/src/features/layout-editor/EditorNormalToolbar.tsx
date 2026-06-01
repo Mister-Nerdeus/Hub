@@ -12,6 +12,8 @@ export type EditorNormalToolbarProps = {
   onAddNurseStation: () => void;
   referenceOverlayVisible: boolean;
   onToggleReferenceOverlay: () => void;
+  routeGraphVisible: boolean;
+  onToggleRouteGraph: () => void;
   advancedContent: ReactNode;
 };
 
@@ -26,6 +28,8 @@ export function EditorNormalToolbar({
   onAddNurseStation,
   referenceOverlayVisible,
   onToggleReferenceOverlay,
+  routeGraphVisible,
+  onToggleRouteGraph,
   advancedContent
 }: EditorNormalToolbarProps) {
   return (
@@ -74,6 +78,14 @@ export function EditorNormalToolbar({
           visible={referenceOverlayVisible}
           onToggle={onToggleReferenceOverlay}
         />
+        <button
+          type="button"
+          data-editor-normal-action="toggle-route-graph"
+          aria-pressed={routeGraphVisible ? "true" : "false"}
+          onClick={onToggleRouteGraph}
+        >
+          {routeGraphVisible ? "Hide Routes" : "Show Routes"}
+        </button>
       </div>
       <details className="editor-normal-toolbar__advanced" data-editor-normal-action="advanced">
         <summary>Advanced</summary>

@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "855",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-855/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-855/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-855/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 855",
+      "outputs": [
+        "docs/verification/issues/issue-855/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-855/no-phi-output.txt"
+      ]
+    }
+  ]
+}

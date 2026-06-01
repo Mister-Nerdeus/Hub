@@ -27,6 +27,10 @@ export type LayoutInspectorViewModel = {
   objectId: string | null;
   sourceUnits: "feet";
   isReadOnly: boolean;
+  lockedGeometry: {
+    locked: boolean;
+    reason: string | null;
+  };
   normalSections: readonly LayoutInspectorSection[];
   advancedSections: readonly LayoutInspectorSection[];
   sections: readonly LayoutInspectorSection[];
@@ -55,6 +59,7 @@ export function buildLayoutInspectorViewModel(
       objectId: selectedObjectId,
       sourceUnits: "feet",
       isReadOnly: true,
+      lockedGeometry: lockedGeometryMetadata(selectedObjectType, null),
       normalSections: [],
       advancedSections: [],
       sections: []
@@ -71,6 +76,7 @@ export function buildLayoutInspectorViewModel(
     objectId: selectedObjectId,
     sourceUnits: "feet",
     isReadOnly: !["room", "station", "hallway", "entry_exit"].includes(selectedObject.objectType),
+    lockedGeometry: lockedGeometryMetadata(selectedObject.objectType, selectedObject),
     normalSections,
     advancedSections,
     sections: normalSections
@@ -85,9 +91,40 @@ function emptyInspector(): LayoutInspectorViewModel {
     objectId: null,
     sourceUnits: "feet",
     isReadOnly: true,
+    lockedGeometry: {
+      locked: false,
+      reason: null
+    },
     normalSections: [],
     advancedSections: [],
     sections: []
+  };
+}
+
+function lockedGeometryMetadata(
+  objectType: LayoutSelectionObjectType | null,
+  selectedObject: NonNullable<ReturnType<typeof findEditableLayoutObject>> | null
+): LayoutInspectorViewModel["lockedGeometry"] {
+  if (objectType === "perimeter_wall") {
+    const locked = selectedObject != null &&
+      "segments" in selectedObject &&
+      selectedObject.segments.every((segment) => segment.locked);
+    return {
+      locked,
+      reason: locked
+        ? "This perimeter wall is locked boundary geometry. It blocks route connectivity and can be selected for review, but it cannot be moved or deleted."
+        : null
+    };
+  }
+  if (objectType === "outer_wall") {
+    return {
+      locked: true,
+      reason: "This outer wall frames the editor workspace. It is selectable for context, but it cannot be moved or deleted."
+    };
+  }
+  return {
+    locked: false,
+    reason: null
   };
 }
 

@@ -8,6 +8,7 @@ export const LAYOUT_VALIDATION_WARNING_SOURCES = [
   "path_sync",
   "door_sync",
   "door_destination",
+  "route_graph",
   "resize",
   "inspector_edit",
   "audit",

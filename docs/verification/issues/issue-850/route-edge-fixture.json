@@ -1,0 +1,137 @@
+[
+  {
+    "routeEdgeId": "route-edge:door_destination:route-node:door:door-clean-storage-west->route-node:hallway:hall-east",
+    "fromNodeId": "route-node:door:door-clean-storage-west",
+    "toNodeId": "route-node:hallway:hall-east",
+    "sourceKind": "door_destination",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "door-clean-storage-west leads to East connector"
+  },
+  {
+    "routeEdgeId": "route-edge:door_destination:route-node:door:door-room-01-south->route-node:hallway:hall-main",
+    "fromNodeId": "route-node:door:door-room-01-south",
+    "toNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "door_destination",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "door-room-01-south leads to Main hallway"
+  },
+  {
+    "routeEdgeId": "route-edge:door_destination:route-node:door:door-room-02-north->route-node:hallway:hall-main",
+    "fromNodeId": "route-node:door:door-room-02-north",
+    "toNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "door_destination",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "door-room-02-north leads to Main hallway"
+  },
+  {
+    "routeEdgeId": "route-edge:door_destination:route-node:door:door-room-03-south->route-node:hallway:hall-main",
+    "fromNodeId": "route-node:door:door-room-03-south",
+    "toNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "door_destination",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "door-room-03-south leads to Main hallway"
+  },
+  {
+    "routeEdgeId": "route-edge:door_destination:route-node:hallway:hall-east->route-node:support_access:support-access-provider-pharmacy-west",
+    "fromNodeId": "route-node:support_access:support-access-provider-pharmacy-west",
+    "toNodeId": "route-node:hallway:hall-east",
+    "sourceKind": "door_destination",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "support-access-provider-pharmacy-west leads to East connector"
+  },
+  {
+    "routeEdgeId": "route-edge:entry_exit:route-node:entry_exit:entry-main-hall->route-node:hallway:hall-main",
+    "fromNodeId": "route-node:entry_exit:entry-main-hall",
+    "toNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "entry_exit",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "Main hall entry connects to Main hallway"
+  },
+  {
+    "routeEdgeId": "route-edge:hallway_overlap:route-node:hallway:hall-east->route-node:hallway:hall-main",
+    "fromNodeId": "route-node:hallway:hall-east",
+    "toNodeId": "route-node:hallway:hall-main",
+    "sourceKind": "hallway_overlap",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "East connector connects to Main hallway"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:bed_position:room-03:bed-a->route-node:room:room-03",
+    "fromNodeId": "route-node:room:room-03",
+    "toNodeId": "route-node:bed_position:room-03:bed-a",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "Room 03 split to Room 03A"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:bed_position:room-03:bed-b->route-node:room:room-03",
+    "fromNodeId": "route-node:room:room-03",
+    "toNodeId": "route-node:bed_position:room-03:bed-b",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "Room 03 split to Room 03B"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:door:door-clean-storage-west->route-node:room:room-storage-clean",
+    "fromNodeId": "route-node:room:room-storage-clean",
+    "toNodeId": "route-node:door:door-clean-storage-west",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "room connects to Clean storage west door"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:door:door-room-01-south->route-node:room:room-01",
+    "fromNodeId": "route-node:room:room-01",
+    "toNodeId": "route-node:door:door-room-01-south",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "room connects to Room 01 south door"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:door:door-room-02-north->route-node:room:room-02",
+    "fromNodeId": "route-node:room:room-02",
+    "toNodeId": "route-node:door:door-room-02-north",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "room connects to Room 02 north door"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:door:door-room-03-south->route-node:room:room-03",
+    "fromNodeId": "route-node:room:room-03",
+    "toNodeId": "route-node:door:door-room-03-south",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "room connects to Room 03 south door"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:door:door-room-04-west->route-node:room:room-04",
+    "fromNodeId": "route-node:room:room-04",
+    "toNodeId": "route-node:door:door-room-04-west",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "room connects to Room 04 west door"
+  },
+  {
+    "routeEdgeId": "route-edge:manual_connection:route-node:support_access:support-access-provider-pharmacy-west->route-node:zone:zone-provider-pharmacy",
+    "fromNodeId": "route-node:zone:zone-provider-pharmacy",
+    "toNodeId": "route-node:support_access:support-access-provider-pharmacy-west",
+    "sourceKind": "manual_connection",
+    "traversable": true,
+    "blockedByWall": false,
+    "label": "zone connects to Provider pharmacy access"
+  }
+]

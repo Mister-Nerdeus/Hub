@@ -1,0 +1,5 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-route-edge-contract.mjs --stage final --issue 850
+node scripts/check-no-phi-fields.mjs
