@@ -178,8 +178,8 @@ function stringValues(value) {
 function claimFindings(value) {
   const patterns = [
     /\btravel[- ]?time\b/i,
-    /\bburden score\b/i,
-    /\bworkload score\b/i,
+    /\bburden\b/i,
+    /\bworkload\b/i,
     /\bscore\b/i,
     /\bstaffing(?: compliance| recommendation)?\b/i,
     /\bassignment recommendation\b/i,

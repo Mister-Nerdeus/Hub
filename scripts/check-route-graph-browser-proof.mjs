@@ -110,6 +110,7 @@ async function openEditor(browser) {
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
   await browser.evaluate("localStorage.clear()");
   await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('[data-editor-command-bar="consolidated"]') != null`);
+  await waitForExpression(browser, `Array.from(document.querySelectorAll('button')).some((button) => button.textContent.trim() === 'Create working copy' && !button.disabled)`, 15_000);
   await browser.evaluate(`Array.from(document.querySelectorAll('button')).find((button) => button.textContent.trim() === 'Create working copy' && !button.disabled)?.click()`);
   await waitForExpression(browser, `document.querySelector('[data-layout-object-type="door"]') != null`, 10_000);
 }
