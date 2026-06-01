@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "issue": "861",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-evidence-closeout.mjs --stage final --issue 861",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-directionality.mjs --stage final --issue 861",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-perimeter-wall-warning-marker.mjs --stage final --issue 861",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-no-overclaim.mjs --stage final --issue 861",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 861",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-861/commands.txt"
+      ]
+    }
+  ]
+}

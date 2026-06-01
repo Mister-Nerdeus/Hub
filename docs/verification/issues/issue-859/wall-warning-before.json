@@ -1,0 +1,18 @@
+{
+  "status": "failed_before_fix",
+  "previousMapping": "perimeter_wall sourceObjectId mapped to room route node",
+  "previousMarkersFound": 0,
+  "wallWarnings": [
+    {
+      "code": "route_blocked_by_wall",
+      "severity": "warning",
+      "sourceObjectType": "perimeter_wall",
+      "sourceObjectId": "perimeter-wall-warning-proof-segment",
+      "sourceAnchorFeet": {
+        "xFeet": 6,
+        "yFeet": 10
+      },
+      "message": "Door route is blocked by wall geometry."
+    }
+  ]
+}

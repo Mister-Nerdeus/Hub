@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "860",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-no-overclaim.mjs --stage final --issue 860",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-validation.mjs --stage final --issue 860",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 860",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-860/commands.txt"
+      ]
+    }
+  ]
+}

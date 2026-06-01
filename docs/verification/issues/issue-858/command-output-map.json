@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "858",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-directionality.mjs --stage final --issue 858",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-derivation.mjs --stage final --issue 858",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 858",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-858/commands.txt"
+      ]
+    }
+  ]
+}

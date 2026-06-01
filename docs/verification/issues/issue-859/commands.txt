@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-perimeter-wall-warning-marker.mjs --stage final --issue 859
+node scripts/check-route-graph-overlay.mjs --stage final --issue 859
+node scripts/check-route-graph-browser-proof.mjs --stage final --issue 859
+node scripts/check-no-phi-fields.mjs

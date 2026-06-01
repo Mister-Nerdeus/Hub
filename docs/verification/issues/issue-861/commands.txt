@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:clean-committed-state
+node scripts/check-route-graph-evidence-closeout.mjs --stage final --issue 861
+node scripts/check-route-graph-directionality.mjs --stage final --issue 861
+node scripts/check-perimeter-wall-warning-marker.mjs --stage final --issue 861
+node scripts/check-route-graph-no-overclaim.mjs --stage final --issue 861
+node scripts/check-route-graph-browser-proof.mjs --stage final --issue 861
+node scripts/check-no-phi-fields.mjs

@@ -20,6 +20,8 @@ export type RouteNodeContract = {
   traversable: boolean;
 };
 
+const FORBIDDEN_ROUTE_NODE_LABEL_TEXT = /\b(?:travel[- ]?time|burden(?: score)?|workload|score|staffing(?: compliance| recommendation)?|assignment recommendation|optimizer|simulation|clinical safety|patient outcome)\b/i;
+
 export function validateRouteNodeContract(value: unknown): RouteNodeContract {
   const node = requireRecord(value, "routeNode");
   requireExactKeys(node, "routeNode", [
@@ -37,11 +39,15 @@ export function validateRouteNodeContract(value: unknown): RouteNodeContract {
   if (routeNodeId !== routeNodeIdFor(sourceKind, sourceId)) {
     throw new Error("routeNode.routeNodeId must be deterministic from sourceKind and sourceId");
   }
+  const label = requireString(node.label, "routeNode.label");
+  if (FORBIDDEN_ROUTE_NODE_LABEL_TEXT.test(label)) {
+    throw new Error("routeNode.label must remain connectivity-only");
+  }
   return {
     routeNodeId,
     sourceKind,
     sourceId,
-    label: requireString(node.label, "routeNode.label"),
+    label,
     xFeet: requireNumber(node.xFeet, "routeNode.xFeet"),
     yFeet: requireNumber(node.yFeet, "routeNode.yFeet"),
     traversable: requireBoolean(node.traversable, "routeNode.traversable")

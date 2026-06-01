@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "missing": [],
+  "scripts": {
+    "check:route-graph-preflight": "node scripts/check-route-graph-preflight.mjs --stage final --issue 848",
+    "check:route-node-contract": "node scripts/check-route-node-contract.mjs --stage final --issue 849",
+    "check:route-edge-contract": "node scripts/check-route-edge-contract.mjs --stage final --issue 850",
+    "check:route-graph-derivation": "node scripts/check-route-graph-derivation.mjs --stage final --issue 851",
+    "check:route-graph-validation": "node scripts/check-route-graph-validation.mjs --stage final --issue 852",
+    "check:route-graph-overlay": "node scripts/check-route-graph-overlay.mjs --stage final --issue 853",
+    "check:route-graph-save-reload-proof": "node scripts/check-route-graph-save-reload-proof.mjs --stage final --issue 854",
+    "check:route-graph-browser-proof": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 855",
+    "check:route-graph-go-no-go": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856"
+  }
+}

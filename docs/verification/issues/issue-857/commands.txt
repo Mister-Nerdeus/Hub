@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:route-graph-go-no-go
+npm run check:route-graph-browser-proof
+node scripts/check-route-graph-evidence-closeout.mjs --stage final --issue 857
+node scripts/check-no-phi-fields.mjs

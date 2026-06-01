@@ -20,6 +20,8 @@ export function RouteGraphOverlay({ graph, viewport, visible }: RouteGraphOverla
       data-route-graph-scope={graph.routeGraphScope}
       data-route-node-count={graph.nodes.length}
       data-route-edge-count={graph.edges.length}
+      data-route-warning-count={graph.warnings.length}
+      data-route-warning-codes={graph.warnings.map((warning) => warning.code).join(",")}
       aria-label="Route connectivity overlay"
     >
       <g className="route-graph-overlay__edges">
@@ -66,19 +68,20 @@ export function RouteGraphOverlay({ graph, viewport, visible }: RouteGraphOverla
       </g>
       <g className="route-graph-overlay__warnings">
         {graph.warnings.map((warning) => {
-          const mappedKind = warning.sourceObjectType === "perimeter_wall"
-            ? "room"
-            : warning.sourceObjectType;
-          const node = nodesById.get(routeNodeIdFor(mappedKind, warning.sourceObjectId));
-          if (node == null) {
+          const anchor = warning.sourceObjectType === "perimeter_wall"
+            ? warning.sourceAnchorFeet
+            : nodesById.get(routeNodeIdFor(warning.sourceObjectType, warning.sourceObjectId));
+          if (anchor == null) {
             return null;
           }
-          const point = pointToPixels(node, viewport);
+          const point = pointToPixels(anchor, viewport);
           return (
             <text
               key={`${warning.code}:${warning.sourceObjectType}:${warning.sourceObjectId}`}
               data-route-warning-marker="true"
               data-route-warning-code={warning.code}
+              data-route-warning-source-type={warning.sourceObjectType}
+              data-route-warning-source-id={warning.sourceObjectId}
               x={point.xPixels + 7}
               y={point.yPixels - 7}
             >
