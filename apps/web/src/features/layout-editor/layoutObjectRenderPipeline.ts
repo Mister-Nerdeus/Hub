@@ -6,7 +6,9 @@ import type {
   EditableSplitBayGeometry,
   EditableStationGeometry,
   EditableSupportAccessPointGeometry,
-  EditableZoneGeometry
+  EditableZoneGeometry,
+  EntryExitContract,
+  PerimeterWallContract
 } from "@nerdeus/shared";
 import type { SplitRoomContract } from "@nerdeus/shared";
 import { normalizeDoorForOwnerWall } from "@nerdeus/shared";
@@ -21,6 +23,7 @@ import type { LayoutSelectionObjectType } from "./layoutSelectionModel";
 
 export const LAYOUT_OBJECT_RENDER_LAYER_ORDER = [
   "hallways",
+  "walls",
   "zones",
   "rooms",
   "doors",
@@ -34,6 +37,16 @@ type SplitRoomParentRenderSource = SplitRoomContract & {
   objectType: "split_room_parent";
   id: string;
   label: string;
+};
+
+type PerimeterWallRenderSource = PerimeterWallContract & {
+  objectType: "perimeter_wall";
+  id: string;
+};
+
+type EntryExitRenderSource = EntryExitContract & {
+  objectType: "entry_exit";
+  id: string;
 };
 
 export type LayoutObjectRenderItem = {
@@ -53,6 +66,8 @@ export type LayoutObjectRenderItem = {
     | EditableRoomGeometry
     | EditableDoorGeometry
     | EditableSupportAccessPointGeometry
+    | PerimeterWallRenderSource
+    | EntryExitRenderSource
     | EditableSplitBayGeometry
     | EditableStationGeometry
     | SplitRoomParentRenderSource;
@@ -61,6 +76,7 @@ export type LayoutObjectRenderItem = {
 export type BuildLayoutObjectRenderPipelineInput = {
   layout: EditableLayoutGeometryContract;
   viewport: LayoutViewportTransform;
+  includeLegacySplitBays?: boolean;
 };
 
 const DOOR_THICKNESS_FEET = 0.5;
@@ -68,14 +84,37 @@ const MINIMUM_DISPLAY_DOOR_WIDTH_FEET = 2;
 
 export function buildLayoutObjectRenderPipeline({
   layout,
-  viewport
+  viewport,
+  includeLegacySplitBays = false
 }: BuildLayoutObjectRenderPipelineInput): LayoutObjectRenderItem[] {
   const items: LayoutObjectRenderItem[] = [
     ...layout.hallways.map((hallway) =>
       buildRectRenderItem("hallway", hallway.id, "hallways", hallway.label, hallway, hallway, viewport)
     ),
+    ...(layout.perimeterWalls ?? []).map((wall) =>
+      buildRectRenderItem(
+        "perimeter_wall",
+        wall.perimeterWallId,
+        "walls",
+        wall.label,
+        boundsForPerimeterWall(wall),
+        { ...wall, objectType: "perimeter_wall", id: wall.perimeterWallId },
+        viewport
+      )
+    ),
     ...layout.zones.map((zone) =>
       buildRectRenderItem("zone", zone.id, "zones", `${zone.label} ${zone.zoneType}`, zone, zone, viewport)
+    ),
+    ...(layout.entryExits ?? []).map((entryExit) =>
+      buildRectRenderItem(
+        "entry_exit",
+        entryExit.entryExitId,
+        "doors",
+        `${entryExit.label} ${entryExit.kind}`,
+        entryExit,
+        { ...entryExit, objectType: "entry_exit", id: entryExit.entryExitId },
+        viewport
+      )
     ),
     ...layout.rooms.map((room) =>
       buildRectRenderItem("room", room.id, "rooms", `${room.label} ${room.roomType}`, room, room, viewport)
@@ -101,7 +140,7 @@ export function buildLayoutObjectRenderPipeline({
             )
           ];
     }),
-    ...(layout.splitBays ?? []).map((splitBay) =>
+    ...(includeLegacySplitBays ? layout.splitBays ?? [] : []).map((splitBay) =>
       buildRectRenderItem(
         "split_bay",
         splitBay.id,
@@ -271,4 +310,17 @@ export function deriveDoorDisplayRectFeet(
 
 function layerIndex(renderLayer: LayoutObjectRenderLayer): number {
   return LAYOUT_OBJECT_RENDER_LAYER_ORDER.indexOf(renderLayer);
+}
+
+function boundsForPerimeterWall(wall: PerimeterWallContract): LayoutRectFeet {
+  const minX = Math.min(...wall.segments.map((segment) => segment.xFeet));
+  const minY = Math.min(...wall.segments.map((segment) => segment.yFeet));
+  const maxX = Math.max(...wall.segments.map((segment) => segment.xFeet + segment.widthFeet));
+  const maxY = Math.max(...wall.segments.map((segment) => segment.yFeet + segment.heightFeet));
+  return {
+    xFeet: minX,
+    yFeet: minY,
+    widthFeet: maxX - minX,
+    heightFeet: maxY - minY
+  };
 }

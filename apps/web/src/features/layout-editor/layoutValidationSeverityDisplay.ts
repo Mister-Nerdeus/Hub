@@ -26,6 +26,8 @@ export function formatLayoutValidationSource(source: LayoutValidationWarningSour
       return "Resize";
     case "door_sync":
       return "Door sync";
+    case "door_destination":
+      return "Door destination";
     case "path_sync":
       return "Path sync";
     case "inspector_edit":

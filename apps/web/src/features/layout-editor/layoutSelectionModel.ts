@@ -8,6 +8,8 @@ import type {
   EditableSupportAccessPointGeometry,
   EditableZoneGeometry,
   BedPositionContract,
+  EntryExitContract,
+  PerimeterWallContract,
   SplitRoomContract
 } from "@nerdeus/shared";
 
@@ -18,6 +20,8 @@ export const LAYOUT_SELECTION_OBJECT_TYPES = [
   "station",
   "hallway",
   "zone",
+  "perimeter_wall",
+  "entry_exit",
   "split_room_parent",
   "bed_position",
   "outer_wall",
@@ -38,6 +42,8 @@ export type LayoutSelectableObject =
   | EditableStationGeometry
   | EditableHallwayGeometry
   | EditableZoneGeometry
+  | (PerimeterWallContract & { objectType: "perimeter_wall"; id: string })
+  | (EntryExitContract & { objectType: "entry_exit"; id: string })
   | (SplitRoomContract & { objectType: "split_room_parent"; id: string; label: string })
   | (BedPositionContract & { objectType: "bed_position"; id: string; label: string })
   | { objectType: "outer_wall"; id: string; label: string }
@@ -102,6 +108,18 @@ function getEditableLayoutObjects(
       return layout.hallways;
     case "zone":
       return layout.zones;
+    case "perimeter_wall":
+      return (layout.perimeterWalls ?? []).map((wall) => ({
+        ...wall,
+        objectType: "perimeter_wall" as const,
+        id: wall.perimeterWallId
+      }));
+    case "entry_exit":
+      return (layout.entryExits ?? []).map((entryExit) => ({
+        ...entryExit,
+        objectType: "entry_exit" as const,
+        id: entryExit.entryExitId
+      }));
     case "split_room_parent":
       return (layout.splitRooms ?? []).map((splitRoom) => ({
         ...splitRoom,
@@ -127,7 +145,7 @@ function getEditableLayoutObjects(
 
 function requireSelectionObjectType(objectType: LayoutSelectionObjectType): void {
   if (!isLayoutSelectionObjectType(objectType)) {
-    throw new Error("objectType must be room, door, support_access, station, hallway, zone, split_room_parent, bed_position, outer_wall, or split_bay");
+    throw new Error("objectType must be room, door, support_access, station, hallway, zone, perimeter_wall, entry_exit, split_room_parent, bed_position, outer_wall, or split_bay");
   }
 }
 

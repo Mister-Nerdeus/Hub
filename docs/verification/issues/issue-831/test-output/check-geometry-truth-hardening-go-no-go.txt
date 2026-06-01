@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "issue": "831",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "hardening validators executed",
+      "passed": true,
+      "detail": {
+        "failedValidators": [],
+        "executedValidators": [
+          "check:geometry-truth-hardening-preflight",
+          "check:geometry-root-script-completion",
+          "check:legacy-split-bay-normal-flow",
+          "check:split-room-reducer-wiring",
+          "check:editable-layout-split-room-state",
+          "check:split-room-render-path",
+          "check:split-bed-selection-state",
+          "check:split-parent-move-resize-wiring",
+          "check:split-divider-reducer-actions",
+          "check:split-room-inspector-normal-flow",
+          "check:wall-selection-behavior",
+          "check:hard-geometry-save-reload-proof",
+          "check:real-screenshot-proof-required",
+          "check:split-room-hard-browser-regression"
+        ]
+      }
+    },
+    {
+      "name": "hardening validators passed in manifest",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "name": "root hardening validators are wired",
+      "passed": true,
+      "detail": {
+        "rootScripts": [
+          "check:geometry-truth-hardening-preflight",
+          "check:geometry-truth-hardening-go-no-go",
+          "check:geometry-root-script-completion",
+          "check:legacy-split-bay-normal-flow",
+          "check:split-room-reducer-wiring",
+          "check:editable-layout-split-room-state",
+          "check:split-room-render-path",
+          "check:split-bed-selection-state",
+          "check:split-parent-move-resize-wiring",
+          "check:split-divider-reducer-actions",
+          "check:split-room-inspector-normal-flow",
+          "check:wall-selection-behavior",
+          "check:hard-geometry-save-reload-proof",
+          "check:real-screenshot-proof-required",
+          "check:split-room-hard-browser-regression"
+        ]
+      }
+    },
+    {
+      "name": "final browser screenshot proof is non-placeholder",
+      "passed": true,
+      "detail": {
+        "realGeometryScreenshotProofStatus": "passed",
+        "placeholderScreenshotsRejectedForFinalProof": true
+      }
+    },
+    {
+      "name": "hard split-room browser behavior is verified",
+      "passed": true,
+      "detail": {
+        "splitRoomHardBrowserRegressionStatus": "passed",
+        "singleRoomToSplitRoomBrowserFlowPassed": true
+      }
+    },
+    {
+      "name": "no durable assignment persistence contract was created",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

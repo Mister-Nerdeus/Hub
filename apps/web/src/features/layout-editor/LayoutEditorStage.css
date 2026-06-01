@@ -1382,6 +1382,41 @@
   stroke: transparent;
 }
 
+.layout-editor-stage__perimeter-wall-segment {
+  cursor: pointer;
+  fill: #243447;
+  stroke: #ffffff;
+  stroke-width: 1;
+}
+
+.layout-editor-stage__perimeter-wall[data-locked="true"] .layout-editor-stage__perimeter-wall-segment {
+  stroke-dasharray: 6 3;
+}
+
+.layout-editor-stage__perimeter-wall-label {
+  fill: #111827;
+  font-size: 10px;
+  font-weight: 900;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: #ffffff;
+  stroke-width: 3px;
+}
+
+.layout-editor-stage__entry-exit rect {
+  cursor: pointer;
+  fill: #e7f7f3;
+  stroke: #0f766e;
+  stroke-width: 2;
+}
+
+.layout-editor-stage__entry-exit text {
+  fill: #0f3f3a;
+  font-size: 9px;
+  font-weight: 900;
+  pointer-events: none;
+}
+
 .layout-editor-stage__door-marker-capsule {
   cursor: pointer;
   fill: #243447;
@@ -1407,6 +1442,20 @@
   stroke: #ffdfd8;
 }
 
+.layout-editor-stage__door-destination-label text {
+  fill: #17324d;
+  font-size: 9px;
+  font-weight: 900;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: #ffffff;
+  stroke-width: 3px;
+}
+
+.layout-editor-stage__door-destination-label--warning text {
+  fill: #8f1d14;
+}
+
 .layout-editor-stage__station rect {
   cursor: pointer;
   fill: #f4ead5;
@@ -1425,6 +1474,8 @@
 
 .layout-editor-stage__hallway--selected rect,
 .layout-editor-stage__support-area--selected rect,
+.layout-editor-stage__perimeter-wall--selected rect,
+.layout-editor-stage__entry-exit--selected rect,
 .layout-editor-stage__room--selected rect,
 .layout-editor-stage__door--selected rect,
 .layout-editor-stage__station--selected rect {
@@ -1535,13 +1586,14 @@
   text-align: right;
 }
 
-.layout-inspector-panel input {
+.layout-inspector-panel input,
+.layout-inspector-panel select {
   border: 1px solid #9aaabc;
   border-radius: 6px;
   color: #111827;
   font: inherit;
   font-weight: 900;
-  max-width: 92px;
+  max-width: 180px;
   padding: 4px 6px;
   text-align: right;
 }

@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "831",
+  "hardeningRootScriptsVerifiedFromPackageJson": true,
+  "packageScriptsChecked": [
+    "check:geometry-truth-hardening-preflight",
+    "check:geometry-truth-hardening-go-no-go",
+    "check:geometry-root-script-completion",
+    "check:legacy-split-bay-normal-flow",
+    "check:split-room-reducer-wiring",
+    "check:editable-layout-split-room-state",
+    "check:split-room-render-path",
+    "check:split-bed-selection-state",
+    "check:split-parent-move-resize-wiring",
+    "check:split-divider-reducer-actions",
+    "check:split-room-inspector-normal-flow",
+    "check:wall-selection-behavior",
+    "check:hard-geometry-save-reload-proof",
+    "check:real-screenshot-proof-required",
+    "check:split-room-hard-browser-regression"
+  ],
+  "missingOrMismatched": []
+}

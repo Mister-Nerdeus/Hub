@@ -12,6 +12,9 @@ import {
   validateSplitRoomContract,
   type SplitRoomContract
 } from "./floorplans/splitRoomContract.js";
+import type { PerimeterWallContract } from "./floorplans/perimeterWallContract.js";
+import type { EntryExitContract } from "./floorplans/entryExitContract.js";
+import type { DoorDestinationContract } from "./floorplans/doorDestinationContract.js";
 
 export const ROOM_TYPES = [
   "standard",
@@ -461,6 +464,9 @@ export type PlanContract = {
   supportAccessPoints?: EditableSupportAccessPointGeometry[];
   nurseStations: NurseStation[];
   zones: Zone[];
+  perimeterWalls?: PerimeterWallContract[];
+  entryExits?: EntryExitContract[];
+  doorDestinations?: DoorDestinationContract[];
   splitRooms?: SplitRoomContract[];
   /** Legacy split-bay overlays are compatibility-only. Normal editor authoring uses splitRooms. */
   splitBays?: EditableSplitBayGeometry[];
@@ -1066,6 +1072,9 @@ export function validatePlanContract(value: unknown): PlanContract {
     "supportAccessPoints",
     "nurseStations",
     "zones",
+    "perimeterWalls",
+    "entryExits",
+    "doorDestinations",
     "splitRooms",
     "splitBays",
     "pathNodes",
@@ -1094,6 +1103,63 @@ export function validatePlanContract(value: unknown): PlanContract {
   );
   const zones = requireArray(plan.zones, "zones").map(validateZone);
   const splitRooms = requireArray(plan.splitRooms ?? [], "splitRooms").map(validateSplitRoomContract);
+  const geometryValidationLayout = validateEditableLayoutGeometryContract({
+    schemaVersion: "1.0.0",
+    layoutId: `${String(plan.planId ?? "plan")}-boundary-destination-validation`,
+    units: "feet",
+    rooms: rooms.map((room) => ({
+      objectType: "room" as const,
+      id: room.id,
+      label: room.label,
+      roomNumber: room.roomOperationalMetadata?.roomNumber ?? room.label,
+      roomType: room.roomType === "psych" ? "behavioral" : room.roomType,
+      capacityType: room.roomType === "hall_bed" ? "hall" as const : room.maxPatients > 1 ? "double" as const : "single" as const,
+      isHallBed: room.roomType === "hall_bed",
+      isTraumaAdjacent: room.roomOperationalMetadata?.traumaAdjacent ?? room.traumaCapable,
+      xFeet: room.x,
+      yFeet: room.y,
+      widthFeet: room.widthFeet,
+      heightFeet: room.lengthFeet
+    })),
+    doors: doors.map((door) => {
+      const room = rooms.find((candidate) => candidate.id === door.roomId);
+      const wall = room == null ? "north" as const : editableDoorWallForPlanDoor(door, room);
+      const wallStart = room == null ? door.x : wall === "north" || wall === "south" ? room.x : room.y;
+      const coordinate = wall === "north" || wall === "south" ? door.x : door.y;
+      return {
+        objectType: "door" as const,
+        id: door.id,
+        label: door.label,
+        ownerKind: "room" as const,
+        ownerId: door.roomId,
+        wall,
+        offsetFeet: Math.max(0, coordinate - wallStart - door.widthFeet / 2),
+        widthFeet: door.widthFeet
+      };
+    }),
+    supportAccessPoints: [],
+    stations: [],
+    hallways: hallways.map((hallway) => {
+      const xs = hallway.points.map((point) => point.x);
+      const ys = hallway.points.map((point) => point.y);
+      return {
+        objectType: "hallway" as const,
+        id: hallway.id,
+        label: hallway.label,
+        xFeet: Math.min(...xs),
+        yFeet: Math.min(...ys),
+        widthFeet: Math.max(Math.max(...xs) - Math.min(...xs), hallway.widthFeet),
+        heightFeet: Math.max(Math.max(...ys) - Math.min(...ys), hallway.widthFeet)
+      };
+    }),
+    zones: [],
+    perimeterWalls: plan.perimeterWalls ?? [],
+    entryExits: plan.entryExits ?? [],
+    doorDestinations: plan.doorDestinations ?? [],
+    splitRooms,
+    splitBays: [],
+    limitations: ["Plan-level boundary and door destination validation adapter."]
+  }, { allowLegacySolidWallDoorReferences: true });
   const editableZones = zones.map((zone) => ({
     objectType: "zone" as const,
     id: zone.id,
@@ -1179,6 +1245,9 @@ export function validatePlanContract(value: unknown): PlanContract {
     supportAccessPoints,
     nurseStations,
     zones,
+    perimeterWalls: geometryValidationLayout.perimeterWalls,
+    entryExits: geometryValidationLayout.entryExits,
+    doorDestinations: geometryValidationLayout.doorDestinations,
     splitRooms,
     splitBays,
     pathNodes,
@@ -1199,6 +1268,16 @@ function editableZoneTypeForPlanZone(zoneType: ZoneType) {
     default:
       return "operational" as const;
   }
+}
+
+function editableDoorWallForPlanDoor(door: Door, room: Room) {
+  const distances = [
+    { wall: "north" as const, distance: Math.abs(door.y - room.y) },
+    { wall: "south" as const, distance: Math.abs(door.y - (room.y + room.lengthFeet)) },
+    { wall: "west" as const, distance: Math.abs(door.x - room.x) },
+    { wall: "east" as const, distance: Math.abs(door.x - (room.x + room.widthFeet)) }
+  ];
+  return distances.sort((left, right) => left.distance - right.distance)[0]?.wall ?? "north";
 }
 
 export function validatePlanBuilderDefaultsContract(

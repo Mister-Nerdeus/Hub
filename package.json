@@ -287,8 +287,9 @@
     "check:geometry-no-overclaim": "node scripts/check-geometry-no-overclaim.mjs --stage final --issue 805",
     "check:geometry-regression-sweep": "node scripts/check-geometry-regression-sweep.mjs --stage final --issue 806",
     "check:geometry-truth-hardening-preflight": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
-    "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830",
-    "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 817",
+    "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 831",
+    "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 831",
+    "check:legacy-split-bay-quarantine": "node scripts/check-legacy-split-bay-quarantine.mjs --stage final --issue 832",
     "check:legacy-split-bay-normal-flow": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
     "check:split-room-reducer-wiring": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
     "check:editable-layout-split-room-state": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",
@@ -300,7 +301,17 @@
     "check:wall-selection-behavior": "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826",
     "check:hard-geometry-save-reload-proof": "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827",
     "check:real-screenshot-proof-required": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
-    "check:split-room-hard-browser-regression": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829"
+    "check:split-room-hard-browser-regression": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829",
+    "check:boundary-door-destination-preflight": "node scripts/check-boundary-door-destination-preflight.mjs --stage final --issue 833",
+    "check:perimeter-wall-contract": "node scripts/check-perimeter-wall-contract.mjs --stage final --issue 834",
+    "check:entry-exit-contract": "node scripts/check-entry-exit-contract.mjs --stage final --issue 835",
+    "check:door-destination-contract": "node scripts/check-door-destination-contract.mjs --stage final --issue 836",
+    "check:boundary-door-destination-renderer": "node scripts/check-boundary-door-destination-renderer.mjs --stage final --issue 837",
+    "check:door-destination-inspector": "node scripts/check-door-destination-inspector.mjs --stage final --issue 838",
+    "check:door-destination-validation": "node scripts/check-door-destination-validation.mjs --stage final --issue 839",
+    "check:boundary-door-destination-save-reload": "node scripts/check-boundary-door-destination-save-reload.mjs --stage final --issue 840",
+    "check:door-exit-destination-browser-proof": "node scripts/check-door-exit-destination-browser-proof.mjs --stage final --issue 841",
+    "check:boundary-door-destination-go-no-go": "node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843"
   },
   "engines": {
     "node": ">=22"

@@ -15,10 +15,10 @@
   "realGeometryScreenshotProofStatus": "passed",
   "splitRoomHardBrowserRegressionStatus": "passed",
   "geometryTruthHardGoNoGoStatus": "go_for_durable_assignment_foundation",
-  "durableAssignmentFoundationStatus": "blocked_until_split_room_editor_behavior_verified",
+  "durableAssignmentFoundationStatus": "go_for_durable_assignment_foundation",
   "goNoGoStatus": "go_for_next_milestone",
   "legacySplitBayNormalFlowDetected": true,
-  "lastUpdatedIssue": "816",
+  "lastUpdatedIssue": "832",
   "goNoGoRunsBehaviorValidators": true,
   "manifestAloneCannotPassGoNoGo": true,
   "browserRegressionRequiredForGo": true,
@@ -50,5 +50,13 @@
   "legacySplitBayNormalFlowRemoved": true,
   "singleRoomSplitRoomEditorFlowVerified": true,
   "splitRoomBrowserBehaviorVerified": true,
-  "assignmentTargetsStable": true
+  "assignmentTargetsStable": true,
+  "legacySplitBayQuarantineStatus": "passed",
+  "legacySplitBayOnlyCompatibility": true,
+  "normalFlowHasNoSplitBayLeakage": true,
+  "currentSplitRoomActionsUseSplitRoomNaming": true,
+  "hardeningRootScriptsVerifiedFromPackageJson": true,
+  "geometryHardeningCloseoutConsistencyStatus": "passed",
+  "hardeningManifestLastUpdatedIssueCorrect": true,
+  "durableAssignmentFoundationStatusContradictionResolved": true
 }

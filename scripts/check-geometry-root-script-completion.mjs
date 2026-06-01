@@ -9,6 +9,7 @@ import {
   updateHardeningManifest,
   writeCloseout,
   writeCommandArtifacts,
+  writeJson,
   writeStageResult
 } from "./lib/geometry-truth-hardening-utils.mjs";
 
@@ -34,10 +35,18 @@ for (const [name, command] of Object.entries(hardeningRootScripts)) {
   });
 }
 const status = statusFromChecks(checks);
+writeJson(`docs/verification/issues/issue-${issue}/package-root-script-proof.json`, {
+  status,
+  issue: String(issue),
+  hardeningRootScriptsVerifiedFromPackageJson: status === "passed",
+  packageScriptsChecked: Object.keys(hardeningRootScripts),
+  missingOrMismatched: checks.filter((check) => !check.passed)
+});
 if (status === "passed") {
   updateHardeningManifest(issue, {
     geometryRootScriptHardeningStatus: "passed",
-    requiredHardeningRootScriptsPresent: true
+    requiredHardeningRootScriptsPresent: true,
+    hardeningRootScriptsVerifiedFromPackageJson: true
   });
 }
 writeCloseout(issue, {

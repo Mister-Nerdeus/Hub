@@ -1,0 +1,733 @@
+{
+  "status": "passed",
+  "issue": "841",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "perimeter wall visible and selectable in browser",
+      "passed": true,
+      "detail": {
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "unknownDestinationWarningVisible": true,
+        "before": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "after": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "afterEdit": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationBeforeReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationAfterReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        }
+      }
+    },
+    {
+      "name": "entry/exit visible with destination label",
+      "passed": true,
+      "detail": {
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "unknownDestinationWarningVisible": true,
+        "before": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "after": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "afterEdit": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationBeforeReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationAfterReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        }
+      }
+    },
+    {
+      "name": "door destination editable in normal inspector",
+      "passed": true,
+      "detail": {
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "unknownDestinationWarningVisible": true,
+        "before": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "after": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "afterEdit": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationBeforeReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationAfterReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        }
+      }
+    },
+    {
+      "name": "destinations stable after reload",
+      "passed": true,
+      "detail": {
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "unknownDestinationWarningVisible": true,
+        "before": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "after": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "afterEdit": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationBeforeReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationAfterReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        }
+      }
+    },
+    {
+      "name": "unknown destination creates warning",
+      "passed": true,
+      "detail": {
+        "perimeterWallVisibleInBrowser": true,
+        "entryExitVisibleInBrowser": true,
+        "doorDestinationEditableInBrowser": true,
+        "doorDestinationsStableAfterReload": true,
+        "unknownDestinationWarningVisible": true,
+        "before": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "after": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 0,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": []
+        },
+        "afterEdit": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationBeforeReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        },
+        "presentationAfterReload": {
+          "perimeterWallCount": 1,
+          "entryExitCount": 2,
+          "doorCount": 23,
+          "visibleDoorDestinationLabels": 23,
+          "unknownWarnings": 0,
+          "entryDestinations": [
+            "External exit",
+            "Main Hall"
+          ],
+          "doorDestinationLabels": [
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall",
+            "Leads to Main Hall"
+          ]
+        }
+      }
+    },
+    {
+      "name": "browser screenshots captured",
+      "passed": true,
+      "detail": [
+        "perimeter-wall-selected.png",
+        "entry-exit-destination-visible.png",
+        "door-destination-edited.png",
+        "presentation-destination-labels.png",
+        "unknown-destination-warning.png"
+      ]
+    }
+  ]
+}

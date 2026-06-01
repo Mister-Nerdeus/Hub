@@ -96,7 +96,7 @@ export function createLayoutEditorState(
     throw new Error("selectedObjectId and selectedObjectType must both be set or both be null");
   }
   if (selectedObjectType != null && !isLayoutEditorSelectableObjectType(selectedObjectType)) {
-    throw new Error("selectedObjectType must be room, door, support_access, station, hallway, zone, split_room_parent, bed_position, outer_wall, or split_bay");
+    throw new Error("selectedObjectType must be room, door, support_access, station, hallway, zone, perimeter_wall, entry_exit, split_room_parent, bed_position, outer_wall, or split_bay");
   }
 
   const snapMode = overrides.snapMode ?? "default";
@@ -170,6 +170,27 @@ export function planContractToEditableLayoutGeometry(
     stations: plan.nurseStations.map(planStationToEditableStation),
     hallways: plan.hallways.map(planHallwayToEditableHallway),
     zones: plan.zones.map(planZoneToEditableZone),
+    perimeterWalls: plan.perimeterWalls != null && plan.perimeterWalls.length > 0
+      ? plan.perimeterWalls
+      : deriveDefaultPerimeterWalls(plan),
+    entryExits: plan.entryExits != null && plan.entryExits.length > 0
+      ? plan.entryExits
+      : deriveDefaultEntryExits(plan),
+    doorDestinations: plan.doorDestinations != null && plan.doorDestinations.length > 0
+      ? plan.doorDestinations
+      : plan.doors
+      .map((door) => ({
+        doorId: door.id,
+        ownerKind: "room" as const,
+        ownerId: door.roomId,
+        leadsToKind: plan.hallways[0] == null ? "unknown" as const : "hallway" as const,
+        ...(plan.hallways[0] == null ? {} : { leadsToId: plan.hallways[0].id }),
+        leadsToLabel: plan.hallways[0]?.label ?? "Unknown destination",
+        travelRole: "patient_flow" as const
+      }))
+      .filter((destination) =>
+        plan.rooms.some((room) => room.id === destination.ownerId)
+      ),
     splitRooms: plan.splitRooms ?? [],
     splitBays: plan.splitBays ?? [],
     limitations: [
@@ -299,6 +320,140 @@ function planZoneToEditableZone(zone: PlanContract["zones"][number]): EditableZo
     widthFeet: zone.widthFeet,
     heightFeet: zone.lengthFeet
   };
+}
+
+function deriveDefaultPerimeterWalls(plan: PlanContract): NonNullable<PlanContract["perimeterWalls"]> {
+  const rects = [
+    ...plan.rooms.map((room) => ({
+      x: room.x,
+      y: room.y,
+      widthFeet: room.widthFeet,
+      lengthFeet: room.lengthFeet
+    })),
+    ...plan.nurseStations.map((station) => ({
+      x: station.x,
+      y: station.y,
+      widthFeet: station.widthFeet,
+      lengthFeet: station.lengthFeet
+    })),
+    ...plan.zones.map((zone) => ({
+      x: zone.x,
+      y: zone.y,
+      widthFeet: zone.widthFeet,
+      lengthFeet: zone.lengthFeet
+    })),
+    ...plan.hallways.map((hallway) => {
+      const xs = hallway.points.map((point) => point.x);
+      const ys = hallway.points.map((point) => point.y);
+      return {
+        x: Math.min(...xs),
+        y: Math.min(...ys),
+        widthFeet: Math.max(Math.max(...xs) - Math.min(...xs), hallway.widthFeet),
+        lengthFeet: Math.max(Math.max(...ys) - Math.min(...ys), hallway.widthFeet)
+      };
+    })
+  ];
+  if (rects.length === 0) {
+    return [];
+  }
+  const minX = Math.min(...rects.map((rect) => rect.x)) - 2;
+  const minY = Math.min(...rects.map((rect) => rect.y)) - 2;
+  const maxX = Math.max(...rects.map((rect) => rect.x + rect.widthFeet)) + 2;
+  const maxY = Math.max(...rects.map((rect) => rect.y + rect.lengthFeet)) + 2;
+  const thickness = 0.5;
+  return [
+    {
+      perimeterWallId: `${plan.planId}-perimeter-wall`,
+      label: "ER pod boundary",
+      segments: [
+        {
+          segmentId: `${plan.planId}-perimeter-wall-north`,
+          label: "North boundary",
+          xFeet: minX,
+          yFeet: minY,
+          widthFeet: maxX - minX,
+          heightFeet: thickness,
+          orientation: "horizontal",
+          blocksTravel: true,
+          locked: true
+        },
+        {
+          segmentId: `${plan.planId}-perimeter-wall-east`,
+          label: "East boundary",
+          xFeet: maxX,
+          yFeet: minY,
+          widthFeet: thickness,
+          heightFeet: maxY - minY,
+          orientation: "vertical",
+          blocksTravel: true,
+          locked: true
+        },
+        {
+          segmentId: `${plan.planId}-perimeter-wall-south`,
+          label: "South boundary",
+          xFeet: minX,
+          yFeet: maxY,
+          widthFeet: maxX - minX,
+          heightFeet: thickness,
+          orientation: "horizontal",
+          blocksTravel: true,
+          locked: true
+        },
+        {
+          segmentId: `${plan.planId}-perimeter-wall-west`,
+          label: "West boundary",
+          xFeet: minX,
+          yFeet: minY,
+          widthFeet: thickness,
+          heightFeet: maxY - minY,
+          orientation: "vertical",
+          blocksTravel: true,
+          locked: true
+        }
+      ]
+    }
+  ];
+}
+
+function deriveDefaultEntryExits(plan: PlanContract): NonNullable<PlanContract["entryExits"]> {
+  const hallway = plan.hallways[0];
+  if (hallway == null) {
+    return [];
+  }
+  const xs = hallway.points.map((point) => point.x);
+  const ys = hallway.points.map((point) => point.y);
+  return [
+    {
+      entryExitId: `${plan.planId}-main-entry`,
+      label: "Main entry",
+      kind: "main_entry",
+      xFeet: Math.min(...xs),
+      yFeet: Math.min(...ys),
+      widthFeet: Math.max(4, hallway.widthFeet),
+      heightFeet: Math.max(2, hallway.widthFeet / 2),
+      connectsFromId: hallway.id,
+      connectsTo: {
+        destinationKind: "hallway",
+        destinationId: hallway.id,
+        displayLabel: hallway.label
+      },
+      blocksTravel: false
+    },
+    {
+      entryExitId: `${plan.planId}-external-exit`,
+      label: "External exit",
+      kind: "external_exit",
+      xFeet: Math.max(...xs),
+      yFeet: Math.max(...ys),
+      widthFeet: Math.max(2, hallway.widthFeet / 2),
+      heightFeet: Math.max(4, hallway.widthFeet),
+      connectsTo: {
+        destinationKind: "external",
+        displayLabel: "External exit"
+      },
+      blocksTravel: false
+    }
+  ];
 }
 
 function mapEditableZoneLabel(zone: PlanContract["zones"][number]): string {

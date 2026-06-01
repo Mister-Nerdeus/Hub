@@ -1,0 +1,28 @@
+{
+  "perimeterWallId": "perimeter-er-pod",
+  "label": "ER pod boundary",
+  "segments": [
+    {
+      "segmentId": "north",
+      "label": "North boundary",
+      "xFeet": 0,
+      "yFeet": 0,
+      "widthFeet": 40,
+      "heightFeet": 0.5,
+      "orientation": "horizontal",
+      "blocksTravel": true,
+      "locked": true
+    },
+    {
+      "segmentId": "east",
+      "label": "East boundary",
+      "xFeet": 40,
+      "yFeet": 0,
+      "widthFeet": 0.5,
+      "heightFeet": 28,
+      "orientation": "vertical",
+      "blocksTravel": true,
+      "locked": true
+    }
+  ]
+}

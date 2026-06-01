@@ -116,6 +116,10 @@ function codeForCollisionTarget(
       return "room_overlap_zone";
     case "hallway":
       return "room_overlap_hallway";
+    case "perimeter_wall":
+      throw new Error("perimeter walls are boundary geometry and are not room collision targets");
+    case "entry_exit":
+      throw new Error("entry and exit geometry is not a room collision target");
     case "door":
       throw new Error("doors are wall-relative and are not room collision targets");
     case "support_access":

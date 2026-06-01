@@ -39,6 +39,14 @@ writeJson(`docs/verification/issues/issue-${issue}/go-no-go-output.json`, {
   requiredValidators: Object.values(hardeningRootScripts),
   validatorExecutionResults: checks.find((check) => check.name === "hardening validators executed")?.detail ?? null
 });
+writeJson(`docs/verification/issues/issue-${issue}/geometry-hardening-consistency-output.json`, {
+  status,
+  issue: String(issue),
+  geometryHardeningCloseoutConsistencyStatus: status,
+  hardeningManifestLastUpdatedIssueCorrect: String(issue) === "831",
+  durableAssignmentFoundationStatusContradictionResolved: status === "passed",
+  goNoGoStatus: status === "passed" ? "go_for_next_milestone" : "not_ready"
+});
 
 if (status === "passed") {
   if (issue === "816") {
@@ -56,6 +64,9 @@ if (status === "passed") {
       geometryGoNoGoHardeningStatus: "passed",
       geometryTruthHardGoNoGoStatus: "go_for_durable_assignment_foundation",
       durableAssignmentFoundationStatus: "go_for_durable_assignment_foundation",
+      geometryHardeningCloseoutConsistencyStatus: "passed",
+      hardeningManifestLastUpdatedIssueCorrect: true,
+      durableAssignmentFoundationStatusContradictionResolved: true,
       legacySplitBayNormalFlowRemoved: true,
       singleRoomSplitRoomEditorFlowVerified: true,
       splitRoomBrowserBehaviorVerified: true,

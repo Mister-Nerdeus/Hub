@@ -7,6 +7,7 @@ export const LAYOUT_VALIDATION_WARNING_SOURCES = [
   "collision",
   "path_sync",
   "door_sync",
+  "door_destination",
   "resize",
   "inspector_edit",
   "audit",
@@ -176,6 +177,8 @@ function requireNullableObjectType(
     value === "station" ||
     value === "hallway" ||
     value === "zone" ||
+    value === "perimeter_wall" ||
+    value === "entry_exit" ||
     value === "split_room_parent" ||
     value === "bed_position" ||
     value === "outer_wall" ||

@@ -2,6 +2,18 @@ import {
   validateSplitRoomContract,
   type SplitRoomContract
 } from "../floorplans/splitRoomContract.js";
+import {
+  validatePerimeterWallContract,
+  type PerimeterWallContract
+} from "../floorplans/perimeterWallContract.js";
+import {
+  validateEntryExitContract,
+  type EntryExitContract
+} from "../floorplans/entryExitContract.js";
+import {
+  validateDoorDestinationContract,
+  type DoorDestinationContract
+} from "../floorplans/doorDestinationContract.js";
 
 export const EDITABLE_LAYOUT_GEOMETRY_SCHEMA_VERSION = "1.0.0" as const;
 
@@ -121,10 +133,17 @@ export type EditableLayoutGeometryContract = {
   stations: EditableStationGeometry[];
   hallways: EditableHallwayGeometry[];
   zones: EditableZoneGeometry[];
+  perimeterWalls?: PerimeterWallContract[];
+  entryExits?: EntryExitContract[];
+  doorDestinations?: DoorDestinationContract[];
   splitRooms?: SplitRoomContract[];
   /** Legacy split-bay overlays are compatibility-only. Normal editor authoring uses splitRooms. */
   splitBays?: EditableSplitBayGeometry[];
   limitations: string[];
+};
+
+export type EditableLayoutGeometryValidationOptions = {
+  allowLegacySolidWallDoorReferences?: boolean;
 };
 
 const MIN_ROOM_SIZE_FEET = 4;
@@ -140,7 +159,8 @@ const FORBIDDEN_ROOM_TYPE_TEXT_PATTERN =
   /\b(diagnosis|diagnoses|dx|sepsis|stroke|cardiac|fracture|overdose|symptom)\b/i;
 
 export function validateEditableLayoutGeometryContract(
-  value: unknown
+  value: unknown,
+  options: EditableLayoutGeometryValidationOptions = {}
 ): EditableLayoutGeometryContract {
   rejectPixelFields(value, "editableLayoutGeometry");
   const layout = requireRecord(value, "editableLayoutGeometry");
@@ -154,6 +174,9 @@ export function validateEditableLayoutGeometryContract(
     "stations",
     "hallways",
     "zones",
+    "perimeterWalls",
+    "entryExits",
+    "doorDestinations",
     "splitRooms",
     "splitBays",
     "limitations"
@@ -168,6 +191,13 @@ export function validateEditableLayoutGeometryContract(
   ).map(validateSupportAccessPoint);
   const stations = requireArray(layout.stations, "stations").map(validateStation);
   const zones = requireArray(layout.zones, "zones").map(validateZone);
+  const perimeterWalls = requireArray(layout.perimeterWalls ?? [], "perimeterWalls").map(
+    validatePerimeterWallContract
+  );
+  const entryExits = requireArray(layout.entryExits ?? [], "entryExits").map(validateEntryExitContract);
+  const doorDestinations = requireArray(layout.doorDestinations ?? [], "doorDestinations").map(
+    validateDoorDestinationContract
+  );
   const splitRooms = requireArray(layout.splitRooms ?? [], "splitRooms").map(validateSplitRoomContract);
   const splitBays = requireArray(layout.splitBays ?? [], "splitBays").map(validateSplitBay);
   const limitations = requireArray(layout.limitations, "limitations").map((limitation, index) =>
@@ -184,11 +214,15 @@ export function validateEditableLayoutGeometryContract(
     ...stations,
     ...hallways,
     ...zones,
+    ...perimeterWalls.map((wall) => ({ id: wall.perimeterWallId })),
+    ...perimeterWalls.flatMap((wall) => wall.segments.map((segment) => ({ id: segment.segmentId }))),
+    ...entryExits.map((entryExit) => ({ id: entryExit.entryExitId })),
     ...splitBays,
     ...splitRooms.map((splitRoom) => ({ id: splitRoom.splitRoomId }))
   ]);
-  validateDoorWallSpans(doors, rooms, hallways);
+  validateDoorWallSpans(doors, rooms, hallways, options);
   validateSupportAccessWallSpans(supportAccessPoints, zones);
+  validateDoorDestinationReferences(doorDestinations, doors, rooms, hallways, zones, entryExits);
   validateSplitRoomReferences(splitRooms, rooms);
   validateSplitBayReferences(splitBays, rooms);
 
@@ -206,6 +240,9 @@ export function validateEditableLayoutGeometryContract(
     stations,
     hallways,
     zones,
+    perimeterWalls,
+    entryExits,
+    doorDestinations,
     splitRooms,
     splitBays,
     limitations
@@ -428,7 +465,8 @@ function validateRectFields(
 function validateDoorWallSpans(
   doors: EditableDoorGeometry[],
   rooms: EditableRoomGeometry[],
-  hallways: EditableHallwayGeometry[]
+  hallways: EditableHallwayGeometry[],
+  options: EditableLayoutGeometryValidationOptions
 ): void {
   const roomsById = new Map(rooms.map((room) => [room.id, room]));
   const hallwaysById = new Map(hallways.map((hallway) => [hallway.id, hallway]));
@@ -439,7 +477,12 @@ function validateDoorWallSpans(
     if (owner == null) {
       throw new Error(`door ${door.id} ownerId must reference a ${door.ownerKind}`);
     }
-    if (door.ownerKind === "room" && "roomType" in owner && owner.roomType === "solid_wall") {
+    if (
+      door.ownerKind === "room" &&
+      "roomType" in owner &&
+      owner.roomType === "solid_wall" &&
+      options.allowLegacySolidWallDoorReferences !== true
+    ) {
       throw new Error(`door ${door.id} must not reference solid_wall room ${owner.id}`);
     }
     const wallLengthFeet = door.wall === "north" || door.wall === "south"
@@ -469,6 +512,40 @@ function validateSupportAccessWallSpans(
       accessPoint.offsetFeet + accessPoint.widthFeet > wallLengthFeet
     ) {
       throw new Error(`support access ${accessPoint.id} must remain within the referenced zone wall length`);
+    }
+  }
+}
+
+function validateDoorDestinationReferences(
+  destinations: DoorDestinationContract[],
+  doors: EditableDoorGeometry[],
+  rooms: EditableRoomGeometry[],
+  hallways: EditableHallwayGeometry[],
+  zones: EditableZoneGeometry[],
+  entryExits: EntryExitContract[]
+): void {
+  const doorIds = new Set(doors.map((door) => door.id));
+  const roomIds = new Set(rooms.map((room) => room.id));
+  const hallwayIds = new Set(hallways.map((hallway) => hallway.id));
+  const zoneIds = new Set(zones.map((zone) => zone.id));
+  const entryExitIds = new Set(entryExits.map((entryExit) => entryExit.entryExitId));
+  requireUniqueIds(destinations.map((destination) => ({ id: destination.doorId })));
+
+  for (const destination of destinations) {
+    if (!doorIds.has(destination.doorId)) {
+      throw new Error(`door destination ${destination.doorId} must reference an existing door`);
+    }
+    if (destination.ownerKind === "room" && !roomIds.has(destination.ownerId)) {
+      throw new Error(`door destination ${destination.doorId} ownerId must reference a room`);
+    }
+    if (destination.ownerKind === "hallway" && !hallwayIds.has(destination.ownerId)) {
+      throw new Error(`door destination ${destination.doorId} ownerId must reference a hallway`);
+    }
+    if (destination.ownerKind === "zone" && !zoneIds.has(destination.ownerId)) {
+      throw new Error(`door destination ${destination.doorId} ownerId must reference a zone`);
+    }
+    if (destination.ownerKind === "entry_exit" && !entryExitIds.has(destination.ownerId)) {
+      throw new Error(`door destination ${destination.doorId} ownerId must reference an entry/exit`);
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   moveToOppositeWall,
   moveToWall,
   nudgeDoor,
+  validateDoorDestinationsForLayout,
   validateSimulationReadyExport,
   type AuthoringDraftContract,
   type ActiveFloorplanContract,
@@ -55,6 +56,11 @@ import { LayoutDeltaPreviewPanel } from "./LayoutDeltaPreviewPanel";
 import { buildLayoutDeltaPreviewViewModel } from "./layoutDeltaPreviewViewModel";
 import { HallwayShape } from "./HallwayShape";
 import { WallShape } from "./WallShape";
+import { PerimeterWallShape } from "./PerimeterWallShape";
+import { buildPerimeterWallViewModel } from "./perimeterWallViewModel";
+import { EntryExitShape } from "./EntryExitShape";
+import { DoorDestinationLabel } from "./DoorDestinationLabel";
+import { buildDoorDestinationViewModel } from "./doorDestinationViewModel";
 import {
   buildHallwayShapeViewModel,
   buildZoneShapeViewModel
@@ -90,6 +96,7 @@ import {
 } from "./layoutEditorState";
 import { LayoutValidationPanel } from "./LayoutValidationPanel";
 import { buildLayoutValidationPanelViewModel } from "./layoutValidationPanelViewModel";
+import { buildLayoutValidationWarning } from "./layoutValidationWarningContract";
 import { EditorValidationSummaryRow } from "./EditorValidationSummaryRow";
 import { ValidationDrawer } from "./ValidationDrawer";
 import { buildValidationDrawerViewModel } from "./validationDrawerViewModel";
@@ -168,6 +175,8 @@ import { RoomQuickEditPopover } from "./RoomQuickEditPopover";
 import { buildRoomQuickEdit } from "./roomQuickEditViewModel";
 import { DoorQuickEditPopover } from "./DoorQuickEditPopover";
 import { buildDoorQuickEdit } from "./doorQuickEditViewModel";
+import { DoorDestinationInspectorPanel } from "./DoorDestinationInspectorPanel";
+import { EntryExitInspectorPanel } from "./EntryExitInspectorPanel";
 import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
@@ -510,8 +519,21 @@ export function LayoutEditorStage({
     selectedObjectId: stageState.selectedObjectId,
     selectedObjectType: stageState.selectedObjectType
   });
+  const doorDestinationWarnings = stageState.editableLayout == null
+    ? []
+    : validateDoorDestinationsForLayout(stageState.editableLayout).issues.map((issue) =>
+        buildLayoutValidationWarning({
+          code: issue.code,
+          severity: issue.severity === "blocking" ? "blocking" : "warning",
+          source: "door_destination",
+          message: issue.message,
+          objectType: issue.objectType,
+          objectId: issue.objectId,
+          isGenerated: true
+        })
+      );
   const validationPanelViewModel = buildLayoutValidationPanelViewModel({
-    warnings: stageState.validationWarnings
+    warnings: [...stageState.validationWarnings, ...doorDestinationWarnings]
   });
   const validationDrawerViewModel = buildValidationDrawerViewModel(validationPanelViewModel);
   const nextStepViewModel = buildEditorNextStep({
@@ -545,6 +567,7 @@ export function LayoutEditorStage({
         viewport: stageState.viewport
       });
   const hallwayItems = renderItems.filter((item) => item.objectType === "hallway");
+  const perimeterWallItems = renderItems.filter((item) => item.objectType === "perimeter_wall");
   const outerWallViewModel = {
     wallId: "workspace-outer-boundary",
     kind: "outer_wall" as const,
@@ -565,12 +588,17 @@ export function LayoutEditorStage({
     (item) => item.objectType === "room" && !splitParentRoomIds.has(item.objectId)
   );
   const doorItems = renderItems.filter((item) => item.objectType === "door");
+  const entryExitItems = renderItems.filter((item) => item.objectType === "entry_exit");
   const supportAccessItems = renderItems.filter((item) => item.objectType === "support_access");
   const stationItems = renderItems.filter((item) => item.objectType === "station");
   const hallwayArrows = buildHallwayArrowViewModels(renderItems, hallwayArrowState);
   const selectedDoor =
     stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
+      : null;
+  const selectedEntryExit =
+    stageState.selectedObjectType === "entry_exit" && stageState.selectedObjectId != null
+      ? stageState.editableLayout?.entryExits?.find((entryExit) => entryExit.entryExitId === stageState.selectedObjectId) ?? null
       : null;
   const supportAccessQuickEditViewModel = buildSupportAccessQuickEdit({
     accessPoint: selectedSupportAccessPoint,
@@ -1087,7 +1115,7 @@ export function LayoutEditorStage({
     setSplitRoomStatusMessage("Split Room removed. Parent room footprint remains available.");
     dispatchStage({
       type: "unsplitSplitRoom",
-      splitBayId: selectedSplitRoom.splitRoomId
+      splitRoomId: selectedSplitRoom.splitRoomId
     });
   };
   const applyRoomAlignment = (actionId: RoomAlignmentActionId) => {
@@ -1758,6 +1786,19 @@ export function LayoutEditorStage({
             />
             <WallShape viewModel={outerWallViewModel} onSelect={(_, wallId) => selectStageObject("outer_wall", wallId)} />
             <g className="layout-editor-stage__background-objects">
+              {perimeterWallItems.map((item) => (
+                <PerimeterWallShape
+                  key={item.hitTargetKey}
+                  viewModel={buildPerimeterWallViewModel(item, stageState.viewport)}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
+                  onSelect={selectStageObject}
+                />
+              ))}
               {podBorderViewModel == null ? null : (
                 <ReferenceOverlayRenderer viewModel={referenceOverlayViewModel}>
                   <PodBorderShape viewModel={podBorderViewModel} />
@@ -1877,6 +1918,19 @@ export function LayoutEditorStage({
               ))}
             </g>
             <g className="layout-editor-stage__doors">
+              {entryExitItems.map((item) => (
+                <EntryExitShape
+                  key={item.hitTargetKey}
+                  item={item}
+                  isSelected={isLayoutObjectSelected({
+                    objectType: item.objectType,
+                    objectId: item.objectId,
+                    selectedObjectType: stageState.selectedObjectType,
+                    selectedObjectId: stageState.selectedObjectId
+                  })}
+                  onSelect={selectStageObject}
+                />
+              ))}
               {doorItems.map((item) => (
                 <DoorShape
                   key={item.hitTargetKey}
@@ -1888,6 +1942,22 @@ export function LayoutEditorStage({
                     selectedObjectId: stageState.selectedObjectId
                   })}
                   onSelect={selectStageObject}
+                />
+              ))}
+              {doorItems.map((item) => (
+                <DoorDestinationLabel
+                  key={`${item.hitTargetKey}:destination`}
+                  viewModel={buildDoorDestinationViewModel({
+                    item,
+                    destination: stageState.editableLayout?.doorDestinations?.find(
+                      (destination) => destination.doorId === item.objectId
+                    ) ?? null
+                  })}
+                  visible={
+                    editorMode === "presentation" ||
+                    stageState.selectedObjectType === "door" ||
+                    stageState.selectedObjectType === "entry_exit"
+                  }
                 />
               ))}
               {supportAccessItems.map((item) => (
@@ -2305,22 +2375,56 @@ export function LayoutEditorStage({
               )
             }
             door={
-              <DoorEditor
-                door={selectedDoor}
-                rooms={stageState.editableLayout?.rooms ?? []}
-                hallways={stageState.editableLayout?.hallways ?? []}
-                readOnly={stageState.readOnly}
-                onMoveDoor={(doorId, wall, offsetFeet) =>
-                  dispatchDoorStageAction({ type: "moveDoor", doorId, wall, offsetFeet })
-                }
-                onUpdateDoorWidth={(doorId, wall, offsetFeet, widthFeet) =>
-                  dispatchDoorStageAction({ type: "updateDoorWidth", doorId, wall, offsetFeet, widthFeet })
-                }
-                onDeleteDoor={(doorId) => dispatchDoorStageAction({ type: "deleteDoor", doorId })}
-                onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
-                  dispatchDoorStageAction({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
-                }
-              />
+              stageState.selectedObjectType === "entry_exit" ? (
+                <EntryExitInspectorPanel
+                  entryExit={selectedEntryExit}
+                  readOnly={stageState.readOnly}
+                  onDestinationLabelChange={(entryExitId, displayLabel) =>
+                    dispatchStage({
+                      type: "editEntryExitDestinationLabel",
+                      entryExitId,
+                      displayLabel
+                    })
+                  }
+                />
+              ) : (
+                <>
+                  <DoorDestinationInspectorPanel
+                    door={selectedDoor}
+                    destination={
+                      selectedDoor == null
+                        ? null
+                        : stageState.editableLayout?.doorDestinations?.find(
+                            (destination) => destination.doorId === selectedDoor.id
+                          ) ?? null
+                    }
+                    rooms={stageState.editableLayout?.rooms ?? []}
+                    hallways={stageState.editableLayout?.hallways ?? []}
+                    zones={stageState.editableLayout?.zones ?? []}
+                    entryExits={stageState.editableLayout?.entryExits ?? []}
+                    readOnly={stageState.readOnly}
+                    onChange={(destination) =>
+                      dispatchStage({ type: "editDoorDestination", destination })
+                    }
+                  />
+                  <DoorEditor
+                    door={selectedDoor}
+                    rooms={stageState.editableLayout?.rooms ?? []}
+                    hallways={stageState.editableLayout?.hallways ?? []}
+                    readOnly={stageState.readOnly}
+                    onMoveDoor={(doorId, wall, offsetFeet) =>
+                      dispatchDoorStageAction({ type: "moveDoor", doorId, wall, offsetFeet })
+                    }
+                    onUpdateDoorWidth={(doorId, wall, offsetFeet, widthFeet) =>
+                      dispatchDoorStageAction({ type: "updateDoorWidth", doorId, wall, offsetFeet, widthFeet })
+                    }
+                    onDeleteDoor={(doorId) => dispatchDoorStageAction({ type: "deleteDoor", doorId })}
+                    onAssignDoorToRoom={(doorId, roomId, wall, offsetFeet) =>
+                      dispatchDoorStageAction({ type: "assignDoorToRoom", doorId, roomId, wall, offsetFeet })
+                    }
+                  />
+                </>
+              )
             }
             assignment={
               <PresentationLegend assignmentItems={assignmentOverlay.legend} />

@@ -27,8 +27,8 @@ export const hardeningManifestDefaults = {
 
 export const hardeningRootScripts = {
   "check:geometry-truth-hardening-preflight": "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
-  "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 830",
-  "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 817",
+  "check:geometry-truth-hardening-go-no-go": "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 831",
+  "check:geometry-root-script-completion": "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 831",
   "check:legacy-split-bay-normal-flow": "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
   "check:split-room-reducer-wiring": "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
   "check:editable-layout-split-room-state": "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",

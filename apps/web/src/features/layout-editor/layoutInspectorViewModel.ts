@@ -70,7 +70,7 @@ export function buildLayoutInspectorViewModel(
     objectType: selectedObjectType,
     objectId: selectedObjectId,
     sourceUnits: "feet",
-    isReadOnly: !["room", "station", "hallway"].includes(selectedObject.objectType),
+    isReadOnly: !["room", "station", "hallway", "entry_exit"].includes(selectedObject.objectType),
     normalSections,
     advancedSections,
     sections: normalSections
@@ -169,6 +169,35 @@ function buildNormalSections(
         },
         rectGeometrySection(selectedObject)
       ];
+    case "perimeter_wall":
+      return [
+        {
+          title: "Perimeter wall",
+          fields: [
+            { label: "Boundary label", value: selectedObject.label },
+            { label: "Blocks travel", value: "Yes" },
+            { label: "Locked", value: formatBoolean(selectedObject.segments.every((segment) => segment.locked)) },
+            { label: "Segments", value: selectedObject.segments.map((segment) => segment.label).join(" / ") }
+          ].map(readOnlyField)
+        }
+      ];
+    case "entry_exit":
+      return [
+        {
+          title: "Entry / exit",
+          fields: [
+            { label: "Type", value: selectedObject.kind.replaceAll("_", " ") },
+            { label: "Destination", value: selectedObject.connectsTo.displayLabel },
+            { label: "Blocks travel", value: "No" }
+          ].map(readOnlyField)
+        },
+        rectGeometrySection({
+          xFeet: selectedObject.xFeet,
+          yFeet: selectedObject.yFeet,
+          widthFeet: selectedObject.widthFeet,
+          heightFeet: selectedObject.heightFeet
+        })
+      ];
     case "split_room_parent": {
       const parentRoom = layout.rooms.find((room) => room.id === selectedObject.parentRoomId);
       return [
@@ -246,6 +275,19 @@ function buildAdvancedSections(
     fields.push(
       readOnlyField({ label: "Owner ID", value: selectedObject.ownerId }),
       readOnlyField({ label: "Owner kind", value: selectedObject.ownerKind })
+    );
+  }
+  if ("perimeterWallId" in selectedObject) {
+    fields.push(
+      readOnlyField({ label: "perimeterWallId", value: selectedObject.perimeterWallId }),
+      readOnlyField({ label: "segmentIds", value: selectedObject.segments.map((segment) => segment.segmentId).join(" / ") })
+    );
+  }
+  if ("entryExitId" in selectedObject) {
+    fields.push(
+      readOnlyField({ label: "entryExitId", value: selectedObject.entryExitId }),
+      readOnlyField({ label: "destinationKind", value: selectedObject.connectsTo.destinationKind }),
+      readOnlyField({ label: "destinationId", value: selectedObject.connectsTo.destinationId ?? "none" })
     );
   }
   if ("splitBayId" in selectedObject) {

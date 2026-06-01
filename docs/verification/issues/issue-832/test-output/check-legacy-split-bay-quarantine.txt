@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "832",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "normal layout stage does not import legacy split-bay renderer or quick edit",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "render pipeline gates split_bay behind compatibility flag",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "current split-room actions use splitRoomId",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "legacy pair split action remains only as compatibility path",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

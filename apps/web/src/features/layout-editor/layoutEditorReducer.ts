@@ -21,6 +21,7 @@ import {
   type AuthoringRoomType,
   type DoorAuthoringActionType,
   type DoorAuthoringWarning,
+  type DoorDestinationContract,
   type EditableDoorWall,
   type EditableLayoutGeometryContract,
   type EditableRoomGeometry,
@@ -239,10 +240,12 @@ export type LayoutEditorAction =
       splitBayId: string;
       dividerStyle: EditableSplitBayDividerStyle;
     }
-  | { type: "unsplitSplitRoom"; splitBayId: string }
+  | { type: "unsplitSplitRoom"; splitRoomId: string }
   | { type: "moveDoor"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
   | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
+  | { type: "editDoorDestination"; destination: DoorDestinationContract }
+  | { type: "editEntryExitDestinationLabel"; entryExitId: string; displayLabel: string }
   | { type: "deleteDoor"; doorId: string }
   | { type: "removeSelectedRoomDoors" }
   | {
@@ -497,7 +500,7 @@ export function layoutEditorReducer(
     case "editSplitBayDivider":
       return editSplitBayDivider(state, action.splitBayId, action.dividerStyle);
     case "unsplitSplitRoom":
-      return unsplitSplitRoom(state, action.splitBayId);
+      return unsplitSplitRoom(state, action.splitRoomId);
     case "moveDoor":
       return applyDoorAuthoringMutation(
         state,
@@ -544,6 +547,10 @@ export function layoutEditorReducer(
           offsetFeet: action.offsetFeet
         })
       );
+    case "editDoorDestination":
+      return editDoorDestination(state, action.destination);
+    case "editEntryExitDestinationLabel":
+      return editEntryExitDestinationLabel(state, action.entryExitId, action.displayLabel);
     case "deleteDoor":
       return applyDoorAuthoringMutation(
         state,
@@ -1269,18 +1276,18 @@ function editSplitBayDivider(
 
 function unsplitSplitRoom(
   state: LayoutEditorState,
-  splitBayId: string
+  splitRoomId: string
 ): LayoutEditorState {
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
-  const splitRoom = (state.editableLayout.splitRooms ?? []).find((candidate) => candidate.splitRoomId === splitBayId);
+  const splitRoom = (state.editableLayout.splitRooms ?? []).find((candidate) => candidate.splitRoomId === splitRoomId);
   if (splitRoom != null) {
     return withUndoHistory(state, {
       ...state,
       editableLayout: {
         ...state.editableLayout,
-        splitRooms: (state.editableLayout.splitRooms ?? []).filter((candidate) => candidate.splitRoomId !== splitBayId)
+        splitRooms: (state.editableLayout.splitRooms ?? []).filter((candidate) => candidate.splitRoomId !== splitRoomId)
       },
       selectedObjectType: "room",
       selectedObjectId: splitRoom.parentRoomId,
@@ -1289,7 +1296,7 @@ function unsplitSplitRoom(
   }
   const result = removeSplitRoomFromEditableLayout({
     layout: state.editableLayout,
-    splitBayId,
+    splitBayId: splitRoomId,
     readOnly: state.readOnly
   });
   if (result.status === "blocked") {
@@ -1438,9 +1445,16 @@ function applyDoorAuthoringMutation(
     state.validationWarnings,
     context.clearDoorWarningIds ?? []
   );
+  const resultDoorIds = new Set(result.layout.doors.map((door) => door.id));
+  const editableLayout = {
+    ...result.layout,
+    doorDestinations: (result.layout.doorDestinations ?? []).filter((destination) =>
+      resultDoorIds.has(destination.doorId)
+    )
+  };
   return withUndoHistory(state, {
     ...state,
-    editableLayout: result.layout,
+    editableLayout,
     selectedObjectType: selection.selectedObjectType,
     selectedObjectId: selection.selectedObjectId,
     validationWarnings: [
@@ -1747,6 +1761,72 @@ function editSelectedZone(
     editableLayout: updatedLayout,
     selectedObjectType: "zone",
     selectedObjectId: action.zoneId,
+    isDirty: true
+  });
+}
+
+function editDoorDestination(
+  state: LayoutEditorState,
+  destination: DoorDestinationContract
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const door = state.editableLayout.doors.find((candidate) => candidate.id === destination.doorId);
+  if (door == null) {
+    return state;
+  }
+  const nextDestinations = [
+    ...(state.editableLayout.doorDestinations ?? []).filter((candidate) => candidate.doorId !== destination.doorId),
+    {
+      ...destination,
+      ownerKind: door.ownerKind,
+      ownerId: door.ownerId
+    }
+  ].sort((left, right) => left.doorId.localeCompare(right.doorId));
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: {
+      ...state.editableLayout,
+      doorDestinations: nextDestinations
+    },
+    selectedObjectType: "door",
+    selectedObjectId: destination.doorId,
+    isDirty: true
+  });
+}
+
+function editEntryExitDestinationLabel(
+  state: LayoutEditorState,
+  entryExitId: string,
+  displayLabel: string
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const label = displayLabel.trim();
+  if (label.length === 0) {
+    return state;
+  }
+  const updatedLayout = {
+    ...state.editableLayout,
+    entryExits: (state.editableLayout.entryExits ?? []).map((entryExit) =>
+      entryExit.entryExitId === entryExitId
+        ? {
+            ...entryExit,
+            connectsTo: {
+              ...entryExit.connectsTo,
+              displayLabel: label
+            }
+          }
+        : entryExit
+    )
+  };
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: updatedLayout,
+    selectedObjectType: "entry_exit",
+    selectedObjectId: entryExitId,
     isDirty: true
   });
 }
@@ -2176,7 +2256,7 @@ function selectObject(
   objectId: string
 ): LayoutEditorState {
   if (!isLayoutEditorSelectableObjectType(objectType)) {
-    throw new Error("objectType must be room, door, support_access, station, hallway, zone, split_room_parent, bed_position, outer_wall, or split_bay");
+    throw new Error("objectType must be room, door, support_access, station, hallway, zone, perimeter_wall, entry_exit, split_room_parent, bed_position, outer_wall, or split_bay");
   }
   if (typeof objectId !== "string" || objectId.length === 0) {
     throw new Error("objectId must be a non-empty string");

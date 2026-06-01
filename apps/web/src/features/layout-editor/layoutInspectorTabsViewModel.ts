@@ -18,6 +18,8 @@ export function defaultInspectorTabForSelection(
   selectedObjectType: LayoutEditorSelectableObjectType | null
 ): LayoutInspectorTabId {
   if (selectedObjectType === "door") return "door";
+  if (selectedObjectType === "entry_exit") return "door";
+  if (selectedObjectType === "perimeter_wall") return "room";
   if (selectedObjectType === "split_bay") return "room";
   if (selectedObjectType === "split_room_parent") return "room";
   if (selectedObjectType === "bed_position") return "room";

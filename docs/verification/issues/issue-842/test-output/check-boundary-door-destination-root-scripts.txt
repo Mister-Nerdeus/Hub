@@ -1,0 +1,92 @@
+{
+  "status": "passed",
+  "issue": "842",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "check:boundary-door-destination-preflight root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-boundary-door-destination-preflight.mjs --stage final --issue 833",
+        "actual": "node scripts/check-boundary-door-destination-preflight.mjs --stage final --issue 833"
+      }
+    },
+    {
+      "name": "check:perimeter-wall-contract root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-perimeter-wall-contract.mjs --stage final --issue 834",
+        "actual": "node scripts/check-perimeter-wall-contract.mjs --stage final --issue 834"
+      }
+    },
+    {
+      "name": "check:entry-exit-contract root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-entry-exit-contract.mjs --stage final --issue 835",
+        "actual": "node scripts/check-entry-exit-contract.mjs --stage final --issue 835"
+      }
+    },
+    {
+      "name": "check:door-destination-contract root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-door-destination-contract.mjs --stage final --issue 836",
+        "actual": "node scripts/check-door-destination-contract.mjs --stage final --issue 836"
+      }
+    },
+    {
+      "name": "check:boundary-door-destination-renderer root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-boundary-door-destination-renderer.mjs --stage final --issue 837",
+        "actual": "node scripts/check-boundary-door-destination-renderer.mjs --stage final --issue 837"
+      }
+    },
+    {
+      "name": "check:door-destination-inspector root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-door-destination-inspector.mjs --stage final --issue 838",
+        "actual": "node scripts/check-door-destination-inspector.mjs --stage final --issue 838"
+      }
+    },
+    {
+      "name": "check:door-destination-validation root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-door-destination-validation.mjs --stage final --issue 839",
+        "actual": "node scripts/check-door-destination-validation.mjs --stage final --issue 839"
+      }
+    },
+    {
+      "name": "check:boundary-door-destination-save-reload root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-boundary-door-destination-save-reload.mjs --stage final --issue 840",
+        "actual": "node scripts/check-boundary-door-destination-save-reload.mjs --stage final --issue 840"
+      }
+    },
+    {
+      "name": "check:door-exit-destination-browser-proof root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-door-exit-destination-browser-proof.mjs --stage final --issue 841",
+        "actual": "node scripts/check-door-exit-destination-browser-proof.mjs --stage final --issue 841"
+      }
+    },
+    {
+      "name": "check:boundary-door-destination-go-no-go root script present",
+      "passed": true,
+      "detail": {
+        "expected": "node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843",
+        "actual": "node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843"
+      }
+    },
+    {
+      "name": "project docs describe model",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

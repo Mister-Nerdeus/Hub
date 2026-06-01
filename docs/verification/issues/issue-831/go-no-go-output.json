@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "issue": "831",
+  "stage": "final",
+  "requiredValidators": [
+    "node scripts/check-geometry-truth-hardening-preflight.mjs --stage final --issue 815",
+    "node scripts/check-geometry-truth-hardening-go-no-go.mjs --stage final --issue 831",
+    "node scripts/check-geometry-root-script-completion.mjs --stage final --issue 831",
+    "node scripts/check-legacy-split-bay-normal-flow.mjs --stage final --issue 818",
+    "node scripts/check-split-room-reducer-wiring.mjs --stage final --issue 819",
+    "node scripts/check-editable-layout-split-room-state.mjs --stage final --issue 820",
+    "node scripts/check-split-room-render-path.mjs --stage final --issue 821",
+    "node scripts/check-split-bed-selection-state.mjs --stage final --issue 822",
+    "node scripts/check-split-parent-move-resize-wiring.mjs --stage final --issue 823",
+    "node scripts/check-split-divider-reducer-actions.mjs --stage final --issue 824",
+    "node scripts/check-split-room-inspector-normal-flow.mjs --stage final --issue 825",
+    "node scripts/check-wall-selection-behavior.mjs --stage final --issue 826",
+    "node scripts/check-hard-geometry-save-reload-proof.mjs --stage final --issue 827",
+    "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
+    "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829"
+  ],
+  "validatorExecutionResults": {
+    "failedValidators": [],
+    "executedValidators": [
+      "check:geometry-truth-hardening-preflight",
+      "check:geometry-root-script-completion",
+      "check:legacy-split-bay-normal-flow",
+      "check:split-room-reducer-wiring",
+      "check:editable-layout-split-room-state",
+      "check:split-room-render-path",
+      "check:split-bed-selection-state",
+      "check:split-parent-move-resize-wiring",
+      "check:split-divider-reducer-actions",
+      "check:split-room-inspector-normal-flow",
+      "check:wall-selection-behavior",
+      "check:hard-geometry-save-reload-proof",
+      "check:real-screenshot-proof-required",
+      "check:split-room-hard-browser-regression"
+    ]
+  }
+}

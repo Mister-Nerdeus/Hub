@@ -49,6 +49,39 @@ export {
   type WallGeometryKind
 } from "./wallGeometryContract.js";
 export {
+  PERIMETER_WALL_ORIENTATIONS,
+  validatePerimeterWallContract,
+  type PerimeterWallContract,
+  type PerimeterWallOrientation,
+  type PerimeterWallSegmentContract
+} from "./perimeterWallContract.js";
+export {
+  ENTRY_EXIT_DESTINATION_KINDS,
+  ENTRY_EXIT_KINDS,
+  validateEntryExitContract,
+  type EntryExitContract,
+  type EntryExitDestinationContract,
+  type EntryExitDestinationKind,
+  type EntryExitKind
+} from "./entryExitContract.js";
+export {
+  DOOR_DESTINATION_LEADS_TO_KINDS,
+  DOOR_DESTINATION_OWNER_KINDS,
+  DOOR_DESTINATION_TRAVEL_ROLES,
+  createUnknownDoorDestination,
+  validateDoorDestinationContract,
+  type DoorDestinationContract,
+  type DoorDestinationLeadsToKind,
+  type DoorDestinationOwnerKind,
+  type DoorDestinationTravelRole
+} from "./doorDestinationContract.js";
+export {
+  validateDoorDestinationsForLayout,
+  type DoorDestinationValidationIssue,
+  type DoorDestinationValidationResult,
+  type DoorDestinationValidationSeverity
+} from "./doorDestinationValidation.js";
+export {
   SUPPORT_STORAGE_AREA_KINDS,
   createSupportStorageAreaContract,
   validateSupportStorageAreaContract,

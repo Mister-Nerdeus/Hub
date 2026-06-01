@@ -37,19 +37,19 @@ const renderItems = buildLayoutObjectRenderPipeline({
 
 assert.deepEqual(
   renderItems.map((item) => item.renderLayer),
-  ["hallways", "zones", "rooms", "doors", "stations"]
+  ["hallways", "walls", "zones", "rooms", "doors", "doors", "doors", "stations"]
 );
 assert.deepEqual(
   renderItems.map((item) => item.objectType),
-  ["hallway", "zone", "room", "door", "station"]
+  ["hallway", "perimeter_wall", "zone", "room", "door", "entry_exit", "entry_exit", "station"]
 );
 assert.deepEqual(
   renderItems.map((item) => item.renderLayerIndex),
-  [0, 1, 2, 3, 4]
+  [0, 1, 2, 3, 4, 4, 4, 5]
 );
 assert.deepEqual(
   [...LAYOUT_OBJECT_RENDER_LAYER_ORDER],
-  ["hallways", "zones", "rooms", "doors", "stations", "overlays"]
+  ["hallways", "walls", "zones", "rooms", "doors", "stations", "overlays"]
 );
 
 for (const item of renderItems) {

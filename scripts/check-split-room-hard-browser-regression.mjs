@@ -27,7 +27,7 @@ const commands = [
   `node scripts/${scriptName}.mjs --stage save-reload-flow --issue ${issue}`,
   `node scripts/${scriptName}.mjs --stage unsplit-flow --issue ${issue}`
 ];
-const initScript = "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
+const initScript = "if (sessionStorage.getItem('nerdeus.splitRoomProof.storageReset.v1') !== 'true') { localStorage.clear(); sessionStorage.setItem('nerdeus.splitRoomProof.storageReset.v1', 'true'); } sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
 const requiredScreenshots = [
   "split-room-parent-selected.png",
   "split-room-bed-a-selected.png",
@@ -242,7 +242,12 @@ async function firstRenderedRoomId(browser) {
   return browser.evaluate(`(() => {
     const room = Array.from(document.querySelectorAll('[data-layout-object-type="room"]')).find((item) => {
       const id = item.getAttribute('data-layout-object-id');
-      return id != null && id.trim() !== '';
+      const roomType = item.getAttribute('data-room-type');
+      return id != null &&
+        id.trim() !== '' &&
+        roomType !== 'storage' &&
+        roomType !== 'provider_pharmacy' &&
+        roomType !== 'solid_wall';
     });
     if (room == null) throw new Error('missing rendered room');
     return room.getAttribute('data-layout-object-id');

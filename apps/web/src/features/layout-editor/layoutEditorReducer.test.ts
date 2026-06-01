@@ -146,6 +146,8 @@ const selectableObjects = [
   ["station", "station-primary"],
   ["hallway", "hall-main"],
   ["zone", "zone-entry"],
+  ["perimeter_wall", "perimeter-er-pod"],
+  ["entry_exit", "entry-main-hall"],
   ["split_room_parent", "split-room-room-01"],
   ["bed_position", "room-01:bed-a"],
   ["outer_wall", "workspace-outer-boundary"],

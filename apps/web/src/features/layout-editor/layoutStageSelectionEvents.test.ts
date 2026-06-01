@@ -47,4 +47,4 @@ for (const item of renderItems) {
 }
 
 assert.throws(() => selectionFromShapeClick("room", ""), /objectId/);
-assert.equal(renderItems.length, 5);
+assert.equal(renderItems.length, 8);
