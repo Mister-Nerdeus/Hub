@@ -3,12 +3,13 @@ import type {
   EditableDoorGeometry,
   EditableHallwayGeometry,
   EditableRoomGeometry,
+  EditableSupportAccessPointGeometry,
   EntryExitContract,
   EditableZoneGeometry
 } from "@nerdeus/shared";
 
 type DoorDestinationInspectorPanelProps = {
-  door: EditableDoorGeometry | null;
+  door: EditableDoorGeometry | EditableSupportAccessPointGeometry | null;
   destination: DoorDestinationContract | null;
   rooms: readonly EditableRoomGeometry[];
   hallways: readonly EditableHallwayGeometry[];
@@ -87,7 +88,7 @@ export function DoorDestinationInspectorPanel({
       data-door-destination-inspector="normal"
       data-door-destination-warning={current.leadsToKind === "unknown" ? "true" : "false"}
     >
-      <h4>Door destination</h4>
+      <h4>Door destination / access destination</h4>
       <label>
         <span>Leads to</span>
         <select

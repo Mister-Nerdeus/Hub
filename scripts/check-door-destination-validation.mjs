@@ -25,6 +25,7 @@ addCheck(checks, "shared validation warns unknown and blocks deleted targets", f
   "door_destination_unknown",
   "door_destination_deleted_target",
   "entry_exit_destination_deleted_target",
+  "support_access",
   "severity: \"blocking\""
 ]).passed);
 addCheck(checks, "editor validation surfaces door destination warnings", fileIncludes("apps/web/src/features/layout-editor/LayoutEditorStage.tsx", [

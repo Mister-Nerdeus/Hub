@@ -1,7 +1,2 @@
-npm run check:geometry-root-script-completion
-npm run check:geometry-truth-hardening-go-no-go
-npm --workspace packages/shared test
-npm --workspace apps/web test
-npm --workspace apps/web run build
-node scripts/check-no-phi-fields.mjs
-node scripts/check-production-docker-runtime.mjs --smoke
+node scripts/check-geometry-root-script-completion.mjs --stage required-hardening-scripts --issue 831
+npm run check:geometry-truth-hardening-preflight

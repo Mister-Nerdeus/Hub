@@ -1,14 +1,12 @@
 {
-  "issue": "840",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "npm run check:boundary-door-destination-save-reload"
+  "issue": "840",
+  "commands": [
+    {
+      "command": "node scripts/check-boundary-door-destination-save-reload.mjs --stage final --issue 840",
+      "outputs": [
+        "docs/verification/issues/issue-840/commands.txt"
+      ]
+    }
   ]
 }

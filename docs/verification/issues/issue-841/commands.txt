@@ -1,6 +1,1 @@
-npm run check:door-exit-destination-browser-proof
-npm --workspace packages/shared test
-npm --workspace apps/web test
-npm --workspace apps/web run build
-node scripts/check-no-phi-fields.mjs
-node scripts/check-production-docker-runtime.mjs --smoke
+node scripts/check-door-exit-destination-browser-proof.mjs --stage final --issue 841

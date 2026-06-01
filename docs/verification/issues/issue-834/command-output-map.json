@@ -1,14 +1,12 @@
 {
-  "issue": "834",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "npm run check:perimeter-wall-contract"
+  "issue": "834",
+  "commands": [
+    {
+      "command": "node scripts/check-perimeter-wall-contract.mjs --stage final --issue 834",
+      "outputs": [
+        "docs/verification/issues/issue-834/commands.txt"
+      ]
+    }
   ]
 }

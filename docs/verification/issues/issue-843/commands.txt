@@ -1,6 +1,10 @@
-npm run check:boundary-door-destination-go-no-go
-npm --workspace packages/shared test
-npm --workspace apps/web test
-npm --workspace apps/web run build
-node scripts/check-no-phi-fields.mjs
-node scripts/check-production-docker-runtime.mjs --smoke
+node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843
+npm run check:boundary-door-destination-preflight
+npm run check:perimeter-wall-contract
+npm run check:entry-exit-contract
+npm run check:door-destination-contract
+npm run check:boundary-door-destination-renderer
+npm run check:door-destination-inspector
+npm run check:door-destination-validation
+npm run check:boundary-door-destination-save-reload
+npm run check:door-exit-destination-browser-proof

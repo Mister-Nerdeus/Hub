@@ -1,4 +1,8 @@
-import type { DoorDestinationContract, EditableDoorGeometry } from "@nerdeus/shared";
+import type {
+  DoorDestinationContract,
+  EditableDoorGeometry,
+  EditableSupportAccessPointGeometry
+} from "@nerdeus/shared";
 
 import type { LayoutObjectRenderItem } from "./layoutObjectRenderPipeline";
 
@@ -16,10 +20,10 @@ export function buildDoorDestinationViewModel(input: {
   item: LayoutObjectRenderItem;
   destination: DoorDestinationContract | null;
 }): DoorDestinationViewModel {
-  const door = input.item.sourceGeometry as EditableDoorGeometry;
+  const door = input.item.sourceGeometry as EditableDoorGeometry | EditableSupportAccessPointGeometry;
   const destination = input.destination ?? {
     doorId: door.id,
-    ownerKind: "room" as const,
+    ownerKind: door.ownerKind,
     ownerId: door.ownerId,
     leadsToKind: "unknown" as const,
     leadsToLabel: "Unknown destination",

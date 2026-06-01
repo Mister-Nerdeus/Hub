@@ -1103,6 +1103,29 @@ export function validatePlanContract(value: unknown): PlanContract {
   );
   const zones = requireArray(plan.zones, "zones").map(validateZone);
   const splitRooms = requireArray(plan.splitRooms ?? [], "splitRooms").map(validateSplitRoomContract);
+  const editableZones = zones.map((zone) => ({
+    objectType: "zone" as const,
+    id: zone.id,
+    label: zone.label,
+    zoneType: editableZoneTypeForPlanZone(zone.zoneType),
+    xFeet: zone.x,
+    yFeet: zone.y,
+    widthFeet: zone.widthFeet,
+    heightFeet: zone.lengthFeet
+  }));
+  const supportAccessPoints = validateEditableLayoutGeometryContract({
+    schemaVersion: "1.0.0",
+    layoutId: `${String(plan.planId ?? "plan")}-support-access-validation`,
+    units: "feet",
+    rooms: [],
+    doors: [],
+    supportAccessPoints: plan.supportAccessPoints ?? [],
+    stations: [],
+    hallways: [],
+    zones: editableZones,
+    splitBays: [],
+    limitations: ["Plan-level support access validation adapter."]
+  }).supportAccessPoints;
   const geometryValidationLayout = validateEditableLayoutGeometryContract({
     schemaVersion: "1.0.0",
     layoutId: `${String(plan.planId ?? "plan")}-boundary-destination-validation`,
@@ -1137,7 +1160,7 @@ export function validatePlanContract(value: unknown): PlanContract {
         widthFeet: door.widthFeet
       };
     }),
-    supportAccessPoints: [],
+    supportAccessPoints,
     stations: [],
     hallways: hallways.map((hallway) => {
       const xs = hallway.points.map((point) => point.x);
@@ -1152,7 +1175,7 @@ export function validatePlanContract(value: unknown): PlanContract {
         heightFeet: Math.max(Math.max(...ys) - Math.min(...ys), hallway.widthFeet)
       };
     }),
-    zones: [],
+    zones: editableZones,
     perimeterWalls: plan.perimeterWalls ?? [],
     entryExits: plan.entryExits ?? [],
     doorDestinations: plan.doorDestinations ?? [],
@@ -1160,29 +1183,6 @@ export function validatePlanContract(value: unknown): PlanContract {
     splitBays: [],
     limitations: ["Plan-level boundary and door destination validation adapter."]
   }, { allowLegacySolidWallDoorReferences: true });
-  const editableZones = zones.map((zone) => ({
-    objectType: "zone" as const,
-    id: zone.id,
-    label: zone.label,
-    zoneType: editableZoneTypeForPlanZone(zone.zoneType),
-    xFeet: zone.x,
-    yFeet: zone.y,
-    widthFeet: zone.widthFeet,
-    heightFeet: zone.lengthFeet
-  }));
-  const supportAccessPoints = validateEditableLayoutGeometryContract({
-    schemaVersion: "1.0.0",
-    layoutId: `${String(plan.planId ?? "plan")}-support-access-validation`,
-    units: "feet",
-    rooms: [],
-    doors: [],
-    supportAccessPoints: plan.supportAccessPoints ?? [],
-    stations: [],
-    hallways: [],
-    zones: editableZones,
-    splitBays: [],
-    limitations: ["Plan-level support access validation adapter."]
-  }).supportAccessPoints;
   const splitBays = validateEditableLayoutGeometryContract({
     schemaVersion: "1.0.0",
     layoutId: `${String(plan.planId ?? "plan")}-split-bay-validation`,

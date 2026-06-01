@@ -22,6 +22,7 @@ import {
   type DoorAuthoringActionType,
   type DoorAuthoringWarning,
   type DoorDestinationContract,
+  type EntryExitDestinationContract,
   type EditableDoorWall,
   type EditableLayoutGeometryContract,
   type EditableRoomGeometry,
@@ -245,6 +246,7 @@ export type LayoutEditorAction =
   | { type: "updateDoorWidth"; doorId: string; wall: EditableDoorWall; offsetFeet: number; widthFeet: number }
   | { type: "doorToolMove"; doorId: string; wall: EditableDoorWall; offsetFeet: number }
   | { type: "editDoorDestination"; destination: DoorDestinationContract }
+  | { type: "editEntryExitDestination"; entryExitId: string; connectsTo: EntryExitDestinationContract }
   | { type: "editEntryExitDestinationLabel"; entryExitId: string; displayLabel: string }
   | { type: "deleteDoor"; doorId: string }
   | { type: "removeSelectedRoomDoors" }
@@ -549,6 +551,8 @@ export function layoutEditorReducer(
       );
     case "editDoorDestination":
       return editDoorDestination(state, action.destination);
+    case "editEntryExitDestination":
+      return editEntryExitDestination(state, action.entryExitId, action.connectsTo);
     case "editEntryExitDestinationLabel":
       return editEntryExitDestinationLabel(state, action.entryExitId, action.displayLabel);
     case "deleteDoor":
@@ -872,7 +876,18 @@ function addSupportAccessPoint(
       supportAccessPoints: [
         ...(state.editableLayout.supportAccessPoints ?? []).filter((candidate) => candidate.id !== accessPoint.id),
         accessPoint
-      ]
+      ],
+      doorDestinations: [
+        ...(state.editableLayout.doorDestinations ?? []).filter((destination) => destination.doorId !== accessPoint.id),
+        {
+          doorId: accessPoint.id,
+          ownerKind: accessPoint.ownerKind,
+          ownerId: accessPoint.ownerId,
+          leadsToKind: "unknown" as const,
+          leadsToLabel: "Unknown destination",
+          travelRole: "unknown" as const
+        }
+      ].sort((left, right) => left.doorId.localeCompare(right.doorId))
     },
     selectedObjectType: "support_access",
     selectedObjectId: accessPoint.id,
@@ -932,7 +947,8 @@ function deleteSupportAccessPoint(state: LayoutEditorState, accessPointId: strin
     ...state,
     editableLayout: {
       ...state.editableLayout,
-      supportAccessPoints: (state.editableLayout.supportAccessPoints ?? []).filter((candidate) => candidate.id !== accessPointId)
+      supportAccessPoints: (state.editableLayout.supportAccessPoints ?? []).filter((candidate) => candidate.id !== accessPointId),
+      doorDestinations: (state.editableLayout.doorDestinations ?? []).filter((destination) => destination.doorId !== accessPointId)
     },
     selectedObjectType: null,
     selectedObjectId: null,
@@ -1772,16 +1788,19 @@ function editDoorDestination(
   if (state.readOnly || state.editableLayout == null) {
     return state;
   }
-  const door = state.editableLayout.doors.find((candidate) => candidate.id === destination.doorId);
-  if (door == null) {
+  const accessPoint =
+    state.editableLayout.doors.find((candidate) => candidate.id === destination.doorId) ??
+    state.editableLayout.supportAccessPoints?.find((candidate) => candidate.id === destination.doorId) ??
+    null;
+  if (accessPoint == null) {
     return state;
   }
   const nextDestinations = [
     ...(state.editableLayout.doorDestinations ?? []).filter((candidate) => candidate.doorId !== destination.doorId),
     {
       ...destination,
-      ownerKind: door.ownerKind,
-      ownerId: door.ownerId
+      ownerKind: accessPoint.ownerKind,
+      ownerId: accessPoint.ownerId
     }
   ].sort((left, right) => left.doorId.localeCompare(right.doorId));
   return withUndoHistory(state, {
@@ -1790,7 +1809,7 @@ function editDoorDestination(
       ...state.editableLayout,
       doorDestinations: nextDestinations
     },
-    selectedObjectType: "door",
+    selectedObjectType: accessPoint.objectType === "support_access" ? "support_access" : "door",
     selectedObjectId: destination.doorId,
     isDirty: true
   });
@@ -1818,6 +1837,34 @@ function editEntryExitDestinationLabel(
               ...entryExit.connectsTo,
               displayLabel: label
             }
+          }
+        : entryExit
+    )
+  };
+  return withUndoHistory(state, {
+    ...state,
+    editableLayout: updatedLayout,
+    selectedObjectType: "entry_exit",
+    selectedObjectId: entryExitId,
+    isDirty: true
+  });
+}
+
+function editEntryExitDestination(
+  state: LayoutEditorState,
+  entryExitId: string,
+  connectsTo: EntryExitDestinationContract
+): LayoutEditorState {
+  if (state.readOnly || state.editableLayout == null) {
+    return state;
+  }
+  const updatedLayout = {
+    ...state.editableLayout,
+    entryExits: (state.editableLayout.entryExits ?? []).map((entryExit) =>
+      entryExit.entryExitId === entryExitId
+        ? {
+            ...entryExit,
+            connectsTo
           }
         : entryExit
     )

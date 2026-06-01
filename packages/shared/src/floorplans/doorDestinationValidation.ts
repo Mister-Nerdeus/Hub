@@ -11,7 +11,7 @@ export type DoorDestinationValidationIssue = {
     | "entry_exit_destination_missing"
     | "entry_exit_destination_deleted_target";
   severity: DoorDestinationValidationSeverity;
-  objectType: "door" | "entry_exit";
+  objectType: "door" | "support_access" | "entry_exit";
   objectId: string;
   message: string;
 };
@@ -29,15 +29,26 @@ export function validateDoorDestinationsForLayout(
     (layout.doorDestinations ?? []).map((destination) => [destination.doorId, destination])
   );
 
-  for (const door of layout.doors) {
-    const destination = destinationsByDoorId.get(door.id);
+  const doorLikeAccessPoints = [
+    ...layout.doors.map((door) => ({
+      id: door.id,
+      objectType: "door" as const
+    })),
+    ...(layout.supportAccessPoints ?? []).map((accessPoint) => ({
+      id: accessPoint.id,
+      objectType: "support_access" as const
+    }))
+  ];
+
+  for (const accessPoint of doorLikeAccessPoints) {
+    const destination = destinationsByDoorId.get(accessPoint.id);
     if (destination == null) {
       issues.push({
         code: "door_destination_missing",
         severity: "warning",
-        objectType: "door",
-        objectId: door.id,
-        message: "Door destination is missing; mark it unknown or select where it leads."
+        objectType: accessPoint.objectType,
+        objectId: accessPoint.id,
+        message: "Door or access destination is missing; mark it unknown or select where it leads."
       });
       continue;
     }
@@ -45,9 +56,9 @@ export function validateDoorDestinationsForLayout(
       issues.push({
         code: "door_destination_unknown",
         severity: "warning",
-        objectType: "door",
-        objectId: door.id,
-        message: "Door destination is explicitly unknown."
+        objectType: accessPoint.objectType,
+        objectId: accessPoint.id,
+        message: "Door or access destination is explicitly unknown."
       });
       continue;
     }
@@ -55,9 +66,9 @@ export function validateDoorDestinationsForLayout(
       issues.push({
         code: "door_destination_deleted_target",
         severity: "blocking",
-        objectType: "door",
-        objectId: door.id,
-        message: "Door destination points to a deleted or unavailable layout object."
+        objectType: accessPoint.objectType,
+        objectId: accessPoint.id,
+        message: "Door or access destination points to a deleted or unavailable layout object."
       });
     }
   }

@@ -4,7 +4,7 @@
 Door Destination / Leads-To Contract
 
 ## Code Review
-- Doors now have persisted operational leads-to labels, explicit unknown destination support, and travel-role metadata without clinical claims.
+- Doors and door-like support access points now have persisted operational leads-to labels, explicit unknown destination support, and travel-role metadata without clinical claims.
 
 ## Files Changed
 - packages/shared/src/floorplans/doorDestinationContract.ts

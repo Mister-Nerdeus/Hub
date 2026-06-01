@@ -178,8 +178,8 @@ export function planContractToEditableLayoutGeometry(
       : deriveDefaultEntryExits(plan),
     doorDestinations: plan.doorDestinations != null && plan.doorDestinations.length > 0
       ? plan.doorDestinations
-      : plan.doors
-      .map((door) => ({
+      : [
+      ...plan.doors.map((door) => ({
         doorId: door.id,
         ownerKind: "room" as const,
         ownerId: door.roomId,
@@ -187,9 +187,19 @@ export function planContractToEditableLayoutGeometry(
         ...(plan.hallways[0] == null ? {} : { leadsToId: plan.hallways[0].id }),
         leadsToLabel: plan.hallways[0]?.label ?? "Unknown destination",
         travelRole: "patient_flow" as const
+      })),
+      ...(plan.supportAccessPoints ?? []).map((accessPoint) => ({
+        doorId: accessPoint.id,
+        ownerKind: "zone" as const,
+        ownerId: accessPoint.ownerId,
+        leadsToKind: plan.hallways[0] == null ? "unknown" as const : "hallway" as const,
+        ...(plan.hallways[0] == null ? {} : { leadsToId: plan.hallways[0].id }),
+        leadsToLabel: plan.hallways[0]?.label ?? "Unknown destination",
+        travelRole: "supply_flow" as const
       }))
-      .filter((destination) =>
-        plan.rooms.some((room) => room.id === destination.ownerId)
+    ].filter((destination) =>
+        plan.rooms.some((room) => room.id === destination.ownerId) ||
+        plan.zones.some((zone) => zone.id === destination.ownerId)
       ),
     splitRooms: plan.splitRooms ?? [],
     splitBays: plan.splitBays ?? [],

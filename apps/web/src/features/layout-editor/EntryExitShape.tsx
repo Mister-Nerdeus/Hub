@@ -42,10 +42,18 @@ export function EntryExitShape({ item, isSelected = false, onSelect }: EntryExit
       />
       <text
         x={item.displayRectPixels.xPixels + item.displayRectPixels.widthPixels / 2}
-        y={item.displayRectPixels.yPixels + item.displayRectPixels.heightPixels / 2 + 4}
+        y={item.displayRectPixels.yPixels + item.displayRectPixels.heightPixels / 2 - 1}
         textAnchor="middle"
       >
         {entryExit.label}
+      </text>
+      <text
+        className="layout-editor-stage__entry-exit-destination"
+        x={item.displayRectPixels.xPixels + item.displayRectPixels.widthPixels / 2}
+        y={item.displayRectPixels.yPixels + item.displayRectPixels.heightPixels / 2 + 11}
+        textAnchor="middle"
+      >
+        {entryExit.connectsTo.displayLabel}
       </text>
     </g>
   );

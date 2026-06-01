@@ -25,9 +25,10 @@ addCheck(checks, "door destination inspector exposes Leads to in normal UI", fil
   "Leads to",
   "data-door-destination-inspector=\"normal\""
 ]).passed);
-addCheck(checks, "entry exit inspector edits destination label in normal UI", fileIncludes("apps/web/src/features/layout-editor/EntryExitInspectorPanel.tsx", [
+addCheck(checks, "entry exit inspector edits destination kind and label in normal UI", fileIncludes("apps/web/src/features/layout-editor/EntryExitInspectorPanel.tsx", [
   "data-entry-exit-inspector=\"normal\"",
   "Destination",
+  "onDestinationChange",
   "onDestinationLabelChange"
 ]).passed);
 addCheck(checks, "technical destination ids remain in advanced view model fields", fileIncludes("apps/web/src/features/layout-editor/layoutInspectorViewModel.ts", [
@@ -36,6 +37,7 @@ addCheck(checks, "technical destination ids remain in advanced view model fields
 ]).passed);
 addCheck(checks, "reducer stores destination edits", fileIncludes("apps/web/src/features/layout-editor/layoutEditorReducer.ts", [
   "editDoorDestination",
+  "editEntryExitDestination",
   "editEntryExitDestinationLabel",
   "doorDestinations"
 ]).passed);
@@ -63,7 +65,7 @@ if (status === "passed") {
 }
 writeCloseout(issue, {
   title: "Door Destination Inspector and Editing Controls",
-  reviewFinding: "Normal inspector controls can edit door leads-to values and entry/exit destination labels while technical IDs remain in advanced metadata.",
+  reviewFinding: "Normal inspector controls can edit door leads-to values and entry/exit destination kind and labels while technical IDs remain in advanced metadata.",
   status,
   filesChanged: ["apps/web/src/features/layout-editor/DoorDestinationInspectorPanel.tsx", "apps/web/src/features/layout-editor/EntryExitInspectorPanel.tsx", "apps/web/src/features/layout-editor/layoutInspectorViewModel.ts", "apps/web/src/features/layout-editor/layoutEditorReducer.ts", `docs/verification/issues/issue-${issue}/`],
   commands,

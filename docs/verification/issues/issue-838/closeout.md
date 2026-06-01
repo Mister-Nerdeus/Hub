@@ -4,7 +4,7 @@
 Door Destination Inspector and Editing Controls
 
 ## Code Review
-- Normal inspector controls can edit door leads-to values and entry/exit destination labels while technical IDs remain in advanced metadata.
+- Normal inspector controls can edit door leads-to values and entry/exit destination kind and labels while technical IDs remain in advanced metadata.
 
 ## Files Changed
 - apps/web/src/features/layout-editor/DoorDestinationInspectorPanel.tsx

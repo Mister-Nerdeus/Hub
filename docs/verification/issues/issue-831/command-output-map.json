@@ -1,15 +1,18 @@
 {
-  "issue": "831",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "npm run check:geometry-root-script-completion",
-    "npm run check:geometry-truth-hardening-go-no-go"
+  "issue": "831",
+  "commands": [
+    {
+      "command": "node scripts/check-geometry-root-script-completion.mjs --stage required-hardening-scripts --issue 831",
+      "outputs": [
+        "docs/verification/issues/issue-831/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:geometry-truth-hardening-preflight",
+      "outputs": [
+        "docs/verification/issues/issue-831/commands.txt"
+      ]
+    }
   ]
 }

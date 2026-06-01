@@ -222,7 +222,15 @@ export function validateEditableLayoutGeometryContract(
   ]);
   validateDoorWallSpans(doors, rooms, hallways, options);
   validateSupportAccessWallSpans(supportAccessPoints, zones);
-  validateDoorDestinationReferences(doorDestinations, doors, rooms, hallways, zones, entryExits);
+  validateDoorDestinationReferences(
+    doorDestinations,
+    doors,
+    supportAccessPoints,
+    rooms,
+    hallways,
+    zones,
+    entryExits
+  );
   validateSplitRoomReferences(splitRooms, rooms);
   validateSplitBayReferences(splitBays, rooms);
 
@@ -519,12 +527,14 @@ function validateSupportAccessWallSpans(
 function validateDoorDestinationReferences(
   destinations: DoorDestinationContract[],
   doors: EditableDoorGeometry[],
+  supportAccessPoints: EditableSupportAccessPointGeometry[],
   rooms: EditableRoomGeometry[],
   hallways: EditableHallwayGeometry[],
   zones: EditableZoneGeometry[],
   entryExits: EntryExitContract[]
 ): void {
   const doorIds = new Set(doors.map((door) => door.id));
+  const supportAccessPointIds = new Set(supportAccessPoints.map((accessPoint) => accessPoint.id));
   const roomIds = new Set(rooms.map((room) => room.id));
   const hallwayIds = new Set(hallways.map((hallway) => hallway.id));
   const zoneIds = new Set(zones.map((zone) => zone.id));
@@ -532,8 +542,8 @@ function validateDoorDestinationReferences(
   requireUniqueIds(destinations.map((destination) => ({ id: destination.doorId })));
 
   for (const destination of destinations) {
-    if (!doorIds.has(destination.doorId)) {
-      throw new Error(`door destination ${destination.doorId} must reference an existing door`);
+    if (!doorIds.has(destination.doorId) && !supportAccessPointIds.has(destination.doorId)) {
+      throw new Error(`door destination ${destination.doorId} must reference an existing door or support access point`);
     }
     if (destination.ownerKind === "room" && !roomIds.has(destination.ownerId)) {
       throw new Error(`door destination ${destination.doorId} ownerId must reference a room`);
@@ -547,6 +557,34 @@ function validateDoorDestinationReferences(
     if (destination.ownerKind === "entry_exit" && !entryExitIds.has(destination.ownerId)) {
       throw new Error(`door destination ${destination.doorId} ownerId must reference an entry/exit`);
     }
+    if (!doorDestinationTargetExists(destination, hallwayIds, roomIds, zoneIds, entryExitIds)) {
+      throw new Error(`door destination ${destination.doorId} must reference an existing destination target`);
+    }
+  }
+}
+
+function doorDestinationTargetExists(
+  destination: DoorDestinationContract,
+  hallwayIds: Set<string>,
+  roomIds: Set<string>,
+  zoneIds: Set<string>,
+  entryExitIds: Set<string>
+): boolean {
+  if (destination.leadsToKind === "unknown" || destination.leadsToKind === "external") {
+    return true;
+  }
+  if (destination.leadsToId == null) {
+    return false;
+  }
+  switch (destination.leadsToKind) {
+    case "hallway":
+      return hallwayIds.has(destination.leadsToId);
+    case "room":
+      return roomIds.has(destination.leadsToId);
+    case "zone":
+      return zoneIds.has(destination.leadsToId);
+    case "entry_exit":
+      return entryExitIds.has(destination.leadsToId);
   }
 }
 

@@ -39,6 +39,20 @@ addCheck(checks, "door destination contract models leads-to text", fileIncludes(
   "unknown"
 ]).passed);
 addCheck(checks, "door destinations persist through shared geometry contracts", fileIncludes("packages/shared/src/layout-editor/editableLayoutGeometryContract.ts", ["doorDestinations"]).passed && fileIncludes("packages/shared/src/contracts.ts", ["doorDestinations"]).passed);
+addCheck(checks, "door destinations cover door-like support access points", fileIncludes("packages/shared/src/layout-editor/editableLayoutGeometryContract.ts", [
+  "supportAccessPoints",
+  "must reference an existing door or support access point"
+]).passed && fileIncludes("packages/shared/src/floorplans/doorDestinationValidation.ts", [
+  "support_access",
+  "Door or access destination"
+]).passed);
+addCheck(checks, "api plan contract accepts saved boundary destination fields", fileIncludes("apps/api/app/contracts.py", [
+  "class DoorDestination",
+  "supportAccessPoints",
+  "perimeterWalls",
+  "entryExits",
+  "doorDestinations"
+]).passed);
 addCheck(checks, "door destination view model exposes operational label", fileIncludes("apps/web/src/features/layout-editor/doorDestinationViewModel.ts", ["DoorDestinationViewModel", "leadsToLabel"]).passed);
 const status = statusFromChecks(checks);
 writeJson(`docs/verification/issues/issue-${issue}/door-destination-contract-output.json`, {
@@ -56,7 +70,7 @@ if (status === "passed") {
 }
 writeCloseout(issue, {
   title: "Door Destination / Leads-To Contract",
-  reviewFinding: "Doors now have persisted operational leads-to labels, explicit unknown destination support, and travel-role metadata without clinical claims.",
+  reviewFinding: "Doors and door-like support access points now have persisted operational leads-to labels, explicit unknown destination support, and travel-role metadata without clinical claims.",
   status,
   filesChanged: ["packages/shared/src/floorplans/doorDestinationContract.ts", "apps/web/src/features/layout-editor/doorDestinationViewModel.ts", `docs/verification/issues/issue-${issue}/`],
   commands,

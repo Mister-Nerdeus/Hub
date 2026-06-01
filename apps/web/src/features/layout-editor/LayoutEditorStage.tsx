@@ -596,6 +596,7 @@ export function LayoutEditorStage({
     stageState.selectedObjectType === "door" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.doors.find((door) => door.id === stageState.selectedObjectId) ?? null
       : null;
+  const selectedDoorDestinationAccessPoint = selectedDoor ?? selectedSupportAccessPoint;
   const selectedEntryExit =
     stageState.selectedObjectType === "entry_exit" && stageState.selectedObjectId != null
       ? stageState.editableLayout?.entryExits?.find((entryExit) => entryExit.entryExitId === stageState.selectedObjectId) ?? null
@@ -1944,7 +1945,7 @@ export function LayoutEditorStage({
                   onSelect={selectStageObject}
                 />
               ))}
-              {doorItems.map((item) => (
+              {[...doorItems, ...supportAccessItems].map((item) => (
                 <DoorDestinationLabel
                   key={`${item.hitTargetKey}:destination`}
                   viewModel={buildDoorDestinationViewModel({
@@ -1956,6 +1957,7 @@ export function LayoutEditorStage({
                   visible={
                     editorMode === "presentation" ||
                     stageState.selectedObjectType === "door" ||
+                    stageState.selectedObjectType === "support_access" ||
                     stageState.selectedObjectType === "entry_exit"
                   }
                 />
@@ -2378,7 +2380,16 @@ export function LayoutEditorStage({
               stageState.selectedObjectType === "entry_exit" ? (
                 <EntryExitInspectorPanel
                   entryExit={selectedEntryExit}
+                  hallways={stageState.editableLayout?.hallways ?? []}
+                  zones={stageState.editableLayout?.zones ?? []}
                   readOnly={stageState.readOnly}
+                  onDestinationChange={(entryExitId, connectsTo) =>
+                    dispatchStage({
+                      type: "editEntryExitDestination",
+                      entryExitId,
+                      connectsTo
+                    })
+                  }
                   onDestinationLabelChange={(entryExitId, displayLabel) =>
                     dispatchStage({
                       type: "editEntryExitDestinationLabel",
@@ -2390,12 +2401,12 @@ export function LayoutEditorStage({
               ) : (
                 <>
                   <DoorDestinationInspectorPanel
-                    door={selectedDoor}
+                    door={selectedDoorDestinationAccessPoint}
                     destination={
-                      selectedDoor == null
+                      selectedDoorDestinationAccessPoint == null
                         ? null
                         : stageState.editableLayout?.doorDestinations?.find(
-                            (destination) => destination.doorId === selectedDoor.id
+                            (destination) => destination.doorId === selectedDoorDestinationAccessPoint.id
                           ) ?? null
                     }
                     rooms={stageState.editableLayout?.rooms ?? []}

@@ -1,14 +1,66 @@
 {
-  "issue": "843",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "npm run check:boundary-door-destination-go-no-go"
+  "issue": "843",
+  "commands": [
+    {
+      "command": "node scripts/check-boundary-door-destination-go-no-go.mjs --stage final --issue 843",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:boundary-door-destination-preflight",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:perimeter-wall-contract",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:entry-exit-contract",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:door-destination-contract",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:boundary-door-destination-renderer",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:door-destination-inspector",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:door-destination-validation",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:boundary-door-destination-save-reload",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:door-exit-destination-browser-proof",
+      "outputs": [
+        "docs/verification/issues/issue-843/commands.txt"
+      ]
+    }
   ]
 }

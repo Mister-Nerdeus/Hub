@@ -54,6 +54,17 @@ DoorOperationalClass = Literal["standard", "isolation", "behavioral", "trauma", 
 DoorSwingDirection = Literal["unknown", "in", "out", "sliding"]
 DoorAccessRestriction = Literal["none", "staff_only", "controlled"]
 DoorDelayCategory = Literal["none", "low", "moderate", "high"]
+EditableDoorWall = Literal["north", "south", "east", "west"]
+EditableSupportAccessOwnerKind = Literal["zone"]
+PerimeterWallOrientation = Literal["horizontal", "vertical"]
+EntryExitKind = Literal["main_entry", "ems_entry", "staff_entry", "hallway_connection", "external_exit"]
+EntryExitDestinationKind = Literal["hallway", "external", "ems", "provider_pharmacy", "staff_only", "pod"]
+DoorDestinationOwnerKind = Literal["room", "hallway", "zone", "entry_exit"]
+DoorDestinationLeadsToKind = Literal["hallway", "room", "zone", "entry_exit", "external", "unknown"]
+DoorDestinationTravelRole = Literal["patient_flow", "staff_flow", "ems_flow", "supply_flow", "unknown"]
+SplitRoomMode = Literal["two_bed"]
+SplitRoomDividerOrientation = Literal["horizontal", "vertical"]
+EditableSplitBayDividerStyle = Literal["diagonal", "diagonal_down", "diagonal_up", "vertical", "horizontal"]
 EntryOperationalClass = Literal["ems", "ambulance", "walk_in", "staff", "service"]
 EntryFlowDirection = Literal["inbound", "outbound", "bidirectional"]
 OverflowClass = Literal["hall_bed", "chair", "temporary_room", "surge_space"]
@@ -303,6 +314,178 @@ class Door(StrictModel):
         return validate_runtime_operational_text(value, "door.label")
 
 
+class EditableSupportAccessPoint(StrictModel):
+    objectType: Literal["support_access"]
+    id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    ownerKind: EditableSupportAccessOwnerKind
+    ownerId: str = Field(min_length=1)
+    wall: EditableDoorWall
+    offsetFeet: float = Field(ge=0)
+    widthFeet: float = Field(gt=0)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "supportAccess.label")
+
+
+class PerimeterWallSegment(StrictModel):
+    segmentId: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    xFeet: float
+    yFeet: float
+    widthFeet: float = Field(gt=0)
+    heightFeet: float = Field(gt=0)
+    orientation: PerimeterWallOrientation
+    blocksTravel: Literal[True]
+    locked: bool
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "perimeterWall.segment.label")
+
+    @model_validator(mode="after")
+    def validate_orientation_bounds(self) -> "PerimeterWallSegment":
+        if self.orientation == "horizontal" and self.widthFeet < self.heightFeet:
+            raise ValueError("horizontal perimeter wall segments must be wider than tall")
+        if self.orientation == "vertical" and self.heightFeet < self.widthFeet:
+            raise ValueError("vertical perimeter wall segments must be taller than wide")
+        return self
+
+
+class PerimeterWall(StrictModel):
+    perimeterWallId: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    segments: list[PerimeterWallSegment] = Field(min_length=1)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "perimeterWall.label")
+
+    @model_validator(mode="after")
+    def validate_segment_ids(self) -> "PerimeterWall":
+        require_unique("perimeter wall segment ids", [segment.segmentId for segment in self.segments])
+        return self
+
+
+class EntryExitDestination(StrictModel):
+    destinationKind: EntryExitDestinationKind
+    destinationId: str | None = None
+    displayLabel: str = Field(min_length=1)
+
+    @field_validator("displayLabel")
+    @classmethod
+    def validate_display_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "entryExit.destination.displayLabel")
+
+
+class EntryExit(StrictModel):
+    entryExitId: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    kind: EntryExitKind
+    xFeet: float
+    yFeet: float
+    widthFeet: float = Field(gt=0)
+    heightFeet: float = Field(gt=0)
+    connectsFromId: str | None = None
+    connectsTo: EntryExitDestination
+    blocksTravel: Literal[False]
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "entryExit.label")
+
+
+class DoorDestination(StrictModel):
+    doorId: str = Field(min_length=1)
+    ownerKind: DoorDestinationOwnerKind
+    ownerId: str = Field(min_length=1)
+    leadsToKind: DoorDestinationLeadsToKind
+    leadsToId: str | None = None
+    leadsToLabel: str = Field(min_length=1)
+    travelRole: DoorDestinationTravelRole
+
+    @field_validator("leadsToLabel")
+    @classmethod
+    def validate_leads_to_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "doorDestination.leadsToLabel")
+
+    @model_validator(mode="after")
+    def validate_leads_to_id(self) -> "DoorDestination":
+        if self.leadsToKind not in {"external", "unknown"} and self.leadsToId is None:
+            raise ValueError("doorDestination.leadsToId is required unless destination is external or unknown")
+        return self
+
+
+class SplitRoomRelativeBounds(StrictModel):
+    xRatio: float = Field(ge=0, le=1)
+    yRatio: float = Field(ge=0, le=1)
+    widthRatio: float = Field(ge=0, le=1)
+    heightRatio: float = Field(ge=0, le=1)
+
+
+class BedPosition(StrictModel):
+    bedPositionId: str = Field(min_length=1)
+    parentRoomId: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    assignmentTarget: Literal[True]
+    relativeBounds: SplitRoomRelativeBounds
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "bedPosition.label")
+
+
+class SplitRoom(StrictModel):
+    splitRoomId: str = Field(min_length=1)
+    parentRoomId: str = Field(min_length=1)
+    splitMode: SplitRoomMode
+    dividerOrientation: SplitRoomDividerOrientation
+    dividerRatio: float = Field(ge=0, le=1)
+    bedPositions: list[BedPosition]
+
+    @model_validator(mode="after")
+    def validate_bed_positions(self) -> "SplitRoom":
+        if self.splitMode == "two_bed" and len(self.bedPositions) != 2:
+            raise ValueError("two_bed split rooms require exactly two bed positions")
+        require_unique("bed position ids", [position.bedPositionId for position in self.bedPositions])
+        for position in self.bedPositions:
+            if position.parentRoomId != self.parentRoomId:
+                raise ValueError("split room bed positions must reference the parent room")
+        return self
+
+
+class SplitBay(StrictModel):
+    objectType: Literal["split_bay"]
+    id: str = Field(min_length=1)
+    label: str = Field(min_length=1)
+    splitBayId: str = Field(min_length=1)
+    bedPositionRoomIds: tuple[str, str]
+    dividerStyle: EditableSplitBayDividerStyle
+    xFeet: float
+    yFeet: float
+    widthFeet: float = Field(gt=0)
+    heightFeet: float = Field(gt=0)
+
+    @field_validator("label")
+    @classmethod
+    def validate_label(cls, value: str) -> str:
+        return validate_runtime_operational_text(value, "splitBay.label")
+
+    @model_validator(mode="after")
+    def validate_split_bay(self) -> "SplitBay":
+        if self.id != self.splitBayId:
+            raise ValueError("split bay id must match splitBayId")
+        if self.bedPositionRoomIds[0] == self.bedPositionRoomIds[1]:
+            raise ValueError("split bay bedPositionRoomIds must reference two distinct rooms")
+        return self
+
+
 class NurseStation(StrictModel):
     id: str = Field(min_length=1)
     label: str = Field(min_length=1)
@@ -371,8 +554,14 @@ class PlanContract(StrictModel):
     rooms: list[Room]
     hallways: list[Hallway]
     doors: list[Door]
+    supportAccessPoints: list[EditableSupportAccessPoint] = Field(default_factory=list)
     nurseStations: list[NurseStation]
     zones: list[Zone]
+    perimeterWalls: list[PerimeterWall] = Field(default_factory=list)
+    entryExits: list[EntryExit] = Field(default_factory=list)
+    doorDestinations: list[DoorDestination] = Field(default_factory=list)
+    splitRooms: list[SplitRoom] = Field(default_factory=list)
+    splitBays: list[SplitBay] = Field(default_factory=list)
     pathNodes: list[PathNode]
     pathEdges: list[PathEdge]
 
@@ -402,15 +591,23 @@ class PlanContract(StrictModel):
         room_ids = {room.id for room in self.rooms}
         hallway_ids = {hallway.id for hallway in self.hallways}
         door_ids = {door.id for door in self.doors}
+        support_access_ids = {access_point.id for access_point in self.supportAccessPoints}
         nurse_station_ids = {station.id for station in self.nurseStations}
         zone_ids = {zone.id for zone in self.zones}
+        entry_exit_ids = {entry_exit.entryExitId for entry_exit in self.entryExits}
         path_node_ids = {node.id for node in self.pathNodes}
 
         require_unique("room ids", [room.id for room in self.rooms])
         require_unique("hallway ids", [hallway.id for hallway in self.hallways])
         require_unique("door ids", [door.id for door in self.doors])
+        require_unique("support access ids", [access_point.id for access_point in self.supportAccessPoints])
         require_unique("nurse station ids", [station.id for station in self.nurseStations])
         require_unique("zone ids", [zone.id for zone in self.zones])
+        require_unique("perimeter wall ids", [wall.perimeterWallId for wall in self.perimeterWalls])
+        require_unique("entry exit ids", [entry_exit.entryExitId for entry_exit in self.entryExits])
+        require_unique("door destination ids", [destination.doorId for destination in self.doorDestinations])
+        require_unique("split room ids", [split_room.splitRoomId for split_room in self.splitRooms])
+        require_unique("split bay ids", [split_bay.id for split_bay in self.splitBays])
         require_unique("path node ids", [node.id for node in self.pathNodes])
         require_unique("path edge ids", [edge.id for edge in self.pathEdges])
 
@@ -473,6 +670,54 @@ class PlanContract(StrictModel):
                     raise ValueError(f"door {door.id} path node must be a room_door node")
                 if path_node.linkedObjectId != door.id:
                     raise ValueError(f"door {door.id} path node must link back to the same door")
+
+        for access_point in self.supportAccessPoints:
+            if access_point.ownerId not in zone_ids:
+                raise ValueError(f"support access {access_point.id} references unknown zone")
+
+        for entry_exit in self.entryExits:
+            if entry_exit.connectsFromId is not None and entry_exit.connectsFromId not in hallway_ids:
+                raise ValueError(f"entry exit {entry_exit.entryExitId} connectsFromId references unknown hallway")
+            if (
+                entry_exit.connectsTo.destinationKind == "hallway"
+                and entry_exit.connectsTo.destinationId not in hallway_ids
+            ):
+                raise ValueError(f"entry exit {entry_exit.entryExitId} destination references unknown hallway")
+            if (
+                entry_exit.connectsTo.destinationKind == "provider_pharmacy"
+                and entry_exit.connectsTo.destinationId is not None
+                and entry_exit.connectsTo.destinationId not in zone_ids
+            ):
+                raise ValueError(f"entry exit {entry_exit.entryExitId} destination references unknown zone")
+
+        for destination in self.doorDestinations:
+            if destination.doorId not in door_ids and destination.doorId not in support_access_ids:
+                raise ValueError(f"door destination {destination.doorId} references unknown door or access point")
+            if destination.ownerKind == "room" and destination.ownerId not in room_ids:
+                raise ValueError(f"door destination {destination.doorId} ownerId references unknown room")
+            if destination.ownerKind == "hallway" and destination.ownerId not in hallway_ids:
+                raise ValueError(f"door destination {destination.doorId} ownerId references unknown hallway")
+            if destination.ownerKind == "zone" and destination.ownerId not in zone_ids:
+                raise ValueError(f"door destination {destination.doorId} ownerId references unknown zone")
+            if destination.ownerKind == "entry_exit" and destination.ownerId not in entry_exit_ids:
+                raise ValueError(f"door destination {destination.doorId} ownerId references unknown entry/exit")
+            if destination.leadsToKind == "hallway" and destination.leadsToId not in hallway_ids:
+                raise ValueError(f"door destination {destination.doorId} references unknown hallway")
+            if destination.leadsToKind == "room" and destination.leadsToId not in room_ids:
+                raise ValueError(f"door destination {destination.doorId} references unknown room")
+            if destination.leadsToKind == "zone" and destination.leadsToId not in zone_ids:
+                raise ValueError(f"door destination {destination.doorId} references unknown zone")
+            if destination.leadsToKind == "entry_exit" and destination.leadsToId not in entry_exit_ids:
+                raise ValueError(f"door destination {destination.doorId} references unknown entry/exit")
+
+        for split_room in self.splitRooms:
+            if split_room.parentRoomId not in room_ids:
+                raise ValueError(f"split room {split_room.splitRoomId} references unknown parent room")
+
+        for split_bay in self.splitBays:
+            for room_id in split_bay.bedPositionRoomIds:
+                if room_id not in room_ids:
+                    raise ValueError(f"split bay {split_bay.splitBayId} references unknown room")
 
         for station in self.nurseStations:
             if station.pathNodeId not in path_node_ids:

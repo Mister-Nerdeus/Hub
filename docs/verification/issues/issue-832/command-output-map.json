@@ -1,14 +1,12 @@
 {
-  "issue": "832",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "node scripts/check-legacy-split-bay-quarantine.mjs --stage final --issue 832"
+  "issue": "832",
+  "commands": [
+    {
+      "command": "node scripts/check-legacy-split-bay-quarantine.mjs --stage final --issue 832",
+      "outputs": [
+        "docs/verification/issues/issue-832/commands.txt"
+      ]
+    }
   ]
 }

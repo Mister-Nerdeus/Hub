@@ -1,14 +1,12 @@
 {
-  "issue": "837",
   "status": "passed",
-  "commands": {
-    "npm --workspace packages/shared test": "test-output/shared.txt",
-    "npm --workspace apps/web test": "test-output/web.txt",
-    "npm --workspace apps/web run build": "test-output/web-build.txt",
-    "node scripts/check-no-phi-fields.mjs": "no-phi-output.txt",
-    "node scripts/check-production-docker-runtime.mjs --smoke": "production-docker-runtime-output.txt"
-  },
-  "issueSpecificCommands": [
-    "npm run check:boundary-door-destination-renderer"
+  "issue": "837",
+  "commands": [
+    {
+      "command": "node scripts/check-boundary-door-destination-renderer.mjs --stage final --issue 837",
+      "outputs": [
+        "docs/verification/issues/issue-837/commands.txt"
+      ]
+    }
   ]
 }

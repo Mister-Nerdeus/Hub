@@ -20,7 +20,8 @@ Status: `not_ready` until issues 833-843 pass local evidence.
 
 - Perimeter walls are saved floorplan geometry with blocking locked segments.
 - Entry/exit points are saved selectable geometry with visible destinations.
-- Door destinations are operational leads-to labels; unknown destinations are explicit and create warnings.
+- Door and door-like support access destinations are operational leads-to labels; unknown destinations are explicit and create warnings.
+- The shared TypeScript and API Python plan contracts accept the saved boundary, entry/exit, support access, and door-destination fields.
 - Technical destination IDs stay in advanced inspector details.
 - The final model must include a layout-owned perimeter wall, entry/exit points, and door destinations before GO.
 

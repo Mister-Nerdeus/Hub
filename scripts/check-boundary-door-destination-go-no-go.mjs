@@ -3,6 +3,7 @@ import {
   addCheck,
   boundaryRootScripts,
   ensureIssueArtifacts,
+  fileIncludes,
   fileExcludes,
   readArg,
   readJson,
@@ -53,6 +54,12 @@ addCheck(checks, "all boundary manifest statuses passed", [
   "boundaryDoorDestinationDocumentationStatus"
 ].every((key) => manifest[key] === "passed"), manifest);
 addCheck(checks, "no durable assignment contract exists", fileExcludes("packages/shared/src/contracts.ts", ["AssignmentSetContract"]).passed);
+addCheck(checks, "api contract accepts boundary destination saved-plan fields", fileIncludes("apps/api/app/contracts.py", [
+  "supportAccessPoints",
+  "perimeterWalls",
+  "entryExits",
+  "doorDestinations"
+]).passed);
 const status = statusFromChecks(checks);
 writeJson(`docs/verification/issues/issue-${issue}/boundary-door-destination-go-no-go-output.json`, {
   status,

@@ -2,9 +2,17 @@
   "status": "passed",
   "issue": "831",
   "patch": {
-    "geometryRootScriptHardeningStatus": "passed",
-    "requiredHardeningRootScriptsPresent": true,
-    "hardeningRootScriptsVerifiedFromPackageJson": true
+    "geometryGoNoGoHardeningStatus": "passed",
+    "geometryTruthHardGoNoGoStatus": "go_for_durable_assignment_foundation",
+    "durableAssignmentFoundationStatus": "go_for_durable_assignment_foundation",
+    "geometryHardeningCloseoutConsistencyStatus": "passed",
+    "hardeningManifestLastUpdatedIssueCorrect": true,
+    "durableAssignmentFoundationStatusContradictionResolved": true,
+    "legacySplitBayNormalFlowRemoved": true,
+    "singleRoomSplitRoomEditorFlowVerified": true,
+    "splitRoomBrowserBehaviorVerified": true,
+    "assignmentTargetsStable": true,
+    "goNoGoStatus": "go_for_next_milestone"
   },
   "manifest": {
     "geometryTruthHardeningPreflightStatus": "passed",
