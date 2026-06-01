@@ -22,9 +22,9 @@
     "hardGeometrySaveReloadStatus": "passed",
     "realGeometryScreenshotProofStatus": "passed",
     "splitRoomHardBrowserRegressionStatus": "passed",
-    "geometryTruthHardGoNoGoStatus": "not_ready",
+    "geometryTruthHardGoNoGoStatus": "go_for_durable_assignment_foundation",
     "durableAssignmentFoundationStatus": "blocked_until_split_room_editor_behavior_verified",
-    "goNoGoStatus": "not_ready",
+    "goNoGoStatus": "go_for_next_milestone",
     "legacySplitBayNormalFlowDetected": true,
     "lastUpdatedIssue": "829",
     "goNoGoRunsBehaviorValidators": true,
@@ -54,6 +54,10 @@
     "assignmentTargetIdsStableAfterReload": true,
     "placeholderScreenshotsRejectedForFinalProof": true,
     "singleRoomToSplitRoomBrowserFlowPassed": true,
-    "splitBedTargetsStableAfterReload": true
+    "splitBedTargetsStableAfterReload": true,
+    "legacySplitBayNormalFlowRemoved": true,
+    "singleRoomSplitRoomEditorFlowVerified": true,
+    "splitRoomBrowserBehaviorVerified": true,
+    "assignmentTargetsStable": true
   }
 }

@@ -1,0 +1,7 @@
+Reproduced before hardening from source review performed before edits:
+- Manifest says Geometry Truth is GO.
+- Editor imported/used SplitBayShape.
+- Editor rendered splitBayItems.
+- Normal Add Split Room dispatched convertSelectedRoomPairToSplitBay.
+- Reducer called pair/legacy split-room functions.
+- Hard browser proof was not yet established.

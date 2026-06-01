@@ -7,6 +7,7 @@ import {
   hardeningRootScripts,
   readArg,
   readJson,
+  runRequiredHardeningValidators,
   statusFromChecks,
   updateHardeningManifest,
   writeCloseout,
@@ -35,7 +36,8 @@ writeJson(`docs/verification/issues/issue-${issue}/go-no-go-output.json`, {
   status,
   issue: String(issue),
   stage,
-  requiredValidators: Object.values(hardeningRootScripts)
+  requiredValidators: Object.values(hardeningRootScripts),
+  validatorExecutionResults: checks.find((check) => check.name === "hardening validators executed")?.detail ?? null
 });
 
 if (status === "passed") {
@@ -104,6 +106,7 @@ function buildChecks(targetStage) {
   if (targetStage === "validator-execution-required") {
     addCheck(checksForStage, "GO/NO-GO script references executable validators", fileIncludes("scripts/check-geometry-truth-hardening-go-no-go.mjs", [
       "requiredValidators",
+      "runRequiredHardeningValidators",
       "hardeningRootScripts",
       "splitRoomHardBrowserRegressionStatus"
     ]).passed);
@@ -143,6 +146,18 @@ function buildChecks(targetStage) {
   if (targetStage !== "final") {
     throw new Error(`Unsupported ${scriptName} stage: ${targetStage}`);
   }
+
+  const validatorExecutionResults = runRequiredHardeningValidators();
+  const failedValidators = validatorExecutionResults.filter((result) => result.status !== "passed");
+  writeJson(`docs/verification/issues/issue-${issue}/validator-execution-output.json`, {
+    status: failedValidators.length === 0 ? "passed" : "failed",
+    issue: String(issue),
+    validators: validatorExecutionResults
+  });
+  addCheck(checksForStage, "hardening validators executed", failedValidators.length === 0, {
+    failedValidators,
+    executedValidators: validatorExecutionResults.map((result) => result.scriptName)
+  });
 
   const manifest = readJson("docs/verification/geometry-truth-hardening-manifest.json");
   const requiredPassed = [

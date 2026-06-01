@@ -1,0 +1,4 @@
+NAME        IMAGE                COMMAND                  SERVICE   CREATED          STATUS                    PORTS
+hub-api-1   hub-api              "uvicorn app.main:ap…"   api       40 seconds ago   Up 36 seconds             0.0.0.0:8010->8000/tcp, [::]:8010->8000/tcp
+hub-db-1    postgres:16-alpine   "docker-entrypoint.s…"   db        13 hours ago     Up 13 hours (healthy)     5432/tcp
+hub-web-1   hub-web              "docker-entrypoint.s…"   web       38 seconds ago   Up 36 seconds (healthy)   0.0.0.0:5180->5173/tcp, [::]:5180->5173/tcp

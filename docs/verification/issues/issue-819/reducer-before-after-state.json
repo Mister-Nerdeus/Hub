@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "before": {
+    "selectedObjectType": "room",
+    "selectedRoom": {
+      "xFeet": 44,
+      "yFeet": 28,
+      "widthFeet": 10,
+      "heightFeet": 10
+    },
+    "splitRooms": []
+  },
+  "after": {
+    "selectedObjectType": "split_room_parent",
+    "parentRoom": {
+      "xFeet": 44,
+      "yFeet": 28,
+      "widthFeet": 10,
+      "heightFeet": 10
+    },
+    "splitRooms": [
+      {
+        "splitRoomId": "split-room-room-02",
+        "bedPositions": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 5,
+            "heightFeet": 10
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "xFeet": 49,
+            "yFeet": 28,
+            "widthFeet": 5,
+            "heightFeet": 10
+          }
+        ]
+      }
+    ],
+    "roomsContainFakeChildBeds": false
+  }
+}

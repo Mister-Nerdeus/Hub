@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "820",
+  "stage": "legacy-split-bays-compat-only",
+  "checks": [
+    {
+      "name": "editable layout has splitRooms collection",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "plan contract preserves splitRooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "editor load/save maps splitRooms",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "legacy splitBays marked compatibility-only",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

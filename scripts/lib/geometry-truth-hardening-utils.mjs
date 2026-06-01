@@ -1,3 +1,4 @@
+import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
@@ -41,6 +42,31 @@ export const hardeningRootScripts = {
   "check:real-screenshot-proof-required": "node scripts/check-real-screenshot-proof-required.mjs --stage final --issue 828",
   "check:split-room-hard-browser-regression": "node scripts/check-split-room-hard-browser-regression.mjs --stage full-flow --issue 829"
 };
+
+export function runRequiredHardeningValidators({
+  skip = ["check:geometry-truth-hardening-go-no-go"]
+} = {}) {
+  const skipped = new Set(skip);
+  return Object.entries(hardeningRootScripts)
+    .filter(([scriptName]) => !skipped.has(scriptName))
+    .map(([scriptName, command]) => {
+      const result = spawnSync(command, {
+        cwd: process.cwd(),
+        encoding: "utf8",
+        shell: true,
+        windowsHide: true,
+        maxBuffer: 50 * 1024 * 1024
+      });
+      return {
+        scriptName,
+        command,
+        exitCode: result.status,
+        status: result.status === 0 ? "passed" : "failed",
+        stdoutTail: tail(result.stdout),
+        stderrTail: tail(result.stderr)
+      };
+    });
+}
 
 export function readArg(name, fallback = null) {
   const index = process.argv.indexOf(name);
@@ -191,4 +217,9 @@ ${limitations}
 
 export function issuePath(issue, child = "") {
   return `docs/verification/issues/issue-${issue}${child === "" ? "" : `/${child}`}`;
+}
+
+function tail(value) {
+  const text = value ?? "";
+  return text.length <= 6000 ? text : text.slice(text.length - 6000);
 }

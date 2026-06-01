@@ -1,14 +1,36 @@
 {
   "status": "passed",
   "issue": "829",
-  "stage": "unsplit-flow",
+  "stage": "full-flow",
   "checks": [
     {
-      "name": "normal single-room split creates one parent and two beds",
+      "name": "normal single-room split creates one 10x10 parent and two beds",
       "passed": true,
       "detail": {
         "singleRoomToSplitRoomBrowserFlowPassed": true,
         "selectedNormalRoomId": "room-02",
+        "noSecondRoomSelectionRequired": true,
+        "tenByTenRoomVerified": true,
+        "splitParentCountAfterSplit": 1,
+        "bedPositionCountAfterSplit": 2,
+        "splitBayCountAfterSplit": 0,
+        "bedPositionAssignmentTargets": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          }
+        ],
+        "bedAssignmentTargetsAreMetadata": true,
+        "parentMoveChangedFootprint": true,
+        "parentResizeChangedFootprint": true,
+        "parentResizeUpdatedBedBounds": true,
+        "dividerControlsChangedState": true,
         "splitBedTargetsStableAfterReload": true,
         "beforeReloadTargets": [
           "room-02:bed-a",
@@ -20,6 +42,99 @@
         ],
         "newSplitBayCount": 0,
         "unsplitPassed": true,
+        "unsplitPreservedParentFootprint": true,
+        "before": {
+          "normalRoomBeforeResize": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "normalRoomBeforeSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "bedsAfterSplit": [
+            {
+              "bedPositionId": "room-02:bed-a",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            },
+            {
+              "bedPositionId": "room-02:bed-b",
+              "xFeet": 49,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            }
+          ]
+        },
+        "after": {
+          "parentBeforeMove": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterMove": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterResize": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "parentAfterReload": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "roomAfterUnsplit": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "dividerState": {
+            "orientation": "horizontal",
+            "ratio": 0.65
+          },
+          "finalState": {
+            "parentCount": 0,
+            "bedCount": 0,
+            "splitBayCount": 0,
+            "parentRoomStillExists": true
+          }
+        },
+        "trace": [
+          "opened-editor",
+          "selected-normal-room",
+          "resized-normal-room-to-10x10",
+          "clicked-add-split-room",
+          "selected-bed-a",
+          "selected-bed-b",
+          "moved-parent",
+          "resized-parent",
+          "changed-divider",
+          "saved-floorplan",
+          "reloaded-floorplan",
+          "unsplit-room"
+        ],
         "finalState": {
           "parentCount": 0,
           "bedCount": 0,
@@ -34,6 +149,28 @@
       "detail": {
         "singleRoomToSplitRoomBrowserFlowPassed": true,
         "selectedNormalRoomId": "room-02",
+        "noSecondRoomSelectionRequired": true,
+        "tenByTenRoomVerified": true,
+        "splitParentCountAfterSplit": 1,
+        "bedPositionCountAfterSplit": 2,
+        "splitBayCountAfterSplit": 0,
+        "bedPositionAssignmentTargets": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          }
+        ],
+        "bedAssignmentTargetsAreMetadata": true,
+        "parentMoveChangedFootprint": true,
+        "parentResizeChangedFootprint": true,
+        "parentResizeUpdatedBedBounds": true,
+        "dividerControlsChangedState": true,
         "splitBedTargetsStableAfterReload": true,
         "beforeReloadTargets": [
           "room-02:bed-a",
@@ -45,6 +182,99 @@
         ],
         "newSplitBayCount": 0,
         "unsplitPassed": true,
+        "unsplitPreservedParentFootprint": true,
+        "before": {
+          "normalRoomBeforeResize": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "normalRoomBeforeSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "bedsAfterSplit": [
+            {
+              "bedPositionId": "room-02:bed-a",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            },
+            {
+              "bedPositionId": "room-02:bed-b",
+              "xFeet": 49,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            }
+          ]
+        },
+        "after": {
+          "parentBeforeMove": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterMove": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterResize": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "parentAfterReload": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "roomAfterUnsplit": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "dividerState": {
+            "orientation": "horizontal",
+            "ratio": 0.65
+          },
+          "finalState": {
+            "parentCount": 0,
+            "bedCount": 0,
+            "splitBayCount": 0,
+            "parentRoomStillExists": true
+          }
+        },
+        "trace": [
+          "opened-editor",
+          "selected-normal-room",
+          "resized-normal-room-to-10x10",
+          "clicked-add-split-room",
+          "selected-bed-a",
+          "selected-bed-b",
+          "moved-parent",
+          "resized-parent",
+          "changed-divider",
+          "saved-floorplan",
+          "reloaded-floorplan",
+          "unsplit-room"
+        ],
         "finalState": {
           "parentCount": 0,
           "bedCount": 0,
@@ -59,6 +289,28 @@
       "detail": {
         "singleRoomToSplitRoomBrowserFlowPassed": true,
         "selectedNormalRoomId": "room-02",
+        "noSecondRoomSelectionRequired": true,
+        "tenByTenRoomVerified": true,
+        "splitParentCountAfterSplit": 1,
+        "bedPositionCountAfterSplit": 2,
+        "splitBayCountAfterSplit": 0,
+        "bedPositionAssignmentTargets": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          }
+        ],
+        "bedAssignmentTargetsAreMetadata": true,
+        "parentMoveChangedFootprint": true,
+        "parentResizeChangedFootprint": true,
+        "parentResizeUpdatedBedBounds": true,
+        "dividerControlsChangedState": true,
         "splitBedTargetsStableAfterReload": true,
         "beforeReloadTargets": [
           "room-02:bed-a",
@@ -70,6 +322,99 @@
         ],
         "newSplitBayCount": 0,
         "unsplitPassed": true,
+        "unsplitPreservedParentFootprint": true,
+        "before": {
+          "normalRoomBeforeResize": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "normalRoomBeforeSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "bedsAfterSplit": [
+            {
+              "bedPositionId": "room-02:bed-a",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            },
+            {
+              "bedPositionId": "room-02:bed-b",
+              "xFeet": 49,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            }
+          ]
+        },
+        "after": {
+          "parentBeforeMove": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterMove": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterResize": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "parentAfterReload": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "roomAfterUnsplit": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "dividerState": {
+            "orientation": "horizontal",
+            "ratio": 0.65
+          },
+          "finalState": {
+            "parentCount": 0,
+            "bedCount": 0,
+            "splitBayCount": 0,
+            "parentRoomStillExists": true
+          }
+        },
+        "trace": [
+          "opened-editor",
+          "selected-normal-room",
+          "resized-normal-room-to-10x10",
+          "clicked-add-split-room",
+          "selected-bed-a",
+          "selected-bed-b",
+          "moved-parent",
+          "resized-parent",
+          "changed-divider",
+          "saved-floorplan",
+          "reloaded-floorplan",
+          "unsplit-room"
+        ],
         "finalState": {
           "parentCount": 0,
           "bedCount": 0,
@@ -79,11 +424,33 @@
       }
     },
     {
-      "name": "unsplit removes bed positions and preserves parent room",
+      "name": "parent move resize and divider changes mutate browser geometry",
       "passed": true,
       "detail": {
         "singleRoomToSplitRoomBrowserFlowPassed": true,
         "selectedNormalRoomId": "room-02",
+        "noSecondRoomSelectionRequired": true,
+        "tenByTenRoomVerified": true,
+        "splitParentCountAfterSplit": 1,
+        "bedPositionCountAfterSplit": 2,
+        "splitBayCountAfterSplit": 0,
+        "bedPositionAssignmentTargets": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          }
+        ],
+        "bedAssignmentTargetsAreMetadata": true,
+        "parentMoveChangedFootprint": true,
+        "parentResizeChangedFootprint": true,
+        "parentResizeUpdatedBedBounds": true,
+        "dividerControlsChangedState": true,
         "splitBedTargetsStableAfterReload": true,
         "beforeReloadTargets": [
           "room-02:bed-a",
@@ -95,6 +462,239 @@
         ],
         "newSplitBayCount": 0,
         "unsplitPassed": true,
+        "unsplitPreservedParentFootprint": true,
+        "before": {
+          "normalRoomBeforeResize": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "normalRoomBeforeSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "bedsAfterSplit": [
+            {
+              "bedPositionId": "room-02:bed-a",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            },
+            {
+              "bedPositionId": "room-02:bed-b",
+              "xFeet": 49,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            }
+          ]
+        },
+        "after": {
+          "parentBeforeMove": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterMove": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterResize": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "parentAfterReload": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "roomAfterUnsplit": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "dividerState": {
+            "orientation": "horizontal",
+            "ratio": 0.65
+          },
+          "finalState": {
+            "parentCount": 0,
+            "bedCount": 0,
+            "splitBayCount": 0,
+            "parentRoomStillExists": true
+          }
+        },
+        "trace": [
+          "opened-editor",
+          "selected-normal-room",
+          "resized-normal-room-to-10x10",
+          "clicked-add-split-room",
+          "selected-bed-a",
+          "selected-bed-b",
+          "moved-parent",
+          "resized-parent",
+          "changed-divider",
+          "saved-floorplan",
+          "reloaded-floorplan",
+          "unsplit-room"
+        ],
+        "finalState": {
+          "parentCount": 0,
+          "bedCount": 0,
+          "splitBayCount": 0,
+          "parentRoomStillExists": true
+        }
+      }
+    },
+    {
+      "name": "unsplit removes bed positions and preserves parent room footprint",
+      "passed": true,
+      "detail": {
+        "singleRoomToSplitRoomBrowserFlowPassed": true,
+        "selectedNormalRoomId": "room-02",
+        "noSecondRoomSelectionRequired": true,
+        "tenByTenRoomVerified": true,
+        "splitParentCountAfterSplit": 1,
+        "bedPositionCountAfterSplit": 2,
+        "splitBayCountAfterSplit": 0,
+        "bedPositionAssignmentTargets": [
+          {
+            "bedPositionId": "room-02:bed-a",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          },
+          {
+            "bedPositionId": "room-02:bed-b",
+            "parentRoomId": "room-02",
+            "assignmentTarget": "true"
+          }
+        ],
+        "bedAssignmentTargetsAreMetadata": true,
+        "parentMoveChangedFootprint": true,
+        "parentResizeChangedFootprint": true,
+        "parentResizeUpdatedBedBounds": true,
+        "dividerControlsChangedState": true,
+        "splitBedTargetsStableAfterReload": true,
+        "beforeReloadTargets": [
+          "room-02:bed-a",
+          "room-02:bed-b"
+        ],
+        "afterReloadTargets": [
+          "room-02:bed-a",
+          "room-02:bed-b"
+        ],
+        "newSplitBayCount": 0,
+        "unsplitPassed": true,
+        "unsplitPreservedParentFootprint": true,
+        "before": {
+          "normalRoomBeforeResize": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "normalRoomBeforeSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterSplit": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "bedsAfterSplit": [
+            {
+              "bedPositionId": "room-02:bed-a",
+              "xFeet": 44,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            },
+            {
+              "bedPositionId": "room-02:bed-b",
+              "xFeet": 49,
+              "yFeet": 28,
+              "widthFeet": 5,
+              "heightFeet": 10
+            }
+          ]
+        },
+        "after": {
+          "parentBeforeMove": {
+            "xFeet": 44,
+            "yFeet": 28,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterMove": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 10,
+            "heightFeet": 10
+          },
+          "parentAfterResize": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "parentAfterReload": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "roomAfterUnsplit": {
+            "xFeet": 49,
+            "yFeet": 30,
+            "widthFeet": 17.5,
+            "heightFeet": 13.333333333333334
+          },
+          "dividerState": {
+            "orientation": "horizontal",
+            "ratio": 0.65
+          },
+          "finalState": {
+            "parentCount": 0,
+            "bedCount": 0,
+            "splitBayCount": 0,
+            "parentRoomStillExists": true
+          }
+        },
+        "trace": [
+          "opened-editor",
+          "selected-normal-room",
+          "resized-normal-room-to-10x10",
+          "clicked-add-split-room",
+          "selected-bed-a",
+          "selected-bed-b",
+          "moved-parent",
+          "resized-parent",
+          "changed-divider",
+          "saved-floorplan",
+          "reloaded-floorplan",
+          "unsplit-room"
+        ],
         "finalState": {
           "parentCount": 0,
           "bedCount": 0,

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "825",
+  "stage": "bed-position-details",
+  "checks": [
+    {
+      "name": "normal stage does not import split-bay quick edit",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "normal split selection uses SplitRoomInspectorPanel",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "inspector displays parent, divider, bed labels, and operational bed label",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "advanced-only assignment target IDs are separated",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

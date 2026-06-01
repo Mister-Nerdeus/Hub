@@ -4,6 +4,8 @@ Geometry Truth Hardening is complete for Issues 815-830.
 
 Durable Assignment Foundation was blocked during this batch until the normal editor split-room path became behavior-complete and verified by local browser evidence. The local hardening manifest now records `geometryTruthHardGoNoGoStatus: go_for_durable_assignment_foundation`.
 
+Historical preflight status: Durable Assignment Foundation remains blocked until Issue 830 hard browser proof passes.
+
 ## Scope Boundaries
 
 - Durable assignment persistence is not implemented in this batch.

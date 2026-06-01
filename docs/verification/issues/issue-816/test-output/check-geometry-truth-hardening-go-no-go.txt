@@ -1,17 +1,19 @@
 {
   "status": "passed",
   "issue": "816",
-  "stage": "placeholder-proof-rejected",
+  "stage": "validator-execution-required",
   "checks": [
     {
-      "name": "placeholder screenshots are rejected for final proof",
+      "name": "GO/NO-GO script references executable validators",
       "passed": true,
       "detail": {}
     },
     {
-      "name": "hardening screenshot validators do not write placeholder PNGs",
+      "name": "root script matrix includes hardening validators",
       "passed": true,
-      "detail": {}
+      "detail": {
+        "count": 15
+      }
     }
   ]
 }

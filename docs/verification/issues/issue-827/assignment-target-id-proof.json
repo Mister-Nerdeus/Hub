@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "beforeReloadTargets": [
+    "room-02:bed-a",
+    "room-02:bed-b"
+  ],
+  "afterReloadTargets": [
+    "room-02:bed-a",
+    "room-02:bed-b"
+  ],
+  "splitBedTargetsStableAfterReload": true,
+  "bedPositionAssignmentTargets": [
+    {
+      "bedPositionId": "room-02:bed-a",
+      "parentRoomId": "room-02",
+      "assignmentTarget": "true"
+    },
+    {
+      "bedPositionId": "room-02:bed-b",
+      "parentRoomId": "room-02",
+      "assignmentTarget": "true"
+    }
+  ]
+}

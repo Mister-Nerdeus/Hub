@@ -1,3 +1,4 @@
 status: passed
 command: npm --workspace apps/web run build
-result: TypeScript and Vite production build passed.
+fullOutput: docs/verification/issues/issue-830/test-output/web-build.txt
+summary: web production build completed successfully; Vite reported only the existing chunk-size warning.

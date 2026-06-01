@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "818",
+  "stage": "no-pair-split-dispatch-normal",
+  "checks": [
+    {
+      "name": "normal handler uses split-room naming",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "normal editor does not dispatch pair split-bay action",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "legacy reducer path is explicitly marked compatibility-only",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

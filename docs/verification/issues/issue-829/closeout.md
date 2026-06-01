@@ -4,7 +4,7 @@
 Hard Split-Room Browser Regression
 
 ## Code Review
-- Browser regression proves the normal editor converts one selected room into a split_room_parent with two independently selectable bed_position objects, then moves, resizes, saves, reloads, and unsplits it.
+- Browser regression proves the normal editor converts one browser-rendered 10x10 room into one split_room_parent with two independently selectable bed_position assignment targets, then moves, resizes, edits divider state, saves, reloads, and unsplits it without creating a split_bay.
 
 ## Files Changed
 - scripts/check-split-room-hard-browser-regression.mjs
@@ -20,6 +20,11 @@ Hard Split-Room Browser Regression
 
 ## Evidence Artifacts
 - docs/verification/issues/issue-829/browser-regression-proof.json
+- docs/verification/issues/issue-829/split-room-hard-browser-regression-output.json
+- docs/verification/issues/issue-829/split-room-browser-trace.json
+- docs/verification/issues/issue-829/split-room-before.json
+- docs/verification/issues/issue-829/split-room-after.json
+- docs/verification/issues/issue-829/assignment-target-id-proof.json
 - docs/verification/issues/issue-829/screenshot-index.json
 - docs/verification/issues/issue-829/screenshots/
 

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "819",
+  "stage": "no-fake-child-rooms",
+  "checks": [
+    {
+      "name": "convertSelectedRoomToSplitRoom reducer action exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "reducer calls convertSingleRoomToSplitRoom",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "normal split conversion does not resolve room pair",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "parent room remains in rooms while splitRooms stores beds",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}
