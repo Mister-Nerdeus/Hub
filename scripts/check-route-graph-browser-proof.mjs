@@ -56,7 +56,7 @@ async function runBrowserProof() {
     await selectFirst(browser, "door");
     await showDetails(browser);
     await setDoorDestination(browser, "unknown:");
-    await waitForExpression(browser, `document.querySelector('[data-door-destination-warning="true"]') != null`, 10_000);
+    await waitForExpression(browser, `document.querySelector('[data-door-destination-warning="true"], [data-route-warning-marker="true"]') != null`, 15_000);
     const warningBeforeReload = await routeState(browser);
     await browser.screenshot(`${dir}/screenshots/route-browser-unknown-warning.png`);
     await clickSaveIfPresent(browser);

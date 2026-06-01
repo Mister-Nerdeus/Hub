@@ -18,7 +18,12 @@ export const routeRootScripts = {
   "check:route-graph-overlay": "node scripts/check-route-graph-overlay.mjs --stage final --issue 853",
   "check:route-graph-save-reload-proof": "node scripts/check-route-graph-save-reload-proof.mjs --stage final --issue 854",
   "check:route-graph-browser-proof": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 855",
-  "check:route-graph-go-no-go": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856"
+  "check:route-graph-go-no-go": "node scripts/check-route-graph-go-no-go.mjs --stage final --issue 856",
+  "check:route-graph-evidence-closeout": "node scripts/check-route-graph-evidence-closeout.mjs --stage final --issue 857",
+  "check:route-graph-directionality": "node scripts/check-route-graph-directionality.mjs --stage final --issue 858",
+  "check:perimeter-wall-warning-marker": "node scripts/check-perimeter-wall-warning-marker.mjs --stage final --issue 859",
+  "check:route-graph-no-overclaim": "node scripts/check-route-graph-no-overclaim.mjs --stage final --issue 860",
+  "check:route-graph-micro-hardening-go-no-go": "node scripts/check-route-graph-micro-hardening-go-no-go.mjs --stage final --issue 861"
 };
 
 export const routeManifestDefaults = {

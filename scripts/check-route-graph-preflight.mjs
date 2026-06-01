@@ -27,12 +27,12 @@ const checks = [];
 addCheck(checks, "route graph root scripts are visible in package.json", packageProof.status === "passed", packageProof);
 addCheck(checks, "route graph manifest is scoped connectivity-only", fileIncludes("docs/verification/route-graph-foundation-manifest.json", ["connectivity_only", "simulationStillBlocked"]).passed);
 addCheck(checks, "route graph status doc states out-of-scope work as blocked", fileIncludes("docs/project/route-graph-foundation-status.md", [
-  "No travel-time estimates",
-  "workload scoring",
-  "staffing recommendations",
-  "optimizer behavior",
-  "assignment persistence",
-  "simulation behavior"
+  "connectivity-only route graph foundation",
+  "does not persist assignments",
+  "choose assignments",
+  "run execution flows",
+  "rank options",
+  "infer directional movement"
 ]).passed);
 addCheck(checks, "route graph status doc has no clinical outcome claims", fileExcludes("docs/project/route-graph-foundation-status.md", ["clinical safety", "staffing compliance", "patient outcome"]).passed);
 const status = statusFromChecks(checks);

@@ -28,6 +28,14 @@ type Rect = {
   heightFeet: number;
 };
 
+type BlockedWallAnchor = {
+  sourceObjectId: string;
+  sourceAnchorFeet: {
+    xFeet: number;
+    yFeet: number;
+  };
+};
+
 const DOOR_THICKNESS_FEET = 0.5;
 
 export function deriveRouteGraphFromGeometry(layoutValue: EditableLayoutGeometryContract): RouteGraphContract {
@@ -190,13 +198,15 @@ export function deriveRouteGraphFromGeometry(layoutValue: EditableLayoutGeometry
       });
       return;
     }
-    const blockedByWall = doorBlockedByPerimeter(destination.doorId, sourceKind);
-    if (blockedByWall) {
+    const blockedWallAnchor = doorBlockedByPerimeter(destination.doorId, sourceKind);
+    const blockedByWall = blockedWallAnchor != null;
+    if (blockedWallAnchor != null) {
       warnings.push({
         code: "route_blocked_by_wall",
         severity: "warning",
-        sourceObjectType: sourceKind,
-        sourceObjectId: destination.doorId,
+        sourceObjectType: "perimeter_wall",
+        sourceObjectId: blockedWallAnchor.sourceObjectId,
+        sourceAnchorFeet: blockedWallAnchor.sourceAnchorFeet,
         message: "Door route is blocked by wall geometry."
       });
     }
@@ -217,6 +227,7 @@ export function deriveRouteGraphFromGeometry(layoutValue: EditableLayoutGeometry
       routeEdgeId: routeEdgeIdFor(sourceKind, fromNodeId, toNodeId),
       fromNodeId,
       toNodeId,
+      direction: "undirected",
       sourceKind,
       traversable: !blockedByWall,
       blockedByWall,
@@ -228,17 +239,25 @@ export function deriveRouteGraphFromGeometry(layoutValue: EditableLayoutGeometry
     return nodes.some((node) => node.routeNodeId === routeNodeId);
   }
 
-  function doorBlockedByPerimeter(doorId: string, sourceKind: "door" | "support_access"): boolean {
+  function doorBlockedByPerimeter(doorId: string, sourceKind: "door" | "support_access"): BlockedWallAnchor | null {
     const doorLike = sourceKind === "support_access"
       ? layout.supportAccessPoints?.find((accessPoint) => accessPoint.id === doorId)
       : layout.doors.find((door) => door.id === doorId);
     const rect = doorLike?.objectType === "support_access"
       ? rectForSupportAccess(doorLike, layout)
       : doorLike == null ? null : rectForDoor(doorLike, layout);
-    if (rect == null) return false;
-    return (layout.perimeterWalls ?? []).some((wall) =>
-      wall.segments.some((segment) => segment.blocksTravel && rectsOverlap(rect, segment))
-    );
+    if (rect == null) return null;
+    for (const wall of layout.perimeterWalls ?? []) {
+      for (const segment of wall.segments) {
+        if (segment.blocksTravel && rectsOverlap(rect, segment)) {
+          return {
+            sourceObjectId: segment.segmentId,
+            sourceAnchorFeet: overlapCenter(rect, segment)
+          };
+        }
+      }
+    }
+    return null;
   }
 }
 
@@ -335,6 +354,17 @@ function rectsTouchOrOverlap(left: Rect, right: Rect): boolean {
     left.xFeet + left.widthFeet >= right.xFeet &&
     left.yFeet <= right.yFeet + right.heightFeet &&
     left.yFeet + left.heightFeet >= right.yFeet;
+}
+
+function overlapCenter(left: Rect, right: Rect): { xFeet: number; yFeet: number } {
+  const x1 = Math.max(left.xFeet, right.xFeet);
+  const y1 = Math.max(left.yFeet, right.yFeet);
+  const x2 = Math.min(left.xFeet + left.widthFeet, right.xFeet + right.widthFeet);
+  const y2 = Math.min(left.yFeet + left.heightFeet, right.yFeet + right.heightFeet);
+  return {
+    xFeet: (x1 + x2) / 2,
+    yFeet: (y1 + y2) / 2
+  };
 }
 
 function uniqueEdges(edges: RouteEdgeContract[]): RouteEdgeContract[] {

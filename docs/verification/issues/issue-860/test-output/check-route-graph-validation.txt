@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "issue": "860",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "disconnected room creates warning",
+      "passed": true,
+      "detail": {
+        "status": "warning",
+        "warnings": [
+          {
+            "code": "route_unknown_destination",
+            "severity": "warning",
+            "sourceObjectType": "door",
+            "sourceObjectId": "door-room-04-west",
+            "message": "Door route destination is unknown; no traversable connectivity is inferred."
+          },
+          {
+            "code": "route_disconnected_room",
+            "severity": "warning",
+            "sourceObjectType": "room",
+            "sourceObjectId": "room-disconnected-proof",
+            "message": "Room has no traversable route connectivity."
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown door destination creates warning",
+      "passed": true,
+      "detail": {
+        "status": "warning",
+        "warnings": [
+          {
+            "code": "route_unknown_destination",
+            "severity": "warning",
+            "sourceObjectType": "door",
+            "sourceObjectId": "door-room-04-west",
+            "message": "Door route destination is unknown; no traversable connectivity is inferred."
+          },
+          {
+            "code": "route_disconnected_room",
+            "severity": "warning",
+            "sourceObjectType": "room",
+            "sourceObjectId": "room-disconnected-proof",
+            "message": "Room has no traversable route connectivity."
+          }
+        ]
+      }
+    },
+    {
+      "name": "route warnings do not claim clinical safety",
+      "passed": true,
+      "detail": "Door route destination is unknown; no traversable connectivity is inferred.\nRoom has no traversable route connectivity."
+    }
+  ]
+}

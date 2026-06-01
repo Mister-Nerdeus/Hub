@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "issue": "859",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-perimeter-wall-warning-marker.mjs --stage final --issue 859",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-overlay.mjs --stage final --issue 859",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-browser-proof.mjs --stage final --issue 859",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-859/commands.txt"
+      ]
+    }
+  ]
+}

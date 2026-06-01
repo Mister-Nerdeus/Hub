@@ -20,6 +20,10 @@ export type RouteGraphWarningContract = {
   severity: RouteGraphWarningSeverity;
   sourceObjectType: "room" | "door" | "support_access" | "entry_exit" | "perimeter_wall";
   sourceObjectId: string;
+  sourceAnchorFeet?: {
+    xFeet: number;
+    yFeet: number;
+  };
   message: string;
 };
 
@@ -33,7 +37,7 @@ export type RouteGraphContract = {
   warnings: RouteGraphWarningContract[];
 };
 
-const FORBIDDEN_ROUTE_GRAPH_TEXT = /\b(?:travel[- ]?time|burden|score|staffing|assignment recommendation|optimizer|simulation|clinical safety|patient outcome)\b/i;
+const FORBIDDEN_ROUTE_GRAPH_TEXT = /\b(?:travel[- ]?time|burden(?: score)?|workload|score|staffing(?: compliance| recommendation)?|assignment recommendation|optimizer|simulation|clinical safety|patient outcome)\b/i;
 
 export function validateRouteGraphContract(value: unknown): RouteGraphContract {
   const graph = requireRecord(value, "routeGraph");
@@ -75,11 +79,25 @@ export function validateRouteGraphWarning(value: unknown): RouteGraphWarningCont
     "severity",
     "sourceObjectType",
     "sourceObjectId",
+    "sourceAnchorFeet",
     "message"
   ]);
   const message = requireString(warning.message, "routeGraph.warning.message");
   if (FORBIDDEN_ROUTE_GRAPH_TEXT.test(message)) {
     throw new Error("route graph warning message must remain connectivity-only");
+  }
+  const sourceObjectType = requireEnum(warning.sourceObjectType, [
+    "room",
+    "door",
+    "support_access",
+    "entry_exit",
+    "perimeter_wall"
+  ] as const, "routeGraph.warning.sourceObjectType");
+  const sourceAnchorFeet = warning.sourceAnchorFeet == null
+    ? undefined
+    : validateRouteGraphWarningAnchor(warning.sourceAnchorFeet);
+  if (sourceObjectType === "perimeter_wall" && sourceAnchorFeet == null) {
+    throw new Error("routeGraph.warning.sourceAnchorFeet is required for perimeter_wall warnings");
   }
   return {
     code: requireEnum(warning.code, [
@@ -91,15 +109,19 @@ export function validateRouteGraphWarning(value: unknown): RouteGraphWarningCont
       "route_blocked_by_wall"
     ] as const, "routeGraph.warning.code"),
     severity: requireEnum(warning.severity, ["warning", "error"] as const, "routeGraph.warning.severity"),
-    sourceObjectType: requireEnum(warning.sourceObjectType, [
-      "room",
-      "door",
-      "support_access",
-      "entry_exit",
-      "perimeter_wall"
-    ] as const, "routeGraph.warning.sourceObjectType"),
+    sourceObjectType,
     sourceObjectId: requireString(warning.sourceObjectId, "routeGraph.warning.sourceObjectId"),
+    ...(sourceAnchorFeet == null ? {} : { sourceAnchorFeet }),
     message
+  };
+}
+
+function validateRouteGraphWarningAnchor(value: unknown): { xFeet: number; yFeet: number } {
+  const anchor = requireRecord(value, "routeGraph.warning.sourceAnchorFeet");
+  requireExactKeys(anchor, "routeGraph.warning.sourceAnchorFeet", ["xFeet", "yFeet"]);
+  return {
+    xFeet: requireNumber(anchor.xFeet, "routeGraph.warning.sourceAnchorFeet.xFeet"),
+    yFeet: requireNumber(anchor.yFeet, "routeGraph.warning.sourceAnchorFeet.yFeet")
   };
 }
 
@@ -131,6 +153,13 @@ function requireString(value: unknown, label: string): string {
     throw new Error(`${label} must be a non-empty string`);
   }
   return value.trim();
+}
+
+function requireNumber(value: unknown, label: string): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    throw new Error(`${label} must be a finite number`);
+  }
+  return value;
 }
 
 function requireLiteral<const TValue extends string>(value: unknown, expected: TValue, label: string): TValue {

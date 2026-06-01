@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "perimeterWallWarningMarkerStatus": "passed",
+  "perimeterWallWarningsRenderVisibly": true,
+  "perimeterWallWarningsDoNotMapToRoomNodes": true,
+  "blockedWallWarningBrowserProofPassed": true,
+  "routeGraphStillConnectivityOnly": true,
+  "browserProof": {
+    "perimeterWallWarningsRenderVisibly": true,
+    "wallWarningMarkerCount": 1,
+    "roomMappedWallWarningMarkerCount": 0,
+    "allWarningMarkers": [
+      {
+        "code": "route_blocked_by_wall",
+        "sourceType": "perimeter_wall",
+        "sourceId": "perimeter-wall-warning-proof-segment"
+      }
+    ],
+    "routeNodeCount": 77,
+    "routeEdgeCount": 58,
+    "routeGraphScope": "connectivity_only",
+    "routeWarningCount": "1",
+    "routeWarningCodes": "route_blocked_by_wall",
+    "persistedWallProof": {
+      "perimeterWallCount": 2,
+      "proofSegmentCount": 1,
+      "firstDestinationDoorId": "door-01"
+    }
+  }
+}
