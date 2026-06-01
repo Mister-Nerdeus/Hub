@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "868",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-868/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-868/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-868/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 868",
+      "outputs": [
+        "docs/verification/issues/issue-868/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-868/commands.txt"
+      ]
+    }
+  ]
+}

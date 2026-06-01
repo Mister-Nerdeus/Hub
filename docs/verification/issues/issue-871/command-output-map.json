@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "871",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-assignment-no-recommendation-guard.mjs --stage final --issue 871",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-browser-proof.mjs --stage final --issue 871",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-871/commands.txt"
+      ]
+    }
+  ]
+}

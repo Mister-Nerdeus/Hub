@@ -1,0 +1,34 @@
+{
+  "assignmentSetId": "manual-save-reload-set",
+  "floorplanId": "manual-save-reload-proof",
+  "label": "Manual save reload set",
+  "createdAtIso": "2026-06-01T00:00:00.000Z",
+  "updatedAtIso": "2026-06-01T00:00:00.000Z",
+  "assignments": [
+    {
+      "assignmentId": "manual-assignment:manual-save-reload-set:staff-charge-a:assignment-target:manual-save-reload-proof:zone:zone-provider-pharmacy",
+      "staffMemberId": "staff-charge-a",
+      "assignmentTargetId": "assignment-target:manual-save-reload-proof:zone:zone-provider-pharmacy",
+      "assignmentTargetKind": "zone"
+    },
+    {
+      "assignmentId": "manual-assignment:manual-save-reload-set:staff-rn-a:assignment-target:manual-save-reload-proof:room:room-14",
+      "staffMemberId": "staff-rn-a",
+      "assignmentTargetId": "assignment-target:manual-save-reload-proof:room:room-14",
+      "assignmentTargetKind": "room"
+    },
+    {
+      "assignmentId": "manual-assignment:manual-save-reload-set:staff-rn-b:assignment-target:manual-save-reload-proof:bed_position:room-02:bed-a",
+      "staffMemberId": "staff-rn-b",
+      "assignmentTargetId": "assignment-target:manual-save-reload-proof:bed_position:room-02:bed-a",
+      "assignmentTargetKind": "bed_position"
+    },
+    {
+      "assignmentId": "manual-assignment:manual-save-reload-set:staff-rn-c:assignment-target:manual-save-reload-proof:bed_position:room-02:bed-b",
+      "staffMemberId": "staff-rn-c",
+      "assignmentTargetId": "assignment-target:manual-save-reload-proof:bed_position:room-02:bed-b",
+      "assignmentTargetKind": "bed_position"
+    }
+  ],
+  "mode": "manual"
+}

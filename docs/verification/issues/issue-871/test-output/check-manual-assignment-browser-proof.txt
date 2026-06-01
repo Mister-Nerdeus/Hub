@@ -1,0 +1,397 @@
+{
+  "status": "passed",
+  "issue": "871",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "normal room assigned in browser",
+      "passed": true,
+      "detail": {
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "overlayBadgesVisible": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentBefore": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "assignmentAfter": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "steps": [
+          "open assignment workspace",
+          "assign room",
+          "assign split bed 2A",
+          "assign split bed 2B",
+          "save",
+          "open editor",
+          "verify overlay",
+          "reload editor"
+        ]
+      }
+    },
+    {
+      "name": "split beds assigned in browser",
+      "passed": true,
+      "detail": {
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "overlayBadgesVisible": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentBefore": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "assignmentAfter": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "steps": [
+          "open assignment workspace",
+          "assign room",
+          "assign split bed 2A",
+          "assign split bed 2B",
+          "save",
+          "open editor",
+          "verify overlay",
+          "reload editor"
+        ]
+      }
+    },
+    {
+      "name": "overlay verified in browser",
+      "passed": true,
+      "detail": {
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "overlayBadgesVisible": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentBefore": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "assignmentAfter": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "steps": [
+          "open assignment workspace",
+          "assign room",
+          "assign split bed 2A",
+          "assign split bed 2B",
+          "save",
+          "open editor",
+          "verify overlay",
+          "reload editor"
+        ]
+      }
+    },
+    {
+      "name": "assignment persists after reload",
+      "passed": true,
+      "detail": {
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "overlayBadgesVisible": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentBefore": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "assignmentAfter": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "steps": [
+          "open assignment workspace",
+          "assign room",
+          "assign split bed 2A",
+          "assign split bed 2B",
+          "save",
+          "open editor",
+          "verify overlay",
+          "reload editor"
+        ]
+      }
+    },
+    {
+      "name": "blocked browser copy absent",
+      "passed": true,
+      "detail": {
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "overlayBadgesVisible": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentBefore": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "assignmentAfter": {
+          "assignmentSetId": "manual-assignment-set-active",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "label": "Manual assignment set",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "assignments": [
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-a:assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "staffMemberId": "staff-rn-a",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+              "assignmentTargetKind": "room"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-b:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "staffMemberId": "staff-rn-b",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+              "assignmentTargetKind": "bed_position"
+            },
+            {
+              "assignmentId": "manual-assignment:manual-assignment-set-active:staff-rn-c:assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "staffMemberId": "staff-rn-c",
+              "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+              "assignmentTargetKind": "bed_position"
+            }
+          ],
+          "mode": "manual"
+        },
+        "steps": [
+          "open assignment workspace",
+          "assign room",
+          "assign split bed 2A",
+          "assign split bed 2B",
+          "save",
+          "open editor",
+          "verify overlay",
+          "reload editor"
+        ]
+      }
+    }
+  ]
+}

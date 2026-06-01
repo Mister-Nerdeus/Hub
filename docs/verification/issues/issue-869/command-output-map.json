@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "869",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-869/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-869/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-869/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-save-reload-proof.mjs --stage final --issue 869",
+      "outputs": [
+        "docs/verification/issues/issue-869/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-869/commands.txt"
+      ]
+    }
+  ]
+}

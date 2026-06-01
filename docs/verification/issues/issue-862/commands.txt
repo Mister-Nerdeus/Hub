@@ -1,0 +1,6 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:route-graph-micro-hardening-go-no-go
+node scripts/check-assignment-foundation-preflight.mjs --stage final --issue 862
+node scripts/check-no-phi-fields.mjs

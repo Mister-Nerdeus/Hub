@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "865",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-865/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-865/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-865/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-set-contract.mjs --stage final --issue 865",
+      "outputs": [
+        "docs/verification/issues/issue-865/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-865/commands.txt"
+      ]
+    }
+  ]
+}

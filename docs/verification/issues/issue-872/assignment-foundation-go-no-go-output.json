@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "assignmentFoundationGoNoGoStatus": "go_for_manual_scenario_foundation",
+  "manualAssignmentFoundationReady": true,
+  "manualAssignmentsPersist": true,
+  "splitBedAssignmentsSupported": true,
+  "recommendationsStillBlocked": true,
+  "scoringStillBlocked": true,
+  "simulationStillBlocked": true,
+  "goNoGoStatus": "go_for_next_milestone",
+  "required": {
+    "routeGraph": true,
+    "preflight": true,
+    "targets": true,
+    "staff": true,
+    "assignmentSet": true,
+    "validation": true,
+    "editor": true,
+    "overlay": true,
+    "saveReload": true,
+    "browser": true,
+    "guard": true,
+    "scripts": true,
+    "boundaries": true
+  }
+}

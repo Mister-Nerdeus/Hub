@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "issue": "872",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "contract file exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "resolver file exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "normal rooms resolved",
+      "passed": true,
+      "detail": [
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-01",
+          "targetKind": "room",
+          "sourceId": "room-01",
+          "displayLabel": "Room 01",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:room:room-01",
+          "active": true
+        },
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-02",
+          "targetKind": "room",
+          "sourceId": "room-02",
+          "displayLabel": "Room 02",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:room:room-02",
+          "active": true
+        },
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:room:room-04",
+          "targetKind": "room",
+          "sourceId": "room-04",
+          "displayLabel": "Room 04",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:room:room-04",
+          "active": true
+        }
+      ]
+    },
+    {
+      "name": "split bed positions resolved",
+      "passed": true,
+      "detail": [
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+          "targetKind": "bed_position",
+          "sourceId": "room-03:bed-a",
+          "displayLabel": "Room 03A",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:bed_position:room-03:bed-a",
+          "active": true
+        },
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+          "targetKind": "bed_position",
+          "sourceId": "room-03:bed-b",
+          "displayLabel": "Room 03B",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:bed_position:room-03:bed-b",
+          "active": true
+        }
+      ]
+    },
+    {
+      "name": "split beds are not fake rooms",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

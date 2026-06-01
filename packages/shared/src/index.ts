@@ -96,6 +96,46 @@ export * from "./floorplans/routeEdgeContract.js";
 export * from "./floorplans/routeGraphContract.js";
 export * from "./floorplans/deriveRouteGraphFromGeometry.js";
 export * from "./floorplans/routeGraphValidation.js";
+export {
+  ASSIGNMENT_TARGET_KINDS as ASSIGNMENT_FOUNDATION_TARGET_KINDS,
+  assignmentTargetIdFor,
+  validateAssignmentTargetContract as validateAssignmentFoundationTargetContract,
+  validateAssignmentTargetList,
+  type AssignmentTargetContract as AssignmentFoundationTargetContract,
+  type AssignmentTargetKind as AssignmentFoundationTargetKind
+} from "./assignments/assignmentTargetContract.js";
+export {
+  resolveAssignmentTargetsFromFloorplan,
+  roomTargetSourceIds
+} from "./assignments/resolveAssignmentTargetsFromFloorplan.js";
+export {
+  validateAssignmentTargetConnectivity,
+  type AssignmentTargetRouteStatus,
+  type AssignmentTargetValidationResult as AssignmentFoundationTargetValidationResult
+} from "./assignments/assignmentTargetValidation.js";
+export {
+  MANUAL_STAFF_ROLES,
+  validateManualStaffMemberContract,
+  validateManualStaffMembers,
+  type ManualStaffMemberContract,
+  type ManualStaffRole
+} from "./assignments/manualStaffMemberContract.js";
+export {
+  manualStaffFixture
+} from "./assignments/manualStaffFixture.js";
+export {
+  createManualAssignment as createManualAssignmentSetEntry,
+  manualAssignmentIdFor,
+  validateManualAssignmentSetContract,
+  type ManualAssignmentContract as ManualAssignmentSetEntryContract,
+  type ManualAssignmentSetContract
+} from "./assignments/manualAssignmentSetContract.js";
+export {
+  validateManualAssignmentSetReferences,
+  type ManualAssignmentValidationIssue as ManualAssignmentFoundationValidationIssue,
+  type ManualAssignmentValidationResult as ManualAssignmentFoundationValidationResult,
+  type ManualAssignmentValidationSeverity as ManualAssignmentFoundationValidationSeverity
+} from "./assignments/manualAssignmentValidation.js";
 export * from "./floorplans/addRoomContract.js";
 export * from "./floorplans/layoutObjectCreation.js";
 export * from "./floorplans/layoutObjectDuplication.js";

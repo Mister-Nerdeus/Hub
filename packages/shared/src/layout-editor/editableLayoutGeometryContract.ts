@@ -83,6 +83,7 @@ export type EditableRoomGeometry = EditableRectFeet & {
 export type EditableStationGeometry = EditableRectFeet & {
   objectType: "station";
   stationType: EditableStationType;
+  assignmentTarget?: true;
 };
 
 export type EditableHallwayGeometry = EditableRectFeet & {
@@ -92,6 +93,7 @@ export type EditableHallwayGeometry = EditableRectFeet & {
 export type EditableZoneGeometry = EditableRectFeet & {
   objectType: "zone";
   zoneType: EditableZoneType;
+  assignmentTarget?: true;
 };
 
 export type EditableDoorGeometry = {
@@ -307,6 +309,7 @@ function validateStation(value: unknown, index: number): EditableStationGeometry
     "id",
     "label",
     "stationType",
+    "assignmentTarget",
     "xFeet",
     "yFeet",
     "widthFeet",
@@ -316,7 +319,10 @@ function validateStation(value: unknown, index: number): EditableStationGeometry
   return {
     ...rect,
     objectType: "station",
-    stationType: requireEnum(station.stationType, EDITABLE_STATION_TYPES, `stations[${index}].stationType`)
+    stationType: requireEnum(station.stationType, EDITABLE_STATION_TYPES, `stations[${index}].stationType`),
+    ...(station.assignmentTarget == null ? {} : {
+      assignmentTarget: requireTrue(station.assignmentTarget, `stations[${index}].assignmentTarget`)
+    })
   };
 }
 
@@ -332,6 +338,7 @@ function validateZone(value: unknown, index: number): EditableZoneGeometry {
     "id",
     "label",
     "zoneType",
+    "assignmentTarget",
     "xFeet",
     "yFeet",
     "widthFeet",
@@ -341,7 +348,10 @@ function validateZone(value: unknown, index: number): EditableZoneGeometry {
   return {
     ...rect,
     objectType: "zone",
-    zoneType: requireEnum(zone.zoneType, EDITABLE_ZONE_TYPES, `zones[${index}].zoneType`)
+    zoneType: requireEnum(zone.zoneType, EDITABLE_ZONE_TYPES, `zones[${index}].zoneType`),
+    ...(zone.assignmentTarget == null ? {} : {
+      assignmentTarget: requireTrue(zone.assignmentTarget, `zones[${index}].assignmentTarget`)
+    })
   };
 }
 
@@ -742,6 +752,13 @@ function requireBoolean(value: unknown, label: string): boolean {
     throw new Error(`${label} must be a boolean`);
   }
   return value;
+}
+
+function requireTrue(value: unknown, label: string): true {
+  if (value !== true) {
+    throw new Error(`${label} must be true when present`);
+  }
+  return true;
 }
 
 function requireEnum<T extends string>(

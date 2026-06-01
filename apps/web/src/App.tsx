@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { AuthoringDraftContract } from "@nerdeus/shared";
+import type { AuthoringDraftContract, ManualAssignmentSetContract } from "@nerdeus/shared";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
@@ -66,10 +66,11 @@ import {
 import { DeveloperEvidencePage } from "./features/app-shell/DeveloperEvidencePage";
 import { AssignmentWorkflow } from "./features/assignments/AssignmentWorkflow";
 import {
-  ManualAssignmentWorkspace,
   splitRoomManualAssignmentOverlayNurses,
   type ManualAssignmentMap
 } from "./features/manual-assignment/ManualAssignmentWorkspace";
+import { ManualAssignmentEditor } from "./features/manual-assignment/ManualAssignmentEditor";
+import { readManualAssignmentSet } from "./features/manual-assignment/manualAssignmentStorage";
 import { summarizeManualAssignmentCompatibility } from "./features/manual-assignment/manualAssignmentCompatibility";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
@@ -123,6 +124,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [floorplanStatusMessage, setFloorplanStatusMessage] = useState<string | null>(null);
   const [manualAssignmentsByRoomId, setManualAssignmentsByRoomId] =
     useState<ManualAssignmentMap>({});
+  const [manualAssignmentSet, setManualAssignmentSet] =
+    useState<ManualAssignmentSetContract | null>(() => readManualAssignmentSet(getLocalStorage()));
   const [archivedVersionIds, setArchivedVersionIds] = useState<Set<string>>(() => new Set());
   const [pendingFloorplanChangeVersionId, setPendingFloorplanChangeVersionId] = useState<string | null>(null);
   const activeFloorplanContract = createActiveFloorplanContract(activeFloorplanState, savedFloorplans);
@@ -363,10 +366,6 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setActiveSection(DEFAULT_APP_SECTION_ID);
   }
 
-  const captureManualAssignments = useCallback((assignments: ManualAssignmentMap) => {
-    setManualAssignmentsByRoomId(assignments);
-  }, []);
-
   const assignmentOverlaySource = {
     assignmentsByRoomId: manualAssignmentsByRoomId,
     nurses: splitRoomManualAssignmentOverlayNurses
@@ -484,6 +483,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
               activeFloorplan={activeFloorplanState.activeFloorplan}
               activeFloorplanContract={activeFloorplanContract}
               assignmentOverlaySource={assignmentOverlaySource}
+              manualAssignmentSet={manualAssignmentSet}
               onCreateWorkingCopy={() =>
                 duplicateDefault(activeFloorplanState.activeFloorplan?.planId ?? "default-er-layout-plan-1")
               }
@@ -520,10 +520,10 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
               Assignment set is incompatible with this floorplan. Missing room IDs: {manualAssignmentCompatibility.missingRoomIds.join(", ")}
             </p>
           )}
-          <ManualAssignmentWorkspace
+          <ManualAssignmentEditor
             activeFloorplan={activeFloorplanContract}
-            assignmentsByRoomId={manualAssignmentsByRoomId}
-            onAssignmentsChange={captureManualAssignments}
+            assignmentSet={manualAssignmentSet}
+            onAssignmentSetChange={setManualAssignmentSet}
           />
         </section>
       ) : null}

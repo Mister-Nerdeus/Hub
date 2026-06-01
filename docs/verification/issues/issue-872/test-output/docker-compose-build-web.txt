@@ -1,0 +1,81 @@
+ Image hub-web Building 
+ Image hub-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 2.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
+#5 DONE 0.0s
+
+#6 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 3.98MB 1.8s done
+#7 DONE 1.8s
+
+#8 [ 6/11] RUN npm ci
+#8 CACHED
+
+#9 [ 2/11] WORKDIR /repo
+#9 CACHED
+
+#10 [ 3/11] COPY package.json package-lock.json ./
+#10 CACHED
+
+#11 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#11 CACHED
+
+#12 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#12 CACHED
+
+#13 [ 7/11] COPY tsconfig.base.json ./
+#13 CACHED
+
+#14 [ 8/11] COPY apps/web apps/web
+#14 DONE 0.5s
+
+#15 [ 9/11] COPY packages/shared packages/shared
+#15 DONE 0.5s
+
+#16 [10/11] RUN npm --workspace @nerdeus/shared run build
+#16 0.460 
+#16 0.460 > @nerdeus/shared@0.1.0 build
+#16 0.460 > tsc -p tsconfig.json
+#16 0.460 
+#16 DONE 5.8s
+
+#17 [11/11] WORKDIR /repo/apps/web
+#17 DONE 0.1s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 0.6s done
+#18 exporting manifest sha256:7fb3f1a655937ad0e9d911dfedbddd1199b12cf8c1e5b9dfc4ef2cbf76ece94f 0.0s done
+#18 exporting config sha256:dba70ee8ad178a6fee869104da8aa48397f4863ba7869a615750ca146586aaf9 0.0s done
+#18 exporting attestation manifest sha256:2d49e1d550485ab57f41ceac37330bcf60c4bfaf5c50ca692cae021e13f834c9 0.1s done
+#18 exporting manifest list sha256:743fa9ad2aa769dda3ac9f2c54d35cf41fa25fa250d4c3348901927ef9195f95
+#18 exporting manifest list sha256:743fa9ad2aa769dda3ac9f2c54d35cf41fa25fa250d4c3348901927ef9195f95 0.0s done
+#18 naming to docker.io/library/hub-web:latest done
+#18 unpacking to docker.io/library/hub-web:latest
+#18 unpacking to docker.io/library/hub-web:latest 0.6s done
+#18 DONE 1.4s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image hub-web Built 

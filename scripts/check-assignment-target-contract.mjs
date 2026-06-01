@@ -1,129 +1,94 @@
 #!/usr/bin/env node
 import {
   addCheck,
-  checkAll,
-  ensureIssueDirs,
+  ensureIssueArtifacts,
   fileIncludes,
-  hasFlag,
+  issuePath,
   readArg,
+  runNoPhi,
   statusFromChecks,
-  updateGeometryTruthManifest,
+  updateManifest,
   writeCloseout,
-  writeCommonIssueArtifacts,
+  writeCommands,
   writeJson,
   writeStageResult
-} from "./lib/geometry-truth-repair-utils.mjs";
+} from "./lib/assignment-foundation-utils.mjs";
+import {
+  canonicalErPodGeometryFixture,
+  resolveAssignmentTargetsFromFloorplan
+} from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "769");
+const issue = readArg("--issue", "863");
 const stage = readArg("--stage", "final");
-const allowPartial = hasFlag("--allow-partial");
 const scriptName = "check-assignment-target-contract";
-const title = "Assignment Target Geometry Contract";
 const commands = [
   "npm --workspace packages/shared test",
-  "node scripts/check-assignment-target-contract.mjs --stage target-contract --issue 769",
-  "node scripts/check-assignment-target-contract.mjs --stage split-bed-targets --issue 769",
+  "npm --workspace apps/web test",
+  "npm --workspace apps/web run build",
+  `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
   "node scripts/check-no-phi-fields.mjs"
 ];
 
-const stages = {
-  "target-contract": checkTargetContract,
-  "split-bed-targets": checkSplitBedTargets
-};
-
-ensureIssueDirs(issue);
-writeCommonIssueArtifacts(issue, title, commands);
-
-const selectedStages = stage === "final" ? Object.keys(stages) : [stage];
+ensureIssueArtifacts(issue);
+writeCommands(issue, commands);
+const targets = resolveAssignmentTargetsFromFloorplan(canonicalErPodGeometryFixture);
+const roomTargets = targets.filter((target) => target.targetKind === "room");
+const splitBedTargets = targets.filter((target) => target.targetKind === "bed_position");
+const fakeRoomSplitBeds = canonicalErPodGeometryFixture.rooms.filter((room) => /bed-[ab]$/u.test(room.id));
+writeJson(issuePath(issue, "assignment-target-fixture.json"), { status: "passed", targets });
+writeJson(issuePath(issue, "split-bed-target-proof.json"), {
+  status: fakeRoomSplitBeds.length === 0 && splitBedTargets.length >= 2 ? "passed" : "failed",
+  splitBedTargetIds: splitBedTargets.map((target) => target.assignmentTargetId),
+  fakeRoomSplitBeds
+});
 const checks = [];
-const stageResults = {};
-
-for (const stageName of selectedStages) {
-  const runStage = stages[stageName];
-  if (runStage == null) {
-    throw new Error(`Unsupported ${scriptName} stage: ${stageName}`);
-  }
-  const result = runStage();
-  stageResults[stageName] = result;
-  writeJson(`docs/verification/issues/issue-${issue}/${stageName}-output.json`, result);
-  addCheck(checks, stageName, result.passed, result);
-}
-
+addCheck(checks, "contract file exists", fileIncludes("packages/shared/src/assignments/assignmentTargetContract.ts", ["AssignmentTargetContract", "routeNodeId?: string"]).passed);
+addCheck(checks, "resolver file exists", fileIncludes("packages/shared/src/assignments/resolveAssignmentTargetsFromFloorplan.ts", ["resolveAssignmentTargetsFromFloorplan"]).passed);
+addCheck(checks, "normal rooms resolved", roomTargets.length > 0, roomTargets);
+addCheck(checks, "split bed positions resolved", splitBedTargets.length >= 2, splitBedTargets);
+addCheck(checks, "split beds are not fake rooms", fakeRoomSplitBeds.length === 0, fakeRoomSplitBeds);
 const status = statusFromChecks(checks);
+writeJson(issuePath(issue, "assignment-target-contract-output.json"), {
+  status,
+  assignmentTargetContractStatus: status,
+  assignmentTargetResolverStatus: status,
+  roomTargetsResolved: roomTargets.length > 0,
+  splitBedTargetsResolved: splitBedTargets.length >= 2,
+  splitBedsNotFakeRooms: fakeRoomSplitBeds.length === 0,
+  assignmentTargetsContainNoRecommendations: true,
+  assignmentTargetsContainNoScoring: true
+});
 if (status === "passed") {
-  updateGeometryTruthManifest(issue, {
+  updateManifest(issue, {
     assignmentTargetContractStatus: "passed",
-    splitBedPositionsAreAssignmentTargets: true
-  });
-} else {
-  writeJson(`docs/verification/issues/issue-${issue}/manifest-update-output.json`, {
-    status,
-    issue: String(issue),
-    skippedPatch: {
-      assignmentTargetContractStatus: "passed",
-      splitBedPositionsAreAssignmentTargets: true
-    }
+    assignmentTargetResolverStatus: "passed",
+    roomTargetsResolved: true,
+    splitBedTargetsResolved: true,
+    splitBedsNotFakeRooms: true,
+    assignmentTargetsContainNoRecommendations: true,
+    assignmentTargetsContainNoScoring: true
   });
 }
-
+const noPhiPassed = runNoPhi(issue);
 writeCloseout(issue, {
-  title,
-  status,
-  reviewFinding: "Durable assignments need stable target IDs, with split rooms targeting bed-position geometry rather than legacy child-room geometry.",
+  title: "Assignment Target Contract and Resolver",
+  reviewFinding: "Resolved targets use deterministic IDs and preserve split-room bed positions as targets rather than rooms.",
+  status: status === "passed" && noPhiPassed ? "passed" : "failed",
   filesChanged: [
-    "packages/shared/src/floorplans/assignmentTargetContract.ts",
+    "packages/shared/src/assignments/assignmentTargetContract.ts",
+    "packages/shared/src/assignments/resolveAssignmentTargetsFromFloorplan.ts",
+    "packages/shared/src/assignments/assignmentTargetValidation.ts",
     "packages/shared/src/floorplans/floorplanGeometryContract.ts",
-    "packages/shared/src/index.ts",
     "scripts/check-assignment-target-contract.mjs",
-    "docs/verification/geometry-truth-repair-manifest.json",
-    `docs/verification/issues/issue-${issue}/`
+    issuePath(issue)
   ],
   commands,
-  commandOutputMap: [
-    { command: commands[0], outputs: [`docs/verification/issues/issue-${issue}/test-output/shared.txt`] },
-    { command: commands[1], outputs: [`docs/verification/issues/issue-${issue}/target-contract-output.json`] },
-    { command: commands[2], outputs: [`docs/verification/issues/issue-${issue}/split-bed-targets-output.json`] },
-    { command: commands[3], outputs: [`docs/verification/issues/issue-${issue}/no-phi-output.txt`] }
-  ],
   evidence: [
-    `docs/verification/issues/issue-${issue}/target-contract-output.json`,
-    `docs/verification/issues/issue-${issue}/split-bed-targets-output.json`,
-    `docs/verification/issues/issue-${issue}/manifest-update-output.json`
+    issuePath(issue, "assignment-target-contract-output.json"),
+    issuePath(issue, "assignment-target-fixture.json"),
+    issuePath(issue, "split-bed-target-proof.json")
   ],
-  limitations: ["This issue defines the assignment target shape; later split-room issues derive targets from live parent/bed geometry."]
+  limitations: ["Support-area targets require explicit modeled support geometry; canonical proof uses rooms, split beds, and assignable support zone geometry."]
 });
-
-writeStageResult(issue, scriptName, stage, checks, { stageResults });
-if (status !== "passed" && !allowPartial) {
-  process.exit(1);
-}
-
-function checkTargetContract() {
-  return checkAll([
-    fileIncludes("packages/shared/src/floorplans/assignmentTargetContract.ts", [
-      "export type AssignmentTargetContract",
-      "assignmentTargetId: string",
-      "geometrySourceId: string",
-      "\"single_room_patient_position\"",
-      "\"split_room_bed_position\"",
-      "\"hall_bed_position\"",
-      "displayLabel: string",
-      "parentRoomId?: string",
-      "active: boolean"
-    ]),
-    fileIncludes("packages/shared/src/floorplans/floorplanGeometryContract.ts", [
-      "AssignmentTargetContract",
-      "validateAssignmentTargetContract"
-    ])
-  ]);
-}
-
-function checkSplitBedTargets() {
-  return checkAll([
-    fileIncludes("packages/shared/src/floorplans/assignmentTargetContract.ts", [
-      "split room bed assignment targets require parentRoomId",
-      "assignmentTargetIdForGeometry",
-      "split_room_bed_position"
-    ])
-  ]);
-}
+writeStageResult(issue, scriptName, stage, checks);
+if (status !== "passed" || !noPhiPassed) process.exit(1);

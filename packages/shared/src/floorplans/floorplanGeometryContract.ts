@@ -149,11 +149,13 @@ export type FloorplanGeometryContractStatus = {
   allRenderedObjectsHaveLayer: true;
   normalEditorRenderingRule:
     "editable_selectable_locked_reference_measurement_grid_label_or_popover";
+  supportAndZoneAssignmentTargetRule: "requires_assignmentTarget_true";
 };
 
 export const floorplanGeometryContractStatus: FloorplanGeometryContractStatus = {
   schemaVersion: FLOORPLAN_GEOMETRY_CONTRACT_SCHEMA_VERSION,
   allRenderedObjectsHaveLayer: true,
   normalEditorRenderingRule:
-    "editable_selectable_locked_reference_measurement_grid_label_or_popover"
+    "editable_selectable_locked_reference_measurement_grid_label_or_popover",
+  supportAndZoneAssignmentTargetRule: "requires_assignmentTarget_true"
 };

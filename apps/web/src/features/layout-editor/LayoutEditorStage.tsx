@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef, useState, type PointerEvent, type WheelE
 import {
   auditPathSyncStatus,
   applyDoorWidthPreset,
+  canonicalErPodGeometryFixture,
   editableRoomTypeToAuthoringRoomType,
   centerDoorOnWall,
   decreaseDoorWidth,
@@ -9,9 +10,11 @@ import {
   generateDoorPathNodes,
   increaseDoorWidth,
   isProviderPharmacySupportZone,
+  manualStaffFixture,
   moveToOppositeWall,
   moveToWall,
   nudgeDoor,
+  resolveAssignmentTargetsFromFloorplan,
   validateDoorDestinationsForLayout,
   validateRouteGraphConnectivity,
   validateSimulationReadyExport,
@@ -21,6 +24,7 @@ import {
   type DoorAuthoringWarning,
   type DoorPathNodeGenerationResult,
   type EditableDoorWall,
+  type ManualAssignmentSetContract,
   type PathSyncAuditResult,
   type SimulationReadyExportResult,
   type SplitRoomContract
@@ -181,6 +185,7 @@ import { DoorDestinationInspectorPanel } from "./DoorDestinationInspectorPanel";
 import { EntryExitInspectorPanel } from "./EntryExitInspectorPanel";
 import { LockedGeometryInspectorPanel } from "./LockedGeometryInspectorPanel";
 import { RouteGraphOverlay } from "./RouteGraphOverlay";
+import { AssignmentOverlay } from "../manual-assignment/AssignmentOverlay";
 import { StationQuickEditPopover } from "./StationQuickEditPopover";
 import { buildStationQuickEdit } from "./stationQuickEditViewModel";
 import { HallwayZoneQuickEditPopover } from "./HallwayZoneQuickEditPopover";
@@ -272,6 +277,7 @@ type LayoutEditorStageProps = {
   activeFloorplan?: LayoutEditorFloorplanInput | null;
   activeFloorplanContract?: ActiveFloorplanContract | null;
   assignmentOverlaySource?: LayoutAssignmentOverlaySource | null;
+  manualAssignmentSet?: ManualAssignmentSetContract | null;
   onCreateWorkingCopy?: () => void;
   onSaveWorkingCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
   onSaveAsNewCopy?: (draft: AuthoringDraftContract) => SaveWorkingCopyResult;
@@ -288,6 +294,7 @@ export function LayoutEditorStage({
   activeFloorplan = null,
   activeFloorplanContract = null,
   assignmentOverlaySource = null,
+  manualAssignmentSet = null,
   onCreateWorkingCopy,
   onSaveWorkingCopy,
   onSaveAsNewCopy,
@@ -635,6 +642,18 @@ export function LayoutEditorStage({
     (item) => item.objectId === "zone-provider-pharmacy"
   );
   const assignmentOverlay = createLayoutAssignmentOverlay(stageState.editableLayout, assignmentOverlaySource);
+  const manualAssignmentOverlayLayout =
+    manualAssignmentSet != null &&
+    stageState.editableLayout != null &&
+    manualAssignmentSet.floorplanId !== stageState.editableLayout.layoutId
+      ? canonicalErPodGeometryFixture
+      : stageState.editableLayout;
+  const manualAssignmentOverlayRouteGraph = manualAssignmentOverlayLayout == null
+    ? null
+    : deriveRouteGraphFromGeometry(manualAssignmentOverlayLayout);
+  const manualAssignmentTargets = manualAssignmentOverlayLayout == null || manualAssignmentOverlayRouteGraph == null
+    ? []
+    : resolveAssignmentTargetsFromFloorplan(manualAssignmentOverlayLayout, { routeGraph: manualAssignmentOverlayRouteGraph });
   const referenceOverlayViewModel = {
     ...defaultReferenceOverlayViewModel,
     visible: referenceOverlayVisible
@@ -1948,6 +1967,13 @@ export function LayoutEditorStage({
                   onMoveEnd={endRoomMove}
                 />
               ))}
+              <AssignmentOverlay
+                layout={manualAssignmentOverlayLayout}
+                assignmentTargets={manualAssignmentTargets}
+                staffMembers={manualStaffFixture}
+                assignmentSet={manualAssignmentSet}
+                pixelsPerFoot={stageState.viewport.pixelsPerFoot * stageState.viewport.zoom}
+              />
             </g>
             <g className="layout-editor-stage__doors">
               {entryExitItems.map((item) => (

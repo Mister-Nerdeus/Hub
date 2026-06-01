@@ -1,0 +1,87 @@
+{
+  "status": "passed",
+  "issue": "872",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "contract file exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "fixture exists",
+      "passed": true,
+      "detail": [
+        {
+          "staffMemberId": "staff-charge-a",
+          "displayName": "Charge Nurse A",
+          "role": "charge_nurse",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-a",
+          "displayName": "RN A",
+          "role": "rn",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-b",
+          "displayName": "RN B",
+          "role": "rn",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-c",
+          "displayName": "RN C",
+          "role": "rn",
+          "active": true
+        }
+      ]
+    },
+    {
+      "name": "fixture uses generic labels",
+      "passed": true,
+      "detail": [
+        {
+          "staffMemberId": "staff-charge-a",
+          "displayName": "Charge Nurse A",
+          "role": "charge_nurse",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-a",
+          "displayName": "RN A",
+          "role": "rn",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-b",
+          "displayName": "RN B",
+          "role": "rn",
+          "active": true
+        },
+        {
+          "staffMemberId": "staff-rn-c",
+          "displayName": "RN C",
+          "role": "rn",
+          "active": true
+        }
+      ]
+    },
+    {
+      "name": "fixture omits blocked fields",
+      "passed": true,
+      "detail": [
+        "competencyScore",
+        "skillScore",
+        "performanceScore",
+        "safetyScore",
+        "complianceScore",
+        "recommendationScore",
+        "workloadScore",
+        "burdenScore",
+        "optimizedRank"
+      ]
+    }
+  ]
+}

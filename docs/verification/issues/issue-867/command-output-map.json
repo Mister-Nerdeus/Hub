@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "issue": "867",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-867/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-867/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-867/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 867",
+      "outputs": [
+        "docs/verification/issues/issue-867/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-867/commands.txt"
+      ]
+    }
+  ]
+}

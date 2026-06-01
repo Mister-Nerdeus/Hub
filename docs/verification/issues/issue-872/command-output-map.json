@@ -1,0 +1,126 @@
+{
+  "status": "passed",
+  "issue": "872",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-route-graph-micro-hardening-go-no-go.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-assignment-foundation-preflight.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-assignment-target-contract.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-staff-member-contract.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-set-contract.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-validation.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-save-reload-proof.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-browser-proof.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-assignment-no-recommendation-guard.mjs --stage final --issue 872",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-872/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-872/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-872/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-872/test-output/docker-compose-build-web.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-872/test-output/docker-compose-production-build-web.txt"
+      ]
+    }
+  ]
+}

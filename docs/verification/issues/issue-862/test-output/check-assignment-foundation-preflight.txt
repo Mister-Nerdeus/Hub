@@ -1,0 +1,44 @@
+{
+  "status": "passed",
+  "issue": "862",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "route graph dependency allows manual assignment foundation",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "assignmentFoundationCanStartNext": true,
+        "routeGraphScope": "connectivity_only",
+        "simulationStillBlocked": true
+      }
+    },
+    {
+      "name": "manifest has manual-only defaults",
+      "passed": true,
+      "detail": {
+        "assignmentFoundationPreflightStatus": "missing",
+        "assignmentTargetContractStatus": "missing",
+        "assignmentTargetResolverStatus": "missing",
+        "staffMemberContractStatus": "missing",
+        "manualAssignmentSetContractStatus": "missing",
+        "manualAssignmentValidationStatus": "missing",
+        "manualAssignmentEditorStatus": "missing",
+        "manualAssignmentOverlayStatus": "missing",
+        "manualAssignmentSaveReloadStatus": "missing",
+        "manualAssignmentBrowserProofStatus": "missing",
+        "assignmentNoRecommendationGuardStatus": "missing",
+        "assignmentFoundationGoNoGoStatus": "not_ready",
+        "assignmentScope": "manual_only",
+        "recommendationsStillBlocked": true,
+        "scoringStillBlocked": true,
+        "simulationStillBlocked": true
+      }
+    },
+    {
+      "name": "status doc exists",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

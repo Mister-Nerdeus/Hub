@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "assignmentSet": {
+    "assignmentSetId": "manual-validation-set",
+    "floorplanId": "manual-validation-proof",
+    "label": "Manual validation proof set",
+    "createdAtIso": "2026-06-01T00:00:00.000Z",
+    "updatedAtIso": "2026-06-01T00:00:00.000Z",
+    "assignments": [
+      {
+        "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target",
+        "staffMemberId": "missing-staff",
+        "assignmentTargetId": "missing-target",
+        "assignmentTargetKind": "bed_position"
+      },
+      {
+        "assignmentId": "manual-assignment:manual-validation-set:staff-rn-a:assignment-target:manual-validation-proof:room:room-14",
+        "staffMemberId": "staff-rn-a",
+        "assignmentTargetId": "assignment-target:manual-validation-proof:room:room-14",
+        "assignmentTargetKind": "room"
+      },
+      {
+        "assignmentId": "manual-assignment:manual-validation-set:staff-rn-b:assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+        "staffMemberId": "staff-rn-b",
+        "assignmentTargetId": "assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+        "assignmentTargetKind": "bed_position"
+      }
+    ],
+    "mode": "manual"
+  },
+  "result": {
+    "status": "failed",
+    "issues": [
+      {
+        "severity": "error",
+        "code": "missing_staff_member",
+        "message": "Missing staff member",
+        "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+      },
+      {
+        "severity": "error",
+        "code": "missing_assignment_target",
+        "message": "Missing assignment target",
+        "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+      },
+      {
+        "severity": "error",
+        "code": "split_bed_target_not_found",
+        "message": "Split bed target not found",
+        "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+      }
+    ],
+    "targetResults": [
+      {
+        "assignmentTargetId": "assignment-target:manual-validation-proof:room:room-14",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+        "routeStatus": "unknown",
+        "messages": []
+      }
+    ]
+  }
+}
