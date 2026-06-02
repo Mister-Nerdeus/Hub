@@ -16,7 +16,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "routeGraphDependencyVerified": true,
-  "lastUpdatedIssue": "872",
+  "lastUpdatedIssue": "873",
   "roomTargetsResolved": true,
   "splitBedTargetsResolved": true,
   "splitBedsNotFakeRooms": true,
@@ -70,5 +70,10 @@
   "noClinicalSafetyClaim": true,
   "noStaffingComplianceClaim": true,
   "noPatientOutcomeClaim": true,
-  "goNoGoStatus": "go_for_next_milestone"
+  "goNoGoStatus": "go_for_next_milestone",
+  "assignmentCarePositionTerminologyStatus": "passed",
+  "bedPositionIsCurrentCarePositionModel": true,
+  "splitParentRoomNotPatientAssignmentTarget": true,
+  "splitBedPositionsAreAssignmentTargets": true,
+  "legacySplitBayNotUsedForAssignment": true
 }

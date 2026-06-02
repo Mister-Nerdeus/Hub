@@ -8,6 +8,8 @@ export const ASSIGNMENT_TARGET_KINDS = [
 
 export type AssignmentTargetKind = (typeof ASSIGNMENT_TARGET_KINDS)[number];
 
+export const ASSIGNMENT_CARE_POSITION_TARGET_KIND = "bed_position" satisfies AssignmentTargetKind;
+
 export type AssignmentTargetContract = {
   assignmentTargetId: string;
   targetKind: AssignmentTargetKind;

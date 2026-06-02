@@ -34,7 +34,8 @@ export const foundationScripts = {
   "check:manual-assignment-save-reload-proof": "node scripts/check-manual-assignment-save-reload-proof.mjs --stage final --issue 869",
   "check:manual-assignment-browser-proof": "node scripts/check-manual-assignment-browser-proof.mjs --stage final --issue 870",
   "check:assignment-no-recommendation-guard": "node scripts/check-assignment-no-recommendation-guard.mjs --stage final --issue 871",
-  "check:assignment-foundation-go-no-go": "node scripts/check-assignment-foundation-go-no-go.mjs --stage final --issue 872"
+  "check:assignment-foundation-go-no-go": "node scripts/check-assignment-foundation-go-no-go.mjs --stage final --issue 872",
+  "check:assignment-care-position-terminology": "node scripts/check-assignment-care-position-terminology.mjs --stage final --issue 873"
 };
 
 export function readArg(name, fallback = null) {
