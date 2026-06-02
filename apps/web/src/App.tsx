@@ -72,6 +72,10 @@ import {
 import { ManualAssignmentEditor } from "./features/manual-assignment/ManualAssignmentEditor";
 import { readManualAssignmentSet } from "./features/manual-assignment/manualAssignmentStorage";
 import { summarizeManualAssignmentCompatibility } from "./features/manual-assignment/manualAssignmentCompatibility";
+import {
+  MANUAL_ASSIGNMENT_FIXTURE_MODES,
+  type ManualAssignmentFixtureMode
+} from "./features/manual-assignment/manualAssignmentDemoMode";
 import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
@@ -152,6 +156,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const manualAssignmentCompatibility = activeFloorplanContract == null
     ? null
     : summarizeManualAssignmentCompatibility(activeFloorplanContract, manualAssignmentsByRoomId);
+  const manualAssignmentFixtureMode = readManualAssignmentFixtureMode();
   const activeFloorplanSummaryViewModel =
     createActiveFloorplanSummaryViewModel(activeFloorplanState);
   const canonicalFloorplanHeaderViewModel = createCanonicalFloorplanHeaderViewModel({
@@ -523,6 +528,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           <ManualAssignmentEditor
             activeFloorplan={activeFloorplanContract}
             assignmentSet={manualAssignmentSet}
+            fixtureMode={manualAssignmentFixtureMode}
             onAssignmentSetChange={setManualAssignmentSet}
           />
         </section>
@@ -594,6 +600,16 @@ function readInitialSection(fallback: AppSectionId): AppSectionId {
   }
   const candidate = new URLSearchParams(window.location.search).get("section");
   return APP_SECTIONS.some((section) => section.id === candidate) ? candidate as AppSectionId : fallback;
+}
+
+function readManualAssignmentFixtureMode(): ManualAssignmentFixtureMode {
+  if (typeof window === "undefined") {
+    return "active_floorplan";
+  }
+  const candidate = new URLSearchParams(window.location.search).get("manualAssignmentFixtureMode");
+  return MANUAL_ASSIGNMENT_FIXTURE_MODES.some((mode) => mode === candidate)
+    ? candidate as ManualAssignmentFixtureMode
+    : "active_floorplan";
 }
 
 function getSessionStorage(): Storage | null {

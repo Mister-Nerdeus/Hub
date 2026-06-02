@@ -1,3 +1,5 @@
+import { validateAssignmentLabelNoOverclaim } from "./assignmentLabelNoOverclaim.js";
+
 export const MANUAL_STAFF_ROLES = [
   "rn",
   "charge_nurse",
@@ -21,10 +23,18 @@ export function validateManualStaffMemberContract(value: unknown): ManualStaffMe
   requireAllowedKeys(staff, "manualStaffMember", ["staffMemberId", "displayName", "role", "active", "notes"]);
   return {
     staffMemberId: requireString(staff.staffMemberId, "manualStaffMember.staffMemberId"),
-    displayName: requireString(staff.displayName, "manualStaffMember.displayName"),
+    displayName: validateAssignmentLabelNoOverclaim(
+      requireString(staff.displayName, "manualStaffMember.displayName"),
+      "manualStaffMember.displayName"
+    ),
     role: requireEnum(staff.role, MANUAL_STAFF_ROLES, "manualStaffMember.role"),
     active: requireBoolean(staff.active, "manualStaffMember.active"),
-    ...(staff.notes == null ? {} : { notes: requireString(staff.notes, "manualStaffMember.notes") })
+    ...(staff.notes == null ? {} : {
+      notes: validateAssignmentLabelNoOverclaim(
+        requireString(staff.notes, "manualStaffMember.notes"),
+        "manualStaffMember.notes"
+      )
+    })
   };
 }
 

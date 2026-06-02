@@ -1,3 +1,5 @@
+import { validateAssignmentLabelNoOverclaim } from "./assignmentLabelNoOverclaim.js";
+
 export const ASSIGNMENT_TARGET_KINDS = [
   "room",
   "bed_position",
@@ -51,7 +53,10 @@ export function validateAssignmentTargetContract(value: unknown): AssignmentTarg
     assignmentTargetId,
     targetKind,
     sourceId,
-    displayLabel: requireString(target.displayLabel, "assignmentTarget.displayLabel"),
+    displayLabel: validateAssignmentLabelNoOverclaim(
+      requireString(target.displayLabel, "assignmentTarget.displayLabel"),
+      "assignmentTarget.displayLabel"
+    ),
     floorplanId,
     ...(target.routeNodeId == null ? {} : { routeNodeId: requireString(target.routeNodeId, "assignmentTarget.routeNodeId") }),
     active: requireBoolean(target.active, "assignmentTarget.active")

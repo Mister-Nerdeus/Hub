@@ -4,6 +4,7 @@ import {
   type AssignmentTargetContract,
   type AssignmentTargetKind
 } from "./assignmentTargetContract.js";
+import { validateAssignmentLabelNoOverclaim } from "./assignmentLabelNoOverclaim.js";
 
 export type ManualAssignmentContract = {
   assignmentId: string;
@@ -69,7 +70,12 @@ export function validateManualAssignmentContract(value: unknown): ManualAssignme
       ASSIGNMENT_TARGET_KINDS,
       "manualAssignment.assignmentTargetKind"
     ),
-    ...(assignment.notes == null ? {} : { notes: requireString(assignment.notes, "manualAssignment.notes") })
+    ...(assignment.notes == null ? {} : {
+      notes: validateAssignmentLabelNoOverclaim(
+        requireString(assignment.notes, "manualAssignment.notes"),
+        "manualAssignment.notes"
+      )
+    })
   };
 }
 
@@ -98,7 +104,10 @@ export function validateManualAssignmentSetContract(value: unknown): ManualAssig
   return {
     assignmentSetId,
     floorplanId: requireString(set.floorplanId, "manualAssignmentSet.floorplanId"),
-    label: requireString(set.label, "manualAssignmentSet.label"),
+    label: validateAssignmentLabelNoOverclaim(
+      requireString(set.label, "manualAssignmentSet.label"),
+      "manualAssignmentSet.label"
+    ),
     createdAtIso: requireIso(set.createdAtIso, "manualAssignmentSet.createdAtIso"),
     updatedAtIso: requireIso(set.updatedAtIso, "manualAssignmentSet.updatedAtIso"),
     assignments,

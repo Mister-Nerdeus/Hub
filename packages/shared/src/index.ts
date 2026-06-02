@@ -97,6 +97,10 @@ export * from "./floorplans/routeGraphContract.js";
 export * from "./floorplans/deriveRouteGraphFromGeometry.js";
 export * from "./floorplans/routeGraphValidation.js";
 export {
+  ASSIGNMENT_LABEL_FORBIDDEN_TERMS,
+  validateAssignmentLabelNoOverclaim
+} from "./assignments/assignmentLabelNoOverclaim.js";
+export {
   ASSIGNMENT_CARE_POSITION_TARGET_KIND,
   ASSIGNMENT_TARGET_KINDS as ASSIGNMENT_FOUNDATION_TARGET_KINDS,
   assignmentTargetIdFor,
