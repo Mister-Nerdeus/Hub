@@ -35,7 +35,8 @@ export const foundationScripts = {
   "check:manual-assignment-browser-proof": "node scripts/check-manual-assignment-browser-proof.mjs --stage final --issue 870",
   "check:assignment-no-recommendation-guard": "node scripts/check-assignment-no-recommendation-guard.mjs --stage final --issue 871",
   "check:assignment-foundation-go-no-go": "node scripts/check-assignment-foundation-go-no-go.mjs --stage final --issue 872",
-  "check:assignment-care-position-terminology": "node scripts/check-assignment-care-position-terminology.mjs --stage final --issue 873"
+  "check:assignment-care-position-terminology": "node scripts/check-assignment-care-position-terminology.mjs --stage final --issue 873",
+  "check:manual-assignment-active-floorplan-fallback": "node scripts/check-manual-assignment-active-floorplan-fallback.mjs --stage final --issue 874"
 };
 
 export function readArg(name, fallback = null) {

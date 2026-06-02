@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import {
-  canonicalErPodGeometryFixture,
   deriveRouteGraphFromGeometry,
   manualStaffFixture,
   resolveAssignmentTargetsFromFloorplan,
@@ -19,23 +18,27 @@ import {
 import { readManualAssignmentSet, writeManualAssignmentSet } from "./manualAssignmentStorage";
 import { createAssignmentValidationViewModel } from "./assignmentValidationViewModel";
 import { StaffListPanel } from "./StaffListPanel";
+import {
+  selectManualAssignmentLayout,
+  type ManualAssignmentFixtureMode
+} from "./manualAssignmentDemoMode";
 import "./ManualAssignmentFoundation.css";
 
 type ManualAssignmentEditorProps = {
   activeFloorplan?: ActiveFloorplanContract | null;
   assignmentSet?: ManualAssignmentSetContract | null;
+  fixtureMode?: ManualAssignmentFixtureMode;
   onAssignmentSetChange?: (assignmentSet: ManualAssignmentSetContract) => void;
 };
 
 export function ManualAssignmentEditor({
   activeFloorplan = null,
   assignmentSet = null,
+  fixtureMode = "active_floorplan",
   onAssignmentSetChange
 }: ManualAssignmentEditorProps) {
-  const activeLayout = activeFloorplan?.editableLayout ?? null;
-  const layout = activeLayout != null && (activeLayout.splitRooms?.length ?? 0) > 0
-    ? activeLayout
-    : canonicalErPodGeometryFixture;
+  const layoutSelection = selectManualAssignmentLayout({ activeFloorplan, fixtureMode });
+  const layout = layoutSelection.layout;
   const routeGraph = useMemo(() => deriveRouteGraphFromGeometry(layout), [layout]);
   const assignmentTargets = useMemo(
     () => resolveAssignmentTargetsFromFloorplan(layout, { routeGraph }),
@@ -84,10 +87,18 @@ export function ManualAssignmentEditor({
       className="manual-foundation-editor"
       data-manual-assignment-editor="true"
       data-assignment-scope="manual_only"
+      data-manual-assignment-layout-source={layoutSelection.source}
+      data-manual-assignment-fixture-mode={layoutSelection.fixtureMode}
+      data-manual-assignment-layout-id={layout.layoutId}
       aria-labelledby="manual-foundation-title"
     >
       <header className="manual-foundation-editor__header">
         <h2 id="manual-foundation-title">Manual Assignment</h2>
+        {layoutSelection.visibleLabel == null ? null : (
+          <p className="manual-foundation-editor__fixture-mode" role="status">
+            {layoutSelection.visibleLabel}
+          </p>
+        )}
       </header>
       <ManualAssignmentControls
         canAddAssignment={selectedTarget != null && state.selectedStaffMemberId.length > 0}

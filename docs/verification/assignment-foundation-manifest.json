@@ -16,7 +16,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "routeGraphDependencyVerified": true,
-  "lastUpdatedIssue": "873",
+  "lastUpdatedIssue": "874",
   "roomTargetsResolved": true,
   "splitBedTargetsResolved": true,
   "splitBedsNotFakeRooms": true,
@@ -75,5 +75,10 @@
   "bedPositionIsCurrentCarePositionModel": true,
   "splitParentRoomNotPatientAssignmentTarget": true,
   "splitBedPositionsAreAssignmentTargets": true,
-  "legacySplitBayNotUsedForAssignment": true
+  "legacySplitBayNotUsedForAssignment": true,
+  "manualAssignmentActiveFloorplanFallbackStatus": "passed",
+  "activeFloorplanAlwaysUsedWhenPresent": true,
+  "activeFloorplanWithoutSplitRoomsSupported": true,
+  "canonicalFixtureOnlyExplicitDemoMode": true,
+  "noSilentCanonicalFallback": true
 }
