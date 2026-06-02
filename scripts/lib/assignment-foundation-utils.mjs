@@ -38,7 +38,8 @@ export const foundationScripts = {
   "check:assignment-care-position-terminology": "node scripts/check-assignment-care-position-terminology.mjs --stage final --issue 873",
   "check:manual-assignment-active-floorplan-fallback": "node scripts/check-manual-assignment-active-floorplan-fallback.mjs --stage final --issue 874",
   "check:multi-staff-assignment-overlay-policy": "node scripts/check-multi-staff-assignment-overlay-policy.mjs --stage final --issue 875",
-  "check:assignment-label-no-overclaim": "node scripts/check-assignment-label-no-overclaim.mjs --stage final --issue 876"
+  "check:assignment-label-no-overclaim": "node scripts/check-assignment-label-no-overclaim.mjs --stage final --issue 876",
+  "check:assignment-foundation-evidence-closeout": "node scripts/check-assignment-foundation-evidence-closeout.mjs --stage final --issue 877"
 };
 
 export function readArg(name, fallback = null) {
