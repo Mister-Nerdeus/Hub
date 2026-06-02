@@ -16,7 +16,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "routeGraphDependencyVerified": true,
-  "lastUpdatedIssue": "874",
+  "lastUpdatedIssue": "875",
   "roomTargetsResolved": true,
   "splitBedTargetsResolved": true,
   "splitBedsNotFakeRooms": true,
@@ -80,5 +80,10 @@
   "activeFloorplanAlwaysUsedWhenPresent": true,
   "activeFloorplanWithoutSplitRoomsSupported": true,
   "canonicalFixtureOnlyExplicitDemoMode": true,
-  "noSilentCanonicalFallback": true
+  "noSilentCanonicalFallback": true,
+  "multiStaffAssignmentOverlayPolicyStatus": "passed",
+  "multiStaffAssignmentsDoNotCollapseSilently": true,
+  "coAssignmentPolicyDocumented": true,
+  "overlayDisplaysOrValidatesMultipleStaff": true,
+  "assignmentOverlayStillManualOnly": true
 }

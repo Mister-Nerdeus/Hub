@@ -1,0 +1,134 @@
+{
+  "status": "passed",
+  "issue": "875",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "shared validation exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "web validation view model exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "missing staff creates error",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_staff_member",
+            "message": "Missing staff member",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_target",
+            "message": "Missing assignment target",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "split_bed_target_not_found",
+            "message": "Split bed target not found",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          }
+        ],
+        "targetResults": [
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:room:room-14",
+            "routeStatus": "unknown",
+            "messages": []
+          },
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+            "routeStatus": "unknown",
+            "messages": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing target creates error",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_staff_member",
+            "message": "Missing staff member",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_target",
+            "message": "Missing assignment target",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "split_bed_target_not_found",
+            "message": "Split bed target not found",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          }
+        ],
+        "targetResults": [
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:room:room-14",
+            "routeStatus": "unknown",
+            "messages": []
+          },
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+            "routeStatus": "unknown",
+            "messages": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "split bed target validated",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_staff_member",
+            "message": "Missing staff member",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_target",
+            "message": "Missing assignment target",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          },
+          {
+            "severity": "error",
+            "code": "split_bed_target_not_found",
+            "message": "Split bed target not found",
+            "assignmentId": "manual-assignment:manual-validation-set:missing-staff:missing-target"
+          }
+        ],
+        "targetResults": [
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:room:room-14",
+            "routeStatus": "unknown",
+            "messages": []
+          },
+          {
+            "assignmentTargetId": "assignment-target:manual-validation-proof:bed_position:room-02:bed-a",
+            "routeStatus": "unknown",
+            "messages": []
+          }
+        ]
+      }
+    }
+  ]
+}
