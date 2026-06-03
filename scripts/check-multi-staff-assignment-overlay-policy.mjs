@@ -13,7 +13,6 @@ import {
   writeCloseout,
   writeCommands,
   writeJson,
-  writePlaceholderPng,
   writeStageResult
 } from "./lib/assignment-foundation-utils.mjs";
 import {
@@ -23,6 +22,7 @@ import {
   validateManualAssignmentSetContract,
   validateManualAssignmentSetReferences
 } from "../packages/shared/dist/index.js";
+import { delay, waitForExpression, withBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
 
 const issue = readArg("--issue", "875");
 const stage = readArg("--stage", "final");
@@ -49,7 +49,7 @@ const screenshots = [
 
 ensureIssueArtifacts(issue, { screenshots: true });
 writeCommands(issue, commands);
-for (const screenshot of screenshots) writePlaceholderPng(issuePath(issue, `screenshots/${screenshot}`));
+await captureScreenshots();
 screenshotIndex(issue, screenshots);
 
 const floorplanId = "multi-staff-policy-proof";
@@ -216,4 +216,75 @@ function assignmentSet(assignments) {
     assignments,
     mode: "manual"
   });
+}
+
+async function captureScreenshots() {
+  const port = Number(readArg("--port", "6875"));
+  const chromePort = Number(readArg("--chrome-port", "9875"));
+  await withBrowserRenderedApp({ port, chromePort, width: 1440, height: 1100, initScript: unlockScript() }, async (browser) => {
+    await resetManualAssignmentProof(browser);
+    await addAssignment(browser, "staff-rn-a", "room", 0);
+    await clickButton(browser, "Save assignment set");
+    await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('.layout-editor-stage__svg') != null`);
+    await waitForExpression(browser, `document.querySelectorAll('[data-manual-assignment-badge="true"]').length >= 1`, 15_000);
+    await browser.screenshot(issuePath(issue, "screenshots/one-staff-normal-room.png"));
+
+    await resetManualAssignmentProof(browser);
+    await addAssignment(browser, "staff-rn-b", "bed_position", 0);
+    await addAssignment(browser, "staff-rn-c", "bed_position", 1);
+    await clickButton(browser, "Save assignment set");
+    await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('.layout-editor-stage__svg') != null`);
+    await waitForExpression(browser, `document.querySelectorAll('[data-manual-assignment-badge="true"]').length >= 2`, 15_000);
+    await browser.screenshot(issuePath(issue, "screenshots/split-bed-separate-staff.png"));
+
+    await resetManualAssignmentProof(browser);
+    await addAssignment(browser, "staff-rn-a", "room", 0);
+    await addAssignment(browser, "staff-rn-b", "room", 0);
+    await waitForExpression(browser, `document.body.textContent.includes("Multiple manual staff on one target")`, 15_000);
+    await browser.screenshot(issuePath(issue, "screenshots/restricted-target-warning.png"));
+    await clickButton(browser, "Save assignment set");
+    await browser.navigate(`${browser.baseUrl}/?section=editor`, `document.querySelector('.layout-editor-stage__svg') != null`);
+    await waitForExpression(browser, `Array.from(document.querySelectorAll('[data-manual-assignment-badge="true"]')).some((badge) => badge.getAttribute("data-manual-assignment-staff-count") === "2")`, 15_000);
+    await browser.screenshot(issuePath(issue, "screenshots/multi-staff-count.png"));
+  });
+}
+
+async function resetManualAssignmentProof(browser) {
+  await browser.navigate(
+    `${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_proof`,
+    `document.querySelector('[data-manual-assignment-editor="true"]') != null`
+  );
+  await browser.evaluate("localStorage.clear()");
+  await browser.navigate(
+    `${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_proof`,
+    `document.querySelector('[data-manual-assignment-editor="true"]') != null`
+  );
+}
+
+async function addAssignment(browser, staffId, targetKind, targetIndex = 0) {
+  const staffSelector = `[data-manual-staff-id="${staffId}"]`;
+  await browser.evaluate(`document.querySelector(${JSON.stringify(staffSelector)})?.click()`);
+  await waitForExpression(browser, `document.querySelector(${JSON.stringify(staffSelector)})?.getAttribute("aria-pressed") === "true"`, 5_000);
+  const targetSelector = await browser.evaluate(`(() => {
+    const buttons = Array.from(document.querySelectorAll('[data-assignment-target-kind="${targetKind}"]'));
+    const button = buttons[${Number(targetIndex)}];
+    button?.click();
+    const targetId = button?.getAttribute("data-assignment-target-id");
+    return targetId == null ? null : \`[data-assignment-target-id="\${targetId}"]\`;
+  })()`);
+  if (targetSelector == null) {
+    throw new Error(`Assignment target ${targetKind} at index ${targetIndex} was not found`);
+  }
+  await waitForExpression(browser, `document.querySelector(${JSON.stringify(targetSelector)})?.getAttribute("aria-pressed") === "true"`, 5_000);
+  await clickButton(browser, "Add assignment");
+  await delay(200);
+}
+
+async function clickButton(browser, text) {
+  await browser.evaluate(`Array.from(document.querySelectorAll('button')).find((button) => button.textContent.trim() === ${JSON.stringify(text)} && !button.disabled)?.click()`);
+  await delay(250);
+}
+
+function unlockScript() {
+  return "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
 }

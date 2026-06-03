@@ -219,7 +219,7 @@ function proofScreenshots(issues) {
     if (screenshots.length === 0) missing.push(`${indexPath}:screenshots`);
     for (const screenshot of screenshots) {
       const screenshotPath = issuePath(screenshotIssue, screenshot.file);
-      if (!existsSync(screenshotPath) || statSync(screenshotPath).size <= 0) {
+      if (!existsSync(screenshotPath) || statSync(screenshotPath).size < 5000) {
         missing.push(screenshotPath);
       } else {
         indexed.push({ issue: String(screenshotIssue), file: screenshot.file, bytes: statSync(screenshotPath).size });

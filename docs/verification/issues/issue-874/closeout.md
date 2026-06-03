@@ -42,7 +42,7 @@ Manual Assignment Active Floorplan Fallback Fix
 - docs/verification/issues/issue-874/test-output/docker-compose-production-build-web.txt
 
 ## Known Limitations
-- The screenshot files are local proof placeholders for the three deterministic layout-selection cases; the behavior is enforced by the helper test and source gate.
+- No-active-floorplan fallback is contract-verified by the selection helper; the browser route normally starts with the active default floorplan.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only assignment foundation task.

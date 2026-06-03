@@ -13,10 +13,10 @@ import {
   writeCloseout,
   writeCommands,
   writeJson,
-  writePlaceholderPng,
   writeStageResult
 } from "./lib/assignment-foundation-utils.mjs";
 import { canonicalErPodGeometryFixture } from "../packages/shared/dist/index.js";
+import { withBrowserRenderedApp } from "./lib/app-browser-proof.mjs";
 
 const issue = readArg("--issue", "874");
 const stage = readArg("--stage", "final");
@@ -41,7 +41,7 @@ const screenshots = [
 
 ensureIssueArtifacts(issue, { screenshots: true });
 writeCommands(issue, commands);
-for (const screenshot of screenshots) writePlaceholderPng(issuePath(issue, `screenshots/${screenshot}`));
+await captureScreenshots();
 screenshotIndex(issue, screenshots);
 
 const activeNoSplitProof = {
@@ -144,7 +144,33 @@ writeCloseout(issue, {
     issuePath(issue, "test-output/docker-compose-build-web.txt"),
     issuePath(issue, "test-output/docker-compose-production-build-web.txt")
   ],
-  limitations: ["The screenshot files are local proof placeholders for the three deterministic layout-selection cases; the behavior is enforced by the helper test and source gate."]
+  limitations: ["No-active-floorplan fallback is contract-verified by the selection helper; the browser route normally starts with the active default floorplan."]
 });
 writeStageResult(issue, scriptName, stage, checks);
 if (status !== "passed" || !noPhiPassed) process.exit(1);
+
+async function captureScreenshots() {
+  const port = Number(readArg("--port", "6874"));
+  const chromePort = Number(readArg("--chrome-port", "9874"));
+  await withBrowserRenderedApp({ port, chromePort, width: 1440, height: 1000, initScript: unlockScript() }, async (browser) => {
+    await browser.navigate(
+      `${browser.baseUrl}/?section=manual-assignment`,
+      `document.querySelector('[data-manual-assignment-editor="true"][data-manual-assignment-layout-source="active_floorplan"]') != null`
+    );
+    await browser.screenshot(issuePath(issue, "screenshots/active-floorplan-no-split-room.png"));
+    await browser.navigate(
+      `${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_demo`,
+      `document.querySelector('[data-manual-assignment-editor="true"][data-manual-assignment-fixture-mode="canonical_demo"]') != null`
+    );
+    await browser.screenshot(issuePath(issue, "screenshots/canonical-demo-mode.png"));
+    await browser.navigate(
+      `${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_proof`,
+      `document.querySelector('[data-manual-assignment-editor="true"][data-manual-assignment-fixture-mode="canonical_proof"]') != null`
+    );
+    await browser.screenshot(issuePath(issue, "screenshots/no-active-floorplan-fallback.png"));
+  });
+}
+
+function unlockScript() {
+  return "sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));";
+}
