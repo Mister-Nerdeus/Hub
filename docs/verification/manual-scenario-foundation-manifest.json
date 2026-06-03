@@ -2,7 +2,7 @@
   "manualScenarioFoundationPreflightStatus": "passed",
   "assignmentEditorLayoutResetStatus": "passed",
   "coAssignmentPolicyContractStatus": "passed",
-  "manualScenarioContractStatus": "missing",
+  "manualScenarioContractStatus": "passed",
   "manualScenarioSnapshotStatus": "missing",
   "manualScenarioValidationStatus": "missing",
   "manualScenarioEditorStatus": "missing",
@@ -15,7 +15,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "880",
+  "lastUpdatedIssue": "881",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -24,5 +24,11 @@
   "patientTargetMultiStaffValidated": true,
   "supportTargetMultiStaffPolicySupported": true,
   "coAssignmentContainsNoRecommendations": true,
-  "coAssignmentContainsNoScoring": true
+  "coAssignmentContainsNoScoring": true,
+  "manualScenarioModeOnly": true,
+  "scenarioReferencesFloorplan": true,
+  "scenarioReferencesAssignmentSet": true,
+  "scenarioContainsNoSimulation": true,
+  "scenarioContainsNoScoring": true,
+  "scenarioContainsNoRecommendations": true
 }
