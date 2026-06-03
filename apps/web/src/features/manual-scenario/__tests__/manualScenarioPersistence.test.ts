@@ -31,6 +31,7 @@ const snapshot = createManualScenarioSnapshot({
   staffRosterId: scenario.staffRosterId,
   floorplanRevisionId: "manual-scenario-persistence-floorplan-revision",
   assignmentSetRevisionId: "manual-scenario-persistence-assignment-revision",
+  staffRosterRevisionId: "manual-scenario-persistence-roster-revision",
   createdAtIso: MANUAL_SCENARIO_TIMESTAMP
 });
 const state = createManualScenarioStateFromRecords({

@@ -15,6 +15,7 @@ const snapshotInput = {
   staffRosterId: "staff-roster-alpha",
   floorplanRevisionId: "floorplan-revision-001",
   assignmentSetRevisionId: "assignment-revision-001",
+  staffRosterRevisionId: "staff-roster-revision-001",
   createdAtIso: "2026-06-01T00:00:00.000Z"
 };
 
@@ -24,14 +25,16 @@ test("manual scenario snapshot contract accepts reference-only snapshots", () =>
   assert.equal(snapshot.scenarioId, snapshotInput.scenarioId);
   assert.equal(snapshot.floorplanId, snapshotInput.floorplanId);
   assert.equal(snapshot.assignmentSetId, snapshotInput.assignmentSetId);
+  assert.equal(snapshot.staffRosterId, snapshotInput.staffRosterId);
   assert.equal(snapshot.floorplanRevisionId, snapshotInput.floorplanRevisionId);
   assert.equal(snapshot.assignmentSetRevisionId, snapshotInput.assignmentSetRevisionId);
+  assert.equal(snapshot.staffRosterRevisionId, snapshotInput.staffRosterRevisionId);
 });
 
 test("manual scenario snapshot id helper is deterministic", () => {
   assert.equal(
     manualScenarioSnapshotIdFor(snapshotInput),
-    "manual-scenario-snapshot:manual-scenario-alpha:floorplan-alpha:assignment-set-alpha:floorplan-revision-001:assignment-revision-001"
+    "manual-scenario-snapshot:manual-scenario-alpha:floorplan-alpha:assignment-set-alpha:staff-roster-alpha:floorplan-revision-001:assignment-revision-001:staff-roster-revision-001"
   );
 });
 
@@ -39,6 +42,7 @@ test("manual scenario snapshot ordering is deterministic", () => {
   const second = createManualScenarioSnapshot({
     ...snapshotInput,
     assignmentSetRevisionId: "assignment-revision-002",
+    staffRosterRevisionId: "staff-roster-revision-002",
     createdAtIso: "2026-06-02T00:00:00.000Z"
   });
   const first = createManualScenarioSnapshot(snapshotInput);

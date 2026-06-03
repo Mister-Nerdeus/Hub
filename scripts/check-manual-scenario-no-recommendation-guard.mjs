@@ -51,6 +51,8 @@ const forbiddenTerms = [
 const contractFiles = [
   "packages/shared/src/scenarios/manualScenarioContract.ts",
   "packages/shared/src/scenarios/manualScenarioValidation.ts",
+  "packages/shared/src/scenarios/manualScenarioStaffRosterContract.ts",
+  "packages/shared/src/scenarios/manualScenarioStaffRosterFixture.ts",
   "packages/shared/src/scenarios/manualScenarioSnapshotContract.ts",
   "packages/shared/src/scenarios/manualScenarioVersioning.ts",
   "packages/shared/src/scenarios/manualScenarioReferenceValidation.ts",
@@ -65,12 +67,10 @@ const uiFiles = [
   "apps/web/src/features/manual-scenario/ManualScenario.css"
 ];
 const proofArtifactFiles = [
-  "docs/verification/issues/issue-885/scenario-before.json",
-  "docs/verification/issues/issue-885/scenario-after.json",
-  "docs/verification/issues/issue-885/scenario-reference-stability-proof.json",
-  "docs/verification/issues/issue-885/scenario-assignment-set-fixture.json",
   "docs/verification/issues/issue-886/scenario-before.json",
   "docs/verification/issues/issue-886/scenario-after.json",
+  "docs/verification/issues/issue-886/scenario-reference-stability-proof.json",
+  "docs/verification/issues/issue-886/scenario-assignment-set-fixture.json",
   "docs/verification/issues/issue-886/manual-scenario-browser-trace.json"
 ];
 

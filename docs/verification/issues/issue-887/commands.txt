@@ -1,16 +1,6 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-npm run check:clean-committed-state
-node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 887
-node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 887
-node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 887
-node scripts/check-manual-scenario-contract.mjs --stage final --issue 887
-node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 887
-node scripts/check-manual-scenario-validation.mjs --stage final --issue 887
-node scripts/check-manual-scenario-ui.mjs --stage final --issue 887
-node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887
-node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887
 node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 887
 node scripts/check-no-phi-fields.mjs
 docker compose config

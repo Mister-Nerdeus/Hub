@@ -36,6 +36,7 @@ export function ManualScenarioPanel({
   const [renameValue, setRenameValue] = useState(selectedScenario?.label ?? "");
   const floorplanId = activeFloorplan?.editableLayout.layoutId ?? "no-active-floorplan";
   const assignmentSetId = assignmentSet?.assignmentSetId ?? "manual-assignment-set-active";
+  const staffRosterId = "manual-staff-roster-active";
   const referencesReady = activeFloorplan != null;
 
   useEffect(() => {
@@ -46,12 +47,12 @@ export function ManualScenarioPanel({
     if (!referencesReady) return;
     onScenarioStateChange(createManualScenario({
       state: scenarioState,
-      references: {
-        floorplanId,
-        assignmentSetId,
-        staffRosterId: "manual-staff-roster-active"
-      }
-    }));
+        references: {
+          floorplanId,
+          assignmentSetId,
+          staffRosterId
+        }
+      }));
   }
 
   return (
@@ -115,6 +116,10 @@ export function ManualScenarioPanel({
               <dd>{assignmentSet == null ? "Manual assignment set draft" : assignmentSet.label}</dd>
             </div>
             <div>
+              <dt>Linked staff roster</dt>
+              <dd>Manual staff roster</dd>
+            </div>
+            <div>
               <dt>Validation</dt>
               <dd>{referencesReady ? "References available" : "Missing floorplan"}</dd>
             </div>
@@ -129,6 +134,10 @@ export function ManualScenarioPanel({
               <div>
                 <dt>Assignment set ID</dt>
                 <dd>{assignmentSetId}</dd>
+              </div>
+              <div>
+                <dt>Staff roster ID</dt>
+                <dd>{staffRosterId}</dd>
               </div>
               <div>
                 <dt>Scenario ID</dt>

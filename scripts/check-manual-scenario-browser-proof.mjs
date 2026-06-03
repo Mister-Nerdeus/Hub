@@ -47,6 +47,7 @@ addCheck(checks, "manual scenario created in browser", proof.manualScenarioCreat
 addCheck(checks, "manual scenario duplicated in browser", proof.manualScenarioDuplicateBrowserProof, proof);
 addCheck(checks, "manual scenario renamed in browser", proof.manualScenarioRenameBrowserProof, proof);
 addCheck(checks, "linked floorplan verified in browser", proof.linkedFloorplanVisible, proof);
+addCheck(checks, "linked staff roster verified in browser", proof.linkedStaffRosterVisible, proof);
 addCheck(checks, "linked assignment set verified in browser", proof.linkedAssignmentSetVisible, proof);
 addCheck(checks, "manual assignment overlay verified in browser", proof.overlayBadgesVisible, proof);
 addCheck(checks, "manual scenarios persist after reload", proof.manualScenarioPersistsAfterReload, proof);
@@ -139,6 +140,8 @@ async function runBrowserProof() {
       linkedFloorplanVisible: /Linked floorplan/u.test(panelTextAfter) &&
         !/No active floorplan/u.test(panelTextAfter) &&
         scenarioAfter.scenarios.every((scenario) => scenario.floorplanId === "default-er-layout-plan-1"),
+      linkedStaffRosterVisible: /Linked staff roster/u.test(panelTextAfter) &&
+        scenarioAfter.scenarios.every((scenario) => scenario.staffRosterId === "manual-staff-roster-active"),
       linkedAssignmentSetVisible: /Linked assignment set/u.test(panelTextAfter) && /Manual assignment set/u.test(panelTextAfter),
       overlayBadgesVisible: /RN A/u.test(overlayText) && /RN B/u.test(overlayText) && /RN C/u.test(overlayText),
       manualScenarioPersistsAfterReload: JSON.stringify(scenarioBefore) === JSON.stringify(scenarioAfter),

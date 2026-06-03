@@ -4,7 +4,7 @@ export type ManualScenarioContract = {
   description?: string;
   floorplanId: string;
   assignmentSetId: string;
-  staffRosterId?: string;
+  staffRosterId: string;
   createdAtIso: string;
   updatedAtIso: string;
   mode: "manual";

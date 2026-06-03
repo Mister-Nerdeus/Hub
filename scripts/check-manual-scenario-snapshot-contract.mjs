@@ -20,7 +20,7 @@ import {
   validateManualScenarioSnapshotContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "882");
+const issue = readArg("--issue", "883");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-snapshot-contract";
 const commands = [
@@ -45,12 +45,14 @@ const snapshotV1 = createManualScenarioSnapshot({
   staffRosterId: "staff-roster-alpha",
   floorplanRevisionId: "floorplan-revision-001",
   assignmentSetRevisionId: "assignment-revision-001",
+  staffRosterRevisionId: "staff-roster-revision-001",
   createdAtIso: "2026-06-01T00:00:00.000Z"
 });
 const snapshotV2 = createManualScenarioSnapshot({
   ...snapshotV1,
   scenarioSnapshotId: undefined,
   assignmentSetRevisionId: "assignment-revision-002",
+  staffRosterRevisionId: "staff-roster-revision-002",
   createdAtIso: "2026-06-02T00:00:00.000Z"
 });
 const orderedSnapshots = orderManualScenarioSnapshots([snapshotV2, snapshotV1]);
@@ -125,7 +127,8 @@ addCheck(checks, "shared regression test covers snapshot references and forbidde
 ).passed);
 addCheck(checks, "snapshot fixture remains reference-only", snapshotV1.mode === "manual_snapshot" &&
   snapshotV1.floorplanId.length > 0 &&
-  snapshotV1.assignmentSetId.length > 0);
+  snapshotV1.assignmentSetId.length > 0 &&
+  snapshotV1.staffRosterId.length > 0);
 addCheck(checks, "snapshot versioning proof passes", orderedSnapshots.length === 2 &&
   orderedSnapshots[0]?.assignmentSetRevisionId === "assignment-revision-001");
 addCheck(checks, "forbidden snapshot fields are rejected", forbiddenProof.status === "passed", forbiddenProof);

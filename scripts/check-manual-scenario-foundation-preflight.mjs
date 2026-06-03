@@ -57,6 +57,7 @@ const rootScriptProof = packageScriptProof([
   "check:manual-scenario-foundation-preflight",
   "check:manual-assignment-layout-change-reset",
   "check:co-assignment-policy-contract",
+  "check:manual-scenario-staff-roster-contract",
   "check:manual-scenario-contract",
   "check:manual-scenario-snapshot-contract",
   "check:manual-scenario-validation",
@@ -72,6 +73,7 @@ const requiredDefaults = {
   manualScenarioFoundationPreflightStatus: manifest.manualScenarioFoundationPreflightStatus,
   assignmentEditorLayoutResetStatus: manifest.assignmentEditorLayoutResetStatus,
   coAssignmentPolicyContractStatus: manifest.coAssignmentPolicyContractStatus,
+  manualScenarioStaffRosterStatus: manifest.manualScenarioStaffRosterStatus,
   manualScenarioContractStatus: manifest.manualScenarioContractStatus,
   manualScenarioSnapshotStatus: manifest.manualScenarioSnapshotStatus,
   manualScenarioValidationStatus: manifest.manualScenarioValidationStatus,
@@ -92,18 +94,18 @@ const statusDocProof = {
     statusDocText.includes("reference and presentation records only") &&
     (
       (statusDocText.includes("preflight only") && statusDocText.includes("not_ready")) ||
-      statusDocText.includes("go_for_manual_scenario_analysis_foundation")
+      statusDocText.includes("go_for_manual_scenario_review_foundation")
     ),
   missing: [
     statusDocText.includes("manual_only") ? null : "manual_only",
     statusDocText.includes("reference and presentation records only") ? null : "reference and presentation records only",
     (
       (statusDocText.includes("preflight only") && statusDocText.includes("not_ready")) ||
-      statusDocText.includes("go_for_manual_scenario_analysis_foundation")
+      statusDocText.includes("go_for_manual_scenario_review_foundation")
     ) ? null : "preflight/not_ready or final go status"
   ].filter(Boolean)
 };
-const allowedGoNoGoStatus = new Set(["not_ready", "go_for_manual_scenario_analysis_foundation"]);
+const allowedGoNoGoStatus = new Set(["not_ready", "go_for_manual_scenario_review_foundation"]);
 
 const checks = [];
 addCheck(checks, "assignment foundation dependency allows manual scenarios", assignmentProof.status === "passed", assignmentProof);

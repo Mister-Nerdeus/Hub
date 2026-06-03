@@ -17,7 +17,7 @@ import {
   writeStageResult
 } from "./lib/manual-scenario-foundation-utils.mjs";
 
-const issue = readArg("--issue", "884");
+const issue = readArg("--issue", "885");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-ui";
 const commands = [
@@ -47,6 +47,7 @@ const requiredLabels = [
   "Duplicate scenario",
   "Rename scenario",
   "Linked floorplan",
+  "Linked staff roster",
   "Linked assignment set",
   "Manual assignments",
   "Validation"
@@ -95,7 +96,7 @@ addCheck(checks, "scenario route does not render ratio comparison panel", fileEx
 ).passed);
 addCheck(checks, "technical ids are advanced-only", fileIncludes(
   "apps/web/src/features/manual-scenario/ManualScenarioPanel.tsx",
-  ["<details className=\"manual-scenario-advanced\">", "<summary>Advanced</summary>", "Scenario ID", "Floorplan ID", "Assignment set ID"]
+  ["<details className=\"manual-scenario-advanced\">", "<summary>Advanced</summary>", "Scenario ID", "Floorplan ID", "Assignment set ID", "Staff roster ID"]
 ).passed);
 addCheck(checks, "state regression test covers manual scenario actions", fileIncludes(
   "apps/web/src/features/manual-scenario/__tests__/manualScenarioState.test.ts",

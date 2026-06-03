@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "issue": "885",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario files exist",
+      "passed": true,
+      "detail": [
+        "apps/web/src/features/manual-scenario/manualScenarioState.ts",
+        "apps/web/src/features/manual-scenario/ManualScenarioPanel.tsx",
+        "apps/web/src/features/manual-scenario/ManualScenarioControls.tsx",
+        "apps/web/src/features/manual-scenario/ManualScenarioList.tsx",
+        "apps/web/src/features/manual-scenario/ManualScenario.css",
+        "apps/web/src/features/manual-scenario/__tests__/manualScenarioState.test.ts",
+        "apps/web/src/features/scenarios/__tests__/ScenarioRatioComparisonPanel.test.tsx",
+        "apps/web/src/App.tsx"
+      ]
+    },
+    {
+      "name": "visible labels exist",
+      "passed": true,
+      "detail": [
+        "Manual Scenario",
+        "Create scenario",
+        "Duplicate scenario",
+        "Rename scenario",
+        "Linked floorplan",
+        "Linked staff roster",
+        "Linked assignment set",
+        "Manual assignments",
+        "Validation"
+      ]
+    },
+    {
+      "name": "state supports create duplicate rename and select",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "scenario route renders manual scenario panel",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "scenario route does not render ratio comparison panel",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "technical ids are advanced-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "state regression test covers manual scenario actions",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario UI omits blocked labels",
+      "passed": true,
+      "detail": [
+        "Best",
+        "Recommended",
+        "Optimized",
+        "Safer",
+        "Workload score",
+        "Burden score",
+        "Simulation result"
+      ]
+    }
+  ]
+}

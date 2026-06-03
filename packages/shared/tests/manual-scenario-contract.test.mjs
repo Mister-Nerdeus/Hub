@@ -30,6 +30,14 @@ test("manual scenario contract accepts manual reference records", () => {
   assert.equal(scenario.staffRosterId, "staff-roster-alpha");
 });
 
+test("manual scenario contract requires staff roster reference", () => {
+  const { staffRosterId, ...withoutRoster } = validScenario;
+  assert.throws(
+    () => validateManualScenarioContract(withoutRoster),
+    /manualScenario\.staffRosterId must be a non-empty string/u
+  );
+});
+
 test("manual scenario id helper is deterministic", () => {
   assert.equal(
     manualScenarioIdFor({

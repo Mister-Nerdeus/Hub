@@ -57,6 +57,7 @@ test("manual scenario reference validation reports missing references", () => {
     "Missing assignment set",
     "Missing staff roster"
   ]);
+  assert.deepEqual(result.issues.map((issue) => issue.severity), ["error", "error", "error"]);
 });
 
 test("manual scenario reference validation reports assignment set floorplan mismatch", () => {

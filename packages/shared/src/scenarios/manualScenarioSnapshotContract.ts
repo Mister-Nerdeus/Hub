@@ -3,9 +3,10 @@ export type ManualScenarioSnapshotContract = {
   scenarioId: string;
   floorplanId: string;
   assignmentSetId: string;
-  staffRosterId?: string;
+  staffRosterId: string;
   floorplanRevisionId?: string;
   assignmentSetRevisionId?: string;
+  staffRosterRevisionId?: string;
   createdAtIso: string;
   mode: "manual_snapshot";
 };
@@ -14,16 +15,20 @@ export function manualScenarioSnapshotIdFor(input: {
   scenarioId: string;
   floorplanId: string;
   assignmentSetId: string;
+  staffRosterId: string;
   floorplanRevisionId?: string;
   assignmentSetRevisionId?: string;
+  staffRosterRevisionId?: string;
 }): string {
   return [
     "manual-scenario-snapshot",
     stableIdPart(input.scenarioId),
     stableIdPart(input.floorplanId),
     stableIdPart(input.assignmentSetId),
+    stableIdPart(input.staffRosterId),
     stableIdPart(input.floorplanRevisionId ?? "no-floorplan-revision"),
-    stableIdPart(input.assignmentSetRevisionId ?? "no-assignment-revision")
+    stableIdPart(input.assignmentSetRevisionId ?? "no-assignment-revision"),
+    stableIdPart(input.staffRosterRevisionId ?? "no-roster-revision")
   ].join(":");
 }
 
@@ -37,6 +42,7 @@ export function validateManualScenarioSnapshotContract(value: unknown): ManualSc
     "staffRosterId",
     "floorplanRevisionId",
     "assignmentSetRevisionId",
+    "staffRosterRevisionId",
     "createdAtIso",
     "mode"
   ]);
@@ -46,18 +52,25 @@ export function validateManualScenarioSnapshotContract(value: unknown): ManualSc
   const scenarioId = requireString(snapshot.scenarioId, "manualScenarioSnapshot.scenarioId");
   const floorplanId = requireString(snapshot.floorplanId, "manualScenarioSnapshot.floorplanId");
   const assignmentSetId = requireString(snapshot.assignmentSetId, "manualScenarioSnapshot.assignmentSetId");
+  const staffRosterId = requireString(snapshot.staffRosterId, "manualScenarioSnapshot.staffRosterId");
   const floorplanRevisionId = optionalString(snapshot.floorplanRevisionId, "manualScenarioSnapshot.floorplanRevisionId");
   const assignmentSetRevisionId = optionalString(
     snapshot.assignmentSetRevisionId,
     "manualScenarioSnapshot.assignmentSetRevisionId"
+  );
+  const staffRosterRevisionId = optionalString(
+    snapshot.staffRosterRevisionId,
+    "manualScenarioSnapshot.staffRosterRevisionId"
   );
   const scenarioSnapshotId = requireString(snapshot.scenarioSnapshotId, "manualScenarioSnapshot.scenarioSnapshotId");
   const expectedSnapshotId = manualScenarioSnapshotIdFor({
     scenarioId,
     floorplanId,
     assignmentSetId,
+    staffRosterId,
     ...(floorplanRevisionId == null ? {} : { floorplanRevisionId }),
-    ...(assignmentSetRevisionId == null ? {} : { assignmentSetRevisionId })
+    ...(assignmentSetRevisionId == null ? {} : { assignmentSetRevisionId }),
+    ...(staffRosterRevisionId == null ? {} : { staffRosterRevisionId })
   });
   if (scenarioSnapshotId !== expectedSnapshotId) {
     throw new Error("manualScenarioSnapshot.scenarioSnapshotId must be deterministic");
@@ -67,11 +80,10 @@ export function validateManualScenarioSnapshotContract(value: unknown): ManualSc
     scenarioId,
     floorplanId,
     assignmentSetId,
-    ...(snapshot.staffRosterId == null ? {} : {
-      staffRosterId: requireString(snapshot.staffRosterId, "manualScenarioSnapshot.staffRosterId")
-    }),
+    staffRosterId,
     ...(floorplanRevisionId == null ? {} : { floorplanRevisionId }),
     ...(assignmentSetRevisionId == null ? {} : { assignmentSetRevisionId }),
+    ...(staffRosterRevisionId == null ? {} : { staffRosterRevisionId }),
     createdAtIso: requireIso(snapshot.createdAtIso, "manualScenarioSnapshot.createdAtIso"),
     mode: "manual_snapshot"
   };

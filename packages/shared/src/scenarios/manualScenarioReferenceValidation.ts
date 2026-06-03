@@ -23,7 +23,7 @@ export function validateManualScenarioReferences(input: {
   scenario: ManualScenarioContract;
   floorplanIds: readonly string[];
   assignmentSets: readonly ManualAssignmentSetContract[];
-  staffRosterIds?: readonly string[];
+  staffRosterIds: readonly string[];
 }): ManualScenarioReferenceValidationResult {
   const scenario = validateManualScenarioContract(input.scenario);
   const floorplanIds = new Set(input.floorplanIds);
@@ -31,7 +31,7 @@ export function validateManualScenarioReferences(input: {
     assignmentSet.assignmentSetId,
     assignmentSet
   ]));
-  const staffRosterIds = new Set(input.staffRosterIds ?? []);
+  const staffRosterIds = new Set(input.staffRosterIds);
   const issues: ManualScenarioReferenceValidationIssue[] = [];
 
   if (!floorplanIds.has(scenario.floorplanId)) {
@@ -45,10 +45,8 @@ export function validateManualScenarioReferences(input: {
     issues.push(issue("error", "assignment_set_floorplan_mismatch", "Assignment set does not match floorplan"));
   }
 
-  if (input.staffRosterIds != null) {
-    if (scenario.staffRosterId == null || !staffRosterIds.has(scenario.staffRosterId)) {
-      issues.push(issue("warning", "missing_staff_roster", "Missing staff roster"));
-    }
+  if (!staffRosterIds.has(scenario.staffRosterId)) {
+    issues.push(issue("error", "missing_staff_roster", "Missing staff roster"));
   }
 
   return {

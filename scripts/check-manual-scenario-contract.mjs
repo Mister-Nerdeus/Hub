@@ -19,7 +19,7 @@ import {
   validateManualScenarioContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "881");
+const issue = readArg("--issue", "882");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-contract";
 const commands = [
@@ -107,7 +107,7 @@ addCheck(checks, "manual scenario contract exists", fileIncludes(
 ).passed);
 addCheck(checks, "manual scenario validation requires references and manual mode", fileIncludes(
   "packages/shared/src/scenarios/manualScenarioValidation.ts",
-  ["validateManualScenarioContract", "floorplanId", "assignmentSetId", "manualScenario.mode must be manual"]
+  ["validateManualScenarioContract", "floorplanId", "assignmentSetId", "staffRosterId", "manualScenario.mode must be manual"]
 ).passed);
 addCheck(checks, "manual scenario validation uses runtime and overclaim guards", fileIncludes(
   "packages/shared/src/scenarios/manualScenarioValidation.ts",
@@ -130,6 +130,7 @@ writeJson(issuePath(issue, "manual-scenario-contract-output.json"), {
   manualScenarioModeOnly: status === "passed",
   scenarioReferencesFloorplan: status === "passed",
   scenarioReferencesAssignmentSet: status === "passed",
+  scenarioReferencesStaffRoster: status === "passed",
   scenarioContainsNoSimulation: status === "passed",
   scenarioContainsNoScoring: status === "passed",
   scenarioContainsNoRecommendations: status === "passed"
@@ -141,6 +142,7 @@ if (status === "passed") {
     manualScenarioModeOnly: true,
     scenarioReferencesFloorplan: true,
     scenarioReferencesAssignmentSet: true,
+    scenarioReferencesStaffRoster: true,
     scenarioContainsNoSimulation: true,
     scenarioContainsNoScoring: true,
     scenarioContainsNoRecommendations: true

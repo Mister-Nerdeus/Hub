@@ -2,26 +2,17 @@
   "status": "passed",
   "issue": "887",
   "patch": {
-    "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_analysis_foundation",
-    "manualScenarioFoundationReady": true,
-    "manualScenariosPersist": true,
-    "manualScenarioBrowserProofPassed": true,
+    "manualScenarioNoRecommendationGuardStatus": "passed",
     "scenarioRecommendationsStillBlocked": true,
     "scenarioScoringStillBlocked": true,
     "optimizerStillBlocked": true,
-    "simulationStillBlocked": true,
-    "noPhi": true,
-    "noScenarioRecommendations": true,
-    "noScenarioScoring": true,
-    "noClinicalSafetyClaim": true,
-    "noStaffingComplianceClaim": true,
-    "noPatientOutcomeClaim": true,
-    "goNoGoStatus": "go_for_next_milestone"
+    "simulationStillBlocked": true
   },
   "manifest": {
     "manualScenarioFoundationPreflightStatus": "passed",
     "assignmentEditorLayoutResetStatus": "passed",
     "coAssignmentPolicyContractStatus": "passed",
+    "manualScenarioStaffRosterStatus": "passed",
     "manualScenarioContractStatus": "passed",
     "manualScenarioSnapshotStatus": "passed",
     "manualScenarioValidationStatus": "passed",
@@ -29,7 +20,7 @@
     "manualScenarioSaveReloadStatus": "passed",
     "manualScenarioBrowserProofStatus": "passed",
     "manualScenarioNoRecommendationGuardStatus": "passed",
-    "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_analysis_foundation",
+    "manualScenarioFoundationGoNoGoStatus": "not_ready",
     "scenarioScope": "manual_only",
     "recommendationsStillBlocked": true,
     "scoringStillBlocked": true,
@@ -89,6 +80,12 @@
     "noClinicalSafetyClaim": true,
     "noStaffingComplianceClaim": true,
     "noPatientOutcomeClaim": true,
-    "goNoGoStatus": "go_for_next_milestone"
+    "goNoGoStatus": "not_ready",
+    "manualStaffRosterModeOnly": true,
+    "staffRosterContainsNoPhi": true,
+    "staffRosterContainsNoScoring": true,
+    "staffRosterContainsNoRecommendations": true,
+    "scenarioReferencesStaffRoster": true,
+    "missingStaffRosterErrors": true
   }
 }

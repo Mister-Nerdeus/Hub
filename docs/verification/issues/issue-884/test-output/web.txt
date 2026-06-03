@@ -2,7 +2,7 @@
 > @nerdeus/web@0.1.0 test
 > node scripts/run-web-tests.mjs
 
-Discovered 226 web test file(s).
+Discovered 227 web test file(s).
 
 > npm --workspace @nerdeus/shared run build
 
@@ -396,6 +396,8 @@ Discovered 226 web test file(s).
 
 > src/features/manual-assignment/manualAssignmentViewModel.test.ts
 
+> src/features/manual-scenario/__tests__/manualScenarioPersistence.test.ts
+
 > src/features/manual-scenario/__tests__/manualScenarioState.test.ts
 
 > src/features/optimization/optimizerProofViewModel.test.ts
@@ -464,4 +466,4 @@ Discovered 226 web test file(s).
 
 > src/fixtures/outcomes/sharedOutcomeDashboardAdapter.test.ts
 
-Executed 226 web test file(s).
+Executed 227 web test file(s).

@@ -24,6 +24,7 @@ export function validateManualScenarioContract(value: unknown): ManualScenarioCo
   const label = validateManualScenarioText(requireString(scenario.label, "manualScenario.label"), "manualScenario.label");
   const floorplanId = requireString(scenario.floorplanId, "manualScenario.floorplanId");
   const assignmentSetId = requireString(scenario.assignmentSetId, "manualScenario.assignmentSetId");
+  const staffRosterId = requireString(scenario.staffRosterId, "manualScenario.staffRosterId");
   const scenarioId = requireString(scenario.scenarioId, "manualScenario.scenarioId");
   const expectedScenarioId = manualScenarioIdFor({ floorplanId, assignmentSetId, label });
   if (scenarioId !== expectedScenarioId) {
@@ -40,9 +41,7 @@ export function validateManualScenarioContract(value: unknown): ManualScenarioCo
     }),
     floorplanId,
     assignmentSetId,
-    ...(scenario.staffRosterId == null ? {} : {
-      staffRosterId: requireString(scenario.staffRosterId, "manualScenario.staffRosterId")
-    }),
+    staffRosterId,
     createdAtIso: requireIso(scenario.createdAtIso, "manualScenario.createdAtIso"),
     updatedAtIso: requireIso(scenario.updatedAtIso, "manualScenario.updatedAtIso"),
     mode: "manual"

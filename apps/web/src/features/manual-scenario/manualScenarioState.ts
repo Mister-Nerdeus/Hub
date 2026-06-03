@@ -17,7 +17,7 @@ export type ManualScenarioState = {
 export type ManualScenarioReferences = {
   floorplanId: string;
   assignmentSetId: string;
-  staffRosterId?: string;
+  staffRosterId: string;
 };
 
 export function createManualScenarioState(): ManualScenarioState {
@@ -61,7 +61,7 @@ export function createManualScenarioFromReferences(input: {
     ...(input.description == null || input.description.trim().length === 0 ? {} : { description: input.description }),
     floorplanId: input.references.floorplanId,
     assignmentSetId: input.references.assignmentSetId,
-    ...(input.references.staffRosterId == null ? {} : { staffRosterId: input.references.staffRosterId }),
+    staffRosterId: input.references.staffRosterId,
     createdAtIso: MANUAL_SCENARIO_TIMESTAMP,
     updatedAtIso: MANUAL_SCENARIO_TIMESTAMP,
     mode: "manual"
@@ -92,7 +92,7 @@ export function duplicateManualScenario(input: {
     references: {
       floorplanId: source.floorplanId,
       assignmentSetId: source.assignmentSetId,
-      ...(source.staffRosterId == null ? {} : { staffRosterId: source.staffRosterId })
+      staffRosterId: source.staffRosterId
     },
     label,
     description: source.description

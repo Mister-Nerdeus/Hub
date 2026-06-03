@@ -21,7 +21,7 @@ import {
   validateManualScenarioReferences
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "883");
+const issue = readArg("--issue", "884");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-validation";
 const commands = [
@@ -125,8 +125,8 @@ addCheck(checks, "missing assignment set creates error", missingMessages.include
 addCheck(checks, "floorplan assignment mismatch creates error", mismatchResult.issues.some((entry) =>
   entry.message === "Assignment set does not match floorplan"
 ), mismatchResult);
-addCheck(checks, "missing staff roster creates warning", missingReferenceResult.issues.some((entry) =>
-  entry.message === "Missing staff roster" && entry.severity === "warning"
+addCheck(checks, "missing staff roster creates error", missingReferenceResult.issues.some((entry) =>
+  entry.message === "Missing staff roster" && entry.severity === "error"
 ), missingReferenceResult);
 addCheck(checks, "valid scenario references pass", validResult.status === "passed", validResult);
 addCheck(checks, "validation files omit blocked terms", scannedFiles.every((file) => fileExcludes(file, blocked).passed), blocked);
@@ -137,6 +137,7 @@ writeJson(issuePath(issue, "manual-scenario-validation-output.json"), {
   manualScenarioValidationStatus: status,
   missingFloorplanErrors: status === "passed",
   missingAssignmentSetErrors: status === "passed",
+  missingStaffRosterErrors: status === "passed",
   floorplanAssignmentMismatchErrors: status === "passed",
   scenarioValidationContainsNoScoring: status === "passed",
   scenarioValidationContainsNoRecommendations: status === "passed"
@@ -147,6 +148,7 @@ if (status === "passed") {
     manualScenarioValidationStatus: "passed",
     missingFloorplanErrors: true,
     missingAssignmentSetErrors: true,
+    missingStaffRosterErrors: true,
     floorplanAssignmentMismatchErrors: true,
     scenarioValidationContainsNoScoring: true,
     scenarioValidationContainsNoRecommendations: true

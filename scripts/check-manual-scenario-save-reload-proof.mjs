@@ -24,7 +24,7 @@ import {
   validateManualScenarioContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "885");
+const issue = readArg("--issue", "886");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-save-reload-proof";
 const commands = [
@@ -68,6 +68,7 @@ const snapshot = createManualScenarioSnapshot({
   staffRosterId,
   floorplanRevisionId: "manual-scenario-save-reload-floorplan-v1",
   assignmentSetRevisionId: "manual-scenario-save-reload-assignment-v1",
+  staffRosterRevisionId: "manual-scenario-save-reload-roster-v1",
   createdAtIso
 });
 const assignmentSet = validateManualAssignmentSetContract({
