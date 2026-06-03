@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "issue": "887",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "snapshot contract exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "versioning helper exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared regression test covers snapshot references and forbidden fields",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "snapshot fixture remains reference-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "snapshot versioning proof passes",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "forbidden snapshot fields are rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "field": "score",
+            "rejected": true
+          },
+          {
+            "field": "recommendation",
+            "rejected": true
+          },
+          {
+            "field": "simulationResult",
+            "rejected": true
+          },
+          {
+            "field": "optimizerOutput",
+            "rejected": true
+          },
+          {
+            "field": "safetyStatus",
+            "rejected": true
+          },
+          {
+            "field": "complianceStatus",
+            "rejected": true
+          },
+          {
+            "field": "patientOutcome",
+            "rejected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "snapshot files omit blocked UI copy",
+      "passed": true,
+      "detail": [
+        "Recommended Scenario",
+        "Optimized Scenario",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome"
+      ]
+    }
+  ]
+}

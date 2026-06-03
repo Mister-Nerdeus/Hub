@@ -87,7 +87,7 @@ addCheck(checks, "state supports create duplicate rename and select", fileInclud
 ).passed);
 addCheck(checks, "scenario route renders manual scenario panel", fileIncludes(
   "apps/web/src/App.tsx",
-  ["ManualScenarioPanel", "createManualScenarioState", "scenarioState={manualScenarioState}"]
+  ["ManualScenarioPanel", "readManualScenarioState", "scenarioState={manualScenarioState}", "onSaveScenarios={saveManualScenarios}"]
 ).passed);
 addCheck(checks, "scenario route does not render ratio comparison panel", fileExcludes(
   "apps/web/src/App.tsx",

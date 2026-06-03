@@ -33,7 +33,11 @@ const commands = [
   "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887",
   "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887",
   "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 887",
-  "node scripts/check-no-phi-fields.mjs"
+  "node scripts/check-no-phi-fields.mjs",
+  "docker compose config",
+  "docker compose -f docker-compose.production.yml config",
+  "docker compose build web",
+  "docker compose -f docker-compose.production.yml build web"
 ];
 
 ensureIssueArtifacts(issue, { screenshots: true });
@@ -116,6 +120,9 @@ writeCloseout(issue, {
   status: status === "passed" && noPhiPassed ? "passed" : "failed",
   filesChanged: [
     "scripts/check-manual-scenario-foundation-go-no-go.mjs",
+    "scripts/check-manual-scenario-foundation-preflight.mjs",
+    "scripts/check-manual-scenario-ui.mjs",
+    "scripts/check-manual-scenario-no-recommendation-guard.mjs",
     "docs/verification/manual-scenario-foundation-manifest.json",
     "docs/project/manual-scenario-foundation-status.md",
     issuePath(issue)
@@ -123,9 +130,19 @@ writeCloseout(issue, {
   commands,
   evidence: [
     issuePath(issue, "manual-scenario-foundation-go-no-go-output.json"),
-    issuePath(issue, "manifest-update-output.json")
+    issuePath(issue, "manual-scenario-no-recommendation-guard-output.json"),
+    issuePath(issue, "scenario-contract-scan-output.json"),
+    issuePath(issue, "scenario-ui-copy-scan-output.json"),
+    issuePath(issue, "scenario-proof-artifact-scan-output.json"),
+    issuePath(issue, "manifest-update-output.json"),
+    issuePath(issue, "test-output/docker-compose-config.txt"),
+    issuePath(issue, "test-output/docker-compose-production-config.txt"),
+    issuePath(issue, "test-output/docker-compose-build-web.txt"),
+    issuePath(issue, "test-output/docker-compose-production-build-web.txt")
   ],
-  limitations: ["GO remains blocked until all manual scenario foundation issue gates pass."]
+  limitations: status === "passed"
+    ? ["Manual scenario foundation is ready for the next milestone; it remains manual-only and does not evaluate assignment quality."]
+    : ["GO remains blocked until all manual scenario foundation issue gates pass."]
 });
 writeStageResult(issue, scriptName, stage, checks);
 if (status !== "passed" || !noPhiPassed) process.exit(1);

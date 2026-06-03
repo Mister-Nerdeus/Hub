@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_analysis_foundation",
+  "manualScenarioFoundationReady": true,
+  "manualScenariosPersist": true,
+  "manualScenarioBrowserProofPassed": true,
+  "scenarioRecommendationsStillBlocked": true,
+  "scenarioScoringStillBlocked": true,
+  "optimizerStillBlocked": true,
+  "simulationStillBlocked": true,
+  "goNoGoStatus": "go_for_next_milestone",
+  "required": {
+    "preflight": true,
+    "layoutReset": true,
+    "coAssignmentPolicy": true,
+    "scenarioContract": true,
+    "scenarioSnapshot": true,
+    "scenarioValidation": true,
+    "scenarioEditor": true,
+    "saveReload": true,
+    "browserProof": true,
+    "noRecommendationGuard": true,
+    "scripts": true,
+    "boundaries": true
+  }
+}

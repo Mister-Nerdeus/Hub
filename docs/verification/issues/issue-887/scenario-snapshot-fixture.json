@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "scenario": {
+    "scenarioId": "manual-scenario-alpha",
+    "mode": "manual"
+  },
+  "snapshots": [
+    {
+      "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-alpha:floorplan-alpha:assignment-set-alpha:floorplan-revision-001:assignment-revision-001",
+      "scenarioId": "manual-scenario-alpha",
+      "floorplanId": "floorplan-alpha",
+      "assignmentSetId": "assignment-set-alpha",
+      "staffRosterId": "staff-roster-alpha",
+      "floorplanRevisionId": "floorplan-revision-001",
+      "assignmentSetRevisionId": "assignment-revision-001",
+      "createdAtIso": "2026-06-01T00:00:00.000Z",
+      "mode": "manual_snapshot"
+    },
+    {
+      "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-alpha:floorplan-alpha:assignment-set-alpha:floorplan-revision-001:assignment-revision-002",
+      "scenarioId": "manual-scenario-alpha",
+      "floorplanId": "floorplan-alpha",
+      "assignmentSetId": "assignment-set-alpha",
+      "staffRosterId": "staff-roster-alpha",
+      "floorplanRevisionId": "floorplan-revision-001",
+      "assignmentSetRevisionId": "assignment-revision-002",
+      "createdAtIso": "2026-06-02T00:00:00.000Z",
+      "mode": "manual_snapshot"
+    }
+  ]
+}

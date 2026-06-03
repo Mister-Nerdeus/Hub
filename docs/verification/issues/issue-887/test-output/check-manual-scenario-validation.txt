@@ -1,0 +1,130 @@
+{
+  "status": "passed",
+  "issue": "887",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "reference validation file exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared regression test covers reference validation",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "missing floorplan creates error",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_floorplan",
+            "message": "Missing floorplan"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_set",
+            "message": "Missing assignment set"
+          },
+          {
+            "severity": "warning",
+            "code": "missing_staff_roster",
+            "message": "Missing staff roster"
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing assignment set creates error",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_floorplan",
+            "message": "Missing floorplan"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_set",
+            "message": "Missing assignment set"
+          },
+          {
+            "severity": "warning",
+            "code": "missing_staff_roster",
+            "message": "Missing staff roster"
+          }
+        ]
+      }
+    },
+    {
+      "name": "floorplan assignment mismatch creates error",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "assignment_set_floorplan_mismatch",
+            "message": "Assignment set does not match floorplan"
+          }
+        ]
+      }
+    },
+    {
+      "name": "missing staff roster creates warning",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_floorplan",
+            "message": "Missing floorplan"
+          },
+          {
+            "severity": "error",
+            "code": "missing_assignment_set",
+            "message": "Missing assignment set"
+          },
+          {
+            "severity": "warning",
+            "code": "missing_staff_roster",
+            "message": "Missing staff roster"
+          }
+        ]
+      }
+    },
+    {
+      "name": "valid scenario references pass",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issues": []
+      }
+    },
+    {
+      "name": "validation files omit blocked terms",
+      "passed": true,
+      "detail": [
+        "Unsafe",
+        "Safer",
+        "Best",
+        "Optimal",
+        "Recommended",
+        "Balanced",
+        "Workload",
+        "Burden",
+        "Score",
+        "Staffing compliance",
+        "Clinical safety",
+        "Patient outcome",
+        "Simulation result"
+      ]
+    }
+  ]
+}

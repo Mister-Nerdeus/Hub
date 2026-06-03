@@ -8,6 +8,7 @@ import {
   packageScriptProof,
   readArg,
   readJson,
+  readText,
   runNoPhi,
   statusFromChecks,
   updateManifest,
@@ -85,17 +86,29 @@ const requiredDefaults = {
   simulationStillBlocked: manifest.simulationStillBlocked
 };
 
-const statusDocProof = fileIncludes("docs/project/manual-scenario-foundation-status.md", [
-  "manual_only",
-  "preflight only",
-  "not_ready",
-  "reference and presentation records only"
-]);
+const statusDocText = readText("docs/project/manual-scenario-foundation-status.md");
+const statusDocProof = {
+  passed: statusDocText.includes("manual_only") &&
+    statusDocText.includes("reference and presentation records only") &&
+    (
+      (statusDocText.includes("preflight only") && statusDocText.includes("not_ready")) ||
+      statusDocText.includes("go_for_manual_scenario_analysis_foundation")
+    ),
+  missing: [
+    statusDocText.includes("manual_only") ? null : "manual_only",
+    statusDocText.includes("reference and presentation records only") ? null : "reference and presentation records only",
+    (
+      (statusDocText.includes("preflight only") && statusDocText.includes("not_ready")) ||
+      statusDocText.includes("go_for_manual_scenario_analysis_foundation")
+    ) ? null : "preflight/not_ready or final go status"
+  ].filter(Boolean)
+};
+const allowedGoNoGoStatus = new Set(["not_ready", "go_for_manual_scenario_analysis_foundation"]);
 
 const checks = [];
 addCheck(checks, "assignment foundation dependency allows manual scenarios", assignmentProof.status === "passed", assignmentProof);
 addCheck(checks, "manual scenario manifest starts as manual-only preflight", manifest.scenarioScope === "manual_only" &&
-  manifest.manualScenarioFoundationGoNoGoStatus === "not_ready" &&
+  allowedGoNoGoStatus.has(manifest.manualScenarioFoundationGoNoGoStatus) &&
   manifest.recommendationsStillBlocked === true &&
   manifest.scoringStillBlocked === true &&
   manifest.simulationStillBlocked === true, requiredDefaults);
