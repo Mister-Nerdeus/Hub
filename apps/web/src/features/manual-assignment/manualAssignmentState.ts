@@ -82,6 +82,36 @@ export function createManualAssignmentEditorState(input: {
   };
 }
 
+export function reconcileManualAssignmentEditorStateForLayout(input: {
+  currentState: ManualAssignmentEditorState;
+  floorplanId: string;
+  staffMembers: readonly ManualStaffMemberContract[];
+  assignmentTargets: readonly AssignmentFoundationTargetContract[];
+  matchingAssignmentSet?: ManualAssignmentSetContract | null;
+}): ManualAssignmentEditorState {
+  const selectedStaffMemberId = input.staffMembers.some((staff) =>
+    staff.staffMemberId === input.currentState.selectedStaffMemberId
+  )
+    ? input.currentState.selectedStaffMemberId
+    : input.staffMembers[0]?.staffMemberId ?? "";
+  const selectedAssignmentTargetId = input.assignmentTargets.some((target) =>
+    target.assignmentTargetId === input.currentState.selectedAssignmentTargetId
+  )
+    ? input.currentState.selectedAssignmentTargetId
+    : input.assignmentTargets[0]?.assignmentTargetId ?? "";
+  const assignmentSet = input.matchingAssignmentSet?.floorplanId === input.floorplanId
+    ? input.matchingAssignmentSet
+    : input.currentState.assignmentSet.floorplanId === input.floorplanId
+      ? input.currentState.assignmentSet
+      : createEmptyManualAssignmentSet(input.floorplanId);
+  const nextState = {
+    selectedStaffMemberId,
+    selectedAssignmentTargetId,
+    assignmentSet
+  };
+  return manualAssignmentEditorStateEquals(input.currentState, nextState) ? input.currentState : nextState;
+}
+
 export function addManualAssignmentToSet(input: {
   assignmentSet: ManualAssignmentSetContract;
   staffMemberId: string;
@@ -115,4 +145,13 @@ export function removeManualAssignmentFromSet(input: {
     updatedAtIso: MANUAL_ASSIGNMENT_TIMESTAMP,
     assignments: input.assignmentSet.assignments.filter((assignment) => assignment.assignmentId !== input.assignmentId)
   });
+}
+
+function manualAssignmentEditorStateEquals(
+  left: ManualAssignmentEditorState,
+  right: ManualAssignmentEditorState
+): boolean {
+  return left.selectedStaffMemberId === right.selectedStaffMemberId &&
+    left.selectedAssignmentTargetId === right.selectedAssignmentTargetId &&
+    left.assignmentSet === right.assignmentSet;
 }

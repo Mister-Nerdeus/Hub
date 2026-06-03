@@ -1,6 +1,6 @@
 {
   "manualScenarioFoundationPreflightStatus": "passed",
-  "assignmentEditorLayoutResetStatus": "missing",
+  "assignmentEditorLayoutResetStatus": "passed",
   "coAssignmentPolicyContractStatus": "missing",
   "manualScenarioContractStatus": "missing",
   "manualScenarioSnapshotStatus": "missing",
@@ -15,5 +15,9 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "878"
+  "lastUpdatedIssue": "879",
+  "layoutChangeResetsInvalidAssignmentState": true,
+  "storedAssignmentSetRequiresMatchingFloorplan": true,
+  "staleAssignmentTargetsRejected": true,
+  "manualAssignmentStillManualOnly": true
 }

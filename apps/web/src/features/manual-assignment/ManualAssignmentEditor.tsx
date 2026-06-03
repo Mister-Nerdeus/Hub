@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   deriveRouteGraphFromGeometry,
   manualStaffFixture,
@@ -13,9 +13,13 @@ import { ManualAssignmentControls } from "./ManualAssignmentControls";
 import {
   addManualAssignmentToSet,
   createManualAssignmentEditorState,
+  reconcileManualAssignmentEditorStateForLayout,
   removeManualAssignmentFromSet
 } from "./manualAssignmentState";
-import { readManualAssignmentSet, writeManualAssignmentSet } from "./manualAssignmentStorage";
+import {
+  readManualAssignmentSetForFloorplan,
+  writeManualAssignmentSet
+} from "./manualAssignmentStorage";
 import { createAssignmentValidationViewModel } from "./assignmentValidationViewModel";
 import { StaffListPanel } from "./StaffListPanel";
 import {
@@ -44,7 +48,9 @@ export function ManualAssignmentEditor({
     () => resolveAssignmentTargetsFromFloorplan(layout, { routeGraph }),
     [layout, routeGraph]
   );
-  const initialSet = assignmentSet ?? readManualAssignmentSet(getLocalStorage());
+  const initialSet = assignmentSet?.floorplanId === layout.layoutId
+    ? assignmentSet
+    : readManualAssignmentSetForFloorplan(getLocalStorage(), layout.layoutId);
   const [state, setState] = useState(() =>
     createManualAssignmentEditorState({
       floorplanId: layout.layoutId,
@@ -53,6 +59,28 @@ export function ManualAssignmentEditor({
       initialAssignmentSet: initialSet?.floorplanId === layout.layoutId ? initialSet : null
     })
   );
+  useEffect(() => {
+    const matchingAssignmentSet = assignmentSet?.floorplanId === layout.layoutId
+      ? assignmentSet
+      : readManualAssignmentSetForFloorplan(getLocalStorage(), layout.layoutId);
+    setState((currentState) =>
+      reconcileManualAssignmentEditorStateForLayout({
+        currentState,
+        floorplanId: layout.layoutId,
+        staffMembers: manualStaffFixture,
+        assignmentTargets,
+        matchingAssignmentSet
+      })
+    );
+  }, [
+    activeFloorplan?.activeFloorplanId,
+    activeFloorplan?.activeFloorplanVersionId,
+    assignmentSet,
+    assignmentTargets,
+    layout.layoutId,
+    layoutSelection.fixtureMode,
+    layoutSelection.source
+  ]);
   const validation = validateManualAssignmentSetReferences({
     assignmentSet: state.assignmentSet,
     staffMembers: manualStaffFixture,

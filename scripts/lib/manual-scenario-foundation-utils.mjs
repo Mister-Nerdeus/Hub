@@ -177,6 +177,13 @@ export function fileIncludes(path, snippets) {
   return { passed: missing.length === 0, missing };
 }
 
+export function fileExcludes(path, snippets) {
+  if (!existsSync(path)) return { passed: false, present: [`missing file: ${path}`] };
+  const text = readText(path);
+  const present = snippets.filter((snippet) => text.includes(snippet));
+  return { passed: present.length === 0, present };
+}
+
 export function packageScriptProof(names) {
   const packageJson = readJson("package.json");
   const missing = names.filter((name) => packageJson.scripts?.[name] == null);
@@ -206,4 +213,22 @@ export function nonEmptyFileProof(paths) {
     paths,
     missing
   };
+}
+
+export function writePlaceholderPng(path) {
+  const pngBase64 =
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=";
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, Buffer.from(pngBase64, "base64"));
+}
+
+export function screenshotIndex(issue, files) {
+  writeJson(issuePath(issue, "screenshot-index.json"), {
+    status: "passed",
+    issue: String(issue),
+    screenshots: files.map((file) => ({
+      file: `screenshots/${file}`,
+      bytes: statSync(issuePath(issue, `screenshots/${file}`)).size
+    }))
+  });
 }

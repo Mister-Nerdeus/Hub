@@ -19,6 +19,14 @@ export function readManualAssignmentSet(storage: ManualAssignmentStorage | null)
   }
 }
 
+export function readManualAssignmentSetForFloorplan(
+  storage: ManualAssignmentStorage | null,
+  floorplanId: string
+): ManualAssignmentSetContract | null {
+  const assignmentSet = readManualAssignmentSet(storage);
+  return assignmentSet?.floorplanId === floorplanId ? assignmentSet : null;
+}
+
 export function writeManualAssignmentSet(
   storage: ManualAssignmentStorage | null,
   assignmentSet: ManualAssignmentSetContract
