@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "878",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "assignment foundation dependency allows manual scenarios",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "manualScenarioFoundationCanStartNext": true,
+        "assignmentScope": "manual_only",
+        "recommendationsStillBlocked": true,
+        "scoringStillBlocked": true,
+        "simulationStillBlocked": true
+      }
+    },
+    {
+      "name": "manual scenario manifest starts as manual-only preflight",
+      "passed": true,
+      "detail": {
+        "manualScenarioFoundationPreflightStatus": "passed",
+        "assignmentEditorLayoutResetStatus": "missing",
+        "coAssignmentPolicyContractStatus": "missing",
+        "manualScenarioContractStatus": "missing",
+        "manualScenarioSnapshotStatus": "missing",
+        "manualScenarioValidationStatus": "missing",
+        "manualScenarioEditorStatus": "missing",
+        "manualScenarioSaveReloadStatus": "missing",
+        "manualScenarioBrowserProofStatus": "missing",
+        "manualScenarioNoRecommendationGuardStatus": "missing",
+        "manualScenarioFoundationGoNoGoStatus": "not_ready",
+        "scenarioScope": "manual_only",
+        "recommendationsStillBlocked": true,
+        "scoringStillBlocked": true,
+        "simulationStillBlocked": true
+      }
+    },
+    {
+      "name": "root scripts are wired for the manual scenario batch",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:manual-scenario-foundation-preflight": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 878",
+          "check:manual-assignment-layout-change-reset": "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 879",
+          "check:co-assignment-policy-contract": "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 880",
+          "check:manual-scenario-contract": "node scripts/check-manual-scenario-contract.mjs --stage final --issue 881",
+          "check:manual-scenario-snapshot-contract": "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 882",
+          "check:manual-scenario-validation": "node scripts/check-manual-scenario-validation.mjs --stage final --issue 883",
+          "check:manual-scenario-ui": "node scripts/check-manual-scenario-ui.mjs --stage final --issue 884",
+          "check:manual-scenario-save-reload-proof": "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 885",
+          "check:manual-scenario-browser-proof": "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 886",
+          "check:manual-scenario-no-recommendation-guard": "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 887",
+          "check:manual-scenario-foundation-go-no-go": "node scripts/check-manual-scenario-foundation-go-no-go.mjs --stage final --issue 887"
+        }
+      }
+    },
+    {
+      "name": "status doc records the manual scenario boundary",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "status": "passed",
+  "issue": "878",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:assignment-foundation-evidence-closeout",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 878",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-878/commands.txt"
+      ]
+    }
+  ]
+}

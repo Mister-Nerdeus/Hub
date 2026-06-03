@@ -1,0 +1,10 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+npm run check:assignment-foundation-evidence-closeout
+node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 878
+node scripts/check-no-phi-fields.mjs
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose build web
+docker compose -f docker-compose.production.yml build web
