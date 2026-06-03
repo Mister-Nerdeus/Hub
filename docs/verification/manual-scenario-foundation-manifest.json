@@ -3,7 +3,7 @@
   "assignmentEditorLayoutResetStatus": "passed",
   "coAssignmentPolicyContractStatus": "passed",
   "manualScenarioContractStatus": "passed",
-  "manualScenarioSnapshotStatus": "missing",
+  "manualScenarioSnapshotStatus": "passed",
   "manualScenarioValidationStatus": "missing",
   "manualScenarioEditorStatus": "missing",
   "manualScenarioSaveReloadStatus": "missing",
@@ -15,7 +15,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "881",
+  "lastUpdatedIssue": "882",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -30,5 +30,9 @@
   "scenarioReferencesAssignmentSet": true,
   "scenarioContainsNoSimulation": true,
   "scenarioContainsNoScoring": true,
-  "scenarioContainsNoRecommendations": true
+  "scenarioContainsNoRecommendations": true,
+  "scenarioSnapshotsAreReferenceOnly": true,
+  "scenarioSnapshotsContainNoSimulation": true,
+  "scenarioSnapshotsContainNoScoring": true,
+  "scenarioVersioningSupported": true
 }
