@@ -1,0 +1,129 @@
+import {
+  manualScenarioIdFor,
+  validateManualScenarioContract,
+  type ManualScenarioContract
+} from "@nerdeus/shared";
+
+export const MANUAL_SCENARIO_TIMESTAMP = "2026-06-01T00:00:00.000Z";
+
+export type ManualScenarioState = {
+  scenarios: ManualScenarioContract[];
+  selectedScenarioId: string | null;
+};
+
+export type ManualScenarioReferences = {
+  floorplanId: string;
+  assignmentSetId: string;
+  staffRosterId?: string;
+};
+
+export function createManualScenarioState(): ManualScenarioState {
+  return {
+    scenarios: [],
+    selectedScenarioId: null
+  };
+}
+
+export function createManualScenarioFromReferences(input: {
+  references: ManualScenarioReferences;
+  label: string;
+  description?: string;
+}): ManualScenarioContract {
+  return validateManualScenarioContract({
+    scenarioId: manualScenarioIdFor({
+      floorplanId: input.references.floorplanId,
+      assignmentSetId: input.references.assignmentSetId,
+      label: input.label
+    }),
+    label: input.label,
+    ...(input.description == null || input.description.trim().length === 0 ? {} : { description: input.description }),
+    floorplanId: input.references.floorplanId,
+    assignmentSetId: input.references.assignmentSetId,
+    ...(input.references.staffRosterId == null ? {} : { staffRosterId: input.references.staffRosterId }),
+    createdAtIso: MANUAL_SCENARIO_TIMESTAMP,
+    updatedAtIso: MANUAL_SCENARIO_TIMESTAMP,
+    mode: "manual"
+  });
+}
+
+export function createManualScenario(input: {
+  state: ManualScenarioState;
+  references: ManualScenarioReferences;
+}): ManualScenarioState {
+  const label = nextScenarioLabel("Manual Scenario", input.state.scenarios);
+  const scenario = createManualScenarioFromReferences({ references: input.references, label });
+  return {
+    scenarios: [...input.state.scenarios, scenario],
+    selectedScenarioId: scenario.scenarioId
+  };
+}
+
+export function duplicateManualScenario(input: {
+  state: ManualScenarioState;
+  scenarioId: string | null;
+}): ManualScenarioState {
+  const source = input.state.scenarios.find((scenario) => scenario.scenarioId === input.scenarioId);
+  if (source == null) return input.state;
+  const label = nextScenarioLabel(`${source.label} Copy`, input.state.scenarios);
+  const scenario = createManualScenarioFromReferences({
+    references: {
+      floorplanId: source.floorplanId,
+      assignmentSetId: source.assignmentSetId,
+      ...(source.staffRosterId == null ? {} : { staffRosterId: source.staffRosterId })
+    },
+    label,
+    description: source.description
+  });
+  return {
+    scenarios: [...input.state.scenarios, scenario],
+    selectedScenarioId: scenario.scenarioId
+  };
+}
+
+export function renameManualScenario(input: {
+  state: ManualScenarioState;
+  scenarioId: string | null;
+  label: string;
+}): ManualScenarioState {
+  const trimmedLabel = input.label.trim();
+  if (input.scenarioId == null || trimmedLabel.length === 0) return input.state;
+  const scenarios = input.state.scenarios.map((scenario) => {
+    if (scenario.scenarioId !== input.scenarioId) return scenario;
+    return validateManualScenarioContract({
+      ...scenario,
+      scenarioId: manualScenarioIdFor({
+        floorplanId: scenario.floorplanId,
+        assignmentSetId: scenario.assignmentSetId,
+        label: trimmedLabel
+      }),
+      label: trimmedLabel,
+      updatedAtIso: MANUAL_SCENARIO_TIMESTAMP
+    });
+  });
+  const renamed = scenarios.find((scenario) => scenario.label === trimmedLabel);
+  return {
+    scenarios,
+    selectedScenarioId: renamed?.scenarioId ?? input.state.selectedScenarioId
+  };
+}
+
+export function selectManualScenario(input: {
+  state: ManualScenarioState;
+  scenarioId: string;
+}): ManualScenarioState {
+  return input.state.scenarios.some((scenario) => scenario.scenarioId === input.scenarioId)
+    ? { ...input.state, selectedScenarioId: input.scenarioId }
+    : input.state;
+}
+
+export function selectedManualScenario(state: ManualScenarioState): ManualScenarioContract | null {
+  return state.scenarios.find((scenario) => scenario.scenarioId === state.selectedScenarioId) ?? null;
+}
+
+function nextScenarioLabel(baseLabel: string, scenarios: readonly ManualScenarioContract[]): string {
+  const labels = new Set(scenarios.map((scenario) => scenario.label));
+  if (!labels.has(baseLabel)) return baseLabel;
+  let index = 2;
+  while (labels.has(`${baseLabel} ${index}`)) index += 1;
+  return `${baseLabel} ${index}`;
+}

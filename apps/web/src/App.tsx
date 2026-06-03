@@ -76,7 +76,11 @@ import {
   MANUAL_ASSIGNMENT_FIXTURE_MODES,
   type ManualAssignmentFixtureMode
 } from "./features/manual-assignment/manualAssignmentDemoMode";
-import { ScenarioRatioComparisonPanel } from "./features/scenarios/ScenarioRatioComparisonPanel";
+import { ManualScenarioPanel } from "./features/manual-scenario/ManualScenarioPanel";
+import {
+  createManualScenarioState,
+  type ManualScenarioState
+} from "./features/manual-scenario/manualScenarioState";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
 import { WorkspaceAccessEntryScreen } from "./features/demo-pin/WorkspaceAccessEntryScreen";
@@ -130,6 +134,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     useState<ManualAssignmentMap>({});
   const [manualAssignmentSet, setManualAssignmentSet] =
     useState<ManualAssignmentSetContract | null>(() => readManualAssignmentSet(getLocalStorage()));
+  const [manualScenarioState, setManualScenarioState] =
+    useState<ManualScenarioState>(() => createManualScenarioState());
   const [archivedVersionIds, setArchivedVersionIds] = useState<Set<string>>(() => new Set());
   const [pendingFloorplanChangeVersionId, setPendingFloorplanChangeVersionId] = useState<string | null>(null);
   const activeFloorplanContract = createActiveFloorplanContract(activeFloorplanState, savedFloorplans);
@@ -537,7 +543,12 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
       {activeSection === "scenarios" ? (
         <section className="workflow-section" aria-labelledby="scenarios-title">
           <h2 id="scenarios-title">Scenarios</h2>
-          <ScenarioRatioComparisonPanel activeFloorplan={activeFloorplanContract} />
+          <ManualScenarioPanel
+            activeFloorplan={activeFloorplanContract}
+            assignmentSet={manualAssignmentSet}
+            scenarioState={manualScenarioState}
+            onScenarioStateChange={setManualScenarioState}
+          />
         </section>
       ) : null}
 

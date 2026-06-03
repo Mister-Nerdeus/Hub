@@ -1,0 +1,85 @@
+ Image hub-api Building
+ Image hub-web Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
+#5 DONE 0.2s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#7 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#7 DONE 0.1s
+
+#6 [internal] load build context
+#6 transferring context: 3.73MB 2.0s done
+#6 DONE 2.0s
+
+#8 [ 2/11] WORKDIR /repo
+#8 CACHED
+
+#9 [ 3/11] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#10 CACHED
+
+#11 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#11 CACHED
+
+#12 [ 6/11] RUN npm ci
+#12 CACHED
+
+#13 [ 7/11] COPY tsconfig.base.json ./
+#13 CACHED
+
+#14 [ 8/11] COPY apps/web apps/web
+#14 DONE 1.6s
+
+#15 [ 9/11] COPY packages/shared packages/shared
+#15 DONE 1.1s
+
+#16 [10/11] RUN npm --workspace @nerdeus/shared run build
+#16 0.567
+#16 0.567 > @nerdeus/shared@0.1.0 build
+#16 0.567 > tsc -p tsconfig.json
+#16 0.567
+#16 DONE 6.8s
+
+#17 [11/11] WORKDIR /repo/apps/web
+#17 DONE 0.2s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 0.8s done
+#18 exporting manifest sha256:c577186f3a0278c927dbc447efb14fd1bd4997e03007d5ae0d316af1f289b269 0.0s done
+#18 exporting config sha256:7f85ee58ea32a60256fafade44e70b9dd7c0d7750d819caae3003a726e9cacb8 0.0s done
+#18 exporting attestation manifest sha256:762aa548a164246eec050608059436ed078f0ad2789e13b1f6894451fa5414cd
+#18 exporting attestation manifest sha256:762aa548a164246eec050608059436ed078f0ad2789e13b1f6894451fa5414cd 0.1s done
+#18 exporting manifest list sha256:d8621c9b213267395b9699f23cdab0a71d8cf0327ef1ab8857a92a3dbaaa5529 0.0s done
+#18 naming to docker.io/library/hub-web:latest
+#18 naming to docker.io/library/hub-web:latest 0.0s done
+#18 unpacking to docker.io/library/hub-web:latest
+#18 unpacking to docker.io/library/hub-web:latest 0.6s done
+#18 DONE 1.7s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image hub-web Built
