@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "requiredTrueFlags": [
+    "recommendationsStillBlocked",
+    "scoringStillBlocked",
+    "optimizerStillBlocked",
+    "simulationStillBlocked",
+    "noPhi",
+    "noAssignmentRecommendations",
+    "noAssignmentScoring",
+    "noClinicalSafetyClaim",
+    "noStaffingComplianceClaim",
+    "noPatientOutcomeClaim"
+  ],
+  "failingFlags": [],
+  "boundaryFiles": [
+    {
+      "path": "docs/verification/issues/issue-873/no-phi-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-optimizer-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-assignment-recommendation-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-assignment-scoring-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-clinical-safety-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-staffing-compliance-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-873/no-patient-outcome-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-phi-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-optimizer-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-assignment-recommendation-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-assignment-scoring-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-clinical-safety-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-staffing-compliance-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-874/no-patient-outcome-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-phi-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-optimizer-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-assignment-recommendation-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-assignment-scoring-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-clinical-safety-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-staffing-compliance-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-875/no-patient-outcome-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-phi-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-optimizer-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-assignment-recommendation-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-assignment-scoring-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-clinical-safety-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-staffing-compliance-claim-output.txt",
+      "status": "present"
+    },
+    {
+      "path": "docs/verification/issues/issue-876/no-patient-outcome-claim-output.txt",
+      "status": "present"
+    }
+  ],
+  "missingBoundaryFiles": []
+}

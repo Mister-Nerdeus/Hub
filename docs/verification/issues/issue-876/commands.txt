@@ -1,0 +1,11 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-assignment-label-no-overclaim.mjs --stage final --issue 876
+node scripts/check-assignment-no-recommendation-guard.mjs --stage final --issue 876
+node scripts/check-manual-assignment-browser-proof.mjs --stage final --issue 876
+node scripts/check-no-phi-fields.mjs
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose build web
+docker compose -f docker-compose.production.yml build web

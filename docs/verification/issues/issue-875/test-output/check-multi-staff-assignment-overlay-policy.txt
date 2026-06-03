@@ -1,0 +1,74 @@
+{
+  "status": "passed",
+  "issue": "875",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "overlay groups by target id without last-wins map",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "badge shows primary plus additional count",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "validation warns on multiple staff for restricted targets",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issues": [
+          {
+            "severity": "warning",
+            "code": "multiple_staff_on_restricted_target",
+            "message": "Multiple manual staff on one target",
+            "assignmentId": "manual-assignment:multi-staff-policy-set:staff-rn-a:assignment-target:multi-staff-policy-proof:room:room-14"
+          }
+        ],
+        "targetResults": [
+          {
+            "assignmentTargetId": "assignment-target:multi-staff-policy-proof:room:room-14",
+            "routeStatus": "unknown",
+            "messages": []
+          },
+          {
+            "assignmentTargetId": "assignment-target:multi-staff-policy-proof:room:room-14",
+            "routeStatus": "unknown",
+            "messages": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "zone co-assignment is allowed by policy",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issues": [],
+        "targetResults": [
+          {
+            "assignmentTargetId": "assignment-target:multi-staff-policy-proof:zone:zone-fast-track",
+            "routeStatus": "unknown",
+            "messages": []
+          },
+          {
+            "assignmentTargetId": "assignment-target:multi-staff-policy-proof:zone:zone-fast-track",
+            "routeStatus": "unknown",
+            "messages": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "policy documented",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "overlay and validation copy omit blocked terms",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

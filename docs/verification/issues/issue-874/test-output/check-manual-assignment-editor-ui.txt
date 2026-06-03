@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "issue": "874",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editor files exist",
+      "passed": true,
+      "detail": [
+        "apps/web/src/features/manual-assignment/ManualAssignmentEditor.tsx",
+        "apps/web/src/features/manual-assignment/StaffListPanel.tsx",
+        "apps/web/src/features/manual-assignment/AssignmentTargetListPanel.tsx",
+        "apps/web/src/features/manual-assignment/ManualAssignmentControls.tsx",
+        "apps/web/src/features/manual-assignment/manualAssignmentState.ts",
+        "apps/web/src/App.tsx"
+      ]
+    },
+    {
+      "name": "manual labels exist",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "primary actions exist",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "forbidden labels absent",
+      "passed": true,
+      "detail": [
+        "Recommended Assignment",
+        "Workload score",
+        "Burden score",
+        "Optimized",
+        "Safer"
+      ]
+    }
+  ]
+}

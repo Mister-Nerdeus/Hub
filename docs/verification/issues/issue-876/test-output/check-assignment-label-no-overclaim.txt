@@ -1,0 +1,60 @@
+{
+  "status": "passed",
+  "issue": "876",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "contract validators use no-overclaim guard",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          "packages/shared/src/assignments/assignmentTargetContract.ts",
+          "packages/shared/src/assignments/manualAssignmentSetContract.ts",
+          "packages/shared/src/assignments/manualStaffMemberContract.ts",
+          "packages/shared/src/assignments/assignmentLabelNoOverclaim.ts"
+        ]
+      }
+    },
+    {
+      "name": "forbidden label fixtures fail validation",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "label": "assignmentTarget.displayLabel",
+            "rejected": true
+          },
+          {
+            "label": "manualStaffMember.displayName",
+            "rejected": true
+          },
+          {
+            "label": "manualAssignmentSet.label",
+            "rejected": true
+          },
+          {
+            "label": "manualAssignment.notes",
+            "rejected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "manual foundation UI copy omits overclaim terms",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "proof artifacts omit overclaim terms outside explicit fixture",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "shared regression test exists",
+      "passed": true,
+      "detail": {}
+    }
+  ]
+}

@@ -7,6 +7,7 @@ import { deriveRouteGraphFromGeometry } from "../floorplans/deriveRouteGraphFrom
 import { routeNodeIdFor } from "../floorplans/routeNodeContract.js";
 import type { RouteGraphContract } from "../floorplans/routeGraphContract.js";
 import {
+  ASSIGNMENT_CARE_POSITION_TARGET_KIND,
   assignmentTargetIdFor,
   validateAssignmentTargetList,
   type AssignmentTargetContract,
@@ -38,7 +39,7 @@ export function resolveAssignmentTargetsFromFloorplan(
   for (const splitRoom of layout.splitRooms ?? []) {
     for (const bedPosition of splitRoom.bedPositions) {
       targets.push(
-        buildTarget(layout.layoutId, "bed_position", bedPosition.bedPositionId, bedPosition.label, routeNodeIds)
+        buildTarget(layout.layoutId, ASSIGNMENT_CARE_POSITION_TARGET_KIND, bedPosition.bedPositionId, bedPosition.label, routeNodeIds)
       );
     }
   }

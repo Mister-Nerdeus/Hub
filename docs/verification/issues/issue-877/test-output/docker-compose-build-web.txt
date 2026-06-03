@@ -1,0 +1,75 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.6s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B done
+#5 DONE 0.0s
+
+#6 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 3.67MB 2.2s done
+#7 DONE 2.2s
+
+#8 [ 3/11] COPY package.json package-lock.json ./
+#8 CACHED
+
+#9 [ 6/11] RUN npm ci
+#9 CACHED
+
+#10 [ 2/11] WORKDIR /repo
+#10 CACHED
+
+#11 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#11 CACHED
+
+#12 [ 7/11] COPY tsconfig.base.json ./
+#12 CACHED
+
+#13 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#13 CACHED
+
+#14 [ 8/11] COPY apps/web apps/web
+#14 CACHED
+
+#15 [ 9/11] COPY packages/shared packages/shared
+#15 CACHED
+
+#16 [10/11] RUN npm --workspace @nerdeus/shared run build
+#16 CACHED
+
+#17 [11/11] WORKDIR /repo/apps/web
+#17 CACHED
+
+#18 exporting to image
+#18 exporting layers done
+#18 exporting manifest sha256:1cef87ca393bc3021ad672707cfd680c320262b6807c706f4c5025357524460a done
+#18 exporting config sha256:e6ad2c80633c7f4e7502b33db09e7877ef00fb40328fe82cbb4afc139e65dc03 done
+#18 exporting attestation manifest sha256:72d93c39b2ed356122f2303df9fce6523674b67b44e8d043973b3fa9aa695eb2
+#18 exporting attestation manifest sha256:72d93c39b2ed356122f2303df9fce6523674b67b44e8d043973b3fa9aa695eb2 0.1s done
+#18 exporting manifest list sha256:e466b2ea27f99cad935c24b9d2904dd1ac7be9c97e0e58b82a9b226382f5a01b 0.0s done
+#18 naming to docker.io/library/hub-web:latest done
+#18 unpacking to docker.io/library/hub-web:latest 0.0s done
+#18 DONE 0.2s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image hub-web Built 

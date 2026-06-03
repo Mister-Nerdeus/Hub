@@ -82,9 +82,9 @@ async function runBrowserProof() {
   const port = Number(readArg("--port", "6870"));
   const chromePort = Number(readArg("--chrome-port", "9870"));
   return (await withBrowserRenderedApp({ port, chromePort, width: 1440, height: 1100, initScript: unlockScript() }, async (browser) => {
-    await browser.navigate(`${browser.baseUrl}/?section=manual-assignment`, `document.querySelector('[data-manual-assignment-editor="true"]') != null`);
+    await browser.navigate(`${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_proof`, `document.querySelector('[data-manual-assignment-editor="true"]') != null`);
     await browser.evaluate("localStorage.clear()");
-    await browser.navigate(`${browser.baseUrl}/?section=manual-assignment`, `document.querySelector('[data-manual-assignment-editor="true"]') != null`);
+    await browser.navigate(`${browser.baseUrl}/?section=manual-assignment&manualAssignmentFixtureMode=canonical_proof`, `document.querySelector('[data-manual-assignment-editor="true"]') != null`);
     await addAssignment(browser, "staff-rn-a", "room", 0);
     await addAssignment(browser, "staff-rn-b", "bed_position", 0);
     await addAssignment(browser, "staff-rn-c", "bed_position", 1);
@@ -115,12 +115,20 @@ async function runBrowserProof() {
 }
 
 async function addAssignment(browser, staffId, targetKind, targetIndex = 0) {
-  await browser.evaluate(`document.querySelector('[data-manual-staff-id="${staffId}"]')?.click()`);
-  await browser.evaluate(`(() => {
+  const staffSelector = `[data-manual-staff-id="${staffId}"]`;
+  await browser.evaluate(`document.querySelector(${JSON.stringify(staffSelector)})?.click()`);
+  await waitForExpression(browser, `document.querySelector(${JSON.stringify(staffSelector)})?.getAttribute("aria-pressed") === "true"`, 5_000);
+  const targetSelector = await browser.evaluate(`(() => {
     const buttons = Array.from(document.querySelectorAll('[data-assignment-target-kind="${targetKind}"]'));
     const button = buttons[${Number(targetIndex)}];
     button?.click();
+    const targetId = button?.getAttribute("data-assignment-target-id");
+    return targetId == null ? null : \`[data-assignment-target-id="\${targetId}"]\`;
   })()`);
+  if (targetSelector == null) {
+    throw new Error(`Assignment target ${targetKind} at index ${targetIndex} was not found`);
+  }
+  await waitForExpression(browser, `document.querySelector(${JSON.stringify(targetSelector)})?.getAttribute("aria-pressed") === "true"`, 5_000);
   await clickButton(browser, "Add assignment");
   await delay(200);
 }

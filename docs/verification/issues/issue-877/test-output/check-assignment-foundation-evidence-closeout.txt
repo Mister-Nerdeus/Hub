@@ -1,0 +1,295 @@
+{
+  "status": "passed",
+  "issue": "877",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manifest remains manual-only and ready for manual scenario foundation",
+      "passed": true,
+      "detail": {
+        "goNoGo": true,
+        "scope": true,
+        "recommendationsBlocked": true,
+        "scoringBlocked": true,
+        "optimizerBlocked": true,
+        "simulationBlocked": true,
+        "carePositionTerminologyAligned": true,
+        "activeFloorplanFallbackSafe": true,
+        "multiStaffOverlayPolicyExplicit": true,
+        "assignmentLabelsNoOverclaim": true
+      }
+    },
+    {
+      "name": "issue evidence directories 862-876 are complete",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issuesChecked": "862-876",
+        "requiredFiles": [
+          "closeout.md",
+          "commands.txt",
+          "command-output-map.json",
+          "first-failure.txt",
+          "manifest-update-output.json",
+          "test-output/shared.txt",
+          "test-output/web.txt",
+          "test-output/web-build.txt"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "browser proof artifacts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "required": [
+          "docs/verification/issues/issue-870/manual-assignment-browser-proof-output.json",
+          "docs/verification/issues/issue-870/manual-assignment-browser-trace.json",
+          "docs/verification/issues/issue-870/assignment-before.json",
+          "docs/verification/issues/issue-870/assignment-after.json",
+          "docs/verification/issues/issue-873/assignment-care-position-terminology-output.json",
+          "docs/verification/issues/issue-873/bed-position-care-position-proof.json",
+          "docs/verification/issues/issue-874/manual-assignment-active-floorplan-fallback-output.json",
+          "docs/verification/issues/issue-874/active-floorplan-no-split-room-proof.json",
+          "docs/verification/issues/issue-875/multi-staff-assignment-overlay-policy-output.json",
+          "docs/verification/issues/issue-875/co-assignment-policy-proof.json",
+          "docs/verification/issues/issue-876/assignment-label-no-overclaim-output.json",
+          "docs/verification/issues/issue-876/forbidden-label-fixture-output.json"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "screenshots are indexed and present",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issues": [
+          "870",
+          "874",
+          "875",
+          "876"
+        ],
+        "indexed": [
+          {
+            "issue": "870",
+            "file": "screenshots/manual-assignment-browser-editor.png",
+            "bytes": 73844
+          },
+          {
+            "issue": "870",
+            "file": "screenshots/manual-assignment-browser-overlay.png",
+            "bytes": 201014
+          },
+          {
+            "issue": "870",
+            "file": "screenshots/manual-assignment-browser-after-reload.png",
+            "bytes": 201014
+          },
+          {
+            "issue": "874",
+            "file": "screenshots/active-floorplan-no-split-room.png",
+            "bytes": 77637
+          },
+          {
+            "issue": "874",
+            "file": "screenshots/canonical-demo-mode.png",
+            "bytes": 64589
+          },
+          {
+            "issue": "874",
+            "file": "screenshots/no-active-floorplan-fallback.png",
+            "bytes": 64621
+          },
+          {
+            "issue": "875",
+            "file": "screenshots/one-staff-normal-room.png",
+            "bytes": 201426
+          },
+          {
+            "issue": "875",
+            "file": "screenshots/split-bed-separate-staff.png",
+            "bytes": 201307
+          },
+          {
+            "issue": "875",
+            "file": "screenshots/multi-staff-count.png",
+            "bytes": 201468
+          },
+          {
+            "issue": "875",
+            "file": "screenshots/restricted-target-warning.png",
+            "bytes": 71454
+          },
+          {
+            "issue": "876",
+            "file": "screenshots/manual-assignment-browser-editor.png",
+            "bytes": 75370
+          },
+          {
+            "issue": "876",
+            "file": "screenshots/manual-assignment-browser-overlay.png",
+            "bytes": 201014
+          },
+          {
+            "issue": "876",
+            "file": "screenshots/manual-assignment-browser-after-reload.png",
+            "bytes": 201014
+          }
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "root scripts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:assignment-care-position-terminology": "node scripts/check-assignment-care-position-terminology.mjs --stage final --issue 873",
+          "check:manual-assignment-active-floorplan-fallback": "node scripts/check-manual-assignment-active-floorplan-fallback.mjs --stage final --issue 874",
+          "check:multi-staff-assignment-overlay-policy": "node scripts/check-multi-staff-assignment-overlay-policy.mjs --stage final --issue 875",
+          "check:assignment-label-no-overclaim": "node scripts/check-assignment-label-no-overclaim.mjs --stage final --issue 876",
+          "check:assignment-foundation-evidence-closeout": "node scripts/check-assignment-foundation-evidence-closeout.mjs --stage final --issue 877"
+        }
+      }
+    },
+    {
+      "name": "boundary flags remain clean",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "requiredTrueFlags": [
+          "recommendationsStillBlocked",
+          "scoringStillBlocked",
+          "optimizerStillBlocked",
+          "simulationStillBlocked",
+          "noPhi",
+          "noAssignmentRecommendations",
+          "noAssignmentScoring",
+          "noClinicalSafetyClaim",
+          "noStaffingComplianceClaim",
+          "noPatientOutcomeClaim"
+        ],
+        "failingFlags": [],
+        "boundaryFiles": [
+          {
+            "path": "docs/verification/issues/issue-873/no-phi-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-optimizer-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-assignment-recommendation-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-assignment-scoring-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-clinical-safety-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-staffing-compliance-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-873/no-patient-outcome-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-phi-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-optimizer-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-assignment-recommendation-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-assignment-scoring-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-clinical-safety-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-staffing-compliance-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-874/no-patient-outcome-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-phi-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-optimizer-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-assignment-recommendation-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-assignment-scoring-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-clinical-safety-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-staffing-compliance-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-875/no-patient-outcome-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-phi-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-optimizer-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-assignment-recommendation-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-assignment-scoring-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-clinical-safety-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-staffing-compliance-claim-output.txt",
+            "status": "present"
+          },
+          {
+            "path": "docs/verification/issues/issue-876/no-patient-outcome-claim-output.txt",
+            "status": "present"
+          }
+        ],
+        "missingBoundaryFiles": []
+      }
+    }
+  ]
+}

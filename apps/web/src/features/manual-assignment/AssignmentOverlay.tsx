@@ -23,21 +23,26 @@ export function AssignmentOverlay({
 }: AssignmentOverlayProps) {
   if (layout == null || assignmentSet == null) return null;
   const staffById = new Map(staffMembers.map((staff) => [staff.staffMemberId, staff]));
-  const assignmentsByTargetId = new Map(
-    assignmentSet.assignments.map((assignment) => [assignment.assignmentTargetId, assignment])
-  );
+  const assignmentsByTargetId = new Map<string, ManualAssignmentSetContract["assignments"]>();
+  for (const assignment of assignmentSet.assignments) {
+    const assignments = assignmentsByTargetId.get(assignment.assignmentTargetId) ?? [];
+    assignments.push(assignment);
+    assignmentsByTargetId.set(assignment.assignmentTargetId, assignments);
+  }
   return (
     <g className="manual-assignment-overlay" data-manual-assignment-overlay="true">
       {assignmentTargets.map((target) => {
         const position = targetPosition(layout, target, pixelsPerFoot);
         if (position == null) return null;
-        const assignment = assignmentsByTargetId.get(target.assignmentTargetId) ?? null;
-        const staff = assignment == null ? null : staffById.get(assignment.staffMemberId) ?? null;
+        const assignments = assignmentsByTargetId.get(target.assignmentTargetId) ?? [];
+        const staffLabels = assignments
+          .map((assignment) => staffById.get(assignment.staffMemberId)?.displayName ?? null)
+          .filter((label): label is string => label != null);
         return (
           <AssignmentBadge
             key={target.assignmentTargetId}
             label={shortTargetLabel(target)}
-            staffLabel={staff?.displayName ?? null}
+            staffLabels={staffLabels}
             x={position.x}
             y={position.y}
           />

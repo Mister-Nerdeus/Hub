@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "issue": "873",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "care position doc exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared constant defines bed_position care-position model",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "resolver uses care-position target kind",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "split parent rooms are not targets",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "split bed positions are targets",
+      "passed": true,
+      "detail": [
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-a",
+          "targetKind": "bed_position",
+          "sourceId": "room-03:bed-a",
+          "displayLabel": "Room 03A",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:bed_position:room-03:bed-a",
+          "active": true
+        },
+        {
+          "assignmentTargetId": "assignment-target:canonical-er-pod-geometry-route-readiness:bed_position:room-03:bed-b",
+          "targetKind": "bed_position",
+          "sourceId": "room-03:bed-b",
+          "displayLabel": "Room 03B",
+          "floorplanId": "canonical-er-pod-geometry-route-readiness",
+          "routeNodeId": "route-node:bed_position:room-03:bed-b",
+          "active": true
+        }
+      ]
+    },
+    {
+      "name": "split bed targets are not fake rooms",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "legacy or contradictory terminology absent from scoped files",
+      "passed": true,
+      "detail": []
+    }
+  ]
+}

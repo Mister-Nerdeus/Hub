@@ -1,0 +1,94 @@
+ Image hub-api Building 
+ Image hub-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 295B 0.0s done
+#5 DONE 0.0s
+
+#6 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 9.03MB 5.0s
+#7 transferring context: 12.68MB 7.2s done
+#7 DONE 7.2s
+
+#8 [ 2/11] WORKDIR /repo
+#8 CACHED
+
+#9 [ 3/11] COPY package.json package-lock.json ./
+#9 DONE 0.1s
+
+#10 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#10 DONE 0.1s
+
+#11 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#11 DONE 0.1s
+
+#12 [ 6/11] RUN npm ci
+#12 3.166 
+#12 3.166 added 27 packages, and audited 30 packages in 3s
+#12 3.166 
+#12 3.166 9 packages are looking for funding
+#12 3.166   run `npm fund` for details
+#12 3.166 
+#12 3.166 found 0 vulnerabilities
+#12 3.168 npm notice
+#12 3.168 npm notice New major version of npm available! 10.9.8 -> 11.16.0
+#12 3.168 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+#12 3.168 npm notice To update run: npm install -g npm@11.16.0
+#12 3.168 npm notice
+#12 DONE 3.6s
+
+#13 [ 7/11] COPY tsconfig.base.json ./
+#13 DONE 0.1s
+
+#14 [ 8/11] COPY apps/web apps/web
+#14 DONE 0.2s
+
+#15 [ 9/11] COPY packages/shared packages/shared
+#15 DONE 0.2s
+
+#16 [10/11] RUN npm --workspace @nerdeus/shared run build
+#16 0.400 
+#16 0.400 > @nerdeus/shared@0.1.0 build
+#16 0.400 > tsc -p tsconfig.json
+#16 0.400 
+#16 DONE 4.6s
+
+#17 [11/11] WORKDIR /repo/apps/web
+#17 DONE 0.1s
+
+#18 exporting to image
+#18 exporting layers
+#18 exporting layers 4.7s done
+#18 exporting manifest sha256:397844f4fa9df9352a64698f3cc885b9136d6cccd24eab0d167a9dbbf80a071e 0.0s done
+#18 exporting config sha256:74dc9d7b20139834ca18a7c4bc61399c40b2c9177df602460ed0b5db38b175b3 0.0s done
+#18 exporting attestation manifest sha256:20cdb3a5070d68612d4e6df3e5a8c2b99abedc8fbb1629c09becb58fdcc2bdfa 0.0s done
+#18 exporting manifest list sha256:40c9e4e83c99b6e2eb1ee269d348800552814d572779b2453e62de72ce61fd1b
+#18 exporting manifest list sha256:40c9e4e83c99b6e2eb1ee269d348800552814d572779b2453e62de72ce61fd1b 0.0s done
+#18 naming to docker.io/library/hub-web:latest done
+#18 unpacking to docker.io/library/hub-web:latest
+#18 unpacking to docker.io/library/hub-web:latest 1.3s done
+#18 DONE 6.2s
+
+#19 resolving provenance for metadata file
+#19 DONE 0.0s
+ Image hub-web Built 

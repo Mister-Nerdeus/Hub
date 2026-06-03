@@ -21,6 +21,7 @@ export type ManualAssignmentValidationIssue = {
     | "inactive_staff_member"
     | "inactive_assignment_target"
     | "duplicate_assignment"
+    | "multiple_staff_on_restricted_target"
     | "target_not_found_in_active_floorplan"
     | "split_bed_target_not_found"
     | "target_not_connected_in_route_graph";
@@ -46,9 +47,14 @@ export function validateManualAssignmentSetReferences(input: {
   const activeTargetIds = new Set(input.assignmentTargets.map((target) => target.assignmentTargetId));
   const issues: ManualAssignmentValidationIssue[] = [];
   const seenExactAssignments = new Set<string>();
+  const assignmentsByTargetId = new Map<string, ManualAssignmentContract[]>();
   const targetResults: AssignmentTargetValidationResult[] = [];
 
   for (const assignment of assignmentSet.assignments) {
+    const targetAssignments = assignmentsByTargetId.get(assignment.assignmentTargetId) ?? [];
+    targetAssignments.push(assignment);
+    assignmentsByTargetId.set(assignment.assignmentTargetId, targetAssignments);
+
     const duplicateKey = exactAssignmentKey(assignment);
     if (seenExactAssignments.has(duplicateKey)) {
       issues.push(issue("warning", "duplicate_assignment", "Duplicate assignment", assignment.assignmentId));
@@ -89,6 +95,20 @@ export function validateManualAssignmentSetReferences(input: {
       if (message === "Inactive assignment target") {
         issues.push(issue("warning", "inactive_assignment_target", message, assignment.assignmentId));
       }
+    }
+  }
+
+  for (const [assignmentTargetId, targetAssignments] of assignmentsByTargetId) {
+    if (targetAssignments.length <= 1) continue;
+    const target = targetsById.get(assignmentTargetId) ?? null;
+    const targetKind = target?.targetKind ?? targetAssignments[0]?.assignmentTargetKind ?? null;
+    if (targetKind === "room" || targetKind === "bed_position" || targetKind === "hall_bed") {
+      issues.push(issue(
+        "warning",
+        "multiple_staff_on_restricted_target",
+        "Multiple manual staff on one target",
+        targetAssignments[0]?.assignmentId
+      ));
     }
   }
 
