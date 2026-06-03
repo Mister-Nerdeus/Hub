@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "scenario": {
+    "scenarioId": "manual-scenario:manual-scenario-validation-floorplan:manual-scenario-validation-assignment-set:manual-scenario-validation",
+    "label": "Manual Scenario Validation",
+    "floorplanId": "manual-scenario-validation-floorplan",
+    "assignmentSetId": "manual-scenario-validation-assignment-set",
+    "staffRosterId": "manual-scenario-validation-roster",
+    "createdAtIso": "2026-06-01T00:00:00.000Z",
+    "updatedAtIso": "2026-06-01T00:00:00.000Z",
+    "mode": "manual"
+  },
+  "validResult": {
+    "status": "passed",
+    "issues": []
+  },
+  "missingReferenceResult": {
+    "status": "failed",
+    "issues": [
+      {
+        "severity": "error",
+        "code": "missing_floorplan",
+        "message": "Missing floorplan"
+      },
+      {
+        "severity": "error",
+        "code": "missing_assignment_set",
+        "message": "Missing assignment set"
+      },
+      {
+        "severity": "warning",
+        "code": "missing_staff_roster",
+        "message": "Missing staff roster"
+      }
+    ]
+  },
+  "mismatchResult": {
+    "status": "failed",
+    "issues": [
+      {
+        "severity": "error",
+        "code": "assignment_set_floorplan_mismatch",
+        "message": "Assignment set does not match floorplan"
+      }
+    ]
+  }
+}

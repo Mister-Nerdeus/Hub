@@ -269,6 +269,7 @@ export * from "./scenarios/activityProfileContract.js";
 export * from "./scenarios/activityProfileValidation.js";
 export * from "./scenarios/manualScenarioContract.js";
 export * from "./scenarios/manualScenarioValidation.js";
+export * from "./scenarios/manualScenarioReferenceValidation.js";
 export * from "./scenarios/manualScenarioSnapshotContract.js";
 export * from "./scenarios/manualScenarioVersioning.js";
 export * from "./scenarios/manualAssignmentScenarioBridge.js";
