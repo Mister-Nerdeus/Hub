@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync } from "node:fs";
 import {
   addCheck,
   ensureIssueArtifacts,
@@ -208,8 +208,10 @@ function proofBrowserArtifacts() {
 function proofScreenshots(issues) {
   const missing = [];
   const indexed = [];
+  const unindexed = [];
   for (const screenshotIssue of issues) {
     const indexPath = issuePath(screenshotIssue, "screenshot-index.json");
+    const screenshotDir = issuePath(screenshotIssue, "screenshots");
     if (!existsSync(indexPath)) {
       missing.push(indexPath);
       continue;
@@ -217,6 +219,13 @@ function proofScreenshots(issues) {
     const index = readJson(indexPath);
     const screenshots = Array.isArray(index.screenshots) ? index.screenshots : [];
     if (screenshots.length === 0) missing.push(`${indexPath}:screenshots`);
+    const indexedFiles = new Set(screenshots.map((screenshot) => screenshot.file));
+    if (existsSync(screenshotDir)) {
+      for (const file of readdirSync(screenshotDir).filter((candidate) => candidate.endsWith(".png"))) {
+        const indexedPath = `screenshots/${file}`;
+        if (!indexedFiles.has(indexedPath)) unindexed.push(issuePath(screenshotIssue, indexedPath));
+      }
+    }
     for (const screenshot of screenshots) {
       const screenshotPath = issuePath(screenshotIssue, screenshot.file);
       if (!existsSync(screenshotPath) || statSync(screenshotPath).size < 5000) {
@@ -227,9 +236,10 @@ function proofScreenshots(issues) {
     }
   }
   return {
-    status: missing.length === 0 ? "passed" : "failed",
+    status: missing.length === 0 && unindexed.length === 0 ? "passed" : "failed",
     issues: issues.map(String),
     indexed,
+    unindexed,
     missing
   };
 }
