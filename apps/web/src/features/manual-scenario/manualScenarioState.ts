@@ -1,6 +1,8 @@
 import {
   manualScenarioIdFor,
   validateManualScenarioContract,
+  validateManualScenarioSnapshotContract,
+  type ManualScenarioSnapshotContract,
   type ManualScenarioContract
 } from "@nerdeus/shared";
 
@@ -8,6 +10,7 @@ export const MANUAL_SCENARIO_TIMESTAMP = "2026-06-01T00:00:00.000Z";
 
 export type ManualScenarioState = {
   scenarios: ManualScenarioContract[];
+  snapshots: ManualScenarioSnapshotContract[];
   selectedScenarioId: string | null;
 };
 
@@ -20,7 +23,26 @@ export type ManualScenarioReferences = {
 export function createManualScenarioState(): ManualScenarioState {
   return {
     scenarios: [],
+    snapshots: [],
     selectedScenarioId: null
+  };
+}
+
+export function createManualScenarioStateFromRecords(input: {
+  scenarios: readonly ManualScenarioContract[];
+  snapshots?: readonly ManualScenarioSnapshotContract[];
+  selectedScenarioId?: string | null;
+}): ManualScenarioState {
+  const scenarios = input.scenarios.map(validateManualScenarioContract);
+  const snapshots = [...(input.snapshots ?? [])].map(validateManualScenarioSnapshotContract);
+  const requestedSelection = input.selectedScenarioId ?? null;
+  const selectedScenarioId = scenarios.some((scenario) => scenario.scenarioId === requestedSelection)
+    ? requestedSelection
+    : scenarios[0]?.scenarioId ?? null;
+  return {
+    scenarios,
+    snapshots,
+    selectedScenarioId
   };
 }
 
@@ -54,6 +76,7 @@ export function createManualScenario(input: {
   const scenario = createManualScenarioFromReferences({ references: input.references, label });
   return {
     scenarios: [...input.state.scenarios, scenario],
+    snapshots: input.state.snapshots,
     selectedScenarioId: scenario.scenarioId
   };
 }
@@ -76,6 +99,7 @@ export function duplicateManualScenario(input: {
   });
   return {
     scenarios: [...input.state.scenarios, scenario],
+    snapshots: input.state.snapshots,
     selectedScenarioId: scenario.scenarioId
   };
 }
@@ -103,6 +127,7 @@ export function renameManualScenario(input: {
   const renamed = scenarios.find((scenario) => scenario.label === trimmedLabel);
   return {
     scenarios,
+    snapshots: input.state.snapshots,
     selectedScenarioId: renamed?.scenarioId ?? input.state.selectedScenarioId
   };
 }
@@ -118,6 +143,23 @@ export function selectManualScenario(input: {
 
 export function selectedManualScenario(state: ManualScenarioState): ManualScenarioContract | null {
   return state.scenarios.find((scenario) => scenario.scenarioId === state.selectedScenarioId) ?? null;
+}
+
+export function addManualScenarioSnapshot(input: {
+  state: ManualScenarioState;
+  snapshot: ManualScenarioSnapshotContract;
+}): ManualScenarioState {
+  const snapshots = input.state.snapshots.some((snapshot) =>
+    snapshot.scenarioSnapshotId === input.snapshot.scenarioSnapshotId
+  )
+    ? input.state.snapshots.map((snapshot) =>
+        snapshot.scenarioSnapshotId === input.snapshot.scenarioSnapshotId ? input.snapshot : snapshot
+      )
+    : [...input.state.snapshots, input.snapshot];
+  return {
+    ...input.state,
+    snapshots
+  };
 }
 
 function nextScenarioLabel(baseLabel: string, scenarios: readonly ManualScenarioContract[]): string {

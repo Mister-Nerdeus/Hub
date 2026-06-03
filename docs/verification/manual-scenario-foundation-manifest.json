@@ -6,7 +6,7 @@
   "manualScenarioSnapshotStatus": "passed",
   "manualScenarioValidationStatus": "passed",
   "manualScenarioEditorStatus": "passed",
-  "manualScenarioSaveReloadStatus": "missing",
+  "manualScenarioSaveReloadStatus": "passed",
   "manualScenarioBrowserProofStatus": "missing",
   "manualScenarioNoRecommendationGuardStatus": "missing",
   "manualScenarioFoundationGoNoGoStatus": "not_ready",
@@ -15,7 +15,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "884",
+  "lastUpdatedIssue": "885",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -45,5 +45,10 @@
   "scenarioDuplicateSupported": true,
   "scenarioRenameSupported": true,
   "scenarioUiContainsNoRecommendations": true,
-  "scenarioUiContainsNoScoring": true
+  "scenarioUiContainsNoScoring": true,
+  "scenarioPersists": true,
+  "scenarioReferencesPersist": true,
+  "scenarioSnapshotsPersist": true,
+  "scenarioStorageContainsNoSimulation": true,
+  "scenarioStorageContainsNoScoring": true
 }

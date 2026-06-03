@@ -20,13 +20,17 @@ type ManualScenarioPanelProps = {
   assignmentSet: ManualAssignmentSetContract | null;
   scenarioState: ManualScenarioState;
   onScenarioStateChange: (state: ManualScenarioState) => void;
+  onSaveScenarios: () => void;
+  statusMessage?: string | null;
 };
 
 export function ManualScenarioPanel({
   activeFloorplan,
   assignmentSet,
   scenarioState,
-  onScenarioStateChange
+  onScenarioStateChange,
+  onSaveScenarios,
+  statusMessage
 }: ManualScenarioPanelProps) {
   const selectedScenario = selectedManualScenario(scenarioState);
   const [renameValue, setRenameValue] = useState(selectedScenario?.label ?? "");
@@ -64,6 +68,9 @@ export function ManualScenarioPanel({
         </div>
         <strong>Validation</strong>
       </header>
+      {statusMessage == null ? null : (
+        <p className="manual-scenario-panel__status">{statusMessage}</p>
+      )}
       <ManualScenarioControls
         renameValue={renameValue}
         canDuplicate={selectedScenario != null}
@@ -75,6 +82,7 @@ export function ManualScenarioPanel({
             scenarioId: scenarioState.selectedScenarioId
           }))
         }
+        onSaveScenarios={onSaveScenarios}
         onRenameValueChange={setRenameValue}
         onRenameScenario={() =>
           onScenarioStateChange(renameManualScenario({

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "scenarios": [
+    {
+      "scenarioId": "manual-scenario:manual-scenario-save-reload-floorplan:manual-scenario-save-reload-assignment-set:manual-scenario-save-reload",
+      "label": "Manual Scenario Save Reload",
+      "description": "Reference-only manual scenario persistence proof",
+      "floorplanId": "manual-scenario-save-reload-floorplan",
+      "assignmentSetId": "manual-scenario-save-reload-assignment-set",
+      "staffRosterId": "manual-scenario-save-reload-roster",
+      "createdAtIso": "2026-06-01T00:00:00.000Z",
+      "updatedAtIso": "2026-06-01T00:00:00.000Z",
+      "mode": "manual"
+    }
+  ],
+  "snapshots": [
+    {
+      "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-manual-scenario-save-reload-floorplan-manual-scenario-save-reload-assignment-set-manual-scenario-save-reload:manual-scenario-save-reload-floorplan:manual-scenario-save-reload-assignment-set:manual-scenario-save-reload-floorplan-v1:manual-scenario-save-reload-assignment-v1",
+      "scenarioId": "manual-scenario:manual-scenario-save-reload-floorplan:manual-scenario-save-reload-assignment-set:manual-scenario-save-reload",
+      "floorplanId": "manual-scenario-save-reload-floorplan",
+      "assignmentSetId": "manual-scenario-save-reload-assignment-set",
+      "staffRosterId": "manual-scenario-save-reload-roster",
+      "floorplanRevisionId": "manual-scenario-save-reload-floorplan-v1",
+      "assignmentSetRevisionId": "manual-scenario-save-reload-assignment-v1",
+      "createdAtIso": "2026-06-01T00:00:00.000Z",
+      "mode": "manual_snapshot"
+    }
+  ],
+  "selectedScenarioId": "manual-scenario:manual-scenario-save-reload-floorplan:manual-scenario-save-reload-assignment-set:manual-scenario-save-reload"
+}

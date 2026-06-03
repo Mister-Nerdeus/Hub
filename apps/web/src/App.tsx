@@ -78,9 +78,12 @@ import {
 } from "./features/manual-assignment/manualAssignmentDemoMode";
 import { ManualScenarioPanel } from "./features/manual-scenario/ManualScenarioPanel";
 import {
-  createManualScenarioState,
   type ManualScenarioState
 } from "./features/manual-scenario/manualScenarioState";
+import {
+  readManualScenarioState,
+  writeManualScenarioState
+} from "./features/manual-scenario/manualScenarioStorage";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
 import { WorkspaceAccessEntryScreen } from "./features/demo-pin/WorkspaceAccessEntryScreen";
@@ -135,7 +138,8 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [manualAssignmentSet, setManualAssignmentSet] =
     useState<ManualAssignmentSetContract | null>(() => readManualAssignmentSet(getLocalStorage()));
   const [manualScenarioState, setManualScenarioState] =
-    useState<ManualScenarioState>(() => createManualScenarioState());
+    useState<ManualScenarioState>(() => readManualScenarioState(getLocalStorage()));
+  const [manualScenarioStatusMessage, setManualScenarioStatusMessage] = useState<string | null>(null);
   const [archivedVersionIds, setArchivedVersionIds] = useState<Set<string>>(() => new Set());
   const [pendingFloorplanChangeVersionId, setPendingFloorplanChangeVersionId] = useState<string | null>(null);
   const activeFloorplanContract = createActiveFloorplanContract(activeFloorplanState, savedFloorplans);
@@ -253,6 +257,16 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     }
     openSaved(pendingFloorplanChangeVersionId, { clearAssignments: true });
     setPendingFloorplanChangeVersionId(null);
+  }
+
+  function updateManualScenarioState(state: ManualScenarioState) {
+    setManualScenarioState(state);
+    setManualScenarioStatusMessage(null);
+  }
+
+  function saveManualScenarios() {
+    setManualScenarioState(writeManualScenarioState(getLocalStorage(), manualScenarioState));
+    setManualScenarioStatusMessage("Manual scenarios saved.");
   }
 
   function saveActiveWorkingCopy(draft: AuthoringDraftContract): SaveWorkingCopyResult {
@@ -547,7 +561,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             activeFloorplan={activeFloorplanContract}
             assignmentSet={manualAssignmentSet}
             scenarioState={manualScenarioState}
-            onScenarioStateChange={setManualScenarioState}
+            onScenarioStateChange={updateManualScenarioState}
+            onSaveScenarios={saveManualScenarios}
+            statusMessage={manualScenarioStatusMessage}
           />
         </section>
       ) : null}
