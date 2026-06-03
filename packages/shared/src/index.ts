@@ -101,6 +101,13 @@ export {
   validateAssignmentLabelNoOverclaim
 } from "./assignments/assignmentLabelNoOverclaim.js";
 export {
+  DEFAULT_CO_ASSIGNMENT_POLICY,
+  coAssignmentPolicyAllowsMultipleStaff,
+  validateCoAssignmentPolicyContract,
+  type CoAssignmentPolicyContract,
+  type CoAssignmentPolicyMode
+} from "./assignments/coAssignmentPolicyContract.js";
+export {
   ASSIGNMENT_CARE_POSITION_TARGET_KIND,
   ASSIGNMENT_TARGET_KINDS as ASSIGNMENT_FOUNDATION_TARGET_KINDS,
   assignmentTargetIdFor,

@@ -8,4 +8,6 @@ Manual scenario foundation depends on the manual assignment foundation closeout.
 
 Manual scenario foundation is preflight only until issues 879-887 complete. The final GO/NO-GO gate remains `not_ready`.
 
+Co-assignment policy remains part of manual assignment validation. Manual scenarios may reference manual assignment sets, but they do not reinterpret multi-staff placement as assignment quality or route quality.
+
 Scenario artifacts are reference and presentation records only. They do not judge assignment quality, staffing adequacy, route quality, clinical status, or outcome impact.

@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "roomValidation": {
+    "status": "passed",
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "multiple_staff_on_restricted_target",
+        "message": "Multiple staff assigned to target",
+        "assignmentId": "manual-assignment:co-assignment-policy-set:staff-rn-a:assignment-target:co-assignment-policy-script-proof:room:room-14"
+      }
+    ],
+    "targetResults": [
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:room:room-14",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:room:room-14",
+        "routeStatus": "unknown",
+        "messages": []
+      }
+    ]
+  },
+  "bedValidation": {
+    "status": "passed",
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "multiple_staff_on_restricted_target",
+        "message": "Multiple staff assigned to target",
+        "assignmentId": "manual-assignment:co-assignment-policy-set:staff-rn-a:assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a"
+      }
+    ],
+    "targetResults": [
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a",
+        "routeStatus": "unknown",
+        "messages": []
+      }
+    ]
+  },
+  "supportValidation": {
+    "status": "passed",
+    "issues": [],
+    "targetResults": [
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:zone:zone-fast-track",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:support_area:support-team-room",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:support_area:support-team-room",
+        "routeStatus": "unknown",
+        "messages": []
+      },
+      {
+        "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:zone:zone-fast-track",
+        "routeStatus": "unknown",
+        "messages": []
+      }
+    ]
+  }
+}

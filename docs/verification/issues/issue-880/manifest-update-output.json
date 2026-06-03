@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "issue": "880",
+  "patch": {
+    "coAssignmentPolicyContractStatus": "passed",
+    "coAssignmentPolicyExplicit": true,
+    "patientTargetMultiStaffValidated": true,
+    "supportTargetMultiStaffPolicySupported": true,
+    "coAssignmentContainsNoRecommendations": true,
+    "coAssignmentContainsNoScoring": true
+  },
+  "manifest": {
+    "manualScenarioFoundationPreflightStatus": "passed",
+    "assignmentEditorLayoutResetStatus": "passed",
+    "coAssignmentPolicyContractStatus": "passed",
+    "manualScenarioContractStatus": "missing",
+    "manualScenarioSnapshotStatus": "missing",
+    "manualScenarioValidationStatus": "missing",
+    "manualScenarioEditorStatus": "missing",
+    "manualScenarioSaveReloadStatus": "missing",
+    "manualScenarioBrowserProofStatus": "missing",
+    "manualScenarioNoRecommendationGuardStatus": "missing",
+    "manualScenarioFoundationGoNoGoStatus": "not_ready",
+    "scenarioScope": "manual_only",
+    "recommendationsStillBlocked": true,
+    "scoringStillBlocked": true,
+    "simulationStillBlocked": true,
+    "assignmentFoundationDependencyVerified": true,
+    "lastUpdatedIssue": "880",
+    "layoutChangeResetsInvalidAssignmentState": true,
+    "storedAssignmentSetRequiresMatchingFloorplan": true,
+    "staleAssignmentTargetsRejected": true,
+    "manualAssignmentStillManualOnly": true,
+    "coAssignmentPolicyExplicit": true,
+    "patientTargetMultiStaffValidated": true,
+    "supportTargetMultiStaffPolicySupported": true,
+    "coAssignmentContainsNoRecommendations": true,
+    "coAssignmentContainsNoScoring": true
+  }
+}

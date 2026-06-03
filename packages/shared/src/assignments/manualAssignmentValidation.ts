@@ -4,6 +4,12 @@ import {
   type AssignmentTargetValidationResult
 } from "./assignmentTargetValidation.js";
 import type { AssignmentTargetContract } from "./assignmentTargetContract.js";
+import {
+  coAssignmentPolicyAllowsMultipleStaff,
+  DEFAULT_CO_ASSIGNMENT_POLICY,
+  validateCoAssignmentPolicyContract,
+  type CoAssignmentPolicyContract
+} from "./coAssignmentPolicyContract.js";
 import type { ManualStaffMemberContract } from "./manualStaffMemberContract.js";
 import {
   validateManualAssignmentSetContract,
@@ -40,8 +46,10 @@ export function validateManualAssignmentSetReferences(input: {
   staffMembers: readonly ManualStaffMemberContract[];
   assignmentTargets: readonly AssignmentTargetContract[];
   routeGraph?: RouteGraphContract | null;
+  coAssignmentPolicy?: CoAssignmentPolicyContract;
 }): ManualAssignmentValidationResult {
   const assignmentSet = validateManualAssignmentSetContract(input.assignmentSet);
+  const coAssignmentPolicy = validateCoAssignmentPolicyContract(input.coAssignmentPolicy ?? DEFAULT_CO_ASSIGNMENT_POLICY);
   const staffById = new Map(input.staffMembers.map((staff) => [staff.staffMemberId, staff]));
   const targetsById = new Map(input.assignmentTargets.map((target) => [target.assignmentTargetId, target]));
   const activeTargetIds = new Set(input.assignmentTargets.map((target) => target.assignmentTargetId));
@@ -100,13 +108,15 @@ export function validateManualAssignmentSetReferences(input: {
 
   for (const [assignmentTargetId, targetAssignments] of assignmentsByTargetId) {
     if (targetAssignments.length <= 1) continue;
+    const uniqueStaffCount = new Set(targetAssignments.map((assignment) => assignment.staffMemberId)).size;
+    if (uniqueStaffCount <= 1) continue;
     const target = targetsById.get(assignmentTargetId) ?? null;
     const targetKind = target?.targetKind ?? targetAssignments[0]?.assignmentTargetKind ?? null;
-    if (targetKind === "room" || targetKind === "bed_position" || targetKind === "hall_bed") {
+    if (targetKind != null && !coAssignmentPolicyAllowsMultipleStaff(coAssignmentPolicy, targetKind)) {
       issues.push(issue(
-        "warning",
+        coAssignmentPolicy.warningOnly ? "warning" : "error",
         "multiple_staff_on_restricted_target",
-        "Multiple manual staff on one target",
+        "Multiple staff assigned to target",
         targetAssignments[0]?.assignmentId
       ));
     }
