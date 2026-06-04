@@ -21,7 +21,19 @@
       ]
     },
     {
-      "command": "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 881",
+      "command": "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 881",
+      "outputs": [
+        "docs/verification/issues/issue-881/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-validation.mjs --stage final --issue 881",
+      "outputs": [
+        "docs/verification/issues/issue-881/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 881",
       "outputs": [
         "docs/verification/issues/issue-881/commands.txt"
       ]
