@@ -142,7 +142,7 @@ writeCloseout(issue, {
     issuePath(issue, "test-output/docker-compose-build-web.txt"),
     issuePath(issue, "test-output/docker-compose-production-build-web.txt")
   ],
-  limitations: ["Static UI proof is paired with browser proof in Issue 886."]
+  limitations: ["Static UI proof is paired with browser proof in Issue 887."]
 });
 writeStageResult(issue, scriptName, stage, checks);
 if (status !== "passed" || !noPhiPassed) process.exit(1);
