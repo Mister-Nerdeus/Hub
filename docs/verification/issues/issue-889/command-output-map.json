@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "issue": "889",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "npm run check:clean-committed-state",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-contract.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-validation.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-ui.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 889",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-889/commands.txt"
+      ]
+    }
+  ]
+}

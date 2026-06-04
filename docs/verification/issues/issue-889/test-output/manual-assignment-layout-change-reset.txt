@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "issue": "889",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "editor reconciles state when layout id changes",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "state helper resets invalid assignment target",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "storage helper rejects floorplan mismatch",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "web harness proves layout A to layout B reset",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "proof artifacts show stale target reset",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "layoutChangeResetsInvalidAssignmentState": true,
+        "storedAssignmentSetRequiresMatchingFloorplan": true,
+        "staleAssignmentTargetsRejected": true,
+        "manualAssignmentStillManualOnly": true,
+        "staleTargetId": "assignment-target:layout-a-reset-proof:room:room-a",
+        "resetTargetId": "assignment-target:layout-b-reset-proof:room:room-b"
+      }
+    },
+    {
+      "name": "manual-only copy remains clean",
+      "passed": true,
+      "detail": [
+        "Recommended Assignment",
+        "Workload score",
+        "Burden score",
+        "Optimized",
+        "Safer"
+      ]
+    }
+  ]
+}

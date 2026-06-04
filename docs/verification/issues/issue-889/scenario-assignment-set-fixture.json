@@ -1,0 +1,22 @@
+{
+  "assignmentSetId": "manual-scenario-save-reload-assignment-set",
+  "floorplanId": "manual-scenario-save-reload-floorplan",
+  "label": "Manual scenario save reload assignment set",
+  "createdAtIso": "2026-06-01T00:00:00.000Z",
+  "updatedAtIso": "2026-06-01T00:00:00.000Z",
+  "assignments": [
+    {
+      "assignmentId": "manual-assignment:manual-scenario-save-reload-assignment-set:staff-rn-a:assignment-target:manual-scenario-save-reload-floorplan:bed_position:room-02:bed-a",
+      "staffMemberId": "staff-rn-a",
+      "assignmentTargetId": "assignment-target:manual-scenario-save-reload-floorplan:bed_position:room-02:bed-a",
+      "assignmentTargetKind": "bed_position"
+    },
+    {
+      "assignmentId": "manual-assignment:manual-scenario-save-reload-assignment-set:staff-rn-b:assignment-target:manual-scenario-save-reload-floorplan:bed_position:room-02:bed-b",
+      "staffMemberId": "staff-rn-b",
+      "assignmentTargetId": "assignment-target:manual-scenario-save-reload-floorplan:bed_position:room-02:bed-b",
+      "assignmentTargetKind": "bed_position"
+    }
+  ],
+  "mode": "manual"
+}

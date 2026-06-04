@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "issue": "889",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "co-assignment policy contract exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual assignment validation uses explicit policy",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared regression test covers room bed support and zone",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "validation proof matches default policy",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomValidation": {
+          "status": "passed",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "multiple_staff_on_restricted_target",
+              "message": "Multiple staff assigned to target",
+              "assignmentId": "manual-assignment:co-assignment-policy-set:staff-rn-a:assignment-target:co-assignment-policy-script-proof:room:room-14"
+            }
+          ],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "bedValidation": {
+          "status": "passed",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "multiple_staff_on_restricted_target",
+              "message": "Multiple staff assigned to target",
+              "assignmentId": "manual-assignment:co-assignment-policy-set:staff-rn-a:assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a"
+            }
+          ],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:bed_position:room-02:bed-a",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "supportValidation": {
+          "status": "passed",
+          "issues": [],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:zone:zone-fast-track",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:support_area:support-team-room",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:support_area:support-team-room",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-script-proof:zone:zone-fast-track",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "overlay still displays multiple staff visibly",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "overlayGroupsAssignmentsByTarget": true,
+        "badgeShowsAdditionalStaffCount": true
+      }
+    },
+    {
+      "name": "policy docs are updated",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "blocked co-assignment copy absent",
+      "passed": true,
+      "detail": [
+        "overstaffed",
+        "understaffed",
+        "unsafe",
+        "safer",
+        "balanced workload",
+        "better coverage",
+        "recommended",
+        "optimized"
+      ]
+    }
+  ]
+}

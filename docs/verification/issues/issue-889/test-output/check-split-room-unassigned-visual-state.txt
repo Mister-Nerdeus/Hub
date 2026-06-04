@@ -1,0 +1,79 @@
+{
+  "status": "passed",
+  "issue": "889",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "split room parent declares unassigned neutral state",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "bed positions declare unassigned neutral state",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "split room parent fill is explicit neutral white",
+      "passed": true,
+      "detail": "cursor: pointer;\n  fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-unassigned-stroke);\n  stroke-width: 1.8;"
+    },
+    {
+      "name": "bed position fill is explicit neutral white",
+      "passed": true,
+      "detail": "cursor: pointer;\n  fill: var(--assignment-visual-unassigned-fill);\n  stroke: #9aaabc;\n  stroke-width: 1.2;"
+    },
+    {
+      "name": "selected split objects use stroke while retaining neutral fill",
+      "passed": true,
+      "detail": {
+        "splitRoomSelectedBlock": "fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-selected-stroke);\n  stroke-width: 3;",
+        "bedPositionSelectedBlock": "fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-selected-stroke);\n  stroke-width: 3;"
+      }
+    },
+    {
+      "name": "storage and solid wall remain disabled gray",
+      "passed": true,
+      "detail": {
+        "storageBlock": "fill: #b8c0ca;\n  stroke: #5f6975;",
+        "solidWallBlock": "fill: #6f7782;\n  stroke: #374151;"
+      }
+    },
+    {
+      "name": "assignment badges distinguish assigned and unassigned without recoloring room fills",
+      "passed": true,
+      "detail": {
+        "assignedBadgeBlock": "stroke-width: 2;",
+        "unassignedBadgeBlock": "stroke-dasharray: 5 3;"
+      }
+    },
+    {
+      "name": "unassigned legend uses neutral fill",
+      "passed": true,
+      "detail": "background: var(--assignment-visual-unassigned-fill);\n  border-style: dashed !important;"
+    },
+    {
+      "name": "black fill not used for split-room unassigned selectors",
+      "passed": true,
+      "detail": {
+        "splitRoomBlock": "cursor: pointer;\n  fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-unassigned-stroke);\n  stroke-width: 1.8;",
+        "splitRoomSelectedBlock": "fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-selected-stroke);\n  stroke-width: 3;",
+        "bedPositionBlock": "cursor: pointer;\n  fill: var(--assignment-visual-unassigned-fill);\n  stroke: #9aaabc;\n  stroke-width: 1.2;",
+        "bedPositionSelectedBlock": "fill: var(--assignment-visual-unassigned-fill);\n  stroke: var(--assignment-visual-selected-stroke);\n  stroke-width: 3;"
+      }
+    },
+    {
+      "name": "visual-state files omit blocked recommendation and scoring terms",
+      "passed": true,
+      "detail": {}
+    }
+  ],
+  "definitionOfDone": {
+    "splitRoomUnassignedVisualStateStatus": "passed",
+    "unassignedSplitRoomRendersWhite": true,
+    "unassignedSplitBedPositionsRenderWhite": true,
+    "blackFillNotUsedForUnassignedTargets": true,
+    "assignedBadgesRemainVisible": true,
+    "storageAndWallsRemainDisabledGray": true
+  }
+}

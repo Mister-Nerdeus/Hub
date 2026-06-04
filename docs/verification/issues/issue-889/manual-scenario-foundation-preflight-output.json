@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "manualScenarioFoundationPreflightStatus": "passed",
+  "scenarioScope": "manual_only",
+  "assignmentFoundationDependencyVerified": true,
+  "splitRoomVisualStateDependencyVerified": true,
+  "recommendationsStillBlocked": true,
+  "scoringStillBlocked": true,
+  "simulationStillBlocked": true,
+  "rootScriptProof": {
+    "status": "passed",
+    "missing": [],
+    "scripts": {
+      "check:split-room-unassigned-visual-state": "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 878",
+      "check:manual-scenario-foundation-preflight": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 879",
+      "check:manual-assignment-layout-change-reset": "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 880",
+      "check:co-assignment-policy-contract": "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 881",
+      "check:manual-scenario-staff-roster-contract": "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 882",
+      "check:manual-scenario-contract": "node scripts/check-manual-scenario-contract.mjs --stage final --issue 883",
+      "check:manual-scenario-snapshot-contract": "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 884",
+      "check:manual-scenario-validation": "node scripts/check-manual-scenario-validation.mjs --stage final --issue 885",
+      "check:manual-scenario-ui": "node scripts/check-manual-scenario-ui.mjs --stage final --issue 886",
+      "check:manual-scenario-save-reload-proof": "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887",
+      "check:manual-scenario-browser-proof": "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887",
+      "check:manual-scenario-no-recommendation-guard": "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 888",
+      "check:manual-scenario-foundation-go-no-go": "node scripts/check-manual-scenario-foundation-go-no-go.mjs --stage final --issue 889"
+    }
+  }
+}
