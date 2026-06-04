@@ -1,21 +1,17 @@
 # Issue 885 Closeout
 
 ## Problem
-Manual Scenario Create Duplicate Rename UI
+Manual Scenario Validation
 
 ## Code Review
-- The Scenarios route now exposes manual scenario create, duplicate, rename, select, and linked-reference controls without ranking or scoring copy.
+- Manual scenario reference validation reports missing or mismatched references with neutral messages only.
 
 ## Files Changed
-- apps/web/src/features/manual-scenario/manualScenarioState.ts
-- apps/web/src/features/manual-scenario/ManualScenarioPanel.tsx
-- apps/web/src/features/manual-scenario/ManualScenarioControls.tsx
-- apps/web/src/features/manual-scenario/ManualScenarioList.tsx
-- apps/web/src/features/manual-scenario/ManualScenario.css
-- apps/web/src/features/manual-scenario/__tests__/manualScenarioState.test.ts
-- apps/web/src/features/scenarios/__tests__/ScenarioRatioComparisonPanel.test.tsx
-- apps/web/src/App.tsx
-- scripts/check-manual-scenario-ui.mjs
+- packages/shared/src/scenarios/manualScenarioValidation.ts
+- packages/shared/src/scenarios/manualScenarioReferenceValidation.ts
+- packages/shared/src/index.ts
+- packages/shared/tests/manual-scenario-reference-validation.test.mjs
+- scripts/check-manual-scenario-validation.mjs
 - docs/verification/manual-scenario-foundation-manifest.json
 - docs/verification/issues/issue-885
 
@@ -23,7 +19,7 @@ Manual Scenario Create Duplicate Rename UI
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-manual-scenario-ui.mjs --stage final --issue 885
+- node scripts/check-manual-scenario-validation.mjs --stage final --issue 885
 - node scripts/check-no-phi-fields.mjs
 - docker compose config
 - docker compose -f docker-compose.production.yml config
@@ -34,16 +30,15 @@ Manual Scenario Create Duplicate Rename UI
 - Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-885/manual-scenario-ui-output.json
-- docs/verification/issues/issue-885/screenshot-index.json
-- docs/verification/issues/issue-885/screenshots/manual-scenario-ui.png
+- docs/verification/issues/issue-885/manual-scenario-validation-output.json
+- docs/verification/issues/issue-885/scenario-reference-validation-fixture.json
 - docs/verification/issues/issue-885/test-output/docker-compose-config.txt
 - docs/verification/issues/issue-885/test-output/docker-compose-production-config.txt
 - docs/verification/issues/issue-885/test-output/docker-compose-build-web.txt
 - docs/verification/issues/issue-885/test-output/docker-compose-production-build-web.txt
 
 ## Known Limitations
-- Static UI proof is paired with browser proof in Issue 886.
+- Validation checks references only; it does not evaluate assignment quality.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
