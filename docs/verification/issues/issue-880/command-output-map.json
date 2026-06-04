@@ -21,19 +21,13 @@
       ]
     },
     {
-      "command": "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 880",
+      "command": "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 880",
       "outputs": [
         "docs/verification/issues/issue-880/commands.txt"
       ]
     },
     {
-      "command": "node scripts/check-manual-assignment-validation.mjs --stage final --issue 880",
-      "outputs": [
-        "docs/verification/issues/issue-880/commands.txt"
-      ]
-    },
-    {
-      "command": "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 880",
+      "command": "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 880",
       "outputs": [
         "docs/verification/issues/issue-880/commands.txt"
       ]
