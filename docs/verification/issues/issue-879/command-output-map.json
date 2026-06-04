@@ -21,13 +21,19 @@
       ]
     },
     {
-      "command": "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 879",
+      "command": "npm run check:assignment-foundation-evidence-closeout",
       "outputs": [
         "docs/verification/issues/issue-879/commands.txt"
       ]
     },
     {
-      "command": "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 879",
+      "command": "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 879",
+      "outputs": [
+        "docs/verification/issues/issue-879/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 879",
       "outputs": [
         "docs/verification/issues/issue-879/commands.txt"
       ]

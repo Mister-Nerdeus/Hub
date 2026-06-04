@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "issue": "879",
+  "finding": "Before Issue 878, split-room parent and bed-position rects had no explicit fill CSS, allowing SVG default black fill for unassigned targets.",
+  "source": [
+    "apps/web/src/features/layout-editor/SplitRoomShape.tsx",
+    "apps/web/src/features/layout-editor/BedPositionShape.tsx",
+    "apps/web/src/features/layout-editor/LayoutEditorStage.css"
+  ]
+}

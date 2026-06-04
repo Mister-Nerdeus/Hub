@@ -1,8 +1,9 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 879
-node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 879
+npm run check:assignment-foundation-evidence-closeout
+node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 879
+node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 879
 node scripts/check-no-phi-fields.mjs
 docker compose config
 docker compose -f docker-compose.production.yml config

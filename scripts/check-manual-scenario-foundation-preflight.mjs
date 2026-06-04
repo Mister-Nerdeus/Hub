@@ -184,7 +184,7 @@ writeCloseout(issue, {
     issuePath(issue, "test-output/docker-compose-build-web.txt"),
     issuePath(issue, "test-output/docker-compose-production-build-web.txt")
   ],
-  limitations: ["This issue is preflight only; the GO/NO-GO gate remains not_ready until later manual scenario issues pass."]
+  limitations: ["This issue is preflight only; final readiness is decided by the Issue 889 GO/NO-GO gate after the full batch evidence is refreshed."]
 });
 writeStageResult(issue, scriptName, stage, checks);
 if (status !== "passed" || !noPhiPassed) process.exit(1);
