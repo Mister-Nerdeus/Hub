@@ -1,0 +1,851 @@
+{
+  "status": "passed",
+  "issue": "888",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "assignment foundation closeout permits manual scenarios",
+      "passed": true,
+      "detail": {
+        "assignmentFoundationPreflightStatus": "passed",
+        "assignmentTargetContractStatus": "passed",
+        "assignmentTargetResolverStatus": "passed",
+        "staffMemberContractStatus": "passed",
+        "manualAssignmentSetContractStatus": "passed",
+        "manualAssignmentValidationStatus": "passed",
+        "manualAssignmentEditorStatus": "passed",
+        "manualAssignmentOverlayStatus": "passed",
+        "manualAssignmentSaveReloadStatus": "passed",
+        "manualAssignmentBrowserProofStatus": "passed",
+        "assignmentNoRecommendationGuardStatus": "passed",
+        "assignmentFoundationGoNoGoStatus": "go_for_manual_scenario_foundation",
+        "assignmentScope": "manual_only",
+        "recommendationsStillBlocked": true,
+        "scoringStillBlocked": true,
+        "simulationStillBlocked": true,
+        "routeGraphDependencyVerified": true,
+        "lastUpdatedIssue": "877",
+        "roomTargetsResolved": true,
+        "splitBedTargetsResolved": true,
+        "splitBedsNotFakeRooms": true,
+        "assignmentTargetsContainNoRecommendations": true,
+        "assignmentTargetsContainNoScoring": true,
+        "manualStaffFixtureStatus": "passed",
+        "staffDataDemoSafe": true,
+        "staffContractContainsNoScoring": true,
+        "staffContractContainsNoRecommendations": true,
+        "manualModeOnly": true,
+        "splitBedManualAssignmentsSupported": true,
+        "assignmentSetContainsNoRecommendations": true,
+        "assignmentSetContainsNoScoring": true,
+        "missingStaffErrors": true,
+        "missingTargetsError": true,
+        "splitBedTargetsValidated": true,
+        "validationContainsNoRecommendations": true,
+        "validationContainsNoScoring": true,
+        "manualAssignmentUiVisible": true,
+        "normalRoomAssignmentSupported": true,
+        "splitBedAssignmentSupported": true,
+        "assignmentEditorContainsNoRecommendations": true,
+        "assignmentEditorContainsNoScoring": true,
+        "roomAssignmentBadgesVisible": true,
+        "splitBedAssignmentBadgesVisible": true,
+        "unassignedTargetsVisible": true,
+        "assignmentOverlayContainsNoRecommendations": true,
+        "assignmentOverlayContainsNoScoring": true,
+        "assignmentSetPersists": true,
+        "staffMemberIdsPersist": true,
+        "assignmentTargetIdsPersist": true,
+        "splitBedAssignmentsPersist": true,
+        "noRecommendationOutputStored": true,
+        "normalRoomManualAssignmentBrowserProof": true,
+        "splitBedManualAssignmentBrowserProof": true,
+        "manualAssignmentPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "assignmentContractsNoRecommendations": true,
+        "assignmentUiNoRecommendations": true,
+        "assignmentArtifactsNoRecommendations": true,
+        "assignmentLayerNoScoring": true,
+        "manualAssignmentFoundationReady": true,
+        "manualAssignmentsPersist": true,
+        "splitBedAssignmentsSupported": true,
+        "optimizerStillBlocked": true,
+        "manualAssignmentBrowserProofPassed": true,
+        "noPhi": true,
+        "noAssignmentRecommendations": true,
+        "noAssignmentScoring": true,
+        "noClinicalSafetyClaim": true,
+        "noStaffingComplianceClaim": true,
+        "noPatientOutcomeClaim": true,
+        "goNoGoStatus": "go_for_next_milestone",
+        "assignmentCarePositionTerminologyStatus": "passed",
+        "bedPositionIsCurrentCarePositionModel": true,
+        "splitParentRoomNotPatientAssignmentTarget": true,
+        "splitBedPositionsAreAssignmentTargets": true,
+        "legacySplitBayNotUsedForAssignment": true,
+        "manualAssignmentActiveFloorplanFallbackStatus": "passed",
+        "activeFloorplanAlwaysUsedWhenPresent": true,
+        "activeFloorplanWithoutSplitRoomsSupported": true,
+        "canonicalFixtureOnlyExplicitDemoMode": true,
+        "noSilentCanonicalFallback": true,
+        "multiStaffAssignmentOverlayPolicyStatus": "passed",
+        "multiStaffAssignmentsDoNotCollapseSilently": true,
+        "coAssignmentPolicyDocumented": true,
+        "overlayDisplaysOrValidatesMultipleStaff": true,
+        "assignmentOverlayStillManualOnly": true,
+        "assignmentLabelNoOverclaimStatus": "passed",
+        "assignmentTargetLabelsNoOverclaim": true,
+        "staffLabelsNoOverclaim": true,
+        "assignmentSetLabelsNoOverclaim": true,
+        "assignmentUiCopyNoOverclaim": true,
+        "assignmentProofArtifactsNoOverclaim": true,
+        "assignmentFoundationEvidenceCloseoutStatus": "passed",
+        "manualScenarioFoundationCanStartNext": true,
+        "assignmentFoundationStillManualOnly": true,
+        "carePositionTerminologyAligned": true,
+        "activeFloorplanFallbackSafe": true,
+        "multiStaffOverlayPolicyExplicit": true,
+        "assignmentLabelsNoOverclaim": true
+      }
+    },
+    {
+      "name": "manual scenario created in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "manual scenario duplicated in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "manual scenario renamed in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "linked floorplan verified in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "linked staff roster verified in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "linked assignment set verified in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "manual assignment overlay verified in browser",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "manual scenarios persist after reload",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    },
+    {
+      "name": "blocked browser copy absent from manual scenario panel",
+      "passed": true,
+      "detail": {
+        "manualScenarioCreateBrowserProof": true,
+        "manualScenarioDuplicateBrowserProof": true,
+        "manualScenarioRenameBrowserProof": true,
+        "linkedFloorplanVisible": true,
+        "linkedStaffRosterVisible": true,
+        "linkedAssignmentSetVisible": true,
+        "overlayBadgesVisible": true,
+        "manualScenarioPersistsAfterReload": true,
+        "browserProofContainsNoRecommendations": true,
+        "browserProofContainsNoScoring": true,
+        "scenarioBefore": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "scenarioAfter": {
+          "schemaVersion": "1.0.0",
+          "scenarios": [
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof",
+              "label": "Manual Scenario Browser Proof",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            },
+            {
+              "scenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy",
+              "label": "Manual Scenario Browser Proof Copy",
+              "floorplanId": "default-er-layout-plan-1",
+              "assignmentSetId": "manual-assignment-set-active",
+              "staffRosterId": "manual-staff-roster-active",
+              "createdAtIso": "2026-06-01T00:00:00.000Z",
+              "updatedAtIso": "2026-06-01T00:00:00.000Z",
+              "mode": "manual"
+            }
+          ],
+          "snapshots": [],
+          "selectedScenarioId": "manual-scenario:default-er-layout-plan-1:manual-assignment-set-active:manual-scenario-browser-proof-copy"
+        },
+        "steps": [
+          "open manual assignment workspace",
+          "create manual assignment set",
+          "verify assignment overlay",
+          "open manual scenario workspace",
+          "create manual scenario",
+          "rename manual scenario",
+          "duplicate manual scenario",
+          "save manual scenarios",
+          "reload manual scenario workspace",
+          "verify persisted manual scenario references"
+        ]
+      }
+    }
+  ]
+}

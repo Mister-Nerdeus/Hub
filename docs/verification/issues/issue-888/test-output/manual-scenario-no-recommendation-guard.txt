@@ -1,0 +1,117 @@
+{
+  "status": "passed",
+  "issue": "888",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "scenario contract files omit blocked terms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          "packages/shared/src/scenarios/manualScenarioContract.ts",
+          "packages/shared/src/scenarios/manualScenarioValidation.ts",
+          "packages/shared/src/scenarios/manualScenarioStaffRosterContract.ts",
+          "packages/shared/src/scenarios/manualScenarioStaffRosterFixture.ts",
+          "packages/shared/src/scenarios/manualScenarioSnapshotContract.ts",
+          "packages/shared/src/scenarios/manualScenarioVersioning.ts",
+          "packages/shared/src/scenarios/manualScenarioReferenceValidation.ts",
+          "apps/web/src/features/manual-scenario/manualScenarioState.ts",
+          "apps/web/src/features/manual-scenario/manualScenarioPersistence.ts",
+          "apps/web/src/features/manual-scenario/manualScenarioStorage.ts"
+        ],
+        "terms": [
+          "recommended",
+          "recommendation",
+          "best",
+          "optimal",
+          "optimized",
+          "optimizer",
+          "score",
+          "burden",
+          "workload",
+          "balanced",
+          "fairness",
+          "safer",
+          "unsafe",
+          "clinical safety",
+          "staffing compliance",
+          "patient outcome",
+          "simulation result",
+          "travel time"
+        ],
+        "matches": []
+      }
+    },
+    {
+      "name": "scenario UI copy omits blocked terms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          "apps/web/src/features/manual-scenario/ManualScenarioPanel.tsx",
+          "apps/web/src/features/manual-scenario/ManualScenarioControls.tsx",
+          "apps/web/src/features/manual-scenario/ManualScenarioList.tsx",
+          "apps/web/src/features/manual-scenario/ManualScenario.css"
+        ],
+        "terms": [
+          "recommended",
+          "recommendation",
+          "best",
+          "optimal",
+          "optimized",
+          "optimizer",
+          "score",
+          "burden",
+          "workload",
+          "balanced",
+          "fairness",
+          "safer",
+          "unsafe",
+          "clinical safety",
+          "staffing compliance",
+          "patient outcome",
+          "simulation result",
+          "travel time"
+        ],
+        "matches": []
+      }
+    },
+    {
+      "name": "scenario proof artifacts omit blocked terms",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "files": [
+          "docs/verification/issues/issue-887/scenario-before.json",
+          "docs/verification/issues/issue-887/scenario-after.json",
+          "docs/verification/issues/issue-887/scenario-reference-stability-proof.json",
+          "docs/verification/issues/issue-887/scenario-assignment-set-fixture.json",
+          "docs/verification/issues/issue-887/manual-scenario-browser-trace.json",
+          "docs/verification/issues/issue-888/manual-scenario-browser-trace.json"
+        ],
+        "terms": [
+          "recommended",
+          "recommendation",
+          "best",
+          "optimal",
+          "optimized",
+          "optimizer",
+          "score",
+          "burden",
+          "workload",
+          "balanced",
+          "fairness",
+          "safer",
+          "unsafe",
+          "clinical safety",
+          "staffing compliance",
+          "patient outcome",
+          "simulation result",
+          "travel time"
+        ],
+        "matches": []
+      }
+    }
+  ]
+}

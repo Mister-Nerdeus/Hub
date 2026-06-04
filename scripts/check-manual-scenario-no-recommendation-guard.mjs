@@ -22,6 +22,7 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
+  `node scripts/check-manual-scenario-browser-proof.mjs --stage ${stage} --issue ${issue}`,
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
   "docker compose -f docker-compose.production.yml config",
@@ -67,11 +68,12 @@ const uiFiles = [
   "apps/web/src/features/manual-scenario/ManualScenario.css"
 ];
 const proofArtifactFiles = [
-  "docs/verification/issues/issue-886/scenario-before.json",
-  "docs/verification/issues/issue-886/scenario-after.json",
-  "docs/verification/issues/issue-886/scenario-reference-stability-proof.json",
-  "docs/verification/issues/issue-886/scenario-assignment-set-fixture.json",
-  "docs/verification/issues/issue-886/manual-scenario-browser-trace.json"
+  "docs/verification/issues/issue-887/scenario-before.json",
+  "docs/verification/issues/issue-887/scenario-after.json",
+  "docs/verification/issues/issue-887/scenario-reference-stability-proof.json",
+  "docs/verification/issues/issue-887/scenario-assignment-set-fixture.json",
+  "docs/verification/issues/issue-887/manual-scenario-browser-trace.json",
+  "docs/verification/issues/issue-888/manual-scenario-browser-trace.json"
 ];
 
 ensureIssueArtifacts(issue);
@@ -115,6 +117,7 @@ writeCloseout(issue, {
   commands,
   evidence: [
     issuePath(issue, "manual-scenario-no-recommendation-guard-output.json"),
+    issuePath(issue, "manual-scenario-browser-proof-output.json"),
     issuePath(issue, "scenario-contract-scan-output.json"),
     issuePath(issue, "scenario-ui-copy-scan-output.json"),
     issuePath(issue, "scenario-proof-artifact-scan-output.json")

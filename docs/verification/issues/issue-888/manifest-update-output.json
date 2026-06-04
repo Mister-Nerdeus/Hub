@@ -2,23 +2,14 @@
   "status": "passed",
   "issue": "888",
   "patch": {
-    "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_review_foundation",
-    "manualScenarioFoundationReady": true,
-    "manualScenariosPersist": true,
-    "manualScenarioBrowserProofPassed": true,
+    "manualScenarioNoRecommendationGuardStatus": "passed",
     "scenarioRecommendationsStillBlocked": true,
     "scenarioScoringStillBlocked": true,
     "optimizerStillBlocked": true,
-    "simulationStillBlocked": true,
-    "noPhi": true,
-    "noScenarioRecommendations": true,
-    "noScenarioScoring": true,
-    "noClinicalSafetyClaim": true,
-    "noStaffingComplianceClaim": true,
-    "noPatientOutcomeClaim": true,
-    "goNoGoStatus": "go_for_next_milestone"
+    "simulationStillBlocked": true
   },
   "manifest": {
+    "splitRoomUnassignedVisualStateStatus": "passed",
     "manualScenarioFoundationPreflightStatus": "passed",
     "assignmentEditorLayoutResetStatus": "passed",
     "coAssignmentPolicyContractStatus": "passed",
@@ -96,6 +87,12 @@
     "staffRosterContainsNoScoring": true,
     "staffRosterContainsNoRecommendations": true,
     "scenarioReferencesStaffRoster": true,
-    "missingStaffRosterErrors": true
+    "missingStaffRosterErrors": true,
+    "unassignedSplitRoomRendersWhite": true,
+    "unassignedSplitBedPositionsRenderWhite": true,
+    "blackFillNotUsedForUnassignedTargets": true,
+    "assignedBadgesRemainVisible": true,
+    "storageAndWallsRemainDisabledGray": true,
+    "splitRoomVisualStateDependencyVerified": true
   }
 }
