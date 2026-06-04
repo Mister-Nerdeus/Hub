@@ -20,7 +20,7 @@ import {
   validateManualScenarioSnapshotContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "883");
+const issue = readArg("--issue", "884");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-snapshot-contract";
 const commands = [

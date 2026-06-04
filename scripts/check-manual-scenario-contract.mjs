@@ -19,7 +19,7 @@ import {
   validateManualScenarioContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "882");
+const issue = readArg("--issue", "883");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-contract";
 const commands = [

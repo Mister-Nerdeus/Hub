@@ -21,7 +21,7 @@ import {
   validateManualScenarioReferences
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "884");
+const issue = readArg("--issue", "885");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-validation";
 const commands = [

@@ -14,7 +14,7 @@ import {
   writeStageResult
 } from "./lib/manual-scenario-foundation-utils.mjs";
 
-const issue = readArg("--issue", "887");
+const issue = readArg("--issue", "888");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-no-recommendation-guard";
 const commands = [

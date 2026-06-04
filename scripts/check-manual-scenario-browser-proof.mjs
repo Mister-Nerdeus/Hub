@@ -16,7 +16,7 @@ import {
   writeStageResult
 } from "./lib/manual-scenario-foundation-utils.mjs";
 
-const issue = readArg("--issue", "886");
+const issue = readArg("--issue", "887");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-browser-proof";
 const commands = [

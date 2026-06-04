@@ -25,7 +25,7 @@ import {
   validateManualAssignmentSetReferences
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "880");
+const issue = readArg("--issue", "881");
 const stage = readArg("--stage", "final");
 const scriptName = "check-co-assignment-policy-contract";
 const commands = [
@@ -33,8 +33,8 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
-  "node scripts/check-manual-assignment-validation.mjs --stage final --issue 880",
-  "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 880",
+  "node scripts/check-manual-assignment-validation.mjs --stage final --issue 881",
+  "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 881",
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
   "docker compose -f docker-compose.production.yml config",

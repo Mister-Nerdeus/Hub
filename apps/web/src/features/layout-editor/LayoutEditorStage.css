@@ -1328,6 +1328,15 @@
   stroke: #374151;
 }
 
+.layout-editor-stage,
+.manual-foundation-editor {
+  --assignment-visual-unassigned-fill: #ffffff;
+  --assignment-visual-unassigned-stroke: #22364a;
+  --assignment-visual-selected-stroke: #0f62fe;
+  --assignment-visual-disabled-fill: #b8c0ca;
+  --assignment-visual-warning-stroke: #b42318;
+}
+
 .layout-editor-stage__room text {
   dominant-baseline: middle;
   fill: #111827;
@@ -1372,6 +1381,51 @@
   paint-order: stroke;
   pointer-events: none;
   stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 2px;
+  text-anchor: middle;
+}
+
+.layout-editor-stage__split-room-parent-outline {
+  cursor: pointer;
+  fill: var(--assignment-visual-unassigned-fill);
+  stroke: var(--assignment-visual-unassigned-stroke);
+  stroke-width: 1.8;
+}
+
+.layout-editor-stage__split-room-parent.is-selected .layout-editor-stage__split-room-parent-outline {
+  fill: var(--assignment-visual-unassigned-fill);
+  stroke: var(--assignment-visual-selected-stroke);
+  stroke-width: 3;
+}
+
+.layout-editor-stage__split-room-divider {
+  pointer-events: none;
+  stroke: #53616f;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.layout-editor-stage__bed-position-rect {
+  cursor: pointer;
+  fill: var(--assignment-visual-unassigned-fill);
+  stroke: #9aaabc;
+  stroke-width: 1.2;
+}
+
+.layout-editor-stage__bed-position.is-selected .layout-editor-stage__bed-position-rect {
+  fill: var(--assignment-visual-unassigned-fill);
+  stroke: var(--assignment-visual-selected-stroke);
+  stroke-width: 3;
+}
+
+.layout-editor-stage__bed-position-label {
+  dominant-baseline: middle;
+  fill: #111827;
+  font-size: 10px;
+  font-weight: 900;
+  paint-order: stroke;
+  pointer-events: none;
+  stroke: #ffffff;
   stroke-width: 2px;
   text-anchor: middle;
 }
@@ -2374,7 +2428,7 @@
 }
 
 .layout-assignment-legend__unassigned {
-  background: #ffe1a8;
+  background: var(--assignment-visual-unassigned-fill);
   border-style: dashed !important;
 }
 

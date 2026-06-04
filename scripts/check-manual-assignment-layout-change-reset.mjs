@@ -24,7 +24,7 @@ import {
   validateManualAssignmentSetContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "879");
+const issue = readArg("--issue", "880");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-assignment-layout-change-reset";
 const commands = [
@@ -32,7 +32,7 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
-  "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 879",
+  "node scripts/check-manual-assignment-editor-ui.mjs --stage final --issue 880",
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
   "docker compose -f docker-compose.production.yml config",

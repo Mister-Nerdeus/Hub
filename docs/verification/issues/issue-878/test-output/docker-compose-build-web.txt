@@ -1,69 +1,96 @@
+ Image hub-web Building
+ Image hub-api Building
 #1 [internal] load local bake definitions
 #1 reading from stdin 866B done
 #1 DONE 0.0s
 
 #2 [internal] load build definition from Dockerfile.local
-#2 transferring dockerfile: 713B done
+#2 transferring dockerfile: 713B 0.0s done
 #2 DONE 0.0s
 
-#3 [auth] library/node:pull token for registry-1.docker.io
-#3 DONE 0.0s
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 ...
 
-#4 [internal] load metadata for docker.io/library/node:22-alpine
-#4 DONE 1.4s
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.6s
 
 #5 [internal] load .dockerignore
 #5 transferring context: 295B done
 #5 DONE 0.0s
 
-#6 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
-#6 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#6 [internal] load build context
 #6 DONE 0.0s
 
-#7 [internal] load build context
-#7 transferring context: 3.70MB 1.3s done
-#7 DONE 1.3s
+#7 [build  1/10] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#7 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.1s done
+#7 DONE 0.1s
 
-#8 [ 3/11] COPY package.json package-lock.json ./
+#6 [internal] load build context
+#6 transferring context: 3.81MB 3.6s done
+#6 DONE 3.6s
+
+#8 [build  2/10] WORKDIR /repo
 #8 CACHED
 
-#9 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
-#9 CACHED
+#9 [ 3/11] COPY package.json package-lock.json ./
+#9 DONE 0.1s
 
-#10 [ 7/11] COPY tsconfig.base.json ./
-#10 CACHED
+#10 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#10 DONE 0.1s
 
-#11 [ 8/11] COPY apps/web apps/web
-#11 CACHED
+#11 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#11 DONE 0.1s
 
-#12 [ 9/11] COPY packages/shared packages/shared
-#12 CACHED
+#12 [ 6/11] RUN npm ci
+#12 10.39
+#12 10.39 added 27 packages, and audited 30 packages in 10s
+#12 10.39
+#12 10.39 9 packages are looking for funding
+#12 10.39   run `npm fund` for details
+#12 10.39
+#12 10.39 found 0 vulnerabilities
+#12 10.39 npm notice
+#12 10.39 npm notice New major version of npm available! 10.9.8 -> 11.16.0
+#12 10.39 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.16.0
+#12 10.39 npm notice To update run: npm install -g npm@11.16.0
+#12 10.39 npm notice
+#12 DONE 10.6s
 
-#13 [ 2/11] WORKDIR /repo
-#13 CACHED
+#13 [ 7/11] COPY tsconfig.base.json ./
+#13 DONE 0.1s
 
-#14 [ 4/11] COPY apps/web/package.json apps/web/package.json
-#14 CACHED
+#14 [ 8/11] COPY apps/web apps/web
+#14 DONE 0.3s
 
-#15 [ 6/11] RUN npm ci
-#15 CACHED
+#15 [ 9/11] COPY packages/shared packages/shared
+#15 DONE 0.4s
 
 #16 [10/11] RUN npm --workspace @nerdeus/shared run build
-#16 CACHED
+#16 0.542
+#16 0.542 > @nerdeus/shared@0.1.0 build
+#16 0.542 > tsc -p tsconfig.json
+#16 0.542
+#16 DONE 6.6s
 
 #17 [11/11] WORKDIR /repo/apps/web
-#17 CACHED
+#17 DONE 0.1s
 
 #18 exporting to image
-#18 exporting layers done
-#18 exporting manifest sha256:baf07a4fa93736252489c4b265031210284039a7f3c9ba47fe10ddbd9310d6ea done
-#18 exporting config sha256:339f2e27a6969215e9cde0b85425555d11b016634acddb5baf6d3731889fa0ef done
-#18 exporting attestation manifest sha256:2fa679bb48e591dad131f2a6d3309112d9c9615b13692a07a542d13153cada9c 0.1s done
-#18 exporting manifest list sha256:aa74e9d489a8f1249118182000793de6981b1e06651c88efc38e3b06cd9a25ad
-#18 exporting manifest list sha256:aa74e9d489a8f1249118182000793de6981b1e06651c88efc38e3b06cd9a25ad 0.0s done
+#18 exporting layers
+#18 exporting layers 5.6s done
+#18 exporting manifest sha256:a944a63dfcaeb63f0f9dc92d970b03cbe7eafa0ea1158edc8930cc456ded2cf2 0.0s done
+#18 exporting config sha256:55f4e8fe5e8d2dc6be5a4ed9c44e42ff4c73817ad2e823af1139b7e3a9fbf645 0.0s done
+#18 exporting attestation manifest sha256:f9692e27464e829721e7889fce4d8a35133f0ce8434533a4424278b54c6c6bb9 0.1s done
+#18 exporting manifest list sha256:613c31457f02c4a1c33eed3e90ffa1f43ae42e01e44f3dfe975400e264879ee2
+#18 exporting manifest list sha256:613c31457f02c4a1c33eed3e90ffa1f43ae42e01e44f3dfe975400e264879ee2 0.0s done
 #18 naming to docker.io/library/hub-web:latest done
-#18 unpacking to docker.io/library/hub-web:latest 0.0s done
-#18 DONE 0.2s
+#18 unpacking to docker.io/library/hub-web:latest
+#18 unpacking to docker.io/library/hub-web:latest 2.0s done
+#18 DONE 7.8s
 
 #19 resolving provenance for metadata file
 #19 DONE 0.0s
+ Image hub-web Built

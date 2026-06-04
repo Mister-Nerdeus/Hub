@@ -35,6 +35,8 @@ export function BedPositionShape({
       data-editable="true"
       data-removable="false"
       data-selection-scope="split-room-bed-position"
+      data-assignment-visual-state="unassigned"
+      data-unassigned-visual-state="neutral"
       data-parent-room-id={bedPosition.parentRoomId}
       data-bed-position-label={bedPosition.label}
       data-assignment-target={bedPosition.assignmentTarget ? "true" : "false"}

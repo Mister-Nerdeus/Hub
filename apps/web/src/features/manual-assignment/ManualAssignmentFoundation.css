@@ -132,6 +132,14 @@
   stroke-width: 1.4;
 }
 
+.manual-assignment-overlay__badge[data-manual-assignment-state="assigned"] rect {
+  stroke-width: 2;
+}
+
+.manual-assignment-overlay__badge[data-manual-assignment-state="unassigned"] rect {
+  stroke-dasharray: 5 3;
+}
+
 .manual-assignment-overlay__badge text {
   fill: #111827;
   font-size: 10px;

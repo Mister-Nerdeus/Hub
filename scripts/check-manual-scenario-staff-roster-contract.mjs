@@ -20,7 +20,7 @@ import {
   validateManualScenarioStaffRosterContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "881");
+const issue = readArg("--issue", "882");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-staff-roster-contract";
 const commands = [

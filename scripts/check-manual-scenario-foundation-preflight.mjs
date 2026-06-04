@@ -18,7 +18,7 @@ import {
   writeStageResult
 } from "./lib/manual-scenario-foundation-utils.mjs";
 
-const issue = readArg("--issue", "878");
+const issue = readArg("--issue", "879");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-foundation-preflight";
 const commands = [
@@ -26,6 +26,7 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   "npm run check:assignment-foundation-evidence-closeout",
+  `node scripts/check-split-room-unassigned-visual-state.mjs --stage ${stage} --issue ${issue}`,
   `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
@@ -52,8 +53,20 @@ const assignmentProof = {
   simulationStillBlocked: assignmentManifest.simulationStillBlocked === true
 };
 writeJson(issuePath(issue, "assignment-foundation-dependency-proof.json"), assignmentProof);
+const splitRoomVisualStateProof = {
+  status: manifest.splitRoomUnassignedVisualStateStatus === "passed" &&
+    manifest.unassignedSplitRoomRendersWhite === true &&
+    manifest.unassignedSplitBedPositionsRenderWhite === true &&
+    manifest.blackFillNotUsedForUnassignedTargets === true ? "passed" : "failed",
+  splitRoomUnassignedVisualStateStatus: manifest.splitRoomUnassignedVisualStateStatus,
+  unassignedSplitRoomRendersWhite: manifest.unassignedSplitRoomRendersWhite === true,
+  unassignedSplitBedPositionsRenderWhite: manifest.unassignedSplitBedPositionsRenderWhite === true,
+  blackFillNotUsedForUnassignedTargets: manifest.blackFillNotUsedForUnassignedTargets === true
+};
+writeJson(issuePath(issue, "split-room-visual-state-dependency-proof.json"), splitRoomVisualStateProof);
 
 const rootScriptProof = packageScriptProof([
+  "check:split-room-unassigned-visual-state",
   "check:manual-scenario-foundation-preflight",
   "check:manual-assignment-layout-change-reset",
   "check:co-assignment-policy-contract",
@@ -70,6 +83,7 @@ const rootScriptProof = packageScriptProof([
 writeJson(issuePath(issue, "manual-scenario-root-script-proof.json"), rootScriptProof);
 
 const requiredDefaults = {
+  splitRoomUnassignedVisualStateStatus: manifest.splitRoomUnassignedVisualStateStatus,
   manualScenarioFoundationPreflightStatus: manifest.manualScenarioFoundationPreflightStatus,
   assignmentEditorLayoutResetStatus: manifest.assignmentEditorLayoutResetStatus,
   coAssignmentPolicyContractStatus: manifest.coAssignmentPolicyContractStatus,
@@ -109,6 +123,7 @@ const allowedGoNoGoStatus = new Set(["not_ready", "go_for_manual_scenario_review
 
 const checks = [];
 addCheck(checks, "assignment foundation dependency allows manual scenarios", assignmentProof.status === "passed", assignmentProof);
+addCheck(checks, "split-room visual-state dependency passed", splitRoomVisualStateProof.status === "passed", splitRoomVisualStateProof);
 addCheck(checks, "manual scenario manifest starts as manual-only preflight", manifest.scenarioScope === "manual_only" &&
   allowedGoNoGoStatus.has(manifest.manualScenarioFoundationGoNoGoStatus) &&
   manifest.recommendationsStillBlocked === true &&
@@ -123,6 +138,7 @@ const output = {
   manualScenarioFoundationPreflightStatus: status,
   scenarioScope: "manual_only",
   assignmentFoundationDependencyVerified: assignmentProof.status === "passed",
+  splitRoomVisualStateDependencyVerified: splitRoomVisualStateProof.status === "passed",
   recommendationsStillBlocked: true,
   scoringStillBlocked: true,
   simulationStillBlocked: true,
@@ -135,6 +151,7 @@ if (status === "passed") {
     manualScenarioFoundationPreflightStatus: "passed",
     scenarioScope: "manual_only",
     assignmentFoundationDependencyVerified: true,
+    splitRoomVisualStateDependencyVerified: true,
     recommendationsStillBlocked: true,
     scoringStillBlocked: true,
     simulationStillBlocked: true
@@ -159,6 +176,7 @@ writeCloseout(issue, {
   evidence: [
     issuePath(issue, "manual-scenario-foundation-preflight-output.json"),
     issuePath(issue, "assignment-foundation-dependency-proof.json"),
+    issuePath(issue, "split-room-visual-state-dependency-proof.json"),
     issuePath(issue, "manual-scenario-root-script-proof.json"),
     issuePath(issue, "manifest-update-output.json"),
     issuePath(issue, "test-output/docker-compose-config.txt"),

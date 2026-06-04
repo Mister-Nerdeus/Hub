@@ -1,11 +1,12 @@
 type AssignmentBadgeProps = {
   label: string;
   staffLabels: readonly string[];
+  assignmentState: "assigned" | "unassigned";
   x: number;
   y: number;
 };
 
-export function AssignmentBadge({ label, staffLabels, x, y }: AssignmentBadgeProps) {
+export function AssignmentBadge({ label, staffLabels, assignmentState, x, y }: AssignmentBadgeProps) {
   const badgeText = staffLabels.length === 0
     ? `${label}: Unassigned`
     : staffLabels.length === 1
@@ -16,6 +17,7 @@ export function AssignmentBadge({ label, staffLabels, x, y }: AssignmentBadgePro
     <g
       className="manual-assignment-overlay__badge"
       data-manual-assignment-badge="true"
+      data-manual-assignment-state={assignmentState}
       data-manual-assignment-label={label}
       data-manual-assignment-staff-count={staffLabels.length}
     >

@@ -15,7 +15,7 @@ import {
   writeStageResult
 } from "./lib/manual-scenario-foundation-utils.mjs";
 
-const issue = readArg("--issue", "888");
+const issue = readArg("--issue", "889");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-foundation-go-no-go";
 const commands = [
@@ -23,17 +23,18 @@ const commands = [
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
   "npm run check:clean-committed-state",
-  "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 888",
-  "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 888",
-  "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-contract.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-validation.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-ui.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 888",
-  "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 888",
+  "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 889",
+  "node scripts/check-manual-assignment-layout-change-reset.mjs --stage final --issue 889",
+  "node scripts/check-co-assignment-policy-contract.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-contract.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-validation.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-ui.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 889",
+  "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 889",
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
   "docker compose -f docker-compose.production.yml config",
@@ -46,6 +47,7 @@ writeCommands(issue, commands);
 
 const manifest = ensureManifest();
 const scriptProof = packageScriptProof([
+  "check:split-room-unassigned-visual-state",
   "check:manual-scenario-foundation-preflight",
   "check:manual-assignment-layout-change-reset",
   "check:co-assignment-policy-contract",
@@ -61,6 +63,7 @@ const scriptProof = packageScriptProof([
 ]);
 
 const required = {
+  splitRoomVisualState: manifest.splitRoomUnassignedVisualStateStatus === "passed",
   preflight: manifest.manualScenarioFoundationPreflightStatus === "passed",
   layoutReset: manifest.assignmentEditorLayoutResetStatus === "passed",
   coAssignmentPolicy: manifest.coAssignmentPolicyContractStatus === "passed",
@@ -88,6 +91,7 @@ writeJson(issuePath(issue, "manual-scenario-foundation-go-no-go-output.json"), {
   manualScenarioFoundationReady: status === "passed",
   manualScenariosPersist: required.saveReload && required.browserProof,
   manualScenarioBrowserProofPassed: required.browserProof,
+  splitRoomUnassignedVisualStatePassed: required.splitRoomVisualState,
   scenarioRecommendationsStillBlocked: true,
   scenarioScoringStillBlocked: true,
   optimizerStillBlocked: true,
@@ -102,6 +106,7 @@ if (status === "passed") {
     manualScenarioFoundationReady: true,
     manualScenariosPersist: true,
     manualScenarioBrowserProofPassed: true,
+    splitRoomUnassignedVisualStatePassed: true,
     scenarioRecommendationsStillBlocked: true,
     scenarioScoringStillBlocked: true,
     optimizerStillBlocked: true,
@@ -123,6 +128,7 @@ writeCloseout(issue, {
   status: status === "passed" && noPhiPassed ? "passed" : "failed",
   filesChanged: [
     "scripts/check-manual-scenario-foundation-go-no-go.mjs",
+    "scripts/check-split-room-unassigned-visual-state.mjs",
     "scripts/check-manual-scenario-foundation-preflight.mjs",
     "scripts/check-manual-scenario-ui.mjs",
     "scripts/check-manual-scenario-no-recommendation-guard.mjs",
@@ -134,6 +140,7 @@ writeCloseout(issue, {
   commands,
   evidence: [
     issuePath(issue, "manual-scenario-foundation-go-no-go-output.json"),
+    issuePath(issue, "split-room-unassigned-visual-state-output.json"),
     issuePath(issue, "manual-scenario-staff-roster-contract-output.json"),
     issuePath(issue, "manual-scenario-no-recommendation-guard-output.json"),
     issuePath(issue, "scenario-contract-scan-output.json"),

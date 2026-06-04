@@ -24,7 +24,7 @@ import {
   validateManualScenarioContract
 } from "../packages/shared/dist/index.js";
 
-const issue = readArg("--issue", "886");
+const issue = readArg("--issue", "887");
 const stage = readArg("--stage", "final");
 const scriptName = "check-manual-scenario-save-reload-proof";
 const commands = [

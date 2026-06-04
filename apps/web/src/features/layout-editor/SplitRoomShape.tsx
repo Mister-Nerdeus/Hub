@@ -44,6 +44,8 @@ export function SplitRoomShape({
       data-editable="true"
       data-removable="true"
       data-selection-scope="split-room-parent"
+      data-assignment-visual-state="unassigned"
+      data-unassigned-visual-state="neutral"
       data-parent-room-id={splitRoom.parentRoomId}
       data-bed-position-count={splitRoom.bedPositions.length}
       data-divider-orientation={splitRoom.dividerOrientation}

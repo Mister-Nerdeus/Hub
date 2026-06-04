@@ -43,6 +43,7 @@ export function AssignmentOverlay({
             key={target.assignmentTargetId}
             label={shortTargetLabel(target)}
             staffLabels={staffLabels}
+            assignmentState={staffLabels.length === 0 ? "unassigned" : "assigned"}
             x={position.x}
             y={position.y}
           />

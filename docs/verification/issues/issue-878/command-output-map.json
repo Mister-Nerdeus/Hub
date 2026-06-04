@@ -21,13 +21,13 @@
       ]
     },
     {
-      "command": "npm run check:assignment-foundation-evidence-closeout",
+      "command": "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 878",
       "outputs": [
         "docs/verification/issues/issue-878/commands.txt"
       ]
     },
     {
-      "command": "node scripts/check-manual-scenario-foundation-preflight.mjs --stage final --issue 878",
+      "command": "node scripts/check-manual-assignment-overlay.mjs --stage final --issue 878",
       "outputs": [
         "docs/verification/issues/issue-878/commands.txt"
       ]
