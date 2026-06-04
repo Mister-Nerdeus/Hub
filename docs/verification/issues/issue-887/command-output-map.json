@@ -21,7 +21,13 @@
       ]
     },
     {
-      "command": "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 887",
+      "command": "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887",
+      "outputs": [
+        "docs/verification/issues/issue-887/commands.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887",
       "outputs": [
         "docs/verification/issues/issue-887/commands.txt"
       ]

@@ -23,6 +23,7 @@ const commands = [
   "npm --workspace packages/shared test",
   "npm --workspace apps/web test",
   "npm --workspace apps/web run build",
+  `node scripts/check-manual-scenario-save-reload-proof.mjs --stage ${stage} --issue ${issue}`,
   `node scripts/${scriptName}.mjs --stage ${stage} --issue ${issue}`,
   "node scripts/check-no-phi-fields.mjs",
   "docker compose config",
@@ -76,16 +77,18 @@ if (status === "passed") {
 }
 const noPhiPassed = runNoPhi(issue);
 writeCloseout(issue, {
-  title: "Manual Scenario Browser Proof",
-  reviewFinding: "Browser proof uses rendered controls to create, rename, duplicate, save, reload, and verify manual scenario references.",
+  title: "Manual Scenario Save Reload and Browser Proof",
+  reviewFinding: "Save/reload and browser proof use rendered controls to create, rename, duplicate, save, reload, and verify manual scenario references.",
   status: status === "passed" && noPhiPassed ? "passed" : "failed",
   filesChanged: [`scripts/${scriptName}.mjs`, "docs/verification/manual-scenario-foundation-manifest.json", issuePath(issue)],
   commands,
   evidence: [
     issuePath(issue, "manual-scenario-browser-proof-output.json"),
+    issuePath(issue, "manual-scenario-save-reload-output.json"),
     issuePath(issue, "manual-scenario-browser-trace.json"),
     issuePath(issue, "scenario-before.json"),
     issuePath(issue, "scenario-after.json"),
+    issuePath(issue, "scenario-reference-stability-proof.json"),
     issuePath(issue, "screenshot-index.json"),
     issuePath(issue, "screenshots"),
     issuePath(issue, "test-output/docker-compose-config.txt"),

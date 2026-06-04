@@ -1,7 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 887
+node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887
+node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887
 node scripts/check-no-phi-fields.mjs
 docker compose config
 docker compose -f docker-compose.production.yml config
