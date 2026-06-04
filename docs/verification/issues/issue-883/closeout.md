@@ -1,17 +1,17 @@
 # Issue 883 Closeout
 
 ## Problem
-Scenario Snapshot and Versioning Contract
+Manual Scenario Contract
 
 ## Code Review
-- Manual scenario snapshots are validated as reference-only state records with deterministic snapshot IDs and stable ordering.
+- Manual scenarios are validated as manual reference records and reject evaluative, optimizer, simulation, staffing, clinical, and outcome fields.
 
 ## Files Changed
-- packages/shared/src/scenarios/manualScenarioSnapshotContract.ts
-- packages/shared/src/scenarios/manualScenarioVersioning.ts
+- packages/shared/src/scenarios/manualScenarioContract.ts
+- packages/shared/src/scenarios/manualScenarioValidation.ts
 - packages/shared/src/index.ts
-- packages/shared/tests/manual-scenario-snapshot-contract.test.mjs
-- scripts/check-manual-scenario-snapshot-contract.mjs
+- packages/shared/tests/manual-scenario-contract.test.mjs
+- scripts/check-manual-scenario-contract.mjs
 - docs/verification/manual-scenario-foundation-manifest.json
 - docs/verification/issues/issue-883
 
@@ -19,7 +19,7 @@ Scenario Snapshot and Versioning Contract
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 883
+- node scripts/check-manual-scenario-contract.mjs --stage final --issue 883
 - node scripts/check-no-phi-fields.mjs
 - docker compose config
 - docker compose -f docker-compose.production.yml config
@@ -30,17 +30,16 @@ Scenario Snapshot and Versioning Contract
 - Required local gates passed.
 
 ## Evidence Artifacts
-- docs/verification/issues/issue-883/manual-scenario-snapshot-contract-output.json
-- docs/verification/issues/issue-883/scenario-snapshot-fixture.json
-- docs/verification/issues/issue-883/scenario-versioning-proof.json
-- docs/verification/issues/issue-883/forbidden-scenario-snapshot-fields-proof.json
+- docs/verification/issues/issue-883/manual-scenario-contract-output.json
+- docs/verification/issues/issue-883/manual-scenario-fixture.json
+- docs/verification/issues/issue-883/forbidden-scenario-fields-proof.json
 - docs/verification/issues/issue-883/test-output/docker-compose-config.txt
 - docs/verification/issues/issue-883/test-output/docker-compose-production-config.txt
 - docs/verification/issues/issue-883/test-output/docker-compose-build-web.txt
 - docs/verification/issues/issue-883/test-output/docker-compose-production-build-web.txt
 
 ## Known Limitations
-- Snapshots store references and revision metadata only; save/reload persistence is completed in a later issue.
+- This issue defines the scenario record only; scenario reference validation is completed in a later issue.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.

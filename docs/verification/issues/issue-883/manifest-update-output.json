@@ -2,13 +2,17 @@
   "status": "passed",
   "issue": "883",
   "patch": {
-    "manualScenarioSnapshotStatus": "passed",
-    "scenarioSnapshotsAreReferenceOnly": true,
-    "scenarioSnapshotsContainNoSimulation": true,
-    "scenarioSnapshotsContainNoScoring": true,
-    "scenarioVersioningSupported": true
+    "manualScenarioContractStatus": "passed",
+    "manualScenarioModeOnly": true,
+    "scenarioReferencesFloorplan": true,
+    "scenarioReferencesAssignmentSet": true,
+    "scenarioReferencesStaffRoster": true,
+    "scenarioContainsNoSimulation": true,
+    "scenarioContainsNoScoring": true,
+    "scenarioContainsNoRecommendations": true
   },
   "manifest": {
+    "splitRoomUnassignedVisualStateStatus": "passed",
     "manualScenarioFoundationPreflightStatus": "passed",
     "assignmentEditorLayoutResetStatus": "passed",
     "coAssignmentPolicyContractStatus": "passed",
@@ -20,7 +24,7 @@
     "manualScenarioSaveReloadStatus": "passed",
     "manualScenarioBrowserProofStatus": "passed",
     "manualScenarioNoRecommendationGuardStatus": "passed",
-    "manualScenarioFoundationGoNoGoStatus": "not_ready",
+    "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_review_foundation",
     "scenarioScope": "manual_only",
     "recommendationsStillBlocked": true,
     "scoringStillBlocked": true,
@@ -80,11 +84,18 @@
     "noClinicalSafetyClaim": true,
     "noStaffingComplianceClaim": true,
     "noPatientOutcomeClaim": true,
-    "goNoGoStatus": "not_ready",
+    "goNoGoStatus": "go_for_next_milestone",
     "manualStaffRosterModeOnly": true,
     "staffRosterContainsNoPhi": true,
     "staffRosterContainsNoScoring": true,
     "staffRosterContainsNoRecommendations": true,
-    "scenarioReferencesStaffRoster": true
+    "scenarioReferencesStaffRoster": true,
+    "missingStaffRosterErrors": true,
+    "unassignedSplitRoomRendersWhite": true,
+    "unassignedSplitBedPositionsRenderWhite": true,
+    "blackFillNotUsedForUnassignedTargets": true,
+    "assignedBadgesRemainVisible": true,
+    "storageAndWallsRemainDisabledGray": true,
+    "splitRoomVisualStateDependencyVerified": true
   }
 }
