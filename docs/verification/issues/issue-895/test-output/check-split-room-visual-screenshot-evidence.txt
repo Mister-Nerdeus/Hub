@@ -1,0 +1,496 @@
+{
+  "status": "passed",
+  "issue": "895",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "computed styles confirm unassigned split targets are white",
+      "passed": true,
+      "detail": {
+        "normalRoom": {
+          "selector": "[data-proof-target=\"normal-room\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 118.58695983886719
+        },
+        "splitRoomParent": {
+          "selector": "[data-proof-target=\"split-room-parent\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.8px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45651245117188,
+          "height": 142.30433654785156
+        },
+        "splitRoomParentSelected": {
+          "selector": "[data-proof-target=\"split-room-parent-selected\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45654296875,
+          "height": 142.30433654785156
+        },
+        "bedA": {
+          "selector": "[data-proof-target=\"bed-a\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedB": {
+          "selector": "[data-proof-target=\"bed-b\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86953735351562,
+          "height": 130.4456329345703
+        },
+        "bedSelected": {
+          "selector": "[data-proof-target=\"bed-selected\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedWarning": {
+          "selector": "[data-proof-target=\"bed-warning\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(180, 35, 24)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "assignedBadgeRect": {
+          "selector": "[data-proof-target=\"assigned-badge\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(23, 50, 77)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 68.78045654296875,
+          "height": 28.460861206054688
+        },
+        "assignedBadgeText": {
+          "selector": "[data-proof-target=\"assigned-badge\"] text",
+          "fill": "rgb(17, 24, 39)",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 29.42401123046875,
+          "height": 14
+        },
+        "storage": {
+          "selector": "[data-proof-target=\"storage-room\"] rect",
+          "fill": "rgb(184, 192, 202)",
+          "stroke": "rgb(95, 105, 117)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        },
+        "wall": {
+          "selector": "[data-proof-target=\"solid-wall\"] rect",
+          "fill": "rgb(111, 119, 130)",
+          "stroke": "rgb(55, 65, 81)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        }
+      }
+    },
+    {
+      "name": "black fill is not used for unassigned targets",
+      "passed": true,
+      "detail": {
+        "normalRoom": {
+          "selector": "[data-proof-target=\"normal-room\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 118.58695983886719
+        },
+        "splitRoomParent": {
+          "selector": "[data-proof-target=\"split-room-parent\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.8px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45651245117188,
+          "height": 142.30433654785156
+        },
+        "splitRoomParentSelected": {
+          "selector": "[data-proof-target=\"split-room-parent-selected\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45654296875,
+          "height": 142.30433654785156
+        },
+        "bedA": {
+          "selector": "[data-proof-target=\"bed-a\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedB": {
+          "selector": "[data-proof-target=\"bed-b\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86953735351562,
+          "height": 130.4456329345703
+        },
+        "bedSelected": {
+          "selector": "[data-proof-target=\"bed-selected\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedWarning": {
+          "selector": "[data-proof-target=\"bed-warning\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(180, 35, 24)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "assignedBadgeRect": {
+          "selector": "[data-proof-target=\"assigned-badge\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(23, 50, 77)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 68.78045654296875,
+          "height": 28.460861206054688
+        },
+        "assignedBadgeText": {
+          "selector": "[data-proof-target=\"assigned-badge\"] text",
+          "fill": "rgb(17, 24, 39)",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 29.42401123046875,
+          "height": 14
+        },
+        "storage": {
+          "selector": "[data-proof-target=\"storage-room\"] rect",
+          "fill": "rgb(184, 192, 202)",
+          "stroke": "rgb(95, 105, 117)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        },
+        "wall": {
+          "selector": "[data-proof-target=\"solid-wall\"] rect",
+          "fill": "rgb(111, 119, 130)",
+          "stroke": "rgb(55, 65, 81)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        }
+      }
+    },
+    {
+      "name": "selected state uses stroke and keeps white fill",
+      "passed": true,
+      "detail": {
+        "normalRoom": {
+          "selector": "[data-proof-target=\"normal-room\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 118.58695983886719
+        },
+        "splitRoomParent": {
+          "selector": "[data-proof-target=\"split-room-parent\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(34, 54, 74)",
+          "strokeWidth": "1.8px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45651245117188,
+          "height": 142.30433654785156
+        },
+        "splitRoomParentSelected": {
+          "selector": "[data-proof-target=\"split-room-parent-selected\"] .layout-editor-stage__split-room-parent-outline",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 213.45654296875,
+          "height": 142.30433654785156
+        },
+        "bedA": {
+          "selector": "[data-proof-target=\"bed-a\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedB": {
+          "selector": "[data-proof-target=\"bed-b\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(154, 170, 188)",
+          "strokeWidth": "1.2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86953735351562,
+          "height": 130.4456329345703
+        },
+        "bedSelected": {
+          "selector": "[data-proof-target=\"bed-selected\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(15, 98, 254)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "bedWarning": {
+          "selector": "[data-proof-target=\"bed-warning\"] .layout-editor-stage__bed-position-rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(180, 35, 24)",
+          "strokeWidth": "3px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 94.86956787109375,
+          "height": 130.4456329345703
+        },
+        "assignedBadgeRect": {
+          "selector": "[data-proof-target=\"assigned-badge\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(23, 50, 77)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 68.78045654296875,
+          "height": 28.460861206054688
+        },
+        "assignedBadgeText": {
+          "selector": "[data-proof-target=\"assigned-badge\"] text",
+          "fill": "rgb(17, 24, 39)",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 29.42401123046875,
+          "height": 14
+        },
+        "storage": {
+          "selector": "[data-proof-target=\"storage-room\"] rect",
+          "fill": "rgb(184, 192, 202)",
+          "stroke": "rgb(95, 105, 117)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        },
+        "wall": {
+          "selector": "[data-proof-target=\"solid-wall\"] rect",
+          "fill": "rgb(111, 119, 130)",
+          "stroke": "rgb(55, 65, 81)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        }
+      }
+    },
+    {
+      "name": "warning state uses stroke and keeps white fill",
+      "passed": true,
+      "detail": {
+        "selector": "[data-proof-target=\"bed-warning\"] .layout-editor-stage__bed-position-rect",
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(180, 35, 24)",
+        "strokeWidth": "3px",
+        "strokeDasharray": "none",
+        "opacity": "1",
+        "color": "rgb(0, 0, 0)",
+        "width": 94.86956787109375,
+        "height": 130.4456329345703
+      }
+    },
+    {
+      "name": "storage and walls remain disabled gray",
+      "passed": true,
+      "detail": {
+        "storage": {
+          "selector": "[data-proof-target=\"storage-room\"] rect",
+          "fill": "rgb(184, 192, 202)",
+          "stroke": "rgb(95, 105, 117)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        },
+        "wall": {
+          "selector": "[data-proof-target=\"solid-wall\"] rect",
+          "fill": "rgb(111, 119, 130)",
+          "stroke": "rgb(55, 65, 81)",
+          "strokeWidth": "1.5px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 177.88043212890625,
+          "height": 106.72824096679688
+        }
+      }
+    },
+    {
+      "name": "assigned badges remain visible",
+      "passed": true,
+      "detail": {
+        "assignedBadgeRect": {
+          "selector": "[data-proof-target=\"assigned-badge\"] rect",
+          "fill": "rgb(255, 255, 255)",
+          "stroke": "rgb(23, 50, 77)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 68.78045654296875,
+          "height": 28.460861206054688
+        },
+        "assignedBadgeText": {
+          "selector": "[data-proof-target=\"assigned-badge\"] text",
+          "fill": "rgb(17, 24, 39)",
+          "stroke": "rgb(255, 255, 255)",
+          "strokeWidth": "2px",
+          "strokeDasharray": "none",
+          "opacity": "1",
+          "color": "rgb(0, 0, 0)",
+          "width": 29.42401123046875,
+          "height": 14
+        }
+      }
+    },
+    {
+      "name": "screenshots confirm rendered proof files",
+      "passed": true,
+      "detail": [
+        {
+          "file": "screenshots/split-room-visual-computed-proof.png",
+          "bytes": 9737
+        },
+        {
+          "file": "screenshots/unassigned-split-room-browser.png",
+          "bytes": 9850
+        },
+        {
+          "file": "screenshots/assigned-split-bed-badges-browser.png",
+          "bytes": 9850
+        },
+        {
+          "file": "screenshots/storage-wall-disabled-browser.png",
+          "bytes": 9850
+        }
+      ]
+    },
+    {
+      "name": "visual evidence files omit blocked copy",
+      "passed": true,
+      "detail": [
+        "Recommended",
+        "Best",
+        "Optimized",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome",
+        "Simulation result"
+      ]
+    }
+  ]
+}

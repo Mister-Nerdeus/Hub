@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "issue": "895",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-visual-screenshot-evidence.mjs --stage final --issue 895",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/check-split-room-visual-screenshot-evidence.txt",
+        "docs/verification/issues/issue-895/split-room-visual-screenshot-evidence-output.json",
+        "docs/verification/issues/issue-895/computed-style-proof.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-split-room-unassigned-visual-state.mjs --stage final --issue 895",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/check-split-room-unassigned-visual-state.txt",
+        "docs/verification/issues/issue-895/split-room-unassigned-visual-state-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-895/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/docker-compose-build-web.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-895/test-output/docker-compose-production-build-web.txt"
+      ]
+    }
+  ]
+}

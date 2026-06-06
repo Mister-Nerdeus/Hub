@@ -1,4 +1,9 @@
-.layout-editor-workspace {
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Split-room visual proof</title>
+  <style>.layout-editor-workspace {
   display: grid;
   gap: 5px;
   min-height: calc(100vh - 10px);
@@ -2592,3 +2597,212 @@
     flex: 1 1 130px;
   }
 }
+</style>
+  <style>.manual-foundation-editor {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.manual-foundation-editor__header,
+.manual-foundation-panel {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.manual-foundation-editor h2,
+.manual-foundation-editor h3 {
+  color: #111827;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.manual-foundation-editor__fixture-mode {
+  color: #53616f;
+  font-size: 0.82rem;
+  font-weight: 800;
+  margin: 8px 0 0;
+}
+
+.manual-foundation-editor__grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(220px, 0.6fr) minmax(280px, 1fr);
+}
+
+.manual-foundation-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.manual-foundation-list__item {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  min-height: 38px;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.manual-foundation-list__item[aria-pressed="true"] {
+  border-color: #0f766e;
+  box-shadow: inset 0 0 0 2px #0f766e;
+}
+
+.manual-foundation-list__item strong,
+.manual-foundation-list__item span,
+.manual-foundation-assignment-list li,
+.manual-foundation-validation li {
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.manual-foundation-list__item span {
+  color: #53616f;
+}
+
+.manual-foundation-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.manual-foundation-controls button,
+.manual-foundation-assignment-list button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.manual-foundation-controls button:first-child {
+  background: #17324d;
+  border-color: #17324d;
+  color: #ffffff;
+}
+
+.manual-foundation-controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.manual-foundation-assignment-list,
+.manual-foundation-validation {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.manual-foundation-assignment-list li,
+.manual-foundation-validation li {
+  align-items: center;
+  border: 1px solid #d9e1e8;
+  border-radius: 6px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  padding: 8px 10px;
+}
+
+.manual-assignment-overlay {
+  pointer-events: none;
+}
+
+.manual-assignment-overlay__badge rect {
+  fill: #ffffff;
+  stroke: #17324d;
+  stroke-width: 1.4;
+}
+
+.manual-assignment-overlay__badge[data-manual-assignment-state="assigned"] rect {
+  stroke-width: 2;
+}
+
+.manual-assignment-overlay__badge[data-manual-assignment-state="unassigned"] rect {
+  stroke-dasharray: 5 3;
+}
+
+.manual-assignment-overlay__badge text {
+  fill: #111827;
+  font-size: 10px;
+  font-weight: 900;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 2px;
+}
+
+@media (max-width: 780px) {
+  .manual-foundation-editor__grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+  <style>
+    body { background: #edf3f8; margin: 0; padding: 24px; }
+    .proof-label { fill: #111827; font: 900 12px system-ui, sans-serif; }
+  </style>
+</head>
+<body data-split-room-visual-proof="true">
+  <main class="layout-editor-stage manual-foundation-editor">
+    <svg class="layout-editor-stage__svg" viewBox="0 0 920 520" width="920" height="520" role="img" aria-label="Split-room visual proof">
+      <g class="layout-editor-stage__room" data-proof-target="normal-room" data-room-type="patient_room">
+        <rect x="40" y="50" width="150" height="100"></rect>
+        <text class="proof-label" x="115" y="115">Normal room</text>
+      </g>
+      <g class="layout-editor-stage__split-room-parent" data-proof-target="split-room-parent" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__split-room-parent-outline" x="230" y="50" width="180" height="120"></rect>
+        <line class="layout-editor-stage__split-room-divider" x1="320" y1="50" x2="320" y2="170"></line>
+      </g>
+      <g class="layout-editor-stage__bed-position" data-proof-target="bed-a" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__bed-position-rect" x="235" y="55" width="80" height="110"></rect>
+        <text class="layout-editor-stage__bed-position-label" x="275" y="110">2A</text>
+      </g>
+      <g class="layout-editor-stage__bed-position" data-proof-target="bed-b" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__bed-position-rect" x="325" y="55" width="80" height="110"></rect>
+        <text class="layout-editor-stage__bed-position-label" x="365" y="110">2B</text>
+      </g>
+      <g class="layout-editor-stage__split-room-parent is-selected" data-proof-target="split-room-parent-selected" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__split-room-parent-outline" x="450" y="50" width="180" height="120"></rect>
+      </g>
+      <g class="layout-editor-stage__bed-position is-selected" data-proof-target="bed-selected" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__bed-position-rect" x="455" y="55" width="80" height="110"></rect>
+        <text class="layout-editor-stage__bed-position-label" x="495" y="110">2A</text>
+      </g>
+      <g class="layout-editor-stage__bed-position" data-proof-target="bed-warning" data-warning-state="warning" data-assignment-visual-state="unassigned" data-unassigned-visual-state="neutral">
+        <rect class="layout-editor-stage__bed-position-rect" x="545" y="55" width="80" height="110"></rect>
+        <text class="layout-editor-stage__bed-position-label" x="585" y="110">2B</text>
+      </g>
+      <g class="manual-assignment-overlay__badge" data-proof-target="assigned-badge" data-manual-assignment-state="assigned" transform="translate(458 62)">
+        <rect x="0" y="0" width="58" height="24" rx="4"></rect>
+        <text x="29" y="16" text-anchor="middle">RN A</text>
+      </g>
+      <g class="layout-editor-stage__room" data-proof-target="storage-room" data-room-type="storage">
+        <rect x="40" y="230" width="150" height="90"></rect>
+        <text class="proof-label" x="115" y="285">Storage</text>
+      </g>
+      <g class="layout-editor-stage__room" data-proof-target="solid-wall" data-room-type="solid_wall">
+        <rect x="230" y="230" width="150" height="90"></rect>
+        <text class="proof-label" x="305" y="285">Wall</text>
+      </g>
+    </svg>
+  </main>
+</body>
+</html>
