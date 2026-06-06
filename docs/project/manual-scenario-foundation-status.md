@@ -12,4 +12,4 @@ Co-assignment policy remains part of manual assignment validation. Its `mode` fi
 
 Scenario artifacts are reference and presentation records only. They do not judge assignment quality, staffing adequacy, route quality, clinical status, or outcome impact.
 
-Final status: manual scenario foundation is ready for the next milestone after local evidence confirms contracts, snapshots, validation, UI, persistence, browser proof, and no-recommendation/no-scoring guard outputs.
+Final status: manual scenario foundation evidence closeout is the final local gate before Manual Scenario Review Foundation. The closeout requires strict references, stable scenario identity, stable staff roster identity, explicit co-assignment policy semantics, injected manual scenario clocks, rendered split-room visual screenshot evidence, and no-recommendation/no-scoring guard outputs while keeping the scope `manual_only`.

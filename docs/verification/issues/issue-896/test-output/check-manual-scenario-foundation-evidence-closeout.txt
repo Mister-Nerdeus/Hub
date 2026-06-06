@@ -1,0 +1,257 @@
+{
+  "status": "passed",
+  "issue": "896",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario foundation go/no-go is passed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario foundation remains manual only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "reference strictness is closed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "stable scenario identity is closed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "stable staff roster identity is closed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "co-assignment policy semantics are explicit",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario clock injection is ready",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "split-room visual screenshot evidence is closed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "cleanup issue outputs exist and passed",
+      "passed": true,
+      "detail": {
+        "docs/verification/issues/issue-889/manual-scenario-foundation-go-no-go-output.json": {
+          "status": "passed",
+          "manualScenarioFoundationGoNoGoStatus": "go_for_manual_scenario_review_foundation",
+          "manualScenarioFoundationReady": true,
+          "manualScenariosPersist": true,
+          "manualScenarioBrowserProofPassed": true,
+          "splitRoomUnassignedVisualStatePassed": true,
+          "scenarioRecommendationsStillBlocked": true,
+          "scenarioScoringStillBlocked": true,
+          "optimizerStillBlocked": true,
+          "simulationStillBlocked": true,
+          "goNoGoStatus": "go_for_next_milestone",
+          "required": {
+            "splitRoomVisualState": true,
+            "preflight": true,
+            "layoutReset": true,
+            "coAssignmentPolicy": true,
+            "staffRosterContract": true,
+            "scenarioContract": true,
+            "scenarioSnapshot": true,
+            "scenarioValidation": true,
+            "scenarioEditor": true,
+            "saveReload": true,
+            "browserProof": true,
+            "noRecommendationGuard": true,
+            "scripts": true,
+            "boundaries": true
+          }
+        },
+        "docs/verification/issues/issue-890/manual-scenario-reference-strictness-output.json": {
+          "status": "passed",
+          "manualScenarioReferenceStrictnessStatus": "passed",
+          "scenarioCreationRequiresRealFloorplan": true,
+          "scenarioCreationRequiresRealAssignmentSet": true,
+          "scenarioCreationRequiresRealStaffRoster": true,
+          "placeholderScenarioReferencesBlocked": true,
+          "manualScenarioStillManualOnly": true
+        },
+        "docs/verification/issues/issue-891/stable-manual-scenario-identity-output.json": {
+          "status": "passed",
+          "stableManualScenarioIdentityStatus": "passed",
+          "scenarioRenamePreservesScenarioId": true,
+          "scenarioDuplicateCreatesNewScenarioId": true,
+          "scenarioSnapshotsRemainLinkedAfterRename": true,
+          "scenarioIdentityNoLongerDependsOnLabel": true
+        },
+        "docs/verification/issues/issue-892/stable-staff-roster-identity-output.json": {
+          "status": "passed",
+          "stableStaffRosterIdentityStatus": "passed",
+          "staffRosterRenamePreservesRosterId": true,
+          "staffRosterDuplicateCreatesNewRosterId": true,
+          "scenarioRosterReferencesStableAfterRename": true,
+          "staffRosterIdentityNoLongerDependsOnlyOnLabel": true
+        },
+        "docs/verification/issues/issue-893/co-assignment-policy-semantics-output.json": {
+          "status": "passed",
+          "coAssignmentPolicySemanticsStatus": "passed",
+          "coAssignmentModeSemanticsDocumented": true,
+          "coAssignmentAllowListSemanticsDocumented": true,
+          "patientCareTargetsSinglePrimaryByDefault": true,
+          "supportZoneTargetsCanAllowMultipleByPolicy": true,
+          "coAssignmentSemanticsContainNoRecommendations": true,
+          "coAssignmentSemanticsContainNoScoring": true
+        },
+        "docs/verification/issues/issue-894/manual-scenario-clock-injection-output.json": {
+          "status": "passed",
+          "manualScenarioClockInjectionStatus": "passed",
+          "runtimeScenarioUsesInjectedClock": true,
+          "fixtureScenarioUsesDeterministicClock": true,
+          "renameUpdatesUpdatedAtIso": true,
+          "staticTimestampRemovedFromRuntimePath": true
+        },
+        "docs/verification/issues/issue-895/split-room-visual-screenshot-evidence-output.json": {
+          "status": "passed",
+          "splitRoomVisualScreenshotEvidenceStatus": "passed",
+          "computedStylesConfirmUnassignedWhite": true,
+          "screenshotsConfirmUnassignedWhite": true,
+          "blackFillNotUsedForUnassignedTargets": true,
+          "storageAndWallsRemainDisabledGray": true,
+          "assignedBadgesRemainVisible": true
+        }
+      }
+    },
+    {
+      "name": "root scripts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:manual-scenario-reference-strictness": "node scripts/check-manual-scenario-reference-strictness.mjs --stage final --issue 890",
+          "check:stable-manual-scenario-identity": "node scripts/check-stable-manual-scenario-identity.mjs --stage final --issue 891",
+          "check:stable-staff-roster-identity": "node scripts/check-stable-staff-roster-identity.mjs --stage final --issue 892",
+          "check:co-assignment-policy-semantics": "node scripts/check-co-assignment-policy-semantics.mjs --stage final --issue 893",
+          "check:manual-scenario-clock-injection": "node scripts/check-manual-scenario-clock-injection.mjs --stage final --issue 894",
+          "check:split-room-visual-screenshot-evidence": "node scripts/check-split-room-visual-screenshot-evidence.mjs --stage final --issue 895",
+          "check:manual-scenario-foundation-evidence-closeout": "node scripts/check-manual-scenario-foundation-evidence-closeout.mjs --stage final --issue 896"
+        }
+      }
+    },
+    {
+      "name": "browser artifacts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "paths": [
+          "docs/verification/issues/issue-887/manual-scenario-browser-proof-output.json",
+          "docs/verification/issues/issue-890/screenshot-index.json",
+          "docs/verification/issues/issue-895/computed-style-proof.json",
+          "docs/verification/issues/issue-895/screenshot-index.json"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "screenshot artifacts exist",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "paths": [
+          "docs/verification/issues/issue-890/screenshots/manual-scenario-reference-strictness.png",
+          "docs/verification/issues/issue-895/screenshots/split-room-visual-computed-proof.png",
+          "docs/verification/issues/issue-895/screenshots/unassigned-split-room-browser.png",
+          "docs/verification/issues/issue-895/screenshots/assigned-split-bed-badges-browser.png",
+          "docs/verification/issues/issue-895/screenshots/storage-wall-disabled-browser.png"
+        ],
+        "missing": []
+      }
+    },
+    {
+      "name": "boundaries remain clean",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "paths": [
+          "docs/verification/issues/issue-890/no-phi-output.txt",
+          "docs/verification/issues/issue-891/no-phi-output.txt",
+          "docs/verification/issues/issue-892/no-phi-output.txt",
+          "docs/verification/issues/issue-893/no-phi-output.txt",
+          "docs/verification/issues/issue-894/no-phi-output.txt",
+          "docs/verification/issues/issue-895/no-phi-output.txt",
+          "docs/verification/issues/issue-890/no-optimizer-output.txt",
+          "docs/verification/issues/issue-891/no-optimizer-output.txt",
+          "docs/verification/issues/issue-892/no-optimizer-output.txt",
+          "docs/verification/issues/issue-893/no-optimizer-output.txt",
+          "docs/verification/issues/issue-894/no-optimizer-output.txt",
+          "docs/verification/issues/issue-895/no-optimizer-output.txt",
+          "docs/verification/issues/issue-890/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-891/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-892/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-893/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-894/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-895/no-assignment-recommendation-output.txt",
+          "docs/verification/issues/issue-890/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-891/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-892/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-893/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-894/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-895/no-assignment-scoring-output.txt",
+          "docs/verification/issues/issue-890/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-891/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-892/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-893/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-894/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-895/no-scenario-recommendation-output.txt",
+          "docs/verification/issues/issue-890/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-891/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-892/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-893/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-894/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-895/no-scenario-scoring-output.txt",
+          "docs/verification/issues/issue-890/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-891/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-892/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-893/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-894/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-895/no-clinical-safety-claim-output.txt",
+          "docs/verification/issues/issue-890/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-891/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-892/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-893/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-894/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-895/no-staffing-compliance-claim-output.txt",
+          "docs/verification/issues/issue-890/no-patient-outcome-claim-output.txt",
+          "docs/verification/issues/issue-891/no-patient-outcome-claim-output.txt",
+          "docs/verification/issues/issue-892/no-patient-outcome-claim-output.txt",
+          "docs/verification/issues/issue-893/no-patient-outcome-claim-output.txt",
+          "docs/verification/issues/issue-894/no-patient-outcome-claim-output.txt",
+          "docs/verification/issues/issue-895/no-patient-outcome-claim-output.txt"
+        ],
+        "missing": [],
+        "manifestBoundaries": {
+          "scenarioScope": "manual_only",
+          "scenarioRecommendationsStillBlocked": true,
+          "scenarioScoringStillBlocked": true,
+          "optimizerStillBlocked": true,
+          "simulationStillBlocked": true,
+          "noPhi": true,
+          "noScenarioRecommendations": true,
+          "noScenarioScoring": true,
+          "noClinicalSafetyClaim": true,
+          "noStaffingComplianceClaim": true,
+          "noPatientOutcomeClaim": true
+        }
+      }
+    }
+  ]
+}

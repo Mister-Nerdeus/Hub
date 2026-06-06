@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "issue": "896",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "npm run check:manual-scenario-foundation-go-no-go",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/check-manual-scenario-foundation-go-no-go.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-foundation-evidence-closeout.mjs --stage final --issue 896",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/check-manual-scenario-foundation-evidence-closeout.txt",
+        "docs/verification/issues/issue-896/manual-scenario-foundation-evidence-closeout-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-896/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/docker-compose-build-web.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-896/test-output/docker-compose-production-build-web.txt"
+      ]
+    }
+  ]
+}
