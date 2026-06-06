@@ -11,16 +11,9 @@ export type ManualScenarioContract = {
 };
 
 export function manualScenarioIdFor(input: {
-  floorplanId: string;
-  assignmentSetId: string;
-  label: string;
+  stableSeed: string;
 }): string {
-  return [
-    "manual-scenario",
-    stableIdPart(input.floorplanId),
-    stableIdPart(input.assignmentSetId),
-    stableIdPart(input.label)
-  ].join(":");
+  return ["manual-scenario", stableIdPart(input.stableSeed)].join(":");
 }
 
 function stableIdPart(value: string): string {

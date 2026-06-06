@@ -1,9 +1,6 @@
 import { validateAssignmentLabelNoOverclaim } from "../assignments/assignmentLabelNoOverclaim.js";
 import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
-import {
-  manualScenarioIdFor,
-  type ManualScenarioContract
-} from "./manualScenarioContract.js";
+import type { ManualScenarioContract } from "./manualScenarioContract.js";
 
 export function validateManualScenarioContract(value: unknown): ManualScenarioContract {
   const scenario = requireRecord(value, "manualScenario");
@@ -26,9 +23,8 @@ export function validateManualScenarioContract(value: unknown): ManualScenarioCo
   const assignmentSetId = requireString(scenario.assignmentSetId, "manualScenario.assignmentSetId");
   const staffRosterId = requireString(scenario.staffRosterId, "manualScenario.staffRosterId");
   const scenarioId = requireString(scenario.scenarioId, "manualScenario.scenarioId");
-  const expectedScenarioId = manualScenarioIdFor({ floorplanId, assignmentSetId, label });
-  if (scenarioId !== expectedScenarioId) {
-    throw new Error("manualScenario.scenarioId must be deterministic");
+  if (!scenarioId.startsWith("manual-scenario:")) {
+    throw new Error("manualScenario.scenarioId must be a manual scenario id");
   }
   return {
     scenarioId,

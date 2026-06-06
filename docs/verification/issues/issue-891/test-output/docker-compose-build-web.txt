@@ -1,0 +1,69 @@
+ Image hub-api Building
+ Image hub-web Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 1.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 295B done
+#4 DONE 0.0s
+
+#5 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#5 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 3.70MB 1.2s done
+#6 DONE 1.2s
+
+#7 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#7 CACHED
+
+#8 [ 8/11] COPY apps/web apps/web
+#8 CACHED
+
+#9 [10/11] RUN npm --workspace @nerdeus/shared run build
+#9 CACHED
+
+#10 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#10 CACHED
+
+#11 [ 6/11] RUN npm ci
+#11 CACHED
+
+#12 [ 7/11] COPY tsconfig.base.json ./
+#12 CACHED
+
+#13 [ 9/11] COPY packages/shared packages/shared
+#13 CACHED
+
+#14 [ 2/11] WORKDIR /repo
+#14 CACHED
+
+#15 [ 3/11] COPY package.json package-lock.json ./
+#15 CACHED
+
+#16 [11/11] WORKDIR /repo/apps/web
+#16 CACHED
+
+#17 exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:3456fde73a8a1239e90d0770380b673aeeef4ef28bd47183f2a757f0b004d1c5 done
+#17 exporting config sha256:8c4c87d0338a16053e979b97d72002a10882e412f3f8b07d1477b9b9c9da63ea done
+#17 exporting attestation manifest sha256:7980994ebcd9e965375ed1d162d472c9652d9c93477c9d177b141319cf1d9472 0.0s done
+#17 exporting manifest list sha256:e602864114ec5c0b6de40609387d396c9fd4f237ae46131cab262e167cf5bbb1 0.0s done
+#17 naming to docker.io/library/hub-web:latest
+#17 naming to docker.io/library/hub-web:latest done
+#17 unpacking to docker.io/library/hub-web:latest 0.0s done
+#17 DONE 0.2s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image hub-web Built

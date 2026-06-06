@@ -11,11 +11,7 @@ import {
 
 const floorplanId = "floorplan-alpha";
 const scenario = validateManualScenarioContract({
-  scenarioId: manualScenarioIdFor({
-    floorplanId,
-    assignmentSetId: "assignment-set-alpha",
-    label: "Manual Scenario Alpha"
-  }),
+  scenarioId: manualScenarioIdFor({ stableSeed: "scenario-alpha" }),
   label: "Manual Scenario Alpha",
   floorplanId,
   assignmentSetId: "assignment-set-alpha",

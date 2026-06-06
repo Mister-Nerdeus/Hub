@@ -49,14 +49,11 @@ export function createManualScenarioStateFromRecords(input: {
 export function createManualScenarioFromReferences(input: {
   references: ManualScenarioReferences;
   label: string;
+  stableSeed?: string;
   description?: string;
 }): ManualScenarioContract {
   return validateManualScenarioContract({
-    scenarioId: manualScenarioIdFor({
-      floorplanId: input.references.floorplanId,
-      assignmentSetId: input.references.assignmentSetId,
-      label: input.label
-    }),
+    scenarioId: manualScenarioIdFor({ stableSeed: input.stableSeed ?? fallbackStableSeed(input.references) }),
     label: input.label,
     ...(input.description == null || input.description.trim().length === 0 ? {} : { description: input.description }),
     floorplanId: input.references.floorplanId,
@@ -73,7 +70,11 @@ export function createManualScenario(input: {
   references: ManualScenarioReferences;
 }): ManualScenarioState {
   const label = nextScenarioLabel("Manual Scenario", input.state.scenarios);
-  const scenario = createManualScenarioFromReferences({ references: input.references, label });
+  const scenario = createManualScenarioFromReferences({
+    references: input.references,
+    label,
+    stableSeed: nextScenarioStableSeed(input.state.scenarios)
+  });
   return {
     scenarios: [...input.state.scenarios, scenario],
     snapshots: input.state.snapshots,
@@ -95,6 +96,7 @@ export function duplicateManualScenario(input: {
       staffRosterId: source.staffRosterId
     },
     label,
+    stableSeed: nextScenarioStableSeed(input.state.scenarios),
     description: source.description
   });
   return {
@@ -115,20 +117,14 @@ export function renameManualScenario(input: {
     if (scenario.scenarioId !== input.scenarioId) return scenario;
     return validateManualScenarioContract({
       ...scenario,
-      scenarioId: manualScenarioIdFor({
-        floorplanId: scenario.floorplanId,
-        assignmentSetId: scenario.assignmentSetId,
-        label: trimmedLabel
-      }),
       label: trimmedLabel,
       updatedAtIso: MANUAL_SCENARIO_TIMESTAMP
     });
   });
-  const renamed = scenarios.find((scenario) => scenario.label === trimmedLabel);
   return {
     scenarios,
     snapshots: input.state.snapshots,
-    selectedScenarioId: renamed?.scenarioId ?? input.state.selectedScenarioId
+    selectedScenarioId: input.state.selectedScenarioId
   };
 }
 
@@ -168,4 +164,20 @@ function nextScenarioLabel(baseLabel: string, scenarios: readonly ManualScenario
   let index = 2;
   while (labels.has(`${baseLabel} ${index}`)) index += 1;
   return `${baseLabel} ${index}`;
+}
+
+function nextScenarioStableSeed(scenarios: readonly ManualScenarioContract[]): string {
+  const scenarioIds = new Set(scenarios.map((scenario) => scenario.scenarioId));
+  let index = scenarios.length + 1;
+  while (scenarioIds.has(manualScenarioIdFor({ stableSeed: `created-${index}` }))) index += 1;
+  return `created-${index}`;
+}
+
+function fallbackStableSeed(references: ManualScenarioReferences): string {
+  return [
+    references.floorplanId,
+    references.assignmentSetId,
+    references.staffRosterId,
+    "manual-scenario"
+  ].join(":");
 }

@@ -1,0 +1,131 @@
+{
+  "status": "passed",
+  "issue": "891",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario id helper uses stable seed",
+      "passed": true,
+      "detail": {
+        "contractText": "stableSeed"
+      }
+    },
+    {
+      "name": "manual scenario validation no longer recomputes id from label",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "rename preserves scenario id in state",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "duplicate creates a new stable scenario id",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "before and after rename proof preserves scenario id",
+      "passed": true,
+      "detail": {
+        "scenarioBefore": {
+          "scenarioId": "manual-scenario:identity-alpha",
+          "label": "Manual Scenario Alpha",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        },
+        "scenarioAfter": {
+          "scenarioId": "manual-scenario:identity-alpha",
+          "label": "Manual Scenario Renamed",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-02T00:00:00.000Z",
+          "mode": "manual"
+        }
+      }
+    },
+    {
+      "name": "snapshot proof remains linked after rename",
+      "passed": true,
+      "detail": {
+        "snapshotBefore": {
+          "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-identity-alpha:identity-floorplan:identity-assignment-set:identity-staff-roster:identity-floorplan-v1:identity-assignment-v1:identity-roster-v1",
+          "scenarioId": "manual-scenario:identity-alpha",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "floorplanRevisionId": "identity-floorplan-v1",
+          "assignmentSetRevisionId": "identity-assignment-v1",
+          "staffRosterRevisionId": "identity-roster-v1",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual_snapshot"
+        },
+        "snapshotAfterRename": {
+          "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-identity-alpha:identity-floorplan:identity-assignment-set:identity-staff-roster:identity-floorplan-v1:identity-assignment-v1:identity-roster-v1",
+          "scenarioId": "manual-scenario:identity-alpha",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "floorplanRevisionId": "identity-floorplan-v1",
+          "assignmentSetRevisionId": "identity-assignment-v1",
+          "staffRosterRevisionId": "identity-roster-v1",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual_snapshot"
+        }
+      }
+    },
+    {
+      "name": "duplicate proof uses a distinct scenario id",
+      "passed": true,
+      "detail": {
+        "scenarioBefore": {
+          "scenarioId": "manual-scenario:identity-alpha",
+          "label": "Manual Scenario Alpha",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        },
+        "duplicateScenario": {
+          "scenarioId": "manual-scenario:identity-alpha-copy",
+          "label": "Manual Scenario Alpha Copy",
+          "floorplanId": "identity-floorplan",
+          "assignmentSetId": "identity-assignment-set",
+          "staffRosterId": "identity-staff-roster",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        }
+      }
+    },
+    {
+      "name": "snapshot tests remain reference-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "stable identity files omit blocked copy",
+      "passed": true,
+      "detail": [
+        "Recommended",
+        "Best",
+        "Optimal",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome",
+        "Simulation result"
+      ]
+    }
+  ]
+}

@@ -41,11 +41,7 @@ writeCommands(issue, commands);
 
 const floorplanId = "manual-scenario-validation-floorplan";
 const scenario = validateManualScenarioContract({
-  scenarioId: manualScenarioIdFor({
-    floorplanId,
-    assignmentSetId: "manual-scenario-validation-assignment-set",
-    label: "Manual Scenario Validation"
-  }),
+  scenarioId: manualScenarioIdFor({ stableSeed: "manual-scenario-validation" }),
   label: "Manual Scenario Validation",
   floorplanId,
   assignmentSetId: "manual-scenario-validation-assignment-set",

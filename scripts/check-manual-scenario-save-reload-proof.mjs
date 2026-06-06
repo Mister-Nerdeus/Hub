@@ -47,11 +47,7 @@ const floorplanId = "manual-scenario-save-reload-floorplan";
 const assignmentSetId = "manual-scenario-save-reload-assignment-set";
 const staffRosterId = "manual-scenario-save-reload-roster";
 const scenario = validateManualScenarioContract({
-  scenarioId: manualScenarioIdFor({
-    floorplanId,
-    assignmentSetId,
-    label: "Manual Scenario Save Reload"
-  }),
+  scenarioId: manualScenarioIdFor({ stableSeed: "manual-scenario-save-reload" }),
   label: "Manual Scenario Save Reload",
   description: "Reference-only manual scenario persistence proof",
   floorplanId,

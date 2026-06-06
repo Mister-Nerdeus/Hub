@@ -30,6 +30,9 @@ if (created.createdAtIso !== MANUAL_SCENARIO_TIMESTAMP || created.updatedAtIso !
 if (created.mode !== "manual") {
   throw new Error("manual scenario state must stay manual mode only");
 }
+if (created.scenarioId !== "manual-scenario:created-1") {
+  throw new Error("created manual scenario must use a stable label-independent id");
+}
 
 state = duplicateManualScenario({ state, scenarioId: created.scenarioId });
 const duplicate = selectedManualScenario(state);
@@ -38,6 +41,9 @@ if (duplicate == null || duplicate.scenarioId === created.scenarioId) {
 }
 if (duplicate.label !== "Manual Scenario Copy") {
   throw new Error("duplicated manual scenario must use a clear copy label");
+}
+if (duplicate.scenarioId !== "manual-scenario:created-2") {
+  throw new Error("duplicated manual scenario must use a new stable id");
 }
 
 state = renameManualScenario({
@@ -49,8 +55,8 @@ const renamed = selectedManualScenario(state);
 if (renamed == null || renamed.label !== "Manual Scenario Renamed") {
   throw new Error("renamed manual scenario must stay selected with the new label");
 }
-if (renamed.scenarioId === duplicate.scenarioId) {
-  throw new Error("renamed manual scenario id must follow the deterministic label-derived contract");
+if (renamed.scenarioId !== duplicate.scenarioId) {
+  throw new Error("renamed manual scenario id must remain stable");
 }
 
 state = selectManualScenario({ state, scenarioId: created.scenarioId });

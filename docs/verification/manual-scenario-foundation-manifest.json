@@ -17,7 +17,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "890",
+  "lastUpdatedIssue": "891",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -91,5 +91,11 @@
   "scenarioCreationRequiresRealAssignmentSet": true,
   "scenarioCreationRequiresRealStaffRoster": true,
   "placeholderScenarioReferencesBlocked": true,
-  "manualScenarioStillManualOnly": true
+  "manualScenarioStillManualOnly": true,
+  "stableManualScenarioIdentityStatus": "passed",
+  "stableScenarioIdentity": true,
+  "scenarioRenamePreservesScenarioId": true,
+  "scenarioDuplicateCreatesNewScenarioId": true,
+  "scenarioSnapshotsRemainLinkedAfterRename": true,
+  "scenarioIdentityNoLongerDependsOnLabel": true
 }

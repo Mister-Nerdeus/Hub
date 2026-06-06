@@ -38,11 +38,7 @@ ensureIssueArtifacts(issue);
 writeCommands(issue, commands);
 
 const fixture = validateManualScenarioContract({
-  scenarioId: manualScenarioIdFor({
-    floorplanId: "manual-scenario-floorplan",
-    assignmentSetId: "manual-scenario-assignment-set",
-    label: "Manual Scenario"
-  }),
+  scenarioId: manualScenarioIdFor({ stableSeed: "manual-scenario-contract" }),
   label: "Manual Scenario",
   description: "Reference set for synthetic manual assignment review",
   floorplanId: "manual-scenario-floorplan",

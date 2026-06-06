@@ -7,11 +7,7 @@ import {
 } from "../dist/index.js";
 
 const validScenario = {
-  scenarioId: manualScenarioIdFor({
-    floorplanId: "floorplan-alpha",
-    assignmentSetId: "assignment-set-alpha",
-    label: "Manual Scenario Alpha"
-  }),
+  scenarioId: manualScenarioIdFor({ stableSeed: "scenario-alpha" }),
   label: "Manual Scenario Alpha",
   description: "Reference set for a synthetic operational walkthrough",
   floorplanId: "floorplan-alpha",
@@ -40,12 +36,15 @@ test("manual scenario contract requires staff roster reference", () => {
 
 test("manual scenario id helper is deterministic", () => {
   assert.equal(
-    manualScenarioIdFor({
-      floorplanId: "Floorplan Alpha",
-      assignmentSetId: "Assignment Set Alpha",
-      label: "Manual Scenario Alpha"
-    }),
-    "manual-scenario:floorplan-alpha:assignment-set-alpha:manual-scenario-alpha"
+    manualScenarioIdFor({ stableSeed: "Scenario Alpha" }),
+    "manual-scenario:scenario-alpha"
+  );
+});
+
+test("manual scenario id helper does not depend on label", () => {
+  assert.equal(
+    manualScenarioIdFor({ stableSeed: "scenario-alpha" }),
+    manualScenarioIdFor({ stableSeed: "scenario-alpha" })
   );
 });
 
@@ -72,11 +71,6 @@ test("manual scenario labels and descriptions reject overclaim text", () => {
   assert.throws(
     () => validateManualScenarioContract({
       ...validScenario,
-      scenarioId: manualScenarioIdFor({
-        floorplanId: validScenario.floorplanId,
-        assignmentSetId: validScenario.assignmentSetId,
-        label: "Best scenario"
-      }),
       label: "Best scenario"
     }),
     /overclaim language|NO_PHI_RUNTIME_REJECTION/u
