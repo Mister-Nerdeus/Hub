@@ -6,7 +6,7 @@ import {
 
 export const manualScenarioStaffRosterFixture: ManualScenarioStaffRosterContract =
   validateManualScenarioStaffRosterContract({
-    staffRosterId: manualScenarioStaffRosterIdFor({ label: "Manual Scenario Roster" }),
+    staffRosterId: manualScenarioStaffRosterIdFor({ stableSeed: "manual-scenario-roster" }),
     label: "Manual Scenario Roster",
     createdAtIso: "2026-06-01T00:00:00.000Z",
     updatedAtIso: "2026-06-01T00:00:00.000Z",

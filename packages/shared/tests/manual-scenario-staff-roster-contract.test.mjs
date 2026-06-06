@@ -8,7 +8,7 @@ import {
 } from "../dist/index.js";
 
 const validRoster = {
-  staffRosterId: manualScenarioStaffRosterIdFor({ label: "Manual Scenario Roster Alpha" }),
+  staffRosterId: manualScenarioStaffRosterIdFor({ stableSeed: "manual-scenario-roster-alpha" }),
   label: "Manual Scenario Roster Alpha",
   createdAtIso: "2026-06-01T00:00:00.000Z",
   updatedAtIso: "2026-06-01T00:00:00.000Z",
@@ -34,6 +34,22 @@ test("manual scenario staff roster contract accepts manual roster records", () =
   assert.equal(roster.mode, "manual_roster");
   assert.equal(roster.staffMembers.length, 2);
   assert.equal(roster.staffRosterId, "manual-staff-roster:manual-scenario-roster-alpha");
+});
+
+test("manual scenario staff roster id helper does not depend on label", () => {
+  const before = validateManualScenarioStaffRosterContract(validRoster);
+  const after = validateManualScenarioStaffRosterContract({
+    ...validRoster,
+    label: "Manual Scenario Roster Renamed",
+    updatedAtIso: "2026-06-02T00:00:00.000Z"
+  });
+  const duplicate = validateManualScenarioStaffRosterContract({
+    ...validRoster,
+    staffRosterId: manualScenarioStaffRosterIdFor({ stableSeed: "manual-scenario-roster-alpha-copy" }),
+    label: "Manual Scenario Roster Alpha Copy"
+  });
+  assert.equal(after.staffRosterId, before.staffRosterId);
+  assert.notEqual(duplicate.staffRosterId, before.staffRosterId);
 });
 
 test("manual scenario staff roster fixture is demo-safe and deterministic", () => {
@@ -78,7 +94,6 @@ test("manual scenario staff roster labels reject overclaim text", () => {
   assert.throws(
     () => validateManualScenarioStaffRosterContract({
       ...validRoster,
-      staffRosterId: manualScenarioStaffRosterIdFor({ label: "Recommended roster" }),
       label: "Recommended roster"
     }),
     /overclaim language|NO_PHI_RUNTIME_REJECTION/u

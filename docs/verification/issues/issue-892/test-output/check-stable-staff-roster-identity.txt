@@ -1,0 +1,189 @@
+{
+  "status": "passed",
+  "issue": "892",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "staff roster id helper uses stable seed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "fixture uses a stable roster seed",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared tests prove rename and duplicate identity",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "roster rename preserves roster id",
+      "passed": true,
+      "detail": {
+        "rosterBefore": {
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "label": "Manual Scenario Roster Alpha",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "staffMembers": [
+            {
+              "staffMemberId": "manual-staff-blue",
+              "displayName": "Nurse Blue",
+              "role": "rn",
+              "active": true
+            },
+            {
+              "staffMemberId": "manual-staff-green",
+              "displayName": "Tech Green",
+              "role": "tech",
+              "active": true
+            }
+          ],
+          "mode": "manual_roster"
+        },
+        "rosterAfterRename": {
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "label": "Manual Scenario Roster Renamed",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-02T00:00:00.000Z",
+          "staffMembers": [
+            {
+              "staffMemberId": "manual-staff-blue",
+              "displayName": "Nurse Blue",
+              "role": "rn",
+              "active": true
+            },
+            {
+              "staffMemberId": "manual-staff-green",
+              "displayName": "Tech Green",
+              "role": "tech",
+              "active": true
+            }
+          ],
+          "mode": "manual_roster"
+        }
+      }
+    },
+    {
+      "name": "duplicate roster creates new roster id",
+      "passed": true,
+      "detail": {
+        "rosterBefore": {
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "label": "Manual Scenario Roster Alpha",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "staffMembers": [
+            {
+              "staffMemberId": "manual-staff-blue",
+              "displayName": "Nurse Blue",
+              "role": "rn",
+              "active": true
+            },
+            {
+              "staffMemberId": "manual-staff-green",
+              "displayName": "Tech Green",
+              "role": "tech",
+              "active": true
+            }
+          ],
+          "mode": "manual_roster"
+        },
+        "duplicateRoster": {
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha-copy",
+          "label": "Manual Scenario Roster Alpha Copy",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "staffMembers": [
+            {
+              "staffMemberId": "manual-staff-blue",
+              "displayName": "Nurse Blue",
+              "role": "rn",
+              "active": true
+            },
+            {
+              "staffMemberId": "manual-staff-green",
+              "displayName": "Tech Green",
+              "role": "tech",
+              "active": true
+            }
+          ],
+          "mode": "manual_roster"
+        }
+      }
+    },
+    {
+      "name": "scenario roster references remain stable after rename",
+      "passed": true,
+      "detail": {
+        "scenario": {
+          "scenarioId": "manual-scenario:stable-roster-scenario",
+          "label": "Manual Scenario Roster Reference",
+          "floorplanId": "stable-roster-floorplan",
+          "assignmentSetId": "stable-roster-assignment-set",
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        },
+        "scenarioAfterRosterRename": {
+          "scenarioId": "manual-scenario:stable-roster-scenario",
+          "label": "Manual Scenario Roster Reference",
+          "floorplanId": "stable-roster-floorplan",
+          "assignmentSetId": "stable-roster-assignment-set",
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        }
+      }
+    },
+    {
+      "name": "snapshot roster references remain stable after rename",
+      "passed": true,
+      "detail": {
+        "snapshot": {
+          "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-stable-roster-scenario:stable-roster-floorplan:stable-roster-assignment-set:manual-staff-roster-stable-roster-alpha:stable-roster-floorplan-v1:stable-roster-assignment-v1:stable-roster-v1",
+          "scenarioId": "manual-scenario:stable-roster-scenario",
+          "floorplanId": "stable-roster-floorplan",
+          "assignmentSetId": "stable-roster-assignment-set",
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "floorplanRevisionId": "stable-roster-floorplan-v1",
+          "assignmentSetRevisionId": "stable-roster-assignment-v1",
+          "staffRosterRevisionId": "stable-roster-v1",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual_snapshot"
+        },
+        "snapshotAfterRosterRename": {
+          "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-stable-roster-scenario:stable-roster-floorplan:stable-roster-assignment-set:manual-staff-roster-stable-roster-alpha:stable-roster-floorplan-v1:stable-roster-assignment-v1:stable-roster-v1",
+          "scenarioId": "manual-scenario:stable-roster-scenario",
+          "floorplanId": "stable-roster-floorplan",
+          "assignmentSetId": "stable-roster-assignment-set",
+          "staffRosterId": "manual-staff-roster:stable-roster-alpha",
+          "floorplanRevisionId": "stable-roster-floorplan-v1",
+          "assignmentSetRevisionId": "stable-roster-assignment-v1",
+          "staffRosterRevisionId": "stable-roster-v1",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual_snapshot"
+        }
+      }
+    },
+    {
+      "name": "stable staff roster files omit blocked copy",
+      "passed": true,
+      "detail": [
+        "Recommended",
+        "Best",
+        "Optimal",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome",
+        "Simulation result"
+      ]
+    }
+  ]
+}

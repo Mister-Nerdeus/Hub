@@ -1,0 +1,75 @@
+{
+  "status": "passed",
+  "issue": "892",
+  "commands": [
+    {
+      "command": "npm --workspace packages/shared test",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/shared.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web test",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/web.txt"
+      ]
+    },
+    {
+      "command": "npm --workspace apps/web run build",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/web-build.txt"
+      ]
+    },
+    {
+      "command": "node scripts/check-stable-staff-roster-identity.mjs --stage final --issue 892",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/check-stable-staff-roster-identity.txt",
+        "docs/verification/issues/issue-892/stable-staff-roster-identity-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-staff-roster-contract.mjs --stage final --issue 892",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/check-manual-scenario-staff-roster-contract.txt",
+        "docs/verification/issues/issue-892/manual-scenario-staff-roster-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-manual-scenario-snapshot-contract.mjs --stage final --issue 892",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/check-manual-scenario-snapshot-contract.txt",
+        "docs/verification/issues/issue-892/manual-scenario-snapshot-contract-output.json"
+      ]
+    },
+    {
+      "command": "node scripts/check-no-phi-fields.mjs",
+      "outputs": [
+        "docs/verification/issues/issue-892/no-phi-output.txt"
+      ]
+    },
+    {
+      "command": "docker compose config",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/docker-compose-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml config",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/docker-compose-production-config.txt"
+      ]
+    },
+    {
+      "command": "docker compose build web",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/docker-compose-build-web.txt"
+      ]
+    },
+    {
+      "command": "docker compose -f docker-compose.production.yml build web",
+      "outputs": [
+        "docs/verification/issues/issue-892/test-output/docker-compose-production-build-web.txt"
+      ]
+    }
+  ]
+}

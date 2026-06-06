@@ -11,8 +11,8 @@ export type ManualScenarioStaffRosterContract = {
   mode: "manual_roster";
 };
 
-export function manualScenarioStaffRosterIdFor(input: { label: string }): string {
-  return ["manual-staff-roster", stableIdPart(input.label)].join(":");
+export function manualScenarioStaffRosterIdFor(input: { stableSeed: string }): string {
+  return ["manual-staff-roster", stableIdPart(input.stableSeed)].join(":");
 }
 
 export function validateManualScenarioStaffRosterContract(value: unknown): ManualScenarioStaffRosterContract {
@@ -30,9 +30,8 @@ export function validateManualScenarioStaffRosterContract(value: unknown): Manua
   }
   const label = validateRosterText(requireString(roster.label, "manualScenarioStaffRoster.label"), "manualScenarioStaffRoster.label");
   const staffRosterId = requireString(roster.staffRosterId, "manualScenarioStaffRoster.staffRosterId");
-  const expectedRosterId = manualScenarioStaffRosterIdFor({ label });
-  if (staffRosterId !== expectedRosterId) {
-    throw new Error("manualScenarioStaffRoster.staffRosterId must be deterministic");
+  if (!staffRosterId.startsWith("manual-staff-roster:")) {
+    throw new Error("manualScenarioStaffRoster.staffRosterId must be a manual staff roster id");
   }
   return {
     staffRosterId,

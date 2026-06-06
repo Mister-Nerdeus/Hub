@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "issue": "892",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario staff roster contract exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario staff roster fixture exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared regression test covers roster validation",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "fixture validates as manual roster",
+      "passed": true,
+      "detail": {
+        "staffRosterId": "manual-staff-roster:manual-scenario-roster",
+        "label": "Manual Scenario Roster",
+        "createdAtIso": "2026-06-01T00:00:00.000Z",
+        "updatedAtIso": "2026-06-01T00:00:00.000Z",
+        "staffMembers": [
+          {
+            "staffMemberId": "manual-staff-blue",
+            "displayName": "Nurse Blue",
+            "role": "rn",
+            "active": true
+          },
+          {
+            "staffMemberId": "manual-staff-green",
+            "displayName": "Tech Green",
+            "role": "tech",
+            "active": true
+          }
+        ],
+        "mode": "manual_roster"
+      }
+    },
+    {
+      "name": "duplicate staff member ids are rejected",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "forbidden roster fields are rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "field": "competencyScore",
+            "rejected": true
+          },
+          {
+            "field": "recommendationScore",
+            "rejected": true
+          },
+          {
+            "field": "workloadScore",
+            "rejected": true
+          },
+          {
+            "field": "staffingCompliance",
+            "rejected": true
+          },
+          {
+            "field": "clinicalSafety",
+            "rejected": true
+          },
+          {
+            "field": "patientOutcome",
+            "rejected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "roster files omit blocked UI copy",
+      "passed": true,
+      "detail": [
+        "Recommended Scenario",
+        "Optimized Scenario",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome"
+      ]
+    }
+  ]
+}

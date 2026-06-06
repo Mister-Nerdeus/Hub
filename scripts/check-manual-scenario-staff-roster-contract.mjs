@@ -71,7 +71,7 @@ writeJson(issuePath(issue, "manual-scenario-staff-roster-forbidden-fields-proof.
 
 const duplicateRoster = {
   ...roster,
-  staffRosterId: manualScenarioStaffRosterIdFor({ label: roster.label }),
+  staffRosterId: manualScenarioStaffRosterIdFor({ stableSeed: "manual-scenario-roster-duplicate-member-proof" }),
   staffMembers: [roster.staffMembers[0], { ...roster.staffMembers[0] }]
 };
 let duplicateRejected = false;
