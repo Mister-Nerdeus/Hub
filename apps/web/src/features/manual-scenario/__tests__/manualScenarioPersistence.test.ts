@@ -1,4 +1,8 @@
-import { createManualScenarioSnapshot } from "@nerdeus/shared";
+import {
+  MANUAL_SCENARIO_FIXTURE_TIMESTAMP,
+  createManualScenarioSnapshot,
+  manualScenarioFixtureClock
+} from "@nerdeus/shared";
 import {
   cloneManualScenarioState,
   parseManualScenarioState,
@@ -6,8 +10,7 @@ import {
 } from "../manualScenarioPersistence";
 import {
   createManualScenarioFromReferences,
-  createManualScenarioStateFromRecords,
-  MANUAL_SCENARIO_TIMESTAMP
+  createManualScenarioStateFromRecords
 } from "../manualScenarioState";
 import {
   readManualScenarioState,
@@ -22,7 +25,8 @@ const scenario = createManualScenarioFromReferences({
     staffRosterId: "manual-scenario-persistence-roster"
   },
   label: "Manual Scenario Persistence",
-  description: "Reference-only manual scenario persistence proof"
+  description: "Reference-only manual scenario persistence proof",
+  clock: manualScenarioFixtureClock
 });
 const snapshot = createManualScenarioSnapshot({
   scenarioId: scenario.scenarioId,
@@ -32,7 +36,7 @@ const snapshot = createManualScenarioSnapshot({
   floorplanRevisionId: "manual-scenario-persistence-floorplan-revision",
   assignmentSetRevisionId: "manual-scenario-persistence-assignment-revision",
   staffRosterRevisionId: "manual-scenario-persistence-roster-revision",
-  createdAtIso: MANUAL_SCENARIO_TIMESTAMP
+  createdAtIso: MANUAL_SCENARIO_FIXTURE_TIMESTAMP
 });
 const state = createManualScenarioStateFromRecords({
   scenarios: [scenario],

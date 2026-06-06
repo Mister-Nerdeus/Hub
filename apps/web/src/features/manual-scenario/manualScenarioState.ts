@@ -1,12 +1,14 @@
 import {
+  createManualScenarioSystemClock,
   manualScenarioIdFor,
   validateManualScenarioContract,
   validateManualScenarioSnapshotContract,
+  type ManualScenarioClock,
   type ManualScenarioSnapshotContract,
   type ManualScenarioContract
 } from "@nerdeus/shared";
 
-export const MANUAL_SCENARIO_TIMESTAMP = "2026-06-01T00:00:00.000Z";
+const runtimeManualScenarioClock = createManualScenarioSystemClock();
 
 export type ManualScenarioState = {
   scenarios: ManualScenarioContract[];
@@ -51,7 +53,9 @@ export function createManualScenarioFromReferences(input: {
   label: string;
   stableSeed?: string;
   description?: string;
+  clock?: ManualScenarioClock;
 }): ManualScenarioContract {
+  const nowIso = (input.clock ?? runtimeManualScenarioClock).nowIso();
   return validateManualScenarioContract({
     scenarioId: manualScenarioIdFor({ stableSeed: input.stableSeed ?? fallbackStableSeed(input.references) }),
     label: input.label,
@@ -59,8 +63,8 @@ export function createManualScenarioFromReferences(input: {
     floorplanId: input.references.floorplanId,
     assignmentSetId: input.references.assignmentSetId,
     staffRosterId: input.references.staffRosterId,
-    createdAtIso: MANUAL_SCENARIO_TIMESTAMP,
-    updatedAtIso: MANUAL_SCENARIO_TIMESTAMP,
+    createdAtIso: nowIso,
+    updatedAtIso: nowIso,
     mode: "manual"
   });
 }
@@ -68,12 +72,14 @@ export function createManualScenarioFromReferences(input: {
 export function createManualScenario(input: {
   state: ManualScenarioState;
   references: ManualScenarioReferences;
+  clock?: ManualScenarioClock;
 }): ManualScenarioState {
   const label = nextScenarioLabel("Manual Scenario", input.state.scenarios);
   const scenario = createManualScenarioFromReferences({
     references: input.references,
     label,
-    stableSeed: nextScenarioStableSeed(input.state.scenarios)
+    stableSeed: nextScenarioStableSeed(input.state.scenarios),
+    clock: input.clock
   });
   return {
     scenarios: [...input.state.scenarios, scenario],
@@ -85,6 +91,7 @@ export function createManualScenario(input: {
 export function duplicateManualScenario(input: {
   state: ManualScenarioState;
   scenarioId: string | null;
+  clock?: ManualScenarioClock;
 }): ManualScenarioState {
   const source = input.state.scenarios.find((scenario) => scenario.scenarioId === input.scenarioId);
   if (source == null) return input.state;
@@ -97,7 +104,8 @@ export function duplicateManualScenario(input: {
     },
     label,
     stableSeed: nextScenarioStableSeed(input.state.scenarios),
-    description: source.description
+    description: source.description,
+    clock: input.clock
   });
   return {
     scenarios: [...input.state.scenarios, scenario],
@@ -110,15 +118,17 @@ export function renameManualScenario(input: {
   state: ManualScenarioState;
   scenarioId: string | null;
   label: string;
+  clock?: ManualScenarioClock;
 }): ManualScenarioState {
   const trimmedLabel = input.label.trim();
   if (input.scenarioId == null || trimmedLabel.length === 0) return input.state;
+  const nowIso = (input.clock ?? runtimeManualScenarioClock).nowIso();
   const scenarios = input.state.scenarios.map((scenario) => {
     if (scenario.scenarioId !== input.scenarioId) return scenario;
     return validateManualScenarioContract({
       ...scenario,
       label: trimmedLabel,
-      updatedAtIso: MANUAL_SCENARIO_TIMESTAMP
+      updatedAtIso: nowIso
     });
   });
   return {

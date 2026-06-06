@@ -274,6 +274,7 @@ export * from "./scenarios/manualScenarioStaffRosterFixture.js";
 export * from "./scenarios/manualScenarioReferenceValidation.js";
 export * from "./scenarios/manualScenarioSnapshotContract.js";
 export * from "./scenarios/manualScenarioVersioning.js";
+export * from "./scenarios/manualScenarioClock.js";
 export * from "./scenarios/manualAssignmentScenarioBridge.js";
 export * from "./scenarios/manualAssignmentScenarioValidation.js";
 export * from "./random/seededRandom.js";

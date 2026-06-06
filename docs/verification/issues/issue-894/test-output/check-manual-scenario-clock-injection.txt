@@ -1,0 +1,97 @@
+{
+  "status": "passed",
+  "issue": "894",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario clock utility exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "runtime scenario uses injected clock",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "runtimeScenarioUsesInjectedClock": true,
+        "renameUpdatesUpdatedAtIso": true,
+        "staticTimestampRemovedFromRuntimePath": true,
+        "stateTestUsesSequenceClock": true
+      }
+    },
+    {
+      "name": "fixture scenario uses deterministic clock",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "fixtureScenario": {
+          "scenarioId": "manual-scenario:clock-fixture-scenario",
+          "label": "Manual Scenario Clock Fixture",
+          "floorplanId": "clock-floorplan",
+          "assignmentSetId": "clock-assignment-set",
+          "staffRosterId": "clock-staff-roster",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "updatedAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual"
+        },
+        "sequenceClockProof": {
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "duplicatedAtIso": "2026-06-01T00:05:00.000Z",
+          "renamedAtIso": "2026-06-01T00:10:00.000Z"
+        },
+        "snapshot": {
+          "scenarioSnapshotId": "manual-scenario-snapshot:manual-scenario-clock-fixture-scenario:clock-floorplan:clock-assignment-set:clock-staff-roster:clock-floorplan-v1:clock-assignment-v1:clock-roster-v1",
+          "scenarioId": "manual-scenario:clock-fixture-scenario",
+          "floorplanId": "clock-floorplan",
+          "assignmentSetId": "clock-assignment-set",
+          "staffRosterId": "clock-staff-roster",
+          "floorplanRevisionId": "clock-floorplan-v1",
+          "assignmentSetRevisionId": "clock-assignment-v1",
+          "staffRosterRevisionId": "clock-roster-v1",
+          "createdAtIso": "2026-06-01T00:00:00.000Z",
+          "mode": "manual_snapshot"
+        }
+      }
+    },
+    {
+      "name": "rename updates updatedAtIso from clock",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "duplicate uses new clock timestamp",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "snapshot proof can use injected clock timestamp",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "static timestamp removed from runtime path",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "persistence proof uses fixture clock",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario clock files omit blocked copy",
+      "passed": true,
+      "detail": [
+        "Recommended",
+        "Best",
+        "Optimal",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome",
+        "Simulation result"
+      ]
+    }
+  ]
+}

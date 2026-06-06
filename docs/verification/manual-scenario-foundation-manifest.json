@@ -17,7 +17,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "893",
+  "lastUpdatedIssue": "894",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -111,5 +111,11 @@
   "patientCareTargetsSinglePrimaryByDefault": true,
   "supportZoneTargetsCanAllowMultipleByPolicy": true,
   "coAssignmentSemanticsContainNoRecommendations": true,
-  "coAssignmentSemanticsContainNoScoring": true
+  "coAssignmentSemanticsContainNoScoring": true,
+  "manualScenarioClockInjectionStatus": "passed",
+  "manualScenarioClockInjectionReady": true,
+  "runtimeScenarioUsesInjectedClock": true,
+  "fixtureScenarioUsesDeterministicClock": true,
+  "renameUpdatesUpdatedAtIso": true,
+  "staticTimestampRemovedFromRuntimePath": true
 }

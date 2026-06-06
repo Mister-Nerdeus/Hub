@@ -83,7 +83,8 @@ addCheck(checks, "state supports create duplicate rename and select", fileInclud
     "duplicateManualScenario",
     "renameManualScenario",
     "selectManualScenario",
-    "MANUAL_SCENARIO_TIMESTAMP"
+    "ManualScenarioClock",
+    "runtimeManualScenarioClock"
   ]
 ).passed);
 addCheck(checks, "scenario route renders manual scenario panel", fileIncludes(

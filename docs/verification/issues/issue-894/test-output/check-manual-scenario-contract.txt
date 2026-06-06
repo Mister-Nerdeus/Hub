@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "issue": "894",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "manual scenario contract exists",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario validation requires references and manual mode",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario validation uses runtime and overclaim guards",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "shared regression test covers forbidden fields",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "fixture validates as manual scenario reference record",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "forbidden fields are rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "results": [
+          {
+            "field": "score",
+            "rejected": true
+          },
+          {
+            "field": "recommendation",
+            "rejected": true
+          },
+          {
+            "field": "burden",
+            "rejected": true
+          },
+          {
+            "field": "workload",
+            "rejected": true
+          },
+          {
+            "field": "simulationResult",
+            "rejected": true
+          },
+          {
+            "field": "optimizerOutput",
+            "rejected": true
+          },
+          {
+            "field": "safetyStatus",
+            "rejected": true
+          },
+          {
+            "field": "complianceStatus",
+            "rejected": true
+          },
+          {
+            "field": "patientOutcome",
+            "rejected": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "contract files omit blocked UI copy",
+      "passed": true,
+      "detail": [
+        "Recommended Scenario",
+        "Optimized Scenario",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome"
+      ]
+    }
+  ]
+}
