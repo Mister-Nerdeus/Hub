@@ -8,7 +8,7 @@ Manual scenario foundation depends on the manual assignment foundation closeout 
 
 Manual scenario foundation issues 878-889 are complete when the final local GO/NO-GO gate reports `go_for_manual_scenario_review_foundation`.
 
-Co-assignment policy remains part of manual assignment validation. Manual scenarios may reference manual assignment sets, but they do not reinterpret multi-staff placement as assignment quality or route quality.
+Co-assignment policy remains part of manual assignment validation. Its `mode` field is the preset, and `allowMultipleForTargetKinds` is the explicit override list for the default single-primary preset. Manual scenarios may reference manual assignment sets, but they do not reinterpret multi-staff placement as assignment quality or route quality.
 
 Scenario artifacts are reference and presentation records only. They do not judge assignment quality, staffing adequacy, route quality, clinical status, or outcome impact.
 

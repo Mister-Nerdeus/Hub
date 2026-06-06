@@ -17,7 +17,7 @@
   "scoringStillBlocked": true,
   "simulationStillBlocked": true,
   "assignmentFoundationDependencyVerified": true,
-  "lastUpdatedIssue": "892",
+  "lastUpdatedIssue": "893",
   "layoutChangeResetsInvalidAssignmentState": true,
   "storedAssignmentSetRequiresMatchingFloorplan": true,
   "staleAssignmentTargetsRejected": true,
@@ -103,5 +103,13 @@
   "staffRosterRenamePreservesRosterId": true,
   "staffRosterDuplicateCreatesNewRosterId": true,
   "scenarioRosterReferencesStableAfterRename": true,
-  "staffRosterIdentityNoLongerDependsOnlyOnLabel": true
+  "staffRosterIdentityNoLongerDependsOnlyOnLabel": true,
+  "coAssignmentPolicySemanticsStatus": "passed",
+  "coAssignmentPolicySemanticsExplicit": true,
+  "coAssignmentModeSemanticsDocumented": true,
+  "coAssignmentAllowListSemanticsDocumented": true,
+  "patientCareTargetsSinglePrimaryByDefault": true,
+  "supportZoneTargetsCanAllowMultipleByPolicy": true,
+  "coAssignmentSemanticsContainNoRecommendations": true,
+  "coAssignmentSemanticsContainNoScoring": true
 }

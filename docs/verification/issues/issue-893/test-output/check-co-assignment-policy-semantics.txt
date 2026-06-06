@@ -1,0 +1,179 @@
+{
+  "status": "passed",
+  "issue": "893",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "co-assignment mode semantics are explicit",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "allow list semantics are documented",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "assignmentFoundationStatus": "docs/project/assignment-foundation-status.md",
+        "manualScenarioFoundationStatus": "docs/project/manual-scenario-foundation-status.md"
+      }
+    },
+    {
+      "name": "shared tests cover both policy modes",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "patient-care targets are single-primary by default",
+      "passed": true,
+      "detail": {
+        "room": false,
+        "bed_position": false,
+        "hall_bed": false,
+        "support_area": true,
+        "zone": true
+      }
+    },
+    {
+      "name": "support and zone targets can allow multiple by policy",
+      "passed": true,
+      "detail": {
+        "room": false,
+        "bed_position": false,
+        "hall_bed": false,
+        "support_area": true,
+        "zone": true
+      }
+    },
+    {
+      "name": "allow multiple preset allows all target kinds",
+      "passed": true,
+      "detail": {
+        "room": true,
+        "bed_position": true,
+        "hall_bed": true,
+        "support_area": true,
+        "zone": true
+      }
+    },
+    {
+      "name": "manual validation follows final semantics",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "roomValidation": {
+          "status": "passed",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "multiple_staff_on_restricted_target",
+              "message": "Multiple staff assigned to target",
+              "assignmentId": "manual-assignment:co-assignment-semantics-set:staff-rn-a:assignment-target:co-assignment-policy-semantics-proof:room:room-14"
+            }
+          ],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "bedValidation": {
+          "status": "passed",
+          "issues": [
+            {
+              "severity": "warning",
+              "code": "multiple_staff_on_restricted_target",
+              "message": "Multiple staff assigned to target",
+              "assignmentId": "manual-assignment:co-assignment-semantics-set:staff-rn-a:assignment-target:co-assignment-policy-semantics-proof:bed_position:room-02:bed-a"
+            }
+          ],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:bed_position:room-02:bed-a",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:bed_position:room-02:bed-a",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "supportValidation": {
+          "status": "passed",
+          "issues": [],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:support_area:support-team-room",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:support_area:support-team-room",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "zoneValidation": {
+          "status": "passed",
+          "issues": [],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:zone:zone-fast-track",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:zone:zone-fast-track",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        },
+        "allowMultipleRoomValidation": {
+          "status": "passed",
+          "issues": [],
+          "targetResults": [
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            },
+            {
+              "assignmentTargetId": "assignment-target:co-assignment-policy-semantics-proof:room:room-14",
+              "routeStatus": "unknown",
+              "messages": []
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "co-assignment semantics contain no forbidden copy",
+      "passed": true,
+      "detail": [
+        "overstaffed",
+        "understaffed",
+        "unsafe",
+        "safer",
+        "balanced workload",
+        "better coverage",
+        "recommended",
+        "optimized",
+        "Workload score",
+        "Burden score",
+        "Clinical safety",
+        "Staffing compliance",
+        "Patient outcome"
+      ]
+    }
+  ]
+}

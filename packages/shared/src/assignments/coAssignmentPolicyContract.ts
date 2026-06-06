@@ -53,6 +53,9 @@ export function coAssignmentPolicyAllowsMultipleStaff(
   targetKind: AssignmentTargetKind
 ): boolean {
   const validPolicy = validateCoAssignmentPolicyContract(policy);
+  if (validPolicy.mode === "allow_multiple_manual_staff") {
+    return true;
+  }
   return validPolicy.allowMultipleForTargetKinds.includes(targetKind);
 }
 

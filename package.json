@@ -361,7 +361,8 @@
     "check:manual-scenario-foundation-go-no-go": "node scripts/check-manual-scenario-foundation-go-no-go.mjs --stage final --issue 889",
     "check:manual-scenario-reference-strictness": "node scripts/check-manual-scenario-reference-strictness.mjs --stage final --issue 890",
     "check:stable-manual-scenario-identity": "node scripts/check-stable-manual-scenario-identity.mjs --stage final --issue 891",
-    "check:stable-staff-roster-identity": "node scripts/check-stable-staff-roster-identity.mjs --stage final --issue 892"
+    "check:stable-staff-roster-identity": "node scripts/check-stable-staff-roster-identity.mjs --stage final --issue 892",
+    "check:co-assignment-policy-semantics": "node scripts/check-co-assignment-policy-semantics.mjs --stage final --issue 893"
   },
   "engines": {
     "node": ">=22"
