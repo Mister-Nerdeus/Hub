@@ -19,6 +19,31 @@ export type ManualScenarioReferenceValidationResult = {
   issues: ManualScenarioReferenceValidationIssue[];
 };
 
+export type ManualScenarioReferenceReadinessInput = {
+  floorplanId?: string | null;
+  assignmentSetId?: string | null;
+  staffRosterId?: string | null;
+};
+
+export function validateManualScenarioReferenceReadiness(
+  input: ManualScenarioReferenceReadinessInput
+): ManualScenarioReferenceValidationResult {
+  const issues: ManualScenarioReferenceValidationIssue[] = [];
+  if (input.floorplanId == null || input.floorplanId.trim().length === 0) {
+    issues.push(issue("error", "missing_floorplan", "Missing floorplan"));
+  }
+  if (input.assignmentSetId == null || input.assignmentSetId.trim().length === 0) {
+    issues.push(issue("error", "missing_assignment_set", "Missing assignment set"));
+  }
+  if (input.staffRosterId == null || input.staffRosterId.trim().length === 0) {
+    issues.push(issue("error", "missing_staff_roster", "Missing staff roster"));
+  }
+  return {
+    status: issues.some((candidate) => candidate.severity === "error") ? "failed" : "passed",
+    issues
+  };
+}
+
 export function validateManualScenarioReferences(input: {
   scenario: ManualScenarioContract;
   floorplanIds: readonly string[];

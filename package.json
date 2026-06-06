@@ -358,7 +358,8 @@
     "check:manual-scenario-save-reload-proof": "node scripts/check-manual-scenario-save-reload-proof.mjs --stage final --issue 887",
     "check:manual-scenario-browser-proof": "node scripts/check-manual-scenario-browser-proof.mjs --stage final --issue 887",
     "check:manual-scenario-no-recommendation-guard": "node scripts/check-manual-scenario-no-recommendation-guard.mjs --stage final --issue 888",
-    "check:manual-scenario-foundation-go-no-go": "node scripts/check-manual-scenario-foundation-go-no-go.mjs --stage final --issue 889"
+    "check:manual-scenario-foundation-go-no-go": "node scripts/check-manual-scenario-foundation-go-no-go.mjs --stage final --issue 889",
+    "check:manual-scenario-reference-strictness": "node scripts/check-manual-scenario-reference-strictness.mjs --stage final --issue 890"
   },
   "engines": {
     "node": ">=22"

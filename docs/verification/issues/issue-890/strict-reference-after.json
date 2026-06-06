@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "issue": "890",
+  "floorplanOnly": {
+    "status": "failed",
+    "issues": [
+      {
+        "severity": "error",
+        "code": "missing_assignment_set",
+        "message": "Missing assignment set"
+      },
+      {
+        "severity": "error",
+        "code": "missing_staff_roster",
+        "message": "Missing staff roster"
+      }
+    ]
+  },
+  "missingStaffRoster": {
+    "status": "failed",
+    "issues": [
+      {
+        "severity": "error",
+        "code": "missing_staff_roster",
+        "message": "Missing staff roster"
+      }
+    ]
+  },
+  "completeReferences": {
+    "status": "passed",
+    "issues": []
+  },
+  "createEnabledOnlyWhenComplete": true
+}

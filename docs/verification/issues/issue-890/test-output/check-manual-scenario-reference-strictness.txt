@@ -1,0 +1,112 @@
+{
+  "status": "passed",
+  "issue": "890",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "reference readiness helper requires all references",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "floorplan-only proof disables create",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_assignment_set",
+            "message": "Missing assignment set"
+          },
+          {
+            "severity": "error",
+            "code": "missing_staff_roster",
+            "message": "Missing staff roster"
+          }
+        ]
+      }
+    },
+    {
+      "name": "floorplan and assignment set proof disables create without roster",
+      "passed": true,
+      "detail": {
+        "status": "failed",
+        "issues": [
+          {
+            "severity": "error",
+            "code": "missing_staff_roster",
+            "message": "Missing staff roster"
+          }
+        ]
+      }
+    },
+    {
+      "name": "complete references proof enables create",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "issues": []
+      }
+    },
+    {
+      "name": "browser proof disables create when assignment set is missing",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "createDisabled": true,
+        "copyContainsMissingAssignmentSet": true,
+        "copyContainsIncompleteReferences": true,
+        "copyContainsCreateBlock": true,
+        "screenshot": "docs/verification/issues/issue-890/screenshots/manual-scenario-reference-strictness.png"
+      }
+    },
+    {
+      "name": "manual scenario panel uses nullable references",
+      "passed": true,
+      "detail": {
+        "assignmentSetNullable": true,
+        "staffRosterNullable": true
+      }
+    },
+    {
+      "name": "create button is disabled until references are complete",
+      "passed": true,
+      "detail": {
+        "controlsText": "canCreate"
+      }
+    },
+    {
+      "name": "placeholder IDs removed from runtime path",
+      "passed": true,
+      "detail": [
+        "manual-assignment-set-active",
+        "manual-staff-roster-active"
+      ]
+    },
+    {
+      "name": "validation copy remains reference-only",
+      "passed": true,
+      "detail": {}
+    },
+    {
+      "name": "manual scenario strictness files omit blocked copy",
+      "passed": true,
+      "detail": [
+        "Unsafe",
+        "Safer",
+        "Recommended",
+        "Best",
+        "Optimal",
+        "Balanced",
+        "Workload",
+        "Burden",
+        "Score",
+        "Staffing compliance",
+        "Clinical safety",
+        "Patient outcome",
+        "Simulation"
+      ]
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import {
   manualScenarioIdFor,
   validateManualAssignmentSetContract,
   validateManualScenarioContract,
+  validateManualScenarioReferenceReadiness,
   validateManualScenarioReferences
 } from "../dist/index.js";
 
@@ -69,4 +70,33 @@ test("manual scenario reference validation reports assignment set floorplan mism
   });
   assert.equal(result.status, "failed");
   assert.equal(result.issues[0]?.message, "Assignment set does not match floorplan");
+});
+
+test("manual scenario reference readiness requires floorplan assignment set and staff roster", () => {
+  assert.deepEqual(validateManualScenarioReferenceReadiness({
+    floorplanId,
+    assignmentSetId: null,
+    staffRosterId: null
+  }), {
+    status: "failed",
+    issues: [
+      { severity: "error", code: "missing_assignment_set", message: "Missing assignment set" },
+      { severity: "error", code: "missing_staff_roster", message: "Missing staff roster" }
+    ]
+  });
+  assert.deepEqual(validateManualScenarioReferenceReadiness({
+    floorplanId,
+    assignmentSetId: "assignment-set-alpha",
+    staffRosterId: null
+  }), {
+    status: "failed",
+    issues: [
+      { severity: "error", code: "missing_staff_roster", message: "Missing staff roster" }
+    ]
+  });
+  assert.equal(validateManualScenarioReferenceReadiness({
+    floorplanId,
+    assignmentSetId: "assignment-set-alpha",
+    staffRosterId: "staff-roster-alpha"
+  }).status, "passed");
 });

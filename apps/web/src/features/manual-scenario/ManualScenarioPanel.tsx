@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import type {
   ActiveFloorplanContract,
-  ManualAssignmentSetContract
+  ManualAssignmentSetContract,
+  ManualScenarioStaffRosterContract
 } from "@nerdeus/shared";
+import { validateManualScenarioReferenceReadiness } from "@nerdeus/shared";
 import { ManualScenarioControls } from "./ManualScenarioControls";
 import { ManualScenarioList } from "./ManualScenarioList";
 import {
@@ -18,6 +20,7 @@ import "./ManualScenario.css";
 type ManualScenarioPanelProps = {
   activeFloorplan: ActiveFloorplanContract | null;
   assignmentSet: ManualAssignmentSetContract | null;
+  staffRoster: ManualScenarioStaffRosterContract | null;
   scenarioState: ManualScenarioState;
   onScenarioStateChange: (state: ManualScenarioState) => void;
   onSaveScenarios: () => void;
@@ -27,6 +30,7 @@ type ManualScenarioPanelProps = {
 export function ManualScenarioPanel({
   activeFloorplan,
   assignmentSet,
+  staffRoster,
   scenarioState,
   onScenarioStateChange,
   onSaveScenarios,
@@ -34,10 +38,18 @@ export function ManualScenarioPanel({
 }: ManualScenarioPanelProps) {
   const selectedScenario = selectedManualScenario(scenarioState);
   const [renameValue, setRenameValue] = useState(selectedScenario?.label ?? "");
-  const floorplanId = activeFloorplan?.editableLayout.layoutId ?? "no-active-floorplan";
-  const assignmentSetId = assignmentSet?.assignmentSetId ?? "manual-assignment-set-active";
-  const staffRosterId = "manual-staff-roster-active";
-  const referencesReady = activeFloorplan != null;
+  const floorplanId = activeFloorplan?.editableLayout.layoutId ?? null;
+  const assignmentSetId = assignmentSet?.assignmentSetId ?? null;
+  const staffRosterId = staffRoster?.staffRosterId ?? null;
+  const referenceValidation = validateManualScenarioReferenceReadiness({
+    floorplanId,
+    assignmentSetId,
+    staffRosterId
+  });
+  const referencesReady = referenceValidation.status === "passed";
+  const validationMessage = referencesReady
+    ? "References available"
+    : "Scenario references are incomplete";
 
   useEffect(() => {
     setRenameValue(selectedScenario?.label ?? "");
@@ -45,14 +57,15 @@ export function ManualScenarioPanel({
 
   function createScenario() {
     if (!referencesReady) return;
+    if (floorplanId == null || assignmentSetId == null || staffRosterId == null) return;
     onScenarioStateChange(createManualScenario({
       state: scenarioState,
-        references: {
-          floorplanId,
-          assignmentSetId,
-          staffRosterId
-        }
-      }));
+      references: {
+        floorplanId,
+        assignmentSetId,
+        staffRosterId
+      }
+    }));
   }
 
   return (
@@ -74,6 +87,7 @@ export function ManualScenarioPanel({
       )}
       <ManualScenarioControls
         renameValue={renameValue}
+        canCreate={referencesReady}
         canDuplicate={selectedScenario != null}
         canRename={selectedScenario != null && renameValue.trim().length > 0}
         onCreateScenario={createScenario}
@@ -113,31 +127,42 @@ export function ManualScenarioPanel({
             </div>
             <div>
               <dt>Linked assignment set</dt>
-              <dd>{assignmentSet == null ? "Manual assignment set draft" : assignmentSet.label}</dd>
+              <dd>{assignmentSet == null ? "Missing assignment set" : assignmentSet.label}</dd>
             </div>
             <div>
               <dt>Linked staff roster</dt>
-              <dd>Manual staff roster</dd>
+              <dd>{staffRoster == null ? "Missing staff roster" : staffRoster.label}</dd>
             </div>
             <div>
               <dt>Validation</dt>
-              <dd>{referencesReady ? "References available" : "Missing floorplan"}</dd>
+              <dd>{validationMessage}</dd>
             </div>
+            {referenceValidation.issues.map((issue) => (
+              <div key={issue.code}>
+                <dt>Reference</dt>
+                <dd>{issue.message}</dd>
+              </div>
+            ))}
           </dl>
+          {referencesReady ? null : (
+            <p className="manual-scenario-panel__status">
+              Manual scenario cannot be created until references are available
+            </p>
+          )}
           <details className="manual-scenario-advanced">
             <summary>Advanced</summary>
             <dl>
               <div>
                 <dt>Floorplan ID</dt>
-                <dd>{floorplanId}</dd>
+                <dd>{floorplanId ?? "Missing floorplan"}</dd>
               </div>
               <div>
                 <dt>Assignment set ID</dt>
-                <dd>{assignmentSetId}</dd>
+                <dd>{assignmentSetId ?? "Missing assignment set"}</dd>
               </div>
               <div>
                 <dt>Staff roster ID</dt>
-                <dd>{staffRosterId}</dd>
+                <dd>{staffRosterId ?? "Missing staff roster"}</dd>
               </div>
               <div>
                 <dt>Scenario ID</dt>

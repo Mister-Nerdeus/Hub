@@ -1,5 +1,6 @@
 type ManualScenarioControlsProps = {
   renameValue: string;
+  canCreate: boolean;
   canDuplicate: boolean;
   canRename: boolean;
   onCreateScenario: () => void;
@@ -11,6 +12,7 @@ type ManualScenarioControlsProps = {
 
 export function ManualScenarioControls({
   renameValue,
+  canCreate,
   canDuplicate,
   canRename,
   onCreateScenario,
@@ -21,7 +23,7 @@ export function ManualScenarioControls({
 }: ManualScenarioControlsProps) {
   return (
     <div className="manual-scenario-controls">
-      <button type="button" onClick={onCreateScenario}>Create scenario</button>
+      <button type="button" onClick={onCreateScenario} disabled={!canCreate}>Create scenario</button>
       <button type="button" onClick={onDuplicateScenario} disabled={!canDuplicate}>Duplicate scenario</button>
       <button type="button" onClick={onSaveScenarios}>Save scenarios</button>
       <label>

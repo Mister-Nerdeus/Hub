@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "issue": "890",
+  "finding": "Before this cleanup, the panel could build scenario references from placeholder assignment and staff roster IDs when only an active floorplan existed.",
+  "placeholders": [
+    "manual-assignment-set-active",
+    "manual-staff-roster-active"
+  ]
+}

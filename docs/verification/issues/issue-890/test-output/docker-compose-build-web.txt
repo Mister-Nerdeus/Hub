@@ -1,0 +1,70 @@
+ Image hub-api Building
+ Image hub-web Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 866B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.local
+#2 transferring dockerfile: 713B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-alpine
+#3 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 295B done
+#4 DONE 0.0s
+
+#5 [ 1/11] FROM docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920
+#5 resolve docker.io/library/node:22-alpine@sha256:968df39aedcea65eeb078fb336ed7191baf48f972b4479711397108be0966920 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 3.70MB 1.2s done
+#6 DONE 1.4s
+
+#7 [ 8/11] COPY apps/web apps/web
+#7 CACHED
+
+#8 [ 9/11] COPY packages/shared packages/shared
+#8 CACHED
+
+#9 [ 3/11] COPY package.json package-lock.json ./
+#9 CACHED
+
+#10 [ 7/11] COPY tsconfig.base.json ./
+#10 CACHED
+
+#11 [10/11] RUN npm --workspace @nerdeus/shared run build
+#11 CACHED
+
+#12 [ 2/11] WORKDIR /repo
+#12 CACHED
+
+#13 [ 5/11] COPY packages/shared/package.json packages/shared/package.json
+#13 CACHED
+
+#14 [ 4/11] COPY apps/web/package.json apps/web/package.json
+#14 CACHED
+
+#15 [ 6/11] RUN npm ci
+#15 CACHED
+
+#16 [11/11] WORKDIR /repo/apps/web
+#16 CACHED
+
+#17 exporting to image
+#17 exporting layers 0.0s done
+#17 exporting manifest sha256:70c5314a465b7e0411298451beb6555a03e9dc67d157ba97e4c36a566ab3fa47 done
+#17 exporting config sha256:25d7fb8464fa482953cfc2e3eab412017c6405a84474684c597e5804ec3a21f9 done
+#17 exporting attestation manifest sha256:51cc792a9404e65a2f7fcba594332db20928ef0eb848d21566150ccb6c71e847
+#17 exporting attestation manifest sha256:51cc792a9404e65a2f7fcba594332db20928ef0eb848d21566150ccb6c71e847 0.1s done
+#17 exporting manifest list sha256:329666ea9a290d3ecadb666e728fd71b0603ee7a517bd141b2b5abe321005e01 0.0s done
+#17 naming to docker.io/library/hub-web:latest
+#17 naming to docker.io/library/hub-web:latest done
+#17 unpacking to docker.io/library/hub-web:latest 0.0s done
+#17 DONE 0.4s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image hub-web Built

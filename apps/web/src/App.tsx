@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AuthoringDraftContract, ManualAssignmentSetContract } from "@nerdeus/shared";
+import { manualScenarioStaffRosterFixture } from "@nerdeus/shared";
 import { ActiveFloorplanSummary } from "./features/floorplans/ActiveFloorplanSummary";
 import {
   cleanupActiveFloorplanAfterSavedDelete,
@@ -560,6 +561,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
           <ManualScenarioPanel
             activeFloorplan={activeFloorplanContract}
             assignmentSet={manualAssignmentSet}
+            staffRoster={manualScenarioStaffRosterFixture}
             scenarioState={manualScenarioState}
             onScenarioStateChange={updateManualScenarioState}
             onSaveScenarios={saveManualScenarios}
