@@ -1,0 +1,53 @@
+{
+  "status": "passed",
+  "issue": "917",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "docs/project/manual-comparison-foundation-status.md"
+        ]
+      }
+    },
+    {
+      "name": "root scripts are registered",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:readiness-dashboard-preflight": "node scripts/check-readiness-dashboard-preflight.mjs --stage final --issue 917",
+          "check:project-readiness-status-contract": "node scripts/check-project-readiness-status-contract.mjs --stage final --issue 918",
+          "check:readiness-dashboard-ui": "node scripts/check-readiness-dashboard-ui.mjs --stage final --issue 919",
+          "check:readiness-dashboard-browser-proof": "node scripts/check-readiness-dashboard-browser-proof.mjs --stage final --issue 920",
+          "check:readiness-dashboard-evidence-closeout": "node scripts/check-readiness-dashboard-evidence-closeout.mjs --stage final --issue 927"
+        }
+      }
+    },
+    {
+      "name": "manual comparison dependency passed",
+      "passed": true,
+      "detail": {
+        "manualComparisonFoundationPreflightStatus": "passed",
+        "manualComparisonSetContractStatus": "passed",
+        "manualComparisonReferenceMatrixStatus": "passed",
+        "manualComparisonUiStatus": "passed",
+        "manualComparisonSaveReloadStatus": "passed",
+        "manualComparisonBrowserProofStatus": "passed",
+        "manualComparisonNoScoringGuardStatus": "passed",
+        "manualComparisonFoundationGoNoGoStatus": "go_for_readiness_dashboard_foundation",
+        "comparisonScope": "manual_identity_reference_only",
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true,
+        "simulationStillBlocked": true,
+        "manualScenarioReviewDependencyVerified": true,
+        "lastUpdatedIssue": "916",
+        "manualComparisonReady": true,
+        "comparisonScoringStillBlocked": true
+      }
+    }
+  ]
+}

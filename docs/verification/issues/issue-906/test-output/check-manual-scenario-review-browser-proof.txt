@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "906",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx"
+        ]
+      }
+    },
+    {
+      "name": "browser proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "passed": true,
+        "panelVisible": true,
+        "notesVisible": true,
+        "screenshot": "docs/verification/issues/issue-906/screenshots/manual-scenario-review-browser.png"
+      }
+    }
+  ]
+}

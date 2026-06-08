@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "issue": "920",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/readiness/ReadinessDashboard.tsx"
+        ]
+      }
+    },
+    {
+      "name": "browser proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "passed": true,
+        "panelVisible": true,
+        "screenshot": "docs/verification/issues/issue-920/screenshots/readiness-dashboard-browser.png"
+      }
+    }
+  ]
+}

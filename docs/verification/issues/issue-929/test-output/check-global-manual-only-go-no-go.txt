@@ -1,0 +1,115 @@
+{
+  "status": "passed",
+  "issue": "929",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "docs/verification/manual-scenario-review-foundation-manifest.json",
+          "docs/verification/manual-comparison-foundation-manifest.json",
+          "docs/verification/readiness-dashboard-manifest.json",
+          "docs/project/current-product-state-report.md"
+        ]
+      }
+    },
+    {
+      "name": "all milestone manifests passed",
+      "passed": true,
+      "detail": {
+        "review": {
+          "manualScenarioReviewFoundationPreflightStatus": "passed",
+          "manualScenarioReviewContractStatus": "passed",
+          "manualScenarioReviewSummaryStatus": "passed",
+          "manualScenarioReferenceIssueClassifierStatus": "passed",
+          "manualScenarioReviewViewModelStatus": "passed",
+          "manualScenarioReviewPanelStatus": "passed",
+          "manualScenarioReviewNotesContractStatus": "passed",
+          "manualScenarioReviewNotesUiStatus": "passed",
+          "manualScenarioReviewPersistenceStatus": "passed",
+          "manualScenarioReviewBrowserProofStatus": "passed",
+          "manualScenarioReviewNoScoringGuardStatus": "passed",
+          "manualScenarioReviewFoundationGoNoGoStatus": "go_for_manual_comparison_foundation",
+          "reviewScope": "reference_state_review_only",
+          "scoringStillBlocked": true,
+          "recommendationsStillBlocked": true,
+          "simulationStillBlocked": true,
+          "manualScenarioFoundationDependencyVerified": true,
+          "lastUpdatedIssue": "925",
+          "reviewReferencesScenario": true,
+          "reviewNotesPersist": true,
+          "reviewFoundationReady": true,
+          "reviewScoringStillBlocked": true,
+          "manualScenarioReviewEvidenceCloseoutStatus": "passed",
+          "manualComparisonFoundationCanStartNext": true,
+          "reviewStillNoScoring": true
+        },
+        "comparison": {
+          "manualComparisonFoundationPreflightStatus": "passed",
+          "manualComparisonSetContractStatus": "passed",
+          "manualComparisonReferenceMatrixStatus": "passed",
+          "manualComparisonUiStatus": "passed",
+          "manualComparisonSaveReloadStatus": "passed",
+          "manualComparisonBrowserProofStatus": "passed",
+          "manualComparisonNoScoringGuardStatus": "passed",
+          "manualComparisonFoundationGoNoGoStatus": "go_for_readiness_dashboard_foundation",
+          "comparisonScope": "manual_identity_reference_only",
+          "scoringStillBlocked": true,
+          "recommendationsStillBlocked": true,
+          "simulationStillBlocked": true,
+          "manualScenarioReviewDependencyVerified": true,
+          "lastUpdatedIssue": "926",
+          "manualComparisonReady": true,
+          "comparisonScoringStillBlocked": true,
+          "manualComparisonEvidenceCloseoutStatus": "passed",
+          "readinessDashboardCanStartNext": true,
+          "comparisonStillNoScoring": true
+        },
+        "readiness": {
+          "readinessDashboardPreflightStatus": "passed",
+          "projectReadinessStatusContractStatus": "passed",
+          "readinessDashboardUiStatus": "passed",
+          "readinessDashboardBrowserProofStatus": "passed",
+          "readinessDashboardEvidenceCloseoutStatus": "passed",
+          "dashboardScope": "project_readiness_only",
+          "clinicalReadinessClaimsBlocked": true,
+          "simulationStillBlocked": true,
+          "scoringStillBlocked": true,
+          "recommendationsStillBlocked": true,
+          "lastUpdatedIssue": "927",
+          "projectReadinessDashboardReady": true
+        },
+        "global": {
+          "globalNoClaimsGuardStatus": "passed",
+          "globalRootScriptAuditStatus": "passed",
+          "globalEvidenceArtifactAuditStatus": "passed",
+          "globalBrowserScreenshotAuditStatus": "passed",
+          "currentProductStateReportStatus": "passed",
+          "globalManualOnlyGoNoGoStatus": "go_for_next_planning_review",
+          "allCurrentMilestonesManualOnly": true,
+          "recommendationsStillBlocked": true,
+          "scoringStillBlocked": true,
+          "simulationStillBlocked": true,
+          "clinicalClaimsBlocked": true,
+          "staffingComplianceClaimsBlocked": true,
+          "patientOutcomeClaimsBlocked": true,
+          "globalClinicalClaimsBlocked": true,
+          "globalScoringClaimsBlocked": true,
+          "globalSimulationClaimsBlocked": true,
+          "lastUpdatedIssue": "929",
+          "allMilestoneRootScriptsPresent": true,
+          "missingRootScripts": [],
+          "requiredIssueArtifactsPresent": true,
+          "placeholderEvidenceRejected": true,
+          "screenshotsPresent": true,
+          "screenshotsNonPlaceholder": true,
+          "reportAccuratelyStatesManualOnlyScope": true,
+          "reportStatesSimulationBlocked": true,
+          "reportContainsNoClinicalClaims": true
+        }
+      }
+    }
+  ]
+}

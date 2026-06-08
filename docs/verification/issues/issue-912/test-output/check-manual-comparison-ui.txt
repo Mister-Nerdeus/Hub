@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "912",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx",
+          "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx",
+          "apps/web/src/features/manual-comparison/manualComparisonState.ts"
+        ]
+      }
+    }
+  ]
+}

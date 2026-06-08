@@ -1,0 +1,59 @@
+.readiness-dashboard {
+  display: grid;
+  gap: 14px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.readiness-dashboard__header {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.readiness-dashboard__header h2,
+.readiness-dashboard__header p,
+.readiness-status-card h3,
+.readiness-status-card p {
+  margin: 0;
+}
+
+.readiness-dashboard__header h2 {
+  color: #111827;
+  font-size: 1.2rem;
+}
+
+.readiness-dashboard__header p,
+.readiness-status-card p {
+  color: #53616f;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.readiness-dashboard__grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.readiness-status-card {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  min-height: 92px;
+  padding: 14px;
+}
+
+.readiness-status-card h3 {
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+.readiness-status-card[data-readiness-status="blocked"] {
+  background: #f7f9fb;
+  border-style: dashed;
+}

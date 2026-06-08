@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "issue": "921",
+  "patch": {
+    "globalNoClaimsGuardStatus": "passed",
+    "globalClinicalClaimsBlocked": true,
+    "globalScoringClaimsBlocked": true,
+    "globalSimulationClaimsBlocked": true
+  },
+  "manifest": {
+    "globalNoClaimsGuardStatus": "passed",
+    "globalRootScriptAuditStatus": "missing",
+    "globalEvidenceArtifactAuditStatus": "missing",
+    "globalBrowserScreenshotAuditStatus": "missing",
+    "currentProductStateReportStatus": "missing",
+    "globalManualOnlyGoNoGoStatus": "not_ready",
+    "allCurrentMilestonesManualOnly": false,
+    "recommendationsStillBlocked": true,
+    "scoringStillBlocked": true,
+    "simulationStillBlocked": true,
+    "clinicalClaimsBlocked": true,
+    "staffingComplianceClaimsBlocked": true,
+    "patientOutcomeClaimsBlocked": true,
+    "globalClinicalClaimsBlocked": true,
+    "globalScoringClaimsBlocked": true,
+    "globalSimulationClaimsBlocked": true,
+    "lastUpdatedIssue": "921"
+  }
+}

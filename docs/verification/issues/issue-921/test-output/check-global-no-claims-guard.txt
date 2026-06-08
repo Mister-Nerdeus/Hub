@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "issue": "921",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "scripts/check-global-no-claims-guard.mjs"
+        ]
+      }
+    },
+    {
+      "name": "issue proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "scannedAreas": [
+          "manual review",
+          "manual comparison",
+          "readiness dashboard",
+          "current batch docs"
+        ]
+      }
+    }
+  ]
+}

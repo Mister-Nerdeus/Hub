@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "903",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesContract.ts",
+          "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts",
+          "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx"
+        ]
+      }
+    }
+  ]
+}

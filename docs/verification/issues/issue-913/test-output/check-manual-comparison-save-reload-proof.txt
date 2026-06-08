@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "issue": "913",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-comparison/manualComparisonStorage.ts",
+          "apps/web/src/features/manual-comparison/manualComparisonPersistence.ts"
+        ]
+      }
+    }
+  ]
+}

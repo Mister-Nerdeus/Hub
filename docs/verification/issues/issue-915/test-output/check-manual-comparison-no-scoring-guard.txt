@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "915",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "packages/shared/src/manual-comparison/manualComparisonSetContract.ts",
+          "apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx"
+        ]
+      }
+    },
+    {
+      "name": "forbidden language absent from scoped files",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "findings": []
+      }
+    }
+  ]
+}

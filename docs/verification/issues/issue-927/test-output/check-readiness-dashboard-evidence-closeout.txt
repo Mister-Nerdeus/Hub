@@ -1,0 +1,34 @@
+{
+  "status": "passed",
+  "issue": "927",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "docs/verification/readiness-dashboard-manifest.json",
+          "docs/project/readiness-dashboard-status.md"
+        ]
+      }
+    },
+    {
+      "name": "readiness browser proof passed",
+      "passed": true,
+      "detail": {
+        "readinessDashboardPreflightStatus": "passed",
+        "projectReadinessStatusContractStatus": "passed",
+        "readinessDashboardUiStatus": "passed",
+        "readinessDashboardBrowserProofStatus": "passed",
+        "readinessDashboardEvidenceCloseoutStatus": "missing",
+        "dashboardScope": "project_readiness_only",
+        "clinicalReadinessClaimsBlocked": true,
+        "simulationStillBlocked": true,
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true,
+        "lastUpdatedIssue": "920"
+      }
+    }
+  ]
+}

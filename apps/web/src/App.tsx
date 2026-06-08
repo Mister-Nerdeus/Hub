@@ -85,6 +85,19 @@ import {
   readManualScenarioState,
   writeManualScenarioState
 } from "./features/manual-scenario/manualScenarioStorage";
+import { ManualScenarioReviewPanel } from "./features/manual-scenario-review/ManualScenarioReviewPanel";
+import type { ManualScenarioReviewNote } from "./features/manual-scenario-review/manualScenarioReviewNotesContract";
+import {
+  readManualScenarioReviewNotes,
+  writeManualScenarioReviewNotes
+} from "./features/manual-scenario-review/manualScenarioReviewPersistence";
+import { ManualComparisonPanel } from "./features/manual-comparison/ManualComparisonPanel";
+import type { ManualComparisonState } from "./features/manual-comparison/manualComparisonState";
+import {
+  readManualComparisonState,
+  writeManualComparisonState
+} from "./features/manual-comparison/manualComparisonStorage";
+import { ReadinessDashboard } from "./features/readiness/ReadinessDashboard";
 import { SimulationV0InternalDryRunPanel } from "./features/simulation/SimulationV0InternalDryRunPanel";
 import { createSimulationV0InternalDryRunViewModel } from "./features/simulation/simulationV0ViewModel";
 import { WorkspaceAccessEntryScreen } from "./features/demo-pin/WorkspaceAccessEntryScreen";
@@ -140,7 +153,12 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     useState<ManualAssignmentSetContract | null>(() => readManualAssignmentSet(getLocalStorage()));
   const [manualScenarioState, setManualScenarioState] =
     useState<ManualScenarioState>(() => readManualScenarioState(getLocalStorage()));
+  const [manualScenarioReviewNotes, setManualScenarioReviewNotes] =
+    useState<ManualScenarioReviewNote[]>(() => readManualScenarioReviewNotes(getLocalStorage()));
+  const [manualComparisonState, setManualComparisonState] =
+    useState<ManualComparisonState>(() => readManualComparisonState(getLocalStorage()));
   const [manualScenarioStatusMessage, setManualScenarioStatusMessage] = useState<string | null>(null);
+  const [manualComparisonStatusMessage, setManualComparisonStatusMessage] = useState<string | null>(null);
   const [archivedVersionIds, setArchivedVersionIds] = useState<Set<string>>(() => new Set());
   const [pendingFloorplanChangeVersionId, setPendingFloorplanChangeVersionId] = useState<string | null>(null);
   const activeFloorplanContract = createActiveFloorplanContract(activeFloorplanState, savedFloorplans);
@@ -268,6 +286,20 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   function saveManualScenarios() {
     setManualScenarioState(writeManualScenarioState(getLocalStorage(), manualScenarioState));
     setManualScenarioStatusMessage("Manual scenarios saved.");
+  }
+
+  function updateManualScenarioReviewNotes(notes: ManualScenarioReviewNote[]) {
+    setManualScenarioReviewNotes(writeManualScenarioReviewNotes(getLocalStorage(), notes));
+  }
+
+  function updateManualComparisonState(state: ManualComparisonState) {
+    setManualComparisonState(state);
+    setManualComparisonStatusMessage(null);
+  }
+
+  function saveManualComparison() {
+    setManualComparisonState(writeManualComparisonState(getLocalStorage(), manualComparisonState));
+    setManualComparisonStatusMessage("Manual comparison saved.");
   }
 
   function saveActiveWorkingCopy(draft: AuthoringDraftContract): SaveWorkingCopyResult {
@@ -567,6 +599,41 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             onSaveScenarios={saveManualScenarios}
             statusMessage={manualScenarioStatusMessage}
           />
+        </section>
+      ) : null}
+
+      {activeSection === "manual-review" ? (
+        <section className="workflow-section" aria-labelledby="manual-review-title">
+          <h2 id="manual-review-title">Manual Review</h2>
+          <ManualScenarioReviewPanel
+            scenarios={manualScenarioState.scenarios}
+            snapshots={manualScenarioState.snapshots}
+            notes={manualScenarioReviewNotes}
+            onNotesChange={updateManualScenarioReviewNotes}
+          />
+        </section>
+      ) : null}
+
+      {activeSection === "manual-comparison" ? (
+        <section className="workflow-section" aria-labelledby="manual-comparison-title">
+          <h2 id="manual-comparison-title">Manual Comparison</h2>
+          {manualComparisonStatusMessage == null ? null : (
+            <p className="floorplan-status-message" role="status">{manualComparisonStatusMessage}</p>
+          )}
+          <ManualComparisonPanel
+            scenarios={manualScenarioState.scenarios}
+            snapshots={manualScenarioState.snapshots}
+            notes={manualScenarioReviewNotes}
+            state={manualComparisonState}
+            onStateChange={updateManualComparisonState}
+            onSave={saveManualComparison}
+          />
+        </section>
+      ) : null}
+
+      {activeSection === "readiness" ? (
+        <section className="workflow-section" aria-labelledby="readiness-title">
+          <ReadinessDashboard />
         </section>
       ) : null}
 

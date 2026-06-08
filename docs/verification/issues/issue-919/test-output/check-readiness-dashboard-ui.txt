@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "issue": "919",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/readiness/ReadinessDashboard.tsx",
+          "apps/web/src/features/readiness/ReadinessStatusCard.tsx"
+        ]
+      }
+    },
+    {
+      "name": "root scripts are registered",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:readiness-dashboard-preflight": "node scripts/check-readiness-dashboard-preflight.mjs --stage final --issue 917",
+          "check:project-readiness-status-contract": "node scripts/check-project-readiness-status-contract.mjs --stage final --issue 918",
+          "check:readiness-dashboard-ui": "node scripts/check-readiness-dashboard-ui.mjs --stage final --issue 919",
+          "check:readiness-dashboard-browser-proof": "node scripts/check-readiness-dashboard-browser-proof.mjs --stage final --issue 920",
+          "check:readiness-dashboard-evidence-closeout": "node scripts/check-readiness-dashboard-evidence-closeout.mjs --stage final --issue 927"
+        }
+      }
+    }
+  ]
+}

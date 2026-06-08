@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "914",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx"
+        ]
+      }
+    },
+    {
+      "name": "browser proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "passed": true,
+        "panelVisible": true,
+        "matrixVisible": true,
+        "screenshot": "docs/verification/issues/issue-914/screenshots/manual-comparison-browser.png"
+      }
+    }
+  ]
+}

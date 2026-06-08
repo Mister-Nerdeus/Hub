@@ -1,0 +1,7 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-global-no-claims-guard.mjs --stage final --issue 921
+node scripts/check-no-phi-fields.mjs
+docker compose config
+docker compose -f docker-compose.production.yml config

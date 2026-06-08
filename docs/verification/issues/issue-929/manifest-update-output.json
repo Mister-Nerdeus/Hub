@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "issue": "929",
+  "patch": {
+    "globalManualOnlyGoNoGoStatus": "go_for_next_planning_review",
+    "allCurrentMilestonesManualOnly": true,
+    "recommendationsStillBlocked": true,
+    "scoringStillBlocked": true,
+    "simulationStillBlocked": true,
+    "clinicalClaimsBlocked": true,
+    "patientOutcomeClaimsBlocked": true,
+    "staffingComplianceClaimsBlocked": true
+  },
+  "manifest": {
+    "globalNoClaimsGuardStatus": "passed",
+    "globalRootScriptAuditStatus": "passed",
+    "globalEvidenceArtifactAuditStatus": "passed",
+    "globalBrowserScreenshotAuditStatus": "passed",
+    "currentProductStateReportStatus": "passed",
+    "globalManualOnlyGoNoGoStatus": "go_for_next_planning_review",
+    "allCurrentMilestonesManualOnly": true,
+    "recommendationsStillBlocked": true,
+    "scoringStillBlocked": true,
+    "simulationStillBlocked": true,
+    "clinicalClaimsBlocked": true,
+    "staffingComplianceClaimsBlocked": true,
+    "patientOutcomeClaimsBlocked": true,
+    "globalClinicalClaimsBlocked": true,
+    "globalScoringClaimsBlocked": true,
+    "globalSimulationClaimsBlocked": true,
+    "lastUpdatedIssue": "929",
+    "allMilestoneRootScriptsPresent": true,
+    "missingRootScripts": [],
+    "requiredIssueArtifactsPresent": true,
+    "placeholderEvidenceRejected": true,
+    "screenshotsPresent": true,
+    "screenshotsNonPlaceholder": true,
+    "reportAccuratelyStatesManualOnlyScope": true,
+    "reportStatesSimulationBlocked": true,
+    "reportContainsNoClinicalClaims": true
+  }
+}

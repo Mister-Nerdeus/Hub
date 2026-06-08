@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "907",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "packages/shared/src/scenario-review/manualScenarioReviewContract.ts",
+          "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx"
+        ]
+      }
+    },
+    {
+      "name": "forbidden language absent from scoped files",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "findings": []
+      }
+    }
+  ]
+}

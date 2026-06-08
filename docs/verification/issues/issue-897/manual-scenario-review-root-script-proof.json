@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "missing": [],
+  "scripts": {
+    "check:manual-scenario-review-foundation-preflight": "node scripts/check-manual-scenario-review-foundation-preflight.mjs --stage final --issue 897",
+    "check:manual-scenario-review-contract": "node scripts/check-manual-scenario-review-contract.mjs --stage final --issue 898",
+    "check:manual-scenario-review-summary": "node scripts/check-manual-scenario-review-summary.mjs --stage final --issue 899",
+    "check:manual-scenario-reference-issue-classifier": "node scripts/check-manual-scenario-reference-issue-classifier.mjs --stage final --issue 900",
+    "check:manual-scenario-review-view-model": "node scripts/check-manual-scenario-review-view-model.mjs --stage final --issue 901",
+    "check:manual-scenario-review-panel": "node scripts/check-manual-scenario-review-panel.mjs --stage final --issue 902",
+    "check:manual-scenario-review-notes-contract": "node scripts/check-manual-scenario-review-notes-contract.mjs --stage final --issue 903",
+    "check:manual-scenario-review-notes-ui": "node scripts/check-manual-scenario-review-notes-ui.mjs --stage final --issue 904",
+    "check:manual-scenario-review-persistence": "node scripts/check-manual-scenario-review-persistence.mjs --stage final --issue 905",
+    "check:manual-scenario-review-browser-proof": "node scripts/check-manual-scenario-review-browser-proof.mjs --stage final --issue 906",
+    "check:manual-scenario-review-no-scoring-guard": "node scripts/check-manual-scenario-review-no-scoring-guard.mjs --stage final --issue 907",
+    "check:manual-scenario-review-foundation-go-no-go": "node scripts/check-manual-scenario-review-foundation-go-no-go.mjs --stage final --issue 908"
+  }
+}

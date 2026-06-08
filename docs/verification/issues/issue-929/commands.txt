@@ -1,0 +1,9 @@
+npm --workspace packages/shared test
+npm --workspace apps/web test
+npm --workspace apps/web run build
+node scripts/check-global-manual-only-go-no-go.mjs --stage final --issue 929
+node scripts/check-no-phi-fields.mjs
+docker compose config
+docker compose -f docker-compose.production.yml config
+docker compose build web
+docker compose -f docker-compose.production.yml build web

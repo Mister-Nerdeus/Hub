@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "issue": "925",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "docs/verification/manual-scenario-review-foundation-manifest.json",
+          "docs/project/manual-scenario-review-foundation-status.md"
+        ]
+      }
+    },
+    {
+      "name": "manual scenario review go/no-go passed",
+      "passed": true,
+      "detail": {
+        "manualScenarioReviewFoundationPreflightStatus": "passed",
+        "manualScenarioReviewContractStatus": "passed",
+        "manualScenarioReviewSummaryStatus": "passed",
+        "manualScenarioReferenceIssueClassifierStatus": "passed",
+        "manualScenarioReviewViewModelStatus": "passed",
+        "manualScenarioReviewPanelStatus": "passed",
+        "manualScenarioReviewNotesContractStatus": "passed",
+        "manualScenarioReviewNotesUiStatus": "passed",
+        "manualScenarioReviewPersistenceStatus": "passed",
+        "manualScenarioReviewBrowserProofStatus": "passed",
+        "manualScenarioReviewNoScoringGuardStatus": "passed",
+        "manualScenarioReviewFoundationGoNoGoStatus": "go_for_manual_comparison_foundation",
+        "reviewScope": "reference_state_review_only",
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true,
+        "simulationStillBlocked": true,
+        "manualScenarioFoundationDependencyVerified": true,
+        "lastUpdatedIssue": "908",
+        "reviewReferencesScenario": true,
+        "reviewNotesPersist": true,
+        "reviewFoundationReady": true,
+        "reviewScoringStillBlocked": true
+      }
+    }
+  ]
+}

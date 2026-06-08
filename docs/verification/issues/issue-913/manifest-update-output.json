@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "issue": "913",
+  "patch": {
+    "manualComparisonSaveReloadStatus": "passed"
+  },
+  "manifest": {
+    "manualComparisonFoundationPreflightStatus": "passed",
+    "manualComparisonSetContractStatus": "passed",
+    "manualComparisonReferenceMatrixStatus": "passed",
+    "manualComparisonUiStatus": "passed",
+    "manualComparisonSaveReloadStatus": "passed",
+    "manualComparisonBrowserProofStatus": "missing",
+    "manualComparisonNoScoringGuardStatus": "missing",
+    "manualComparisonFoundationGoNoGoStatus": "not_ready",
+    "comparisonScope": "manual_identity_reference_only",
+    "scoringStillBlocked": true,
+    "recommendationsStillBlocked": true,
+    "simulationStillBlocked": true,
+    "manualScenarioReviewDependencyVerified": true,
+    "lastUpdatedIssue": "913"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "issue": "902",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx",
+          "apps/web/src/features/manual-scenario-review/ManualScenarioReview.css"
+        ]
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx contains required snippets",
+      "passed": true,
+      "detail": {
+        "snippets": [
+          "data-manual-scenario-review-panel=\"true\"",
+          "Manual notes count"
+        ]
+      }
+    }
+  ]
+}

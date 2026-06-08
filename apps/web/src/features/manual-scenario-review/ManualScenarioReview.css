@@ -1,0 +1,117 @@
+.manual-scenario-review-panel {
+  display: grid;
+  gap: 12px;
+  margin: 16px auto 0;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.manual-scenario-review-panel__header,
+.manual-scenario-review-list > li,
+.manual-scenario-review-panel__empty {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.manual-scenario-review-panel__header {
+  align-items: start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.manual-scenario-review-panel h3,
+.manual-scenario-review-panel p {
+  margin: 0;
+}
+
+.manual-scenario-review-panel h3 {
+  color: #111827;
+  font-size: 1rem;
+}
+
+.manual-scenario-review-panel p,
+.manual-scenario-review-list dd,
+.manual-scenario-review-list li {
+  color: #53616f;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.manual-scenario-review-panel__header strong,
+.manual-scenario-review-list__summary span {
+  background: #edf3f8;
+  border: 1px solid #c4d0dc;
+  border-radius: 999px;
+  color: #243447;
+  font-size: 0.75rem;
+  padding: 6px 9px;
+}
+
+.manual-scenario-review-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.manual-scenario-review-list__summary {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.manual-scenario-review-list dl {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin: 12px 0;
+}
+
+.manual-scenario-review-list dt,
+.manual-scenario-review-note-row span {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manual-scenario-review-list dd {
+  margin: 4px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.manual-scenario-review-list__issues {
+  margin: 0 0 10px;
+}
+
+.manual-scenario-review-note-row {
+  align-items: end;
+  display: flex;
+  gap: 8px;
+}
+
+.manual-scenario-review-note-row label {
+  display: grid;
+  flex: 1;
+  gap: 4px;
+}
+
+.manual-scenario-review-note-row input,
+.manual-scenario-review-note-row button {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.manual-scenario-review-note-row button {
+  background: #ffffff;
+  color: #243447;
+  cursor: pointer;
+  font-weight: 900;
+}

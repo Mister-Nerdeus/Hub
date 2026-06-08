@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "issue": "899",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "packages/shared/src/scenario-review/manualScenarioReviewSummary.ts",
+          "packages/shared/src/scenario-review/manualScenarioReviewSummaryFixture.ts"
+        ]
+      }
+    },
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewSummary.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "snippets": [
+          "floorplanId",
+          "staffRosterId",
+          "assignmentSetId",
+          "snapshotStatus"
+        ]
+      }
+    }
+  ]
+}

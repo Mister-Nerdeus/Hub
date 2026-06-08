@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "issue": "898",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "packages/shared/src/scenario-review/manualScenarioReviewContract.ts",
+          "packages/shared/src/scenario-review/manualScenarioReviewValidation.ts"
+        ]
+      }
+    },
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewContract.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "snippets": [
+          "mode: \"manual_review\"",
+          "reviewId",
+          "scenarioId"
+        ]
+      }
+    },
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewValidation.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "snippets": [
+          "createManualScenarioReview"
+        ]
+      }
+    }
+  ]
+}

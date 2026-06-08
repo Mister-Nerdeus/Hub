@@ -1,0 +1,98 @@
+.manual-comparison-panel {
+  display: grid;
+  gap: 12px;
+  margin: 0 auto;
+  max-width: 1180px;
+  width: 100%;
+}
+
+.manual-comparison-panel__header,
+.manual-comparison-panel__empty,
+.manual-comparison-panel__scenario-picker,
+.manual-comparison-matrix {
+  background: #ffffff;
+  border: 1px solid #c4d0dc;
+  border-radius: 8px;
+}
+
+.manual-comparison-panel__header {
+  align-items: start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 14px;
+}
+
+.manual-comparison-panel h3,
+.manual-comparison-panel p {
+  margin: 0;
+}
+
+.manual-comparison-panel h3 {
+  color: #111827;
+  font-size: 1rem;
+}
+
+.manual-comparison-panel p,
+.manual-comparison-matrix td,
+.manual-comparison-panel__scenario-picker span {
+  color: #53616f;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.manual-comparison-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.manual-comparison-panel__actions button {
+  background: #ffffff;
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  color: #243447;
+  cursor: pointer;
+  font-weight: 900;
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+.manual-comparison-panel__empty,
+.manual-comparison-panel__scenario-picker {
+  padding: 12px;
+}
+
+.manual-comparison-panel__scenario-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.manual-comparison-panel__scenario-picker label {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.manual-comparison-matrix {
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.manual-comparison-matrix th,
+.manual-comparison-matrix td {
+  border-bottom: 1px solid #d8e0e8;
+  padding: 9px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.manual-comparison-matrix th {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}

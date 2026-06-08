@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "issue": "924",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "docs/verification/issues/issue-906/screenshot-index.json",
+          "docs/verification/issues/issue-914/screenshot-index.json",
+          "docs/verification/issues/issue-920/screenshot-index.json"
+        ]
+      }
+    },
+    {
+      "name": "issue proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "status": "passed",
+  "issue": "901",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "required files exist",
+      "passed": true,
+      "detail": {
+        "files": [
+          "apps/web/src/features/manual-scenario-review/manualScenarioReviewViewModel.ts"
+        ]
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/manualScenarioReviewViewModel.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "snippets": [
+          "Ready for manual review",
+          "Reference issues found",
+          "Missing snapshot",
+          "Snapshot reference stale"
+        ]
+      }
+    }
+  ]
+}
