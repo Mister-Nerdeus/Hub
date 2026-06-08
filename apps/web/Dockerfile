@@ -3,7 +3,7 @@ FROM node:22-alpine
 
 LABEL org.opencontainers.image.title="ER Pod Shift Simulator Web"
 LABEL org.opencontainers.image.description="Operational simulation web editor; no PHI or EHR integration"
-LABEL org.opencontainers.image.revision="geometry-truth-repair-765-811"
+LABEL org.opencontainers.image.revision="manual-scenario-foundation-890-896"
 
 WORKDIR /repo
 
