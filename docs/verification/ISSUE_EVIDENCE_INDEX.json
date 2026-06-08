@@ -22283,8 +22283,739 @@
       ],
       "missingRequiredEvidence": [],
       "status": "indexed"
+    },
+    {
+      "issue": "890",
+      "title": "Issue 890",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-890/browser-reference-strictness-proof.json",
+        "docs/verification/issues/issue-890/closeout.md",
+        "docs/verification/issues/issue-890/command-output-map.json",
+        "docs/verification/issues/issue-890/commands.txt",
+        "docs/verification/issues/issue-890/manifest-update-output.json",
+        "docs/verification/issues/issue-890/manual-scenario-reference-strictness-output.json",
+        "docs/verification/issues/issue-890/manual-scenario-ui-output.json",
+        "docs/verification/issues/issue-890/manual-scenario-validation-output.json",
+        "docs/verification/issues/issue-890/missing-assignment-set-proof.json",
+        "docs/verification/issues/issue-890/missing-staff-roster-proof.json",
+        "docs/verification/issues/issue-890/placeholder-reference-before.json",
+        "docs/verification/issues/issue-890/scenario-reference-validation-fixture.json",
+        "docs/verification/issues/issue-890/screenshot-index.json",
+        "docs/verification/issues/issue-890/screenshots/manual-scenario-reference-strictness.png",
+        "docs/verification/issues/issue-890/screenshots/manual-scenario-ui.png",
+        "docs/verification/issues/issue-890/strict-reference-after.json",
+        "docs/verification/issues/issue-890/test-output/check-manual-scenario-reference-strictness.txt",
+        "docs/verification/issues/issue-890/test-output/check-manual-scenario-ui.txt",
+        "docs/verification/issues/issue-890/test-output/check-manual-scenario-validation.txt",
+        "docs/verification/issues/issue-890/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-890/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-890/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-890/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-890/test-output/shared.txt",
+        "docs/verification/issues/issue-890/test-output/web-build.txt",
+        "docs/verification/issues/issue-890/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "891",
+      "title": "Issue 891",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-891/closeout.md",
+        "docs/verification/issues/issue-891/command-output-map.json",
+        "docs/verification/issues/issue-891/commands.txt",
+        "docs/verification/issues/issue-891/forbidden-scenario-fields-proof.json",
+        "docs/verification/issues/issue-891/forbidden-scenario-snapshot-fields-proof.json",
+        "docs/verification/issues/issue-891/manifest-update-output.json",
+        "docs/verification/issues/issue-891/manual-scenario-contract-output.json",
+        "docs/verification/issues/issue-891/manual-scenario-fixture.json",
+        "docs/verification/issues/issue-891/manual-scenario-snapshot-contract-output.json",
+        "docs/verification/issues/issue-891/scenario-rename-after.json",
+        "docs/verification/issues/issue-891/scenario-rename-before.json",
+        "docs/verification/issues/issue-891/scenario-snapshot-fixture.json",
+        "docs/verification/issues/issue-891/scenario-snapshot-reference-stability-proof.json",
+        "docs/verification/issues/issue-891/scenario-versioning-proof.json",
+        "docs/verification/issues/issue-891/stable-manual-scenario-identity-output.json",
+        "docs/verification/issues/issue-891/test-output/check-manual-scenario-contract.txt",
+        "docs/verification/issues/issue-891/test-output/check-manual-scenario-snapshot-contract.txt",
+        "docs/verification/issues/issue-891/test-output/check-stable-manual-scenario-identity.txt",
+        "docs/verification/issues/issue-891/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-891/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-891/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-891/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-891/test-output/shared.txt",
+        "docs/verification/issues/issue-891/test-output/web-build.txt",
+        "docs/verification/issues/issue-891/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "892",
+      "title": "Issue 892",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-892/closeout.md",
+        "docs/verification/issues/issue-892/command-output-map.json",
+        "docs/verification/issues/issue-892/commands.txt",
+        "docs/verification/issues/issue-892/forbidden-scenario-snapshot-fields-proof.json",
+        "docs/verification/issues/issue-892/manifest-update-output.json",
+        "docs/verification/issues/issue-892/manual-scenario-snapshot-contract-output.json",
+        "docs/verification/issues/issue-892/manual-scenario-staff-roster-contract-output.json",
+        "docs/verification/issues/issue-892/manual-scenario-staff-roster-fixture.json",
+        "docs/verification/issues/issue-892/manual-scenario-staff-roster-forbidden-fields-proof.json",
+        "docs/verification/issues/issue-892/scenario-roster-reference-stability-proof.json",
+        "docs/verification/issues/issue-892/scenario-snapshot-fixture.json",
+        "docs/verification/issues/issue-892/scenario-versioning-proof.json",
+        "docs/verification/issues/issue-892/stable-staff-roster-identity-output.json",
+        "docs/verification/issues/issue-892/staff-roster-duplicate-proof.json",
+        "docs/verification/issues/issue-892/staff-roster-rename-proof.json",
+        "docs/verification/issues/issue-892/test-output/check-manual-scenario-snapshot-contract.txt",
+        "docs/verification/issues/issue-892/test-output/check-manual-scenario-staff-roster-contract.txt",
+        "docs/verification/issues/issue-892/test-output/check-stable-staff-roster-identity.txt",
+        "docs/verification/issues/issue-892/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-892/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-892/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-892/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-892/test-output/shared.txt",
+        "docs/verification/issues/issue-892/test-output/web-build.txt",
+        "docs/verification/issues/issue-892/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "893",
+      "title": "Issue 893",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-893/closeout.md",
+        "docs/verification/issues/issue-893/co-assignment-mode-after.json",
+        "docs/verification/issues/issue-893/co-assignment-mode-before.json",
+        "docs/verification/issues/issue-893/co-assignment-overlay-proof.json",
+        "docs/verification/issues/issue-893/co-assignment-policy-contract-output.json",
+        "docs/verification/issues/issue-893/co-assignment-policy-doc-proof.json",
+        "docs/verification/issues/issue-893/co-assignment-policy-semantics-output.json",
+        "docs/verification/issues/issue-893/co-assignment-validation-proof.json",
+        "docs/verification/issues/issue-893/command-output-map.json",
+        "docs/verification/issues/issue-893/commands.txt",
+        "docs/verification/issues/issue-893/manifest-update-output.json",
+        "docs/verification/issues/issue-893/manual-assignment-validation-fixture.json",
+        "docs/verification/issues/issue-893/manual-assignment-validation-output.json",
+        "docs/verification/issues/issue-893/test-output/check-co-assignment-policy-contract.txt",
+        "docs/verification/issues/issue-893/test-output/check-co-assignment-policy-semantics.txt",
+        "docs/verification/issues/issue-893/test-output/check-manual-assignment-validation.txt",
+        "docs/verification/issues/issue-893/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-893/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-893/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-893/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-893/test-output/shared.txt",
+        "docs/verification/issues/issue-893/test-output/web-build.txt",
+        "docs/verification/issues/issue-893/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "894",
+      "title": "Issue 894",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-894/closeout.md",
+        "docs/verification/issues/issue-894/command-output-map.json",
+        "docs/verification/issues/issue-894/commands.txt",
+        "docs/verification/issues/issue-894/deterministic-fixture-clock-proof.json",
+        "docs/verification/issues/issue-894/forbidden-scenario-fields-proof.json",
+        "docs/verification/issues/issue-894/injected-clock-after.json",
+        "docs/verification/issues/issue-894/manifest-update-output.json",
+        "docs/verification/issues/issue-894/manual-scenario-clock-injection-output.json",
+        "docs/verification/issues/issue-894/manual-scenario-contract-output.json",
+        "docs/verification/issues/issue-894/manual-scenario-fixture.json",
+        "docs/verification/issues/issue-894/static-timestamp-before.json",
+        "docs/verification/issues/issue-894/test-output/check-manual-scenario-clock-injection.txt",
+        "docs/verification/issues/issue-894/test-output/check-manual-scenario-contract.txt",
+        "docs/verification/issues/issue-894/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-894/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-894/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-894/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-894/test-output/shared.txt",
+        "docs/verification/issues/issue-894/test-output/web-build.txt",
+        "docs/verification/issues/issue-894/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "895",
+      "title": "Issue 895",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-895/closeout.md",
+        "docs/verification/issues/issue-895/command-output-map.json",
+        "docs/verification/issues/issue-895/commands.txt",
+        "docs/verification/issues/issue-895/computed-style-proof.json",
+        "docs/verification/issues/issue-895/manifest-update-output.json",
+        "docs/verification/issues/issue-895/screenshot-index.json",
+        "docs/verification/issues/issue-895/screenshots/assigned-split-bed-badges-browser.png",
+        "docs/verification/issues/issue-895/screenshots/assigned-split-bed-badges.png",
+        "docs/verification/issues/issue-895/screenshots/split-room-visual-computed-proof.png",
+        "docs/verification/issues/issue-895/screenshots/storage-wall-disabled-browser.png",
+        "docs/verification/issues/issue-895/screenshots/storage-wall-disabled-gray.png",
+        "docs/verification/issues/issue-895/screenshots/unassigned-normal-room.png",
+        "docs/verification/issues/issue-895/screenshots/unassigned-split-bed-positions.png",
+        "docs/verification/issues/issue-895/screenshots/unassigned-split-room-browser.png",
+        "docs/verification/issues/issue-895/screenshots/unassigned-split-room.png",
+        "docs/verification/issues/issue-895/split-room-black-before.json",
+        "docs/verification/issues/issue-895/split-room-unassigned-visual-state-output.json",
+        "docs/verification/issues/issue-895/split-room-visual-screenshot-evidence-output.json",
+        "docs/verification/issues/issue-895/split-room-white-after.json",
+        "docs/verification/issues/issue-895/test-output/check-split-room-unassigned-visual-state.txt",
+        "docs/verification/issues/issue-895/test-output/check-split-room-visual-screenshot-evidence.txt",
+        "docs/verification/issues/issue-895/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-895/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-895/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-895/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-895/test-output/shared.txt",
+        "docs/verification/issues/issue-895/test-output/web-build.txt",
+        "docs/verification/issues/issue-895/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "896",
+      "title": "Issue 896",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-896/closeout.md",
+        "docs/verification/issues/issue-896/command-output-map.json",
+        "docs/verification/issues/issue-896/commands.txt",
+        "docs/verification/issues/issue-896/manifest-update-output.json",
+        "docs/verification/issues/issue-896/manual-scenario-browser-artifact-proof.json",
+        "docs/verification/issues/issue-896/manual-scenario-clean-boundary-proof.json",
+        "docs/verification/issues/issue-896/manual-scenario-foundation-evidence-closeout-output.json",
+        "docs/verification/issues/issue-896/manual-scenario-root-script-proof.json",
+        "docs/verification/issues/issue-896/manual-scenario-screenshot-proof.json",
+        "docs/verification/issues/issue-896/test-output/check-manual-scenario-foundation-evidence-closeout.txt",
+        "docs/verification/issues/issue-896/test-output/check-manual-scenario-foundation-go-no-go.txt",
+        "docs/verification/issues/issue-896/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-896/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-896/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-896/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-896/test-output/shared.txt",
+        "docs/verification/issues/issue-896/test-output/web-build.txt",
+        "docs/verification/issues/issue-896/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "897",
+      "title": "Issue 897",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-897/closeout.md",
+        "docs/verification/issues/issue-897/command-output-map.json",
+        "docs/verification/issues/issue-897/commands.txt",
+        "docs/verification/issues/issue-897/manifest-update-output.json",
+        "docs/verification/issues/issue-897/manual-scenario-review-foundation-preflight-output.json",
+        "docs/verification/issues/issue-897/manual-scenario-review-root-script-proof.json",
+        "docs/verification/issues/issue-897/test-output/check-manual-scenario-review-foundation-preflight.txt",
+        "docs/verification/issues/issue-897/test-output/shared.txt",
+        "docs/verification/issues/issue-897/test-output/web-build.txt",
+        "docs/verification/issues/issue-897/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "898",
+      "title": "Issue 898",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-898/closeout.md",
+        "docs/verification/issues/issue-898/command-output-map.json",
+        "docs/verification/issues/issue-898/commands.txt",
+        "docs/verification/issues/issue-898/manifest-update-output.json",
+        "docs/verification/issues/issue-898/manual-scenario-review-contract-output.json",
+        "docs/verification/issues/issue-898/test-output/check-manual-scenario-review-contract.txt",
+        "docs/verification/issues/issue-898/test-output/shared.txt",
+        "docs/verification/issues/issue-898/test-output/web-build.txt",
+        "docs/verification/issues/issue-898/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "899",
+      "title": "Issue 899",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-899/closeout.md",
+        "docs/verification/issues/issue-899/command-output-map.json",
+        "docs/verification/issues/issue-899/commands.txt",
+        "docs/verification/issues/issue-899/manifest-update-output.json",
+        "docs/verification/issues/issue-899/manual-scenario-review-summary-output.json",
+        "docs/verification/issues/issue-899/test-output/check-manual-scenario-review-summary.txt",
+        "docs/verification/issues/issue-899/test-output/shared.txt",
+        "docs/verification/issues/issue-899/test-output/web-build.txt",
+        "docs/verification/issues/issue-899/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "900",
+      "title": "Issue 900",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-900/closeout.md",
+        "docs/verification/issues/issue-900/command-output-map.json",
+        "docs/verification/issues/issue-900/commands.txt",
+        "docs/verification/issues/issue-900/manifest-update-output.json",
+        "docs/verification/issues/issue-900/manual-scenario-reference-issue-classifier-output.json",
+        "docs/verification/issues/issue-900/reference-issue-forbidden-type-proof.json",
+        "docs/verification/issues/issue-900/test-output/check-manual-scenario-reference-issue-classifier.txt",
+        "docs/verification/issues/issue-900/test-output/shared.txt",
+        "docs/verification/issues/issue-900/test-output/web-build.txt",
+        "docs/verification/issues/issue-900/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "901",
+      "title": "Issue 901",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-901/closeout.md",
+        "docs/verification/issues/issue-901/command-output-map.json",
+        "docs/verification/issues/issue-901/commands.txt",
+        "docs/verification/issues/issue-901/manifest-update-output.json",
+        "docs/verification/issues/issue-901/manual-scenario-review-view-model-output.json",
+        "docs/verification/issues/issue-901/test-output/check-manual-scenario-review-view-model.txt",
+        "docs/verification/issues/issue-901/test-output/shared.txt",
+        "docs/verification/issues/issue-901/test-output/web-build.txt",
+        "docs/verification/issues/issue-901/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "902",
+      "title": "Issue 902",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-902/closeout.md",
+        "docs/verification/issues/issue-902/command-output-map.json",
+        "docs/verification/issues/issue-902/commands.txt",
+        "docs/verification/issues/issue-902/manifest-update-output.json",
+        "docs/verification/issues/issue-902/manual-scenario-review-panel-output.json",
+        "docs/verification/issues/issue-902/test-output/check-manual-scenario-review-panel.txt",
+        "docs/verification/issues/issue-902/test-output/shared.txt",
+        "docs/verification/issues/issue-902/test-output/web-build.txt",
+        "docs/verification/issues/issue-902/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "903",
+      "title": "Issue 903",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-903/closeout.md",
+        "docs/verification/issues/issue-903/command-output-map.json",
+        "docs/verification/issues/issue-903/commands.txt",
+        "docs/verification/issues/issue-903/manifest-update-output.json",
+        "docs/verification/issues/issue-903/manual-scenario-review-notes-contract-output.json",
+        "docs/verification/issues/issue-903/test-output/check-manual-scenario-review-notes-contract.txt",
+        "docs/verification/issues/issue-903/test-output/shared.txt",
+        "docs/verification/issues/issue-903/test-output/web-build.txt",
+        "docs/verification/issues/issue-903/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "904",
+      "title": "Issue 904",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-904/closeout.md",
+        "docs/verification/issues/issue-904/command-output-map.json",
+        "docs/verification/issues/issue-904/commands.txt",
+        "docs/verification/issues/issue-904/manifest-update-output.json",
+        "docs/verification/issues/issue-904/manual-scenario-review-notes-ui-output.json",
+        "docs/verification/issues/issue-904/test-output/check-manual-scenario-review-notes-ui.txt",
+        "docs/verification/issues/issue-904/test-output/shared.txt",
+        "docs/verification/issues/issue-904/test-output/web-build.txt",
+        "docs/verification/issues/issue-904/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "905",
+      "title": "Issue 905",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-905/closeout.md",
+        "docs/verification/issues/issue-905/command-output-map.json",
+        "docs/verification/issues/issue-905/commands.txt",
+        "docs/verification/issues/issue-905/manifest-update-output.json",
+        "docs/verification/issues/issue-905/manual-scenario-review-persistence-output.json",
+        "docs/verification/issues/issue-905/test-output/check-manual-scenario-review-persistence.txt",
+        "docs/verification/issues/issue-905/test-output/shared.txt",
+        "docs/verification/issues/issue-905/test-output/web-build.txt",
+        "docs/verification/issues/issue-905/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "906",
+      "title": "Issue 906",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-906/closeout.md",
+        "docs/verification/issues/issue-906/command-output-map.json",
+        "docs/verification/issues/issue-906/commands.txt",
+        "docs/verification/issues/issue-906/manifest-update-output.json",
+        "docs/verification/issues/issue-906/manual-scenario-review-browser-proof-output.json",
+        "docs/verification/issues/issue-906/manual-scenario-review-browser-trace.json",
+        "docs/verification/issues/issue-906/screenshot-index.json",
+        "docs/verification/issues/issue-906/screenshots/manual-scenario-review-browser.png",
+        "docs/verification/issues/issue-906/test-output/check-manual-scenario-review-browser-proof.txt",
+        "docs/verification/issues/issue-906/test-output/shared.txt",
+        "docs/verification/issues/issue-906/test-output/web-build.txt",
+        "docs/verification/issues/issue-906/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "907",
+      "title": "Issue 907",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-907/closeout.md",
+        "docs/verification/issues/issue-907/command-output-map.json",
+        "docs/verification/issues/issue-907/commands.txt",
+        "docs/verification/issues/issue-907/manifest-update-output.json",
+        "docs/verification/issues/issue-907/manual-scenario-review-forbidden-language-proof.json",
+        "docs/verification/issues/issue-907/manual-scenario-review-no-scoring-guard-output.json",
+        "docs/verification/issues/issue-907/test-output/check-manual-scenario-review-no-scoring-guard.txt",
+        "docs/verification/issues/issue-907/test-output/shared.txt",
+        "docs/verification/issues/issue-907/test-output/web-build.txt",
+        "docs/verification/issues/issue-907/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "908",
+      "title": "Issue 908",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-908/closeout.md",
+        "docs/verification/issues/issue-908/command-output-map.json",
+        "docs/verification/issues/issue-908/commands.txt",
+        "docs/verification/issues/issue-908/manifest-update-output.json",
+        "docs/verification/issues/issue-908/manual-scenario-review-foundation-go-no-go-output.json",
+        "docs/verification/issues/issue-908/root-script-proof.json",
+        "docs/verification/issues/issue-908/test-output/check-manual-scenario-review-foundation-go-no-go.txt",
+        "docs/verification/issues/issue-908/test-output/shared.txt",
+        "docs/verification/issues/issue-908/test-output/web-build.txt",
+        "docs/verification/issues/issue-908/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "909",
+      "title": "Issue 909",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-909/closeout.md",
+        "docs/verification/issues/issue-909/command-output-map.json",
+        "docs/verification/issues/issue-909/commands.txt",
+        "docs/verification/issues/issue-909/manifest-update-output.json",
+        "docs/verification/issues/issue-909/manual-comparison-foundation-preflight-output.json",
+        "docs/verification/issues/issue-909/root-script-proof.json",
+        "docs/verification/issues/issue-909/test-output/check-manual-comparison-foundation-preflight.txt",
+        "docs/verification/issues/issue-909/test-output/shared.txt",
+        "docs/verification/issues/issue-909/test-output/web-build.txt",
+        "docs/verification/issues/issue-909/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "910",
+      "title": "Issue 910",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-910/closeout.md",
+        "docs/verification/issues/issue-910/command-output-map.json",
+        "docs/verification/issues/issue-910/commands.txt",
+        "docs/verification/issues/issue-910/manifest-update-output.json",
+        "docs/verification/issues/issue-910/manual-comparison-set-contract-output.json",
+        "docs/verification/issues/issue-910/test-output/check-manual-comparison-set-contract.txt",
+        "docs/verification/issues/issue-910/test-output/shared.txt",
+        "docs/verification/issues/issue-910/test-output/web-build.txt",
+        "docs/verification/issues/issue-910/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "911",
+      "title": "Issue 911",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-911/closeout.md",
+        "docs/verification/issues/issue-911/command-output-map.json",
+        "docs/verification/issues/issue-911/commands.txt",
+        "docs/verification/issues/issue-911/manifest-update-output.json",
+        "docs/verification/issues/issue-911/manual-comparison-reference-matrix-output.json",
+        "docs/verification/issues/issue-911/test-output/check-manual-comparison-reference-matrix.txt",
+        "docs/verification/issues/issue-911/test-output/shared.txt",
+        "docs/verification/issues/issue-911/test-output/web-build.txt",
+        "docs/verification/issues/issue-911/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "912",
+      "title": "Issue 912",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-912/closeout.md",
+        "docs/verification/issues/issue-912/command-output-map.json",
+        "docs/verification/issues/issue-912/commands.txt",
+        "docs/verification/issues/issue-912/manifest-update-output.json",
+        "docs/verification/issues/issue-912/manual-comparison-ui-output.json",
+        "docs/verification/issues/issue-912/test-output/check-manual-comparison-ui.txt",
+        "docs/verification/issues/issue-912/test-output/shared.txt",
+        "docs/verification/issues/issue-912/test-output/web-build.txt",
+        "docs/verification/issues/issue-912/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "913",
+      "title": "Issue 913",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-913/closeout.md",
+        "docs/verification/issues/issue-913/command-output-map.json",
+        "docs/verification/issues/issue-913/commands.txt",
+        "docs/verification/issues/issue-913/manifest-update-output.json",
+        "docs/verification/issues/issue-913/manual-comparison-save-reload-proof-output.json",
+        "docs/verification/issues/issue-913/test-output/check-manual-comparison-save-reload-proof.txt",
+        "docs/verification/issues/issue-913/test-output/shared.txt",
+        "docs/verification/issues/issue-913/test-output/web-build.txt",
+        "docs/verification/issues/issue-913/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "914",
+      "title": "Issue 914",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-914/closeout.md",
+        "docs/verification/issues/issue-914/command-output-map.json",
+        "docs/verification/issues/issue-914/commands.txt",
+        "docs/verification/issues/issue-914/manifest-update-output.json",
+        "docs/verification/issues/issue-914/manual-comparison-browser-proof-output.json",
+        "docs/verification/issues/issue-914/manual-comparison-browser-trace.json",
+        "docs/verification/issues/issue-914/screenshot-index.json",
+        "docs/verification/issues/issue-914/screenshots/manual-comparison-browser.png",
+        "docs/verification/issues/issue-914/test-output/check-manual-comparison-browser-proof.txt",
+        "docs/verification/issues/issue-914/test-output/shared.txt",
+        "docs/verification/issues/issue-914/test-output/web-build.txt",
+        "docs/verification/issues/issue-914/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "915",
+      "title": "Issue 915",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-915/closeout.md",
+        "docs/verification/issues/issue-915/command-output-map.json",
+        "docs/verification/issues/issue-915/commands.txt",
+        "docs/verification/issues/issue-915/manifest-update-output.json",
+        "docs/verification/issues/issue-915/manual-comparison-forbidden-language-proof.json",
+        "docs/verification/issues/issue-915/manual-comparison-no-scoring-guard-output.json",
+        "docs/verification/issues/issue-915/test-output/check-manual-comparison-no-scoring-guard.txt",
+        "docs/verification/issues/issue-915/test-output/shared.txt",
+        "docs/verification/issues/issue-915/test-output/web-build.txt",
+        "docs/verification/issues/issue-915/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "916",
+      "title": "Issue 916",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-916/closeout.md",
+        "docs/verification/issues/issue-916/command-output-map.json",
+        "docs/verification/issues/issue-916/commands.txt",
+        "docs/verification/issues/issue-916/manifest-update-output.json",
+        "docs/verification/issues/issue-916/manual-comparison-foundation-go-no-go-output.json",
+        "docs/verification/issues/issue-916/root-script-proof.json",
+        "docs/verification/issues/issue-916/test-output/check-manual-comparison-foundation-go-no-go.txt",
+        "docs/verification/issues/issue-916/test-output/shared.txt",
+        "docs/verification/issues/issue-916/test-output/web-build.txt",
+        "docs/verification/issues/issue-916/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "917",
+      "title": "Issue 917",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-917/closeout.md",
+        "docs/verification/issues/issue-917/command-output-map.json",
+        "docs/verification/issues/issue-917/commands.txt",
+        "docs/verification/issues/issue-917/manifest-update-output.json",
+        "docs/verification/issues/issue-917/readiness-dashboard-preflight-output.json",
+        "docs/verification/issues/issue-917/root-script-proof.json",
+        "docs/verification/issues/issue-917/test-output/check-readiness-dashboard-preflight.txt",
+        "docs/verification/issues/issue-917/test-output/shared.txt",
+        "docs/verification/issues/issue-917/test-output/web-build.txt",
+        "docs/verification/issues/issue-917/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "918",
+      "title": "Issue 918",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-918/closeout.md",
+        "docs/verification/issues/issue-918/command-output-map.json",
+        "docs/verification/issues/issue-918/commands.txt",
+        "docs/verification/issues/issue-918/manifest-update-output.json",
+        "docs/verification/issues/issue-918/project-readiness-status-contract-output.json",
+        "docs/verification/issues/issue-918/root-script-proof.json",
+        "docs/verification/issues/issue-918/test-output/check-project-readiness-status-contract.txt",
+        "docs/verification/issues/issue-918/test-output/shared.txt",
+        "docs/verification/issues/issue-918/test-output/web-build.txt",
+        "docs/verification/issues/issue-918/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "919",
+      "title": "Issue 919",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-919/closeout.md",
+        "docs/verification/issues/issue-919/command-output-map.json",
+        "docs/verification/issues/issue-919/commands.txt",
+        "docs/verification/issues/issue-919/manifest-update-output.json",
+        "docs/verification/issues/issue-919/readiness-dashboard-ui-output.json",
+        "docs/verification/issues/issue-919/root-script-proof.json",
+        "docs/verification/issues/issue-919/test-output/check-readiness-dashboard-ui.txt",
+        "docs/verification/issues/issue-919/test-output/shared.txt",
+        "docs/verification/issues/issue-919/test-output/web-build.txt",
+        "docs/verification/issues/issue-919/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "920",
+      "title": "Issue 920",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-920/closeout.md",
+        "docs/verification/issues/issue-920/command-output-map.json",
+        "docs/verification/issues/issue-920/commands.txt",
+        "docs/verification/issues/issue-920/manifest-update-output.json",
+        "docs/verification/issues/issue-920/readiness-dashboard-browser-proof-output.json",
+        "docs/verification/issues/issue-920/readiness-dashboard-browser-trace.json",
+        "docs/verification/issues/issue-920/screenshot-index.json",
+        "docs/verification/issues/issue-920/screenshots/readiness-dashboard-browser.png",
+        "docs/verification/issues/issue-920/test-output/check-readiness-dashboard-browser-proof.txt",
+        "docs/verification/issues/issue-920/test-output/shared.txt",
+        "docs/verification/issues/issue-920/test-output/web-build.txt",
+        "docs/verification/issues/issue-920/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "921",
+      "title": "Issue 921",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-921/closeout.md",
+        "docs/verification/issues/issue-921/command-output-map.json",
+        "docs/verification/issues/issue-921/commands.txt",
+        "docs/verification/issues/issue-921/global-no-claims-guard-output.json",
+        "docs/verification/issues/issue-921/global-no-claims-scan-output.json",
+        "docs/verification/issues/issue-921/manifest-update-output.json",
+        "docs/verification/issues/issue-921/test-output/check-global-no-claims-guard.txt",
+        "docs/verification/issues/issue-921/test-output/shared.txt",
+        "docs/verification/issues/issue-921/test-output/web-build.txt",
+        "docs/verification/issues/issue-921/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "922",
+      "title": "Issue 922",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-922/closeout.md",
+        "docs/verification/issues/issue-922/command-output-map.json",
+        "docs/verification/issues/issue-922/commands.txt",
+        "docs/verification/issues/issue-922/global-root-script-audit-output.json",
+        "docs/verification/issues/issue-922/manifest-update-output.json",
+        "docs/verification/issues/issue-922/root-script-proof.json",
+        "docs/verification/issues/issue-922/test-output/check-global-root-script-audit.txt",
+        "docs/verification/issues/issue-922/test-output/shared.txt",
+        "docs/verification/issues/issue-922/test-output/web-build.txt",
+        "docs/verification/issues/issue-922/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "923",
+      "title": "Issue 923",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-923/closeout.md",
+        "docs/verification/issues/issue-923/command-output-map.json",
+        "docs/verification/issues/issue-923/commands.txt",
+        "docs/verification/issues/issue-923/global-evidence-artifact-audit-output.json",
+        "docs/verification/issues/issue-923/global-evidence-artifact-proof.json",
+        "docs/verification/issues/issue-923/manifest-update-output.json",
+        "docs/verification/issues/issue-923/test-output/check-global-evidence-artifact-audit.txt",
+        "docs/verification/issues/issue-923/test-output/shared.txt",
+        "docs/verification/issues/issue-923/test-output/web-build.txt",
+        "docs/verification/issues/issue-923/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "924",
+      "title": "Issue 924",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-924/closeout.md",
+        "docs/verification/issues/issue-924/command-output-map.json",
+        "docs/verification/issues/issue-924/commands.txt",
+        "docs/verification/issues/issue-924/global-browser-screenshot-audit-output.json",
+        "docs/verification/issues/issue-924/global-browser-screenshot-proof.json",
+        "docs/verification/issues/issue-924/manifest-update-output.json",
+        "docs/verification/issues/issue-924/test-output/check-global-browser-screenshot-audit.txt",
+        "docs/verification/issues/issue-924/test-output/shared.txt",
+        "docs/verification/issues/issue-924/test-output/web-build.txt",
+        "docs/verification/issues/issue-924/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "925",
+      "title": "Issue 925",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-925/closeout.md",
+        "docs/verification/issues/issue-925/command-output-map.json",
+        "docs/verification/issues/issue-925/commands.txt",
+        "docs/verification/issues/issue-925/manifest-update-output.json",
+        "docs/verification/issues/issue-925/manual-scenario-review-evidence-closeout-output.json",
+        "docs/verification/issues/issue-925/test-output/check-manual-scenario-review-evidence-closeout.txt",
+        "docs/verification/issues/issue-925/test-output/shared.txt",
+        "docs/verification/issues/issue-925/test-output/web-build.txt",
+        "docs/verification/issues/issue-925/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "926",
+      "title": "Issue 926",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-926/closeout.md",
+        "docs/verification/issues/issue-926/command-output-map.json",
+        "docs/verification/issues/issue-926/commands.txt",
+        "docs/verification/issues/issue-926/manifest-update-output.json",
+        "docs/verification/issues/issue-926/manual-comparison-evidence-closeout-output.json",
+        "docs/verification/issues/issue-926/test-output/check-manual-comparison-evidence-closeout.txt",
+        "docs/verification/issues/issue-926/test-output/shared.txt",
+        "docs/verification/issues/issue-926/test-output/web-build.txt",
+        "docs/verification/issues/issue-926/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "927",
+      "title": "Issue 927",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-927/closeout.md",
+        "docs/verification/issues/issue-927/command-output-map.json",
+        "docs/verification/issues/issue-927/commands.txt",
+        "docs/verification/issues/issue-927/manifest-update-output.json",
+        "docs/verification/issues/issue-927/readiness-dashboard-evidence-closeout-output.json",
+        "docs/verification/issues/issue-927/test-output/check-readiness-dashboard-evidence-closeout.txt",
+        "docs/verification/issues/issue-927/test-output/shared.txt",
+        "docs/verification/issues/issue-927/test-output/web-build.txt",
+        "docs/verification/issues/issue-927/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "928",
+      "title": "Issue 928",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-928/closeout.md",
+        "docs/verification/issues/issue-928/command-output-map.json",
+        "docs/verification/issues/issue-928/commands.txt",
+        "docs/verification/issues/issue-928/current-product-state-report-output.json",
+        "docs/verification/issues/issue-928/current-product-state-report-proof.json",
+        "docs/verification/issues/issue-928/manifest-update-output.json",
+        "docs/verification/issues/issue-928/test-output/check-current-product-state-report.txt",
+        "docs/verification/issues/issue-928/test-output/shared.txt",
+        "docs/verification/issues/issue-928/test-output/web-build.txt",
+        "docs/verification/issues/issue-928/test-output/web.txt"
+      ]
+    },
+    {
+      "issue": "929",
+      "title": "Issue 929",
+      "requiredEvidence": [
+        "docs/verification/issues/issue-929/closeout.md",
+        "docs/verification/issues/issue-929/command-output-map.json",
+        "docs/verification/issues/issue-929/commands.txt",
+        "docs/verification/issues/issue-929/global-manual-only-go-no-go-output.json",
+        "docs/verification/issues/issue-929/manifest-update-output.json",
+        "docs/verification/issues/issue-929/test-output/check-global-manual-only-go-no-go.txt",
+        "docs/verification/issues/issue-929/test-output/docker-compose-build-web.txt",
+        "docs/verification/issues/issue-929/test-output/docker-compose-config.txt",
+        "docs/verification/issues/issue-929/test-output/docker-compose-production-build-web.txt",
+        "docs/verification/issues/issue-929/test-output/docker-compose-production-config.txt",
+        "docs/verification/issues/issue-929/test-output/docs.txt",
+        "docs/verification/issues/issue-929/test-output/shared.txt",
+        "docs/verification/issues/issue-929/test-output/web-build.txt",
+        "docs/verification/issues/issue-929/test-output/web.txt"
+      ]
     }
   ],
   "schemaVersion": "1.0.0",
-  "lastRebuiltIssue": "601"
+  "lastRebuiltIssue": "929"
 }
