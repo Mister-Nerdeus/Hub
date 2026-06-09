@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "951",
+  "patch": {
+    "manualComparisonUiRepairStatus": "passed"
+  },
+  "manifest": {
+    "manualComparisonRepairPreflightStatus": "passed",
+    "manualComparisonSetContractRepairStatus": "passed",
+    "manualComparisonCollectionValidationStatus": "passed",
+    "manualComparisonStateRepairStatus": "passed",
+    "manualComparisonMatrixIdentityRepairStatus": "passed",
+    "manualComparisonUiRepairStatus": "passed",
+    "manualComparisonPersistenceSchemaRepairStatus": "missing",
+    "manualComparisonBrowserProofRepairStatus": "missing",
+    "manualComparisonGuardRepairStatus": "missing",
+    "manualComparisonRepairGoNoGoStatus": "not_ready",
+    "comparisonRepairScope": "hardening_only",
+    "comparisonScoringStillBlocked": true,
+    "simulationStillBlocked": true,
+    "manualScenarioReviewRepairDependencyVerified": true,
+    "lastUpdatedIssue": "951"
+  }
+}

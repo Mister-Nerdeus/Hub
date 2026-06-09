@@ -53,6 +53,31 @@ export function validateManualScenarioReviewContract(value: unknown): ManualScen
   };
 }
 
+export function validateManualScenarioReviewContracts(input: {
+  reviews: readonly unknown[];
+  scenarioIds?: readonly string[];
+  oneReviewPerScenario?: boolean;
+}): ManualScenarioReviewContract[] {
+  const scenarioIds = input.scenarioIds == null ? null : new Set(input.scenarioIds);
+  const reviewIds = new Set<string>();
+  const reviewedScenarioIds = new Set<string>();
+  return input.reviews.map((candidate, index) => {
+    const review = validateManualScenarioReviewContract(candidate);
+    if (reviewIds.has(review.reviewId)) {
+      throw new Error(`manualScenarioReviews[${index}].reviewId must be unique`);
+    }
+    reviewIds.add(review.reviewId);
+    if (input.oneReviewPerScenario !== false && reviewedScenarioIds.has(review.scenarioId)) {
+      throw new Error(`manualScenarioReviews[${index}].scenarioId must be unique`);
+    }
+    reviewedScenarioIds.add(review.scenarioId);
+    if (scenarioIds != null && !scenarioIds.has(review.scenarioId)) {
+      throw new Error(`manualScenarioReviews[${index}].scenarioId must reference an existing scenario`);
+    }
+    return review;
+  });
+}
+
 function requireStatus(value: unknown): ManualScenarioReviewStatus {
   if (value === "draft" || value === "ready_for_manual_review" || value === "reference_issues") {
     return value;

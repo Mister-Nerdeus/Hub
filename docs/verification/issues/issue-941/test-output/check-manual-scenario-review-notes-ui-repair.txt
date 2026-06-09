@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "941",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

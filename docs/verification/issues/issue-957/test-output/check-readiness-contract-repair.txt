@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "957",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/readiness/projectReadinessStatusContract.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/readiness/projectReadinessStatusContract.ts"
+      }
+    },
+    {
+      "name": "packages/shared/src/readiness/projectReadinessStatusContract.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "952",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-comparison/manualComparisonStorage.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/manualComparisonStorage.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/manualComparisonStorage.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

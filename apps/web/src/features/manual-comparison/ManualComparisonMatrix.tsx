@@ -6,7 +6,14 @@ type ManualComparisonMatrixProps = {
 
 export function ManualComparisonMatrix({ rows }: ManualComparisonMatrixProps) {
   return (
-    <table className="manual-comparison-matrix" data-manual-comparison-matrix="true">
+    <table
+      className="manual-comparison-matrix"
+      data-manual-comparison-matrix="true"
+      data-manual-comparison-matrix-scope="identity_reference_only"
+      data-manual-comparison-scoring-blocked="true"
+      data-manual-comparison-recommendations-blocked="true"
+      data-manual-comparison-simulation-blocked="true"
+    >
       <thead>
         <tr>
           <th>Scenario</th>

@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "issue": "958",
+  "patch": {
+    "readinessDashboardProofAttributesStatus": "passed"
+  },
+  "manifest": {
+    "readinessDashboardRepairPreflightStatus": "passed",
+    "readinessContractRepairStatus": "passed",
+    "readinessDashboardProofAttributesStatus": "passed",
+    "readinessDashboardNoClaimsGuardStatus": "missing",
+    "readinessDashboardBrowserProofRepairStatus": "missing",
+    "readinessDashboardRepairGoNoGoStatus": "not_ready",
+    "projectReadinessOnly": true,
+    "clinicalReadinessClaimsBlocked": true,
+    "operationalReadinessClaimsBlocked": true,
+    "goLiveReadinessClaimsBlocked": true,
+    "simulationStillBlocked": true,
+    "lastUpdatedIssue": "958"
+  }
+}

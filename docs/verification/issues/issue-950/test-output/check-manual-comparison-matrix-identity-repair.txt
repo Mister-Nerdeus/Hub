@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "950",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

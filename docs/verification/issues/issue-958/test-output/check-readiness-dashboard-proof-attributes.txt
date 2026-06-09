@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "958",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/readiness/ReadinessDashboard.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/readiness/ReadinessDashboard.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/features/readiness/ReadinessDashboard.tsx contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

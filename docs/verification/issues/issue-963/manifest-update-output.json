@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "issue": "963",
+  "patch": {
+    "globalStoragePayloadAuditStatus": "passed"
+  },
+  "manifest": {
+    "globalDuplicateIdAuditStatus": "passed",
+    "globalStoragePayloadAuditStatus": "passed",
+    "globalBrowserProofReplayAuditStatus": "missing",
+    "globalRootScriptAuditExpansionStatus": "missing",
+    "globalEvidenceArtifactAuditExpansionStatus": "missing",
+    "globalBrowserScreenshotAuditExpansionStatus": "missing",
+    "globalNoClaimsGuardExpansionRepairStatus": "missing",
+    "globalAuditGoNoGoStatus": "not_ready",
+    "lastUpdatedIssue": "963"
+  }
+}

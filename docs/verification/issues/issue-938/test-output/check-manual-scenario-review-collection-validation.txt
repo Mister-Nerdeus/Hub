@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "issue": "938",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewCollectionValidation.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/scenario-review/manualScenarioReviewCollectionValidation.ts"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "duplicateReviewIdsRejected": true,
+        "duplicateScenarioReviewReferencesRejected": true,
+        "unresolvedScenarioReviewReferencesRejected": true,
+        "reviewCollectionContainsNoScoring": true,
+        "reviewCollectionContainsNoRecommendations": true
+      }
+    }
+  ]
+}

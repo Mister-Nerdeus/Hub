@@ -1,3 +1,5 @@
+import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
+
 export type ManualComparisonSetContract = {
   comparisonSetId: string;
   label: string;
@@ -24,15 +26,43 @@ export function validateManualComparisonSetContract(value: unknown): ManualCompa
   if (set.mode !== "manual_comparison") {
     throw new Error("manualComparisonSet.mode must be manual_comparison");
   }
-  const scenarioIds = requireStringArray(set.scenarioIds, "manualComparisonSet.scenarioIds");
+  const scenarioIds = requireUniqueStringArray(set.scenarioIds, "manualComparisonSet.scenarioIds");
+  const comparisonSetId = requireString(set.comparisonSetId, "manualComparisonSet.comparisonSetId");
+  if (!comparisonSetId.startsWith("manual-comparison-set:")) {
+    throw new Error("manualComparisonSet.comparisonSetId must use manual-comparison-set prefix");
+  }
+  const label = requireAllowedLabel(set.label, "manualComparisonSet.label");
   return {
-    comparisonSetId: requireString(set.comparisonSetId, "manualComparisonSet.comparisonSetId"),
-    label: requireString(set.label, "manualComparisonSet.label"),
+    comparisonSetId,
+    label,
     scenarioIds,
     createdAtIso: requireIso(set.createdAtIso, "manualComparisonSet.createdAtIso"),
     updatedAtIso: requireIso(set.updatedAtIso, "manualComparisonSet.updatedAtIso"),
     mode: "manual_comparison"
   };
+}
+
+export function validateManualComparisonSets(input: {
+  comparisonSets: readonly unknown[];
+  scenarioIds?: readonly string[];
+}): ManualComparisonSetContract[] {
+  const scenarioIds = input.scenarioIds == null ? null : new Set(input.scenarioIds);
+  const comparisonSetIds = new Set<string>();
+  return input.comparisonSets.map((candidate, index) => {
+    const set = validateManualComparisonSetContract(candidate);
+    if (comparisonSetIds.has(set.comparisonSetId)) {
+      throw new Error(`manualComparisonSets[${index}].comparisonSetId must be unique`);
+    }
+    comparisonSetIds.add(set.comparisonSetId);
+    if (scenarioIds != null) {
+      for (const scenarioId of set.scenarioIds) {
+        if (!scenarioIds.has(scenarioId)) {
+          throw new Error(`manualComparisonSets[${index}].scenarioIds must reference existing scenarios`);
+        }
+      }
+    }
+    return set;
+  });
 }
 
 function stableIdPart(value: string): string {
@@ -63,15 +93,37 @@ function requireString(value: unknown, label: string): string {
   return value.trim();
 }
 
-function requireStringArray(value: unknown, label: string): string[] {
+function requireUniqueStringArray(value: unknown, label: string): string[] {
   if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
-  return value.map((entry, index) => requireString(entry, `${label}[${index}]`));
+  const items = value.map((entry, index) => requireString(entry, `${label}[${index}]`));
+  const unique = new Set(items);
+  if (unique.size !== items.length) throw new Error(`${label} must not contain duplicate entries`);
+  return items;
 }
 
 function requireIso(value: unknown, label: string): string {
   const text = requireString(value, label);
   if (Number.isNaN(Date.parse(text))) {
     throw new Error(`${label} must be an ISO date string`);
+  }
+  return text;
+}
+
+function requireAllowedLabel(value: unknown, label: string): string {
+  const text = requireString(value, label);
+  validateOperationalRuntimeText(text, label);
+  const forbidden = [
+    /\bscore\b/i,
+    /\brank(?:ed|ing)?\b/i,
+    /\brecommend(?:ed|ation|ations)?\b/i,
+    /\bsimulation\b/i,
+    /\bquality\b/i,
+    /\bsafety\b/i,
+    /\bcompliance\b/i,
+    /\boutcome\b/i
+  ];
+  if (forbidden.some((pattern) => pattern.test(text))) {
+    throw new Error(`${label} contains blocked comparison language`);
   }
   return text;
 }

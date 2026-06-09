@@ -133,6 +133,9 @@ export function writeCloseout(issue, input) {
   });
   writeText(issuePath(issue, "closeout.md"), `# Issue ${issue} Closeout
 
+## Summary
+${input.title} completed with local-first evidence for the issue scope.
+
 ## Problem
 ${input.title}
 
@@ -153,6 +156,9 @@ ${input.evidence.map((artifact) => `- ${artifact}`).join("\n")}
 
 ## Known Limitations
 ${limitations}
+
+## Next Recommended Issue
+- Continue with the next planned manual-only repair or planning review after confirming local evidence remains current.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.

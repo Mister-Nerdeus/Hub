@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "issue": "974",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "docs/project/manual-scenario-review-repair-status.md exists",
+      "passed": true,
+      "detail": {
+        "file": "docs/project/manual-scenario-review-repair-status.md"
+      }
+    },
+    {
+      "name": "docs/project/manual-comparison-repair-status.md exists",
+      "passed": true,
+      "detail": {
+        "file": "docs/project/manual-comparison-repair-status.md"
+      }
+    },
+    {
+      "name": "docs/project/readiness-dashboard-repair-status.md exists",
+      "passed": true,
+      "detail": {
+        "file": "docs/project/readiness-dashboard-repair-status.md"
+      }
+    },
+    {
+      "name": "docs/project/global-manual-only-status.md exists",
+      "passed": true,
+      "detail": {
+        "file": "docs/project/global-manual-only-status.md"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "docsReflectRepairStatus": true,
+        "docsKeepManualOnlyBoundary": true,
+        "docsContainNoClinicalClaims": true,
+        "docsContainNoSimulationClaims": true
+      }
+    }
+  ]
+}

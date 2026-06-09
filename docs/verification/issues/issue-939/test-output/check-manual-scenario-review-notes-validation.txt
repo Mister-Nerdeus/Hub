@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "issue": "939",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts"
+      }
+    },
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewNotesValidation.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/scenario-review/manualScenarioReviewNotesValidation.ts"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "blankReviewNotesRejected": true,
+        "duplicateReviewNoteIdsRejected": true,
+        "reviewNoteTextNoPhiGuarded": true,
+        "reviewNoteTextNoOverclaimGuarded": true,
+        "reviewNotesContainNoScoring": true
+      }
+    }
+  ]
+}

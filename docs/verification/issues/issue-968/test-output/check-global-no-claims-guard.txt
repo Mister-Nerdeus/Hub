@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "issue": "968",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "globalClinicalClaimsBlocked": true,
+        "globalOperationalClaimsBlocked": true,
+        "globalGoLiveClaimsBlocked": true,
+        "globalScoringClaimsBlocked": true,
+        "globalSimulationClaimsBlocked": true
+      }
+    }
+  ]
+}

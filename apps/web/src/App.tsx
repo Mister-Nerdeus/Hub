@@ -154,7 +154,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   const [manualScenarioState, setManualScenarioState] =
     useState<ManualScenarioState>(() => readManualScenarioState(getLocalStorage()));
   const [manualScenarioReviewNotes, setManualScenarioReviewNotes] =
-    useState<ManualScenarioReviewNote[]>(() => readManualScenarioReviewNotes(getLocalStorage()));
+    useState<ManualScenarioReviewNote[]>(() =>
+      readManualScenarioReviewNotes(getLocalStorage(), manualScenarioState.scenarios)
+    );
   const [manualComparisonState, setManualComparisonState] =
     useState<ManualComparisonState>(() => readManualComparisonState(getLocalStorage()));
   const [manualScenarioStatusMessage, setManualScenarioStatusMessage] = useState<string | null>(null);
@@ -289,7 +291,11 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
   }
 
   function updateManualScenarioReviewNotes(notes: ManualScenarioReviewNote[]) {
-    setManualScenarioReviewNotes(writeManualScenarioReviewNotes(getLocalStorage(), notes));
+    setManualScenarioReviewNotes(writeManualScenarioReviewNotes(
+      getLocalStorage(),
+      notes,
+      manualScenarioState.scenarios
+    ));
   }
 
   function updateManualComparisonState(state: ManualComparisonState) {

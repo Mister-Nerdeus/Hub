@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "948",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioReferencesRejected": true,
+        "comparisonCollectionContainsNoScoring": true
+      }
+    }
+  ]
+}

@@ -8,6 +8,7 @@
 
 .manual-comparison-panel__header,
 .manual-comparison-panel__empty,
+.manual-comparison-panel__set-controls,
 .manual-comparison-panel__scenario-picker,
 .manual-comparison-matrix {
   background: #ffffff;
@@ -45,6 +46,33 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+}
+
+.manual-comparison-panel__set-controls {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 12px;
+}
+
+.manual-comparison-panel__set-controls label {
+  display: grid;
+  gap: 4px;
+}
+
+.manual-comparison-panel__set-controls span {
+  color: #40505f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.manual-comparison-panel__set-controls input,
+.manual-comparison-panel__set-controls select {
+  border: 1px solid #9aaabc;
+  border-radius: 6px;
+  min-height: 36px;
+  padding: 7px 10px;
 }
 
 .manual-comparison-panel__actions button {

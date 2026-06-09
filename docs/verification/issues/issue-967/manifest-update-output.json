@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "issue": "967",
+  "patch": {
+    "globalBrowserScreenshotAuditExpansionStatus": "passed"
+  },
+  "manifest": {
+    "globalDuplicateIdAuditStatus": "passed",
+    "globalStoragePayloadAuditStatus": "passed",
+    "globalBrowserProofReplayAuditStatus": "passed",
+    "globalRootScriptAuditExpansionStatus": "passed",
+    "globalEvidenceArtifactAuditExpansionStatus": "passed",
+    "globalBrowserScreenshotAuditExpansionStatus": "passed",
+    "globalNoClaimsGuardExpansionRepairStatus": "missing",
+    "globalAuditGoNoGoStatus": "not_ready",
+    "lastUpdatedIssue": "967",
+    "allRepairRootScriptsPresent": true,
+    "allGlobalAuditRootScriptsPresent": true,
+    "missingRootScripts": [],
+    "repairIssueArtifactsPresent": true,
+    "placeholderEvidenceRejected": true,
+    "repairCloseoutJsonPresent": true
+  }
+}

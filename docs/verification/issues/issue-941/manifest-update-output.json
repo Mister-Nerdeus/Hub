@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "issue": "941",
+  "patch": {
+    "manualScenarioReviewNotesUiRepairStatus": "passed"
+  },
+  "manifest": {
+    "manualScenarioReviewRepairPreflightStatus": "passed",
+    "manualScenarioReviewCollectionValidationStatus": "passed",
+    "manualScenarioReviewNotesValidationStatus": "passed",
+    "manualScenarioReviewNotesStateStatus": "passed",
+    "manualScenarioReviewNotesUiRepairStatus": "passed",
+    "manualScenarioReviewPanelProofAttributesStatus": "missing",
+    "manualScenarioReviewPersistenceSchemaRepairStatus": "missing",
+    "manualScenarioReviewBrowserProofRepairStatus": "missing",
+    "manualScenarioReviewRepairGoNoGoStatus": "not_ready",
+    "reviewRepairScope": "hardening_only",
+    "reviewScoringStillBlocked": true,
+    "reviewRecommendationsStillBlocked": true,
+    "simulationStillBlocked": true,
+    "reviewFoundationManifestFound": true,
+    "reviewImplementationGapsDetected": true,
+    "lastUpdatedIssue": "941"
+  }
+}

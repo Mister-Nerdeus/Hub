@@ -1,9 +1,14 @@
 import { useState } from "react";
 import type { ManualScenarioContract, ManualScenarioSnapshotContract } from "@nerdeus/shared";
 import {
-  createManualScenarioReviewNote,
   type ManualScenarioReviewNote
 } from "./manualScenarioReviewNotesContract";
+import {
+  addManualScenarioReviewNote,
+  createManualScenarioReviewNotesState,
+  deleteManualScenarioReviewNote,
+  editManualScenarioReviewNote
+} from "./manualScenarioReviewNotesState";
 import { createManualScenarioReviewViewModel } from "./manualScenarioReviewViewModel";
 import "./ManualScenarioReview.css";
 
@@ -22,23 +27,60 @@ export function ManualScenarioReviewPanel({
 }: ManualScenarioReviewPanelProps) {
   const items = createManualScenarioReviewViewModel({ scenarios, snapshots, notes });
   const [noteTextByScenarioId, setNoteTextByScenarioId] = useState<Record<string, string>>({});
+  const [editTextByNoteId, setEditTextByNoteId] = useState<Record<string, string>>({});
+  const [retiredNoteIds, setRetiredNoteIds] = useState<string[]>([]);
 
   function addNote(scenarioId: string) {
     const text = noteTextByScenarioId[scenarioId]?.trim() ?? "";
     if (text.length === 0) return;
     const createdAtIso = new Date().toISOString();
-    const note = createManualScenarioReviewNote({
+    const nextState = addManualScenarioReviewNote({
+      state: { notes: [...notes], retiredNoteIds },
       scenarioId,
       text,
-      createdAtIso,
-      stableSeed: String(notes.length + 1)
+      createdAtIso
     });
-    onNotesChange([...notes, note]);
+    setRetiredNoteIds(nextState.retiredNoteIds);
+    onNotesChange(nextState.notes);
     setNoteTextByScenarioId((state) => ({ ...state, [scenarioId]: "" }));
   }
 
+  function editNote(noteId: string) {
+    const text = editTextByNoteId[noteId]?.trim() ?? "";
+    if (text.length === 0) return;
+    const nextState = editManualScenarioReviewNote({
+      state: createManualScenarioReviewNotesState(notes),
+      noteId,
+      text,
+      updatedAtIso: new Date().toISOString()
+    });
+    onNotesChange(nextState.notes);
+    setEditTextByNoteId((state) => {
+      const next = { ...state };
+      delete next[noteId];
+      return next;
+    });
+  }
+
+  function deleteNote(noteId: string) {
+    const nextState = deleteManualScenarioReviewNote({
+      state: { notes: [...notes], retiredNoteIds },
+      noteId
+    });
+    setRetiredNoteIds(nextState.retiredNoteIds);
+    onNotesChange(nextState.notes);
+  }
+
   return (
-    <section className="manual-scenario-review-panel" data-manual-scenario-review-panel="true">
+    <section
+      className="manual-scenario-review-panel"
+      data-manual-scenario-review-panel="true"
+      data-review-scope="reference_state_review_only"
+      data-review-scoring-blocked="true"
+      data-review-simulation-blocked="true"
+      data-review-recommendations-blocked="true"
+      data-review-clinical-claims-blocked="true"
+    >
       <header className="manual-scenario-review-panel__header">
         <div>
           <h3>Manual Scenario Review</h3>
@@ -83,6 +125,51 @@ export function ManualScenarioReviewPanel({
                   {item.issueCopies.map((copy) => <li key={copy}>{copy}</li>)}
                 </ul>
               )}
+              <div className="manual-scenario-review-notes-panel" data-review-notes-panel="true">
+                <p data-review-notes-no-phi-reminder="true">Do not enter patient names or identifying patient information.</p>
+                <ul className="manual-scenario-review-notes-list">
+                  {notes.filter((note) => note.scenarioId === item.scenarioId).map((note) => {
+                    const draftEdit = editTextByNoteId[note.noteId] ?? note.text;
+                    return (
+                      <li key={note.noteId}>
+                        <div>
+                          <strong>{note.text}</strong>
+                          <span>Created {formatIso(note.createdAtIso)} · Updated {formatIso(note.updatedAtIso)}</span>
+                        </div>
+                        <label>
+                          <span>Edit note</span>
+                          <input
+                            value={draftEdit}
+                            onChange={(event) =>
+                              setEditTextByNoteId((state) => ({
+                                ...state,
+                                [note.noteId]: event.target.value
+                              }))
+                            }
+                          />
+                        </label>
+                        <div className="manual-scenario-review-note-actions">
+                          <button
+                            type="button"
+                            data-review-note-edit="true"
+                            disabled={draftEdit.trim().length === 0}
+                            onClick={() => editNote(note.noteId)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            data-review-note-delete="true"
+                            onClick={() => deleteNote(note.noteId)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
               <div className="manual-scenario-review-note-row">
                 <label>
                   <span>Manual note</span>
@@ -96,7 +183,14 @@ export function ManualScenarioReviewPanel({
                     }
                   />
                 </label>
-                <button type="button" onClick={() => addNote(item.scenarioId)}>Add note</button>
+                <button
+                  type="button"
+                  data-review-note-add="true"
+                  disabled={(noteTextByScenarioId[item.scenarioId]?.trim() ?? "").length === 0}
+                  onClick={() => addNote(item.scenarioId)}
+                >
+                  Add note
+                </button>
               </div>
             </li>
           ))}
@@ -104,4 +198,8 @@ export function ManualScenarioReviewPanel({
       )}
     </section>
   );
+}
+
+function formatIso(value: string): string {
+  return new Date(value).toISOString();
 }

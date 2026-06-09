@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "issue": "940",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts contains required snippets",
+      "passed": true,
+      "detail": {
+        "passed": true,
+        "missing": []
+      }
+    }
+  ]
+}

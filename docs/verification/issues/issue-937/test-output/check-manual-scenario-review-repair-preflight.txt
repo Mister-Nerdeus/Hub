@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "issue": "937",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "docs/verification/manual-scenario-review-foundation-manifest.json exists",
+      "passed": true,
+      "detail": {
+        "file": "docs/verification/manual-scenario-review-foundation-manifest.json"
+      }
+    },
+    {
+      "name": "repair root scripts registered",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "missing": [],
+        "scripts": {
+          "check:manual-scenario-review-repair-preflight": "node scripts/check-manual-scenario-review-repair-preflight.mjs --stage final --issue 937",
+          "check:manual-scenario-review-collection-validation": "node scripts/check-manual-scenario-review-collection-validation.mjs --stage final --issue 938",
+          "check:manual-scenario-review-notes-validation": "node scripts/check-manual-scenario-review-notes-validation.mjs --stage final --issue 939",
+          "check:manual-scenario-review-notes-state": "node scripts/check-manual-scenario-review-notes-state.mjs --stage final --issue 940",
+          "check:manual-scenario-review-notes-ui-repair": "node scripts/check-manual-scenario-review-notes-ui-repair.mjs --stage final --issue 941",
+          "check:manual-scenario-review-panel-proof-attributes": "node scripts/check-manual-scenario-review-panel-proof-attributes.mjs --stage final --issue 942",
+          "check:manual-scenario-review-persistence-schema-repair": "node scripts/check-manual-scenario-review-persistence-schema-repair.mjs --stage final --issue 943",
+          "check:manual-scenario-review-browser-proof-repair": "node scripts/check-manual-scenario-review-browser-proof-repair.mjs --stage final --issue 944",
+          "check:manual-scenario-review-repair-go-no-go": "node scripts/check-manual-scenario-review-repair-go-no-go.mjs --stage final --issue 945",
+          "check:manual-comparison-repair-preflight": "node scripts/check-manual-comparison-repair-preflight.mjs --stage final --issue 946",
+          "check:manual-comparison-set-contract-repair": "node scripts/check-manual-comparison-set-contract-repair.mjs --stage final --issue 947",
+          "check:manual-comparison-collection-validation": "node scripts/check-manual-comparison-collection-validation.mjs --stage final --issue 948",
+          "check:manual-comparison-state-repair": "node scripts/check-manual-comparison-state-repair.mjs --stage final --issue 949",
+          "check:manual-comparison-matrix-identity-repair": "node scripts/check-manual-comparison-matrix-identity-repair.mjs --stage final --issue 950",
+          "check:manual-comparison-ui-repair": "node scripts/check-manual-comparison-ui-repair.mjs --stage final --issue 951",
+          "check:manual-comparison-persistence-schema-repair": "node scripts/check-manual-comparison-persistence-schema-repair.mjs --stage final --issue 952",
+          "check:manual-comparison-browser-proof-repair": "node scripts/check-manual-comparison-browser-proof-repair.mjs --stage final --issue 953",
+          "check:manual-comparison-guard-repair": "node scripts/check-manual-comparison-guard-repair.mjs --stage final --issue 954",
+          "check:manual-comparison-repair-go-no-go": "node scripts/check-manual-comparison-repair-go-no-go.mjs --stage final --issue 955",
+          "check:readiness-dashboard-repair-preflight": "node scripts/check-readiness-dashboard-repair-preflight.mjs --stage final --issue 956",
+          "check:readiness-contract-repair": "node scripts/check-readiness-contract-repair.mjs --stage final --issue 957",
+          "check:readiness-dashboard-proof-attributes": "node scripts/check-readiness-dashboard-proof-attributes.mjs --stage final --issue 958",
+          "check:readiness-dashboard-no-claims-guard": "node scripts/check-readiness-dashboard-no-claims-guard.mjs --stage final --issue 959",
+          "check:readiness-dashboard-browser-proof-repair": "node scripts/check-readiness-dashboard-browser-proof-repair.mjs --stage final --issue 960",
+          "check:readiness-dashboard-repair-go-no-go": "node scripts/check-readiness-dashboard-repair-go-no-go.mjs --stage final --issue 961",
+          "check:global-duplicate-id-audit": "node scripts/check-global-duplicate-id-audit.mjs --stage final --issue 962",
+          "check:global-storage-payload-audit": "node scripts/check-global-storage-payload-audit.mjs --stage final --issue 963",
+          "check:global-browser-proof-replay-audit": "node scripts/check-global-browser-proof-replay-audit.mjs --stage final --issue 964",
+          "check:global-root-script-audit-expansion": "node scripts/check-global-root-script-audit.mjs --stage final --issue 965",
+          "check:global-evidence-artifact-audit-expansion": "node scripts/check-global-evidence-artifact-audit.mjs --stage final --issue 966",
+          "check:global-browser-screenshot-audit-expansion": "node scripts/check-global-browser-screenshot-audit.mjs --stage final --issue 967",
+          "check:global-no-claims-guard-expansion-repair": "node scripts/check-global-no-claims-guard.mjs --stage final --issue 968",
+          "check:global-audit-go-no-go": "node scripts/check-global-audit-go-no-go.mjs --stage final --issue 969",
+          "check:repair-evidence-closeout": "node scripts/check-repair-evidence-closeout.mjs --stage final --issue 970",
+          "check:global-manual-only-current-state-report-repair": "node scripts/check-global-manual-only-current-state-report-repair.mjs --stage final --issue 971",
+          "check:global-manual-only-go-no-go": "node scripts/check-global-manual-only-go-no-go.mjs --stage final --issue 972",
+          "check:package-script-synchronization-repair": "node scripts/check-package-script-synchronization-repair.mjs --stage final --issue 973",
+          "check:documentation-boundary-repair": "node scripts/check-documentation-boundary-repair.mjs --stage final --issue 974",
+          "check:repair-batch-browser-sweep": "node scripts/check-repair-batch-browser-sweep.mjs --stage final --issue 975",
+          "check:repair-batch-final-closeout": "node scripts/check-repair-batch-final-closeout.mjs --stage final --issue 976"
+        }
+      }
+    }
+  ]
+}

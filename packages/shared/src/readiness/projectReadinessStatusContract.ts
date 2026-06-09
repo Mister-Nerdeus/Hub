@@ -5,11 +5,12 @@ export type ProjectReadinessStatusContract = {
   label: string;
   status: ProjectReadinessStatus;
   scope: "project_readiness_only";
+  blockedArea?: "clinical_readiness" | "operational_readiness" | "go_live" | "simulation" | "scoring" | "recommendations";
 };
 
 export function validateProjectReadinessStatusContract(value: unknown): ProjectReadinessStatusContract {
   const item = requireRecord(value, "projectReadinessStatus");
-  requireAllowedKeys(item, "projectReadinessStatus", ["itemId", "label", "status", "scope"]);
+  requireAllowedKeys(item, "projectReadinessStatus", ["itemId", "label", "status", "scope", "blockedArea"]);
   if (item.scope !== "project_readiness_only") {
     throw new Error("projectReadinessStatus.scope must be project_readiness_only");
   }
@@ -17,7 +18,8 @@ export function validateProjectReadinessStatusContract(value: unknown): ProjectR
     itemId: requireString(item.itemId, "projectReadinessStatus.itemId"),
     label: requireString(item.label, "projectReadinessStatus.label"),
     status: requireProjectStatus(item.status),
-    scope: "project_readiness_only"
+    scope: "project_readiness_only",
+    blockedArea: requireOptionalBlockedArea(item.blockedArea)
   };
 }
 
@@ -28,14 +30,29 @@ export const projectReadinessStatusFixture: readonly ProjectReadinessStatusContr
   { itemId: "manual-scenario", label: "Manual scenario", status: "complete", scope: "project_readiness_only" },
   { itemId: "manual-review", label: "Manual review", status: "complete", scope: "project_readiness_only" },
   { itemId: "manual-comparison", label: "Manual comparison", status: "complete", scope: "project_readiness_only" },
-  { itemId: "simulation-blocked", label: "Simulation blocked", status: "blocked", scope: "project_readiness_only" },
-  { itemId: "scoring-blocked", label: "Scoring blocked", status: "blocked", scope: "project_readiness_only" },
-  { itemId: "recommendations-blocked", label: "Recommendations blocked", status: "blocked", scope: "project_readiness_only" }
+  { itemId: "simulation-blocked", label: "Simulation blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "simulation" },
+  { itemId: "scoring-blocked", label: "Scoring blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "scoring" },
+  { itemId: "recommendations-blocked", label: "Recommendations blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "recommendations" }
 ];
 
 function requireProjectStatus(value: unknown): ProjectReadinessStatus {
   if (value === "complete" || value === "in_progress" || value === "blocked") return value;
   throw new Error("projectReadinessStatus.status must be a project status");
+}
+
+function requireOptionalBlockedArea(value: unknown): ProjectReadinessStatusContract["blockedArea"] {
+  if (value == null) return undefined;
+  if (
+    value === "clinical_readiness" ||
+    value === "operational_readiness" ||
+    value === "go_live" ||
+    value === "simulation" ||
+    value === "scoring" ||
+    value === "recommendations"
+  ) {
+    return value;
+  }
+  throw new Error("projectReadinessStatus.blockedArea must be a project blocked area");
 }
 
 function requireRecord(value: unknown, label: string): Record<string, unknown> {
