@@ -7,15 +7,16 @@
   "manifest": {
     "readinessDashboardRepairPreflightStatus": "passed",
     "readinessContractRepairStatus": "passed",
-    "readinessDashboardProofAttributesStatus": "missing",
-    "readinessDashboardNoClaimsGuardStatus": "missing",
-    "readinessDashboardBrowserProofRepairStatus": "missing",
-    "readinessDashboardRepairGoNoGoStatus": "not_ready",
+    "readinessDashboardProofAttributesStatus": "passed",
+    "readinessDashboardNoClaimsGuardStatus": "passed",
+    "readinessDashboardBrowserProofRepairStatus": "passed",
+    "readinessDashboardRepairGoNoGoStatus": "go_for_global_audit_repair",
     "projectReadinessOnly": true,
     "clinicalReadinessClaimsBlocked": true,
     "operationalReadinessClaimsBlocked": true,
     "goLiveReadinessClaimsBlocked": true,
     "simulationStillBlocked": true,
-    "lastUpdatedIssue": "957"
+    "lastUpdatedIssue": "957",
+    "readinessDashboardRepairComplete": true
   }
 }

@@ -12,14 +12,18 @@
     "manualScenarioReviewNotesUiRepairStatus": "passed",
     "manualScenarioReviewPanelProofAttributesStatus": "passed",
     "manualScenarioReviewPersistenceSchemaRepairStatus": "passed",
-    "manualScenarioReviewBrowserProofRepairStatus": "missing",
-    "manualScenarioReviewRepairGoNoGoStatus": "not_ready",
+    "manualScenarioReviewBrowserProofRepairStatus": "passed",
+    "manualScenarioReviewRepairGoNoGoStatus": "go_for_comparison_repair",
     "reviewRepairScope": "hardening_only",
     "reviewScoringStillBlocked": true,
     "reviewRecommendationsStillBlocked": true,
     "simulationStillBlocked": true,
     "reviewFoundationManifestFound": true,
     "reviewImplementationGapsDetected": true,
-    "lastUpdatedIssue": "943"
+    "lastUpdatedIssue": "943",
+    "manualScenarioReviewRepairComplete": true,
+    "reviewNotesFullyValidated": true,
+    "reviewPersistenceSchemaRepaired": true,
+    "reviewBrowserProofRepaired": true
   }
 }

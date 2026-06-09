@@ -6,16 +6,17 @@
   },
   "manifest": {
     "readinessDashboardRepairPreflightStatus": "passed",
-    "readinessContractRepairStatus": "missing",
-    "readinessDashboardProofAttributesStatus": "missing",
-    "readinessDashboardNoClaimsGuardStatus": "missing",
-    "readinessDashboardBrowserProofRepairStatus": "missing",
-    "readinessDashboardRepairGoNoGoStatus": "not_ready",
+    "readinessContractRepairStatus": "passed",
+    "readinessDashboardProofAttributesStatus": "passed",
+    "readinessDashboardNoClaimsGuardStatus": "passed",
+    "readinessDashboardBrowserProofRepairStatus": "passed",
+    "readinessDashboardRepairGoNoGoStatus": "go_for_global_audit_repair",
     "projectReadinessOnly": true,
     "clinicalReadinessClaimsBlocked": true,
     "operationalReadinessClaimsBlocked": true,
     "goLiveReadinessClaimsBlocked": true,
     "simulationStillBlocked": true,
-    "lastUpdatedIssue": "956"
+    "lastUpdatedIssue": "956",
+    "readinessDashboardRepairComplete": true
   }
 }
