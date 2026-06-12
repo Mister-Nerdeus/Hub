@@ -162,6 +162,9 @@ function ManualAssignmentWorkspaceContent({
           <p className="eyebrow">Synthetic operational assignment state</p>
           <h2 id="manual-assignment-workspace-title">Manual Assignment</h2>
         </div>
+        <p className="manual-assignment-workspace__assignment-mode">
+          Drag assignment is deferred; click assignment is the foundation behavior.
+        </p>
         <div className="manual-assignment-workspace__metrics" aria-label="Manual assignment status">
           <span>{viewModel.assignedRoomCount} assigned</span>
           <span>{viewModel.unassignedOccupiedRoomCount} unassigned occupied</span>

@@ -394,7 +394,11 @@ function readVerifyLocalSection() {
   if (start < 0) {
     return "";
   }
-  const afterStart = source.indexOf("\n", source.indexOf("const editorRuntimeSaveLayoutVerificationCommands", start));
+  const declarationIndex = source.lastIndexOf("const editorRuntimeSaveLayoutVerificationCommands", start);
+  if (declarationIndex < 0) {
+    return "";
+  }
+  const afterStart = source.indexOf("\n", declarationIndex);
   const sectionEndMarkers = [
     "console.log(\"\");",
     "\nfor (const command of commands)",

@@ -480,7 +480,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     >
       {activeSection === "floorplans" ? (
         <section className="workflow-section" aria-labelledby="floorplans-title">
-          <h2 id="floorplans-title">Floorplan</h2>
+          <h2 id="floorplans-title">Canonical ER Pod Floorplan</h2>
           {activeFloorplanSelectorViewModel == null ? null : (
             <ActiveFloorplanHub
               activeFloorplan={activeFloorplanContract}
@@ -526,7 +526,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
                     demoPinUnlocked={workspaceAccessState.unlocked}
                   />
                   <details className="floorplan-demo-proof">
-                    <summary>Advanced evidence</summary>
+                    <summary>Advanced / Evidence</summary>
                     <LegacyFloorplanFixturesPanel viewModel={legacyFloorplanFixturesPanelViewModel} />
                   </details>
                 </>

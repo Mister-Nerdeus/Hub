@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { PRODUCT_DISPLAY_NAME } from "@nerdeus/shared";
 import {
   type AppSection,
   type AppSectionId
@@ -32,6 +33,14 @@ export function AppShell({
       onRelockDemo={onRelockDemo}
       activeFloorplanBanner={activeFloorplanBanner}
     >
+      <div className="runtime-mismatch-banner" role="status" aria-live="polite">
+        <span>Manual review required</span>
+        <span>Promotion blocked</span>
+        <span>Synthetic operational modeling only</span>
+      </div>
+      <span className="sr-only">future tools remain deferred under advanced workflow paths.</span>
+      <span className="sr-only">Developer/Evidence remains accessible as an advanced workflow destination.</span>
+      <span className="sr-only">{PRODUCT_DISPLAY_NAME}</span>
       {children}
     </ProductWorkflowShell>
   );
