@@ -158,6 +158,8 @@ import { EditorCommandBar } from "./EditorCommandBar";
 import { EditorDetailsPanel } from "./EditorDetailsPanel";
 import { EditorNormalToolbar } from "./EditorNormalToolbar";
 import { EditorSaveStatusPanel } from "./EditorSaveStatusPanel";
+import { RuntimeBuildInfoPanel } from "../runtime/RuntimeBuildInfoPanel";
+import { RuntimeMismatchBanner } from "../runtime/RuntimeMismatchBanner";
 import { ReferenceOverlayRenderer } from "./ReferenceOverlayRenderer";
 import { defaultReferenceOverlayViewModel } from "./referenceOverlayViewModel";
 import { artifactQuarantinePolicy } from "./artifactQuarantine";
@@ -1684,6 +1686,8 @@ export function LayoutEditorStage({
                 data-editor-detailed-tools-advanced="true"
               >
                 <LayoutEditorModeToolbar mode={editorMode} onModeChange={setEditorMode} />
+                <RuntimeBuildInfoPanel />
+                <RuntimeMismatchBanner />
                 {editorMode === "edit" ? (
                   <>
                     <LayoutToolPalette

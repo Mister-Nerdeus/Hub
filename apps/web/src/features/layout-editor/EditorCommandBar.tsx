@@ -133,6 +133,17 @@ export function EditorCommandBar({
           >
             Save as New Version
           </button>
+          <button
+            type="button"
+            hidden
+            data-editor-control="save-as-new-copy"
+            disabled={viewModel.saveAsNewCopyDisabled}
+            onClick={onSaveAsNewCopy}
+            aria-hidden="true"
+            tabIndex={-1}
+          >
+            Save as New Copy
+          </button>
           <button type="button" data-editor-control="export-json-backup" onClick={onExportJson}>
             Export JSON Backup
           </button>
