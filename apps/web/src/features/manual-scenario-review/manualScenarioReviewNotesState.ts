@@ -11,11 +11,24 @@ export type ManualScenarioReviewNotesState = {
 };
 
 export function createManualScenarioReviewNotesState(
-  notes: readonly ManualScenarioReviewNote[] = []
+  input: readonly ManualScenarioReviewNote[] | {
+    notes: readonly ManualScenarioReviewNote[];
+    retiredNoteIds?: readonly string[];
+  } = []
 ): ManualScenarioReviewNotesState {
+  if (Array.isArray(input)) {
+    return {
+      notes: validateManualScenarioReviewNotes({ notes: input }),
+      retiredNoteIds: []
+    };
+  }
+  const stateInput = input as {
+    notes: readonly ManualScenarioReviewNote[];
+    retiredNoteIds?: readonly string[];
+  };
   return {
-    notes: validateManualScenarioReviewNotes({ notes }),
-    retiredNoteIds: []
+    notes: validateManualScenarioReviewNotes({ notes: stateInput.notes }),
+    retiredNoteIds: validateRetiredNoteIds(stateInput.retiredNoteIds ?? [], stateInput.notes)
   };
 }
 
@@ -88,4 +101,23 @@ export function nextManualReviewNoteStableSeed(input: {
     if (!unavailable.has(candidateId)) return stableSeed;
   }
   throw new Error("manualScenarioReviewNote stableSeed collision could not be resolved");
+}
+
+function validateRetiredNoteIds(
+  retiredNoteIds: readonly string[],
+  notes: readonly ManualScenarioReviewNote[]
+): string[] {
+  const activeNoteIds = new Set(notes.map((note) => note.noteId));
+  const uniqueRetiredNoteIds = new Set<string>();
+  for (const noteId of retiredNoteIds) {
+    const trimmed = noteId.trim();
+    if (trimmed.length === 0) {
+      throw new Error("manualScenarioReviewNotesState.retiredNoteIds must contain non-empty note ids");
+    }
+    if (activeNoteIds.has(trimmed)) {
+      throw new Error("manualScenarioReviewNotesState.retiredNoteIds must not overlap active notes");
+    }
+    uniqueRetiredNoteIds.add(trimmed);
+  }
+  return Array.from(uniqueRetiredNoteIds);
 }

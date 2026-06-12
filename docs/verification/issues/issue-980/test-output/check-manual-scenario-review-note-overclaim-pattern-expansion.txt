@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "issue": "980",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts"
+      }
+    },
+    {
+      "name": "packages/shared/src/assignments/assignmentLabelNoOverclaim.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/assignments/assignmentLabelNoOverclaim.ts"
+      }
+    },
+    {
+      "name": "packages/shared/tests/manual-scenario-review.test.mjs exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/tests/manual-scenario-review.test.mjs"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "expandedTerms": [
+          "balanced",
+          "risk score",
+          "acuity safe",
+          "safer",
+          "unsafe"
+        ],
+        "notesUseSharedAssignmentGuard": true,
+        "localRegexListRemoved": true,
+        "expandedTermsCoveredBySharedGuard": true,
+        "runtimeNoPhiGuardStillPresent": true
+      }
+    }
+  ]
+}

@@ -437,7 +437,12 @@
     "check:package-script-synchronization-repair": "node scripts/check-package-script-synchronization-repair.mjs --stage final --issue 973",
     "check:documentation-boundary-repair": "node scripts/check-documentation-boundary-repair.mjs --stage final --issue 974",
     "check:repair-batch-browser-sweep": "node scripts/check-repair-batch-browser-sweep.mjs --stage final --issue 975",
-    "check:repair-batch-final-closeout": "node scripts/check-repair-batch-final-closeout.mjs --stage final --issue 976"
+    "check:repair-batch-final-closeout": "node scripts/check-repair-batch-final-closeout.mjs --stage final --issue 976",
+    "check:manual-scenario-review-browser-proof-repair-replay": "node scripts/check-manual-scenario-review-browser-proof-repair-replay.mjs --stage final --issue 977",
+    "check:manual-scenario-review-manifest-consistency-repair": "node scripts/check-manual-scenario-review-manifest-consistency-repair.mjs --stage final --issue 978",
+    "check:manual-scenario-review-retired-note-id-durability": "node scripts/check-manual-scenario-review-retired-note-id-durability.mjs --stage final --issue 979",
+    "check:manual-scenario-review-note-overclaim-pattern-expansion": "node scripts/check-manual-scenario-review-note-overclaim-pattern-expansion.mjs --stage final --issue 980",
+    "check:manual-scenario-review-repair-final-closeout": "node scripts/check-manual-scenario-review-repair-final-closeout.mjs --stage final --issue 981"
   },
   "engines": {
     "node": ">=22"

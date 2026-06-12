@@ -6,7 +6,8 @@ import {
   createManualScenarioReview,
   manualScenarioIdFor,
   manualScenarioSnapshotIdFor,
-  validateManualScenarioReviewContract
+  validateManualScenarioReviewContract,
+  validateManualScenarioReviewNoteContract
 } from "../dist/index.js";
 
 describe("manual scenario review contracts", () => {
@@ -88,5 +89,27 @@ describe("manual scenario review contracts", () => {
     assert.equal(summary.assignmentSetId, "assignment-set-a");
     assert.equal(summary.snapshotStatus, "present");
     assert.equal(summary.referenceIssues.length, 0);
+  });
+
+  it("rejects review note overclaim wording through the shared assignment guard", () => {
+    const baseNote = {
+      scenarioId: manualScenarioIdFor({ stableSeed: "note-overclaim" }),
+      createdAtIso: "2026-01-01T00:00:00.000Z",
+      updatedAtIso: "2026-01-01T00:00:00.000Z",
+      mode: "manual_review_note"
+    };
+    [
+      "balanced assignment note",
+      "risk score note",
+      "acuity safe note",
+      "safer note",
+      "unsafe note"
+    ].forEach((text, index) => {
+      assert.throws(() => validateManualScenarioReviewNoteContract({
+        ...baseNote,
+        noteId: `manual-review-note:note-overclaim:${index}`,
+        text
+      }), /overclaim language/u);
+    });
   });
 });

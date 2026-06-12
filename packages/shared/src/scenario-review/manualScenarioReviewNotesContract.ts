@@ -1,3 +1,4 @@
+import { validateAssignmentLabelNoOverclaim } from "../assignments/assignmentLabelNoOverclaim.js";
 import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
 
 export type ManualScenarioReviewNoteContract = {
@@ -8,17 +9,6 @@ export type ManualScenarioReviewNoteContract = {
   updatedAtIso: string;
   mode: "manual_review_note";
 };
-
-const FORBIDDEN_NOTE_PATTERNS: readonly RegExp[] = [
-  /\bscore\b/i,
-  /\brank(?:ed|ing)?\b/i,
-  /\brecommend(?:ed|ation|ations)?\b/i,
-  /\bsimulation\b/i,
-  /\bclinically?\b/i,
-  /\bsafety certification\b/i,
-  /\bstaffing compliance\b/i,
-  /\bpatient outcome\b/i
-];
 
 export function manualScenarioReviewNoteIdFor(input: { scenarioId: string; stableSeed: string }): string {
   return ["manual-review-note", stableIdPart(input.scenarioId), stableIdPart(input.stableSeed)].join(":");
@@ -87,11 +77,7 @@ export function validateManualScenarioReviewNotes(input: {
 function validateReviewNoteText(text: string): string {
   const trimmed = text.trim();
   validateOperationalRuntimeText(trimmed, "manualScenarioReviewNote.text");
-  for (const pattern of FORBIDDEN_NOTE_PATTERNS) {
-    if (pattern.test(trimmed)) {
-      throw new Error("manualScenarioReviewNote.text contains blocked review language");
-    }
-  }
+  validateAssignmentLabelNoOverclaim(trimmed, "manualScenarioReviewNote.text");
   return trimmed;
 }
 

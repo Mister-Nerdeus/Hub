@@ -7,7 +7,8 @@ import {
   addManualScenarioReviewNote,
   createManualScenarioReviewNotesState,
   deleteManualScenarioReviewNote,
-  editManualScenarioReviewNote
+  editManualScenarioReviewNote,
+  type ManualScenarioReviewNotesState
 } from "./manualScenarioReviewNotesState";
 import { createManualScenarioReviewViewModel } from "./manualScenarioReviewViewModel";
 import "./ManualScenarioReview.css";
@@ -16,32 +17,33 @@ type ManualScenarioReviewPanelProps = {
   scenarios: readonly ManualScenarioContract[];
   snapshots: readonly ManualScenarioSnapshotContract[];
   notes: readonly ManualScenarioReviewNote[];
-  onNotesChange: (notes: ManualScenarioReviewNote[]) => void;
+  retiredNoteIds: readonly string[];
+  onNotesChange: (state: ManualScenarioReviewNotesState) => void;
 };
 
 export function ManualScenarioReviewPanel({
   scenarios,
   snapshots,
   notes,
+  retiredNoteIds,
   onNotesChange
 }: ManualScenarioReviewPanelProps) {
   const items = createManualScenarioReviewViewModel({ scenarios, snapshots, notes });
   const [noteTextByScenarioId, setNoteTextByScenarioId] = useState<Record<string, string>>({});
   const [editTextByNoteId, setEditTextByNoteId] = useState<Record<string, string>>({});
-  const [retiredNoteIds, setRetiredNoteIds] = useState<string[]>([]);
+  const notesState = createManualScenarioReviewNotesState({ notes, retiredNoteIds });
 
   function addNote(scenarioId: string) {
     const text = noteTextByScenarioId[scenarioId]?.trim() ?? "";
     if (text.length === 0) return;
     const createdAtIso = new Date().toISOString();
     const nextState = addManualScenarioReviewNote({
-      state: { notes: [...notes], retiredNoteIds },
+      state: notesState,
       scenarioId,
       text,
       createdAtIso
     });
-    setRetiredNoteIds(nextState.retiredNoteIds);
-    onNotesChange(nextState.notes);
+    onNotesChange(nextState);
     setNoteTextByScenarioId((state) => ({ ...state, [scenarioId]: "" }));
   }
 
@@ -49,12 +51,12 @@ export function ManualScenarioReviewPanel({
     const text = editTextByNoteId[noteId]?.trim() ?? "";
     if (text.length === 0) return;
     const nextState = editManualScenarioReviewNote({
-      state: createManualScenarioReviewNotesState(notes),
+      state: notesState,
       noteId,
       text,
       updatedAtIso: new Date().toISOString()
     });
-    onNotesChange(nextState.notes);
+    onNotesChange(nextState);
     setEditTextByNoteId((state) => {
       const next = { ...state };
       delete next[noteId];
@@ -64,11 +66,10 @@ export function ManualScenarioReviewPanel({
 
   function deleteNote(noteId: string) {
     const nextState = deleteManualScenarioReviewNote({
-      state: { notes: [...notes], retiredNoteIds },
+      state: notesState,
       noteId
     });
-    setRetiredNoteIds(nextState.retiredNoteIds);
-    onNotesChange(nextState.notes);
+    onNotesChange(nextState);
   }
 
   return (
@@ -93,7 +94,7 @@ export function ManualScenarioReviewPanel({
       ) : (
         <ul className="manual-scenario-review-list">
           {items.map((item) => (
-            <li key={item.scenarioId}>
+            <li key={item.scenarioId} data-review-scenario-id={item.scenarioId}>
               <div className="manual-scenario-review-list__summary">
                 <strong>{item.label}</strong>
                 <span>{item.statusCopy}</span>
@@ -125,20 +126,30 @@ export function ManualScenarioReviewPanel({
                   {item.issueCopies.map((copy) => <li key={copy}>{copy}</li>)}
                 </ul>
               )}
-              <div className="manual-scenario-review-notes-panel" data-review-notes-panel="true">
+              <div
+                className="manual-scenario-review-notes-panel"
+                data-review-notes-panel="true"
+                data-review-scenario-id={item.scenarioId}
+              >
                 <p data-review-notes-no-phi-reminder="true">Do not enter patient names or identifying patient information.</p>
                 <ul className="manual-scenario-review-notes-list">
                   {notes.filter((note) => note.scenarioId === item.scenarioId).map((note) => {
                     const draftEdit = editTextByNoteId[note.noteId] ?? note.text;
                     return (
-                      <li key={note.noteId}>
+                      <li
+                        key={note.noteId}
+                        data-review-note-id={note.noteId}
+                        data-review-scenario-id={note.scenarioId}
+                      >
                         <div>
-                          <strong>{note.text}</strong>
+                          <strong data-review-note-text="true">{note.text}</strong>
                           <span>Created {formatIso(note.createdAtIso)} · Updated {formatIso(note.updatedAtIso)}</span>
                         </div>
                         <label>
                           <span>Edit note</span>
                           <input
+                            data-review-note-edit-input="true"
+                            data-review-note-id={note.noteId}
                             value={draftEdit}
                             onChange={(event) =>
                               setEditTextByNoteId((state) => ({
@@ -152,6 +163,7 @@ export function ManualScenarioReviewPanel({
                           <button
                             type="button"
                             data-review-note-edit="true"
+                            data-review-note-id={note.noteId}
                             disabled={draftEdit.trim().length === 0}
                             onClick={() => editNote(note.noteId)}
                           >
@@ -160,6 +172,7 @@ export function ManualScenarioReviewPanel({
                           <button
                             type="button"
                             data-review-note-delete="true"
+                            data-review-note-id={note.noteId}
                             onClick={() => deleteNote(note.noteId)}
                           >
                             Delete
@@ -174,6 +187,8 @@ export function ManualScenarioReviewPanel({
                 <label>
                   <span>Manual note</span>
                   <input
+                    data-review-note-input="true"
+                    data-review-scenario-id={item.scenarioId}
                     value={noteTextByScenarioId[item.scenarioId] ?? ""}
                     onChange={(event) =>
                       setNoteTextByScenarioId((state) => ({
@@ -186,6 +201,7 @@ export function ManualScenarioReviewPanel({
                 <button
                   type="button"
                   data-review-note-add="true"
+                  data-review-scenario-id={item.scenarioId}
                   disabled={(noteTextByScenarioId[item.scenarioId]?.trim() ?? "").length === 0}
                   onClick={() => addNote(item.scenarioId)}
                 >

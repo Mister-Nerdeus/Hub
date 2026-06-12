@@ -1,16 +1,10 @@
-# Manual Scenario Review Repair Preflight
+# Manual Scenario Review Repair Final Closeout
 
 Repair status is local-first and scoped to manual-only hardening.
 
 ```json
 {
   "status": "passed",
-  "manualScenarioReviewRepairPreflightStatus": "passed",
-  "reviewRepairScope": "hardening_only",
-  "reviewFoundationManifestFound": true,
-  "reviewImplementationGapsDetected": true,
-  "reviewScoringStillBlocked": true,
-  "reviewRecommendationsStillBlocked": true,
-  "simulationStillBlocked": true
+  "manualScenarioReviewRepairFinalCloseoutStatus": "passed"
 }
 ```

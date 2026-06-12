@@ -88,9 +88,11 @@ import {
 import { ManualScenarioReviewPanel } from "./features/manual-scenario-review/ManualScenarioReviewPanel";
 import type { ManualScenarioReviewNote } from "./features/manual-scenario-review/manualScenarioReviewNotesContract";
 import {
-  readManualScenarioReviewNotes,
-  writeManualScenarioReviewNotes
+  createManualScenarioReviewPersistencePayload,
+  readManualScenarioReviewPersistence,
+  writeManualScenarioReviewPersistence
 } from "./features/manual-scenario-review/manualScenarioReviewPersistence";
+import type { ManualScenarioReviewNotesState } from "./features/manual-scenario-review/manualScenarioReviewNotesState";
 import { ManualComparisonPanel } from "./features/manual-comparison/ManualComparisonPanel";
 import type { ManualComparisonState } from "./features/manual-comparison/manualComparisonState";
 import {
@@ -153,10 +155,9 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     useState<ManualAssignmentSetContract | null>(() => readManualAssignmentSet(getLocalStorage()));
   const [manualScenarioState, setManualScenarioState] =
     useState<ManualScenarioState>(() => readManualScenarioState(getLocalStorage()));
-  const [manualScenarioReviewNotes, setManualScenarioReviewNotes] =
-    useState<ManualScenarioReviewNote[]>(() =>
-      readManualScenarioReviewNotes(getLocalStorage(), manualScenarioState.scenarios)
-    );
+  const [manualScenarioReviewPersistence, setManualScenarioReviewPersistence] =
+    useState(() => readManualScenarioReviewPersistence(getLocalStorage(), manualScenarioState.scenarios));
+  const manualScenarioReviewNotes: ManualScenarioReviewNote[] = manualScenarioReviewPersistence.notes;
   const [manualComparisonState, setManualComparisonState] =
     useState<ManualComparisonState>(() => readManualComparisonState(getLocalStorage()));
   const [manualScenarioStatusMessage, setManualScenarioStatusMessage] = useState<string | null>(null);
@@ -290,12 +291,14 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
     setManualScenarioStatusMessage("Manual scenarios saved.");
   }
 
-  function updateManualScenarioReviewNotes(notes: ManualScenarioReviewNote[]) {
-    setManualScenarioReviewNotes(writeManualScenarioReviewNotes(
-      getLocalStorage(),
-      notes,
-      manualScenarioState.scenarios
-    ));
+  function updateManualScenarioReviewNotes(state: ManualScenarioReviewNotesState) {
+    const payload = createManualScenarioReviewPersistencePayload({
+      scenarios: manualScenarioState.scenarios,
+      notes: state.notes,
+      retiredNoteIds: state.retiredNoteIds,
+      selectedReviewId: manualScenarioReviewPersistence.selectedReviewId
+    });
+    setManualScenarioReviewPersistence(writeManualScenarioReviewPersistence(getLocalStorage(), payload));
   }
 
   function updateManualComparisonState(state: ManualComparisonState) {
@@ -615,6 +618,7 @@ export function App({ initialSection = DEFAULT_APP_SECTION_ID }: AppProps) {
             scenarios={manualScenarioState.scenarios}
             snapshots={manualScenarioState.snapshots}
             notes={manualScenarioReviewNotes}
+            retiredNoteIds={manualScenarioReviewPersistence.retiredNoteIds}
             onNotesChange={updateManualScenarioReviewNotes}
           />
         </section>

@@ -1,6 +1,7 @@
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import { pathToFileURL } from "node:url";
+import { withBrowserRenderedApp, waitForExpression } from "./app-browser-proof.mjs";
 import {
   addCheck,
   ensureIssueArtifacts,
@@ -35,6 +36,11 @@ const reviewDefaults = {
   manualScenarioReviewPanelProofAttributesStatus: "missing",
   manualScenarioReviewPersistenceSchemaRepairStatus: "missing",
   manualScenarioReviewBrowserProofRepairStatus: "missing",
+  manualScenarioReviewBrowserProofRepairReplayStatus: "missing",
+  manualScenarioReviewManifestConsistencyRepairStatus: "missing",
+  manualScenarioReviewRetiredNoteIdDurabilityStatus: "missing",
+  manualScenarioReviewNoteOverclaimPatternExpansionStatus: "missing",
+  manualScenarioReviewRepairFinalCloseoutStatus: "not_ready",
   manualScenarioReviewRepairGoNoGoStatus: "not_ready",
   reviewRepairScope: "hardening_only",
   reviewScoringStillBlocked: true,
@@ -90,6 +96,8 @@ const batchDefaults = {
   packageScriptSynchronizationRepairStatus: "missing",
   documentationBoundaryRepairStatus: "missing",
   repairBatchBrowserSweepStatus: "missing",
+  manualScenarioReviewManifestConsistencyRepairStatus: "missing",
+  manualScenarioReviewRepairFinalCloseoutStatus: "not_ready",
   repairBatchFinalCloseoutStatus: "not_ready"
 };
 
@@ -133,7 +141,12 @@ const rootScripts = {
   "check:package-script-synchronization-repair": "node scripts/check-package-script-synchronization-repair.mjs --stage final --issue 973",
   "check:documentation-boundary-repair": "node scripts/check-documentation-boundary-repair.mjs --stage final --issue 974",
   "check:repair-batch-browser-sweep": "node scripts/check-repair-batch-browser-sweep.mjs --stage final --issue 975",
-  "check:repair-batch-final-closeout": "node scripts/check-repair-batch-final-closeout.mjs --stage final --issue 976"
+  "check:repair-batch-final-closeout": "node scripts/check-repair-batch-final-closeout.mjs --stage final --issue 976",
+  "check:manual-scenario-review-browser-proof-repair-replay": "node scripts/check-manual-scenario-review-browser-proof-repair-replay.mjs --stage final --issue 977",
+  "check:manual-scenario-review-manifest-consistency-repair": "node scripts/check-manual-scenario-review-manifest-consistency-repair.mjs --stage final --issue 978",
+  "check:manual-scenario-review-retired-note-id-durability": "node scripts/check-manual-scenario-review-retired-note-id-durability.mjs --stage final --issue 979",
+  "check:manual-scenario-review-note-overclaim-pattern-expansion": "node scripts/check-manual-scenario-review-note-overclaim-pattern-expansion.mjs --stage final --issue 980",
+  "check:manual-scenario-review-repair-final-closeout": "node scripts/check-manual-scenario-review-repair-final-closeout.mjs --stage final --issue 981"
 };
 
 export async function runRepairBatchCheck(scriptName) {
@@ -174,8 +187,10 @@ export async function runRepairBatchCheck(scriptName) {
     writeJson(issuePath(issue, "root-script-proof.json"), proof);
     addCheck(checks, "repair root scripts registered", proof.status === "passed", proof);
   }
-  if (definition.screenshots != null) {
+  if (definition.screenshots != null && definition.syntheticScreenshots !== false) {
     for (const screenshot of definition.screenshots) writeSyntheticPng(issuePath(issue, `screenshots/${screenshot}`));
+    screenshotIndex(issue, definition.screenshots);
+  } else if (definition.screenshots != null && definition.screenshots.every((screenshot) => existsSync(issuePath(issue, `screenshots/${screenshot}`)))) {
     screenshotIndex(issue, definition.screenshots);
   }
 
@@ -213,11 +228,29 @@ function updateManifest(definition, issue, status, output) {
   const patch = definition.patch?.(status, output) ?? { [definition.statusKey]: output[definition.statusKey] };
   const manifest = { ...defaults, ...current, ...patch, lastUpdatedIssue: String(issue) };
   if (manifestPath != null) writeJson(manifestPath, manifest);
+  const additionalManifests = [];
+  for (const additional of definition.additionalManifests ?? []) {
+    const additionalCurrent = existsSync(additional.path) ? readJson(additional.path) : additional.defaults ?? {};
+    const additionalPatch = additional.patch?.(status, output) ?? {};
+    const additionalManifest = {
+      ...(additional.defaults ?? {}),
+      ...additionalCurrent,
+      ...additionalPatch,
+      lastUpdatedIssue: String(issue)
+    };
+    writeJson(additional.path, additionalManifest);
+    additionalManifests.push({
+      path: additional.path,
+      patch: additionalPatch,
+      manifest: additionalManifest
+    });
+  }
   writeJson(issuePath(issue, "manifest-update-output.json"), {
     status: "passed",
     issue: String(issue),
     patch,
-    manifest
+    manifest,
+    additionalManifests
   });
 }
 
@@ -377,6 +410,253 @@ function manifestPassed(path, keys) {
   if (!existsSync(path)) return false;
   const manifest = readJson(path);
   return keys.every((key) => manifest[key] === "passed" || String(manifest[key]).startsWith("go_for_"));
+}
+
+async function manualScenarioReviewBrowserReplayProof(issue) {
+  const port = Number(readArg("--port", String(7000 + Number(issue))));
+  const chromePort = Number(readArg("--chrome-port", String(10_100 + Number(issue) - 977)));
+  const scenarioId = "manual-scenario:browser-replay-a";
+  const seedNoteId = "manual-review-note:manual-scenario-browser-replay-a:seed-1";
+  const screenshot = issuePath(issue, "screenshots/manual-scenario-review-browser-proof-repair-replay.png");
+  try {
+    const rendered = await withBrowserRenderedApp({
+      port,
+      chromePort,
+      width: 1440,
+      height: 1000,
+      initScript: seededManualScenarioReviewReplayState()
+    }, async (browser) => {
+      await browser.navigate(`${browser.baseUrl}/?section=manual-review`, "document.querySelector('[data-manual-scenario-review-panel=\"true\"]') != null");
+      const flow = await browser.evaluate(manualScenarioReviewReplayEval({ scenarioId, seedNoteId }));
+      await browser.evaluate("location.reload(); true");
+      await waitForExpression(browser, "document.querySelector('[data-manual-scenario-review-panel=\"true\"]') != null");
+      const afterReload = await browser.evaluate(manualScenarioReviewReplayReloadEval({ seedNoteId }));
+      await browser.screenshot(screenshot);
+      return {
+        ...flow,
+        ...afterReload,
+        screenshot,
+        passed: flow.passed === true && afterReload.passedAfterReload === true
+      };
+    });
+    return {
+      status: rendered.result?.passed === true ? "passed" : "failed",
+      ...rendered.result
+    };
+  } catch (error) {
+    return {
+      status: "failed",
+      error: error instanceof Error ? error.message : String(error),
+      screenshot
+    };
+  }
+}
+
+function seededManualScenarioReviewReplayState() {
+  const scenarioId = "manual-scenario:browser-replay-a";
+  const reviewId = "manual-scenario-review:manual-scenario-browser-replay-a";
+  const seedNoteId = "manual-review-note:manual-scenario-browser-replay-a:seed-1";
+  const state = {
+    schemaVersion: "1.0.0",
+    scenarios: [{
+      scenarioId,
+      label: "Manual Browser Replay Scenario A",
+      floorplanId: "browser-floorplan",
+      assignmentSetId: "browser-assignment-set",
+      staffRosterId: "browser-staff-roster",
+      createdAtIso: "2026-01-01T00:00:00.000Z",
+      updatedAtIso: "2026-01-01T00:00:00.000Z",
+      mode: "manual"
+    }],
+    snapshots: [],
+    selectedScenarioId: scenarioId
+  };
+  const reviewPayload = {
+    schemaVersion: "1.0.0",
+    reviews: [{
+      reviewId,
+      scenarioId,
+      floorplanId: "browser-floorplan",
+      assignmentSetId: "browser-assignment-set",
+      staffRosterId: "browser-staff-roster",
+      createdAtIso: "2026-01-01T00:00:00.000Z",
+      updatedAtIso: "2026-01-01T00:00:00.000Z",
+      status: "draft",
+      mode: "manual_review"
+    }],
+    notes: [{
+      noteId: seedNoteId,
+      scenarioId,
+      text: "Reference check note",
+      createdAtIso: "2026-01-01T00:00:00.000Z",
+      updatedAtIso: "2026-01-01T00:00:00.000Z",
+      mode: "manual_review_note"
+    }],
+    retiredNoteIds: [],
+    selectedReviewId: reviewId
+  };
+  return `
+    sessionStorage.setItem('nerdeus.workspaceAccess.sessionUnlock.v1', JSON.stringify({ unlocked: true, unlockedAtMs: 1000 }));
+    if (localStorage.getItem('nerdeus.manualScenarioFoundation.scenarios.v1') == null) {
+      localStorage.setItem('nerdeus.manualScenarioFoundation.scenarios.v1', ${JSON.stringify(JSON.stringify(state))});
+    }
+    if (localStorage.getItem('nerdeus.manualScenarioReviewFoundation.reviews.v1') == null) {
+      localStorage.setItem('nerdeus.manualScenarioReviewFoundation.reviews.v1', ${JSON.stringify(JSON.stringify(reviewPayload))});
+    }
+  `;
+}
+
+function manualScenarioReviewReplayEval(input) {
+  return `;(async () => {
+    const storageKey = "nerdeus.manualScenarioReviewFoundation.reviews.v1";
+    const scenarioId = ${JSON.stringify(input.scenarioId)};
+    const seedNoteId = ${JSON.stringify(input.seedNoteId)};
+    const addText = "Replay reference note";
+    const editText = "Replay reference note edited";
+    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+    const readPayload = () => JSON.parse(localStorage.getItem(storageKey));
+    const waitFor = async (fn, label) => {
+      for (let attempt = 0; attempt < 80; attempt += 1) {
+        const value = fn();
+        if (value) return value;
+        await delay(100);
+      }
+      throw new Error("Timed out waiting for " + label);
+    };
+    const setInput = (input, value) => {
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(input, value);
+      input.dispatchEvent(new InputEvent("input", { bubbles: true, inputType: "insertText", data: value }));
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    };
+    const byAttribute = (selector, attribute, value) =>
+      Array.from(document.querySelectorAll(selector)).find((node) => node.getAttribute(attribute) === value);
+    const noteRow = (noteId) => byAttribute("[data-review-note-id]", "data-review-note-id", noteId);
+
+    const addInput = byAttribute("[data-review-note-input='true']", "data-review-scenario-id", scenarioId);
+    const addButton = byAttribute("[data-review-note-add='true']", "data-review-scenario-id", scenarioId);
+    if (addInput == null || addButton == null) throw new Error("Add note controls were not found.");
+    setInput(addInput, addText);
+    await waitFor(() => addButton.disabled === false, "enabled add button");
+    addButton.click();
+
+    const addedNote = await waitFor(() => readPayload().notes.find((note) => note.text === addText), "added note persistence");
+    const addedRow = await waitFor(() => noteRow(addedNote.noteId), "added note row");
+    const editInput = addedRow.querySelector("[data-review-note-edit-input='true']");
+    const editButton = addedRow.querySelector("[data-review-note-edit='true']");
+    if (editInput == null || editButton == null) throw new Error("Edit note controls were not found.");
+    setInput(editInput, editText);
+    await waitFor(() => editButton.disabled === false, "enabled edit button");
+    editButton.click();
+    await waitFor(() => readPayload().notes.some((note) => note.noteId === addedNote.noteId && note.text === editText), "edited note persistence");
+
+    const seedRow = await waitFor(() => noteRow(seedNoteId), "seed note row");
+    const deleteButton = seedRow.querySelector("[data-review-note-delete='true']");
+    if (deleteButton == null) throw new Error("Delete note control was not found.");
+    deleteButton.click();
+    const beforeReload = await waitFor(() => {
+      const payload = readPayload();
+      return !payload.notes.some((note) => note.noteId === seedNoteId) &&
+        payload.retiredNoteIds.includes(seedNoteId)
+        ? payload
+        : null;
+    }, "deleted note retirement");
+    const panelText = document.querySelector("[data-manual-scenario-review-panel='true']").textContent.toLowerCase();
+    return {
+      passed: beforeReload.notes.some((note) => note.noteId === addedNote.noteId && note.text === editText) &&
+        beforeReload.retiredNoteIds.includes(seedNoteId) &&
+        !beforeReload.notes.some((note) => note.noteId === seedNoteId) &&
+        !/\\bscore\\b|\\brank\\b|recommendation|simulation|clinical safety|patient outcome/u.test(panelText),
+      scenarioId,
+      addedNoteId: addedNote.noteId,
+      deletedNoteId: seedNoteId,
+      editedNotePersistedBeforeReload: beforeReload.notes.some((note) => note.noteId === addedNote.noteId && note.text === editText),
+      deletedNoteRetiredBeforeReload: beforeReload.retiredNoteIds.includes(seedNoteId),
+      deletedNoteAbsentBeforeReload: !beforeReload.notes.some((note) => note.noteId === seedNoteId),
+      browserBodyContainsNoBlockedClaims: !/\\bscore\\b|\\brank\\b|recommendation|simulation|clinical safety|patient outcome/u.test(panelText)
+    };
+  })()`;
+}
+
+function manualScenarioReviewReplayReloadEval(input) {
+  return `(() => {
+    const payload = JSON.parse(localStorage.getItem("nerdeus.manualScenarioReviewFoundation.reviews.v1"));
+    const panelText = document.querySelector("[data-manual-scenario-review-panel='true']").textContent;
+    const editedNoteVisible = /Replay reference note edited/u.test(panelText);
+    const deletedNoteVisible = /Reference check note/u.test(panelText);
+    return {
+      passedAfterReload: editedNoteVisible &&
+        deletedNoteVisible === false &&
+        payload.retiredNoteIds.includes(${JSON.stringify(input.seedNoteId)}) &&
+        !payload.notes.some((note) => note.noteId === ${JSON.stringify(input.seedNoteId)}) &&
+        !/\\bscore\\b|\\brank\\b|recommendation|simulation|clinical safety|patient outcome/u.test(panelText.toLowerCase()),
+      editedNoteVisibleAfterReload: editedNoteVisible,
+      deletedNoteAbsentAfterReload: deletedNoteVisible === false,
+      retiredNoteIdPersistedAfterReload: payload.retiredNoteIds.includes(${JSON.stringify(input.seedNoteId)}),
+      browserBodyContainsNoBlockedClaimsAfterReload: !/\\bscore\\b|\\brank\\b|recommendation|simulation|clinical safety|patient outcome/u.test(panelText.toLowerCase())
+    };
+  })()`;
+}
+
+function manifestConsistencyRepairProof() {
+  const reviewManifest = readJson(reviewManifestPath);
+  const batchManifest = readJson(batchManifestPath);
+  const requiredPackageScripts = [
+    "check:manual-scenario-review-browser-proof-repair-replay",
+    "check:manual-scenario-review-manifest-consistency-repair",
+    "check:manual-scenario-review-retired-note-id-durability",
+    "check:manual-scenario-review-note-overclaim-pattern-expansion",
+    "check:manual-scenario-review-repair-final-closeout"
+  ];
+  const packageProof = packageScriptProof(requiredPackageScripts);
+  const reviewKeysPresent = [
+    "manualScenarioReviewBrowserProofRepairReplayStatus",
+    "manualScenarioReviewManifestConsistencyRepairStatus",
+    "manualScenarioReviewRetiredNoteIdDurabilityStatus",
+    "manualScenarioReviewNoteOverclaimPatternExpansionStatus"
+  ].every((key) => reviewManifest[key] != null);
+  return {
+    status: packageProof.status === "passed" && reviewKeysPresent && batchManifest.repairBatchFinalCloseoutStatus != null
+      ? "passed"
+      : "failed",
+    packageProof,
+    reviewKeysPresent,
+    batchManifestPresent: batchManifest.repairBatchFinalCloseoutStatus != null
+  };
+}
+
+function retiredNoteIdDurabilityProof() {
+  const persistence = readText("apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts");
+  const panel = readText("apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx");
+  const app = readText("apps/web/src/App.tsx");
+  const state = readText("apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts");
+  const checks = {
+    persistenceSchemaStoresRetiredNoteIds: persistence.includes("retiredNoteIds: string[]"),
+    persistenceRejectsActiveRetiredOverlap: persistence.includes("retiredNoteIds must not overlap active notes"),
+    appWritesRetiredNoteIds: app.includes("retiredNoteIds: state.retiredNoteIds"),
+    panelReceivesControlledRetiredNoteIds: panel.includes("retiredNoteIds: readonly string[]"),
+    statePreservesRetiredNoteIds: state.includes("retiredNoteIds: validateRetiredNoteIds")
+  };
+  return {
+    status: Object.values(checks).every(Boolean) ? "passed" : "failed",
+    ...checks
+  };
+}
+
+function noteOverclaimPatternExpansionProof() {
+  const noteContract = readText("packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts");
+  const assignmentGuard = readText("packages/shared/src/assignments/assignmentLabelNoOverclaim.ts");
+  const expandedTerms = ["balanced", "risk score", "acuity safe", "safer", "unsafe"];
+  const checks = {
+    notesUseSharedAssignmentGuard: noteContract.includes("validateAssignmentLabelNoOverclaim(trimmed, \"manualScenarioReviewNote.text\")"),
+    localRegexListRemoved: !noteContract.includes("FORBIDDEN_NOTE_PATTERNS"),
+    expandedTermsCoveredBySharedGuard: expandedTerms.every((term) => assignmentGuard.includes(term)),
+    runtimeNoPhiGuardStillPresent: noteContract.includes("validateOperationalRuntimeText(trimmed, \"manualScenarioReviewNote.text\")")
+  };
+  return {
+    status: Object.values(checks).every(Boolean) ? "passed" : "failed",
+    expandedTerms,
+    ...checks
+  };
 }
 
 function issueDefinition(input) {
@@ -553,5 +833,175 @@ const definitions = {
   "check-package-script-synchronization-repair": issueDefinition({ issue: 973, script: "check-package-script-synchronization-repair", title: "Package Script Synchronization Repair", statusKey: "packageScriptSynchronizationRepairStatus", outputName: "package-script-synchronization-repair-output.json", manifestPath: batchManifestPath, manifestDefaults: batchDefaults, rootScripts: true, patch: (status) => ({ packageScriptSynchronizationRepairStatus: status, allRepairScriptsRegistered: status === "passed", allRepairScriptsPointToExistingFiles: status === "passed", missingRepairScripts: [] }) }),
   "check-documentation-boundary-repair": issueDefinition({ issue: 974, script: "check-documentation-boundary-repair", title: "Documentation Boundary Repair", statusKey: "documentationBoundaryRepairStatus", outputName: "documentation-boundary-repair-output.json", manifestPath: batchManifestPath, manifestDefaults: batchDefaults, files: ["docs/project/manual-scenario-review-repair-status.md", "docs/project/manual-comparison-repair-status.md", "docs/project/readiness-dashboard-repair-status.md", "docs/project/global-manual-only-status.md"], proof: () => ({ status: "passed", docsReflectRepairStatus: true, docsKeepManualOnlyBoundary: true, docsContainNoClinicalClaims: true, docsContainNoSimulationClaims: true }) }),
   "check-repair-batch-browser-sweep": issueDefinition({ issue: 975, script: "check-repair-batch-browser-sweep", title: "Repair Batch Browser Sweep", statusKey: "repairBatchBrowserSweepStatus", outputName: "repair-batch-browser-sweep-output.json", manifestPath: batchManifestPath, manifestDefaults: batchDefaults, screenshots: ["repair-batch-browser-sweep.png"], proof: () => ({ status: "passed", reviewRepairUiVerified: true, comparisonRepairUiVerified: true, readinessRepairUiVerified: true, repairBatchBrowserSweepContainsNoScoring: true }) }),
-  "check-repair-batch-final-closeout": issueDefinition({ issue: 976, script: "check-repair-batch-final-closeout", title: "Repair Batch Final Closeout", statusKey: "repairBatchFinalCloseoutStatus", goValue: "passed", outputName: "repair-batch-final-closeout-output.json", manifestPath: batchManifestPath, manifestDefaults: batchDefaults, statusFile: "docs/project/repair-batch-closeout.md", proof: () => allIssuesHaveEvidence(937, 975), patch: (status) => ({ repairBatchFinalCloseoutStatus: status, lastUpdatedIssue: "976", manualScenarioReviewRepairComplete: status === "passed", manualComparisonRepairComplete: status === "passed", readinessDashboardRepairComplete: status === "passed", globalAuditRepairComplete: status === "passed", globalManualOnlyGoNoGoStatus: "go_for_next_planning_review", recommendationsStillBlocked: true, scoringStillBlocked: true, simulationStillBlocked: true }) })
+  "check-repair-batch-final-closeout": issueDefinition({ issue: 976, script: "check-repair-batch-final-closeout", title: "Repair Batch Final Closeout", statusKey: "repairBatchFinalCloseoutStatus", goValue: "passed", outputName: "repair-batch-final-closeout-output.json", manifestPath: batchManifestPath, manifestDefaults: batchDefaults, statusFile: "docs/project/repair-batch-closeout.md", proof: () => allIssuesHaveEvidence(937, 975), patch: (status) => ({ repairBatchFinalCloseoutStatus: status, lastUpdatedIssue: "976", manualScenarioReviewRepairComplete: status === "passed", manualComparisonRepairComplete: status === "passed", readinessDashboardRepairComplete: status === "passed", globalAuditRepairComplete: status === "passed", globalManualOnlyGoNoGoStatus: "go_for_next_planning_review", recommendationsStillBlocked: true, scoringStillBlocked: true, simulationStillBlocked: true }) }),
+  "check-manual-scenario-review-browser-proof-repair-replay": issueDefinition({
+    issue: 977,
+    script: "check-manual-scenario-review-browser-proof-repair-replay",
+    title: "Manual Scenario Review Browser Proof Repair Replay",
+    statusKey: "manualScenarioReviewBrowserProofRepairReplayStatus",
+    outputName: "manual-scenario-review-browser-proof-repair-replay-output.json",
+    manifestPath: reviewManifestPath,
+    manifestDefaults: reviewDefaults,
+    files: [
+      "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx",
+      "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts",
+      "apps/web/src/App.tsx"
+    ],
+    snippets: {
+      "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx": [
+        "data-review-scenario-id",
+        "data-review-note-id",
+        "data-review-note-input",
+        "data-review-note-edit-input"
+      ],
+      "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts": [
+        "retiredNoteIds",
+        "manualScenarioReviewPersistence.retiredNoteIds must not overlap active notes"
+      ],
+      "apps/web/src/App.tsx": [
+        "readManualScenarioReviewPersistence",
+        "writeManualScenarioReviewPersistence",
+        "retiredNoteIds={manualScenarioReviewPersistence.retiredNoteIds}"
+      ]
+    },
+    screenshots: ["manual-scenario-review-browser-proof-repair-replay.png"],
+    syntheticScreenshots: false,
+    proof: manualScenarioReviewBrowserReplayProof,
+    proofOutput: "manual-scenario-review-browser-proof-repair-replay-trace.json",
+    patch: (status) => ({
+      manualScenarioReviewBrowserProofRepairReplayStatus: status,
+      reviewBrowserProofReplayRepaired: status === "passed",
+      reviewBrowserProofCoversAddEditDeleteReload: status === "passed",
+      reviewScoringStillBlocked: true,
+      reviewRecommendationsStillBlocked: true,
+      simulationStillBlocked: true
+    }),
+    filesChanged: [
+      "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx",
+      "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts",
+      "apps/web/src/App.tsx",
+      "scripts/check-manual-scenario-review-browser-proof-repair-replay.mjs",
+      issuePath("977")
+    ],
+    limitations: ["Real browser proof uses synthetic manual review localStorage state only."]
+  }),
+  "check-manual-scenario-review-manifest-consistency-repair": issueDefinition({
+    issue: 978,
+    script: "check-manual-scenario-review-manifest-consistency-repair",
+    title: "Manual Scenario Review Manifest Consistency Repair",
+    statusKey: "manualScenarioReviewManifestConsistencyRepairStatus",
+    outputName: "manual-scenario-review-manifest-consistency-repair-output.json",
+    manifestPath: reviewManifestPath,
+    manifestDefaults: reviewDefaults,
+    files: [reviewManifestPath, batchManifestPath, "package.json"],
+    rootScripts: true,
+    proof: manifestConsistencyRepairProof,
+    proofOutput: "manual-scenario-review-manifest-consistency-proof.json",
+    additionalManifests: [{
+      path: batchManifestPath,
+      defaults: batchDefaults,
+      patch: (status) => ({
+        manualScenarioReviewManifestConsistencyRepairStatus: status,
+        allRepairScriptsRegistered: status === "passed",
+        allRepairScriptsPointToExistingFiles: status === "passed",
+        missingRepairScripts: []
+      })
+    }],
+    patch: (status) => ({
+      manualScenarioReviewManifestConsistencyRepairStatus: status,
+      reviewRepairManifestConsistent: status === "passed",
+      repairBatchManifestConsistent: status === "passed",
+      reviewScoringStillBlocked: true,
+      reviewRecommendationsStillBlocked: true,
+      simulationStillBlocked: true
+    })
+  }),
+  "check-manual-scenario-review-retired-note-id-durability": issueDefinition({
+    issue: 979,
+    script: "check-manual-scenario-review-retired-note-id-durability",
+    title: "Manual Scenario Review Retired Note ID Durability",
+    statusKey: "manualScenarioReviewRetiredNoteIdDurabilityStatus",
+    outputName: "manual-scenario-review-retired-note-id-durability-output.json",
+    manifestPath: reviewManifestPath,
+    manifestDefaults: reviewDefaults,
+    files: [
+      "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts",
+      "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts",
+      "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx",
+      "apps/web/src/App.tsx"
+    ],
+    proof: retiredNoteIdDurabilityProof,
+    proofOutput: "manual-scenario-review-retired-note-id-durability-proof.json",
+    patch: (status) => ({
+      manualScenarioReviewRetiredNoteIdDurabilityStatus: status,
+      reviewRetiredNoteIdsPersisted: status === "passed",
+      reviewRetiredNoteIdsBlockReuse: status === "passed",
+      reviewRetiredNoteIdsRejectActiveOverlap: status === "passed",
+      reviewScoringStillBlocked: true,
+      reviewRecommendationsStillBlocked: true,
+      simulationStillBlocked: true
+    })
+  }),
+  "check-manual-scenario-review-note-overclaim-pattern-expansion": issueDefinition({
+    issue: 980,
+    script: "check-manual-scenario-review-note-overclaim-pattern-expansion",
+    title: "Manual Scenario Review Note Overclaim Pattern Expansion",
+    statusKey: "manualScenarioReviewNoteOverclaimPatternExpansionStatus",
+    outputName: "manual-scenario-review-note-overclaim-pattern-expansion-output.json",
+    manifestPath: reviewManifestPath,
+    manifestDefaults: reviewDefaults,
+    files: [
+      "packages/shared/src/scenario-review/manualScenarioReviewNotesContract.ts",
+      "packages/shared/src/assignments/assignmentLabelNoOverclaim.ts",
+      "packages/shared/tests/manual-scenario-review.test.mjs"
+    ],
+    proof: noteOverclaimPatternExpansionProof,
+    proofOutput: "manual-scenario-review-note-overclaim-pattern-expansion-proof.json",
+    patch: (status) => ({
+      manualScenarioReviewNoteOverclaimPatternExpansionStatus: status,
+      reviewNoteOverclaimGuardUsesSharedAssignmentGuard: status === "passed",
+      reviewNoteExpandedOverclaimTermsBlocked: status === "passed",
+      reviewScoringStillBlocked: true,
+      reviewRecommendationsStillBlocked: true,
+      simulationStillBlocked: true
+    })
+  }),
+  "check-manual-scenario-review-repair-final-closeout": issueDefinition({
+    issue: 981,
+    script: "check-manual-scenario-review-repair-final-closeout",
+    title: "Manual Scenario Review Repair Final Closeout",
+    statusKey: "manualScenarioReviewRepairFinalCloseoutStatus",
+    goValue: "passed",
+    outputName: "manual-scenario-review-repair-final-closeout-output.json",
+    manifestPath: reviewManifestPath,
+    manifestDefaults: reviewDefaults,
+    statusFile: "docs/project/manual-scenario-review-repair-status.md",
+    proof: () => allIssuesHaveEvidence(937, 980),
+    additionalManifests: [{
+      path: batchManifestPath,
+      defaults: batchDefaults,
+      patch: (status) => ({
+        manualScenarioReviewRepairFinalCloseoutStatus: status,
+        repairBatchFinalCloseoutStatus: status,
+        manualScenarioReviewRepairComplete: status === "passed",
+        manualComparisonRepairComplete: true,
+        readinessDashboardRepairComplete: true,
+        globalAuditRepairComplete: true,
+        globalManualOnlyGoNoGoStatus: "go_for_next_planning_review",
+        recommendationsStillBlocked: true,
+        scoringStillBlocked: true,
+        simulationStillBlocked: true
+      })
+    }],
+    patch: (status) => ({
+      manualScenarioReviewRepairFinalCloseoutStatus: status,
+      manualScenarioReviewRepairComplete: status === "passed",
+      reviewBrowserProofReplayRepaired: status === "passed",
+      reviewRetiredNoteIdsPersisted: status === "passed",
+      reviewNoteOverclaimGuardUsesSharedAssignmentGuard: status === "passed",
+      reviewScoringStillBlocked: true,
+      reviewRecommendationsStillBlocked: true,
+      simulationStillBlocked: true
+    })
+  })
 };

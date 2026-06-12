@@ -14,6 +14,7 @@ export type ManualScenarioReviewPersistencePayload = {
   schemaVersion: "1.0.0";
   reviews: ManualScenarioReviewContract[];
   notes: ManualScenarioReviewNote[];
+  retiredNoteIds: string[];
   selectedReviewId: string | null;
 };
 
@@ -31,6 +32,7 @@ export function readManualScenarioReviewPersistence(
   const fallback = createManualScenarioReviewPersistencePayload({
     scenarios,
     notes: [],
+    retiredNoteIds: [],
     selectedReviewId: null
   });
   if (storage == null) return fallback;
@@ -50,11 +52,13 @@ export function readManualScenarioReviewPersistence(
 export function writeManualScenarioReviewNotes(
   storage: Storage | null,
   notes: readonly ManualScenarioReviewNote[],
-  scenarios: readonly ManualScenarioContract[] = []
+  scenarios: readonly ManualScenarioContract[] = [],
+  retiredNoteIds: readonly string[] = []
 ): ManualScenarioReviewNote[] {
   const payload = createManualScenarioReviewPersistencePayload({
     scenarios,
     notes,
+    retiredNoteIds,
     selectedReviewId: null
   });
   writeManualScenarioReviewPersistence(storage, payload);
@@ -73,6 +77,7 @@ export function writeManualScenarioReviewPersistence(
 export function createManualScenarioReviewPersistencePayload(input: {
   scenarios: readonly ManualScenarioContract[];
   notes: readonly ManualScenarioReviewNote[];
+  retiredNoteIds?: readonly string[];
   selectedReviewId: string | null;
 }): ManualScenarioReviewPersistencePayload {
   const scenarioIds = input.scenarios.map((scenario) => scenario.scenarioId);
@@ -89,6 +94,7 @@ export function createManualScenarioReviewPersistencePayload(input: {
     scenarioIds
   });
   const notes = validateManualScenarioReviewNotes({ notes: input.notes, scenarioIds });
+  const retiredNoteIds = validateRetiredNoteIds(input.retiredNoteIds ?? [], notes);
   if (input.selectedReviewId != null && !reviews.some((review) => review.reviewId === input.selectedReviewId)) {
     throw new Error("manualScenarioReviewPersistence.selectedReviewId must reference a review");
   }
@@ -96,6 +102,7 @@ export function createManualScenarioReviewPersistencePayload(input: {
     schemaVersion: "1.0.0",
     reviews,
     notes,
+    retiredNoteIds,
     selectedReviewId: input.selectedReviewId
   };
 }
@@ -109,6 +116,7 @@ export function validateManualScenarioReviewPersistencePayload(
     "schemaVersion",
     "reviews",
     "notes",
+    "retiredNoteIds",
     "selectedReviewId"
   ]);
   if (payload.schemaVersion !== "1.0.0") {
@@ -129,6 +137,7 @@ export function validateManualScenarioReviewPersistencePayload(
     notes: payload.notes,
     scenarioIds
   });
+  const retiredNoteIds = validateRetiredNoteIds(payload.retiredNoteIds ?? [], notes);
   const selectedReviewId = payload.selectedReviewId == null
     ? null
     : requireString(payload.selectedReviewId, "manualScenarioReviewPersistence.selectedReviewId");
@@ -139,6 +148,7 @@ export function validateManualScenarioReviewPersistencePayload(
     schemaVersion: "1.0.0",
     reviews,
     notes,
+    retiredNoteIds,
     selectedReviewId
   };
 }
@@ -154,11 +164,34 @@ function readLegacyManualScenarioReviewNotes(
     const notes = Array.isArray(parsed)
       ? validateManualScenarioReviewNotes({ notes: parsed, scenarioIds: scenarios.map((scenario) => scenario.scenarioId) })
       : [];
-    return createManualScenarioReviewPersistencePayload({ scenarios, notes, selectedReviewId: null });
+    return createManualScenarioReviewPersistencePayload({ scenarios, notes, retiredNoteIds: [], selectedReviewId: null });
   } catch {
     storage.removeItem(LEGACY_NOTES_STORAGE_KEY);
     return null;
   }
+}
+
+function validateRetiredNoteIds(
+  value: unknown,
+  notes: readonly ManualScenarioReviewNote[]
+): string[] {
+  if (value == null) return [];
+  if (!Array.isArray(value)) {
+    throw new Error("manualScenarioReviewPersistence.retiredNoteIds must be an array");
+  }
+  const activeNoteIds = new Set(notes.map((note) => note.noteId));
+  const retiredNoteIds = new Set<string>();
+  value.forEach((candidate, index) => {
+    const noteId = requireString(candidate, `manualScenarioReviewPersistence.retiredNoteIds[${index}]`);
+    if (activeNoteIds.has(noteId)) {
+      throw new Error("manualScenarioReviewPersistence.retiredNoteIds must not overlap active notes");
+    }
+    if (retiredNoteIds.has(noteId)) {
+      throw new Error(`manualScenarioReviewPersistence.retiredNoteIds[${index}] must be unique`);
+    }
+    retiredNoteIds.add(noteId);
+  });
+  return Array.from(retiredNoteIds);
 }
 
 function requireRecord(value: unknown, label: string): Record<string, unknown> {

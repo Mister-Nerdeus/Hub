@@ -1,0 +1,47 @@
+{
+  "status": "passed",
+  "issue": "979",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesState.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/App.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/App.tsx"
+      }
+    },
+    {
+      "name": "repair proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "persistenceSchemaStoresRetiredNoteIds": true,
+        "persistenceRejectsActiveRetiredOverlap": true,
+        "appWritesRetiredNoteIds": true,
+        "panelReceivesControlledRetiredNoteIds": true,
+        "statePreservesRetiredNoteIds": true
+      }
+    }
+  ]
+}

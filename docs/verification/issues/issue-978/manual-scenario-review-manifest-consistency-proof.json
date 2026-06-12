@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "packageProof": {
+    "status": "passed",
+    "missing": [],
+    "scripts": {
+      "check:manual-scenario-review-browser-proof-repair-replay": "node scripts/check-manual-scenario-review-browser-proof-repair-replay.mjs --stage final --issue 977",
+      "check:manual-scenario-review-manifest-consistency-repair": "node scripts/check-manual-scenario-review-manifest-consistency-repair.mjs --stage final --issue 978",
+      "check:manual-scenario-review-retired-note-id-durability": "node scripts/check-manual-scenario-review-retired-note-id-durability.mjs --stage final --issue 979",
+      "check:manual-scenario-review-note-overclaim-pattern-expansion": "node scripts/check-manual-scenario-review-note-overclaim-pattern-expansion.mjs --stage final --issue 980",
+      "check:manual-scenario-review-repair-final-closeout": "node scripts/check-manual-scenario-review-repair-final-closeout.mjs --stage final --issue 981"
+    }
+  },
+  "reviewKeysPresent": true,
+  "batchManifestPresent": true
+}
