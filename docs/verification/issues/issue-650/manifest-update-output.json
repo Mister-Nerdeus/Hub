@@ -1,12 +1,10 @@
 {
   "status": "passed",
-  "manifestPath": "docs/verification/editor-runtime-alignment-hardening-manifest.json",
+  "manifestPath": "docs/verification/editor-runtime-save-ux-layout-repair-manifest.json",
   "updates": {
-    "rootScriptWiringStatus": "passed",
-    "rootScripts641To650Present": true,
-    "verifyLocalIncludes641To650": true,
-    "manualChecklistCannotAutoPass": true,
-    "manualChecklistRequiresHumanOrBrowserProof": true,
-    "blockerReportingStatus": "passed"
+    "runtimeVersionProofStatus": "passed",
+    "buildCommitVisible": true,
+    "buildTimeVisible": true,
+    "runtimeMatchesRepoExpectation": true
   }
 }

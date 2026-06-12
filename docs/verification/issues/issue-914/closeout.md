@@ -6,6 +6,9 @@ Manual Comparison Browser Proof
 ## Code Review
 - Browser proof renders seeded comparison state and a reference matrix without advisory copy.
 
+## Summary
+- Implemented as scoped for issue 914.
+
 ## Files Changed
 - apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx
 - scripts/check-manual-comparison-browser-proof.mjs
@@ -35,3 +38,6 @@ Manual Comparison Browser Proof
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 915

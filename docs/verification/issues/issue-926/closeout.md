@@ -6,6 +6,9 @@ Manual Comparison Evidence Closeout
 ## Code Review
 - Evidence closeout confirms comparison foundation artifacts are complete and readiness dashboard can start.
 
+## Summary
+- Implemented as scoped for issue 926.
+
 ## Files Changed
 - docs/verification/manual-comparison-foundation-manifest.json
 - docs/project/manual-comparison-foundation-status.md
@@ -35,3 +38,6 @@ Manual Comparison Evidence Closeout
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 927

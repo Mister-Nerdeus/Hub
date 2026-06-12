@@ -6,6 +6,9 @@ Manual Scenario Review View Model
 ## Code Review
 - View model copy is display-ready and reference-state only.
 
+## Summary
+- Implemented as scoped for issue 901.
+
 ## Files Changed
 - apps/web/src/features/manual-scenario-review/manualScenarioReviewViewModel.ts
 - scripts/check-manual-scenario-review-view-model.mjs
@@ -34,3 +37,6 @@ Manual Scenario Review View Model
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 902

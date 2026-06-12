@@ -6,6 +6,9 @@ Manual Comparison Set Contract
 ## Code Review
 - Manual Comparison Set Contract keeps manual comparison scoped to scenario identity and references.
 
+## Summary
+- Implemented as scoped for issue 910.
+
 ## Files Changed
 - packages/shared/src/manual-comparison/manualComparisonSetContract.ts
 - scripts/check-manual-comparison-set-contract.mjs
@@ -34,3 +37,6 @@ Manual Comparison Set Contract
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 911

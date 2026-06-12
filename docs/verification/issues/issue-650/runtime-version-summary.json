@@ -1,65 +1,62 @@
 {
   "status": "passed",
-  "outputPath": "docs/verification/issues/issue-650/test-output/runtime-version-proof.txt",
-  "payload": {
-    "status": "passed",
-    "issue": "650",
-    "stage": "final",
-    "checks": [
-      {
-        "name": "runtime build markers are visible in rendered app",
-        "passed": true,
-        "detail": [
-          "buildCommit",
-          "buildTime",
-          "runtimeMode",
-          "editorSaveUx",
-          "runtimeBuildInfoExists"
-        ]
-      },
-      {
-        "name": "machine-readable runtime marker is present",
-        "passed": true,
-        "detail": [
-          "641-650-editor-runtime-save-layout"
-        ]
-      },
-      {
-        "name": "expected editor save controls are visible in rendered app",
-        "passed": true,
-        "detail": {
-          "requiredControls": [
-            "save-working-copy",
-            "save-as-new-copy",
-            "export-json-backup"
-          ],
-          "requiredChecks": [
-            {
-              "control": "save-working-copy",
-              "visible": true
-            },
-            {
-              "control": "save-as-new-copy",
-              "visible": true
-            },
-            {
-              "control": "export-json-backup",
-              "visible": true
-            }
-          ],
-          "missing": []
-        }
-      },
-      {
-        "name": "runtime mismatch banner is hidden when expected controls are present",
-        "passed": true,
-        "detail": null
-      },
-      {
-        "name": "reconstruction remains NO-GO until this batch passes",
-        "passed": true,
-        "detail": "reconstruction status is controlled by the final GO gate"
+  "issue": "650",
+  "stage": "final",
+  "batchMarker": "641-650-editor-runtime-save-layout",
+  "checks": [
+    {
+      "name": "runtime build markers are visible in rendered app",
+      "passed": true,
+      "detail": [
+        "buildCommit",
+        "buildTime",
+        "runtimeMode",
+        "editorSaveUx",
+        "runtimeBuildInfoExists"
+      ]
+    },
+    {
+      "name": "machine-readable runtime marker is present",
+      "passed": true,
+      "detail": [
+        "641-650-editor-runtime-save-layout"
+      ]
+    },
+    {
+      "name": "expected editor save controls are visible in rendered app",
+      "passed": true,
+      "detail": {
+        "requiredControls": [
+          "save-working-copy",
+          "save-as-new-copy",
+          "export-json-backup"
+        ],
+        "requiredChecks": [
+          {
+            "control": "save-working-copy",
+            "visible": true
+          },
+          {
+            "control": "save-as-new-copy",
+            "visible": true
+          },
+          {
+            "control": "export-json-backup",
+            "visible": true
+          }
+        ],
+        "missing": []
       }
-    ]
-  }
+    },
+    {
+      "name": "runtime mismatch banner is hidden when expected controls are present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "reconstruction remains NO-GO until this batch passes",
+      "passed": true,
+      "detail": "reconstruction status is controlled by the final GO gate"
+    }
+  ]
 }

@@ -6,6 +6,9 @@ Split-Room Visual Screenshot Evidence Closeout
 ## Code Review
 - Split-room visual evidence now uses rendered browser CSS and screenshots to prove unassigned targets stay white while badges, selected strokes, warnings, storage, and walls remain visible.
 
+## Summary
+- Implemented as scoped for issue 895.
+
 ## Files Changed
 - apps/web/src/features/layout-editor/LayoutEditorStage.css
 - scripts/check-split-room-visual-screenshot-evidence.mjs
@@ -49,3 +52,6 @@ Split-Room Visual Screenshot Evidence Closeout
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 896

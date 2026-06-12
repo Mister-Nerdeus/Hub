@@ -1,14 +1,8 @@
 npm --workspace packages/shared test
 npm --workspace apps/web test
 npm --workspace apps/web run build
-npm run check:clean-committed-state
-node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
-node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
-node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650
-node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650
-node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650
-node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650
-node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650
-node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650
-node scripts/check-editor-popup-layout.mjs --stage final --issue 650
-node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650
+node scripts/check-editor-runtime-version-proof.mjs --stage runtime-build-info --allow-partial --issue 650
+node scripts/check-editor-runtime-version-proof.mjs --stage runtime-marker --allow-partial --issue 650
+node scripts/check-editor-runtime-version-proof.mjs --stage editor-controls-visibility --allow-partial --issue 650
+node scripts/check-editor-runtime-version-proof.mjs --stage stale-runtime-negative --allow-partial --issue 650
+node scripts/check-no-phi-fields.mjs

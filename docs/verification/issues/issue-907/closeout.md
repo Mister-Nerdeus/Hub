@@ -6,6 +6,9 @@ Manual Scenario Review No-Scoring Guard
 ## Code Review
 - Review source directories are guarded against advisory, ranking, and simulation language.
 
+## Summary
+- Implemented as scoped for issue 907.
+
 ## Files Changed
 - scripts/check-manual-scenario-review-no-scoring-guard.mjs
 - packages/shared/src/scenario-review/
@@ -35,3 +38,6 @@ Manual Scenario Review No-Scoring Guard
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 908

@@ -6,6 +6,9 @@ Manual Scenario Review Contract
 ## Code Review
 - Review contracts store scenario references and validation state without advisory fields.
 
+## Summary
+- Implemented as scoped for issue 898.
+
 ## Files Changed
 - packages/shared/src/scenario-review/manualScenarioReviewContract.ts
 - packages/shared/src/scenario-review/manualScenarioReviewValidation.ts
@@ -35,3 +38,6 @@ Manual Scenario Review Contract
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 899

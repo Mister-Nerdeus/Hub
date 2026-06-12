@@ -7,15 +7,25 @@
   "manifest": {
     "repairEvidenceCloseoutStatus": "passed",
     "globalManualOnlyCurrentStateReportRepairStatus": "passed",
-    "globalManualOnlyGoNoGoStatus": "not_ready",
-    "packageScriptSynchronizationRepairStatus": "missing",
-    "documentationBoundaryRepairStatus": "missing",
-    "repairBatchBrowserSweepStatus": "missing",
-    "repairBatchFinalCloseoutStatus": "not_ready",
+    "globalManualOnlyGoNoGoStatus": "go_for_next_planning_review",
+    "packageScriptSynchronizationRepairStatus": "passed",
+    "documentationBoundaryRepairStatus": "passed",
+    "repairBatchBrowserSweepStatus": "passed",
+    "repairBatchFinalCloseoutStatus": "passed",
     "manualScenarioReviewRepairClosed": true,
     "manualComparisonRepairClosed": true,
     "readinessDashboardRepairClosed": true,
     "globalAuditRepairClosed": true,
-    "lastUpdatedIssue": "971"
+    "lastUpdatedIssue": "971",
+    "allRepairScriptsRegistered": true,
+    "allRepairScriptsPointToExistingFiles": true,
+    "missingRepairScripts": [],
+    "manualScenarioReviewRepairComplete": true,
+    "manualComparisonRepairComplete": true,
+    "readinessDashboardRepairComplete": true,
+    "globalAuditRepairComplete": true,
+    "recommendationsStillBlocked": true,
+    "scoringStillBlocked": true,
+    "simulationStillBlocked": true
   }
 }

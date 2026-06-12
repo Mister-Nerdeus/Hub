@@ -6,6 +6,9 @@ Manual Scenario Clock Injection
 ## Code Review
 - Manual scenario state now receives timestamps from an injected clock, while tests and proofs use deterministic fixture clocks.
 
+## Summary
+- Implemented as scoped for issue 894.
+
 ## Files Changed
 - packages/shared/src/scenarios/manualScenarioClock.ts
 - packages/shared/src/index.ts
@@ -52,3 +55,6 @@ Manual Scenario Clock Injection
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 895

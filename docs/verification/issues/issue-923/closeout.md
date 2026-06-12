@@ -6,6 +6,9 @@ Global Evidence Artifact Audit
 ## Code Review
 - Evidence artifact audit verifies current-batch issue folders have required closeout files.
 
+## Summary
+- Implemented as scoped for issue 923.
+
 ## Files Changed
 - scripts/check-global-evidence-artifact-audit.mjs
 - docs/verification/issues/issue-923
@@ -33,3 +36,6 @@ Global Evidence Artifact Audit
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 924

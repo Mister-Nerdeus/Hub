@@ -6,6 +6,9 @@ Global No-Claims Guard Expansion
 ## Code Review
 - Global guard expansion records no-claims coverage for the manual-only batch scope.
 
+## Summary
+- Implemented as scoped for issue 921.
+
 ## Files Changed
 - scripts/check-global-no-claims-guard.mjs
 - docs/verification/issues/issue-921
@@ -33,3 +36,6 @@ Global No-Claims Guard Expansion
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 922

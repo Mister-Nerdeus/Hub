@@ -6,6 +6,9 @@ Co-Assignment Policy Semantics Clarification
 ## Code Review
 - Co-assignment semantics are now explicit: mode selects the preset, and the allow-list is the single-primary preset override list.
 
+## Summary
+- Implemented as scoped for issue 893.
+
 ## Files Changed
 - packages/shared/src/assignments/coAssignmentPolicyContract.ts
 - packages/shared/tests/co-assignment-policy-contract.test.mjs
@@ -50,3 +53,6 @@ Co-Assignment Policy Semantics Clarification
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 894

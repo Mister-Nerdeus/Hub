@@ -6,6 +6,9 @@ Stable Staff Roster Identity
 ## Code Review
 - Staff roster identity now uses explicit stable IDs; roster rename only changes label/timestamp, while duplicate rosters get new IDs and scenario/snapshot references remain linked.
 
+## Summary
+- Implemented as scoped for issue 892.
+
 ## Files Changed
 - packages/shared/src/scenarios/manualScenarioStaffRosterContract.ts
 - packages/shared/src/scenarios/manualScenarioStaffRosterFixture.ts
@@ -50,3 +53,6 @@ Stable Staff Roster Identity
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 893

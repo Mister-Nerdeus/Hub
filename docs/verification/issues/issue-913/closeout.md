@@ -6,6 +6,9 @@ Manual Comparison Save / Reload Proof
 ## Code Review
 - Manual Comparison Save / Reload Proof keeps manual comparison scoped to scenario identity and references.
 
+## Summary
+- Implemented as scoped for issue 913.
+
 ## Files Changed
 - apps/web/src/features/manual-comparison/manualComparisonStorage.ts
 - apps/web/src/features/manual-comparison/manualComparisonPersistence.ts
@@ -35,3 +38,6 @@ Manual Comparison Save / Reload Proof
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 914

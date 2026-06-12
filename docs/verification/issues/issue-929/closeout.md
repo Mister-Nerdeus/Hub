@@ -6,6 +6,9 @@ Global Manual-Only GO/NO-GO
 ## Code Review
 - Global GO/NO-GO verifies current milestones remain manual-only with blocked future scoring, recommendations, simulation, and clinical claims.
 
+## Summary
+- Implemented as scoped for issue 929.
+
 ## Files Changed
 - docs/verification/global-manual-only-manifest.json
 - docs/project/global-manual-only-status.md

@@ -6,6 +6,9 @@ Manual Scenario Review Notes UI
 ## Code Review
 - Manual Scenario Review Notes UI stores manual review notes by scenario reference without reviewer identity fields.
 
+## Summary
+- Implemented as scoped for issue 904.
+
 ## Files Changed
 - apps/web/src/features/manual-scenario-review/manualScenarioReviewNotesContract.ts
 - apps/web/src/features/manual-scenario-review/manualScenarioReviewPersistence.ts
@@ -36,3 +39,6 @@ Manual Scenario Review Notes UI
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 905

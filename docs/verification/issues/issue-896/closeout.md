@@ -6,6 +6,9 @@ Manual Scenario Foundation Evidence Closeout
 ## Code Review
 - The manual scenario foundation evidence tree now closes issues 889-895 and keeps the next milestone gated to manual-only reference, identity, clock, visual, and boundary proofs.
 
+## Summary
+- Implemented as scoped for issue 896.
+
 ## Files Changed
 - docs/verification/manual-scenario-foundation-manifest.json
 - docs/project/manual-scenario-foundation-status.md
@@ -47,3 +50,6 @@ Manual Scenario Foundation Evidence Closeout
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 897

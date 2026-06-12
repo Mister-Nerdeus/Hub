@@ -6,6 +6,9 @@ Stable Scenario Identity on Rename
 ## Code Review
 - Manual scenario identity is now an explicit stable ID; rename only changes label and updatedAtIso, while duplicate allocates a new stable scenario ID.
 
+## Summary
+- Implemented as scoped for issue 891.
+
 ## Files Changed
 - packages/shared/src/scenarios/manualScenarioContract.ts
 - packages/shared/src/scenarios/manualScenarioValidation.ts
@@ -55,3 +58,6 @@ Stable Scenario Identity on Rename
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 892

@@ -6,6 +6,9 @@ Readiness Dashboard Preflight
 ## Code Review
 - Readiness Dashboard Preflight keeps readiness language scoped to project milestone status.
 
+## Summary
+- Implemented as scoped for issue 917.
+
 ## Files Changed
 - docs/project/manual-comparison-foundation-status.md
 - scripts/check-readiness-dashboard-preflight.mjs
@@ -34,3 +37,6 @@ Readiness Dashboard Preflight
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 918

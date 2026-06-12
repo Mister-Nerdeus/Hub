@@ -6,6 +6,9 @@ Manual Scenario Review Foundation Preflight
 ## Code Review
 - Preflight pins Manual Scenario Review Foundation to reference/state review and verifies the Phase A dependency.
 
+## Summary
+- Implemented as scoped for issue 897.
+
 ## Files Changed
 - docs/verification/manual-scenario-review-foundation-manifest.json
 - docs/project/manual-scenario-review-foundation-status.md
@@ -36,3 +39,6 @@ Manual Scenario Review Foundation Preflight
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 898

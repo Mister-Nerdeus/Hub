@@ -6,6 +6,9 @@ Manual Scenario Reference Strictness
 ## Code Review
 - Scenario creation now requires real floorplan, assignment set, and staff roster references; placeholder assignment and roster IDs are blocked from the saved scenario path.
 
+## Summary
+- Implemented as scoped for issue 890.
+
 ## Files Changed
 - apps/web/src/App.tsx
 - apps/web/src/features/manual-scenario/ManualScenarioPanel.tsx
@@ -55,3 +58,6 @@ Manual Scenario Reference Strictness
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 891

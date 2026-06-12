@@ -16,11 +16,26 @@
     "assignmentRecommendationStatus": "not_started"
   },
   "summary": {
+    "schemaVersion": "1.0.0",
+    "queueSummaryId": "ratio-aware-queue-four_to_one",
+    "ratioPresetId": "four_to_one",
+    "ratioRuntimeSeedId": "runtime-seed-canonical-plan-1-four-to-one",
     "generatedTaskCount": 30,
-    "startedPlaceholderCount": 30,
-    "completedPlaceholderCount": 30,
+    "syntheticNurseRuntimeGroupCount": 6,
     "queuedPlaceholderCount": 8,
     "delayedPlaceholderCount": 8,
-    "unassignedPlaceholderCount": 0
+    "unassignedPlaceholderCount": 0,
+    "placeholderPressureBand": "placeholder_heavy",
+    "limitationCopy": [
+      "Queue pressure is a synthetic internal placeholder only.",
+      "Ratio-specific runtime state can change queue and delay placeholder counts.",
+      "No staffing recommendation, optimizer output, clinical safety claim, staffing compliance certification, or patient outcome prediction is produced."
+    ],
+    "outcomeClaim": false,
+    "clinicalSafetyClaim": false,
+    "staffingComplianceClaim": false,
+    "recommendationStatus": "not_started",
+    "optimizerStatus": "not_started",
+    "syntheticDataOnly": true
   }
 }

@@ -6,6 +6,9 @@ Manual Scenario Review Browser Proof
 ## Code Review
 - Browser proof renders seeded manual review state and note counts without advisory copy.
 
+## Summary
+- Implemented as scoped for issue 906.
+
 ## Files Changed
 - apps/web/src/features/manual-scenario-review/ManualScenarioReviewPanel.tsx
 - scripts/check-manual-scenario-review-browser-proof.mjs
@@ -35,3 +38,6 @@ Manual Scenario Review Browser Proof
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 907

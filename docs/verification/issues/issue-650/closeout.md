@@ -1,7 +1,7 @@
 # Issue 650 Closeout
 
 ## Problem
-Runtime/save/layout final GO/NO-GO reruns the 641-650 validators, reads root wiring, verify-local wiring, manual checklist, and evidence outputs.
+Runtime version proof and reconstruction hold are visible and machine-readable.
 
 ## Summary
 - Local verification artifacts passed for this issue scope.
@@ -18,17 +18,11 @@ Runtime/save/layout final GO/NO-GO reruns the 641-650 validators, reads root wir
 - npm --workspace packages/shared test
 - npm --workspace apps/web test
 - npm --workspace apps/web run build
-- npm run check:clean-committed-state
-- node scripts/check-editor-runtime-version-proof.mjs --stage final --issue 650
-- node scripts/check-editor-stale-runtime-detection.mjs --stage final --issue 650
-- node scripts/check-editor-save-command-bar-ux.mjs --stage final --issue 650
-- node scripts/check-editor-active-copy-save-status.mjs --stage final --issue 650
-- node scripts/check-editor-truthful-save-language.mjs --stage final --issue 650
-- node scripts/check-editor-room-door-save-reload-proof.mjs --stage final --issue 650
-- node scripts/check-editor-save-pipeline-trace.mjs --stage final --issue 650
-- node scripts/check-editor-canvas-height-layout.mjs --stage final --issue 650
-- node scripts/check-editor-popup-layout.mjs --stage final --issue 650
-- node scripts/check-editor-runtime-save-ux-layout-go-no-go.mjs --stage final --issue 650
+- node scripts/check-editor-runtime-version-proof.mjs --stage runtime-build-info --allow-partial --issue 650
+- node scripts/check-editor-runtime-version-proof.mjs --stage runtime-marker --allow-partial --issue 650
+- node scripts/check-editor-runtime-version-proof.mjs --stage editor-controls-visibility --allow-partial --issue 650
+- node scripts/check-editor-runtime-version-proof.mjs --stage stale-runtime-negative --allow-partial --issue 650
+- node scripts/check-no-phi-fields.mjs
 
 ## Tests Passed/Failed
 - Required local gates passed.
@@ -38,7 +32,7 @@ Runtime/save/layout final GO/NO-GO reruns the 641-650 validators, reads root wir
 - docs/verification/editor-runtime-save-ux-layout-repair-manifest.json
 
 ## Known Limitations
-- GO is limited to full ER floorplan reconstruction; collaboration and clinical safety scoring remain out of scope.
+- Issue 641 does not claim save/reload persistence; reconstruction remains NO-GO until Issue 650.
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass.

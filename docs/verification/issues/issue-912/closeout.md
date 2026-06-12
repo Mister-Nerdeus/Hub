@@ -6,6 +6,9 @@ Manual Comparison UI
 ## Code Review
 - Manual Comparison UI keeps manual comparison scoped to scenario identity and references.
 
+## Summary
+- Implemented as scoped for issue 912.
+
 ## Files Changed
 - apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx
 - apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx
@@ -36,3 +39,6 @@ Manual Comparison UI
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 913

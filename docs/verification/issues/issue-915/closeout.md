@@ -6,6 +6,9 @@ Manual Comparison No-Scoring Guard
 ## Code Review
 - Comparison source directories are guarded against advisory, ranking, and simulation language.
 
+## Summary
+- Implemented as scoped for issue 915.
+
 ## Files Changed
 - scripts/check-manual-comparison-no-scoring-guard.mjs
 - packages/shared/src/manual-comparison/
@@ -35,3 +38,6 @@ Manual Comparison No-Scoring Guard
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 916

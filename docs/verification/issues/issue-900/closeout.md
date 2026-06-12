@@ -6,6 +6,9 @@ Manual Scenario Reference Issue Classifier
 ## Code Review
 - Reference issue types are limited to missing, mismatched, and stale references.
 
+## Summary
+- Implemented as scoped for issue 900.
+
 ## Files Changed
 - packages/shared/src/scenario-review/manualScenarioReferenceIssueClassifier.ts
 - scripts/check-manual-scenario-reference-issue-classifier.mjs
@@ -34,3 +37,6 @@ Manual Scenario Reference Issue Classifier
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 901

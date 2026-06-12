@@ -6,6 +6,9 @@ Global Root Script Audit
 ## Code Review
 - Root script audit verifies all milestone commands are registered.
 
+## Summary
+- Implemented as scoped for issue 922.
+
 ## Files Changed
 - package.json
 - scripts/check-global-root-script-audit.mjs
@@ -34,3 +37,6 @@ Global Root Script Audit
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 923

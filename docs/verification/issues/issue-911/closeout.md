@@ -6,6 +6,9 @@ Manual Comparison Reference Matrix
 ## Code Review
 - Manual Comparison Reference Matrix keeps manual comparison scoped to scenario identity and references.
 
+## Summary
+- Implemented as scoped for issue 911.
+
 ## Files Changed
 - packages/shared/src/manual-comparison/manualComparisonReferenceMatrix.ts
 - scripts/check-manual-comparison-reference-matrix.mjs
@@ -34,3 +37,6 @@ Manual Comparison Reference Matrix
 
 ## Non-PHI Confirmation
 - Non-PHI rules still pass for this manual-only scenario foundation task.
+
+## Next Recommended Issue
+- Issue 912
