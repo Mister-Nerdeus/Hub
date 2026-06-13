@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "issue": "986",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/manual-comparison/manualComparisonReferenceMatrix.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/manual-comparison/manualComparisonReferenceMatrix.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/ManualComparisonMatrix.tsx"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "labelOnlyIdentityRejected": true,
+          "noScoreColumns": true,
+          "noRankColumns": true,
+          "noRecommendationColumns": true,
+          "noBetterWorseLanguage": true
+        },
+        "positiveCases": {
+          "scenarioIdIncluded": true,
+          "scenarioLabelIncluded": true,
+          "floorplanReferenceIncluded": true,
+          "assignmentReferenceIncluded": true,
+          "staffRosterReferenceIncluded": true,
+          "snapshotStatusIncluded": true,
+          "noteCountIncluded": true
+        },
+        "rows": [
+          {
+            "scenarioId": "manual-scenario:a",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 1
+          },
+          {
+            "scenarioId": "manual-scenario:b",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 2
+          }
+        ],
+        "comparisonMatrixIncludesScenarioId": true,
+        "comparisonMatrixDoesNotTreatLabelAsIdentity": true,
+        "comparisonMatrixContainsNoScores": true,
+        "comparisonMatrixContainsNoQualityRanking": true,
+        "comparisonMatrixReferenceStateOnly": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "labelOnlyIdentityRejected": true,
+          "noScoreColumns": true,
+          "noRankColumns": true,
+          "noRecommendationColumns": true,
+          "noBetterWorseLanguage": true
+        },
+        "positiveCases": {
+          "scenarioIdIncluded": true,
+          "scenarioLabelIncluded": true,
+          "floorplanReferenceIncluded": true,
+          "assignmentReferenceIncluded": true,
+          "staffRosterReferenceIncluded": true,
+          "snapshotStatusIncluded": true,
+          "noteCountIncluded": true
+        },
+        "rows": [
+          {
+            "scenarioId": "manual-scenario:a",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 1
+          },
+          {
+            "scenarioId": "manual-scenario:b",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 2
+          }
+        ],
+        "comparisonMatrixIncludesScenarioId": true,
+        "comparisonMatrixDoesNotTreatLabelAsIdentity": true,
+        "comparisonMatrixContainsNoScores": true,
+        "comparisonMatrixContainsNoQualityRanking": true,
+        "comparisonMatrixReferenceStateOnly": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "labelOnlyIdentityRejected": true,
+          "noScoreColumns": true,
+          "noRankColumns": true,
+          "noRecommendationColumns": true,
+          "noBetterWorseLanguage": true
+        },
+        "positiveCases": {
+          "scenarioIdIncluded": true,
+          "scenarioLabelIncluded": true,
+          "floorplanReferenceIncluded": true,
+          "assignmentReferenceIncluded": true,
+          "staffRosterReferenceIncluded": true,
+          "snapshotStatusIncluded": true,
+          "noteCountIncluded": true
+        },
+        "rows": [
+          {
+            "scenarioId": "manual-scenario:a",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 1
+          },
+          {
+            "scenarioId": "manual-scenario:b",
+            "scenarioLabel": "Repeated Label",
+            "floorplanId": "floorplan-a",
+            "staffRosterId": "staff-roster-a",
+            "assignmentSetId": "assignment-set-a",
+            "snapshotStatus": "missing",
+            "referenceIssues": "None",
+            "manualNotesCount": 2
+          }
+        ],
+        "comparisonMatrixIncludesScenarioId": true,
+        "comparisonMatrixDoesNotTreatLabelAsIdentity": true,
+        "comparisonMatrixContainsNoScores": true,
+        "comparisonMatrixContainsNoQualityRanking": true,
+        "comparisonMatrixReferenceStateOnly": true
+      }
+    }
+  ]
+}

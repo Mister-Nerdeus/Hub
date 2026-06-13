@@ -1,0 +1,98 @@
+{
+  "status": "passed",
+  "issue": "984",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateComparisonSetIds": true,
+          "duplicateScenarioIdsInsideSet": true,
+          "missingScenarioReference": true,
+          "unresolvedSelectedComparisonSetId": true,
+          "forbiddenScoreField": true,
+          "forbiddenRecommendationField": true,
+          "forbiddenSimulationField": true
+        },
+        "positiveCases": {
+          "oneValidSet": true,
+          "twoValidSets": true
+        },
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioReferencesRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonCollectionContainsNoScoring": true,
+        "comparisonCollectionContainsNoRecommendations": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateComparisonSetIds": true,
+          "duplicateScenarioIdsInsideSet": true,
+          "missingScenarioReference": true,
+          "unresolvedSelectedComparisonSetId": true,
+          "forbiddenScoreField": true,
+          "forbiddenRecommendationField": true,
+          "forbiddenSimulationField": true
+        },
+        "positiveCases": {
+          "oneValidSet": true,
+          "twoValidSets": true
+        },
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioReferencesRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonCollectionContainsNoScoring": true,
+        "comparisonCollectionContainsNoRecommendations": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateComparisonSetIds": true,
+          "duplicateScenarioIdsInsideSet": true,
+          "missingScenarioReference": true,
+          "unresolvedSelectedComparisonSetId": true,
+          "forbiddenScoreField": true,
+          "forbiddenRecommendationField": true,
+          "forbiddenSimulationField": true
+        },
+        "positiveCases": {
+          "oneValidSet": true,
+          "twoValidSets": true
+        },
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioReferencesRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonCollectionContainsNoScoring": true,
+        "comparisonCollectionContainsNoRecommendations": true
+      }
+    }
+  ]
+}

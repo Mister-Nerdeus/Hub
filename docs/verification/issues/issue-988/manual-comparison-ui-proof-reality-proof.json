@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "insufficientScenariosNotComplete": true,
+    "noScoreCopy": true,
+    "noRankCopy": true,
+    "noRecommendationCopy": true,
+    "noSimulationCopy": true,
+    "noBetterWorseQualityRiskCopy": true
+  },
+  "positiveCases": {
+    "proofAttributes": true,
+    "createControl": true,
+    "renameControl": true,
+    "selectControl": true,
+    "addRemoveControl": true,
+    "selectedLabelVisible": true
+  },
+  "comparisonPanelProofAttributesPresent": true,
+  "comparisonSetRenameUiSupported": true,
+  "comparisonScenarioAddRemoveUiSupported": true,
+  "comparisonUiHandlesInsufficientScenarios": true,
+  "comparisonUiContainsNoScoring": true
+}

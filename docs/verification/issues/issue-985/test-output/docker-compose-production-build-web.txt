@@ -1,0 +1,121 @@
+ Image hub-api-production Building
+ Image hub-web-production Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.04kB done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.production
+#2 transferring dockerfile: 1.04kB done
+#2 DONE 0.0s
+
+#3 [auth] library/nginx:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/node:22-alpine
+#4 DONE 0.2s
+
+#5 [internal] load metadata for docker.io/library/nginx:1.27-alpine
+#5 DONE 0.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 295B done
+#6 DONE 0.0s
+
+#7 [stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 resolve docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10 0.1s done
+#7 DONE 0.1s
+
+#8 [build  1/10] FROM docker.io/library/node:22-alpine@sha256:9385cd9f3001dfc3431e8ead12c43e9e1f87cc1b9b5c6cfd0f73865d405b27c4
+#8 resolve docker.io/library/node:22-alpine@sha256:9385cd9f3001dfc3431e8ead12c43e9e1f87cc1b9b5c6cfd0f73865d405b27c4 0.1s done
+#8 DONE 0.1s
+
+#9 [internal] load build context
+#9 transferring context: 190.97kB 0.1s done
+#9 DONE 0.1s
+
+#10 [build  4/10] COPY apps/web/package.json apps/web/package.json
+#10 CACHED
+
+#11 [build  2/10] WORKDIR /repo
+#11 CACHED
+
+#12 [build  3/10] COPY package.json package-lock.json ./
+#12 CACHED
+
+#13 [build  5/10] COPY packages/shared/package.json packages/shared/package.json
+#13 CACHED
+
+#14 [build  6/10] RUN npm ci
+#14 5.602
+#14 5.602 added 27 packages, and audited 30 packages in 5s
+#14 5.602
+#14 5.602 9 packages are looking for funding
+#14 5.602   run `npm fund` for details
+#14 5.602
+#14 5.602 found 0 vulnerabilities
+#14 5.603 npm notice
+#14 5.603 npm notice New major version of npm available! 10.9.8 -> 11.17.0
+#14 5.603 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.17.0
+#14 5.603 npm notice To update run: npm install -g npm@11.17.0
+#14 5.603 npm notice
+#14 DONE 6.0s
+
+#15 [build  7/10] COPY tsconfig.base.json ./
+#15 DONE 0.1s
+
+#16 [build  8/10] COPY apps/web apps/web
+#16 DONE 0.2s
+
+#17 [build  9/10] COPY packages/shared packages/shared
+#17 DONE 0.4s
+
+#18 [build 10/10] RUN npm --workspace apps/web run build
+#18 0.400
+#18 0.400 > @nerdeus/web@0.1.0 build
+#18 0.400 > npm --workspace @nerdeus/shared run build && tsc --noEmit -p tsconfig.json && vite build
+#18 0.400
+#18 0.552
+#18 0.552 > @nerdeus/shared@0.1.0 build
+#18 0.552 > tsc -p tsconfig.json
+#18 0.552
+#18 13.81 vite v8.0.14 building client environment for production...
+#18 13.83 [2K
+transforming...✓ 749 modules transformed.
+#18 14.37 rendering chunks...
+#18 14.51 computing gzip size...
+#18 14.52 dist/index.html                     0.40 kB │ gzip:   0.27 kB
+#18 14.52 dist/assets/index-Dj8wOJde.css    141.94 kB │ gzip:  20.15 kB
+#18 14.52 dist/assets/index-DIBmUPVj.js   1,405.03 kB │ gzip: 297.56 kB
+#18 14.52
+#18 14.52 ✓ built in 713ms
+#18 14.52 [plugin builtin:vite-reporter]
+#18 14.52 (!) Some chunks are larger than 500 kB after minification. Consider:
+#18 14.52 - Using dynamic import() to code-split the application
+#18 14.52 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+#18 14.52 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+#18 DONE 14.7s
+
+#7 [stage-1 1/3] FROM docker.io/library/nginx:1.27-alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#7 CACHED
+
+#19 [stage-1 2/3] COPY --from=build /repo/apps/web/dist /usr/share/nginx/html
+#19 DONE 0.1s
+
+#20 [stage-1 3/3] COPY apps/web/nginx.production.conf /etc/nginx/conf.d/default.conf
+#20 DONE 0.1s
+
+#21 exporting to image
+#21 exporting layers
+#21 exporting layers 0.3s done
+#21 exporting manifest sha256:0b6bbfce51b141e5fefd702fe18d15d1203c35edf95923c9670ba018c1e31568 0.0s done
+#21 exporting config sha256:84c21d55fac8de41174f72f620a3e63f2570d82ee11134a690fa8ddf8ef13e90 0.0s done
+#21 exporting attestation manifest sha256:d155426d579fa19f055829e6ecbc6da5726c4a7bb0fa31b2db4cb3bf8dcc7d09 0.1s done
+#21 exporting manifest list sha256:b62bd20306b1cf4e45a1c75f3c0c3d7d3a9620c40c907ebe02535c73c1bbe25a
+#21 exporting manifest list sha256:b62bd20306b1cf4e45a1c75f3c0c3d7d3a9620c40c907ebe02535c73c1bbe25a 0.0s done
+#21 naming to docker.io/library/hub-web-production:latest done
+#21 unpacking to docker.io/library/hub-web-production:latest 0.1s done
+#21 DONE 0.6s
+
+#22 resolving provenance for metadata file
+#22 DONE 0.0s
+ Image hub-web-production Built

@@ -1,0 +1,167 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "comparisonBrowserProofLaunchesRealApp": true,
+  "comparisonBrowserProofCoversCreateRenameAddRemoveReload": true,
+  "comparisonBrowserProofRejectsSyntheticOnlyEvidence": true,
+  "comparisonBrowserProofContainsNoScoring": true,
+  "comparisonBrowserProofContainsNoRecommendations": true,
+  "screenshotProof": {
+    "status": "passed",
+    "findings": []
+  },
+  "trace": {
+    "status": "passed",
+    "proofType": "real_browser_interaction",
+    "launchedRealApp": true,
+    "baseUrl": "http://127.0.0.1:5199",
+    "userLikeInteractionSteps": [
+      "navigate manual comparison panel",
+      "click create comparison set",
+      "type rename into input",
+      "click scenario checkbox add",
+      "click scenario checkbox remove",
+      "click scenario checkbox re-add",
+      "click save",
+      "reload app",
+      "verify localStorage-backed state"
+    ],
+    "passed": true,
+    "beforeCreate": {
+      "storage": null,
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveCreate a comparison set after manual scenarios exist.\n    \n  \n\n"
+    },
+    "afterCreate": {
+      "storage": null,
+      "selectedLabel": "Manual Comparison 1",
+      "renameValue": "Manual Comparison 1",
+      "checkedScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "rowScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c",
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveComparison setManual Comparison 1Set labelManual Comparison 1Browser Scenario ABrowser Scenario BBrowser Scenario CScenario IDScenarioFloorplanStaff rosterAssignment setSnapshotReference issuesManual notes countmanual-scenario:browser-aBrowser Scenario Afloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-bBrowser Scenario Bfloorplan-astaff-roster-aassignment-set-amissing10\n    \n  \n\n"
+    },
+    "afterRename": {
+      "storage": null,
+      "selectedLabel": "Browser identity review",
+      "renameValue": "Browser identity review",
+      "checkedScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "rowScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c",
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveComparison setBrowser identity reviewSet labelBrowser identity reviewBrowser Scenario ABrowser Scenario BBrowser Scenario CScenario IDScenarioFloorplanStaff rosterAssignment setSnapshotReference issuesManual notes countmanual-scenario:browser-aBrowser Scenario Afloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-bBrowser Scenario Bfloorplan-astaff-roster-aassignment-set-amissing10\n    \n  \n\n"
+    },
+    "afterAdd": {
+      "storage": null,
+      "selectedLabel": "Browser identity review",
+      "renameValue": "Browser identity review",
+      "checkedScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c"
+      ],
+      "rowScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c",
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c"
+      ],
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveComparison setBrowser identity reviewSet labelBrowser identity reviewBrowser Scenario ABrowser Scenario BBrowser Scenario CScenario IDScenarioFloorplanStaff rosterAssignment setSnapshotReference issuesManual notes countmanual-scenario:browser-aBrowser Scenario Afloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-bBrowser Scenario Bfloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-cBrowser Scenario Cfloorplan-astaff-roster-aassignment-set-amissing10\n    \n  \n\n"
+    },
+    "afterRemove": {
+      "storage": null,
+      "selectedLabel": "Browser identity review",
+      "renameValue": "Browser identity review",
+      "checkedScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "rowScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c",
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b"
+      ],
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveComparison setBrowser identity reviewSet labelBrowser identity reviewBrowser Scenario ABrowser Scenario BBrowser Scenario CScenario IDScenarioFloorplanStaff rosterAssignment setSnapshotReference issuesManual notes countmanual-scenario:browser-aBrowser Scenario Afloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-bBrowser Scenario Bfloorplan-astaff-roster-aassignment-set-amissing10\n    \n  \n\n"
+    },
+    "afterReadd": {
+      "storage": null,
+      "selectedLabel": "Browser identity review",
+      "renameValue": "Browser identity review",
+      "checkedScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c"
+      ],
+      "rowScenarioIds": [
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c",
+        "manual-scenario:browser-a",
+        "manual-scenario:browser-b",
+        "manual-scenario:browser-c"
+      ],
+      "bodyText": "\n    FFloorplanAAssignmentsSScenarioRReviewCComparisonRReadinessMSimulationRReport?HelpEVAdvanced/EvidenceEFloorplan EditorMAManual AssignmentEVAdvanced/EvidenceRReview CandidatesSSettingsShift workflowER Pod Shift SimulatorOperational floorplan setup for synthetic shift review.Lock WorkspaceUsing floorplan: ER Pod Main Layout - Ready for assignment - Version 1ChangeEdit1Floorplan2Assignments3ScenarioGated4SimulationGated5ReportGatedManual review requiredPromotion blockedSynthetic operational modeling onlyfuture tools remain deferred under advanced workflow paths.Developer/Evidence remains accessible as an advanced workflow destination.ER Pod Shift SimulatorManual ComparisonManual ComparisonSide-by-side identity and reference comparison only.Create comparison setSaveComparison setBrowser identity reviewSet labelBrowser identity reviewBrowser Scenario ABrowser Scenario BBrowser Scenario CScenario IDScenarioFloorplanStaff rosterAssignment setSnapshotReference issuesManual notes countmanual-scenario:browser-aBrowser Scenario Afloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-bBrowser Scenario Bfloorplan-astaff-roster-aassignment-set-amissing10manual-scenario:browser-cBrowser Scenario Cfloorplan-astaff-roster-aassignment-set-amissing10\n    \n  \n\n"
+    },
+    "afterSave": {
+      "schemaVersion": "1.0.0",
+      "comparisonSets": [
+        {
+          "comparisonSetId": "manual-comparison-set:created-1",
+          "label": "Browser identity review",
+          "scenarioIds": [
+            "manual-scenario:browser-a",
+            "manual-scenario:browser-b",
+            "manual-scenario:browser-c"
+          ],
+          "createdAtIso": "2026-06-13T00:33:59.549Z",
+          "updatedAtIso": "2026-06-13T00:33:59.708Z",
+          "mode": "manual_comparison"
+        }
+      ],
+      "selectedComparisonSetId": "manual-comparison-set:created-1"
+    },
+    "browserBodyContainsNoBlockedClaims": true,
+    "afterReload": {
+      "passedAfterReload": true,
+      "payload": {
+        "schemaVersion": "1.0.0",
+        "comparisonSets": [
+          {
+            "comparisonSetId": "manual-comparison-set:created-1",
+            "label": "Browser identity review",
+            "scenarioIds": [
+              "manual-scenario:browser-a",
+              "manual-scenario:browser-b",
+              "manual-scenario:browser-c"
+            ],
+            "createdAtIso": "2026-06-13T00:33:59.549Z",
+            "updatedAtIso": "2026-06-13T00:33:59.708Z",
+            "mode": "manual_comparison"
+          }
+        ],
+        "selectedComparisonSetId": "manual-comparison-set:created-1"
+      },
+      "browserBodyContainsNoBlockedClaimsAfterReload": true
+    },
+    "serverLog": "\n> @nerdeus/web@0.1.0 dev\n> vite --host 0.0.0.0 --host 127.0.0.1 --port 5199\n\n\n  \u001b[32m\u001b[1mVITE\u001b[22m v8.0.14\u001b[39m  \u001b[2mready in \u001b[0m\u001b[1m226\u001b[22m\u001b[2m\u001b[0m ms\u001b[22m\n\n  \u001b[32m➜\u001b[39m  \u001b[1mLocal\u001b[22m:   \u001b[36mhttp://127.0.0.1:\u001b[1m5199\u001b[22m/\u001b[39m\n"
+  }
+}

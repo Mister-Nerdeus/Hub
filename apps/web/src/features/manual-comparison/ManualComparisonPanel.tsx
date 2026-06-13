@@ -5,6 +5,7 @@ import {
   type ManualScenarioSnapshotContract
 } from "@nerdeus/shared";
 import type { ManualScenarioReviewNote } from "../manual-scenario-review/manualScenarioReviewNotesContract";
+import { ManualComparisonControls } from "./ManualComparisonControls";
 import { ManualComparisonMatrix } from "./ManualComparisonMatrix";
 import {
   createManualComparisonSet,
@@ -48,69 +49,58 @@ export function ManualComparisonPanel({
     summaries,
     notesByScenarioId
   });
-  const renameDraft = selectedSet?.label ?? "";
+  const canCreateComparisonSet = scenarios.length >= 2;
 
   return (
-    <section className="manual-comparison-panel" data-manual-comparison-panel="true">
+    <section
+      className="manual-comparison-panel"
+      data-manual-comparison-panel="true"
+      data-comparison-scope="manual_identity_reference_only"
+      data-comparison-scoring-blocked="true"
+      data-comparison-simulation-blocked="true"
+      data-comparison-recommendations-blocked="true"
+      data-comparison-clinical-claims-blocked="true"
+    >
       <header className="manual-comparison-panel__header">
         <div>
           <h3>Manual Comparison</h3>
           <p>Side-by-side identity and reference comparison only.</p>
         </div>
-        <div className="manual-comparison-panel__actions">
-          <button
-            type="button"
-            data-manual-comparison-create="true"
-            onClick={() => onStateChange(createManualComparisonSet({
+        <ManualComparisonControls
+          comparisonSets={state.comparisonSets}
+          selectedComparisonSet={selectedSet}
+          selectedComparisonSetId={state.selectedComparisonSetId}
+          canCreateComparisonSet={canCreateComparisonSet}
+          onCreateComparisonSet={() => onStateChange(createManualComparisonSet({
               state,
               scenarioIds: scenarios.slice(0, 2).map((scenario) => scenario.scenarioId)
-            }))}
-          >
-            Create comparison set
-          </button>
-          <button type="button" onClick={onSave}>Save</button>
-        </div>
+          }))}
+          onSelectComparisonSet={(comparisonSetId) => onStateChange(selectManualComparisonSet({
+            state,
+            comparisonSetId
+          }))}
+          onRenameComparisonSet={(label) => {
+            if (selectedSet == null) return;
+            onStateChange(renameManualComparisonSet({
+              state,
+              comparisonSetId: selectedSet.comparisonSetId,
+              label
+            }));
+          }}
+          onSave={onSave}
+        />
       </header>
-      {state.comparisonSets.length === 0 ? null : (
-        <div className="manual-comparison-panel__set-controls">
-          <label>
-            <span>Comparison set</span>
-            <select
-              value={state.selectedComparisonSetId ?? ""}
-              data-manual-comparison-select="true"
-              onChange={(event) => onStateChange(selectManualComparisonSet({
-                state,
-                comparisonSetId: event.target.value.length === 0 ? null : event.target.value
-              }))}
-            >
-              {state.comparisonSets.map((set) => (
-                <option key={set.comparisonSetId} value={set.comparisonSetId}>{set.label}</option>
-              ))}
-            </select>
-          </label>
-          {selectedSet == null ? null : (
-            <label>
-              <span>Set label</span>
-              <input
-                value={renameDraft}
-                data-manual-comparison-rename="true"
-                onChange={(event) => {
-                  if (event.target.value.trim().length === 0) return;
-                  onStateChange(renameManualComparisonSet({
-                    state,
-                    comparisonSetId: selectedSet.comparisonSetId,
-                    label: event.target.value
-                  }));
-                }}
-              />
-            </label>
-          )}
-        </div>
-      )}
       {selectedSet == null ? (
-        <p className="manual-comparison-panel__empty">Create a comparison set after manual scenarios exist.</p>
+        <p className="manual-comparison-panel__empty">
+          {canCreateComparisonSet
+            ? "Create a comparison set after manual scenarios exist."
+            : "Manual comparison needs at least two manual scenarios for a set."}
+        </p>
       ) : (
         <>
+          <p className="manual-comparison-panel__selected" data-manual-comparison-selected-label="true">
+            {selectedSet.label}
+          </p>
           <div className="manual-comparison-panel__scenario-picker">
             {scenarios.map((scenario) => (
               <label key={scenario.scenarioId}>
@@ -118,6 +108,7 @@ export function ManualComparisonPanel({
                   type="checkbox"
                   checked={selectedSet.scenarioIds.includes(scenario.scenarioId)}
                   data-manual-comparison-scenario-toggle="true"
+                  data-manual-comparison-scenario-id={scenario.scenarioId}
                   onChange={() => onStateChange(toggleManualComparisonScenario({
                     state,
                     comparisonSetId: selectedSet.comparisonSetId,

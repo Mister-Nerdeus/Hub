@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "labelOnlyIdentityRejected": true,
+    "noScoreColumns": true,
+    "noRankColumns": true,
+    "noRecommendationColumns": true,
+    "noBetterWorseLanguage": true
+  },
+  "positiveCases": {
+    "scenarioIdIncluded": true,
+    "scenarioLabelIncluded": true,
+    "floorplanReferenceIncluded": true,
+    "assignmentReferenceIncluded": true,
+    "staffRosterReferenceIncluded": true,
+    "snapshotStatusIncluded": true,
+    "noteCountIncluded": true
+  },
+  "rows": [
+    {
+      "scenarioId": "manual-scenario:a",
+      "scenarioLabel": "Repeated Label",
+      "floorplanId": "floorplan-a",
+      "staffRosterId": "staff-roster-a",
+      "assignmentSetId": "assignment-set-a",
+      "snapshotStatus": "missing",
+      "referenceIssues": "None",
+      "manualNotesCount": 1
+    },
+    {
+      "scenarioId": "manual-scenario:b",
+      "scenarioLabel": "Repeated Label",
+      "floorplanId": "floorplan-a",
+      "staffRosterId": "staff-roster-a",
+      "assignmentSetId": "assignment-set-a",
+      "snapshotStatus": "missing",
+      "referenceIssues": "None",
+      "manualNotesCount": 2
+    }
+  ],
+  "comparisonMatrixIncludesScenarioId": true,
+  "comparisonMatrixDoesNotTreatLabelAsIdentity": true,
+  "comparisonMatrixContainsNoScores": true,
+  "comparisonMatrixContainsNoQualityRanking": true,
+  "comparisonMatrixReferenceStateOnly": true
+}

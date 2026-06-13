@@ -1,0 +1,111 @@
+{
+  "status": "passed",
+  "issue": "985",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-comparison/manualComparisonState.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/manualComparisonState.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/__tests__/manualComparisonState.test.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/__tests__/manualComparisonState.test.ts"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioAdd": true,
+          "missingSelectedComparisonSet": true,
+          "renameToOverclaimingLabel": true,
+          "stateContainingScoreField": true,
+          "stateContainingRecommendationField": true,
+          "stateContainingSimulationField": true
+        },
+        "positiveCases": {
+          "createComparisonSet": true,
+          "renameComparisonSet": true,
+          "selectComparisonSet": true,
+          "addScenario": true,
+          "removeScenario": true,
+          "collisionSafeId": true
+        },
+        "comparisonSetRenameSupported": true,
+        "comparisonSetIdCollisionAvoided": true,
+        "comparisonSetScenarioAddRemoveSupported": true,
+        "selectedComparisonSetResolutionValidated": true,
+        "comparisonStateContainsNoScoring": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioAdd": true,
+          "missingSelectedComparisonSet": true,
+          "renameToOverclaimingLabel": true,
+          "stateContainingScoreField": true,
+          "stateContainingRecommendationField": true,
+          "stateContainingSimulationField": true
+        },
+        "positiveCases": {
+          "createComparisonSet": true,
+          "renameComparisonSet": true,
+          "selectComparisonSet": true,
+          "addScenario": true,
+          "removeScenario": true,
+          "collisionSafeId": true
+        },
+        "comparisonSetRenameSupported": true,
+        "comparisonSetIdCollisionAvoided": true,
+        "comparisonSetScenarioAddRemoveSupported": true,
+        "selectedComparisonSetResolutionValidated": true,
+        "comparisonStateContainsNoScoring": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioAdd": true,
+          "missingSelectedComparisonSet": true,
+          "renameToOverclaimingLabel": true,
+          "stateContainingScoreField": true,
+          "stateContainingRecommendationField": true,
+          "stateContainingSimulationField": true
+        },
+        "positiveCases": {
+          "createComparisonSet": true,
+          "renameComparisonSet": true,
+          "selectComparisonSet": true,
+          "addScenario": true,
+          "removeScenario": true,
+          "collisionSafeId": true
+        },
+        "comparisonSetRenameSupported": true,
+        "comparisonSetIdCollisionAvoided": true,
+        "comparisonSetScenarioAddRemoveSupported": true,
+        "selectedComparisonSetResolutionValidated": true,
+        "comparisonStateContainsNoScoring": true
+      }
+    }
+  ]
+}

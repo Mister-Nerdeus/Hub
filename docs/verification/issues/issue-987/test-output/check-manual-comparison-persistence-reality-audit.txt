@@ -1,0 +1,115 @@
+{
+  "status": "passed",
+  "issue": "987",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-comparison/manualComparisonStorage.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/manualComparisonStorage.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/manualComparisonPersistence.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/manualComparisonPersistence.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/__tests__/manualComparisonStorage.test.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/__tests__/manualComparisonStorage.test.ts"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "invalidSchemaRejected": true,
+          "duplicateSetIdsRejected": true,
+          "duplicateScenarioIdsRejected": true,
+          "unresolvedSelectedRejected": true,
+          "forbiddenScoreRejected": true,
+          "invalidPayloadCleared": true
+        },
+        "positiveCases": {
+          "approvedStorageKey": true,
+          "versionedPayloadType": true,
+          "validatesEveryComparisonSet": true,
+          "payloadFactoryPreservesState": true
+        },
+        "comparisonPersistenceUsesVersionedPayload": true,
+        "invalidComparisonPayloadsRejected": true,
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateScenarioIdsRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonStorageContainsNoScoring": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "invalidSchemaRejected": true,
+          "duplicateSetIdsRejected": true,
+          "duplicateScenarioIdsRejected": true,
+          "unresolvedSelectedRejected": true,
+          "forbiddenScoreRejected": true,
+          "invalidPayloadCleared": true
+        },
+        "positiveCases": {
+          "approvedStorageKey": true,
+          "versionedPayloadType": true,
+          "validatesEveryComparisonSet": true,
+          "payloadFactoryPreservesState": true
+        },
+        "comparisonPersistenceUsesVersionedPayload": true,
+        "invalidComparisonPayloadsRejected": true,
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateScenarioIdsRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonStorageContainsNoScoring": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "invalidSchemaRejected": true,
+          "duplicateSetIdsRejected": true,
+          "duplicateScenarioIdsRejected": true,
+          "unresolvedSelectedRejected": true,
+          "forbiddenScoreRejected": true,
+          "invalidPayloadCleared": true
+        },
+        "positiveCases": {
+          "approvedStorageKey": true,
+          "versionedPayloadType": true,
+          "validatesEveryComparisonSet": true,
+          "payloadFactoryPreservesState": true
+        },
+        "comparisonPersistenceUsesVersionedPayload": true,
+        "invalidComparisonPayloadsRejected": true,
+        "duplicateComparisonSetIdsRejected": true,
+        "duplicateScenarioIdsRejected": true,
+        "unresolvedSelectedComparisonSetRejected": true,
+        "comparisonStorageContainsNoScoring": true
+      }
+    }
+  ]
+}

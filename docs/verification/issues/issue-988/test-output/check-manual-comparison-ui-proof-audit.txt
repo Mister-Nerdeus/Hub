@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "issue": "988",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/ManualComparisonPanel.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparisonControls.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/ManualComparisonControls.tsx"
+      }
+    },
+    {
+      "name": "apps/web/src/features/manual-comparison/ManualComparison.css exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/manual-comparison/ManualComparison.css"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "insufficientScenariosNotComplete": true,
+          "noScoreCopy": true,
+          "noRankCopy": true,
+          "noRecommendationCopy": true,
+          "noSimulationCopy": true,
+          "noBetterWorseQualityRiskCopy": true
+        },
+        "positiveCases": {
+          "proofAttributes": true,
+          "createControl": true,
+          "renameControl": true,
+          "selectControl": true,
+          "addRemoveControl": true,
+          "selectedLabelVisible": true
+        },
+        "comparisonPanelProofAttributesPresent": true,
+        "comparisonSetRenameUiSupported": true,
+        "comparisonScenarioAddRemoveUiSupported": true,
+        "comparisonUiHandlesInsufficientScenarios": true,
+        "comparisonUiContainsNoScoring": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "insufficientScenariosNotComplete": true,
+          "noScoreCopy": true,
+          "noRankCopy": true,
+          "noRecommendationCopy": true,
+          "noSimulationCopy": true,
+          "noBetterWorseQualityRiskCopy": true
+        },
+        "positiveCases": {
+          "proofAttributes": true,
+          "createControl": true,
+          "renameControl": true,
+          "selectControl": true,
+          "addRemoveControl": true,
+          "selectedLabelVisible": true
+        },
+        "comparisonPanelProofAttributesPresent": true,
+        "comparisonSetRenameUiSupported": true,
+        "comparisonScenarioAddRemoveUiSupported": true,
+        "comparisonUiHandlesInsufficientScenarios": true,
+        "comparisonUiContainsNoScoring": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "insufficientScenariosNotComplete": true,
+          "noScoreCopy": true,
+          "noRankCopy": true,
+          "noRecommendationCopy": true,
+          "noSimulationCopy": true,
+          "noBetterWorseQualityRiskCopy": true
+        },
+        "positiveCases": {
+          "proofAttributes": true,
+          "createControl": true,
+          "renameControl": true,
+          "selectControl": true,
+          "addRemoveControl": true,
+          "selectedLabelVisible": true
+        },
+        "comparisonPanelProofAttributesPresent": true,
+        "comparisonSetRenameUiSupported": true,
+        "comparisonScenarioAddRemoveUiSupported": true,
+        "comparisonUiHandlesInsufficientScenarios": true,
+        "comparisonUiContainsNoScoring": true
+      }
+    }
+  ]
+}

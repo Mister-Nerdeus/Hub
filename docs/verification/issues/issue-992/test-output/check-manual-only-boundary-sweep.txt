@@ -1,0 +1,52 @@
+{
+  "status": "passed",
+  "issue": "992",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "findings": [],
+        "sourceContainsNoForbiddenClaims": true,
+        "docsContainNoForbiddenClaims": true,
+        "evidenceContainsNoForbiddenClaims": true,
+        "browserProofContainsNoForbiddenClaims": true,
+        "manualOnlyBoundaryPreserved": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "findings": [],
+        "sourceContainsNoForbiddenClaims": true,
+        "docsContainNoForbiddenClaims": true,
+        "evidenceContainsNoForbiddenClaims": true,
+        "browserProofContainsNoForbiddenClaims": true,
+        "manualOnlyBoundaryPreserved": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "findings": [],
+        "sourceContainsNoForbiddenClaims": true,
+        "docsContainNoForbiddenClaims": true,
+        "evidenceContainsNoForbiddenClaims": true,
+        "browserProofContainsNoForbiddenClaims": true,
+        "manualOnlyBoundaryPreserved": true
+      }
+    }
+  ]
+}

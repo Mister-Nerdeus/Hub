@@ -18,6 +18,7 @@ export function createManualComparisonSet(input: {
   scenarioIds: readonly string[];
   createdAtIso?: string;
 }): ManualComparisonState {
+  if (input.scenarioIds.length < 2) return input.state;
   const nowIso = input.createdAtIso ?? new Date().toISOString();
   const comparisonSetId = nextManualComparisonSetId(input.state);
   const comparisonSet = validateManualComparisonSetContract({
@@ -91,9 +92,11 @@ export function removeManualComparisonScenario(input: {
     ...input.state,
     comparisonSets: input.state.comparisonSets.map((set) => {
       if (set.comparisonSetId !== input.comparisonSetId) return set;
+      const scenarioIds = set.scenarioIds.filter((scenarioId) => scenarioId !== input.scenarioId);
+      if (scenarioIds.length < 2) return set;
       return validateManualComparisonSetContract({
         ...set,
-        scenarioIds: set.scenarioIds.filter((scenarioId) => scenarioId !== input.scenarioId),
+        scenarioIds,
         updatedAtIso
       });
     })

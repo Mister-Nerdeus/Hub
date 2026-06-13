@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "clinicalReadinessBlocked": true,
+    "operationalReadinessBlocked": true,
+    "goLiveReadinessBlocked": true,
+    "simulationBlocked": true,
+    "scoringBlocked": true,
+    "recommendationsBlocked": true,
+    "noDeploymentClaims": true
+  },
+  "positiveCases": {
+    "projectReadinessOnly": true,
+    "proofAttributesPresent": true
+  },
+  "projectReadinessOnly": true,
+  "clinicalReadinessClaimsBlocked": true,
+  "operationalReadinessClaimsBlocked": true,
+  "goLiveReadinessClaimsBlocked": true,
+  "simulationStillBlocked": true,
+  "scoringStillBlocked": true,
+  "recommendationsStillBlocked": true
+}

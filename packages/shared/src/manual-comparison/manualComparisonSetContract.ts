@@ -1,4 +1,5 @@
 import { validateOperationalRuntimeText } from "../no-phi/runtimeTextGuard.js";
+import { validateAssignmentLabelNoOverclaim } from "../assignments/assignmentLabelNoOverclaim.js";
 
 export type ManualComparisonSetContract = {
   comparisonSetId: string;
@@ -26,7 +27,7 @@ export function validateManualComparisonSetContract(value: unknown): ManualCompa
   if (set.mode !== "manual_comparison") {
     throw new Error("manualComparisonSet.mode must be manual_comparison");
   }
-  const scenarioIds = requireUniqueStringArray(set.scenarioIds, "manualComparisonSet.scenarioIds");
+  const scenarioIds = requireScenarioIdArray(set.scenarioIds, "manualComparisonSet.scenarioIds");
   const comparisonSetId = requireString(set.comparisonSetId, "manualComparisonSet.comparisonSetId");
   if (!comparisonSetId.startsWith("manual-comparison-set:")) {
     throw new Error("manualComparisonSet.comparisonSetId must use manual-comparison-set prefix");
@@ -93,11 +94,17 @@ function requireString(value: unknown, label: string): string {
   return value.trim();
 }
 
-function requireUniqueStringArray(value: unknown, label: string): string[] {
+function requireScenarioIdArray(value: unknown, label: string): string[] {
   if (!Array.isArray(value)) throw new Error(`${label} must be an array`);
   const items = value.map((entry, index) => requireString(entry, `${label}[${index}]`));
+  if (items.length < 2) throw new Error(`${label} must include at least two manual scenarios`);
   const unique = new Set(items);
   if (unique.size !== items.length) throw new Error(`${label} must not contain duplicate entries`);
+  for (const item of items) {
+    if (!item.startsWith("manual-scenario:")) {
+      throw new Error(`${label} entries must use manual-scenario prefix`);
+    }
+  }
   return items;
 }
 
@@ -112,15 +119,26 @@ function requireIso(value: unknown, label: string): string {
 function requireAllowedLabel(value: unknown, label: string): string {
   const text = requireString(value, label);
   validateOperationalRuntimeText(text, label);
+  validateAssignmentLabelNoOverclaim(text, label);
   const forbidden = [
     /\bscore\b/i,
     /\brank(?:ed|ing)?\b/i,
     /\brecommend(?:ed|ation|ations)?\b/i,
     /\bsimulation\b/i,
+    /\bbetter\b/i,
+    /\bworse\b/i,
+    /\boptimal\b/i,
+    /\boptimized\b/i,
+    /\bsafe\b/i,
+    /\bunsafe\b/i,
     /\bquality\b/i,
     /\bsafety\b/i,
     /\bcompliance\b/i,
-    /\boutcome\b/i
+    /\boutcome\b/i,
+    /\bclinical\b/i,
+    /\bstaffing\b/i,
+    /\bgo-live\b/i,
+    /\boperational(?:ly)?\s+ready\b/i
   ];
   if (forbidden.some((pattern) => pattern.test(text))) {
     throw new Error(`${label} contains blocked comparison language`);

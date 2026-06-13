@@ -442,7 +442,19 @@
     "check:manual-scenario-review-manifest-consistency-repair": "node scripts/check-manual-scenario-review-manifest-consistency-repair.mjs --stage final --issue 978",
     "check:manual-scenario-review-retired-note-id-durability": "node scripts/check-manual-scenario-review-retired-note-id-durability.mjs --stage final --issue 979",
     "check:manual-scenario-review-note-overclaim-pattern-expansion": "node scripts/check-manual-scenario-review-note-overclaim-pattern-expansion.mjs --stage final --issue 980",
-    "check:manual-scenario-review-repair-final-closeout": "node scripts/check-manual-scenario-review-repair-final-closeout.mjs --stage final --issue 981"
+    "check:manual-scenario-review-repair-final-closeout": "node scripts/check-manual-scenario-review-repair-final-closeout.mjs --stage final --issue 981",
+    "check:manual-comparison-reality-preflight": "node scripts/check-manual-comparison-reality-preflight.mjs --stage final --issue 982",
+    "check:manual-comparison-contract-reality-audit": "node scripts/check-manual-comparison-contract-reality-audit.mjs --stage final --issue 983",
+    "check:manual-comparison-collection-reality-audit": "node scripts/check-manual-comparison-collection-reality-audit.mjs --stage final --issue 984",
+    "check:manual-comparison-state-id-durability-audit": "node scripts/check-manual-comparison-state-id-durability-audit.mjs --stage final --issue 985",
+    "check:manual-comparison-matrix-identity-audit": "node scripts/check-manual-comparison-matrix-identity-audit.mjs --stage final --issue 986",
+    "check:manual-comparison-persistence-reality-audit": "node scripts/check-manual-comparison-persistence-reality-audit.mjs --stage final --issue 987",
+    "check:manual-comparison-ui-proof-audit": "node scripts/check-manual-comparison-ui-proof-audit.mjs --stage final --issue 988",
+    "check:manual-comparison-browser-proof-reality-audit": "node scripts/check-manual-comparison-browser-proof-reality-audit.mjs --stage final --issue 989",
+    "check:readiness-dashboard-claims-reality-audit": "node scripts/check-readiness-dashboard-claims-reality-audit.mjs --stage final --issue 990",
+    "check:global-repair-manifest-honesty-audit": "node scripts/check-global-repair-manifest-honesty-audit.mjs --stage final --issue 991",
+    "check:manual-only-boundary-sweep": "node scripts/check-manual-only-boundary-sweep.mjs --stage final --issue 992",
+    "check:comparison-readiness-global-audit-recloseout": "node scripts/check-comparison-readiness-global-audit-recloseout.mjs --stage final --issue 993"
   },
   "engines": {
     "node": ">=22"

@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "issue": "983",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/manual-comparison/manualComparisonSetContract.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/manual-comparison/manualComparisonSetContract.ts"
+      }
+    },
+    {
+      "name": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/manual-comparison/manualComparisonCollectionValidation.ts"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioIds": true,
+          "missingComparisonSetId": true,
+          "invalidComparisonSetIdPrefix": true,
+          "emptyScenarioIds": true,
+          "oneScenarioOnly": true,
+          "unresolvedScenarioIds": true,
+          "labelWithSafeAssignmentClaim": true,
+          "labelWithUnsafeAssignmentClaim": true,
+          "labelWithBetterScenarioClaim": true,
+          "labelWithWorseScenarioClaim": true,
+          "labelWithOptimizedStaffingClaim": true,
+          "scoreField": true,
+          "rankField": true,
+          "recommendationField": true,
+          "simulationField": true,
+          "clinicalClaimField": true,
+          "staffingComplianceField": true,
+          "patientOutcomeField": true,
+          "goLiveReadinessField": true
+        },
+        "positiveCases": {
+          "manualComparisonSetLabel": true,
+          "referenceReviewSetLabel": true,
+          "scenarioIdentityReviewLabel": true,
+          "twoValidScenarioIds": true,
+          "threeValidScenarioIds": true
+        },
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioIdsRejected": true,
+        "comparisonLabelsNoOverclaimGuarded": true,
+        "comparisonContractsContainNoScoring": true,
+        "comparisonContractsContainNoRecommendations": true,
+        "comparisonContractsContainNoSimulation": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioIds": true,
+          "missingComparisonSetId": true,
+          "invalidComparisonSetIdPrefix": true,
+          "emptyScenarioIds": true,
+          "oneScenarioOnly": true,
+          "unresolvedScenarioIds": true,
+          "labelWithSafeAssignmentClaim": true,
+          "labelWithUnsafeAssignmentClaim": true,
+          "labelWithBetterScenarioClaim": true,
+          "labelWithWorseScenarioClaim": true,
+          "labelWithOptimizedStaffingClaim": true,
+          "scoreField": true,
+          "rankField": true,
+          "recommendationField": true,
+          "simulationField": true,
+          "clinicalClaimField": true,
+          "staffingComplianceField": true,
+          "patientOutcomeField": true,
+          "goLiveReadinessField": true
+        },
+        "positiveCases": {
+          "manualComparisonSetLabel": true,
+          "referenceReviewSetLabel": true,
+          "scenarioIdentityReviewLabel": true,
+          "twoValidScenarioIds": true,
+          "threeValidScenarioIds": true
+        },
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioIdsRejected": true,
+        "comparisonLabelsNoOverclaimGuarded": true,
+        "comparisonContractsContainNoScoring": true,
+        "comparisonContractsContainNoRecommendations": true,
+        "comparisonContractsContainNoSimulation": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "duplicateScenarioIds": true,
+          "missingComparisonSetId": true,
+          "invalidComparisonSetIdPrefix": true,
+          "emptyScenarioIds": true,
+          "oneScenarioOnly": true,
+          "unresolvedScenarioIds": true,
+          "labelWithSafeAssignmentClaim": true,
+          "labelWithUnsafeAssignmentClaim": true,
+          "labelWithBetterScenarioClaim": true,
+          "labelWithWorseScenarioClaim": true,
+          "labelWithOptimizedStaffingClaim": true,
+          "scoreField": true,
+          "rankField": true,
+          "recommendationField": true,
+          "simulationField": true,
+          "clinicalClaimField": true,
+          "staffingComplianceField": true,
+          "patientOutcomeField": true,
+          "goLiveReadinessField": true
+        },
+        "positiveCases": {
+          "manualComparisonSetLabel": true,
+          "referenceReviewSetLabel": true,
+          "scenarioIdentityReviewLabel": true,
+          "twoValidScenarioIds": true,
+          "threeValidScenarioIds": true
+        },
+        "duplicateComparisonScenarioIdsRejected": true,
+        "unresolvedComparisonScenarioIdsRejected": true,
+        "comparisonLabelsNoOverclaimGuarded": true,
+        "comparisonContractsContainNoScoring": true,
+        "comparisonContractsContainNoRecommendations": true,
+        "comparisonContractsContainNoSimulation": true
+      }
+    }
+  ]
+}

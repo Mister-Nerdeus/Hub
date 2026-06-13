@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "invalidSchemaRejected": true,
+    "duplicateSetIdsRejected": true,
+    "duplicateScenarioIdsRejected": true,
+    "unresolvedSelectedRejected": true,
+    "forbiddenScoreRejected": true,
+    "invalidPayloadCleared": true
+  },
+  "positiveCases": {
+    "approvedStorageKey": true,
+    "versionedPayloadType": true,
+    "validatesEveryComparisonSet": true,
+    "payloadFactoryPreservesState": true
+  },
+  "comparisonPersistenceUsesVersionedPayload": true,
+  "invalidComparisonPayloadsRejected": true,
+  "duplicateComparisonSetIdsRejected": true,
+  "duplicateScenarioIdsRejected": true,
+  "unresolvedSelectedComparisonSetRejected": true,
+  "comparisonStorageContainsNoScoring": true
+}

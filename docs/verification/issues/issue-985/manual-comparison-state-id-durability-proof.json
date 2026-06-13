@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "duplicateScenarioAdd": true,
+    "missingSelectedComparisonSet": true,
+    "renameToOverclaimingLabel": true,
+    "stateContainingScoreField": true,
+    "stateContainingRecommendationField": true,
+    "stateContainingSimulationField": true
+  },
+  "positiveCases": {
+    "createComparisonSet": true,
+    "renameComparisonSet": true,
+    "selectComparisonSet": true,
+    "addScenario": true,
+    "removeScenario": true,
+    "collisionSafeId": true
+  },
+  "comparisonSetRenameSupported": true,
+  "comparisonSetIdCollisionAvoided": true,
+  "comparisonSetScenarioAddRemoveSupported": true,
+  "selectedComparisonSetResolutionValidated": true,
+  "comparisonStateContainsNoScoring": true
+}

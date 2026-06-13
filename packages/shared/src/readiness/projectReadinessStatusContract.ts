@@ -30,6 +30,9 @@ export const projectReadinessStatusFixture: readonly ProjectReadinessStatusContr
   { itemId: "manual-scenario", label: "Manual scenario", status: "complete", scope: "project_readiness_only" },
   { itemId: "manual-review", label: "Manual review", status: "complete", scope: "project_readiness_only" },
   { itemId: "manual-comparison", label: "Manual comparison", status: "complete", scope: "project_readiness_only" },
+  { itemId: "clinical-readiness-blocked", label: "Clinical readiness blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "clinical_readiness" },
+  { itemId: "operational-readiness-blocked", label: "Operational readiness blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "operational_readiness" },
+  { itemId: "go-live-readiness-blocked", label: "Go-live readiness blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "go_live" },
   { itemId: "simulation-blocked", label: "Simulation blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "simulation" },
   { itemId: "scoring-blocked", label: "Scoring blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "scoring" },
   { itemId: "recommendations-blocked", label: "Recommendations blocked", status: "blocked", scope: "project_readiness_only", blockedArea: "recommendations" }

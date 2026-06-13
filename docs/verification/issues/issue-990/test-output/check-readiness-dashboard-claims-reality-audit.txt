@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "issue": "990",
+  "stage": "final",
+  "checks": [
+    {
+      "name": "packages/shared/src/readiness/projectReadinessStatusContract.ts exists",
+      "passed": true,
+      "detail": {
+        "file": "packages/shared/src/readiness/projectReadinessStatusContract.ts"
+      }
+    },
+    {
+      "name": "apps/web/src/features/readiness/ReadinessDashboard.tsx exists",
+      "passed": true,
+      "detail": {
+        "file": "apps/web/src/features/readiness/ReadinessDashboard.tsx"
+      }
+    },
+    {
+      "name": "known-bad fixture rejected",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "clinicalReadinessBlocked": true,
+          "operationalReadinessBlocked": true,
+          "goLiveReadinessBlocked": true,
+          "simulationBlocked": true,
+          "scoringBlocked": true,
+          "recommendationsBlocked": true,
+          "noDeploymentClaims": true
+        },
+        "positiveCases": {
+          "projectReadinessOnly": true,
+          "proofAttributesPresent": true
+        },
+        "projectReadinessOnly": true,
+        "clinicalReadinessClaimsBlocked": true,
+        "operationalReadinessClaimsBlocked": true,
+        "goLiveReadinessClaimsBlocked": true,
+        "simulationStillBlocked": true,
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true
+      }
+    },
+    {
+      "name": "valid fixture accepted",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "clinicalReadinessBlocked": true,
+          "operationalReadinessBlocked": true,
+          "goLiveReadinessBlocked": true,
+          "simulationBlocked": true,
+          "scoringBlocked": true,
+          "recommendationsBlocked": true,
+          "noDeploymentClaims": true
+        },
+        "positiveCases": {
+          "projectReadinessOnly": true,
+          "proofAttributesPresent": true
+        },
+        "projectReadinessOnly": true,
+        "clinicalReadinessClaimsBlocked": true,
+        "operationalReadinessClaimsBlocked": true,
+        "goLiveReadinessClaimsBlocked": true,
+        "simulationStillBlocked": true,
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true
+      }
+    },
+    {
+      "name": "audit proof passed",
+      "passed": true,
+      "detail": {
+        "status": "passed",
+        "knownBadFixtureRejected": true,
+        "validFixtureAccepted": true,
+        "negativeCases": {
+          "clinicalReadinessBlocked": true,
+          "operationalReadinessBlocked": true,
+          "goLiveReadinessBlocked": true,
+          "simulationBlocked": true,
+          "scoringBlocked": true,
+          "recommendationsBlocked": true,
+          "noDeploymentClaims": true
+        },
+        "positiveCases": {
+          "projectReadinessOnly": true,
+          "proofAttributesPresent": true
+        },
+        "projectReadinessOnly": true,
+        "clinicalReadinessClaimsBlocked": true,
+        "operationalReadinessClaimsBlocked": true,
+        "goLiveReadinessClaimsBlocked": true,
+        "simulationStillBlocked": true,
+        "scoringStillBlocked": true,
+        "recommendationsStillBlocked": true
+      }
+    }
+  ]
+}

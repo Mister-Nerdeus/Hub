@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "knownBadFixtureRejected": true,
+  "validFixtureAccepted": true,
+  "negativeCases": {
+    "duplicateComparisonSetIds": true,
+    "duplicateScenarioIdsInsideSet": true,
+    "missingScenarioReference": true,
+    "unresolvedSelectedComparisonSetId": true,
+    "forbiddenScoreField": true,
+    "forbiddenRecommendationField": true,
+    "forbiddenSimulationField": true
+  },
+  "positiveCases": {
+    "oneValidSet": true,
+    "twoValidSets": true
+  },
+  "duplicateComparisonSetIdsRejected": true,
+  "duplicateComparisonScenarioIdsRejected": true,
+  "unresolvedComparisonScenarioReferencesRejected": true,
+  "unresolvedSelectedComparisonSetRejected": true,
+  "comparisonCollectionContainsNoScoring": true,
+  "comparisonCollectionContainsNoRecommendations": true
+}

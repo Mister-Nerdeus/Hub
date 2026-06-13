@@ -16,6 +16,7 @@ export function ManualComparisonMatrix({ rows }: ManualComparisonMatrixProps) {
     >
       <thead>
         <tr>
+          <th>Scenario ID</th>
           <th>Scenario</th>
           <th>Floorplan</th>
           <th>Staff roster</th>
@@ -27,12 +28,13 @@ export function ManualComparisonMatrix({ rows }: ManualComparisonMatrixProps) {
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr key={`${row.scenario}-${row.floorplan}`}>
-            <td>{row.scenario}</td>
-            <td>{row.floorplan}</td>
-            <td>{row.staffRoster}</td>
-            <td>{row.assignmentSet}</td>
-            <td>{row.snapshot}</td>
+          <tr key={row.scenarioId} data-manual-comparison-scenario-id={row.scenarioId}>
+            <td>{row.scenarioId}</td>
+            <td>{row.scenarioLabel}</td>
+            <td>{row.floorplanId}</td>
+            <td>{row.staffRosterId}</td>
+            <td>{row.assignmentSetId}</td>
+            <td>{row.snapshotStatus}</td>
             <td>{row.referenceIssues}</td>
             <td>{row.manualNotesCount}</td>
           </tr>

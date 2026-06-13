@@ -4,7 +4,7 @@ import {
   type EditableDoorWall,
   type EditableLayoutGeometryContract
 } from "../layout-editor/editableLayoutGeometryContract.js";
-import { isDoorEligibleRoomType } from "./roomTypeRules.js";
+import { isPatientCareRoomType } from "./roomTypeRules.js";
 
 export type DoorAuthoringResult = {
   layout: EditableLayoutGeometryContract;
@@ -176,7 +176,7 @@ function requireRoom(layout: EditableLayoutGeometryContract, roomId: string) {
   if (room == null) {
     throw new Error("door roomId must reference a valid room");
   }
-  if (!isDoorEligibleRoomType(room.roomType)) {
+  if (!isPatientCareRoomType(room.roomType)) {
     throw new Error(`door roomId must reference a patient-room target; ${room.roomType} cannot accept patient-room doors`);
   }
   return room;
