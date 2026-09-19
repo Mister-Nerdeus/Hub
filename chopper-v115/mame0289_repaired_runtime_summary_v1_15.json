@@ -1,0 +1,122 @@
+{
+  "schema": "CG-V1.15-MAME0289-REPAIRED-RUNTIME-SUMMARY-1.0",
+  "project": "Chopper Game",
+  "release": "1.15",
+  "classification": "NONCANONICAL_HISTORICAL_MAME_REPAIR",
+  "promotion_eligible": false,
+  "canonical_identity_satisfied": false,
+  "emulator": {
+    "version": "0.289 (mame0289)",
+    "binary_sha256": "ec3f8c6be33d31ba0b275503506baab3ee120946a4c3158d101bbae554f7c7f3",
+    "official_ci_artifact_sha256": "9dbecc4a0ff77c48bbcf273445d34b2789fe605bc38e14886c85c2df58c5d72b"
+  },
+  "repaired_source": {
+    "bad_mcu_crc32": "7bd11a6c",
+    "bad_mcu_sha1": "2d75a2276e572f97f269af062536c1c58e1c8eaf",
+    "patches": [
+      {
+        "offset": "0x0100",
+        "before": "0xD5",
+        "after": "0x55"
+      },
+      {
+        "offset": "0x027B",
+        "before": "0xF2",
+        "after": "0xFB"
+      },
+      {
+        "offset": "0x02FF",
+        "before": "0xFF",
+        "after": "0xF6"
+      }
+    ],
+    "repaired_mcu_crc32": "7303446b",
+    "repaired_mcu_sha1": "504997a1e9f3e123d84baf2810840a82d01dd6c7",
+    "repaired_mcu_sha256": "6268a868697ba6d429c6ce8d5652424afc03a1687a890d162c5749b19d6019eb",
+    "canonical_mcu_sha1_required": "b85acd7292e5480c98af1a0492b6b5d3f9b1716c"
+  },
+  "repaired_runtime_capture": {
+    "capture_id": "CG-CAP-RESEARCH-005-MAME0289-REPAIRED",
+    "last_zero": {
+      "time_seconds": 5.34144,
+      "main_pc": "0x0000",
+      "bank": 0,
+      "mcu_pc": "0x0200",
+      "mcu_p1": "0x4F",
+      "mcu_dptr": "0xFF8E"
+    },
+    "first_nonzero": {
+      "time_seconds": 5.35808,
+      "main_pc": "0x9419",
+      "bank": 3,
+      "mcu_pc": "0x00F0",
+      "mcu_p1": "0x19",
+      "mcu_dptr": "0x0016"
+    },
+    "event_count": 960411,
+    "dropped_events": 0,
+    "event_counts": {
+      "SOUND_RAM_WRITE": 716244,
+      "WORK_RAM_WRITE": 236568,
+      "VIDEO_WRITE": 4116,
+      "PALETTE_WRITE": 2050,
+      "PSG_WRITE": 1268,
+      "SPRITE_WRITE": 159,
+      "MAIN_IO_WRITE": 5,
+      "MAIN_IO_READ": 1
+    }
+  },
+  "exact_frame_capture": {
+    "capture_id": "CG-CAP-RESEARCH-006-MAME0289-REPAIRED-120FRAMES",
+    "release_screen_frame": 321,
+    "first_screen_frame": 321,
+    "last_screen_frame": 440,
+    "frames": 120,
+    "frame_number_gaps": 0,
+    "consecutive": true,
+    "bank_entries": [
+      3
+    ],
+    "unique_sampled_main_pc": 15,
+    "state_uniqueness": {
+      "work_ram": 118,
+      "sprite_ram": 1,
+      "palette_ram": 2,
+      "video_window": 2,
+      "sound_ram": 120,
+      "screen_pixels": 2
+    },
+    "first_changes": {
+      "work_ram_frame_index": 3,
+      "palette_ram_frame_index": 3,
+      "video_window_frame_index": 3,
+      "screen_pixels_frame_index": 4
+    },
+    "last_frame_visual": "IC CHECK"
+  },
+  "visual_probe": {
+    "duration_emulated_seconds": 120,
+    "screenshots": 120,
+    "unique_screenshot_sha256": 87,
+    "checkpoints": {
+      "30": "IC CHECK / hardware-test pattern",
+      "50": "Choplifter title logo and Dan Gorlin / Sega reprogramming credit",
+      "60": "license/copyright screen",
+      "80": "attract/gameplay scene with helicopter, HUD and INSERT COIN",
+      "100": "Game Over attract/game scene",
+      "119": "Your Mission / Rescue Hostages"
+    }
+  },
+  "correction": {
+    "v1_13": "PC=0 observation valid only for early captured window; machine-frame notifier stopped delivering callbacks while machine time continued.",
+    "v1_15": "Periodic sampling plus exact screen frame-number gating proves later main-CPU release and rendered progression."
+  },
+  "decision": {
+    "repaired_mame_confirmation": "PASS",
+    "exact_120_mame_screen_frames": "PASS",
+    "rendered_title_and_attract": "PASS",
+    "canonical_mcu_gate": "BLOCKED",
+    "verified_promotions_created": 0,
+    "strict_arcade_fidelity": "NO_GO"
+  }
+}
