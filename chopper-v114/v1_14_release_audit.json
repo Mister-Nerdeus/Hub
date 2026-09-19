@@ -1,0 +1,45 @@
+{
+  "schema": "CG-V1.14-FINAL-RESEARCH-AUDIT-1.0",
+  "project": "Chopper Game",
+  "release": "1.14",
+  "result": "PASS_RESEARCH_RELEASE_WITH_STRICT_NO_GO",
+  "checks_passed": 24,
+  "checks_total": 24,
+  "research_startup_blocker": "RESOLVED_AT_INDEPENDENT_MODEL_LEVEL",
+  "repaired_mame_confirmation": "NOT_RUN_ENVIRONMENT_BLOCKED",
+  "rendered_title_framebuffer_proof": "NOT_PROVEN",
+  "canonical_mcu_gate": "BLOCKED",
+  "strict_arcade_fidelity": "NO_GO",
+  "verified_promotions": 0,
+  "evidence_lane": "INDEPENDENT_RESEARCH_COEMULATION",
+  "bible": {
+    "lines": 5632,
+    "characters": 440127,
+    "path": "chopper-v114/Chopper_Game_Bible_v1_14.md"
+  },
+  "evidence_path": "chopper-v114/independent_runtime_evidence_v1_14.json",
+  "key_observations": {
+    "repaired_8751_first_busreq_clear_interpreted_instruction": 2177605,
+    "repaired_8751_unique_pc_values": 155,
+    "z80_frame_equivalent_intervals": 120,
+    "z80_interpreted_instructions": 1127010,
+    "z80_nominal_cycles": 8000043,
+    "z80_unique_sampled_pc_values": 49,
+    "z80_final_pc": "0x9445",
+    "z80_selected_bank": 3,
+    "memory_writes": {
+      "work_ram": 124246,
+      "sprite_ram": 2048,
+      "palette_ram": 2050,
+      "video_ram": 4116
+    }
+  },
+  "authority_boundaries": [
+    "Independent interpreters are research evidence, not MAME/canonical evidence.",
+    "The 8751 instruction count is not hardware time.",
+    "The Z80 frame schedule is nominal and omits exact System 2 wait-state/video/collision/sound timing.",
+    "No rendered title-screen framebuffer is proven.",
+    "No semantic/gameplay claim is VERIFIED from this lane.",
+    "Canonical MCU SHA-1 b85acd7292e5480c98af1a0492b6b5d3f9b1716c is still required for strict held-out verification."
+  ]
+}
