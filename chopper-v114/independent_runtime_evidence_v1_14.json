@@ -1,0 +1,165 @@
+{
+  "schema": "CG-V1.14-INDEPENDENT-RUNTIME-EVIDENCE-1.0",
+  "project": "Chopper Game",
+  "release": "1.14",
+  "evidence_lane": "INDEPENDENT_RESEARCH_COEMULATION",
+  "promotion_eligible": false,
+  "canonical_identity_satisfied": false,
+  "strict_arcade_fidelity": "NO_GO",
+  "purpose": "Bounded independent proof that the historically repaired BAD_DUMP can progress through the protected MCU startup protocol far enough to release Z80 BUSREQ, followed by a bounded main-Z80 startup probe using the exact observed PPI initialization.",
+  "source": {
+    "user_supplied_mcu": {
+      "filename": "315-5151.ic74",
+      "size": 4096,
+      "crc32": "7bd11a6c",
+      "sha1": "2d75a2276e572f97f269af062536c1c58e1c8eaf",
+      "classification": "HISTORICAL_BAD_DUMP_NOT_CANONICAL"
+    },
+    "canonical_mcu_required_by_mame0289": {
+      "crc32": "1377a6ef",
+      "sha1": "b85acd7292e5480c98af1a0492b6b5d3f9b1716c",
+      "present": false
+    },
+    "repair": [
+      {
+        "offset": "0x0100",
+        "observed_bad": "0xD5",
+        "repaired": "0x55"
+      },
+      {
+        "offset": "0x027B",
+        "observed_bad": "0xF2",
+        "repaired": "0xFB"
+      },
+      {
+        "offset": "0x02FF",
+        "repaired": "0xF6"
+      }
+    ],
+    "repair_authority": {
+      "project": "mamedev/mame",
+      "tag": "mame0131u2",
+      "commit": "befc46f2579cf1835a7065d2e90c954eef13c576",
+      "note": "Historical MAME applies these three repairs to the same BAD_DUMP before 8751 execution."
+    }
+  },
+  "independent_8051_probe": {
+    "emulator": {
+      "repository": "Aimini/js51",
+      "ref": "binary_decoder",
+      "commit": "7faca5ed5935857e74fd7737d9ed7fea5b819f8a",
+      "adaptations": [
+        "MOVX @Ri external address was corrected to include P2 as the high address byte, matching 8051 external-bus semantics.",
+        "Missing timer SFR storage was added for firmware-visible registers.",
+        "MAME 0.289 System 1 MCU external-memory selection and BUSREQ/IRQ control wiring were modeled from the pinned driver."
+      ]
+    },
+    "bounded_result": {
+      "first_busreq_clear_interpreted_instruction": 2177605,
+      "bounded_end_instruction": 2178606,
+      "unique_mcu_pc_values": 155,
+      "final_control": "0x19",
+      "busreq_at_end": false,
+      "errors": 0,
+      "external_writes_before_release": [
+        {
+          "step": 402,
+          "mode": 0,
+          "address": "0x0000",
+          "value": "0x00"
+        },
+        {
+          "step": 2177589,
+          "mode": 2,
+          "address": "0x0017",
+          "value": "0xC0",
+          "meaning": "8255 control"
+        },
+        {
+          "step": 2177592,
+          "mode": 2,
+          "address": "0x0014",
+          "value": "0x00",
+          "meaning": "8255 port A"
+        },
+        {
+          "step": 2177595,
+          "mode": 2,
+          "address": "0x0015",
+          "value": "0x40",
+          "meaning": "8255 port B / video-mode latch"
+        },
+        {
+          "step": 2177598,
+          "mode": 2,
+          "address": "0x0016",
+          "value": "0x00",
+          "meaning": "8255 port C"
+        }
+      ],
+      "interpretation": "The repaired firmware independently reaches the expected PPI initialization sequence and deasserts Z80 BUSREQ. The step count is interpreted-instruction count, not hardware time."
+    }
+  },
+  "independent_z80_probe": {
+    "emulator": {
+      "repository": "DrGoldfire/Z80.js",
+      "commit": "2207d7c6a8b42246ea12efbf9dba8b2adf010437",
+      "license": "MIT"
+    },
+    "initialization": {
+      "ppi_control": "0xC0",
+      "ppi_port_a": "0x00",
+      "ppi_port_b": "0x40",
+      "ppi_port_c": "0x00",
+      "source": "Exact writes observed immediately before BUSREQ release in the independent repaired-8051 probe."
+    },
+    "bounded_result": {
+      "frame_equivalent_intervals": 120,
+      "nominal_z80_cycles": 8000043,
+      "interpreted_instructions": 1127010,
+      "unique_sampled_pc_values": 49,
+      "final_pc": "0x9445",
+      "final_bank": 3,
+      "bank_select_event": {
+        "instruction": 4,
+        "ppi_port_b": "0x4C",
+        "old_bank": 0,
+        "new_bank": 3
+      },
+      "memory_writes": {
+        "work_ram": 124246,
+        "sprite_ram": 2048,
+        "palette_ram": 2050,
+        "video_ram": 4116
+      },
+      "io_reads": 1,
+      "io_writes": 1,
+      "interpreter_error": null,
+      "acceptance": {
+        "pc_left_zero": true,
+        "nontrivial_pc_set": true,
+        "banked_startup_executed": true,
+        "work_ram_changed": true,
+        "sprite_ram_changed": true,
+        "palette_ram_changed": true,
+        "video_ram_changed": true,
+        "reached_120_frame_equivalent_intervals": true
+      }
+    }
+  },
+  "boundaries": [
+    "This is not a MAME 0.289 repaired-MCU capture.",
+    "The independent 8051 model is instruction-semantic, not cycle-accurate.",
+    "The independent Z80 model uses nominal frame-equivalent timing and omits System 2 video rendering, collision hardware, sound CPU coexecution, and concurrent post-release MCU execution.",
+    "Video-RAM writes are proven in this probe; a rendered boot/title framebuffer is not proven.",
+    "No semantic asset binding, gameplay parameter, or strict runtime claim may be promoted from this lane alone.",
+    "Canonical protected-parent verification still requires the canonical MCU and a disjoint pinned-MAME capture."
+  ],
+  "decision": {
+    "research_startup_blocker": "RESOLVED_AT_INDEPENDENT_MODEL_LEVEL",
+    "repaired_mame_confirmation": "NOT_RUN_ENVIRONMENT_BLOCKED",
+    "canonical_mcu_gate": "BLOCKED",
+    "strict_fidelity": "NO_GO",
+    "verified_promotions_created": 0
+  }
+}
