@@ -1,0 +1,43 @@
+{
+  "schema": "CG-MCU-RESOLUTION-1.0",
+  "project": "Chopper Game",
+  "target_release": "1.14",
+  "finding": "Unmodified historical bad MCU stalls protected parent; historical MAME repair path exists.",
+  "historical_bad_dump": {
+    "size": 4096,
+    "crc32": "7bd11a6c",
+    "sha1": "2d75a2276e572f97f269af062536c1c58e1c8eaf"
+  },
+  "canonical_reference": {
+    "mame_tag": "mame0289",
+    "mame_commit": "f34f02505e32c1993c6a782b6814232cbfc74e36",
+    "crc32": "1377a6ef",
+    "sha1": "b85acd7292e5480c98af1a0492b6b5d3f9b1716c"
+  },
+  "historical_repair": {
+    "source_tag": "mame0131u2",
+    "source_tag_commit": "befc46f2579cf1835a7065d2e90c954eef13c576",
+    "source_path": "src/mame/drivers/system1.c",
+    "patches": [
+      {"offset": 256, "offset_hex": "0x0100", "expected_bad": 213, "after": 85},
+      {"offset": 635, "offset_hex": "0x027b", "expected_bad": 242, "after": 251},
+      {"offset": 767, "offset_hex": "0x02ff", "expected_bad": null, "after": 246}
+    ],
+    "source_statement": "the ROM dump we have is bad; the following patches make it work",
+    "canonical_identity_satisfied": false,
+    "promotion_eligible": false
+  },
+  "historical_hle": {
+    "source_tag": "mame0131",
+    "source_tag_commit": "4b7dd3cd0de9a22407105730d933383bc78f96a6",
+    "implementation": "choplift_i8751_run",
+    "authority": "research fallback only"
+  },
+  "lanes": {
+    "canonical": "BLOCKED_EXTERNAL_SOURCE",
+    "historical_repair": "IMPLEMENTED_PENDING_EXECUTION",
+    "historical_hle": "DOCUMENTED_FALLBACK"
+  },
+  "strict_fidelity_result": "NO_GO_UNTIL_CANONICAL_HELD_OUT",
+  "research_runtime_gate": "READY_FOR_REPAIRED_CAPTURE"
+}
