@@ -1,0 +1,27 @@
+{
+  "schema": "CG-V1.15-FINAL-AUDIT-1.0",
+  "release": "1.15",
+  "bounded_checks_passed": 40,
+  "bounded_checks_total": 40,
+  "repaired_mame_runtime": "PASS",
+  "exact_120_screen_frames": "PASS",
+  "visual_title_attract": "PASS",
+  "classification": "NONCANONICAL_HISTORICAL_MAME_REPAIR",
+  "promotion_eligible": false,
+  "canonical_identity_satisfied": false,
+  "canonical_mcu_gate": "BLOCKED",
+  "verified_promotions": 0,
+  "strict_arcade_fidelity": "NO_GO",
+  "key_evidence": {
+    "main_release_time_seconds": 5.35808,
+    "first_nonzero_main_pc": "0x9419",
+    "release_bank": 3,
+    "exact_screen_frames": "321-440",
+    "exact_frame_count": 120,
+    "screen_frame_gaps": 0,
+    "runtime_events": 960411,
+    "event_drops": 0,
+    "visual_probe_seconds": 120,
+    "unique_visual_states": 87
+  }
+}
