@@ -1,0 +1,70 @@
+name: Chopper MAME 0.289 Build
+
+on:
+  push:
+    branches:
+      - chopper-mame0289-build
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Checkout MAME 0.289
+        uses: actions/checkout@v4
+        with:
+          repository: mamedev/mame
+          ref: mame0289
+          fetch-depth: 1
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3 libsdl2-dev libsdl2-ttf-dev libfontconfig1-dev libpulse-dev libasound2-dev libxi-dev libxinerama-dev libxrandr-dev
+
+      - name: Record source identity
+        run: |
+          git rev-parse HEAD | tee source_commit.txt
+          test "$(git rev-parse HEAD)" = "f34f02505e32c1993c6a782b6814232cbfc74e36"
+
+      - name: Build System 1 subset without Qt/X11 debugger
+        run: |
+          make SUBTARGET=chopper SOURCES=src/mame/sega/system1.cpp REGENIE=1 NO_X11=1 -j2
+
+      - name: Stage artifact
+        run: |
+          set -euxo pipefail
+          mkdir -p artifact/lib
+          BIN=""
+          for c in mamechopper chopper mame; do
+            if [ -x "$c" ]; then BIN="$c"; break; fi
+          done
+          test -n "$BIN"
+          cp "$BIN" artifact/mamechopper
+          chmod +x artifact/mamechopper
+          ./artifact/mamechopper -version | tee artifact/version.txt
+          ldd artifact/mamechopper | tee artifact/ldd.txt
+          sha256sum artifact/mamechopper | tee artifact/mamechopper.sha256
+          cp source_commit.txt artifact/source_commit.txt
+          SDLTTF="$(ldd artifact/mamechopper | awk '/libSDL2_ttf-2.0.so.0/ {print $3; exit}')"
+          if [ -n "$SDLTTF" ] && [ -f "$SDLTTF" ]; then cp -L "$SDLTTF" artifact/lib/; fi
+          {
+            echo '#!/usr/bin/env bash'
+            echo 'set -euo pipefail'
+            echo 'HERE="$(cd "$(dirname "$0")" && pwd)"'
+            echo 'export LD_LIBRARY_PATH="$HERE/lib:${LD_LIBRARY_PATH:-}"'
+            echo 'exec "$HERE/mamechopper" "$@"'
+          } > artifact/run-mame.sh
+          chmod +x artifact/run-mame.sh
+
+      - name: Upload Linux build
+        uses: actions/upload-artifact@v4
+        with:
+          name: chopper-mame0289-linux-${{ github.sha }}
+          path: artifact/
+          if-no-files-found: error
+          retention-days: 14
