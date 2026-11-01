@@ -16,7 +16,7 @@ return [box(name+' outline',x,y,24,24,'none',{stroke:col,strokeWidth:2,radius:2}
  rule(name+' ring right',x+17,y-2,1,col,3)];
 }
 const dataSpecs=[
-{id:'meal-label',name:'Prepared meal',kind:'meal',tag:'PREPARED MEAL',prefix:'meal',food:'Baked Lasagna',quantity:'2 servings',storage:'REFRIGERATED',packed:'OCT 31, 2026',useBy:'NOV 04, 2026',cook:'Reheat to 165°F / 74°C',thaw:'',allergens:'WHEAT · MILK',batch:'26073112',bg:3},
+{id:'meal-label',name:'Prepared meal',kind:'meal',tag:'PREPARED MEAL',prefix:'meal',food:'Baked Lasagna',quantity:'2 servings',storage:'REFRIGERATED',packed:'OCT 31, 2026',useBy:'NOV 04, 2026',cook:'Reheat to 165°F / 74°C',thaw:'',allergens:'WHEAT · MILK',batch:'26073112',bg:3,fields:{quantity:'portions',packed:'prepared',cook:'instructions',batch:'id'}},
 {id:'raw-protein',name:'Raw protein',kind:'raw',tag:'RAW PROTEIN',prefix:'raw',food:'Boneless Chicken Breast',quantity:'650 g / 22.9 oz',quantityLabel:'NET WEIGHT',storage:'REFRIGERATED',packed:'OCT 31, 2026',useBy:'SET DATE',cook:'Cook to 165°F / 74°C',thaw:'Thaw in refrigerator',allergens:'',batch:'RAW-0001',bg:23},
 {id:'seasoned-protein',name:'Dry-seasoned protein',kind:'seasoned',tag:'SEASONED / RAW',prefix:'season',food:'Garlic Herb Chicken',quantity:'680 g / 24 oz',quantityLabel:'NET WEIGHT',storage:'REFRIGERATED',packed:'OCT 31, 2026',useBy:'SET DATE',cook:'Cook to 165°F / 74°C',thaw:'Thaw under refrigeration',allergens:'MILK',batch:'DRY-0002',bg:13},
 {id:'marinated-protein',name:'Marinated protein',kind:'marinated',tag:'MARINATED / RAW',prefix:'marinade',food:'Citrus Pork Chops',quantity:'900 g / 31.7 oz',quantityLabel:'NET WEIGHT',storage:'REFRIGERATED',packed:'OCT 31, 2026',useBy:'SET DATE',cook:'Cook per safe-cut guidance',thaw:'Refrigerate to thaw completely',allergens:'SOY',batch:'MAR-0003',bg:92},
@@ -61,11 +61,11 @@ tx('Cooking method','{{'+key('cook')+'}}',33,595,522,30,23,'black',{autoFit:true
 tx('Thaw note','{{'+key('thaw')+'}}',33,627,523,23,17,'black',{showWhen:key('thaw'),autoFit:true,maxLines:1}),
 tx('Allergens caption','ALLERGENS',33,653,520,17,14,'red',{showWhen:key('allergens')}),
 tx('Allergens red bullets','{{'+key('allergens')+'}}',33,673,522,22,18,'red',{showWhen:key('allergens'),format:'allergenBullets',autoFit:true,maxLines:1}),
-box('Black information footer',0,704,591,123,'black'),
+box('Black information footer',0,698,591,129,'black'),
 tx('Footer identifier title','LABEL / BATCH ID',34,722,390,21,14,'white'),
 tx('Footer identifier','{{'+key('batch')+'}}',34,748,395,30,25,'white',{autoFit:true,maxLines:1}),
 tx('Footer details','SCAN FOR DETAILS',34,784,300,17,12,'white'),
-C.el('qr','Package QR code',448,705,105,91,{text:'{{'+key('batch')+'}}',color:'black'})
+C.el('qr','Package QR code',448,695,105,102,{text:'{{'+key('batch')+'}}',color:'black'})
 ];
 const old=originalById.get(def.id);
 return {schema:C.SCHEMA,id:def.id,name:def.name,kind:def.kind,description:def.tag+' · reusable print template · sample fields, validate before use',profile:C.clone(old?old.profile:original[0].profile),data:info,elements:el,assets:{},nlsDesignVersion:6};
