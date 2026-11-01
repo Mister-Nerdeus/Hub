@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#142334" />
+<title>Nerdeus · SVG to Print Bitmap Converter</title>
+<style>
+:root{font-family:Inter,system-ui,'Segoe UI',Arial,sans-serif;color:#203246;background:#f2f5f8}*{box-sizing:border-box}body{margin:0}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}
+.top{background:#142334;color:#fff;padding:17px 23px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.logo{font-weight:900;letter-spacing:1.1px;font-size:18px}.logo span{color:#ff6663}.tag{font-size:11px;color:#a9c0d4;margin-top:4px}.pills{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.pill{font-size:11px;border:1px solid #44596c;padding:6px 9px;border-radius:8px;color:#cfdfed}
+.workspace{display:grid;grid-template-columns:minmax(285px,332px) minmax(320px,1fr) minmax(245px,290px);gap:12px;max-width:1750px;margin:auto;padding:12px}.panel{min-width:0;border:1px solid #dce5ed;border-radius:12px;background:white;padding:15px;box-shadow:0 3px 11px #16324c08}.stage{background:#edf2f7;min-height:640px;display:flex;flex-direction:column;gap:9px}.panel h2{font-size:14px;margin:0 0 10px;color:#203246}.muted{font-size:11px;color:#6a7989;line-height:1.5}.section{border-top:1px solid #e3eaf0;margin-top:14px;padding-top:13px}.section h3{font-size:12px;margin:0 0 9px;color:#344b5f}.field{display:block;font-size:11px;font-weight:720;color:#5a7082;margin:10px 0 0}.field select,.field input,.field textarea{display:block;width:100%;border:1px solid #c9d6e1;border-radius:8px;padding:9px 10px;background:#fff;color:#203246;margin-top:4px;min-width:0}.field input:disabled{background:#f2f5f8;color:#7c8793}.field textarea{resize:vertical;min-height:105px;font-family:ui-monospace,Consolas,monospace;font-size:11px}.dimensions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.drop{border:2px dashed #9eb3c5;background:#f5faff;padding:17px 14px;text-align:center;border-radius:11px;transition:.15s}.drop.drag{border-color:#e84f4c;background:#fff1f0}.drop strong{font-size:13px}.drop p{margin:5px 0 10px;color:#697e91;font-size:11px}.btn{background:#fff;color:#25394c;border:1px solid #cad7e2;border-radius:8px;padding:9px 11px;font-size:12px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;gap:6px}.btn:hover:not(:disabled){border-color:#8aaec8}.btn.primary{background:#e94e49;color:#fff;border-color:#e94e49}.btn.dark{background:#233e55;color:white;border-color:#233e55}.btn.wide{width:100%}.action-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.hidden{display:none!important}.status{font-size:11px;border-radius:8px;padding:9px 11px;background:#eaf3f9;color:#29516f;margin-top:12px}.status.error{background:#ffeceb;color:#a1302a}.status.ok{background:#eaf5ef;color:#286d4c}
+.preview-header{display:flex;align-items:center;justify-content:space-between;gap:8px}.preview-header h2{margin:0}.big-art{flex:1;min-height:480px;border:1px solid #cfdce7;border-radius:11px;background:radial-gradient(#c9d5e2 0.7px,transparent 0.7px);background-size:12px 12px;display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}.preview-image{max-width:100%;max-height:585px;width:auto;height:auto;object-fit:contain;image-rendering:auto;background:#fff;box-shadow:0 9px 24px #19344c22;display:block}.actual .preview-image{max-width:none;max-height:none;image-rendering:pixelated}.legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;color:#5f7182;font-size:11px}.swatch{width:12px;height:12px;display:inline-block;border:1px solid #94a1ab;vertical-align:-2px;margin-right:5px}.qa{display:grid;grid-template-columns:1fr 1fr;gap:7px}.metric{border:1px solid #e2e8ed;border-radius:8px;padding:9px}.metric strong{display:block;font-size:16px;letter-spacing:-.2px}.metric span{font-size:10px;color:#758394}.check{display:flex;align-items:center;gap:7px;font-size:11px;color:#53687b;margin-top:8px}.check i{font-size:14px;color:#17975d;font-style:normal}.sep{height:1px;background:#e3eaf0;margin:11px 0}.foot{max-width:1750px;margin:auto;padding:4px 15px 22px;color:#6d7a8a;font-size:11px;line-height:1.5}.foot a{color:#306c99}.download{display:grid;grid-template-columns:1fr 1fr;gap:7px}.download .btn{font-size:11px;min-height:42px;white-space:normal;text-align:center}.single{grid-column:1/-1}.warn{font-size:10px;line-height:1.5;color:#856030;padding:8px 10px;border-radius:7px;background:#fff9e9;margin-top:10px}label.inline{display:flex;gap:7px;align-items:center;font-size:11px;color:#53687b}.inline input{margin:0}.code-preview{border:1px solid #dbe3e9;border-radius:8px;padding:7px 9px;background:#f7fafc;color:#6b7887;font-size:10px;overflow-wrap:anywhere}
+@media(max-width:1100px){.workspace{grid-template-columns:minmax(280px,340px) 1fr}.panel.right{grid-column:1/-1}.right .download{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:690px){.workspace{grid-template-columns:1fr}.panel.right{grid-column:auto}.right .download{grid-template-columns:1fr 1fr}.big-art{min-height:315px}.preview-image{max-height:390px}}
+</style>
+</head><body>
+<header class="top"><div><div class="logo">N<span>·</span> VECTOR TO PRINT</div><div class="tag">Nerdeus Label Studio · SVG → exact-color indexed PNG / BMP / bitplanes</div></div><div class="pills"><span class="pill">Offline · client-side</span><span class="pill">300 DPI default</span><span class="pill">Red / white · Red / black / white</span></div></header>
+<div class="workspace">
+<section class="panel left">
+<h2>1 · SVG artwork</h2>
+<div class="drop" id="drop" tabindex="0"><strong>Drop an SVG file here</strong><p>Or choose a local SVG. Files are processed in your browser.</p><button class="btn primary" id="browse">Choose SVG</button><input id="file" class="hidden" type="file" accept=".svg,image/svg+xml" /></div>
+<div class="action-row" style="margin-top:9px"><button id="sample" class="btn">Load food-art sample</button><button id="pasteToggle" class="btn">Paste SVG code</button></div>
+<label class="field hidden" id="sourceWrap">SVG source code<textarea id="source" spellcheck="false" placeholder="Paste a complete <svg>…</svg> document"></textarea><button class="btn" id="useSource" type="button" style="margin-top:5px">Use pasted SVG</button></label>
+<div class="code-preview" style="margin-top:10px" id="sourceInfo">Example artwork is loaded automatically.</div>
+<div class="section"><h3>2 · Output dimensions</h3>
+<label class="field">Size profile<select id="profile"><option value="background">Background · 540 × 215 px</option><option value="label">Full label · 591 × 827 px</option><option value="printer">B1 Pro width crop · 576 × 827 px</option><option value="custom">Custom dimensions</option></select></label>
+<label class="field">Custom units<select id="units" disabled><option value="px">Pixels</option><option value="mm">Millimeters</option></select></label>
+<div class="dimensions"><label class="field">Width<input id="width" inputmode="decimal" type="number" value="540" min="1" max="20000" disabled /></label><label class="field">Height<input id="height" inputmode="decimal" type="number" value="215" min="1" max="20000" disabled /></label></div>
+<label class="field">Resolution (DPI)<input id="dpi" type="number" min="72" max="1200" value="300" step="1" /></label>
+<p id="sizeDescription" class="muted" style="margin:9px 0 0">540 × 215 px = 45.72 × 18.20 mm at 300 DPI.</p>
+</div>
+<div class="section"><h3>3 · Rendering</h3>
+<label class="field">Palette<select id="palette"><option value="rw">Background: pure red + white (1-bit)</option><option value="rbw">Full label: red + black + white (2-bit PNG)</option></select></label>
+<label class="field">SVG fit / crop mode<select id="fit"><option value="cover">Fill (crop) — default</option><option value="contain">Fit inside</option><option value="stretch">Stretch (distort)</option></select></label>
+<label class="field">Shading to exact pixels<select id="dither"><option value="none">Hard threshold — sharp lines</option><option value="bayer4">Ordered dot dither — for shading</option></select></label>
+<div class="warn">Each output pixel becomes exactly red, white, or (when enabled) black. Gradients are rasterized before thresholding, so a vector source remains the best archival original.</div>
+<button id="convert" class="btn primary wide" style="margin-top:12px">Render &amp; audit</button>
+<div id="message" role="status" class="status">Ready. Sample artwork loaded.</div>
+</div>
+</section>
+<section class="panel stage">
+<div class="preview-header"><div><h2>Raster preview</h2><div class="muted" id="subtitle">540 × 215 · red / white</div></div><label class="inline"><input type="checkbox" id="actual">Actual pixels · 1:1</label></div>
+<div id="stageBox" class="big-art"><canvas id="preview" class="preview-image" width="540" height="215" aria-label="Converted bitmap preview"></canvas></div>
+<div class="legend"><span><i class="swatch" style="background:#ff0000"></i> #FF0000</span><span><i class="swatch" style="background:#fff"></i> #FFFFFF</span><span><i class="swatch" style="background:#000"></i> #000000 (optional)</span></div>
+<p class="muted" style="text-align:center;margin:2px 0">The canvas displays the real output pixels, not an illustrative approximation. Use Actual pixels to inspect dots and edges.</p>
+</section>
+<section class="panel right">
+<h2>4 · Print readiness</h2>
+<div class="qa"><div class="metric"><strong id="resultSize">540 × 215</strong><span>Pixel dimensions</span></div><div class="metric"><strong id="resultDpi">300</strong><span>DPI metadata</span></div><div class="metric"><strong id="redCount">—</strong><span>Red pixels</span></div><div class="metric"><strong id="whiteCount">—</strong><span>White pixels</span></div><div class="metric"><strong id="blackCount">0</strong><span>Black pixels</span></div><div class="metric"><strong id="bpp">1 bit</strong><span>Indexed PNG depth</span></div></div>
+<div class="section"><h3>Verification</h3><div id="checks"><div class="check"><i>✓</i> SVG sanitized and rasterized</div><div class="check"><i>✓</i> Correct output dimensions</div><div class="check"><i>✓</i> Palette restricted to exact colors</div><div class="check"><i>✓</i> No transparency in bitmap</div></div></div>
+<div class="section"><h3>5 · Download print artwork</h3><div class="download">
+<button class="btn primary" id="savePng" disabled>Indexed PNG</button><button class="btn" id="saveBmp" disabled>Windows BMP</button><button class="btn" id="saveRed" disabled>Red 1-bit plane</button><button class="btn" id="saveBlack" disabled>Black 1-bit plane</button><button class="btn" id="saveSvg" disabled>Normalized SVG</button><button class="btn" id="saveManifest" disabled>QA manifest JSON</button></div>
+<div class="warn">The red and black bitplanes are raw MSB-first row-packed bytes, not NIIMBOT printer commands. Use your printer adapter to encode the indexed PNG for the B1 Pro.</div>
+</div>
+<div class="section"><h3>Profile notes</h3><p class="muted"><strong>Background:</strong> 540 × 215 is an artwork size, not the physical label size. <strong>Full label:</strong> 591 × 827 represents approximately 50 × 70 mm at 300 DPI. <strong>Printer crop:</strong> first renders 591 × 827, then removes 7 pixels on the left and 8 on the right without resampling.</p></div>
+</section>
+</div><footer class="foot">Conversion runs locally. Original SVG source is not uploaded. The two-color indexed PNG is encoded at 1 bit per pixel; a three-color indexed PNG uses 2 bits per pixel. Browser color rendering and physical red registration still require testing with the exact printer and media.</footer>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);
+const settings={profile:'background',palette:'rw',fit:'cover',dither:'none',dpi:300};
+let rawSVG='',cleanSVG='',sanitizedRoot=null,sourceName='Hearth & Herbs.svg',current=null,conversionNo=0;
+const P=[ [255,255,255],[255,0,0],[0,0,0] ];
+const PROFILES={background:[540,215,540,215],label:[591,827,591,827],printer:[576,827,591,827]};
+const BAYER=[[0,8,2,10],[12,4,14,6],[3,11,1,9],[15,7,13,5]];
+const encoder=new TextEncoder();
+function notify(txt,kind=''){const node=$('message');node.textContent=txt;node.className='status'+(kind?' '+kind:'');}
+function ensure(ok,msg){if(!ok)throw Error(msg)}
+const sampleSVG=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 215" width="540" height="215">
+ <rect width="540" height="215" fill="#fff"/>
+ <g fill="none" stroke="#ff0000" stroke-width="2.1" stroke-linecap="round">
+  <path d="M0 180 C80 138 128 95 191 75"/><path d="M540 180 C460 135 412 93 351 70"/>
+  <path d="M18 178 l-8 -32 m22 25 l16 -30 m0 18 l-7 -27 m17 20 l20 -24 m-4 15 l-4 -30 m17 12 l21 -27 m-4 17 l-7 -27 m19 9 l21 -26"/>
+  <path d="M521 178 l9 -30 m-21 22 l-17 -28 m2 19 l7 -28 m-18 18 l-20 -25 m4 17 l4 -31 m-19 11 l-20 -28 m5 16 l5 -26 m-21 8 l-16 -22"/>
+  <path d="M200 40 C240 20 288 19 342 42" stroke-width="1.3" stroke-dasharray="4 7"/>
+  <path d="M181 191 C262 201 325 201 368 183" stroke-width="1.3" stroke-dasharray="5 7"/>
+ </g>
+ <g stroke="#ff0000" fill="#fff" stroke-width="1.4">
+  <ellipse cx="89" cy="115" rx="14" ry="35" transform="rotate(47 89 115)"/>
+  <ellipse cx="116" cy="94" rx="11" ry="28" transform="rotate(48 116 94)"/>
+  <ellipse cx="141" cy="74" rx="9" ry="23" transform="rotate(44 141 74)"/>
+  <ellipse cx="454" cy="114" rx="14" ry="35" transform="rotate(-47 454 114)"/>
+  <ellipse cx="427" cy="94" rx="11" ry="28" transform="rotate(-48 427 94)"/>
+  <ellipse cx="400" cy="74" rx="9" ry="23" transform="rotate(-44 400 74)"/>
+ </g>
+ <g fill="#ff0000"><circle cx="57" cy="188" r="3"/><circle cx="78" cy="187" r="2"/><circle cx="101" cy="175" r="2"/><circle cx="483" cy="187" r="3"/><circle cx="462" cy="190" r="2"/><circle cx="444" cy="176" r="2"/></g>
+</svg>`;
+function removeUnsupported(svg){
+ ensure(typeof svg==='string'&&svg.length>0&&svg.length<8000000,'SVG must be under 8 MB');
+ ensure(!/<!DOCTYPE|<!ENTITY|<\?xml-stylesheet|@import|expression\s*\(/i.test(svg),'External entities, stylesheets, and executable CSS are not allowed');
+ const doc=new DOMParser().parseFromString(svg,'image/svg+xml');
+ ensure(!doc.querySelector('parsererror'),'SVG syntax could not be parsed');
+ const root=doc.documentElement;ensure(root&&root.localName.toLowerCase()==='svg','Expected an <svg> document');
+ const prohibited=new Set(['script','foreignobject','iframe','object','embed','audio','video','animate','set','animatemotion','animatetransform','feimage']);
+ for(const el of Array.from(root.getElementsByTagName('*')).concat(root)){
+   const tag=String(el.localName||'').toLowerCase();ensure(!prohibited.has(tag),'Unsupported SVG element: '+tag);
+   for(const a of Array.from(el.attributes||[])){
+     const n=a.localName.toLowerCase(),val=a.value;
+     ensure(!n.startsWith('on'),'SVG event handlers are not supported');
+     if(n==='href'||n==='src')ensure(val.startsWith('#')||/^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/]+=*$/.test(val),'External SVG references are not supported');
+     if(['style','fill','stroke','filter','clip-path','mask','marker-end','marker-start'].includes(n))ensure(!/url\s*\(\s*['"]?(?!#|data:image\/(?:png|jpeg|webp);base64,)/i.test(val),'External SVG CSS resources are blocked');
+   }
+   if(tag==='style')ensure(!/url\s*\(\s*['"]?(?!#|data:image\/(?:png|jpeg|webp);base64,)/i.test(el.textContent),'External SVG CSS resources are blocked');
+ }
+ const vb=root.getAttribute('viewBox');let aw=540,ah=215;
+ if(vb){const a=vb.trim().split(/[\s,]+/).map(Number);if(a.length===4&&a.every(Number.isFinite)&&a[2]>0&&a[3]>0){aw=a[2];ah=a[3];}}
+ else{
+   const read=n=>{const m=String(root.getAttribute(n)||'').match(/^\s*([\d.]+)(px|mm|cm|in)?\s*$/i);if(!m)return null;const scale={px:1,mm:96/25.4,cm:960/25.4,in:96};return Number(m[1])*(scale[(m[2]||'px').toLowerCase()]);};
+   aw=read('width')||540;ah=read('height')||215;root.setAttribute('viewBox',`0 0 ${aw} ${ah}`);
+ }
+ ensure(aw>0&&ah>0&&aw*ah<50000000,'SVG viewBox exceeds safe dimensions');
+ root.setAttribute('width',String(aw));root.setAttribute('height',String(ah));root.setAttribute('preserveAspectRatio','xMidYMid meet');
+ return {root,svg:new XMLSerializer().serializeToString(root),w:aw,h:ah};
+}
+function determineSize(){const profile=$('profile').value;let dpi=Number($('dpi').value);ensure(Number.isFinite(dpi)&&dpi>=72&&dpi<=1200&&Number.isInteger(dpi),'DPI must be a whole number between 72 and 1200');
+ let w,h,rw,rh;
+ if(profile==='custom'){
+   const a=Number($('width').value),b=Number($('height').value);
+   ensure(a>0&&b>0,'Custom dimensions must be positive');
+   if($('units').value==='mm'){w=Math.round(a*dpi/25.4);h=Math.round(b*dpi/25.4)}else{w=Math.round(a);h=Math.round(b)}rw=w;rh=h;
+ }else [w,h,rw,rh]=PROFILES[profile];
+ ensure(Number.isFinite(w)&&Number.isFinite(h)&&w>0&&h>0&&rw*rh<=30000000,'Output size must be between 1 and 30 million pixels');
+ return {w,h,rw,rh,dpi,profile};
+}
+function onProfile(){const p=$('profile').value,isCustom=p==='custom';$('units').disabled=!isCustom;$('width').disabled=!isCustom;$('height').disabled=!isCustom;
+ if(!isCustom){$('width').value=PROFILES[p][0];$('height').value=PROFILES[p][1];}
+ onDpi();
+}
+function onDpi(){try{const v=determineSize();$('sizeDescription').textContent=`${v.w} × ${v.h} px = ${(v.w*25.4/v.dpi).toFixed(2)} × ${(v.h*25.4/v.dpi).toFixed(2)} mm at ${v.dpi} DPI.`;}catch(e){$('sizeDescription').textContent=e.message}}
+function updateUnits(){let val=Number($('dpi').value)||300;if($('units').value==='mm'){$('width').value=(540*25.4/val).toFixed(2);$('height').value=(215*25.4/val).toFixed(2)}else{$('width').value=540;$('height').value=215}onDpi()}
+function loadSource(text,name){const res=removeUnsupported(text);rawSVG=text;cleanSVG=res.svg;sanitizedRoot=res;sourceName=name||'untitled.svg';$('sourceInfo').textContent=`${sourceName} · viewBox ${Math.round(res.w*100)/100} × ${Math.round(res.h*100)/100}`;notify('SVG loaded. Render to confirm pixel output.');refreshOutput(true)}
+function refreshOutput(setDirty=false){if(setDirty){current=null;$('subtitle').textContent='Render to refresh output';}
+ for(const k of ['savePng','saveBmp','saveRed','saveBlack','saveSvg','saveManifest'])$(k).disabled=!current;}
+function loadFile(file){ensure(file,'Choose an SVG file');ensure(file.size<=8000000,'SVG must be under 8 MB');file.text().then(t=>{try{loadSource(t,file.name);render()}catch(e){notify(e.message,'error')}}).catch(e=>notify(String(e),'error'))}
+function cropSVGPreview(){return null}
+function drawOriginal(svgObj,canvas,mode){return new Promise((resolve,reject)=>{const svg=svgObj.svg;const obj=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml;charset=utf-8'}));const image=new Image();let done=false;
+ function finish(err){if(done)return;done=true;URL.revokeObjectURL(obj);err?reject(err):resolve()}
+ image.onload=()=>{try{const ctx=canvas.getContext('2d',{willReadFrequently:true});const w=canvas.width,h=canvas.height;ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+ let dw=w,dh=h,dx=0,dy=0;
+ if(mode==='contain'){const s=Math.min(w/svgObj.w,h/svgObj.h);dw=svgObj.w*s;dh=svgObj.h*s;dx=(w-dw)/2;dy=(h-dh)/2}
+ if(mode==='cover'){const s=Math.max(w/svgObj.w,h/svgObj.h);dw=svgObj.w*s;dh=svgObj.h*s;dx=(w-dw)/2;dy=(h-dh)/2}
+ ctx.drawImage(image,dx,dy,dw,dh);finish();}catch(e){finish(e)}};image.onerror=()=>finish(Error('The SVG renderer could not load this artwork; check unsupported fonts, filters, or embedded images.'));image.src=obj;});}
+function colors(im,palette,dither){const bytes=im.data,w=im.width,h=im.height,out=new Uint8Array(w*h),count=[0,0,0];for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+ const i=(y*w+x)*4,r=bytes[i],g=bytes[i+1],b=bytes[i+2],a=bytes[i+3],R=a<255?Math.round((r*a+255*(255-a))/255):r,G=a<255?Math.round((g*a+255*(255-a))/255):g,B=a<255?Math.round((b*a+255*(255-a))/255):b;
+ let idx=0;
+ if(palette==='rw'&&dither==='bayer4'){const ink=(510-G-B)/510,thr=(BAYER[y%4][x%4]+.5)/16;idx=ink>thr?1:0}
+ else{let best=Infinity;for(let k=0;k<(palette==='rw'?2:3);k++){const q=P[k],d=(R-q[0])**2+(G-q[1])**2+(B-q[2])**2;if(d<best){best=d;idx=k}}}
+ out[y*w+x]=idx;count[idx]++;
+ }return {indices:out,counts:count}}
+function drawIndices(target,ind,w,h){const c=target.getContext('2d'),image=c.createImageData(w,h);for(let i=0;i<ind.length;i++){const rgb=P[ind[i]],p=i*4;image.data[p]=rgb[0];image.data[p+1]=rgb[1];image.data[p+2]=rgb[2];image.data[p+3]=255;}c.putImageData(image,0,0)}
+function normSVG(source,props){const root=source.root.cloneNode(true),container=document.implementation.createDocument('http://www.w3.org/2000/svg','svg',null),outer=container.documentElement;outer.setAttribute('xmlns','http://www.w3.org/2000/svg');outer.setAttribute('width',String(props.w));outer.setAttribute('height',String(props.h));outer.setAttribute('viewBox',`0 0 ${props.w} ${props.h}`);const white=container.createElementNS('http://www.w3.org/2000/svg','rect');white.setAttribute('width',String(props.w));white.setAttribute('height',String(props.h));white.setAttribute('fill','#FFFFFF');outer.append(white);
+ root.setAttribute('x',props.profile==='printer'?'-7':'0');root.setAttribute('y','0');root.setAttribute('width',String(props.rw));root.setAttribute('height',String(props.rh));root.setAttribute('preserveAspectRatio',props.fit==='cover'?'xMidYMid slice':props.fit==='contain'?'xMidYMid meet':'none');outer.append(container.importNode(root,true));return '<?xml version="1.0" encoding="UTF-8"?>\n'+new XMLSerializer().serializeToString(outer)}
+async function render(){const run=++conversionNo;try{
+ ensure(sanitizedRoot,'Load an SVG first');const info=determineSize();const pal=$('palette').value,fit=$('fit').value,dither=$('dither').value;ensure(pal==='rw'||dither==='none','Dithering in this version is available for red + white only');notify('Rendering SVG and checking every pixel...');
+ const base=document.createElement('canvas');base.width=info.rw;base.height=info.rh;await drawOriginal(sanitizedRoot,base,fit);if(run!==conversionNo)return;
+ const ctx=base.getContext('2d',{willReadFrequently:true});let img;
+ if(info.profile==='printer'){img=ctx.getImageData(7,0,576,827)}else img=ctx.getImageData(0,0,base.width,base.height);
+ const {indices,counts}=colors(img,pal,dither),target=$('preview');target.width=info.w;target.height=info.h;drawIndices(target,indices,info.w,info.h);
+ const clean=normSVG(sanitizedRoot,{...info,fit});current={...info,palette:pal,fit,dither,sourceName,indices,counts,vector:clean,source:rawSVG};
+ $('subtitle').textContent=`${info.w} × ${info.h} · ${pal==='rw'?'red / white':'red / black / white'}`;$('resultSize').textContent=`${info.w} × ${info.h}`;$('resultDpi').textContent=info.dpi.toString();$('redCount').textContent=counts[1].toLocaleString();$('whiteCount').textContent=counts[0].toLocaleString();$('blackCount').textContent=counts[2].toLocaleString();$('bpp').textContent=pal==='rw'?'1 bit':'2 bits';
+ $('checks').innerHTML=`<div class="check"><i>✓</i> SVG sanitized and rasterized</div><div class="check"><i>✓</i> Exact ${info.w} × ${info.h} output</div><div class="check"><i>✓</i> ${pal==='rw'?'Only red / white':'Only red / black / white'} pixels</div><div class="check"><i>✓</i> No transparent pixels</div><div class="check"><i>✓</i> ${info.dpi} DPI metadata ready</div>`;
+ refreshOutput();notify(`Ready: ${info.w} × ${info.h}, ${counts[1].toLocaleString()} red pixels.`, 'ok');
+ }catch(e){current=null;refreshOutput();notify(String(e.message||e),'error')}}
+function chunk(tag,data){const t=encoder.encode(tag),n=data.length;const arr=new Uint8Array(n+12),v=new DataView(arr.buffer);v.setUint32(0,n,false);arr.set(t,4);arr.set(data,8);const crcdata=arr.slice(4,8+n);v.setUint32(n+8,crc32(crcdata),false);return arr}
+const CRCTABLE=(()=>{const a=new Uint32Array(256);for(let i=0;i<256;i++){let c=i;for(let j=0;j<8;j++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);a[i]=c>>>0;}return a})();
+function crc32(a){let c=0xffffffff;for(const b of a)c=CRCTABLE[(c^b)&255]^(c>>>8);return (c^0xffffffff)>>>0}
+function adler32(a){let a1=1,a2=0;for(const v of a){a1=(a1+v)%65521;a2=(a2+a1)%65521}return ((a2<<16)|a1)>>>0}
+function zlibStore(a){const max=65535,blocks=Math.ceil(a.length/max),out=new Uint8Array(2+a.length+blocks*5+4);out.set([0x78,0x01],0);let off=2;for(let i=0;i<blocks;i++){const from=i*max,len=Math.min(max,a.length-from);out[off++]=i===blocks-1?1:0;out[off++]=len&255;out[off++]=len>>>8;const inv=(~len)&65535;out[off++]=inv&255;out[off++]=inv>>>8;out.set(a.subarray(from,from+len),off);off+=len;}new DataView(out.buffer).setUint32(off,adler32(a),false);return out}
+function indexedPNG(s){const w=s.w,h=s.h,depth=s.palette==='rw'?1:2,bpr=Math.ceil(w*depth/8),rows=new Uint8Array((bpr+1)*h);for(let y=0;y<h;y++){const off=y*(bpr+1)+1;for(let x=0;x<w;x++){const bit=x*depth,byte=bit>>>3,shift=8-depth-(bit%8);rows[off+byte]|=s.indices[y*w+x]<<shift;}}
+ const ihdr=new Uint8Array(13),v=new DataView(ihdr.buffer);v.setUint32(0,w,false);v.setUint32(4,h,false);ihdr[8]=depth;ihdr[9]=3;const palette=s.palette==='rw'?new Uint8Array([255,255,255,255,0,0]):new Uint8Array([255,255,255,255,0,0,0,0,0]);const phys=new Uint8Array(9),p=new DataView(phys.buffer),ppm=Math.round(s.dpi/0.0254);p.setUint32(0,ppm,false);p.setUint32(4,ppm,false);phys[8]=1;
+ const parts=[new Uint8Array([137,80,78,71,13,10,26,10]),chunk('IHDR',ihdr),chunk('PLTE',palette),chunk('pHYs',phys),chunk('IDAT',zlibStore(rows)),chunk('IEND',new Uint8Array())];const total=parts.reduce((a,b)=>a+b.length,0),out=new Uint8Array(total);let off=0;for(const q of parts){out.set(q,off);off+=q.length}return out}
+function indexedBMP(s){const w=s.w,h=s.h,depth=s.palette==='rw'?1:4,rawbpr=depth===1?Math.ceil(w/8):Math.ceil(w/2),stride=Math.ceil(rawbpr/4)*4,paletteLen=depth===1?2:16,off=14+40+paletteLen*4,buf=new Uint8Array(off+stride*h),dv=new DataView(buf.buffer),ppm=Math.round(s.dpi/0.0254);
+ buf.set([66,77],0);dv.setUint32(2,buf.length,true);dv.setUint32(10,off,true);dv.setUint32(14,40,true);dv.setInt32(18,w,true);dv.setInt32(22,h,true);dv.setUint16(26,1,true);dv.setUint16(28,depth,true);dv.setUint32(34,stride*h,true);dv.setInt32(38,ppm,true);dv.setInt32(42,ppm,true);dv.setUint32(46,s.palette==='rw'?2:3,true);dv.setUint32(50,s.palette==='rw'?2:3,true);buf.set([255,255,255,0,0,0,255,0,0,0,0,0],54);
+ for(let y=0;y<h;y++){const offRow=off+(h-1-y)*stride;for(let x=0;x<w;x++){const val=s.indices[y*w+x];if(depth===1){if(val===1)buf[offRow+(x>>3)]|=0x80>>(x%8)}else if(x%2===0)buf[offRow+(x>>1)]|=(val&15)<<4;else buf[offRow+(x>>1)]|=val&15;}}return buf}
+function bitplane(s,index){const bpr=Math.ceil(s.w/8),out=new Uint8Array(bpr*s.h);for(let y=0;y<s.h;y++)for(let x=0;x<s.w;x++)if(s.indices[y*s.w+x]===index)out[y*bpr+(x>>3)]|=0x80>>(x%8);return out}
+function saveBlob(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.style.display='none';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+function rootName(s){return (s.sourceName||'label').replace(/\.svg$/i,'').replace(/[^\w-]+/g,'-').replace(/^-|-$/g,'').slice(0,90)||'artwork'}
+function write(type){ensure(current,'Render artwork first');const s=current,bname=`${rootName(s)}_${s.w}x${s.h}_${s.palette}`;
+ if(type==='png')saveBlob(new Blob([indexedPNG(s)],{type:'image/png'}),bname+'.png');
+ else if(type==='bmp')saveBlob(new Blob([indexedBMP(s)],{type:'image/bmp'}),bname+'.bmp');
+ else if(type==='red'||type==='black')saveBlob(new Blob([bitplane(s,type==='red'?1:2)],{type:'application/octet-stream'}),bname+'_'+type+'-plane-msb.bin');
+ else if(type==='svg')saveBlob(new Blob([s.vector],{type:'image/svg+xml'}),bname+'_normalized.svg');
+ else if(type==='manifest'){const data={schema:'nerdeus.vector-print.v1',input:s.sourceName,palette:s.palette,profile:s.profile,width_px:s.w,height_px:s.h,dpi:s.dpi,width_mm:Number((s.w*25.4/s.dpi).toFixed(3)),height_mm:Number((s.h*25.4/s.dpi).toFixed(3)),render_source_width:s.rw,render_source_height:s.rh,fit:s.fit,dither:s.dither,pixel_counts:{white:s.counts[0],red:s.counts[1],black:s.counts[2]},png_bit_depth:s.palette==='rw'?1:2,bmp_bit_depth:s.palette==='rw'?1:4,printer_command_encoding:false,raw_plane_bytes_per_row:Math.ceil(s.w/8),raw_plane_order:'row-major, MSB first, white/unset=0, black or red=set=1 on its respective plane'};saveBlob(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),bname+'_manifest.json');}}
+$('browse').onclick=()=>$('file').click();$('file').onchange=e=>{const file=e.target.files?.[0];if(file)try{loadFile(file)}catch(x){notify(x.message,'error')}};
+$('pasteToggle').onclick=()=>$('sourceWrap').classList.toggle('hidden');$('useSource').onclick=()=>{try{loadSource($('source').value,'pasted-svg.svg');render()}catch(e){notify(e.message,'error')}};
+$('sample').onclick=()=>{try{loadSource(sampleSVG,'Hearth-and-Herbs.svg');render()}catch(e){notify(e.message,'error')}};
+$('profile').onchange=()=>{onProfile();refreshOutput(true)};$('units').onchange=()=>{updateUnits();refreshOutput(true)};
+for(const id of ['width','height','dpi','fit','palette','dither'])$(id).addEventListener('change',()=>{onDpi();refreshOutput(true)});
+$('palette').onchange=()=>{if($('palette').value==='rbw'&&$('dither').value==='bayer4'){$('dither').value='none';notify('Three-color output uses nearest-color threshold, not two-color dithering.');}refreshOutput(true)};
+$('convert').onclick=render;$('actual').onchange=()=>{$('stageBox').classList.toggle('actual',$('actual').checked)};
+$('drop').addEventListener('dragover',e=>{e.preventDefault();$('drop').classList.add('drag')});$('drop').addEventListener('dragleave',()=>$('drop').classList.remove('drag'));
+$('drop').addEventListener('drop',e=>{e.preventDefault();$('drop').classList.remove('drag');const f=e.dataTransfer?.files?.[0];if(f)try{loadFile(f)}catch(x){notify(x.message,'error')}});
+$('drop').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click()}});
+for(const [id,type] of [['savePng','png'],['saveBmp','bmp'],['saveRed','red'],['saveBlack','black'],['saveSvg','svg'],['saveManifest','manifest']])$(id).onclick=()=>{try{write(type)}catch(e){notify(e.message,'error')}};
+window.__nerdeusConverterTest={getCurrent:()=>current,buildPNG:()=>current&&indexedPNG(current),buildBMP:()=>current&&indexedBMP(current),source:(text)=>{loadSource(text,'test.svg');return render()},setProfile:x=>{$('profile').value=x;onProfile()},render};
+$('sample').click();
+})();
+</script>
+</body></html>
