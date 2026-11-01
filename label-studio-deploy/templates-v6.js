@@ -76,7 +76,9 @@ const isModern=t=>t&&t.nlsDesignVersion===6&&t.elements?.some(e=>e.name==='Black
 function isUntouchedLegacy(t){const base=originalById.get(t.id);if(!base)return false;
 const a=t.elements.filter(x=>x.type!=='background');
 if(a.length!==base.elements.length)return false;
-return a.every((e,i)=>{const o=base.elements[i];return e.type===o.type&&e.name===o.name&&(e.text||'')===(o.text||'')&&Math.abs((e.x||0)-(o.x||0))<=1&&Math.abs((e.y||0)-(o.y||0))<=1&&Math.abs((e.w||0)-(o.w||0))<=1&&Math.abs((e.h||0)-(o.h||0))<=1;});
+return a.every((e,i)=>{const o=base.elements[i];
+ const sameStyle=['color','fontSize','bold','align','fontFamily','fill','stroke','strokeWidth','radius','locked','visible'].every(k=>o[k]===undefined||e[k]===o[k]);
+ return sameStyle&&e.type===o.type&&e.name===o.name&&(e.text||'')===(o.text||'')&&Math.abs((e.x||0)-(o.x||0))<=1&&Math.abs((e.y||0)-(o.y||0))<=1&&Math.abs((e.w||0)-(o.w||0))<=1&&Math.abs((e.h||0)-(o.h||0))<=1;});
 }
 function migrate(t){
 if(isModern(t)||!modernById.has(t.id)||!isUntouchedLegacy(t))return t;
