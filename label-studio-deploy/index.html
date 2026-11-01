@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="nls-version" content="v4.2-background-hover" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -119,6 +120,18 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
 .stage-outer{align-items:flex-start!important;justify-content:center!important;min-height:620px!important;padding-top:22px!important;}
 .stage-column{margin:0 auto;}
 
+/* v4.2 — full-size pointer/keyboard preview for individual patterns.
+   Fixed positioning escapes the scroll-clipped grid; the popup never intercepts a click. */
+.nls-pattern-preview{position:fixed;left:0;top:0;width:min(566px,calc(100vw - 24px));padding:11px;background:#fff;color:#213244;border:1px solid #cfdbe5;border-radius:11px;box-shadow:0 16px 50px #101d3370;z-index:2000;pointer-events:none;visibility:hidden;opacity:0;transition:opacity .1s ease-out;box-sizing:border-box;}
+.nls-pattern-preview.is-visible{visibility:visible;opacity:1;}
+.nls-pattern-preview-header,.nls-pattern-preview-footer{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.nls-pattern-preview-header{margin:0 0 9px;font-size:13px;}
+.nls-pattern-preview-header strong{color:#d62621;font-weight:850;}
+.nls-pattern-preview-header span,.nls-pattern-preview-footer{color:#64758b;font-size:10px;}
+.nls-pattern-preview img{display:block;width:100%;height:auto;max-height:min(46vh,330px);object-fit:contain;background:#fff;border:1px solid #e6e9ef;border-radius:5px;image-rendering:pixelated;aspect-ratio:540/215;}
+.nls-pattern-preview-footer{margin-top:8px;}
+@media (prefers-reduced-motion: reduce){.nls-pattern-preview{transition:none;}}
+
 </style>
   <style>
 .nls-cut-library{padding:0 0 5px}.nls-cut-library .nls-library-heading{margin-bottom:10px}.nls-cut-grid{max-height:306px;overflow-y:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:6px;background:#f8fafc;border:1px solid #e6eaf0;border-radius:9px}.nls-cut-choice{min-width:0;border:1px solid #dbe2ea;background:#fff;border-radius:6px;padding:5px;color:#435568;text-align:left;cursor:pointer}.nls-cut-choice.is-selected{border-color:#e83e32;box-shadow:0 0 0 2px #fa5c5480}.nls-cut-choice:hover{border-color:#d44f48}.nls-cut-choice img{display:block;width:100%;aspect-ratio:540/215;object-fit:contain;image-rendering:pixelated;background:#fff}.nls-cut-choice span{display:block;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-top:4px}.nls-cut-choice b{color:#d12c22}.nls-cut-library .nls-library-heading h2{font-size:13px;line-height:1.3}.nls-cut-library .nls-library-heading .eyebrow{display:block;margin-bottom:3px}@media(max-width:720px){.nls-cut-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-height:230px}}/* Keep all three libraries reachable without pushing the artwork stage below the fold. */
@@ -223,6 +236,11 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
             <select id="backgroundCategory" aria-label="Filter background categories"></select>
           </div>
           <div class="nls-library-grid" id="backgroundGrid" aria-label="Select red-and-white background pattern"></div>
+          <div id="backgroundHoverPreview" class="nls-pattern-preview" role="tooltip" aria-hidden="true">
+            <div class="nls-pattern-preview-header"><strong id="backgroundHoverName">Pattern preview</strong><span>Full-resolution artwork</span></div>
+            <img id="backgroundHoverImage" alt="Enlarged red-and-white background pattern" width="540" height="215" decoding="async" />
+            <div class="nls-pattern-preview-footer"><span id="backgroundHoverSize">540 × 215 pixels</span><span>Pure red + white · Hover only</span></div>
+          </div>
           <div class="nls-library-actions">
             <button type="button" id="btnAddBackground">+ Another region</button>
             <button type="button" id="btnImportBackground">↑ Import image</button>
@@ -1012,13 +1030,66 @@ function applyCut(id){const a=Cuts.byId.get(id);if(!a)return;const doc=active();
 function createMeatTemplate(id){const a=Cuts.byId.get(id);if(!a)return;checkpoint();const doc=Cuts.makeTemplate(a);doc.id=Core.UID();doc.name=a.species+' · '+a.name+' copy';state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;saveLocal();refresh();toast('Meat label template created. Change artwork, background and text.');}
 
 function availableBackgrounds(){return Bg.catalog.concat(state.customBackgrounds);}
+let backgroundHoverTimer=null;
+const backgroundHoverBox=$('#backgroundHoverPreview');
+function hideBackgroundHover(){
+  clearTimeout(backgroundHoverTimer); backgroundHoverTimer=null;
+  backgroundHoverBox.classList.remove('is-visible');
+  backgroundHoverBox.setAttribute('aria-hidden','true');
+}
+function showBackgroundHover(button,asset){
+  if(!asset||!button?.isConnected)return;
+  clearTimeout(backgroundHoverTimer); backgroundHoverTimer=null;
+  $('#backgroundHoverName').textContent=asset.id+' · '+asset.name;
+  const image=$('#backgroundHoverImage');
+  const w=Math.max(1,Number(asset.width)||540),h=Math.max(1,Number(asset.height)||215);
+  image.src=asset.dataUri;image.style.aspectRatio=w+' / '+h;
+  $('#backgroundHoverSize').textContent=w+' × '+h+' pixels · original pattern';
+  backgroundHoverBox.classList.add('is-visible');
+  backgroundHoverBox.setAttribute('aria-hidden','false');
+  const rect=button.getBoundingClientRect(), margin=12, gap=12;
+  const previewW=backgroundHoverBox.offsetWidth,previewH=backgroundHoverBox.offsetHeight;
+  const sidebarRight=$('.panel-left')?.getBoundingClientRect().right||rect.right;
+  // Show alongside the left library, not on top of its other thumbnails.
+  let left=Math.max(rect.right,sidebarRight)+gap;
+  if(left+previewW>innerWidth-margin){
+    left=rect.left-previewW-gap;
+    if(left<margin)left=Math.max(margin,Math.min(rect.left,innerWidth-previewW-margin));
+  }
+  let top=rect.top;
+  // On narrow screens neither horizontal side fits; place above/below the tile.
+  if(left<rect.right && left+previewW>rect.left){
+    top=rect.bottom+gap;
+    if(top+previewH>innerHeight-margin)top=rect.top-previewH-gap;
+  }
+  left=Math.max(margin,Math.min(left,innerWidth-previewW-margin));
+  top=Math.max(margin,Math.min(top,innerHeight-previewH-margin));
+  backgroundHoverBox.style.left=Math.round(left)+'px';
+  backgroundHoverBox.style.top=Math.round(top)+'px';
+}
+$('#backgroundGrid').addEventListener('scroll',hideBackgroundHover,{passive:true});
+window.addEventListener('resize',hideBackgroundHover,{passive:true});
+document.addEventListener('keydown',event=>{if(event.key==='Escape')hideBackgroundHover();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)hideBackgroundHover();});
 function renderBackgroundLibrary(){
+  hideBackgroundHover();
   const search=state.bgSearch.trim().toLowerCase(),category=state.bgCategory;
   const all=availableBackgrounds(),shown=all.filter(item=>(category==='All'||category===item.category)&&(!search||(item.name+' '+item.id+' '+item.category).toLowerCase().includes(search)));
   const selectedPattern=selected()?.type==='background'?selected().assetId:active().elements.find(e=>e.type==='background')?.assetId;
   $('#backgroundCount').textContent=all.length;
-  $('#backgroundGrid').innerHTML=shown.map(a=>`<button class="nls-pattern-choice ${selectedPattern===a.id?'is-selected':''}" type="button" data-pattern="${esc(a.id)}" title="${esc(a.name)}" aria-label="Apply background ${esc(a.id)} ${esc(a.name)}"><img src="${a.dataUri}" alt="" loading="lazy" decoding="async"><span><b>${esc(a.id.replace('BG-',''))}</b> ${esc(a.name)}</span></button>`).join('')||'<div class="nls-library-empty">No patterns match this filter.</div>';
-  $$('#backgroundGrid [data-pattern]').forEach(btn=>btn.onclick=()=>applyBackground(all.find(x=>x.id===btn.dataset.pattern)));
+  $('#backgroundGrid').innerHTML=shown.map(a=>`<button class="nls-pattern-choice ${selectedPattern===a.id?'is-selected':''}" type="button" data-pattern="${esc(a.id)}" aria-describedby="backgroundHoverPreview" aria-label="Apply background ${esc(a.id)} ${esc(a.name)}"><img src="${a.dataUri}" alt="" loading="lazy" decoding="async"><span><b>${esc(a.id.replace('BG-',''))}</b> ${esc(a.name)}</span></button>`).join('')||'<div class="nls-library-empty">No patterns match this filter.</div>';
+  $$('#backgroundGrid [data-pattern]').forEach(btn=>{
+    const asset=all.find(x=>x.id===btn.dataset.pattern);
+    btn.onclick=()=>{hideBackgroundHover();applyBackground(asset);};
+    btn.addEventListener('pointerenter',event=>{
+      if(event.pointerType==='touch')return;
+      clearTimeout(backgroundHoverTimer);
+      backgroundHoverTimer=setTimeout(()=>showBackgroundHover(btn,asset),140);
+    });
+    btn.addEventListener('pointerleave',hideBackgroundHover);
+    btn.addEventListener('focus',()=>showBackgroundHover(btn,asset));
+    btn.addEventListener('blur',hideBackgroundHover);
+  });
   $('#btnAddBackground').disabled=!all.length;
 }
 async function applyBackground(asset,addNew=false){if(!asset)return;
