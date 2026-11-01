@@ -1056,7 +1056,9 @@ const isModern=t=>t&&t.nlsDesignVersion===6&&t.elements?.some(e=>e.name==='Black
 function isUntouchedLegacy(t){const base=originalById.get(t.id);if(!base)return false;
 const a=t.elements.filter(x=>x.type!=='background');
 if(a.length!==base.elements.length)return false;
-return a.every((e,i)=>{const o=base.elements[i];return e.type===o.type&&e.name===o.name&&(e.text||'')===(o.text||'')&&Math.abs((e.x||0)-(o.x||0))<=1&&Math.abs((e.y||0)-(o.y||0))<=1&&Math.abs((e.w||0)-(o.w||0))<=1&&Math.abs((e.h||0)-(o.h||0))<=1;});
+return a.every((e,i)=>{const o=base.elements[i];
+ const sameStyle=['color','fontSize','bold','align','fontFamily','fill','stroke','strokeWidth','radius','locked','visible'].every(k=>o[k]===undefined||e[k]===o[k]);
+ return sameStyle&&e.type===o.type&&e.name===o.name&&(e.text||'')===(o.text||'')&&Math.abs((e.x||0)-(o.x||0))<=1&&Math.abs((e.y||0)-(o.y||0))<=1&&Math.abs((e.w||0)-(o.w||0))<=1&&Math.abs((e.h||0)-(o.h||0))<=1;});
 }
 function migrate(t){
 if(isModern(t)||!modernById.has(t.id)||!isUntouchedLegacy(t))return t;
@@ -1528,8 +1530,12 @@ function showPrinterSetup(portrait,sourceName,checksum){
   $('#connectDriver').onclick=async()=>{status.textContent='Requesting Bluetooth device…';try{await window.LabelPrinter.connect();update();}catch(e){status.textContent=e.message;toast(e.message,'error');}};
   $('#disconnectDriver').onclick=async()=>{await window.LabelPrinter.disconnect();update();};
   $('#stockConfirm').onchange=update;
-  $('#modalDoPrint').onclick=async()=>{const btn=$('#modalDoPrint');btn.disabled=true;status.textContent='Sending exact pixels to B1 Pro via NiimBlueLib…';
-    try{const ret=await window.LabelPrinter.printPortraitCanvas(portrait,{density:Number($('#printDensity').value)});status.textContent='Print job finished according to driver. Verify the label physically; no confirmation of scan/print quality is available.';toast(`Driver completed the print job (${ret.task}). Verify output.`);}
+  $('#modalDoPrint').onclick=async()=>{const btn=$('#modalDoPrint');btn.disabled=true;status.textContent='Validating label information…';
+    try{
+      const unfinished=Object.entries(active().data).filter(([key,val])=>/(?:useBy|bestBy|prepared|packed|opened)$/i.test(key)&&(!String(val||'').trim()||/^(?:SET DATE|MM\/DD\/YYYY|TBD)$/i.test(String(val).trim())));
+      if(unfinished.length)throw new Error('Complete the package date fields in Label data before physical printing: '+unfinished.map(([k])=>k).join(', '));
+      status.textContent='Sending exact pixels to B1 Pro via NiimBlueLib…';
+      const ret=await window.LabelPrinter.printPortraitCanvas(portrait,{density:Number($('#printDensity').value)});status.textContent='Print job finished according to driver. Verify the label physically; no confirmation of scan/print quality is available.';toast(`Driver completed the print job (${ret.task}). Verify output.`);}
     catch(e){status.textContent=`Print failed: ${e.message}`;toast(e.message,'error');}finally{update();}};
   update();
 }
