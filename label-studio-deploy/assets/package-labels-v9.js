@@ -341,7 +341,7 @@ function setArt(doc,id){
 function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive}){
  const v=k=>String(doc.data['pkg.'+k]??''),safe=esc;
  const groups=[
- ['IDENTITY',[['food','Product name'],['status','Condition and meaningful attributes'],['detail','Contents / cut summary'],['packaging','Package type']]],
+ ['IDENTITY',[['food','Product name'],['status','Condition and meaningful attributes'],['detail','Contents / cut summary'],['packaging','Package type'],['icon','Header symbol','icon']]],
  ['QUANTITY',[['metric','Metric quantity'],['imperial','Imperial quantity'],['portions','Servings / portions']]],
  ['DATES AND STORAGE',[['storage','Storage condition'],['packedCaption','First date caption'],['packed','Packed / prepared date','date'],['extraDateLabel','Extra date caption'],['extraDate','Extra date','date'],['date','Use-by / best-quality date','date']]],
  ['HANDLING',[['instructions','Verified handling instructions','textarea'],['temp','Verified temperature (°F / °C)'],['footerMain','Black footer – main instruction'],['footerSub','Black footer – secondary instruction']]],
@@ -351,6 +351,7 @@ function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInsp
   const inp=type==='textarea'?'<textarea rows="2" data-v9key="pkg.'+key+'">'+safe(v(key))+'</textarea>':
    type==='date'?'<input type="date" data-v9key="pkg.'+key+'" value="'+safe(v(key))+'"/>':
    key==='storage'?'<select data-v9key="pkg.storage">'+['FROZEN','REFRIGERATED','COOL & DRY','ROOM TEMPERATURE'].map(i=>'<option '+(i===v(key)?'selected':'')+'>'+i+'</option>').join('')+'</select>':
+   type==='icon'?'<select data-v9key="pkg.icon">'+['steak','chicken','onion','kit','lasagna','meal','wheat','vegetable'].map(i=>'<option '+(i===v(key)?'selected':'')+'>'+i+'</option>').join('')+'</select>':
    '<input type="text" data-v9key="pkg.'+key+'" value="'+safe(v(key))+'"/>';
   return '<div class="field"><label>'+safe(name)+'</label>'+inp+'</div>';
  }
@@ -361,6 +362,7 @@ function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInsp
  '<div class="field"><label>Choose label type</label><select id="v9-type">'+selectOptions+'</select></div>'+
  '<section class="v9-art"><h4>Food illustration & white stipple halo</h4><p>Show only the actual food being packed. No bowls, pans or unrelated garnish.</p>'+
  '<div class="field"><label>Choose an existing illustration</label><select id="v9-art-pick">'+artOptions+'</select></div>'+
+ '<div class="field"><label>Image separation</label><select id="v9-halo"><option value="stipple">White stippled halo</option><option value="off">No halo</option></select></div>'+ 
  '<div class="v9-actions"><button type="button" class="btn btn-outline" id="v9-upload-button">Import black/white food image</button><button type="button" class="btn btn-light" id="v9-remove-art">No art</button></div>'+
  '<input type="file" id="v9-art-file" accept="image/png,image/webp,image/jpeg" hidden/><div class="v9-art-note">'+safe(currentArt?.assetId||'No food artwork selected')+'</div></section>'+
  groups.map(([title,fields])=>'<section class="v9-fields"><h4>'+title+'</h4>'+fields.map(field).join('')+'</section>').join('')+
@@ -374,6 +376,8 @@ function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInsp
   t.oninput=()=>{P.change(doc,t.dataset.v9key,t.value);for(const cb of target.querySelectorAll('[data-v9review]'))cb.checked=doc.data[cb.dataset.v9review]==='1';saveLocal();drawArtwork();updateChecks();};
  }
  for(const t of target.querySelectorAll('[data-v9review]'))t.onchange=()=>{checkpoint();doc.data[t.dataset.v9review]=t.checked?'1':'0';reviewFlag(doc);saveLocal();drawArtwork();updateChecks();};
+ target.querySelector('#v9-halo').value=currentArt?.haloMode==='off'?'off':'stipple';
+ target.querySelector('#v9-halo').onchange=e=>{checkpoint();const art=doc.elements.find(x=>x.type==='illustration');if(art){art.haloMode=e.target.value;doc.data['pkg.artworkReviewed']='0';reviewFlag(doc);saveLocal();drawArtwork();updateChecks();}};
  target.querySelector('#v9-art-pick').onchange=e=>{checkpoint();try{setArt(doc,e.target.value);doc.data['pkg.artworkReviewed']='0';reviewFlag(doc);saveLocal();refresh();}catch(err){alert(err.message);}};
  target.querySelector('#v9-upload-button').onclick=()=>target.querySelector('#v9-art-file').click();
  target.querySelector('#v9-art-file').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;checkpoint();try{const id=await ingest(f,doc);setArt(doc,id);doc.data['pkg.artworkReviewed']='0';reviewFlag(doc);saveLocal();refresh();}catch(err){alert('Artwork import: '+err.message);}};
