@@ -341,7 +341,7 @@ P8.panel=args=>isMaster(args.doc)?panel(args):oldPanel(args);
 const v9={version:9,families,defs,byId,defaults,isMaster,make,validate,update,derived,assignArt,drawMotif,svgMotif,compHero,fmtDate,dateTypes,dateNames};
 window.LabelMasterV9=v9;
 
-function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive}){
+function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive,createFresh}){
  const safe=esc,d=doc.data,v=k=>String(d['pkg.'+k]??'');
  const inputs=[
  ['food','Product name','text'],['state','Preparation state','select',['RAW','COOKED','DRY','OPENED','PARTIALLY COOKED']],
@@ -370,7 +370,7 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
  const chosen=doc.elements.find(x=>x.name==='Hero food illustration');
  const gallery='<div class="field"><label>Food artwork · only actual packaged contents</label><select id="masterArtwork"><option value="">No artwork — text-only</option>'+Cuts.catalog.map(x=>'<option value="'+safe(x.id)+'" '+(chosen?.assetId===x.id?'selected':'')+'>'+safe((x.species||'Food')+' / '+x.name)+'</option>').join('')+(chosen&&!Cuts.byId.has(chosen.assetId)?'<option selected value="'+safe(chosen.assetId)+'">Uploaded artwork: '+safe(chosen.assetId)+'</option>':'')+'</select></div>';
  const reviews=[['identityReviewed','Product identity and contents confirmed'],['quantityReviewed','Metric / imperial quantities verified'],['storageReviewed','Actual storage condition and container verified'],['datesReviewed','All printed events and quality/use-by date verified'],['allergensReviewed','Actual recipe ingredients and allergens reviewed'],['actionVerified','Handling and any safety-critical cooking directions verified'],['artworkReviewed','Selected food artwork approved; no cookware or unlisted items'],['textOnlyApproved','Allow a truthful text-only label when artwork is unavailable']];
- target.innerHTML='<div class="master-form"><h3>One master layout · v9</h3><p class="form-tip">Values are illustrative until verified. The header never prints generic branding or repeats the food name below the illustration.</p>'+selector+'<div class="master-field-grid">'+inputs.map(field).join('')+'</div>'+gallery+
+ target.innerHTML='<div class="master-form"><h3>One master layout · current preset</h3><p class="form-tip">Values are illustrative until verified. The header never prints generic branding or repeats the food name below the illustration.</p>'+selector+'<button type="button" id="masterNewPackage" class="btn btn-outline" style="width:100%;min-height:40px;margin:8px 0 14px">+ New blank package of this type</button><div class="master-field-grid">'+inputs.map(field).join('')+'</div>'+gallery+
  '<div class="field"><label>Decorative edge artwork</label><select id="masterBotanical"><option value="BG-013">Approved herb engraving</option><option value="legacy">Earlier simplified botanicals</option></select></div><p class="form-tip">The red botanical artwork is decorative only, not a depiction of ingredients.</p>'+
  '<div class="field"><label>Upload transparent black/white food PNG · 540 × 215 px</label><input id="masterArtUpload" type="file" accept="image/png"/></div><p class="form-tip">Uploaded art is a candidate until reviewed. No bowls, cookware or unrelated food unless physically packaged.</p><h4>DATED EVENTS (UP TO 4 PRINTED)</h4>'+eventRows+
  '<h4>REVIEW BEFORE PRINTING</h4><div class="master-review">'+reviews.map(([key,label])=>'<label><input type="checkbox" data-master-check="'+key+'" '+(v(key)==='1'?'checked':'')+' />'+safe(label)+'</label>').join('')+'</div><div class="master-gate" id="masterGate"></div><p class="form-tip">Printed QR contains the ID only. No automatic expiry, ingredient or temperature guesses. Legacy templates and historical print snapshots remain unchanged.</p></div>';
@@ -390,6 +390,7 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
   if(knockout)knockout.visible=e.target.value==='BG-013';
   update(doc,'pkg.ornament',e.target.value);saveLocal();refresh();
  };
+ target.querySelector('#masterNewPackage').onclick=()=>createFresh?.(v('type'));
  target.querySelector('#masterLabelType').onchange=e=>{setActive('master-'+e.target.value);};
  for(const field of target.querySelectorAll('[data-master-field]')){
   field.addEventListener('focus',()=>checkpoint(),{once:true});
