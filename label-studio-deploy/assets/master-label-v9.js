@@ -105,9 +105,10 @@ function make(def){
   'pkg.artStatus':def.assetId?'candidate':'missing','pkg.artworkReviewed':'0','pkg.textOnlyApproved':'0','pkg.artworkPlaceholder':def.assetId?'':'ARTWORK NOT SELECTED',
   'pkg.identityReviewed':'0','pkg.quantityReviewed':'0','pkg.storageReviewed':'0','pkg.datesReviewed':'0','pkg.allergensReviewed':'0',
   'pkg.proof':'DRAFT / REVIEW','pkg.recipeRef':'','pkg.location':'','pkg.batch':'',
-  'pkg.date1Type':'packed','pkg.date1':'','pkg.date2Type':def.storage==='FROZEN'?'frozen':'best_quality_by','pkg.date2':'',
-  'pkg.date3Type':def.storage==='FROZEN'?'best_quality_by':'','pkg.date3':'',
-  'pkg.date4Type':'','pkg.date4':''
+  'pkg.date1Type':def.id==='opened_ready_to_eat'?'opened':def.state==='COOKED'?'cooked':def.state==='DRY'?'blended':def.id.startsWith('ingredient_')?'prepared':'packed','pkg.date1':'',
+   'pkg.date2Type':def.state==='COOKED'||def.state==='DRY'?'packed':def.storage==='FROZEN'?'frozen':def.storage==='REFRIGERATED'?'use_by':'best_quality_by','pkg.date2':'',
+   'pkg.date3Type':def.state==='COOKED'||def.state==='DRY'?(def.storage==='FROZEN'?'frozen':def.storage==='REFRIGERATED'?'use_by':'best_quality_by'):def.storage==='FROZEN'?'best_quality_by':'','pkg.date3':'',
+   'pkg.date4Type':def.state==='COOKED'&&def.storage==='FROZEN'?'best_quality_by':'','pkg.date4':''
  };
  const e=[
   rect('White stock',0,0,591,827,'white'),
@@ -117,7 +118,7 @@ function make(def){
   txt('Draft indicator','{{pkg.proof}}',431,8,130,18,11,'white',{showWhen:'pkg.proof',maxLines:1,align:'right'}),
   rect('Black condition strip',0,120,591,32,'black'),
   txt('Nonredundant state attributes','{{pkg.status}}',26,125,539,23,19,'white',{align:'center',maxLines:1}),
-  l('motif','Artwork edge botanicals',0,152,591,222,{motif:'botanical'}),
+  l('background','Artwork edge botanicals',0,152,591,222,{assetId:'BG-013',region:'custom',fit:'stretch',panX:50,panY:50,zoom:100,locked:true}),
   txt('Unapproved artwork placeholder','{{pkg.artworkPlaceholder}}',70,247,450,37,17,'black',{align:'center',showWhen:'pkg.artworkPlaceholder',maxLines:1}),
   txt('Extra contents descriptor','{{pkg.displayContents}}',30,379,531,21,16,'black',{align:'center',showWhen:'pkg.displayContents',maxLines:1}),
   rule('Contents bottom divider',403,'red'),
@@ -338,10 +339,19 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
  const gallery='<div class="field"><label>Food artwork · only actual packaged contents</label><select id="masterArtwork"><option value="">No artwork — text-only</option>'+Cuts.catalog.map(x=>'<option value="'+safe(x.id)+'" '+(chosen?.assetId===x.id?'selected':'')+'>'+safe((x.species||'Food')+' / '+x.name)+'</option>').join('')+(chosen&&!Cuts.byId.has(chosen.assetId)?'<option selected value="'+safe(chosen.assetId)+'">Uploaded artwork: '+safe(chosen.assetId)+'</option>':'')+'</select></div>';
  const reviews=[['identityReviewed','Product identity and contents confirmed'],['quantityReviewed','Metric / imperial quantities verified'],['storageReviewed','Actual storage condition and container verified'],['datesReviewed','All printed events and quality/use-by date verified'],['allergensReviewed','Actual recipe ingredients and allergens reviewed'],['actionVerified','Handling and any safety-critical cooking directions verified'],['artworkReviewed','Selected food artwork approved; no cookware or unlisted items'],['textOnlyApproved','Allow a truthful text-only label when artwork is unavailable']];
  target.innerHTML='<div class="master-form"><h3>One master layout · v9</h3><p class="form-tip">Values are illustrative until verified. The header never prints generic branding or repeats the food name below the illustration.</p>'+selector+'<div class="master-field-grid">'+inputs.map(field).join('')+'</div>'+gallery+
+ '<div class="field"><label>Decorative edge artwork</label><select id="masterBotanical"><option value="BG-013">Approved herb engraving</option><option value="legacy">Earlier simplified botanicals</option></select></div><p class="form-tip">The red botanical artwork is decorative only, not a depiction of ingredients.</p>'+
  '<div class="field"><label>Upload transparent black/white food PNG · 540 × 215 px</label><input id="masterArtUpload" type="file" accept="image/png"/></div><p class="form-tip">Uploaded art is a candidate until reviewed. No bowls, cookware or unrelated food unless physically packaged.</p><h4>DATED EVENTS (UP TO 4 PRINTED)</h4>'+eventRows+
  '<h4>REVIEW BEFORE PRINTING</h4><div class="master-review">'+reviews.map(([key,label])=>'<label><input type="checkbox" data-master-check="'+key+'" '+(v(key)==='1'?'checked':'')+' />'+safe(label)+'</label>').join('')+'</div><div class="master-gate" id="masterGate"></div><p class="form-tip">Printed QR contains the ID only. No automatic expiry, ingredient or temperature guesses. Legacy templates and historical print snapshots remain unchanged.</p></div>';
  const warnings=target.querySelector('#masterGate');
  function showWarnings(){derived(doc);const w=validate(doc);warnings.innerHTML='<strong>Print preflight · '+w.length+' item'+(w.length===1?'':'s')+' to resolve</strong>'+(w.length?'<ul>'+w.slice(0,13).map(x=>'<li>'+safe(x)+'</li>').join('')+'</ul>':'<p>Record checks passed; physically test printer alignment and QR scans.</p>');}
+ const deco=doc.elements.find(e=>e.name==='Artwork edge botanicals');
+ target.querySelector('#masterBotanical').value=deco?.type==='background'?'BG-013':'legacy';
+ target.querySelector('#masterBotanical').onchange=e=>{
+  checkpoint();const layer=doc.elements.find(e=>e.name==='Artwork edge botanicals');if(!layer)return;
+  if(e.target.value==='BG-013')Object.assign(layer,{type:'background',assetId:'BG-013',region:'custom',fit:'stretch',panX:50,panY:50,zoom:100,locked:true});
+  else Object.assign(layer,{type:'motif',motif:'botanical',locked:true});
+  update(doc,'pkg.ornament',e.target.value);saveLocal();refresh();
+ };
  target.querySelector('#masterLabelType').onchange=e=>{setActive('master-'+e.target.value);};
  for(const field of target.querySelectorAll('[data-master-field]')){
   field.addEventListener('focus',()=>checkpoint(),{once:true});
