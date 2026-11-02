@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="nls-version" content="v8.0-conditional-packaging" />
+  <meta name="nls-version" content="v9.0-premium-engraved-layout" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -30,6 +30,27 @@
 .pkg-editor .pkg-errors b{display:block;margin-bottom:5px}
 .pkg-editor .pkg-errors ul{margin:0;padding-left:19px}
 .pkg-editor .pkg-errors li{margin:4px 0}
+
+
+/* v9 engraved package-data controls, compact and touch accessible */
+.v9-panel .v9-note{font-size:11px;line-height:1.5;color:#8494a5;margin:8px 0 14px}
+.v9-panel .v9-art{margin:15px 0;padding:11px;border:1px solid rgba(160,170,180,.27);border-radius:9px;background:rgba(128,145,160,.08)}
+.v9-panel .v9-art p{font-size:11px;line-height:1.45;color:#91a0ad}
+.v9-panel .v9-art-note{font-size:10px;word-break:break-all;color:#90a1b2;margin-top:7px}
+.v9-panel .v9-fields{margin-top:13px;padding-top:9px;border-top:1px solid rgba(135,151,170,.18)}
+.v9-panel .v9-fields h4,.v9-panel .v9-art h4{margin:5px 0 9px;letter-spacing:.08em;font-size:11px}
+.v9-panel .v9-fields .field{margin:9px 0}
+.v9-panel .v9-fields input,.v9-panel select,.v9-panel textarea{min-height:36px;width:100%;max-width:100%}
+.v9-panel textarea{min-height:65px}
+.v9-panel .v9-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.v9-panel .v9-actions button{flex:1 1 110px;font-size:11px;white-space:normal;min-height:36px}
+.v9-panel .v9-review{display:grid;gap:10px;padding:12px;margin-top:15px;border:1px solid rgba(135,151,170,.24);border-radius:8px}
+.v9-panel .v9-review label{display:flex;gap:9px;align-items:flex-start;line-height:1.45;font-size:11px;cursor:pointer}
+.v9-panel .v9-review input{width:18px;height:18px;flex:0 0 18px;margin-top:0}
+.v9-panel .v9-checks{margin-top:12px;padding:10px 2px;border-top:1px solid rgba(135,151,170,.22);font-size:11px;line-height:1.45}
+.v9-panel .v9-checks b{display:block;margin-bottom:5px}
+.v9-panel .v9-checks ul{padding-left:17px;margin:6px 0}
+.v9-panel .v9-checks li{margin:5px 0}
 
 </style>
   <style>
@@ -661,6 +682,7 @@ window.LabelBackgrounds={catalog:builtins,categories,geometry,source,displayName
   
 function resolvedElementText(e,data){
  let value=resolve(e.text,data);
+ if(e.format==='date'&&/^\d{4}-\d{2}-\d{2}$/.test(value)){const [y,m,d]=value.split('-').map(Number);value=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][m-1]+' '+String(d).padStart(2,'0')+', '+y;}
  if(e.format==='allergenBullets')value=String(value).split(/[;,·\n]+/).map(x=>x.trim()).filter(Boolean).map(x=>'● '+x.toUpperCase()).join('   ');
  return String(value);
 }
@@ -1005,6 +1027,7 @@ window.LabelCuts={catalog:assets,byId,source,validDataUri,ensureDocument,ready,d
 })();
 </script>
 <script src="/assets/package-labels-v8.js"></script>
+<script src="/assets/package-labels-v9.js"></script>
 <script>
 /* Optional NiimBlueLib B1 Pro print bridge.
    Editor/export/archive do NOT depend on the printer library.
@@ -1116,6 +1139,7 @@ function loadLocal(){try{
       }
     }
     const known=new Set(docs.map(d=>d.id));for(const fresh of defaultTemplates)if(!known.has(fresh.id))docs.push(fresh);
+    docs.sort((a,b)=>(window.LabelDesignV9?.isV9(b)?1:0)-(window.LabelDesignV9?.isV9(a)?1:0));
     state.templates=docs;state.activeId=docs.find(d=>d.id===saved.activeId)?.id||docs[0].id;
     $('#saveStatus').textContent=older?'Migrated 30 × 50 mm templates to 50 × 70 mm':'Restored local workspace';
     if(older)saveLocal(); // Never modify old storage or previously archived exact PNG snapshots.
