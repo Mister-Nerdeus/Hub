@@ -49,7 +49,7 @@ function make(spec){
  text('Package family','NERDEUS / '+spec.category,34,32,521,25,17,'red',{maxLines:1}),
  text('Packaged food name','{{pkg.food}}',34,75,523,89,45,'black',{maxLines:2}),
  text('Condition','{{pkg.condition}}',34,165,520,25,18,'red',{maxLines:1}),
- text('Proof status','{{pkg.sampleFlag}}',315,194,240,20,14,'red',{showWhen:'pkg.sampleFlag',maxLines:1,align:'right'}),
+ text('Proof status','{{pkg.sampleFlag}}',399,34,157,20,12,'red',{showWhen:'pkg.sampleFlag',maxLines:1,align:'right'}),
  text('Contents caption','CONTENTS',34,206,244,18,13,'black',{showWhen:'pkg.contents',maxLines:1}),
  text('Contents','{{pkg.contents}}',34,231,519,80,25,'black',{showWhen:'pkg.contents',maxLines:3}),
  line('Food information divider',34,325,522,'black',2),
