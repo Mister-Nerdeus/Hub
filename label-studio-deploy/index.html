@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="nls-version" content="v10.0-canonical-17-master-plus-batch" />
+  <meta name="nls-version" content="v10.2-17-family-selector-and-date-presets" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -1518,9 +1518,13 @@ function setup(){loadLocal();loadCustomCategory();
   $('#templateSearch').oninput=e=>{state.templateSearch=e.target.value;renderTemplates();};
   // Explicit v9 template link opens the selected new design without deleting local work.
   const requestedTemplate=new URLSearchParams(location.search).get('template');
-  if(requestedTemplate?.startsWith('v9-')&&state.templates.some(x=>x.id===requestedTemplate&&window.LabelDesignV9?.isV9(x))){
+  if(requestedTemplate&&state.templates.some(x=>x.id===requestedTemplate&&
+      (window.LabelDesignV9?.isV9(x)||window.LabelMasterV9?.isMaster(x)))){
     state.activeId=requestedTemplate;state.selectedId=null;
-    state.tab=new URLSearchParams(location.search).get('view')==='data'?'data':'element';
+    const isMaster=window.LabelMasterV9?.isMaster(active());
+    state.templateFamily=isMaster?'master':'all';
+    $('#templateFamily').value=state.templateFamily;
+    state.tab=isMaster||new URLSearchParams(location.search).get('view')==='data'?'data':'element';
   }
   $('#cutSearch').oninput=e=>{state.cutSearch=e.target.value;renderCutLibrary();};
   $('#cutCategory').innerHTML='<option value="All">All categories</option>'+[...new Set(Cuts.catalog.map(x=>x.species))].map(s=>`<option value="${esc(s)}">${esc(s)}</option>`).join('');
