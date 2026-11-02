@@ -52,6 +52,13 @@
 .v9-panel .v9-checks ul{padding-left:17px;margin:6px 0}
 .v9-panel .v9-checks li{margin:5px 0}
 
+
+/* Canonical master-type selection and legacy access */
+.template-family-controls{display:grid;gap:7px;margin:5px 0 12px;padding:0 3px}
+.template-family-controls label{font-size:10px;color:#8594a6;font-weight:700;letter-spacing:.04em}
+.template-family-controls select,.template-family-controls input{width:100%;min-height:40px;border:1px solid rgba(128,145,162,.35);border-radius:7px;padding:8px 10px;background:var(--surface,#fff);color:var(--ink,#1b2532);font:inherit;font-size:12px}
+.template-family-controls small{font-size:10px;color:#8190a0}
+.template-family-heading{margin:9px 2px 5px;padding:6px 4px;border-top:1px solid rgba(128,145,162,.25);color:#8a99a9;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 </style>
   <style>
 
@@ -267,7 +274,13 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
     <main class="workspace" id="nlsWorkspace">
       <aside class="panel panel-left">
         <div class="side-header"><div><span class="eyebrow">01 / WORKSPACE</span><h2>Label templates</h2></div><button id="btnNewTemplate" class="add-button" title="Duplicate template">+</button></div>
-        <div id="templateChoices" class="template-choices"></div>
+        <div class="template-family-controls">
+  <label for="templateFamily">Browse label types</label>
+  <select id="templateFamily" aria-label="Filter templates by family"></select>
+  <input id="templateSearch" type="search" autocomplete="off" placeholder="Search food or label type…" aria-label="Search label templates" />
+  <small id="templateFilterStatus" aria-live="polite"></small>
+</div>
+<div id="templateChoices" class="template-choices"></div>
         <div class="side-divider"></div>
         <section class="nls-background-library" aria-label="Background Library">
           <div class="nls-library-heading"><div><span class="eyebrow">02 / BACKGROUND ART</span><h2>Background Library <span id="backgroundCount" class="count">100</span></h2></div><span class="nls-two-color-key">RED + WHITE</span></div>
@@ -1120,7 +1133,7 @@ const STORAGE_KEY='nerdeus-label-studio-v2';
 const LEGACY_STORAGE_KEY='nerdeus-label-studio-v1';
 const CUSTOM_BACKGROUNDS_KEY='nerdeus-label-custom-backgrounds-v1';
 const defaultTemplates=Core.initialTemplates().concat(Cuts.initialTemplates());
-let state={templates:defaultTemplates,activeId:defaultTemplates[0].id,selectedId:null,tab:'element',zoom:60,guides:true,dots:false,undo:[],redo:[],pointer:null,snap:true,editingField:null,bgCategory:'All',bgSearch:'',customBackgrounds:[],cutSearch:'',cutCategory:'All'};
+let state={templates:defaultTemplates,activeId:defaultTemplates[0].id,selectedId:null,tab:'element',zoom:60,guides:true,dots:false,undo:[],redo:[],pointer:null,snap:true,editingField:null,bgCategory:'All',bgSearch:'',customBackgrounds:[],cutSearch:'',cutCategory:'All',templateFamily:'master',templateSearch:''};
 const art=$('#artCanvas'),overlay=$('#editOverlay'),view=$('#canvasFrame');
 const ctx=art.getContext('2d',{willReadFrequently:true}),ov=overlay.getContext('2d');
 let lastRaster=null,toastTimer=null,thumbURLs=[];
@@ -1174,9 +1187,34 @@ function drawOverlay(){ov.clearRect(0,0,Core.W,Core.H);if(state.guides){ov.save(
 function updateZoom(){state.zoom=Number($('#zoom').value);const w=Core.W*state.zoom/100,h=Core.H*state.zoom/100;
   for(const c of [art,overlay]){c.style.width=`${w}px`;c.style.height=`${h}px`;}
   $('#zoomPct').textContent=state.zoom+'%';drawOverlay();}
-function renderTemplates(){const icons={meal:'▤',freezer:'❄',storage:'▥',advanced:'▦',meat:'◈',package:'▣',custom:'▧'};
-  $('#templateChoices').innerHTML=state.templates.map(doc=>`<button class="template-choice ${doc.id===state.activeId?'selected':''}" data-template="${esc(doc.id)}"><span class="template-icon">${icons[doc.kind]||icons.custom}</span><span class="template-details"><b>${esc(doc.name)}</b><small>${esc(doc.kind==='meal'?'Meals & leftovers':doc.kind==='freezer'?'Flat-pack & freezer':doc.kind==='storage'?'Containers & pantry':doc.kind==='advanced'?'Batch packaging':doc.kind==='meat'?'Raw cut / butcher labels':doc.kind==='package'?'Raw · cooked · dry packaging':doc.kind)}</small></span></button>`).join('');
-  $$('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{state.activeId=btn.dataset.template;state.selectedId=null;state.tab='element';saveLocal();refresh();});
+function renderTemplates(){
+  const icons={meal:'▤',freezer:'❄',storage:'▥',advanced:'▦',meat:'◈',package:'▣',master:'▣',custom:'▧'};
+  const design=window.LabelMasterV9;
+  const master=doc=>!!design?.isMaster(doc);
+  const name=doc=>doc.data?.['pkg.food']||doc.name;
+  const family=doc=>design?.byId?.get(doc.data?.['pkg.type'])?.familyId||'';
+  const q=state.templateSearch.trim().toLowerCase(),filter=state.templateFamily;
+  const filtered=state.templates.filter(doc=>{
+    if(filter==='master'&&!master(doc))return false;
+    if(filter==='legacy'&&master(doc))return false;
+    if(filter.startsWith('family:')&&family(doc)!==filter.slice(7))return false;
+    if(q&&!(doc.name+' '+name(doc)+' '+(family(doc)||'')+' '+doc.kind).toLowerCase().includes(q))return false;
+    return true;
+  });
+  $('#templateFilterStatus').textContent=filtered.length+' of '+state.templates.length+' templates';
+  let previous='';
+  $('#templateChoices').innerHTML=filtered.map(doc=>{
+    const id=family(doc),section=master(doc)?(design.families.find(f=>f.id===id)?.name||'Master labels'):'Existing and custom templates';
+    let heading='';
+    if(section!==previous){previous=section;heading='<div class="template-family-heading">'+esc(section)+'</div>';}
+    const detail=master(doc)?'Standard master · '+(doc.data?.['pkg.storage']||'')
+      :doc.kind==='meat'?'Raw cut / butcher':doc.kind==='package'?'Earlier package design':doc.kind;
+    return heading+'<button class="template-choice '+(doc.id===state.activeId?'selected':'')+'" data-template="'+esc(doc.id)+'" type="button"><span class="template-icon">'+(icons[doc.kind]||icons.custom)+'</span><span class="template-details"><b>'+esc(name(doc))+'</b><small>'+esc(detail)+'</small></span></button>';
+  }).join('')||'<p class="nls-library-empty">No matching templates. Change the family filter or search.</p>';
+  $('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{
+    state.activeId=btn.dataset.template;state.selectedId=null;
+    state.tab=master(active())?'data':'element';saveLocal();refresh();
+  });
 }
 function renderLayers(){const doc=active();$('#layerCount').textContent=doc.elements.length;
   const types={text:'T',rect:'▣',line:'─',qr:'▦',barcode:'▥',background:'▤',illustration:'◈'};
@@ -1466,6 +1504,18 @@ function keyHandler(ev){const interactive=['INPUT','TEXTAREA','SELECT'].includes
   if(ev.key==='Delete'||ev.key==='Backspace'){ev.preventDefault();deleteSelected();return;}
   const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(directions[ev.key]){if(e.locked)return;ev.preventDefault();checkpoint();const dx=directions[ev.key][0]*(ev.shiftKey?10:1),dy=directions[ev.key][1]*(ev.shiftKey?10:1);e.x=Core.clamp(e.x+dx,0,Core.W-e.w);e.y=Core.clamp(e.y+dy,0,Core.H-e.h);persistAndRender({panels:true});}}
 function setup(){loadLocal();loadCustomCategory();
+  const masterDesign=window.LabelMasterV9;
+  const familyOptions=[
+    ['master','All master layouts · 17 types'],
+    ...((masterDesign?.families||[]).map(f=>['family:'+f.id,f.name])),
+    ['legacy','Previous and custom designs'],
+    ['all','All templates']
+  ];
+  $('#templateFamily').innerHTML=familyOptions.map(([id,label])=>'<option value="'+esc(id)+'">'+esc(label)+'</option>').join('');
+  if(!masterDesign?.isMaster(active()))state.templateFamily='all';
+  $('#templateFamily').value=state.templateFamily;
+  $('#templateFamily').onchange=e=>{state.templateFamily=e.target.value;renderTemplates();};
+  $('#templateSearch').oninput=e=>{state.templateSearch=e.target.value;renderTemplates();};
   // Explicit v9 template link opens the selected new design without deleting local work.
   const requestedTemplate=new URLSearchParams(location.search).get('template');
   if(requestedTemplate?.startsWith('v9-')&&state.templates.some(x=>x.id===requestedTemplate&&window.LabelDesignV9?.isV9(x))){
