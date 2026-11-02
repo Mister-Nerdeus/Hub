@@ -5,7 +5,7 @@
 'use strict';
 const C=window.LabelCore, P=window.LabelPackages, Cuts=window.LabelCuts;
 if(!C||!P||!Cuts)throw new Error('v9 requires core, packages and cut library');
-const prevMake=C.initialTemplates,prevPanel=P.panel,prevValidate=P.validate,prevIsPackage=P.isPackage,prevChange=P.change,prevRender=C.render,prevSVG=C.svg,prevCutDraw=Cuts.draw;
+const prevMake=C.initialTemplates,prevPanel=P.panel,prevValidate=P.validate,prevIsPackage=P.isPackage,prevChange=P.change,prevRender=C.render,prevSVG=C.svg,prevCutDraw=Cuts.draw,prevCutSVG=Cuts.svgImage;
 const BW={red:'#ff0000',white:'#ffffff',black:'#000000'};
 const variants=[
 {id:'pkg-seasoned-protein',name:'Dry-seasoned raw protein',category:'SEASONED RAW PROTEIN',nameSample:'Garlic Herb Chicken',state:'RAW',metric:'500 g',imperial:'17.6 oz',storage:'FROZEN',action:'COOK',instructions:'Follow verified cooking directions',temp:'165°F / 74°C',contents:'Garlic · herbs · sea salt',allergens:'',portions:''},
@@ -74,7 +74,7 @@ function create(spec){
   'pkg.action':spec.action,'pkg.temp':spec.temp||'','pkg.thaw':spec.storage==='FROZEN'?'Thaw in refrigerator if needed':'',
   'pkg.contents':spec.contents||'','pkg.allergens':spec.allergens||'','pkg.id':'DEMO-'+spec.id.slice(4).toUpperCase(),
   'pkg.batch':'','pkg.recipeRef':'','pkg.location':'','pkg.footerMain':a.footer||spec.action+' PER RECIPE','pkg.footerSub':a.footnote||'',
-  'pkg.icon':a.icon||'meal','pkg.sampleFlag':'SAMPLE · VERIFY DATA',
+  'pkg.icon':a.icon||'meal','pkg.needsArt':a.cut?'':'SELECT ACTUAL FOOD ARTWORK','pkg.sampleFlag':'SAMPLE · VERIFY DATA',
   'pkg.reviewed':'0','pkg.allergensReviewed':'0','pkg.artworkReviewed':'0'
  };
  const E=[
@@ -84,6 +84,7 @@ function create(spec){
   block('Status band',0,149,591,35,'black'),
   label('Status line','{{pkg.status}}',18,155,555,25,21,'white',{align:'center'}),
   element('background','v9 · botanical art-region ornament',0,184,591,214,{assetId:ART_ID,region:'custom',fit:'stretch',panX:50,panY:50,zoom:100,locked:true}),
+  label('Awaiting actual artwork','{{pkg.needsArt}}',49,271,493,27,20,'red',{align:'center',showWhen:'pkg.needsArt'}),
   label('Ingredients or physical form','{{pkg.detail}}',21,405,549,24,17,'black',{align:'center',showWhen:'pkg.detail'}),
   rule('Weight top line',24,436,543,'red',2),
   label('Metric quantity','{{pkg.metric}}',25,448,248,41,36,'black',{align:'center'}),
@@ -91,7 +92,7 @@ function create(spec){
   label('Imperial quantity','{{pkg.imperial}}',319,448,245,41,36,'black',{align:'center'}),
   label('Packaging information','NET QUANTITY · {{pkg.packaging}}',24,493,544,20,15,'black',{align:'center'}),
   rule('Weight bottom line',24,519,543,'red',2),
-  label('Allergen pills','{{pkg.allergens}}',26,522,540,28,17,'red',{align:'center',showWhen:'pkg.allergens',format:'allergenBullets'}),
+  // Red allergen capsules drawn by the final renderer only when recorded.
   rule('Dates upper divider',24,555,543,'red',2),
   label('Date one heading','PACKED',208,574,144,22,16,'black'),
   label('Date one value','{{pkg.packed}}',355,574,218,23,17,'black',{format:'date',align:'right'}),
@@ -206,9 +207,8 @@ function drawEmblem(canvas,doc){
  q.restore();
  // Preserve the hardware's exact 3 colors even around antialiased circle edges.
  const im=q.getImageData(24,12,130,130),a=im.data;
- for(let i=0;i<a.length;i+=4){const white=a[i]>=155&&a[i+1]>=155&&a[i+2]>=155;
-  const red=a[i]>=160&&a[i+1]<100&&a[i+2]<100;
-  a[i]=white||red?255:0;a[i+1]=white?255:0;a[i+2]=white?255:0;a[i+3]=255;
+ for(let i=0;i<a.length;i+=4){const isWhite=a[i+1]>=128&&a[i+2]>=128;
+  a[i]=255;a[i+1]=isWhite?255:0;a[i+2]=isWhite?255:0;a[i+3]=255;
  }
  q.putImageData(im,24,12);
 }
@@ -259,20 +259,46 @@ function whiteHalo(ctx,e,doc){
 const haloCache=new Map();
 Cuts.draw=(ctx,e,doc)=>{
  if(!isV9(doc)||e.haloMode!=='stipple')return prevCutDraw(ctx,e,doc);
- const key=(Cuts.source(doc,e.assetId)||'').slice(-32)+'/'+e.w+'/'+e.h;
+ const key=e.assetId+'/'+e.w+'/'+e.h;
  let halo=haloCache.get(key);if(!halo){halo=whiteHalo(ctx,e,doc);if(halo){haloCache.set(key,halo);if(haloCache.size>24)haloCache.delete(haloCache.keys().next().value);}}
  if(halo){ctx.save();ctx.imageSmoothingEnabled=false;ctx.drawImage(halo,e.x,e.y);ctx.restore();}
  prevCutDraw(ctx,e,doc);
 };
-C.render=doc=>{const c=prevRender(doc);if(isV9(doc)){drawEmblem(c,doc);}return c;};
+Cuts.svgImage=(doc,e)=>{
+ if(!isV9(doc)||e.haloMode!=='stipple')return prevCutSVG(doc,e);
+ const halo=whiteHalo(null,e,doc);
+ return (halo?'<image x="'+e.x+'" y="'+e.y+'" width="'+e.w+'" height="'+e.h+'" href="'+halo.toDataURL('image/png')+'"/>':'')+prevCutSVG(doc,e);
+};
+function drawAllergens(canvas,doc){
+ const tokens=String(doc.data['pkg.allergens']||'').split(/[;,·\n]+/).map(x=>x.trim().toUpperCase()).filter(Boolean).slice(0,7);
+ if(!tokens.length)return;
+ const q=canvas.getContext('2d',{willReadFrequently:true});q.font='bold 17px Arial';q.textBaseline='middle';q.textAlign='center';
+ const widths=tokens.map(t=>Math.min(154,Math.max(65,Math.ceil(q.measureText(t).width)+24)));
+ const total=widths.reduce((a,b)=>a+b,0)+(tokens.length-1)*7;
+ let x=Math.max(25,Math.round((591-total)/2));
+ for(let i=0;i<tokens.length;i++){
+  const w=widths[i];if(x+w>567)break;
+  q.fillStyle='#ff0000';q.beginPath();q.roundRect(x,523,w,26,12);q.fill();
+  q.fillStyle='#ffffff';q.fillText(tokens[i],x+w/2,536);x+=w+7;
+ }
+ const im=q.getImageData(20,522,553,29),a=im.data;
+ for(let i=0;i<a.length;i+=4){const isRed=a[i]>145&&a[i+1]<145;
+  const isWhite=!isRed&&(a[i+1]>135||a[i+2]>135);
+  a[i]=isRed||isWhite?255:0;a[i+1]=isWhite?255:0;a[i+2]=isWhite?255:0;a[i+3]=255;
+ }
+ q.putImageData(im,20,522);
+}
+C.render=doc=>{const c=prevRender(doc);if(isV9(doc)){drawEmblem(c,doc);drawAllergens(c,doc);}return c;};
 C.svg=doc=>{
  let s=prevSVG(doc);if(!isV9(doc))return s;
  const c=document.createElement('canvas');c.width=C.W;c.height=C.H;
- const q=c.getContext('2d');q.fillStyle='white';q.fillRect(0,0,c.width,c.height);
+ const q=c.getContext('2d');q.fillStyle='#ff0000';q.fillRect(0,0,c.width,c.height);
  // Overlay only emblem; raster export remains authoritative for exact halftone.
  drawEmblem(c,doc);
  const icon=c.getContext('2d').getImageData(24,12,130,130),i=document.createElement('canvas');i.width=130;i.height=130;i.getContext('2d').putImageData(icon,0,0);
- return s.replace('</svg>','<image x="24" y="12" width="130" height="130" href="'+i.toDataURL('image/png')+'"/></svg>');
+ const badge=document.createElement('canvas');badge.width=C.W;badge.height=C.H;drawAllergens(badge,doc);
+ const b=document.createElement('canvas');b.width=553;b.height=29;b.getContext('2d').putImageData(badge.getContext('2d').getImageData(20,522,553,29),0,0);
+ return s.replace('</svg>','<image x="24" y="12" width="130" height="130" href="'+i.toDataURL('image/png')+'"/><image x="20" y="522" width="553" height="29" href="'+b.toDataURL('image/png')+'"/></svg>');
 };
 async function ingest(file,doc){
  if(!/^image\/(png|webp|jpeg)$/.test(file?.type||''))throw Error('Upload a PNG, WEBP or JPEG image (PNG transparency preferred).');
@@ -288,8 +314,9 @@ async function ingest(file,doc){
  let opaque=0;for(let i=0;i<cand.length;i++){let o=i*4;if(data[o+3]>30){opaque++;if(data[o]>235&&data[o+1]>235&&data[o+2]>235)cand[i]=1;}}
  if(opaque>cand.length*.7){
   function put(i){if(i<0||i>=cand.length||!cand[i]||remove[i])return;remove[i]=1;queue[tail++]=i;}
-  for(let x=0;x<540;x++){put(x);put(214*540+x);}
-  for(let y=0;y<215;y++){put(y*540);put(y*540+539);}
+  const x0=Math.round((540-w)/2),y0=Math.round((215-h)/2),x1=x0+w-1,y1=y0+h-1;
+  for(let x=x0;x<=x1;x++){put(y0*540+x);put(y1*540+x);}
+  for(let y=y0;y<=y1;y++){put(y*540+x0);put(y*540+x1);}
   while(head<tail){const n=queue[head++],x=n%540;
    if(x>0)put(n-1);if(x<539)put(n+1);if(n>=540)put(n-540);if(n<540*214)put(n+540);}
  }
@@ -305,10 +332,10 @@ async function ingest(file,doc){
 }
 function setArt(doc,id){
  let e=doc.elements.find(x=>x.type==='illustration');
- if(!id){if(e)e.visible=false;return;}
+ if(!id){if(e)e.visible=false;doc.data['pkg.needsArt']='SELECT ACTUAL FOOD ARTWORK';return;}
  if(!Cuts.source(doc,id))throw Error('Artwork asset is unavailable.');
  if(!e){e=element('illustration','v9 · selected actual food',49,205,490,176,{assetId:id,haloMode:'stipple'});doc.elements.splice(6,0,e);}
- e.assetId=id;e.visible=true;e.haloMode='stipple';e.name='v9 · actual packaged food';
+ e.assetId=id;e.visible=true;e.haloMode='stipple';e.name='v9 · actual packaged food';doc.data['pkg.needsArt']='';
 }
 function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive}){
  const v=k=>String(doc.data['pkg.'+k]??''),safe=esc;
