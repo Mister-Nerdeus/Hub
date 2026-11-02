@@ -1211,7 +1211,7 @@ function renderTemplates(){
       :doc.kind==='meat'?'Raw cut / butcher':doc.kind==='package'?'Earlier package design':doc.kind;
     return heading+'<button class="template-choice '+(doc.id===state.activeId?'selected':'')+'" data-template="'+esc(doc.id)+'" type="button"><span class="template-icon">'+(icons[doc.kind]||icons.custom)+'</span><span class="template-details"><b>'+esc(name(doc))+'</b><small>'+esc(detail)+'</small></span></button>';
   }).join('')||'<p class="nls-library-empty">No matching templates. Change the family filter or search.</p>';
-  $('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{
+  document.querySelectorAll('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{
     state.activeId=btn.dataset.template;state.selectedId=null;
     state.tab=master(active())?'data':'element';saveLocal();refresh();
   });
