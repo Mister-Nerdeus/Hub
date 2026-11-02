@@ -1190,8 +1190,12 @@ function renderCutLibrary(){const search=state.cutSearch.toLowerCase().trim(),ca
 }
 function applyCut(id){const a=Cuts.byId.get(id);if(!a)return;const doc=active();if(doc.elements.length>=100&&!doc.elements.some(x=>x.type==='illustration'))return toast('100 layers maximum','error');
   checkpoint();Cuts.attach(doc,id);let layer=selected()?.type==='illustration'?selected():doc.elements.find(e=>e.type==='illustration');
-  if(layer){layer.assetId=id;layer.name='Cut illustration · '+a.name;}
+  if(layer){layer.assetId=id;layer.name='Cut illustration · '+a.name;layer.visible=true;}
   else{layer=Core.el('illustration','Cut illustration · '+a.name,55,196,425,200,{assetId:id});const qrIndex=doc.elements.findIndex(e=>e.type==='qr');doc.elements.splice(qrIndex>=0?qrIndex:doc.elements.length,0,layer);}
+  if(window.LabelDesignV9?.isV9(doc)){
+    layer.haloMode='stipple';layer.x=49;layer.y=205;layer.w=490;layer.h=176;
+    doc.data['pkg.needsArt']='';doc.data['pkg.artworkReviewed']='0';window.LabelPackages.refreshSampleFlag(doc);
+  }
   if(doc.kind==='meat'){doc.data['cut.species']=a.species.toUpperCase();doc.data['cut.name']=a.name.toUpperCase();doc.data['cut.subtitle']=a.subtitle.toUpperCase();doc.data['cut.cookTarget']=a.cookTarget;}
   state.selectedId=layer.id;saveLocal();refresh();Cuts.ensureDocument(doc).then(drawArtwork).catch(e=>toast('Illustration: '+e.message,'error'));
 }
@@ -1362,7 +1366,7 @@ function addElement(type){const doc=active();if(doc.elements.length>=100)return 
   if(type==='line')e=Core.el('line','New line',45,365,500,6,{color:'black',strokeWidth:3});
   if(type==='qr')e=Core.el('qr','QR code',400,545,140,140,{text:'{{meal.id}}'});
   if(type==='barcode')e=Core.el('barcode','Code 128',45,585,500,95,{text:'26073112'});
-  if(type==='illustration'){const a=Cuts.catalog[0];Cuts.attach(doc,a.id);e=Core.el('illustration','Cut illustration · '+a.name,55,195,420,205,{assetId:a.id});}
+  if(type==='illustration'){const a=Cuts.catalog[0];Cuts.attach(doc,a.id);e=Core.el('illustration','Cut illustration · '+a.name,55,195,420,205,{assetId:a.id});if(window.LabelDesignV9?.isV9(doc)){e.x=49;e.y=205;e.w=490;e.h=176;e.haloMode='stipple';doc.data['pkg.needsArt']='';doc.data['pkg.artworkReviewed']='0';window.LabelPackages.refreshSampleFlag(doc);}}
   if(!e)return;doc.elements.push(e);state.selectedId=e.id;persistAndRender({panels:true});}
 function deleteSelected(){const doc=active(),e=selected();if(!e)return;checkpoint();doc.elements=doc.elements.filter(x=>x.id!==e.id);state.selectedId=null;persistAndRender({panels:true});}
 function duplicateSelected(){const doc=active(),e=selected();if(!e)return;checkpoint();const copy=Core.clone(e);copy.id=Core.UID();copy.name+= ' copy';copy.x=Math.min(Core.W-copy.w,copy.x+12);copy.y=Math.min(Core.H-copy.h,copy.y+12);doc.elements.push(copy);state.selectedId=copy.id;persistAndRender({panels:true});}
