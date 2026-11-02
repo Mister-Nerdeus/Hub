@@ -44,8 +44,8 @@ const txt=(name,text,x,y,w,h,size,color='black',other={})=>l('text',name,x,y,w,h
 const rect=(name,x,y,w,h,color,extra={})=>l('rect',name,x,y,w,h,{fill:color,stroke:'none',...extra});
 const rule=(name,y,color='red')=>rect(name,25,y,541,2,color);
 const fmtDate=v=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(String(v||'')))return '';let d=new Date(v+'T12:00:00Z');return Number.isNaN(d.getTime())?'':d.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'2-digit',year:'numeric'}).toUpperCase();};
-const dateTypes=['prepared','packed','cooked','frozen','marinated','blended','opened','use_by','best_quality_by'];
-const dateNames={prepared:'PREPPED',packed:'PACKED',cooked:'COOKED',frozen:'FROZEN',marinated:'MARINATED',blended:'BLENDED',opened:'OPENED',use_by:'USE BY',best_quality_by:'BEST QUALITY'};
+const dateTypes=['purchased','prepared','seasoned','assembled','marinated','packed','cooked','frozen','blended','opened','use_by','best_quality_by'];
+const dateNames={purchased:'PURCHASED',prepared:'PREPPED',seasoned:'SEASONED',assembled:'ASSEMBLED',marinated:'MARINATED',packed:'PACKED',cooked:'COOKED',frozen:'FROZEN',blended:'BLENDED',opened:'OPENED',use_by:'USE BY',best_quality_by:'BEST QUALITY'};
 function splitTokens(s){return String(s||'').toUpperCase().split(/[\s·,;\/|+-]+/).map(t=>t.trim()).filter(Boolean);}
 function status(d){
  const titleTokens=new Set(splitTokens(d['pkg.food']));
@@ -95,6 +95,23 @@ function derived(doc){
  }
  d['pkg.proof']=validate(doc).length?'DRAFT / REVIEW':'';
 }
+function initialEventTypes(def){
+ const quality=def.storage==='FROZEN'?'best_quality_by':def.storage==='REFRIGERATED'?'use_by':'best_quality_by';
+ switch(def.id){
+ case 'raw_plain':return ['purchased','packed','frozen',quality];
+ case 'raw_seasoned':return ['seasoned','packed','frozen',quality];
+ case 'raw_marinated':return ['marinated','packed','frozen',quality];
+ case 'ingredient_single':return ['purchased','packed','frozen',quality];
+ case 'ingredient_prepped':case 'ingredient_combo':return ['prepared','packed','frozen',quality];
+ case 'raw_meal_kit':return ['assembled','packed','frozen',quality];
+ case 'cooked_meal':case 'cooked_side':case 'soup_stew':case 'sauce_stock_concentrate':return ['cooked','packed','frozen',quality];
+ case 'cooked_component':case 'leftovers':return ['cooked','packed','use_by',''];
+ case 'dry_baking_mix':case 'seasoning_dry_base':return ['blended','packed','best_quality_by',''];
+ case 'pantry_ingredient':return ['purchased','packed','best_quality_by',''];
+ case 'opened_ready_to_eat':return ['opened','use_by','',''];
+ default:return ['packed',quality,'',''];
+ }
+}
 function make(def){
  const d={
   'pkg.type':def.id,'pkg.food':def.food,'pkg.state':def.state,'pkg.attributes':def.id==='raw_plain'?'Boneless':'',
@@ -106,10 +123,10 @@ function make(def){
   'pkg.artStatus':def.assetId?'candidate':'missing','pkg.artworkReviewed':'0','pkg.textOnlyApproved':'0','pkg.artworkPlaceholder':def.assetId?'':'ARTWORK NOT SELECTED',
   'pkg.identityReviewed':'0','pkg.quantityReviewed':'0','pkg.storageReviewed':'0','pkg.datesReviewed':'0','pkg.allergensReviewed':'0',
   'pkg.proof':'DRAFT / REVIEW','pkg.recipeRef':'','pkg.location':'','pkg.batch':'',
-  'pkg.date1Type':def.id==='opened_ready_to_eat'?'opened':def.state==='COOKED'?'cooked':def.state==='DRY'?'blended':def.id.startsWith('ingredient_')?'prepared':'packed','pkg.date1':'',
-   'pkg.date2Type':def.state==='COOKED'||def.state==='DRY'?'packed':def.storage==='FROZEN'?'frozen':def.storage==='REFRIGERATED'?'use_by':'best_quality_by','pkg.date2':'',
-   'pkg.date3Type':def.state==='COOKED'||def.state==='DRY'?(def.storage==='FROZEN'?'frozen':def.storage==='REFRIGERATED'?'use_by':'best_quality_by'):def.storage==='FROZEN'?'best_quality_by':'','pkg.date3':'',
-   'pkg.date4Type':def.state==='COOKED'&&def.storage==='FROZEN'?'best_quality_by':'','pkg.date4':''
+  'pkg.date1Type':initialEventTypes(def)[0],'pkg.date1':'',
+   'pkg.date2Type':initialEventTypes(def)[1],'pkg.date2':'',
+   'pkg.date3Type':initialEventTypes(def)[2],'pkg.date3':'',
+   'pkg.date4Type':initialEventTypes(def)[3],'pkg.date4':''
  };
  const e=[
   rect('White stock',0,0,591,827,'white'),
@@ -164,9 +181,9 @@ function validate(doc){
   if(!typ||!isValidDate(date))issues.push('Event '+n+' needs a valid type and YYYY-MM-DD date.');
   else eventRows.push({kind:typ,date});
  }
- if(!eventRows.some(x=>['packed','prepared','opened','blended'].includes(x.kind)))issues.push('Provide an actual packed, prepared, blended or opened event.');
+ if(!eventRows.some(x=>['packed','prepared','assembled','marinated','seasoned','opened','blended'].includes(x.kind)))issues.push('Provide a recorded packing, preparation, assembly, seasoning, blending or opening event.');
  if(!eventRows.some(x=>['use_by','best_quality_by'].includes(x.kind)))issues.push('Provide a reviewed use-by or best-quality date.');
- const pack=eventRows.find(x=>['packed','prepared','opened','blended'].includes(x.kind));
+ const pack=eventRows.find(x=>['packed','prepared','assembled','marinated','seasoned','opened','blended'].includes(x.kind));
  const end=eventRows.find(x=>['use_by','best_quality_by'].includes(x.kind));
  if(pack&&end&&end.date<pack.date)issues.push('End date precedes packed/prepared date.');
  if(new Set(eventRows.map(x=>x.kind)).size!==eventRows.length)issues.push('Repeated date-event types: use distinct events.');
