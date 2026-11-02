@@ -1365,7 +1365,18 @@ function renderInspector(){const doc=active(),e=selected();$$('.tab').forEach(bt
     window.LabelPackages.panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,
       setActive:id=>{const template=state.templates.find(t=>t.id===id&&window.LabelPackages.isPackage(t));
         if(!template)return toast('Package template unavailable.','error');
-        state.activeId=id;state.selectedId=null;state.tab='data';saveLocal();refresh();}});
+        state.activeId=id;state.selectedId=null;state.tab='data';saveLocal();refresh();},
+      createFresh:typeId=>{
+        const master=window.LabelMasterV9,def=master?.byId?.get(typeId);
+        if(!def)return toast('Unknown master package type.','error');
+        checkpoint();const newDoc=master.make(def);
+        newDoc.id='package-'+Core.UID();newDoc.name='Package · '+def.label+' (new)';
+        state.templates.push(newDoc);state.activeId=newDoc.id;state.selectedId=null;
+        state.tab='data';state.templateFamily='master';$('#templateFamily').value='master';
+        state.templateSearch='';$('#templateSearch').value='';
+        saveLocal();refresh();
+        toast('Created a separate editable package. Fill in real dates, quantities, allergens and ID before printing.');
+      }});
   }else if(state.tab==='data'){
     target.innerHTML=`<h3>Sample label data</h3><div class="form-tip" style="margin-bottom:16px">Change any value to update the rendered label. The binding key remains stable in the reusable template.</div><div class="data-list">${Object.entries(doc.data).map(([key,val])=>`<div class="field"><label class="data-key">{{${esc(key)}}}</label><input data-datakey="${esc(key)}" value="${esc(val)}" /></div>`).join('')}</div><div class="form-tip">These fields are demonstration data, not validated meal inventory, allergens, shelf life or regulatory information.</div>`;
     target.querySelectorAll('[data-datakey]').forEach(input=>{input.addEventListener('focus',checkpoint);input.addEventListener('input',()=>{doc.data[input.dataset.datakey]=input.value;saveLocal();drawArtwork();});});
