@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="nls-version" content="v9.0-premium-engraved-layout" />
+  <meta name="nls-version" content="v10.0-canonical-17-master-plus-batch" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -689,7 +689,7 @@ function resolvedElementText(e,data){
 function fontForElement(ctx,e,value){
  let f=Math.max(7,Number(e.fontSize)||18);
  if(e.autoFit){
-  const cap=Math.max(1,Number(e.maxLines)||2),min=10;
+  const cap=Math.max(1,Number(e.maxLines)||2),min=e.name==='Main product title'?26:10;
   while(f>min){
    ctx.font=(e.bold?'800':'400')+' '+f+'px '+(fontMap[e.fontFamily]||fontMap.Arial);
    const lines=getTextLines(ctx,value,e.w),lh=Math.round(f*(e.lineHeight||1.12));
@@ -722,6 +722,8 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
       ctx.strokeStyle=col;ctx.lineWidth=Math.max(1,e.strokeWidth||2);ctx.lineCap='square';ctx.beginPath();ctx.moveTo(e.x,e.y+e.h/2);ctx.lineTo(e.x+e.w,e.y+e.h/2);ctx.stroke();
     }else if(e.type==='background'){
       window.LabelBackgrounds.draw(ctx,e,doc);
+    }else if(e.type==='motif'){
+      window.LabelMasterV9.drawMotif(ctx,e,doc);
     }else if(e.type==='illustration'){
       window.LabelCuts.draw(ctx,e,doc);
     }else if(e.type==='qr'){
@@ -834,6 +836,7 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
     const parts=[`<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`,`<rect width="100%" height="100%" fill="#ffffff"/>`];
     for(const e of doc.elements){if(e.visible===false||(e.showWhen&&!String(doc.data?.[e.showWhen]??'').trim()))continue;const color=COLORS[e.color]||COLORS.black;
       if(e.type==='background'){parts.push(window.LabelBackgrounds.svgImage(doc,e));continue;}
+      if(e.type==='motif'){parts.push(window.LabelMasterV9.svgMotif(doc,e));continue;}
       if(e.type==='illustration'){parts.push(window.LabelCuts.svgImage(doc,e));continue;}
       if(e.type==='text'){const canvas=document.createElement('canvas'),ctx=canvas.getContext('2d');const value=resolvedElementText(e,doc.data);const size=fontForElement(ctx,e,value);const lines=getTextLines(ctx,value,e.w);const font=esc(e.fontFamily||'Arial');const lh=Math.round(size*(e.lineHeight||1.11));const align=e.align||'left';const x=align==='center'?e.x+e.w/2:align==='right'?e.x+e.w:e.x;
         parts.push(`<text fill="${color}" font-family="${font}" font-weight="${e.bold?800:400}" font-size="${size}" text-anchor="${align==='center'?'middle':align==='right'?'end':'start'}">`);
@@ -850,7 +853,7 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
   function validatedDoc(raw){if(!raw||typeof raw!=='object'||![SCHEMA,LEGACY_SCHEMA].includes(raw.schema)||!Array.isArray(raw.elements)||!raw.data||typeof raw.data!=='object')throw new Error('Not a Nerdeus label v1/v2 template');
     if(raw.schema===SCHEMA&&(raw.profile?.artWidth!==W||raw.profile?.artHeight!==H))throw new Error('Unexpected v2 artwork geometry');
     if(raw.schema===LEGACY_SCHEMA&&(raw.profile?.artWidth!==LEGACY_W||raw.profile?.artHeight!==LEGACY_H))throw new Error('Unexpected legacy artwork geometry');
-    if(raw.elements.length>100)throw new Error('Too many layers (limit 100)');const accepted=['text','rect','line','qr','barcode','background','illustration'];const norm={schema:SCHEMA,id:String(raw.id||UID()).slice(0,100),name:String(raw.name||'Imported label').slice(0,100),kind:String(raw.kind||'custom').slice(0,40),description:String(raw.description||'Imported label').slice(0,160),profile:profile(),data:{},assets:{},elements:[],nlsDesignVersion:Number(raw.nlsDesignVersion)||0};
+    if(raw.elements.length>100)throw new Error('Too many layers (limit 100)');const accepted=['text','rect','line','qr','barcode','background','illustration','motif'];const norm={schema:SCHEMA,id:String(raw.id||UID()).slice(0,100),name:String(raw.name||'Imported label').slice(0,100),kind:String(raw.kind||'custom').slice(0,40),description:String(raw.description||'Imported label').slice(0,160),profile:profile(),data:{},assets:{},elements:[],nlsDesignVersion:Number(raw.nlsDesignVersion)||0};
     for(const [key,value] of Object.entries(raw.data)){if(/^[a-zA-Z][\w.]{0,79}$/.test(key))norm.data[key]=String(value??'').slice(0,1000);}
     // Keep the source PNG with the editable template; never depend on a remote library URL.
     for(const [key,item] of Object.entries(raw.assets||{}).slice(0,40)){
@@ -1028,6 +1031,7 @@ window.LabelCuts={catalog:assets,byId,source,validDataUri,ensureDocument,ready,d
 </script>
 <script src="/assets/package-labels-v8.js"></script>
 <script src="/assets/package-labels-v9.js"></script>
+<script src="/assets/master-label-v9.js"></script>
 <script>
 /* Optional NiimBlueLib B1 Pro print bridge.
    Editor/export/archive do NOT depend on the printer library.
@@ -1501,6 +1505,7 @@ setup();
 })();
 
 </script>
+<script src="/assets/queue-v9.js"></script>
 <script>
 
 /* Hosted-site navigation and theme adapter. No network writes, user data stays in browser. */
