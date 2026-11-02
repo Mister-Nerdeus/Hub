@@ -69,7 +69,7 @@ function create(spec){
  const d={
   'pkg.type':id,'pkg.food':a.food||spec.nameSample,'pkg.state':spec.state,'pkg.status':a.status||spec.state,'pkg.detail':a.detail||spec.contents||'',
   'pkg.metric':spec.metric,'pkg.imperial':spec.imperial,'pkg.portions':spec.portions||'',
-  'pkg.storage':spec.storage,'pkg.packaging':a.pack||'VACUUM BAG','pkg.packed':'','pkg.extraDate':'','pkg.extraDateLabel':'FROZEN',
+  'pkg.storage':spec.storage,'pkg.packaging':a.pack||'VACUUM BAG','pkg.packed':'','pkg.packedCaption':spec.id.includes('opened')?'OPENED':spec.state==='DRY'?'BLENDED':spec.id==='pkg-raw-kit'?'ASSEMBLED':spec.id==='pkg-prepped-raw'||spec.id==='pkg-raw-combo'?'PREPPED':spec.state==='COOKED'?'COOKED':'PACKED','pkg.extraDate':'','pkg.extraDateLabel':spec.storage==='FROZEN'?'FROZEN':'PREPARED',
   'pkg.date':'','pkg.dateCaption':P.dateCaption(spec.storage),'pkg.instructions':spec.instructions||'',
   'pkg.action':spec.action,'pkg.temp':spec.temp||'','pkg.thaw':spec.storage==='FROZEN'?'Thaw in refrigerator if needed':'',
   'pkg.contents':spec.contents||'','pkg.allergens':spec.allergens||'','pkg.id':'DEMO-'+spec.id.slice(4).toUpperCase(),
@@ -94,10 +94,10 @@ function create(spec){
   rule('Weight bottom line',24,519,543,'red',2),
   // Red allergen capsules drawn by the final renderer only when recorded.
   rule('Dates upper divider',24,555,543,'red',2),
-  label('Date one heading','PACKED',208,574,144,22,16,'black'),
+  label('Date one heading','{{pkg.packedCaption}}',208,574,144,22,16,'black'),
   label('Date one value','{{pkg.packed}}',355,574,218,23,17,'black',{format:'date',align:'right'}),
   rule('Date line one',204,605,358,'red',1),
-  label('Date two heading','{{pkg.extraDateLabel}}',208,618,144,22,16,'black'),
+  label('Date two heading','{{pkg.extraDateLabel}}',208,618,144,22,16,'black',{showWhen:'pkg.extraDate'}),
   label('Date two value','{{pkg.extraDate}}',355,618,218,23,17,'black',{format:'date',align:'right'}),
   rule('Date line two',204,649,358,'red',1),
   label('End date heading','{{pkg.dateCaption}}',208,661,147,23,15,'red'),
@@ -161,7 +161,7 @@ P.change=(doc,key,value)=>{
  const d=doc.data;d[key]=String(value??'').slice(0,1000);
  if(key==='pkg.storage'){
    d['pkg.dateCaption']=P.dateCaption(value);
-   if(value==='FROZEN'&&!d['pkg.extraDateLabel'])d['pkg.extraDateLabel']='FROZEN';
+   if(value==='FROZEN')d['pkg.extraDateLabel']='FROZEN';
  }
  if(key==='pkg.allergens'&&/^\s*(NONE|NO ALLERGENS)$/i.test(String(value||'')))d[key]='';
  if(!['pkg.reviewed','pkg.allergensReviewed','pkg.artworkReviewed'].includes(key)){
@@ -284,6 +284,7 @@ function drawAllergens(canvas,doc){
  const im=q.getImageData(20,522,553,29),a=im.data;
  for(let i=0;i<a.length;i+=4){const isRed=a[i]>145&&a[i+1]<145;
   const isWhite=!isRed&&(a[i+1]>135||a[i+2]>135);
+  if(a[i+3]<30)continue;
   a[i]=isRed||isWhite?255:0;a[i+1]=isWhite?255:0;a[i+2]=isWhite?255:0;a[i+3]=255;
  }
  q.putImageData(im,20,522);
@@ -342,7 +343,7 @@ function renderPanel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInsp
  const groups=[
  ['IDENTITY',[['food','Product name'],['status','Condition and meaningful attributes'],['detail','Contents / cut summary'],['packaging','Package type']]],
  ['QUANTITY',[['metric','Metric quantity'],['imperial','Imperial quantity'],['portions','Servings / portions']]],
- ['DATES AND STORAGE',[['storage','Storage condition'],['packed','Packed / prepared date','date'],['extraDateLabel','Extra date caption'],['extraDate','Extra date','date'],['date','Use-by / best-quality date','date']]],
+ ['DATES AND STORAGE',[['storage','Storage condition'],['packedCaption','First date caption'],['packed','Packed / prepared date','date'],['extraDateLabel','Extra date caption'],['extraDate','Extra date','date'],['date','Use-by / best-quality date','date']]],
  ['HANDLING',[['instructions','Verified handling instructions','textarea'],['temp','Verified temperature (°F / °C)'],['footerMain','Black footer – main instruction'],['footerSub','Black footer – secondary instruction']]],
  ['RECIPE / ALLERGENS',[['contents','Actual ingredients / combinations','textarea'],['allergens','Confirmed allergens'],['id','Unique package ID'],['batch','Batch / lot'],['recipeRef','Recipe reference'],['location','Storage location']]]
  ];
