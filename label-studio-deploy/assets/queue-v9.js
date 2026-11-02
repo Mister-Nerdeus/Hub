@@ -10,7 +10,12 @@ const $=q=>document.querySelector(q),slug=s=>String(s||'package').replace(/[^\w-
 let queue=[];
 try{const stored=JSON.parse(localStorage.getItem(KEY)||'[]');if(Array.isArray(stored))queue=stored.filter(x=>x&&typeof x.templateId==='string'&&typeof x.fingerprint==='string'&&Number.isInteger(x.copies)&&x.copies>0).slice(0,30);}catch(_){queue=[];}
 const current=()=>app.getCurrent(),docs=()=>app.getState().templates,save=()=>{try{localStorage.setItem(KEY,JSON.stringify(queue));}catch(e){console.warn('Batch queue storage unavailable',e);}};
-function fingerprint(doc){return JSON.stringify({id:doc.id,data:doc.data,art:doc.elements.filter(x=>x.name==='Hero food illustration').map(x=>[x.assetId,x.haloPreset]),assets:Object.keys(doc.assets||{})});}
+function fingerprint(doc){
+ // Include all printable layers and approved art; editing positions, text, QR,
+ // ornament or image data must invalidate a queued package.
+ const assetTags=Object.entries(doc.assets||{}).map(([id,a])=>[id,a?.origin||'',a?.dataUri?.length||0,a?.dataUri?.slice(0,80)||'',a?.dataUri?.slice(-80)||'']);
+ return JSON.stringify({id:doc.id,name:doc.name,profile:doc.profile,data:doc.data,elements:doc.elements,assetTags});
+}
 function issuesFor(entry){
  const doc=docs().find(x=>x.id===entry.templateId);
  if(!doc)return ['Source template was deleted.'];
@@ -89,7 +94,7 @@ function record(doc){const d=doc.data,v=k=>String(d['pkg.'+k]||''),events=[];
   handling:{action:({COOK:'cook',REHEAT:'reheat',MIX:'mix',USE:'use',STORE:'store',SERVE:'serve'})[v('action')]||'use',primaryDisplayText:v('actionText')||null,method:null,verified:v('actionVerified')==='1',temperature:null,thawNote:null,additions:[],sourceRef:null},
   artwork:{assetId:artwork?.assetId||null,status:v('artStatus')==='approved'?'approved':artwork?'candidate':'missing',actualContentsReviewed:v('artworkReviewed')==='1',containerDepicted:false,containerIncluded:false,textOnlyApproved:v('textOnlyApproved')==='1',haloPreset:v('halo'),ornamentId:'botanical_side_v9'},
   review:{status:M.validate(doc).length?'draft':'ready_for_print',identity:v('identityReviewed')==='1',quantity:v('quantityReviewed')==='1',storage:v('storageReviewed')==='1',dates:v('datesReviewed')==='1',allergens:v('allergensReviewed')==='1',handling:v('actionVerified')==='1',artwork:v('artworkReviewed')==='1'||v('textOnlyApproved')==='1'},
-  render:{profileId:'niimbot_b1pro_50x70_300dpi',templateVersion:'9.0.0',backgroundId:null,pixelPalette:['#FF0000','#000000','#FFFFFF']}
+  render:{profileId:'niimbot_b1pro_50x70_300dpi',templateVersion:'9.0.0',backgroundId:doc.elements.find(e=>e.name==='Artwork edge botanicals'&&e.type==='background')?.assetId||null,pixelPalette:['#FF0000','#000000','#FFFFFF']}
  };
 }
 function downloadBlob(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);}
