@@ -86,12 +86,12 @@ C.initialTemplates=()=>defaults.concat(oldInitial());
 function isPackage(doc){return !!doc&&doc.nlsDesignVersion===8&&Object.hasOwn(doc.data||{},'pkg.type');}
 function calculatePair(metric,imperial){
  const a=/^\s*(\d+(?:\.\d+)?)\s*(g|kg|ml|l)\s*$/i.exec(metric||'');
- const b=/^\s*(\d+(?:\.\d+)?)\s*(fl\s*oz|oz|lb)\s*$/i.exec(imperial||'');
+ const b=/^\s*(\d+(?:\.\d+)?)\s*(US\s*fl\s*oz|fl\s*oz|oz|lb)\s*$/i.exec(imperial||'');
  if(!a||!b)return 'Enter a measurable amount in both g/kg or ml/L and oz/lb/fl oz.';
  const unit=a[2].toLowerCase(),other=b[2].toLowerCase().replace(/\s+/g,'');
  const grams=unit==='g'?Number(a[1]):unit==='kg'?Number(a[1])*1000:null;
  const ml=unit==='ml'?Number(a[1]):unit==='l'?Number(a[1])*1000:null;
- const expected=grams!==null?(other==='oz'?grams/28.349523125:other==='lb'?grams/453.59237:null):(other==='floz'?ml/29.5735295625:null);
+ const expected=grams!==null?(other==='oz'?grams/28.349523125:other==='lb'?grams/453.59237:null):((other==='floz'||other==='usfloz')?ml/29.5735295625:null);
  if(expected===null)return 'Weight and volume units do not match.';
  const actual=Number(b[1]);
  if(!Number.isFinite(actual)||actual<=0||Number(a[1])<=0)return 'Quantity must be greater than zero.';
