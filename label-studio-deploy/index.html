@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="nls-version" content="v7.0-approved-backgrounds" />
+  <meta name="nls-version" content="v8.0-conditional-packaging" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -16,6 +16,21 @@
 .nls-theme-group{grid-column:1/-1;display:flex;align-items:center;gap:7px;border-bottom:1px solid #e3e9ef;padding:11px 4px 5px;margin:0 0 2px;font-size:11px;font-weight:800;color:#3f526b}
 .nls-theme-group small{margin-left:auto;letter-spacing:.03em;color:#96a3b5;font-size:9px;font-weight:650}
 .nls-theme-group i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff0000;flex:none}
+
+/* v8 package-data editor: compact, touch-friendly and consistent with the existing inspector. */
+.pkg-editor .pkg-summary{font-size:11px;line-height:1.55;color:#8291a2;margin:7px 0 14px}
+.pkg-editor .pkg-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:14px}
+.pkg-editor .field{margin-bottom:0}
+.pkg-editor input,.pkg-editor select,.pkg-editor textarea{min-height:36px}
+.pkg-editor textarea{min-height:56px}
+.pkg-editor .pkg-reviews{display:grid;gap:12px;padding:13px 8px;margin:16px 0;background:rgba(128,145,162,.09);border-radius:8px}
+.pkg-editor .pkg-reviews label{display:flex;align-items:flex-start;gap:8px;font-size:11px;line-height:1.5;color:inherit;cursor:pointer}
+.pkg-editor .pkg-reviews input{min-height:0;width:17px;height:17px;flex:0 0 17px;margin-top:1px}
+.pkg-editor .pkg-errors{font-size:11px;line-height:1.55;border-top:1px solid rgba(128,145,162,.24);padding:12px 2px}
+.pkg-editor .pkg-errors b{display:block;margin-bottom:5px}
+.pkg-editor .pkg-errors ul{margin:0;padding-left:19px}
+.pkg-editor .pkg-errors li{margin:4px 0}
+
 </style>
   <style>
 
@@ -989,6 +1004,7 @@ function initialTemplates(){return assets.map(makeTemplate);}
 window.LabelCuts={catalog:assets,byId,source,validDataUri,ensureDocument,ready,draw,svgImage,attach,makeTemplate,initialTemplates};
 })();
 </script>
+<script src="/assets/package-labels-v8.js"></script>
 <script>
 /* Optional NiimBlueLib B1 Pro print bridge.
    Editor/export/archive do NOT depend on the printer library.
@@ -1130,8 +1146,8 @@ function drawOverlay(){ov.clearRect(0,0,Core.W,Core.H);if(state.guides){ov.save(
 function updateZoom(){state.zoom=Number($('#zoom').value);const w=Core.W*state.zoom/100,h=Core.H*state.zoom/100;
   for(const c of [art,overlay]){c.style.width=`${w}px`;c.style.height=`${h}px`;}
   $('#zoomPct').textContent=state.zoom+'%';drawOverlay();}
-function renderTemplates(){const icons={meal:'▤',freezer:'❄',storage:'▥',advanced:'▦',meat:'◈',custom:'▧'};
-  $('#templateChoices').innerHTML=state.templates.map(doc=>`<button class="template-choice ${doc.id===state.activeId?'selected':''}" data-template="${esc(doc.id)}"><span class="template-icon">${icons[doc.kind]||icons.custom}</span><span class="template-details"><b>${esc(doc.name)}</b><small>${esc(doc.kind==='meal'?'Meals & leftovers':doc.kind==='freezer'?'Flat-pack & freezer':doc.kind==='storage'?'Containers & pantry':doc.kind==='advanced'?'Batch packaging':doc.kind==='meat'?'Raw cut / butcher labels':doc.kind)}</small></span></button>`).join('');
+function renderTemplates(){const icons={meal:'▤',freezer:'❄',storage:'▥',advanced:'▦',meat:'◈',package:'▣',custom:'▧'};
+  $('#templateChoices').innerHTML=state.templates.map(doc=>`<button class="template-choice ${doc.id===state.activeId?'selected':''}" data-template="${esc(doc.id)}"><span class="template-icon">${icons[doc.kind]||icons.custom}</span><span class="template-details"><b>${esc(doc.name)}</b><small>${esc(doc.kind==='meal'?'Meals & leftovers':doc.kind==='freezer'?'Flat-pack & freezer':doc.kind==='storage'?'Containers & pantry':doc.kind==='advanced'?'Batch packaging':doc.kind==='meat'?'Raw cut / butcher labels':doc.kind==='package'?'Raw · cooked · dry packaging':doc.kind)}</small></span></button>`).join('');
   $$('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{state.activeId=btn.dataset.template;state.selectedId=null;state.tab='element';saveLocal();refresh();});
 }
 function renderLayers(){const doc=active();$('#layerCount').textContent=doc.elements.length;
@@ -1275,11 +1291,16 @@ function colorPicker(prop,chosen,allowNone=false){const types=allowNone?['none',
 function renderInspector(){const doc=active(),e=selected();$$('.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===state.tab));
   $('#selectedSummary').textContent=state.tab==='element'?(e?`${e.type.toUpperCase()}  ·  ${e.name}`:'Choose a layer to edit its properties.'):state.tab==='data'?'Edit sample values used in your {{field}} bindings.':'Check exported pixels and printer geometry.';
   const target=$('#inspectorBody');
-  if(state.tab==='data'){
+  if(state.tab==='data'&&window.LabelPackages?.isPackage(doc)){
+    window.LabelPackages.panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,
+      setActive:id=>{const template=state.templates.find(t=>t.id===id&&window.LabelPackages.isPackage(t));
+        if(!template)return toast('Package template unavailable.','error');
+        state.activeId=id;state.selectedId=null;state.tab='data';saveLocal();refresh();}});
+  }else if(state.tab==='data'){
     target.innerHTML=`<h3>Sample label data</h3><div class="form-tip" style="margin-bottom:16px">Change any value to update the rendered label. The binding key remains stable in the reusable template.</div><div class="data-list">${Object.entries(doc.data).map(([key,val])=>`<div class="field"><label class="data-key">{{${esc(key)}}}</label><input data-datakey="${esc(key)}" value="${esc(val)}" /></div>`).join('')}</div><div class="form-tip">These fields are demonstration data, not validated meal inventory, allergens, shelf life or regulatory information.</div>`;
     target.querySelectorAll('[data-datakey]').forEach(input=>{input.addEventListener('focus',checkpoint);input.addEventListener('input',()=>{doc.data[input.dataset.datakey]=input.value;saveLocal();drawArtwork();});});
   }else if(state.tab==='output'){
-    let counts={black:0,red:0,white:0,other:0},issues=[];try{counts=Core.classify(Core.render(doc));issues=Core.diagnostics(doc);}catch(err){issues=[err.message];}
+    let counts={black:0,red:0,white:0,other:0},issues=[];try{counts=Core.classify(Core.render(doc));issues=Core.diagnostics(doc);if(window.LabelPackages?.isPackage(doc))issues.push(...window.LabelPackages.validate(doc,true));}catch(err){issues=[err.message];}
     target.innerHTML=`<h3>Bitmap preflight</h3><div class="template-meta">Artwork: <b>591 × 827 px</b><br>Hardware raster: <b>576 × 827 px</b><br>Orientation: <b>portrait, centered crop 7 px left / 8 px right</b><br>Colors: <b>white / black / red</b><br>Black pixels: <b>${counts.black.toLocaleString()}</b><br>Red pixels: <b>${counts.red.toLocaleString()}</b><br>White pixels: <b>${counts.white.toLocaleString()}</b><br>Other pixels: <b>${counts.other}</b></div><h4>REVIEW CHECKS (${issues.length})</h4><div class="form-tip">${issues.length?issues.slice(0,20).map(i=>`• ${esc(i)}`).join('<br>'):'No basic layout warnings detected.'}</div><h4>EXPORT FORMATS</h4><button id="btnSvgExport" class="btn btn-outline" style="width:100%">↓ Editable SVG</button><p style="font-size:10px;color:#8391a0;line-height:1.6;margin-top:9px">SVG is useful as an illustration export, but the 591 × 827 canonical PNG is the authoritative print snapshot. SVG font rendering may differ in other software.</p>`;
     $('#btnSvgExport').onclick=async()=>{try{await Promise.all([Bg.ensureDocument(doc),Cuts.ensureDocument(doc)]);const blob=new Blob([Core.svg(doc)],{type:'image/svg+xml'});Core.download(blob,slug(doc.name)+'.svg');toast('SVG illustration downloaded.');}catch(err){toast(err.message,'error');}};
   }else if(!e){
@@ -1398,6 +1419,10 @@ function showPrinterSetup(portrait,sourceName,checksum){
     try{
       const unfinished=Object.entries(active().data).filter(([key,val])=>/(?:useBy|bestBy|prepared|packed|opened)$/i.test(key)&&(!String(val||'').trim()||/^(?:SET DATE|MM\/DD\/YYYY|TBD)$/i.test(String(val).trim())));
       if(unfinished.length)throw new Error('Complete the package date fields in Label data before physical printing: '+unfinished.map(([k])=>k).join(', '));
+      if(window.LabelPackages?.isPackage(active())){
+        const problems=window.LabelPackages.validate(active(),true);
+        if(problems.length)throw new Error('Package data is not ready for printing: '+problems.slice(0,4).join(' | '));
+      }
       status.textContent='Sending exact pixels to B1 Pro via NiimBlueLib…';
       const ret=await window.LabelPrinter.printPortraitCanvas(portrait,{density:Number($('#printDensity').value)});status.textContent='Print job finished according to driver. Verify the label physically; no confirmation of scan/print quality is available.';toast(`Driver completed the print job (${ret.task}). Verify output.`);}
     catch(e){status.textContent=`Print failed: ${e.message}`;toast(e.message,'error');}finally{update();}};
@@ -1436,7 +1461,7 @@ function setup(){loadLocal();loadCustomCategory();
   document.addEventListener('keydown',keyHandler);
   updateZoom();refresh();renderSnapshots();
   // Stable hook for test runner; no users' private data is sent anywhere.
-  window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,applyBackground,applyCut,importBackground};
+  window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,packages:window.LabelPackages,applyBackground,applyCut,importBackground};
 }
 setup();
 })();
