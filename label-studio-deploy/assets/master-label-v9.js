@@ -80,6 +80,7 @@ function derived(doc){
  const outline=doc.elements.find(e=>e.name==='Contents bottom divider');
  if(art){art.y=hasContents?160:170;art.h=hasContents?209:228;art.haloPreset=d['pkg.halo']||'medium';}
  if(deco)deco.h=hasContents?222:252;
+  const knockout=doc.elements.find(e=>e.name==='Central white dither knockout');if(knockout)knockout.h=hasContents?222:252;
  if(placeholder){placeholder.showWhen='pkg.artworkPlaceholder';placeholder.y=hasContents?247:252;}
  if(contents)contents.showWhen='pkg.displayContents';
  if(outline)outline.y=403;
@@ -115,29 +116,30 @@ function make(def){
   rect('Red product header',0,0,591,120,'red'),
   l('motif','White category icon',26,15,95,95,{motif:'icon'}),
   txt('Main product title','{{pkg.food}}',143,30,418,80,44,'white',{maxLines:2}),
-  txt('Draft indicator','{{pkg.proof}}',431,8,130,18,11,'white',{showWhen:'pkg.proof',maxLines:1,align:'right'}),
+  txt('Draft indicator','{{pkg.proof}}',385,8,177,22,15,'white',{showWhen:'pkg.proof',maxLines:1,align:'right'}),
   rect('Black condition strip',0,120,591,32,'black'),
-  txt('Nonredundant state attributes','{{pkg.status}}',26,125,539,23,19,'white',{align:'center',maxLines:1}),
+  txt('Nonredundant state attributes','{{pkg.status}}',26,125,539,25,21,'white',{align:'center',maxLines:1}),
   l('background','Artwork edge botanicals',0,152,591,222,{assetId:'BG-013',region:'custom',fit:'stretch',panX:50,panY:50,zoom:100,locked:true}),
+   l('motif','Central white dither knockout',0,152,591,222,{motif:'white-knockout',locked:true}),
   txt('Unapproved artwork placeholder','{{pkg.artworkPlaceholder}}',70,247,450,37,17,'black',{align:'center',showWhen:'pkg.artworkPlaceholder',maxLines:1}),
-  txt('Extra contents descriptor','{{pkg.displayContents}}',30,379,531,21,16,'black',{align:'center',showWhen:'pkg.displayContents',maxLines:1}),
+  txt('Extra contents descriptor','{{pkg.displayContents}}',30,379,531,23,19,'black',{align:'center',showWhen:'pkg.displayContents',maxLines:1}),
   rule('Contents bottom divider',403,'red'),
   txt('Metric quantity','{{pkg.metric}}',30,417,247,37,35,'black',{align:'center',maxLines:1}),
   rect('Quantity separator',291,415,3,40,'red'),
   txt('Imperial quantity','{{pkg.imperial}}',311,417,249,37,35,'black',{align:'center',maxLines:1}),
-  txt('Packaging material','{{pkg.packaging}}',31,454,530,21,16,'black',{align:'center',maxLines:1}),
+  txt('Packaging material','{{pkg.packaging}}',31,454,530,21,18,'black',{align:'center',maxLines:1}),
   rule('Quantity divider',475,'red'),
   txt('Recorded allergen bullets','{{pkg.allergens}}',30,485,530,23,16,'red',{format:'allergenBullets',showWhen:'pkg.allergens',align:'center',maxLines:1}),
   l('qr','QR: package ID',34,537,146,144,{text:'{{pkg.id}}',color:'black'}),
-  txt('ID below QR','{{pkg.id}}',32,684,150,24,13,'black',{align:'center',maxLines:1}),
-  txt('Event 1 name','{{pkg.date1Label}}',222,536,129,28,16,'red',{maxLines:1,showWhen:'pkg.date1Label'}),
-  txt('Event 1 date','{{pkg.date1Display}}',355,536,206,28,17,'black',{maxLines:1,align:'right',showWhen:'pkg.date1Display'}),
-  txt('Event 2 name','{{pkg.date2Label}}',222,576,129,28,16,'red',{maxLines:1,showWhen:'pkg.date2Label'}),
-  txt('Event 2 date','{{pkg.date2Display}}',355,576,206,28,17,'black',{maxLines:1,align:'right',showWhen:'pkg.date2Display'}),
-  txt('Event 3 name','{{pkg.date3Label}}',222,616,129,28,16,'red',{maxLines:1,showWhen:'pkg.date3Label'}),
-  txt('Event 3 date','{{pkg.date3Display}}',355,616,206,28,17,'black',{maxLines:1,align:'right',showWhen:'pkg.date3Display'}),
-  txt('Event 4 name','{{pkg.date4Label}}',222,656,129,28,16,'red',{maxLines:1,showWhen:'pkg.date4Label'}),
-  txt('Event 4 date','{{pkg.date4Display}}',355,656,206,28,17,'black',{maxLines:1,align:'right',showWhen:'pkg.date4Display'}),
+  txt('ID below QR','{{pkg.id}}',32,684,150,24,16,'black',{align:'center',maxLines:1}),
+  txt('Event 1 name','{{pkg.date1Label}}',222,536,129,28,18,'red',{maxLines:1,showWhen:'pkg.date1Label'}),
+  txt('Event 1 date','{{pkg.date1Display}}',355,536,206,28,20,'black',{maxLines:1,align:'right',showWhen:'pkg.date1Display'}),
+  txt('Event 2 name','{{pkg.date2Label}}',222,576,129,28,18,'red',{maxLines:1,showWhen:'pkg.date2Label'}),
+  txt('Event 2 date','{{pkg.date2Display}}',355,576,206,28,20,'black',{maxLines:1,align:'right',showWhen:'pkg.date2Display'}),
+  txt('Event 3 name','{{pkg.date3Label}}',222,616,129,28,18,'red',{maxLines:1,showWhen:'pkg.date3Label'}),
+  txt('Event 3 date','{{pkg.date3Display}}',355,616,206,28,20,'black',{maxLines:1,align:'right',showWhen:'pkg.date3Display'}),
+  txt('Event 4 name','{{pkg.date4Label}}',222,656,129,28,18,'red',{maxLines:1,showWhen:'pkg.date4Label'}),
+  txt('Event 4 date','{{pkg.date4Display}}',355,656,206,28,20,'black',{maxLines:1,align:'right',showWhen:'pkg.date4Display'}),
   rect('Black instruction footer',0,722,591,105,'black'),
   txt('One validated instruction','{{pkg.actionText}}',29,748,533,53,29,'white',{align:'center',maxLines:2})
  ];
@@ -252,7 +254,20 @@ Cuts.svgImage=function(doc,e){if(e.haloPreset&&isMaster(doc)){const c=compHero(e
 };
 function drawMotif(ctx,e,doc){
  ctx.save();ctx.beginPath();ctx.rect(e.x,e.y,e.w,e.h);ctx.clip();
- if(e.motif==='icon'){
+ if(e.motif==='white-knockout'){
+   // Approved red floral edge art remains intact; clear an irregular white hero
+   // zone so actual food and missing-art notices never overlap red decoration.
+   // All output pixels are pure opaque white, not alpha/blur/gray.
+   const W=Math.round(e.w),H=Math.round(e.h),left=Math.round(e.x),top=Math.round(e.y);
+   const im=ctx.getImageData(left,top,W,H),pixels=im.data;
+   for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+     const center=W/2, core=168+6*Math.sin(y/17)+3*Math.sin(y/7),d=Math.abs(x-center)-core;
+     const chance=d<=0?1:d>=58?0:Math.pow((58-d)/58,1.3);
+     if(chance===0||hashPixel(x,y)>chance)continue;
+     const at=(y*W+x)*4;pixels[at]=255;pixels[at+1]=255;pixels[at+2]=255;pixels[at+3]=255;
+   }
+   ctx.putImageData(im,left,top);
+ }else if(e.motif==='icon'){
   const cx=e.x+e.w/2,cy=e.y+e.h/2;
   ctx.strokeStyle='#ffffff';ctx.fillStyle='#ffffff';ctx.lineWidth=4;
   ctx.beginPath();ctx.arc(cx,cy,Math.min(e.w,e.h)*.45,0,Math.PI*2);ctx.stroke();
@@ -350,6 +365,12 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
   checkpoint();const layer=doc.elements.find(e=>e.name==='Artwork edge botanicals');if(!layer)return;
   if(e.target.value==='BG-013')Object.assign(layer,{type:'background',assetId:'BG-013',region:'custom',fit:'stretch',panX:50,panY:50,zoom:100,locked:true});
   else Object.assign(layer,{type:'motif',motif:'botanical',locked:true});
+  let knockout=doc.elements.find(e=>e.name==='Central white dither knockout');
+  if(!knockout&&e.target.value==='BG-013'){
+    knockout=l('motif','Central white dither knockout',0,152,591,222,{motif:'white-knockout',locked:true});
+    doc.elements.splice(doc.elements.indexOf(layer)+1,0,knockout);
+  }
+  if(knockout)knockout.visible=e.target.value==='BG-013';
   update(doc,'pkg.ornament',e.target.value);saveLocal();refresh();
  };
  target.querySelector('#masterLabelType').onchange=e=>{setActive('master-'+e.target.value);};
