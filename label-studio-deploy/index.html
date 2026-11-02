@@ -1207,7 +1207,7 @@ function renderTemplates(){
     const id=family(doc),section=master(doc)?(design.families.find(f=>f.id===id)?.name||'Master labels'):'Existing and custom templates';
     let heading='';
     if(section!==previous){previous=section;heading='<div class="template-family-heading">'+esc(section)+'</div>';}
-    const detail=master(doc)?'Standard master · '+(doc.data?.['pkg.storage']||'')
+    const detail=master(doc)?(design.byId.get(doc.data?.['pkg.type'])?.label||'Master')+' · '+(doc.data?.['pkg.storage']||'')
       :doc.kind==='meat'?'Raw cut / butcher':doc.kind==='package'?'Earlier package design':doc.kind;
     return heading+'<button class="template-choice '+(doc.id===state.activeId?'selected':'')+'" data-template="'+esc(doc.id)+'" type="button"><span class="template-icon">'+(icons[doc.kind]||icons.custom)+'</span><span class="template-details"><b>'+esc(name(doc))+'</b><small>'+esc(detail)+'</small></span></button>';
   }).join('')||'<p class="nls-library-empty">No matching templates. Change the family filter or search.</p>';
