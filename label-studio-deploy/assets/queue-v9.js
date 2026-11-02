@@ -79,10 +79,11 @@ function record(doc){const d=doc.data,v=k=>String(d['pkg.'+k]||''),events=[];
  for(let i=1;i<=4;i++){if(!v('date'+i+'Type'))continue;events.push({kind:v('date'+i+'Type'),date:v('date'+i)||null,verified:v('datesReviewed')==='1',provenance:null});}
  const artwork=doc.elements.find(e=>e.name==='Hero food illustration'&&e.visible!==false);
  const metric=measure(v('metric')),imperial=measure(v('imperial'));
+ if(!metric||!imperial)throw Error('Metric and imperial measurements are missing or invalid; no substitute quantity is exported.');
  return {
   schemaVersion:'nerdeus.package-label.v1',recordId:doc.id,labelType:v('type'),
-  product:{displayName:v('food'),proteinId:null,cutId:null,preparationState:v('state').toLowerCase()==='dry'?'dry':v('state').toLowerCase()==='opened'?'opened':v('state').toLowerCase()==='cooked'?'cooked':'raw',storageCondition:({FROZEN:'frozen',REFRIGERATED:'refrigerated','COOL & DRY':'cool_dry','ROOM TEMPERATURE':'room_temperature'})[v('storage')]||'other',attributes:v('attributes').split(/[,;·]+/).map(x=>x.trim()).filter(Boolean),contentsSummary:v('contents').split(/[,;·]+/).map(x=>x.trim()).filter(Boolean),ingredientRefs:[],notes:null},
-  quantity:{kind:metric?.unit==='mL'||metric?.unit==='L'?'volume':'mass',metric:metric||{value:1,unit:'g'},imperial:imperial||{value:1,unit:'oz'},servings:null,portionCount:null},
+  product:{displayName:v('food'),proteinId:null,cutId:null,preparationState:v('state').toLowerCase()==='dry'?'dry':v('state').toLowerCase()==='opened'?'opened':v('state').toLowerCase()==='cooked'?'cooked':v('state').toLowerCase()==='partially cooked'?'partially_cooked':'raw',storageCondition:({FROZEN:'frozen',REFRIGERATED:'refrigerated','COOL & DRY':'cool_dry','ROOM TEMPERATURE':'room_temperature'})[v('storage')]||'other',attributes:v('attributes').split(/[,;·]+/).map(x=>x.trim()).filter(Boolean),contentsSummary:v('contents').split(/[,;·]+/).map(x=>x.trim()).filter(Boolean),ingredientRefs:[],notes:null},
+  quantity:{kind:metric?.unit==='mL'||metric?.unit==='L'?'volume':'mass',metric,imperial,servings:null,portionCount:null},
   package:{packageId:v('id'),containerType:containerType(v('packaging')),batchId:v('batch')||null,inventoryLocation:v('location')||null,recipeRef:v('recipeRef')||null},events,
   allergens:{confirmed:v('allergens').split(/[,;·]+/).map(x=>x.trim()).filter(Boolean),reviewed:v('allergensReviewed')==='1',sourceRef:null},
   handling:{action:({COOK:'cook',REHEAT:'reheat',MIX:'mix',USE:'use',STORE:'store',SERVE:'serve'})[v('action')]||'use',primaryDisplayText:v('actionText')||null,method:null,verified:v('actionVerified')==='1',temperature:null,thawNote:null,additions:[],sourceRef:null},
@@ -119,7 +120,8 @@ async function exportZip(){try{show('Validating every package and building exact
  downloadBlob(makeZip(files),'Nerdeus-Labels-v9-Mixed-Batch.zip');show('Downloaded '+files.length+' files in one ZIP. Print on calibrated label stock.');
  }catch(e){show(e.message,true);}}
 async function exportRecord(){const doc=current();if(!M.isMaster(doc))return show('Select a v9 master label first.',true);
- downloadBlob(new Blob([JSON.stringify(record(doc),null,2)],{type:'application/json'}),slug(doc.data['pkg.id'])+'.package-record.json');show('Canonical record JSON exported. Draft records remain unapproved.');}
+ try{downloadBlob(new Blob([JSON.stringify(record(doc),null,2)],{type:'application/json'}),slug(doc.data['pkg.id'])+'.package-record.json');show('Canonical record JSON exported. Draft records remain unapproved.');}
+ catch(e){show(e.message,true);}}
 async function doPrint(){if(!$('#masterStockConfirm').checked)return show('Confirm physical stock before sending prints.',true);
  const driver=window.LabelPrinter;if(!driver?.getState().connected||driver.getState().modelId!==4097)return show('Connect a verified NIIMBOT B1 Pro first.',true);
  try{const entries=await prepare();if(!window.confirm('Print '+queue.reduce((x,q)=>x+q.copies,0)+' physical labels on the verified B1 Pro? Check each label and QR physically.'))return;
