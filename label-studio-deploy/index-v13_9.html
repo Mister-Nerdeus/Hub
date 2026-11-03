@@ -243,7 +243,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
 #nlsActiveLabelContext .nls-active-key{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
 #saveStatus[data-save-state="failed"]{color:#ab1515!important;background:#fff3f2;padding:3px 7px;border-radius:5px;font-weight:800}
 .template-choice[aria-current="true"]{outline:2px solid #d7322a;outline-offset:1px}
-@media(max-width:720px){.nls-focused .panel-left{order:2}.nls-focused .panel-right{order:1}.nls-focused .stage-column{order:3}.nls-focused .workspace{display:flex;flex-direction:column}.nls-focused .nls-background-library{max-height:370px;overflow:auto}}
+@media(max-width:720px){.nls-focused .panel-left{order:2}.nls-focused .panel-right{order:1}.nls-focused .studio{order:3}.nls-focused .workspace{display:flex;flex-direction:column}.nls-focused .nls-background-library{max-height:370px;overflow:auto}}
 </style>
 <style id="nls-boot-failsafe-css">
 .nls-boot-status{position:relative;z-index:1;padding:10px 23px;background:#f1f5f8;color:#24384c;font:600 13px/1.4 Arial,sans-serif;border-bottom:1px solid #d1dae3}
@@ -1382,7 +1382,12 @@ function renderTemplates(){
   const text=[doc.name,doc.data?.['pkg.food'],def?.label,def?.familyId,doc.data?.['pkg.id'],doc.kind].join(' ').toLowerCase();
   if(q&&!text.includes(q))return false;
   return true;
- }).sort((a,b)=>a.id.localeCompare(b.id));
+ }).sort((a,b)=>{
+  const rank=doc=>canonical(doc)?0:packaged(doc)?1:legacy(doc)?2:3;
+  const ri=rank(a)-rank(b);if(ri)return ri;
+  const order=doc=>{const idx=design?.defs?.findIndex(x=>x.id===doc.data?.['pkg.type']);return idx>=0?idx:1000;};
+  return order(a)-order(b)||String(a.name).localeCompare(String(b.name));
+ });
  const context=filter==='packages'?'saved packages':filter==='legacy'?'previous and custom designs':filter==='master'?'current label types':filter==='all'?'all documents':'current types in this family';
  $('#templateFilterStatus').textContent=filtered.length+' '+context;
  syncActiveIdentity();
@@ -1403,8 +1408,10 @@ function renderTemplates(){
   state.activeId=btn.dataset.template;state.selectedId=null;
   state.tab=master(active())?'data':'element';
   if(packaged(active()))state.templateFamily='packages';
-  else if(canonical(active()))state.templateFamily='master';
-  else state.templateFamily='legacy';
+  else if(canonical(active())){
+   const fam='family:'+family(active());
+   state.templateFamily=state.templateFamily===fam?fam:'master';
+  }else state.templateFamily='legacy';
   $('#templateFamily').value=state.templateFamily;
   state.templateSearch='';$('#templateSearch').value='';
   saveLocal();refresh();
