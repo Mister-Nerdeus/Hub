@@ -799,7 +799,7 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
        portions:'',allergens:imported.allergens?.confirmed||[],
        actionText:handling.primaryDisplayText||'',recipeRef:pkg.recipeRef||'',
        location:pkg.inventoryLocation||'',batch:pkg.batchId||'',
-       events:(imported.events||[]).map(evt=>({type:evt.kind,date:evt.date}))};
+       details:imported.details||{},events:(imported.events||[]).map(evt=>({type:evt.kind,date:evt.date}))};
    }
    if(!record||record.schema!=='nerdeus.meals.package.v1')throw Error('Supported imports: nerdeus.meals.package.v1 or nerdeus.package-label.v1.');
    if(record.type!==v('type'))throw Error('Record is for '+record.type+'. Choose that label type first; your existing package was not modified.');
@@ -808,6 +808,9 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
    const next={};for(const key of ['food','storage','packaging','metric','imperial','contents','portions','id','allergens','actionText','attributes','recipeRef','location','batch']){
     const value=key==='allergens'&&Array.isArray(record[key])?record[key].join(', '):record[key];
     next['pkg.'+key]=String(value??'').slice(0,250);
+   }
+   for(const [key] of typeFields[record.type]||[]){
+    next['pkg.'+key]=String(record.details?.[key]??record[key]??'').slice(0,250);
    }
    const ids=String(next['pkg.id']).trim();
    if(!/^[A-Z0-9][A-Z0-9-]{5,39}$/.test(ids)||/^(DEMO|SAMPLE|TEST|TEMP)-/i.test(ids))throw Error('Use a real package ID of 6–40 uppercase letters, numbers or hyphens.');
