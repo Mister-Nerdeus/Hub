@@ -812,9 +812,15 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
  };
  for(const field of target.querySelectorAll('[data-master-field]')){
   field.addEventListener('focus',()=>checkpoint(),{once:true});
-  field.addEventListener('input',()=>{update(doc,'pkg.'+field.dataset.masterField,field.value);saveLocal();drawArtwork();showWarnings();
-     if(field.dataset.masterField==='food')window.__labelStudioTest?.refreshIdentity?.();
-     for(const c of target.querySelectorAll('[data-master-check]'))c.checked=v(c.dataset.masterCheck)==='1';});
+  field.addEventListener('input',()=>{
+     update(doc,'pkg.'+field.dataset.masterField,field.value);
+     if(field.dataset.masterField==='food'&&isPackageInstance)
+       doc.name='Package · '+(String(field.value).trim().slice(0,70)||currentType?.label||'Untitled');
+     saveLocal();drawArtwork();showWarnings();
+     if(['food','id'].includes(field.dataset.masterField))
+       window.__labelStudioTest?.refreshIdentity?.();
+     for(const c of target.querySelectorAll('[data-master-check]'))c.checked=v(c.dataset.masterCheck)==='1';
+    });
   if(field.tagName==='SELECT')field.onchange=()=>{if(['halo'].includes(field.dataset.masterField))drawArtwork();};
  }
  for(const input of target.querySelectorAll('[data-master-event]')){
