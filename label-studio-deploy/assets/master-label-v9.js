@@ -191,7 +191,8 @@ function validate(doc){
  if(!v('actionText')||v('actionText').length>90)issues.push('Enter a concise handling instruction, 1–90 characters.');
  if(v('actionVerified')!=='1')issues.push('Confirm the handling/cook/reheat instructions against source data.');
  const visibleHero=doc.elements.find(e=>e.name==='Hero food illustration'&&e.visible!==false);
- if(visibleHero){if(v('artStatus')!=='approved'||v('artworkReviewed')!=='1')issues.push('Confirm the selected artwork is approved and matches the packaged contents.');
+ if(visibleHero){const mismatch=artworkSpeciesMismatch(doc,visibleHero);if(mismatch)issues.push(mismatch);
+   if(v('artStatus')!=='approved'||v('artworkReviewed')!=='1')issues.push('Confirm the selected artwork is approved and matches the packaged contents.');
   if(!Cuts.source(doc,visibleHero.assetId))issues.push('Selected food artwork asset is unavailable.');
  }else if(v('textOnlyApproved')!=='1')issues.push('Select reviewed artwork, or approve the truthful text-only fallback.');
  for(const n of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed','allergensReviewed'])if(v(n)!=='1')issues.push('Review '+n.replace('Reviewed','').toLowerCase()+' information.');
@@ -338,8 +339,58 @@ C.initialTemplates=()=>defaults.concat(prevInitial());
 P8.isPackage=doc=>isMaster(doc)||oldIsPackage(doc);
 P8.validate=(doc,review=true)=>isMaster(doc)?validate(doc):oldValidate(doc,review);
 P8.panel=args=>isMaster(args.doc)?panel(args):oldPanel(args);
-const v9={version:9,families,defs,byId,defaults,isMaster,make,validate,update,derived,assignArt,drawMotif,svgMotif,compHero,fmtDate,dateTypes,dateNames};
+const v9={version:9,families,defs,byId,defaults,isMaster,make,validate,update,derived,assignArt,drawMotif,svgMotif,compHero,fmtDate,dateTypes,dateNames,suggestedArtwork,artworkSpeciesMismatch};
 window.LabelMasterV9=v9;
+
+const style=document.createElement('style');
+style.textContent='.master-artwork-picker{margin:16px 0;padding:12px;border:1px solid rgba(128,145,162,.25);border-radius:10px}.master-artwork-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;max-height:300px;overflow:auto;margin:8px 0}.master-artwork-choice{background:rgba(128,145,162,.08);border:1px solid rgba(128,145,162,.28);border-radius:7px;padding:5px;text-align:center;color:inherit;cursor:pointer;min-width:0}.master-artwork-choice.is-chosen{border:2px solid #ff0000}.master-artwork-choice img{width:100%;height:74px;object-fit:contain;background:#fff;border-radius:4px}.master-artwork-choice span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;font-size:10px}.master-artwork-choice small{display:block;font-size:9px;opacity:.7}.master-artwork-review{border:1px solid rgba(128,145,162,.24);border-radius:8px;padding:8px;font-size:11px;line-height:1.5}.master-artwork-proof{background:#fff}.master-artwork-proof img{width:100%;height:116px;object-fit:contain}.master-artwork-review p{margin:6px 0;color:#7f8996}';
+document.head.appendChild(style);
+
+
+
+/* Artwork review: rank physical raw-cut matches, never invent meal imagery. */
+const matchingWords=new Set(['raw','fresh','frozen','protein','cut','bone','boneless','bonein','skinless','skin','on','herb','garlic','spicy','dry','seasoned','marinated','teriyaki','plain','vacuum','whole','prepared','ground','sliced']);
+function words(t){return String(t||'').toLowerCase().split(/[^a-z0-9]+/).filter(v=>v.length>=3&&!matchingWords.has(v));}
+function suggestedArtwork(doc){
+ if(!isMaster(doc))return [];
+ const def=byId.get(doc.data['pkg.type']);
+ // A raw-cut picture is not a substitute for finished meals, sides or kits.
+ if(!def||def.familyId!=='raw_proteins')return [];
+ const text=(doc.data['pkg.food']||'')+' '+(doc.data['pkg.attributes']||'');
+ const tokens=new Set(words(text));
+ const proteinTerms={beef:['beef','ribeye','brisket','sirloin','tbone','porterhouse'],pork:['pork','chop','porkchop'],chicken:['chicken'],turkey:['turkey'],lamb:['lamb'],venison:['venison','deer'],duck:['duck'],salmon:['salmon'],shrimp:['shrimp']};
+ let likely='';
+ for(const [species,tags] of Object.entries(proteinTerms))if(tags.some(k=>tokens.has(k))){likely=species;break;}
+ const cuts=Cuts.catalog.filter(a=>a&&a.id&&a.dataUri);
+ const scored=cuts.map(a=>{
+  const idTokens=new Set(words(a.id+' '+a.name));
+  const animal=String(a.species||a.protein||a.category||'').toLowerCase();
+  const species=animal.replace(/\s.+/,'');
+  if(likely && species!==likely && !a.id.startsWith(likely+'_'))return null;
+  let points=likely?5:0;
+  for(const k of tokens)if(idTokens.has(k))points+=3;
+  if(a.id===doc.elements.find(e=>e.name==='Hero food illustration')?.assetId)points+=100;
+  if(points===0)return null;
+  return {asset:a,score:points,source:a.status==='candidate'?'candidate archive':'existing artwork'};
+ }).filter(Boolean);
+ scored.sort((a,b)=>b.score-a.score||a.asset.id.localeCompare(b.asset.id));
+ return scored.slice(0,12);
+}
+function artworkSpeciesMismatch(doc,art){
+ if(!isMaster(doc)||!art)return '';
+ const def=byId.get(doc.data['pkg.type']);if(def?.familyId!=='raw_proteins')return '';
+ const title=String(doc.data['pkg.food']||'').toLowerCase();
+ let protein=title.match(/\b(chicken|pork|beef|turkey|duck|lamb|venison|deer|salmon|shrimp)\b/)?.[1];
+ if(!protein && /\b(ribeye|brisket|sirloin|porterhouse)\b/.test(title))protein='beef';
+ if(!protein && /\b(pork chops?|bacon)\b/.test(title))protein='pork';
+ if(!protein)return '';
+ if(protein==='deer')protein='venison';
+ const asset=Cuts.byId.get(art.assetId);
+ if(!asset)return '';
+ const species=String(asset.species||asset.protein||asset.category||'').toLowerCase();
+ return species!==protein&&!String(asset.id||'').startsWith(protein+'_')
+  ?'Selected '+(asset.species||'artwork')+' illustration does not match the '+protein+' named in the package. Choose an accurate cut or an approved text-only label.':'';
+}
 
 function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive,createFresh}){
  const safe=esc,d=doc.data,v=k=>String(d['pkg.'+k]??'');
@@ -368,7 +419,7 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
  const selector='<div class="field"><label>Master label type · 17 presets</label><select id="masterLabelType">'+families.map(f=>'<optgroup label="'+safe(f.name)+'">'+defs.filter(x=>x.familyId===f.id).map(x=>'<option value="'+safe(x.id)+'" '+(x.id===v('type')?'selected':'')+'>'+safe(x.label)+'</option>').join('')+'</optgroup>').join('')+'</select></div>';
  const eventRows=[1,2,3,4].map(n=>'<div class="master-event"><select data-master-event="'+n+'" data-which="Type"><option value="">No event</option>'+dateTypes.map(x=>'<option value="'+x+'" '+(x===v('date'+n+'Type')?'selected':'')+'>'+safe(dateNames[x])+'</option>').join('')+'</select><input type="date" data-master-event="'+n+'" data-which="Date" value="'+safe(v('date'+n))+'"/></div>').join('');
  const chosen=doc.elements.find(x=>x.name==='Hero food illustration');
- const gallery='<div class="field"><label>Food artwork · only actual packaged contents</label><select id="masterArtwork"><option value="">No artwork — text-only</option>'+Cuts.catalog.map(x=>'<option value="'+safe(x.id)+'" '+(chosen?.assetId===x.id?'selected':'')+'>'+safe((x.species||'Food')+' / '+x.name)+'</option>').join('')+(chosen&&!Cuts.byId.has(chosen.assetId)?'<option selected value="'+safe(chosen.assetId)+'">Uploaded artwork: '+safe(chosen.assetId)+'</option>':'')+'</select></div>';
+ const gallery='<section class="master-artwork-picker"><div class="field"><label>Food-only artwork · search the candidate library</label><input id="masterArtSearch" type="search" placeholder="Search cuts or species…" autocomplete="off"/></div><p id="masterArtHelp" class="form-tip"></p><div id="masterArtSuggestions" class="master-artwork-grid" role="group" aria-label="Recommended food illustrations"></div><div class="field"><label>Selected artwork</label><select id="masterArtwork"><option value="">No artwork — reviewed text-only</option></select></div><div id="masterArtPreview" class="master-artwork-review"></div></section>';
  const reviews=[['identityReviewed','Product identity and contents confirmed'],['quantityReviewed','Metric / imperial quantities verified'],['storageReviewed','Actual storage condition and container verified'],['datesReviewed','All printed events and quality/use-by date verified'],['allergensReviewed','Actual recipe ingredients and allergens reviewed'],['actionVerified','Handling and any safety-critical cooking directions verified'],['artworkReviewed','Selected food artwork approved; no cookware or unlisted items'],['textOnlyApproved','Allow a truthful text-only label when artwork is unavailable']];
  target.innerHTML='<div class="master-form"><h3>One master layout · current preset</h3><p class="form-tip">Values are illustrative until verified. The header never prints generic branding or repeats the food name below the illustration.</p>'+selector+'<button type="button" id="masterNewPackage" class="btn btn-outline" style="width:100%;min-height:40px;margin:8px 0 14px">+ New blank package of this type</button><div class="master-field-grid">'+inputs.map(field).join('')+'</div>'+gallery+
  '<div class="field"><label>Decorative edge artwork</label><select id="masterBotanical"><option value="BG-013">Approved herb engraving</option><option value="legacy">Earlier simplified botanicals</option></select></div><p class="form-tip">The red botanical artwork is decorative only, not a depiction of ingredients.</p>'+
@@ -401,7 +452,50 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
   input.onchange=()=>{checkpoint();update(doc,'pkg.date'+input.dataset.masterEvent+input.dataset.which,input.value);saveLocal();drawArtwork();showWarnings();for(const c of target.querySelectorAll('[data-master-check]'))c.checked=v(c.dataset.masterCheck)==='1';};
  }
  for(const input of target.querySelectorAll('[data-master-check]'))input.onchange=()=>{checkpoint();d['pkg.'+input.dataset.masterCheck]=input.checked?'1':'0';derived(doc);saveLocal();drawArtwork();showWarnings();};
- target.querySelector('#masterArtwork').onchange=e=>{checkpoint();try{assignArt(doc,e.target.value);saveLocal();refresh();}catch(err){alert(err.message);}};
+ const artSearch=target.querySelector('#masterArtSearch');
+ const artSelect=target.querySelector('#masterArtwork');
+ const artSuggestions=target.querySelector('#masterArtSuggestions');
+ const artPreview=target.querySelector('#masterArtPreview');
+ const artHelp=target.querySelector('#masterArtHelp');
+ const recommended=suggestedArtwork(doc);
+ function artStatus(a){
+  if(!a)return 'No artwork selected';
+  const flag=a.status==='candidate'?'Candidate · needs contents verification':'Existing artwork · confirm physical accuracy';
+  return flag;
+ }
+ function populateArtwork(){
+   const q=artSearch.value.trim().toLowerCase(),known=new Set();
+   const all=Cuts.catalog.filter(a=>a?.id&&a?.dataUri);
+   const matching=q?all.filter(a=>(a.id+' '+a.name+' '+a.species+' '+(a.category||'')).toLowerCase().includes(q)):recommended.map(r=>r.asset);
+   const selectedId=doc.elements.find(e=>e.name==='Hero food illustration')?.assetId||'';
+   const items=matching.slice(0,q?45:12);
+   if(selectedId&&!items.some(x=>x.id===selectedId)){
+     const current=Cuts.byId.get(selectedId);
+     if(current)items.unshift(current);
+     else if(Cuts.source(doc,selectedId))items.unshift({id:selectedId,name:'Uploaded food image',species:'Custom',dataUri:Cuts.source(doc,selectedId),status:'candidate'});
+   }
+   const option='<option value="">No artwork · use reviewed text-only layout</option>';
+   artSelect.innerHTML=option+items.map(a=>'<option value="'+safe(a.id)+'" '+(a.id===selectedId?'selected':'')+'>'+safe((a.species||'Food')+' / '+a.name)+(a.status==='candidate'?' · candidate':'')+'</option>').join('');
+   artSuggestions.innerHTML=items.slice(0,10).map(a=>'<button type="button" class="master-artwork-choice'+(a.id===selectedId?' is-chosen':'')+'" data-art="'+safe(a.id)+'" title="'+safe(a.name)+'"><img alt="" loading="lazy" src="'+safe(a.dataUri)+'"/><span>'+safe(a.name)+'</span><small>'+(a.status==='candidate'?'Candidate':'Existing')+'</small></button>').join('');
+   artHelp.textContent=q?matching.length+' matching illustrations; select one and verify its actual contents.':
+     recommended.length?recommended.length+' raw-cut candidates; none are auto-approved.':
+     'No automatically suggested artwork for this packaged food. Upload an exact black/white transparent food illustration, or explicitly review the text-only option.';
+   artSuggestions.querySelectorAll('[data-art]').forEach(b=>b.onclick=()=>chooseArtwork(b.dataset.art));
+   const source=Cuts.source(doc,selectedId);
+   const item=Cuts.byId.get(selectedId);
+   artPreview.innerHTML=source?'<div class="master-artwork-proof"><img alt="Food artwork currently selected" src="'+safe(source)+'"/></div><p>'+safe(artStatus(item))+'; render the label to inspect its white dither halo. No pan, bowl or unrelated ingredients unless packaged.</p>':'<p>No food image selected. The label must remain a draft until a truthful text-only layout is reviewed.</p>';
+ }
+ function chooseArtwork(id){
+   checkpoint();try{
+    assignArt(doc,id);
+    doc.data['pkg.artStatus']=id?'candidate':'missing';
+    doc.data['pkg.artworkReviewed']='0';doc.data['pkg.textOnlyApproved']='0';
+    derived(doc);saveLocal();refresh();
+   }catch(err){window.alert(err.message);}
+ }
+ artSearch.oninput=populateArtwork;
+ artSelect.onchange=e=>chooseArtwork(e.target.value);
+ populateArtwork();
  target.querySelector('#masterArtUpload').onchange=async e=>{
   const f=e.target.files?.[0];if(!f)return;
   try{
