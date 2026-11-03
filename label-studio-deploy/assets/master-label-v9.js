@@ -367,6 +367,10 @@ function suggestedArtwork(doc){
   const animal=String(a.species||a.protein||a.category||'').toLowerCase();
   const species=animal.replace(/\s.+/,'');
   if(likely && species!==likely && !a.id.startsWith(likely+'_'))return null;
+  // If the title names a physical cut (ribeye, chop, tenderloin, etc.),
+  // don't recommend every other cut of the same species as if it matched.
+  const cutWords=[...tokens].filter(k=>k!==likely&&!['beef','pork','chicken','turkey','lamb','venison','deer','duck','salmon','shrimp'].includes(k));
+  if(cutWords.length&&!cutWords.some(k=>idTokens.has(k)))return null;
   let points=likely?5:0;
   for(const k of tokens)if(idTokens.has(k))points+=3;
   if(a.id===doc.elements.find(e=>e.name==='Hero food illustration')?.assetId)points+=100;
