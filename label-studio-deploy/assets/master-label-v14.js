@@ -404,6 +404,19 @@ function validate(doc){
   else eventRows.push({kind:typ,date});
  }
  if(!eventRows.some(x=>['packed','prepared','assembled','marinated','seasoned','opened','blended'].includes(x.kind)))issues.push('Provide a recorded packing, preparation, assembly, seasoning, blending or opening event.');
+ // v14 requires the preparation event appropriate to the chosen category, not an unrelated date.
+ if(v('recordRole')==='package'||doc.id.startsWith('package-')){
+  const requiredEvent={
+   raw_seasoned:'seasoned',raw_marinated:'marinated',ingredient_prepped:'prepared',
+   ingredient_combo:'prepared',raw_meal_kit:'assembled',
+   cooked_meal:'cooked',cooked_side:'cooked',cooked_component:'cooked',
+   leftovers:'cooked',soup_stew:'cooked',sauce_stock_concentrate:'cooked',
+   dry_baking_mix:'blended',seasoning_dry_base:'blended',opened_ready_to_eat:'opened'
+  }[v('type')];
+  if(requiredEvent&&!eventRows.some(x=>x.kind===requiredEvent))
+   issues.push('Record the '+(dateNames[requiredEvent]||requiredEvent)+' event and its actual date for this label type.');
+ }
+
  if(!eventRows.some(x=>['use_by','best_quality_by'].includes(x.kind)))issues.push('Provide a reviewed use-by or best-quality date.');
  const pack=eventRows.find(x=>['packed','prepared','assembled','marinated','seasoned','opened','blended'].includes(x.kind));
  const end=eventRows.find(x=>['use_by','best_quality_by'].includes(x.kind));
