@@ -1110,10 +1110,10 @@ function makeTemplate(asset){const Core=window.LabelCore;
   return doc;
 }
 function initialTemplates(){
-  // 109 newly added species/cuts are artwork-only candidates. They are not
-  // standalone sample label templates and do not contain legacy subtype,
-  // background or cooking metadata. Keep the original 14 editable starters.
-  return assets.filter(asset=>asset.subtitle&&asset.patternId).map(makeTemplate);
+  // Preserve all 14 original cut starter templates. The 109 newer entries
+  // remain selectable artwork candidates, not separate default templates.
+  // They were appended to the original catalog after this module was loaded.
+  return assets.slice(0,14).map(makeTemplate);
 }
 window.LabelCuts={catalog:assets,byId,source,validDataUri,ensureDocument,ready,draw,svgImage,attach,makeTemplate,initialTemplates};
 })();
