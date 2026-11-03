@@ -1,0 +1,38 @@
+{
+  "schema": "nerdeus.meals.package.v1",
+  "type": "cooked_meal",
+  "id": "NM-000129",
+  "food": "Beef Lasagna",
+  "metric": "700 g",
+  "imperial": "24.7 oz",
+  "storage": "FROZEN",
+  "packaging": "VACUUM POUCH",
+  "portions": "2 SERVINGS",
+  "contents": "Beef, pasta, tomato, cheese",
+  "allergens": [
+    "MILK",
+    "WHEAT"
+  ],
+  "events": [
+    {
+      "type": "cooked",
+      "date": "2026-11-01"
+    },
+    {
+      "type": "packed",
+      "date": "2026-11-02"
+    },
+    {
+      "type": "frozen",
+      "date": "2026-11-02"
+    },
+    {
+      "type": "best_quality_by",
+      "date": "2027-02-01"
+    }
+  ],
+  "actionText": "REHEAT USING VERIFIED RECIPE",
+  "recipeRef": "sample-nov-2026-n15-d1",
+  "location": "FREEZER A · BIN 1",
+  "batch": "DEMO-BATCH-01"
+}
