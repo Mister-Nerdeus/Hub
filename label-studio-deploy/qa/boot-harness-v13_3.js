@@ -15,7 +15,7 @@ function bootHarness(files, opts={}){
  const png="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+ZxKoAAAAASUVORK5CYII=";
  const dom=tag=>{
    const e={tagName:tag.toUpperCase(),style:{},dataset:{},value:"",id:"",checked:false,disabled:false,
-     innerHTML:"",textContent:"",width:591,height:827,clientWidth:591,clientHeight:827,offsetWidth:350,offsetHeight:150,
+     innerHTML:"",textContent:"",parentElement:{appendChild(){}},width:591,height:827,clientWidth:591,clientHeight:827,offsetWidth:350,offsetHeight:150,
      classList:{add(){},remove(){},toggle(){},contains(){return false}},options:[],setAttribute(){},getAttribute(){return null},
      appendChild(){},prepend(){},addEventListener(){},removeEventListener(){},querySelector(){return dom("div")},
      querySelectorAll(){return []},getContext(){return ctx},
