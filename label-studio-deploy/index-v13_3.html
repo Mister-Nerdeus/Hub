@@ -1769,6 +1769,9 @@ async function run(){
    if(!demo.some(e=>/demo id/i.test(e)||/Replace the demo ID/.test(e)))errors.push('Demo ID negative test not rejected');
    const blank=M.validate(fake(doc,{'pkg.metric':''}));
    if(!blank.some(e=>/measurable|quantity|amount/i.test(e)))errors.push('Missing quantity negative test not rejected');
+   const wrongState=def.state==='RAW'?'COOKED':'RAW';
+   if(!M.validate(fake(doc,{'pkg.state':wrongState})).some(e=>e.includes('Preparation state must be')))
+     errors.push('Contradictory preparation state negative test not rejected');
    const first=doc.elements.find(e=>e.name==='Main product title');
    const badHeader=doc.elements.map(e=>e===first?{...e,h:20}:e);
    if(!M.validate(fake(doc,{},badHeader)).some(e=>/matching.*header|category header/i.test(e)))
@@ -1798,6 +1801,20 @@ async function run(){
      const black=pixels[p]===0&&pixels[p+1]===0&&pixels[p+2]===0;
      if(!white&&!black){errors.push('QR region contains red or intermediate pixels');break;}
     }
+    // Verify that the actual cropped printer bits match the entire encoded
+    // package-ID QR matrix, not merely its box size or input data string.
+    const grid=modules*(matrix.n+8),quiet=4;
+    const gridX=qr.x-7+Math.round((qr.w-grid)/2),gridY=qr.y+Math.round((qr.h-grid)/2);
+    const full=print.getContext('2d',{willReadFrequently:true}).getImageData(0,0,576,827).data;
+    let mismatch=0;
+    for(let row=0;row<matrix.n;row++)for(let col=0;col<matrix.n;col++){
+     const px=gridX+(quiet+col)*modules+Math.floor(modules/2);
+     const py=gridY+(quiet+row)*modules+Math.floor(modules/2);
+     const at=(py*576+px)*4;
+     const observed=full[at]===0&&full[at+1]===0&&full[at+2]===0;
+     if(observed!==!!matrix.modules[row][col])mismatch++;
+    }
+    if(mismatch)errors.push('Printer QR raster disagrees with encoded package-ID bits in '+mismatch+' modules');
    }
    const bound=doc.elements.filter(e=>e.visible!==false&&
      (e.x<0||e.y<0||e.x+e.w>591||e.y+e.h>827));
