@@ -1350,40 +1350,65 @@ function drawOverlay(){ov.clearRect(0,0,Core.W,Core.H);if(state.guides){ov.save(
 function updateZoom(){state.zoom=Number($('#zoom').value);const w=Core.W*state.zoom/100,h=Core.H*state.zoom/100;
   for(const c of [art,overlay]){c.style.width=`${w}px`;c.style.height=`${h}px`;}
   $('#zoomPct').textContent=state.zoom+'%';drawOverlay();}
+function syncActiveIdentity(){
+ const doc=active();if(!doc)return;
+ const design=window.LabelMasterV9;
+ const isPkg=!!design?.isMaster(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));
+ const def=design?.byId?.get(doc.data?.['pkg.type']);
+ const food=String(doc.data?.['pkg.food']||'').trim();
+ const display=isPkg?(food||'Untitled package'):doc.name;
+ $('#templateTitle').textContent=display;
+ $('#templateSubtitle').textContent=isPkg?(def?.label||'Food package')+' · '+(doc.data?.['pkg.id']||'ID required'):doc.description;
+ $('#currentTemplateBreadcrumb').textContent=display;
+ const summary=$('#nlsActiveLabelContext');
+ if(summary)summary.innerHTML='<span class="nls-active-key">Currently editing · '+(isPkg?'Package':'Reusable design')+'</span><strong>'+
+   esc(display)+'</strong><small>'+esc(def?.label||doc.kind||'Custom label')+
+   (isPkg?' · '+esc(doc.data?.['pkg.id']||'Package ID required'):' · Example/design, not a real package')+'</small>';
+}
 function renderTemplates(){
-  const icons={meal:'▤',freezer:'❄',storage:'▥',advanced:'▦',meat:'◈',package:'▣',master:'▣','package-instance':'▣',custom:'▧'};
-  const design=window.LabelMasterV9;
-  const master=doc=>!!design?.isMaster(doc);
-  const legacyMaster=doc=>master(doc)&&(doc.data?.['pkg.recordRole']==='legacy'||doc.id.startsWith('previous-master-'));
-  const packaged=doc=>master(doc)&&!legacyMaster(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));
-  const name=doc=>packaged(doc)?(doc.data?.['pkg.food']||doc.name):(doc.data?.['pkg.food']||doc.name);
-  const family=doc=>design?.byId?.get(doc.data?.['pkg.type'])?.familyId||'';
-  const q=state.templateSearch.trim().toLowerCase(),filter=state.templateFamily;
-  const filtered=state.templates.filter(doc=>{
-    if(filter==='packages'&&!packaged(doc))return false;
-    if(filter==='master'&&(!master(doc)||packaged(doc)||legacyMaster(doc)))return false;
-    if(filter==='legacy'&&master(doc)&&!legacyMaster(doc))return false;
-    if(filter.startsWith('family:')&&family(doc)!==filter.slice(7))return false;
-    if(q&&!(doc.name+' '+name(doc)+' '+(family(doc)||'')+' '+doc.kind).toLowerCase().includes(q))return false;
-    return true;
-  }).sort((a,b)=>(packaged(a)?0:master(a)?1:2)-(packaged(b)?0:master(b)?1:2));
-  $('#templateFilterStatus').textContent=filtered.length+' of '+state.templates.length+' templates';
-  let previous='';
-  $('#templateChoices').innerHTML=filtered.map(doc=>{
-    const id=family(doc),section=legacyMaster(doc)?'Saved previous layouts':packaged(doc)?'My packages':
-      master(doc)?(design.families.find(f=>f.id===id)?.name||'Current label types'):'Legacy and custom designs';
-    let heading='';
-    if(section!==previous){previous=section;heading='<div class="template-family-heading">'+esc(section)+'</div>';}
-    const detail=legacyMaster(doc)?'Previous design · retained unchanged' :
-      packaged(doc)?(doc.data?.['pkg.id']||'ID needed')+' · '+(design.byId.get(doc.data?.['pkg.type'])?.label||'Package') :
-      master(doc)?(design.byId.get(doc.data?.['pkg.type'])?.label||'Current example')+' · Example' :
-      doc.kind==='meat'?'Raw cut / butcher':doc.kind==='package'?'Earlier package design':doc.kind;
-    return heading+'<button class="template-choice '+(doc.id===state.activeId?'selected':'')+'" data-template="'+esc(doc.id)+'" type="button"><span class="template-icon">'+(icons[doc.kind]||icons.custom)+'</span><span class="template-details"><b>'+esc(name(doc))+'</b><small>'+esc(detail)+'</small></span></button>';
-  }).join('')||'<p class="nls-library-empty">No matching templates. Change the family filter or search.</p>';
-  document.querySelectorAll('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{
-    state.activeId=btn.dataset.template;state.selectedId=null;
-    state.tab=master(active())?'data':'element';saveLocal();refresh();
-  });
+ const design=window.LabelMasterV9;
+ const master=doc=>!!design?.isMaster(doc);
+ const legacy=doc=>master(doc)&&(doc.data?.['pkg.recordRole']==='legacy'||doc.id.startsWith('previous-master-'));
+ const packaged=doc=>master(doc)&&!legacy(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));
+ const canonical=doc=>master(doc)&&!legacy(doc)&&!packaged(doc)&&doc.id==='master-'+doc.data?.['pkg.type'];
+ const family=doc=>design?.byId?.get(doc.data?.['pkg.type'])?.familyId||'';
+ const q=state.templateSearch.trim().toLowerCase(),filter=state.templateFamily;
+ const filtered=state.templates.filter(doc=>{
+  if(filter==='packages'&&!packaged(doc))return false;
+  if(filter==='master'&&!canonical(doc))return false;
+  if(filter==='legacy'&&(canonical(doc)||packaged(doc)))return false;
+  if(filter.startsWith('family:')&&(!canonical(doc)||family(doc)!==filter.slice(7)))return false;
+  const def=design?.byId?.get(doc.data?.['pkg.type']);
+  const text=[doc.name,doc.data?.['pkg.food'],def?.label,def?.familyId,doc.data?.['pkg.id'],doc.kind].join(' ').toLowerCase();
+  if(q&&!text.includes(q))return false;
+  return true;
+ }).sort((a,b)=>a.id.localeCompare(b.id));
+ const context=filter==='packages'?'saved packages':filter==='legacy'?'previous and custom designs':filter==='master'?'current label types':filter==='all'?'all documents':'current types in this family';
+ $('#templateFilterStatus').textContent=filtered.length+' '+context;
+ syncActiveIdentity();
+ let previous='';
+ $('#templateChoices').innerHTML=filtered.map(doc=>{
+  const def=design?.byId?.get(doc.data?.['pkg.type']);
+  const section=legacy(doc)?'Saved previous layouts':packaged(doc)?'My packages':canonical(doc)?(design?.families.find(f=>f.id===family(doc))?.name||'Current label types'):'Legacy and custom designs';
+  let heading='';
+  if(section!==previous){previous=section;heading='<div class="template-family-heading">'+esc(section)+'</div>';}
+  const name=canonical(doc)?(def?.label||doc.name):packaged(doc)?(doc.data?.['pkg.food']||'Untitled package'):doc.name;
+  const detail=canonical(doc)?('Example: '+String(doc.data?.['pkg.food']||doc.name)):
+   packaged(doc)?((doc.data?.['pkg.id']||'Needs package ID')+' · '+(def?.label||'Package')):
+   legacy(doc)?'Previous layout · preserved':'Custom design';
+  const selected=doc.id===state.activeId;
+  return heading+'<button class="template-choice '+(selected?'selected':'')+'" data-template="'+esc(doc.id)+'" type="button" aria-current="'+(selected?'true':'false')+'"><span class="template-icon">'+(canonical(doc)?'▣':packaged(doc)?'▤':'▦')+'</span><span class="template-details"><b>'+esc(name)+'</b><small>'+esc(detail)+'</small></span></button>';
+ }).join('')||'<p class="nls-library-empty">No matching labels. Try another family, search term, My packages, or Legacy.</p>';
+ $$('#templateChoices [data-template]').forEach(btn=>btn.onclick=()=>{
+  state.activeId=btn.dataset.template;state.selectedId=null;
+  state.tab=master(active())?'data':'element';
+  if(packaged(active()))state.templateFamily='packages';
+  else if(canonical(active()))state.templateFamily='master';
+  else state.templateFamily='legacy';
+  $('#templateFamily').value=state.templateFamily;
+  state.templateSearch='';$('#templateSearch').value='';
+  saveLocal();refresh();
+ });
 }
 function renderLayers(){const doc=active();$('#layerCount').textContent=doc.elements.length;
   const types={text:'T',rect:'▣',line:'─',qr:'▦',barcode:'▥',background:'▤',illustration:'◈'};
@@ -1705,11 +1730,7 @@ function refresh(){
   };
   tryPart('Workspace controls',syncArtTools);
   const doc=active();
-  if(doc){
-    $('#templateTitle').textContent=doc.name;
-    $('#templateSubtitle').textContent=doc.description;
-    $('#currentTemplateBreadcrumb').textContent=doc.name;
-  }
+  if(doc)syncActiveIdentity();
   tryPart('Template list',renderTemplates);
   tryPart('Layer list',renderLayers);
   tryPart('Background selection',renderBackgroundLibrary);
