@@ -86,7 +86,7 @@ function descriptor(d){
 function eventCount(d){return [1,2,3,4].filter(n=>d['pkg.date'+n+'Type']&&d['pkg.date'+n]).length;}
 function isMaster(doc){return !!doc&&doc.nlsDesignVersion===9&&!!byId.get(doc.data?.['pkg.type']);}
 
-/* Heritage v13: optional, data-bound engraving layout on the same 17 canonical types.
+/* Heritage v14: optional, data-bound engraving layout on the same 17 canonical types.
    Existing browser-saved master docs remain classic unless explicitly restyled.
    The new defaults remain editable: every label field is still its {{pkg.*}} binding. */
 const heritageTypes={
@@ -341,7 +341,7 @@ function make(def){
   txt('One validated instruction','{{pkg.actionText}}',29,748,533,53,29,'white',{align:'center',maxLines:2})
  ];
  if(def.assetId){e.splice(e.findIndex(x=>x.name==='Unapproved artwork placeholder'),0,l('illustration','Hero food illustration',57,160,478,209,{assetId:def.assetId,haloPreset:'medium'}));}
- const doc={schema:C.SCHEMA,id:'master-'+def.id,name:'Master · '+def.label,kind:'master',description:'v13 heritage engraved layout · '+def.familyId,profile:C.clone(profile),data:d,assets:{},elements:e,nlsDesignVersion:9};
+ const doc={schema:C.SCHEMA,id:'master-'+def.id,name:'Master · '+def.label,kind:'master',description:'v14 heritage engraved layout · '+def.familyId,profile:C.clone(profile),data:d,assets:{},elements:e,nlsDesignVersion:9};
  const proof=window.NerdeusHeritageArtworkV12?.byType?.[def.id];
  if(proof){const assetId='heritage-proof-'+def.id;doc.assets[assetId]={id:assetId,name:'Heritage food-only proof · '+def.id,width:540,height:215,origin:'heritage-v12-food-candidate',dataUri:proof};const hero=doc.elements.find(x=>x.name==='Hero food illustration');if(hero)hero.assetId=assetId;else addHeritageArtwork(doc);d['pkg.artStatus']='candidate';d['pkg.artworkReviewed']='0';d['pkg.artworkPlaceholder']='';}
  const backdrop=doc.elements.find(x=>x.name==='Artwork edge botanicals');if(backdrop){backdrop.assetId='BG-101';}
@@ -463,7 +463,7 @@ function validate(doc){
      title.w<350||second.w<350||title.h<40||second.h<38||
      title.fontSize!==second.fontSize||title.color!=='white'||second.color!=='white'||
      title.y+title.h>second.y)
-    issues.push('Heritage v13 requires two matching, visible category header lines.');
+    issues.push('Heritage v14 requires two matching, visible category header lines.');
  }else if(!title||title.w<350||title.h<66)
   issues.push('Product title requires the two-line master header.');
  return issues;
@@ -768,7 +768,7 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
   step('Import a package JSON record',importWidget,false)+
   '<p class="form-tip">QR encodes the package ID only. Dates, allergens and cook/reheat instructions must be verified. No automatic expiry guesses.</p></div>';
  const stylePanel=document.createElement('div');stylePanel.className='master-artwork-review';stylePanel.style.marginBottom='14px';
- stylePanel.innerHTML='<strong>Heritage v13 · red/black two-level header</strong><p>17 editable types · 591 × 827 preview · 576 × 827 centered-crop printer raster · 3 exact colors. Food-only artwork is a candidate until reviewed.</p>'+(v('layoutStyle')==='heritage-v13'?'<p><strong>Heritage v13 layout active</strong> · changes to content and the independent background remain editable.</p>':'<button class="btn btn-outline" type="button" id="masterApplyHeritage" style="width:100%;min-height:42px">Upgrade this label to Heritage v13</button>');
+ stylePanel.innerHTML='<strong>Heritage v14 · red/black two-level header</strong><p>17 editable types · 591 × 827 preview · 576 × 827 centered-crop printer raster · 3 exact colors. Food-only artwork is a candidate until reviewed.</p>'+(v('layoutStyle')==='heritage-v13'?'<p><strong>Heritage v14 layout active</strong> · changes to content and the independent background remain editable.</p>':'<button class="btn btn-outline" type="button" id="masterApplyHeritage" style="width:100%;min-height:42px">Upgrade this label to Heritage v14</button>');
  target.querySelector('.master-form').prepend(stylePanel);
  const overridden=doc.elements.filter(e=>e.userGeometry).length;
  if(overridden&&v('layoutStyle')==='heritage-v13'){
