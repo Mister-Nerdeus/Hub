@@ -1174,7 +1174,7 @@ let artToolsExpanded=false;try{artToolsExpanded=localStorage.getItem('nerdeus-ar
 let state={templates:defaultTemplates,activeId:defaultTemplates[0].id,selectedId:null,tab:'element',zoom:60,guides:true,dots:false,undo:[],redo:[],pointer:null,snap:true,editingField:null,bgCategory:'All',bgSearch:'',customBackgrounds:[],cutSearch:'',cutCategory:'All',templateFamily:'master',templateSearch:''};
 const art=$('#artCanvas'),overlay=$('#editOverlay'),view=$('#canvasFrame');
 const ctx=art.getContext('2d',{willReadFrequently:true}),ov=overlay.getContext('2d');
-let lastRaster=null,toastTimer=null,thumbURLs=[];
+let lastRaster=null,lastRasterDocId=null,toastTimer=null,thumbURLs=[];
 const active=()=>state.templates.find(t=>t.id===state.activeId)||state.templates[0];
 const selected=()=>active()?.elements.find(e=>e.id===state.selectedId);
 function saveLocal(show=false){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({templates:state.templates,activeId:state.activeId}));$('#saveStatus').textContent='Saved locally in this browser';if(show)toast('Template saved in this browser. Export JSON for a portable copy.');}
@@ -1213,9 +1213,16 @@ function drawArtwork(){
     Promise.all([Bg.ensureDocument(doc),Cuts.ensureDocument(doc)]).then(()=>{if(active()?.id===docId)drawArtwork();}).catch(e=>toast('Artwork: '+e.message,'error'));
     return;
   }
-  try{lastRaster=Core.render(doc);ctx.clearRect(0,0,Core.W,Core.H);ctx.drawImage(lastRaster,0,0);}
+  try{lastRaster=Core.render(doc);lastRasterDocId=doc.id;ctx.clearRect(0,0,Core.W,Core.H);ctx.drawImage(lastRaster,0,0);paintMobilePreview();}
   catch(e){console.error(e);toast(`Artwork: ${e.message}`,'error');}
   drawOverlay();}
+function paintMobilePreview(){
+ const thumb=document.getElementById('nlsDataThumb');
+ if(!thumb||!lastRaster||lastRasterDocId!==active()?.id)return;
+ const c=thumb.getContext('2d',{willReadFrequently:true});
+ c.clearRect(0,0,thumb.width,thumb.height);
+ c.drawImage(lastRaster,0,0,thumb.width,thumb.height);
+}
 function drawOverlay(){ov.clearRect(0,0,Core.W,Core.H);if(state.guides){ov.save();ov.setLineDash([5,4]);ov.strokeStyle='#4b9bb577';ov.lineWidth=1;ov.strokeRect(Core.SAFE+.5,Core.SAFE+.5,Core.W-2*Core.SAFE-1,Core.H-2*Core.SAFE-1);ov.restore();}
   const e=selected();if(!e||e.visible===false)return;
   ov.save();ov.strokeStyle=e.locked?'#9299ad':'#3188bd';ov.lineWidth=1.2;ov.setLineDash([6,3]);ov.strokeRect(e.x+.5,e.y+.5,Math.max(1,e.w),Math.max(1,e.h));ov.setLineDash([]);
@@ -1295,6 +1302,17 @@ function applyCut(id){const a=Cuts.byId.get(id);if(!a)return;const doc=active();
 function createMeatTemplate(id){const a=Cuts.byId.get(id);if(!a)return;checkpoint();const doc=Cuts.makeTemplate(a);doc.id=Core.UID();doc.name=a.species+' · '+a.name+' copy';state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;saveLocal();refresh();toast('Meat label template created. Change artwork, background and text.');}
 
 function availableBackgrounds(){return Bg.catalog.concat(state.customBackgrounds);}
+function previewBackgroundForTouch(asset){
+ if(!asset)return;
+ hideBackgroundHover();
+ openModal('BACKGROUND ARTWORK','Preview · '+asset.id+' '+asset.name,
+  '<p style="font-size:12px">Review the full red-and-white engraving before applying it to this label.</p>'+
+  '<img alt="Background design preview" src="'+esc(asset.dataUri)+'" style="display:block;width:100%;max-height:250px;object-fit:contain;background:white;border:1px solid #ccd6df;border-radius:8px"/>',
+  '<button type="button" class="btn btn-light" id="nlsCancelBackground">Cancel</button>'+
+  '<button type="button" class="btn btn-primary" id="nlsApplyBackground">Apply this background</button>');
+ $('#nlsCancelBackground').onclick=()=>$('#modal').close();
+ $('#nlsApplyBackground').onclick=()=>{$('#modal').close();applyBackground(asset);};
+}
 let backgroundHoverTimer=null;
 const backgroundHoverBox=$('#backgroundHoverPreview');
 function hideBackgroundHover(){
@@ -1360,7 +1378,10 @@ function renderBackgroundLibrary(){
   $('#backgroundGrid').innerHTML=gridHtml||'<div class="nls-library-empty">No patterns match this filter.</div>';
   $$('#backgroundGrid [data-pattern]').forEach(btn=>{
     const asset=all.find(x=>x.id===btn.dataset.pattern);
-    btn.onclick=()=>{hideBackgroundHover();applyBackground(asset);};
+    btn.onclick=()=>{
+      if(window.matchMedia?.('(pointer:coarse)')?.matches)previewBackgroundForTouch(asset);
+      else{hideBackgroundHover();applyBackground(asset);}
+    };
     btn.addEventListener('pointerenter',event=>{
       if(event.pointerType==='touch')return;
       clearTimeout(backgroundHoverTimer);
@@ -1484,7 +1505,11 @@ function bindInspector(){const doc=active();$('#inspectorBody').querySelectorAll
         if(key==='zoom')value=Core.clamp(value,100,400);
         if(key==='tileScale')value=Core.clamp(value,25,400);
       }
-      target[key]=value;saveLocal();drawArtwork();if(p==='name'||p==='doc.name')renderLayers();if(p==='doc.name')renderTemplates();};
+      target[key]=value;
+      if(target!==doc&&window.LabelMasterV9?.isMaster(doc)&&doc.data?.['pkg.layoutStyle']==='heritage-v13'&&
+          ['x','y','w','h','region'].includes(key))
+        target.userGeometry={x:target.x,y:target.y,w:target.w,h:target.h};
+      saveLocal();drawArtwork();if(p==='name'||p==='doc.name')renderLayers();if(p==='doc.name')renderTemplates();};
     input.addEventListener('input',update);input.addEventListener('change',update);
   });
   $('#inspectorBody').querySelectorAll('[data-colorprop]').forEach(btn=>btn.onclick=()=>{const e=selected();if(!e)return;checkpoint();e[btn.dataset.colorprop]=btn.dataset.color;persistAndRender({panels:true});});
@@ -1522,7 +1547,15 @@ function onPointerMove(ev){const data=state.pointer,p=getPoint(ev);if(!data){con
   else if(data.mode==='bl'){const right=o.x+o.w;e.x=Core.clamp(snap(o.x+dx,raw),0,right-8);e.w=right-e.x;e.h=Core.clamp(snap(o.h+dy,raw),8,Core.H-e.y);}
   else if(data.mode==='tl'){const right=o.x+o.w,bottom=o.y+o.h;e.x=Core.clamp(snap(o.x+dx,raw),0,right-8);e.y=Core.clamp(snap(o.y+dy,raw),0,bottom-8);e.w=right-e.x;e.h=bottom-e.y;}
   drawArtwork();}
-function onPointerUp(ev){if(!state.pointer)return;try{overlay.releasePointerCapture(ev.pointerId);}catch(_){}state.pointer=null;overlay.style.cursor='crosshair';saveLocal();renderInspector();}
+function onPointerUp(ev){
+ const pointer=state.pointer;if(!pointer)return;
+ try{overlay.releasePointerCapture(ev.pointerId);}catch(_){}
+ const doc=active(),e=doc.elements.find(x=>x.id===pointer.id),before=pointer.original;
+ if(e&&before&&window.LabelMasterV9?.isMaster(doc)&&doc.data?.['pkg.layoutStyle']==='heritage-v13'&&
+   ['x','y','w','h'].some(k=>e[k]!==before[k]))
+  e.userGeometry={x:e.x,y:e.y,w:e.w,h:e.h};
+ state.pointer=null;overlay.style.cursor='crosshair';saveLocal();renderInspector();
+}
 function archiveOpen(){return new Promise((resolve,reject)=>{if(!window.indexedDB)return reject(new Error('IndexedDB unavailable in this browser.'));
   const req=indexedDB.open('nerdeus-label-snapshots',1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('snapshots'))req.result.createObjectStore('snapshots',{keyPath:'id'});};req.onerror=()=>reject(req.error);req.onsuccess=()=>resolve(req.result);});}
 async function dbAction(mode,fn){const db=await archiveOpen();try{return await new Promise((resolve,reject)=>{const tx=db.transaction('snapshots',mode),store=tx.objectStore('snapshots');let result;try{const req=fn(store);if(req){req.onsuccess=()=>{result=req.result;};req.onerror=()=>reject(req.error);}}catch(e){reject(e);}tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error);});}finally{db.close();}}
@@ -1658,7 +1691,7 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
   $('#btnToggleGuides').onclick=()=>{state.guides=!state.guides;$('#btnToggleGuides').classList.toggle('active',state.guides);drawOverlay();};
   $('#btnToggleDots').onclick=()=>{state.dots=!state.dots;$('#btnToggleDots').classList.toggle('active',state.dots);document.body.classList.toggle('dot-view',state.dots);preview();};
   $('#zoom').oninput=updateZoom;
-  $$('.tab').forEach(btn=>btn.onclick=()=>{state.tab=btn.dataset.tab;renderInspector();});
+  $('.tab').forEach(btn=>btn.onclick=()=>{state.tab=btn.dataset.tab;renderInspector();paintMobilePreview();});
   overlay.addEventListener('pointerdown',onPointerDown);overlay.addEventListener('pointermove',onPointerMove);overlay.addEventListener('pointerup',onPointerUp);overlay.addEventListener('pointercancel',onPointerUp);
   document.addEventListener('keydown',keyHandler);
   updateZoom();refresh();renderSnapshots();
