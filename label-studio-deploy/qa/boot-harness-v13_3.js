@@ -17,7 +17,7 @@ function bootHarness(files, opts={}){
    const e={tagName:tag.toUpperCase(),style:{},dataset:{},value:"",id:"",checked:false,disabled:false,
      innerHTML:"",textContent:"",parentElement:{appendChild(){}},width:591,height:827,clientWidth:591,clientHeight:827,offsetWidth:350,offsetHeight:150,
      classList:{add(){},remove(){},toggle(){},contains(){return false}},options:[],setAttribute(){},getAttribute(){return null},
-     appendChild(){},prepend(){},addEventListener(){},removeEventListener(){},querySelector(){return dom("div")},
+     appendChild(){},prepend(){},click(){},focus(){},addEventListener(){},removeEventListener(){},querySelector(){return dom("div")},
      querySelectorAll(){return []},getContext(){return ctx},
      getBoundingClientRect(){return{left:0,top:0,right:591,bottom:827,width:591,height:827}},
      scrollIntoView(){},showModal(){},close(){},cloneNode(){return dom("canvas")},
