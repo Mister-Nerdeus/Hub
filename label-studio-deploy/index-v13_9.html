@@ -1921,6 +1921,13 @@ async function runRecoveryQA(){
  check('Every background has an image data URI',catalog.every(a=>Bg.validDataUri(a.dataUri)),catalog.filter(a=>!Bg.validDataUri(a.dataUri)).map(a=>a.id).slice(0,4).join(','));
  check('17 current masters retain canonical IDs',M.defs.every(def=>state.templates.some(t=>t.id==='master-'+def.id&&t.data?.['pkg.layoutStyle']==='heritage-v13')));
  check('No duplicate template IDs',new Set(state.templates.map(x=>x.id)).size===state.templates.length);
+ check('Every type generates a distinct blank package with no reused ID',M.defs.every(def=>{
+   const doc=M.makeBlank(def);
+   return doc.data?.['pkg.type']===def.id&&doc.data?.['pkg.recordRole']==='package'&&!doc.data?.['pkg.id']&&
+     doc.data?.['pkg.identityReviewed']==='0';
+ }));
+ check('Canonical type list excludes saved legacy and package copies',M.defs.every(def=>
+   state.templates.some(doc=>doc.id==='master-'+def.id&&doc.data?.['pkg.recordRole']!=='legacy')));
  check('Master preview identifier follows current selection',!!activeBackgroundId(active())||!M.isMaster(active()));
  const a=catalog.find(x=>x.id==='BG-013'),b=catalog.find(x=>x.id==='BG-101');
  if(!a||!b){check('BG-013 and BG-101 available',false);}
@@ -2167,7 +2174,7 @@ window.NerdeusV13QA={run};
 })();
 
 </script>
-<script src="/assets/queue-v9.js"></script>
+<script src="/assets/queue-v13_9.js"></script>
 <script>
 
 /* Hosted-site navigation and theme adapter. No network writes, user data stays in browser. */
