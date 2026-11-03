@@ -2236,6 +2236,8 @@ async function runRecoveryQA(){
    protein.data['pkg.heritageLine2']==='BONELESS SKINLESS');
  check('Guided v14.3 workflow is connected',window.NerdeusFlowV14?.version==='14.3');
  check('Batch v14.3 queue is connected',window.LabelQueueV9?.version===14.3);
+ check('Guided v14.4 workflow is connected',window.NerdeusFlowV14?.version==='14.4');
+ check('Per-field v14.4 validator is connected',window.NerdeusFieldValidation?.version==='14.4');
   check('All new masters advertise v14.1 layout revision',M.defs.every(def=>
    M.make(def).data['pkg.templateRevision']==='v14.1'));
 
@@ -2566,6 +2568,7 @@ window.NerdeusV13QA={run};
 </script>
 <script src="/assets/queue-v14_3.js"></script>
 <script src="/assets/workflow-v14_4.js"></script>
+<script src="/assets/field-validation-v14_4.js"></script>
 <script>
 (function(){
  window.addEventListener('load',function(){
