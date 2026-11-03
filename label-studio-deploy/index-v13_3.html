@@ -822,6 +822,21 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
       else if(d[i]===255&&d[i+1]===0&&d[i+2]===0&&d[i+3]===255)counts.red++;
       else counts.other++;
     }return counts;}
+  function textCollisionIssues(doc){
+    if(doc.data?.['pkg.layoutStyle']!=='heritage-v13')return [];
+    const data=doc.data||{};
+    const visible=doc.elements.filter(e=>e.type==='text'&&e.visible!==false&&
+      (!e.showWhen||String(data[e.showWhen]??'').trim())&&
+      String(resolve(e.text,data)).trim());
+    const overlaps=[];
+    for(let i=0;i<visible.length;i++)for(let j=i+1;j<visible.length;j++){
+      const a=visible[i],b=visible[j];
+      const x=Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x);
+      const y=Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y);
+      if(x>2&&y>2)overlaps.push('Text layers overlap: '+a.name+' and '+b.name+' ('+y+'px vertically).');
+    }
+    return overlaps;
+  }
   function diagnostics(doc){const issues=[];for(const e of doc.elements){
       if(e.visible===false||(e.showWhen&&!String(doc.data?.[e.showWhen]??'').trim()))continue;
       if(e.x<0||e.y<0||e.x+e.w>W||e.y+e.h>H)issues.push(`${e.name}: outside artwork bounds`);
@@ -838,7 +853,7 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
         try{const b=window.LabelCode128.bars(resolve(e.text,doc.data));if(Math.floor(e.w/(b.modules+20))<2)issues.push(`${e.name}: Code 128 narrow modules; enlarge or shorten`);}
         catch(err){issues.push(`${e.name}: ${err.message}`);}
       }
-    }return issues;}
+    }issues.push(...textCollisionIssues(doc));return issues;}
   // Browsers commonly write 96 DPI (or no density) for canvas exports.
   // Printer uses pixels, but pHYs 300 DPI makes the archived PNG self-describing.
   // 11811 pixels/metre is 299.9994 DPI. This changes metadata, not any artwork pixels.
@@ -926,7 +941,7 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
       norm.elements.push(o);}
     return norm;
   }
-  window.LabelCore={W,H,SAFE,PRINT_W,PRINT_H,CROP_LEFT,SCHEMA,COLORS,el,clone,UID,clamp,initialTemplates,resolve,render,makePrinterRaster,classify,diagnostics,addPng300Dpi,canvasBlob,download,svg,validatedDoc,textLines};
+  window.LabelCore={W,H,SAFE,PRINT_W,PRINT_H,CROP_LEFT,SCHEMA,COLORS,el,clone,UID,clamp,initialTemplates,resolve,render,makePrinterRaster,classify,diagnostics,textCollisionIssues,addPng300Dpi,canvasBlob,download,svg,validatedDoc,textLines};
 })();
 
 </script>
@@ -1567,11 +1582,20 @@ function workspaceIdConflicts(doc){
  return state.templates.filter(x=>x.id!==doc.id&&
    String(x.data?.['pkg.id']||'').trim().toUpperCase()===id);
 }
+async function archivedIdConflicts(doc){
+ const id=String(doc.data?.['pkg.id']||'').trim().toUpperCase();
+ if(!id||/^(?:DEMO|SAMPLE|TEST|TEMP)[-_]/.test(id))return [];
+ const snapshots=await listSnapshots();
+ return snapshots.filter(rec=>rec.templateId!==doc.id&&
+   String(rec.data?.['pkg.id']||'').trim().toUpperCase()===id);
+}
 async function createSnapshot(){const doc=active();let canvas;try{await Promise.all([Bg.ensureDocument(doc),Cuts.ensureDocument(doc)]);canvas=Core.render(doc);}catch(e){toast(e.message,'error');return;}
   const blob=await Core.canvasBlob(canvas),sha256=await hashBlob(blob),counts=Core.classify(canvas);
   const problems=window.LabelPackages?.isPackage(doc)?window.LabelPackages.validate(doc,true):['Legacy layouts require an explicit current-package review before printing.'];
   problems.push(...Core.diagnostics(doc).filter(x=>/outside artwork bounds|QR modules|unresolved data key|text may clip vertically|text exceeds|too small for print/i.test(x)));
   if(workspaceIdConflicts(doc).length)problems.push('Package ID already exists in another local template: '+doc.data['pkg.id']);
+  try{if((await archivedIdConflicts(doc)).length)problems.push('Package ID belongs to another archived package.');}
+  catch(err){problems.push('Could not verify archived ID uniqueness: '+String(err.message||err));}
   const record={schema:'nerdeus.print-snapshot.v2',rendererVersion:'3.0.0',id:Core.UID(),createdAt:new Date().toISOString(),templateId:doc.id,name:doc.name,data:Core.clone(doc.data),template:Core.clone(doc),profile:Core.clone(doc.profile),width:Core.W,height:Core.H,sha256,counts,blob,printReview:{approved:problems.length===0,issues:problems,templateId:doc.id,reviewedAt:new Date().toISOString()}};
   try{await dbAction('readwrite',store=>store.put(record));toast(problems.length?'Draft snapshot saved but not approved for printing; review Output warnings.':'Approved PNG snapshot archived with its original review.');await renderSnapshots();}
   catch(e){Core.download(blob,`${slug(doc.name)}-snapshot.png`);toast('Browser archive unavailable: downloaded the PNG instead.','error');}
@@ -1582,7 +1606,12 @@ async function blobToCanvas(blob){const bmp=await createImageBitmap(blob);try{co
 async function renderSnapshots(){for(const url of thumbURLs)URL.revokeObjectURL(url);thumbURLs=[];const list=$('#snapshotList');
   try{const records=await listSnapshots();$('#snapshotCount').textContent=records.length;
     if(!records.length){list.innerHTML='<div class="empty-state">No print snapshots archived yet. Save one to preserve its exact PNG bytes.</div>';return;}
-    list.innerHTML=records.slice(0,30).map(rec=>{const url=URL.createObjectURL(rec.blob);thumbURLs.push(url);return `<div class="snapshot-card"><img class="snapshot-thumb" alt="Archived label" src="${url}"><div class="snapshot-content"><strong>${esc(rec.name)}</strong><small>${esc(fmtDate(rec.createdAt))} · ${rec.width} × ${rec.height}</small><small>SHA-256 ${esc(rec.sha256?.slice(0,14)||'not available')}…</small><small>${rec.printReview?.approved?'Approved at archive':'Draft / unverified — download only'}</small><div class="snapshot-actions"><button data-view="${esc(rec.id)}">View</button><button data-download="${esc(rec.id)}">Download</button><button data-reprint="${esc(rec.id)}" ${rec.printReview?.approved?'':'disabled title="Unapproved or legacy snapshot: download unchanged instead"'}>Reprint</button></div></div></div>`;}).join('');
+    list.innerHTML=records.slice(0,30).map(rec=>{
+      const url=URL.createObjectURL(rec.blob);thumbURLs.push(url);
+      const approved=!!rec.printReview?.approved&&!!rec.sha256&&rec.width===Core.W&&rec.height===Core.H;
+      const identifier=String(rec.data?.['pkg.id']||'Unassigned ID');
+      return `<div class="snapshot-card"><img class="snapshot-thumb" alt="Archived label" src="${url}"><div class="snapshot-content"><strong>${esc(rec.name)}</strong><small>Package: ${esc(identifier)} · ${esc(fmtDate(rec.createdAt))}</small><small>${rec.width} × ${rec.height} · SHA-256 ${esc(rec.sha256?.slice(0,14)||'not available')}…</small><span class="nls-snapshot-status ${approved?'is-approved':''}">${approved?'Print-ready at archive':'Draft · needs review'}</span><div class="snapshot-actions"><button data-view="${esc(rec.id)}">View</button><button data-download="${esc(rec.id)}">Download</button><button data-reprint="${esc(rec.id)}" ${approved?'':'disabled title="Unapproved or legacy snapshot: download unchanged instead"'}>Reprint</button></div></div></div>`;
+    }).join('');
     list.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>viewSnapshot(b.dataset.view));
     list.querySelectorAll('[data-download]').forEach(b=>b.onclick=()=>downloadSnapshot(b.dataset.download));
     list.querySelectorAll('[data-reprint]').forEach(b=>b.onclick=()=>reprintSnapshot(b.dataset.reprint));
@@ -1631,8 +1660,12 @@ function showPrinterSetup(portrait,sourceName,checksum,sourceRecord=null){
       const printLayoutIssues=Core.diagnostics(printDoc).filter(x=>/outside artwork bounds|QR modules|unresolved data key|text may clip vertically|text exceeds|too small for print/i.test(x));
       if(printLayoutIssues.length)throw new Error('Label layout is not print-safe: '+printLayoutIssues.slice(0,3).join(' | '));
       if(!window.LabelPackages?.isPackage(printDoc))throw new Error('Legacy or custom templates must use a reviewed package master before physical printing.');
-      if(sourceRecord?.kind!=='archive'&&workspaceIdConflicts(printDoc).length)
-        throw new Error('Package ID already belongs to another local label. Select a unique ID before printing.');
+      if(sourceRecord?.kind!=='archive'){
+       if(workspaceIdConflicts(printDoc).length)
+         throw new Error('Package ID already belongs to another local label. Select a unique ID before printing.');
+       if((await archivedIdConflicts(printDoc)).length)
+         throw new Error('Package ID already belongs to another archived package. Printing blocked.');
+      }
       status.textContent='Sending exact pixels to B1 Pro via NiimBlueLib…';
       const ret=await window.LabelPrinter.printPortraitCanvas(portrait,{density:Number($('#printDensity').value)});status.textContent='Print job finished according to driver. Verify the label physically; no confirmation of scan/print quality is available.';toast(`Driver completed the print job (${ret.task}). Verify output.`);}
     catch(e){status.textContent=`Print failed: ${e.message}`;toast(e.message,'error');}finally{update();}};
@@ -1776,6 +1809,13 @@ async function run(){
     errors.push('Full-width knockout still enabled');
    const diag=C.diagnostics(doc).filter(x=>/outside artwork bounds|QR modules|unresolved data key|text may clip vertically|text exceeds|too small for print/i.test(x));
    if(diag.length)errors.push(...diag.slice(0,5));
+   const info=doc.elements.find(e=>e.name==='Extra contents descriptor');
+   const name=doc.elements.find(e=>e.name==='Heritage actual food name');
+   if(info&&name&&doc.data['pkg.displayContents']){
+      const altered={...doc,elements:doc.elements.map(e=>e===info?{...e,y:name.y+name.h-6}:e)};
+      if(!C.diagnostics(altered).some(x=>x.includes('Text layers overlap:')))
+        errors.push('Overlapping product-name/contents negative test not rejected');
+   }
    results.push({type:def.id,passed:errors.length===0,errors,
      counts:{red:counts.red,black:counts.black,white:counts.white},qrPixels:qr?.w||0});
   }catch(error){results.push({type:def.id,passed:false,errors:[String(error?.message||error),...errors]});}
