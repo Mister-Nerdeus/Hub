@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="nls-version" content="v13.8-background-selection-and-regression-qa" />
+  <meta name="nls-version" content="v13.9-package-workflow-and-safety" />
   <meta name="theme-color" content="#151b25" />
   <title>Label Studio · Nerdeus Meals</title>
   <style>
@@ -237,6 +237,14 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
 .nls-selected-background{font-size:11px;font-weight:700;line-height:1.35;border:1px solid var(--line,#c9d0d6);background:rgba(110,128,147,.09);padding:8px 9px;border-radius:7px;margin:7px 0 10px}
 .nls-pattern-choice[aria-pressed="true"]{outline:2px solid #d62929;outline-offset:1px}
 </style>
+<style id="nls-v13-9-ux-fixes">
+#nlsActiveLabelContext{margin:9px 0 3px;padding:10px 11px;border:1px solid #bdcbd6;border-left:4px solid #c9322d;border-radius:8px;background:rgba(112,133,150,.08);font-size:11px;line-height:1.45;color:var(--ink,#243444)}
+#nlsActiveLabelContext strong{font-weight:800}#nlsActiveLabelContext small{display:block;opacity:.84;margin-top:2px;line-height:1.35}
+#nlsActiveLabelContext .nls-active-key{display:block;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+#saveStatus[data-save-state="failed"]{color:#ab1515!important;background:#fff3f2;padding:3px 7px;border-radius:5px;font-weight:800}
+.template-choice[aria-current="true"]{outline:2px solid #d7322a;outline-offset:1px}
+@media(max-width:720px){.nls-focused .panel-left{order:2}.nls-focused .panel-right{order:1}.nls-focused .stage-column{order:3}.nls-focused .workspace{display:flex;flex-direction:column}.nls-focused .nls-background-library{max-height:370px;overflow:auto}}
+</style>
 <style id="nls-boot-failsafe-css">
 .nls-boot-status{position:relative;z-index:1;padding:10px 23px;background:#f1f5f8;color:#24384c;font:600 13px/1.4 Arial,sans-serif;border-bottom:1px solid #d1dae3}
 .nls-boot-status[data-state="ready"]{background:#ecf5f1;color:#1f543e}
@@ -324,6 +332,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
         <div class="vsep"></div>
         <button id="btnImport" class="btn btn-ghost">↑ Import JSON</button>
         <button id="btnExport" class="btn btn-outline">↓ Template JSON</button>
+        <button id="btnWorkspaceBackup" class="btn btn-outline" type="button" title="Export saved workspace for backup and recovery">↓ Workspace backup</button>
         <button id="btnSaveTemplate" class="btn btn-primary">Save template</button>
         <button id="btnRecoveryQA" class="btn btn-outline" type="button" title="Non-destructive template, background and raster checks">Run editor checks</button>
         <span id="nlsRecoveryQAStatus" role="status" aria-live="polite" style="font-size:11px;font-weight:700">Not tested in this session</span>
@@ -341,6 +350,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
   <select id="templateFamily" aria-label="Filter templates by family"></select>
   <input id="templateSearch" type="search" autocomplete="off" placeholder="Search food or label type…" aria-label="Search label templates" />
   <small id="templateFilterStatus" aria-live="polite"></small>
+  <div id="nlsActiveLabelContext" role="status" aria-live="polite"></div>
 </div>
 <div id="templateChoices" class="template-choices"></div><button id="btnArtTools" class="btn btn-outline nls-advanced-toggle" type="button" aria-expanded="false">Show artwork and advanced tools</button>
         <div class="side-divider"></div>
@@ -398,7 +408,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
         </div>
         <div class="stage-outer"><div class="stage-column"><div class="axis-top"><span>591 px</span><div class="axis-ticks"></div><span class="axis-end">0 → 591</span></div><div class="artboard-wrap" id="artboardWrap"><div class="axis-left"><span>0</span><span>414</span><span>827</span></div><div id="canvasFrame" class="canvas-frame"><canvas id="artCanvas" width="591" height="827" aria-label="Label artwork"></canvas><canvas id="editOverlay" width="591" height="827" aria-label="Drag elements to edit their positions"></canvas></div></div><div class="stage-help"><span>Drag to move · Corner to resize · Arrow keys to nudge</span><span><i class="mini-square mini-black"></i> BLACK <i class="mini-square mini-red"></i> RED <i class="mini-square mini-white"></i> WHITE</span></div></div></div>
         <div class="bottom-strip"><div class="delivery-step"><span class="step-num">01</span><div><strong>Design</strong><span>Editable document</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">02</span><div><strong>Rasterize</strong><span>591 × 827 PNG</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">03</span><div><strong>Archive</strong><span>Immutable print pixels</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">04</span><div><strong>Encode</strong><span>576 × 827 printer raster</span></div></div></div>
-        <div class="output-panel"><div class="output-left"><div class="eyebrow">OUTPUT / B1 PRO PROFILE</div><div class="output-title">Exact pixels. Reusable design.</div><p>The PNG contains only <b>white #FFFFFF</b>, <b>black #000000</b>, and <b>red #FF0000</b>. No editor guides appear in output.</p></div><div class="output-actions"><button id="btnDownloadPNG" class="btn btn-outline">↓ Export PNG</button><button id="btnCreateSnapshot" class="btn btn-primary">▣ Save print snapshot</button><button id="btnPrint" class="btn btn-dark">Printer setup & print</button></div></div>
+        <div class="output-panel"><div class="output-left"><div class="eyebrow">OUTPUT / B1 PRO PROFILE</div><div class="output-title">Exact pixels. Reusable design.</div><p>The PNG contains only <b>white #FFFFFF</b>, <b>black #000000</b>, and <b>red #FF0000</b>. No editor guides appear in output.</p></div><div class="output-actions"><button id="btnDownloadPNG" class="btn btn-outline">↓ Export proof PNG</button><button id="btnCreateSnapshot" class="btn btn-primary">▣ Save print snapshot</button><button id="btnPrint" class="btn btn-dark">Printer setup & print</button></div></div>
       </section>
       <aside class="panel panel-right">
         <div class="inspector-top"><div class="eyebrow">03 / INSPECTOR</div><h2>Properties</h2><p id="selectedSummary">Choose any layer to edit its properties.</p></div>
@@ -1222,10 +1232,40 @@ let state={templates:defaultTemplates,activeId:defaultTemplates[0].id,selectedId
 const art=$('#artCanvas'),overlay=$('#editOverlay'),view=$('#canvasFrame');
 const ctx=art.getContext('2d',{willReadFrequently:true}),ov=overlay.getContext('2d');
 let lastRaster=null,lastRasterDocId=null,toastTimer=null,thumbURLs=[];
+let restoreBlocked=false,saveWarningShown=false,saveEventTimer=null;
 const active=()=>state.templates.find(t=>t.id===state.activeId)||state.templates[0];
 const selected=()=>active()?.elements.find(e=>e.id===state.selectedId);
-function saveLocal(show=false){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({templates:state.templates,activeId:state.activeId}));$('#saveStatus').textContent='Saved locally in this browser';if(show)toast('Template saved in this browser. Export JSON for a portable copy.');}
-  catch(e){$('#saveStatus').textContent='Browser storage not available';if(show)toast('Browser storage failed; export JSON instead.','error');}}
+function saveLocal(show=false){
+ const status=$('#saveStatus');
+ if(restoreBlocked){
+  if(status){status.textContent='Saved workspace needs recovery · automatic overwrite blocked';status.dataset.saveState='failed';}
+  if(show&&!saveWarningShown){toast('Restore issue: export a Workspace backup before editing further.','error');saveWarningShown=true;}
+  return false;
+ }
+ try{
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({templates:state.templates,activeId:state.activeId}));
+  if(status){status.textContent='All changes saved locally';status.dataset.saveState='ok';}
+  if(show)toast('Saved locally. Export Workspace backup for a portable copy.');
+  clearTimeout(saveEventTimer);
+  saveEventTimer=setTimeout(()=>window.dispatchEvent(new Event('nerdeus:labels:changed')),120);
+  return true;
+ }catch(e){
+  if(status){status.textContent='SAVE FAILED · Export Workspace backup';status.dataset.saveState='failed';}
+  if(!saveWarningShown||show){toast('Browser storage is full or unavailable. Export Workspace backup now.','error');saveWarningShown=true;}
+  console.error('Workspace autosave failed',e);
+  return false;
+ }
+}
+function exportWorkspaceBackup(){
+ try{
+  const snapshot={schema:'nerdeus.label.workspace.backup.v1',exportedAt:new Date().toISOString(),
+   release:'v13.9',rawSavedWorkspace:localStorage.getItem(STORAGE_KEY),
+   rawOldWorkspace:localStorage.getItem(LEGACY_STORAGE_KEY),
+   workingWorkspace:{templates:state.templates,activeId:state.activeId},restoreBlocked};
+  Core.download(new Blob([JSON.stringify(snapshot)],{type:'application/json'}),'Nerdeus-Label-Studio-Workspace-Backup.json');
+  toast('Workspace backup exported. This does not change saved labels.');
+ }catch(e){toast('Could not export workspace backup: '+(e?.message||e),'error');}
+}
 // The canonical 17 masters must keep their IDs. Older locally saved masters
 // are preserved as distinct, editable previous layouts instead of masking new defaults.
 let previousMasterLayoutsPreserved=0;
@@ -1272,8 +1312,11 @@ function loadLocal(){try{
       :older?'Migrated old label templates':'Restored local workspace';
     if(older||previousMasterLayoutsPreserved)saveLocal();
   }
-}catch(e){console.warn('Could not restore all saved templates; existing browser storage was not cleared:',e);
-  window.NerdeusBootGuard?.report('Saved template restore: '+(e?.message||e));
+}catch(e){
+  restoreBlocked=true;
+  console.warn('Saved workspace could not be restored; original browser data are protected from overwrite:',e);
+  const status=$('#saveStatus');if(status){status.textContent='RESTORE ERROR · Export Workspace backup';status.dataset.saveState='failed';}
+  window.NerdeusBootGuard?.report('Saved workspace needs recovery; existing data preserved: '+(e?.message||e));
 }}
 function checkpoint(){state.undo.push(JSON.stringify({templates:state.templates,activeId:state.activeId,selectedId:state.selectedId}));if(state.undo.length>70)state.undo.shift();state.redo=[];updateUndo();}
 function restoreHistory(raw){const h=JSON.parse(raw);state.templates=h.templates.map(Core.validatedDoc);state.activeId=h.activeId;state.selectedId=h.selectedId;saveLocal();refresh();}
