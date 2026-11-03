@@ -1799,7 +1799,8 @@ async function archivedIdConflicts(doc){
 }
 async function createSnapshot(){const doc=active();let canvas;try{await Promise.all([Bg.ensureDocument(doc),Cuts.ensureDocument(doc)]);canvas=Core.render(doc);}catch(e){toast(e.message,'error');return;}
   const blob=await Core.canvasBlob(canvas),sha256=await hashBlob(blob),counts=Core.classify(canvas);
-  const problems=window.LabelPackages?.isPackage(doc)?window.LabelPackages.validate(doc,true):['Legacy layouts require an explicit current-package review before printing.'];
+  const isInstance=window.LabelMasterV9?.isMaster(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));
+  const problems=isInstance?window.LabelMasterV9.validate(doc):['Create a real package from a label type before approving this snapshot. Template examples and legacy layouts can only be archived as drafts.'];
   problems.push(...Core.diagnostics(doc).filter(x=>/outside artwork bounds|QR modules|unresolved data key|text may clip vertically|text exceeds|too small for print/i.test(x)));
   if(workspaceIdConflicts(doc).length)problems.push('Package ID already exists in another local template: '+doc.data['pkg.id']);
   try{if((await archivedIdConflicts(doc)).length)problems.push('Package ID belongs to another archived package.');}
@@ -1818,7 +1819,7 @@ async function renderSnapshots(){for(const url of thumbURLs)URL.revokeObjectURL(
       const url=URL.createObjectURL(rec.blob);thumbURLs.push(url);
       const approved=!!rec.printReview?.approved&&!!rec.sha256&&rec.width===Core.W&&rec.height===Core.H;
       const identifier=String(rec.data?.['pkg.id']||'Unassigned ID');
-      return `<div class="snapshot-card"><img class="snapshot-thumb" alt="Archived label" src="${url}"><div class="snapshot-content"><strong>${esc(rec.name)}</strong><small>Package: ${esc(identifier)} · ${esc(fmtDate(rec.createdAt))}</small><small>${rec.width} × ${rec.height} · SHA-256 ${esc(rec.sha256?.slice(0,14)||'not available')}…</small><span class="nls-snapshot-status ${approved?'is-approved':''}">${approved?'Print-ready at archive':'Draft · needs review'}</span><div class="snapshot-actions"><button data-view="${esc(rec.id)}">View</button><button data-download="${esc(rec.id)}">Download</button><button data-reprint="${esc(rec.id)}" ${approved?'':'disabled title="Unapproved or legacy snapshot: download unchanged instead"'}>Reprint</button></div></div></div>`;
+      return `<div class="snapshot-card"><img class="snapshot-thumb" alt="Archived label" src="${url}"><div class="snapshot-content"><strong>${esc(rec.name)}</strong><small>Package: ${esc(identifier)} · ${esc(fmtDate(rec.createdAt))}</small><small>${rec.width} × ${rec.height} · SHA-256 ${esc(rec.sha256?.slice(0,14)||'not available')}…</small><span class="nls-snapshot-status ${approved?'is-approved':''}">${approved?'Data approved · physical print not verified':'Draft · needs review'}</span><div class="snapshot-actions"><button data-view="${esc(rec.id)}">View</button><button data-download="${esc(rec.id)}">Download</button><button data-reprint="${esc(rec.id)}" ${approved?'':'disabled title="Unapproved or legacy snapshot: download unchanged instead"'}>Reprint</button></div></div></div>`;
     }).join('');
     list.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>viewSnapshot(b.dataset.view));
     list.querySelectorAll('[data-download]').forEach(b=>b.onclick=()=>downloadSnapshot(b.dataset.download));
@@ -1843,10 +1844,29 @@ async function preview(){await Promise.all([Bg.ensureDocument(active()),Cuts.ens
   const pp=native.cloneNode(),pctx=pp.getContext('2d');pctx.drawImage(native,0,0);pp.style.width='200px';pp.style.height='287px';$('#hardwareBox').prepend(pp);
   $('#previewDownload').onclick=downloadPNG;
 }
-async function downloadPNG(){try{await Promise.all([Bg.ensureDocument(active()),Cuts.ensureDocument(active())]);const canvas=Core.render(active());const counts=Core.classify(canvas);if(counts.other)throw new Error('Other colors detected; export blocked');Core.download(await Core.canvasBlob(canvas),`${slug(active().name)}-591x827.png`);toast('Exact 591 × 827 three-color PNG downloaded.');}catch(e){toast(e.message,'error');}}
+async function downloadPNG(){try{
+ const doc=active();
+ await Promise.all([Bg.ensureDocument(doc),Cuts.ensureDocument(doc)]);
+ const canvas=Core.render(doc),counts=Core.classify(canvas);
+ if(counts.other)throw new Error('Unexpected colors detected; proof export blocked.');
+ Core.download(await Core.canvasBlob(canvas),`${slug(doc.data?.['pkg.food']||doc.name)}-591x827-PROOF.png`);
+ toast('Exact-color proof PNG exported. Package review and physical printing are not confirmed by this export.');
+ }catch(e){toast(e.message,'error');}}
 async function exportTemplate(){const blob=new Blob([JSON.stringify(active(),null,2)],{type:'application/json'});Core.download(blob,`${slug(active().name)}-editable.json`);toast('Editable template JSON downloaded.');}
 async function importTemplate(file){if(!file)return;try{const raw=JSON.parse(await file.text());const doc=Core.validatedDoc(raw);checkpoint();if(state.templates.find(t=>t.id===doc.id))doc.id=Core.UID();doc.name+= ' (imported)';state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;saveLocal();refresh();toast('Editable template imported.');}catch(e){toast(`Import failed: ${e.message}`,'error');}}
-function newTemplate(){checkpoint();const copy=Core.clone(active());copy.id=Core.UID();copy.name+=' copy';copy.elements.forEach(e=>e.id=Core.UID());state.templates.push(copy);state.activeId=copy.id;state.selectedId=null;saveLocal();refresh();toast('Created a separate editable copy of the template.');}
+function newTemplate(){
+ const doc=active(),master=window.LabelMasterV9;
+ if(master?.isMaster(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'))){
+  const def=master.byId.get(doc.data?.['pkg.type']);if(!def)return toast('Unknown package type.','error');
+  checkpoint();const blank=master.makeBlank(def);blank.id='package-'+Core.UID();blank.kind='package-instance';
+  state.templates.push(blank);state.activeId=blank.id;state.selectedId=null;state.tab='data';state.templateFamily='packages';
+  $('#templateFamily').value='packages';saveLocal();refresh();toast('New blank package created with no reused package ID or review flags.');return;
+ }
+ checkpoint();const copy=Core.clone(doc);copy.id=Core.UID();copy.name+=' copy';
+ copy.elements.forEach(e=>e.id=Core.UID());state.templates.push(copy);state.activeId=copy.id;state.selectedId=null;
+ state.templateFamily='legacy';$('#templateFamily').value='legacy';saveLocal();refresh();
+ toast('Created a separate editable DESIGN copy; it is not an approved package.');
+}
 function printerStatusLabel(){const s=window.LabelPrinter.getState();return s.connected?`Connected printer model: ${s.modelId??'unknown'}; task ${s.task||'automatic'}. ${s.modelId===4097?'B1 Pro verified.':'Printing blocked until B1 Pro model ID is verified.'}`:s.driver?'Driver loaded. Connect the printer with the next button.':'Driver not loaded. Editing and PNG export still work without it.';}
 function showPrinterSetup(portrait,sourceName,checksum,sourceRecord=null){
   const printDoc=sourceRecord?.template||Core.clone(active());const review=sourceRecord?.review||null;
@@ -1867,7 +1887,9 @@ function showPrinterSetup(portrait,sourceName,checksum,sourceRecord=null){
       }
       const printLayoutIssues=Core.diagnostics(printDoc).filter(x=>/outside artwork bounds|QR modules|unresolved data key|text may clip vertically|text exceeds|too small for print/i.test(x));
       if(printLayoutIssues.length)throw new Error('Label layout is not print-safe: '+printLayoutIssues.slice(0,3).join(' | '));
-      if(!window.LabelPackages?.isPackage(printDoc))throw new Error('Legacy or custom templates must use a reviewed package master before physical printing.');
+      if(!window.LabelMasterV9?.isMaster(printDoc)||
+          !(printDoc.data?.['pkg.recordRole']==='package'||printDoc.id.startsWith('package-')))
+        throw new Error('Only a reviewed individual package can be printed. Create a blank package from the selected type first.');
       if(sourceRecord?.kind!=='archive'){
        if(workspaceIdConflicts(printDoc).length)
          throw new Error('Package ID already belongs to another local label. Select a unique ID before printing.');
@@ -1883,7 +1905,11 @@ function keyHandler(ev){const interactive=['INPUT','TEXTAREA','SELECT'].includes
   if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='y'&&!interactive){ev.preventDefault();redo();return;}
   if(interactive||$('#modal').open)return;const e=selected();if(!e)return;
   if(ev.key==='Delete'||ev.key==='Backspace'){ev.preventDefault();deleteSelected();return;}
-  const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(directions[ev.key]){if(e.locked)return;ev.preventDefault();checkpoint();const dx=directions[ev.key][0]*(ev.shiftKey?10:1),dy=directions[ev.key][1]*(ev.shiftKey?10:1);e.x=Core.clamp(e.x+dx,0,Core.W-e.w);e.y=Core.clamp(e.y+dy,0,Core.H-e.h);persistAndRender({panels:true});}}
+  const directions={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};if(directions[ev.key]){if(e.locked)return;ev.preventDefault();checkpoint();const dx=directions[ev.key][0]*(ev.shiftKey?10:1),dy=directions[ev.key][1]*(ev.shiftKey?10:1);
+   e.x=Core.clamp(e.x+dx,0,Core.W-e.w);e.y=Core.clamp(e.y+dy,0,Core.H-e.h);
+   const doc=active();if(window.LabelMasterV9?.isMaster(doc)&&doc.data?.['pkg.layoutStyle']==='heritage-v13')
+     e.userGeometry={x:e.x,y:e.y,w:e.w,h:e.h};
+   persistAndRender({panels:true});}}
 // Non-destructive v13.8 regression suite. No writes to browser storage, archive or printer.
 async function runRecoveryQA(){
  const checks=[];
@@ -1926,7 +1952,7 @@ async function runRecoveryQA(){
   }catch(e){check('Simulated raster render',false,e?.message||e);}
  }
  const failed=checks.filter(c=>!c.passed);
- return {release:'v13.8',total:checks.length,passed:checks.length-failed.length,failed:failed.length,checks,
+ return {release:'v13.9',total:checks.length,passed:checks.length-failed.length,failed:failed.length,checks,
    nonDestructive:true,physicalPrintingTested:false,liveClickAutomationTested:false};
 }
 window.NerdeusRecoveryQA={run:runRecoveryQA};
@@ -1984,7 +2010,7 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
     }catch(e){status.textContent='QA error: '+(e?.message||e);toast('Recovery QA could not complete.','error');}
     finally{button.disabled=false;}
   };
-  $('#btnExport').onclick=exportTemplate;
+  $('#btnExport').onclick=exportTemplate;$('#btnWorkspaceBackup').onclick=exportWorkspaceBackup;
   $('#btnImport').onclick=()=>$('#inputJSON').click();$('#inputJSON').onchange=e=>{importTemplate(e.target.files[0]);e.target.value='';};
   $('#btnDownloadPNG').onclick=downloadPNG;$('#btnCreateSnapshot').onclick=createSnapshot;
   $('#btnPrint').onclick=async()=>{try{await Promise.all([Bg.ensureDocument(active()),Cuts.ensureDocument(active())]);showPrinterSetup(Core.render(active()),active().name,null);}catch(e){toast(e.message,'error');}};
@@ -1998,14 +2024,14 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
   updateZoom();
   // Establish the app handle before rendering; optional queue modules must never depend
   // on an inspector or art thumbnail drawing without errors.
-  window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,packages:window.LabelPackages,applyBackground,applyBackgroundToDoc,activeBackgroundId,applyCut,importBackground};
+  window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,packages:window.LabelPackages,applyBackground,applyBackgroundToDoc,activeBackgroundId,applyCut,importBackground,refreshIdentity:()=>{syncActiveIdentity();renderTemplates();}};
   refresh();renderSnapshots();
   // Release is informational, not a version-selection flag. Keep the address bar
   // accurate so older shared URLs cannot imply an old build is still running.
   try{
     const u=new URL(location.href);
-    if(u.searchParams.get('release')!=='v13.8'){
-      u.searchParams.set('release','v13.8');
+    if(u.searchParams.get('release')!=='v13.9'){
+      u.searchParams.set('release','v13.9');
       history.replaceState(null,'',u);
     }
   }catch(e){console.warn('Could not update release label in URL',e);}
@@ -2017,7 +2043,7 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
       const list=document.querySelectorAll('#templateChoices [data-template]').length;
       const art=document.querySelectorAll('#backgroundGrid [data-pattern]').length;
       const pkg=window.LabelMasterV9?.defs?.length||0;
-      bootStatus.textContent='v13.8 · Label editor ready · '+pkg+' current label types · '+
+      bootStatus.textContent='v13.9 · Label editor ready · '+pkg+' current label types · '+
         list+' template choices · '+art+' backgrounds · '+
         previousMasterLayoutsPreserved+' older layouts preserved';
     }
