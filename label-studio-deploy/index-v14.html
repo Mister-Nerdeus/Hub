@@ -332,7 +332,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
         <div class="vsep"></div>
         <button id="btnImport" class="btn btn-ghost">↑ Import JSON</button>
         <button id="btnExport" class="btn btn-outline">↓ Template JSON</button>
-        <button id="btnWorkspaceBackup" class="btn btn-outline" type="button" title="Export saved workspace for backup and recovery">↓ Workspace backup</button><button id="btnRestoreWorkspace" class="btn btn-outline" type="button" title="Safely import backup data as drafts">↑ Restore backup</button><button id="btnStartV14Flow" class="btn btn-primary" type="button">Create package label</button>
+        <button id="btnWorkspaceBackup" class="btn btn-outline" type="button" title="Export saved workspace for backup and recovery">↓ Workspace backup</button><button id="btnRestoreWorkspace" class="btn btn-outline" type="button" title="Safely import backup data as drafts">↑ Restore backup</button><button id="btnCommitRecovery" class="btn btn-outline" type="button" hidden>Recover readable labels</button><button id="btnStartV14Flow" class="btn btn-primary" type="button">Create package label</button>
         <button id="btnSaveTemplate" class="btn btn-primary">Save template</button>
         <button id="btnRecoveryQA" class="btn btn-outline" type="button" title="Non-destructive template, background and raster checks">Run editor checks</button>
         <span id="nlsRecoveryQAStatus" role="status" aria-live="polite" style="font-size:11px;font-weight:700">Not tested in this session</span>
@@ -1271,7 +1271,7 @@ function exportWorkspaceBackup(){
 // are preserved as distinct, editable previous layouts instead of masking new defaults.
 let previousMasterLayoutsPreserved=0;
 function isCurrentHeritageMaster(doc){
- return doc?.data?.['pkg.layoutStyle']==='heritage-v13'&&
+ return doc?.data?.['pkg.layoutStyle']==='heritage-v13'&&doc.data?.['pkg.templateRevision']==='v14'&&
    doc.elements?.some(e=>e.name==='Heritage second header');
 }
 function loadLocal(){try{
@@ -1280,7 +1280,19 @@ function loadLocal(){try{
   const current=localStorage.getItem(STORAGE_KEY),older=!current?localStorage.getItem(LEGACY_STORAGE_KEY):null;
   const saved=JSON.parse(current||older||'null');
   if(saved&&Array.isArray(saved.templates)&&saved.templates.length){
-    const docs=saved.templates.map(Core.validatedDoc).map(doc=>window.NerdeusLabelV6.migrate(doc));
+    const docs=[],invalid=[];
+    for(const [i,raw] of saved.templates.entries()){
+      try{docs.push(window.NerdeusLabelV6.migrate(Core.validatedDoc(raw)));}
+      catch(error){invalid.push({index:i,error:String(error?.message||error),name:String(raw?.name||'Unknown saved label').slice(0,90)});}
+    }
+    if(invalid.length){
+      restoreBlocked=true;
+      window.NerdeusRecoveryIssues=invalid;
+      const warning=$('#saveStatus');
+      if(warning){warning.textContent=invalid.length+' saved document(s) need recovery · export backup';warning.dataset.saveState='failed';}
+      const commitButton=$('#btnCommitRecovery');if(commitButton)commitButton.hidden=false;
+      console.warn('Partial saved-workspace restore. Original bytes remain unchanged:',invalid);
+    }
     for(const doc of [...docs]){
       if(window.NerdeusLabelV6.modernById.has(doc.id)&&!window.NerdeusLabelV6.isModern(doc)){
         const updated=Core.clone(window.NerdeusLabelV6.modernById.get(doc.id));updated.id=doc.id+'-new-design';updated.name+=' · Updated design';
@@ -1308,7 +1320,7 @@ function loadLocal(){try{
     const known=new Set(docs.map(d=>d.id));for(const fresh of defaultTemplates)if(!known.has(fresh.id))docs.push(fresh);
     docs.sort((a,b)=>(window.LabelDesignV9?.isV9(b)?1:0)-(window.LabelDesignV9?.isV9(a)?1:0));
     state.templates=docs;state.activeId=docs.find(d=>d.id===saved.activeId)?.id||docs[0].id;
-    $('#saveStatus').textContent=previousMasterLayoutsPreserved
+    if(!restoreBlocked)$('#saveStatus').textContent=previousMasterLayoutsPreserved
       ?'Upgraded '+previousMasterLayoutsPreserved+' master layouts · prior versions saved separately'
       :older?'Migrated old label templates':'Restored local workspace';
     if(older||previousMasterLayoutsPreserved)saveLocal();
@@ -1861,7 +1873,92 @@ async function downloadPNG(){try{
  toast('Exact-color proof PNG exported. Package review and physical printing are not confirmed by this export.');
  }catch(e){toast(e.message,'error');}}
 async function exportTemplate(){const blob=new Blob([JSON.stringify(active(),null,2)],{type:'application/json'});Core.download(blob,`${slug(active().name)}-editable.json`);toast('Editable template JSON downloaded.');}
-async function importTemplate(file){if(!file)return;try{const raw=JSON.parse(await file.text());const doc=Core.validatedDoc(raw);checkpoint();if(state.templates.find(t=>t.id===doc.id))doc.id=Core.UID();doc.name+= ' (imported)';state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;saveLocal();refresh();toast('Editable template imported.');}catch(e){toast(`Import failed: ${e.message}`,'error');}}
+function resetUntrustedReviews(doc){
+ doc.data=doc.data||{};
+ for(const field of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed',
+  'allergensReviewed','artworkReviewed','textOnlyApproved','actionVerified'])
+   doc.data['pkg.'+field]='0';
+ const foodArt=doc.elements?.some(e=>e.name==='Hero food illustration'&&e.visible!==false);
+ doc.data['pkg.artStatus']=foodArt?'candidate':'missing';
+ if(!foodArt)doc.data['pkg.artworkPlaceholder']='ARTWORK NOT SELECTED';
+ if(window.LabelMasterV9?.isMaster(doc))window.LabelMasterV9.derived(doc);
+ return doc;
+}
+async function importTemplate(file){if(!file)return;try{
+ if(file.size>4*1024*1024)throw Error('Design JSON is too large; use Workspace backup for full recovery.');
+ const raw=JSON.parse(await file.text()),doc=resetUntrustedReviews(Core.validatedDoc(raw));
+ checkpoint();
+ doc.id='design-import-'+Core.UID();
+ doc.name+=' · imported design';
+ doc.data['pkg.recordRole']='design-import';
+ if(doc.data['pkg.id']){doc.data['pkg.originalSampleId']=doc.data['pkg.id'];doc.data['pkg.id']='';}
+ state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;
+ state.templateFamily='legacy';$('#templateFamily').value='legacy';
+ state.tab='data';saveLocal();refresh();
+ toast('Design imported as UNREVIEWED. No package ID or safety approvals were reused.');
+ }catch(e){toast('Import failed: '+e.message,'error');}}
+
+// v14 safe recovery: importing a workspace creates fresh draft documents.
+// Never overwrite current templates, and preserve a raw safety copy before a recovery commit.
+async function importWorkspaceBackup(file){
+ if(!file)return;
+ try{
+  if(file.size>20*1024*1024)throw Error('Backup exceeds the 20 MB browser recovery limit.');
+  const backup=JSON.parse(await file.text());
+  if(backup?.schema!=='nerdeus.label.workspace.backup.v1')throw Error('Select a Nerdeus Label Studio Workspace Backup JSON.');
+  const source=backup.workingWorkspace||JSON.parse(backup.rawSavedWorkspace||'null');
+  if(!Array.isArray(source?.templates))throw Error('Backup has no readable templates.');
+  const restored=[],bad=[];
+  for(const [idx,raw] of source.templates.entries()){
+    try{
+      const doc=resetUntrustedReviews(Core.validatedDoc(raw));
+      if(!window.LabelMasterV9?.isMaster(doc))continue;
+      const role=raw.data?.['pkg.recordRole'];
+      if(raw.id===('master-'+raw.data?.['pkg.type']))continue; // Never replace published masters.
+      const already=state.templates.find(x=>x.id===doc.id);
+      if(already&&JSON.stringify(already.data)===JSON.stringify(doc.data))continue;
+      doc.id=(role==='package'?'package-restore-':'design-restore-')+Core.UID();
+      doc.data['pkg.recordRole']=role==='package'?'package':'design-import';
+      if(role==='package'&&state.templates.some(x=>
+         x.data?.['pkg.id']&&x.data?.['pkg.id']===doc.data?.['pkg.id'])){
+        doc.data['pkg.id']=''; // Conflicting package IDs must be reassigned.
+      }
+      doc.name=(doc.name||'Recovered label')+' · recovered';
+      restored.push(doc);
+    }catch(e){bad.push({index:idx,reason:String(e?.message||e)});}
+  }
+  if(!restored.length)throw Error('No new recoverable documents found. '+bad.length+' entries could not be validated.');
+  if(!confirm('Import '+restored.length+' labels as unreviewed drafts, with '+bad.length+
+      ' invalid item(s) skipped? Existing labels will not be overwritten.'))return;
+  const original=localStorage.getItem(STORAGE_KEY);
+  const safetyKey='nerdeus-label-before-recovery-'+new Date().toISOString().replace(/[:.]/g,'-');
+  if(original!==null)localStorage.setItem(safetyKey,original); // Must succeed before any overwrite.
+  const oldState=state.templates,oldActive=state.activeId,oldBlocked=restoreBlocked;
+  try{
+    state.templates=state.templates.concat(restored);state.activeId=restored[0].id;
+    restoreBlocked=false;
+    if(!saveLocal())throw Error('Browser storage could not save the recovered workspace.');
+    state.templateFamily='packages';$('#templateFamily').value='packages';refresh();
+    toast('Imported '+restored.length+' draft labels. Verify all package data before printing.');
+  }catch(error){
+    state.templates=oldState;state.activeId=oldActive;restoreBlocked=oldBlocked;
+    if(original!==null)localStorage.setItem(STORAGE_KEY,original);
+    throw error;
+  }
+ }catch(e){toast('Recovery failed without changing saved labels: '+(e?.message||e),'error');}
+}
+function commitReadableRecovery(){
+ if(!restoreBlocked)return;
+ if(!confirm('Recover readable documents only? The original damaged browser workspace will be preserved in a safety copy. Export Workspace backup first.'))return;
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(raw!==null)localStorage.setItem('nerdeus-label-before-salvage-'+new Date().toISOString().replace(/[:.]/g,'-'),raw);
+  restoreBlocked=false;
+  if(!saveLocal()){restoreBlocked=true;throw Error('Could not save recovered documents.');}
+  $('#btnCommitRecovery').hidden=true;refresh();
+  toast('Readable labels recovered. The original workspace bytes are retained separately.');
+ }catch(e){restoreBlocked=true;toast('Recovery blocked: '+(e?.message||e),'error');}
+}
 function newTemplate(){
  const doc=active(),master=window.LabelMasterV9;
  if(master?.isMaster(doc)&&(doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'))){
@@ -2026,6 +2123,9 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
     finally{button.disabled=false;}
   };
   $('#btnExport').onclick=exportTemplate;$('#btnWorkspaceBackup').onclick=exportWorkspaceBackup;
+  $('#btnRestoreWorkspace').onclick=()=>$('#inputWorkspaceBackup').click();
+  $('#inputWorkspaceBackup').onchange=e=>{importWorkspaceBackup(e.target.files[0]);e.target.value='';};
+  $('#btnCommitRecovery').onclick=commitReadableRecovery;
   $('#btnImport').onclick=()=>$('#inputJSON').click();$('#inputJSON').onchange=e=>{importTemplate(e.target.files[0]);e.target.value='';};
   $('#btnDownloadPNG').onclick=downloadPNG;$('#btnCreateSnapshot').onclick=createSnapshot;
   $('#btnPrint').onclick=async()=>{try{await Promise.all([Bg.ensureDocument(active()),Cuts.ensureDocument(active())]);showPrinterSetup(Core.render(active()),active().name,null);}catch(e){toast(e.message,'error');}};
