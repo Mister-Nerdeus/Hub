@@ -4,14 +4,14 @@
 **Live application:** https://nerdeus-label-studio-production.up.railway.app/?template=master-cooked_meal&view=data  
 **Railway project:** `d23d52cd-ba62-4f04-a6c5-00476d73a648`  
 **Railway function service:** `0a49ac30-6184-4a48-bf89-e4eec3bc5de8`  
-**Deployment:** `059ad7ab-bc87-4d1e-a07b-0c37d40970a3` (successful)
+**Deployment:** `dfed166f-7dec-4296-b936-7abd1a28cf1e` (v13.1 successful)
 
 ## Delivered
 
 - Fixed the old `?template=meal` alias to resolve to `master-cooked_meal`. Template navigation now persists exact IDs instead of generic kinds.
 - Retained 17 canonical label types, 101 background designs, all existing cut-art assets, and the same 591×827 design / 576×827 print crop.
 - New defaults use **Heritage v13**: equal-size two-line category text, red band above black band; black-only food artwork against red/white background; separate food name, dual prominent units, compact storage+packaging line, optional red allergen line, dates bottom left and ID-only QR bottom right; no solid white-center mask.
-- Increased font sizes on critical fields; added measured text-overflow, tiny-type and QR-module print checks. Small dimensions still require on-paper approval.
+- Increased critical font sizes, changed Heritage v13 date display to compact `MM/DD/YY`, shortened redundant headings, and added measured text-overflow, tiny-type, human-readable ID and QR-module print checks. The 17 types also passed synthetic font-width stress tests with conservative factors 0.55, 0.65 and 0.74. Physical readability remains unverified.
 - Preserved legacy v12 layouts and their current geometries. Existing saved labels upgrade only by explicit **Upgrade this label to Heritage v13** action in Label data; all review gates reset upon upgrading.
 - Added focused mode: the default master workflow prioritizes label type and package fields, while a toggle reveals background, cut art, layers and advanced controls. Legacy templates keep advanced controls visible.
 - **Archived reprint fix:** Print setup validates the captured snapshot template and approvals, not the active editor. New snapshots include `printReview` metadata, saved record and SHA-256. Old/unapproved snapshots remain downloadable but are blocked from direct reprinting until reviewed and re-archived.
@@ -20,8 +20,8 @@
 
 ## Immutable source and compatibility
 
-- Main HTML: `label-studio-deploy/index-v13.html`, blob `b02ab0aa4cb382842275f761c3d7de8898519e60`.
-- 17-type master module: `label-studio-deploy/assets/master-label-v13.js`, blob `a124ca55152f1ab39b175e50d23baf1bb396ec47`.
+- Main HTML: `label-studio-deploy/index-v13.html`, blob `7e0982eed779b4343810bff397aedf5aaa6ea4d6`.
+- 17-type master module: `label-studio-deploy/assets/master-label-v13.js`, blob `8d737637e3129ebc0495a5614d2f5ba4b01b2ac1`.
 - Candidate food artwork: `heritage-art-v12.js` (17 preview assets), remains a candidate until reviewed.
 - Heritage background: `heritage-bg-101-v12.js`. Previous BG-001–BG-100, v9/v12 source files, older snapshots and browser-local files were not replaced.
 - The Railway function loads immutable GitHub blobs with checksum verification. Fails closed on source-integrity errors.
