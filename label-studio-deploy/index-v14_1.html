@@ -2131,6 +2131,31 @@ async function runRecoveryQA(){
  check('Every background has an image data URI',catalog.every(a=>Bg.validDataUri(a.dataUri)),catalog.filter(a=>!Bg.validDataUri(a.dataUri)).map(a=>a.id).slice(0,4).join(','));
  check('17 current masters retain canonical IDs',M.defs.every(def=>state.templates.some(t=>t.id==='master-'+def.id&&t.data?.['pkg.layoutStyle']==='heritage-v13')));
  check('No duplicate template IDs',new Set(state.templates.map(x=>x.id)).size===state.templates.length);
+
+ const bread=M.makeBlank(M.byId.get('dry_baking_mix'));
+ M.update(bread,'pkg.waterAddition','300 mL');
+ M.update(bread,'pkg.oilAddition','15 mL');
+ M.update(bread,'pkg.actionText','Mix and knead dough');
+ check('Dry-mix water and oil printed in two footer lines',
+   bread.data['pkg.printInstruction']==='ADD 300 ML WATER + 15 ML OIL\nMIX AND KNEAD DOUGH'&&
+   bread.elements.find(e=>e.name==='One validated instruction')?.text==='{{pkg.printInstruction}}');
+ const concentrate=M.makeBlank(M.byId.get('sauce_stock_concentrate'));
+ M.update(concentrate,'pkg.dilution','DILUTE 1:2');
+ M.update(concentrate,'pkg.actionText','Simmer until ready');
+ check('Concentrate dilution printed above use instruction',
+   concentrate.data['pkg.printInstruction']==='DILUTE 1:2\nSIMMER UNTIL READY');
+ const protein=M.makeBlank(M.byId.get('raw_plain'));
+ M.update(protein,'pkg.protein','Chicken');
+ M.update(protein,'pkg.cut','Breast');
+ M.update(protein,'pkg.food','Plain chicken');
+ M.update(protein,'pkg.attributes','Boneless skinless');
+ check('Raw protein header uses recorded species and cut details',
+   protein.data['pkg.heritageLine1']==='RAW CHICKEN'&&
+   protein.data['pkg.displayContents'].includes('BREAST')&&
+   protein.data['pkg.heritageLine2']==='BONELESS SKINLESS');
+ check('All new masters advertise v14.1 layout revision',M.defs.every(def=>
+   M.make(def).data['pkg.templateRevision']==='v14.1'));
+
  check('Every type generates a distinct blank package with no reused ID',M.defs.every(def=>{
    const doc=M.makeBlank(def);
    return doc.data?.['pkg.type']===def.id&&doc.data?.['pkg.recordRole']==='package'&&!doc.data?.['pkg.id']&&
@@ -2445,7 +2470,7 @@ window.NerdeusV13QA={run};
 })();
 
 </script>
-<script src="/assets/queue-v14.js"></script>
+<script src="/assets/queue-v14_1.js"></script>
 <script src="/assets/workflow-v14_1.js"></script>
 <script>
 
