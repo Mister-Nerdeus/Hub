@@ -625,7 +625,7 @@ function artworkSpeciesMismatch(doc,art){
   ?'Selected '+(asset.species||'artwork')+' illustration does not match the '+protein+' named in the package. Choose an accurate cut or an approved text-only label.':'';
 }
 
-function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive,createFresh}){
+function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,setActive,createFresh,createImported,isPackageIdUsed}){
  const safe=esc,d=doc.data,v=k=>String(d['pkg.'+k]??'');
  const inputs=[
  ['food','Product name','text'],['state','Preparation state','select',['RAW','COOKED','DRY','OPENED','PARTIALLY COOKED']],
@@ -644,27 +644,70 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
  ['location','Storage location · record only','text'],['batch','Batch ID · record only','text']
  ];
  const field=([key,label,typ,opts])=>{
-  let t;if(typ==='select')t='<select data-master-field="'+key+'"><option value="" '+(!v(key)?'selected':'')+' disabled>Select '+safe(label)+'…</option>'+opts.map(o=>'<option value="'+safe(o)+'" '+(o===v(key)?'selected':'')+'>'+safe(o)+'</option>').join('')+'</select>';
-  else if(typ==='textarea')t='<textarea rows="2" data-master-field="'+key+'">'+safe(v(key))+'</textarea>';
-  else t='<input data-master-field="'+key+'" value="'+safe(v(key))+'" type="text"/>';
-  return '<div class="field"><label>'+safe(label)+'</label>'+t+'</div>';
+  const id='masterField'+key;
+  let t;
+  if(typ==='select')
+   t='<select id="'+id+'" data-master-field="'+key+'"><option value="" '+(!v(key)?'selected':'')+' disabled>Select '+safe(label)+'…</option>'+opts.map(o=>'<option value="'+safe(o)+'" '+(o===v(key)?'selected':'')+'>'+safe(o)+'</option>').join('')+'</select>';
+  else if(typ==='textarea')t='<textarea id="'+id+'" rows="2" data-master-field="'+key+'">'+safe(v(key))+'</textarea>';
+  else t='<input id="'+id+'" data-master-field="'+key+'" value="'+safe(v(key))+'" type="text"/>';
+  return '<div class="field"><label for="'+id+'">'+safe(label)+'</label>'+t+'</div>';
  };
- const selector='<div class="field"><label>Master label type · 17 presets</label><select id="masterLabelType">'+families.map(f=>'<optgroup label="'+safe(f.name)+'">'+defs.filter(x=>x.familyId===f.id).map(x=>'<option value="'+safe(x.id)+'" '+(x.id===v('type')?'selected':'')+'>'+safe(x.label)+'</option>').join('')+'</optgroup>').join('')+'</select></div>';
- const eventRows=[1,2,3,4].map(n=>'<div class="master-event"><select data-master-event="'+n+'" data-which="Type"><option value="">No event</option>'+dateTypes.map(x=>'<option value="'+x+'" '+(x===v('date'+n+'Type')?'selected':'')+'>'+safe(dateNames[x])+'</option>').join('')+'</select><input type="date" data-master-event="'+n+'" data-which="Date" value="'+safe(v('date'+n))+'"/></div>').join('');
+ const fields=keys=>'<div class="master-field-grid">'+inputs.filter(([key])=>keys.includes(key)).map(field).join('')+'</div>';
+ const step=(title,body,open)=>'<details class="nls-master-step" '+(open?'open':'')+'><summary>'+title+'</summary><div class="nls-master-step-body">'+body+'</div></details>';
+ const selector='<div class="field"><label for="masterLabelType">Master label type · 17 presets</label><select id="masterLabelType">'+families.map(f=>'<optgroup label="'+safe(f.name)+'">'+defs.filter(x=>x.familyId===f.id).map(x=>'<option value="'+safe(x.id)+'" '+(x.id===v('type')?'selected':'')+'>'+safe(x.label)+'</option>').join('')+'</optgroup>').join('')+'</select></div>';
+ const eventRows=[1,2,3,4].map(n=>'<div class="master-event" role="group" aria-label="Event '+n+'">'+
+  '<label class="nls-sr-only" for="masterEventType'+n+'">Event '+n+' type</label>'+
+  '<select id="masterEventType'+n+'" data-master-event="'+n+'" data-which="Type"><option value="">No event</option>'+
+  dateTypes.map(x=>'<option value="'+x+'" '+(x===v('date'+n+'Type')?'selected':'')+'>'+safe(dateNames[x])+'</option>').join('')+'</select>'+
+  '<label class="nls-sr-only" for="masterEventDate'+n+'">Event '+n+' date</label>'+
+  '<input id="masterEventDate'+n+'" aria-label="Event '+n+' date" type="date" data-master-event="'+n+'" data-which="Date" value="'+safe(v('date'+n))+'"/></div>').join('');
  const chosen=doc.elements.find(x=>x.name==='Hero food illustration');
- const gallery='<section class="master-artwork-picker"><div class="field"><label>Food-only artwork · search the candidate library</label><input id="masterArtSearch" type="search" placeholder="Search cuts or species…" autocomplete="off"/></div><p id="masterArtHelp" class="form-tip"></p><div id="masterArtSuggestions" class="master-artwork-grid" role="group" aria-label="Recommended food illustrations"></div><div class="field"><label>Selected artwork</label><select id="masterArtwork"><option value="">No artwork — reviewed text-only</option></select></div><div id="masterArtPreview" class="master-artwork-review"></div></section>';
+ const gallery='<section class="master-artwork-picker"><div class="field"><label for="masterArtSearch">Food-only artwork · search the candidate library</label><input id="masterArtSearch" type="search" placeholder="Search cuts or species…" autocomplete="off"/></div><p id="masterArtHelp" class="form-tip"></p><div id="masterArtSuggestions" class="master-artwork-grid" role="group" aria-label="Recommended food illustrations"></div><div class="field"><label for="masterArtwork">Selected artwork</label><select id="masterArtwork"><option value="">No artwork — reviewed text-only</option></select></div><div id="masterArtPreview" class="master-artwork-review"></div></section>';
  const importWidget='<div class="master-artwork-review" style="margin:12px 0"><strong>Import a Nerdeus Meals package record</strong><p>Offline JSON import only. No backend sync. Existing artwork stays a candidate and all verification checks reset.</p><input type="file" id="masterPkgImport" accept=".json,application/json" aria-label="Import Nerdeus Meals package JSON"/><p id="masterPkgImportStatus" class="form-tip" role="status" aria-live="polite"></p></div>';
  const reviews=[['identityReviewed','Product identity and contents confirmed'],['quantityReviewed','Metric / imperial quantities verified'],['storageReviewed','Actual storage condition and container verified'],['datesReviewed','All printed events and quality/use-by date verified'],['allergensReviewed','Actual recipe ingredients and allergens reviewed'],['actionVerified','Handling and any safety-critical cooking directions verified'],['artworkReviewed','Selected food artwork approved; no cookware or unlisted items'],['textOnlyApproved','Allow a truthful text-only label when artwork is unavailable']];
- target.innerHTML='<div class="master-form"><h3>One master layout · current preset</h3><p class="form-tip">Values are illustrative until verified. Two equally sized header lines identify the category; the food name appears separately below the art.</p>'+selector+'<button type="button" id="masterNewPackage" class="btn btn-outline" style="width:100%;min-height:40px;margin:8px 0 14px">+ New blank package of this type</button><div class="master-field-grid">'+inputs.map(field).join('')+'</div>'+gallery+importWidget+
- '<div class="field"><label>Decorative edge artwork</label><select id="masterBotanical"><option value="BG-101">Heritage herb engraving · BG-101</option><option value="BG-013">Earlier approved engraving · BG-013</option><option value="legacy">Earlier simplified botanicals</option></select></div><p class="form-tip">The red botanical artwork is decorative only, not a depiction of ingredients.</p>'+
- '<div class="field"><label>Upload transparent black/white food PNG · 540 × 215 px</label><input id="masterArtUpload" type="file" accept="image/png"/></div><p class="form-tip">Uploaded art is a candidate until reviewed. No bowls, cookware or unrelated food unless physically packaged.</p><h4>DATED EVENTS (UP TO 4 PRINTED)</h4>'+eventRows+
- '<h4>REVIEW BEFORE PRINTING</h4><div class="master-review">'+reviews.map(([key,label])=>'<label><input type="checkbox" data-master-check="'+key+'" '+(v(key)==='1'?'checked':'')+' />'+safe(label)+'</label>').join('')+'</div><div class="master-gate" id="masterGate"></div><p class="form-tip">Printed QR contains the ID only. No automatic expiry, ingredient or temperature guesses. Legacy templates and historical print snapshots remain unchanged.</p></div>';
+ target.innerHTML='<div class="master-form">'+
+  '<h3>'+(v('recordRole')==='package'||doc.id.startsWith('package-')?'Package details':'Reusable '+safe(byId.get(v('type'))?.label||'label')+' example')+'</h3>'+
+  '<p class="form-tip">Enter actual food and package facts. Optional advanced artwork editing is separate; real information is never assumed from the example.</p>'+
+  selector+
+  '<button type="button" id="masterNewPackage" class="btn btn-outline" style="width:100%;min-height:44px;margin:8px 0 12px">+ Create new empty package</button>'+
+  '<div class="nls-mobile-label-preview"><canvas id="nlsDataThumb" width="591" height="827" role="img" aria-label="Live preview of label currently being edited"></canvas><div><strong>Live label preview</strong><p>Updates while you enter package details. Open Design for full-size artwork.</p></div></div>'+
+  '<div class="master-gate" id="masterGate" role="status" aria-live="polite"></div>'+
+  step('1. Identify the food',fields(['food','state','attributes','contents']),true)+
+  step('2. Quantity, container and storage',fields(['metric','imperial','portions','packaging','storage']),true)+
+  step('3. Date events',eventRows,false)+
+  step('4. Safety, allergens and package ID',fields(['id','allergens','actionText']),false)+
+  step('5. Review before printing','<div class="master-review">'+reviews.map(([key,label])=>'<label><input type="checkbox" data-master-check="'+key+'" '+(v(key)==='1'?'checked':'')+' />'+safe(label)+'</label>').join('')+'</div>',false)+
+  step('Advanced artwork and stored metadata',gallery+
+   '<div class="field"><label for="masterBotanical">Decorative edge artwork</label><select id="masterBotanical"><option value="BG-101">Heritage herb engraving · BG-101</option><option value="BG-013">Earlier engraving · BG-013</option><option value="legacy">Earlier simplified botanicals</option></select></div>'+
+   '<p class="form-tip">The red background is decoration only, not the actual packaged food.</p>'+
+   '<div class="field"><label for="masterArtUpload">Food-only black/white PNG · 540 × 215 px</label><input id="masterArtUpload" type="file" accept="image/png"/></div>'+
+   fields(['artStatus','headerIcon','halo','recipeRef','location','batch']),false)+
+  step('Import a package JSON record',importWidget,false)+
+  '<p class="form-tip">QR encodes the package ID only. Dates, allergens and cook/reheat instructions must be verified. No automatic expiry guesses.</p></div>';
  const stylePanel=document.createElement('div');stylePanel.className='master-artwork-review';stylePanel.style.marginBottom='14px';
  stylePanel.innerHTML='<strong>Heritage v13 · red/black two-level header</strong><p>17 editable types · 591 × 827 preview · 576 × 827 centered-crop printer raster · 3 exact colors. Food-only artwork is a candidate until reviewed.</p>'+(v('layoutStyle')==='heritage-v13'?'<p><strong>Heritage v13 layout active</strong> · changes to content and the independent background remain editable.</p>':'<button class="btn btn-outline" type="button" id="masterApplyHeritage" style="width:100%;min-height:42px">Upgrade this label to Heritage v13</button>');
  target.querySelector('.master-form').prepend(stylePanel);
+ const overridden=doc.elements.filter(e=>e.userGeometry).length;
+ if(overridden&&v('layoutStyle')==='heritage-v13'){
+   const reset=document.createElement('button');
+   reset.type='button';reset.className='btn btn-outline';reset.style.width='100%';
+   reset.textContent='Reset '+overridden+' adjusted element positions to master layout';
+   reset.onclick=()=>{
+    if(!window.confirm('Reset manually changed positions and sizes for this label? This does not change package data.'))return;
+    checkpoint();resetGeometry(doc);doc.data['pkg.artworkReviewed']='0';saveLocal();refresh();
+   };
+   stylePanel.appendChild(reset);
+ }
  const applyButton=stylePanel.querySelector('#masterApplyHeritage');if(applyButton)applyButton.onclick=()=>{checkpoint();d['pkg.layoutStyle']='heritage-v13';const deco=doc.elements.find(x=>x.name==='Artwork edge botanicals');if(deco&&deco.type==='background')deco.assetId='BG-101';addHeritageArtwork(doc);for(const key of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed','allergensReviewed','artworkReviewed','actionVerified'])d['pkg.'+key]='0';derived(doc);saveLocal();refresh();};
  const warnings=target.querySelector('#masterGate');
- function showWarnings(){derived(doc);const w=validate(doc);warnings.innerHTML='<strong>Print preflight · '+w.length+' item'+(w.length===1?'':'s')+' to resolve</strong>'+(w.length?'<ul>'+w.slice(0,13).map(x=>'<li>'+safe(x)+'</li>').join('')+'</ul>':'<p>Record checks passed; physically test printer alignment and QR scans.</p>');}
+ function showWarnings(){
+  derived(doc);const w=validate(doc);
+  warnings.innerHTML=w.length
+   ?'<strong>Draft · '+w.length+' checks still needed</strong><p class="form-tip">Complete food identity and package details first, then open Date events and Review. All remaining issues are available below.</p>'+
+     '<ul>'+w.slice(0,4).map(x=>'<li>'+safe(x)+'</li>').join('')+'</ul>'+
+     '<details><summary>Show all '+w.length+' checks</summary><ul>'+w.map(x=>'<li>'+safe(x)+'</li>').join('')+'</ul></details>'
+   :'<strong>Data review passed</strong><p>Verify the physical label and scanner before printing.</p>';
+ }
  const importInput=target.querySelector('#masterPkgImport');
  importInput.onchange=async ev=>{
   const f=ev.target.files?.[0];if(!f)return;
@@ -683,11 +726,9 @@ function panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,
    const ids=String(next['pkg.id']).trim();
    if(!/^[A-Z0-9][A-Z0-9-]{5,39}$/.test(ids)||/^(DEMO|SAMPLE|TEST|TEMP)-/i.test(ids))throw Error('Use a real package ID of 6–40 uppercase letters, numbers or hyphens.');
    if(P8.calculatePair(next['pkg.metric'],next['pkg.imperial']))throw Error('Metric and imperial net quantities disagree.');
-   checkpoint();Object.assign(d,next);
-   for(let i=1;i<=4;i++){d['pkg.date'+i+'Type']=record.events[i-1]?.type||'';d['pkg.date'+i]=record.events[i-1]?.date||'';}
-   for(const key of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed','allergensReviewed','artworkReviewed','textOnlyApproved','actionVerified'])d['pkg.'+key]='0';
-   d['pkg.artStatus']=doc.elements.some(e=>e.name==='Hero food illustration')?'candidate':'missing';
-   derived(doc);saveLocal();refresh();
+   if(isPackageIdUsed?.(ids))throw Error('Package ID '+ids+' is already in the browser workspace. Open the existing package instead of importing a duplicate.');
+   if(!createImported)throw Error('Import action unavailable. No data was modified.');
+   createImported(v('type'),next,record.events);
   }catch(err){status.textContent=String(err.message||err);}
   finally{ev.target.value='';}
  };
