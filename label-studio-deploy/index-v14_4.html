@@ -1253,10 +1253,10 @@ const art=$('#artCanvas'),overlay=$('#editOverlay'),view=$('#canvasFrame');
 const ctx=art.getContext('2d',{willReadFrequently:true}),ov=overlay.getContext('2d');
 let lastRaster=null,lastRasterDocId=null,toastTimer=null,thumbURLs=[];
 let restoreBlocked=false,saveWarningShown=false,saveEventTimer=null;
-let pendingWorkspaceTimer=null,pendingWorkspaceSave=false,lastSavedWorkspaceSerialized=null;
+let pendingWorkspaceTimer=null,pendingWorkspaceSave=false,lastSavedWorkspaceSerialized=null,externalWorkspaceChange=false;
 const storageMetrics={writes:0,skipped:0,deferred:0,failed:0,flushes:0};
 function scheduleWorkspaceSave(){
- if(restoreBlocked)return saveLocal();
+ if(restoreBlocked||externalWorkspaceChange)return saveLocal();
  pendingWorkspaceSave=true;storageMetrics.deferred++;
  const status=$('#saveStatus');
  if(status){status.textContent='Changes pending local save…';status.dataset.saveState='pending';}
@@ -1275,6 +1275,10 @@ const selected=()=>active()?.elements.find(e=>e.id===state.selectedId);
 function saveLocal(show=false){
  clearTimeout(pendingWorkspaceTimer);pendingWorkspaceTimer=null;pendingWorkspaceSave=false;
  const status=$('#saveStatus');
+ if(externalWorkspaceChange){
+  if(status){status.textContent='Workspace changed in another tab · export backup and reload';status.dataset.saveState='failed';}
+  return false;
+ }
  if(restoreBlocked){
   if(status){status.textContent='Saved workspace needs recovery · automatic overwrite blocked';status.dataset.saveState='failed';}
   if(show&&!saveWarningShown){toast('Restore issue: export a Workspace backup before editing further.','error');saveWarningShown=true;}
@@ -1904,7 +1908,7 @@ function isActualPackage(doc){return !!window.LabelMasterV9?.isMaster(doc)&&
   (doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));}
 async function packagePreflight(doc){
  const problems=[];
- if(restoreBlocked||$('#saveStatus')?.dataset.saveState==='failed')problems.push('Browser workspace is not safely saved; recover or export a backup before printing.');
+ if(restoreBlocked||externalWorkspaceChange||$('#saveStatus')?.dataset.saveState==='failed')problems.push('Browser workspace is not safely saved or changed in another tab. Export a backup and reload before printing.');
  if(!isActualPackage(doc))problems.push('Create an actual package from a label type. Reusable examples and imported designs are not printable.');
  else problems.push(...window.LabelMasterV9.validate(doc));
  if(workspaceIdConflicts(doc).length)problems.push('Package ID is duplicated by another saved document.');
@@ -2288,7 +2292,7 @@ window.NerdeusRecoveryQA={run:runRecoveryQA};
 /* Safe small frontend API for the guided package workflow. Keeps the full
    design editor and the same active document as the source of truth. */
 function createPackageV14(typeId){
- if(restoreBlocked)throw Error('Saved workspace needs recovery before creating a package. Export a backup first.');
+ if(restoreBlocked||externalWorkspaceChange)throw Error('Workspace needs recovery or changed in another tab. Export a backup and reload before creating a package.');
  const def=window.LabelMasterV9?.byId.get(typeId);if(!def)throw Error('Unknown package label type: '+typeId);
  checkpoint();
  const doc=window.LabelMasterV9.makeBlank(def);
@@ -2344,6 +2348,14 @@ async function assignBackgroundV14(id){
  await Bg.ensureDocument(doc);drawArtwork();return doc;
 }
 function setup(){loadLocal();loadCustomCategory();
+  window.addEventListener('storage',event=>{
+   if(event.key!==STORAGE_KEY||event.newValue===lastSavedWorkspaceSerialized||externalWorkspaceChange)return;
+   externalWorkspaceChange=true;
+   clearTimeout(pendingWorkspaceTimer);pendingWorkspaceTimer=null;pendingWorkspaceSave=false;
+   const status=$('#saveStatus');
+   if(status){status.textContent='Another tab updated labels · export backup and reload';status.dataset.saveState='failed';}
+   toast('Another Label Studio tab updated this workspace. Export a backup of your current changes, then reload to avoid overwriting that tab.','error');
+  });
   window.addEventListener('pagehide',()=>flushWorkspaceSave());
   document.addEventListener('visibilitychange',()=>{if(document.hidden)flushWorkspaceSave();});$('#btnArtTools').onclick=()=>{artToolsExpanded=!artToolsExpanded;try{localStorage.setItem('nerdeus-art-tools-v13',artToolsExpanded?'1':'0')}catch(_){}syncArtTools();};
   const masterDesign=window.LabelMasterV9;
@@ -2422,7 +2434,7 @@ function setup(){loadLocal();loadCustomCategory();
   // Establish the app handle before rendering; optional queue modules must never depend
   // on an inspector or art thumbnail drawing without errors.
   window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,packages:window.LabelPackages,applyBackground,applyBackgroundToDoc,activeBackgroundId,applyCut,importBackground,refreshIdentity:()=>{syncActiveIdentity();renderTemplates();},createPackage:createPackageV14,activateDocument:activateDocumentV14,editField:editPackageFieldV14,reviewField:reviewPackageFieldV14,assignFoodArt:assignPackageArtV14,assignBackground:assignBackgroundV14,refreshPreview:drawArtwork,saveLocal,scheduleSaveLocal:scheduleWorkspaceSave,flushSaveLocal:flushWorkspaceSave,
-  getStorageMetrics:()=>({...storageMetrics,pending:pendingWorkspaceSave}),refresh,createSnapshot,openPrinter:()=>showPrinterSetup(Core.render(active()),active().name,null),restoreBlocked:()=>restoreBlocked};
+  getStorageMetrics:()=>({...storageMetrics,pending:pendingWorkspaceSave,externalConflict:externalWorkspaceChange}),refresh,createSnapshot,openPrinter:()=>showPrinterSetup(Core.render(active()),active().name,null),restoreBlocked:()=>restoreBlocked};
   refresh();renderSnapshots();renderPrintAttemptsV141();
   $('#btnRefreshPrintAttempts').onclick=renderPrintAttemptsV141;
   // Release is informational, not a version-selection flag. Keep the address bar
