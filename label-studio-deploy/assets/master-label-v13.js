@@ -67,14 +67,14 @@ function isMaster(doc){return !!doc&&doc.nlsDesignVersion===9&&!!byId.get(doc.da
    Existing browser-saved master docs remain classic unless explicitly restyled.
    The new defaults remain editable: every label field is still its {{pkg.*}} binding. */
 const heritageTypes={
- raw_plain:['RAW','PLAIN • UNSEASONED'],raw_seasoned:['RAW','DRY-SEASONED • UNCOOKED'],
+ raw_plain:['RAW','PLAIN • UNSEASONED'],raw_seasoned:['RAW','DRY-SEASONED RAW'],
  raw_marinated:['RAW','MARINATED • UNCOOKED'],ingredient_single:['INGREDIENT','WHOLE • UNCOOKED'],
  ingredient_prepped:['PREPPED','DICED • UNCOOKED'],ingredient_combo:['PREPPED MIX','ONIONS • PEPPERS'],
  raw_meal_kit:['RAW MEAL KIT','READY TO COOK'],cooked_meal:['COOKED MEAL','COMPLETE • PORTIONED'],
  cooked_side:['COOKED SIDE','READY TO REHEAT'],cooked_component:['COOKED COMPONENT','READY TO USE'],
  leftovers:['LEFTOVERS','COOKED • REPACKED'],soup_stew:['SOUP / STEW','COOKED • PORTIONED'],
  sauce_stock_concentrate:['CONCENTRATE','SAUCE / STOCK'],dry_baking_mix:['DRY BREAD MIX','YEAST / MIX INCLUDED'],
- seasoning_dry_base:['DRY SEASONING','PACKET / MEAL BASE'],pantry_ingredient:['PANTRY INGREDIENT','DRY • SEALED'],
+ seasoning_dry_base:['DRY SEASONING','PACKET / MEAL BASE'],pantry_ingredient:['PANTRY ITEM','DRY • SEALED'],
  opened_ready_to_eat:['OPENED PRODUCT','READY TO EAT']
 };
 function setH(doc,name,values){let e=doc.elements.find(e=>e.name===name);if(e)Object.assign(e,values);return e;}
@@ -150,7 +150,7 @@ function applyHeritage(doc){
  if(def.id==='raw_plain'&&attrib)line2=attrib.slice(0,28);
  if(def.id==='ingredient_combo')line2='ONION + PEPPER MIX';
  if(def.id==='dry_baking_mix')line2='JUST ADD WATER + OIL';
- if(def.id==='cooked_meal')line2='COMPLETE • READY TO HEAT';
+ if(def.id==='cooked_meal')line2='READY TO REHEAT';
  const size=Math.min(37,Math.max(29,Math.floor(37-0.6*Math.max(0,Math.max(line1.length,line2.length)-17))));
  d['pkg.heritageLine1']=line1;
  d['pkg.heritageLine2']=line2;
@@ -190,11 +190,11 @@ function applyHeritage(doc){
  set('Recorded allergen bullets',{x:30,y:532,w:531,h:24,fontSize:21,align:'center',showWhen:'pkg.allergens',maxLines:1,format:'allergenBullets',autoFit:false});
  // QR is always on the lower right: same corner across all 17 types.
  set('QR: package ID',{x:400,y:556,w:150,h:150,color:'black',text:'{{pkg.id}}'});
- set('ID below QR',{x:399,y:708,w:151,h:24,fontSize:17,align:'center',maxLines:1,autoFit:true});
+ set('ID below QR',{x:365,y:708,w:195,h:24,fontSize:19,align:'center',maxLines:1,autoFit:true});
  for(let n=1;n<=4;n++){
   const y=555+(n-1)*39;
-  set('Event '+n+' name',{x:32,y,w:151,h:30,fontSize:21,align:'left',maxLines:1,autoFit:true});
-  set('Event '+n+' date',{x:182,y,w:198,h:30,fontSize:24,align:'right',maxLines:1,autoFit:true});
+  set('Event '+n+' name',{x:32,y,w:151,h:30,fontSize:22,align:'left',maxLines:1,autoFit:true});
+  set('Event '+n+' date',{x:182,y,w:198,h:30,fontSize:26,align:'right',maxLines:1,autoFit:true});
  }
  set('Black instruction footer',{x:0,y:739,w:591,h:88,fill:'black'});
  set('One validated instruction',{x:31,y:750,w:529,h:64,fontSize:29,align:'center',maxLines:2,autoFit:true});
@@ -206,8 +206,8 @@ function derived(doc){
  d['pkg.status']=status(d);
  d['pkg.displayContents']=descriptor(d);
  for(let n=1;n<=4;n++){
-   const type=d['pkg.date'+n+'Type']; const date=fmtDate(d['pkg.date'+n]);
-   d['pkg.date'+n+'Label']=type&&date?(dateNames[type]||type.toUpperCase()):'';
+   const type=d['pkg.date'+n+'Type']; const raw=d['pkg.date'+n]; const date=d['pkg.layoutStyle']==='heritage-v13'&&/^\d{4}-\d{2}-\d{2}$/.test(raw)?raw.slice(5,7)+'/'+raw.slice(8,10)+'/'+raw.slice(2,4):fmtDate(raw);
+   d['pkg.date'+n+'Label']=type&&date?(d['pkg.layoutStyle']==='heritage-v13'&&type==='best_quality_by'?'BEST BY':dateNames[type]||type.toUpperCase()):'';
    d['pkg.date'+n+'Display']=type&&date?date:'';
  }
  const hasContents=!!d['pkg.displayContents'];const allergens=!!String(d['pkg.allergens']||'').trim();
