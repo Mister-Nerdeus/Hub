@@ -1704,7 +1704,13 @@ function renderInspector(){const doc=active(),e=selected();$$('.tab').forEach(bt
     window.LabelPackages.panel({doc,target,esc,checkpoint,saveLocal,drawArtwork,renderInspector,refresh,
       setActive:id=>{const template=state.templates.find(t=>t.id===id&&window.LabelPackages.isPackage(t));
         if(!template)return toast('Package template unavailable.','error');
-        state.activeId=id;state.selectedId=null;state.tab='data';state.templateFamily='master';$('#templateFamily').value='master';saveLocal();refresh();},
+        state.activeId=id;state.selectedId=null;state.tab='data';state.templateFamily='master';$('#templateFamily').value='master';
+        const persisted=saveLocal();refresh();
+        const label=window.LabelMasterV9?.byId.get(template.data?.['pkg.type'])?.label||template.name;
+        showSelectionFeedback('Previewing '+label+'. Choose Create package to start an individual label.',!persisted);
+        toast('Selected '+label+' · preview updated.');
+        try{$('.panel-right')?.scrollIntoView({behavior:'smooth',block:'start'});}catch(_){}
+       },
       createFresh:typeId=>{
         try{createPackageV14(typeId);toast('Blank package created: enter actual facts, dates and review before printing.');}
         catch(e){toast(e?.message||String(e),'error');}
