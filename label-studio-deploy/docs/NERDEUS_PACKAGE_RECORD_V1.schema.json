@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Mister-Nerdeus/Hub/blob/main/label-studio-deploy/docs/NERDEUS_PACKAGE_RECORD_V1.schema.json",
+  "title": "Nerdeus Meals Package Record — Offline Import v1",
+  "description": "One package at a time. Imported fields populate an editable Nerdeus Meals label draft. Import never approves dates, allergens, artwork or instructions and does not connect a backend.",
+  "type": "object",
+  "required": [
+    "schema",
+    "type",
+    "id",
+    "food",
+    "metric",
+    "imperial",
+    "storage",
+    "packaging",
+    "events"
+  ],
+  "properties": {
+    "schema": {
+      "const": "nerdeus.meals.package.v1"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "raw_plain",
+        "raw_seasoned",
+        "raw_marinated",
+        "ingredient_single",
+        "ingredient_prepped",
+        "ingredient_combo",
+        "raw_meal_kit",
+        "cooked_meal",
+        "cooked_side",
+        "cooked_component",
+        "leftovers",
+        "soup_stew",
+        "sauce_stock_concentrate",
+        "dry_baking_mix",
+        "seasoning_dry_base",
+        "pantry_ingredient",
+        "opened_ready_to_eat"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z0-9][A-Z0-9-]{5,39}$",
+      "description": "Use at most 20 characters for legible printing in Heritage v13; QR stores exactly this ID, never a URL."
+    },
+    "food": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "metric": {
+      "type": "string",
+      "minLength": 1,
+      "examples": [
+        "700 g",
+        "250 mL"
+      ]
+    },
+    "imperial": {
+      "type": "string",
+      "minLength": 1,
+      "examples": [
+        "24.7 oz",
+        "8.5 US fl oz"
+      ]
+    },
+    "storage": {
+      "type": "string",
+      "enum": [
+        "FROZEN",
+        "REFRIGERATED",
+        "COOL & DRY",
+        "ROOM TEMPERATURE"
+      ]
+    },
+    "packaging": {
+      "type": "string",
+      "minLength": 1,
+      "examples": [
+        "VACUUM POUCH",
+        "RIGID CONTAINER",
+        "JAR"
+      ]
+    },
+    "portions": {
+      "type": "string",
+      "examples": [
+        "2 SERVINGS"
+      ]
+    },
+    "contents": {
+      "type": "string",
+      "description": "Actual packaged contents, not decorative art"
+    },
+    "attributes": {
+      "type": "string",
+      "description": "Cut attributes (bone-in, boneless, skin-on, etc.)"
+    },
+    "allergens": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "Do not infer absence from empty; must be reviewed after import"
+    },
+    "events": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "date"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "purchased",
+              "prepared",
+              "seasoned",
+              "assembled",
+              "marinated",
+              "packed",
+              "cooked",
+              "frozen",
+              "blended",
+              "opened",
+              "use_by",
+              "best_quality_by"
+            ]
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "actionText": {
+      "type": "string",
+      "description": "Human-reviewed cook/reheat/use instruction; imported text remains unapproved"
+    },
+    "recipeRef": {
+      "type": "string"
+    },
+    "location": {
+      "type": "string"
+    },
+    "batch": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}
