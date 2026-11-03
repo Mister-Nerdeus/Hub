@@ -1,0 +1,38 @@
+name: Nerdeus Label Studio v14.1 Browser Acceptance
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "label-studio-deploy/tests/v14_1_browser_acceptance.cjs"
+      - ".github/workflows/label-studio-v14_1-browser.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  guided-browser-acceptance:
+    name: Guided package wizard (fresh Chromium)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NLS_LABEL_STUDIO_URL: https://nerdeus-label-studio-production.up.railway.app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated Playwright browser
+        run: |
+          mkdir -p "$RUNNER_TEMP/nls-qa"
+          npm install --prefix "$RUNNER_TEMP/nls-qa" --no-audit --no-fund playwright@1.57.0
+          "$RUNNER_TEMP/nls-qa/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Exercise actual production workflow in disposable browser profile
+        run: node label-studio-deploy/tests/v14_1_browser_acceptance.cjs
+      - name: Upload browser results and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nls-v14_1-browser-acceptance
+          path: label-studio-deploy/tests/qa-artifacts
+          retention-days: 14
