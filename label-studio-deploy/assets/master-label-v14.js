@@ -294,7 +294,7 @@ function initialEventTypes(def){
 }
 function make(def){
  const d={
-  'pkg.layoutStyle':'heritage-v13','pkg.recordRole':'example','pkg.type':def.id,'pkg.food':def.food,'pkg.state':def.state,'pkg.attributes':def.id==='raw_plain'?'Boneless':'',
+  'pkg.layoutStyle':'heritage-v13','pkg.templateRevision':'v14','pkg.recordRole':'example','pkg.type':def.id,'pkg.food':def.food,'pkg.state':def.state,'pkg.attributes':def.id==='raw_plain'?'Boneless':'',
   'pkg.storage':def.storage,'pkg.contents':def.contents,'pkg.displayContents':'','pkg.status':'',
   'pkg.metric':def.metric,'pkg.imperial':def.imperial,'pkg.portions':'','pkg.packaging':'VACUUM POUCH',
   'pkg.id':'DEMO-'+def.id.toUpperCase().replace(/_/g,'-'),'pkg.allergens':'',
