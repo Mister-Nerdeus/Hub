@@ -233,6 +233,10 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
 .nls-mobile-label-preview p{font-size:11px;line-height:1.4;margin:4px 0}
 }
 </style>
+<style id="nls-v13-7-selected-background">
+.nls-selected-background{font-size:11px;font-weight:700;line-height:1.35;border:1px solid var(--line,#c9d0d6);background:rgba(110,128,147,.09);padding:8px 9px;border-radius:7px;margin:7px 0 10px}
+.nls-pattern-choice[aria-pressed="true"]{outline:2px solid #d62929;outline-offset:1px}
+</style>
 <style id="nls-boot-failsafe-css">
 .nls-boot-status{position:relative;z-index:1;padding:10px 23px;background:#f1f5f8;color:#24384c;font:600 13px/1.4 Arial,sans-serif;border-bottom:1px solid #d1dae3}
 .nls-boot-status[data-state="ready"]{background:#ecf5f1;color:#1f543e}
@@ -347,6 +351,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
             <select id="backgroundCategory" aria-label="Filter background categories"></select>
           </div>
           <div class="nls-theme-summary" id="backgroundThemeSummary" aria-live="polite">10 collections · 101 full-bleed designs; no center masks</div>
+          <div id="nlsSelectedBackground" class="nls-selected-background" role="status" aria-live="polite">Selected artwork: loading…</div>
           <div class="nls-library-grid" id="backgroundGrid" aria-label="Select red-and-white background pattern"></div>
           <div id="backgroundHoverPreview" class="nls-pattern-preview" role="tooltip" aria-hidden="true">
             <div class="nls-pattern-preview-header"><strong id="backgroundHoverName">Pattern preview</strong><span>Full-resolution artwork</span></div>
@@ -1430,13 +1435,18 @@ function renderBackgroundLibrary(){
   const search=state.bgSearch.trim().toLowerCase(),category=state.bgCategory;
   const all=availableBackgrounds(),shown=all.filter(item=>(category==='All'||category===item.category)&&(!search||(item.name+' '+item.id+' '+item.category).toLowerCase().includes(search)));
   const selectedPattern=selected()?.type==='background'?selected().assetId:active().elements.find(e=>e.type==='background')?.assetId;
+  const selectedAsset=all.find(a=>a.id===selectedPattern);
+  const selectedStatus=document.getElementById('nlsSelectedBackground');
+  if(selectedStatus)selectedStatus.textContent=selectedAsset
+   ?'Current background: '+selectedAsset.id+' · '+selectedAsset.name
+   :'No background selected. Choose one of the 101 designs below.';
   $('#backgroundCount').textContent=all.length;
   const themeNotes=Object.fromEntries(Bg.categories.filter(c=>c!=='All'&&c!=='My imports').map(c=>[c,'Approved red-and-white culinary engravings · source images']));
   const themeInfo=$('#backgroundThemeSummary');
   themeInfo.textContent=category==='All'
     ?`10 approved collections · ${all.length} exact-size PNGs · IDs preserved`
     :`${shown.length} designs · ${themeNotes[category]||'Your imported background collection'}`;
-  const choice=a=>`<button class="nls-pattern-choice ${selectedPattern===a.id?'is-selected':''}" type="button" data-pattern="${esc(a.id)}" aria-describedby="backgroundHoverPreview" aria-label="Apply background ${esc(a.id)} ${esc(a.name)} from ${esc(a.category)}"><img src="${a.dataUri}" alt="" loading="lazy" decoding="async"><span><b>${esc(a.id.replace('BG-',''))}</b> ${esc(a.name)}</span></button>`;
+  const choice=a=>`<button class="nls-pattern-choice ${selectedPattern===a.id?'is-selected':''}" type="button" data-pattern="${esc(a.id)}" aria-pressed="${selectedPattern===a.id?'true':'false'}" aria-describedby="backgroundHoverPreview" aria-label="Apply background ${esc(a.id)} ${esc(a.name)} from ${esc(a.category)}"><img src="${a.dataUri}" alt="" loading="lazy" decoding="async"><span><b>${esc(a.id.replace('BG-',''))}</b> ${esc(a.name)}</span></button>`;
   let gridHtml='';
   if(category==='All'&&!search){
     for(const group of Bg.categories.filter(t=>t!=='All')){
@@ -1829,6 +1839,16 @@ function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>
   // on an inspector or art thumbnail drawing without errors.
   window.__labelStudioTest={getState:()=>state,render:()=>Core.render(active()),getCurrent:active,dbAction,backgrounds:Bg,cuts:Cuts,packages:window.LabelPackages,applyBackground,applyCut,importBackground};
   refresh();renderSnapshots();
+  // Release is informational, not a version-selection flag. Keep the address bar
+  // accurate so older shared URLs cannot imply an old build is still running.
+  try{
+    const u=new URL(location.href);
+    if(u.searchParams.get('release')!=='v13.7'){
+      u.searchParams.set('release','v13.7');
+      history.replaceState(null,'',u);
+    }
+  }catch(e){console.warn('Could not update release label in URL',e);}
+
   const bootStatus=document.getElementById('nlsBootStatus');
   if(bootStatus){
     if(bootStatus.dataset.state!=='failed'){
