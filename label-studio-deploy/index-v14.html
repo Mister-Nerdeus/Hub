@@ -1817,6 +1817,7 @@ function isActualPackage(doc){return !!window.LabelMasterV9?.isMaster(doc)&&
   (doc.data?.['pkg.recordRole']==='package'||doc.id.startsWith('package-'));}
 async function packagePreflight(doc){
  const problems=[];
+ if(restoreBlocked||$('#saveStatus')?.dataset.saveState==='failed')problems.push('Browser workspace is not safely saved; recover or export a backup before printing.');
  if(!isActualPackage(doc))problems.push('Create an actual package from a label type. Reusable examples and imported designs are not printable.');
  else problems.push(...window.LabelMasterV9.validate(doc));
  if(workspaceIdConflicts(doc).length)problems.push('Package ID is duplicated by another saved document.');
@@ -2157,7 +2158,7 @@ function createPackageV14(typeId){
  state.templates.push(doc);state.activeId=doc.id;state.selectedId=null;state.tab='data';
  state.templateFamily='packages';state.templateSearch='';
  $('#templateFamily').value='packages';$('#templateSearch').value='';
- saveLocal();refresh();
+ if(!saveLocal())throw Error('New package is in memory but could not be saved. Export Workspace backup.');refresh();
  return doc;
 }
 function activateDocumentV14(id){
@@ -2176,7 +2177,7 @@ function editPackageFieldV14(key,value){
    throw Error('Unknown package field: '+key);
  window.LabelMasterV9.update(doc,'pkg.'+key,value);
  if(key==='food')doc.name='Package · '+(String(value||'').trim().slice(0,70)||'Untitled');
- saveLocal();drawArtwork();
+ if(!saveLocal())throw Error('Field changed in memory but browser could not save it. Export Workspace backup.');drawArtwork();
  if(['food','id'].includes(key))syncActiveIdentity();
  return doc;
 }
@@ -2186,20 +2187,20 @@ function reviewPackageFieldV14(key,checked){
   'actionVerified','artworkReviewed','textOnlyApproved'].includes(key))throw Error('Unknown review category.');
  doc.data['pkg.'+key]=checked?'1':'0';
  if(key==='artworkReviewed')doc.data['pkg.artStatus']=checked?'approved':'candidate';
- window.LabelMasterV9.derived(doc);saveLocal();drawArtwork();
+ window.LabelMasterV9.derived(doc);if(!saveLocal())throw Error('Review changed but browser could not save.');drawArtwork();
  return doc;
 }
 function assignPackageArtV14(id){
  const doc=active();if(!isActualPackage(doc))throw Error('Open a real package first.');
  window.LabelMasterV9.assignArt(doc,id||'');
- saveLocal();refresh();return doc;
+ if(!saveLocal())throw Error('Artwork changed but could not be saved.');refresh();return doc;
 }
 async function assignBackgroundV14(id){
  const doc=active();if(!isActualPackage(doc))throw Error('Open a real package first.');
  const asset=Bg.catalog.find(x=>x.id===id)||state.customBackgrounds.find(x=>x.id===id);
  if(!asset)throw Error('Background is unavailable.');
  applyBackgroundToDoc(doc,asset,false);
- saveLocal();refresh();
+ if(!saveLocal())throw Error('Background changed but could not be saved.');refresh();
  await Bg.ensureDocument(doc);drawArtwork();return doc;
 }
 function setup(){loadLocal();loadCustomCategory();$('#btnArtTools').onclick=()=>{artToolsExpanded=!artToolsExpanded;try{localStorage.setItem('nerdeus-art-tools-v13',artToolsExpanded?'1':'0')}catch(_){}syncArtTools();};
