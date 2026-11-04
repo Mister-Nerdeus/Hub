@@ -2726,5 +2726,16 @@ window.NerdeusV13QA={run};
 })();
 
 </script>
+<style id="nls-v167-mobile-navigation">
+/* Keep every app destination visible on phones without a horizontal scroll rail. */
+@media(max-width:720px){
+ .nls-site-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;overflow:visible;white-space:normal;padding:7px 8px}
+ .nls-site-nav a{min-width:0;padding:7px 3px;text-align:center;white-space:normal;line-height:1.2;font-size:11px}
+ .nls-workflow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;overflow:visible;white-space:normal;padding:8px 9px}
+ .nls-workflow-tab{min-width:0;justify-content:center;padding:8px 4px;font-size:11px}
+ .nls-workflow-tab strong{font-size:11px}
+ .nls-workflow-status{grid-column:1/-1;justify-content:center;margin:0}
+}
+</style>
 </body>
 </html>
