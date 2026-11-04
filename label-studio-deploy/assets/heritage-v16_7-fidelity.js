@@ -85,7 +85,7 @@ function update(doc){
  set(doc,'Reference red allergen rule',{x:23,y:allergens?552:525,w:545,h:2,fill:'red'});
  set(doc,'QR: package ID',{x:31,y:565+delta,w:126,h:126,text:'{{pkg.id}}',color:'black'});
  const caption=doc.elements.find(e=>e.name==='Reference QR caption');
- if(!caption)insert(doc,C.el('text','Reference QR caption', 'DETAILS',19,695,150,18,{color:'black',fontFamily:'Arial',fontSize:17,fontWeight:700,bold:true,align:'center',maxLines:1,showWhen:'pkg.id',locked:true}),'ID below QR');
+ if(!caption)insert(doc,C.el('text','Reference QR caption',19,695,150,18,{text:'DETAILS',color:'black',fontFamily:'Arial',fontSize:17,fontWeight:700,bold:true,align:'center',maxLines:1,showWhen:'pkg.id',locked:true}),'ID below QR');
  set(doc,'Reference QR caption',{x:19,y:696+delta,w:150,h:18,showWhen:'pkg.id'});
  set(doc,'ID below QR',{x:19,y:713+delta,w:150,h:20,fontSize:15,maxLines:1,autoFit:true,showWhen:'pkg.id'});
  for(let i=1;i<=4;i++){
@@ -160,6 +160,10 @@ Cuts.svgImage=function(doc,e){
  const cx=e.x+e.w/2,cy=e.y+e.h/2,clip='food-'+String(doc.id).replace(/[^a-z0-9]/gi,'').slice(0,24);
  return '<defs><clipPath id="'+clip+'"><rect x="'+e.x+'" y="'+e.y+'" width="'+e.w+'" height="'+e.h+'"/></clipPath></defs><g clip-path="url(#'+clip+')" transform="translate('+cx+' '+cy+') scale(1.24 1.15) translate('+-cx+' '+-cy+')">'+svg+'</g>';
 };
+// The prior v16.6 module wraps creation; promote only freshly-created documents.
+const inheritedMake=M.make,inheritedBlank=M.makeBlank;
+M.make=function(def){const doc=inheritedMake(def);if(doc?.data?.['pkg.recordRole']==='example'&&doc.data['pkg.layoutStyle']==='reference-v15'){doc.data['pkg.templateRevision']=REV;update(doc);}return doc;};
+M.makeBlank=function(def){const doc=inheritedBlank(def);if(doc?.data?.['pkg.recordRole']==='package'&&doc.data['pkg.layoutStyle']==='reference-v15'){doc.data['pkg.templateRevision']=REV;update(doc);}return doc;};
 for(const doc of M.defaults||[])if(doc?.data?.['pkg.templateRevision']===REV)update(doc);
 window.NerdeusHeritageV167={version:'16.7',revision:REV,apply:update,wrapTitle,fullDescriptor,kind,referenceOrder:['raw_plain','raw_seasoned','raw_marinated','raw_meal_kit','cooked_meal','cooked_side','ingredient_single','ingredient_prepped','ingredient_combo','sauce_stock_concentrate','dry_baking_mix','seasoning_dry_base']};
 })();
