@@ -1,0 +1,36 @@
+name: Nerdeus Label Studio — 17-label browser regression
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/nerdeus-label-proof.yml'
+      - 'label-studio-deploy/qa/proof-lab-playwright.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  proof:
+    name: Render and test production label studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Generate contact sheet and test all labels
+        run: node label-studio-deploy/qa/proof-lab-playwright.mjs
+      - name: Upload contact sheet, screenshot and results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nerdeus-heritage-17-label-regression
+          path: label-studio-deploy/qa/output/
+          retention-days: 14
+          if-no-files-found: warn
