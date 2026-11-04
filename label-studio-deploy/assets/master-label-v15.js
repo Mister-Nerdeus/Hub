@@ -496,6 +496,16 @@ function validate(doc){
    issues.push('Printed protein category must be 18 characters or shorter.');
  }
  if(v('layoutStyle')==='heritage-v13'&&v('allergens').length>39)issues.push('Allergen text is too long for one legible red line; shorten or move details to the package record.');
+ if(v('layoutStyle')==='reference-v15'){
+  if(v('allergens')&&!window.LabelReferenceV15?.allergenFits?.(doc))
+   issues.push('The complete allergen list cannot fit in the red pill row. Shorten only using truthful allergen names or choose another approved layout; do not omit allergens.');
+  if(String(d['pkg.referenceHeader']||v('food')).length>43)
+   issues.push('The product name is too long for the reference label header. Use a concise but complete product name.');
+  if(String(d['pkg.referenceStatus']||'').length>42)
+   issues.push('The preparation/storage status is too long for the one-line black status bar.');
+  if(String(d['pkg.referencePack']||'').length>48)
+   issues.push('The package/quantity description is too long for its printed line.');
+ }
  if(v('layoutStyle')==='heritage-v13'&&String(d['pkg.heritageState']||'').length>46)
    issues.push('Storage, packaging and portions are too long for one readable printed line. Use concise packaging terminology or keep additional details in the package record.');
  if(v('actionVerified')!=='1')issues.push('Confirm the handling/cook/reheat instructions against source data.');
