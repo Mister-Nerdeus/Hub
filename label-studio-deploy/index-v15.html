@@ -1755,7 +1755,7 @@ function propertyField(label,prop,value,type='text',options){let input='';if(typ
   else input=`<input type="${type}" data-prop="${prop}" value="${esc(value)}" ${type==='number'?'step="1"':''}>`;
   return `<div class="field"><label>${esc(label)}</label>${input}</div>`;}
 function colorPicker(prop,chosen,allowNone=false){const types=allowNone?['none','black','red','white']:['black','red','white'];return `<div class="color-choice">${types.map(c=>`<button data-colorprop="${prop}" data-color="${c}" class="${chosen===c?'active':''}"><i class="color-dot" style="background:${c==='none'?'linear-gradient(135deg,white 45%,red 47%,red 53%,white 55%)':c}"></i>${c.toUpperCase()}</button>`).join('')}</div>`;}
-function renderInspector(){const doc=active(),e=selected();$('.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===state.tab));
+function renderInspector(){const doc=active(),e=selected();$$('.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===state.tab));
   const modeStatus=$('#editorModeStatus');if(modeStatus){const modes={data:['data','Label data mode'],output:['output','Print output mode'],element:['design','Design mode']};const [mode,label]=modes[state.tab]||modes.element;modeStatus.dataset.mode=mode;modeStatus.setAttribute('aria-label',label);modeStatus.innerHTML='<i class="dot"></i> '+label;}
   $('#selectedSummary').textContent=state.tab==='element'?(e?`${e.type.toUpperCase()}  ·  ${e.name}`:'Choose a layer to edit its properties.'):state.tab==='data'?'Edit sample values used in your {{field}} bindings.':'Check exported pixels and printer geometry.';
   const target=$('#inspectorBody');
