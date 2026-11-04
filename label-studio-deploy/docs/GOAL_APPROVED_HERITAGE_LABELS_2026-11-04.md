@@ -34,3 +34,16 @@ Make **every one of the 17 Nerdeus food-storage label types** default to a consi
 
 ## Scope
 Nerdeus Meals front-end label design and packaging workflow. Backend requirements remain documented rather than invented.
+## 2026-11-04 implementation and audit update (v16.1)
+- Default master example and blank-package creation now use a distinct `pkg.templateRevision: v16.1`, while older saved real packages retain their original revision.
+- v16.1 applies a square-corner reference composition only to documents with that revision: larger red title, black state/footer, botanical BG-102, wider black food illustration, equal-unit weights, compact allergens, dates and QR.
+- An explicit UI action upgrades reusable saved master previews; real saved packages and immutable print snapshots are outside the action's scope.
+- Existing v15 masters in browser storage are separately archived during the default-template migration; the active master is replaced with v16.1, not overwritten without a preserved prior copy.
+- Railway deployed successfully; source modules (including reference style) loaded without reported errors after one source-anchor mismatch was corrected.
+- The connected browser tab was not freshly reloaded in the verification tools. No end-to-end browser workflow, rendered proof-sheet comparison, or physical NIIMBOT B1 Pro print has passed acceptance yet.
+
+### Next audit gates
+1. Reload the production designer; visually compare all 17 template previews to the 12-example reference sheet. Record per-type differences and review long-name/empty-allergen/4-date extremes.
+2. Run editor QA and actual first-run guided Create/Save/Snapshot and restore checks; fix failures before approval.
+3. Run hardware proof for red/black separation, QR scan, 576px head cropping and actual readable text sizes.
+4. Build genuinely native 591×945/50×80 layout only after printer profile validation; current larger export is explicitly a draft proof.
