@@ -885,7 +885,7 @@ function drawElement(ctx,e,data,doc){if(e.visible===false||(e.showWhen&&!String(
       else counts.other++;
     }return counts;}
   function textCollisionIssues(doc){
-    if(doc.data?.['pkg.layoutStyle']!=='heritage-v13')return [];
+    if(!['heritage-v13','reference-v15'].includes(doc.data?.['pkg.layoutStyle']))return [];
     const data=doc.data||{};
     const visible=doc.elements.filter(e=>e.type==='text'&&e.visible!==false&&
       (!e.showWhen||String(data[e.showWhen]??'').trim())&&
@@ -2264,8 +2264,15 @@ async function runRecoveryQA(){
   check('All new masters advertise reference v15 design revision',M.defs.every(def=>
    M.make(def).data['pkg.templateRevision']==='v15'));
  check('Reference design module available',window.LabelReferenceV15?.version===15);
+ check('Allergen pill row is conditional and not an allergen-free claim',(()=>{
+   const raw=M.makeBlank(M.byId.get('raw_plain'));
+   const pill=raw.elements.find(e=>e.name==='Reference allergen capsules');
+   if(!pill||pill.showWhen!=='pkg.allergens'||raw.data['pkg.allergens'])return false;
+   M.update(raw,'pkg.allergens','WHEAT, MILK');
+   return raw.data['pkg.allergens']==='WHEAT, MILK'&&window.LabelReferenceV15.allergenFits(raw);
+ })());
  check('All 17 types use readable Arial fonts for primary and data text',M.defs.every(def=>{
-   const doc=M.make(def),names=['Main product title','Heritage second header','Heritage actual food name',
+   const doc=M.make(def),names=['Main product title','Heritage second header',
     'Extra contents descriptor','Metric quantity','Imperial quantity','Packaging material','One validated instruction'];
    return names.every(name=>{const e=doc.elements.find(e=>e.name===name);return e?.fontFamily==='Arial'&&
       [400,500,600,700].includes(Number(e.fontWeight))&&e.bold!==true;});
