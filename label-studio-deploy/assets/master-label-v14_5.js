@@ -818,7 +818,11 @@ function panel({doc,target,esc,checkpoint,saveLocal,scheduleSaveLocal,flushSaveL
   step('Import a package JSON record',importWidget,false)+
   '<p class="form-tip">QR encodes the package ID only. Dates, allergens and cook/reheat instructions must be verified. No automatic expiry guesses.</p></div>';
  const stylePanel=document.createElement('div');stylePanel.className='master-artwork-review';stylePanel.style.marginBottom='14px';
- stylePanel.innerHTML='<strong>Heritage v14 · red/black two-level header</strong><p>17 editable types · 591 × 827 preview · 576 × 827 centered-crop printer raster · 3 exact colors. Food-only artwork is a candidate until reviewed.</p>'+(v('layoutStyle')==='heritage-v13'?'<p><strong>Heritage v14 layout active</strong> · changes to content and the independent background remain editable.</p>':'<button class="btn btn-outline" type="button" id="masterApplyHeritage" style="width:100%;min-height:42px">Upgrade this label to Heritage v14</button>');
+ stylePanel.innerHTML='<strong>Heritage v14.5 · readable two-level header</strong><p>17 editable types · 591 × 827 artwork · 576 × 827 centered print raster · exact white, red and black. Readable Arial weights; food imagery stays an unapproved candidate until reviewed.</p>'+
+ (v('layoutStyle')==='heritage-v13'
+  ?'<p><strong>Heritage design active</strong> · package details and background remain editable.</p>'+
+   (v('templateRevision')==='v14.5'?'':'<button class="btn btn-outline" type="button" id="masterApplyTypography" style="width:100%;min-height:44px">Apply readable v14.5 typography to this label</button>')
+  :'<button class="btn btn-outline" type="button" id="masterApplyHeritage" style="width:100%;min-height:42px">Upgrade to Heritage v14.5</button>');
  target.querySelector('.master-form').prepend(stylePanel);
  const overridden=doc.elements.filter(e=>e.userGeometry).length;
  if(overridden&&v('layoutStyle')==='heritage-v13'){
@@ -831,7 +835,16 @@ function panel({doc,target,esc,checkpoint,saveLocal,scheduleSaveLocal,flushSaveL
    };
    stylePanel.appendChild(reset);
  }
- const applyButton=stylePanel.querySelector('#masterApplyHeritage');if(applyButton)applyButton.onclick=()=>{checkpoint();d['pkg.layoutStyle']='heritage-v13';const deco=doc.elements.find(x=>x.name==='Artwork edge botanicals');if(deco&&deco.type==='background')deco.assetId='BG-101';addHeritageArtwork(doc);for(const key of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed','allergensReviewed','artworkReviewed','actionVerified'])d['pkg.'+key]='0';derived(doc);saveLocal();refresh();};
+ const typeFix=stylePanel.querySelector('#masterApplyTypography');
+ if(typeFix)typeFix.onclick=()=>{
+  checkpoint();
+  d['pkg.templateRevision']='v14.5';
+  // Retain recorded food/quantity/dates and manually adjusted geometry.
+  // A changed print composition requires a fresh visual approval.
+  d['pkg.artworkReviewed']='0';d['pkg.textOnlyApproved']='0';
+  derived(doc);saveLocal();refresh();
+ };
+ const applyButton=stylePanel.querySelector('#masterApplyHeritage');if(applyButton)applyButton.onclick=()=>{checkpoint();d['pkg.layoutStyle']='heritage-v13';d['pkg.templateRevision']='v14.5';const deco=doc.elements.find(x=>x.name==='Artwork edge botanicals');if(deco&&deco.type==='background')deco.assetId='BG-101';addHeritageArtwork(doc);for(const key of ['identityReviewed','quantityReviewed','storageReviewed','datesReviewed','allergensReviewed','artworkReviewed','actionVerified'])d['pkg.'+key]='0';derived(doc);saveLocal();refresh();};
  const warnings=target.querySelector('#masterGate');
  function showWarnings(){
   derived(doc);const w=validate(doc);
