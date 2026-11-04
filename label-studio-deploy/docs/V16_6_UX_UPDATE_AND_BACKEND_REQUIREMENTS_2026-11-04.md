@@ -13,7 +13,7 @@ The artwork-versus-printer comparison already supported native-pixel viewing, bu
 
 ## Front-end changes
 
-1. **Activate the current layout for new work.** New canonical examples and blank package drafts receive revision `v16.6` and the approved 591 × 827 reference geometry. Existing saved package records retain their stored revision and layout. Outdated canonical examples are kept under Legacy before the current examples replace them; print snapshots remain immutable.
+1. **Activate the current layout for new work.** New canonical examples and blank package drafts receive revision `v16.6` and the approved 591 × 827 reference geometry. Existing saved package records retain their stored revision and layout. Earlier canonical layouts are kept under Legacy. If that layout is already archived, an untouched seeded example is replaced in place; a customized example stays unchanged, avoiding another full copy in the browser workspace. Print snapshots remain immutable.
 2. **Make the active editor explicit.** The context chip follows Design, Label data, Print output, Snapshots, and Print setup. Selecting a sample type continues to open that type in Label data; the separate Create package action remains the only way to start a real package.
 3. **Expose pixel inspection.** A Pixel proof shortcut opens the artwork and 576 × 827 printer crop at one image pixel per screen pixel. Fit previews use smooth scaling for legibility. This is a screen inspection mode, not a physical-size or printer-acceptance claim; output geometry, raster bytes, color palette, and print behavior are unchanged.
 4. **Align the proof lab with the shipped layout.** The software-only proof lab creates temporary synthetic examples, covers all 17 canonical types, and checks 102 cases. It does not save, approve, archive, or print a package.
@@ -24,6 +24,7 @@ The artwork-versus-printer comparison already supported native-pixel viewing, bu
 - Previewing any of the 17 types updates the selected sample and keeps the editor in Label data. It does not create a package or change another package's fields.
 - Creating a package starts with blank identity, food, quantity, date, source-evidence, allergen, and reviewer values; it carries the current type and layout revision.
 - The mode chip always matches the selected editor/task.
+- Reloading an already-upgraded workspace reuses its saved prior-layout entries and does not create a second copy of each canonical example or exceed the existing browser storage budget.
 - Pixel proof compares the exact 591 × 827 artwork with the 576 × 827 crop; the native-pixel toggle does not resample either image.
 - The built-in proof lab reports 102/102 software checks for all 17 current type defaults. Physical printer acceptance remains unverified.
 - At 390 × 844, the chooser, editor mode, proof shortcut, and print comparison remain reachable without clipping or hidden controls.
