@@ -27,7 +27,7 @@ The artwork-versus-printer comparison already supported native-pixel viewing, bu
 - Reloading an already-upgraded workspace reuses its saved prior-layout entries and does not create a second copy of each canonical example or exceed the existing browser storage budget.
 - Pixel proof compares the exact 591 × 827 artwork with the 576 × 827 crop; the native-pixel toggle does not resample either image.
 - The built-in proof lab reports 102/102 software checks for all 17 current type defaults. Physical printer acceptance remains unverified.
-- At 390 × 844, all global navigation links and workflow actions remain reachable without horizontal overflow; the chooser, editor mode, proof shortcut, and print comparison are accessible.
+- At 1333 × 897 desktop and 390 × 844 phone, all global navigation links and workflow actions remain reachable without page-level horizontal overflow; the chooser, editor mode, proof shortcut, and print comparison are accessible.
 
 ## v16.7 follow-up audit — 2026-11-04
 
@@ -37,7 +37,7 @@ The live v16.7 release was audited after the first phone and print checks expose
 - Raised the shared package-ID caption below the QR from 15 px to 17 px. The print audit rule requires at least 16 px.
 - Replaced phone-only horizontal navigation rails with a visible three-column site menu and two-column workflow menu.
 
-Verification after the fixes: the live health endpoint returned `ok`; `/version` reported verified source; the 17-label software proof passed **102/102**; the Label data tab rendered as active; and the browser showed the existing workspace as locally saved after reload. The 390 × 844 layout is being checked against the explicit no-overflow acceptance criterion. Physical printing and hardware QR scanning remain unverified.
+Verification after the fixes: the live health endpoint returned `ok`; `/version` reported verified source; the 17-label software proof passed **102/102**; the Label data tab rendered as active; and page-level horizontal overflow was absent at 1333 × 897 desktop and 390 × 844 phone. All nine global destinations and four workflow actions fit at the phone width. Physical printing and hardware QR scanning remain unverified.
 
 The update remains browser-local. The backend contracts below are still future implementation requirements; this release does not add server storage or synchronization.
 
