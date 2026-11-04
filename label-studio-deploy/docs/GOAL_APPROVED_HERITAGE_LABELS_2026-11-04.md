@@ -83,3 +83,11 @@ Source-level regression replay of the actual label master, reference rules, and 
 Production version **v16.5** deployed successfully with verified assets; 26 assembled HTML script elements and both new external scripts passed syntax checks. This is **not** evidence of a physical print or complete browser-rendered 102-case QA pass.
 
 The optional GitHub Actions Playwright regression job did not initialize any runner steps. Its outcome cannot be used as a browser QA result. The embedded visual proof lab remains accessible at \`?view=proof&release=v16.5\` and generates the native 17-label sheet on page load. Actual browser interactions, 102-case runtime results, visually judging the contact sheet, and B1 Pro hardware testing remain outstanding.
+
+
+### v16.5.1 follow-up: guided creator status correction
+The page previously replaced only the **first** occurrence of the outdated v14.3 workflow check. That first occurrence was in an older QA assertion, leaving the actual startup fallback warning still comparing against v14.3. The deployed server now uses \`replaceAll\` so the fallback correctly recognizes the v14.4 guided workflow and does not report it as unavailable solely because of a version mismatch.
+
+The assembled 26 inline/external script elements passed JavaScript syntax checks; the v16.5.1 Railway Function deployment reports SUCCESS. The v16.5 geometry checker passed all 17 types for configured font minimums, botanical default, crop-safe QR and blank-package creation. These checks do not replace the actual 102-case browser run or a physical printer proof.
+
+The optional GitHub Playwright job failed before its runner executed any steps. Its workflow has been made manual-only until runner availability can be diagnosed. The browser-native proof tool is still available under \`?view=proof&release=v16.5.1\`.
