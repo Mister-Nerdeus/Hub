@@ -87,7 +87,7 @@ function update(doc){
  const caption=doc.elements.find(e=>e.name==='Reference QR caption');
  if(!caption)insert(doc,C.el('text','Reference QR caption',19,695,150,18,{text:'DETAILS',color:'black',fontFamily:'Arial',fontSize:17,fontWeight:700,bold:true,align:'center',maxLines:1,showWhen:'pkg.id',locked:true}),'ID below QR');
  set(doc,'Reference QR caption',{x:19,y:696+delta,w:150,h:18,showWhen:'pkg.id'});
- set(doc,'ID below QR',{x:19,y:713+delta,w:150,h:20,fontSize:15,maxLines:1,autoFit:true,showWhen:'pkg.id'});
+ set(doc,'ID below QR',{x:19,y:713+delta,w:150,h:20,fontSize:17,maxLines:1,autoFit:true,showWhen:'pkg.id'});
  for(let i=1;i<=4;i++){
   const y=557+(i-1)*41+delta;
   set(doc,'Reference event icon '+i,{x:182,y:y+2,w:30,h:27});
