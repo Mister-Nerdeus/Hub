@@ -63,3 +63,23 @@ A separate, immutable-source-verified visual proof module was added:
 - The 50 × 80 mm output remains a separate draft proof, not a validated physical print profile.
 
 Next acceptance action: load the production proof panel, click Generate 17 labels and Run 102 checks, inspect the PNG at actual pixel size, repair reported layout issues, then physically validate a real print before acceptance.
+
+## 2026-11-04 — v16.5 measured visual proportions and acceptance
+
+The approved 12-up reference graphic was measured against the 50×70 mm, 591×827 px target. Its first label is approximately 390 image pixels high, of which the solid red title area occupies 69 pixels (about 146 target pixels), the black state band 17 pixels (about 36 target pixels), and the black footer 40 pixels (about 85 target pixels).
+
+A new source module \`assets/heritage-v16_5.js\` applies only to new \`pkg.templateRevision=v16.5\` documents:
+- Header: 575×145 px at (8,3); a larger circle icon and a two-line product title.
+- Black state bar: 573×36 at (9,148), minimum 26 px text.
+- BG-102 botanicals: 573×222 at (9,184), black food illustration centered in the white field.
+- Balanced metric and imperial values: 43 px nominal type.
+- Packaging: 20 px; dates: 23 px.
+- QR remains package-ID-only and within the 576 px crop-safe print width.
+- Footer: 573×86 at (9,736), displaying recorded food-use guidance or a recorded quality/use-by date for appropriate pantry and ingredient types.
+- Previous v16.1 and earlier saved real packages are not automatically restyled. Preexisting print snapshots remain untouched.
+
+Source-level regression replay of the actual label master, reference rules, and v16.5 overlay, without saving anything, returned **17/17 passing** for geometry, minimum configured font sizes, BG-102 selection, QR binding and crop positioning, footer binding, and independent blank-package initialization.
+
+Production version **v16.5** deployed successfully with verified assets; 26 assembled HTML script elements and both new external scripts passed syntax checks. This is **not** evidence of a physical print or complete browser-rendered 102-case QA pass.
+
+The optional GitHub Actions Playwright regression job did not initialize any runner steps. Its outcome cannot be used as a browser QA result. The embedded visual proof lab remains accessible at \`?view=proof&release=v16.5\` and generates the native 17-label sheet on page load. Actual browser interactions, 102-case runtime results, visually judging the contact sheet, and B1 Pro hardware testing remain outstanding.
