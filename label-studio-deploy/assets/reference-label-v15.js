@@ -242,8 +242,57 @@ function drawFooter(ctx,e,doc){
  }
  ctx.restore();
 }
+/* Engraved-style circular header icons, built only with white pixels on red.
+   Species is read from confirmed package title/protein, never used as a food fact. */
+function drawHeaderIcon(ctx,e,doc){
+ const values=doc.data||{},type=String(values['pkg.type']||'');
+ const title=[values['pkg.protein'],values['pkg.food']].join(' ').toUpperCase();
+ const cx=e.x+e.w/2,cy=e.y+e.h/2,scale=Math.min(e.w,e.h)/103;
+ ctx.save();ctx.translate(cx,cy);ctx.scale(scale,scale);
+ ctx.strokeStyle='#ffffff';ctx.fillStyle='#ffffff';ctx.lineCap='round';ctx.lineJoin='round';
+ ctx.lineWidth=3.1;ctx.beginPath();ctx.arc(0,0,47,0,Math.PI*2);ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,41,0,Math.PI*2);ctx.stroke();
+ if(['raw_plain','raw_seasoned','raw_marinated'].includes(type)){
+  if(/PORK|PIG|HAM|BACON/.test(title)){
+   ctx.beginPath();ctx.ellipse(1,0,29,18,0,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.moveTo(-16,-13);ctx.lineTo(-18,-27);ctx.lineTo(-4,-17);ctx.closePath();ctx.fill();
+   ctx.beginPath();ctx.ellipse(31,5,10,7,0,0,Math.PI*2);ctx.fill();
+   ctx.fillRect(-18,12,6,15);ctx.fillRect(11,12,6,15);
+   ctx.beginPath();ctx.arc(-29,-1,7,-Math.PI/2,Math.PI/2,false);ctx.stroke();
+  }else if(/CHICKEN|TURKEY|DUCK/.test(title)){
+   ctx.beginPath();ctx.ellipse(-4,8,25,19,-.2,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.ellipse(17,-12,10,16,.4,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.arc(22,-22,9,0,Math.PI*2);ctx.fill();
+   ctx.beginPath();ctx.moveTo(31,-22);ctx.lineTo(42,-18);ctx.lineTo(32,-13);ctx.closePath();ctx.fill();
+   ctx.beginPath();ctx.ellipse(-11,7,14,8,-.35,0,Math.PI*2);ctx.stroke();
+   ctx.fillRect(-9,24,3,11);ctx.fillRect(8,23,3,12);
+   ctx.beginPath();ctx.moveTo(-29,3);ctx.lineTo(-38,-10);ctx.lineTo(-31,-17);ctx.lineTo(-23,-8);ctx.closePath();ctx.fill();
+  }else{
+   // Generic steak silhouette, avoiding a false claim about the specific animal.
+   ctx.beginPath();ctx.ellipse(-1,3,30,19,-.25,0,Math.PI*2);ctx.stroke();
+   ctx.lineWidth=5;ctx.beginPath();ctx.ellipse(-1,3,17,9,-.25,0,Math.PI*2);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(-24,-11);ctx.lineTo(-16,-27);ctx.stroke();
+  }
+ }else if(type==='dry_baking_mix'){
+  ctx.beginPath();ctx.roundRect(-27,-16,54,35,9);ctx.stroke();
+  for(const x of [-12,1,14]){ctx.beginPath();ctx.moveTo(x,-12);ctx.lineTo(x+6,3);ctx.stroke();}
+  ctx.beginPath();ctx.moveTo(-31,21);ctx.lineTo(31,21);ctx.stroke();
+ }else if(type==='ingredient_prepped'||type==='ingredient_single'||type==='ingredient_combo'){
+  ctx.beginPath();ctx.ellipse(0,7,22,25,0,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-12,-15);ctx.quadraticCurveTo(-23,-32,-5,-31);
+  ctx.quadraticCurveTo(-1,-29,1,-18);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(13,-27,14,6,-.4,0,Math.PI*2);ctx.fill();
+ }else{
+  ctx.beginPath();ctx.ellipse(0,5,28,10,0,0,Math.PI*2);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(-28,5);ctx.quadraticCurveTo(-25,28,0,28);
+  ctx.quadraticCurveTo(25,28,28,5);ctx.stroke();
+  for(const x of [-14,0,14]){ctx.beginPath();ctx.moveTo(x,-8);ctx.quadraticCurveTo(x-9,-18,x+5,-27);ctx.stroke();}
+ }
+ ctx.restore();
+}
 function drawMotif(ctx,e,doc){
- if(e.motif==='allergen-pills')drawBadges(ctx,e,doc);
+ if(e.motif==='icon')drawHeaderIcon(ctx,e,doc);
+ else if(e.motif==='allergen-pills')drawBadges(ctx,e,doc);
  else if(e.motif==='date-event')drawDate(ctx,e,doc);
  else if(e.motif==='footer-guidance')drawFooter(ctx,e,doc);
 }
