@@ -71,6 +71,7 @@ function promoteNewTemplate(doc){
  return update(doc);
 }
 const previousMake=M.make,previousMakeBlank=M.makeBlank;
+M.makeLegacyDefault=previousMake;
 M.make=def=>promoteNewTemplate(previousMake(def));
 M.makeBlank=def=>promoteNewTemplate(previousMakeBlank(def));
 for(const doc of M.defaults||[]){
