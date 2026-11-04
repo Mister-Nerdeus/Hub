@@ -288,7 +288,7 @@ function derived(doc){
  d['pkg.printInstruction']=printableInstruction(d);
  for(let n=1;n<=4;n++){
    const type=d['pkg.date'+n+'Type']; const raw=d['pkg.date'+n]; const date=d['pkg.layoutStyle']==='heritage-v13'&&/^\d{4}-\d{2}-\d{2}$/.test(raw)?raw.slice(5,7)+'/'+raw.slice(8,10)+'/'+raw.slice(2,4):fmtDate(raw);
-   d['pkg.date'+n+'Label']=type&&date?(d['pkg.layoutStyle']==='heritage-v13'&&type==='best_quality_by'?'BEST BY':dateNames[type]||type.toUpperCase()):'';
+   d['pkg.date'+n+'Label']=type&&date?(['heritage-v13','reference-v15'].includes(d['pkg.layoutStyle'])&&type==='best_quality_by'?'BEST BY':dateNames[type]||type.toUpperCase()):'';
    d['pkg.date'+n+'Display']=type&&date?date:'';
  }
  const hasContents=!!d['pkg.displayContents'];const allergens=!!String(d['pkg.allergens']||'').trim();
