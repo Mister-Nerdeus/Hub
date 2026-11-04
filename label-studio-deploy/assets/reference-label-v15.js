@@ -115,9 +115,9 @@ function apply(doc){
   set(doc,'Reference event icon '+n,{x:190,y:y+2,w:30,h:27,motif:'date-event',eventIndex:n,
    locked:true,visible:true,showWhen:'pkg.date'+n+'Display'});
   set(doc,'Event '+n+' name',{x:230,y,w:115,h:29,fontFamily:'Arial',fontWeight:700,
-   bold:false,fontSize:17,align:'left',maxLines:1,autoFit:true});
+   bold:false,fontSize:19,align:'left',maxLines:1,autoFit:true});
   set(doc,'Event '+n+' date',{x:345,y,w:215,h:29,fontFamily:'Arial',fontWeight:600,
-   bold:false,fontSize:17,align:'right',maxLines:1,autoFit:true});
+   bold:false,fontSize:19,align:'right',maxLines:1,autoFit:true});
   if(n<4){
    upsert(doc,rect('Reference date rule '+n,193,y+34,367,1,'red'),'Black instruction footer');
    set(doc,'Reference date rule '+n,{x:193,y:y+34,w:367,h:1,fill:'red',visible:true,locked:true});
