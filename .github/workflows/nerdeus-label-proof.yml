@@ -1,11 +1,6 @@
 name: Nerdeus Label Studio — 17-label browser regression
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/nerdeus-label-proof.yml'
-      - 'label-studio-deploy/qa/proof-lab-playwright.mjs'
 
 permissions:
   contents: read
