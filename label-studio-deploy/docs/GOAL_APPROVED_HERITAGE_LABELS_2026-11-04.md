@@ -47,3 +47,19 @@ Nerdeus Meals front-end label design and packaging workflow. Backend requirement
 2. Run editor QA and actual first-run guided Create/Save/Snapshot and restore checks; fix failures before approval.
 3. Run hardware proof for red/black separation, QR scan, 576px head cropping and actual readable text sizes.
 4. Build genuinely native 591×945/50×80 layout only after printer profile validation; current larger export is explicitly a draft proof.
+
+## 2026-11-04 continuation — v16.4 proof lab
+A separate, immutable-source-verified visual proof module was added:
+- `label-studio-deploy/assets/proof-lab-v16_4.js`
+- Railway serves it at `/assets/proof-lab-v16_4.js` and injects it after the existing application scripts.
+- Access the integrated panel with `?view=proof&release=v16.4` or from the Label Studio page.
+- Generate 17 actual-renderer examples using temporary synthetic package IDs and example processing dates. Samples are marked not for food packaging.
+- Preview labels as native 591 × 827 canvases; download a 3-column full-resolution screen proof contact sheet without resampling individual label pixels.
+- Run 102 checks (17 types × 6 cases): default geometry/palette, oversized title, allergen overflow, four date rows, no art, oversized footer. Export JSON results.
+- No localStorage, snapshot, food-package or printer writes are performed by the proof lab.
+- Pinned source hash verification, assembled HTML inline JS syntax checks and the proof module's own JavaScript syntax check passed.
+- Railway reported SUCCESS for v16.4 with the proof lab source verified (13,262 bytes).
+- Actual browser interaction, QA pass/fail counts, subjective visual similarity to the approved sheet and physical red/black printing are **not** yet verified.
+- The 50 × 80 mm output remains a separate draft proof, not a validated physical print profile.
+
+Next acceptance action: load the production proof panel, click Generate 17 labels and Run 102 checks, inspect the PNG at actual pixel size, repair reported layout issues, then physically validate a real print before acceptance.
