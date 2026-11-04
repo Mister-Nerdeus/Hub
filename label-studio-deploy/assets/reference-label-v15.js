@@ -76,7 +76,7 @@ function apply(doc){
  set(doc,'Nonredundant state attributes',{visible:false});
  set(doc,'Artwork edge botanicals',{x:7,y:165,w:577,h:215,locked:true,visible:true});
  const deco=doc.elements.find(e=>e.name==='Artwork edge botanicals');
- if(deco?.assetId==='BG-013')deco.assetId='BG-101';
+ if(deco?.assetId==='BG-013'&&!d['pkg.ornament']){deco.assetId='BG-101';d['pkg.ornament']='BG-101';}
  set(doc,'Central white dither knockout',{x:7,y:165,w:577,h:215,visible:false});
  set(doc,'Hero food illustration',{x:78,y:180,w:436,h:184,locked:false,visible:true,
   haloPreset:String(d['pkg.halo']||'medium')});
