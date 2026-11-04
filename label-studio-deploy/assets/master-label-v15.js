@@ -611,7 +611,8 @@ Cuts.svgImage=function(doc,e){if(e.haloPreset&&isMaster(doc)){const c=compHero(e
  return oldCutSvg(doc,e);
 };
 function drawMotif(ctx,e,doc){
- if(['allergen-pills','footer-guidance','date-event'].includes(e.motif)&&window.LabelReferenceV15?.drawMotif){
+ if((['allergen-pills','footer-guidance','date-event'].includes(e.motif)||
+     (e.motif==='icon'&&doc?.data?.['pkg.layoutStyle']==='reference-v15'))&&window.LabelReferenceV15?.drawMotif){
   window.LabelReferenceV15.drawMotif(ctx,e,doc);return;
  }
  ctx.save();ctx.beginPath();ctx.rect(e.x,e.y,e.w,e.h);ctx.clip();
