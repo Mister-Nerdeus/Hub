@@ -91,3 +91,18 @@ The page previously replaced only the **first** occurrence of the outdated v14.3
 The assembled 26 inline/external script elements passed JavaScript syntax checks; the v16.5.1 Railway Function deployment reports SUCCESS. The v16.5 geometry checker passed all 17 types for configured font minimums, botanical default, crop-safe QR and blank-package creation. These checks do not replace the actual 102-case browser run or a physical printer proof.
 
 The optional GitHub Playwright job failed before its runner executed any steps. Its workflow has been made manual-only until runner availability can be diagnosed. The browser-native proof tool is still available under \`?view=proof&release=v16.5.1\`.
+
+
+## 2026-11-04 — v16.7 reference-fidelity release
+
+**Production:** Railway Function deployment SUCCESS. Four separately verified, pinned JavaScript assets:
+- \`assets/botanical-bg-103-v16_6.js\` — new *BG-103 Heritage Culinary Herb Corners*. Original, red/white only, 540×215, with intentionally drawn culinary herb leaves, rosemary sprigs and open food illustration field; retained BG-102 and all earlier backgrounds.
+- \`assets/heritage-v16_7-fidelity.js\` — version-specific layout and rendering rules: deliberate two-line Impact/condensed titles, exact header status from confirmed protein or package state, complete ingredient descriptors (no title-token removal), more prominent food image, explicit cattle/chicken/pig/broccoli/onion/pepper icon handling, optional allergen block and QR/date reflow, DETAILS caption, black footer.
+- \`assets/reference-fixtures-v16_7.js\` — twelve isolated **synthetic** comparison fixtures that match the approved sheet's subjects and quantities; sample allergens, temperatures and quality placeholders never enter real food package records. Broccoli florets and sliced peppers use separate demonstration black-only food engravings rather than an incorrect onion image.
+- \`assets/proof-lab-v16_7.js\` — contact sheet ordered as Frozen Raw Proteins / Meals & Cooked Sides / Prepped Vegetables / Stock & Dry Mixes, followed by five additional template types. Reuses the live renderer and retains 102 synthetic software checks and PNG/JSON export buttons.
+
+**Safety/preservation:** Previous saved package and snapshot revision IDs remain unaffected; \`M.make\` and \`M.makeBlank\` are promoted only when creating new v16.7 documents. No source-generated shelf life is applied to a real package. Printer raster remains 576×827 crop from the 591×827 artwork; 50×80 mm is still a draft, not print-approved.
+
+**Verification:** Live Railway deployment SUCCESS; four pinned assets verified by hash and marker; 30 script tags in the assembled HTML syntax-checked without errors. In a source-level JS replay with pinned master/reference/v16.5/v16.6/v16.7 modules, all **17/17** canonical template defaults and blank-package revisions passed checks for BG-103, QR caption, condensed title configuration, equal weights, and blank package data. Twelve reference fixtures produced the intended titles, descriptions, status bars and allergen flags, including Ribeye Steak, Garlic Herb Chicken, Teriyaki Pork Chops, Beef Lasagna, Broccoli Florets and Sliced Peppers.
+
+**Outstanding:** Actual live browser-rendered image comparison, interactive 102-check report and printed NIIMBOT B1 Pro registration/QR scan. The legacy food-art candidate library is still not visually certified: re-scaling helps but does not replace a genuine full set of detailed reference-quality food engravings. Do not claim pixel-for-pixel fidelity from configuration-only tests.
