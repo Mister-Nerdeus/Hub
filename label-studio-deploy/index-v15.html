@@ -2737,5 +2737,13 @@ window.NerdeusV13QA={run};
  .nls-workflow-status{grid-column:1/-1;justify-content:center;margin:0}
 }
 </style>
+<style id="nls-v167-desktop-toolbar">
+/* Let the editor action bar wrap before it widens the whole page. */
+@media(min-width:721px) and (max-width:1420px){
+ .nls-editor-toolbar{align-items:flex-start}
+ .nls-editor-toolbar .top-actions{min-width:0;flex:1 1 660px;max-width:calc(100% - 230px);flex-wrap:wrap;justify-content:flex-end;gap:5px}
+ .nls-editor-toolbar #nlsRecoveryQAStatus{max-width:180px;white-space:normal}
+}
+</style>
 </body>
 </html>
