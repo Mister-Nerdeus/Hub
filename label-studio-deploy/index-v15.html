@@ -1324,6 +1324,21 @@ function isCurrentHeritageMaster(doc){
  return doc?.data?.['pkg.layoutStyle']==='reference-v15'&&doc.data?.['pkg.templateRevision']==='v15'&&
    doc.elements?.some(e=>e.name==='Reference border');
 }
+function stableMasterJSON(value){
+ if(Array.isArray(value))return '['+value.map(stableMasterJSON).join(',')+']';
+ if(value&&typeof value==='object')return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+stableMasterJSON(value[k])).join(',')+'}';
+ return JSON.stringify(value);
+}
+function isPristineCanonicalSample(doc){
+ const oldMake=window.LabelMasterV9?.makeLegacyDefault;
+ const def=window.LabelMasterV9?.byId?.get(doc?.data?.['pkg.type']);
+ if(!oldMake||!def||doc?.data?.['pkg.recordRole']!=='example')return false;
+ try{
+  const baseline=oldMake(def);
+  return stableMasterJSON(doc.data)===stableMasterJSON(baseline.data)&&
+    stableMasterJSON(doc.elements)===stableMasterJSON(baseline.elements);
+ }catch(_){return false;}
+}
 function loadLocal(){try{
   const custom=JSON.parse(localStorage.getItem(CUSTOM_BACKGROUNDS_KEY)||'[]');
   if(Array.isArray(custom))state.customBackgrounds=custom.filter(x=>x&&Bg.validDataUri(x.dataUri)).slice(0,25);
@@ -1344,6 +1359,7 @@ function loadLocal(){try{
       const commitButton=$('#btnCommitRecovery');if(commitButton)commitButton.hidden=false;
       console.warn('Partial saved-workspace restore. Original bytes remain unchanged:',invalid);
     }
+    previousMasterLayoutsPreserved=docs.filter(doc=>doc.id.startsWith('previous-master-')).length;
     for(const doc of [...docs]){
       if(window.NerdeusLabelV6.modernById.has(doc.id)&&!window.NerdeusLabelV6.isModern(doc)){
         const updated=Core.clone(window.NerdeusLabelV6.modernById.get(doc.id));updated.id=doc.id+'-new-design';updated.name+=' · Updated design';
@@ -1355,7 +1371,17 @@ function loadLocal(){try{
     for(const fresh of canonical){
       const currentIndex=docs.findIndex(doc=>doc.id===fresh.id);
       if(currentIndex<0||isCurrentHeritageMaster(docs[currentIndex]))continue;
-      const old=docs[currentIndex],archived=Core.clone(old);
+      const old=docs[currentIndex];
+      const archivePrefix='previous-'+fresh.id+'-';
+      const priorArchiveExists=docs.some(doc=>doc.id.startsWith(archivePrefix)&&
+        doc.data?.['pkg.recordRole']==='legacy'&&doc.data?.['pkg.type']===fresh.data?.['pkg.type']);
+      if(priorArchiveExists){
+        // This type's earlier layout is already preserved. Replace only an untouched
+        // seeded example; keep a customized example in place to avoid data loss.
+        if(isPristineCanonicalSample(old))docs[currentIndex]=Core.clone(fresh);
+        continue;
+      }
+      const archived=Core.clone(old);
       const base=('previous-'+fresh.id+'-'+String(old.data?.['pkg.layoutStyle']||'v9')).replace(/[^a-zA-Z0-9_-]/g,'-').slice(0,80);
       let archivedId=base,n=2;
       while(docs.some(doc=>doc.id===archivedId))archivedId=base+'-'+n++;
