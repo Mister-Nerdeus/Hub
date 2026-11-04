@@ -94,7 +94,7 @@ Keep print attempts separate from snapshots. Record requested, connected, sent, 
 
 ### Workspace sync, backup, and recovery
 
-Store workspaces per authenticated user and support multiple unfinished drafts for one type or recipe. Sync uses revisions/ETags and surfaces conflicts; it must not implement last-write-wins over a stale browser. Offline edits remain locally recoverable and are synced explicitly after conflict resolution. Provide export/restore with schema version, checksums, provenance, and a pre-restore backup. Keep browser-local records readable until a verified migration completes.
+Store workspaces per authenticated user and support multiple unfinished drafts for one type or recipe. Sync uses revisions/ETags and surfaces conflicts; it must not implement last-write-wins over a stale browser. Offline edits remain locally recoverable and are synced explicitly after conflict resolution. Provide export/restore with schema version, checksums, provenance, and a pre-restore backup. Keep browser-local records readable until a verified migration completes. Surface approximate record and storage use before browser quota is reached, distinguish saved, pending, and failed states, and offer an export before migration or restore. Never prune prior layouts or unfinished drafts silently.
 
 ### Security, privacy, and operations
 
