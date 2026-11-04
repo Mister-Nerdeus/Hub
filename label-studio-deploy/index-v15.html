@@ -351,7 +351,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
     </header>
     <div class="context-line">
       <div class="breadcrumbs"><span>WORKSPACE</span><span class="crumb-chevron">/</span><strong>Packaging & labels</strong><span class="crumb-chevron">/</span><span id="currentTemplateBreadcrumb">Meal label</span></div>
-      <div class="context-status"><span class="status-chip"><i class="dot"></i> Design mode</span><span id="saveStatus">Browser-local prototype</span></div>
+      <div class="context-status"><span class="status-chip" id="editorModeStatus" data-mode="design"><i class="dot"></i> Design mode</span><span id="saveStatus">Browser-local prototype</span></div>
     </div>
     <section id="nlsV14Flow" hidden aria-label="Guided package labeling"></section>
     <main class="workspace" id="nlsWorkspace">
@@ -418,7 +418,7 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
       <section class="studio">
         <div class="studio-toolbar">
           <div class="studio-title"><div class="eyebrow">ARTBOARD / PIXEL EDITOR</div><h1 id="templateTitle">Prepared meal label</h1><p id="templateSubtitle">Edit the reusable label, then create a print-ready raster.</p></div>
-          <div class="studio-controls"><button id="btnToggleGuides" class="btn btn-light btn-small active">⌗ Safe area</button><button id="btnToggleDots" class="btn btn-light btn-small">▦ Dot view</button><span class="divider-v"></span><label class="zoom-label" for="zoom">Zoom</label><input id="zoom" type="range" min="40" max="120" step="10" value="60"/><span id="zoomPct" class="zoom-val">100%</span></div>
+          <div class="studio-controls"><button id="btnToggleGuides" class="btn btn-light btn-small active">⌗ Safe area</button><button id="btnToggleDots" class="btn btn-light btn-small">▦ Dot view</button><span class="divider-v"></span><label class="zoom-label" for="zoom">Zoom</label><input id="zoom" type="range" min="40" max="120" step="10" value="60"/><span id="zoomPct" class="zoom-val">60%</span><button id="btnPixelProof" class="btn btn-light btn-small" type="button" title="Compare artwork and the cropped printer raster at one image pixel per screen pixel">Pixel proof</button></div>
         </div>
         <div class="stage-outer"><div class="stage-column"><div class="axis-top"><span>591 px</span><div class="axis-ticks"></div><span class="axis-end">0 → 591</span></div><div class="artboard-wrap" id="artboardWrap"><div class="axis-left"><span>0</span><span>414</span><span>827</span></div><div id="canvasFrame" class="canvas-frame"><canvas id="artCanvas" width="591" height="827" aria-label="Label artwork"></canvas><canvas id="editOverlay" width="591" height="827" aria-label="Drag elements to edit their positions"></canvas></div></div><div class="stage-help"><span>Drag to move · Corner to resize · Arrow keys to nudge</span><span><i class="mini-square mini-black"></i> BLACK <i class="mini-square mini-red"></i> RED <i class="mini-square mini-white"></i> WHITE</span></div></div></div>
         <div class="bottom-strip"><div class="delivery-step"><span class="step-num">01</span><div><strong>Design</strong><span>Editable document</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">02</span><div><strong>Rasterize</strong><span>591 × 827 PNG</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">03</span><div><strong>Archive</strong><span>Immutable print pixels</span></div></div><span class="step-arrow">→</span><div class="delivery-step"><span class="step-num">04</span><div><strong>Encode</strong><span>576 × 827 printer raster</span></div></div></div>
@@ -1729,7 +1729,8 @@ function propertyField(label,prop,value,type='text',options){let input='';if(typ
   else input=`<input type="${type}" data-prop="${prop}" value="${esc(value)}" ${type==='number'?'step="1"':''}>`;
   return `<div class="field"><label>${esc(label)}</label>${input}</div>`;}
 function colorPicker(prop,chosen,allowNone=false){const types=allowNone?['none','black','red','white']:['black','red','white'];return `<div class="color-choice">${types.map(c=>`<button data-colorprop="${prop}" data-color="${c}" class="${chosen===c?'active':''}"><i class="color-dot" style="background:${c==='none'?'linear-gradient(135deg,white 45%,red 47%,red 53%,white 55%)':c}"></i>${c.toUpperCase()}</button>`).join('')}</div>`;}
-function renderInspector(){const doc=active(),e=selected();$$('.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===state.tab));
+function renderInspector(){const doc=active(),e=selected();$('.tab').forEach(btn=>btn.classList.toggle('active',btn.dataset.tab===state.tab));
+  const modeStatus=$('#editorModeStatus');if(modeStatus){const modes={data:['data','Label data mode'],output:['output','Print output mode'],element:['design','Design mode']};const [mode,label]=modes[state.tab]||modes.element;modeStatus.dataset.mode=mode;modeStatus.setAttribute('aria-label',label);modeStatus.innerHTML='<i class="dot"></i> '+label;}
   $('#selectedSummary').textContent=state.tab==='element'?(e?`${e.type.toUpperCase()}  ·  ${e.name}`:'Choose a layer to edit its properties.'):state.tab==='data'?'Edit sample values used in your {{field}} bindings.':'Check exported pixels and printer geometry.';
   const target=$('#inspectorBody');
   if(state.tab==='data'&&window.LabelPackages?.isPackage(doc)){
@@ -2063,9 +2064,9 @@ async function reprintSnapshot(id){const r=await getSnapshot(id);if(!r)return;
   const source=await blobToCanvas(r.blob);$('#modal').close();showPrinterSetup(source,`ARCHIVED • ${r.name}`,r.sha256,{kind:'archive',template:Core.clone(r.template),review:Core.clone(r.printReview),snapshot:r});
 }
 async function preview(){await Promise.all([Bg.ensureDocument(active()),Cuts.ensureDocument(active())]);const portrait=Core.render(active()),native=Core.makePrinterRaster(portrait);
-  openModal('EXACT OUTPUT','Compare artwork and printer raster',`<div class="preview-board"><div id="portraitBox"><p>Portrait PNG · 591 × 827</p></div><div id="hardwareBox"><p>Printer raster · 576 × 827, centered crop</p></div></div><div class="snapshot-detail">The printer raster discards exactly 7 left-edge and 8 right-edge pixel columns without resampling. Both images contain only exact white, black, and red pixels. Design selection handles and inset guides are not exported.</div>`,`<button class="btn btn-light" value="cancel">Close</button><button type="button" class="btn btn-outline" id="preview1to1">View 100% pixels</button><button type="button" class="btn btn-primary" id="previewDownload">↓ Export portrait PNG</button>`);
-  const mini=portrait.cloneNode(),mctx=mini.getContext('2d');mctx.drawImage(portrait,0,0);mini.style.width='200px';mini.style.height='280px';mini.style.imageRendering='pixelated';$('#portraitBox').prepend(mini);
-  const pp=native.cloneNode(),pctx=pp.getContext('2d');pctx.drawImage(native,0,0);pp.style.width='200px';pp.style.height='287px';pp.style.imageRendering='pixelated';$('#hardwareBox').prepend(pp);
+  openModal('EXACT OUTPUT','Compare artwork and printer raster',`<div class="preview-board"><div id="portraitBox"><p>Portrait PNG · 591 × 827</p></div><div id="hardwareBox"><p>Printer raster · 576 × 827, centered crop</p></div></div><div class="snapshot-detail">The printer raster discards exactly 7 left-edge and 8 right-edge pixel columns without resampling. Both images contain only exact white, black, and red pixels. Design selection handles and inset guides are not exported. At 100% each image pixel uses one screen pixel; this does not simulate physical label size or a printer result.</div>`,`<button class="btn btn-light" value="cancel">Close</button><button type="button" class="btn btn-outline" id="preview1to1">View 100% pixels</button><button type="button" class="btn btn-primary" id="previewDownload">↓ Export portrait PNG</button>`);
+  const mini=portrait.cloneNode(),mctx=mini.getContext('2d');mctx.drawImage(portrait,0,0);mini.style.width='200px';mini.style.height='280px';mini.style.imageRendering='auto';$('#portraitBox').prepend(mini);
+  const pp=native.cloneNode(),pctx=pp.getContext('2d');pctx.drawImage(native,0,0);pp.style.width='200px';pp.style.height='287px';pp.style.imageRendering='auto';$('#hardwareBox').prepend(pp);
   $('#previewDownload').onclick=downloadPNG;
   let pixelActual=false;
   $('#preview1to1').onclick=()=>{
@@ -2077,6 +2078,7 @@ async function preview(){await Promise.all([Bg.ensureDocument(active()),Cuts.ens
     }
     const board=$('#portraitBox')?.parentElement;
     if(board)board.style.overflowX='auto';
+    canvas.style.imageRendering=pixelActual?'pixelated':'auto';
     $('#preview1to1').textContent=pixelActual?'Fit both previews':'View 100% pixels';
   };
 }
@@ -2466,6 +2468,7 @@ function setup(){loadLocal();loadCustomCategory();
   $('#btnToggleGuides').onclick=()=>{state.guides=!state.guides;$('#btnToggleGuides').classList.toggle('active',state.guides);drawOverlay();};
   $('#btnToggleDots').onclick=()=>{state.dots=!state.dots;$('#btnToggleDots').classList.toggle('active',state.dots);document.body.classList.toggle('dot-view',state.dots);preview();};
   $('#zoom').oninput=updateZoom;
+  $('#btnPixelProof').onclick=async()=>{try{await preview();$('#preview1to1')?.click();}catch(error){toast('Pixel proof unavailable: '+(error?.message||String(error)),'error');}};
   $$('.tab').forEach(btn=>btn.onclick=()=>{state.tab=btn.dataset.tab;renderInspector();paintMobilePreview();});
   overlay.addEventListener('pointerdown',onPointerDown);overlay.addEventListener('pointermove',onPointerMove);overlay.addEventListener('pointerup',onPointerUp);overlay.addEventListener('pointercancel',onPointerUp);
   document.addEventListener('keydown',keyHandler);
@@ -2665,6 +2668,7 @@ window.NerdeusV13QA={run};
   function setView(view,shouldScroll=true){
     if(!views.includes(view))view='design';
     document.querySelectorAll('[data-nls-view]').forEach(b=>{const on=b.dataset.nlsView===view;b.classList.toggle('active',on);b.setAttribute('aria-current',on?'step':'false');});
+    const modeStatus=document.getElementById('editorModeStatus');if(modeStatus){const labels={design:'Design mode',data:'Label data mode',snapshots:'Snapshots mode',print:'Print setup'};modeStatus.dataset.mode=view;modeStatus.setAttribute('aria-label',labels[view]);modeStatus.innerHTML='<i class="dot"></i> '+labels[view];}
     if(view==='data'){document.querySelector('[data-tab="data"]')?.click();}
     if(view==='design'){document.querySelector('[data-tab="element"]')?.click();}
     if(view==='print'){document.getElementById('btnPrint')?.click();return;}
