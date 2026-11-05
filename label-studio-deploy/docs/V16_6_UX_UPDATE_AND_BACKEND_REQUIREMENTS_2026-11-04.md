@@ -28,6 +28,7 @@ The artwork-versus-printer comparison already supported native-pixel viewing, bu
 - Pixel proof compares the exact 591 × 827 artwork with the 576 × 827 crop; the native-pixel toggle does not resample either image.
 - The built-in proof lab reports 102/102 software checks for all 17 current type defaults. Physical printer acceptance remains unverified.
 - At 1333 × 897 desktop and 390 × 844 phone, all global navigation links and workflow actions remain reachable without page-level horizontal overflow; the chooser, editor mode, proof shortcut, and print comparison are accessible.
+- When previous layouts exist, the editor reports the browser-local saved-layout count and offers a direct review action. The action selects the existing previous/custom filter, clears search, announces that records are unchanged, and leaves backup/restore available. The combined result total is labeled separately from the previous-layout count.
 
 ## v16.7 follow-up audit — 2026-11-04
 
@@ -40,6 +41,17 @@ The live v16.7 release was audited after the first phone and print checks expose
 Verification after the fixes: the live health endpoint returned `ok`; `/version` reported verified source; the 17-label software proof passed **102/102**; the Label data tab rendered as active; and page-level horizontal overflow was absent at 1333 × 897 desktop and 390 × 844 phone. All nine global destinations and four workflow actions fit at the phone width. Physical printing and hardware QR scanning remain unverified.
 
 The update remains browser-local. The backend contracts below are still future implementation requirements; this release does not add server storage or synchronization.
+
+## v16.8 follow-up — 2026-11-05
+
+The live v16.8 release clarifies the older-layout inventory and adds a safe review path:
+
+- The startup status identifies the count as saved previous layouts in this browser, so a local archive count is not mistaken for a server-wide count.
+- When preserved previous layouts exist, “Review saved previous layouts (N)” opens the existing previous/custom filter, clears search, and moves to the results. Supporting text states that opening the list does not change saved layouts.
+- The filter result count includes both preserved previous layouts and custom designs. It is a combined list total, separate from the saved previous-layout count.
+- Reviewing the list is read-only. No record is migrated, edited, deleted, or saved by the shortcut. Workspace backup and restore controls remain available.
+
+The live editor showed the new button after reload, and the action opened the expected combined category. The service health route returned `ok`; `/version` reported v16.8 with the deployed page source verified. The count and records remain browser-local; this update does not add backend storage or synchronization.
 
 ## Later backend requirements (recorded for implementation)
 
@@ -95,6 +107,21 @@ Keep print attempts separate from snapshots. Record requested, connected, sent, 
 ### Workspace sync, backup, and recovery
 
 Store workspaces per authenticated user and support multiple unfinished drafts for one type or recipe. Sync uses revisions/ETags and surfaces conflicts; it must not implement last-write-wins over a stale browser. Offline edits remain locally recoverable and are synced explicitly after conflict resolution. Provide export/restore with schema version, checksums, provenance, and a pre-restore backup. Keep browser-local records readable until a verified migration completes. Surface approximate record and storage use before browser quota is reached, distinguish saved, pending, and failed states, and offer an export before migration or restore. Never prune prior layouts or unfinished drafts silently.
+
+### Legacy-layout inventory and review
+
+Treat preserved previous layouts and user-created custom designs as separate record classifications. Listing and filtering are read-only; opening a result must not mutate its source record. Keep stable IDs and provenance so an older layout is not counted twice after migration or sync.
+
+Suggested contracts:
+
+```http
+GET /api/v1/workspaces/{workspaceId}/layout-inventory
+GET /api/v1/workspaces/{workspaceId}/layouts?classification=previous-or-custom&cursor={cursor}
+```
+
+The inventory response should include `workspaceRevision`, `syncState`, and separate `previousLayoutCount`, `customDesignCount`, and `reviewableTotal` fields. The list response should return each item’s stable ID, classification, type ID when known, source/template revision, and provenance, plus a cursor and a total computed from the same workspace revision. Do not present the combined result count as the previous-layout count.
+
+While a device is offline or has pending edits, show the browser-local inventory and label its source clearly. After sync, use a revision-consistent server inventory; if another device changes the workspace during review, refresh the list and counts without overwriting local drafts. Preserve unknown legacy layouts for unresolved review rather than guessing a canonical type. Include the classification, IDs, and provenance in backup/restore, and never prune these records silently.
 
 ### Security, privacy, and operations
 
