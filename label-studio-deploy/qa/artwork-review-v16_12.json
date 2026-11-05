@@ -1,0 +1,96 @@
+{
+  "project": "Nerdeus Meals Label Studio",
+  "release": "16.12",
+  "date": "2026-11-05",
+  "source_archive": "Nerdeus_Resampled_Elements_540x215_128x128_300DPI.zip",
+  "review_scope": "image design and modeled final hero sizing, not printer/hardware certification",
+  "canvas_target": {
+    "width": 540,
+    "height": 215,
+    "ink": [
+      "#000000",
+      "transparent"
+    ],
+    "dpiMetadata": 300
+  },
+  "heroPlacement": {
+    "width": 482,
+    "height": 210,
+    "fit": "contain, then renderer scale 1.24x / 1.15y",
+    "measuredClipping": "zero black ink lost for all five"
+  },
+  "sampleLabelChecks": {
+    "passed": 102,
+    "total": 102,
+    "observedOn": "v16.11 original gallery; new reviewed mode not independently tested"
+  },
+  "counts": {
+    "designAccepted": 3,
+    "rejectedForRawKit": 1,
+    "categoryOnly": 1,
+    "hardwareApproved": 0
+  },
+  "records": [
+    {
+      "asset_id": "resampled_ribeye_v1611",
+      "food": "Ribeye steak",
+      "label_type": "raw_plain",
+      "decision": "design_accepted_print_pending",
+      "usage": "food_illustration",
+      "ink_pixels": 31731,
+      "hero_black_coverage_pct": 35.76,
+      "cropped_ink_loss_pct": 0,
+      "reason": "Clear steak cut silhouette and marbling; suitable for ribeye package designs; verify hardware texture"
+    },
+    {
+      "asset_id": "resampled_fajita_kit_v1611",
+      "food": "Chicken fajita kit",
+      "label_type": "raw_meal_kit",
+      "decision": "reject_for_raw_meal_kit",
+      "usage": "comparison_only",
+      "ink_pixels": 26446,
+      "hero_black_coverage_pct": 29.62,
+      "cropped_ink_loss_pct": 0,
+      "reason": "Appears plated/prepared; not a truthful or unambiguous depiction of a raw assembled chicken, peppers and onion kit"
+    },
+    {
+      "asset_id": "resampled_lasagna_v1611",
+      "food": "Lasagna",
+      "label_type": "cooked_meal",
+      "decision": "design_accepted_print_pending",
+      "usage": "food_illustration",
+      "ink_pixels": 23776,
+      "hero_black_coverage_pct": 26.76,
+      "cropped_ink_loss_pct": 0,
+      "reason": "Readable cooked lasagna layers and surface texture, suitable for cooked meal design"
+    },
+    {
+      "asset_id": "resampled_broccoli_v1611",
+      "food": "Broccoli florets",
+      "label_type": "ingredient_single",
+      "decision": "design_accepted_print_pending",
+      "usage": "food_illustration",
+      "ink_pixels": 30053,
+      "hero_black_coverage_pct": 33.72,
+      "cropped_ink_loss_pct": 0,
+      "reason": "Recognizable broccoli florets with adequate contrast; thermal dot filling still requires proof"
+    },
+    {
+      "asset_id": "resampled_stock_pot_v1611",
+      "food": "Stock pot",
+      "label_type": "sauce_stock_concentrate",
+      "decision": "category_only_print_pending",
+      "usage": "stock_soup_category_illustration",
+      "ink_pixels": 19845,
+      "hero_black_coverage_pct": 22.37,
+      "cropped_ink_loss_pct": 0,
+      "reason": "Identifies the cooking stock/soup category but does not evidence ingredients, temperature or product contents"
+    }
+  ],
+  "guards": {
+    "printApproved": false,
+    "artworkReviewedOnNewAttach": false,
+    "legacySnapshotsPreserved": true,
+    "requiresExplicitAttachment": true
+  }
+}
