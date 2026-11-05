@@ -125,3 +125,20 @@ The optional GitHub Playwright job failed before its runner executed any steps. 
 **Acceptance still open:** A new browser session must render all seventeen labels and finish the 102 runtime checks; inspect the resulting JSON and full-size PNG for visual fidelity; then physically verify at least one red/black NIIMBOT B1 Pro label and its QR scan. No claim of complete visual or physical print approval is justified yet.
 
 **Backend requirements (future work only):** Durable package records, unique package IDs, artwork approval/version links, immutable print snapshot storage, and physical print-job audit logs should eventually be managed by the main Nerdeus Meals service, not inferred from browser-local examples.
+
+
+## 2026-11-05 release correction — v16.8.1
+
+A concurrent update replaced the initial v16.8 Railway Function patch after its deploy. An independent live-source read exposed that the HTML still referenced \`proof-lab-v16_7.js\` and that the archive-restoration loop was still active. The release number alone was therefore **not** proof that the fixes were in production.
+
+The latest Railway Function source was re-read and the changes were rebased as **v16.8.1**. Before deployment, the exact assembled HTML was reconstructed and its 30 script elements passed syntax checks. Its script list contained \`/assets/proof-lab-v16_8.js\` and **did not** contain \`/assets/proof-lab-v16_7.js\` as the active proof entry. The assembled site also had:
+- \`for(const fresh of []){\` instead of the automatic saved-master archive/replacement loop, preventing further silent archive accumulation.
+- An archive-status message describing past layouts as retained, rather than falsely claiming an upgrade.
+- Text wrapping and auto-fit calculations using \`e.w/e.textScaleX\` when text is intentionally condensed.
+- The pinned \`proof-lab-v16_8.js\` runtime test runner configured to start its 102 checks automatically on the proof page.
+
+The v16.8.1 Railway deployment returned SUCCESS and read-back of the latest source matched the exact submitted code. The startup logs verified the new v16.8 proof asset (16,556 bytes) and the older pinned modules. Previously existing archived layouts are **not deleted** or deduplicated; prior browser observations reported about 170, which requires a careful backed-up audit before any deletion.
+
+**Still pending:** Refresh the browser proof page at \`?view=proof&release=v16.8.1\`; read the actual 102-case outcome; inspect the resulting full-size image; perform physical B1 Pro printing and QR scans. A successful deployment plus syntax checks does not establish any of those results.
+
+**Collaboration requirement:** Railway Function source updates overwrite the entire file and use last-write-wins. Future assistants should read the most recent source immediately before editing, avoid deploying stale copies, verify both deployment status and read-back source after writing, and retain a dated release handoff. Coordinated GitHub commits for new external modules are preferred.
