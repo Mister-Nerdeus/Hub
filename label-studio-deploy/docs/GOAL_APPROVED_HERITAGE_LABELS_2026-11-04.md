@@ -168,3 +168,18 @@ The full asset ZIP and the self-contained reference gallery module are saved in 
 The underlying v16.7 default label layout, BG-103 background, real food-package records and immutable print snapshots remain untouched. **Only review candidates** were added. The finished loaf is not approved as a dry-mix illustration; inferred white masks still require review. A native-size artwork selection and red/black B1 Pro print test are still pending.
 
 See `docs/RESAMPLED_ELEMENTS_300DPI_2026-11-05.md` for the complete asset provenance, validation and rollout requirements.
+
+
+## 2026-11-05 — v16.11 selectable artwork candidates
+
+Integrated five upscaled black/transparent food engravings into the existing Label Studio without changing the established production artwork defaults: ribeye, fajita kit, lasagna, broccoli, and stock pot. The finished loaf is still excluded from dry-mix artwork. The eight icon families remain in the v16.10 reference gallery.
+
+Added pinned `artwork-candidates-v16_11.js` (Git blob `5811df86378071513597608fa074f641962fedc8`) and `proof-lab-v16_11.js` (Git blob `5ecf04c4df4cba3fe88962f668331dec5aaad652`).
+- Proof mode `?view=proof&release=v16.11&art=resampled` temporarily substitutes only five matching food illustrations; `art=original` restores the prior examples.
+- The candidate gallery permits an explicit user-confirmed attachment to the currently selected compatible editable label; mismatched food/type selections are refused.
+- Candidate metadata records its original user-supplied source and SHA-256; selected art is marked `candidate` and `artworkReviewed=0`. The existing print-validation rules require separate review before approval. There are no silent package, archived-image or printer mutations.
+- Native art is 540×215 1-bit black and transparent and comes from `Nerdeus_Resampled_Elements_540x215_128x128_300DPI.zip`, already in the project's Reference Assets Library folder.
+
+**Verification:** Source-level replay confirmed all five temporary mappings, rejected an incorrect Lasagna-on-Ribeye assignment, and confirmed the candidate remains unapproved on explicit attachment. The assembled page had 33 syntax-valid script tags and correct dependency order. Railway reports v16.11 deployment success with both new Git-pinned sources verified in logs. The 102 live runtime checks and the physical B1 Pro print remain pending.
+
+See `docs/RESAMPLED_ARTWORK_INTEGRATION_V16_11.md` for the complete implementation contract and open acceptance tests.
