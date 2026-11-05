@@ -183,3 +183,22 @@ Added pinned `artwork-candidates-v16_11.js` (Git blob `5811df86378071513597608fa
 **Verification:** Source-level replay confirmed all five temporary mappings, rejected an incorrect Lasagna-on-Ribeye assignment, and confirmed the candidate remains unapproved on explicit attachment. The assembled page had 33 syntax-valid script tags and correct dependency order. Railway reports v16.11 deployment success with both new Git-pinned sources verified in logs. The 102 live runtime checks and the physical B1 Pro print remain pending.
 
 See `docs/RESAMPLED_ARTWORK_INTEGRATION_V16_11.md` for the complete implementation contract and open acceptance tests.
+
+
+## 2026-11-05 — v16.12 individual artwork decisions
+
+Completed an individual visual review at the current 482 × 210 px food-illustration area with source PNGs at 540 × 215 px, accounting for the active 1.24× by 1.15× engraving enlargement. The modeled transform loses **0% visible black ink** to clipping for all five candidates. This does not prove thermal print quality.
+
+- **Design accepted, hardware pending:** resampled ribeye, lasagna and broccoli. Their appearance supports the intended package types. Physical printer output still needs verification before they become production-approved artwork.
+- **Rejected for raw meal kit:** resampled fajita art resembles prepared/plated food rather than the raw chicken, pepper and onion kit. It remains accessible for demonstration-only comparison, but real label attachment is blocked.
+- **Category-only, hardware pending:** stock pot may identify a stock/soup category but cannot establish actual contents. It remains an explicitly selected candidate.
+
+Railway Label Studio **v16.12** contains a pinned visual-review module and updated 17-label proof gallery:
+- \`?view=proof&release=v16.12&art=reviewed\` uses the three visual passes plus one category-only subject and excludes the rejected fajita art.
+- \`?view=proof&release=v16.12&art=resampled\` shows all five candidates with explicit warnings for comparison.
+- \`?view=proof&release=v16.12&art=original\` shows the prior art.
+- Explicitly attached images are still \`candidate\`, with \`artworkReviewed=0\` and \`printApproved=false\`, and do not bypass package checks.
+
+Evidence: native-size comparison PNG and metrics archived in Library \`/Nerdeus Meals Workshop/Reference Assets/Nerdeus_Label_Artwork_Review_v16_12.zip\`. Machine-readable review: \`qa/artwork-review-v16_12.json\`; full specification: \`docs/ARTWORK_APPROVAL_REVIEW_V16_12.md\`.
+
+Verification completed: the original v16.11 17-label browser proof reported **102/102 automated software checks passing**, and the v16.12 reviewed candidate integration passed eight direct behavior checks and 33 assembled HTML script syntax checks. Railway production deployment SUCCESS with both new sources verified. A refreshed browser comparison of the v16.12 reviewed view and a real NIIMBOT B1 Pro proof remain outstanding. Do not promote hardware approval based on these software findings.
