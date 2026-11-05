@@ -158,3 +158,13 @@ Implemented **v16.9** in the existing Railway Label Studio:
 Verification: project GitHub module hash verified, 31 assembled page scripts syntax-checked, production Railway deployment succeeded and asset source verified in live logs. Not yet validated by browser interaction or NIIMBOT physical printing.
 
 Detailed asset audit and acceptance requirements: `docs/REFERENCE_ELEMENT_BREAKDOWN_AUDIT_2026-11-05.md`.
+
+
+## 2026-11-05 — v16.10 resampled reference art
+Six food illustrations and eight icon families from `Nerdeus_Red_Black_Element_Breakdown.zip` were resampled with independent Lanczos color/alpha masks and hard thresholding. The output contains **64 PNGs**, all verified at exact binary colors and target dimensions: **540 × 215 food** and **128 × 128 icons**, with 300 DPI metadata. Original aspect ratios are preserved. A source/nearest/Lanczos comparison sheet is included; enlargement cannot restore unknown engraving details.
+
+The full asset ZIP and the self-contained reference gallery module are saved in Library under `/Nerdeus Meals Workshop/Reference Assets/`. The pinned GitHub module `assets/reference-resampled-v16_10.js` was deployed to Label Studio as v16.10 and exposes the read-only smooth-versus-nearest gallery at `?view=proof&release=v16.10&elements=1&resampled=1`.
+
+The underlying v16.7 default label layout, BG-103 background, real food-package records and immutable print snapshots remain untouched. **Only review candidates** were added. The finished loaf is not approved as a dry-mix illustration; inferred white masks still require review. A native-size artwork selection and red/black B1 Pro print test are still pending.
+
+See `docs/RESAMPLED_ELEMENTS_300DPI_2026-11-05.md` for the complete asset provenance, validation and rollout requirements.
