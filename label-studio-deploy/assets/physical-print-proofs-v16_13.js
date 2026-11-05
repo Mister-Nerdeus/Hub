@@ -74,7 +74,11 @@ function init(){
   ctx.fillStyle='#000000';ctx.fillRect(9,736,573,86);
   ctx.fillStyle='#FFFFFF';ctx.textAlign='center';ctx.textBaseline='middle';
   ctx.font='bold 27px Arial,sans-serif';ctx.fillText('PRINT TEST ONLY',295,763);
-  ctx.font='bold 18px Arial,sans-serif';ctx.fillText('NOT FOR FOOD USE · VERIFY PRINT / QR',295,795);
+  ctx.font='bold 18px Arial,sans-serif';ctx.fillText('NOT FOR FOOD USE · VERIFY PRINT / QR',295,795,540);
+  // Canvas text is antialiased; hard-quantize just this test footer back to 1-bit B/W.
+  const footer=ctx.getImageData(9,736,573,86),px=footer.data;
+  for(let i=0;i<px.length;i+=4){const on=(px[i]+px[i+1]+px[i+2])/3>=128?255:0;px[i]=px[i+1]=px[i+2]=on;px[i+3]=255;}
+  ctx.putImageData(footer,9,736);
   const check=C.classify(canvas),raster=C.makePrinterRaster(canvas),printCheck=C.classify(raster);
   if(check.other||printCheck.other||raster.width!==576||raster.height!==827)throw Error('Noncanonical output or printer raster');
   return {canvas,raster,black:printCheck.black,red:printCheck.red};
