@@ -142,3 +142,19 @@ The v16.8.1 Railway deployment returned SUCCESS and read-back of the latest sour
 **Still pending:** Refresh the browser proof page at \`?view=proof&release=v16.8.1\`; read the actual 102-case outcome; inspect the resulting full-size image; perform physical B1 Pro printing and QR scans. A successful deployment plus syntax checks does not establish any of those results.
 
 **Collaboration requirement:** Railway Function source updates overwrite the entire file and use last-write-wins. Future assistants should read the most recent source immediately before editing, avoid deploying stale copies, verify both deployment status and read-back source after writing, and retain a dated release handoff. Coordinated GitHub commits for new external modules are preferred.
+
+
+## 2026-11-05 — v16.9 Red/Black Element Reference Library
+
+The uploaded `Nerdeus_Red_Black_Element_Breakdown.zip` was inspected (84 files, 80 PNGs, two JSON manifests, a README and extraction script). All 80 PNGs contain only exact white, red, black or binary transparent pixels. The underlying flattened promotional illustration contains sample facts that **must not** be printed as package values.
+
+Implemented **v16.9** in the existing Railway Label Studio:
+- Added `assets/reference-elements-v16_9.js` from the user's extracted imagery, pinned by Git blob hash and served at `/assets/reference-elements-v16_9.js`.
+- Added a collapsible, non-destructive *Reference elements from ZIP* gallery containing six food candidates and eight icon families; accessible with `?view=proof&release=v16.9&elements=1`.
+- The PNG sample clips are **review candidates**, not the approved default. Their small native dimensions and inferred white underlays still require print-size testing. The finished loaf illustration is explicitly rejected for a dry-mix package.
+- BG-103 culinary ornament and the v16.7 master layout remain unchanged. The gallery does not save labels, change inventory/package records, queue printer actions or alter archived snapshots.
+- Preserved the ZIP source and generated self-contained reference module in the user's Library under `/Nerdeus Meals Workshop/Reference Assets/`.
+
+Verification: project GitHub module hash verified, 31 assembled page scripts syntax-checked, production Railway deployment succeeded and asset source verified in live logs. Not yet validated by browser interaction or NIIMBOT physical printing.
+
+Detailed asset audit and acceptance requirements: `docs/REFERENCE_ELEMENT_BREAKDOWN_AUDIT_2026-11-05.md`.
