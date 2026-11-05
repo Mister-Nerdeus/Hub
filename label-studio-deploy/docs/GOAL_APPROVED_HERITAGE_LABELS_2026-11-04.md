@@ -106,3 +106,22 @@ The optional GitHub Playwright job failed before its runner executed any steps. 
 **Verification:** Live Railway deployment SUCCESS; four pinned assets verified by hash and marker; 30 script tags in the assembled HTML syntax-checked without errors. In a source-level JS replay with pinned master/reference/v16.5/v16.6/v16.7 modules, all **17/17** canonical template defaults and blank-package revisions passed checks for BG-103, QR caption, condensed title configuration, equal weights, and blank package data. Twelve reference fixtures produced the intended titles, descriptions, status bars and allergen flags, including Ribeye Steak, Garlic Herb Chicken, Teriyaki Pork Chops, Beef Lasagna, Broccoli Florets and Sliced Peppers.
 
 **Outstanding:** Actual live browser-rendered image comparison, interactive 102-check report and printed NIIMBOT B1 Pro registration/QR scan. The legacy food-art candidate library is still not visually certified: re-scaling helps but does not replace a genuine full set of detailed reference-quality food engravings. Do not claim pixel-for-pixel fidelity from configuration-only tests.
+
+
+## 2026-11-05 — v16.8 proof automation and workspace safety
+
+**Objective:** Continue refining visual fidelity without treating Railway deployment success as proof of a working browser or mutating past user labels.
+
+**Deployed:** The existing Railway Function is now v16.8. Verified pinned proof asset \`assets/proof-lab-v16_8.js\` (Git blob \`e7c3e0792f702716297f91b13c708f5e2ff2a86b\`) generates the 17 reference-aligned previews and starts the 102 runtime checks automatically when \`?view=proof&release=v16.8\` opens. These tests include original raster dimensions, true red/black/white planes, visible black food-engraving pixels, red botanical side-pixel coverage, QR module size, oversized names, allergens, date rows, absent art, and overflowing footer instructions. Failing checks must be reported rather than ignored; this has not yet been confirmed by a fresh browser run.
+
+**Workspace safety:** In the assembled page, the automatic canonical-master archive/replace loop is disabled on restore. Previously archived labels remain untouched; a browser previously reported **170 legacy layouts**, but this count alone does not establish that they are duplicates or expendable. The site now describes them as retained archives. It does not silently delete or consolidate the 170 records. Existing saved master previews are not automatically restyled; *new* blank packages and the temporary proof gallery use the verified latest v16.7 template revision.
+
+**Typography:** The canvas text measurement and line-breaking rules now account for the declared \`textScaleX\` factor rather than measuring the uncondensed text width. This reduces needless font shrinking on bold two-line headers and keeps other fonts unaffected when no textScaleX is declared.
+
+**Diagnostics:** \`/version\` now checks pinned source availability before reporting readiness; its deployed release is 16.8 and its effective heritage layout remains v16.7. The existing print profile (591×827 design, 576×827 cropped raster) and print snapshot behavior are unchanged.
+
+**Verification completed:** Railway production deployment SUCCESS, latest source equals deployed source, proof v16.8 pinned Git source verification logged, thirty assembled page scripts and v16.8 proof module passed syntax compilation, and non-destructive archive and typography patches were present in the assembled HTML.
+
+**Acceptance still open:** A new browser session must render all seventeen labels and finish the 102 runtime checks; inspect the resulting JSON and full-size PNG for visual fidelity; then physically verify at least one red/black NIIMBOT B1 Pro label and its QR scan. No claim of complete visual or physical print approval is justified yet.
+
+**Backend requirements (future work only):** Durable package records, unique package IDs, artwork approval/version links, immutable print snapshot storage, and physical print-job audit logs should eventually be managed by the main Nerdeus Meals service, not inferred from browser-local examples.
