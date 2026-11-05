@@ -107,7 +107,7 @@ function init(){
      // Actual printed-pixel coverage inside the hero and red botanical frame.
      const ink=c.getContext('2d',{willReadFrequently:true});
      const hero=lookup(sampleDoc,'Hero food illustration');
-     if(hero?.visible!==false){
+     if(hero&&hero.visible!==false){
        const h=ink.getImageData(Math.max(0,Math.round(hero.x)),Math.max(0,Math.round(hero.y)),Math.max(1,Math.round(hero.w)),Math.max(1,Math.round(hero.h))).data;
        let black=0;for(let j=0;j<h.length;j+=4)if(h[j]===0&&h[j+1]===0&&h[j+2]===0)black++;
        if(black<120)base.push('Food illustration has too little visible black engraving detail ('+black+' px)');
@@ -119,8 +119,9 @@ function init(){
        if(reds(left)<100||reds(right)<100)base.push('Botanical framing lacks visible red engraving on both sides');
      }
      // Ensure physical QR modules remain distinguishable in the cropped raster.
-     if(qr&&window.LabelQR){
-      const matrix=window.LabelQR.matrix(sampleDoc.data['pkg.id']),px=Math.floor(Math.min(qr.w,qr.h)/(matrix.n+8));
+     const qrCheck=lookup(sampleDoc,'QR: package ID');
+     if(qrCheck&&window.LabelQR){
+      const matrix=window.LabelQR.matrix(sampleDoc.data['pkg.id']),px=Math.floor(Math.min(qrCheck.w,qrCheck.h)/(matrix.n+8));
       if(px<3)base.push('QR modules below 3 printer pixels');
      }
      const qr=lookup(sampleDoc,'QR: package ID');
