@@ -1,0 +1,128 @@
+{
+  "schema": "nerdeus.label.artwork-physical-proof.v1",
+  "release": "v16.13",
+  "date": "2026-11-05",
+  "purpose": "Unapproved resampled artwork hardware trials without production print authorization",
+  "defaultLabelRevision": "v16.7",
+  "artworkCandidates": [
+    {
+      "type": "raw_plain",
+      "asset": "resampled_ribeye_v1611",
+      "visual": "design-accepted",
+      "hardware": "pending"
+    },
+    {
+      "type": "cooked_meal",
+      "asset": "resampled_lasagna_v1611",
+      "visual": "design-accepted",
+      "hardware": "pending"
+    },
+    {
+      "type": "ingredient_single",
+      "asset": "resampled_broccoli_v1611",
+      "visual": "design-accepted",
+      "hardware": "pending"
+    },
+    {
+      "type": "sauce_stock_concentrate",
+      "asset": "resampled_stock_pot_v1611",
+      "visual": "category-only",
+      "hardware": "pending"
+    },
+    {
+      "type": "raw_meal_kit",
+      "asset": "resampled_fajita_kit_v1611",
+      "visual": "rejected-for-raw-kit",
+      "hardware": "not-eligible"
+    }
+  ],
+  "printer": {
+    "model": "NIIMBOT B1 Pro",
+    "artworkPixels": [
+      591,
+      827
+    ],
+    "printerRasterPixels": [
+      576,
+      827
+    ],
+    "dpi": 300,
+    "colorPlanes": [
+      "#FFFFFF",
+      "#000000",
+      "#FF0000"
+    ],
+    "physicalVerification": "not_verified"
+  },
+  "productionGuard": {
+    "matcher": "visible Hero food illustration with resampled_ asset ID, pkg.artworkCandidateId, or user-zip-resample origin",
+    "newPrint": "blocked",
+    "archiveReprint": "blocked",
+    "dataApprovedSnapshot": "draft unless all validations pass",
+    "originalArtworks": "not affected",
+    "userReport": "never auto-approves"
+  },
+  "softwareChecks": {
+    "cases": [
+      {
+        "name": "Block candidate art on package preflight",
+        "outcome": "pass"
+      },
+      {
+        "name": "Block candidate art in archived reprint",
+        "outcome": "pass"
+      },
+      {
+        "name": "Block candidate origin metadata without standard ID",
+        "outcome": "pass"
+      },
+      {
+        "name": "Do not block previous approved non-candidate artwork",
+        "outcome": "pass"
+      },
+      {
+        "name": "Reject missing document safely",
+        "outcome": "pass"
+      },
+      {
+        "name": "Served HTML script syntax",
+        "outcome": "pass",
+        "scriptCount": 34
+      },
+      {
+        "name": "Pinned external JS verified in deployment logs",
+        "outcome": "pass"
+      },
+      {
+        "name": "Live browser button clicks for four proof downloads",
+        "outcome": "not-tested"
+      },
+      {
+        "name": "Real printer red/black registration",
+        "outcome": "not-tested"
+      }
+    ],
+    "productionDeployment": "SUCCESS",
+    "sourceReadback": "same as deployed",
+    "realPrintCertified": false
+  },
+  "printedObservationRequirements": [
+    "Correct 50 × 70 mm red/black thermal stock used",
+    "Black and red channels visibly registered",
+    "Fine black food engraving remains legible",
+    "No edge clipping after 7 px / 8 px design crop",
+    "QA sample package-ID QR code scans",
+    "Test proof clearly says NOT FOR FOOD USE"
+  ],
+  "backendFutureRequirements": [
+    "Proof identity keyed to source asset sha256, model, stock and immutable test image hash",
+    "Explicit human approval after actual inspected printed label",
+    "Persist reviewer/date/result as non-spoofable audit trail",
+    "Do not grant production print eligibility from a generic artworkReviewed checkbox",
+    "Link approved art to a versioned, immutable artwork registry"
+  ],
+  "entrypoints": {
+    "proofDesk": "https://nerdeus-label-studio-production.up.railway.app/?view=proof&release=v16.13&art=reviewed",
+    "originalComparison": "https://nerdeus-label-studio-production.up.railway.app/?view=proof&release=v16.13&art=original"
+  }
+}
