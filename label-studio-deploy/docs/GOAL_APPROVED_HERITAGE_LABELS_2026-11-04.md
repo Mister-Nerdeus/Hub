@@ -202,3 +202,24 @@ Railway Label Studio **v16.12** contains a pinned visual-review module and updat
 Evidence: native-size comparison PNG and metrics archived in Library \`/Nerdeus Meals Workshop/Reference Assets/Nerdeus_Label_Artwork_Review_v16_12.zip\`. Machine-readable review: \`qa/artwork-review-v16_12.json\`; full specification: \`docs/ARTWORK_APPROVAL_REVIEW_V16_12.md\`.
 
 Verification completed: the original v16.11 17-label browser proof reported **102/102 automated software checks passing**, and the v16.12 reviewed candidate integration passed eight direct behavior checks and 33 assembled HTML script syntax checks. Railway production deployment SUCCESS with both new sources verified. A refreshed browser comparison of the v16.12 reviewed view and a real NIIMBOT B1 Pro proof remain outstanding. Do not promote hardware approval based on these software findings.
+
+
+## 2026-11-05 — v16.13 non-production physical artwork test workflow
+
+**Goal:** Advance from visual acceptance of four food illustrations to physical NIIMBOT B1 Pro evaluation without mistaking design approval for production print authorization.
+
+The v16.13 Railway Function introduces:
+- A hard production-preflight warning for any real package referencing a \`resampled_*\` food-image ID, an explicit \`pkg.artworkCandidateId\`, or an illustration whose origin is \`user-zip-resample*\`. This protects against ordinary review checkboxes setting \`pkg.artStatus=approved\` despite no physical print test.
+- A direct print guard in \`printPackageV14\` to block both a current label and an archived reprint if they still contain unapproved resampled candidate imagery. The printer modal disables its print action for those candidates.
+- Read-only \`assets/physical-print-proofs-v16_13.js\`, pinned Git blob \`ea50c7e79923fbad6f6e619692dd3c7236a320f1\`: four synthetic, 591×827, 300-DPI printable test-PNG downloads for ribeye, lasagna, broccoli and generic stock; no rejected fajita kit. Each test label replaces its footer with **PRINT TEST ONLY / NOT FOR FOOD USE** and re-quantizes text to pure black/white.
+- Five manual NIIMBOT B1 Pro observation checkboxes and a JSON report download. Observations are user-reported, not automatically verified, and never alter package data or unlock production printing.
+- The original design-accepted and category-only artwork reviews stay unchanged. No automatic changes to saved food labels, archived snapshots, assets or browser storage.
+
+**Verification:** Reassembled the served page (34 JavaScript script tags, zero syntax errors) and tested the candidate detector against a ribeye candidate, archived stock candidate, normal beef-ribeye artwork, arbitrary imported candidate origin, and null input. All behaved as expected. Railway production deployed v16.13 SUCCESS; read-back source equals running source; \`physical-print-proofs-v16_13.js\` was verified by the Git blob integrity check.
+
+**Not verified:** live browser button downloads, actual printed images, QR scans, two-color thermal registration, or any physical artwork certification. The code enforces a temporary hard block until a future reviewed print-proof and versioned artwork registry migration is built. This ensures the current software does not treat a checkmark as device acceptance.
+
+**Acceptance record:** \`qa/physical-artwork-proof-v16_13.json\`.
+**Live print-test desk:** https://nerdeus-label-studio-production.up.railway.app/?view=proof&release=v16.13&art=reviewed
+
+**Backend requirement:** preserve artwork version/source SHA, test image hash, model/stock, human inspector/time, image evidence, QR scan result and versioned approval in durable audit storage. Avoid inferring approval from generic client-side boolean flags.
