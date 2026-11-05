@@ -58,6 +58,9 @@
 .template-family-controls label{font-size:10px;color:#8594a6;font-weight:700;letter-spacing:.04em}
 .template-family-controls select,.template-family-controls input{width:100%;min-height:40px;border:1px solid rgba(128,145,162,.35);border-radius:7px;padding:8px 10px;background:var(--surface,#fff);color:var(--ink,#1b2532);font:inherit;font-size:12px}
 .template-family-controls small{font-size:10px;color:#8190a0}
+.template-family-controls .nls-review-layouts{width:100%;min-height:40px;white-space:normal;line-height:1.35;text-align:center}
+.template-family-controls .nls-review-layouts[hidden],.template-family-controls #nlsPreviousLayoutHelp[hidden]{display:none}
+.template-family-controls #nlsPreviousLayoutHelp{line-height:1.4;color:#68798a}
 .template-family-heading{margin:9px 2px 5px;padding:6px 4px;border-top:1px solid rgba(128,145,162,.25);color:#8a99a9;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .nls-cut-candidate{display:block;margin-top:3px;color:#a94531;font-size:9px;letter-spacing:.005em;line-height:1.3}
 
@@ -360,6 +363,8 @@ body[data-nls-theme="hearth-dark"] .nls-site-header{background:#332a22}
         <div class="template-family-controls">
   <label for="templateFamily">Browse label categories (filter only)</label>
   <select id="templateFamily" aria-label="Filter templates by family"></select>
+  <button id="btnReviewPreviousLayouts" class="btn btn-outline nls-review-layouts" type="button" hidden>Review saved previous layouts</button>
+  <small id="nlsPreviousLayoutHelp" hidden>Shows preserved previous layouts and custom designs. Opening this list does not change saved layouts.</small>
   <input id="templateSearch" type="search" autocomplete="off" placeholder="Search food or label type…" aria-label="Search label templates" />
   <small id="templateFilterStatus" aria-live="polite"></small>
   <div id="nlsActiveLabelContext" role="status" aria-live="polite"></div>
@@ -1478,7 +1483,7 @@ function renderTemplates(){
   const order=doc=>{const idx=design?.defs?.findIndex(x=>x.id===doc.data?.['pkg.type']);return idx>=0?idx:1000;};
   return order(a)-order(b)||String(a.name).localeCompare(String(b.name));
  });
- const context=filter==='packages'?'saved packages':filter==='legacy'?'previous and custom designs':filter==='master'?'current label types':filter==='all'?'all documents':'current types in this family';
+ const context=filter==='packages'?'saved packages':filter==='legacy'?'previous layouts and custom designs':filter==='master'?'current label types':filter==='all'?'all documents':'current types in this family';
  $('#templateFilterStatus').textContent=filtered.length+' '+context;
  syncActiveIdentity();
  let previous='';
@@ -2438,6 +2443,22 @@ function setup(){loadLocal();loadCustomCategory();
   else if(active().data?.['pkg.recordRole']==='legacy')state.templateFamily='legacy';
   else if(!masterDesign?.isMaster(active()))state.templateFamily='all';
   $('#templateFamily').value=state.templateFamily;
+  const reviewPreviousLayouts=$('#btnReviewPreviousLayouts');
+  const previousLayoutCount=state.templates.filter(doc=>doc.id.startsWith('previous-master-')).length;
+  if(reviewPreviousLayouts){
+    reviewPreviousLayouts.hidden=previousLayoutCount===0;
+    reviewPreviousLayouts.textContent='Review saved previous layouts ('+previousLayoutCount+')';
+    reviewPreviousLayouts.setAttribute('aria-label','Show '+previousLayoutCount+' saved previous layouts and custom designs');
+    reviewPreviousLayouts.title='Filter to preserved previous layouts and custom designs. No saved layout is changed.';
+    $('#nlsPreviousLayoutHelp').hidden=previousLayoutCount===0;
+    reviewPreviousLayouts.onclick=()=>{
+      state.templateFamily='legacy';state.templateSearch='';
+      $('#templateFamily').value='legacy';$('#templateSearch').value='';
+      renderTemplates();
+      showSelectionFeedback('Showing preserved previous layouts and custom designs. Your saved layouts are unchanged.');
+      $('#templateChoices').scrollIntoView({behavior:'smooth',block:'start'});
+    };
+  }
   $('#templateFamily').onchange=e=>{
     state.templateFamily=e.target.value;renderTemplates();
     const count=$('#templateChoices').querySelectorAll('[data-template]').length;
@@ -2524,7 +2545,7 @@ function setup(){loadLocal();loadCustomCategory();
       const pkg=window.LabelMasterV9?.defs?.length||0;
       bootStatus.textContent='v15 · Reference label editor ready · '+pkg+' current label types · '+
         list+' template choices · '+art+' backgrounds · '+
-        previousMasterLayoutsPreserved+' older layouts preserved';
+        previousMasterLayoutsPreserved+' saved previous layouts in this browser';
     }
   }
 }
